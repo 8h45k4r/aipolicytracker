@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Azure App Service startup/nginx configuration and GitHub Actions deploy workflow.
 - Production `Dockerfile`, entrypoint, `.dockerignore`, and optional `fly.toml`; README deployment notes for containers and Cloudflare.
 
 ## [1.0.0] - 2026-09-10
