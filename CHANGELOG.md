@@ -9,6 +9,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Added
 - CodeQL analysis, Dependabot configuration, CODEOWNERS, and private vulnerability reporting.
+- Cloudflare Worker (`cloudflare/worker.js`) that fronts the public domain.
 - Azure App Service startup/nginx configuration and GitHub Actions deploy workflow.
 - Production `Dockerfile`, entrypoint, `.dockerignore`, and optional `fly.toml`; README deployment notes for containers and Cloudflare.
 
