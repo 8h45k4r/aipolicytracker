@@ -126,7 +126,7 @@ The app is a standard Laravel application and needs a PHP runtime. It cannot run
 
 **Azure App Service.** The `azure/` folder holds an nginx config and startup script for the built-in PHP 8.x Linux image, and `.github/workflows/deploy.yml` builds and deploys on every push to `main`. Create a Linux web app (PHP 8.3), set its Startup Command to `bash /home/site/wwwroot/azure/startup.sh`, add the `.env.example` variables as application settings, and store the publish profile in the `AZURE_WEBAPP_PUBLISH_PROFILE` repository secret with the app name in the `AZURE_WEBAPP_NAME` variable. Azure Database for PostgreSQL (Flexible Server, Burstable B1ms) is the smallest managed option.
 
-**Cloudflare.** Use Cloudflare for DNS, TLS, caching, and WAF only. Add a proxied `CNAME`/`A` record for `aipolicytracker.org` pointing at the PHP host, set SSL/TLS mode to *Full (strict)*, and add rate-limiting rules for `/login`, `/register`, and `/*/filtered`. The application itself cannot run on Workers or Pages. Suggested limits: 60 requests/minute per IP on JSON filter endpoints, 10/minute on `/login` and `/register` (login is also throttled in-app).
+**Cloudflare.** Cloudflare provides DNS, TLS, caching, and a small Worker (`cloudflare/worker.js`) that forwards the public domain to the origin; see `cloudflare/README.md`. Add rate-limiting rules for `/login`, `/register`, and `/*/filtered`. The application itself cannot run on Workers or Pages. Suggested limits: 60 requests/minute per IP on JSON filter endpoints, 10/minute on `/login` and `/register` (login is also throttled in-app).
 
 ## Contribution workflow
 
