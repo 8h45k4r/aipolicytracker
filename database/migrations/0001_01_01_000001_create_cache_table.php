@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Why: Database cache store so no Redis is required on small deployments.
+
 return new class extends Migration
 {
     /**

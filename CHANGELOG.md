@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Binding four-role change gates (`docs/reference/change-gates.md`), technical-debt register, compliance map, module documentation for every existing module, data-integrity test proving all interlinks, and `CLAUDE.md` project rules; PR template restructured around the gates.
+- Why comments on every migration.
+
 ### Changed
 - Licence changed from MIT to Apache License 2.0 (with `NOTICE`).
 
