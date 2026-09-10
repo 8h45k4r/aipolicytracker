@@ -44,7 +44,15 @@ jobs:
           rm -rf node_modules tests .github
           zip -qr release.zip . -x ".git/*" "storage/logs/*" "storage/framework/cache/*" "storage/framework/sessions/*" "storage/framework/views/*"
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: release.zip
+          retention-days: 7
+
       - name: Deploy
+        if: ${{ vars.AZURE_DEPLOY_VIA_ACTION == 'true' }}
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ vars.AZURE_WEBAPP_NAME }}

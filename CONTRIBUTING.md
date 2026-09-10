@@ -44,9 +44,24 @@ php artisan serve   # and, in another terminal, npm run dev
 4. Mark the verification status honestly. Unverified changes are not merged into `main`.
 5. Summaries must be your own words. Do not paste text from paid databases, law-firm commentary, or standards bodies (e.g. ISO/IEC documents).
 
+## How changes get in (change request → review → merge)
+
+1. **Propose:** open an issue describing the change (or a *Policy data correction* for data). Small fixes can go straight to a pull request.
+2. **Fork and branch:** anyone can fork the repository; maintainers work on branches in this repository. Direct pushes to `main` are disabled.
+3. **Pull request:** fill in the template (sources, verification status, tests, screenshots). CI (tests, lint, build, CodeQL) must pass.
+4. **Review:** at least one maintainer approval is required. Reviewers may request changes; push follow-up commits to the same branch.
+5. **Merge:** maintainers squash-merge. The PR title becomes the commit message, so keep it descriptive.
+6. **Release:** maintainers tag releases from `main` and update `CHANGELOG.md`.
+
+Editing existing content (policy entries, news, descriptions) follows the same flow: change the seeder or data via the admin UI export, cite the source, open a PR.
+
 ## Pull requests
 
 Use the pull request template. Maintainers look for: linked issue, sources for data, passing CI, screenshots for UI changes, and no secrets or personal data in the diff.
+
+## Licence of contributions
+
+By contributing you agree that your contributions are licensed under the Apache License 2.0 (see `LICENSE`).
 
 ## Reporting security issues
 

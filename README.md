@@ -145,4 +145,15 @@ The app is a standard Laravel application and needs a PHP runtime. It cannot run
 
 ## License
 
-Code is released under the MIT License (see `LICENSE`). Policy metadata contributed to this project should come only from official or openly licensed sources; see `SOURCE_ATTRIBUTION.md` for what may and may not be contributed. Third-party libraries keep their own licences; note in particular that CKEditor 5 is GPL-licensed and amCharts uses a free-with-attribution licence.
+Code is released under the Apache License 2.0 (see `LICENSE` and `NOTICE`). Policy metadata contributed to this project should come only from official or openly licensed sources; see `SOURCE_ATTRIBUTION.md` for what may and may not be contributed. Third-party libraries keep their own licences; note in particular that CKEditor 5 is GPL-licensed and amCharts uses a free-with-attribution licence.
+
+## Governance and contact
+
+- **Bug reports, data corrections, feature requests:** open an issue using the templates.
+- **Code changes:** fork, branch, open a pull request; at least one maintainer review and green CI are required to merge into `main` (see `CONTRIBUTING.md`).
+- **Security:** private reporting via the repository's *Security* tab (see `SECURITY.md`).
+
+---
+
+Built by **Dignep Group Pvt. Ltd.** · Powering AI Governance for Regulated Industries
+[certifyi.ai](https://certifyi.ai) · [LinkedIn](https://www.linkedin.com/in/8h45k4r/) · [Twitter/X](https://x.com/8h45k4r) · [bhaskar.com.np](https://bhaskar.com.np/)

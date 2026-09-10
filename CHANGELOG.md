@@ -4,7 +4,11 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Licence changed from MIT to Apache License 2.0 (with `NOTICE`).
+
 ### Added
+- CodeQL analysis, Dependabot configuration, CODEOWNERS, and private vulnerability reporting.
 - Azure App Service startup/nginx configuration and GitHub Actions deploy workflow.
 - Production `Dockerfile`, entrypoint, `.dockerignore`, and optional `fly.toml`; README deployment notes for containers and Cloudflare.
 

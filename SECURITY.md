@@ -8,8 +8,10 @@ Only the `main` branch and the latest tagged release receive security fixes.
 
 Please **do not** open a public GitHub issue for security problems.
 
-1. Use GitHub's private vulnerability reporting on this repository ("Security" tab → "Report a vulnerability"), or
+1. Use GitHub's private vulnerability reporting: <https://github.com/8h45k4r/aipolicytracker/security/advisories/new>, or
 2. E-mail the maintainers at the contact address listed on the project's About page with the subject `SECURITY: aipolicytracker`.
+
+Automated scanning: CodeQL runs on every pull request and weekly; Dependabot keeps Composer, npm, and GitHub Actions dependencies updated and raises alerts for known vulnerabilities.
 
 Include a description, reproduction steps, affected version/commit, and any proof-of-concept. You will receive an acknowledgement within 5 working days and a resolution target after triage. Please give us reasonable time to fix the issue before public disclosure.
 
