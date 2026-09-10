@@ -6,15 +6,19 @@ cd /home/site/wwwroot
 cp /home/site/wwwroot/azure/nginx.conf /etc/nginx/sites-available/default
 service nginx reload
 
+# Zip deployments drop empty directories; Laravel needs these to exist.
+mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs storage/app/public bootstrap/cache
+chmod -R ug+rwX storage bootstrap/cache
+
 php artisan storage:link >/dev/null 2>&1 || true
 php artisan migrate --force
 
-# One-time reference data + admin account (marker lives on persistent /home storage).
-if [ ! -f /home/.aip-seeded ]; then
-    php artisan db:seed --class=Database\\Seeders\\backend\\CountrySeeder --force
+# Reference data + admin account, only when the database is empty (idempotent).
+STATUS_COUNT=$(php artisan tinker --execute='echo \App\Models\Status::count();' 2>/dev/null | tail -n1 | tr -dc '0-9')
+if [ "${STATUS_COUNT:-0}" = "0" ]; then
+    php artisan db:seed --class='Database\Seeders\backend\CountrySeeder' --force
     php artisan db:seed --class=StatusSeeder --force
     php artisan db:seed --class=AdminSeeder --force
-    touch /home/.aip-seeded
 fi
 
 php artisan config:cache
