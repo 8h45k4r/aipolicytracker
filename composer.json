@@ -10,7 +10,7 @@
         "ai-governance",
         "regulation"
     ],
-    "license": "MIT",
+    "license": "Apache-2.0",
     "require": {
         "php": "^8.2",
         "inertiajs/inertia-laravel": "^1.0",
