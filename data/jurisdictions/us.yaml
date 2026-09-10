@@ -1,0 +1,67 @@
+slug: us
+name: United States
+short_name: US
+iso_code: US
+jurisdiction_type: country
+region: North America
+featured: true
+published: true
+overview: >
+  The United States has no comprehensive federal AI statute. Federal policy is set through executive orders, Office
+  of Management and Budget (OMB) memoranda for federal agencies, agency enforcement under existing consumer-protection,
+  civil-rights, employment and financial laws, and voluntary frameworks such as the NIST AI Risk Management Framework.
+  States have moved faster: Colorado enacted the first cross-sector algorithmic-discrimination law in 2024, and
+  California, Texas, Utah and others have adopted AI-specific statutes on transparency, frontier models, chatbots
+  and government use. The result is a patchwork that organisations must map state by state and sector by sector.
+regulatory_status_summary: >
+  Federal: executive-branch policy (Executive Order 14179 of January 2025 and the July 2025 AI Action Plan) plus
+  binding OMB requirements for federal agencies' use and procurement of AI; NIST AI RMF is voluntary. States:
+  a growing number of binding statutes with 2025–2026 effective dates. A reviewer must confirm the status of
+  federal efforts to pre-empt or discourage state AI laws announced in late 2025.
+binding_vs_guidance: >
+  Binding on the private sector: state statutes (for example Colorado SB 24-205, California SB 53, Texas HB 149),
+  sector laws (FCRA, ECOA, Title VII, HIPAA, FTC Act Section 5) as applied to AI. Binding on federal agencies:
+  OMB memoranda M-25-21 and M-25-22. Voluntary: NIST AI RMF and its Generative AI Profile.
+current_priorities: >
+  Federal deregulatory agenda and infrastructure build-out under the AI Action Plan, agency AI use-case inventories
+  and procurement rules, state implementation of algorithmic-discrimination and frontier-model transparency laws,
+  and litigation and enforcement by state attorneys general and the FTC on deceptive AI claims.
+how_to_use:
+  - Map the states where your users or employees are located; state law, not federal law, creates most binding AI duties.
+  - Treat NIST AI RMF as the common vocabulary for governance evidence that regulators and customers recognise.
+  - If you sell to the federal government, align with OMB M-25-21 and M-25-22 requirements for high-impact AI.
+  - Apply existing anti-discrimination, consumer-protection and privacy laws to AI decisions; they are enforced today.
+  - Check effective dates carefully; several state laws were delayed or amended after enactment.
+regulators:
+  - { name: National Institute of Standards and Technology (NIST), url: "https://www.nist.gov/itl/ai-risk-management-framework", role: "Voluntary frameworks and standards" }
+  - { name: Office of Management and Budget (OMB), url: "https://www.whitehouse.gov/omb/", role: "Federal agency AI use and procurement policy" }
+  - { name: Federal Trade Commission (FTC), url: "https://www.ftc.gov/", role: "Consumer protection and unfair or deceptive AI practices" }
+official_sources:
+  - { title: "NIST AI Risk Management Framework (AI RMF 1.0)", publisher: "National Institute of Standards and Technology", url: "https://www.nist.gov/itl/ai-risk-management-framework", document_date: 2023-01-26, document_type: standard, tier: 1 }
+  - { title: "Executive Order 14179: Removing Barriers to American Leadership in Artificial Intelligence", publisher: "The White House", url: "https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/", document_date: 2025-01-23, document_type: legislation, tier: 1 }
+  - { title: "America's AI Action Plan", publisher: "The White House / Office of Science and Technology Policy", url: "https://www.ai.gov/action-plan", document_date: 2025-07-23, document_type: strategy, tier: 1 }
+faq:
+  - question: Is there a federal AI law in the United States?
+    answer: >
+      No comprehensive federal AI statute exists. Federal policy is set by executive orders, OMB memoranda binding
+      on agencies, and enforcement of existing laws. Binding AI-specific rules for businesses come mainly from
+      state legislation.
+  - question: Which US states have AI laws?
+    answer: >
+      Colorado (SB 24-205, algorithmic discrimination), California (including SB 53 on frontier-model transparency
+      and privacy-agency rules on automated decision-making), Texas (HB 149), Utah and others. Effective dates
+      and scope differ, and several have been amended; check each record's official source.
+related_jurisdictions: [eu, uk, us-colorado, us-california]
+official_source_url: "https://www.ai.gov/"
+source_title: "AI.gov — United States federal AI policy hub"
+source_publisher: "Office of Science and Technology Policy"
+source_document_date: null
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

@@ -1,0 +1,89 @@
+slug: singapore-pdpc-ai-advisory-guidelines
+jurisdiction: singapore
+title: "PDPC Advisory Guidelines on Use of Personal Data in AI Recommendation and Decision Systems"
+short_title: PDPC AI advisory guidelines
+instrument_type: guidance
+status: guidance
+is_binding: false
+published: true
+issuing_body: Personal Data Protection Commission Singapore
+summary_plain: >
+  These advisory guidelines explain how the Personal Data Protection Act applies when organisations use personal
+  data to develop, test and deploy AI systems that make recommendations, predictions or decisions. They clarify the
+  consent obligation and relevant exceptions (business improvement and research), what to include in notifications
+  to individuals, accountability practices such as documenting data provenance and model development, and
+  expectations for service providers building bespoke AI systems.
+scope_summary: >
+  Organisations subject to the PDPA that use personal data in AI recommendation and decision systems, and service
+  providers developing such systems for them. Advisory; not legally binding, but reflects how the PDPC interprets
+  binding PDPA obligations.
+who_it_applies_to: PDPA-regulated organisations and their AI service providers.
+key_dates_summary: Issued 1 March 2024 following a 2023 public consultation.
+penalties_summary: Underlying PDPA breaches can attract financial penalties up to 10 % of annual turnover in Singapore or SGD 1 million, whichever is higher.
+what_organizations_must_do: >
+  Identify the legal basis for using personal data in AI (consent or an exception), provide notification about the
+  AI's use of personal data, and document data-protection and governance practices across the AI lifecycle.
+adopted_on: 2024-03-01
+published_on: 2024-03-01
+actors: [provider, deployer]
+ai_system_types: [recommender_system, automated_decision_system, predictive_scoring]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, customer_service, hiring_and_hr]
+related_policies: [singapore-model-ai-governance-framework]
+obligations:
+  - slug: singapore-pdpc-consent-or-exception-for-ai-data
+    title: Identify consent or an applicable PDPA exception before using personal data in AI
+    category: privacy_data_protection
+    source_reference: "Advisory guidelines, sections on consent, business improvement and research exceptions"
+    is_binding: true
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [finance_and_credit, customer_service]
+    summary: >
+      Personal data used to train or operate AI systems requires consent unless an exception applies, such as the
+      business improvement exception for improving products and services or the research exception for developing
+      models, each subject to conditions.
+    practical_action: Map AI data uses to consent or a specific exception and record the conditions met.
+    applicability:
+      description: PDPA-regulated organisations using personal data in AI systems.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Legal basis assessment for AI personal data, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: singapore-pdpc-ai-notification
+    title: Notify individuals about the use of personal data in AI recommendations and decisions
+    category: transparency
+    source_reference: "Advisory guidelines, section on notification obligation"
+    is_binding: true
+    actors: [deployer]
+    sectors: [cross_sector]
+    use_cases: [customer_service, finance_and_credit]
+    summary: >
+      Organisations should inform individuals that AI systems use their personal data, the purposes, the relevant
+      features and how they influence decisions, proportionate to the impact on the individual.
+    practical_action: Add AI-specific disclosures to privacy notices and in-product notifications.
+    applicability:
+      description: Organisations deploying AI recommendation or decision systems using personal data.
+      actors: [deployer]
+    evidence_examples:
+      - { title: AI notification wording, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 4.x", note: "Original editorial mapping.", confidence_level: medium }
+deadlines: []
+sources:
+  - { title: "Advisory Guidelines on Use of Personal Data in AI Recommendation and Decision Systems", publisher: "Personal Data Protection Commission Singapore", url: "https://www.pdpc.gov.sg/guidelines-and-consultation/2024/02/advisory-guidelines-on-use-of-personal-data-in-ai-recommendation-and-decision-systems", document_date: 2024-03-01, document_type: guidance, tier: 2 }
+official_source_url: "https://www.pdpc.gov.sg/guidelines-and-consultation/2024/02/advisory-guidelines-on-use-of-personal-data-in-ai-recommendation-and-decision-systems"
+source_title: "Advisory Guidelines on Use of Personal Data in AI Recommendation and Decision Systems"
+source_publisher: "Personal Data Protection Commission Singapore"
+source_document_date: 2024-03-01
+source_reference: null
+source_tier: 2
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

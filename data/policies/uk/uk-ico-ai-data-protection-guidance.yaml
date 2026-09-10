@@ -1,0 +1,94 @@
+slug: uk-ico-ai-data-protection-guidance
+jurisdiction: uk
+title: "ICO Guidance on AI and data protection"
+short_title: ICO AI guidance
+instrument_type: guidance
+status: guidance
+is_binding: false
+published: true
+issuing_body: Information Commissioner's Office
+summary_plain: >
+  The ICO's guidance explains how UK GDPR and the Data Protection Act 2018 apply when organisations develop or use AI
+  that processes personal data. It covers accountability and governance, lawfulness and fairness, transparency,
+  data minimisation, security, individual rights, and automated decision-making. The guidance is not itself law,
+  but it reflects how the regulator interprets binding obligations and is the reference point in ICO enforcement.
+scope_summary: >
+  Any controller or processor using personal data in AI systems in the UK, at any lifecycle stage. It does not
+  apply to AI that processes no personal data.
+who_it_applies_to: Controllers and processors under UK GDPR, including developers and deployers of AI.
+key_dates_summary: >
+  First published July 2020, updated March 2023. Consultations on generative AI and data protection ran in 2024.
+  The Data (Use and Access) Act 2025 changed the rules on automated decision-making, so a reviewer should confirm
+  the current version.
+penalties_summary: >
+  Underlying UK GDPR breaches can attract fines up to GBP 17.5 million or 4 % of global annual turnover.
+what_organizations_must_do: >
+  Complete a data protection impact assessment for high-risk AI, document lawful bases, provide meaningful
+  information about automated decisions, implement safeguards for solely automated decisions with legal or
+  similarly significant effects, and test for bias and accuracy.
+actors: [provider, deployer, public_authority]
+ai_system_types: [automated_decision_system, generative_ai, predictive_scoring]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [hiring_and_hr, finance_and_credit, generative_ai, public_services]
+related_policies: [uk-ai-regulation-white-paper, eu-ai-act]
+obligations:
+  - slug: uk-ico-dpia-for-ai
+    title: Carry out a data protection impact assessment for high-risk AI processing
+    category: impact_assessment
+    source_reference: "UK GDPR Article 35; ICO guidance, accountability and governance section"
+    is_binding: true
+    actors: [provider, deployer, public_authority]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, biometrics]
+    summary: >
+      Where AI processing of personal data is likely to result in a high risk to individuals, UK GDPR requires a
+      DPIA before processing begins. The ICO treats most AI involving profiling, large-scale processing or novel
+      technology as meeting this threshold.
+    practical_action: >
+      Use the ICO's DPIA template and add AI-specific sections on bias, explainability and human oversight.
+    applicability:
+      description: Controllers using personal data in AI where processing is likely high risk.
+      actors: [provider, deployer, public_authority]
+    evidence_examples:
+      - { title: Data protection impact assessment, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MAP 5.1", note: "Impact assessment.", confidence_level: medium }
+  - slug: uk-ico-automated-decision-safeguards
+    title: Apply safeguards to solely automated decisions with significant effects
+    category: human_oversight
+    source_reference: "UK GDPR Article 22 as amended by the Data (Use and Access) Act 2025"
+    is_binding: true
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, financial_services, employment]
+    use_cases: [finance_and_credit, hiring_and_hr, public_services]
+    summary: >
+      Individuals have rights in relation to solely automated decisions that produce legal or similarly significant
+      effects, including being told about the decision, obtaining human intervention, and contesting it. The
+      Data (Use and Access) Act 2025 amended these rules; the reviewer must confirm the current wording.
+    practical_action: >
+      Map every significant automated decision, add a human-review route and a notice to affected people.
+    applicability:
+      description: Any controller making solely automated decisions with legal or similarly significant effects.
+      actors: [deployer, public_authority]
+    evidence_examples:
+      - { title: Automated decision register and review procedure, artifact_type: register }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.x, MANAGE 4.x", note: "Recourse mechanisms.", confidence_level: medium }
+sources:
+  - { title: "Guidance on AI and data protection", publisher: "Information Commissioner's Office", url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/", document_type: guidance, tier: 2 }
+  - { title: "Data (Use and Access) Act 2025", publisher: "legislation.gov.uk", url: "https://www.legislation.gov.uk/ukpga/2025/18", document_date: 2025-06-19, document_type: legislation, tier: 1 }
+official_source_url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/"
+source_title: "Guidance on AI and data protection"
+source_publisher: "Information Commissioner's Office"
+source_document_date: 2023-03-15
+source_reference: "ICO guidance hub"
+source_tier: 2
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; post-2025 amendments to automated decision-making rules need confirmation.
+reviewed_by: null

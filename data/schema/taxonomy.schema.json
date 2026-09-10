@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aipolicytracker.org/schema/taxonomy.schema.json",
+  "title": "Taxonomy terms file",
+  "type": "object",
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "$ref": "common.schema.json#/$defs/termSlug"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "slug",
+        "name"
+      ]
+    }
+  }
+}

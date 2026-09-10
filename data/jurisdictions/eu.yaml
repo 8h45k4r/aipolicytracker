@@ -1,0 +1,74 @@
+slug: eu
+name: European Union
+short_name: EU
+iso_code: EU
+jurisdiction_type: supranational
+region: Europe
+featured: true
+published: true
+overview: >
+  The European Union has the world's first comprehensive, binding, cross-sector AI law: Regulation (EU) 2024/1689,
+  the Artificial Intelligence Act. It entered into force on 1 August 2024 and applies in phases between February
+  2025 and August 2027. The AI Act sits alongside the GDPR, product-safety law, the Digital Services Act and
+  sector rules, all of which continue to apply to AI systems. The European Commission's AI Office supervises
+  general-purpose AI models, while national market-surveillance authorities supervise most other obligations.
+regulatory_status_summary: >
+  Binding regulation in force and partially applicable. Prohibited practices and AI-literacy duties apply since
+  2 February 2025; general-purpose AI model obligations and the governance and penalties chapters since
+  2 August 2025; most remaining obligations, including Annex III high-risk requirements, are scheduled from
+  2 August 2026, with high-risk AI embedded in Annex I regulated products from 2 August 2027. A Commission
+  "Digital Omnibus" proposal published in November 2025 would adjust some high-risk application dates; its
+  adoption status must be checked against the official sources linked below.
+binding_vs_guidance: >
+  Binding: the AI Act, the GDPR, the Product Liability Directive (as revised in 2024), and sector legislation.
+  Non-binding but official: Commission guidelines on prohibited practices and on general-purpose AI, the
+  General-Purpose AI Code of Practice, and harmonised standards being drafted by CEN-CENELEC JTC 21.
+current_priorities: >
+  Harmonised standards for high-risk AI, guidance on high-risk classification, the AI Office's supervision
+  of general-purpose models, designation of national competent authorities and notified bodies, regulatory
+  sandboxes in every Member State, and the legislative debate on the Digital Omnibus timing adjustments.
+how_to_use:
+  - Confirm whether you are a provider, deployer, importer, distributor or authorised representative for each AI system you sell or use in the EU.
+  - Screen every AI use against the Article 5 prohibited practices, which already apply.
+  - Map each system to the Annex III high-risk areas and Annex I product legislation to decide which obligations and dates apply.
+  - Check whether you place a general-purpose AI model on the EU market; if so, Chapter V obligations already apply.
+  - Track the Digital Omnibus proposal and Commission guidelines, because they can change the practical timeline.
+  - Record the official source and date for every conclusion, and have counsel review high-risk classifications.
+regulators:
+  - { name: European Commission AI Office, url: "https://digital-strategy.ec.europa.eu/en/policies/ai-office", role: "Supervises general-purpose AI models and coordinates implementation" }
+  - { name: European Artificial Intelligence Board, url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", role: "Coordination body of Member State authorities" }
+  - { name: European Data Protection Board, url: "https://www.edpb.europa.eu/", role: "GDPR coordination; AI and data-protection guidance" }
+official_sources:
+  - { title: "Regulation (EU) 2024/1689 (Artificial Intelligence Act) — Official Journal", publisher: "Publications Office of the European Union", url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", document_date: 2024-07-12, document_type: legislation, tier: 1 }
+  - { title: "AI Act — European Commission policy page", publisher: "European Commission", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", document_type: official, tier: 1 }
+  - { title: "European AI Office", publisher: "European Commission", url: "https://digital-strategy.ec.europa.eu/en/policies/ai-office", document_type: official, tier: 1 }
+faq:
+  - question: Is the EU AI Act already in force?
+    answer: >
+      Yes. It entered into force on 1 August 2024, but its obligations apply in stages. Prohibited practices and
+      AI-literacy duties have applied since 2 February 2025, general-purpose AI model duties since 2 August 2025,
+      and most other obligations are scheduled from 2 August 2026 under Article 113 of the adopted text.
+  - question: Does the EU AI Act apply to companies outside the EU?
+    answer: >
+      It can. Article 2 covers providers that place AI systems or general-purpose models on the EU market or put
+      them into service in the EU, regardless of where they are established, and providers and deployers in third
+      countries where the output of the system is used in the EU.
+  - question: Which EU rules apply to AI besides the AI Act?
+    answer: >
+      The GDPR applies whenever personal data is processed, including Article 22 on automated decisions. Product
+      safety, consumer, non-discrimination, copyright and sector laws (for example for medical devices or financial
+      services) continue to apply, and the Digital Services Act covers online platforms.
+related_jurisdictions: [uk, us, india, singapore]
+official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+source_title: "Regulation (EU) 2024/1689 of the European Parliament and of the Council (Artificial Intelligence Act)"
+source_publisher: "Official Journal of the European Union"
+source_document_date: 2024-07-12
+source_reference: "OJ L, 2024/1689, 12.7.2024"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

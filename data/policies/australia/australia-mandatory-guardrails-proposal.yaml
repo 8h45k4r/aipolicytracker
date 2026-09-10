@@ -1,0 +1,55 @@
+slug: australia-mandatory-guardrails-proposal
+jurisdiction: australia
+title: "Proposals paper: introducing mandatory guardrails for AI in high-risk settings (Australia)"
+short_title: Australian mandatory guardrails proposal
+instrument_type: consultation
+status: under_consultation
+status_note: >
+  Consultation ran September to October 2024. The December 2025 National AI Plan reportedly signalled that the
+  government would strengthen existing laws rather than introduce a standalone AI Act; a reviewer must confirm
+  whether the mandatory-guardrails proposal has been formally dropped, adapted or superseded and update the status.
+is_binding: false
+published: true
+issuing_body: Department of Industry, Science and Resources
+summary_plain: >
+  The proposals paper sought views on ten mandatory guardrails for developers and deployers of AI in high-risk
+  settings, a principles-based definition of high-risk AI (with general-purpose AI treated as high-risk), and three
+  regulatory options: adapting existing laws, framework legislation, or a new cross-economy AI Act. The guardrails
+  mirror the Voluntary AI Safety Standard, covering accountability, risk management, data governance, testing,
+  human control, transparency, contestability, supply-chain transparency, records, and conformity assessment.
+scope_summary: >
+  A consultation document, not law. If adopted, the guardrails would apply to organisations developing or deploying
+  AI in high-risk settings in Australia.
+who_it_applies_to: Prospectively, developers and deployers of high-risk AI in Australia; currently no one.
+key_dates_summary: Published 5 September 2024; submissions closed 4 October 2024; government response pending at last check.
+penalties_summary: None; consultation.
+what_organizations_must_do: >
+  Nothing yet. Organisations can prepare by adopting the Voluntary AI Safety Standard, whose guardrails match the
+  proposed mandatory ones.
+adopted_on: null
+published_on: 2024-09-05
+actors: [provider, deployer, gpai_provider]
+ai_system_types: [general_purpose_ai_model, automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [high_risk]
+use_cases: [hiring_and_hr, finance_and_credit, generative_ai]
+related_policies: [australia-voluntary-ai-safety-standard, eu-ai-act]
+obligations: []
+deadlines:
+  - { title: Consultation closed, due_on: 2024-10-04, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Submissions deadline." }
+  - { title: Government decision on regulatory option, due_on: null, date_precision: tbd, date_label: "Pending; see National AI Plan (December 2025)", deadline_status: tbd, confidence_level: low, description: "Reviewer to confirm the outcome." }
+sources:
+  - { title: "Safe and responsible AI in Australia: proposals paper for introducing mandatory guardrails for AI in high-risk settings", publisher: "Department of Industry, Science and Resources", url: "https://consult.industry.gov.au/ai-mandatory-guardrails", document_date: 2024-09-05, document_type: consultation, tier: 1 }
+official_source_url: "https://consult.industry.gov.au/ai-mandatory-guardrails"
+source_title: "Proposals paper for introducing mandatory guardrails for AI in high-risk settings"
+source_publisher: "Australian Government, Department of Industry, Science and Resources"
+source_document_date: 2024-09-05
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; outcome after the National AI Plan unverified.
+reviewed_by: null
