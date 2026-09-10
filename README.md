@@ -124,6 +124,8 @@ The app is a standard Laravel application and needs a PHP runtime. It cannot run
 
 **Container deployment.** A production `Dockerfile` and `fly.toml` are included. Build with `docker build -t aipolicytracker .` and run with the environment variables from `.env.example`; the entrypoint runs migrations, caches config, starts a queue worker, and serves on port 8080. On Fly.io: `fly launch --no-deploy`, `fly secrets set ...`, `fly deploy`.
 
+**Azure App Service.** The `azure/` folder holds an nginx config and startup script for the built-in PHP 8.x Linux image, and `.github/workflows/deploy.yml` builds and deploys on every push to `main`. Create a Linux web app (PHP 8.3), set its Startup Command to `bash /home/site/wwwroot/azure/startup.sh`, add the `.env.example` variables as application settings, and store the publish profile in the `AZURE_WEBAPP_PUBLISH_PROFILE` repository secret with the app name in the `AZURE_WEBAPP_NAME` variable. Azure Database for PostgreSQL (Flexible Server, Burstable B1ms) is the smallest managed option.
+
 **Cloudflare.** Use Cloudflare for DNS, TLS, caching, and WAF only. Add a proxied `CNAME`/`A` record for `aipolicytracker.org` pointing at the PHP host, set SSL/TLS mode to *Full (strict)*, and add rate-limiting rules for `/login`, `/register`, and `/*/filtered`. The application itself cannot run on Workers or Pages. Suggested limits: 60 requests/minute per IP on JSON filter endpoints, 10/minute on `/login` and `/register` (login is also throttled in-app).
 
 ## Contribution workflow
