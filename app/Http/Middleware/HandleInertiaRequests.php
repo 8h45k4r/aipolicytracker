@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Models\NavBar;
+use Illuminate\Http\Request;
+use Inertia\Middleware;
+
+class HandleInertiaRequests extends Middleware
+{
+    /**
+     * The root template that is loaded on the first page visit.
+     *
+     * @var string
+     */
+    protected $rootView = 'app';
+
+    /**
+     * Determine the current asset version.
+     */
+    public function version(Request $request): string|null
+    {
+        return parent::version($request);
+    }
+
+    /**
+     * Define the props that are shared by default.
+     *
+     * @return array<string, mixed>
+     */
+    public function share(Request $request): array
+    {
+        $logo = NavBar::first();
+
+        return [
+            ...parent::share($request),
+            'auth' => [
+                'user' => $request->user(),
+            ],
+            'logo' => $logo,
+            'site' => [
+                'links' => config('aipolicytracker.links'),
+                'contact_emails' => config('aipolicytracker.contact_emails'),
+                'contributors' => config('aipolicytracker.contributors'),
+            ],
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ];
+    }
+}

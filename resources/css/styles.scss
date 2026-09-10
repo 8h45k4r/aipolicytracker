@@ -1,0 +1,438 @@
+@import "./bootstrap/export";
+@import "./colors/export";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// @import url("https://fonts.googleapis.com/css2?family=Poppins+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+// Breakpoints
+$max-mobile-width: 767px;
+$min-tablet-width: 768px;
+$max-tablet-width: 1439px;
+$min-desktop-width: 1440px;
+
+a {
+    text-decoration: none;
+}
+
+.bg-secondary {
+    background: $site-secondary-color;
+}
+
+// .text-secondary {
+//     color: $tex-secondary-color;
+// }
+.text-secondary {
+    color: #4e87d3;
+}
+
+p {
+    // color: $tex-secondary-color;
+    color: #212529;
+}
+
+.px-40 {
+    padding: 0 40px;
+}
+
+.mx-auto {
+    width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    font-family: "Poppins Plex Sans", "Poppins" !important;
+    font-size: 14px !important;
+    font-style: normal !important;
+    color: #0b2041 !important;
+    background-color: $timeline-status-main-background-color;
+}
+
+// header
+.header {
+    background-color: $site-primary-color;
+    padding: 0.8125rem 64px;
+    padding-bottom: 80px;
+}
+
+// header
+.header {
+    background-color: $site-primary-color;
+    padding: 0.8125rem 64px;
+    padding-bottom: 80px;
+}
+
+@media only screen and (max-width: 767px) {
+    .header {
+        padding: 0.8125rem 16px;
+        padding-bottom: 0.8125rem;
+    }
+}
+
+.header-logo {
+    width: fit-content;
+    height: 40px;
+}
+
+nav ul li {
+    // color: #ffffff;
+    position: relative;
+    text-decoration: none;
+    width: fit-content;
+}
+
+nav ul li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 3.5px;
+    background-color: rgba(217, 233, 244, 0.636);
+    border-radius: 3.5px;
+    transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: right;
+}
+
+nav ul li:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+nav ul li:hover::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -2px;
+    height: 3.5px;
+    width: 3.5px;
+    background-color: $status-launched-primary-color;
+    border-radius: 3.5px;
+}
+
+.nav-active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 3.5px;
+    background-color: rgba(217, 233, 244, 0.636);
+    border-radius: 3.5px;
+    transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: right;
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+// Fonts
+$default-font-color: #0b2041;
+
+%ui-default-font {
+    font-family: "Poppins Plex Sans", "Poppins";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    color: $default-font-color;
+}
+
+.bg-primary {
+    background: #0b2041;
+}
+
+// .text-primary {
+//     color: #0B2041;
+// }
+.date-separator {
+    display: inline-block;
+    background-color: #7997c3;
+    border-radius: 100%;
+    height: 6px;
+    width: 6px;
+    margin: 0 8px;
+}
+
+.map-chart-wrapper {
+    width: 100%;
+    // height: 680px;
+    // max-height: 100vh;
+}
+
+#chartdiv {
+    min-height: 500px !important;
+}
+
+body {
+    @extend %ui-default-font;
+}
+
+// Buttons
+.ui-button-without-styles {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+// Scroll
+$scroll-color: #cde0f1;
+$scroll-background-color: #eef6fd;
+
+* {
+    scrollbar-color: $scroll-color $scroll-background-color;
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: $scroll-background-color;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $scroll-color;
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.backend-webkit::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: green;
+}
+
+.backend-webkit::-webkit-scrollbar-thumb {
+    background-color: red;
+    border-radius: 4px;
+}
+
+$values: (0, 4, 8, 12, 16, 20, 24, 28, 32, 40);
+$sides: (top, bottom, left, right);
+
+@each $value in $values {
+    @each $side in $sides {
+        .m-#{str-slice($side, 0, 1)}-#{$value} {
+            margin-#{$side}: #{$value}px !important;
+        }
+    }
+}
+
+// Fields
+$input-border-color: #dbe6f1;
+$input-color: $default-font-color;
+$input-background-color: #f4f8fc;
+$input-placeholder-color: #7997c3;
+$input-min-height: 46px;
+
+.ui-field-wrapper {
+
+    .input-group-text,
+    input,
+    select {
+        background-color: $input-background-color;
+        color: $input-color;
+        border-color: $input-border-color;
+    }
+
+    input:focus {
+        color: $input-color;
+        background-color: red;
+    }
+
+    input::-webkit-input-placeholder {
+        color: $input-placeholder-color;
+    }
+
+    input:-moz-placeholder {
+        color: $input-placeholder-color;
+    }
+
+    &.is-invalid {
+
+        .input-group-text,
+        input,
+        select {
+            background-color: #fbecec;
+            color: #d53e45;
+            border-color: #f3c9cb;
+        }
+
+        input:focus {
+            color: #d53e45;
+            background-color: white;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #f3c9cb;
+        }
+
+        input:-moz-placeholder {
+            color: #f3c9cb;
+        }
+
+        .invalid-feedback {
+            font-size: 12px;
+            color: #ec8596;
+        }
+    }
+}
+
+// Utils
+.height-100-per-cent {
+    height: 100% !important;
+}
+
+// Card
+$card-line-border: 1px solid rgba(205, 224, 241, 0.5);
+
+.custom-input {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 14px;
+    border: 1px solid;
+    box-sizing: border-box;
+    border-radius: 2px;
+    margin-right: 9px;
+}
+
+.cancelled {
+    color: $status-cancelled-secondary-color;
+    background-color: $status-cancelled-secondary-color;
+}
+
+.research {
+    color: $status-research-secondary-color;
+    background-color: $status-research-secondary-color;
+}
+
+.whitepaper {
+    color: $status-none-secondary-color;
+    background-color: $status-none-secondary-color;
+}
+
+.pilot {
+    color: $status-pilot-secondary-color;
+    background-color: $status-pilot-secondary-color;
+}
+
+.development {
+    color: $status-development-secondary-color;
+    background-color: $status-development-secondary-color;
+}
+
+.launched {
+    color: $status-launched-secondary-color;
+    background-color: $status-launched-secondary-color;
+}
+
+#chartdiv {
+    width: 100%;
+    height: 90%;
+    // height: 440px;
+}
+
+////
+.fit-content {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    mix-blend-mode: color-burn;
+}
+
+.disabled-checkbox {
+    background-color: rgb(184 192 247 / 90%) !important;
+}
+
+.container-wrapper {
+    background-color: #f3f6f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+// ck editor
+.ck-editor__editable_inline {
+    min-height: 200px;
+}
+
+// -- Action color
+.timeline-action {
+    height: 40px;
+    // width: 25%;
+    line-height: 40px;
+    font-weight: 700;
+    font-size: 12px;
+    padding-left: 16px;
+}
+
+.status-action {
+    background-color: #e7e4f4;
+    color: #8f81c7;
+}
+
+.status-action-item {
+    background-color: #f3f1f9;
+    color: #8f81c7;
+}
+
+.add-action {
+    background-color: #e9f5f3;
+    color: #6bbeaf;
+}
+
+.add-action-item {
+    background-color: #e8f2fd;
+    color: #6bbeaf;
+}
+
+.update-action {
+    background-color: #d1e5fa;
+    color: #4e87d3;
+}
+
+.update-action-item {
+    background-color: #e8f2fd;
+    color: #4e87d3;
+}
+
+.delete-action {
+    background-color: #f9dae0;
+    color: #d53e45;
+}
+
+.delete-action-item {
+    background-color: #e7cdd2;
+    color: #d53e45;
+}
+
+.text-dark {
+    color: #0b2041;
+}
+
+.sticky-column {
+    position: sticky;
+    left: 0px;
+    background: #eef6fd;
+}
+
+.sticky-column-td {
+    position: sticky;
+    left: 0px;
+    background: #fff;
+}
+
+.status-state {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid;
+    box-sizing: border-box;
+    border-radius: 2px;
+    margin-right: 9px;
+}

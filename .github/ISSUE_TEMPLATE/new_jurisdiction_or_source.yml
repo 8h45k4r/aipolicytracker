@@ -1,0 +1,35 @@
+name: New jurisdiction or source request
+description: Propose adding a country, region, or official data source to the tracker
+labels: ["data", "enhancement"]
+body:
+  - type: input
+    id: jurisdiction
+    attributes:
+      label: Jurisdiction or source name
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why should it be tracked?
+      description: Which AI policies, strategies, or regulations exist there?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Official sources
+      description: Government portals, official gazettes, regulator pages, or openly licensed datasets (with licence names).
+    validations:
+      required: true
+  - type: input
+    id: licence
+    attributes:
+      label: Licence of the source material
+      placeholder: "e.g. Public domain, CC BY 4.0, Open Government Licence v3"
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Contribution
+      options:
+        - label: I can help maintain this jurisdiction's entries.
