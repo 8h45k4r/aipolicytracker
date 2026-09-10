@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /backend
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /bookmarks
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Allow: /
