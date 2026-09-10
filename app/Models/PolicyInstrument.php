@@ -113,6 +113,14 @@ class PolicyInstrument extends Model
             && $this->published_at !== null;
     }
 
+    /** Display name for question headings, with a definite article where English needs one. */
+    public function definiteName(): string
+    {
+        $name = $this->short_title ?: $this->title;
+
+        return preg_match('/^(EU|UK|US|UAE|NIST|ICO|OMB|PDPC|Colorado|California|Australian|Singapore|Nepal|India)\b/', $name) ? 'the '.$name : $name;
+    }
+
     public function url(): string
     {
         return route('policies.show', $this->slug);

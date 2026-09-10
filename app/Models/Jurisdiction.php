@@ -82,6 +82,12 @@ class Jurisdiction extends Model
         return $this->policyInstruments()->published()->whereNotNull('official_source_url')->exists();
     }
 
+    /** Name with a definite article where English requires one ("the United Kingdom"). */
+    public function nameWithArticle(): string
+    {
+        return preg_match('/^(United|European|Netherlands|Philippines)/', $this->name) ? 'the '.$this->name : $this->name;
+    }
+
     public function url(): string
     {
         return route('jurisdictions.show', $this->slug);

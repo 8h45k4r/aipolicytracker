@@ -15,9 +15,7 @@ class SchemaValidator
     /** @var array<string, array> */
     private array $schemas = [];
 
-    public function __construct(private readonly string $schemaDir)
-    {
-    }
+    public function __construct(private readonly string $schemaDir) {}
 
     public function loadSchema(string $file): array
     {

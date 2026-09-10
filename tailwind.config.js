@@ -11,6 +11,8 @@ export default {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.jsx",
+        "./resources/js/public.js",
+        "./app/Enums/*.php",
         "./node_modules/flowbite/**/*.js",
         flowbite.content(),
     ],

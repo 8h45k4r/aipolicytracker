@@ -9,9 +9,7 @@ use App\Models\TaxonomyTerm;
 
 class OpenDataExporter
 {
-    public function __construct(private readonly PolicySerializer $serializer)
-    {
-    }
+    public function __construct(private readonly PolicySerializer $serializer) {}
 
     public function bundle(): array
     {

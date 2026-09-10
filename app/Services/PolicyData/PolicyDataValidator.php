@@ -12,8 +12,7 @@ class PolicyDataValidator
     public function __construct(
         private readonly PolicyDataRepository $repository,
         private readonly SchemaValidator $schema,
-    ) {
-    }
+    ) {}
 
     /** @return array<string, list<string>> file => errors */
     public function run(): array

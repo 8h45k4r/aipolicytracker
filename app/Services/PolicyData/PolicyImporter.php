@@ -31,9 +31,7 @@ class PolicyImporter
 
     private array $stats = ['jurisdictions' => 0, 'policies' => 0, 'obligations' => 0, 'changes' => 0, 'terms' => 0];
 
-    public function __construct(private readonly PolicyDataRepository $repository)
-    {
-    }
+    public function __construct(private readonly PolicyDataRepository $repository) {}
 
     public function run(): array
     {

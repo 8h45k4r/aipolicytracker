@@ -9,9 +9,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class PolicyDataRepository
 {
-    public function __construct(private readonly string $baseDir)
-    {
-    }
+    public function __construct(private readonly string $baseDir) {}
 
     public static function default(): self
     {

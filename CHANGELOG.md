@@ -4,7 +4,20 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Policy-intelligence data foundation: `data/` YAML records with JSON Schema, taxonomies, and `policy:validate`, `policy:import`, `policy:export` commands; new tables for jurisdictions, policy instruments, versions, sections, obligations, applicability rules, deadlines, enforcement events, procurement rules, framework mappings, evidence artifacts, change events, source documents, contributor submissions and reviewer decisions.
+- Source-backed seed records for the EU, UK, US (federal, Colorado, California), India, Nepal, Singapore, Australia and the UAE, all marked `pending_review` until human verification.
+- Server-rendered public site: home, `/policies`, `/policies/{slug}` (+ `.json`), `/jurisdictions`, `/jurisdictions/{slug}`, `/obligations`, `/obligations/{slug}`, `/compare` (+ curated pages), `/changes` (+ yearly archives and RSS), `/tools/applicability-check`, `/open-data`, `/methodology`, `/about`, `/contribute`, `/guides/*` and editorial landing pages.
+- Read-only public API under `/api/v1` with OpenAPI document at `/openapi.json`.
+- Technical SEO: per-page metadata, canonicals and noindex rules, sitemap index with six child sitemaps, updated `robots.txt`, JSON-LD structured data, `llms.txt` / `llms-full.txt`, branded 404, legacy redirects.
+- Admin review queue and publish/unpublish controls at `/backend/review`.
+- Consent-gated analytics hooks and event tracking; Search Console / Bing verification placeholders.
+- `PRODUCT_SEO_AEO_AUDIT.md`, `SEO_OPERATIONS.md`, `CONTENT_OPERATIONS.md`, `DATA_UPDATE_OPERATIONS.md`.
+
 ### Changed
+- The homepage is now the policy-intelligence site; the legacy map dashboard moved to `/map` (noindex). The client-rendered legacy/admin shell is `noindex`.
+- `php artisan migrate --seed` imports `data/` records; the illustrative `AiPolicyTrackerSeeder` is no longer run by default.
+- Deployment scripts run `policy:import` after migrations.
 - Licence changed from MIT to Apache License 2.0 (with `NOTICE`).
 
 ### Added

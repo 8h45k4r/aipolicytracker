@@ -39,7 +39,7 @@ php artisan serve   # and, in another terminal, npm run dev
 ## Data contributions
 
 1. Open a *Policy data correction* or *New jurisdiction or source* issue first if the change is non-trivial.
-2. Enter data through the admin UI or a seeder; include the official document link in `whitepaper_document_link`.
+2. Edit or add YAML records under `data/` (see `data/README.md`); every record needs `official_source_url` and the other source-quality fields. Run `php artisan policy:validate` before pushing. Only a reviewer who has opened the source may set `review_status: verified`.
 3. In the pull request table, list each changed field, its source URL, and the date accessed.
 4. Mark the verification status honestly. Unverified changes are not merged into `main`.
 5. Summaries must be your own words. Do not paste text from paid databases, law-firm commentary, or standards bodies (e.g. ISO/IEC documents).
@@ -53,7 +53,7 @@ php artisan serve   # and, in another terminal, npm run dev
 5. **Merge:** maintainers squash-merge. The PR title becomes the commit message, so keep it descriptive.
 6. **Release:** maintainers tag releases from `main` and update `CHANGELOG.md`.
 
-Editing existing content (policy entries, news, descriptions) follows the same flow: change the seeder or data via the admin UI export, cite the source, open a PR.
+Editing existing content follows the same flow: change the YAML record in `data/`, bump `content_version` and write `change_summary`, cite the source, open a PR. Web-form submissions from `/contribute` are triaged at `/backend/review` and applied through the same PR process.
 
 ## Pull requests
 
