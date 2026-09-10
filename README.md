@@ -120,7 +120,11 @@ The app is a standard Laravel application and needs a PHP runtime. It cannot run
    ```
 
 4. Point the web server's document root at `public/` and run a queue worker (`php artisan queue:work`) under a process supervisor.
-5. Put a CDN or reverse proxy in front for TLS and rate limiting. Suggested limits: 60 requests/minute per IP on JSON filter endpoints, 10/minute on `/login` and `/register` (login is also throttled in-app).
+5. Put a CDN or reverse proxy in front for TLS and rate limiting.
+
+**Container deployment.** A production `Dockerfile` and `fly.toml` are included. Build with `docker build -t aipolicytracker .` and run with the environment variables from `.env.example`; the entrypoint runs migrations, caches config, starts a queue worker, and serves on port 8080. On Fly.io: `fly launch --no-deploy`, `fly secrets set ...`, `fly deploy`.
+
+**Cloudflare.** Use Cloudflare for DNS, TLS, caching, and WAF only. Add a proxied `CNAME`/`A` record for `aipolicytracker.org` pointing at the PHP host, set SSL/TLS mode to *Full (strict)*, and add rate-limiting rules for `/login`, `/register`, and `/*/filtered`. The application itself cannot run on Workers or Pages. Suggested limits: 60 requests/minute per IP on JSON filter endpoints, 10/minute on `/login` and `/register` (login is also throttled in-app).
 
 ## Contribution workflow
 

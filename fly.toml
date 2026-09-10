@@ -1,0 +1,33 @@
+# Fly.io configuration (optional). Deploy with: fly launch --no-deploy && fly deploy
+# Set secrets first, e.g.:
+#   fly secrets set APP_KEY=... DB_PASSWORD=... ADMIN_PASSWORD=... MAIL_PASSWORD=...
+app = "aipolicytracker"
+primary_region = "syd"
+
+[build]
+
+[env]
+  APP_ENV = "production"
+  APP_DEBUG = "false"
+  APP_URL = "https://aipolicytracker.org"
+  LOG_CHANNEL = "stderr"
+  DB_CONNECTION = "pgsql"
+  DB_PORT = "5432"
+  DB_DATABASE = "postgres"
+  DB_SSLMODE = "require"
+  SESSION_DRIVER = "database"
+  SESSION_SECURE_COOKIE = "true"
+  QUEUE_CONNECTION = "database"
+  CACHE_STORE = "database"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
