@@ -23,7 +23,7 @@ jobs:
           extensions: mbstring, intl, bcmath
           coverage: none
       - name: Update lock for requested packages
-        run: composer update ${{ inputs.packages }} --with-all-dependencies --no-install --no-interaction --no-progress
+        run: composer update ${{ inputs.packages }} --with-all-dependencies --no-install --no-scripts --no-interaction --no-progress
       - name: Validate
         run: composer validate --no-check-publish
       - uses: actions/upload-artifact@v4
