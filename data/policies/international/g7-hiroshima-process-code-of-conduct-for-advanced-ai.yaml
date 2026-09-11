@@ -1,0 +1,63 @@
+slug: g7-hiroshima-process-code-of-conduct-for-advanced-ai
+jurisdiction: international
+title: >-
+  Hiroshima Process International Code of Conduct for Organizations Developing Advanced AI Systems (G7, 30 October 2023)
+short_title: G7 Hiroshima AI Process code of conduct
+instrument_type: code_of_practice
+status: voluntary_standard
+is_binding: false
+featured: false
+published: true
+issuing_body: G7 Leaders (Hiroshima AI Process)
+summary_plain: >-
+  Eleven voluntary actions for organisations developing the most advanced AI systems, including foundation and generative
+  models: risk identification and mitigation across the lifecycle, post-deployment vulnerability and incident monitoring,
+  public transparency reports, responsible information sharing, security controls, content authentication such as watermarking,
+  research on societal risks, priority to global challenges, technical standards, and data-input and personal-data safeguards.
+  It sits alongside the Hiroshima Process guiding principles and, from 2025, an OECD-run voluntary reporting framework.
+scope_summary: Voluntary; aimed at developers of advanced AI systems worldwide.
+adopted_on: '2023-10-30'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- gpai_provider
+ai_system_types:
+- general_purpose_ai_model
+- generative_ai
+sectors:
+- cross_sector
+risk_categories:
+- systemic_risk
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Hiroshima Process International Code of Conduct for Organizations Developing Advanced AI Systems
+  publisher: Ministry of Foreign Affairs of Japan (G7 documents)
+  url: https://www.mofa.go.jp/files/100573473.pdf
+  document_date: '2023-10-30'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mofa.go.jp/files/100573473.pdf
+source_title: Hiroshima Process International Code of Conduct for Organizations Developing Advanced AI Systems
+source_publisher: Ministry of Foreign Affairs of Japan (G7 documents)
+source_document_date: '2023-10-30'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,67 @@
+slug: us-new-york-raise-act
+jurisdiction: us-new-york
+title: New York Responsible AI Safety and Education (RAISE) Act (S.6953-B / A.6453-B, signed December 2025)
+short_title: New York RAISE Act (frontier model safety)
+instrument_type: act
+status: adopted
+status_note: >-
+  Signed by the Governor in December 2025 with chapter amendments agreed to align with California SB 53; effective date
+  reported as 1 January 2027. Confirm the final text and date on the Senate website before relying on it.
+is_binding: true
+featured: false
+published: true
+issuing_body: New York State Legislature
+summary_plain: >-
+  The RAISE Act requires large developers of frontier AI models (defined by training compute and revenue thresholds) to
+  publish and follow a safety and security protocol, report critical safety incidents to the state within a set period,
+  not deploy models that create unreasonable risk of critical harm, and submit to Attorney General enforcement with civil
+  penalties; the chapter amendments create a state oversight office and align definitions with California's Transparency
+  in Frontier AI Act.
+scope_summary: >-
+  Large frontier-model developers whose models are available in New York; not deployers of ordinary AI systems.
+key_dates_summary: >-
+  2025-06-12: passed Legislature; 2025-12-19: signed with agreed chapter amendments; 2027-01-01: reported effective date.
+adopted_on: '2025-12-19'
+applies_from: '2027-01-01'
+date_notes: Signing and effective dates reported in press coverage; verify against the enrolled chapter text.
+actors:
+- gpai_provider
+- provider
+ai_system_types:
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- systemic_risk
+use_cases:
+- generative_ai
+related_policies:
+- us-california-sb-53
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'New York State Senate: bill S6953'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/bills/2025/S6953/amendment/B
+  document_date: '2025-12-19'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.nysenate.gov/legislation/bills/2025/S6953/amendment/B
+source_title: 'New York State Senate: bill S6953'
+source_publisher: New York State Senate
+source_document_date: '2025-12-19'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

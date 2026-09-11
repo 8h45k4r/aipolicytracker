@@ -1,0 +1,55 @@
+slug: slovenia
+name: Slovenia
+short_name: Slovenia
+iso_code: SI
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Slovenia applies the EU AI Act, adopted the National Programme for the Promotion of the Development and Use of AI to 2025
+  (NpUI) in 2021, hosts the UNESCO International Research Centre on AI (IRCAI) in Ljubljana, and coordinates AI policy through
+  the Ministry of Digital Transformation.
+regulatory_status_summary: EU AI Act applies; national AI programme (2021) as policy; IRCAI hosted.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Programme to 2025 (NpUI).'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Ministrstvo za digitalno preobrazbo (Ministry of Digital Transformation)
+  url: https://www.gov.si/en/state-authorities/ministries/ministry-of-digital-transformation/
+  role: Digital and AI policy lead
+- name: Informacijski pooblaščenec
+  url: https://www.ip-rs.si/en/
+  role: Data-protection authority
+official_sources:
+- title: >-
+    Nacionalni program spodbujanja razvoja in uporabe umetne inteligence v Republiki Sloveniji do leta 2025 (NpUI)
+  publisher: Government of Slovenia
+  url: https://www.gov.si/en/state-authorities/ministries/ministry-of-digital-transformation/
+  document_date: '2021-05-27'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- croatia
+- austria
+- italy
+official_source_url: https://www.gov.si/en/state-authorities/ministries/ministry-of-digital-transformation/
+source_title: >-
+  Nacionalni program spodbujanja razvoja in uporabe umetne inteligence v Republiki Sloveniji do leta 2025 (NpUI)
+source_publisher: Government of Slovenia
+source_document_date: '2021-05-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,51 @@
+slug: namibia-national-ai-policy
+jurisdiction: namibia
+title: Namibia National Artificial Intelligence Policy
+short_title: National AI policy (in development)
+instrument_type: policy
+status: proposed
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Namibia
+summary_plain: >-
+  A national AI policy under development following the Fourth Industrial Revolution task-force report, covering governance,
+  skills, public-sector use and data.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-01-01'
+date_notes: Year-level placeholder; adoption to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of ICT
+  publisher: Government of Namibia
+  url: https://mict.gov.na/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://mict.gov.na/
+source_title: Ministry of ICT
+source_publisher: Government of Namibia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

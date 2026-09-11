@@ -1,0 +1,54 @@
+slug: greece-blueprint-for-ai-transformation-2024
+jurisdiction: greece
+title: A Blueprint for Greece's AI Transformation – report of the AI Advisory Committee
+short_title: Blueprint for Greece's AI transformation (2024)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: AI Advisory Committee to the Prime Minister of Greece
+summary_plain: >-
+  Delivered in November 2024, the Advisory Committee's report proposes a national AI strategy: public-sector AI deployment,
+  AI in health, education and agriculture, sovereign Greek language models, compute, skills, regulatory sandboxes and governance
+  aligned with the EU AI Act.
+scope_summary: Recommendations to the government; no obligations for organisations.
+adopted_on: '2024-11-19'
+date_notes: Month-level date; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Blueprint for Greece's AI Transformation
+  publisher: Hellenic Republic, Prime Minister's Office
+  url: https://foresight.gov.gr/en/
+  document_date: '2024-11-19'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://foresight.gov.gr/en/
+source_title: Blueprint for Greece's AI Transformation
+source_publisher: Hellenic Republic, Prime Minister's Office
+source_document_date: '2024-11-19'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

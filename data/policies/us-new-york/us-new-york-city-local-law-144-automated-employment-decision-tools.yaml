@@ -1,0 +1,72 @@
+slug: us-new-york-city-local-law-144-automated-employment-decision-tools
+jurisdiction: us-new-york
+title: >-
+  New York City Local Law 144 of 2021 on Automated Employment Decision Tools (AEDT) and DCWP implementing rules
+short_title: NYC Local Law 144 (automated employment decision tools)
+instrument_type: act
+status: in_force
+is_binding: true
+featured: true
+published: true
+issuing_body: New York City Council; rules by the Department of Consumer and Worker Protection
+summary_plain: >-
+  Employers and employment agencies may not use an automated employment decision tool to screen candidates or employees
+  for hiring or promotion in New York City unless the tool has had an independent bias audit within the past year, a summary
+  of the audit results is published, and candidates receive at least ten business days' notice of the tool's use, the job
+  qualifications assessed, and how to request an alternative process or accommodation. The bias audit calculates selection
+  and scoring impact ratios by sex, race/ethnicity and intersectional categories. Enforcement began 5 July 2023.
+scope_summary: Employers and employment agencies using AEDTs for candidates or employees residing in New York City.
+key_dates_summary: '2021-12-11: enacted; 2023-01-01: effective; 2023-07-05: enforcement began under final DCWP rules.'
+penalties_summary: >-
+  Civil penalties of USD 500 for a first violation and 500–1,500 for each subsequent violation; each day of use and each
+  missing notice is a separate violation.
+what_organizations_must_do: >-
+  Commission an annual independent bias audit, publish the summary and distribution date on the careers site, give ten business
+  days' notice to candidates, and keep audit and notice records.
+adopted_on: '2021-12-11'
+in_force_on: '2023-01-01'
+applies_from: '2023-07-05'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- deployer
+- provider
+ai_system_types:
+- automated_decision_system
+- predictive_scoring
+sectors:
+- employment
+risk_categories:
+- high_risk
+use_cases:
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Automated Employment Decision Tools (AEDT)
+  publisher: NYC Department of Consumer and Worker Protection
+  url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
+  document_date: '2023-07-05'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
+source_title: Automated Employment Decision Tools (AEDT)
+source_publisher: NYC Department of Consumer and Worker Protection
+source_document_date: '2023-07-05'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

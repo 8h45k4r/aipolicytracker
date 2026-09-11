@@ -1,0 +1,52 @@
+slug: oman-national-ai-programme-2024
+jurisdiction: oman
+title: >-
+  National Programme for Artificial Intelligence and Advanced Digital Technologies; AI policy for government entities
+short_title: National AI programme and government AI policy (2024)
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Oman (MTCIT)
+summary_plain: >-
+  The programme sets AI adoption goals for government and priority sectors, talent and research initiatives and an AI policy
+  with ethical principles and governance requirements for government entities.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: MTCIT
+  publisher: Government of Oman
+  url: https://www.mtcit.gov.om/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mtcit.gov.om/
+source_title: MTCIT
+source_publisher: Government of Oman
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

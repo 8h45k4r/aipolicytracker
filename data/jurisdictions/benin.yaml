@@ -1,0 +1,54 @@
+slug: benin
+name: Benin
+short_name: Benin
+iso_code: BJ
+jurisdiction_type: country
+region: Africa
+subregion: Western Africa
+featured: false
+published: true
+overview: >-
+  Benin adopted a National Strategy for Artificial Intelligence and Big Data 2023–2027 in January 2023 through the Ministry
+  of Digital Affairs and Digitalisation, with use cases in health, education, agriculture and public services, and the Digital
+  Code (2017) provides the personal-data framework.
+regulatory_status_summary: National AI and big-data strategy 2023–2027 as policy; Digital Code applies.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI and Big Data Strategy 2023–2027.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministère du Numérique et de la Digitalisation
+  url: https://numerique.gouv.bj/
+  role: AI strategy lead
+- name: Autorité de Protection des Données Personnelles (APDP)
+  url: https://apdp.bj/
+  role: Data-protection authority
+official_sources:
+- title: Stratégie nationale d'intelligence artificielle et des mégadonnées 2023–2027
+  publisher: Ministère du Numérique et de la Digitalisation
+  url: https://numerique.gouv.bj/
+  document_date: '2023-01-25'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- senegal
+- nigeria
+- ghana
+official_source_url: https://numerique.gouv.bj/
+source_title: Stratégie nationale d'intelligence artificielle et des mégadonnées 2023–2027
+source_publisher: Ministère du Numérique et de la Digitalisation
+source_document_date: '2023-01-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

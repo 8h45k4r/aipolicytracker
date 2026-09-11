@@ -49,11 +49,12 @@
                 @endforeach
             </nav>
             <div class="flex items-center gap-2">
-                <a href="{{ route('policies.index') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click">Search</a>
+                <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
+                <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
                 <details class="relative lg:hidden">
                     <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none" aria-label="Open menu">Menu</summary>
                     <nav aria-label="Mobile" class="absolute right-0 mt-2 w-64 rounded-sm border border-brand-line bg-white p-2 shadow-lg z-40">
-                        @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['risk.index','AI risk'],['risk.incidents','AI incidents'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
+                        @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['risk.index','AI risk'],['risk.incidents','AI incidents'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['subscribe.show','Subscribe to the digest'],['saved','Saved records'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
                         <a href="{{ route($r) }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body hover:bg-brand-paper no-underline">{{ $label }}</a>
                         @endforeach
                     </nav>
@@ -77,6 +78,11 @@
             <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" loading="lazy" decoding="async">
             <p class="mt-4 max-w-sm text-white/80">{{ config('aipolicytracker.positioning') }}</p>
             <p class="mt-4 max-w-sm text-xs leading-5 text-white/60">{{ config('aipolicytracker.disclaimer') }}</p>
+            <ul class="mt-5 flex items-center gap-3" aria-label="Follow AIPolicyTracker">
+                @foreach(config('aipolicytracker.social', []) as $social)
+                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-white/20 hover:ring-white/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-sm" loading="lazy"></a></li>
+                @endforeach
+            </ul>
         </div>
         <div class="md:col-span-2">
             <p class="eyebrow !text-brand-cyan">Explore</p>
@@ -88,6 +94,7 @@
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.feed') }}">RSS</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.index') }}">AI risk</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.incidents') }}">Incidents</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('guides.index') }}">Guides</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('subscribe.show') }}">Weekly digest</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('saved') }}">Saved</a></li>
             </ul>
         </div>
         <div class="md:col-span-2">

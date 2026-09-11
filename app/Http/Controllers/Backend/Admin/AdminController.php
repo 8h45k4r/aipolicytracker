@@ -149,7 +149,7 @@ class AdminController extends Controller
     {
         $to = $request->validate(['to' => ['required', 'email']])['to'];
         try {
-            Mail::raw('AIPolicyTracker test message sent '.now()->toDateTimeString().' via '.config('mail.default').'.', fn ($m) => $m->to($to)->subject('AIPolicyTracker mail test'));
+            Mail::to($to)->send(new \App\Mail\TestMail((string) config('mail.default')));
         } catch (\Throwable $e) {
             report($e);
 

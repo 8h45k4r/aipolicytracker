@@ -1,0 +1,25 @@
+name: Validate policy data
+
+# Runs the schema and cross-reference validator over data/ and prints every error.
+# Use it from the Actions tab (workflow_dispatch) when PHP is not available locally.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['data/**']
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist --no-scripts
+      - run: cp .env.example .env && php artisan key:generate --force
+      - run: php artisan policy:validate

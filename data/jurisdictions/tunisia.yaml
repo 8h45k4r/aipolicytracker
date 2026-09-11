@@ -1,0 +1,51 @@
+slug: tunisia
+name: Tunisia
+short_name: Tunisia
+iso_code: TN
+jurisdiction_type: country
+region: Africa
+subregion: Northern Africa
+featured: false
+published: true
+overview: >-
+  Tunisia's Ministry of Communication Technologies launched a National Artificial Intelligence Strategy in 2025 after a
+  2018 task-force roadmap, with priorities on talent, public services, start-ups and ethics; the personal-data authority
+  INPDP applies the 2004 data-protection law to AI.
+regulatory_status_summary: National AI strategy (2025) as policy; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (2025).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministère des Technologies de la Communication
+  url: https://www.mtc.gov.tn/
+  role: AI strategy lead
+- name: Instance Nationale de Protection des Données Personnelles (INPDP)
+  url: https://www.inpdp.tn/
+  role: Data-protection authority
+official_sources:
+- title: Ministère des Technologies de la Communication
+  publisher: Government of Tunisia
+  url: https://www.mtc.gov.tn/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- morocco
+- algeria
+official_source_url: https://www.mtc.gov.tn/
+source_title: Ministère des Technologies de la Communication
+source_publisher: Government of Tunisia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

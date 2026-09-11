@@ -1,0 +1,48 @@
+slug: ethiopia
+name: Ethiopia
+short_name: Ethiopia
+iso_code: ET
+jurisdiction_type: country
+region: Africa
+subregion: Eastern Africa
+featured: false
+published: true
+overview: >-
+  Ethiopia approved a National Artificial Intelligence Policy in 2024, implemented by the Ethiopian Artificial Intelligence
+  Institute (established 2020), covering AI in agriculture, health, security and public services, talent, data and ethics;
+  the Personal Data Protection Proclamation (2024) applies.
+regulatory_status_summary: National AI policy (2024) as policy; AI Institute leads; data-protection law applies.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Policy (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ethiopian Artificial Intelligence Institute
+  url: https://www.aii.et/
+  role: National AI research and policy implementation body
+official_sources:
+- title: Ethiopian Artificial Intelligence Institute
+  publisher: Government of Ethiopia
+  url: https://www.aii.et/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- kenya
+- rwanda
+official_source_url: https://www.aii.et/
+source_title: Ethiopian Artificial Intelligence Institute
+source_publisher: Government of Ethiopia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

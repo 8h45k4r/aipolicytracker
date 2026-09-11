@@ -60,6 +60,13 @@ class SubscriberAndSettingsTest extends TestCase
         Mail::assertSent(WeeklyDigestMail::class, 1);
         Mail::assertSent(WeeklyDigestMail::class, fn ($m) => $m->hasTo('a@example.org'));
 
+        // Policy-level topics: a subscriber following one instrument only gets its changes.
+        $change = \App\Models\ChangeEvent::with('policyInstrument')->whereNotNull('policy_instrument_id')->first();
+        $follower = Subscriber::create(['email' => 'c@example.org', 'token' => Subscriber::newToken(), 'topics' => [$change->policyInstrument->slug], 'confirmed_at' => now()]);
+        $this->assertTrue($follower->wants($change));
+        $other = \App\Models\ChangeEvent::where('id', '!=', $change->id)->where(fn ($q) => $q->whereNull('policy_instrument_id')->orWhere('policy_instrument_id', '!=', $change->policy_instrument_id))->where('jurisdiction_id', '!=', $change->jurisdiction_id)->first();
+        $this->assertFalse($follower->wants($other));
+
         $this->postJson('/cron/digest')->assertStatus(401);
         AppSetting::put('cron_token', str_repeat('t', 32));
         $this->postJson('/cron/digest', [], ['Authorization' => 'Bearer '.str_repeat('t', 32)])->assertOk();
@@ -86,6 +93,20 @@ class SubscriberAndSettingsTest extends TestCase
         $this->assertSame('array', config('mail.default'));
         $this->assertSame('re_TESTKEY_1234567890', config('services.resend.key'));
         $this->assertSame('no-reply@example.org', config('mail.from.address'));
+    }
+
+    public function test_test_mail_uses_the_branded_template_and_footer_lists_social_profiles(): void
+    {
+        Mail::fake();
+        config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
+        $admin = User::factory()->create(['email' => 'editor@example.test']);
+        $this->actingAs($admin)->post('/backend/admin/settings/test-mail', ['to' => 'ops@example.org'])->assertRedirect();
+        Mail::assertSent(\App\Mail\TestMail::class, function ($m) {
+            $html = $m->render();
+
+            return $m->hasTo('ops@example.org') && str_contains($html, 'Follow us on social') && str_contains($html, 'linkedin.com/company/aipolicytracker') && str_contains($html, 'brand/social/instagram.png');
+        });
+        $this->get('/')->assertOk()->assertSee('https://www.linkedin.com/company/aipolicytracker/')->assertSee('https://www.instagram.com/aipolicytracker/')->assertSee('https://x.com/aipolicytracker')->assertSee('https://www.facebook.com/aipolicytracker');
     }
 
     public function test_admin_pages_render_for_admins_only(): void
