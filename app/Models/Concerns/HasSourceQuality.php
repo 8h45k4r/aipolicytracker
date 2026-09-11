@@ -30,13 +30,13 @@ trait HasSourceQuality
     public function verificationLabel(): string
     {
         if ($this->isVerified()) {
-            return 'Last verified '.$this->last_verified_at->format('j M Y');
+            return 'Verified against the official source '.$this->last_verified_at->format('j M Y');
         }
-        if ($this->last_checked_at) {
-            return 'Source checked '.$this->last_checked_at->format('j M Y').' · human verification pending';
+        if (! empty($this->last_checked_at)) {
+            return 'Source-linked · checked '.$this->last_checked_at->format('j M Y');
         }
 
-        return 'Human verification pending';
+        return 'Source-linked';
     }
 
     /** Records are considered stale when not verified in the last 180 days. */
