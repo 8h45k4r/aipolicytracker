@@ -128,8 +128,18 @@
 
     // Saved records: a per-browser reading list kept in localStorage (no account, no server copy).
     var savedKey = 'apt-saved';
+    // Only same-site paths are ever stored or rendered as links.
+    function safePath(url) {
+        try {
+            var u = new URL(String(url), location.origin);
+            return u.origin === location.origin && u.protocol === location.protocol ? u.pathname + u.search + u.hash : '/';
+        } catch (e) { return '/'; }
+    }
     function readSaved() {
-        try { var v = JSON.parse(localStorage.getItem(savedKey) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+        try {
+            var v = JSON.parse(localStorage.getItem(savedKey) || '[]');
+            return Array.isArray(v) ? v.filter(function (i) { return i && typeof i.id === 'string'; }).map(function (i) { i.url = safePath(i.url); return i; }) : [];
+        } catch (e) { return []; }
     }
     function writeSaved(items) {
         try { localStorage.setItem(savedKey, JSON.stringify(items)); } catch (e) { /* storage unavailable */ }
@@ -150,7 +160,7 @@
             var items = readSaved();
             var idx = items.findIndex(function (i) { return i.id === id; });
             if (idx >= 0) { items.splice(idx, 1); } else {
-                items.unshift({ id: id, type: btn.getAttribute('data-save-type'), title: btn.getAttribute('data-save-title'), url: btn.getAttribute('data-save-url'), meta: btn.getAttribute('data-save-meta') || '', saved_at: new Date().toISOString() });
+                items.unshift({ id: id, type: btn.getAttribute('data-save-type'), title: btn.getAttribute('data-save-title'), url: safePath(btn.getAttribute('data-save-url')), meta: btn.getAttribute('data-save-meta') || '', saved_at: new Date().toISOString() });
             }
             writeSaved(items);
             paintSaveButton(btn, idx < 0);
@@ -169,7 +179,7 @@
             items.forEach(function (item) {
                 var li = document.createElement('li');
                 li.className = 'flex flex-wrap items-start justify-between gap-3 py-3';
-                var a = document.createElement('a'); a.href = item.url; a.className = 'font-medium text-brand-navy hover:underline'; a.textContent = item.title;
+                var a = document.createElement('a'); a.setAttribute('href', safePath(item.url)); a.className = 'font-medium text-brand-navy hover:underline'; a.textContent = item.title;
                 var meta = document.createElement('div'); meta.className = 'text-xs text-brand-muted'; meta.textContent = (item.type ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : '') + (item.meta ? ' \u00b7 ' + item.meta : '') + ' \u00b7 saved ' + new Date(item.saved_at).toLocaleDateString();
                 var wrap = document.createElement('div'); wrap.appendChild(a); wrap.appendChild(meta);
                 var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'btn-secondary !min-h-[36px] !py-1'; rm.textContent = 'Remove';
@@ -181,7 +191,7 @@
         renderSaved();
         var copyBtn = document.querySelector('[data-saved-copy]');
         if (copyBtn) copyBtn.addEventListener('click', function () {
-            var text = readSaved().map(function (i) { return '- [' + i.title + '](' + i.url + ')'; }).join('\n');
+            var text = readSaved().map(function (i) { return '- [' + i.title + '](' + location.origin + i.url + ')'; }).join('\n');
             if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = 'Copied as Markdown'; setTimeout(function () { copyBtn.textContent = 'Copy list as Markdown'; }, 1500); });
         });
         var clearBtn = document.querySelector('[data-saved-clear]');
