@@ -31,7 +31,7 @@
     @endforeach
     @vite(['resources/css/public.css', 'resources/js/public.js'])
     @if(config('aipolicytracker.google_analytics_id') || config('aipolicytracker.cloudflare_analytics_token'))
-    <script>window.APT_ANALYTICS = @json(['gaId' => config('aipolicytracker.google_analytics_id'), 'cfToken' => config('aipolicytracker.cloudflare_analytics_token'), 'requireConsent' => (bool) config('aipolicytracker.analytics_require_consent')]);</script>
+    <script nonce="{{ Illuminate\Support\Facades\Vite::cspNonce() }}">window.APT_ANALYTICS = @json(['gaId' => config('aipolicytracker.google_analytics_id'), 'cfToken' => config('aipolicytracker.cloudflare_analytics_token'), 'requireConsent' => (bool) config('aipolicytracker.analytics_require_consent')]);</script>
     @endif
 </head>
 <body class="min-h-screen flex flex-col" @isset($pageTrack) data-page-track="{{ $pageTrack }}" @endisset>

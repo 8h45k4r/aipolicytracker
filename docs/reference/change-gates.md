@@ -1,6 +1,6 @@
 # Change gates
 
-Every change to `main` must pass the four role gates below, in order. Each gate re-checks the one before it. This is binding, not advisory, and applies to one-line changes as much as to features. Record the outcome of all four gates in the pull request description with evidence (query output, counts, command output). A gate that does not apply is marked **N/A with a reason**, never left blank.
+Every change to `main` must pass the five role gates below, in order. Each gate re-checks the one before it. This is binding, not advisory, and applies to one-line changes as much as to features. Record the outcome of all four gates in the pull request description with evidence (query output, counts, command output). A gate that does not apply is marked **N/A with a reason**, never left blank.
 
 ## 1. Engineering & QA/QC
 
@@ -38,3 +38,12 @@ Every change to `main` must pass the four role gates below, in order. Each gate 
 ## Accepted debt
 
 Debt accepted during a gate goes in `docs/reference/technical-debt.md` with an owner. Undocumented debt does not exist and will be found by an auditor instead of by us.
+
+## 5. Security (VAPT)
+
+Runs after gate 4 on every change that touches routes, middleware, authentication, file delivery, forms or dependencies, and in full before each production release.
+
+- Non-destructive probes against the deployed site: exposed files (`.env`, `.git`, logs, vendor, downloads directory), verbose errors, security headers (CSP with nonce, HSTS, nosniff, frame-ancestors, referrer and permissions policy, no server or framework version), cookie flags, TLS (1.2+, HTTP→HTTPS), unsafe methods (TRACE/PUT), reflected input in every search and filter parameter, injection in filters and API parameters, CSRF on every POST, authorisation on every user-bound route (other user's id → 404/403), signed-URL routes without signature, unauthenticated cron/webhook endpoints, open redirects, and throttling on sign-in, registration, contribute and download.
+- Dependencies: `npm audit --omit=dev` and `composer audit` report no high or critical issues, or each is recorded as accepted debt with an owner.
+- Secrets: repository scan for key material; secrets only in the host's secret store or encrypted settings.
+- Findings are written to `docs/reference/vapt-<date>.md` with severity, evidence and fix; anything not fixed in the same PR goes to `docs/reference/technical-debt.md`.

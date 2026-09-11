@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet" />
     <!-- Scripts -->
-    @routes
+    @routes(nonce: Illuminate\Support\Facades\Vite::cspNonce())
     @viteReactRefresh
     @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
     @inertiaHead
@@ -35,7 +35,7 @@
     @if (config('aipolicytracker.google_analytics_id'))
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('aipolicytracker.google_analytics_id') }}"></script>
-        <script>
+        <script nonce="{{ Illuminate\Support\Facades\Vite::cspNonce() }}">
             window.dataLayer = window.dataLayer || [];
 
             function gtag() {

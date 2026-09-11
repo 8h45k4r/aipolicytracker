@@ -52,6 +52,11 @@ Fill every gate. Use **Pass**, **N/A (reason)**, or **Debt #n** (entry in `docs/
 - Evidence chain not weakened:
 - Secrets stored as digests / host secret store, never plaintext:
 
+### 5. Security (VAPT)
+- Probes run (headers, exposed files, CSRF, authorisation, injection, redirects, throttling) or N/A with reason:
+- `npm audit --omit=dev` / `composer audit`:
+- Findings recorded in `docs/reference/vapt-<date>.md` or debt:
+
 ## Accepted debt
 
 <!-- List technical-debt.md entry numbers added or touched by this PR, with owners. -->

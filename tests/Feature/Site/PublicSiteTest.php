@@ -191,6 +191,19 @@ class PublicSiteTest extends TestCase
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('min-w-0', false);
     }
 
+    public function test_security_headers_include_a_nonce_based_csp_and_hide_server_version(): void
+    {
+        config(['aipolicytracker.google_analytics_id' => 'G-TEST']); // renders the inline analytics bootstrap
+        $r = $this->get('/')->assertOk()->assertHeaderMissing('X-Powered-By')->assertHeader('X-Content-Type-Options', 'nosniff');
+        $csp = $r->headers->get('Content-Security-Policy');
+        $this->assertStringContainsString("default-src 'self'", $csp);
+        $this->assertStringContainsString("frame-ancestors 'self'", $csp);
+        preg_match("/'nonce-([^']+)'/", $csp, $m);
+        $this->assertNotEmpty($m, 'CSP carries a script nonce');
+        $this->assertStringContainsString('nonce="'.$m[1].'"', $r->getContent(), 'inline script uses the same nonce');
+        $this->get('/login')->assertOk()->assertHeader('Content-Security-Policy');
+    }
+
     public function test_review_queue_is_admin_only_and_can_publish(): void
     {
         config(['aipolicytracker.admin_emails' => ['admin@example.com']]);

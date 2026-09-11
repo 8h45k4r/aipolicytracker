@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Nonce-based Content-Security-Policy and Cross-Origin-Opener-Policy on every response; PHP version header removed and nginx server tokens hidden. Fifth change gate (Security / VAPT) added to the process with the first assessment recorded in `docs/reference/vapt-2026-09-11.md`.
+
+### Security
 - Removed 15 unused JavaScript packages left from the legacy map site (amCharts, CKEditor, MUI, Emotion, react-select, react-slick, react-toastify, react-dropzone, DOMPurify) and applied `npm audit fix`; production dependencies now audit clean.
 
 ### Added
