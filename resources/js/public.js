@@ -108,6 +108,103 @@
         });
     });
 
+    // Correction form: show the current value of the field being disputed and suggest a summary.
+    var fieldSelect = document.querySelector('[data-field-select]');
+    if (fieldSelect) {
+        var currentBox = document.querySelector('[data-current-value]');
+        var summaryInput = document.querySelector('[data-summary-input]');
+        var context = document.querySelector('[data-correction-context]');
+        var recordTitle = context ? (context.querySelector('a') || {}).textContent || '' : '';
+        fieldSelect.addEventListener('change', function () {
+            var opt = fieldSelect.options[fieldSelect.selectedIndex];
+            if (currentBox) { currentBox.value = opt.value ? (opt.getAttribute('data-current') || '\u2014') : ''; }
+            if (summaryInput && opt.value && (!summaryInput.value || summaryInput.getAttribute('data-auto') === '1')) {
+                summaryInput.value = opt.textContent.trim() + ' for ' + recordTitle.trim() + ' is wrong';
+                summaryInput.setAttribute('data-auto', '1');
+            }
+        });
+        if (summaryInput) { summaryInput.addEventListener('input', function () { summaryInput.removeAttribute('data-auto'); }); }
+    }
+
+    // Saved records: a per-browser reading list kept in localStorage (no account, no server copy).
+    var savedKey = 'apt-saved';
+    // Links are rebuilt from the record type and id; stored URLs are never used as hrefs.
+    var savedRoutes = { policy: '/policies/', jurisdiction: '/jurisdictions/', obligation: '/obligations/', incident: '/ai-risk/incidents/', risk: '/ai-risk/risks/' };
+    function savedHref(item) {
+        var prefix = savedRoutes[item.type];
+        var slug = String(item.id || '').split(':').slice(1).join(':');
+        if (!prefix || !/^[A-Za-z0-9._-]{1,160}$/.test(slug)) { return '/saved'; }
+        return prefix + encodeURIComponent(slug);
+    }
+    function readSaved() {
+        try {
+            var v = JSON.parse(localStorage.getItem(savedKey) || '[]');
+            return Array.isArray(v) ? v.filter(function (i) { return i && typeof i.id === 'string' && typeof i.type === 'string'; }) : [];
+        } catch (e) { return []; }
+    }
+    function writeSaved(items) {
+        try { localStorage.setItem(savedKey, JSON.stringify(items)); } catch (e) { /* storage unavailable */ }
+        updateSavedCount(items);
+    }
+    function updateSavedCount(items) {
+        var n = (items || readSaved()).length;
+        document.querySelectorAll('[data-saved-count]').forEach(function (el) { el.textContent = n ? String(n) : ''; el.hidden = !n; });
+    }
+    function paintSaveButton(btn, saved) {
+        btn.setAttribute('aria-pressed', saved ? 'true' : 'false');
+        btn.textContent = saved ? 'Saved \u2713' : (btn.getAttribute('data-save-label') || 'Save');
+    }
+    document.querySelectorAll('[data-save]').forEach(function (btn) {
+        var id = btn.getAttribute('data-save');
+        paintSaveButton(btn, readSaved().some(function (i) { return i.id === id; }));
+        btn.addEventListener('click', function () {
+            var items = readSaved();
+            var idx = items.findIndex(function (i) { return i.id === id; });
+            if (idx >= 0) { items.splice(idx, 1); } else {
+                items.unshift({ id: id, type: btn.getAttribute('data-save-type'), title: btn.getAttribute('data-save-title'),  meta: btn.getAttribute('data-save-meta') || '', saved_at: new Date().toISOString() });
+            }
+            writeSaved(items);
+            paintSaveButton(btn, idx < 0);
+            track(idx < 0 ? 'save_record' : 'unsave_record', { label: id });
+        });
+    });
+    var savedList = document.querySelector('[data-saved-list]');
+    if (savedList) {
+        var renderSaved = function () {
+            var items = readSaved();
+            var empty = document.querySelector('[data-saved-empty]');
+            var tools = document.querySelector('[data-saved-tools]');
+            if (empty) empty.hidden = items.length > 0;
+            if (tools) tools.hidden = items.length === 0;
+            savedList.innerHTML = '';
+            items.forEach(function (item) {
+                var li = document.createElement('li');
+                li.className = 'flex flex-wrap items-start justify-between gap-3 py-3';
+                var a = document.createElement('a'); a.setAttribute('href', savedHref(item)); a.className = 'font-medium text-brand-navy hover:underline'; a.textContent = item.title;
+                var meta = document.createElement('div'); meta.className = 'text-xs text-brand-muted'; meta.textContent = (item.type ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : '') + (item.meta ? ' \u00b7 ' + item.meta : '') + ' \u00b7 saved ' + new Date(item.saved_at).toLocaleDateString();
+                var wrap = document.createElement('div'); wrap.appendChild(a); wrap.appendChild(meta);
+                var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'btn-secondary !min-h-[36px] !py-1'; rm.textContent = 'Remove';
+                rm.addEventListener('click', function () { writeSaved(readSaved().filter(function (i) { return i.id !== item.id; })); renderSaved(); });
+                li.appendChild(wrap); li.appendChild(rm);
+                savedList.appendChild(li);
+            });
+        };
+        renderSaved();
+        var copyBtn = document.querySelector('[data-saved-copy]');
+        if (copyBtn) copyBtn.addEventListener('click', function () {
+            var text = readSaved().map(function (i) { return '- [' + i.title + '](' + location.origin + savedHref(i) + ')'; }).join('\n');
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = 'Copied as Markdown'; setTimeout(function () { copyBtn.textContent = 'Copy list as Markdown'; }, 1500); });
+        });
+        var clearBtn = document.querySelector('[data-saved-clear]');
+        if (clearBtn) clearBtn.addEventListener('click', function () { if (window.confirm('Remove all saved records from this browser?')) { writeSaved([]); renderSaved(); } });
+        var jsonBtn = document.querySelector('[data-saved-json]');
+        if (jsonBtn) jsonBtn.addEventListener('click', function () {
+            var text = JSON.stringify(readSaved().map(function (i) { return { id: i.id, type: i.type, title: i.title, url: location.origin + savedHref(i), saved_at: i.saved_at }; }), null, 2);
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { jsonBtn.textContent = 'Copied as JSON'; setTimeout(function () { jsonBtn.textContent = 'Copy list as JSON'; }, 1500); });
+        });
+    }
+    updateSavedCount();
+
     // Auto-submit filter selects on desktop (forms still submit normally).
     document.querySelectorAll('form[data-autosubmit] select').forEach(function (sel) {
         sel.addEventListener('change', function () {

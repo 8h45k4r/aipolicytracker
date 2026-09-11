@@ -17,6 +17,13 @@
         <div class="flex flex-wrap gap-2 meta"><span class="font-mono">#{{ $s->id }}</span><span>{{ \App\Models\ContributorSubmission::TYPES[$s->type] ?? $s->type }}</span><span>{{ $s->created_at->format('j M Y H:i') }}</span><span class="badge-neutral">{{ $s->status }}</span>@if($s->subject_slug)<span>{{ $s->subject_type }}: {{ $s->subject_slug }}</span>@endif</div>
         <p class="mt-2 font-medium text-brand-navy">{{ $s->summary }}</p>
         @if($s->details)<p class="mt-1 text-sm text-brand-body whitespace-pre-line">{{ $s->details }}</p>@endif
+        @if(!empty($s->payload['field']) || !empty($s->payload['record_title']))
+        <div class="mt-2 rounded-sm border border-brand-line bg-brand-paper p-3 text-sm">
+            @if(!empty($s->payload['record_title']))<p class="text-brand-navy font-medium">{{ $s->payload['record_title'] }}@if(!empty($s->payload['record_url'])) <a href="{{ $s->payload['record_url'] }}" class="text-xs font-normal">open record</a>@endif @if(!empty($s->payload['record_content_version'])) <span class="text-xs font-normal text-brand-muted">· content v{{ $s->payload['record_content_version'] }} at submission</span>@endif</p>@endif
+            @if(!empty($s->payload['field']))<dl class="mt-1 grid gap-1 sm:grid-cols-3 text-xs"><div><dt class="text-brand-muted">Field</dt><dd class="font-mono">{{ $s->payload['field'] }}</dd></div><div><dt class="text-brand-muted">Shown at submission</dt><dd class="whitespace-pre-line">{{ $s->payload['current_value'] ?? '—' }}</dd></div><div><dt class="text-brand-muted">Proposed</dt><dd class="whitespace-pre-line text-brand-navy">{{ $s->payload['proposed_value'] ?? '—' }}</dd></div></dl>@endif
+            @if(!empty($s->payload['record_official_source_url']))<p class="mt-1 text-xs text-brand-muted">Source on file: <a href="{{ $s->payload['record_official_source_url'] }}" rel="noopener nofollow">{{ \Illuminate\Support\Str::limit($s->payload['record_official_source_url'], 70) }}</a></p>@endif
+        </div>
+        @endif
         <dl class="mt-2 grid gap-x-6 gap-y-1 sm:grid-cols-2 text-xs text-brand-muted">
             <div><dt class="inline">Source proposed:</dt> <dd class="inline">@if($s->proposed_source_url)<a href="{{ $s->proposed_source_url }}" rel="noopener nofollow">{{ \Illuminate\Support\Str::limit($s->proposed_source_url, 70) }}</a>@else —@endif</dd></div>
             <div><dt class="inline">From:</dt> <dd class="inline">{{ $s->submitter_name ?: '—' }}@if($s->submitter_email) · <a href="mailto:{{ $s->submitter_email }}">{{ $s->submitter_email }}</a>@endif @if($s->submitter_affiliation)· {{ $s->submitter_affiliation }}@endif</dd></div>

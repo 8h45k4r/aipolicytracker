@@ -122,6 +122,36 @@ class PublicSiteTest extends TestCase
         $this->post('/contribute', ['type' => 'correction', 'summary' => 'short'])->assertSessionHasErrors('summary');
     }
 
+    public function test_correction_form_is_prefilled_from_the_record_and_captures_field_context(): void
+    {
+        $this->get('/contribute?type=correction&subject_type=policy&subject_slug=eu-ai-act&field=in_force_on')
+            ->assertOk()
+            ->assertSee('Record you are correcting')
+            ->assertSee('Which field is wrong?')
+            ->assertSee('value="in_force_on"', false)
+            ->assertSee('eur-lex.europa.eu');
+        // Unknown records fall back to the generic form rather than a 404.
+        $this->get('/contribute?subject_type=policy&subject_slug=does-not-exist')->assertOk()->assertSee('Record slug (from the URL)');
+
+        $this->post('/contribute', ['type' => 'correction', 'subject_type' => 'policy', 'subject_slug' => 'eu-ai-act', 'field' => 'in_force_on', 'current_value' => '2024-08-01', 'proposed_value' => '2024-08-02', 'summary' => 'In force on for the EU AI Act is wrong.'])
+            ->assertRedirect(route('contribute'));
+        $submission = ContributorSubmission::latest('id')->first();
+        $this->assertSame('in_force_on', $submission->payload['field']);
+        $this->assertSame('2024-08-02', $submission->payload['proposed_value']);
+        $this->assertSame(route('policies.show', 'eu-ai-act'), $submission->payload['record_url']);
+        $this->assertNotEmpty($submission->payload['record_official_source_url']);
+    }
+
+    public function test_subscribe_and_saved_pages_render_and_record_pages_carry_follow_and_save_controls(): void
+    {
+        $this->get('/subscribe')->assertOk()->assertSee('Follow AI policy changes by email')->assertSee('name="topics[]"', false)->assertSee('European Union');
+        $this->get('/saved')->assertOk()->assertSee('Saved records')->assertSee('data-saved-list', false);
+        $this->get('/policies/eu-ai-act')->assertOk()->assertSee('data-save="policy:eu-ai-act"', false)->assertSee('name="topics[]" value="eu-ai-act"', false);
+        $this->get('/jurisdictions/eu')->assertOk()->assertSee('data-save="jurisdiction:eu"', false);
+        $this->get('/')->assertOk()->assertSee(route('subscribe.show'))->assertSee(route('saved'));
+        $this->get('/dashboard')->assertRedirect('/');
+    }
+
     public function test_review_queue_is_admin_only_and_can_publish(): void
     {
         config(['aipolicytracker.admin_emails' => ['admin@example.com']]);
@@ -140,7 +170,7 @@ class PublicSiteTest extends TestCase
     public function test_legacy_urls_redirect_or_are_noindex(): void
     {
         $this->get('/about-ai-policy')->assertRedirect('/about');
-        $this->get('/dashboard')->assertRedirect('/map');
+        $this->get('/dashboard')->assertRedirect('/');
         $this->get('/map')->assertRedirect('/');
         $this->get('/news')->assertRedirect('/changes');
         $this->get('/timeline')->assertRedirect('/changes');

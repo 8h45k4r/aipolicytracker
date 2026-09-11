@@ -147,7 +147,8 @@
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Source tier</dt><dd>{{ $policy->source_tier }}</dd></div>
                     </dl>
                 </div>
-                <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" class="flex-col [&>*]:w-full" />
+                <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" class="flex-col [&>*]:w-full" />
+                <x-site.subscribe-form source="policy" :topic="$policy->slug" :topic-label="$name" class="!pt-3 text-sm" compact />
                 @if($related->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Related policies</p><ul class="mt-2 space-y-1.5">@foreach($related as $r)<li><a href="{{ $r->url() }}" class="text-brand-body hover:underline">{{ $r->short_title ?: $r->title }}</a> <span class="text-xs text-brand-muted">({{ $r->jurisdiction->short_name ?: $r->jurisdiction->name }})</span></li>@endforeach</ul></div>
                 @endif
