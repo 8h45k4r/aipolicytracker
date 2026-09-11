@@ -157,10 +157,10 @@ return [
 
     'guides' => [
         'ai-startup-eu-ai-act-readiness' => [
-            'h1' => 'EU AI Act readiness for AI startups',
-            'title' => 'EU AI Act readiness guide for AI startups',
-            'description' => 'A practical, source-backed readiness path for startups: decide your role, screen prohibited uses, classify risk, plan high-risk workstreams and prepare general-purpose AI duties, with links to official sources.',
-            'summary' => 'Step-by-step readiness path from inventory to evidence, tied to the obligations and deadlines recorded for the EU AI Act.',
+            'h1' => 'EU AI Act readiness for AI startups: the 90-day path from inventory to evidence',
+            'title' => 'EU AI Act readiness for AI startups (90-day path, dated obligations)',
+            'description' => 'The EU AI Act already applies to prohibited practices and AI literacy, general-purpose model duties started in August 2025 and most high-risk obligations land in August 2026. This guide turns those dates into a 90-day path: decide your role, screen banned uses, classify risk, plan the high-risk workstreams and build the evidence pack customers and regulators will ask for, with every step linked to the recorded obligation.',
+            'summary' => 'Most startups are providers without knowing it. In 90 days: role, prohibited-use screen, risk classification, high-risk workstreams and an evidence pack, each step linked to the recorded obligation and its deadline.',
             'policies' => ['eu-ai-act'],
             'obligations' => ['eu-ai-act-prohibited-practices', 'eu-ai-act-ai-literacy', 'eu-ai-act-risk-management-system', 'eu-ai-act-technical-documentation', 'eu-ai-act-transparency-article-50', 'eu-ai-act-gpai-provider-obligations'],
             'steps' => [
@@ -176,10 +176,10 @@ return [
             ],
         ],
         'ai-governance-for-startups' => [
-            'h1' => 'AI governance for startups',
-            'title' => 'AI governance for startups: a minimum viable programme',
-            'description' => 'How a small team can set up AI governance that satisfies customers and regulators across jurisdictions: inventory, roles, risk screening, data and model documentation, oversight, incident handling and evidence, mapped to recorded obligations.',
-            'summary' => 'A minimum viable governance programme that scales from one product to a portfolio, drawing on obligations recorded across the EU, US, UK, Singapore and Australia.',
+            'h1' => 'AI governance for startups: the four artefacts every buyer and regulator asks for',
+            'title' => 'AI governance for startups: inventory, register, policy, incident process',
+            'description' => 'Enterprise buyers, insurers and regulators ask small AI teams for the same four things: an AI system inventory, a risk register, a written policy and an incident process. This guide shows how to produce them in weeks, not quarters, using obligations recorded across the EU, US, UK, Singapore and Australia and the free templates on this site.',
+            'summary' => 'Skip the year-long programme. Build the four artefacts procurement, insurers and regulators actually request (inventory, risk register, policy, incident process) with free templates and recorded obligations.',
             'policies' => ['eu-ai-act', 'us-nist-ai-rmf', 'singapore-model-ai-governance-framework', 'australia-voluntary-ai-safety-standard', 'us-colorado-ai-act'],
             'obligations' => ['eu-ai-act-risk-management-system', 'us-nist-ai-rmf-govern', 'singapore-mgf-human-involvement', 'australia-vaiss-accountability-and-risk-management', 'us-colorado-deployer-impact-assessment'],
             'steps' => [
@@ -193,10 +193,10 @@ return [
             'faq' => [],
         ],
         'iso-42001-vs-eu-ai-act' => [
-            'h1' => 'ISO/IEC 42001 vs the EU AI Act',
-            'title' => 'ISO/IEC 42001 vs EU AI Act: how the standard maps to the law',
-            'description' => 'How the ISO/IEC 42001 AI management system standard relates to EU AI Act obligations: what certification does and does not prove, and an original crosswalk from recorded obligations to management-system clauses.',
-            'summary' => 'Original editorial crosswalk between EU AI Act obligations and ISO/IEC 42001 management-system clauses, with the limits of certification made explicit.',
+            'h1' => 'ISO/IEC 42001 vs the EU AI Act: what certification proves and what it does not',
+            'title' => 'ISO/IEC 42001 vs EU AI Act: clause-by-obligation crosswalk',
+            'description' => 'Certification against ISO/IEC 42001 is not a presumption of conformity with the EU AI Act. This original crosswalk maps each recorded EU AI Act obligation to the management-system clauses that help meet it, marks the gaps the standard cannot close (conformity assessment, registration, transparency duties) and tells CISOs and compliance leads how to use the two together.',
+            'summary' => 'Certification is not conformity. An obligation-by-clause crosswalk that shows where ISO/IEC 42001 helps with the EU AI Act, where it stops, and how CISOs should use both.',
             'policies' => ['eu-ai-act'],
             'framework' => 'iso_42001',
             'steps' => [
@@ -210,10 +210,10 @@ return [
             ],
         ],
         'nist-ai-rmf-vs-eu-ai-act' => [
-            'h1' => 'NIST AI RMF vs the EU AI Act',
-            'title' => 'NIST AI RMF vs EU AI Act: mapping the framework to legal obligations',
-            'description' => 'How the voluntary NIST AI Risk Management Framework relates to binding EU AI Act obligations: shared concepts, gaps, and an original crosswalk from recorded obligations to Govern, Map, Measure and Manage.',
-            'summary' => 'Original crosswalk from EU AI Act obligations to the NIST AI RMF functions, with the framework\'s voluntary nature and the law\'s prescriptive outputs made explicit.',
+            'h1' => 'NIST AI RMF vs the EU AI Act: turning a voluntary framework into legal evidence',
+            'title' => 'NIST AI RMF vs EU AI Act: Govern, Map, Measure, Manage mapped to obligations',
+            'description' => 'US teams built on the NIST AI Risk Management Framework face binding EU AI Act obligations the moment their systems reach EU users. This crosswalk maps Govern, Map, Measure and Manage to the recorded obligations, shows which framework outputs count as evidence and which legal duties the framework never mentions.',
+            'summary' => 'Built on NIST AI RMF and selling into Europe? See which Govern, Map, Measure and Manage outputs count as EU AI Act evidence, and which binding duties the framework never covers.',
             'policies' => ['eu-ai-act', 'us-nist-ai-rmf'],
             'framework' => 'nist_ai_rmf',
             'steps' => [

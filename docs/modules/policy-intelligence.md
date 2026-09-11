@@ -346,7 +346,7 @@ Every record type that makes a factual claim carries the shared source-quality c
 |-------|------|------|---------|-------|
 | id | integer | no |  |  |
 | type | varchar | no |  |  |
-| subject_type | varchar | yes |  |  |
+| subject_type | varchar | yes |  | policy, jurisdiction, obligation, change, incident (AIID id), risk (MIT `ev_id`, `#` written `--`), other |
 | subject_slug | varchar | yes |  |  |
 | summary | varchar | no |  |  |
 | details | text | yes |  |  |

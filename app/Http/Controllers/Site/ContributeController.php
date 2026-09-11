@@ -21,6 +21,8 @@ class ContributeController extends Controller
         'jurisdiction' => ['name', 'regulatory_status_summary', 'binding_vs_guidance', 'current_priorities', 'regulators', 'official_source_url'],
         'obligation' => ['title', 'category', 'is_binding', 'summary', 'practical_action', 'applies_from', 'source_reference', 'official_source_url'],
         'change' => ['title', 'occurred_on', 'what_changed', 'practical_impact', 'impact_level', 'status_after', 'official_source_url'],
+        'incident' => ['title', 'occurred_on', 'description', 'deployers', 'developers', 'harmed', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'countries'],
+        'risk' => ['risk_category', 'risk_subcategory', 'description', 'domain', 'subdomain', 'entity', 'intent', 'timing', 'paper_title'],
     ];
 
     public function show(Request $request): View
@@ -44,8 +46,8 @@ class ContributeController extends Controller
             'subject' => $subject,
             'prefill' => [
                 'type' => array_key_exists($request->query('type', ''), ContributorSubmission::TYPES) ? $request->query('type') : 'correction',
-                'subject_type' => $subject['type'] ?? (in_array($subjectType, ['policy', 'jurisdiction', 'obligation', 'change', 'other'], true) ? $subjectType : null),
-                'subject_slug' => $subject['slug'] ?? (preg_match('/^[a-z0-9-]{0,160}$/', $subjectSlug) ? $subjectSlug : null),
+                'subject_type' => $subject['type'] ?? (in_array($subjectType, ['policy', 'jurisdiction', 'obligation', 'change', 'incident', 'risk', 'other'], true) ? $subjectType : null),
+                'subject_slug' => $subject['slug'] ?? (preg_match('/^[A-Za-z0-9._-]{0,160}$/', $subjectSlug) ? $subjectSlug : null),
                 'field' => $subject && array_key_exists((string) $request->query('field'), $subject['fields']) ? $request->query('field') : null,
             ],
         ]);
@@ -60,8 +62,8 @@ class ContributeController extends Controller
 
         $data = $request->validate([
             'type' => ['required', 'in:'.implode(',', array_keys(ContributorSubmission::TYPES))],
-            'subject_type' => ['nullable', 'in:policy,jurisdiction,obligation,change,other'],
-            'subject_slug' => ['nullable', 'string', 'max:160', 'regex:/^[a-z0-9-]*$/'],
+            'subject_type' => ['nullable', 'in:policy,jurisdiction,obligation,change,incident,risk,other'],
+            'subject_slug' => ['nullable', 'string', 'max:160', 'regex:/^[A-Za-z0-9._-]*$/'],
             'field' => ['nullable', 'string', 'max:64', 'regex:/^[a-z_]*$/'],
             'current_value' => ['nullable', 'string', 'max:4000'],
             'proposed_value' => ['nullable', 'string', 'max:4000'],
@@ -108,7 +110,7 @@ class ContributeController extends Controller
      */
     public static function resolveSubject(?string $type, string $slug): ?array
     {
-        if (! $type || $slug === '' || ! preg_match('/^[a-z0-9-]{1,160}$/', $slug)) {
+        if (! $type || $slug === '' || ! preg_match('/^[A-Za-z0-9._-]{1,160}$/', $slug)) {
             return null;
         }
         $labels = [
@@ -118,7 +120,7 @@ class ContributeController extends Controller
             'official_source_url' => 'Official source URL', 'regulatory_status_summary' => 'Regulatory status', 'binding_vs_guidance' => 'Binding vs guidance',
             'current_priorities' => 'Current priorities', 'regulators' => 'Regulators', 'category' => 'Category', 'summary' => 'Summary',
             'practical_action' => 'Practical action', 'source_reference' => 'Source reference', 'occurred_on' => 'Date of change',
-            'what_changed' => 'What changed', 'practical_impact' => 'Practical impact', 'impact_level' => 'Impact level', 'status_after' => 'Status after change',
+            'what_changed' => 'What changed', 'description' => 'Description', 'deployers' => 'Alleged deployer', 'developers' => 'Alleged developer', 'harmed' => 'Alleged harmed party', 'mit_domain' => 'Risk domain', 'mit_subdomain' => 'Risk subdomain', 'entity' => 'Causal entity', 'intent' => 'Intent', 'timing' => 'Timing', 'harm_level' => 'Harm level', 'countries' => 'Countries', 'risk_category' => 'Risk category', 'risk_subcategory' => 'Risk subcategory', 'domain' => 'Domain', 'subdomain' => 'Subdomain', 'paper_title' => 'Source paper', 'practical_impact' => 'Practical impact', 'impact_level' => 'Impact level', 'status_after' => 'Status after change',
         ];
 
         $record = match ($type) {
@@ -126,6 +128,8 @@ class ContributeController extends Controller
             'jurisdiction' => Jurisdiction::published()->where('slug', $slug)->first(),
             'obligation' => Obligation::published()->with('policyInstrument.jurisdiction')->where('slug', $slug)->first(),
             'change' => ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('slug', $slug)->first(),
+            'incident' => ctype_digit($slug) ? \App\Models\ExternalIncident::find((int) $slug) : null,
+            'risk' => \App\Models\ExternalRisk::find(str_replace('--', '#', $slug)),
             default => null,
         };
         if (! $record) {
@@ -143,6 +147,8 @@ class ContributeController extends Controller
             'jurisdiction' => [$record->name, $record->url(), null],
             'obligation' => [$record->title, $record->url(), $record->policyInstrument?->jurisdiction?->name],
             'change' => [$record->title, route('changes.year', $record->occurred_on->year).'#'.$record->slug, $record->jurisdiction?->name],
+            'incident' => ['AI incident #'.$record->incident_id.': '.$record->title, $record->url(), 'AI Incident Database'],
+            'risk' => [($record->risk_subcategory ?: $record->risk_category ?: $record->ev_id).' ('.$record->quick_ref.')', $record->url(), 'MIT AI Risk Repository'],
         };
 
         return [
@@ -150,8 +156,8 @@ class ContributeController extends Controller
             'slug' => $slug,
             'title' => $title,
             'url' => $url,
-            'official_source_url' => $record->official_source_url ?? ($type === 'obligation' ? $record->policyInstrument?->official_source_url : null),
-            'source_title' => $record->source_title ?? ($type === 'obligation' ? $record->policyInstrument?->source_title : null),
+            'official_source_url' => match ($type) { 'incident' => $record->citeUrl(), 'risk' => $record->navigatorUrl(), 'obligation' => $record->official_source_url ?? $record->policyInstrument?->official_source_url, default => $record->official_source_url },
+            'source_title' => match ($type) { 'incident' => 'AI Incident Database record', 'risk' => 'MIT AI Risk Repository (Risk Navigator)', 'obligation' => $record->source_title ?? $record->policyInstrument?->source_title, default => $record->source_title },
             'jurisdiction' => $jurisdiction,
             'content_version' => isset($record->content_version) ? (int) $record->content_version : null,
             'fields' => $fields,

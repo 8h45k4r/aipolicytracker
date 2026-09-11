@@ -66,6 +66,7 @@
                 <div class="flex flex-col gap-2 text-sm">
                     <x-site.save-button type="risk" :slug="$ev" :title="($r->risk_subcategory ?: $r->risk_category ?: $r->ev_id)" :url="$r->url()" :meta="$r->quick_ref" />
                     <a href="{{ route('risk.risks.export', ['format' => 'json', 'paper' => $r->quick_ref]) }}" class="btn-secondary">Export this paper's entries (JSON)</a>
+                    <a href="{{ route('contribute', ['type' => 'correction', 'subject_type' => 'risk', 'subject_slug' => $ev]) }}" class="btn-secondary" data-track="correction_click">Report a correction</a>
                     <button type="button" class="btn-secondary" data-copy-link>Copy link</button>
                 </div>
             </div>
