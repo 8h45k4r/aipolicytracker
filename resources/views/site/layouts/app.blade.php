@@ -97,7 +97,6 @@
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('about') }}">About</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('contribute') }}">Contribute</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('llms') }}">llms.txt</a></li>
             </ul>
         </div>
         <div class="md:col-span-4">
