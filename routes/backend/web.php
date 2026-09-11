@@ -20,6 +20,9 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/external', 'external')->name('external');
         Route::get('/downloads', 'downloads')->name('downloads');
         Route::get('/downloads/export', 'downloadsExport')->name('downloads.export');
+        Route::get('/settings', 'settings')->name('settings');
+        Route::post('/settings', 'settingsSave')->name('settings.save');
+        Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
     });
     // Free-tool library CRUD (tools, files, status).
     Route::prefix('backend/admin/tools')->as('backend.admin.tools.')->controller(\App\Http\Controllers\Backend\Admin\ToolController::class)->group(function () {
@@ -33,9 +36,6 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/{tool}/files/{file}/toggle', 'fileToggle')->name('files.toggle');
         Route::delete('/{tool}/files/{file}', 'fileDestroy')->name('files.destroy');
         Route::get('/{tool}/files/{file}', 'fileDownload')->name('files.download');
-        Route::get('/settings', 'settings')->name('settings');
-        Route::post('/settings', 'settingsSave')->name('settings.save');
-        Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
     });
 });
 
