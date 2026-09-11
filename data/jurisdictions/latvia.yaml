@@ -1,0 +1,51 @@
+slug: latvia
+name: Latvia
+short_name: Latvia
+iso_code: LV
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Latvia applies the EU AI Act; the Ministry of Environmental Protection and Regional Development coordinates digital and
+  AI policy, and the government approved an informational report on AI development in 2020 followed by AI measures in the
+  Digital Transformation Guidelines 2021–2027. A national AI centre (2025) and the designation of AI Act authorities are
+  in progress.
+regulatory_status_summary: EU AI Act applies; AI development report (2020) and digital transformation guidelines as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Informational report on AI development (2020).'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Vides aizsardzības un reģionālās attīstības ministrija (VARAM)
+  url: https://www.varam.gov.lv/en
+  role: Digital and AI policy coordination
+- name: Datu valsts inspekcija
+  url: https://www.dvi.gov.lv/en
+  role: Data-protection authority
+official_sources:
+- title: Ministry of Environmental Protection and Regional Development
+  publisher: Government of Latvia
+  url: https://www.varam.gov.lv/en
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- estonia
+- lithuania
+official_source_url: https://www.varam.gov.lv/en
+source_title: Ministry of Environmental Protection and Regional Development
+source_publisher: Government of Latvia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,57 @@
+slug: denmark-national-strategy-for-artificial-intelligence-2019
+jurisdiction: denmark
+title: National Strategy for Artificial Intelligence
+short_title: National Strategy for Artificial Intelligence (2019)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Denmark (Ministry of Finance and Ministry of Industry, Business and Financial Affairs)
+summary_plain: >-
+  Published in March 2019, the strategy sets a responsible foundation for AI (ethical principles, data ethics council, legal
+  clarity), more and better data, strong competences and new knowledge, and increased investment, with priority sectors
+  of health, energy and utilities, agriculture and transport, and a set of public-sector pilot projects.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2019-03-14'
+date_notes: Published March 2019.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+- healthcare
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+- health
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Strategy for Artificial Intelligence
+  publisher: Danish Government
+  url: https://en.digst.dk/strategy/the-national-strategy-for-artificial-intelligence/
+  document_date: '2019-03-14'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://en.digst.dk/strategy/the-national-strategy-for-artificial-intelligence/
+source_title: National Strategy for Artificial Intelligence
+source_publisher: Danish Government
+source_document_date: '2019-03-14'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

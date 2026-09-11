@@ -1,0 +1,57 @@
+slug: slovenia-national-ai-programme-2025
+jurisdiction: slovenia
+title: >-
+  Nacionalni program spodbujanja razvoja in uporabe umetne inteligence v Republiki Sloveniji do leta 2025
+short_title: National AI Programme to 2025 (NpUI)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of the Republic of Slovenia
+summary_plain: >-
+  Adopted in May 2021, the programme sets measures on research and innovation, skills, data and infrastructure, public-sector
+  and business adoption, ethics and trustworthy AI, and international cooperation, including support for the UNESCO IRCAI
+  centre.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2021-05-27'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: NpUI
+  publisher: Government of Slovenia
+  url: https://www.gov.si/en/state-authorities/ministries/ministry-of-digital-transformation/
+  document_date: '2021-05-27'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.gov.si/en/state-authorities/ministries/ministry-of-digital-transformation/
+source_title: NpUI
+source_publisher: Government of Slovenia
+source_document_date: '2021-05-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

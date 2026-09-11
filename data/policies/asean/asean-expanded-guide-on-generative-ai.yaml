@@ -1,0 +1,61 @@
+slug: asean-expanded-guide-on-generative-ai
+jurisdiction: asean
+title: Expanded ASEAN Guide on AI Governance and Ethics – Generative AI
+short_title: Expanded ASEAN Guide on AI Governance and Ethics – Generative AI (2025)
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: ASEAN Digital Ministers' Meeting
+summary_plain: >-
+  Endorsed in January 2025, the expanded guide addresses risks specific to generative AI (hallucination, deepfakes and misinformation,
+  intellectual property, privacy, security, bias, embedded values) and proposes governance dimensions covering accountability,
+  data, development and deployment, incident reporting, testing and assurance, security, content provenance, safety research
+  and public-interest use, with policy recommendations for member states.
+scope_summary: Voluntary; developers and deployers of generative AI across ASEAN.
+adopted_on: '2025-01-17'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+- gpai_provider
+ai_system_types:
+- generative_ai
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Expanded ASEAN Guide on AI Governance and Ethics – Generative AI
+  publisher: ASEAN Secretariat
+  url: https://asean.org/
+  document_date: '2025-01-17'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://asean.org/
+source_title: Expanded ASEAN Guide on AI Governance and Ethics – Generative AI
+source_publisher: ASEAN Secretariat
+source_document_date: '2025-01-17'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

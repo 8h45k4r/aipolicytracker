@@ -1,0 +1,58 @@
+slug: israel-ai-regulation-and-ethics-policy-2023
+jurisdiction: israel
+title: Israel's Policy on Artificial Intelligence Regulation and Ethics
+short_title: AI regulation and ethics policy (2023)
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: true
+published: true
+issuing_body: Ministry of Innovation, Science and Technology and Ministry of Justice
+summary_plain: >-
+  Adopted in December 2023 after public consultation, the policy sets Israel's approach: sector-specific regulation by existing
+  regulators, a risk-based approach, preference for soft tools (standards, self-regulation, sandboxes) over binding rules
+  at this stage, alignment with OECD principles, and common ethical principles (growth and sustainable development, human-centricity,
+  equality, transparency, safety, accountability, privacy). It establishes an AI policy coordination centre and an expert
+  advisory forum.
+scope_summary: Guidance to government ministries and regulators; no direct obligations on organisations.
+adopted_on: '2023-12-17'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Israel's Policy on AI Regulation and Ethics
+  publisher: Ministry of Innovation, Science and Technology
+  url: https://www.gov.il/en/pages/ai_2023
+  document_date: '2023-12-17'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.gov.il/en/pages/ai_2023
+source_title: Israel's Policy on AI Regulation and Ethics
+source_publisher: Ministry of Innovation, Science and Technology
+source_document_date: '2023-12-17'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

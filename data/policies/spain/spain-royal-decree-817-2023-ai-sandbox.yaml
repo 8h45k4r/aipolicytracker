@@ -1,0 +1,64 @@
+slug: spain-royal-decree-817-2023-ai-sandbox
+jurisdiction: spain
+title: >-
+  Real Decreto 817/2023, de 8 de noviembre, que establece un entorno controlado de pruebas para el ensayo del cumplimiento
+  de la propuesta de Reglamento de IA
+short_title: Royal Decree 817/2023 (AI regulatory sandbox)
+instrument_type: regulation
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Government of Spain
+summary_plain: >-
+  Establishes Spain's controlled testing environment (sandbox) for providers of high-risk AI systems to test compliance
+  with the then-proposed EU AI Act requirements: risk management, data governance, documentation, transparency, human oversight,
+  accuracy and robustness. Participation is voluntary; participants receive guidance and produce documentation that feeds
+  into national implementation.
+scope_summary: >-
+  Voluntary for AI providers and, where relevant, deployers selected through calls; obligations arise only for participants.
+adopted_on: '2023-11-08'
+published_on: '2023-11-09'
+in_force_on: '2023-11-10'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories:
+- high_risk
+use_cases:
+- safety_critical
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Real Decreto 817/2023
+  publisher: Boletín Oficial del Estado
+  url: https://www.boe.es/buscar/act.php?id=BOE-A-2023-22767
+  document_date: '2023-11-09'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.boe.es/buscar/act.php?id=BOE-A-2023-22767
+source_title: Real Decreto 817/2023
+source_publisher: Boletín Oficial del Estado
+source_document_date: '2023-11-09'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

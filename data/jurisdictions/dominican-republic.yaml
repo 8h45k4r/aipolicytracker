@@ -1,0 +1,47 @@
+slug: dominican-republic
+name: Dominican Republic
+short_name: Dominican Republic
+iso_code: DO
+jurisdiction_type: country
+region: Americas
+subregion: Caribbean
+featured: false
+published: true
+overview: >-
+  The Dominican Republic adopted a National Artificial Intelligence Strategy (ENIA) in 2023 through the Government Office
+  of Information and Communication Technologies (OGTIC), positioning the country as a regional AI hub with priorities in
+  public services, talent and ethics, and joined the Latin American AI index and UNESCO readiness processes.
+regulatory_status_summary: National AI strategy (2023) as policy; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (ENIA).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Oficina Gubernamental de Tecnologías de la Información y Comunicación (OGTIC)
+  url: https://ogtic.gob.do/
+  role: AI strategy lead
+official_sources:
+- title: Estrategia Nacional de Inteligencia Artificial de la República Dominicana
+  publisher: OGTIC
+  url: https://ogtic.gob.do/
+  document_date: '2023-10-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- costa-rica
+- colombia
+official_source_url: https://ogtic.gob.do/
+source_title: Estrategia Nacional de Inteligencia Artificial de la República Dominicana
+source_publisher: OGTIC
+source_document_date: '2023-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

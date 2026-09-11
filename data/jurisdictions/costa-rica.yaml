@@ -1,0 +1,52 @@
+slug: costa-rica
+name: Costa Rica
+short_name: Costa Rica
+iso_code: CR
+jurisdiction_type: country
+region: Americas
+subregion: Central America
+featured: false
+published: true
+overview: >-
+  Costa Rica launched its National Artificial Intelligence Strategy 2024–2027 in October 2024 through the Ministry of Science,
+  Innovation, Technology and Telecommunications (MICITT), built on the UNESCO readiness assessment and OECD principles,
+  and a draft AI regulation bill (Expediente 23.771) is before the Legislative Assembly. Costa Rica was the first Central
+  American country to complete UNESCO's Readiness Assessment Methodology.
+regulatory_status_summary: National AI strategy 2024–2027 adopted; AI bill under consideration in the Legislative Assembly.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy 2024–2027.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministerio de Ciencia, Innovación, Tecnología y Telecomunicaciones (MICITT)
+  url: https://www.micitt.go.cr/
+  role: AI strategy lead
+- name: Agencia de Protección de Datos de los Habitantes (PRODHAB)
+  url: https://www.prodhab.go.cr/
+  role: Data-protection authority
+official_sources:
+- title: Estrategia Nacional de Inteligencia Artificial 2024–2027
+  publisher: MICITT
+  url: https://www.micitt.go.cr/
+  document_date: '2024-10-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- mexico
+- colombia
+- chile
+official_source_url: https://www.micitt.go.cr/
+source_title: Estrategia Nacional de Inteligencia Artificial 2024–2027
+source_publisher: MICITT
+source_document_date: '2024-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

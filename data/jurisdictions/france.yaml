@@ -1,0 +1,65 @@
+slug: france
+name: France
+short_name: France
+iso_code: FR
+jurisdiction_type: country
+region: Europe
+subregion: Western Europe
+featured: true
+published: true
+overview: >-
+  France applies the EU AI Act and has built its national approach around a national AI strategy launched in 2018 (successive
+  phases to 2025), strong involvement of the data-protection authority CNIL, which publishes practical how-to sheets on
+  AI and data protection, and the AI Action Summit hosted in Paris in February 2025. France has proposed CNIL, the competition
+  and consumer authority (DGCCRF) and ARCOM among its AI Act competent authorities.
+regulatory_status_summary: >-
+  EU AI Act applies; national AI strategy (phases since 2018) as policy; CNIL AI guidance; competent-authority designation
+  in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy; CNIL AI how-to sheets.'
+current_priorities: >-
+  AI Act authority designation, compute and sovereign model investment, public-sector AI use, CNIL guidance on training
+  data and GDPR compliance.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Commission nationale de l'informatique et des libertés (CNIL)
+  url: https://www.cnil.fr/en/ai-how-sheets
+  role: Data-protection authority; publishes AI and GDPR guidance
+- name: Direction générale des Entreprises
+  url: https://www.entreprises.gouv.fr/
+  role: Ministry of the Economy directorate leading the national AI strategy
+official_sources:
+- title: 'CNIL: AI how-to sheets'
+  publisher: CNIL
+  url: https://www.cnil.fr/en/ai-how-sheets
+  document_type: guidance
+  tier: 1
+- title: Stratégie nationale pour l'intelligence artificielle
+  publisher: Ministère de l'Économie
+  url: https://www.economie.gouv.fr/strategie-nationale-intelligence-artificielle
+  document_type: strategy
+  tier: 1
+faq:
+- question: Who supervises AI in France?
+  answer: >-
+    The EU AI Act applies directly. France has proposed CNIL, DGCCRF and ARCOM among its competent authorities; CNIL already
+    publishes practical guidance on AI systems and the GDPR.
+related_jurisdictions:
+- eu
+- germany
+- uk
+official_source_url: https://www.cnil.fr/en/ai-how-sheets
+source_title: 'CNIL: AI how-to sheets'
+source_publisher: CNIL
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

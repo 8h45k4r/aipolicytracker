@@ -1,0 +1,76 @@
+slug: italy
+name: Italy
+short_name: Italy
+iso_code: IT
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: true
+published: true
+overview: >-
+  Italy is the first EU member state with a comprehensive national AI law: Law No. 132 of 23 September 2025 lays down principles
+  and delegations for AI, designates the Agency for Digital Italy (AgID) and the National Cybersecurity Agency (ACN) as
+  national authorities, adds sector rules for health, work, professions, justice and public administration, restricts access
+  for children under 14 and creates new criminal offences for harmful deepfakes. It sits alongside the EU AI Act and the
+  Italian AI strategy 2024–2026. The Garante (data-protection authority) has been active on generative AI, including its
+  2023 order against ChatGPT and a 2024 fine.
+regulatory_status_summary: >-
+  EU AI Act applies; national AI law in force since 10 October 2025; AI strategy 2024–2026 as policy; active data-protection
+  enforcement.
+binding_vs_guidance: >-
+  Binding: Law No. 132/2025 on artificial intelligence. Strategy or guidance: Italian AI Strategy 2024–2026.
+current_priorities: >-
+  Implementing the delegated decrees under Law 132/2025, AgID/ACN supervision, health and public-administration use, deepfake
+  offences.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Agenzia per l'Italia Digitale (AgID)
+  url: https://www.agid.gov.it/
+  role: National AI authority for notification, promotion and sandboxes under Law 132/2025
+- name: Agenzia per la Cybersicurezza Nazionale (ACN)
+  url: https://www.acn.gov.it/
+  role: National AI authority for supervision, inspection and sanctions
+- name: Garante per la protezione dei dati personali
+  url: https://www.garanteprivacy.it/
+  role: Data-protection authority; generative-AI enforcement
+official_sources:
+- title: Legge 23 settembre 2025, n. 132
+  publisher: Gazzetta Ufficiale della Repubblica Italiana
+  url: https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00146/sg
+  document_date: '2025-09-25'
+  document_type: legislation
+  tier: 1
+- title: Strategia Italiana per l'Intelligenza Artificiale 2024-2026
+  publisher: Presidenza del Consiglio dei Ministri / AgID
+  url: >-
+    https://www.agid.gov.it/sites/agid/files/2024-07/Strategia_italiana_per_l_Intelligenza_artificiale_2024-2026.pdf
+  document_date: '2024-07-22'
+  document_type: strategy
+  tier: 1
+faq:
+- question: Does Italy have a national AI law in addition to the EU AI Act?
+  answer: >-
+    Yes. Law No. 132 of 23 September 2025 entered into force on 10 October 2025. It does not replace the EU AI Act; it designates
+    national authorities, adds sector provisions and criminal offences, and delegates the government to adopt implementing
+    decrees.
+related_jurisdictions:
+- eu
+- spain
+- france
+official_source_url: https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00146/sg
+source_title: Legge 23 settembre 2025, n. 132
+source_publisher: Gazzetta Ufficiale della Repubblica Italiana
+source_document_date: '2025-09-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

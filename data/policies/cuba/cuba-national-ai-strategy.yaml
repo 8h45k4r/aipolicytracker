@@ -1,0 +1,51 @@
+slug: cuba-national-ai-strategy
+jurisdiction: cuba
+title: Estrategia para el desarrollo y uso de la inteligencia artificial en Cuba
+short_title: National AI strategy (2024)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Cuba (Ministry of Communications)
+summary_plain: >-
+  The strategy sets principles for the ethical development and use of AI in Cuba, priorities for public administration,
+  health and education, and a governance structure led by the Ministry of Communications.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministerio de Comunicaciones
+  publisher: Government of Cuba
+  url: https://www.mincom.gob.cu/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mincom.gob.cu/
+source_title: Ministerio de Comunicaciones
+source_publisher: Government of Cuba
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

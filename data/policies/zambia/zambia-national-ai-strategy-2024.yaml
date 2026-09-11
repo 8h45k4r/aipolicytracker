@@ -1,0 +1,51 @@
+slug: zambia-national-ai-strategy-2024
+jurisdiction: zambia
+title: Zambia National Artificial Intelligence Strategy
+short_title: National AI Strategy (2024)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Zambia (Ministry of Technology and Science)
+summary_plain: >-
+  The strategy sets objectives on AI skills and research, adoption in public services, agriculture, health and mining, data
+  infrastructure and responsible-AI governance.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of Technology and Science
+  publisher: Government of Zambia
+  url: https://www.mots.gov.zm/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mots.gov.zm/
+source_title: Ministry of Technology and Science
+source_publisher: Government of Zambia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

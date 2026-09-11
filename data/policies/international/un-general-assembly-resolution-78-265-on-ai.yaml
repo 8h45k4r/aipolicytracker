@@ -1,0 +1,64 @@
+slug: un-general-assembly-resolution-78-265-on-ai
+jurisdiction: international
+title: >-
+  UN General Assembly resolution A/RES/78/265: Seizing the opportunities of safe, secure and trustworthy artificial intelligence
+  systems for sustainable development (21 March 2024)
+short_title: UN General Assembly resolution 78/265 on safe, secure and trustworthy AI
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: United Nations General Assembly
+summary_plain: >-
+  The first General Assembly resolution on AI, adopted by consensus with more than 120 co-sponsors, encourages states to
+  promote safe, secure and trustworthy AI systems that respect human rights and advance the Sustainable Development Goals,
+  to close digital divides, and to develop governance frameworks and interoperable safeguards; it calls on companies to
+  act responsibly. It was followed by resolution A/RES/79/325 (August 2025) establishing an Independent International Scientific
+  Panel on AI and a Global Dialogue on AI Governance under the Global Digital Compact.
+scope_summary: Recommendatory; addressed to member states, the UN system and stakeholders.
+key_dates_summary: >-
+  2024-03-21: A/RES/78/265 adopted; 2024-09-22: Global Digital Compact; 2025-08-26: A/RES/79/325 creates the scientific
+  panel and global dialogue.
+adopted_on: '2024-03-21'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+- provider
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: A/RES/78/265
+  publisher: United Nations General Assembly
+  url: https://docs.un.org/en/A/RES/78/265
+  document_date: '2024-03-21'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://docs.un.org/en/A/RES/78/265
+source_title: A/RES/78/265
+source_publisher: United Nations General Assembly
+source_document_date: '2024-03-21'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,58 @@
+slug: turkiye-national-ai-strategy-2021-2025
+jurisdiction: turkiye
+title: Ulusal Yapay Zekâ Stratejisi 2021–2025 (National Artificial Intelligence Strategy)
+short_title: National AI Strategy 2021–2025
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: >-
+  Presidency of the Republic of Türkiye (Digital Transformation Office) and Ministry of Industry and Technology
+summary_plain: >-
+  Published by Presidential Circular in August 2021, the strategy sets six priorities: training AI experts and increasing
+  employment, supporting research and innovation, access to quality data and technical infrastructure, regulations to accelerate
+  socio-economic adaptation, strengthening international cooperation, and accelerating structural and workforce transformation.
+  Its action plan was updated for 2024–2025.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2021-08-20'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Artificial Intelligence Strategy 2021–2025
+  publisher: Digital Transformation Office
+  url: https://cbddo.gov.tr/en/nais/
+  document_date: '2021-08-20'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://cbddo.gov.tr/en/nais/
+source_title: National Artificial Intelligence Strategy 2021–2025
+source_publisher: Digital Transformation Office
+source_document_date: '2021-08-20'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.
