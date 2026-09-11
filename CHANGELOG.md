@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Correction form prefilled from the record: opening "Report a correction" on a policy, jurisdiction, obligation or change shows the record, its official source, a field picker with the value currently displayed, and a "correct value" box. The captured context (field, shown value, proposed value, record URL and content version) is stored with the submission and shown in the admin queue and alert email.
+- `/subscribe` page with a jurisdiction picker grouped by region, subscriber count and recent changes; "Subscribe" and "Saved" links in the header, mobile menu and footer.
+- "Follow" box on every policy page: subscribers can receive changes for one instrument only (policy slugs are now valid digest topics).
+- Saved records: a per-browser reading list (`/saved`) with Save buttons on policy, jurisdiction and obligation pages, count badge in the header, and copy as Markdown or JSON.
+
+### Fixed
+- `/dashboard` redirected to `/map`, which redirected again; it now goes straight to the home page.
 - Branded email layout for every message (confirmation, weekly digest, submission alerts and the admin test mail): centred logo, tagline, organisation, "Follow us on social" icons and copyright footer. Official LinkedIn, X, Facebook and Instagram profiles are configured once in `config/aipolicytracker.php` and shown in the website footer, the emails and the Organization structured data.
 - Global coverage: 78 new jurisdictions (117 total) and 104 new policy instruments (182 total) with 26 dated change events, covering every EU member state, non-EU Europe (Norway, Iceland, Switzerland, Serbia, Ukraine, Türkiye, Russia), the Council of Europe Framework Convention, international instruments (OECD AI Principles, UNESCO Recommendation, UN General Assembly resolution, G7 Hiroshima code, Bletchley Declaration, ISO/IEC 42001), ASEAN guides, US states (Texas, Utah, Illinois, New York, Tennessee), Canadian provinces (Quebec, Ontario), Central and South America, the Caribbean, Asia-Pacific (New Zealand, Hong Kong, Taiwan, Sri Lanka, Kazakhstan, Uzbekistan, Mongolia, Cambodia), the Middle East (Israel, Jordan, Kuwait, Oman, Lebanon) and Africa (Morocco, Tunisia, Algeria, Ethiopia, Senegal, Mauritius, Benin, Côte d'Ivoire, Uganda, Zambia, Zimbabwe, Sierra Leone, Tanzania, Namibia). Every record links an official source and enters as `pending_review` (debt #18).
 
