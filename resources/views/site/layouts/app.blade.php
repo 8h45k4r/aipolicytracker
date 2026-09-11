@@ -78,6 +78,11 @@
             <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" loading="lazy" decoding="async">
             <p class="mt-4 max-w-sm text-white/80">{{ config('aipolicytracker.positioning') }}</p>
             <p class="mt-4 max-w-sm text-xs leading-5 text-white/60">{{ config('aipolicytracker.disclaimer') }}</p>
+            <ul class="mt-5 flex items-center gap-3" aria-label="Follow AIPolicyTracker">
+                @foreach(config('aipolicytracker.social', []) as $social)
+                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-white/20 hover:ring-white/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-sm" loading="lazy"></a></li>
+                @endforeach
+            </ul>
         </div>
         <div class="md:col-span-2">
             <p class="eyebrow !text-brand-cyan">Explore</p>
