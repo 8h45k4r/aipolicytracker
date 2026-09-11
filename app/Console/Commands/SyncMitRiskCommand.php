@@ -86,6 +86,14 @@ class SyncMitRiskCommand extends Command
                     'domain' => $code($col($r, 'Domain')), 'subdomain' => $sub($col($r, 'Sub-domain')),
                 ];
             }
+            $seen = [];
+            foreach ($risks as &$rk) {
+                $seen[$rk['ev_id']] = ($seen[$rk['ev_id']] ?? 0) + 1;
+                if ($seen[$rk['ev_id']] > 1) {
+                    $rk['ev_id'] .= '#'.$seen[$rk['ev_id']];
+                }
+            }
+            unset($rk);
             foreach ($risks as $rk) {
                 if (isset($papers[$rk['quick_ref']])) {
                     $papers[$rk['quick_ref']]['risks']++;

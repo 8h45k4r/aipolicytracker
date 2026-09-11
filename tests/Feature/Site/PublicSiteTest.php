@@ -219,6 +219,8 @@ class PublicSiteTest extends TestCase
         $this->artisan('external:import')->assertExitCode(0);
         $this->assertGreaterThan(1000, \App\Models\ExternalIncident::count());
         $this->assertGreaterThan(2000, \App\Models\ExternalRisk::count());
+        $this->artisan('external:import')->assertExitCode(0); // idempotent re-run
+        $this->assertSame(\App\Models\ExternalRisk::count(), count(json_decode(file_get_contents(base_path('data/external/mit_risks.json')), true)['risks']));
 
         $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
         $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents');
