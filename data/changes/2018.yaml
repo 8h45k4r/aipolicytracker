@@ -1,7 +1,7 @@
-
-  - slug: 2018-06-01-india-national-strategy-for-artificial-intelligence-2
+changes:
+  - slug: 2018-06-01-india-national-strategy-for-artificial-intelligence
     jurisdiction: india
-    policy: india-national-strategy-for-artificial-intelligence-2
+    policy: india-national-strategy-for-artificial-intelligence
     occurred_on: '2018-06-01'
     title: NITI Aayog publishes the National Strategy for AI discussion paper (June 2018)
     what_changed: >-

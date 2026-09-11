@@ -1,4 +1,4 @@
-
+changes:
   - slug: 2023-06-02-argentina-disposicion-2-2023
     jurisdiction: argentina
     policy: argentina-disposicion-2-2023
@@ -22,9 +22,9 @@
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2023-04-24-canada-artificial-intelligence-and-data-act-2
+  - slug: 2023-04-24-canada-artificial-intelligence-and-data-act
     jurisdiction: canada
-    policy: canada-artificial-intelligence-and-data-act-2
+    policy: canada-artificial-intelligence-and-data-act
     occurred_on: '2023-04-24'
     title: Second reading passed; referred to the Standing Committee on Industry and Technology
     what_changed: >-
@@ -47,9 +47,36 @@
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
-      2023-07-13-china-interim-measures-for-the-management-of-generative-artificial-intelligence-services-2
+      2023-09-27-canada-voluntary-code-of-conduct-on-the-responsible-development-and-management-of-advanced-generative-ai-sy
+    jurisdiction: canada
+    policy: >-
+      canada-voluntary-code-of-conduct-on-the-responsible-development-and-management-of-advanced-generative-ai-syste
+    occurred_on: '2023-09-27'
+    title: Code published with initial signatories
+    what_changed: >-
+      Milestone recorded for Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative
+      AI Systems (Canada): Code published with initial signatories. Recorded from the official source listed; details
+      to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems
+    source_title: Code published with initial signatories
+    source_publisher: Innovation, Science and Economic Development Canada
+    source_document_date: '2023-09-27'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2023-07-13-china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
     jurisdiction: china
-    policy: china-interim-measures-for-the-management-of-generative-artificial-intelligence-services-2
+    policy: china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
     occurred_on: '2023-07-13'
     title: Measures published (Order No. 15, dated 10 July 2023)
     what_changed: >-
@@ -72,9 +99,9 @@
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
-      2023-08-15-china-interim-measures-for-the-management-of-generative-artificial-intelligence-services-2
+      2023-08-15-china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
     jurisdiction: china
-    policy: china-interim-measures-for-the-management-of-generative-artificial-intelligence-services-2
+    policy: china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
     occurred_on: '2023-08-15'
     title: Measures enter into force
     what_changed: >-
@@ -95,9 +122,36 @@
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2023-08-28-nigeria-national-artificial-intelligence-strategy-2
+  - slug: >-
+      2023-12-19-indonesia-surat-edaran-menteri-komunikasi-dan-informatika-nomor-9-tahun-2023-tentang-etika-kecerdasan-artif
+    jurisdiction: indonesia
+    policy: >-
+      indonesia-surat-edaran-menteri-komunikasi-dan-informatika-nomor-9-tahun-2023-tentang-etika-kecerdasan-artifisi
+    occurred_on: '2023-12-19'
+    title: Circular Letter No. 9/2023 on AI Ethics signed by the Minister
+    what_changed: >-
+      Milestone recorded for Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan
+      Artifisial (Indonesia): Circular Letter No. 9/2023 on AI Ethics signed by the Minister. Recorded from the official
+      source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://jdih.komdigi.go.id/produk_hukum/view/id/883/t/surat+edaran+menteri+komunikasi+dan+informatika+nomor+9+tahun+2023
+    source_title: Circular Letter No. 9/2023 on AI Ethics signed by the Minister
+    source_publisher: JDIH Kementerian Komunikasi dan Digital
+    source_document_date: '2023-12-19'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2023-08-28-nigeria-national-artificial-intelligence-strategy
     jurisdiction: nigeria
-    policy: nigeria-national-artificial-intelligence-strategy-2
+    policy: nigeria-national-artificial-intelligence-strategy
     occurred_on: '2023-08-28'
     title: FMCIDE announces initiative to co-create a National AI Strategy
     what_changed: >-
@@ -118,9 +172,9 @@
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2023-07-05-peru-ley-n-31814-2
+  - slug: 2023-07-05-peru-ley-n-31814
     jurisdiction: peru
-    policy: peru-ley-n-31814-2
+    policy: peru-ley-n-31814
     occurred_on: '2023-07-05'
     title: Law 31814 published in El Peruano
     what_changed: >-
@@ -141,9 +195,9 @@
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2023-04-20-rwanda-the-national-ai-policy-2
+  - slug: 2023-04-20-rwanda-the-national-ai-policy
     jurisdiction: rwanda
-    policy: rwanda-the-national-ai-policy-2
+    policy: rwanda-the-national-ai-policy
     occurred_on: '2023-04-20'
     title: Policy approved by Cabinet (per policy partners); full text published by MINICT
     what_changed: >-
@@ -165,9 +219,9 @@
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2023-09-01-saudi-arabia-ai-ethics-principles-2
+  - slug: 2023-09-01-saudi-arabia-ai-ethics-principles
     jurisdiction: saudi-arabia
-    policy: saudi-arabia-ai-ethics-principles-2
+    policy: saudi-arabia-ai-ethics-principles
     occurred_on: '2023-09-01'
     title: AI Ethics Principles version 1.0 issued (September 2023)
     what_changed: >-
@@ -188,9 +242,9 @@
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2023-12-04-singapore-national-artificial-intelligence-strategy-2-0-2
+  - slug: 2023-12-04-singapore-national-artificial-intelligence-strategy-2-0
     jurisdiction: singapore
-    policy: singapore-national-artificial-intelligence-strategy-2-0-2
+    policy: singapore-national-artificial-intelligence-strategy-2-0
     occurred_on: '2023-12-04'
     title: NAIS 2.0 launched by DPM Lawrence Wong
     what_changed: >-

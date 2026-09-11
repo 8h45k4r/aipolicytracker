@@ -1,7 +1,7 @@
-
-  - slug: 2022-06-16-canada-artificial-intelligence-and-data-act-2
+changes:
+  - slug: 2022-06-16-canada-artificial-intelligence-and-data-act
     jurisdiction: canada
-    policy: canada-artificial-intelligence-and-data-act-2
+    policy: canada-artificial-intelligence-and-data-act
     occurred_on: '2022-06-16'
     title: Bill C-27 introduced at first reading in the House of Commons
     what_changed: >-
@@ -22,9 +22,9 @@
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2022-07-26-thailand-thailand-national-ai-strategy-and-action-plan-2
+  - slug: 2022-07-26-thailand-thailand-national-ai-strategy-and-action-plan
     jurisdiction: thailand
-    policy: thailand-thailand-national-ai-strategy-and-action-plan-2
+    policy: thailand-thailand-national-ai-strategy-and-action-plan
     occurred_on: '2022-07-26'
     title: Cabinet approves the National AI Strategy and Action Plan (2022-2027)
     what_changed: >-
@@ -46,9 +46,9 @@
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2022-12-01-thailand-thailand-national-ai-strategy-and-action-plan-2
+  - slug: 2022-12-01-thailand-thailand-national-ai-strategy-and-action-plan
     jurisdiction: thailand
-    policy: thailand-thailand-national-ai-strategy-and-action-plan-2
+    policy: thailand-thailand-national-ai-strategy-and-action-plan
     occurred_on: '2022-12-01'
     title: English overview of the strategy published on Thailand's official AI portal
     what_changed: >-

@@ -1,7 +1,7 @@
-
-  - slug: 2020-08-10-indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045-2
+changes:
+  - slug: 2020-08-10-indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045
     jurisdiction: indonesia
-    policy: indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045-2
+    policy: indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045
     occurred_on: '2020-08-10'
     title: Stranas KA launched on National Technology Awakening Day (Hakteknas)
     what_changed: >-
@@ -23,9 +23,9 @@
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2020-07-17-saudi-arabia-national-strategy-for-data-ai-2
+  - slug: 2020-07-17-saudi-arabia-national-strategy-for-data-ai
     jurisdiction: saudi-arabia
-    policy: saudi-arabia-national-strategy-for-data-ai-2
+    policy: saudi-arabia-national-strategy-for-data-ai
     occurred_on: '2020-07-17'
     title: Strategy approved by the King (per SDAIA)
     what_changed: >-

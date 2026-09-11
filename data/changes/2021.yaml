@@ -1,7 +1,7 @@
-
-  - slug: 2021-04-19-canada-pan-canadian-artificial-intelligence-strategy-2
+changes:
+  - slug: 2021-04-19-canada-pan-canadian-artificial-intelligence-strategy
     jurisdiction: canada
-    policy: canada-pan-canadian-artificial-intelligence-strategy-2
+    policy: canada-pan-canadian-artificial-intelligence-strategy
     occurred_on: '2021-04-19'
     title: Phase II announced in Budget 2021 ($443.8 million)
     what_changed: >-
@@ -22,9 +22,9 @@
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2021-07-01-egypt-egypt-national-artificial-intelligence-strategy-2
+  - slug: 2021-07-01-egypt-egypt-national-artificial-intelligence-strategy
     jurisdiction: egypt
-    policy: egypt-egypt-national-artificial-intelligence-strategy-2
+    policy: egypt-egypt-national-artificial-intelligence-strategy
     occurred_on: '2021-07-01'
     title: Strategy published by MCIT (July 2021)
     what_changed: >-
@@ -46,9 +46,9 @@
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2021-12-01-malaysia-national-artificial-intelligence-roadmap-2021-2025-2
+  - slug: 2021-12-01-malaysia-national-artificial-intelligence-roadmap-2021-2025
     jurisdiction: malaysia
-    policy: malaysia-national-artificial-intelligence-roadmap-2021-2025-2
+    policy: malaysia-national-artificial-intelligence-roadmap-2021-2025
     occurred_on: '2021-12-01'
     title: AI-Rmap 2021-2025 adopted by MOSTI
     what_changed: >-
@@ -70,10 +70,10 @@
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
-      2021-01-26-vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030-2
+      2021-01-26-vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
     jurisdiction: vietnam
     policy: >-
-      vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030-2
+      vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
     occurred_on: '2021-01-26'
     title: Decision 127/QD-TTg signed by Deputy PM Vu Duc Dam
     what_changed: >-
