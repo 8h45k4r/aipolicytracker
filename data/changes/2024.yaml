@@ -1,4 +1,84 @@
-
+changes:
+  - slug: 2024-05-17-colorado-ai-act-signed
+    jurisdiction: us-colorado
+    policy: us-colorado-ai-act
+    occurred_on: 2024-05-17
+    title: Colorado signs the first US state law on algorithmic discrimination
+    what_changed: >
+      Governor Polis signed SB 24-205, creating duties of reasonable care for developers and deployers of high-risk
+      AI systems used in consequential decisions, originally effective 1 February 2026.
+    practical_impact: Organisations making consequential decisions about Colorado residents should begin scoping risk programmes and impact assessments.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+    source_title: "SB24-205 Consumer Protections for Artificial Intelligence"
+    source_publisher: "Colorado General Assembly"
+    source_document_date: 2024-05-17
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-05-30-singapore-genai-framework
+    jurisdiction: singapore
+    policy: singapore-model-ai-governance-framework
+    occurred_on: 2024-05-30
+    title: Singapore publishes the Model AI Governance Framework for Generative AI
+    what_changed: >
+      IMDA and the AI Verify Foundation released a generative-AI companion to the Model AI Governance Framework with
+      nine governance dimensions including accountability, incident reporting and content provenance.
+    practical_impact: Generative-AI developers and deployers in Singapore have a reference set of expected practices.
+    impact_level: routine
+    status_after: voluntary_standard
+    published: true
+    official_source_url: "https://aiverifyfoundation.sg/resources/mgf-gen-ai/"
+    source_title: "Model AI Governance Framework for Generative AI"
+    source_publisher: "AI Verify Foundation and IMDA"
+    source_document_date: 2024-05-30
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-07-12-eu-ai-act-published
+    jurisdiction: eu
+    policy: eu-ai-act
+    occurred_on: 2024-07-12
+    title: EU AI Act published in the Official Journal
+    what_changed: >
+      Regulation (EU) 2024/1689 was published in the Official Journal, fixing its entry into force for 1 August 2024
+      and starting the phased application clock under Article 113.
+    practical_impact: Every organisation supplying or using AI in the EU can now plan against fixed dates.
+    impact_level: urgent
+    status_after: adopted
+    published: true
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    source_title: "Regulation (EU) 2024/1689"
+    source_publisher: "Official Journal of the European Union"
+    source_document_date: 2024-07-12
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-09-05-australia-voluntary-standard-and-guardrails
+    jurisdiction: australia
+    policy: australia-voluntary-ai-safety-standard
+    occurred_on: 2024-09-05
+    title: Australia releases a Voluntary AI Safety Standard and consults on mandatory guardrails
+    what_changed: >
+      The Department of Industry, Science and Resources published ten voluntary guardrails and a proposals paper on
+      mandatory guardrails for high-risk AI, with consultation to 4 October 2024.
+    practical_impact: Australian organisations gained a concrete voluntary baseline aligned with ISO/IEC 42001 and the NIST AI RMF.
+    impact_level: high
+    status_after: voluntary_standard
+    published: true
+    official_source_url: "https://www.industry.gov.au/publications/voluntary-ai-safety-standard"
+    source_title: "Voluntary AI Safety Standard"
+    source_publisher: "Department of Industry, Science and Resources"
+    source_document_date: 2024-09-05
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
   - slug: 2024-06-13-african-union-continental-artificial-intelligence-strategy
     jurisdiction: african-union
     policy: african-union-continental-artificial-intelligence-strategy
