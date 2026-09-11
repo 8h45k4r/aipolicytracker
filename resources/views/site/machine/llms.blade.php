@@ -19,6 +19,8 @@ AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence 
 - Obligations: {{ route('obligations.index') }}
 - Compare: {{ route('compare.index') }}
 - Change log: {{ route('changes.index') }} (RSS: {{ route('changes.feed') }})
+- AI risk domains (MIT AI Risk Repository taxonomy with incident counts): {{ route('risk.index') }}
+- AI incidents summary (AI Incident Database, weekly): {{ route('risk.incidents') }}
 - Applicability check (educational): {{ route('tools.applicability') }}
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})

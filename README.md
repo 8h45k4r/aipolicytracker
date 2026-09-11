@@ -159,6 +159,13 @@ Every change to `main` passes the four role gates in `docs/reference/change-gate
 
 Code is released under the Apache License 2.0 (see `LICENSE` and `NOTICE`). Policy metadata contributed to this project should come only from official or openly licensed sources; see `SOURCE_ATTRIBUTION.md` for what may and may not be contributed. Third-party libraries keep their own licences; note in particular that CKEditor 5 is GPL-licensed and amCharts uses a free-with-attribution licence.
 
+## Data sources and references
+
+- Policy records: official government, legislature and regulator sources (see `SOURCE_ATTRIBUTION.md`).
+- AI risk taxonomy: MIT AI Risk Repository (MIT AI Risk Initiative), CC BY 4.0. Slattery et al. (2025), arXiv:2408.12622.
+- AI incidents: AI Incident Database (Responsible AI Collaborative), CC BY-SA 4.0. McGregor (2021), IAAI-21.
+- Refresh: `.github/workflows/refresh-external-data.yml` runs weekly and opens a pull request; see `docs/modules/external-data.md`.
+
 ## Governance and contact
 
 - **Bug reports, data corrections, feature requests:** open an issue using the templates.

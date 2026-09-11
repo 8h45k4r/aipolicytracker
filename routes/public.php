@@ -11,6 +11,7 @@ use App\Http\Controllers\Site\MachineReadableController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
+use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,10 @@ Route::get('/compare/{comparison}', [CompareController::class, 'show'])->name('c
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
 Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', '20[0-9]{2}')->name('changes.year');
+
+Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
+Route::get('/ai-risk/incidents', [RiskController::class, 'incidents'])->name('risk.incidents');
+Route::get('/ai-risk/{domain}', [RiskController::class, 'domain'])->where('domain', '[1-7]')->name('risk.domain');
 
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
 

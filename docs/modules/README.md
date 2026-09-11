@@ -10,6 +10,7 @@ One document per module. Each doc has: purpose, schema field table (must match t
 | Bookmarks & notifications | [bookmarks.md](bookmarks.md) | `book_marks`, `notifications` |
 | Accounts | [accounts.md](accounts.md) | `users`, `user_infos`, `password_reset_tokens`, `sessions` |
 | Site content (CMS) | [site-content.md](site-content.md) | `nav_bars`, `contributing_orgs` |
+| External data (AI risk, incidents) | [external-data.md](external-data.md) | none (JSON under `data/external/`) |
 | Policy intelligence | [policy-intelligence.md](policy-intelligence.md) | `jurisdictions`, `policy_instruments`, `policy_versions`, `policy_sections`, `obligations`, `applicability_rules`, `taxonomy_terms`, `taxonomy_assignments`, `deadlines`, `enforcement_events`, `procurement_rules`, `framework_mappings`, `evidence_artifacts`, `change_events`, `source_documents`, `contributor_submissions`, `reviewer_decisions` |
 
 Framework tables (`cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, `migrations`) are Laravel-managed and not documented as modules.
