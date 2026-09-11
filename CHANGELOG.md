@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Live sync of AI incidents from the AI Incident Database API (`external:sync-aiid-api`): new and modified records with their alleged deployers, developers and harmed parties (with entity identifiers), implicated systems, editor notes, related incidents, MIT and CSET classifications and report metadata are pulled every six hours through the cron trigger, on demand from Admin → External data, and merged into the reviewed JSON by the weekly refresh. `/ai-risk/incidents` lists the latest recorded incidents from the read model with the sync time, each linking to its profile; profiles show editor notes, entity links, implicated systems, related incidents and sync dates. Re-imports of the weekly snapshot never delete or downgrade live-synced rows.
+
 ### Changed
 - Open-source hygiene: the edge Worker reads its origin host from an `ORIGIN_HOST` variable instead of the repository; stale hosting examples removed; CODEOWNERS covers data, compliance docs, workflows and middleware; new required **Gate check** workflow fails pull requests that do not document the five gates and accepted debt; the deploy workflow purges the Cloudflare cache when the zone secrets are configured.
 

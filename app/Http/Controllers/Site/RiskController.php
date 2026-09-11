@@ -170,13 +170,20 @@ class RiskController extends Controller
     public function incidents(): View
     {
         $aiid = $this->data->aiid();
+        // Latest records come from the read-model table, which the live API sync keeps ahead of the weekly snapshot.
+        $latest = ExternalIncident::with('reports')->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(30)->get();
+        $live = ['count' => ExternalIncident::count(), 'synced_at' => ExternalIncident::max('synced_at'), 'latest_id' => ExternalIncident::max('incident_id'), 'recent' => ExternalIncident::where('occurred_on', '>=', now()->subDays(30)->toDateString())->count()];
+        $modified = $live['synced_at'] ?: ($aiid['snapshot_date'] ?? null);
+        $modified = $modified ? \Illuminate\Support\Carbon::parse($modified) : null;
         $seo = Seo::make(
-            'AI incidents: yearly trend, risk domains, sectors and countries',
-            'Weekly-refreshed summary of the AI Incident Database: incidents per year, by MIT risk domain, sector of deployment and country, with links to each incident record.',
+            'AI incidents: latest records, yearly trend, risk domains, sectors and countries',
+            'The latest AI incidents synced from the AI Incident Database, with incidents per year, by MIT risk domain, sector of deployment and country, and a profile page for every record.',
             route('risk.incidents')
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['AI incidents', route('risk.incidents')]])
-            ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI Incident Database weekly summary', 'url' => route('risk.incidents'), 'license' => $aiid['license_url'] ?? null, 'isBasedOn' => $aiid['source_url'] ?? null, 'dateModified' => $aiid['snapshot_date'] ?? null, 'creator' => ['@type' => 'Organization', 'name' => 'Responsible AI Collaborative']]);
+            ->withModified($modified)
+            ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI Incident Database: latest incidents and weekly summary', 'url' => route('risk.incidents'), 'license' => $aiid['license_url'] ?? null, 'isBasedOn' => $aiid['source_url'] ?? null, 'dateModified' => $modified?->toDateString(), 'creator' => ['@type' => 'Organization', 'name' => 'Responsible AI Collaborative']])
+            ->withJsonLd(['@type' => 'ItemList', 'name' => 'Latest recorded AI incidents', 'itemListOrder' => 'https://schema.org/ItemListOrderDescending', 'numberOfItems' => $latest->count(), 'itemListElement' => $latest->take(10)->values()->map(fn ($i, $k) => ['@type' => 'ListItem', 'position' => $k + 1, 'url' => $i->url(), 'name' => $i->title])->all()]);
 
-        return view('site.risk.incidents', ['seo' => $seo, 'aiid' => $aiid, 'mit' => $this->data->mitRisk()]);
+        return view('site.risk.incidents', ['seo' => $seo, 'aiid' => $aiid, 'mit' => $this->data->mitRisk(), 'latest' => $latest, 'live' => $live]);
     }
 }

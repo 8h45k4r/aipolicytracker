@@ -18,6 +18,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/subscribers/{subscriber}/resend', 'subscriberResend')->name('subscribers.resend');
         Route::delete('/subscribers/{subscriber}', 'subscriberDelete')->name('subscribers.delete');
         Route::get('/external', 'external')->name('external');
+        Route::post('/external/sync', 'externalSync')->name('external.sync');
         Route::get('/downloads', 'downloads')->name('downloads');
         Route::get('/downloads/export', 'downloadsExport')->name('downloads.export');
         Route::get('/settings', 'settings')->name('settings');
