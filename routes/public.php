@@ -85,4 +85,3 @@ Route::redirect('/dashboard', '/', 301);
 // Pre-2026 record URLs still crawled by search engines (Search Console lists them as 5xx/404).
 Route::get('/news/{any}', fn () => redirect('/changes', 301))->where('any', '.*');
 Route::get('/aipolicytracker/{any?}', fn () => redirect('/policies', 301))->where('any', '.*');
-Route::get('/gov-ai-index/{any?}', fn () => redirect('/jurisdictions', 301))->where('any', '.*');

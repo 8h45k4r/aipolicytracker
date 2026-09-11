@@ -5,7 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Fixed
-- Legacy record URLs (`/news/{id}`, `/aipolicytracker/single-view/{id}`, `/gov-ai-index/*`) that Google still crawls now redirect permanently to the change log, policy explorer and jurisdictions instead of returning 404 or 5xx.
+- Legacy record URLs (`/news/{id}`, `/aipolicytracker/single-view/{id}`) that Google still crawls now redirect permanently to the change log and policy explorer instead of returning 404 or 5xx.
 
 ### Fixed
 - Deploys now clean the target folder before unpacking the release, so files deleted or moved in the repository no longer linger on the server (stale duplicates had blocked `policy:import`). When the import fails at startup, the validation errors are printed to the container log.
