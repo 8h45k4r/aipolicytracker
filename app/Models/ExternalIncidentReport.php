@@ -16,7 +16,7 @@ class ExternalIncidentReport extends Model
 
     protected function casts(): array
     {
-        return ['date_published' => 'date', 'authors' => 'array'];
+        return ['date_published' => 'date', 'synced_at' => 'datetime', 'authors' => 'array'];
     }
 
     public function incident(): BelongsTo

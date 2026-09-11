@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\File;
 
 /**
  * Loads data/external/aiid_incidents.json and data/external/mit_risks.json into the
- * read-model tables (idempotent upsert; rows absent from the files are removed).
- * Runs on deploy after policy:import.
+ * read-model tables (idempotent upsert; rows absent from the files are removed unless
+ * the live API sync added them). Runs on deploy after policy:import.
  */
 class ImportExternalDataCommand extends Command
 {
@@ -29,7 +29,14 @@ class ImportExternalDataCommand extends Command
             if ($incidents) {
                 $ids = [];
                 $unique = [];
+                // Rows refreshed by the live API sync after this file's snapshot keep their newer state.
+                $snapshot = $incidents['snapshot_date'] ?? null;
+                $fresh = $snapshot ? ExternalIncident::whereNotNull('synced_at')->whereDate('synced_at', '>=', $snapshot)->pluck('incident_id')->flip() : collect();
                 foreach ($incidents['incidents'] ?? [] as $i) {
+                    $ids[] = $i['incident_id'];
+                    if (isset($fresh[$i['incident_id']])) {
+                        continue;
+                    }
                     $unique[$i['incident_id']] = $i;
                 }
                 foreach (array_chunk(array_values($unique), 250) as $chunk) {
@@ -38,12 +45,14 @@ class ImportExternalDataCommand extends Command
                         'deployers' => json_encode($i['deployers'] ?? []), 'developers' => json_encode($i['developers'] ?? []), 'harmed' => json_encode($i['harmed'] ?? []), 'report_count' => $i['report_count'] ?? 0,
                         'mit_domain' => $i['mit_domain'] ?: null, 'mit_subdomain' => $i['mit_subdomain'] ?: null, 'entity' => $i['entity'] ?: null, 'intent' => $i['intent'] ?: null, 'timing' => $i['timing'] ?: null,
                         'sectors' => json_encode($i['sectors'] ?? []), 'countries' => json_encode($i['countries'] ?? []), 'harm_level' => $i['harm_level'] ?: null, 'snapshot_date' => $incidents['snapshot_date'] ?? null,
+                        'editor_notes' => ($i['editor_notes'] ?? '') ?: null, 'entities' => isset($i['entities']) ? json_encode($i['entities']) : null, 'implicated_systems' => isset($i['implicated_systems']) ? json_encode($i['implicated_systems']) : null,
+                        'similar_incidents' => isset($i['similar_incidents']) ? json_encode($i['similar_incidents']) : null, 'modified_at' => $i['modified_at'] ?? null,
                         'created_at' => now(), 'updated_at' => now(),
                     ], $chunk);
                     ExternalIncident::upsert($rows, ['incident_id'], array_diff(array_keys($rows[0]), ['incident_id', 'created_at']));
-                    $ids = array_merge($ids, array_column($chunk, 'incident_id'));
                 }
-                ExternalIncident::whereNotIn('incident_id', $ids)->delete();
+                // Rows added by the live sync since the snapshot are kept; everything else absent from the file goes.
+                ExternalIncident::whereNotIn('incident_id', $ids)->whereNull('synced_at')->delete();
             }
             if ($reports) {
                 $known = ExternalIncident::pluck('incident_id')->flip();
@@ -63,7 +72,7 @@ class ImportExternalDataCommand extends Command
                     \App\Models\ExternalIncidentReport::upsert($rows, ['report_number'], array_diff(array_keys($rows[0]), ['report_number', 'created_at']));
                     $ids = array_merge($ids, array_column($chunk, 'report_number'));
                 }
-                \App\Models\ExternalIncidentReport::whereNotIn('report_number', $ids)->delete();
+                \App\Models\ExternalIncidentReport::whereNotIn('report_number', $ids)->whereNull('synced_at')->delete();
             }
             if ($risks) {
                 $ids = [];

@@ -7,6 +7,7 @@ use App\Mail\SubscriptionConfirmMail;
 use App\Models\AppSetting;
 use App\Models\ChangeEvent;
 use App\Models\ContributorSubmission;
+use App\Models\ExternalIncident;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -14,6 +15,7 @@ use App\Models\Subscriber;
 use App\Services\ExternalData\ExternalDataset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -157,7 +159,22 @@ class AdminController extends Controller
 
     public function external(ExternalDataset $external): View
     {
-        return view('backend.admin.external', ['aiid' => $external->aiid(), 'mit' => $external->mitRisk()]);
+        $live = [
+            'rows' => ExternalIncident::count(), 'synced_rows' => ExternalIncident::whereNotNull('synced_at')->count(), 'synced_at' => ExternalIncident::max('synced_at'), 'latest_id' => ExternalIncident::max('incident_id'),
+            'reports' => \App\Models\ExternalIncidentReport::count(), 'last_run' => \Illuminate\Support\Facades\Cache::get(\App\Console\Commands\SyncAiidApiCommand::LAST_RUN_KEY),
+        ];
+
+        return view('backend.admin.external', ['aiid' => $external->aiid(), 'mit' => $external->mitRisk(), 'live' => $live]);
+    }
+
+    /** Runs one incremental pull from the AI Incident Database API (same command as the cron trigger). */
+    public function externalSync(): RedirectResponse
+    {
+        @set_time_limit(280);
+        $code = Artisan::call('external:sync-aiid-api', ['--max' => 300]);
+        $out = trim(Artisan::output());
+
+        return back()->with($code === 0 ? 'success' : 'error', $out ?: ($code === 0 ? 'Sync finished.' : 'Sync failed.'));
     }
 
     public function settings(): View
