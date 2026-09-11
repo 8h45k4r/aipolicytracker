@@ -77,8 +77,8 @@ class ToolController extends Controller
         Storage::disk(ToolFile::DISK)->putFileAs('tools/'.$tool->slug, $upload, $name);
         $abs = Storage::disk(ToolFile::DISK)->path($path);
         $tool->files()->updateOrCreate(['file_name' => $name], [
-            'label' => $data['label'] ?: (Tool::LABELS[$ext] ?? strtoupper($ext)), 'disk_path' => $path, 'mime' => $upload->getClientMimeType(),
-            'size' => filesize($abs), 'checksum' => hash_file('sha256', $abs), 'version' => $data['version'] ?: $tool->version, 'is_active' => true,
+            'label' => ($data['label'] ?? null) ?: (Tool::LABELS[$ext] ?? strtoupper($ext)), 'disk_path' => $path, 'mime' => $upload->getClientMimeType(),
+            'size' => filesize($abs), 'checksum' => hash_file('sha256', $abs), 'version' => ($data['version'] ?? null) ?: $tool->version, 'is_active' => true,
             'sort_order' => ($tool->files()->max('sort_order') ?? 0) + 10,
         ]);
         $tool->touch();
