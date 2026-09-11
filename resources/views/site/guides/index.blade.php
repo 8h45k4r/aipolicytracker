@@ -1,23 +1,34 @@
 @extends('site.layouts.app')
 @section('content')
-@php($types = config('resources.types'))
+@php($types = \App\Models\Tool::TYPES)
 @php($fw = config('resources.frameworks'))
 @php($topics = config('resources.topics'))
-@php($chip = fn ($key, $val) => route('guides.index', array_filter(array_merge($filters, [$key => $filters[$key] === $val ? null : $val]))))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Guides and free tools</h1>
     <p class="mt-2 max-w-[64ch] text-brand-body">Practical, source-backed guides that connect recorded obligations to what a team actually does, plus free templates, checklists and registers you can preview online and download with a free account.</p>
 
-    <form method="get" action="{{ route('guides.index') }}" class="mt-6 card-flat p-4 space-y-3" data-autosubmit role="search" aria-label="Search guides and tools">
-        <div class="flex gap-2 max-w-xl"><label for="g-q" class="sr-only">Search guides and tools</label><input id="g-q" type="search" name="q" value="{{ $filters['q'] }}" class="input flex-1" placeholder="Search guides, templates, EU AI Act, risk register…">
-            @foreach(['type','framework','topic','access'] as $k)@if($filters[$k])<input type="hidden" name="{{ $k }}" value="{{ $filters[$k] }}">@endif @endforeach
-            <button type="submit" class="btn-primary">Search</button></div>
-        <div class="flex flex-wrap items-center gap-1.5 text-sm"><span class="meta w-28">Content type</span><a class="chip {{ !$filters['type'] ? 'chip-active' : '' }}" href="{{ $chip('type', null) }}">All</a>@foreach($types as $k => $label)<a class="chip {{ $filters['type'] === $k ? 'chip-active' : '' }}" href="{{ $chip('type', $k) }}">{{ \Illuminate\Support\Str::plural($label) }}</a>@endforeach</div>
-        <div class="flex flex-wrap items-center gap-1.5 text-sm"><span class="meta w-28">Framework</span><a class="chip {{ !$filters['framework'] ? 'chip-active' : '' }}" href="{{ $chip('framework', null) }}">All</a>@foreach($fw as $k => $label)<a class="chip {{ $filters['framework'] === $k ? 'chip-active' : '' }}" href="{{ $chip('framework', $k) }}">{{ $label }}</a>@endforeach</div>
-        <div class="flex flex-wrap items-center gap-1.5 text-sm"><span class="meta w-28">Topic</span><a class="chip {{ !$filters['topic'] ? 'chip-active' : '' }}" href="{{ $chip('topic', null) }}">All</a>@foreach($topics as $k => $label)<a class="chip {{ $filters['topic'] === $k ? 'chip-active' : '' }}" href="{{ $chip('topic', $k) }}">{{ $label }}</a>@endforeach</div>
-        <div class="flex flex-wrap items-center gap-1.5 text-sm"><span class="meta w-28">Access</span><a class="chip {{ !$filters['access'] ? 'chip-active' : '' }}" href="{{ $chip('access', null) }}">All</a><a class="chip {{ $filters['access'] === 'read' ? 'chip-active' : '' }}" href="{{ $chip('access', 'read') }}">Read online</a><a class="chip {{ $filters['access'] === 'download' ? 'chip-active' : '' }}" href="{{ $chip('access', 'download') }}">Free download</a></div>
-        @if($filtered)<p class="text-xs text-brand-muted">{{ $guides->count() + $tools->count() }} {{ \Illuminate\Support\Str::plural('result', $guides->count() + $tools->count()) }} · <a href="{{ route('guides.index') }}">Clear filters</a></p>@endif
+    <form method="get" action="{{ route('guides.index') }}" class="mt-6 card-flat p-4" data-autosubmit role="search" aria-label="Search and filter guides and tools">
+        <div class="grid gap-3 md:grid-cols-12 md:items-end">
+            <div class="md:col-span-4"><label for="g-q" class="label">Search</label><input id="g-q" type="search" name="q" value="{{ $filters['q'] }}" class="input" placeholder="EU AI Act, risk register, inventory…"></div>
+            <div class="md:col-span-2"><label for="g-type" class="label">Content type</label><select id="g-type" name="type" class="input"><option value="">All types</option>@foreach($types as $k => $label)<option value="{{ $k }}" @selected($filters['type'] === $k)>{{ \Illuminate\Support\Str::plural($label) }}</option>@endforeach</select></div>
+            <div class="md:col-span-2"><label for="g-fw" class="label">Framework <span class="meta font-normal">(multi)</span></label><select id="g-fw" name="framework[]" class="input" multiple size="3">@foreach($fw as $k => $label)<option value="{{ $k }}" @selected(in_array($k, $filters['framework'], true))>{{ $label }}</option>@endforeach</select></div>
+            <div class="md:col-span-2"><label for="g-topic" class="label">Topic <span class="meta font-normal">(multi)</span></label><select id="g-topic" name="topic[]" class="input" multiple size="3">@foreach($topics as $k => $label)<option value="{{ $k }}" @selected(in_array($k, $filters['topic'], true))>{{ $label }}</option>@endforeach</select></div>
+            <div class="md:col-span-1"><label for="g-access" class="label">Access</label><select id="g-access" name="access" class="input"><option value="">All</option><option value="read" @selected($filters['access'] === 'read')>Read online</option><option value="download" @selected($filters['access'] === 'download')>Free download</option></select></div>
+            <div class="md:col-span-1 flex gap-2"><button type="submit" class="btn-primary w-full">Apply</button></div>
+        </div>
+        @if($filtered)
+        <div class="mt-3 flex flex-wrap items-center gap-1.5 text-xs">
+            <span class="meta">Active:</span>
+            @if($filters['q'])<span class="chip !min-h-0 !py-0.5">“{{ $filters['q'] }}”</span>@endif
+            @if($filters['type'])<span class="chip !min-h-0 !py-0.5">{{ \Illuminate\Support\Str::plural($types[$filters['type']]) }}</span>@endif
+            @foreach($filters['framework'] as $f)<span class="chip !min-h-0 !py-0.5">{{ $fw[$f] }}</span>@endforeach
+            @foreach($filters['topic'] as $t)<span class="chip !min-h-0 !py-0.5">{{ $topics[$t] }}</span>@endforeach
+            @if($filters['access'])<span class="chip !min-h-0 !py-0.5">{{ $filters['access'] === 'read' ? 'Read online' : 'Free download' }}</span>@endif
+            <span class="meta">· {{ $guides->count() + $tools->count() }} {{ \Illuminate\Support\Str::plural('result', $guides->count() + $tools->count()) }}</span>
+            <a href="{{ route('guides.index') }}" class="chip !min-h-0 !py-0.5">Clear</a>
+        </div>
+        @endif
     </form>
 
     @if($guides->isEmpty() && $tools->isEmpty())

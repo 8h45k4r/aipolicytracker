@@ -1,5 +1,5 @@
 @props(['item'])
-@php($types = config('resources.types'))
+@php($types = \App\Models\Tool::TYPES)
 @php($fw = config('resources.frameworks'))
 @php($url = $item['kind'] === 'tool' ? route('tools.show', $item['slug']) : route('guides.show', $item['slug']))
 <li class="card-flat p-4 flex flex-col">

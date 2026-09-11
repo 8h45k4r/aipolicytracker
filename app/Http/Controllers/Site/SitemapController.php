@@ -56,7 +56,7 @@ class SitemapController extends Controller
             [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [route('risk.domain', 1), 'monthly', '0.6'], [route('risk.domain', 2), 'monthly', '0.6'], [route('risk.domain', 3), 'monthly', '0.6'], [route('risk.domain', 4), 'monthly', '0.6'], [route('risk.domain', 5), 'monthly', '0.6'], [route('risk.domain', 6), 'monthly', '0.6'], [route('risk.domain', 7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'],
             [route('about'), 'monthly', '0.5'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
-        foreach (config('resources.tools', []) as $slug => $tool) {
+        foreach (\App\Models\Tool::published()->orderBy('sort_order')->pluck('slug') as $slug) {
             $pages[] = [route('tools.show', $slug), 'monthly', '0.8'];
         }
         foreach (array_keys(config('content.guides', [])) as $slug) {
