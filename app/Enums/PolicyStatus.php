@@ -61,12 +61,12 @@ enum PolicyStatus: string
     public function badgeClass(): string
     {
         return match ($this) {
-            self::InForce, self::PartiallyApplicable => 'bg-emerald-50 text-emerald-800 ring-emerald-600/20',
-            self::Adopted => 'bg-sky-50 text-sky-800 ring-sky-600/20',
-            self::Proposed, self::UnderConsultation => 'bg-amber-50 text-amber-800 ring-amber-600/20',
-            self::Guidance, self::VoluntaryStandard => 'bg-slate-100 text-slate-700 ring-slate-500/20',
-            self::EnforcementAction => 'bg-rose-50 text-rose-800 ring-rose-600/20',
-            self::Superseded, self::Repealed, self::Archived => 'bg-slate-100 text-slate-500 ring-slate-400/20',
+            self::InForce, self::PartiallyApplicable => 'bg-state-goodbg text-state-good ring-state-good/20',
+            self::Adopted => 'bg-state-infobg text-state-info ring-state-info/20',
+            self::Proposed, self::UnderConsultation => 'bg-state-warnbg text-state-warn ring-state-warn/20',
+            self::Guidance, self::VoluntaryStandard => 'bg-state-neutralbg text-brand-body ring-brand-line',
+            self::EnforcementAction => 'bg-state-badbg text-state-bad ring-state-bad/20',
+            self::Superseded, self::Repealed, self::Archived => 'bg-state-neutralbg text-state-neutral ring-brand-line',
         };
     }
 
