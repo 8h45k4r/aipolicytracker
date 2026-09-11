@@ -76,6 +76,22 @@ Free tools (templates, checklists, registers, a starter plan) listed on `/guides
 | organization_name | varchar | yes | Optional at sign-up |
 | signup_source | varchar(64) | yes | `free-tool` when sign-up started from a tool gate, else `site` |
 
+## Schema: `page_views`
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | bigint | no | | |
+| day | date | no | | |
+| path | varchar(191) | no | | Unique with `day`; only `/guides` and `/guides/*` are counted |
+| views | int | no | 0 | Successful, non-bot GET views; no cookies, IPs or user ids |
+| created_at / updated_at | timestamp | yes | | |
+
+`CountFunnelViews` middleware increments the daily counter; the admin Guides and downloads page shows the 30-day funnel (library views → tool views → gate views → sign-ups from a gate → downloads → second tool).
+
+## Email
+
+`DownloadLinksMail` is sent after every recorded download with 24-hour signed links to each active file, the related guide and the next-step tool (branded layout, text alternate).
+
 ## Interlinks
 
 - **Outbound:** `resource_downloads.user_id` → [accounts](accounts.md); `resource_slug` → `config/resources.php`; tools link to `policy_instruments` (`related_policies`) and guides (`related_guides`).
@@ -91,4 +107,4 @@ Read guide: public · Preview tool: public · Download: authenticated + licence 
 
 ## Not yet implemented (debt #19)
 
-Google/GitHub sign-in, generated PDF/DOCX for the seeded tools (admins can upload them), welcome email with file links, enforced email verification before download.
+Google/GitHub sign-in, generated PDF for the seeded tools (DOCX, XLSX, CSV and Markdown exist; admins can upload PDF), enforced email verification before download.

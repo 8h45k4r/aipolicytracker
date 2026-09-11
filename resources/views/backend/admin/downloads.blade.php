@@ -15,7 +15,15 @@
     </section>
     <section class="card-flat p-5" aria-labelledby="by-src"><h2 id="by-src" class="section-title !text-lg">Sign-up source</h2>
         <dl class="mt-3 text-sm divide-y divide-brand-line">@forelse($bySource as $src => $n)<div class="py-2 flex justify-between"><dt>{{ $src }}</dt><dd class="font-mono">{{ $n }}</dd></div>@empty<p class="text-brand-muted">No users yet.</p>@endforelse</dl>
-        <p class="mt-3 meta">Funnel to watch: tool page view → download click → sign-up → first download → second tool. Page-view counts need analytics (see Settings).</p>
+    </section>
+    <section class="card-flat p-5" aria-labelledby="funnel-h"><h2 id="funnel-h" class="section-title !text-lg">Funnel, last 30 days</h2>
+        <p class="mt-1 meta">Anonymous daily page counts (no cookies, no IPs) plus account and download records.</p>
+        <ol class="mt-3 text-sm divide-y divide-brand-line">
+            @foreach([['Guides library views', $funnel['library_views']], ['Tool page views', $funnel['tool_views']], ['Download clicks (gate views)', $funnel['gate_views']], ['Sign-ups from a tool gate', $funnel['signups_from_tools']], ['Downloads', $funnel['downloads']], ['Users with a second tool', $funnel['second_downloads']]] as [$label, $n])
+            <li class="py-2 flex justify-between"><span>{{ $label }}</span><span class="font-mono">{{ $n ?: '—' }}</span></li>
+            @endforeach
+        </ol>
+        @if($topPages->isNotEmpty())<p class="mt-3 text-xs font-semibold uppercase tracking-wide text-brand-muted">Most viewed</p><ul class="mt-1 text-xs divide-y divide-brand-line">@foreach($topPages as $path => $n)<li class="py-1 flex justify-between gap-2"><span class="font-mono truncate">{{ $path }}</span><span class="font-mono">{{ $n }}</span></li>@endforeach</ul>@endif
     </section>
 </div>
 <section class="mt-8" aria-labelledby="recent"><h2 id="recent" class="section-title !text-lg">Download activity</h2>
