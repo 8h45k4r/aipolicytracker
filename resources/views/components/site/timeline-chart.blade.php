@@ -2,11 +2,11 @@
 {{-- Bars per year with policy milestones marked above the year they fall in. Every bar links to the incident browser for that year. --}}
 @php($values = collect($series))
 @php($max = max(1, (int) $values->max()))
+@php($tone = fn ($v) => $v / $max >= 0.75 ? '#9B1C2E' : ($v / $max >= 0.5 ? '#B45309' : '#002147'))
 @php($n = max(1, $values->count()))
 @php($w = 720)
 @php($bw = $w / $n)
 @php($years = $values->keys()->values())
-@php($tone = fn ($v) => $v / $max >= 0.75 ? '#9B1C2E' : ($v / $max >= 0.5 ? '#B45309' : '#002147'))
 <figure {{ $attributes->merge(['class' => 'card-flat p-4']) }} data-chart="{{ \Illuminate\Support\Str::slug($title) }}">
     <figcaption class="text-sm font-semibold text-brand-navy">{{ $title }}</figcaption>
     <svg viewBox="0 0 {{ $w }} {{ $height + 70 }}" role="img" aria-label="{{ $title }}" class="mt-2 w-full max-w-full h-auto">

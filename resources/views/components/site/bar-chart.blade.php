@@ -1,7 +1,7 @@
 @props(['series', 'title', 'height' => 160, 'note' => null, 'scale' => false, 'export' => true])
-@php($tone = fn ($v) => $scale ? ($v / $max >= 0.75 ? '#9B1C2E' : ($v / $max >= 0.5 ? '#B45309' : '#002147')) : '#002147')
 @php($values = collect($series))
 @php($max = max(1, (int) $values->max()))
+@php($tone = fn ($v) => $scale ? ($v / $max >= 0.75 ? '#9B1C2E' : ($v / $max >= 0.5 ? '#B45309' : '#002147')) : '#002147')
 @php($n = max(1, $values->count()))
 @php($w = 720)
 @php($bw = max(6, floor(($w - 40) / $n) - 6))
