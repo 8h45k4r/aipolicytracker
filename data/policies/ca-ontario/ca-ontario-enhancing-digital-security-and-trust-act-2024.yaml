@@ -1,0 +1,65 @@
+slug: ca-ontario-enhancing-digital-security-and-trust-act-2024
+jurisdiction: ca-ontario
+title: >-
+  Strengthening Cyber Security and Building Trust in the Public Sector Act, 2024 (Bill 194), Schedule 1: Enhancing Digital
+  Security and Trust Act, 2024
+short_title: Ontario Enhancing Digital Security and Trust Act, 2024 (Bill 194)
+instrument_type: act
+status: adopted
+status_note: >-
+  Royal assent 25 November 2024; AI provisions come into force by proclamation and depend on regulations that set disclosure,
+  accountability and risk-management requirements.
+is_binding: true
+featured: false
+published: true
+issuing_body: Legislative Assembly of Ontario
+summary_plain: >-
+  The Act allows the Ontario government to make regulations governing the use of AI systems by public-sector entities (ministries,
+  agencies, hospitals, school boards, municipalities as prescribed): requirements to disclose AI use, to develop and implement
+  accountability frameworks, to take steps to manage risks, to have human oversight, and prohibitions on prescribed uses.
+  It also addresses cyber security and children's digital information.
+scope_summary: Ontario public-sector entities as prescribed by regulation; not private organisations.
+key_dates_summary: '2024-11-25: royal assent; AI provisions in force on proclamation.'
+adopted_on: '2024-11-25'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- public_services
+- education
+- healthcare
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Bill 194
+  publisher: Legislative Assembly of Ontario
+  url: https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-194
+  document_date: '2024-11-25'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-194
+source_title: Bill 194
+source_publisher: Legislative Assembly of Ontario
+source_document_date: '2024-11-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

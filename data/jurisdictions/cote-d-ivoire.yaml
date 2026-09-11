@@ -1,0 +1,51 @@
+slug: cote-d-ivoire
+name: Côte d'Ivoire
+short_name: Côte d'Ivoire
+iso_code: CI
+jurisdiction_type: country
+region: Africa
+subregion: Western Africa
+featured: false
+published: true
+overview: >-
+  Côte d'Ivoire adopted a National Artificial Intelligence Strategy and a data-governance strategy in 2025 through the Ministry
+  of Digital Transition and Digitalisation, with priorities on public services, agriculture, health, talent and ethics;
+  Law 2013-450 on personal data and ARTCI apply.
+regulatory_status_summary: National AI strategy (2025) as policy; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (2025).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministère de la Transition Numérique et de la Digitalisation
+  url: https://numerique.gouv.ci/
+  role: AI strategy lead
+- name: Autorité de Régulation des Télécommunications/TIC de Côte d'Ivoire (ARTCI)
+  url: https://www.artci.ci/
+  role: Telecoms and data-protection regulator
+official_sources:
+- title: Ministère de la Transition Numérique et de la Digitalisation
+  publisher: Government of Côte d'Ivoire
+  url: https://numerique.gouv.ci/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- ghana
+- senegal
+official_source_url: https://numerique.gouv.ci/
+source_title: Ministère de la Transition Numérique et de la Digitalisation
+source_publisher: Government of Côte d'Ivoire
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

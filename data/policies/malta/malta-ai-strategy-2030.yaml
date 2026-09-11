@@ -1,0 +1,55 @@
+slug: malta-ai-strategy-2030
+jurisdiction: malta
+title: 'Malta: The Ultimate AI Launchpad – A Strategy and Vision for Artificial Intelligence in Malta 2030'
+short_title: Malta AI Strategy and Vision 2030
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: >-
+  Government of Malta (Parliamentary Secretariat for Financial Services, Digital Economy and Innovation)
+summary_plain: >-
+  Launched in October 2019, the strategy sets three pillars (investment and adoption, public-sector adoption, private-sector
+  adoption) and enablers (education, legal and ethical framework, ecosystem infrastructure), including an ethical AI framework
+  and the MDIA's voluntary AI certification.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2019-10-01'
+date_notes: Month-level date.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Malta AI Strategy
+  publisher: Government of Malta
+  url: https://malta.ai/
+  document_date: '2019-10-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://malta.ai/
+source_title: Malta AI Strategy
+source_publisher: Government of Malta
+source_document_date: '2019-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

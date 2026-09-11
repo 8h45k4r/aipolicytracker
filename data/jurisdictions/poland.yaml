@@ -1,0 +1,55 @@
+slug: poland
+name: Poland
+short_name: Poland
+iso_code: PL
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Poland applies the EU AI Act and has drafted a national implementing act creating a new Commission for the Development
+  and Safety of Artificial Intelligence (Komisja Rozwoju i Bezpieczeństwa Sztucznej Inteligencji) as market-surveillance
+  authority. The 2020 "Policy for the development of AI in Poland from 2020" is the national strategy; the Ministry of Digital
+  Affairs leads implementation.
+regulatory_status_summary: EU AI Act applies; national implementing bill proposed (2024–2025); AI development policy (2020).
+binding_vs_guidance: >-
+  Binding: Draft act on AI systems (AI Act implementation). Strategy or guidance: Policy for the development of AI in Poland
+  (2020).
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Ministerstwo Cyfryzacji (Ministry of Digital Affairs)
+  url: https://www.gov.pl/web/cyfryzacja
+  role: Lead ministry for AI policy and AI Act implementation
+- name: Urząd Ochrony Danych Osobowych (UODO)
+  url: https://uodo.gov.pl/
+  role: Data-protection authority
+official_sources:
+- title: Polityka dla rozwoju sztucznej inteligencji w Polsce od roku 2020
+  publisher: Council of Ministers
+  url: https://www.gov.pl/web/ai/polityka-dla-rozwoju-sztucznej-inteligencji-w-polsce-od-roku-2020
+  document_date: '2020-12-28'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- czechia
+- germany
+official_source_url: https://www.gov.pl/web/ai/polityka-dla-rozwoju-sztucznej-inteligencji-w-polsce-od-roku-2020
+source_title: Polityka dla rozwoju sztucznej inteligencji w Polsce od roku 2020
+source_publisher: Council of Ministers
+source_document_date: '2020-12-28'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

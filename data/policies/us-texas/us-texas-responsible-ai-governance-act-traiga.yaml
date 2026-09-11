@@ -1,0 +1,97 @@
+slug: us-texas-responsible-ai-governance-act-traiga
+jurisdiction: us-texas
+title: Texas Responsible Artificial Intelligence Governance Act (HB 149, 89th Legislature)
+short_title: Texas Responsible AI Governance Act (TRAIGA)
+instrument_type: act
+status: in_force
+is_binding: true
+featured: true
+published: true
+issuing_body: Texas Legislature
+summary_plain: >-
+  Signed on 22 June 2025 and effective 1 January 2026, TRAIGA bans developing or deploying AI systems intended to manipulate
+  people into self-harm or crime, government social scoring, biometric identification by government from public data without
+  consent, intentional unlawful discrimination against protected classes, and production of child sexual abuse material
+  or unlawful sexual deepfakes. State agencies and health-care providers must disclose AI interactions. It creates a 36-month
+  regulatory sandbox administered by the Department of Information Resources, a Texas Artificial Intelligence Council, and
+  gives the Attorney General exclusive enforcement with civil penalties after a 60-day cure period; disparate impact alone
+  does not prove intent to discriminate.
+scope_summary: >-
+  Persons doing business in Texas, producing products used by Texans, or developing or deploying AI systems in Texas, plus
+  state agencies; no private right of action.
+who_it_applies_to: >-
+  Developers and deployers of AI systems in Texas; state agencies; health-care providers using AI with patients.
+key_dates_summary: '2025-06-22: signed by the Governor; 2026-01-01: effective date.'
+penalties_summary: >-
+  Civil penalties of USD 10,000 to 12,000 per curable violation, 80,000 to 200,000 per uncurable violation and 2,000 to
+  40,000 per day for continuing violations, enforced by the Attorney General after notice and a 60-day cure period.
+what_organizations_must_do: >-
+  Screen AI uses against the prohibited-intent categories, add disclosure where the entity is a state agency or health-care
+  provider, document intent and testing to use the statutory defences (NIST AI RMF alignment, red-teaming, cure), and consider
+  the sandbox for novel uses.
+adopted_on: '2025-06-22'
+in_force_on: '2026-01-01'
+applies_from: '2026-01-01'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+- public_authority
+ai_system_types:
+- biometric_system
+- generative_ai
+- automated_decision_system
+sectors:
+- cross_sector
+- public_services
+- healthcare
+risk_categories:
+- prohibited
+use_cases:
+- biometrics
+- generative_ai
+- public_services
+- health
+related_policies:
+- us-colorado-ai-act
+- us-nist-ai-rmf
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines:
+- title: Effective date
+  due_on: '2026-01-01'
+  date_precision: exact
+  description: Act takes effect.
+  deadline_status: passed
+  confidence_level: high
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: HB 149 (89R) history and enrolled text
+  publisher: Texas Legislature Online
+  url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  document_date: '2025-06-22'
+  document_type: legislation
+  tier: 1
+faq:
+- question: Does TRAIGA require impact assessments like Colorado?
+  answer: >-
+    No. TRAIGA focuses on prohibited intents and government disclosure rather than a duty of care for high-risk systems;
+    the earlier draft with broader duties was narrowed before enactment.
+official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+source_title: HB 149 (89R) history and enrolled text
+source_publisher: Texas Legislature Online
+source_document_date: '2025-06-22'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

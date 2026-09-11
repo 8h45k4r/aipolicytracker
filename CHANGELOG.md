@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Global coverage: 78 new jurisdictions (117 total) and 104 new policy instruments (182 total) with 26 dated change events, covering every EU member state, non-EU Europe (Norway, Iceland, Switzerland, Serbia, Ukraine, Türkiye, Russia), the Council of Europe Framework Convention, international instruments (OECD AI Principles, UNESCO Recommendation, UN General Assembly resolution, G7 Hiroshima code, Bletchley Declaration, ISO/IEC 42001), ASEAN guides, US states (Texas, Utah, Illinois, New York, Tennessee), Canadian provinces (Quebec, Ontario), Central and South America, the Caribbean, Asia-Pacific (New Zealand, Hong Kong, Taiwan, Sri Lanka, Kazakhstan, Uzbekistan, Mongolia, Cambodia), the Middle East (Israel, Jordan, Kuwait, Oman, Lebanon) and Africa (Morocco, Tunisia, Algeria, Ethiopia, Senegal, Mauritius, Benin, Côte d'Ivoire, Uganda, Zambia, Zimbabwe, Sierra Leone, Tanzania, Namibia). Every record links an official source and enters as `pending_review` (debt #18).
+
+### Changed
+- Region labels normalised (`Americas`/`Northern America`, `Asia`/`Western Asia`, `South-East Asia`) so jurisdiction grouping and the subscribe page read consistently; US state policy files moved under their own jurisdiction directories.
+
 ### Changed
 - Deploy workflow waits for the health endpoint and restarts the app once through the Kudu API if the platform stops the container after a deploy.
 

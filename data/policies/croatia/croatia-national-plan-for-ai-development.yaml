@@ -1,0 +1,51 @@
+slug: croatia-national-plan-for-ai-development
+jurisdiction: croatia
+title: Nacionalni plan razvoja umjetne inteligencije
+short_title: National Plan for the Development of AI
+instrument_type: strategy
+status: proposed
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Croatia (Central State Office for the Development of the Digital Society)
+summary_plain: >-
+  The national AI plan sets priorities for research, skills, public-sector and business adoption, data and infrastructure
+  and trustworthy AI in line with the EU coordinated plan and the AI Act.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-01-01'
+date_notes: Year-level placeholder; adoption status and date to be confirmed by a reviewer.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Central State Office for the Development of the Digital Society
+  publisher: Government of Croatia
+  url: https://rdd.gov.hr/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://rdd.gov.hr/
+source_title: Central State Office for the Development of the Digital Society
+source_publisher: Government of Croatia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

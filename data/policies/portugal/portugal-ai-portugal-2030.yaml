@@ -1,0 +1,55 @@
+slug: portugal-ai-portugal-2030
+jurisdiction: portugal
+title: >-
+  AI Portugal 2030: Portuguese National Initiative on Digital Skills – Artificial Intelligence strategy
+short_title: AI Portugal 2030
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Portugal (INCoDe.2030)
+summary_plain: >-
+  Published in 2019 under the INCoDe.2030 initiative, AI Portugal 2030 sets objectives for research, skills, public administration,
+  industry adoption and international positioning, with priority application areas such as natural language, mobility, energy
+  and health, and a commitment to ethical and trustworthy AI.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2019-06-01'
+date_notes: Year/month-level date; exact publication date to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI Portugal 2030
+  publisher: INCoDe.2030
+  url: https://www.incode2030.gov.pt/
+  document_date: '2019-06-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.incode2030.gov.pt/
+source_title: AI Portugal 2030
+source_publisher: INCoDe.2030
+source_document_date: '2019-06-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

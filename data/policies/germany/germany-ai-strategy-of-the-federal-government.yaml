@@ -1,0 +1,60 @@
+slug: germany-ai-strategy-of-the-federal-government
+jurisdiction: germany
+title: >-
+  Strategie Künstliche Intelligenz der Bundesregierung (AI Strategy of the Federal Government, 2018, updated 2020)
+short_title: AI Strategy of the Federal Government
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Federal Government of Germany (BMBF, BMWK, BMAS)
+summary_plain: >-
+  The federal AI strategy, adopted in November 2018 and updated in December 2020, sets out how Germany intends to make AI
+  research, transfer and use competitive while anchoring AI in fundamental rights and the common good. The 2020 update raised
+  planned federal funding to around EUR 5 billion to 2025 and added priorities on pandemic response, sustainability, health,
+  mobility and AI in the public sector. It commits to a European approach to AI regulation and to trustworthy-AI standards.
+scope_summary: >-
+  Applies to federal government action: research funding, transfer programmes, skills, infrastructure and public-sector
+  use. It creates no obligations for private organisations.
+key_dates_summary: '2018-11-15: strategy adopted; 2020-12-02: update published.'
+adopted_on: '2018-11-15'
+date_notes: Adopted by the federal cabinet on 15 November 2018; update published 2 December 2020.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Strategie Künstliche Intelligenz der Bundesregierung
+  publisher: Die Bundesregierung
+  url: https://www.ki-strategie-deutschland.de/
+  document_date: '2020-12-02'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.ki-strategie-deutschland.de/
+source_title: Strategie Künstliche Intelligenz der Bundesregierung
+source_publisher: Die Bundesregierung
+source_document_date: '2020-12-02'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,53 @@
+slug: serbia
+name: Serbia
+short_name: Serbia
+iso_code: RS
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Serbia, an EU candidate, adopted the first AI development strategy in the Western Balkans in 2019 (2020–2025), ethical
+  guidelines for AI in 2023, and a new AI Development Strategy 2025–2030 in 2025, and has been drafting a law on artificial
+  intelligence aligned with the EU AI Act. The Office for IT and eGovernment and the Institute for AI Research and Development
+  of Serbia lead implementation.
+regulatory_status_summary: >-
+  AI strategy 2025–2030 adopted; ethical guidelines (2023); AI law in preparation; EU AI Act alignment as a candidate country.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: AI Development Strategy 2025–2030; Ethical guidelines for trustworthy AI
+  (2023).
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Kancelarija za informacione tehnologije i elektronsku upravu
+  url: https://www.ite.gov.rs/
+  role: Office for IT and eGovernment; AI strategy implementation
+- name: Poverenik za informacije od javnog značaja i zaštitu podataka o ličnosti
+  url: https://www.poverenik.rs/en/
+  role: Data-protection authority
+official_sources:
+- title: AI Serbia – national AI portal
+  publisher: Government of the Republic of Serbia
+  url: https://www.ai.gov.rs/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- croatia
+- council-of-europe
+official_source_url: https://www.ai.gov.rs/
+source_title: AI Serbia – national AI portal
+source_publisher: Government of the Republic of Serbia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

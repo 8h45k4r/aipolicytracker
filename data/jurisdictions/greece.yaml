@@ -1,0 +1,57 @@
+slug: greece
+name: Greece
+short_name: Greece
+iso_code: GR
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Greece applies the EU AI Act, has an AI Advisory Committee to the Prime Minister that delivered a "Blueprint for Greece's
+  AI transformation" in November 2024, and adopted AI provisions in Law 4961/2022 on emerging technologies, which set transparency
+  and governance duties for public-sector AI and obligations for large companies using AI in employment. The Hellenic Data
+  Protection Authority and the National Cybersecurity Authority are among the proposed AI Act authorities.
+regulatory_status_summary: >-
+  EU AI Act applies; Law 4961/2022 provisions on AI in the public sector and employment in force; AI blueprint (2024) as
+  policy.
+binding_vs_guidance: >-
+  Binding: Law 4961/2022 (emerging technologies, AI chapter). Strategy or guidance: Blueprint for Greece's AI transformation
+  (2024).
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Hellenic Data Protection Authority
+  url: https://www.dpa.gr/en
+  role: Data-protection authority
+- name: Ministry of Digital Governance
+  url: https://mindigital.gr/
+  role: Lead ministry for digital and AI policy
+official_sources:
+- title: Law 4961/2022 on emerging information and communication technologies
+  publisher: Hellenic Parliament / Government Gazette
+  url: https://mindigital.gr/
+  document_date: '2022-07-27'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- cyprus
+- bulgaria
+official_source_url: https://mindigital.gr/
+source_title: Law 4961/2022 on emerging information and communication technologies
+source_publisher: Hellenic Parliament / Government Gazette
+source_document_date: '2022-07-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

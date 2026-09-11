@@ -1,0 +1,55 @@
+slug: ca-quebec
+name: Quebec (Canada)
+short_name: Quebec
+iso_code: CA-QC
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: canada
+featured: false
+published: true
+overview: >-
+  Quebec's Law 25 (Act to modernize legislative provisions as regards the protection of personal information, 2021) introduced
+  Canada's first statutory rules on automated decision-making: from September 2023 organisations must inform individuals
+  when a decision is based exclusively on automated processing, on request explain the personal information and principal
+  factors used and allow observations, and must conduct privacy impact assessments and give notice of biometric identification
+  systems. The Commission d'accès à l'information enforces it with GDPR-scale penalties.
+regulatory_status_summary: Law 25 automated-decision and biometric provisions in force since September 2023.
+binding_vs_guidance: 'Binding: Quebec Law 25 (automated decisions and biometrics). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Commission d'accès à l'information du Québec (CAI)
+  url: https://www.cai.gouv.qc.ca/
+  role: Enforces Law 25 and the private-sector privacy act
+official_sources:
+- title: >-
+    Act to modernize legislative provisions as regards the protection of personal information (S.Q. 2021, c. 25)
+  publisher: Publications Québec / Assemblée nationale du Québec
+  url: >-
+    https://www.publicationsduquebec.gouv.qc.ca/fileadmin/Fichiers_client/lois_et_reglements/LoisAnnuelles/en/2021/2021C25A.PDF
+  document_date: '2021-09-22'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- canada
+- ca-ontario
+- eu
+official_source_url: >-
+  https://www.publicationsduquebec.gouv.qc.ca/fileadmin/Fichiers_client/lois_et_reglements/LoisAnnuelles/en/2021/2021C25A.PDF
+source_title: >-
+  Act to modernize legislative provisions as regards the protection of personal information (S.Q. 2021, c. 25)
+source_publisher: Publications Québec / Assemblée nationale du Québec
+source_document_date: '2021-09-22'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

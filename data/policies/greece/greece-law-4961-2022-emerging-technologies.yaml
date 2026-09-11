@@ -1,0 +1,69 @@
+slug: greece-law-4961-2022-emerging-technologies
+jurisdiction: greece
+title: >-
+  Νόμος 4961/2022: Αναδυόμενες τεχνολογίες πληροφορικής και επικοινωνιών, ενίσχυση της ψηφιακής διακυβέρνησης και άλλες
+  διατάξεις
+short_title: Law 4961/2022 (emerging technologies, AI chapter)
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Hellenic Parliament
+summary_plain: >-
+  Law 4961/2022, published in July 2022, contains a chapter on artificial intelligence: public-sector bodies must carry
+  out an algorithmic impact assessment and publish information before deploying AI systems that affect people, keep a register
+  of AI systems, and ensure the Hellenic Data Protection Authority's oversight; medium and large private companies must
+  inform workers about AI systems used in employment decisions and maintain an ethical-use policy. It also regulates IoT,
+  3D printing, blockchain and unmanned aircraft.
+scope_summary: >-
+  Public-sector bodies deploying AI in Greece and medium/large private employers using AI in employment; complements the
+  EU AI Act.
+key_dates_summary: '2022-07-27: publication in the Government Gazette (A'' 146).'
+adopted_on: '2022-07-21'
+published_on: '2022-07-27'
+in_force_on: '2022-07-27'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+- deployer
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+- employment
+risk_categories: []
+use_cases:
+- public_services
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Law 4961/2022
+  publisher: Ministry of Digital Governance
+  url: https://mindigital.gr/
+  document_date: '2022-07-27'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://mindigital.gr/
+source_title: Law 4961/2022
+source_publisher: Ministry of Digital Governance
+source_document_date: '2022-07-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

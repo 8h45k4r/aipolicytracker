@@ -1,0 +1,60 @@
+slug: new-zealand-ai-strategy-2025
+jurisdiction: new-zealand
+title: 'New Zealand''s Strategy for Artificial Intelligence: Investing with Confidence'
+short_title: New Zealand AI Strategy (2025)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Business, Innovation and Employment
+summary_plain: >-
+  Published in July 2025, the strategy aims to lift AI adoption by businesses, especially small and medium enterprises,
+  and the public sector, by reducing barriers, providing clear guidance (Responsible AI Guidance for Businesses), building
+  skills and pursuing a light-touch, proportionate regulatory approach that relies on existing law and international alignment
+  (OECD principles). It rules out a standalone AI act for now.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-07-08'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: New Zealand's Strategy for Artificial Intelligence
+  publisher: MBIE
+  url: >-
+    https://www.mbie.govt.nz/business-and-employment/business/support-for-business/artificial-intelligence-strategy
+  document_date: '2025-07-08'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.mbie.govt.nz/business-and-employment/business/support-for-business/artificial-intelligence-strategy
+source_title: New Zealand's Strategy for Artificial Intelligence
+source_publisher: MBIE
+source_document_date: '2025-07-08'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

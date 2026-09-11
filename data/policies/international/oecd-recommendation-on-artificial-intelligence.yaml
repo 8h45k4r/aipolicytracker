@@ -1,0 +1,73 @@
+slug: oecd-recommendation-on-artificial-intelligence
+jurisdiction: international
+title: >-
+  OECD Recommendation of the Council on Artificial Intelligence (OECD/LEGAL/0449), adopted 22 May 2019 and revised 3 May
+  2024
+short_title: OECD AI Principles (Recommendation on AI)
+instrument_type: framework
+status: adopted
+is_binding: false
+featured: true
+published: true
+issuing_body: OECD Council
+summary_plain: >-
+  The first intergovernmental standard on AI. It sets five values-based principles (inclusive growth and well-being; human
+  rights and democratic values including fairness and privacy; transparency and explainability; robustness, security and
+  safety; accountability) and five recommendations to governments (invest in research, foster an inclusive AI ecosystem,
+  enable an agile policy environment, build human capacity and prepare for labour-market transition, cooperate internationally).
+  The 2024 revision updated the definition of an AI system (adopted by the EU AI Act and other laws) and added references
+  to general-purpose and generative AI, misinformation and environmental sustainability. Adherents include all OECD members
+  and several non-members; the G20 AI Principles (2019) draw on it.
+scope_summary: Addressed to governments (adherents) and, through them, to AI actors; non-binding.
+key_dates_summary: '2019-05-22: adopted; 2024-05-03: revised definition and text.'
+adopted_on: '2019-05-22'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+- provider
+- deployer
+ai_system_types:
+- general_purpose_ai_model
+- generative_ai
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks:
+- nist_ai_rmf
+- iso_42001
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: OECD/LEGAL/0449
+  publisher: OECD
+  url: https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449
+  document_date: '2024-05-03'
+  document_type: official
+  tier: 1
+faq:
+- question: Why does the OECD definition matter?
+  answer: >-
+    The EU AI Act, the Council of Europe Convention and several national laws use the OECD's 2024 definition of an AI system,
+    which keeps scope consistent across jurisdictions.
+official_source_url: https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449
+source_title: OECD/LEGAL/0449
+source_publisher: OECD
+source_document_date: '2024-05-03'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

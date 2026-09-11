@@ -1,0 +1,53 @@
+slug: cyprus-national-ai-strategy
+jurisdiction: cyprus
+title: National Artificial Intelligence Strategy of the Republic of Cyprus
+short_title: National AI Strategy (2020, action plan 2024)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Council of Ministers of Cyprus
+summary_plain: >-
+  Approved in January 2020 and updated by an action plan in 2024, the strategy covers research, skills, data and infrastructure,
+  public-sector and business adoption, and ethical, trustworthy AI aligned with the EU framework.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2020-01-15'
+date_notes: Month-level date; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National AI Strategy
+  publisher: Deputy Ministry of Research, Innovation and Digital Policy
+  url: https://www.dmrid.gov.cy/
+  document_date: '2020-01-15'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.dmrid.gov.cy/
+source_title: National AI Strategy
+source_publisher: Deputy Ministry of Research, Innovation and Digital Policy
+source_document_date: '2020-01-15'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.
