@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Admin → Tool library: create, edit, publish/draft/archive free tools; upload, activate, deactivate and remove their files (XLSX, CSV, Markdown, PDF, DOCX, JSON, text). Tools moved from configuration to `tools` and `tool_files` tables, seeded once from the previous configuration; downloads now record the served file and files count downloads.
+
+### Changed
+- Guides filters are a compact bar: search, content-type and access dropdowns, multi-select framework and topic lists, with active filters shown as removable chips.
+
 ### Security
 - Nonce-based Content-Security-Policy and Cross-Origin-Opener-Policy on every response; PHP version header removed and nginx server tokens hidden. Fifth change gate (Security / VAPT) added to the process with the first assessment recorded in `docs/reference/vapt-2026-09-11.md`.
 

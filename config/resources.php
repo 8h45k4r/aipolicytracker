@@ -1,8 +1,9 @@
 <?php
 
-// Free tools shown on /guides next to the editorial guides. Source files live under
-// resources/downloads/<slug>/ (outside public/) and are served only through signed,
-// authenticated download links. Edit here; there is no admin CRUD for the library yet.
+// Filter vocabularies and licence text for /guides, plus the initial free tools that
+// database/seeders/ToolSeeder.php loads once into the `tools` table (files copied from
+// resources/downloads/<slug>/ to the private disk). After seeding, manage tools in
+// Admin → Tool library; edits here do not overwrite database rows.
 return [
     'types' => ['guide' => 'Guide', 'template' => 'Template', 'checklist' => 'Checklist', 'register' => 'Register'],
     'frameworks' => ['eu-ai-act' => 'EU AI Act', 'iso-42001' => 'ISO/IEC 42001', 'nist-ai-rmf' => 'NIST AI RMF'],

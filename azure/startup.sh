@@ -28,3 +28,4 @@ php artisan external:import || echo 'WARNING: external:import failed; serving pr
 
 # Admin account from ADMIN_* (idempotent upsert).
 php artisan db:seed --class=AdminSeeder --force || echo 'WARNING: AdminSeeder failed'
+php artisan db:seed --class=ToolSeeder --force || echo 'WARNING: ToolSeeder failed'

@@ -60,21 +60,23 @@ class LandingController extends Controller
 
     public function guides(\Illuminate\Http\Request $request): View
     {
+        $multi = fn (string $key, array $allowed) => array_values(array_intersect(array_map('strval', (array) $request->query($key, [])), array_keys($allowed)));
         $filters = [
             'q' => trim((string) $request->query('q', '')),
-            'type' => array_key_exists($request->query('type', ''), config('resources.types')) ? $request->query('type') : null,
-            'framework' => array_key_exists($request->query('framework', ''), config('resources.frameworks')) ? $request->query('framework') : null,
-            'topic' => array_key_exists($request->query('topic', ''), config('resources.topics')) ? $request->query('topic') : null,
+            'type' => array_key_exists($request->query('type', ''), \App\Models\Tool::TYPES) ? $request->query('type') : null,
+            'framework' => $multi('framework', config('resources.frameworks')),
+            'topic' => $multi('topic', config('resources.topics')),
             'access' => in_array($request->query('access'), ['read', 'download'], true) ? $request->query('access') : null,
         ];
-        $items = \App\Models\FreeTool::guides()->concat(\App\Models\FreeTool::all())->filter(function ($i) use ($filters) {
+        $tools = \App\Models\Tool::published()->with('activeFiles')->orderBy('sort_order')->orderBy('title')->get()->map->card();
+        $items = \App\Models\Tool::guideCards()->concat($tools)->filter(function ($i) use ($filters) {
             if ($filters['type'] && $i['type'] !== $filters['type']) {
                 return false;
             }
-            if ($filters['framework'] && ! in_array($filters['framework'], $i['frameworks'], true)) {
+            if ($filters['framework'] && array_intersect($filters['framework'], $i['frameworks']) === []) {
                 return false;
             }
-            if ($filters['topic'] && ! in_array($filters['topic'], $i['topics'], true)) {
+            if ($filters['topic'] && array_intersect($filters['topic'], $i['topics']) === []) {
                 return false;
             }
             if ($filters['access'] === 'download' && empty($i['files'])) {
