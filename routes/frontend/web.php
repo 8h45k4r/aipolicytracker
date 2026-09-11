@@ -26,6 +26,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Legacy map site (Inertia). Disabled unless LEGACY_MAP_ENABLED=true; see docs/reference/admin-audit.md.
+if (! config('aipolicytracker.legacy_enabled')) {
+    Route::redirect('/map', '/', 301);
+    Route::redirect('/news', '/changes', 301);
+    Route::redirect('/timeline', '/changes', 301);
+    Route::redirect('/bookmarks', '/changes', 301);
+    Route::redirect('/gov-ai-index/assesment', '/tools/applicability-check', 301);
+
+    return;
+}
+
 Route::controller(NewsController::class)->group(function () {
     Route::get("/news", "index")->name("news.index");
     Route::get("/news/{id}", "singleNews")->name("news.single");
