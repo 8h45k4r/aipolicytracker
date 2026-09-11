@@ -11,8 +11,8 @@
             <div class="rule-strong pt-3"><h2 id="sub-heading" class="section-title">Subdomains</h2></div>
             <dl class="mt-2 divide-y divide-brand-line">
                 @foreach($domain['subdomains'] as $s)
-                <div class="py-4"><dt class="font-display text-lg text-brand-navy">{{ $s['id'] }} {{ $s['name'] }}</dt><dd class="mt-1 text-sm text-brand-body leading-6">{{ $s['description'] ?: '—' }}</dd>
-                    <dd class="mt-2 flex flex-wrap gap-2 text-xs"><a class="chip !min-h-0 !py-0.5" href="{{ route('risk.risks', ['subdomain' => $s['id']]) }}">{{ isset($subRisks[$s['id']]) ? number_format($subRisks[$s['id']]) : '—' }} risk entries</a><a class="chip !min-h-0 !py-0.5" href="{{ route('risk.incidents.browse', ['subdomain' => $s['name']]) }}">{{ isset($subIncidents[$s['name']]) ? number_format($subIncidents[$s['name']]) : '—' }} incidents</a></dd></div>
+                <div class="py-4"><dt class="font-display text-lg text-brand-navy"><a href="{{ route('risk.subdomain', [$domain['id'], $s['id']]) }}" class="no-underline hover:underline">{{ $s['id'] }} {{ $s['name'] }}</a></dt><dd class="mt-1 text-sm text-brand-body leading-6">{{ $s['description'] ?: '—' }}</dd>
+                    <dd class="mt-2 flex flex-wrap gap-2 text-xs"><a class="chip chip-active !min-h-0 !py-0.5" href="{{ route('risk.subdomain', [$domain['id'], $s['id']]) }}">Profile and drilldown</a><a class="chip !min-h-0 !py-0.5" href="{{ route('risk.risks', ['subdomain' => $s['id']]) }}">{{ isset($subRisks[$s['id']]) ? number_format($subRisks[$s['id']]) : '—' }} risk entries</a><a class="chip !min-h-0 !py-0.5" href="{{ route('risk.incidents.browse', ['subdomain' => $s['name']]) }}">{{ isset($subIncidents[$s['name']]) ? number_format($subIncidents[$s['name']]) : '—' }} incidents</a></dd></div>
                 @endforeach
             </dl>
             <p class="mt-3 text-sm"><a href="{{ ($mit['navigator_url'] ?? 'https://airisk.mit.edu/navigator').'#/domain/'.$domain['id'] }}" rel="noopener">Explore this domain in the MIT AI Risk Navigator</a></p>
