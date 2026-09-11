@@ -7,7 +7,7 @@ export default function ApplicationLogo({ className = " ", ...props }) {
         <div className={className}>
             <img
                 // src={Logo}
-                src={logo?.file_path ? `/storage/${logo?.file_path}` : defaultLogo}
+                src="/brand/logo-on-light.svg"
                 {...props}
                 alt=""
                 className="w-full h-full"

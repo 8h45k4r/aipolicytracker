@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\NavBar;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -30,14 +29,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $logo = NavBar::first();
-
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
-            'logo' => $logo,
             'site' => [
                 'links' => config('aipolicytracker.links'),
                 'contact_emails' => config('aipolicytracker.contact_emails'),
