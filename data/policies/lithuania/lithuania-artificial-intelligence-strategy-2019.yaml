@@ -1,0 +1,51 @@
+slug: lithuania-artificial-intelligence-strategy-2019
+jurisdiction: lithuania
+title: 'Lithuanian Artificial Intelligence Strategy: A vision of the future'
+short_title: Lithuanian Artificial Intelligence Strategy (2019)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of the Economy and Innovation
+summary_plain: >-
+  Published in 2019, the strategy sets a vision for AI in Lithuania across research, industry, public sector, skills and
+  ethics, and proposes a coordination structure and funding measures.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2019-04-01'
+date_notes: Month-level date; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of the Economy and Innovation
+  publisher: Government of Lithuania
+  url: https://eimin.lrv.lt/en/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://eimin.lrv.lt/en/
+source_title: Ministry of the Economy and Innovation
+source_publisher: Government of Lithuania
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

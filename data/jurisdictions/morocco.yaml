@@ -1,0 +1,55 @@
+slug: morocco
+name: Morocco
+short_name: Morocco
+iso_code: MA
+jurisdiction_type: country
+region: Africa
+subregion: Northern Africa
+featured: false
+published: true
+overview: >-
+  Morocco launched the "Digital Morocco 2030" strategy in September 2024 with AI as a pillar (national AI centre, talent,
+  public-sector use) and the Ministry of Digital Transition and Administrative Reform has been preparing a national AI strategy
+  and a draft AI law; the CNDP (data-protection commission) applies Law 09-08 to AI processing personal data.
+regulatory_status_summary: >-
+  Digital Morocco 2030 with AI pillar as policy; national AI strategy and AI bill in preparation; data-protection law applies.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Digital Morocco 2030 (AI pillar).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministère de la Transition Numérique et de la Réforme de l'Administration
+  url: https://www.mmps.gov.ma/
+  role: Digital and AI strategy lead
+- name: Commission Nationale de contrôle de la protection des Données à caractère Personnel (CNDP)
+  url: https://www.cndp.ma/
+  role: Data-protection authority
+official_sources:
+- title: Digital Morocco 2030
+  publisher: Ministry of Digital Transition and Administrative Reform
+  url: https://www.mmps.gov.ma/
+  document_date: '2024-09-25'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- egypt
+- tunisia
+- algeria
+official_source_url: https://www.mmps.gov.ma/
+source_title: Digital Morocco 2030
+source_publisher: Ministry of Digital Transition and Administrative Reform
+source_document_date: '2024-09-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

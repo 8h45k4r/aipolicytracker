@@ -1,0 +1,48 @@
+slug: zambia
+name: Zambia
+short_name: Zambia
+iso_code: ZM
+jurisdiction_type: country
+region: Africa
+subregion: Southern Africa
+featured: false
+published: true
+overview: >-
+  Zambia's Ministry of Technology and Science launched a National Artificial Intelligence Strategy (2024) alongside the
+  Data Protection Act 2021 and the Office of the Data Protection Commissioner, with priorities on public services, agriculture,
+  health, skills and ethics.
+regulatory_status_summary: National AI strategy (2024) as policy; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministry of Technology and Science
+  url: https://www.mots.gov.zm/
+  role: AI strategy lead
+official_sources:
+- title: Ministry of Technology and Science
+  publisher: Government of Zambia
+  url: https://www.mots.gov.zm/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- south-africa
+- zimbabwe
+official_source_url: https://www.mots.gov.zm/
+source_title: Ministry of Technology and Science
+source_publisher: Government of Zambia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

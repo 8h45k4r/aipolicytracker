@@ -1,0 +1,54 @@
+slug: portugal
+name: Portugal
+short_name: Portugal
+iso_code: PT
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Portugal applies the EU AI Act and adopted the "AI Portugal 2030" strategy in 2019 within the INCoDe.2030 digital-skills
+  initiative, followed by a 2025 national AI agenda focused on public administration, language models in Portuguese and
+  computing. The government has proposed the national communications regulator ANACOM and sector authorities for AI Act
+  supervision, with the CNPD as data-protection authority.
+regulatory_status_summary: >-
+  EU AI Act applies; AI Portugal 2030 (2019) and 2025 AI agenda as policy; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI Portugal 2030.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Comissão Nacional de Proteção de Dados (CNPD)
+  url: https://www.cnpd.pt/
+  role: Data-protection authority
+- name: Agência para a Modernização Administrativa (AMA)
+  url: https://www.ama.gov.pt/
+  role: Public-sector digital transformation and AI in administration
+official_sources:
+- title: AI Portugal 2030
+  publisher: INCoDe.2030 / Government of Portugal
+  url: https://www.incode2030.gov.pt/
+  document_date: '2019-06-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- spain
+- brazil
+official_source_url: https://www.incode2030.gov.pt/
+source_title: AI Portugal 2030
+source_publisher: INCoDe.2030 / Government of Portugal
+source_document_date: '2019-06-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

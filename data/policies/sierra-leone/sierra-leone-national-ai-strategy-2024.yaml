@@ -1,0 +1,51 @@
+slug: sierra-leone-national-ai-strategy-2024
+jurisdiction: sierra-leone
+title: Sierra Leone National Artificial Intelligence Strategy
+short_title: National AI Strategy (2024)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Sierra Leone
+summary_plain: >-
+  The strategy sets priorities on AI in public services, health, agriculture and education, skills and research, data infrastructure
+  and ethical governance.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of Communication, Technology and Innovation
+  publisher: Government of Sierra Leone
+  url: https://mocti.gov.sl/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://mocti.gov.sl/
+source_title: Ministry of Communication, Technology and Innovation
+source_publisher: Government of Sierra Leone
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

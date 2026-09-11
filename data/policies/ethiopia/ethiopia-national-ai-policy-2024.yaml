@@ -1,0 +1,54 @@
+slug: ethiopia-national-ai-policy-2024
+jurisdiction: ethiopia
+title: National Artificial Intelligence Policy of Ethiopia
+short_title: National AI Policy (2024)
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Council of Ministers of Ethiopia (Ethiopian Artificial Intelligence Institute)
+summary_plain: >-
+  Approved by the Council of Ministers in 2024, the policy sets objectives for AI research and talent, adoption in agriculture,
+  health, education, security and public services, data governance and infrastructure, and ethical, responsible use, with
+  the Ethiopian AI Institute as implementing body.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-06-01'
+date_notes: Month-level date; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ethiopian Artificial Intelligence Institute
+  publisher: Government of Ethiopia
+  url: https://www.aii.et/
+  document_date: '2024-06-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.aii.et/
+source_title: Ethiopian Artificial Intelligence Institute
+source_publisher: Government of Ethiopia
+source_document_date: '2024-06-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

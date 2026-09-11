@@ -1,0 +1,64 @@
+slug: germany-ai-act-implementation-act-ki-mig-draft
+jurisdiction: germany
+title: >-
+  Entwurf eines Gesetzes zur Durchführung der KI-Verordnung (KI-Marktüberwachungs- und Innovationsförderungsgesetz, KI-MIG)
+short_title: AI Act implementation act (KI-MIG, draft)
+instrument_type: bill
+status: proposed
+status_note: >-
+  Draft act published for consultation in 2025; parliamentary adoption not confirmed from an official source at the time
+  of checking.
+is_binding: true
+featured: false
+published: true
+issuing_body: Federal Ministry for Digital and State Modernisation
+summary_plain: >-
+  The draft implementation act designates the Bundesnetzagentur as the central market-surveillance authority and single
+  point of contact under the EU AI Act, keeps sector regulators (financial supervision, data protection for law-enforcement
+  uses) competent in their fields, sets the national penalty framework within the Regulation's ranges and creates a national
+  AI regulatory sandbox and an AI service desk for companies.
+scope_summary: >-
+  Applies to providers, deployers, importers and distributors of AI systems in Germany as far as the EU AI Act reaches them;
+  it allocates supervision rather than adding new substantive duties.
+date_notes: Draft stage; dates to be confirmed once adopted.
+actors:
+- provider
+- deployer
+- importer
+- distributor
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories:
+- high_risk
+- transparency_risk
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Bundesnetzagentur: Artificial Intelligence (national implementation of the AI Act)'
+  publisher: Bundesnetzagentur
+  url: https://www.bundesnetzagentur.de/EN/Areas/Digital-Services/AI/start.html
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.bundesnetzagentur.de/EN/Areas/Digital-Services/AI/start.html
+source_title: 'Bundesnetzagentur: Artificial Intelligence (national implementation of the AI Act)'
+source_publisher: Bundesnetzagentur
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

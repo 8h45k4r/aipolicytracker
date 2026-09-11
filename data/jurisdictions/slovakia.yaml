@@ -1,0 +1,51 @@
+slug: slovakia
+name: Slovakia
+short_name: Slovakia
+iso_code: SK
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Slovakia applies the EU AI Act, set out its AI direction in the 2019 "Action Plan for the Digital Transformation of Slovakia
+  2019–2022" and a 2024 national AI strategy to 2030, and coordinates through the Ministry of Investments, Regional Development
+  and Informatisation. The Office for Personal Data Protection is the data-protection authority.
+regulatory_status_summary: EU AI Act applies; national AI strategy 2030 (2024) as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy 2030.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Ministerstvo investícií, regionálneho rozvoja a informatizácie SR (MIRRI)
+  url: https://www.mirri.gov.sk/en/
+  role: Digital and AI policy lead
+- name: Úrad na ochranu osobných údajov
+  url: https://dataprotection.gov.sk/
+  role: Data-protection authority
+official_sources:
+- title: Ministry of Investments, Regional Development and Informatisation
+  publisher: Government of Slovakia
+  url: https://www.mirri.gov.sk/en/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- czechia
+- hungary
+- poland
+official_source_url: https://www.mirri.gov.sk/en/
+source_title: Ministry of Investments, Regional Development and Informatisation
+source_publisher: Government of Slovakia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,49 @@
+slug: ecuador
+name: Ecuador
+short_name: Ecuador
+iso_code: EC
+jurisdiction_type: country
+region: Americas
+subregion: South America
+featured: false
+published: true
+overview: >-
+  Ecuador's National Assembly has been considering an Organic Law for the Regulation and Promotion of Artificial Intelligence
+  (introduced 2024) that would set a risk-based framework, and the Ministry of Telecommunications published an AI policy
+  framework in 2025; the Personal Data Protection Law (2021) and its Superintendency apply to AI processing personal data.
+regulatory_status_summary: AI bill under consideration; data-protection law applies; national AI policy in development.
+binding_vs_guidance: 'Binding: Draft Organic Law on AI. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministerio de Telecomunicaciones y de la Sociedad de la Información (MINTEL)
+  url: https://www.telecomunicaciones.gob.ec/
+  role: Digital and AI policy lead
+- name: Superintendencia de Protección de Datos Personales
+  url: https://www.spdp.gob.ec/
+  role: Data-protection authority
+official_sources:
+- title: Asamblea Nacional del Ecuador
+  publisher: Asamblea Nacional
+  url: https://www.asambleanacional.gob.ec/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- colombia
+- peru
+- chile
+official_source_url: https://www.asambleanacional.gob.ec/
+source_title: Asamblea Nacional del Ecuador
+source_publisher: Asamblea Nacional
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

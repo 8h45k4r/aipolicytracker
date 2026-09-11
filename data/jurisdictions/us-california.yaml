@@ -3,8 +3,8 @@ name: California (United States)
 short_name: California
 iso_code: US-CA
 jurisdiction_type: state
-region: North America
-subregion: United States
+region: Americas
+subregion: Northern America
 parent: us
 published: true
 overview: >

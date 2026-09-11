@@ -1,0 +1,51 @@
+slug: us-tennessee
+name: Tennessee (United States)
+short_name: Tennessee
+iso_code: US-TN
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Tennessee enacted the ELVIS Act (Ensuring Likeness, Voice and Image Security Act) in March 2024, the first US state law
+  explicitly protecting individuals' voice against unauthorised AI cloning by extending the right of publicity and adding
+  liability for distributing tools whose primary purpose is producing unauthorised voice or likeness.
+regulatory_status_summary: ELVIS Act (voice and likeness protection against unauthorised AI cloning) in force since 1 July 2024; no general AI statute.
+binding_vs_guidance: 'Binding: Tennessee ELVIS Act. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Tennessee General Assembly
+  url: https://www.capitol.tn.gov/
+  role: Legislative texts
+- name: Tennessee Attorney General
+  url: https://www.tn.gov/attorneygeneral.html
+  role: Consumer protection
+official_sources:
+- title: ELVIS Act (Public Chapter 588, HB 2091 / SB 2096)
+  publisher: Tennessee General Assembly
+  url: https://www.capitol.tn.gov/Bills/113/Bill/HB2091.pdf
+  document_date: '2024-03-21'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+- us-california
+official_source_url: https://www.capitol.tn.gov/Bills/113/Bill/HB2091.pdf
+source_title: ELVIS Act (Public Chapter 588, HB 2091 / SB 2096)
+source_publisher: Tennessee General Assembly
+source_document_date: '2024-03-21'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.
