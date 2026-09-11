@@ -271,6 +271,19 @@ class PublicSiteTest extends TestCase
             file_put_contents($src, $backup);
         }
         $this->assertTrue(\App\Models\RecordVerification::where('record_slug', 'eu-ai-act')->value('exported'));
+    public function test_account_pages_are_server_rendered_in_the_site_theme(): void
+    {
+        $this->get('/forgot-password')->assertOk()->assertSee('Reset your password')->assertSee('brand/logo-on-dark.svg');
+        $this->get('/reset-password/sometoken?email=a@example.org')->assertOk()->assertSee('Choose a new password')->assertSee('name="token"', false);
+        $this->get('/profile')->assertRedirect(route('login'));
+        $user = User::factory()->unverified()->create();
+        $this->actingAs($user)->get('/verify-email')->assertOk()->assertSee('Verify your email address');
+        $this->actingAs($user)->get('/confirm-password')->assertOk()->assertSee('Confirm your password');
+        $this->actingAs($user)->get('/profile')->assertOk()->assertSee('Your downloads')->assertSee('Delete account')->assertSee($user->email);
+        $this->actingAs($user)->patch('/profile', ['name' => 'Renamed', 'email' => $user->email, 'organization_name' => 'Acme', 'marketing_consent' => 1])->assertRedirect(route('profile.edit'));
+        $this->assertSame('Acme', $user->fresh()->organization_name);
+        $this->assertNotNull($user->fresh()->marketing_consent_at);
+        $this->assertStringContainsString('1200', (string) getimagesize(public_path('og-default.png'))[0]);
     }
 
     public function test_review_queue_is_admin_only_and_can_publish(): void
@@ -384,6 +397,8 @@ class PublicSiteTest extends TestCase
         $incident = \App\Models\ExternalIncident::whereNotNull('mit_subdomain')->where('mit_subdomain', '!=', '')->orderByDesc('report_count')->first();
         $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertOk()->assertSee($incident->title)->assertSee('news report')->assertSee('Classification (MIT AI Risk Repository taxonomy)')->assertSee('data-save="incident:'.$incident->incident_id.'"', false);
         $this->get('/ai-risk/incidents/999999999')->assertNotFound();
+        $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertSee(route('contribute', ['type' => 'correction', 'subject_type' => 'incident', 'subject_slug' => $incident->incident_id]));
+        $this->get('/contribute?type=correction&subject_type=incident&subject_slug='.$incident->incident_id)->assertOk()->assertSee('Record you are correcting')->assertSee('incidentdatabase.ai/cite/'.$incident->incident_id);
         $risk = \App\Models\ExternalRisk::where('level', 'Risk Sub-Category')->whereNotNull('subdomain')->first();
         $this->get($risk->url())->assertOk()->assertSee($risk->risk_subcategory ?: $risk->risk_category)->assertSee('Real-world incidents in this subdomain')->assertSee($risk->quick_ref);
         $dup = \App\Models\ExternalRisk::where('ev_id', 'like', '%#%')->first();

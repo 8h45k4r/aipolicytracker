@@ -365,7 +365,7 @@ Workflow: Admin → Review queue → open the official source → save status an
 |-------|------|------|---------|-------|
 | id | integer | no |  |  |
 | type | varchar | no |  |  |
-| subject_type | varchar | yes |  |  |
+| subject_type | varchar | yes |  | policy, jurisdiction, obligation, change, incident (AIID id), risk (MIT `ev_id`, `#` written `--`), other |
 | subject_slug | varchar | yes |  |  |
 | summary | varchar | no |  |  |
 | details | text | yes |  |  |

@@ -76,6 +76,7 @@
                 <div class="flex flex-col gap-2 text-sm">
                     <x-site.save-button type="incident" :slug="(string) $i->incident_id" :title="'#'.$i->incident_id.' '.$i->title" :url="$i->url()" meta="AI incident" />
                     <a href="{{ route('risk.incidents.export', ['format' => 'json', 'year' => $i->year]) }}" class="btn-secondary">Export {{ $i->year }} incidents (JSON)</a>
+                    <a href="{{ route('contribute', ['type' => 'correction', 'subject_type' => 'incident', 'subject_slug' => $i->incident_id]) }}" class="btn-secondary" data-track="correction_click">Report a correction</a>
                     <button type="button" class="btn-secondary" data-copy-link>Copy link</button>
                 </div>
                 @if($domainId)<div class="text-sm"><p class="font-semibold text-brand-navy">Related policy context</p><p class="mt-1 text-brand-body">See which AI policies address this risk domain on the <a href="{{ route('risk.domain', $domainId) }}">domain page</a>.</p></div>@endif
