@@ -1,0 +1,71 @@
+slug: rwanda-the-national-ai-policy-2
+jurisdiction: rwanda
+title: The National AI Policy
+short_title: The National AI Policy
+instrument_type: policy
+status: adopted
+status_note: >-
+  The MINICT page and PDF do not state an approval date; the 20 April 2023 Cabinet approval date comes from policy
+  partners (The Future Society) and could not be confirmed on an official Rwandan page, so confidence is medium
+  on the date only.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of ICT and Innovation (MINICT) with Rwanda Utilities Regulatory Authority (RURA)
+summary_plain: >-
+  Rwanda's national AI policy sets out six policy areas and fourteen recommendations covering skills and literacy,
+  infrastructure, data, responsible AI governance, public-sector adoption and ecosystem development. It proposes
+  a Responsible AI Office housed in MINICT to drive an implementation plan and monitor progress. Priority sectors
+  include health, agriculture, education, finance and public services.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of ICT and Innovation (MINICT) with
+  Rwanda Utilities Regulatory Authority (RURA). Oversight: MINICT leads; policy proposes a Responsible AI Office
+  within MINICT to coordinate implementation. Stated purpose: Use AI to power growth and position Rwanda as a responsible-AI
+  innovator.
+key_dates_summary: >-
+  2023-04-20: Policy approved by Cabinet (per policy partners); full text published by MINICT
+adopted_on: '2023-04-20'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: The National AI Policy
+  publisher: Ministry of ICT and Innovation, Republic of Rwanda
+  url: https://www.minict.gov.rw/ai-policy
+  document_date: '2023-04-20'
+  document_type: strategy
+  tier: 1
+- title: Policy approved by Cabinet (per policy partners); full text published by MINICT
+  publisher: Ministry of ICT and Innovation, Republic of Rwanda
+  url: >-
+    https://www.minict.gov.rw/fileadmin/user_upload/minict_user_upload/Documents/Artificial_Intelligence_Policy__1_.pdf
+  document_date: '2023-04-20'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.minict.gov.rw/ai-policy
+source_title: The National AI Policy
+source_publisher: Ministry of ICT and Innovation, Republic of Rwanda
+source_document_date: '2023-04-20'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

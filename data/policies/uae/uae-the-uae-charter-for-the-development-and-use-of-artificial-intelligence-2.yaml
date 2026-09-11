@@ -1,0 +1,71 @@
+slug: uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence-2
+jurisdiction: uae
+title: The UAE Charter for the Development and Use of Artificial Intelligence
+short_title: The UAE Charter for the Development and Use of Artificial Intelligence
+instrument_type: guidance
+status: guidance
+status_note: >-
+  The uaelegislation.gov.ae page (issued date 10 Jun 2024) loaded in a browser but returns 403 to non-browser clients.
+  The AI Office publicly released the charter document in July 2024.
+is_binding: false
+featured: false
+published: true
+issuing_body: UAE Cabinet / Artificial Intelligence, Digital Economy and Remote Work Applications Office
+summary_plain: >-
+  A twelve-principle charter approved by the UAE Cabinet setting expectations for AI development and use, including
+  safety, algorithmic bias, data privacy, transparency, human oversight, governance and accountability, and compliance
+  with applicable laws and treaties. It is a guiding framework rather than binding legislation and supports the
+  objectives of the UAE Strategy for AI.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by UAE Cabinet / Artificial Intelligence, Digital
+  Economy and Remote Work Applications Office. Oversight: AI Office under the Minister of State for AI; applies
+  across federal entities. Stated purpose: Guiding principles for safe, ethical and inclusive AI aligned with the
+  2031 strategy.
+key_dates_summary: '2024-06-10: Charter issued (Cabinet approval) per UAE Legislation portal'
+adopted_on: '2024-06-10'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: The UAE Charter for the Development and Use of Artificial Intelligence
+  publisher: Official Platform of the UAE Government (u.ae)
+  url: >-
+    https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/policies/Ai/The-UAE-Charter-for-the-Development-and-Use-of-Artificial-Intelligence
+  document_date: '2024-06-10'
+  document_type: guidance
+  tier: 1
+- title: Charter issued (Cabinet approval) per UAE Legislation portal
+  publisher: Official Platform of the UAE Government (u.ae)
+  url: >-
+    https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence
+  document_date: '2024-06-10'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/policies/Ai/The-UAE-Charter-for-the-Development-and-Use-of-Artificial-Intelligence
+source_title: The UAE Charter for the Development and Use of Artificial Intelligence
+source_publisher: Official Platform of the UAE Government (u.ae)
+source_document_date: '2024-06-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

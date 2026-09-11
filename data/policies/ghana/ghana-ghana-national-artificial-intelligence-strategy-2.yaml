@@ -1,0 +1,80 @@
+slug: ghana-ghana-national-artificial-intelligence-strategy-2
+jurisdiction: ghana
+title: Ghana National Artificial Intelligence Strategy (2025-2035)
+short_title: Ghana National Artificial Intelligence Strategy
+instrument_type: strategy
+status: adopted
+status_note: >-
+  I could not locate the full strategy PDF on an official Ghana government site; the launch article and the Minister's
+  remarks are the official records. Third-party sources give a document date of 12 December 2025, unverified officially.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Communication, Digital Technology and Innovations
+summary_plain: >-
+  A ten-year national roadmap launched by President Mahama that treats data as a national asset and sets out pillars
+  covering education and skills, infrastructure and compute, data governance, ecosystem development, sector adoption,
+  applied research and public-sector AI. It proposes a National AI Fund and performance indicators for ministries,
+  and emphasises localisation of AI for Ghanaian languages.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of Communication, Digital Technology
+  and Innovations. Oversight: Ministry leads with NITA, Data Protection Commission and Cyber Security Authority;
+  strategy recommends a Responsible AI Authority. Stated purpose: Make AI a driver of inclusive growth and position
+  Ghana as a regional AI hub.
+key_dates_summary: >-
+  2025-05-02: Minister announces development of National AI Strategy and stakeholder consultation; 2026-04-24: Official
+  launch in Accra; Minister's opening remarks published
+adopted_on: '2026-04-24'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ghana National Artificial Intelligence Strategy (2025-2035)
+  publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
+  url: >-
+    https://moc.gov.gh/2026/04/24/ghana-launches-national-ai-strategy-to-drive-digital-transformation-and-economic-growth/
+  document_date: '2026-04-24'
+  document_type: strategy
+  tier: 1
+- title: Minister announces development of National AI Strategy and stakeholder consultation
+  publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
+  url: >-
+    https://moc.gov.gh/2025/05/02/ghana-to-develop-national-ai-strategy-initiative-amid-digital-transformation-push/
+  document_date: '2025-05-02'
+  document_type: official
+  tier: 1
+- title: Official launch in Accra; Minister's opening remarks published
+  publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
+  url: >-
+    https://moc.gov.gh/wp-content/uploads/2023/03/Opening-Remarks_Hon-Minister_Launch-of-National-AI-Strategy_Final.pdf
+  document_date: '2026-04-24'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://moc.gov.gh/2026/04/24/ghana-launches-national-ai-strategy-to-drive-digital-transformation-and-economic-growth/
+source_title: Ghana National Artificial Intelligence Strategy (2025-2035)
+source_publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
+source_document_date: '2026-04-24'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

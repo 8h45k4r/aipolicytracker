@@ -1,0 +1,65 @@
+slug: uk-ai-opportunities-action-plan-2
+jurisdiction: uk
+title: AI Opportunities Action Plan
+short_title: AI Opportunities Action Plan
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Department for Science, Innovation and Technology
+summary_plain: >-
+  The AI Opportunities Action Plan is an independent report by Matt Clifford commissioned by the government, containing
+  50 recommendations organised under three aims: laying foundations (compute, data, skills and regulation), driving
+  AI adoption across the public and private sectors, and securing homegrown frontier AI capability. The government
+  published a response accepting the recommendations and treats the plan as its roadmap for AI-led growth.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Department for Science, Innovation and Technology.
+  Oversight: DSIT leads delivery across government; recommendations adopted via the government response. Stated
+  purpose: Use AI to drive economic growth, public-service improvement and sovereign UK AI capability.
+key_dates_summary: '2025-01-13: Action Plan and government response published'
+adopted_on: '2025-01-13'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI Opportunities Action Plan
+  publisher: GOV.UK (Department for Science, Innovation and Technology)
+  url: https://www.gov.uk/government/publications/ai-opportunities-action-plan
+  document_date: '2025-01-13'
+  document_type: strategy
+  tier: 1
+- title: Action Plan and government response published
+  publisher: GOV.UK (Department for Science, Innovation and Technology)
+  url: >-
+    https://www.gov.uk/government/publications/ai-opportunities-action-plan/ai-opportunities-action-plan
+  document_date: '2025-01-13'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.gov.uk/government/publications/ai-opportunities-action-plan
+source_title: AI Opportunities Action Plan
+source_publisher: GOV.UK (Department for Science, Innovation and Technology)
+source_document_date: '2025-01-13'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

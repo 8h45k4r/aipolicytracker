@@ -1,87 +1,7 @@
-changes:
-  - slug: 2024-05-17-colorado-ai-act-signed
-    jurisdiction: us-colorado
-    policy: us-colorado-ai-act
-    occurred_on: 2024-05-17
-    title: Colorado signs the first US state law on algorithmic discrimination
-    what_changed: >
-      Governor Polis signed SB 24-205, creating duties of reasonable care for developers and deployers of high-risk
-      AI systems used in consequential decisions, originally effective 1 February 2026.
-    practical_impact: Organisations making consequential decisions about Colorado residents should begin scoping risk programmes and impact assessments.
-    impact_level: high
-    status_after: adopted
-    published: true
-    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
-    source_title: "SB24-205 Consumer Protections for Artificial Intelligence"
-    source_publisher: "Colorado General Assembly"
-    source_document_date: 2024-05-17
-    source_tier: 1
-    review_status: pending_review
-    confidence_level: high
-    content_version: 1
-  - slug: 2024-05-30-singapore-genai-framework
-    jurisdiction: singapore
-    policy: singapore-model-ai-governance-framework
-    occurred_on: 2024-05-30
-    title: Singapore publishes the Model AI Governance Framework for Generative AI
-    what_changed: >
-      IMDA and the AI Verify Foundation released a generative-AI companion to the Model AI Governance Framework with
-      nine governance dimensions including accountability, incident reporting and content provenance.
-    practical_impact: Generative-AI developers and deployers in Singapore have a reference set of expected practices.
-    impact_level: routine
-    status_after: voluntary_standard
-    published: true
-    official_source_url: "https://aiverifyfoundation.sg/resources/mgf-gen-ai/"
-    source_title: "Model AI Governance Framework for Generative AI"
-    source_publisher: "AI Verify Foundation and IMDA"
-    source_document_date: 2024-05-30
-    source_tier: 1
-    review_status: pending_review
-    confidence_level: high
-    content_version: 1
-  - slug: 2024-07-12-eu-ai-act-published
-    jurisdiction: eu
-    policy: eu-ai-act
-    occurred_on: 2024-07-12
-    title: EU AI Act published in the Official Journal
-    what_changed: >
-      Regulation (EU) 2024/1689 was published in the Official Journal, fixing its entry into force for 1 August 2024
-      and starting the phased application clock under Article 113.
-    practical_impact: Every organisation supplying or using AI in the EU can now plan against fixed dates.
-    impact_level: urgent
-    status_after: adopted
-    published: true
-    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    source_title: "Regulation (EU) 2024/1689"
-    source_publisher: "Official Journal of the European Union"
-    source_document_date: 2024-07-12
-    source_tier: 1
-    review_status: pending_review
-    confidence_level: high
-    content_version: 1
-  - slug: 2024-09-05-australia-voluntary-standard-and-guardrails
-    jurisdiction: australia
-    policy: australia-voluntary-ai-safety-standard
-    occurred_on: 2024-09-05
-    title: Australia releases a Voluntary AI Safety Standard and consults on mandatory guardrails
-    what_changed: >
-      The Department of Industry, Science and Resources published ten voluntary guardrails and a proposals paper on
-      mandatory guardrails for high-risk AI, with consultation to 4 October 2024.
-    practical_impact: Australian organisations gained a concrete voluntary baseline aligned with ISO/IEC 42001 and the NIST AI RMF.
-    impact_level: high
-    status_after: voluntary_standard
-    published: true
-    official_source_url: "https://www.industry.gov.au/publications/voluntary-ai-safety-standard"
-    source_title: "Voluntary AI Safety Standard"
-    source_publisher: "Department of Industry, Science and Resources"
-    source_document_date: 2024-09-05
-    source_tier: 1
-    review_status: pending_review
-    confidence_level: high
-    content_version: 1
-  - slug: 2024-06-13-african-union-continental-artificial-intelligence-strategy
+
+  - slug: 2024-06-13-african-union-continental-artificial-intelligence-strategy-2
     jurisdiction: african-union
-    policy: african-union-continental-artificial-intelligence-strategy
+    policy: african-union-continental-artificial-intelligence-strategy-2
     occurred_on: '2024-06-13'
     title: Adopted by African ICT and Communications Ministers (virtual session, 11-13 June 2024)
     what_changed: >-
@@ -104,9 +24,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-08-09-african-union-continental-artificial-intelligence-strategy
+  - slug: 2024-08-09-african-union-continental-artificial-intelligence-strategy-2
     jurisdiction: african-union
-    policy: african-union-continental-artificial-intelligence-strategy
+    policy: african-union-continental-artificial-intelligence-strategy-2
     occurred_on: '2024-08-09'
     title: Strategy document published on AU website (English PDF)
     what_changed: >-
@@ -128,9 +48,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-09-24-argentina-decisi-n-administrativa-899-2024
+  - slug: 2024-09-24-argentina-decision-administrativa-899-2024
     jurisdiction: argentina
-    policy: argentina-decisi-n-administrativa-899-2024
+    policy: argentina-decision-administrativa-899-2024
     occurred_on: '2024-09-24'
     title: Decisión Administrativa 899/2024 published in the Boletín Oficial
     what_changed: >-
@@ -151,9 +71,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-09-05-australia-national-ai-plan
+  - slug: 2024-09-05-australia-national-ai-plan-2
     jurisdiction: australia
-    policy: australia-national-ai-plan
+    policy: australia-national-ai-plan-2
     occurred_on: '2024-09-05'
     title: >-
       Preceding consultation on mandatory guardrails for high-risk AI opened (government later chose not to proceed
@@ -179,9 +99,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-12-10-brazil-projeto-de-lei-n-2338-2023
+  - slug: 2024-12-10-brazil-projeto-de-lei-no-2338-2023
     jurisdiction: brazil
-    policy: brazil-projeto-de-lei-n-2338-2023
+    policy: brazil-projeto-de-lei-no-2338-2023
     occurred_on: '2024-12-10'
     title: Approved by the Senate plenary
     what_changed: >-
@@ -202,9 +122,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-07-30-brazil-plano-brasileiro-de-intelig-ncia-artificial-2024-2028
+  - slug: 2024-07-30-brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
     jurisdiction: brazil
-    policy: brazil-plano-brasileiro-de-intelig-ncia-artificial-2024-2028
+    policy: brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
     occurred_on: '2024-07-30'
     title: PBIA proposal presented at the 5th National CT&I Conference
     what_changed: >-
@@ -226,9 +146,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-11-12-brazil-plano-brasileiro-de-intelig-ncia-artificial-2024-2028
+  - slug: 2024-11-12-brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
     jurisdiction: brazil
-    policy: brazil-plano-brasileiro-de-intelig-ncia-artificial-2024-2028
+    policy: brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
     occurred_on: '2024-11-12'
     title: Resolução CCT nº 4/2024 approving the PBIA proposal published in the DOU
     what_changed: >-
@@ -251,9 +171,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-05-02-chile-pol-tica-nacional-de-inteligencia-artificial
+  - slug: 2024-05-02-chile-politica-nacional-de-inteligencia-artificial
     jurisdiction: chile
-    policy: chile-pol-tica-nacional-de-inteligencia-artificial
+    policy: chile-politica-nacional-de-inteligencia-artificial
     occurred_on: '2024-05-02'
     title: Updated National AI Policy and Action Plan presented
     what_changed: >-
@@ -276,9 +196,9 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
-      2024-05-07-chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-bolet-n-16821-19
+      2024-05-07-chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-boletin-16821-19
     jurisdiction: chile
-    policy: chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-bolet-n-16821-19
+    policy: chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-boletin-16821-19
     occurred_on: '2024-05-07'
     title: Bill entered the Chamber of Deputies by presidential message
     what_changed: >-
@@ -301,9 +221,9 @@ changes:
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-03-07-india-national-strategy-for-artificial-intelligence
+  - slug: 2024-03-07-india-national-strategy-for-artificial-intelligence-2
     jurisdiction: india
-    policy: india-national-strategy-for-artificial-intelligence
+    policy: india-national-strategy-for-artificial-intelligence-2
     occurred_on: '2024-03-07'
     title: Union Cabinet approves the IndiaAI Mission, operationalising national AI investment
     what_changed: >-
@@ -325,9 +245,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-03-07-india-indiaai-mission
+  - slug: 2024-03-07-india-indiaai-mission-2
     jurisdiction: india
-    policy: india-indiaai-mission
+    policy: india-indiaai-mission-2
     occurred_on: '2024-03-07'
     title: Cabinet approves IndiaAI Mission with INR 10,371.92 crore outlay
     what_changed: >-
@@ -348,9 +268,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-04-19-japan-ai-guidelines-for-business
+  - slug: 2024-04-19-japan-ai-guidelines-for-business-2
     jurisdiction: japan
-    policy: japan-ai-guidelines-for-business
+    policy: japan-ai-guidelines-for-business-2
     occurred_on: '2024-04-19'
     title: AI Guidelines for Business Ver1.0 published
     what_changed: >-
@@ -371,9 +291,9 @@ changes:
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-09-01-malaysia-national-artificial-intelligence-roadmap-2021-2025
+  - slug: 2024-09-01-malaysia-national-artificial-intelligence-roadmap-2021-2025-2
     jurisdiction: malaysia
-    policy: malaysia-national-artificial-intelligence-roadmap-2021-2025
+    policy: malaysia-national-artificial-intelligence-roadmap-2021-2025-2
     occurred_on: '2024-09-01'
     title: National Guidelines on AI Governance and Ethics issued under the roadmap
     what_changed: >-
@@ -395,9 +315,9 @@ changes:
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-09-01-malaysia-the-national-guidelines-on-ai-governance-ethics
+  - slug: 2024-09-01-malaysia-the-national-guidelines-on-ai-governance-ethics-2
     jurisdiction: malaysia
-    policy: malaysia-the-national-guidelines-on-ai-governance-ethics
+    policy: malaysia-the-national-guidelines-on-ai-governance-ethics-2
     occurred_on: '2024-09-01'
     title: AIGE published by MOSTI (September 2024)
     what_changed: >-
@@ -419,9 +339,10 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-07-05-nepal-concept-paper-on-the-use-and-practice-of-artificial-intelligence-in-nepal
+  - slug: >-
+      2024-07-05-nepal-concept-paper-on-the-use-and-practice-of-artificial-intelligence-in-nepal-2
     jurisdiction: nepal
-    policy: nepal-concept-paper-on-the-use-and-practice-of-artificial-intelligence-in-nepal
+    policy: nepal-concept-paper-on-the-use-and-practice-of-artificial-intelligence-in-nepal-2
     occurred_on: '2024-07-05'
     title: Concept paper published for comments on MoCIT website (21 Asar 2081)
     what_changed: >-
@@ -443,9 +364,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-08-01-nigeria-national-artificial-intelligence-strategy
+  - slug: 2024-08-01-nigeria-national-artificial-intelligence-strategy-2
     jurisdiction: nigeria
-    policy: nigeria-national-artificial-intelligence-strategy
+    policy: nigeria-national-artificial-intelligence-strategy-2
     occurred_on: '2024-08-01'
     title: Draft National AI Strategy 2024 published by NCAIR
     what_changed: >-
@@ -467,9 +388,9 @@ changes:
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-07-03-philippines-national-ai-strategy-roadmap-2-0
+  - slug: 2024-07-03-philippines-national-ai-strategy-roadmap-2-0-2
     jurisdiction: philippines
-    policy: philippines-national-ai-strategy-roadmap-2-0
+    policy: philippines-national-ai-strategy-roadmap-2-0-2
     occurred_on: '2024-07-03'
     title: DTI launches NAISR 2.0 and the Center for AI Research
     what_changed: >-
@@ -491,35 +412,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: >-
-      2024-12-26-south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-f
-    jurisdiction: south-korea
-    policy: >-
-      south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
-    occurred_on: '2024-12-26'
-    title: Passed by the National Assembly plenary
-    what_changed: >-
-      Milestone recorded for Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation
-      for Trust (South Korea): Passed by the National Assembly plenary. Recorded from the official source listed;
-      details to be expanded by a reviewer.
-    practical_impact: ''
-    impact_level: routine
-    status_after: null
-    published: true
-    official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-    source_title: Passed by the National Assembly plenary
-    source_publisher: Korea Ministry of Government Legislation, National Law Information Center
-    source_document_date: '2024-12-26'
-    source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
-    confidence_level: high
-    content_version: 1
-    change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-06-10-uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence
+  - slug: 2024-06-10-uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence-2
     jurisdiction: uae
-    policy: uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence
+    policy: uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence-2
     occurred_on: '2024-06-10'
     title: Charter issued (Cabinet approval) per UAE Legislation portal
     what_changed: >-
@@ -542,9 +437,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-11-21-uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
+  - slug: 2024-11-21-uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030-2
     jurisdiction: uruguay
-    policy: uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
+    policy: uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030-2
     occurred_on: '2024-11-21'
     title: Strategy approved by the Strategic Committee for Public-Sector AI and Data
     what_changed: >-
@@ -567,9 +462,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2024-11-22-uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
+  - slug: 2024-11-22-uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030-2
     jurisdiction: uruguay
-    policy: uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
+    policy: uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030-2
     occurred_on: '2024-11-22'
     title: Strategy document published by Agesic
     what_changed: >-

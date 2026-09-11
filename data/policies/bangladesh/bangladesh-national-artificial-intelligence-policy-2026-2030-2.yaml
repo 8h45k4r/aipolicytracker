@@ -1,0 +1,75 @@
+slug: bangladesh-national-artificial-intelligence-policy-2026-2030-2
+jurisdiction: bangladesh
+title: National Artificial Intelligence Policy 2026-2030 (Draft V2.0)
+short_title: National Artificial Intelligence Policy 2026-2030
+instrument_type: consultation
+status: under_consultation
+status_note: >-
+  An earlier draft National AI Policy 2024 (April 2024) existed on the ICT Division portal but that URL now returns
+  404, so it is not recorded. Final adoption not yet confirmed as of access date.
+is_binding: false
+featured: false
+published: true
+issuing_body: ICT Division, Ministry of Posts, Telecommunications and Information Technology
+summary_plain: >-
+  A revised draft national AI policy published by the ICT Division for public review. It proposes a risk-based approach
+  to AI regulation with prohibitions on certain uses, impact assessments for high-risk systems, and institutional
+  arrangements for coordination and capacity building. Public consultation on the draft closed in February 2026
+  and the committee is reviewing submissions before finalisation.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by ICT Division, Ministry of Posts, Telecommunications
+  and Information Technology. Oversight: ICT Division AI Policy Committee; proposed national AI coordination body.
+  Stated purpose: Create a risk-based, rights-respecting framework for AI adoption after an earlier 2024 draft stalled.
+key_dates_summary: >-
+  2026-01-25: Draft V1.1 released for public consultation; 2026-02-09: Draft V2.0 published; consultation closed
+  8 February 2026
+adopted_on: '2026-02-09'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Artificial Intelligence Policy 2026-2030 (Draft V2.0)
+  publisher: ICT Division, Government of Bangladesh
+  url: https://aipolicy.gov.bd/docs/national-ai-policy-bangladesh-2026-2030-draft-v2.0.pdf
+  document_date: '2026-02-09'
+  document_type: consultation
+  tier: 1
+- title: Draft V1.1 released for public consultation
+  publisher: ICT Division, Government of Bangladesh
+  url: https://aipolicy.gov.bd/
+  document_date: '2026-01-25'
+  document_type: official
+  tier: 1
+- title: Draft V2.0 published; consultation closed 8 February 2026
+  publisher: ICT Division, Government of Bangladesh
+  url: https://aipolicy.gov.bd/
+  document_date: '2026-02-09'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://aipolicy.gov.bd/docs/national-ai-policy-bangladesh-2026-2030-draft-v2.0.pdf
+source_title: National Artificial Intelligence Policy 2026-2030 (Draft V2.0)
+source_publisher: ICT Division, Government of Bangladesh
+source_document_date: '2026-02-09'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

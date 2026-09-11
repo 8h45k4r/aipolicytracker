@@ -1,0 +1,68 @@
+slug: malaysia-the-national-guidelines-on-ai-governance-ethics-2
+jurisdiction: malaysia
+title: The National Guidelines on AI Governance & Ethics (AIGE)
+short_title: The National Guidelines on AI Governance & Ethics
+instrument_type: guidance
+status: guidance
+status_note: >-
+  MASTIC lists publication as September 2024; the launch is widely reported as 20 September 2024 but the day is
+  not stated on the official page, so first of month is used.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Science, Technology and Innovation (MOSTI)
+summary_plain: >-
+  Voluntary national guidelines that set out seven principles for responsible AI: fairness; reliability, safety
+  and control; privacy and security; inclusiveness; transparency; accountability; and human-centricity. They give
+  tailored guidance to end users, policymakers and AI developers and are meant to build public trust and reduce
+  ethical risks while supporting adoption.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of Science, Technology and Innovation
+  (MOSTI). Oversight: MOSTI (guidelines are voluntary). Stated purpose: Promote trustworthy, human-centred AI through
+  shared principles for users, policymakers and developers.
+key_dates_summary: '2024-09-01: AIGE published by MOSTI (September 2024)'
+adopted_on: '2024-09-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: The National Guidelines on AI Governance & Ethics (AIGE)
+  publisher: Malaysian Science, Technology Information Centre (MASTIC), MOSTI
+  url: https://mastic.mosti.gov.my/publication/the-national-guidelines-on-ai-governance-ethics/
+  document_date: '2024-09-01'
+  document_type: guidance
+  tier: 1
+- title: AIGE published by MOSTI (September 2024)
+  publisher: Malaysian Science, Technology Information Centre (MASTIC), MOSTI
+  url: >-
+    https://mastic.mosti.gov.my/storage/2024/09/THE-NATIONAL-GUIDELINES-ON-AI-GOVERNANCE-ETHICS.pdf
+  document_date: '2024-09-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://mastic.mosti.gov.my/publication/the-national-guidelines-on-ai-governance-ethics/
+source_title: The National Guidelines on AI Governance & Ethics (AIGE)
+source_publisher: Malaysian Science, Technology Information Centre (MASTIC), MOSTI
+source_document_date: '2024-09-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

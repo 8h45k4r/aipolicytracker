@@ -1,0 +1,69 @@
+slug: bhutan-bhutan-national-ai-strategy-2025-2
+jurisdiction: bhutan
+title: Bhutan National AI Strategy 2025 (NAIS 2025)
+short_title: Bhutan National AI Strategy 2025
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Month-level date: PDF metadata shows creation on 10 October 2025 and it was uploaded to tech.gov.bt in October
+  2025. Formal approval by the GovTech Commission/Cabinet could not be confirmed from an official source; as of
+  July 2025 it was reported as a draft pending submission.
+is_binding: false
+featured: false
+published: true
+issuing_body: GovTech Agency, Royal Government of Bhutan
+summary_plain: >-
+  A national strategy framed around the vision of AI rooted in Gross National Happiness. It identifies eight focus
+  areas (agriculture and livestock, tourism, green energy, education, health, public service delivery, natural resources
+  and biodiversity, and culture and language) and seven enablers such as infrastructure, governance and regulation,
+  cybersecurity, skills, research, collaboration and funding. It aims to raise Bhutan's AI maturity by the end of
+  the 13th Five Year Plan and includes monitoring, evaluation and risk-mitigation provisions.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by GovTech Agency, Royal Government of Bhutan. Oversight:
+  GovTech Agency with annual action-plan reviews and a five-year strategy review. Stated purpose: Apply AI to national
+  development in line with Gross National Happiness values.
+key_dates_summary: '2025-10-01: NAIS 2025 published in GovTech Agency''s official publications list'
+adopted_on: '2025-10-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Bhutan National AI Strategy 2025 (NAIS 2025)
+  publisher: GovTech Agency, Royal Government of Bhutan
+  url: https://tech.gov.bt/wp-content/uploads/2025/10/National-AI-Strategy-2025.pdf
+  document_date: '2025-10-01'
+  document_type: strategy
+  tier: 1
+- title: NAIS 2025 published in GovTech Agency's official publications list
+  publisher: GovTech Agency, Royal Government of Bhutan
+  url: https://tech.gov.bt/publications/
+  document_date: '2025-10-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://tech.gov.bt/wp-content/uploads/2025/10/National-AI-Strategy-2025.pdf
+source_title: Bhutan National AI Strategy 2025 (NAIS 2025)
+source_publisher: GovTech Agency, Royal Government of Bhutan
+source_document_date: '2025-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

@@ -1,27 +1,7 @@
-changes:
-  - slug: 2026-01-01-california-sb-53-operative
-    jurisdiction: us-california
-    policy: us-california-sb-53
-    occurred_on: 2026-01-01
-    title: California SB 53 frontier-model transparency duties become operative
-    what_changed: >
-      Most provisions of the Transparency in Frontier Artificial Intelligence Act took effect, including the duty to
-      publish a frontier AI framework and report critical safety incidents.
-    practical_impact: Large frontier developers should now have a published framework and incident-reporting process.
-    impact_level: high
-    status_after: in_force
-    published: true
-    official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
-    source_title: "SB 53 Transparency in Frontier Artificial Intelligence Act"
-    source_publisher: "California Legislative Information"
-    source_document_date: 2025-09-29
-    source_tier: 1
-    review_status: pending_review
-    confidence_level: medium
-    content_version: 1
-  - slug: 2026-01-25-bangladesh-national-artificial-intelligence-policy-2026-2030
+
+  - slug: 2026-01-25-bangladesh-national-artificial-intelligence-policy-2026-2030-2
     jurisdiction: bangladesh
-    policy: bangladesh-national-artificial-intelligence-policy-2026-2030
+    policy: bangladesh-national-artificial-intelligence-policy-2026-2030-2
     occurred_on: '2026-01-25'
     title: Draft V1.1 released for public consultation
     what_changed: >-
@@ -42,9 +22,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-02-09-bangladesh-national-artificial-intelligence-policy-2026-2030
+  - slug: 2026-02-09-bangladesh-national-artificial-intelligence-policy-2026-2030-2
     jurisdiction: bangladesh
-    policy: bangladesh-national-artificial-intelligence-policy-2026-2030
+    policy: bangladesh-national-artificial-intelligence-policy-2026-2030-2
     occurred_on: '2026-02-09'
     title: Draft V2.0 published; consultation closed 8 February 2026
     what_changed: >-
@@ -65,9 +45,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-01-01-egypt-national-ai-strategy
+  - slug: 2026-01-01-egypt-national-ai-strategy-2
     jurisdiction: egypt
-    policy: egypt-national-ai-strategy
+    policy: egypt-national-ai-strategy-2
     occurred_on: '2026-01-01'
     title: NCAI mandate expanded to AI, Quantum Computing and Emerging Technologies (January 2026)
     what_changed: >-
@@ -88,9 +68,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-04-24-ghana-ghana-national-artificial-intelligence-strategy
+  - slug: 2026-04-24-ghana-ghana-national-artificial-intelligence-strategy-2
     jurisdiction: ghana
-    policy: ghana-ghana-national-artificial-intelligence-strategy
+    policy: ghana-ghana-national-artificial-intelligence-strategy-2
     occurred_on: '2026-04-24'
     title: Official launch in Accra; Minister's opening remarks published
     what_changed: >-
@@ -113,10 +93,10 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
-      2026-02-11-indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+      2026-02-11-indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029-2
     jurisdiction: indonesia
     policy: >-
-      indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+      indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029-2
     occurred_on: '2026-02-11'
     title: Inter-ministerial plenary discusses draft Perpres on National AI Roadmap 2026-2029
     what_changed: >-
@@ -139,10 +119,10 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
-      2026-05-05-indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+      2026-05-05-indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029-2
     jurisdiction: indonesia
     policy: >-
-      indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+      indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029-2
     occurred_on: '2026-05-05'
     title: >-
       Government completes inter-ministerial finalisation of the roadmap and ethics draft regulations
@@ -166,9 +146,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-03-31-japan-ai-guidelines-for-business
+  - slug: 2026-03-31-japan-ai-guidelines-for-business-2
     jurisdiction: japan
-    policy: japan-ai-guidelines-for-business
+    policy: japan-ai-guidelines-for-business-2
     occurred_on: '2026-03-31'
     title: Ver1.2 published
     what_changed: >-
@@ -189,9 +169,9 @@ changes:
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-07-14-japan-artificial-intelligence-basic-plan
+  - slug: 2026-07-14-japan-artificial-intelligence-basic-plan-2
     jurisdiction: japan
-    policy: japan-artificial-intelligence-basic-plan
+    policy: japan-artificial-intelligence-basic-plan-2
     occurred_on: '2026-07-14'
     title: Second AI Basic Plan adopted by Cabinet decision
     what_changed: >-
@@ -212,9 +192,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-07-10-malaysia-artificial-intelligence
+  - slug: 2026-07-10-malaysia-artificial-intelligence-2
     jurisdiction: malaysia
-    policy: malaysia-artificial-intelligence
+    policy: malaysia-artificial-intelligence-2
     occurred_on: '2026-07-10'
     title: Ministry of Digital begins engagement and public consultation on the AI Governance Bill
     what_changed: >-
@@ -237,9 +217,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-04-01-mexico-plan-nacional-de-inteligencia-artificial
+  - slug: 2026-04-01-mexico-plan-nacional-de-inteligencia-artificial-2
     jurisdiction: mexico
-    policy: mexico-plan-nacional-de-inteligencia-artificial
+    policy: mexico-plan-nacional-de-inteligencia-artificial-2
     occurred_on: '2026-04-01'
     title: Plan Nacional de IA presented by ATDT (April 2026)
     what_changed: >-
@@ -260,9 +240,9 @@ changes:
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-05-20-singapore-national-artificial-intelligence-strategy-2-0
+  - slug: 2026-05-20-singapore-national-artificial-intelligence-strategy-2-0-2
     jurisdiction: singapore
-    policy: singapore-national-artificial-intelligence-strategy-2-0
+    policy: singapore-national-artificial-intelligence-strategy-2-0-2
     occurred_on: '2026-05-20'
     title: Update to the National AI Strategy released with 10 refreshed priorities
     what_changed: >-
@@ -285,9 +265,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-04-26-south-africa-draft-south-africa-national-artificial-intelligence
+  - slug: 2026-04-26-south-africa-draft-south-africa-national-artificial-intelligence-2
     jurisdiction: south-africa
-    policy: south-africa-draft-south-africa-national-artificial-intelligence
+    policy: south-africa-draft-south-africa-national-artificial-intelligence-2
     occurred_on: '2026-04-26'
     title: Minister Malatsi announces withdrawal of the draft policy
     what_changed: >-
@@ -309,9 +289,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-06-12-south-africa-draft-south-africa-national-artificial-intelligence
+  - slug: 2026-06-12-south-africa-draft-south-africa-national-artificial-intelligence-2
     jurisdiction: south-africa
-    policy: south-africa-draft-south-africa-national-artificial-intelligence
+    policy: south-africa-draft-south-africa-national-artificial-intelligence-2
     occurred_on: '2026-06-12'
     title: Withdrawal gazetted (Notice 3978 of 2026, Gazette No. 54840)
     what_changed: >-
@@ -333,35 +313,9 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
-  - slug: >-
-      2026-01-22-south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-f
-    jurisdiction: south-korea
-    policy: >-
-      south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
-    occurred_on: '2026-01-22'
-    title: Act enters into force
-    what_changed: >-
-      Milestone recorded for Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation
-      for Trust (South Korea): Act enters into force. Recorded from the official source listed; details to be expanded
-      by a reviewer.
-    practical_impact: ''
-    impact_level: routine
-    status_after: null
-    published: true
-    official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-    source_title: Act enters into force
-    source_publisher: Korea Ministry of Government Legislation, National Law Information Center
-    source_document_date: '2026-01-22'
-    source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
-    confidence_level: high
-    content_version: 1
-    change_summary: Imported milestone from the legacy dataset.
-  - slug: 2026-03-01-vietnam-law-on-artificial-intelligence
+  - slug: 2026-03-01-vietnam-law-on-artificial-intelligence-2
     jurisdiction: vietnam
-    policy: vietnam-law-on-artificial-intelligence
+    policy: vietnam-law-on-artificial-intelligence-2
     occurred_on: '2026-03-01'
     title: Law on Artificial Intelligence enters into force
     what_changed: >-

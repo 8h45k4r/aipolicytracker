@@ -1,0 +1,63 @@
+slug: malaysia-artificial-intelligence-2
+jurisdiction: malaysia
+title: Artificial Intelligence (AI) Governance Bill (proposed)
+short_title: Artificial Intelligence
+instrument_type: bill
+status: proposed
+status_note: >-
+  Bill text not yet tabled as of access date; public consultation reportedly closed 31 July 2026.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Digital / National AI Office (NAIO)
+summary_plain: >-
+  A proposed horizontal AI law announced for stakeholder engagement and public consultation by the Ministry of Digital
+  through the National AI Office. It takes a risk-based approach across the AI lifecycle, assigns responsibilities
+  according to actors' roles, and is intended to complement existing laws rather than regulate AI outputs directly.
+  It encourages incident reporting, safeguards and sandboxes, and the government aims to table it in Parliament.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of Digital / National AI Office (NAIO).
+  Oversight: National AI Office under the Ministry of Digital. Stated purpose: Create Malaysia's first horizontal,
+  risk-based statutory framework for AI.
+key_dates_summary: >-
+  2026-07-10: Ministry of Digital begins engagement and public consultation on the AI Governance Bill
+adopted_on: '2026-07-10'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Artificial Intelligence (AI) Governance Bill (proposed)
+  publisher: Ministry of Digital, Malaysia
+  url: >-
+    https://www.digital.gov.my/en-GB/siaran/Kementerian-Digital-Mulakan-Libat-Urus-Cadangan-Rang-Undang-Undang-Tadbir-Urus-Kecerdasan-Buatan-(AI)
+  document_date: '2026-07-10'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.digital.gov.my/en-GB/siaran/Kementerian-Digital-Mulakan-Libat-Urus-Cadangan-Rang-Undang-Undang-Tadbir-Urus-Kecerdasan-Buatan-(AI)
+source_title: Artificial Intelligence (AI) Governance Bill (proposed)
+source_publisher: Ministry of Digital, Malaysia
+source_document_date: '2026-07-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

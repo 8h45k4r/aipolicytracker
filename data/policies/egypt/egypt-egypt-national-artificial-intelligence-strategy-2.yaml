@@ -1,0 +1,67 @@
+slug: egypt-egypt-national-artificial-intelligence-strategy-2
+jurisdiction: egypt
+title: Egypt National Artificial Intelligence Strategy
+short_title: Egypt National Artificial Intelligence Strategy
+instrument_type: strategy
+status: adopted
+status_note: >-
+  MCIT gives the publication month as July 2021 only; first of month used. NCAI was established in 2019.
+is_binding: false
+featured: false
+published: true
+issuing_body: >-
+  National Council for Artificial Intelligence, Ministry of Communications and Information Technology
+summary_plain: >-
+  Egypt's first national AI strategy framed AI as a tool for the country's sustainable development goals and for
+  positioning Egypt as an active contributor to AI in Africa and the Arab region. It covered AI for government,
+  development, capacity building and international activities. It has been superseded by the 2025-2030 second edition.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by National Council for Artificial Intelligence,
+  Ministry of Communications and Information Technology. Oversight: NCAI coordinates implementation across ministries.
+  Stated purpose: Leverage AI for sustainable development and regional leadership.
+key_dates_summary: '2021-07-01: Strategy published by MCIT (July 2021)'
+adopted_on: '2021-07-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Egypt National Artificial Intelligence Strategy
+  publisher: Ministry of Communications and Information Technology, Egypt
+  url: https://mcit.gov.eg/en/Publication/Publication_Summary/9283
+  document_date: '2021-07-01'
+  document_type: strategy
+  tier: 1
+- title: Strategy published by MCIT (July 2021)
+  publisher: Ministry of Communications and Information Technology, Egypt
+  url: >-
+    https://mcit.gov.eg/Upcont/Documents/Publications_672021000_Egypt-National-AI-Strategy-English.pdf
+  document_date: '2021-07-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://mcit.gov.eg/en/Publication/Publication_Summary/9283
+source_title: Egypt National Artificial Intelligence Strategy
+source_publisher: Ministry of Communications and Information Technology, Egypt
+source_document_date: '2021-07-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

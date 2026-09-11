@@ -1,0 +1,69 @@
+slug: >-
+  canada-voluntary-code-of-conduct-on-the-responsible-development-and-management-of-advanced-generative-ai-syste-2
+jurisdiction: canada
+title: >-
+  Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI Systems
+short_title: >-
+  Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI Systems
+instrument_type: guidance
+status: guidance
+status_note: >-
+  The fetched page shows 'September 2023' without a day; 27 September 2023 is the widely reported launch date but
+  was not confirmed on the page.
+is_binding: false
+featured: false
+published: true
+issuing_body: Innovation, Science and Economic Development Canada
+summary_plain: >-
+  This voluntary code asks Canadian developers and managers of advanced generative AI systems to commit to measures
+  under six principles: accountability, safety, fairness and equity, transparency, human oversight and monitoring,
+  and validity and robustness. Obligations are scaled according to whether a system is made available for general
+  public use. It was introduced as a bridge while the Artificial Intelligence and Data Act was before Parliament,
+  and lists around fifty signatory organisations.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Innovation, Science and Economic Development
+  Canada. Oversight: ISED administers; signatory companies self-implement the commitments. Stated purpose: Interim
+  voluntary safeguards for generative AI developers pending binding legislation.
+key_dates_summary: '2023-09-27: Code published with initial signatories'
+adopted_on: '2023-09-27'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI Systems
+  publisher: Innovation, Science and Economic Development Canada
+  url: >-
+    https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems
+  document_date: '2023-09-27'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: >-
+  https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems
+source_title: >-
+  Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI Systems
+source_publisher: Innovation, Science and Economic Development Canada
+source_document_date: '2023-09-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.
