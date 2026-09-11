@@ -74,12 +74,12 @@ class ExternalSyncTest extends TestCase
     public function test_api_failure_is_reported_and_cron_trigger_requires_token(): void
     {
         $this->artisan('external:import')->assertExitCode(0);
-        Http::fake([AiidApiClient::ENDPOINT => Http::response(['error' => 'Forbidden - Invalid client'], 403)]);
+        // Two 403s cover the client's retry; afterwards the API answers with an empty page.
+        Http::fake([AiidApiClient::ENDPOINT => Http::sequence()->push(['error' => 'Forbidden - Invalid client'], 403)->push(['error' => 'Forbidden - Invalid client'], 403)->whenEmpty(Http::response(['data' => ['incidents' => []]]))]);
         $this->artisan('external:sync-aiid-api', ['--since' => '2026-09-01'])->assertExitCode(1);
 
         $this->postJson('/cron/external-sync')->assertStatus(401);
         AppSetting::put('cron_token', str_repeat('s', 32));
-        Http::fake([AiidApiClient::ENDPOINT => Http::response(['data' => ['incidents' => []]])]);
         $response = $this->postJson('/cron/external-sync', [], ['Authorization' => 'Bearer '.str_repeat('s', 32)])->assertOk();
         $this->assertStringContainsString('No new or modified incidents', $response->json('message'));
     }
