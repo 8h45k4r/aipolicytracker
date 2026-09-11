@@ -1,0 +1,60 @@
+slug: el-salvador-ai-promotion-law-2025
+jurisdiction: el-salvador
+title: >-
+  Ley para el Fomento de la Inteligencia Artificial y Tecnologías Emergentes (Decreto Legislativo, febrero de 2025)
+short_title: Law for the Promotion of AI and Emerging Technologies
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Asamblea Legislativa de El Salvador
+summary_plain: >-
+  Approved by the Legislative Assembly in February 2025, the law promotes AI development and investment, creates the National
+  Agency for Artificial Intelligence (ANIA) as regulator, defines rights and principles (human oversight, transparency,
+  non-discrimination, data protection), sets registration and sandbox mechanisms and limits liability of developers who
+  act in good faith under the law, alongside data-processing rules for AI training.
+scope_summary: >-
+  Developers, providers and users of AI systems in El Salvador and public bodies; ANIA issues implementing regulations.
+adopted_on: '2025-02-25'
+date_notes: >-
+  Legislative approval date as reported; publication and entry into force to be confirmed in the Diario Oficial.
+actors:
+- provider
+- deployer
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Asamblea Legislativa de El Salvador
+  publisher: Government of El Salvador
+  url: https://www.asamblea.gob.sv/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.asamblea.gob.sv/
+source_title: Asamblea Legislativa de El Salvador
+source_publisher: Government of El Salvador
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Complete country coverage: 95 further jurisdictions so every UN member state (plus Kosovo, Palestine, Taiwan and Hong Kong) has a record. Where no AI-specific instrument exists the record says so and points to the government portal and a labelled secondary source; four instruments added (El Salvador's AI promotion law, the Holy See's Rome Call for AI Ethics, Azerbaijan's AI Strategy 2025–2028, Tajikistan's AI strategy to 2040). Totals: 212 jurisdictions, 186 instruments.
+
+### Added
 - MIT AI Risk drilldown: subdomain profile pages (`/ai-risk/{domain}/{subdomain}`) with the repository's definition, causal entity, intent, timing and level breakdowns, incidents per year, the frameworks that cite the subdomain, paginated risk entries and recent incidents; domain→subdomain treemaps on the AI risk hub sized by risk entries and by recorded incidents; subdomain pages in the sitemap.
 
 ### Added
