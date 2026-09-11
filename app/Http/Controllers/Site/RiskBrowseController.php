@@ -87,6 +87,84 @@ class RiskBrowseController extends Controller
         return view('site.risk.incidents-browse', compact('seo', 'incidents', 'filters', 'facets', 'aiid'));
     }
 
+    /** Single-incident profile: every stored field, related incidents and the MIT risk entries that describe the same failure mode. */
+    public function incidentShow(int $incident): View
+    {
+        $i = ExternalIncident::findOrFail($incident);
+        $labels = ExternalIncident::domainLabels();
+        $domainId = array_search($i->mit_domain, $labels, true) ?: null;
+        $subdomainCode = $this->subdomainCode($i->mit_subdomain);
+
+        $sameSubdomain = $i->mit_subdomain ? ExternalIncident::where('mit_subdomain', $i->mit_subdomain)->where('incident_id', '!=', $i->incident_id)->orderByDesc('occurred_on')->limit(6)->get() : collect();
+        $deployer = $i->deployers[0] ?? null;
+        $sameDeployer = $deployer ? ExternalIncident::where('incident_id', '!=', $i->incident_id)->where('deployers', 'like', '%'.str_replace(['%', '_'], ['\\%', '\\_'], json_encode($deployer, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)).'%')->orderByDesc('occurred_on')->limit(6)->get() : collect();
+        $risks = $subdomainCode ? ExternalRisk::where('subdomain', $subdomainCode)->whereIn('level', ['Risk Category', 'Risk Sub-Category'])->orderBy('quick_ref')->limit(8)->get() : collect();
+        $summary = $this->data->aiid();
+
+        $seo = Seo::make(
+            'AI incident #'.$i->incident_id.': '.$i->title,
+            mb_substr(($i->description ?: $i->title).' Dated '.$i->occurred_on->format('j F Y').'; '.$i->report_count.' reports on the AI Incident Database.', 0, 155),
+            route('risk.incidents.show', $i->incident_id)
+        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Incidents', route('risk.incidents.browse')], ['#'.$i->incident_id, route('risk.incidents.show', $i->incident_id)]])
+          ->withModified($i->snapshot_date)
+          ->withJsonLd([
+              '@context' => 'https://schema.org', '@type' => 'Article', 'headline' => 'AI incident #'.$i->incident_id.': '.$i->title,
+              'datePublished' => $i->occurred_on->toDateString(), 'dateModified' => $i->snapshot_date?->toDateString(),
+              'isBasedOn' => $i->citeUrl(), 'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
+              'publisher' => Seo::organization(), 'about' => array_filter([$i->mit_domain, $i->mit_subdomain]),
+          ]);
+
+        return view('site.risk.incident-show', compact('i', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'summary', 'seo', 'deployer'));
+    }
+
+    /** Single MIT risk entry with its paper siblings, other frameworks describing the same subdomain, and matching incidents. */
+    public function riskShow(string $ev): View
+    {
+        $r = ExternalRisk::findOrFail(str_replace('--', '#', $ev));
+        $labels = ExternalIncident::domainLabels();
+        $domain = $r->domain ? $this->data->mitDomain((string) $r->domain) : null;
+        $subdomainMeta = null;
+        foreach ($domain['subdomains'] ?? [] as $sd) {
+            if (($sd['id'] ?? null) === $r->subdomain) {
+                $subdomainMeta = $sd;
+            }
+        }
+        $siblings = ExternalRisk::where('quick_ref', $r->quick_ref)->where('ev_id', '!=', $r->ev_id)->orderBy('ev_id')->limit(12)->get();
+        $peers = $r->subdomain ? ExternalRisk::where('subdomain', $r->subdomain)->where('quick_ref', '!=', $r->quick_ref)->whereIn('level', ['Risk Category', 'Risk Sub-Category'])->orderBy('quick_ref')->limit(8)->get() : collect();
+        $incidents = $subdomainMeta ? ExternalIncident::whereRaw('lower(mit_subdomain) = ?', [mb_strtolower(trim($subdomainMeta['name']))])->orderByDesc('occurred_on')->limit(6)->get() : collect();
+        $meta = $this->data->mitRisksMeta();
+        $paper = collect($meta['papers'] ?? [])->firstWhere('quick_ref', $r->quick_ref);
+
+        $seo = Seo::make(
+            ($r->risk_subcategory ?: $r->risk_category ?: 'Risk entry').' ('.$r->quick_ref.')',
+            mb_substr(($r->description ?: 'Risk entry from '.$r->paper_title).' Coded as '.implode(', ', array_filter([$r->entity, $r->intent, $r->timing])).' in the MIT AI Risk Repository.', 0, 155),
+            route('risk.risks.show', $ev)
+        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Risk entries', route('risk.risks')], [$r->ev_id, route('risk.risks.show', $ev)]])
+          ->withJsonLd([
+              '@context' => 'https://schema.org', '@type' => 'DefinedTerm', 'name' => $r->risk_subcategory ?: $r->risk_category, 'description' => $r->description,
+              'identifier' => $r->ev_id, 'inDefinedTermSet' => 'https://airisk.mit.edu/', 'license' => 'https://creativecommons.org/licenses/by/4.0/',
+          ]);
+
+        return view('site.risk.risk-show', compact('r', 'ev', 'domain', 'subdomainMeta', 'siblings', 'peers', 'incidents', 'paper', 'seo', 'labels'));
+    }
+
+    /** MIT subdomain code (e.g. "2.1") for an AIID subdomain label, via the taxonomy file. */
+    private function subdomainCode(?string $label): ?string
+    {
+        if (! $label) {
+            return null;
+        }
+        foreach ($this->data->mitRisk()['domains'] ?? [] as $d) {
+            foreach ($d['subdomains'] ?? [] as $sd) {
+                if (mb_strtolower(trim($sd['name'] ?? '')) === mb_strtolower(trim($label))) {
+                    return $sd['id'] ?? null;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public function incidentsExport(Request $request, string $format): StreamedResponse
     {
         [$query] = $this->incidentQuery($request);

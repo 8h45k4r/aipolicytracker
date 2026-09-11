@@ -32,7 +32,7 @@
     @if($recent->isNotEmpty())
     <section class="mt-12" aria-labelledby="recent-heading">
         <div class="rule-strong pt-3"><h2 id="recent-heading" class="section-title">Recent incidents in this domain</h2></div>
-        <ol class="mt-2 divide-y divide-brand-line">@foreach($recent as $i)<li class="py-3 grid gap-1 sm:grid-cols-12 sm:gap-4 text-sm"><time class="datestamp sm:col-span-2" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><div class="sm:col-span-8"><a href="{{ $i->citeUrl() }}" rel="noopener" class="text-brand-navy no-underline hover:underline">{{ $i->title }}</a></div><div class="sm:col-span-2 meta">{{ \Illuminate\Support\Str::limit($i->mit_subdomain ?: '—', 34) }}</div></li>@endforeach</ol>
+        <ol class="mt-2 divide-y divide-brand-line">@foreach($recent as $i)<li class="py-3 grid gap-1 sm:grid-cols-12 sm:gap-4 text-sm"><time class="datestamp sm:col-span-2" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><div class="sm:col-span-8"><a href="{{ $i->url() }}" class="text-brand-navy no-underline hover:underline">{{ $i->title }}</a></div><div class="sm:col-span-2 meta">{{ \Illuminate\Support\Str::limit($i->mit_subdomain ?: '—', 34) }}</div></li>@endforeach</ol>
     </section>
     @endif
 

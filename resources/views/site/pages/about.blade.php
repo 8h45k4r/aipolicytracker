@@ -55,7 +55,14 @@
                 <div class="rule-strong pt-3"><h2 id="team-heading" class="section-title">Who is behind it</h2></div>
                 <ul class="mt-3 space-y-3 text-sm">
                     @foreach($maintainers as $m)
-                    <li><a href="{{ $m['url'] }}" rel="me noopener" class="font-medium text-brand-navy">{{ $m['name'] }}</a><span class="meta block">{{ $m['role'] }}</span></li>
+                    <li><a href="{{ $m['url'] }}" rel="me noopener" class="font-medium text-brand-navy">{{ $m['name'] }}</a><span class="meta block">{{ $m['role'] }}</span>
+                        <ul class="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+                            <li><a href="{{ $m['url'] }}" rel="me noopener" class="text-brand-body hover:text-brand-navy">Website</a></li>
+                            @foreach($m['same_as'] ?? [] as $link)
+                            @php($host = parse_url($link, PHP_URL_HOST))
+                            <li><a href="{{ $link }}" rel="me noopener" class="text-brand-body hover:text-brand-navy">{{ str_contains($host, 'linkedin') ? 'Get connected on LinkedIn' : (str_contains($host, 'x.com') || str_contains($host, 'twitter') ? 'Follow on X (Twitter)' : (str_contains($host, 'github') ? 'GitHub' : $host)) }}</a></li>
+                            @endforeach
+                        </ul></li>
                     @endforeach
                     <li><a href="{{ $organization['url'] }}" rel="noopener" class="font-medium text-brand-navy">{{ $organization['name'] }}</a><span class="meta block">{{ $organization['tagline'] }}</span></li>
                 </ul>

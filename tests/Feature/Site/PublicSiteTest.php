@@ -122,6 +122,13 @@ class PublicSiteTest extends TestCase
         $this->post('/contribute', ['type' => 'correction', 'summary' => 'short'])->assertSessionHasErrors('summary');
     }
 
+    public function test_login_page_is_server_rendered_with_password_toggle_and_about_lists_maintainer_links(): void
+    {
+        $this->get('/login')->assertOk()->assertSee('Sign in to the admin')->assertSee('data-password-toggle', false)->assertDontSee('Register')->assertSee('brand/logo-on-dark.svg');
+        $this->get('/about')->assertOk()->assertSee('Follow on X (Twitter)')->assertSee('Get connected on LinkedIn')->assertSee('https://bhaskar.com.np/');
+        $this->get('/')->assertOk()->assertSee('Maintained by');
+    }
+
     public function test_correction_form_is_prefilled_from_the_record_and_captures_field_context(): void
     {
         $this->get('/contribute?type=correction&subject_type=policy&subject_slug=eu-ai-act&field=in_force_on')
@@ -258,6 +265,13 @@ class PublicSiteTest extends TestCase
         $this->get('/ai-risk/risks?q=zzzz-no-such-term')->assertOk()->assertSee('No risks match');
         $this->get('/ai-risk/frameworks')->assertOk()->assertSee('Risk entries');
         $this->get('/ai-risk/incidents/browse?year=2024')->assertOk()->assertSee('incidentdatabase.ai/cite/');
+        $incident = \App\Models\ExternalIncident::whereNotNull('mit_subdomain')->where('mit_subdomain', '!=', '')->orderByDesc('report_count')->first();
+        $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertOk()->assertSee($incident->title)->assertSee('news report')->assertSee('Classification (MIT AI Risk Repository taxonomy)')->assertSee('data-save="incident:'.$incident->incident_id.'"', false);
+        $this->get('/ai-risk/incidents/999999999')->assertNotFound();
+        $risk = \App\Models\ExternalRisk::where('level', 'Risk Sub-Category')->whereNotNull('subdomain')->first();
+        $this->get($risk->url())->assertOk()->assertSee($risk->risk_subcategory ?: $risk->risk_category)->assertSee('Real-world incidents in this subdomain')->assertSee($risk->quick_ref);
+        $dup = \App\Models\ExternalRisk::where('ev_id', 'like', '%#%')->first();
+        if ($dup) { $this->get($dup->url())->assertOk(); }
         $csv = $this->get('/ai-risk/incidents/export.csv?year=2024')->assertOk()->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
         $this->assertStringContainsString('CC BY-SA 4.0', $csv->streamedContent());
         $this->assertStringContainsString('incident_id,occurred_on,title', $csv->streamedContent());

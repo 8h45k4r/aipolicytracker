@@ -8,9 +8,9 @@
     <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
     @vite(['resources/css/public.css', 'resources/js/public.js'])
 </head>
-<body class="min-h-screen bg-brand-paper">
+<body class="min-h-screen bg-brand-ink">
 <div class="lg:grid lg:grid-cols-[240px_1fr] min-h-screen">
-    <aside class="bg-brand-ink text-white/85 px-4 py-5 lg:min-h-screen">
+    <aside class="bg-brand-ink text-white/85 px-4 py-5 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
         <a href="{{ route('backend.admin.dashboard') }}" class="block no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></a>
         <p class="mt-2 eyebrow !text-brand-cyan">Admin</p>
         @php($nav = [
@@ -31,7 +31,7 @@
             <p class="mt-1"><a href="{{ route('home') }}" class="text-white/80 no-underline hover:text-white">Public site</a> · <a href="{{ route('logout') }}" class="text-white/80 no-underline hover:text-white">Sign out</a></p>
         </div>
     </aside>
-    <main class="px-4 sm:px-8 py-8 min-w-0">
+    <main class="bg-brand-paper px-4 sm:px-8 py-8 min-w-0 min-h-screen">
         @if(session('success'))<div class="mb-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">{{ session('success') }}</div>@endif
         @if($errors->any())<div class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ $errors->first() }}</div>@endif
         @yield('content')
