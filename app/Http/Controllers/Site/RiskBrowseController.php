@@ -35,7 +35,11 @@ class RiskBrowseController extends Controller
         $indexable = empty(array_filter($filters)) && $risks->currentPage() === 1;
         $seo = Seo::make('Browse AI risks: 2,500 risk entries from 74 frameworks', 'Search and filter the MIT AI Risk Repository database by domain, subdomain, entity, intent, timing and evidence level; export the result as CSV or JSON.', route('risk.risks'), $indexable)
             ->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Browse risks', route('risk.risks')]])
-            ->withJsonLd(['@type' => 'Dataset', 'name' => 'MIT AI Risk Repository (browseable copy)', 'url' => route('risk.risks'), 'license' => $mit['license_url'] ?? null, 'isBasedOn' => $mit['source_url'] ?? null]);
+            ->withJsonLd(['@type' => 'Dataset', 'name' => 'MIT AI Risk Repository: AI Risk Database (browseable copy)', 'description' => '2,500 AI risk entries from 74 frameworks coded by domain, subdomain, entity, intent and timing, with filters and CSV/JSON export.', 'url' => route('risk.risks'), 'license' => $mit['license_url'] ?? null, 'isBasedOn' => $mit['source_url'] ?? null, 'creator' => ['@type' => 'Organization', 'name' => 'MIT AI Risk Initiative', 'url' => 'https://airisk.mit.edu/'], 'citation' => $mit['citation'] ?? null, 'keywords' => ['AI risk', 'AI safety', 'responsible AI', 'risk taxonomy', 'AI governance'], 'isAccessibleForFree' => true, 'distribution' => [['@type' => 'DataDownload', 'encodingFormat' => 'text/csv', 'contentUrl' => route('risk.risks.export', 'csv')], ['@type' => 'DataDownload', 'encodingFormat' => 'application/json', 'contentUrl' => route('risk.risks.export', 'json')]]])
+            ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => [
+                ['@type' => 'Question', 'name' => 'What is the MIT AI Risk Repository?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A living database of AI risks extracted from 74 frameworks, taxonomies and papers, classified by a causal taxonomy (entity, intent, timing) and a domain taxonomy (7 domains, 24 subdomains). Published by the MIT AI Risk Initiative under CC BY 4.0.']],
+                ['@type' => 'Question', 'name' => 'Can I download the filtered risk list?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Apply filters and use Export CSV or Export JSON; the file carries the source, licence and citation so it can be reused with attribution.']],
+            ]]);
 
         return view('site.risk.risks', compact('seo', 'risks', 'filters', 'facets', 'mit'));
     }
@@ -73,7 +77,12 @@ class RiskBrowseController extends Controller
         $aiid = $this->data->aiid();
         $indexable = empty(array_filter($filters)) && $incidents->currentPage() === 1;
         $seo = Seo::make('Browse AI incidents: every record in the AI Incident Database', 'Filter AI incidents by year, risk domain, subdomain, country, sector, harm level and keyword; export as CSV or JSON. Metadata only, with a link to each incident record.', route('risk.incidents.browse'), $indexable)
-            ->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['AI incidents', route('risk.incidents')], ['Browse', route('risk.incidents.browse')]]);
+            ->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['AI incidents', route('risk.incidents')], ['Browse', route('risk.incidents.browse')]])
+            ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI Incident Database: incident metadata (weekly copy)', 'description' => 'Every incident in the AI Incident Database with date, title, description, MIT risk domain and subdomain, causal coding, sector, country and harm level; filterable and exportable.', 'url' => route('risk.incidents.browse'), 'license' => $aiid['license_url'] ?? null, 'isBasedOn' => $aiid['source_url'] ?? null, 'creator' => ['@type' => 'Organization', 'name' => 'Responsible AI Collaborative', 'url' => 'https://incidentdatabase.ai/'], 'citation' => $aiid['citation'] ?? null, 'dateModified' => $aiid['snapshot_date'] ?? null, 'temporalCoverage' => '1983/..', 'keywords' => ['AI incidents', 'AI harms', 'AI safety', 'algorithmic harm', 'responsible AI'], 'isAccessibleForFree' => true, 'distribution' => [['@type' => 'DataDownload', 'encodingFormat' => 'text/csv', 'contentUrl' => route('risk.incidents.export', 'csv')], ['@type' => 'DataDownload', 'encodingFormat' => 'application/json', 'contentUrl' => route('risk.incidents.export', 'json')]]])
+            ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => [
+                ['@type' => 'Question', 'name' => 'How often is the AI incident data updated?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Weekly. The AI Incident Database publishes a new export every Monday; our refresh workflow imports it on Tuesday and shows the snapshot date on every page.']],
+                ['@type' => 'Question', 'name' => 'Does this page include the full incident reports?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No. Report texts are excluded from the CC BY-SA licence, so only metadata and classifications are shown; every row links to the original incident record.']],
+            ]]);
 
         return view('site.risk.incidents-browse', compact('seo', 'incidents', 'filters', 'facets', 'aiid'));
     }
