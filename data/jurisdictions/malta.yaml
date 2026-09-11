@@ -1,0 +1,51 @@
+slug: malta
+name: Malta
+short_name: Malta
+iso_code: MT
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Malta applies the EU AI Act and adopted the "Malta: The Ultimate AI Launchpad" strategy and vision for 2030 in 2019, with
+  the Malta Digital Innovation Authority (MDIA) running a voluntary AI certification framework and proposed as national
+  AI Act authority.
+regulatory_status_summary: EU AI Act applies; AI strategy 2030 (2019) as policy; MDIA certification voluntary.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Malta AI Strategy and Vision 2030.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Malta Digital Innovation Authority (MDIA)
+  url: https://www.mdia.gov.mt/
+  role: Technology assurance and proposed AI Act authority
+- name: Information and Data Protection Commissioner
+  url: https://idpc.org.mt/
+  role: Data-protection authority
+official_sources:
+- title: 'Malta: The Ultimate AI Launchpad – A Strategy and Vision for Artificial Intelligence in Malta 2030'
+  publisher: Office of the Prime Minister / MDIA
+  url: https://malta.ai/
+  document_date: '2019-10-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- italy
+official_source_url: https://malta.ai/
+source_title: 'Malta: The Ultimate AI Launchpad – A Strategy and Vision for Artificial Intelligence in Malta 2030'
+source_publisher: Office of the Prime Minister / MDIA
+source_document_date: '2019-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

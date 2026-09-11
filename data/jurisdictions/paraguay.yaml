@@ -1,0 +1,46 @@
+slug: paraguay
+name: Paraguay
+short_name: Paraguay
+iso_code: PY
+jurisdiction_type: country
+region: Americas
+subregion: South America
+featured: false
+published: true
+overview: >-
+  Paraguay's Ministry of Information and Communication Technologies (MITIC) presented a National Artificial Intelligence
+  Policy in 2024 based on UNESCO's readiness assessment, and bills on AI have been introduced in Congress; the Personal
+  Data Protection Law (2024) applies to AI processing personal data.
+regulatory_status_summary: National AI policy (2024) as policy; AI bills under consideration.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Policy (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministerio de Tecnologías de la Información y Comunicación (MITIC)
+  url: https://www.mitic.gov.py/
+  role: Digital and AI policy lead
+official_sources:
+- title: MITIC
+  publisher: Government of Paraguay
+  url: https://www.mitic.gov.py/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- argentina
+- brazil
+- uruguay
+official_source_url: https://www.mitic.gov.py/
+source_title: MITIC
+source_publisher: Government of Paraguay
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

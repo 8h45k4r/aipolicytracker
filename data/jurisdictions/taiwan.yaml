@@ -1,0 +1,55 @@
+slug: taiwan
+name: Taiwan
+short_name: Taiwan
+iso_code: TW
+jurisdiction_type: country
+region: Asia
+subregion: Eastern Asia
+featured: false
+published: true
+overview: >-
+  Taiwan's Executive Yuan approved a draft Artificial Intelligence Basic Act in July 2024 setting principles (sustainability,
+  human autonomy, privacy, security, transparency, fairness, accountability) and tasking the National Science and Technology
+  Council to lead, with a risk-classification framework and sector regulation to follow; the Legislative Yuan's consideration
+  continued into 2025. The Personal Data Protection Act and its new independent commission apply, and the Financial Supervisory
+  Commission issued generative-AI guidelines for the financial sector.
+regulatory_status_summary: >-
+  AI Basic Act adopted by the Executive Yuan (2024) and under legislative process; sector guidance from financial regulators.
+binding_vs_guidance: 'Binding: Artificial Intelligence Basic Act (draft). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: National Science and Technology Council (NSTC)
+  url: https://www.nstc.gov.tw/
+  role: Lead agency for the AI Basic Act
+- name: Ministry of Digital Affairs (moda)
+  url: https://moda.gov.tw/en/
+  role: AI evaluation centre and digital policy
+- name: Personal Data Protection Commission (preparatory office)
+  url: https://www.pdpc.gov.tw/
+  role: Data-protection supervision
+official_sources:
+- title: 'National Science and Technology Council: AI Basic Act'
+  publisher: NSTC
+  url: https://www.nstc.gov.tw/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- japan
+- south-korea
+- singapore
+official_source_url: https://www.nstc.gov.tw/
+source_title: 'National Science and Technology Council: AI Basic Act'
+source_publisher: NSTC
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

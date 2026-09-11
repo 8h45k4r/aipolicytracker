@@ -1,0 +1,58 @@
+slug: netherlands-government-wide-vision-on-generative-ai
+jurisdiction: netherlands
+title: Overheidsbrede visie generatieve AI (Government-wide vision on generative AI)
+short_title: Government-wide vision on generative AI
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of the Netherlands (Ministry of the Interior and Kingdom Relations)
+summary_plain: >-
+  Adopted in January 2024, the vision sets the government's position on generative AI: a human-centric, safe and fair approach,
+  provisional restrictions on using non-contracted generative AI tools with government data, investment in Dutch and European
+  open models (GPT-NL), and actions on skills, procurement and supervision. It complements the AI Act and the government's
+  AI strategy.
+scope_summary: Government of the Netherlands and its bodies; signals expectations for suppliers to government.
+adopted_on: '2024-01-18'
+date_notes: Presented to Parliament in January 2024.
+actors:
+- public_authority
+ai_system_types:
+- generative_ai
+- general_purpose_ai_model
+sectors:
+- public_services
+risk_categories: []
+use_cases:
+- generative_ai
+- government_procurement
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Overheidsbrede visie generatieve AI
+  publisher: Rijksoverheid
+  url: https://www.rijksoverheid.nl/documenten/kamerstukken/2024/01/18/overheidsbrede-visie-generatieve-ai
+  document_date: '2024-01-18'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.rijksoverheid.nl/documenten/kamerstukken/2024/01/18/overheidsbrede-visie-generatieve-ai
+source_title: Overheidsbrede visie generatieve AI
+source_publisher: Rijksoverheid
+source_document_date: '2024-01-18'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

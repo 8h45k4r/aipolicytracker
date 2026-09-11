@@ -1,0 +1,62 @@
+slug: ca-ontario-working-for-workers-four-act-ai-in-job-postings
+jurisdiction: ca-ontario
+title: >-
+  Working for Workers Four Act, 2024 (Bill 149): disclosure of artificial intelligence use in publicly advertised job postings
+short_title: Ontario Working for Workers Four Act (AI disclosure in job postings)
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Legislative Assembly of Ontario
+summary_plain: >-
+  Amends the Employment Standards Act, 2000 to require employers with 25 or more employees to disclose in every publicly
+  advertised job posting whether artificial intelligence is used to screen, assess or select applicants, alongside new rules
+  on salary ranges and Canadian-experience requirements. The AI disclosure requirement is in force from 1 January 2026.
+scope_summary: Employers in Ontario with 25 or more employees publishing public job postings.
+key_dates_summary: '2024-03-21: royal assent; 2026-01-01: job-posting provisions in force.'
+adopted_on: '2024-03-21'
+in_force_on: '2026-01-01'
+applies_from: '2026-01-01'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- deployer
+ai_system_types:
+- automated_decision_system
+sectors:
+- employment
+risk_categories:
+- transparency_risk
+use_cases:
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Bill 149, Working for Workers Four Act, 2024
+  publisher: Legislative Assembly of Ontario
+  url: https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-149
+  document_date: '2024-03-21'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-149
+source_title: Bill 149, Working for Workers Four Act, 2024
+source_publisher: Legislative Assembly of Ontario
+source_document_date: '2024-03-21'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

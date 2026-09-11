@@ -1,0 +1,51 @@
+slug: uganda
+name: Uganda
+short_name: Uganda
+iso_code: UG
+jurisdiction_type: country
+region: Africa
+subregion: Eastern Africa
+featured: false
+published: true
+overview: >-
+  Uganda's Ministry of ICT and National Guidance has been developing a National AI Strategy (2024–2025) and AI guidelines
+  within the Digital Transformation Roadmap; the Data Protection and Privacy Act 2019 and the Personal Data Protection Office
+  apply to AI processing personal data.
+regulatory_status_summary: National AI strategy in development; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy (in development).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministry of ICT and National Guidance
+  url: https://ict.go.ug/
+  role: AI strategy lead
+- name: Personal Data Protection Office
+  url: https://www.pdpo.go.ug/
+  role: Data-protection authority
+official_sources:
+- title: Ministry of ICT and National Guidance
+  publisher: Government of Uganda
+  url: https://ict.go.ug/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- kenya
+- rwanda
+official_source_url: https://ict.go.ug/
+source_title: Ministry of ICT and National Guidance
+source_publisher: Government of Uganda
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

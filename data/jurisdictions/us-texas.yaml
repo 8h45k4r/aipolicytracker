@@ -1,0 +1,54 @@
+slug: us-texas
+name: Texas (United States)
+short_name: Texas
+iso_code: US-TX
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Texas enacted the Texas Responsible Artificial Intelligence Governance Act (TRAIGA, HB 149) in June 2025, effective 1
+  January 2026. Narrower than Colorado's law, it prohibits specific harmful uses (manipulation to incite self-harm or crime,
+  social scoring by government, unlawful discrimination with intent, certain biometric identification by government, sexual
+  deepfakes of minors), requires government agencies to disclose AI interaction to consumers, creates an AI regulatory sandbox
+  and a Texas AI Council, and gives the Attorney General exclusive enforcement with a 60-day cure period.
+regulatory_status_summary: TRAIGA in force from 1 January 2026; enforcement by the Attorney General.
+binding_vs_guidance: 'Binding: Texas Responsible AI Governance Act (TRAIGA). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Office of the Attorney General of Texas
+  url: https://www.texasattorneygeneral.gov/
+  role: Exclusive enforcement of TRAIGA
+- name: Texas Department of Information Resources
+  url: https://dir.texas.gov/
+  role: Administers the AI regulatory sandbox and state AI guidance
+official_sources:
+- title: HB 149, 89th Legislature (Texas Responsible Artificial Intelligence Governance Act)
+  publisher: Texas Legislature Online
+  url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  document_date: '2025-06-22'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+- us-california
+- us-colorado
+official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+source_title: HB 149, 89th Legislature (Texas Responsible Artificial Intelligence Governance Act)
+source_publisher: Texas Legislature Online
+source_document_date: '2025-06-22'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

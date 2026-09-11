@@ -1,0 +1,51 @@
+slug: zimbabwe
+name: Zimbabwe
+short_name: Zimbabwe
+iso_code: ZW
+jurisdiction_type: country
+region: Africa
+subregion: Southern Africa
+featured: false
+published: true
+overview: >-
+  Zimbabwe's Ministry of ICT, Postal and Courier Services approved a National AI Policy (2025) under the Smart Zimbabwe
+  2030 agenda, and the Cyber and Data Protection Act 2021 with POTRAZ as data-protection authority applies to AI processing
+  personal data.
+regulatory_status_summary: National AI policy (2025) as policy; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Policy (2025).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministry of Information Communication Technology, Postal and Courier Services
+  url: https://www.ictministry.gov.zw/
+  role: AI policy lead
+- name: POTRAZ
+  url: https://www.potraz.gov.zw/
+  role: Telecoms regulator and data-protection authority
+official_sources:
+- title: Ministry of ICT, Postal and Courier Services
+  publisher: Government of Zimbabwe
+  url: https://www.ictministry.gov.zw/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- south-africa
+- zambia
+official_source_url: https://www.ictministry.gov.zw/
+source_title: Ministry of ICT, Postal and Courier Services
+source_publisher: Government of Zimbabwe
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

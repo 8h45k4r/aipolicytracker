@@ -1,0 +1,54 @@
+slug: costa-rica-national-ai-strategy-2024-2027
+jurisdiction: costa-rica
+title: Estrategia Nacional de Inteligencia Artificial de Costa Rica 2024–2027
+short_title: National AI Strategy 2024–2027
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Costa Rica (MICITT)
+summary_plain: >-
+  Launched in October 2024, the strategy sets pillars on governance and ethics, talent and skills, research and innovation,
+  infrastructure and data, and adoption in the public sector and productive sectors, with an action plan to 2027 informed
+  by UNESCO's Readiness Assessment Methodology.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-10-01'
+date_notes: Month-level date.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Estrategia Nacional de Inteligencia Artificial 2024–2027
+  publisher: MICITT
+  url: https://www.micitt.go.cr/
+  document_date: '2024-10-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.micitt.go.cr/
+source_title: Estrategia Nacional de Inteligencia Artificial 2024–2027
+source_publisher: MICITT
+source_document_date: '2024-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,58 @@
+slug: poland-draft-act-on-ai-systems-ai-act-implementation
+jurisdiction: poland
+title: Projekt ustawy o systemach sztucznej inteligencji
+short_title: Draft act on AI systems (AI Act implementation)
+instrument_type: bill
+status: proposed
+status_note: >-
+  Draft published for public consultation in October 2024 and revised in 2025; adoption by the Sejm not confirmed from an
+  official source.
+is_binding: true
+featured: false
+published: true
+issuing_body: Ministry of Digital Affairs
+summary_plain: >-
+  The draft act implements the EU AI Act in Poland: it creates the Commission for the Development and Safety of Artificial
+  Intelligence as the market-surveillance authority and single point of contact, sets procedures for complaints and inspections,
+  provides for a regulatory sandbox and defines the national penalty regime.
+scope_summary: Providers, deployers, importers and distributors of AI systems within the scope of the EU AI Act.
+date_notes: Draft; dates to be confirmed on adoption.
+actors:
+- provider
+- deployer
+- importer
+- distributor
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories:
+- high_risk
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Ministerstwo Cyfryzacji: sztuczna inteligencja'
+  publisher: Ministry of Digital Affairs
+  url: https://www.gov.pl/web/cyfryzacja
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.gov.pl/web/cyfryzacja
+source_title: 'Ministerstwo Cyfryzacji: sztuczna inteligencja'
+source_publisher: Ministry of Digital Affairs
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

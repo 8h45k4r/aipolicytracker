@@ -1,0 +1,52 @@
+slug: austria
+name: Austria
+short_name: Austria
+iso_code: AT
+jurisdiction_type: country
+region: Europe
+subregion: Western Europe
+featured: false
+published: true
+overview: >-
+  Austria applies the EU AI Act and set up an AI service desk (KI-Servicestelle) at the telecoms regulator RTR in 2024 to
+  inform companies and the public about the Regulation; an AI advisory board (KI-Beirat) advises the federal government.
+  The national strategy "AIM AT 2030" (2021) sets objectives for human-centred, trustworthy AI, and Austria has proposed
+  RTR as its market-surveillance authority.
+regulatory_status_summary: >-
+  EU AI Act applies; RTR AI service desk operating; AIM AT 2030 strategy as policy; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AIM AT 2030 (AI strategy).'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: RTR – KI-Servicestelle (AI Service Desk)
+  url: https://www.rtr.at/rtr/service/ki-servicestelle/ki-servicestelle.en.html
+  role: Information point for the AI Act; proposed market-surveillance authority
+- name: Datenschutzbehörde
+  url: https://www.dsb.gv.at/
+  role: Data-protection authority
+official_sources:
+- title: KI-Servicestelle
+  publisher: Rundfunk und Telekom Regulierungs-GmbH (RTR)
+  url: https://www.rtr.at/rtr/service/ki-servicestelle/ki-servicestelle.en.html
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- germany
+- switzerland
+official_source_url: https://www.rtr.at/rtr/service/ki-servicestelle/ki-servicestelle.en.html
+source_title: KI-Servicestelle
+source_publisher: Rundfunk und Telekom Regulierungs-GmbH (RTR)
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

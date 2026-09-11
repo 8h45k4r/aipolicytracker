@@ -1,0 +1,54 @@
+slug: poland-policy-for-the-development-of-ai-2020
+jurisdiction: poland
+title: Polityka dla rozwoju sztucznej inteligencji w Polsce od roku 2020
+short_title: Policy for the development of AI in Poland (2020)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Council of Ministers of Poland
+summary_plain: >-
+  Adopted by resolution of the Council of Ministers in December 2020, the policy sets goals for AI in society, business,
+  science, education, international cooperation and the public sector, with short-, medium- and long-term actions and an
+  ethics and trustworthy-AI dimension.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2020-12-28'
+date_notes: Resolution of 28 December 2020; published in Monitor Polski in January 2021.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Polityka dla rozwoju sztucznej inteligencji w Polsce od roku 2020
+  publisher: Council of Ministers
+  url: https://www.gov.pl/web/ai/polityka-dla-rozwoju-sztucznej-inteligencji-w-polsce-od-roku-2020
+  document_date: '2020-12-28'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.gov.pl/web/ai/polityka-dla-rozwoju-sztucznej-inteligencji-w-polsce-od-roku-2020
+source_title: Polityka dla rozwoju sztucznej inteligencji w Polsce od roku 2020
+source_publisher: Council of Ministers
+source_document_date: '2020-12-28'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,58 @@
+slug: finland
+name: Finland
+short_name: Finland
+iso_code: FI
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Finland was among the first countries with a national AI programme ("Finland's Age of Artificial Intelligence", 2017)
+  and followed with the AI 4.0 programme for industry. It applies the EU AI Act; the government proposed the Finnish Transport
+  and Communications Agency (Traficom) as the coordinating market-surveillance authority, with the Data Protection Ombudsman
+  and sector authorities in their fields. The Finnish Center for Artificial Intelligence and the free "Elements of AI" course
+  are internationally known public-education initiatives.
+regulatory_status_summary: EU AI Act applies; national implementing act proposed; AI programmes since 2017 as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Finland''s Age of Artificial Intelligence (2017).'
+current_priorities: >-
+  AI Act implementation act and Traficom set-up, industrial AI (AI 4.0), public-sector AI and data spaces.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Liikenne- ja viestintävirasto Traficom
+  url: https://www.traficom.fi/en
+  role: Proposed coordinating market-surveillance authority for the AI Act
+- name: Tietosuojavaltuutetun toimisto (Data Protection Ombudsman)
+  url: https://tietosuoja.fi/en/home
+  role: Data-protection authority
+official_sources:
+- title: >-
+    Finland's Age of Artificial Intelligence: turning Finland into a leading country in the application of AI
+  publisher: Ministry of Economic Affairs and Employment
+  url: https://julkaisut.valtioneuvosto.fi/handle/10024/160391
+  document_date: '2017-10-23'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- sweden
+- estonia
+official_source_url: https://julkaisut.valtioneuvosto.fi/handle/10024/160391
+source_title: >-
+  Finland's Age of Artificial Intelligence: turning Finland into a leading country in the application of AI
+source_publisher: Ministry of Economic Affairs and Employment
+source_document_date: '2017-10-23'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

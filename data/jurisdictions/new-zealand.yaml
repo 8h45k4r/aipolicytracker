@@ -1,0 +1,73 @@
+slug: new-zealand
+name: New Zealand
+short_name: New Zealand
+iso_code: NZ
+jurisdiction_type: country
+region: Oceania
+featured: false
+published: true
+overview: >-
+  New Zealand released its first national AI Strategy in July 2025 (Ministry of Business, Innovation and Employment), taking
+  a light-touch, principles-based approach that relies on existing law rather than a dedicated AI act, alongside Responsible
+  AI Guidance for Businesses. Public-sector use is guided by the Algorithm Charter for Aotearoa New Zealand (2020) and the
+  Public Service AI Framework (2025); the Privacy Act 2020 and the Office of the Privacy Commissioner's AI guidance apply
+  to personal data.
+regulatory_status_summary: >-
+  National AI Strategy (2025) and responsible-AI guidance as policy; Algorithm Charter for government agencies; no AI-specific
+  law.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: New Zealand AI Strategy (2025); Algorithm Charter for Aotearoa New Zealand.
+current_priorities: >-
+  Adoption in small businesses and the public sector, skills, privacy-compliant use of generative AI, international interoperability.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Business, Innovation and Employment (MBIE)
+  url: https://www.mbie.govt.nz/
+  role: AI strategy lead
+- name: Office of the Privacy Commissioner
+  url: https://www.privacy.org.nz/
+  role: Privacy Act 2020; AI and privacy guidance
+- name: Stats NZ (Government Chief Data Steward)
+  url: https://www.data.govt.nz/
+  role: Algorithm Charter stewardship
+official_sources:
+- title: New Zealand's Strategy for Artificial Intelligence
+  publisher: Ministry of Business, Innovation and Employment
+  url: >-
+    https://www.mbie.govt.nz/business-and-employment/business/support-for-business/artificial-intelligence-strategy
+  document_date: '2025-07-08'
+  document_type: strategy
+  tier: 1
+- title: Algorithm Charter for Aotearoa New Zealand
+  publisher: Stats NZ
+  url: >-
+    https://www.data.govt.nz/toolkit/data-ethics/government-algorithm-transparency-and-accountability/algorithm-charter/
+  document_date: '2020-07-28'
+  document_type: guidance
+  tier: 1
+faq:
+- question: Does New Zealand plan an AI Act?
+  answer: >-
+    No. The 2025 strategy states that existing laws (privacy, consumer, human rights) will govern AI, with guidance rather
+    than a new AI-specific statute.
+related_jurisdictions:
+- australia
+- singapore
+- uk
+official_source_url: >-
+  https://www.mbie.govt.nz/business-and-employment/business/support-for-business/artificial-intelligence-strategy
+source_title: New Zealand's Strategy for Artificial Intelligence
+source_publisher: Ministry of Business, Innovation and Employment
+source_document_date: '2025-07-08'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

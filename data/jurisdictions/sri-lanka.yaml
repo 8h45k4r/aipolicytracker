@@ -1,0 +1,49 @@
+slug: sri-lanka
+name: Sri Lanka
+short_name: Sri Lanka
+iso_code: LK
+jurisdiction_type: country
+region: Asia
+subregion: South Asia
+featured: false
+published: true
+overview: >-
+  Sri Lanka published a National AI Strategy in 2024 through the Ministry of Digital Economy (formerly Technology) with
+  a task force and a proposed national AI centre, following UNESCO's readiness assessment; the Personal Data Protection
+  Act No. 9 of 2022 and its Data Protection Authority apply to AI processing personal data.
+regulatory_status_summary: National AI strategy (2024) as policy; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Digital Economy
+  url: https://www.digitaleconomy.gov.lk/
+  role: AI strategy lead
+- name: Data Protection Authority of Sri Lanka
+  url: https://www.dpa.gov.lk/
+  role: Data-protection authority
+official_sources:
+- title: Ministry of Digital Economy
+  publisher: Government of Sri Lanka
+  url: https://www.digitaleconomy.gov.lk/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- india
+- bangladesh
+- singapore
+official_source_url: https://www.digitaleconomy.gov.lk/
+source_title: Ministry of Digital Economy
+source_publisher: Government of Sri Lanka
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

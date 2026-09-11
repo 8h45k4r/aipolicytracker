@@ -1,0 +1,59 @@
+slug: italy-italian-ai-strategy-2024-2026
+jurisdiction: italy
+title: Strategia Italiana per l'Intelligenza Artificiale 2024-2026
+short_title: Italian AI Strategy 2024–2026
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Presidency of the Council of Ministers (Department for Digital Transformation) and AgID
+summary_plain: >-
+  The 2024–2026 strategy, drafted by an expert committee for the Department for Digital Transformation and published in
+  July 2024, organises action around research, public administration, enterprises and training, with a foundation-model
+  and compute agenda, an AI foundation to coordinate delivery and a monitoring framework.
+scope_summary: Government programme; no obligations on private organisations.
+key_dates_summary: '2024-07-22: strategy published.'
+adopted_on: '2024-07-22'
+date_notes: Month-level publication date from the AgID document metadata.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Strategia Italiana per l'Intelligenza Artificiale 2024-2026
+  publisher: Presidenza del Consiglio dei Ministri / AgID
+  url: >-
+    https://www.agid.gov.it/sites/agid/files/2024-07/Strategia_italiana_per_l_Intelligenza_artificiale_2024-2026.pdf
+  document_date: '2024-07-22'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.agid.gov.it/sites/agid/files/2024-07/Strategia_italiana_per_l_Intelligenza_artificiale_2024-2026.pdf
+source_title: Strategia Italiana per l'Intelligenza Artificiale 2024-2026
+source_publisher: Presidenza del Consiglio dei Ministri / AgID
+source_document_date: '2024-07-22'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

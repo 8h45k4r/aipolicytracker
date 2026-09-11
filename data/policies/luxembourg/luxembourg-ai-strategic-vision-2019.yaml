@@ -1,0 +1,53 @@
+slug: luxembourg-ai-strategic-vision-2019
+jurisdiction: luxembourg
+title: 'Artificial Intelligence: a strategic vision for Luxembourg'
+short_title: 'AI: a strategic vision for Luxembourg (2019)'
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Luxembourg (Ministry of Digitalisation)
+summary_plain: >-
+  Published in May 2019, the vision positions Luxembourg as a living lab for applied AI with priorities on skills, data
+  and infrastructure, public-sector use, research and trustworthy, human-centric AI.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2019-05-01'
+date_notes: Month-level date.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Artificial Intelligence: a strategic vision for Luxembourg'
+  publisher: Government of Luxembourg
+  url: https://digital.gouvernement.lu/en.html
+  document_date: '2019-05-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://digital.gouvernement.lu/en.html
+source_title: 'Artificial Intelligence: a strategic vision for Luxembourg'
+source_publisher: Government of Luxembourg
+source_document_date: '2019-05-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

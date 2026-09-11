@@ -1,0 +1,60 @@
+slug: ireland-ai-here-for-good-national-ai-strategy
+jurisdiction: ireland
+title: 'AI – Here for Good: National Artificial Intelligence Strategy for Ireland (2021, refreshed 2024)'
+short_title: AI – Here for Good (National AI Strategy)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Ireland (Department of Enterprise, Trade and Employment)
+summary_plain: >-
+  Ireland's national AI strategy, first published in July 2021 and refreshed in November 2024 to reflect the EU AI Act and
+  generative AI, is organised around building public trust, leveraging AI for economic and societal benefit, and enablers
+  such as data, infrastructure, skills and governance. The refresh sets out Ireland's AI Act implementation model, public-sector
+  AI guidelines and an AI advisory council.
+scope_summary: Government programme; no obligations on private organisations.
+key_dates_summary: '2021-07-08: strategy published; 2024-11-05: refresh published.'
+adopted_on: '2021-07-08'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National AI Strategy
+  publisher: Department of Enterprise, Trade and Employment
+  url: https://enterprise.gov.ie/en/publications/national-ai-strategy.html
+  document_date: '2024-11-05'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://enterprise.gov.ie/en/publications/national-ai-strategy.html
+source_title: National AI Strategy
+source_publisher: Department of Enterprise, Trade and Employment
+source_document_date: '2024-11-05'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.
