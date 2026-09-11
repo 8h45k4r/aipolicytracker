@@ -147,7 +147,7 @@ class ToolController extends Controller
             'title' => $data['title'], 'slug' => $data['slug'], 'type' => $data['type'], 'status' => $data['status'], 'short' => $data['short'], 'purpose' => $data['purpose'] ?? null,
             'fields' => $fields, 'instructions' => $lines($data['instructions_text'] ?? ''), 'frameworks' => array_values($data['frameworks'] ?? []), 'topics' => array_values($data['topics'] ?? []),
             'related_guides' => array_values($data['related_guides'] ?? []), 'related_policies' => array_values(array_filter(array_map('trim', explode(',', (string) ($data['related_policies_text'] ?? ''))))),
-            'next_slug' => $data['next_slug'] ?: null, 'version' => $data['version'], 'updated_on' => $data['updated_on'] ?? now()->toDateString(), 'featured' => (bool) ($data['featured'] ?? false),
+            'next_slug' => ($data['next_slug'] ?? null) ?: null, 'version' => $data['version'], 'updated_on' => $data['updated_on'] ?? now()->toDateString(), 'featured' => (bool) ($data['featured'] ?? false),
             'seo_title' => $data['seo_title'] ?? null, 'seo_description' => $data['seo_description'] ?? null, 'sort_order' => (int) ($data['sort_order'] ?? 0),
         ];
     }
