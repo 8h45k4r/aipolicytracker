@@ -23,7 +23,7 @@ php artisan view:cache
 # step can never leave the container serving a previous deployment's routes.
 
 # Data steps run after caches so a data failure logs loudly but never leaves the container down.
-php artisan policy:import || echo 'WARNING: policy:import failed; serving previous data'
+php artisan policy:import || { echo 'WARNING: policy:import failed; serving previous data'; php artisan policy:validate 2>&1 | tail -40; }
 php artisan external:import || echo 'WARNING: external:import failed; serving previous external data'
 
 # Admin account from ADMIN_* (idempotent upsert).
