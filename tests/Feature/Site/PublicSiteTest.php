@@ -241,6 +241,38 @@ class PublicSiteTest extends TestCase
         $this->get('/login')->assertOk()->assertHeader('Content-Security-Policy');
     }
 
+    public function test_admin_verification_survives_reimport_and_exports_to_yaml(): void
+    {
+        config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
+        $admin = User::factory()->create(['email' => 'editor@example.test', 'name' => 'Editor One']);
+        $this->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high'])->assertRedirect(route('login'));
+        // Verified requires the source-opened confirmation.
+        $this->actingAs($admin)->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high'])->assertSessionHasErrors('source_opened');
+        $this->actingAs($admin)->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high', 'source_opened' => 1, 'notes' => 'Checked OJ L 2024/1689.'])->assertRedirect();
+        $policy = \App\Models\PolicyInstrument::where('slug', 'eu-ai-act')->first();
+        $this->assertSame('verified', $policy->review_status);
+        $this->assertSame('Editor One', $policy->reviewed_by);
+        $this->assertNotNull($policy->last_verified_at);
+        // A re-import from data/ (which still says pending_review) keeps the decision.
+        (new PolicyImporter(PolicyDataRepository::default()))->run();
+        $this->assertSame('verified', $policy->fresh()->review_status);
+        $this->actingAs($admin)->get('/backend/review')->assertOk()->assertSee('not yet written back to data/');
+        // Export writes the fields into a copy of the YAML file.
+        $src = collect(glob(base_path('data/policies/*/eu-ai-act.yaml')))->first();
+        $backup = file_get_contents($src);
+        try {
+            $this->artisan('policy:export-verifications')->assertExitCode(0);
+            $yaml = \Symfony\Component\Yaml\Yaml::parseFile($src);
+            $this->assertSame('verified', $yaml['review_status']);
+            $this->assertSame('Editor One', $yaml['reviewed_by']);
+            $this->assertNotEmpty($yaml['last_verified_at']);
+            $this->artisan('policy:validate')->assertExitCode(0);
+        } finally {
+            file_put_contents($src, $backup);
+        }
+        $this->assertTrue(\App\Models\RecordVerification::where('record_slug', 'eu-ai-act')->value('exported'));
+    }
+
     public function test_review_queue_is_admin_only_and_can_publish(): void
     {
         config(['aipolicytracker.admin_emails' => ['admin@example.com']]);

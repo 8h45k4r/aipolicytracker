@@ -340,6 +340,25 @@ Every record type that makes a factual claim carries the shared source-quality c
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |
 
+## Schema: `record_verifications`
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | bigint | no | | |
+| record_type | varchar(24) | no | | policy or jurisdiction |
+| record_slug | varchar(160) | no | | Unique with `record_type`; logical FK to `policy_instruments.slug` / `jurisdictions.slug` |
+| review_status | varchar(32) | no | | verified, pending_review, needs_update |
+| confidence_level | varchar(16) | no | | high, medium, low, unavailable |
+| last_verified_at | date | yes | | Set only when the reviewer confirmed opening the official source |
+| reviewed_by | varchar(120) | no | | Reviewer name at the time |
+| source_checked_url | varchar(2048) | yes | | Official source URL on the record when verified |
+| notes | text | yes | | |
+| user_id | bigint | yes | | FK → users.id (null on delete) |
+| exported | boolean | no | false | True once `policy:export-verifications` wrote it into data/ |
+| created_at / updated_at | timestamp | yes | | |
+
+Workflow: Admin → Review queue → open the official source → save status and confidence (verified requires the "source opened" confirmation). `PolicyImporter` re-applies every stored decision after each import, so deploys never undo a verification. `php artisan policy:export-verifications` writes the review fields into the YAML records; commit them through a pull request so `data/` remains the source of truth.
+
 ## Schema: `contributor_submissions`
 
 | Field | Type | Null | Default | Notes |

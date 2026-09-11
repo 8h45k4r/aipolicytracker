@@ -28,9 +28,23 @@
 
 <section class="mt-10" aria-labelledby="pub-heading">
     <h2 id="pub-heading" class="section-title !text-lg">Policy instruments</h2>
-    <p class="mt-1 meta">{{ $policies->count() }} imported records. Unpublishing hides a record from the public site, API and sitemaps.</p>
+    <p class="mt-1 meta">{{ $policies->count() }} imported records; unverified and low-confidence first. Open the official source, then save the review status and confidence. Decisions survive re-imports@if($pendingExport); <strong>{{ $pendingExport }}</strong> not yet written back to data/ (run <code>php artisan policy:export-verifications</code> and open a pull request)@endif. Unpublishing hides a record from the public site, API and sitemaps.</p>
     <div class="table-wrap mt-3 bg-white"><table><thead><tr><th scope="col">Policy</th><th scope="col">Jurisdiction</th><th scope="col">Review status</th><th scope="col">Last verified</th><th scope="col">Published</th><th scope="col">Action</th></tr></thead><tbody>
-        @foreach($policies as $p)<tr><td><a href="{{ $p->url() }}">{{ $p->short_title ?: $p->title }}</a></td><td>{{ $p->jurisdiction->name }}</td><td><span class="badge-neutral">{{ $p->review_status }}</span></td><td>{{ $p->last_verified_at?->format('j M Y') ?? '—' }}</td><td>{{ $p->published_at ? 'yes' : 'no' }}</td><td><form method="post" action="{{ route('backend.review.publish', ['type' => 'policy', 'slug' => $p->slug]) }}">@csrf<input type="hidden" name="publish" value="{{ $p->published_at ? 0 : 1 }}"><button type="submit" class="btn-secondary !min-h-0 !py-1">{{ $p->published_at ? 'Unpublish' : 'Publish' }}</button></form></td></tr>@endforeach
+        @foreach($policies as $p)<tr>
+            <td><a href="{{ $p->url() }}">{{ $p->short_title ?: $p->title }}</a><div class="meta">@if($p->official_source_url)<a href="{{ $p->official_source_url }}" target="_blank" rel="noopener">Open official source ↗</a>@else no source URL @endif · confidence {{ $p->confidence_level }}@if($p->date_notes && str_contains($p->date_notes, 'not established')) · <span class="text-state-warn">date missing</span>@endif</div></td>
+            <td>{{ $p->jurisdiction->name }}</td>
+            <td><span class="badge {{ $p->review_status === 'verified' ? 'bg-state-goodbg text-state-good ring-state-good/30' : 'badge-neutral' }}">{{ $p->review_status }}</span></td>
+            <td>{{ $p->last_verified_at?->format('j M Y') ?? '—' }}@if($p->reviewed_by)<div class="meta">{{ $p->reviewed_by }}</div>@endif</td>
+            <td>{{ $p->published_at ? 'yes' : 'no' }}</td>
+            <td class="min-w-[320px]">
+                <form method="post" action="{{ route('backend.review.verify', ['type' => 'policy', 'slug' => $p->slug]) }}" class="flex flex-wrap items-end gap-1.5 text-xs">@csrf
+                    <select name="review_status" class="input !min-h-0 !py-1 !w-auto" aria-label="Review status"><option value="verified">verified</option><option value="needs_update">needs update</option><option value="pending_review" @selected($p->review_status !== 'verified')>pending</option></select>
+                    <select name="confidence_level" class="input !min-h-0 !py-1 !w-auto" aria-label="Confidence">@foreach(['high','medium','low','unavailable'] as $c)<option value="{{ $c }}" @selected($p->confidence_level === $c)>{{ $c }}</option>@endforeach</select>
+                    <label class="flex items-center gap-1"><input type="checkbox" name="source_opened" value="1">source opened</label>
+                    <button type="submit" class="btn-secondary !min-h-0 !py-1">Save</button>
+                </form>
+                <form method="post" action="{{ route('backend.review.publish', ['type' => 'policy', 'slug' => $p->slug]) }}" class="mt-1">@csrf<input type="hidden" name="publish" value="{{ $p->published_at ? 0 : 1 }}"><button type="submit" class="btn-secondary !min-h-0 !py-1 text-xs">{{ $p->published_at ? 'Unpublish' : 'Publish' }}</button></form>
+            </td></tr>@endforeach
     </tbody></table></div>
 </section>
 

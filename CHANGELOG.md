@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Durable human verification: the admin review queue lists unverified and low-confidence instruments first with a link to the official source; saving "verified" requires confirming the source was opened and records reviewer, date and confidence. Decisions are re-applied after every import and `policy:export-verifications` writes them back into the YAML records.
+
+### Changed
+- Removed the 24 estimated adoption dates added in the coverage expansion; those records now show no date until a reviewer sources one.
+
 ### Changed
 - Startup clears all Laravel caches (`optimize:clear`) before rebuilding them, so no configuration, route, view or application cache from the previous release survives a deploy.
 
