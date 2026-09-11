@@ -115,3 +115,7 @@ Read guide: public · Preview tool: public · Download: authenticated + licence 
 ## Not yet implemented (debt #19)
 
 Google/GitHub sign-in, generated PDF for the seeded tools (DOCX, XLSX, CSV and Markdown exist; admins can upload PDF), enforced email verification before download.
+
+## File persistence
+
+Tool files live on the `local` disk under `tools/<slug>/`. Its root is `FILESYSTEM_LOCAL_ROOT` when set (production: `/home/data/app`, outside the folder a clean deploy replaces), else `storage/app`. Two safety nets cover a disk that lost files: `ToolSeeder` (runs at every startup) restores any seeded file whose row exists but whose file is missing, and `ToolFile::servablePath()` serves the bundled copy from `resources/downloads/` and writes it back to the disk. Admin-uploaded files have no bundled copy, which is why the persistent root matters.

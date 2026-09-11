@@ -105,10 +105,11 @@ class FreeToolController extends Controller
         abort_unless($download->user_id === $request->user()->id && $download->resource_slug === $slug, 403);
         $tool = $this->tool($slug);
         $found = $tool->activeFiles->firstWhere('file_name', $file);
-        abort_unless($found && $found->exists(), 404);
+        $path = $found?->servablePath();
+        abort_unless($path, 404);
         $download->forceFill(['file_name' => $file, 'tool_file_id' => $found->id, 'downloaded_at' => now()])->save();
         $found->increment('download_count');
 
-        return response()->download($found->absolutePath(), $file, ['Cache-Control' => 'private, no-store']);
+        return response()->download($path, $file, ['Cache-Control' => 'private, no-store']);
     }
 }

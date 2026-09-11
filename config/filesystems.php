@@ -32,7 +32,9 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            // Private files (tool library uploads). Point FILESYSTEM_LOCAL_ROOT outside the
+            // deploy folder on hosts where a deploy replaces it, e.g. /home/data/app on App Service.
+            'root' => env('FILESYSTEM_LOCAL_ROOT') ?: storage_path('app'),
             'throw' => false,
         ],
 
