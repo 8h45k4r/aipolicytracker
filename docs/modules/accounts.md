@@ -48,4 +48,8 @@ The legacy plaintext `password` column was dropped by migration `2025_09_10_0000
 
 ## Routes
 
+All account pages are server-rendered Blade in the site theme: `/login`, `/register`, `/forgot-password`, `/reset-password/{token}`, `/verify-email`, `/confirm-password` (through `x-auth-shell`) and `/profile` (profile, password, downloads, consent, account deletion). The profile form also stores `organization_name` and toggles `marketing_consent_at`.
+
+### Original route list
+
 `routes/auth.php` (Breeze), `profile.*`.
