@@ -21,7 +21,7 @@ class AdminAccessTest extends TestCase
         $user = User::factory()->create(['email' => 'member@example.com']);
 
         $this->actingAs($user)->get('/backend/dashboard')
-            ->assertRedirect(route('frontend.dashboard', absolute: false));
+            ->assertRedirect(route('home', absolute: false));
     }
 
     public function test_configured_admins_can_reach_the_backend(): void

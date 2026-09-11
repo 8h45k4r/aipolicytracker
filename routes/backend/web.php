@@ -76,3 +76,10 @@ Route::middleware(['auth', 'isAdmin'])
         });
 
     });
+
+// Reviewer queue and publishing controls (admin only).
+Route::middleware(['auth', 'isAdmin'])->prefix('backend/review')->as('backend.review.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'index'])->name('index');
+    Route::post('/submissions/{submission}/decide', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'decide'])->name('decide');
+    Route::post('/publish/{type}/{slug}', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'publish'])->name('publish');
+});

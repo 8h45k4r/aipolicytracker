@@ -1,0 +1,68 @@
+slug: uae-national-ai-strategy-2031
+jurisdiction: uae
+title: "UAE National Strategy for Artificial Intelligence 2031"
+short_title: UAE AI Strategy 2031
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: true
+published: true
+issuing_body: UAE Government, Office of the Minister of State for Artificial Intelligence
+summary_plain: >
+  The UAE National Strategy for AI 2031 aims to position the UAE as a global leader in AI by 2031. It sets objectives
+  across priority sectors, AI talent and research, data and infrastructure, government adoption and governance,
+  including a commitment to AI ethics and to developing appropriate regulation. It is a strategy document that
+  guides government programmes and does not itself impose obligations on private organisations.
+scope_summary: >
+  UAE federal government entities and national programmes; indirectly the private sector and research institutions
+  participating in national AI initiatives.
+who_it_applies_to: UAE government entities (primary); AI companies and partners engaging with government (indirect).
+key_dates_summary: Announced October 2017; strategy document published 2018; ongoing implementation to 2031.
+penalties_summary: None; strategy.
+what_organizations_must_do: >
+  No mandatory duties. Organisations working with UAE government entities should align with the strategy's
+  ethics commitments and the AI Ethics Principles and Guidelines and AI Charter.
+adopted_on: 2017-10-16
+published_on: null
+date_notes: Announcement date October 2017 is widely reported; the full strategy document followed in 2018. Reviewer to confirm.
+actors: [public_authority, provider]
+ai_system_types: [general_purpose_ai_model, automated_decision_system]
+sectors: [public_services, cross_sector]
+risk_categories: [unclassified]
+use_cases: [public_services, government_procurement]
+related_policies: [uae-personal-data-protection-law, singapore-model-ai-governance-framework]
+obligations:
+  - slug: uae-ai-strategy-ethics-and-governance-commitment
+    title: Government commitment to AI ethics, governance and regulation (strategy objective)
+    category: governance_accountability
+    source_reference: "Strategy objectives on governance and ethics (reviewer to cite the section)"
+    is_binding: false
+    actors: [public_authority]
+    sectors: [public_services]
+    use_cases: [public_services]
+    summary: >
+      The strategy commits the government to ensure effective governance and regulation of AI and to promote
+      ethical AI, which led to the AI Ethics Principles and Guidelines and the 2024 UAE AI Charter.
+    practical_action: Reference the UAE AI Ethics Principles and AI Charter in proposals to UAE government entities.
+    applicability:
+      description: UAE government entities.
+      actors: [public_authority]
+    evidence_examples: []
+    framework_mappings: []
+deadlines:
+  - { title: Strategy horizon, due_on: 2031-12-31, date_precision: year, deadline_status: scheduled, confidence_level: high, description: "Target year for the strategy's objectives." }
+sources:
+  - { title: "UAE National Strategy for Artificial Intelligence 2031", publisher: "UAE Government, Office of the Minister of State for AI", url: "https://ai.gov.ae/", document_type: strategy, tier: 1 }
+official_source_url: "https://ai.gov.ae/"
+source_title: "UAE National Strategy for Artificial Intelligence 2031"
+source_publisher: "UAE Government"
+source_document_date: null
+source_reference: "Document-level URL to be added by reviewer"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

@@ -1,0 +1,173 @@
+slug: us-colorado-ai-act
+jurisdiction: us-colorado
+title: "Colorado Senate Bill 24-205: Consumer Protections for Artificial Intelligence (Colorado AI Act)"
+short_title: Colorado AI Act
+instrument_type: act
+status: adopted
+status_note: >
+  Signed 17 May 2024. The effective date was moved from 1 February 2026 to 30 June 2026 by SB 25B-004, signed in
+  August 2025. A reviewer must confirm whether the 2026 legislative session amended the substance or date again.
+is_binding: true
+featured: true
+published: true
+issuing_body: Colorado General Assembly
+summary_plain: >
+  The Colorado AI Act requires developers and deployers of high-risk AI systems to use reasonable care to protect
+  consumers from known or reasonably foreseeable risks of algorithmic discrimination. High-risk systems are those
+  that make, or are a substantial factor in making, consequential decisions about education, employment, financial
+  or lending services, essential government services, healthcare, housing, insurance or legal services. Deployers
+  must run risk-management programmes and impact assessments, notify consumers, and explain adverse decisions;
+  developers must document systems and disclose known risks.
+scope_summary: >
+  Applies to developers and deployers doing business in Colorado of high-risk AI systems affecting Colorado
+  consumers, with exemptions (for example certain small deployers, systems approved by federal agencies, and some
+  regulated financial institutions). Enforcement is exclusively by the Attorney General; there is no private right
+  of action.
+who_it_applies_to: Developers and deployers of high-risk AI systems used to make consequential decisions about Colorado residents.
+key_dates_summary: Signed 17 May 2024; effective 30 June 2026 after the SB 25B-004 delay (subject to verification).
+penalties_summary: >
+  Violations are deceptive trade practices under the Colorado Consumer Protection Act, enforced by the Attorney
+  General. A rebuttable presumption of reasonable care is available where the statute's requirements are met, and
+  an affirmative defence exists for organisations that cure violations and follow a recognised risk framework
+  such as the NIST AI RMF or ISO/IEC 42001.
+what_organizations_must_do: >
+  Deployers: adopt a risk-management policy and programme, complete impact assessments annually and within 90 days
+  of substantial modification, notify consumers before a consequential decision, explain adverse decisions and
+  offer correction and appeal, and notify the Attorney General of discovered algorithmic discrimination within
+  90 days. Developers: provide documentation and known-risk disclosures to deployers, publish a public statement on
+  high-risk systems, and notify the Attorney General of discovered discrimination.
+adopted_on: 2024-05-17
+published_on: 2024-05-17
+in_force_on: null
+applies_from: 2026-06-30
+date_notes: Effective date per SB 25B-004 (2025 special session); confirm against the current statute.
+actors: [provider, deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [employment, financial_services, healthcare, education, public_services]
+risk_categories: [high_risk]
+use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+related_policies: [us-nist-ai-rmf, eu-ai-act]
+related_frameworks: [nist_ai_rmf, iso_42001]
+obligations:
+  - slug: us-colorado-deployer-risk-management-program
+    title: Deployers must implement a risk management policy and programme
+    category: risk_management
+    source_reference: "C.R.S. 6-1-1703(2)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit]
+    summary: >
+      Deployers of high-risk AI must implement a risk-management policy and programme governing deployment,
+      specifying principles, processes and personnel used to identify, document and mitigate known or reasonably
+      foreseeable risks of algorithmic discrimination, and reasonable in light of recognised frameworks such as
+      the NIST AI RMF or ISO/IEC 42001.
+    practical_action: Adopt an AI risk policy referencing NIST AI RMF or ISO/IEC 42001 and keep programme records.
+    applicability:
+      description: Deployers of high-risk AI systems affecting Colorado consumers.
+      actors: [deployer]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: AI risk management policy and programme, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "Whole framework (named in the statute)", note: "The statute names the AI RMF as a recognised framework.", confidence_level: high }
+      - { framework: iso_42001, reference: "Whole management system (named in the statute)", note: "The statute names ISO/IEC 42001 as a recognised framework.", confidence_level: high }
+  - slug: us-colorado-deployer-impact-assessment
+    title: Deployers must complete impact assessments for high-risk AI
+    category: impact_assessment
+    source_reference: "C.R.S. 6-1-1703(3)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health]
+    summary: >
+      Deployers must complete an impact assessment before deployment, annually, and within 90 days of any
+      intentional and substantial modification, covering purpose, risks of algorithmic discrimination and
+      mitigation, data categories, performance metrics, transparency measures and post-deployment monitoring,
+      and retain assessments for at least three years.
+    practical_action: Build an impact-assessment template aligned with the statutory elements and calendar the annual refresh.
+    applicability:
+      description: Deployers of high-risk AI systems.
+      actors: [deployer]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Algorithmic impact assessment, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MAP 5.x", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: us-colorado-consumer-notice-and-adverse-decision-explanation
+    title: Notify consumers and explain adverse consequential decisions
+    category: transparency
+    source_reference: "C.R.S. 6-1-1703(4)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit]
+    summary: >
+      Before a high-risk system makes a consequential decision, deployers must notify the consumer that AI is used,
+      describe its purpose and nature, and provide contact and opt-out information where applicable. After an
+      adverse decision they must state the principal reasons, the data used and its sources, and offer an
+      opportunity to correct data and to appeal for human review where feasible.
+    practical_action: Add pre-decision AI notices and an adverse-decision explanation and appeal workflow.
+    applicability:
+      description: Deployers making consequential decisions with high-risk AI.
+      actors: [deployer]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Consumer notice and adverse-action explanation templates, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.x, MANAGE 4.x", note: "Recourse and communication.", confidence_level: medium }
+  - slug: us-colorado-developer-documentation-and-disclosure
+    title: Developers must document high-risk systems and disclose known risks
+    category: technical_documentation
+    source_reference: "C.R.S. 6-1-1702"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [provider]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit]
+    summary: >
+      Developers must make available to deployers a general statement of intended uses, documentation of known or
+      reasonably foreseeable risks of algorithmic discrimination, training-data summaries, limitations, performance
+      evaluation and mitigation measures, and information needed for deployer impact assessments, and must publish a
+      public statement describing their high-risk systems and how they manage discrimination risks.
+    practical_action: Prepare a deployer information pack and a public high-risk systems statement.
+    applicability:
+      description: Developers of high-risk AI systems doing business in Colorado.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Deployer documentation pack, artifact_type: document }
+      - { title: Public statement on high-risk systems, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.4, MAP 3.x", note: "Documentation and transparency.", confidence_level: medium }
+deadlines:
+  - { title: Signed into law, due_on: 2024-05-17, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Governor signed SB 24-205." }
+  - { title: Original effective date (superseded), due_on: 2026-02-01, date_precision: exact, deadline_status: superseded, confidence_level: high, description: "Replaced by SB 25B-004." }
+  - { title: Effective date after SB 25B-004 delay, due_on: 2026-06-30, date_precision: exact, deadline_status: scheduled, confidence_level: medium, description: "Reviewer must confirm no further delay was enacted in the 2026 session.", obligation: us-colorado-deployer-impact-assessment }
+sources:
+  - { title: "SB24-205 Consumer Protections for Artificial Intelligence", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb24-205", document_date: 2024-05-17, document_type: legislation, tier: 1 }
+  - { title: "SB25B-004 Artificial Intelligence Sunshine Act / effective-date delay", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb25b-004", document_date: 2025-08-28, document_type: legislation, tier: 1 }
+faq:
+  - question: When does the Colorado AI Act take effect?
+    answer: >
+      The effective date was delayed to 30 June 2026 by SB 25B-004 in the August 2025 special session. Confirm
+      the current date on the Colorado General Assembly site, because further amendments were debated in 2026.
+  - question: Does the Colorado AI Act allow consumers to sue?
+    answer: No. Enforcement is exclusively by the Colorado Attorney General; there is no private right of action.
+official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+source_title: "SB24-205 Consumer Protections for Artificial Intelligence"
+source_publisher: "Colorado General Assembly"
+source_document_date: 2024-05-17
+source_reference: "Colorado Revised Statutes 6-1-1701 to 6-1-1707"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record reflecting the SB 25B-004 delay; 2026 amendments unverified.
+reviewed_by: null

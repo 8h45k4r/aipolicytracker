@@ -1,0 +1,61 @@
+slug: australia
+name: Australia
+short_name: Australia
+iso_code: AU
+jurisdiction_type: country
+region: Oceania
+featured: true
+published: true
+overview: >
+  Australia has no AI-specific statute. After the 2023 "Safe and responsible AI in Australia" consultation and the
+  January 2024 interim response, the government published a Voluntary AI Safety Standard and a proposals paper for
+  mandatory guardrails in high-risk settings in September 2024. In December 2025 the government released a National
+  AI Plan indicating it would rely on strengthening existing laws rather than a standalone AI Act. Federal agencies
+  are bound by the Digital Transformation Agency's policy for responsible use of AI in government. Binding
+  obligations for business come from the Privacy Act 1988 (including 2024 amendments on automated decisions),
+  consumer law, anti-discrimination law and sector regulation.
+regulatory_status_summary: >
+  No binding cross-sector AI law; mandatory guardrails were consulted on in 2024 but the December 2025 National AI
+  Plan signalled an existing-law approach. Voluntary AI Safety Standard available. Government agencies follow a
+  binding whole-of-government AI policy. A reviewer must confirm the current status of the mandatory-guardrails
+  proposal.
+binding_vs_guidance: >
+  Binding: Privacy Act 1988 and Privacy and Other Legislation Amendment Act 2024 (automated decision transparency
+  provisions with delayed commencement), Australian Consumer Law, anti-discrimination Acts, sector rules (APRA,
+  ASIC, TGA); the DTA AI policy for federal agencies. Guidance / voluntary: Voluntary AI Safety Standard, AI Ethics
+  Principles, OAIC guidance on AI and privacy.
+current_priorities: >
+  National AI Plan delivery, AI Safety Institute establishment, reform of the Privacy Act, guidance from the OAIC
+  and eSafety Commissioner, and government AI assurance.
+how_to_use:
+  - Use the Voluntary AI Safety Standard's ten guardrails as the baseline expected by Australian regulators and buyers.
+  - Apply the Privacy Act, including the new automated-decision transparency provisions, to AI using personal information.
+  - If you supply the federal government, align with the DTA policy for responsible use of AI in government.
+regulators:
+  - { name: "Department of Industry, Science and Resources", url: "https://www.industry.gov.au/", role: "AI policy lead, Voluntary AI Safety Standard" }
+  - { name: Digital Transformation Agency, url: "https://www.digital.gov.au/", role: "Government AI policy and assurance" }
+  - { name: Office of the Australian Information Commissioner, url: "https://www.oaic.gov.au/", role: "Privacy Act and AI privacy guidance" }
+official_sources:
+  - { title: "Voluntary AI Safety Standard", publisher: "Department of Industry, Science and Resources", url: "https://www.industry.gov.au/publications/voluntary-ai-safety-standard", document_date: 2024-09-05, document_type: guidance, tier: 1 }
+  - { title: "Safe and responsible AI in Australia — proposals paper for introducing mandatory guardrails for AI in high-risk settings", publisher: "Department of Industry, Science and Resources", url: "https://consult.industry.gov.au/ai-mandatory-guardrails", document_date: 2024-09-05, document_type: consultation, tier: 1 }
+  - { title: "Policy for the responsible use of AI in government", publisher: "Digital Transformation Agency", url: "https://www.digital.gov.au/policy/ai/policy", document_date: 2024-09-01, document_type: guidance, tier: 1 }
+faq:
+  - question: Does Australia have an AI Act?
+    answer: >
+      No. Australia consulted on mandatory guardrails for high-risk AI in 2024, but the December 2025 National AI
+      Plan indicated reliance on existing laws. A Voluntary AI Safety Standard is available and federal agencies
+      follow a binding government AI policy.
+related_jurisdictions: [singapore, uk, eu]
+official_source_url: "https://www.industry.gov.au/publications/voluntary-ai-safety-standard"
+source_title: "Voluntary AI Safety Standard"
+source_publisher: "Australian Government, Department of Industry, Science and Resources"
+source_document_date: 2024-09-05
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; status of mandatory guardrails after the National AI Plan to be confirmed.
+reviewed_by: null

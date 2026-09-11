@@ -12,6 +12,8 @@ chmod -R ug+rwX storage bootstrap/cache
 
 php artisan storage:link >/dev/null 2>&1 || true
 php artisan migrate --force
+# Load the canonical policy records from data/ (idempotent upsert).
+php artisan policy:import
 
 # Reference data + admin account, only when the database is empty (idempotent).
 STATUS_COUNT=$(php artisan tinker --execute='echo \App\Models\Status::count();' 2>/dev/null | tail -n1 | tr -dc '0-9')

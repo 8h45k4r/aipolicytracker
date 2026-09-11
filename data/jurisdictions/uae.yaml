@@ -1,0 +1,57 @@
+slug: uae
+name: United Arab Emirates
+short_name: UAE
+iso_code: AE
+jurisdiction_type: country
+region: Middle East
+featured: true
+published: true
+overview: >
+  The United Arab Emirates governs AI mainly through national strategy and principles rather than a dedicated AI
+  statute. The UAE National Strategy for Artificial Intelligence 2031, overseen by the Minister of State for AI,
+  sets the direction; the AI Ethics Principles and Guidelines and the 2024 UAE Charter for the Development and Use
+  of AI set out expectations; and the Federal Decree-Law No. 45 of 2021 on Personal Data Protection provides
+  binding rules for personal data, including automated decision-making. Financial free zones (DIFC and ADGM) have
+  their own data-protection regimes with specific provisions on autonomous and semi-autonomous systems.
+regulatory_status_summary: >
+  No binding federal AI law; national AI strategy and ethics guidance in place; binding personal-data rules at
+  federal level and in the DIFC and ADGM free zones. A reviewer must confirm the current status of any AI-specific
+  regulation announced by the UAE's regulatory intelligence office or the Regulations Lab.
+binding_vs_guidance: >
+  Binding: Federal Decree-Law No. 45 of 2021 (PDPL) and its executive regulations when issued, DIFC Data Protection
+  Law and Regulation 10 (autonomous systems), ADGM Data Protection Regulations, sector rules (Central Bank, TDRA).
+  Guidance: National AI Strategy 2031, AI Ethics Principles and Guidelines, UAE AI Charter, AI adoption guidelines.
+current_priorities: >
+  AI adoption across government, AI in education, sovereign compute and models, a regulatory framework through
+  the Regulations Lab, and international AI partnerships.
+how_to_use:
+  - Apply the federal PDPL and, where relevant, DIFC or ADGM data-protection rules to AI using personal data.
+  - Align governance with the UAE AI Ethics Principles and the AI Charter when working with government entities.
+  - Track announcements from the Minister of State for AI office and the Regulations Lab for AI-specific rules.
+regulators:
+  - { name: "Office of the Minister of State for Artificial Intelligence, Digital Economy and Remote Work Applications", url: "https://ai.gov.ae/", role: "National AI strategy and governance" }
+  - { name: UAE Data Office, url: "https://u.ae/en/about-the-uae/digital-uae/data/data-protection", role: "Federal personal data protection" }
+  - { name: DIFC Commissioner of Data Protection, url: "https://www.difc.ae/", role: "DIFC data protection, including autonomous systems regulation" }
+official_sources:
+  - { title: "UAE National Strategy for Artificial Intelligence 2031", publisher: "UAE Government, Office of the Minister of State for AI", url: "https://ai.gov.ae/", document_date: null, document_type: strategy, tier: 1 }
+  - { title: "Federal Decree-Law No. 45 of 2021 on Personal Data Protection", publisher: "UAE Government portal", url: "https://u.ae/en/about-the-uae/digital-uae/data/data-protection", document_date: 2021-09-20, document_type: legislation, tier: 1 }
+faq:
+  - question: Does the UAE have an AI law?
+    answer: >
+      Not a dedicated federal AI statute as of the last check. AI is governed through the National AI Strategy
+      2031, ethics principles and the AI Charter, with binding obligations from the federal Personal Data
+      Protection Law and free-zone data-protection regimes.
+related_jurisdictions: [india, singapore, eu]
+official_source_url: "https://ai.gov.ae/"
+source_title: "UAE Artificial Intelligence — official portal"
+source_publisher: "UAE Government"
+source_document_date: null
+source_reference: "Document-level URLs to be confirmed by reviewer"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

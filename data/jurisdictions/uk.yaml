@@ -1,0 +1,68 @@
+slug: uk
+name: United Kingdom
+short_name: UK
+iso_code: GB
+jurisdiction_type: country
+region: Europe
+featured: true
+published: true
+overview: >
+  The United Kingdom has not enacted a cross-sector AI statute. Its approach, set out in the March 2023 white paper
+  "A pro-innovation approach to AI regulation" and confirmed in the February 2024 government response, asks existing
+  regulators to apply five cross-cutting principles within their remits, supported by central functions and the
+  AI Security Institute. Binding obligations for AI therefore come mainly from existing law: UK GDPR and the Data
+  Protection Act 2018 (as amended by the Data (Use and Access) Act 2025), equality, consumer, financial-services,
+  competition and online-safety legislation.
+regulatory_status_summary: >
+  Principles-based, regulator-led framework; no AI-specific Act in force. The government has signalled a future bill
+  targeting the most powerful AI models, but as of the last check no such bill had been introduced. Sector regulators
+  (ICO, FCA, CMA, Ofcom, MHRA, EHRC) publish AI guidance and enforce existing law.
+binding_vs_guidance: >
+  Binding: UK GDPR and Data Protection Act 2018 (including rules on automated decision-making), Equality Act 2010,
+  Consumer Rights Act 2015, Online Safety Act 2023, sector rules such as FCA Consumer Duty. Guidance: the AI
+  regulation white paper principles, ICO guidance on AI and data protection, DSIT and regulator AI guidance, the
+  Algorithmic Transparency Recording Standard for public bodies.
+current_priorities: >
+  Delivering the AI Opportunities Action Plan (January 2025), AI Growth Zones and compute, the AI Security
+  Institute's evaluation work, regulator capacity through the Regulatory Innovation Office, and implementation of
+  the Data (Use and Access) Act 2025 changes to automated decision-making rules.
+how_to_use:
+  - Identify which UK regulators cover your sector and read their AI guidance; that is where enforcement will come from.
+  - Treat UK GDPR as the primary binding constraint for AI using personal data, including automated decision-making rules.
+  - Check whether you supply the EU as well; the EU AI Act may apply extraterritorially and set the higher bar.
+  - Public bodies should use the Algorithmic Transparency Recording Standard for algorithmic tools.
+  - Watch for a frontier-AI bill and record the date of every regulator publication you rely on.
+regulators:
+  - { name: "Department for Science, Innovation and Technology (DSIT)", url: "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology", role: "AI policy lead" }
+  - { name: Information Commissioner's Office (ICO), url: "https://ico.org.uk/", role: "Data protection, including AI guidance" }
+  - { name: AI Security Institute, url: "https://www.aisi.gov.uk/", role: "Evaluation of advanced AI models" }
+  - { name: Competition and Markets Authority (CMA), url: "https://www.gov.uk/government/organisations/competition-and-markets-authority", role: "Competition and consumer aspects of AI and foundation models" }
+official_sources:
+  - { title: "A pro-innovation approach to AI regulation (white paper)", publisher: "Department for Science, Innovation and Technology", url: "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach", document_date: 2023-03-29, document_type: guidance, tier: 1 }
+  - { title: "AI Opportunities Action Plan", publisher: "Department for Science, Innovation and Technology", url: "https://www.gov.uk/government/publications/ai-opportunities-action-plan", document_date: 2025-01-13, document_type: strategy, tier: 1 }
+  - { title: "Guidance on AI and data protection", publisher: "Information Commissioner's Office", url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/", document_type: guidance, tier: 2 }
+faq:
+  - question: Does the UK have an AI Act?
+    answer: >
+      No. As of the last check the UK relies on existing laws applied by sector regulators under five non-statutory
+      principles. The government has said it intends to legislate for the most powerful AI models, but no bill has
+      been introduced to Parliament.
+  - question: What UK laws already apply to AI systems?
+    answer: >
+      UK GDPR and the Data Protection Act 2018 for personal data and automated decisions, the Equality Act 2010
+      for discrimination, consumer and product-safety law, the Online Safety Act 2023 for platforms, and
+      sector-specific rules in financial services, health and telecoms.
+related_jurisdictions: [eu, us, singapore, australia]
+official_source_url: "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach"
+source_title: "A pro-innovation approach to AI regulation"
+source_publisher: "UK Government, Department for Science, Innovation and Technology"
+source_document_date: 2023-03-29
+source_reference: "Command Paper CP 815"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Public site design tokens: calm, technical, research-grade. */
+@layer base {
+    :root {
+        --ink: 15 23 42;
+        --accent: 13 148 136;
+    }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+    body { @apply bg-white text-slate-800 antialiased; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    a { @apply underline-offset-2; }
+    :focus-visible { @apply outline-none ring-2 ring-teal-600 ring-offset-2 ring-offset-white rounded-sm; }
+    summary { cursor: pointer; }
+    summary::-webkit-details-marker { display: none; }
+}
+
+@layer components {
+    .prose-policy { @apply text-[15px] leading-7 text-slate-700 max-w-none; }
+    .prose-policy p + p { @apply mt-3; }
+    .btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium min-h-[44px] transition-colors; }
+    .btn-primary { @apply btn bg-slate-900 text-white hover:bg-slate-700; }
+    .btn-secondary { @apply btn border border-slate-300 bg-white text-slate-800 hover:bg-slate-50; }
+    .btn-accent { @apply btn bg-teal-700 text-white hover:bg-teal-800; }
+    .chip { @apply inline-flex items-center gap-1 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-slate-500 min-h-[36px]; }
+    .chip-active { @apply border-slate-900 bg-slate-900 text-white; }
+    .badge { @apply inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ring-1 ring-inset; }
+    .label { @apply block text-sm font-medium text-slate-800 mb-1; }
+    .input { @apply block w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-teal-600 focus:ring-teal-600 min-h-[44px]; }
+    .card-flat { @apply rounded-lg border border-slate-200 bg-white; }
+    .table-wrap { @apply overflow-x-auto rounded-lg border border-slate-200 -mx-4 sm:mx-0; }
+    .table-wrap table { @apply min-w-full text-sm; }
+    .table-wrap th { @apply bg-slate-50 text-left font-semibold text-slate-700 px-3 py-2 align-top; }
+    .table-wrap td { @apply px-3 py-2 align-top border-t border-slate-200; }
+    .table-sticky th:first-child, .table-sticky td:first-child { @apply sticky left-0 bg-white z-10 border-r border-slate-200; }
+    .table-sticky th:first-child { @apply bg-slate-50; }
+    .skip-link { @apply sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow; }
+    .section-title { @apply text-lg font-semibold text-slate-900 tracking-tight; }
+    .eyebrow { @apply text-xs font-semibold uppercase tracking-wide text-teal-700; }
+    .skeleton { @apply animate-pulse rounded bg-slate-200; }
+}

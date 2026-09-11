@@ -1,0 +1,80 @@
+slug: nepal-national-ai-policy
+jurisdiction: nepal
+title: "National Artificial Intelligence Policy, 2082 (2025) — Nepal"
+short_title: Nepal National AI Policy
+instrument_type: policy
+status: adopted
+status_note: >
+  Reported as approved by the Council of Ministers in August 2025 (Bhadra 2082). The approval date, official title
+  and the published policy text must be verified against MoCIT publications; confidence is medium until a reviewer
+  links the official document.
+is_binding: false
+featured: true
+published: true
+issuing_body: Government of Nepal, Ministry of Communication and Information Technology
+summary_plain: >
+  Nepal's National AI Policy sets the government's direction for developing and using artificial intelligence.
+  Based on the published summaries, it aims to build AI infrastructure and skills, promote ethical and responsible
+  AI, strengthen data governance, establish institutional arrangements for AI oversight, and prepare legal and
+  regulatory measures. It is a policy framework, not a law, and does not itself create enforceable obligations on
+  private organisations.
+scope_summary: >
+  Government ministries and agencies implementing the policy; indirectly the private sector, academia and
+  development partners engaged in AI in Nepal. Specific measures, timelines and institutions must be confirmed
+  from the official text.
+who_it_applies_to: Government of Nepal bodies (primary); AI developers and deployers in Nepal through future rules.
+key_dates_summary: Concept paper on AI published by MoCIT in 2024; National AI Policy approved by the Council of Ministers in 2025 (month to be confirmed).
+penalties_summary: None; policy document.
+what_organizations_must_do: >
+  No mandatory duties yet. Organisations should monitor MoCIT for implementing legislation, standards and
+  procurement rules, and ensure compliance with the Individual Privacy Act 2075 when using personal data.
+adopted_on: 2025-08-01
+published_on: null
+date_notes: adopted_on is a month-level approximation (August 2025); confirm the exact cabinet decision date.
+actors: [public_authority, provider, deployer]
+ai_system_types: [general_purpose_ai_model, automated_decision_system]
+sectors: [cross_sector, public_services]
+risk_categories: [unclassified]
+use_cases: [public_services, generative_ai]
+related_policies: [india-ai-governance-guidelines, singapore-model-ai-governance-framework]
+obligations:
+  - slug: nepal-ai-policy-responsible-ai-principles
+    title: Government bodies to promote ethical, responsible and inclusive AI (policy commitment)
+    category: governance_accountability
+    source_reference: "Policy objectives and strategies (to be confirmed against the official text)"
+    is_binding: false
+    actors: [public_authority]
+    sectors: [public_services]
+    use_cases: [public_services]
+    summary: >
+      The policy commits the government to ethical, transparent and inclusive AI, data governance and institutional
+      oversight. The specific strategies and any obligations on private actors must be confirmed from the official
+      document; this record intentionally does not state details that could not be verified.
+    practical_action: Public bodies and vendors should track implementing measures from MoCIT.
+    applicability:
+      description: Government of Nepal ministries and agencies.
+      actors: [public_authority]
+    evidence_examples: []
+    framework_mappings: []
+deadlines:
+  - { title: National AI Policy approved by the Council of Ministers, due_on: 2025-08-01, date_precision: month, deadline_status: passed, confidence_level: medium, description: "Month-level date; exact date to be confirmed." }
+sources:
+  - { title: "Ministry of Communication and Information Technology — policies and publications", publisher: "Government of Nepal, MoCIT", url: "https://mocit.gov.np/", document_type: official, tier: 1, language: ne }
+faq:
+  - question: Is Nepal's National AI Policy legally binding?
+    answer: >
+      No. It is a policy framework guiding government action. Binding obligations for AI in Nepal come from
+      existing laws such as the Individual Privacy Act 2075 and the Electronic Transactions Act 2063.
+official_source_url: "https://mocit.gov.np/"
+source_title: "National Artificial Intelligence Policy, 2082 (MoCIT publications page)"
+source_publisher: "Government of Nepal, Ministry of Communication and Information Technology"
+source_document_date: null
+source_reference: "Document-level URL to be added by reviewer"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record with intentionally limited detail pending verification of the official text.
+reviewed_by: null

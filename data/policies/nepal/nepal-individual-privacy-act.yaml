@@ -1,0 +1,70 @@
+slug: nepal-individual-privacy-act
+jurisdiction: nepal
+title: "Individual Privacy Act, 2075 (2018) — Nepal"
+short_title: Nepal Privacy Act 2075
+instrument_type: act
+status: in_force
+is_binding: true
+published: true
+issuing_body: Federal Parliament of Nepal
+summary_plain: >
+  The Individual Privacy Act 2075 gives effect to the constitutional right to privacy in Nepal. It regulates the
+  collection, storage, processing, use and disclosure of personal information by public bodies and private
+  entities, requires consent for collection and use of personal data subject to exceptions, restricts sensitive
+  data, and provides remedies and penalties. It is the main binding law affecting AI systems that process personal
+  data in Nepal. The Individual Privacy Regulation 2077 (2020) provides implementing rules.
+scope_summary: >
+  Public bodies and private entities in Nepal that collect or process personal information, including through
+  electronic means. It does not address AI specifically.
+who_it_applies_to: Any organisation collecting or processing personal information of individuals in Nepal.
+key_dates_summary: Enacted 2018 (2075 BS); Individual Privacy Regulation 2077 adopted in 2020.
+penalties_summary: The Act provides for fines and imprisonment for violations, with amounts set in the Act (reviewer to confirm).
+what_organizations_must_do: >
+  Obtain consent before collecting personal information, use it only for the stated purpose, keep it secure,
+  and respect restrictions on sensitive data and on disclosure.
+adopted_on: 2018-09-18
+in_force_on: 2018-09-18
+date_notes: Dates converted from Bikram Sambat; reviewer to confirm.
+actors: [provider, deployer, public_authority]
+ai_system_types: [automated_decision_system, biometric_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [biometrics, finance_and_credit, public_services]
+related_policies: [nepal-national-ai-policy, india-dpdp-act]
+obligations:
+  - slug: nepal-privacy-act-consent-and-purpose
+    title: Collect and use personal information only with consent and for the stated purpose
+    category: privacy_data_protection
+    source_reference: "Chapter on collection and protection of personal information (reviewer to cite sections)"
+    is_binding: true
+    actors: [provider, deployer, public_authority]
+    sectors: [cross_sector]
+    use_cases: [biometrics, finance_and_credit]
+    summary: >
+      Personal information may be collected only by authorised persons for a lawful purpose with the individual's
+      consent, and must not be used or disclosed for other purposes without consent, subject to statutory
+      exceptions. AI systems trained on or processing personal data of people in Nepal must respect these limits.
+    practical_action: Document consent and purpose for any Nepal personal data used in AI training or inference.
+    applicability:
+      description: All public bodies and private entities processing personal information in Nepal.
+      actors: [provider, deployer, public_authority]
+    evidence_examples:
+      - { title: Consent and purpose records, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: low }
+deadlines: []
+sources:
+  - { title: "Individual Privacy Act, 2075 (2018)", publisher: "Nepal Law Commission", url: "https://lawcommission.gov.np/", document_date: 2018-09-18, document_type: legislation, tier: 1, language: ne }
+official_source_url: "https://lawcommission.gov.np/"
+source_title: "Individual Privacy Act, 2075 (2018)"
+source_publisher: "Nepal Law Commission"
+source_document_date: 2018-09-18
+source_reference: "Document-level URL and section references to be added by reviewer"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

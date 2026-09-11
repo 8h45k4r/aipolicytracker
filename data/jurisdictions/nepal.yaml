@@ -1,0 +1,56 @@
+slug: nepal
+name: Nepal
+short_name: Nepal
+iso_code: NP
+jurisdiction_type: country
+region: Asia
+subregion: South Asia
+featured: true
+published: true
+overview: >
+  Nepal is at an early stage of AI governance. The Ministry of Communication and Information Technology (MoCIT)
+  published a concept paper on the use and practice of AI in 2024 and the Council of Ministers approved a National
+  AI Policy in 2025 that sets objectives for AI development, ethics, data and institutional arrangements. There is
+  no AI-specific legislation. Applicable law comes from the Electronic Transactions Act 2063 (2008), the Individual
+  Privacy Act 2075 (2018) and its regulations, the National Cyber Security Policy 2080 (2023) and sector rules,
+  alongside the Digital Nepal Framework.
+regulatory_status_summary: >
+  National AI policy adopted (2025); no binding AI-specific law; privacy and electronic-transaction laws apply.
+  Source certainty for policy documents is medium because official English-language texts and stable document
+  URLs are limited; every record here must be verified against MoCIT publications.
+binding_vs_guidance: >
+  Binding: Electronic Transactions Act 2063, Individual Privacy Act 2075 and the Individual Privacy Regulation 2077,
+  sector rules from Nepal Rastra Bank and the Nepal Telecommunications Authority. Guidance / policy: National AI
+  Policy 2082 (2025), the 2024 AI concept paper, Digital Nepal Framework 2019, National Cyber Security Policy 2080.
+current_priorities: >
+  Implementing the National AI Policy's institutional arrangements, drafting AI-related legislation and standards,
+  data governance and digital public infrastructure, and capacity building.
+how_to_use:
+  - Treat the Individual Privacy Act 2075 as the main binding constraint for AI using personal data in Nepal.
+  - Use the National AI Policy to anticipate future regulation and public-sector procurement expectations.
+  - Confirm every policy claim against the MoCIT website, and note the Nepali calendar (Bikram Sambat) dates used in official documents.
+regulators:
+  - { name: Ministry of Communication and Information Technology (MoCIT), url: "https://mocit.gov.np/", role: "ICT and AI policy lead" }
+  - { name: Nepal Law Commission, url: "https://lawcommission.gov.np/", role: "Official repository of Acts and regulations" }
+official_sources:
+  - { title: "Ministry of Communication and Information Technology — publications", publisher: "Government of Nepal, MoCIT", url: "https://mocit.gov.np/", document_type: official, tier: 1 }
+  - { title: "Nepal Law Commission — Acts and Regulations", publisher: "Government of Nepal", url: "https://lawcommission.gov.np/", document_type: legislation, tier: 1 }
+faq:
+  - question: Does Nepal have an AI law or policy?
+    answer: >
+      Nepal has a National AI Policy approved by the Council of Ministers in 2025 and a 2024 concept paper from
+      MoCIT, but no AI-specific legislation. Existing privacy, electronic-transaction and cyber-security law applies.
+related_jurisdictions: [india, singapore, eu]
+official_source_url: "https://mocit.gov.np/"
+source_title: "Ministry of Communication and Information Technology, Government of Nepal"
+source_publisher: "Government of Nepal"
+source_document_date: null
+source_reference: "Policy document URLs to be confirmed by reviewer"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; document-level links to be added.
+reviewed_by: null

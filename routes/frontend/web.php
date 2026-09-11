@@ -14,7 +14,7 @@ Route::get('/denied', function () {
     return Inertia::render('Frontend/DeniedPermissionPage/DeniedPermission');
 })->name('page_access_denied');
 
-Route::get('/about-ai-policy', function () {
+Route::get('/legacy/about-ai-policy', function () {
     return Inertia::render('Frontend/AboutUs/AboutAiPolicy');
 })->name('aboutus.aipolicy');
 
@@ -40,7 +40,8 @@ Route::controller(NewsController::class)->group(function () {
 
 Route:: as('frontend.')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('/', 'dashboard')->name('dashboard');
+        // Legacy map dashboard (kept for existing data; noindex). The homepage now lives in routes/public.php.
+        Route::get('/map', 'dashboard')->name('map');
         Route::get('/dashboard/filtered', 'getFilteredData')->name('dashboard.filtered');
 
         Route::get('/dashboard/updateStatus', 'updateStatus')->name('dashboard.updateStatus');

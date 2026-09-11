@@ -1,0 +1,113 @@
+slug: australia-voluntary-ai-safety-standard
+jurisdiction: australia
+title: "Voluntary AI Safety Standard (Australia)"
+short_title: Australian Voluntary AI Safety Standard
+instrument_type: standard
+status: voluntary_standard
+is_binding: false
+featured: true
+published: true
+issuing_body: Department of Industry, Science and Resources
+summary_plain: >
+  The Voluntary AI Safety Standard gives Australian organisations ten guardrails for developing and deploying AI
+  safely and responsibly: accountability and governance, risk management, data governance and protection, testing
+  and monitoring, human control and intervention, user transparency, contestability, supply-chain transparency,
+  record keeping, and stakeholder engagement. The guardrails were designed to align with the mandatory guardrails
+  proposed for high-risk settings so that early adopters would be prepared if those became law.
+scope_summary: >
+  Voluntary; aimed at organisations deploying AI in Australia, especially deployers of AI systems in higher-risk
+  settings. It creates no legal obligations.
+who_it_applies_to: Any Australian organisation deploying or developing AI (voluntary), with practical focus on deployers.
+key_dates_summary: Published 5 September 2024 alongside the mandatory-guardrails proposals paper.
+penalties_summary: None; voluntary.
+what_organizations_must_do: >
+  Nothing mandatory. Adopters implement the ten guardrails proportionately to the risk of their AI use cases.
+adopted_on: 2024-09-05
+published_on: 2024-09-05
+actors: [deployer, provider]
+ai_system_types: [automated_decision_system, generative_ai, general_purpose_ai_model]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai, hiring_and_hr, finance_and_credit, public_services]
+related_policies: [australia-mandatory-guardrails-proposal, us-nist-ai-rmf, singapore-model-ai-governance-framework]
+related_frameworks: [iso_42001, nist_ai_rmf]
+obligations:
+  - slug: australia-vaiss-accountability-and-risk-management
+    title: Establish accountability processes and a risk-management process (guardrails 1 and 2)
+    category: governance_accountability
+    source_reference: "Guardrails 1 and 2"
+    is_binding: false
+    actors: [deployer, provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, public_services]
+    summary: >
+      Guardrail 1 asks organisations to set up accountability processes including governance, internal capability
+      and a strategy for regulatory compliance; guardrail 2 asks for a risk-management process to identify and
+      mitigate risks across the AI lifecycle.
+    practical_action: Adopt an AI policy, assign an accountable owner and run per-use-case risk assessments.
+    applicability:
+      description: Voluntary for all Australian organisations using AI.
+      actors: [deployer, provider]
+    evidence_examples:
+      - { title: AI accountability and risk-management documentation, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clauses 5 and 6", note: "The standard states it is aligned with ISO/IEC 42001 and the NIST AI RMF.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN and MAP", note: "Original editorial mapping.", confidence_level: high }
+  - slug: australia-vaiss-testing-human-control-transparency
+    title: Test and monitor systems, enable human control, and be transparent with users (guardrails 4 to 6)
+    category: human_oversight
+    source_reference: "Guardrails 4, 5 and 6"
+    is_binding: false
+    actors: [deployer, provider]
+    sectors: [cross_sector]
+    use_cases: [customer_service, hiring_and_hr]
+    summary: >
+      Test AI models and systems before deployment and monitor them in operation; enable meaningful human control
+      and intervention; and inform end users about AI-enabled decisions, interactions with AI and AI-generated content.
+    practical_action: Publish AI disclosures, define override paths and keep test and monitoring records.
+    applicability:
+      description: Voluntary for all Australian organisations using AI.
+      actors: [deployer, provider]
+    evidence_examples:
+      - { title: Test reports and user disclosure records, artifact_type: report }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MEASURE and MANAGE functions", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: australia-vaiss-contestability-supply-chain-records
+    title: Provide contestability, supply-chain transparency and records (guardrails 7 to 9)
+    category: vendor_governance
+    source_reference: "Guardrails 7, 8 and 9"
+    is_binding: false
+    actors: [deployer, provider]
+    sectors: [cross_sector]
+    use_cases: [finance_and_credit, public_services]
+    summary: >
+      Establish processes for people impacted by AI to challenge use or outcomes; be transparent with other
+      organisations across the AI supply chain about data, models and systems; and keep and maintain records to
+      allow third parties to assess compliance.
+    practical_action: Add AI clauses to supplier contracts and keep an AI system register with evidence links.
+    applicability:
+      description: Voluntary for all Australian organisations using AI.
+      actors: [deployer, provider]
+    evidence_examples:
+      - { title: AI system register and supplier disclosures, artifact_type: register }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 6.x", note: "Third-party risk.", confidence_level: medium }
+deadlines: []
+sources:
+  - { title: "Voluntary AI Safety Standard", publisher: "Department of Industry, Science and Resources", url: "https://www.industry.gov.au/publications/voluntary-ai-safety-standard", document_date: 2024-09-05, document_type: guidance, tier: 1 }
+faq:
+  - question: Is the Australian Voluntary AI Safety Standard mandatory?
+    answer: No. It is voluntary guidance from the Department of Industry, Science and Resources, aligned with ISO/IEC 42001 and the NIST AI RMF.
+official_source_url: "https://www.industry.gov.au/publications/voluntary-ai-safety-standard"
+source_title: "Voluntary AI Safety Standard"
+source_publisher: "Australian Government, Department of Industry, Science and Resources"
+source_document_date: 2024-09-05
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

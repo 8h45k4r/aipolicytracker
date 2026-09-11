@@ -1,0 +1,62 @@
+slug: singapore
+name: Singapore
+short_name: Singapore
+iso_code: SG
+jurisdiction_type: country
+region: Asia
+subregion: Southeast Asia
+featured: true
+published: true
+overview: >
+  Singapore governs AI through voluntary frameworks, sector guidance and existing law rather than an AI statute. The
+  Model AI Governance Framework (second edition, 2020) and the Model AI Governance Framework for Generative AI
+  (2024) set out practical governance expectations; AI Verify provides a testing framework and toolkit; the
+  Personal Data Protection Commission has issued advisory guidelines on personal data in AI systems; and the
+  National AI Strategy 2.0 (December 2023) sets national direction. The Monetary Authority of Singapore, IMDA and
+  other regulators add sector-specific expectations.
+regulatory_status_summary: >
+  No binding cross-sector AI law. Binding obligations come from the Personal Data Protection Act 2012, the Online
+  Safety framework, sector regulation and consumer law. AI governance frameworks are voluntary but widely referenced.
+binding_vs_guidance: >
+  Binding: Personal Data Protection Act 2012 (PDPA), Cybersecurity Act, sector rules (for example MAS requirements for
+  financial institutions). Guidance / voluntary: Model AI Governance Framework, Generative AI framework, AI Verify,
+  PDPC advisory guidelines on AI, MAS FEAT principles and Veritas.
+current_priorities: >
+  National AI Strategy 2.0 implementation, AI Verify and generative-AI evaluation (Project Moonshot), safety
+  guidelines for model developers and app deployers, and international interoperability of AI governance.
+how_to_use:
+  - Use the Model AI Governance Framework and its generative-AI companion as the governance baseline expected by Singapore regulators and customers.
+  - Apply the PDPC advisory guidelines when personal data is used in AI recommendation or decision systems.
+  - Consider AI Verify testing to evidence governance claims.
+regulators:
+  - { name: Infocomm Media Development Authority (IMDA), url: "https://www.imda.gov.sg/", role: "AI governance frameworks and AI Verify" }
+  - { name: Personal Data Protection Commission (PDPC), url: "https://www.pdpc.gov.sg/", role: "PDPA and AI advisory guidelines" }
+  - { name: AI Verify Foundation, url: "https://aiverifyfoundation.sg/", role: "AI Verify testing framework and toolkit" }
+official_sources:
+  - { title: "Model Artificial Intelligence Governance Framework (Second Edition)", publisher: "PDPC and IMDA", url: "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework", document_date: 2020-01-21, document_type: guidance, tier: 1 }
+  - { title: "Model AI Governance Framework for Generative AI", publisher: "AI Verify Foundation and IMDA", url: "https://aiverifyfoundation.sg/resources/mgf-gen-ai/", document_date: 2024-05-30, document_type: guidance, tier: 1 }
+  - { title: "National AI Strategy 2.0", publisher: "Smart Nation Singapore", url: "https://www.smartnation.gov.sg/nais/", document_date: 2023-12-04, document_type: strategy, tier: 1 }
+faq:
+  - question: Does Singapore have an AI law?
+    answer: >
+      No. Singapore uses voluntary governance frameworks, testing tools and sector guidance, with binding
+      obligations arising from the PDPA and sector regulation.
+  - question: What is AI Verify?
+    answer: >
+      AI Verify is a voluntary AI governance testing framework and open-source toolkit developed by IMDA and
+      stewarded by the AI Verify Foundation, allowing organisations to test AI systems against internationally
+      recognised governance principles.
+related_jurisdictions: [india, australia, uk, eu]
+official_source_url: "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework"
+source_title: "Model AI Governance Framework (Second Edition)"
+source_publisher: "Personal Data Protection Commission Singapore and IMDA"
+source_document_date: 2020-01-21
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

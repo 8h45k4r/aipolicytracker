@@ -1,0 +1,58 @@
+@extends('site.layouts.app')
+@section('content')
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <x-site.breadcrumbs :items="$seo->breadcrumbs" />
+    <header class="mt-3">
+        <div class="flex flex-wrap items-center gap-2 text-sm">
+            <span class="badge {{ $obligation->is_binding ? 'bg-slate-900 text-white ring-slate-900' : 'bg-slate-100 text-slate-700 ring-slate-500/20' }}">{{ $obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance' }}</span>
+            <a href="{{ route('obligations.index', ['category' => $obligation->category]) }}" class="text-slate-700 hover:text-slate-900">{{ $categoryName }}</a>
+            <span class="text-slate-400" aria-hidden="true">·</span>
+            <a href="{{ $policy->jurisdiction->url() }}" class="text-slate-700 hover:text-slate-900">{{ $policy->jurisdiction->name }}</a>
+            <x-site.status-badge :status="$policy->statusEnum()" />
+        </div>
+        <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">{{ $obligation->title }}</h1>
+        <p class="mt-1 text-sm text-slate-600">Under <a href="{{ $policy->url() }}" class="font-medium text-slate-800">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" />@if($obligation->official_source_url)<a href="{{ $obligation->official_source_url }}" rel="noopener" class="text-teal-800 font-medium hover:underline" data-track="source_click">Open official source</a>@endif</div>
+    </header>
+    <div class="mt-8 grid gap-10 lg:grid-cols-3">
+        <div class="lg:col-span-2 min-w-0">
+            <section aria-labelledby="req-heading"><h2 id="req-heading" class="section-title">What does it require?</h2><p class="prose-policy mt-2">{{ $obligation->summary }}</p></section>
+            @if($obligation->practical_action)<section aria-labelledby="action-heading" class="mt-8"><h2 id="action-heading" class="section-title">Practical action</h2><p class="prose-policy mt-2">{{ $obligation->practical_action }}</p></section>@endif
+            <section aria-labelledby="who-heading" class="mt-8">
+                <h2 id="who-heading" class="section-title">Who does it apply to?</h2>
+                @foreach($obligation->applicabilityRules as $r)<p class="prose-policy mt-2">{{ $r->description }}@if($r->conditions) <span class="text-slate-500">{{ $r->conditions }}</span>@endif</p>@endforeach
+                <dl class="mt-3 grid gap-3 sm:grid-cols-3 text-sm">
+                    @foreach(['actor' => 'Actors', 'sector' => 'Sectors', 'use_case' => 'Use cases'] as $tax => $label)
+                    @php($terms = $obligation->termsOf($tax))
+                    @if($terms->isNotEmpty())<div><dt class="text-slate-500">{{ $label }}</dt><dd class="mt-1 flex flex-wrap gap-1.5">@foreach($terms as $t)<a class="chip !min-h-0 !py-1" href="{{ route('obligations.index', [$tax => $t->slug]) }}">{{ $t->name }}</a>@endforeach</dd></div>@endif
+                    @endforeach
+                </dl>
+                @if($obligation->applies_from)<p class="mt-3 text-sm text-slate-700"><span class="font-medium">Applies from:</span> <time datetime="{{ $obligation->applies_from->toDateString() }}">{{ $obligation->applies_from->format('j F Y') }}</time></p>@endif
+            </section>
+            @if($obligation->evidenceArtifacts->isNotEmpty())
+            <section aria-labelledby="evidence-heading" class="mt-8"><h2 id="evidence-heading" class="section-title">Evidence examples</h2><ul class="mt-2 space-y-1.5 text-sm text-slate-700 list-disc pl-5">@foreach($obligation->evidenceArtifacts as $e)<li><span class="font-medium text-slate-900">{{ $e->title }}</span>@if($e->description) — {{ $e->description }}@endif <span class="text-xs text-slate-500">({{ $e->artifact_type }})</span></li>@endforeach</ul></section>
+            @endif
+            @if($obligation->frameworkMappings->isNotEmpty())
+            <section aria-labelledby="mapping-heading" class="mt-8">
+                <h2 id="mapping-heading" class="section-title">Framework mappings</h2>
+                <p class="mt-1 text-xs text-slate-500">Original editorial crosswalks. They cite clause numbers only and reproduce no standard text; confidence reflects how direct the mapping is.</p>
+                <div class="table-wrap mt-3"><table><caption class="sr-only">Framework mappings</caption><thead><tr><th scope="col">Framework</th><th scope="col">Reference</th><th scope="col">Note</th><th scope="col">Confidence</th></tr></thead><tbody>
+                @foreach($obligation->frameworkMappings as $m)<tr><td class="whitespace-nowrap font-medium">{{ $m->frameworkName() }}</td><td>{{ $m->reference }}</td><td>{{ $m->note }}</td><td>{{ $m->confidence_level }}</td></tr>@endforeach
+                </tbody></table></div>
+            </section>
+            @endif
+            @if($similar->isNotEmpty())
+            <section aria-labelledby="similar-heading" class="mt-8"><h2 id="similar-heading" class="section-title">Similar obligations in other instruments</h2><ul class="mt-2 space-y-2 text-sm">@foreach($similar as $s)<li><a href="{{ $s->url() }}" class="text-slate-900 hover:underline">{{ $s->title }}</a> <span class="text-xs text-slate-500">— {{ $s->policyInstrument->short_title ?: $s->policyInstrument->title }}, {{ $s->policyInstrument->jurisdiction->name }}{{ $s->is_binding ? '' : ' (voluntary)' }}</span></li>@endforeach</ul></section>
+            @endif
+            <x-site.disclaimer class="mt-8" />
+        </div>
+        <aside class="space-y-6">
+            <div class="lg:sticky lg:top-4 space-y-6">
+                <div class="card-flat p-4 text-sm"><p class="font-semibold text-slate-900">Source</p><p class="mt-1 text-slate-700">{{ $policy->source_title }}</p><p class="text-xs text-slate-500">{{ $policy->source_publisher }}@if($obligation->source_reference) · {{ $obligation->source_reference }}@endif</p>@if($obligation->official_source_url)<a href="{{ $obligation->official_source_url }}" rel="noopener" class="mt-2 inline-block text-teal-800 hover:underline break-all" data-track="source_click">{{ \Illuminate\Support\Str::limit($obligation->official_source_url, 60) }}</a>@endif</div>
+                <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" class="flex-col [&>*]:w-full" />
+                <x-site.certifyi-cta label="Turn this obligation into a tracked control" />
+            </div>
+        </aside>
+    </div>
+</div>
+@endsection

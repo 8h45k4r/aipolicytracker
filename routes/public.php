@@ -1,0 +1,62 @@
+<?php
+
+use App\Http\Controllers\Site\ApplicabilityController;
+use App\Http\Controllers\Site\ChangeController;
+use App\Http\Controllers\Site\CompareController;
+use App\Http\Controllers\Site\ContributeController;
+use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\JurisdictionController;
+use App\Http\Controllers\Site\LandingController;
+use App\Http\Controllers\Site\MachineReadableController;
+use App\Http\Controllers\Site\ObligationController;
+use App\Http\Controllers\Site\PageController;
+use App\Http\Controllers\Site\PolicyController;
+use App\Http\Controllers\Site\SitemapController;
+use Illuminate\Support\Facades\Route;
+
+// Public, server-rendered policy-intelligence site.
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/policies', [PolicyController::class, 'index'])->name('policies.index');
+Route::get('/policies/{policy}.json', [PolicyController::class, 'json'])->name('policies.json');
+Route::get('/policies/{policy}', [PolicyController::class, 'show'])->name('policies.show');
+
+Route::get('/jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
+Route::get('/jurisdictions/{jurisdiction}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
+
+Route::get('/obligations', [ObligationController::class, 'index'])->name('obligations.index');
+Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
+
+Route::get('/compare', [CompareController::class, 'index'])->name('compare.index');
+Route::get('/compare/{comparison}', [CompareController::class, 'show'])->name('compare.show');
+
+Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
+Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
+Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', '20[0-9]{2}')->name('changes.year');
+
+Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
+
+Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
+Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->name('open-data.download');
+Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/contribute', [ContributeController::class, 'show'])->name('contribute');
+Route::post('/contribute', [ContributeController::class, 'store'])->middleware('throttle:10,1')->name('contribute.store');
+
+// Editorial landing pages and guides generated from verified data plus editorial content.
+Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');
+Route::get('/guides/{slug}', [LandingController::class, 'guide'])->name('guides.show');
+Route::get('/{landing}', [LandingController::class, 'landing'])
+    ->where('landing', 'eu-ai-act|ai-regulation-india|ai-policy-nepal|ai-governance-singapore|ai-regulation-australia|ai-regulation-uk|ai-regulation-usa|ai-governance-uae|ai-regulation-south-asia')
+    ->name('landing');
+
+// Machine-readable assets.
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|changes|resources')->name('sitemap.section');
+Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
+Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->name('llms.full');
+Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');
+
+// Legacy URL redirects.
+Route::redirect('/about-ai-policy', '/about', 301);
+Route::redirect('/dashboard', '/map', 301);

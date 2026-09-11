@@ -1,0 +1,669 @@
+slug: eu-ai-act
+jurisdiction: eu
+title: "Regulation (EU) 2024/1689 — Artificial Intelligence Act"
+short_title: EU AI Act
+instrument_type: regulation
+status: partially_applicable
+status_note: >
+  Dates below follow Article 113 of the adopted text. The European Commission proposed a "Digital Omnibus"
+  package in November 2025 that would adjust the application dates for some high-risk obligations; a reviewer
+  must confirm whether that proposal has been adopted and update the deadlines accordingly.
+is_binding: true
+featured: true
+published: true
+issuing_body: European Parliament and Council of the European Union
+summary_plain: >
+  The EU AI Act is a binding regulation that sets rules for developing, placing on the market and using AI systems
+  in the European Union. It bans a small set of practices considered unacceptable, imposes detailed requirements
+  on "high-risk" AI systems used in areas such as employment, education, credit, essential services, law
+  enforcement and safety-critical products, requires transparency for chatbots and synthetic content, and creates
+  separate duties for providers of general-purpose AI models. Obligations apply in phases between 2025 and 2027.
+scope_summary: >
+  Applies to providers placing AI systems or general-purpose AI models on the EU market or putting them into service,
+  to deployers established in the EU, and to providers and deployers in third countries where the system's output is
+  used in the EU (Article 2). Excludes AI used exclusively for military, defence or national-security purposes, and
+  activities of purely personal non-professional use. Free and open-source models get partial relief unless they are
+  general-purpose models with systemic risk.
+who_it_applies_to: >
+  Providers (developers), deployers (organisations using AI under their authority), importers, distributors,
+  authorised representatives of non-EU providers, product manufacturers integrating AI, and providers of
+  general-purpose AI models. Public authorities are covered as deployers and have extra duties for
+  fundamental-rights impact assessments.
+key_dates_summary: >
+  Entry into force 1 August 2024. Prohibitions and AI literacy from 2 February 2025. General-purpose AI model
+  duties, governance and penalties from 2 August 2025. General application, including Annex III high-risk
+  systems and Article 50 transparency, from 2 August 2026. High-risk AI that is a safety component of Annex I
+  products from 2 August 2027. Adjustments proposed in the 2025 Digital Omnibus are not reflected until verified.
+penalties_summary: >
+  Article 99 sets administrative fines of up to EUR 35 million or 7 % of worldwide annual turnover for prohibited
+  practices, up to EUR 15 million or 3 % for most other obligations, and up to EUR 7.5 million or 1 % for supplying
+  incorrect information, with the lower amount applying to SMEs. Article 101 allows the Commission to fine
+  general-purpose AI model providers up to EUR 15 million or 3 %.
+what_organizations_must_do: >
+  Inventory AI systems and determine your role for each; screen against prohibited practices now; classify
+  systems against Annex I and Annex III; for high-risk systems build a risk-management system, data-governance
+  controls, technical documentation, logging, human-oversight measures and a quality-management system, then
+  complete conformity assessment and register in the EU database before placing on the market; deployers must
+  use systems as instructed, assign trained human oversight, keep logs and, where required, complete a
+  fundamental-rights impact assessment; label AI interactions and synthetic content under Article 50; general-purpose
+  model providers must publish training-content summaries, maintain documentation and a copyright policy.
+adopted_on: 2024-06-13
+published_on: 2024-07-12
+in_force_on: 2024-08-01
+applies_from: 2026-08-02
+date_notes: >
+  "applies_from" shows the general application date in Article 113. Earlier and later dates apply to specific
+  chapters; see the deadlines table.
+actors: [provider, deployer, importer, distributor, authorized_representative, public_authority, gpai_provider]
+ai_system_types: [general_purpose_ai_model, generative_ai, automated_decision_system, biometric_system, safety_component, conversational_agent, predictive_scoring]
+sectors: [cross_sector, employment, financial_services, healthcare, education, public_services, law_enforcement, critical_infrastructure, migration_border]
+risk_categories: [prohibited, high_risk, transparency_risk, minimal_risk, systemic_risk]
+use_cases: [hiring_and_hr, biometrics, health, finance_and_credit, education, public_services, law_enforcement, generative_ai, safety_critical, customer_service]
+related_policies: [uk-ai-regulation-white-paper, us-nist-ai-rmf, singapore-model-ai-governance-framework, india-dpdp-act]
+related_frameworks: [iso_42001, nist_ai_rmf]
+versions:
+  - version_label: "Adopted text (OJ L, 12 July 2024)"
+    version_date: 2024-07-12
+    summary: Final text as published in the Official Journal.
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    source_reference: "OJ L, 2024/1689"
+  - version_label: "Commission proposal COM(2021) 206"
+    version_date: 2021-04-21
+    summary: Original legislative proposal that started the procedure.
+    official_source_url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52021PC0206"
+    source_reference: "COM(2021) 206 final"
+sections:
+  - { reference: "Article 2", title: "Scope", summary: "Who and what the Regulation covers, including extraterritorial reach and exclusions." }
+  - { reference: "Article 3", title: "Definitions", summary: "Defines AI system, provider, deployer, general-purpose AI model and other key terms." }
+  - { reference: "Article 4", title: "AI literacy", summary: "Providers and deployers must ensure sufficient AI literacy of staff and others operating AI on their behalf." }
+  - { reference: "Article 5", title: "Prohibited AI practices", summary: "Bans manipulative and exploitative techniques, certain social scoring, some predictive policing, untargeted facial-image scraping, emotion recognition in workplaces and schools (with exceptions), certain biometric categorisation, and real-time remote biometric identification in public spaces for law enforcement subject to narrow exceptions." }
+  - { reference: "Article 6", title: "Classification rules for high-risk AI systems", summary: "High-risk if a safety component or product under Annex I legislation requiring third-party assessment, or listed in Annex III, subject to the Article 6(3) derogation." }
+  - { reference: "Articles 8–15", title: "Requirements for high-risk AI systems", summary: "Risk management, data governance, technical documentation, record keeping, transparency, human oversight, accuracy, robustness and cybersecurity." }
+  - { reference: "Articles 16–27", title: "Obligations of operators of high-risk AI", summary: "Duties of providers, authorised representatives, importers, distributors and deployers, including the fundamental-rights impact assessment in Article 27." }
+  - { reference: "Article 50", title: "Transparency obligations for certain AI systems", summary: "Disclosure for AI interaction, marking of synthetic content, deepfake labelling and emotion-recognition or biometric-categorisation notices." }
+  - { reference: "Articles 51–56", title: "General-purpose AI models", summary: "Classification of systemic-risk models, provider obligations, and codes of practice." }
+  - { reference: "Article 72", title: "Post-market monitoring", summary: "Providers must operate a post-market monitoring system proportionate to the AI technology and risks." }
+  - { reference: "Article 73", title: "Reporting of serious incidents", summary: "Providers of high-risk AI must report serious incidents to market-surveillance authorities within set time limits." }
+  - { reference: "Article 99", title: "Penalties", summary: "Administrative fine ceilings by category of infringement." }
+  - { reference: "Article 113", title: "Entry into force and application", summary: "Phased application dates." }
+obligations:
+  - slug: eu-ai-act-prohibited-practices
+    title: Do not deploy or provide AI for prohibited practices
+    category: prohibited_practice
+    section: "Article 5"
+    source_reference: "Article 5"
+    is_binding: true
+    applies_from: 2025-02-02
+    actors: [provider, deployer, public_authority]
+    sectors: [cross_sector, law_enforcement, employment, education]
+    use_cases: [biometrics, law_enforcement, hiring_and_hr, education]
+    summary: >
+      Article 5 bans placing on the market, putting into service or using AI for listed practices, including
+      subliminal or manipulative techniques that cause significant harm, exploitation of vulnerabilities, social
+      scoring by public or private actors leading to detrimental treatment, untargeted scraping of facial images
+      to build recognition databases, emotion recognition in workplaces and education institutions except for
+      medical or safety reasons, biometric categorisation to infer protected characteristics, and real-time remote
+      biometric identification in publicly accessible spaces for law enforcement outside narrow exceptions.
+    practical_action: >
+      Add a prohibited-practice screen to your AI intake or design-review process and document the outcome
+      for every system already in use.
+    applicability:
+      description: Applies to any provider or deployer of an AI system used in the EU, in any sector.
+      actors: [provider, deployer, public_authority]
+      risk_categories: [prohibited]
+      source_reference: "Article 5"
+    evidence_examples:
+      - { title: Prohibited-practice screening record, description: "Dated checklist for each AI system against each Article 5 practice, with reviewer sign-off.", artifact_type: record }
+      - { title: AI system inventory, description: "Register of AI systems with owner, purpose and jurisdiction.", artifact_type: register }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.2 and Annex A control on AI system impact assessment", note: "Original editorial mapping: the AI-impact-assessment process is a natural place to screen for prohibited uses.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MAP 1.1", note: "Original editorial mapping to legal-requirement identification and context mapping.", confidence_level: medium }
+  - slug: eu-ai-act-ai-literacy
+    title: Ensure AI literacy of staff operating AI systems
+    category: ai_literacy
+    section: "Article 4"
+    source_reference: "Article 4"
+    is_binding: true
+    applies_from: 2025-02-02
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, customer_service, hiring_and_hr]
+    summary: >
+      Providers and deployers must take measures to ensure, to their best extent, a sufficient level of AI literacy
+      among their staff and other persons dealing with the operation and use of AI systems on their behalf, taking
+      into account technical knowledge, experience, training, the context of use and the persons affected.
+    practical_action: >
+      Run role-based AI training and keep attendance and content records; the Commission's AI Office has indicated
+      that literacy will be assessed proportionately.
+    applicability:
+      description: All providers and deployers of AI systems, regardless of risk level.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: AI literacy training programme, description: "Curriculum by role, completion records and refresh cadence.", artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 7.2 Competence and 7.3 Awareness", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN 2.2", note: "Workforce training and awareness.", confidence_level: medium }
+  - slug: eu-ai-act-risk-management-system
+    title: Establish a risk management system for high-risk AI
+    category: risk_management
+    section: "Articles 8–15"
+    source_reference: "Article 9"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, education, public_services, safety_critical]
+    summary: >
+      Providers of high-risk AI systems must establish, implement, document and maintain a continuous, iterative
+      risk-management system across the system's lifecycle: identifying known and reasonably foreseeable risks to
+      health, safety and fundamental rights, estimating and evaluating risks including from reasonably foreseeable
+      misuse, evaluating post-market data, and adopting targeted risk-management measures, with testing before
+      placing on the market.
+    practical_action: >
+      Set up a lifecycle risk register per high-risk system with test evidence and residual-risk acceptance.
+    applicability:
+      description: Providers of AI systems classified as high-risk under Article 6.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Risk register and treatment plan, artifact_type: register }
+      - { title: Pre-market test reports, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clauses 6.1.2, 6.1.3, 8.2, 8.3 and Annex A controls on AI risk", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MAP, MEASURE and MANAGE functions", note: "The AI RMF's core functions map closely to Article 9's iterative process.", confidence_level: high }
+  - slug: eu-ai-act-data-governance
+    title: Apply data governance and quality criteria to training, validation and testing data
+    category: data_governance
+    section: "Articles 8–15"
+    source_reference: "Article 10"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, health, biometrics]
+    summary: >
+      High-risk AI systems that use data-driven techniques must be developed on training, validation and testing
+      data sets meeting quality criteria: appropriate governance practices covering design choices, data
+      collection and origin, preparation, assumptions, availability and suitability, examination for possible
+      biases, and measures to detect, prevent and mitigate bias. Data must be relevant, sufficiently representative
+      and, to the best extent possible, free of errors and complete for the intended purpose.
+    practical_action: >
+      Produce a data-provenance and bias-assessment record for each data set used to build the system.
+    applicability:
+      description: Providers of high-risk AI systems that involve model training.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Dataset documentation (datasheet), artifact_type: document }
+      - { title: Bias examination report, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MAP 2.3, MEASURE 2.1, MEASURE 2.11", note: "Data quality and bias measurement.", confidence_level: medium }
+  - slug: eu-ai-act-technical-documentation
+    title: Draw up technical documentation before placing a high-risk system on the market
+    category: technical_documentation
+    section: "Articles 8–15"
+    source_reference: "Article 11 and Annex IV"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, safety_critical]
+    summary: >
+      Technical documentation must be drawn up before a high-risk system is placed on the market or put into
+      service and kept up to date. It must demonstrate compliance with the Section 2 requirements and contain at
+      least the elements in Annex IV, including a general description, development process, monitoring and
+      control, risk-management description, and the applied standards. SMEs may use a simplified form provided
+      by the Commission.
+    practical_action: >
+      Maintain an Annex IV-structured technical file under version control.
+    applicability:
+      description: Providers of high-risk AI systems.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Annex IV technical file, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 7.5 Documented information; Annex A control on system documentation", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.4, MAP 3.x", note: "Documentation practices.", confidence_level: medium }
+  - slug: eu-ai-act-record-keeping
+    title: Design high-risk systems to log events automatically
+    category: record_keeping
+    section: "Articles 8–15"
+    source_reference: "Article 12; Article 26(6) for deployers"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [biometrics, finance_and_credit, public_services]
+    summary: >
+      High-risk AI systems must technically allow automatic recording of events (logs) over their lifetime to
+      support traceability, post-market monitoring and operational monitoring. Deployers must keep the logs
+      generated by the system, to the extent under their control, for a period appropriate to the intended
+      purpose and at least six months unless other law provides otherwise.
+    practical_action: >
+      Define the log schema, retention and access controls, and confirm deployer retention meets the minimum.
+    applicability:
+      description: Providers (design) and deployers (retention) of high-risk AI systems.
+      actors: [provider, deployer]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Logging specification and retention policy, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A control on event logging", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.x, MANAGE 4.1", note: "Monitoring and traceability.", confidence_level: medium }
+  - slug: eu-ai-act-transparency-to-deployers
+    title: Provide deployers with clear instructions for use
+    category: transparency
+    section: "Articles 8–15"
+    source_reference: "Article 13"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, education]
+    summary: >
+      High-risk AI systems must be designed so their operation is sufficiently transparent for deployers to
+      interpret output and use it appropriately, and must be accompanied by instructions for use covering the
+      provider's identity, the system's characteristics, capabilities and limitations, performance for the intended
+      purpose and known foreseeable misuse, human-oversight measures, expected lifetime and maintenance.
+    practical_action: >
+      Ship an Article 13-structured instructions-for-use document with every high-risk system release.
+    applicability:
+      description: Providers of high-risk AI systems.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Instructions for use, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on information for interested parties", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 4.x, MAP 1.x", note: "Transparency to downstream users.", confidence_level: medium }
+  - slug: eu-ai-act-human-oversight
+    title: Enable and assign effective human oversight
+    category: human_oversight
+    section: "Articles 8–15"
+    source_reference: "Article 14; Article 26(2) for deployers"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, public_services, biometrics]
+    summary: >
+      High-risk systems must be designed with human-machine interface tools so natural persons can effectively
+      oversee them, understand capacities and limitations, avoid automation bias, interpret output, decide not to
+      use the system, and intervene or stop it. Deployers must assign oversight to people with the necessary
+      competence, training and authority. For certain remote biometric identification systems, action requires
+      verification by at least two competent persons.
+    practical_action: >
+      Document oversight roles, the "stop" mechanism and override paths for each high-risk deployment.
+    applicability:
+      description: Providers design oversight measures; deployers implement them.
+      actors: [provider, deployer]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Human oversight procedure and role assignment, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A control on human oversight", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 3.2, MANAGE 2.x", note: "Roles and human-AI configuration.", confidence_level: medium }
+  - slug: eu-ai-act-accuracy-robustness-cybersecurity
+    title: Achieve appropriate accuracy, robustness and cybersecurity
+    category: accuracy_robustness_security
+    section: "Articles 8–15"
+    source_reference: "Article 15"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, finance_and_credit, biometrics]
+    summary: >
+      High-risk AI systems must achieve an appropriate level of accuracy, robustness and cybersecurity and perform
+      consistently throughout their lifecycle. Accuracy levels and metrics must be declared in the instructions;
+      systems must be resilient to errors, faults and inconsistencies, address feedback loops in continuously
+      learning systems, and resist attempts to alter use or performance, including data poisoning, model
+      poisoning, adversarial examples and confidentiality attacks.
+    practical_action: >
+      Include AI-specific threat modelling and adversarial testing in your security programme.
+    applicability:
+      description: Providers of high-risk AI systems.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Accuracy metrics and test evidence, artifact_type: report }
+      - { title: AI security assessment, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on AI system verification and validation", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: iso_27001, reference: "Clause 8 and Annex A security controls", note: "Original editorial mapping for cybersecurity aspects.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.5, 2.6, 2.7", note: "Validity, safety, security and resilience measurement.", confidence_level: high }
+  - slug: eu-ai-act-quality-management-system
+    title: Operate a quality management system
+    category: quality_management
+    section: "Articles 16–27"
+    source_reference: "Article 17"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, hiring_and_hr, finance_and_credit]
+    summary: >
+      Providers of high-risk AI systems must put in place a documented quality management system covering
+      regulatory-compliance strategy, design and development procedures, testing and validation, technical
+      specifications and standards, data management, the risk-management system, post-market monitoring,
+      incident reporting, communication with authorities, record keeping, resource management and an
+      accountability framework.
+    practical_action: >
+      Extend an existing ISO 9001 or ISO/IEC 42001 management system to cover the Article 17 elements.
+    applicability:
+      description: Providers of high-risk AI systems; may be integrated into sector QMS requirements.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: QMS manual and procedures, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Whole management system (Clauses 4–10)", note: "ISO/IEC 42001 is a certifiable AI management system standard; certification is not a legal presumption of conformity under the AI Act.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN function", note: "Governance structures and policies.", confidence_level: medium }
+  - slug: eu-ai-act-conformity-assessment-registration
+    title: Complete conformity assessment, CE marking and EU database registration
+    category: conformity_assessment
+    section: "Articles 16–27"
+    source_reference: "Articles 43, 47, 48 and 49; Annex VIII"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider, deployer, public_authority]
+    sectors: [cross_sector]
+    use_cases: [biometrics, safety_critical, public_services]
+    summary: >
+      Before placing a high-risk system on the market, providers must complete the applicable conformity
+      assessment (internal control or notified-body assessment depending on the system), draw up an EU
+      declaration of conformity, affix the CE marking, and register the system in the EU database. Deployers that
+      are public authorities must also register their use of Annex III systems.
+    practical_action: >
+      Determine the assessment route early; notified-body capacity may be limited around application dates.
+    applicability:
+      description: Providers of high-risk systems; public-authority deployers for registration.
+      actors: [provider, public_authority]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: EU declaration of conformity, artifact_type: document }
+      - { title: EU database registration record, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 9 Performance evaluation; internal audit", note: "Original editorial mapping; not a substitute for legal conformity assessment.", confidence_level: low }
+  - slug: eu-ai-act-deployer-obligations
+    title: Use high-risk AI as instructed, monitor it and inform affected people
+    category: governance_accountability
+    section: "Articles 16–27"
+    source_reference: "Article 26"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, employment, public_services]
+    use_cases: [hiring_and_hr, public_services, finance_and_credit]
+    summary: >
+      Deployers of high-risk AI must take technical and organisational measures to use systems according to the
+      instructions, assign human oversight, ensure input data is relevant where they control it, monitor
+      operation, inform the provider and authorities of risks or serious incidents, keep logs, inform workers'
+      representatives before deploying at the workplace, inform affected natural persons where decisions are
+      made about them, and cooperate with authorities.
+    practical_action: >
+      Create a deployer checklist per high-risk system and a notice for affected individuals and workers.
+    applicability:
+      description: Any organisation deploying a high-risk AI system in the EU.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Deployment checklist and oversight assignment, artifact_type: record }
+      - { title: Worker and affected-person notices, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on responsible use of AI systems", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MANAGE 3.x, GOVERN 5.x", note: "Deployment management and stakeholder engagement.", confidence_level: medium }
+  - slug: eu-ai-act-fundamental-rights-impact-assessment
+    title: Carry out a fundamental rights impact assessment before deployment
+    category: impact_assessment
+    section: "Articles 16–27"
+    source_reference: "Article 27"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [public_services, financial_services]
+    use_cases: [public_services, finance_and_credit]
+    summary: >
+      Before deploying most Annex III high-risk systems, deployers that are bodies governed by public law or
+      private entities providing public services, and deployers using systems for creditworthiness assessment or
+      life and health insurance pricing, must assess the impact on fundamental rights: the processes, period and
+      frequency of use, categories of affected persons, specific risks of harm, human-oversight measures and
+      mitigation, and notify the market-surveillance authority of the results.
+    practical_action: >
+      Reuse GDPR DPIA workflows and extend them with the Article 27 elements; the AI Office is to provide a template.
+    applicability:
+      description: Public bodies, private providers of public services, and deployers in credit and insurance use cases.
+      actors: [deployer, public_authority]
+      sectors: [public_services, financial_services]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Fundamental rights impact assessment report, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment; Annex A control on impact assessment", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MAP 5.1, MAP 5.2", note: "Impacts on individuals, groups and society.", confidence_level: medium }
+  - slug: eu-ai-act-transparency-article-50
+    title: Disclose AI interaction and label synthetic content
+    category: transparency
+    section: "Article 50"
+    source_reference: "Article 50"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider, deployer]
+    sectors: [cross_sector, media_information, consumer_retail]
+    use_cases: [generative_ai, customer_service, content_moderation]
+    summary: >
+      Providers must ensure AI systems intended to interact with people inform them they are dealing with AI
+      unless obvious; providers of systems generating synthetic audio, image, video or text must mark output in a
+      machine-readable, detectable format; deployers of emotion-recognition or biometric-categorisation systems
+      must inform exposed persons; deployers must disclose deepfakes and AI-generated text published to inform the
+      public on matters of public interest, subject to exceptions.
+    practical_action: >
+      Implement provenance marking (for example content credentials) and user-facing AI disclosures in product UX.
+    applicability:
+      description: Providers and deployers of chatbots, generative systems, emotion recognition and biometric categorisation, whatever the risk tier.
+      actors: [provider, deployer]
+      risk_categories: [transparency_risk]
+    evidence_examples:
+      - { title: Disclosure and watermarking design record, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A control on communication with interested parties", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 4.x; NIST AI 600-1 content provenance suggestions", note: "Generative AI profile guidance on provenance.", confidence_level: medium }
+  - slug: eu-ai-act-gpai-provider-obligations
+    title: Meet general-purpose AI model provider obligations
+    category: copyright_training_data
+    section: "Articles 51–56"
+    source_reference: "Article 53 and Annexes XI–XII"
+    is_binding: true
+    applies_from: 2025-08-02
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Providers of general-purpose AI models must keep technical documentation (Annex XI), provide information to
+      downstream providers integrating the model (Annex XII), put in place a policy to comply with EU copyright law
+      including the text-and-data-mining opt-out, and publish a sufficiently detailed public summary of training
+      content using the Commission's template. Free and open-source models are exempt from the first two duties
+      unless they present systemic risk. Adherence to the General-Purpose AI Code of Practice can demonstrate compliance.
+    practical_action: >
+      Prepare the Commission's training-content summary template and a documented copyright policy before release.
+    applicability:
+      description: Providers placing general-purpose AI models on the EU market, including via API.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk, minimal_risk]
+      conditions: Models placed on the market before 2 August 2025 have until 2 August 2027 under Article 111(3).
+    evidence_examples:
+      - { title: Public summary of training content, artifact_type: document }
+      - { title: Copyright compliance policy, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on data provenance and documentation", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "NIST AI 600-1 (Generative AI profile) — intellectual property and data privacy risks", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: eu-ai-act-gpai-systemic-risk
+    title: Manage systemic risk for high-impact general-purpose models
+    category: safety_testing
+    section: "Articles 51–56"
+    source_reference: "Articles 51, 52 and 55"
+    is_binding: true
+    applies_from: 2025-08-02
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      A general-purpose model is presumed to have systemic risk when the cumulative compute used for training
+      exceeds 10^25 floating-point operations, or when the Commission designates it. Providers must notify the
+      Commission, perform model evaluations including adversarial testing, assess and mitigate systemic risks,
+      track and report serious incidents, and ensure adequate cybersecurity for the model and infrastructure.
+    practical_action: >
+      Track training compute against the threshold and prepare a safety and security framework before launch.
+    applicability:
+      description: Providers of general-purpose AI models meeting the systemic-risk criteria.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk]
+    evidence_examples:
+      - { title: Model evaluation and red-teaming reports, artifact_type: report }
+      - { title: Commission notification record, artifact_type: record }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.x; NIST AI 600-1", note: "Evaluation and red-teaming practices.", confidence_level: medium }
+  - slug: eu-ai-act-post-market-monitoring
+    title: Operate a post-market monitoring system
+    category: post_market_monitoring
+    section: "Article 72"
+    source_reference: "Article 72"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, finance_and_credit, hiring_and_hr]
+    summary: >
+      Providers must establish and document a post-market monitoring system proportionate to the nature of the AI
+      technology and its risks, actively and systematically collecting and analysing performance data throughout
+      the system's lifetime, based on a monitoring plan that is part of the technical documentation. The Commission
+      is to adopt a template for the plan.
+    practical_action: >
+      Define performance and drift indicators, feedback channels and review cadence in a monitoring plan.
+    applicability:
+      description: Providers of high-risk AI systems.
+      actors: [provider]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Post-market monitoring plan and periodic reports, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 9.1 Monitoring, measurement, analysis and evaluation", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MANAGE 4.1, MEASURE 3.x", note: "Post-deployment monitoring.", confidence_level: high }
+  - slug: eu-ai-act-serious-incident-reporting
+    title: Report serious incidents to market surveillance authorities
+    category: incident_handling
+    section: "Article 73"
+    source_reference: "Article 73"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, health, biometrics]
+    summary: >
+      Providers of high-risk AI systems must report serious incidents to the market-surveillance authority of the
+      Member State where the incident occurred, immediately after establishing a causal link (or reasonable
+      likelihood) and no later than 15 days after becoming aware, with shorter limits for the most serious cases
+      such as widespread infringements or death. Deployers must inform the provider and authorities when they
+      identify a serious incident.
+    practical_action: >
+      Add AI serious-incident criteria and time limits to your existing incident-response playbook.
+    applicability:
+      description: Providers and deployers of high-risk AI systems.
+      actors: [provider, deployer]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: AI incident response procedure, artifact_type: document }
+      - { title: Incident log and authority notifications, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 10 Improvement; Annex A control on incident handling", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MANAGE 4.3", note: "Incident response and communication.", confidence_level: high }
+  - slug: eu-ai-act-importer-distributor-obligations
+    title: Verify conformity before importing or distributing high-risk AI
+    category: vendor_governance
+    section: "Articles 16–27"
+    source_reference: "Articles 23 and 24"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [importer, distributor]
+    sectors: [cross_sector]
+    use_cases: [safety_critical]
+    summary: >
+      Importers must verify that the provider completed conformity assessment, drew up technical documentation,
+      affixed CE marking and appointed an authorised representative where required, and must indicate their name
+      and contact details on the system. Distributors must verify CE marking, the declaration of conformity and
+      instructions, and refrain from making non-compliant systems available.
+    practical_action: >
+      Build AI Act checks into supplier onboarding and contract clauses.
+    applicability:
+      description: Importers and distributors of high-risk AI systems.
+      actors: [importer, distributor]
+      risk_categories: [high_risk]
+    evidence_examples:
+      - { title: Supplier due-diligence checklist, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on third parties and suppliers", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 6.1, GOVERN 6.2", note: "Third-party risk management.", confidence_level: high }
+deadlines:
+  - { title: Entry into force, due_on: 2024-08-01, date_precision: exact, description: "Twentieth day after publication in the Official Journal.", source_reference: "Article 113", deadline_status: passed, confidence_level: high }
+  - { title: "Prohibited practices and AI literacy apply (Chapters I and II)", due_on: 2025-02-02, date_precision: exact, description: "Article 5 bans and Article 4 literacy duties apply.", source_reference: "Article 113(a)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-prohibited-practices }
+  - { title: "General-purpose AI, governance, notified bodies and penalties apply", due_on: 2025-08-02, date_precision: exact, description: "Chapter V (GPAI models), Chapter III Section 4, Chapter VII, Chapter XII (except Article 101) and Article 78 apply.", source_reference: "Article 113(b)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-gpai-provider-obligations }
+  - { title: "General application, including Annex III high-risk systems and Article 50 transparency", due_on: 2026-08-02, date_precision: exact, description: "Default application date for the remainder of the Regulation, as set in the adopted text. Subject to any adopted amendment from the 2025 Digital Omnibus proposal, which a reviewer must confirm.", source_reference: "Article 113", deadline_status: scheduled, confidence_level: medium, obligation: eu-ai-act-risk-management-system }
+  - { title: "High-risk AI as safety components of Annex I products", due_on: 2027-08-02, date_precision: exact, description: "Article 6(1) obligations for AI in products covered by Annex I harmonisation legislation.", source_reference: "Article 113(c)", deadline_status: scheduled, confidence_level: high }
+  - { title: "General-purpose models placed on the market before 2 August 2025 must comply", due_on: 2027-08-02, date_precision: exact, description: "Transitional period for models already on the market.", source_reference: "Article 111(3)", deadline_status: scheduled, confidence_level: medium }
+  - { title: "Large-scale IT systems listed in Annex X placed on the market before 2 August 2027", due_on: 2030-12-31, date_precision: exact, description: "Transitional period for certain EU large-scale IT systems in the area of freedom, security and justice.", source_reference: "Article 111(1)", deadline_status: scheduled, confidence_level: medium }
+procurement_rules:
+  - title: Public-authority deployers must register high-risk AI use and assess fundamental-rights impact
+    summary: >
+      Public bodies deploying Annex III high-risk systems must register their use in the EU database (Article 49(4))
+      and complete a fundamental-rights impact assessment before deployment (Article 27). The Commission has also
+      published model contractual clauses for public procurement of AI (non-binding).
+    applies_to: Public authorities and bodies governed by public law in the EU
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    source_title: "Regulation (EU) 2024/1689, Articles 27 and 49"
+    source_publisher: "Official Journal of the European Union"
+    source_reference: "Articles 27 and 49(4)"
+    confidence_level: high
+    review_status: pending_review
+sources:
+  - { title: "Regulation (EU) 2024/1689 (Artificial Intelligence Act) — consolidated ELI page", publisher: "Publications Office of the European Union", url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", document_date: 2024-07-12, document_type: legislation, tier: 1 }
+  - { title: "AI Act policy page and implementation timeline", publisher: "European Commission, DG CONNECT", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", document_type: official, tier: 1 }
+  - { title: "General-Purpose AI Code of Practice", publisher: "European Commission, AI Office", url: "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai", document_date: 2025-07-10, document_type: guidance, tier: 2 }
+  - { title: "Commission Guidelines on prohibited AI practices", publisher: "European Commission", url: "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-prohibited-artificial-intelligence-ai-practices-defined-ai-act", document_date: 2025-02-04, document_type: guidance, tier: 2 }
+faq:
+  - question: What is the EU AI Act?
+    answer: >
+      Regulation (EU) 2024/1689 is a binding EU law that sets risk-based rules for AI systems and general-purpose
+      AI models placed on the EU market or used in the EU. It bans a few practices, imposes detailed requirements
+      on high-risk systems, adds transparency duties for chatbots and synthetic content, and regulates
+      general-purpose models.
+  - question: When do the EU AI Act requirements apply?
+    answer: >
+      In phases under Article 113: prohibitions and AI literacy from 2 February 2025, general-purpose AI and
+      governance rules from 2 August 2025, general application from 2 August 2026, and Annex I product-embedded
+      high-risk AI from 2 August 2027. The 2025 Digital Omnibus proposal may change some high-risk dates; check
+      the official sources.
+  - question: Who does the EU AI Act apply to?
+    answer: >
+      Providers, deployers, importers, distributors and authorised representatives of AI systems, product
+      manufacturers, and providers of general-purpose AI models, including organisations outside the EU whose
+      systems or outputs are used in the EU.
+  - question: What are the penalties under the EU AI Act?
+    answer: >
+      Up to EUR 35 million or 7 % of worldwide annual turnover for prohibited practices, up to EUR 15 million or
+      3 % for most other infringements, and up to EUR 7.5 million or 1 % for incorrect information, with lower
+      caps for SMEs (Article 99).
+official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+source_title: "Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 laying down harmonised rules on artificial intelligence"
+source_publisher: "Official Journal of the European Union"
+source_document_date: 2024-07-12
+source_reference: "OJ L, 2024/1689, 12.7.2024"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record from the adopted text; Digital Omnibus adjustments not yet reflected.
+reviewed_by: null

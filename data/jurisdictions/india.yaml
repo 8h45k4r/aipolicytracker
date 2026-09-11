@@ -1,0 +1,64 @@
+slug: india
+name: India
+short_name: India
+iso_code: IN
+jurisdiction_type: country
+region: Asia
+subregion: South Asia
+featured: true
+published: true
+overview: >
+  India has no dedicated AI statute. AI governance rests on the Digital Personal Data Protection Act 2023 and its
+  2025 Rules, the Information Technology Act 2000 and the IT (Intermediary Guidelines and Digital Media Ethics
+  Code) Rules 2021 as applied to AI and synthetic media, sector regulators such as the RBI and SEBI, and a series of
+  policy documents: NITI Aayog's Responsible AI approach papers, the IndiaAI Mission approved in March 2024, and the
+  India AI Governance Guidelines released by MeitY in November 2025. The stated approach favours enabling
+  innovation with light-touch, principle-based governance and existing-law enforcement.
+regulatory_status_summary: >
+  No binding cross-sector AI law. Binding obligations arise from the DPDP Act 2023 (phased commencement under the
+  November 2025 Rules), the IT Act and intermediary rules, and sector regulation. The India AI Governance
+  Guidelines (November 2025) are non-binding. A reviewer must confirm the commencement schedule of the DPDP Rules.
+binding_vs_guidance: >
+  Binding: DPDP Act 2023 and DPDP Rules 2025 (phased), IT Act 2000 and IT Rules 2021, Consumer Protection Act 2019,
+  sector rules (RBI, SEBI, IRDAI). Guidance: India AI Governance Guidelines 2025, NITI Aayog Responsible AI papers,
+  MeitY advisories to intermediaries on AI models and deepfakes.
+current_priorities: >
+  Implementing the IndiaAI Mission (compute, datasets, safety institute), operationalising DPDP consent and
+  breach rules, addressing deepfakes and synthetic media through intermediary rules, and the AI Safety Institute.
+how_to_use:
+  - Treat the DPDP Act as the primary binding constraint for AI processing personal data of Indian residents.
+  - If you operate a platform or intermediary, review IT Rules 2021 duties on synthetic media and AI models.
+  - Use the India AI Governance Guidelines as the reference for regulator expectations and voluntary commitments.
+  - Check sector rules (RBI for lending and credit scoring, SEBI for markets, IRDAI for insurance).
+regulators:
+  - { name: Ministry of Electronics and Information Technology (MeitY), url: "https://www.meity.gov.in/", role: "IT Act, DPDP Act, IndiaAI Mission, AI governance" }
+  - { name: IndiaAI (Independent Business Division under Digital India Corporation), url: "https://indiaai.gov.in/", role: "IndiaAI Mission implementation" }
+  - { name: NITI Aayog, url: "https://www.niti.gov.in/", role: "National AI strategy and Responsible AI papers" }
+official_sources:
+  - { title: "Digital Personal Data Protection Act, 2023", publisher: "Ministry of Electronics and Information Technology", url: "https://www.meity.gov.in/data-protection-framework", document_date: 2023-08-11, document_type: legislation, tier: 1 }
+  - { title: "IndiaAI Mission", publisher: "IndiaAI / MeitY", url: "https://indiaai.gov.in/", document_date: 2024-03-07, document_type: strategy, tier: 1 }
+faq:
+  - question: Does India have an AI law?
+    answer: >
+      Not a dedicated one. AI is governed through the Digital Personal Data Protection Act 2023, the IT Act and
+      intermediary rules, sector regulation, and non-binding governance guidelines published by MeitY in
+      November 2025.
+  - question: What is the IndiaAI Mission?
+    answer: >
+      A Union Cabinet-approved programme (March 2024) funding compute capacity, datasets, application development,
+      skilling, startup financing and safe and trusted AI, implemented by the IndiaAI division of Digital India
+      Corporation.
+related_jurisdictions: [nepal, singapore, eu, uae]
+official_source_url: "https://www.meity.gov.in/"
+source_title: "Ministry of Electronics and Information Technology — official site"
+source_publisher: "Government of India"
+source_document_date: null
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

@@ -1,5 +1,8 @@
+# aipolicytracker.org
+# Public content, CSS, JS and images are open to all crawlers, including AI crawlers.
 User-agent: *
-Disallow: /backend
+Allow: /
+Disallow: /backend/
 Disallow: /login
 Disallow: /register
 Disallow: /profile
@@ -7,4 +10,18 @@ Disallow: /bookmarks
 Disallow: /forgot-password
 Disallow: /reset-password
 Disallow: /verify-email
-Allow: /
+Disallow: /confirm-password
+Disallow: /denied
+Disallow: /map
+Disallow: /dashboard/
+Disallow: /news/filtered
+Disallow: /news/show-advanced-info
+Disallow: /legacy/
+Disallow: /api/
+# Search and multi-filter result URLs are served with noindex; keep crawl budget on canonical pages.
+Disallow: /policies?*q=
+Disallow: /obligations?*q=
+Disallow: /changes?*q=
+Disallow: /compare?*j=
+
+Sitemap: https://aipolicytracker.org/sitemap.xml

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aipolicytracker.org/schema/change.schema.json",
+  "title": "Change-log file (one month)",
+  "type": "object",
+  "properties": {
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "allOf": [ { "$ref": "common.schema.json#/$defs/sourceQuality" } ],
+        "properties": {
+          "slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "jurisdiction": { "$ref": "common.schema.json#/$defs/slug" },
+          "policy": { "anyOf": [ { "$ref": "common.schema.json#/$defs/slug" }, { "type": "null" } ] },
+          "occurred_on": { "$ref": "common.schema.json#/$defs/date" },
+          "title": { "type": "string", "minLength": 10 },
+          "what_changed": { "type": "string", "minLength": 40 },
+          "practical_impact": { "type": "string" },
+          "impact_level": { "$ref": "common.schema.json#/$defs/impactLevel" },
+          "status_after": { "anyOf": [ { "$ref": "common.schema.json#/$defs/policyStatus" }, { "type": "null" } ] },
+          "published": { "type": "boolean" }
+        },
+        "required": ["slug", "jurisdiction", "occurred_on", "title", "what_changed", "impact_level"]
+      }
+    }
+  },
+  "required": ["changes"]
+}

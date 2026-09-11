@@ -1,0 +1,99 @@
+slug: us-california-sb-53
+jurisdiction: us-california
+title: "California SB 53: Transparency in Frontier Artificial Intelligence Act"
+short_title: California SB 53
+instrument_type: act
+status: in_force
+status_note: >
+  Signed 29 September 2025; operative 1 January 2026 for most provisions. A reviewer must confirm the operative
+  dates and any federal pre-emption challenge.
+is_binding: true
+published: true
+issuing_body: California State Legislature
+summary_plain: >
+  SB 53 requires "large frontier developers" (developers of the most compute-intensive models above statutory
+  thresholds) to publish a frontier AI framework describing how they assess and mitigate catastrophic risks, publish
+  transparency reports when deploying new frontier models, report critical safety incidents to the California Office
+  of Emergency Services, and protect employees who report safety concerns. It also directs creation of a public
+  computing cluster ("CalCompute").
+scope_summary: >
+  Applies to developers of frontier models meeting compute-based thresholds, with heightened duties for large
+  frontier developers above a revenue threshold. Most obligations are transparency and reporting duties rather than
+  prescriptive technical requirements.
+who_it_applies_to: Frontier-model developers operating in California, including companies based elsewhere that train frontier models and do business in the state.
+key_dates_summary: Signed 29 September 2025; operative 1 January 2026 (to be confirmed).
+penalties_summary: Civil penalties enforced by the Attorney General for non-compliance, with amounts set in the statute (reviewer to confirm figures).
+what_organizations_must_do: >
+  Large frontier developers should publish a frontier AI framework and model transparency reports, set up critical
+  safety incident reporting, and implement whistleblower protections and internal reporting channels.
+adopted_on: 2025-09-29
+published_on: 2025-09-29
+in_force_on: 2026-01-01
+applies_from: 2026-01-01
+actors: [gpai_provider, provider]
+ai_system_types: [general_purpose_ai_model, generative_ai]
+sectors: [cross_sector]
+risk_categories: [systemic_risk]
+use_cases: [generative_ai]
+related_policies: [eu-ai-act, us-nist-ai-rmf]
+obligations:
+  - slug: us-california-sb-53-frontier-ai-framework
+    title: Large frontier developers must publish a frontier AI framework
+    category: safety_testing
+    source_reference: "Business and Professions Code, Chapter 25.1 (as added by SB 53)"
+    is_binding: true
+    applies_from: 2026-01-01
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Large frontier developers must publish and maintain a framework describing how they incorporate national and
+      international standards, assess catastrophic risk, apply mitigations, secure model weights, and govern
+      internal processes, and must review it at least annually.
+    practical_action: Publish a safety framework and keep a change log of revisions.
+    applicability:
+      description: Large frontier developers above the statutory compute and revenue thresholds.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk]
+    evidence_examples:
+      - { title: Published frontier AI framework, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.x; NIST AI 600-1", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: us-california-sb-53-critical-safety-incident-reporting
+    title: Report critical safety incidents to the Office of Emergency Services
+    category: incident_handling
+    source_reference: "Business and Professions Code, Chapter 25.1 (as added by SB 53)"
+    is_binding: true
+    applies_from: 2026-01-01
+    actors: [gpai_provider, provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Frontier developers must report critical safety incidents to the California Office of Emergency Services
+      within the statutory time limit after discovery, and the Office is to establish a reporting mechanism.
+    practical_action: Define critical-safety-incident criteria and an escalation path with the statutory clock.
+    applicability:
+      description: Frontier developers.
+      actors: [gpai_provider, provider]
+      risk_categories: [systemic_risk]
+    evidence_examples:
+      - { title: Incident classification and reporting procedure, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MANAGE 4.3", note: "Incident response.", confidence_level: medium }
+deadlines:
+  - { title: Operative date, due_on: 2026-01-01, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Most provisions operative; confirm on the official bill page." }
+sources:
+  - { title: "SB 53 Transparency in Frontier Artificial Intelligence Act (bill text and history)", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53", document_date: 2025-09-29, document_type: legislation, tier: 1 }
+official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
+source_title: "SB 53 Transparency in Frontier Artificial Intelligence Act"
+source_publisher: "California Legislative Information"
+source_document_date: 2025-09-29
+source_reference: "Chapter 853, Statutes of 2025 (reviewer to confirm chapter number)"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; penalty amounts and chapter number to be confirmed.
+reviewed_by: null

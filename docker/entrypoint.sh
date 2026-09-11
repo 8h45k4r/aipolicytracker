@@ -4,6 +4,8 @@ cd /var/www/html
 
 # Run pending migrations, then cache config/routes/views for production.
 php artisan migrate --force
+# Load the canonical policy records from data/ (idempotent upsert).
+php artisan policy:import
 php artisan storage:link >/dev/null 2>&1 || true
 php artisan config:cache
 php artisan route:cache

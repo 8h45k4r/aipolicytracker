@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aipolicytracker.org/schema/jurisdiction.schema.json",
+  "title": "Jurisdiction record",
+  "type": "object",
+  "allOf": [ { "$ref": "common.schema.json#/$defs/sourceQuality" } ],
+  "properties": {
+    "slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "name": { "type": "string", "minLength": 2 },
+    "short_name": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "iso_code": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "jurisdiction_type": { "type": "string", "enum": ["supranational", "country", "state", "territory", "region"] },
+    "region": { "type": "string" },
+    "subregion": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "parent": { "anyOf": [ { "$ref": "common.schema.json#/$defs/slug" }, { "type": "null" } ] },
+    "featured": { "type": "boolean" },
+    "published": { "type": "boolean" },
+    "overview": { "type": "string", "minLength": 80 },
+    "regulatory_status_summary": { "type": "string", "minLength": 40 },
+    "binding_vs_guidance": { "type": "string" },
+    "current_priorities": { "type": "string" },
+    "how_to_use": { "type": "array", "items": { "type": "string" } },
+    "regulators": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "url": { "$ref": "common.schema.json#/$defs/url" }, "role": { "type": "string" } }, "required": ["name", "url"] } },
+    "official_sources": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/sourceDocument" } },
+    "faq": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/faqItem" } },
+    "related_jurisdictions": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/slug" } }
+  },
+  "required": ["slug", "name", "jurisdiction_type", "region", "overview", "regulatory_status_summary"]
+}
