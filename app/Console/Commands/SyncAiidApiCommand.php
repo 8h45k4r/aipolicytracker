@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 /**
@@ -18,8 +19,9 @@ use Throwable;
  * By default it pulls only records modified since the last sync (a day of overlap),
  * so it is cheap enough to run every few hours from the cron trigger. With --full
  * it walks the whole database; with --write-json it also merges the rows into the
- * reviewed JSON files under data/external/ so a fresh deploy starts from the same
- * state. Stored fields are metadata AIID publishes under CC BY-SA 4.0; report texts
+ * reviewed JSON files under data/external/. Every run also merges the rows into a local
+ * snapshot on the private disk, which external:import reads after the repository files,
+ * so the site keeps its last good data when the API or a database is lost. Stored fields are metadata AIID publishes under CC BY-SA 4.0; report texts
  * are never fetched.
  */
 class SyncAiidApiCommand extends Command
@@ -34,6 +36,11 @@ class SyncAiidApiCommand extends Command
     protected $description = 'Sync the latest AI Incident Database records (incidents, entities, classifications, report metadata) from its API';
 
     public const LAST_RUN_KEY = 'aiid-api-last-run';
+
+    /** Local snapshot of every live-synced row, on the private disk (persistent storage in production). */
+    public const LOCAL_INCIDENTS = 'external/aiid_live_incidents.json';
+
+    public const LOCAL_REPORTS = 'external/aiid_live_reports.json';
 
     private const PAGE = 100;
 
@@ -125,8 +132,13 @@ class SyncAiidApiCommand extends Command
             Cache::forget('risk-narrative-v1');
         }
 
+        if (! $this->option('no-db')) {
+            // Durable copy on the private disk (persistent storage): re-imported on deploy so live-synced
+            // records survive a rebuilt database even when the API is unreachable.
+            $this->mergeJson($incidentRows, $reportRows, $now, Storage::disk('local')->path(self::LOCAL_INCIDENTS), Storage::disk('local')->path(self::LOCAL_REPORTS));
+        }
         if ($this->option('write-json')) {
-            $this->mergeJson($incidentRows, $reportRows, $now);
+            $this->mergeJson($incidentRows, $reportRows, $now, base_path(ExternalDataset::AIID_INCIDENTS), base_path('data/external/aiid_reports.json'));
         }
 
         $latest = max(array_keys($incidentRows));
@@ -183,11 +195,12 @@ class SyncAiidApiCommand extends Command
         return Carbon::parse($snapshot ?: now()->subDays(30))->subDays(7)->toIso8601ZuluString();
     }
 
-    /** Merge rows into the reviewed JSON files so a clean deploy imports the same state. */
-    private function mergeJson(array $incidentRows, array $reportRows, Carbon $now): void
+    /** Merge rows by id into a pair of JSON files (repository copy or local snapshot); existing rows are kept. */
+    private function mergeJson(array $incidentRows, array $reportRows, Carbon $now, string $incPath, string $repPath): void
     {
-        $incPath = base_path(ExternalDataset::AIID_INCIDENTS);
-        $file = File::exists($incPath) ? json_decode(File::get($incPath), true) : ['incidents' => []];
+        File::ensureDirectoryExists(dirname($incPath));
+        File::ensureDirectoryExists(dirname($repPath));
+        $file = File::exists($incPath) ? (json_decode(File::get($incPath), true) ?: ['incidents' => []]) : ['incidents' => []];
         $byId = [];
         foreach ($file['incidents'] ?? [] as $i) {
             $byId[(int) $i['incident_id']] = $i;
@@ -207,8 +220,7 @@ class SyncAiidApiCommand extends Command
         $file = array_merge($file, ['api_synced_at' => $now->toDateTimeString(), 'generated_at' => $now->toDateString(), 'count' => count($all), 'incidents' => $all]);
         File::put($incPath, json_encode($file, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
-        $repPath = base_path('data/external/aiid_reports.json');
-        $rfile = File::exists($repPath) ? json_decode(File::get($repPath), true) : ['reports' => []];
+        $rfile = File::exists($repPath) ? (json_decode(File::get($repPath), true) ?: ['reports' => []]) : ['reports' => []];
         $byNo = [];
         foreach ($rfile['reports'] ?? [] as $r) {
             $byNo[(int) $r['report_number']] = $r;
@@ -220,7 +232,7 @@ class SyncAiidApiCommand extends Command
         usort($reports, fn ($a, $b) => [$a['incident_id'], $a['report_number']] <=> [$b['incident_id'], $b['report_number']]);
         $rfile = array_merge($rfile, ['api_synced_at' => $now->toDateTimeString(), 'generated_at' => $now->toDateString(), 'count' => count($reports), 'reports' => $reports]);
         File::put($repPath, json_encode($rfile, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n");
-        $this->line('JSON files updated: '.count($all).' incidents, '.count($reports).' reports.');
+        $this->line(basename(dirname($incPath)).'/'.basename($incPath).' updated: '.count($all).' incidents, '.count($reports).' reports.');
     }
 
     private function recordRun(int $incidents, int $reports, ?string $error = null, ?int $latest = null): void
