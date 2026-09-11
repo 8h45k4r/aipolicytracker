@@ -1,0 +1,6 @@
+Ai System Inventory — AIPolicyTracker free template
+Version 1.0 · Last updated 2026-09-11
+"Informational only, not legal advice. Completing this file does not make an organisation compliant with any law or standard. AIPolicyTracker (aipolicytracker.org), CC BY 4.0."
+
+System ID,System name,Business owner,Technical owner,Purpose and use case,Our role,Model / vendor,Data used,Affected people,Markets,EU AI Act risk category,Other applicable rules,Human oversight,Status,Last review date,Next review date,Evidence links
+AIS-001,Example: support chatbot,Head of Support,Platform team,Answers customer questions and drafts replies,Deployer (uses a vendor model),Vendor LLM (general-purpose model),Customer messages (personal data),Customers,"EU, UK",Transparency (chatbot disclosure); not high-risk,GDPR; consumer law,Agent reviews drafts before sending,Production,2026-09-01,2026-12-01,https://…/evidence/ais-001

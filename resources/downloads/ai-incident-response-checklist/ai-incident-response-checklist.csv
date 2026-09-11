@@ -1,0 +1,15 @@
+Ai Incident Response — AIPolicyTracker free template
+Version 1.0 · Last updated 2026-09-11
+"Informational only, not legal advice. Completing this file does not make an organisation compliant with any law or standard. AIPolicyTracker (aipolicytracker.org), CC BY 4.0."
+
+Stage,Item,Owner,Time target,Reference,Done
+Prepare,"Define what counts as an AI incident (harm, near-miss, policy breach, model drift) and severity levels",Governance lead,Before go-live,Internal policy; NIST AI RMF MANAGE 4,No
+Prepare,"Maintain a notification matrix: regulator, data-protection authority, customers, insurer, press",Governance lead,Before go-live,EU AI Act Art. 73; GDPR Art. 33,No
+Prepare,Enable a kill switch / human-only mode and a tested rollback per system,Technical owner,Before go-live,EU AI Act Art. 14,No
+Detect,"Monitor user reports, output audits, drift metrics, abuse signals and press mentions",On-call,Continuous,ISO/IEC 42001 monitoring,No
+Triage,"Classify the incident by MIT AI Risk Repository domain, affected people and severity",Incident lead,1 hour,Internal severity scale,No
+Contain,"Stop or restrict the system, preserve logs and prompts, snapshot the model version",Technical owner,2 hours,EU AI Act Art. 12 logging,No
+Notify,Report serious incidents to the market-surveillance authority within the statutory deadline; data breaches within 72 hours,Legal / DPO,Per deadline,EU AI Act Art. 73; GDPR Art. 33,No
+Notify,Inform affected users and customers with plain-language guidance,Communications,24 hours,Contractual; consumer law,No
+Recover,"Fix, re-test (including red-team), decide re-deployment with sign-off",Technical owner,Per severity,EU AI Act Art. 15,No
+Learn,"Post-incident review; update risk register, controls, training and this checklist",Governance lead,10 days,NIST AI RMF MANAGE; ISO/IEC 42001 improvement,No

@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Guides page now has search and filter chips (content type, framework, topic, access) and a "Free tools and templates" section: AI System Inventory Template, AI Risk Register Template, EU AI Act Readiness Checklist, AI Incident Response Checklist and AI Governance 30-Day Starter Plan (XLSX, CSV, Markdown). Each tool page previews every field, explains purpose and use, maps to recorded policies and guides, and gates the download behind a free account with explicit licence acceptance; files are served through signed 30-minute links to the requesting account.
+- Free-account registration is a server-rendered page (name, email, optional organisation, password, terms; marketing updates opt-in and unticked). Admin "Guides and downloads" page: user and download metrics, most downloaded tools, sign-up sources, download activity, registered users and CSV export; dashboard tiles for users and downloads.
+
+### Fixed
+- AI incidents page no longer scrolls horizontally; grid children and charts are constrained to the viewport.
+
 ### Fixed
 - Legacy record URLs (`/news/{id}`, `/aipolicytracker/single-view/{id}`) that Google still crawls now redirect permanently to the change log and policy explorer instead of returning 404 or 5xx.
 

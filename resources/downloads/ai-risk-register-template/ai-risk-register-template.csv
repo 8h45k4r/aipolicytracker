@@ -1,0 +1,6 @@
+Ai Risk Register — AIPolicyTracker free template
+Version 1.0 · Last updated 2026-09-11
+"Informational only, not legal advice. Completing this file does not make an organisation compliant with any law or standard. AIPolicyTracker (aipolicytracker.org), CC BY 4.0."
+
+Risk ID,System ID,Risk domain,Risk description,Causal entity / intent / timing,Likelihood (1-5),Impact (1-5),Inherent score,Existing controls,Residual score,Treatment,Action and owner,Due date,Monitoring signal,Related obligation,Last reviewed,Status
+R-001,AIS-001,4. Malicious actors & misuse,Prompt injection via customer message causes disclosure of another customer's data,AI / Unintentional / Post-deployment,3,4,12,Output filter; no cross-customer retrieval; red-team test,2,Mitigate,Add retrieval scoping (Platform lead),2026-10-15,Weekly red-team pass rate,GDPR Art. 32; EU AI Act Art. 15,2026-09-01,In progress

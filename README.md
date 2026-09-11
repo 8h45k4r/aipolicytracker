@@ -18,6 +18,7 @@ Every important policy claim should link to a primary official source, show its 
 - **Applicability check** (`/tools/applicability-check`): educational screening, explicitly not legal advice.
 - **Open data and API** (`/open-data`, `/api/v1`, `/openapi.json`, `/llms.txt`): CC BY 4.0 dataset with JSON Schema.
 - **Contribute** (`/contribute`): corrections, sources and records enter a `pending_review` queue; publishing is admin-only. Opened from a record page, the correction form is prefilled with the record, its official source and the current value of the disputed field.
+- **Guides and free tools** (`/guides`): filterable guides plus AI system inventory, risk register, EU AI Act readiness, incident response templates and a 30-day plan; preview online, download with a free account (see `docs/modules/guides-and-downloads.md`).
 - **Subscribe** (`/subscribe`) and **Saved** (`/saved`): weekly digest by jurisdiction or single policy (double opt-in), and a per-browser reading list with no account.
 
 The related product **Certifyi** (certifyi.ai) is a separate compliance execution platform; AIPolicyTracker is the open, public intelligence layer and links to it only through small, restrained calls to action.
