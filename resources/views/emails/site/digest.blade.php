@@ -18,5 +18,12 @@
 <p style="margin:0 0 6px;"><span style="font-family:'Space Mono',monospace;color:#002147;">{{ $d->displayDate() }}</span> · <a href="{{ $d->policyInstrument->url() }}" style="color:#006AAC;">{{ $d->title }}</a> <span style="color:#5D6B7E;">({{ $d->policyInstrument->jurisdiction->name }})</span></p>
 @endforeach
 @endif
+@if($incidents->isNotEmpty())
+<h2 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:18px;color:#002147;margin:24px 0 8px;">AI incidents this week ({{ $incidentCount }} recorded)</h2>
+@foreach($incidents as $i)
+<p style="margin:0 0 6px;"><span style="font-family:'Space Mono',monospace;color:#002147;">{{ $i->occurred_on->format('j M') }}</span> · <a href="{{ $i->url() }}" style="color:#006AAC;">{{ $i->title }}</a>@if($i->mit_domain) <span style="color:#5D6B7E;">({{ $i->mit_domain }})</span>@endif</p>
+@endforeach
+<p style="margin:6px 0 0;font-size:12px;color:#5D6B7E;">Source: AI Incident Database (CC BY-SA 4.0), classified with the MIT AI Risk Repository taxonomy. <a href="{{ route('risk.index') }}" style="color:#006AAC;">Full AI-risk picture</a></p>
+@endif
 <p style="margin:20px 0 0;font-size:13px;"><a href="{{ route('changes.index') }}" style="color:#006AAC;">Full change log</a> · <a href="{{ route('changes.feed') }}" style="color:#006AAC;">RSS</a></p>
 @endcomponent
