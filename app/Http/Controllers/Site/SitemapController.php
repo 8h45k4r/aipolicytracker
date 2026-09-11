@@ -74,9 +74,9 @@ class SitemapController extends Controller
 
     private function changeUrls()
     {
-        $years = ChangeEvent::published()->selectRaw('substr(occurred_on, 1, 4) as y, MAX(updated_at) as m')->groupBy('y')->orderByDesc('y')->get();
+        $years = ChangeEvent::publishedYearsLastModified();
 
-        return $years->map(fn ($r) => ['loc' => route('changes.year', $r->y), 'lastmod' => $r->m ? Carbon::parse($r->m)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6'])->values();
+        return $years->map(fn ($m, $y) => ['loc' => route('changes.year', $y), 'lastmod' => $m ? Carbon::parse($m)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6'])->values();
     }
 
     private function resourceUrls()

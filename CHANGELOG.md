@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- Change log pages and the changes sitemap failed on PostgreSQL because year grouping used `substr()` on a date column; years are now derived portably.
+- Production startup: `symfony/yaml` declared as a runtime dependency and caches rebuilt before data steps.
+
 ### Added
 - Policy-intelligence data foundation: `data/` YAML records with JSON Schema, taxonomies, and `policy:validate`, `policy:import`, `policy:export` commands; new tables for jurisdictions, policy instruments, versions, sections, obligations, applicability rules, deadlines, enforcement events, procurement rules, framework mappings, evidence artifacts, change events, source documents, contributor submissions and reviewer decisions.
 - Source-backed seed records for the EU, UK, US (federal, Colorado, California), India, Nepal, Singapore, Australia and the UAE, all marked `pending_review` until human verification.
