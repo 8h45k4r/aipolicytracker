@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Branded email layout for every message (confirmation, weekly digest, submission alerts and the admin test mail): centred logo, tagline, organisation, "Follow us on social" icons and copyright footer. Official LinkedIn, X, Facebook and Instagram profiles are configured once in `config/aipolicytracker.php` and shown in the website footer, the emails and the Organization structured data.
+
 ### Changed
 - Deploy workflow waits for the health endpoint and restarts the app once through the Kudu API if the platform stops the container after a deploy.
 
