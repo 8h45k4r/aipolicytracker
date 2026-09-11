@@ -28,6 +28,8 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('verification.notice', absolute: false));
+        // Registration lands on the intended page (or home) with a flash; verification is requested, not enforced.
+        $response->assertRedirect(route('home', absolute: false));
+        $this->assertNotNull(\App\Models\User::where('email', 'test@example.com')->first()->terms_accepted_at);
     }
 }

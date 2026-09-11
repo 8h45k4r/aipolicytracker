@@ -1,0 +1,23 @@
+Eu Ai Act Readiness — AIPolicyTracker free template
+Version 1.0 · Last updated 2026-09-11
+"Informational only, not legal advice. Completing this file does not make an organisation compliant with any law or standard. AIPolicyTracker (aipolicytracker.org), CC BY 4.0."
+
+Phase,Item,Obligation reference,Applies to,Owner,Due,Status,Evidence
+Foundations,Build the AI system inventory with role per system,Art. 3 definitions; Art. 25 roles,All,,2026-09-30,Not started,
+Foundations,Deliver AI literacy to staff who operate or use AI,Art. 4 (applies since 2025-02-02),All,,,Not started,
+Prohibited practices,Screen every system against Article 5 practices and record the outcome,Art. 5 (applies since 2025-02-02),"Provider, deployer",,,Not started,
+Classification,Classify each system against Annex I and Annex III; document non-high-risk conclusions,"Art. 6, Annex III",Provider,,,Not started,
+High-risk workstreams,Risk management system,Art. 9 (from 2026-08-02),Provider,,2026-08-02,Not started,
+High-risk workstreams,"Data governance for training, validation and test data",Art. 10,Provider,,2026-08-02,Not started,
+High-risk workstreams,Technical documentation (Annex IV),Art. 11,Provider,,2026-08-02,Not started,
+High-risk workstreams,Logging and record keeping,"Art. 12, Art. 19","Provider, deployer",,2026-08-02,Not started,
+High-risk workstreams,Instructions for deployers and human-oversight design,"Art. 13, Art. 14",Provider,,2026-08-02,Not started,
+High-risk workstreams,"Accuracy, robustness and cybersecurity testing",Art. 15,Provider,,2026-08-02,Not started,
+High-risk workstreams,Quality management system,Art. 17,Provider,,2026-08-02,Not started,
+High-risk workstreams,"Conformity assessment, EU declaration and CE marking; registration in the EU database","Art. 43, Art. 47-49",Provider,,2026-08-02,Not started,
+High-risk workstreams,"Deployer duties: use per instructions, oversight, logs, worker information, FRIA where required","Art. 26, Art. 27",Deployer,,2026-08-02,Not started,
+General-purpose AI,"Technical documentation, downstream information, copyright policy, training-content summary",Art. 53 (applies since 2025-08-02),GPAI provider,,,Not started,
+General-purpose AI,"Systemic-risk models: evaluation, incident reporting, cybersecurity",Art. 55,GPAI provider,,,Not started,
+Transparency,"Chatbot disclosure, synthetic-content marking, deepfake and AI-text labelling",Art. 50 (from 2026-08-02),"Provider, deployer",,2026-08-02,Not started,
+Evidence,"Assemble the evidence pack: inventory, screening records, classifications, test reports, oversight procedures",—,All,,,Not started,
+Post-market,Post-market monitoring plan and serious-incident reporting process,"Art. 72, Art. 73",Provider,,2026-08-02,Not started,

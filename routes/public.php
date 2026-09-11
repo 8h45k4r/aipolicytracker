@@ -5,6 +5,7 @@ use App\Http\Controllers\Site\ChangeController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\ContributeController;
 use App\Http\Controllers\Site\CronController;
+use App\Http\Controllers\Site\FreeToolController;
 use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\JurisdictionController;
@@ -69,6 +70,14 @@ Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('thro
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');
+// Free tools: public preview, sign-in gate on Download, signed file delivery for the owner.
+Route::get('/guides/tools/{slug}', [FreeToolController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('tools.show');
+Route::get('/guides/tools/{slug}/download', [FreeToolController::class, 'gate'])->where('slug', '[a-z0-9-]+')->name('tools.gate');
+Route::middleware('auth')->group(function () {
+    Route::post('/guides/tools/{slug}/download', [FreeToolController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:20,1')->name('tools.download');
+    Route::get('/guides/tools/{slug}/ready/{download}', [FreeToolController::class, 'ready'])->where('slug', '[a-z0-9-]+')->name('tools.ready');
+    Route::get('/guides/tools/{slug}/file/{download}/{file}', [FreeToolController::class, 'file'])->where(['slug' => '[a-z0-9-]+', 'file' => '[a-z0-9.-]+'])->middleware('signed')->name('tools.file');
+});
 Route::get('/guides/{slug}', [LandingController::class, 'guide'])->name('guides.show');
 Route::get('/{landing}', [LandingController::class, 'landing'])
     ->where('landing', 'eu-ai-act|ai-regulation-india|ai-policy-nepal|ai-governance-singapore|ai-regulation-australia|ai-regulation-uk|ai-regulation-usa|ai-governance-uae|ai-regulation-south-asia')

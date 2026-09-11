@@ -10,17 +10,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    public function create(): Response
+    public function create(): \Illuminate\View\View
     {
-        return Inertia::render('Auth/Register');
+        // Server-rendered in the site theme; the legacy Inertia page required phone numbers.
+        return view('auth.register');
     }
 
     /**
@@ -34,7 +33,8 @@ class RegisteredUserController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-            'phone_no' => 'required|numeric',
+            'phone_no' => 'nullable|numeric',
+            'marketing_consent' => 'nullable|boolean',
             'organization_name' => 'nullable|string|max:255',
             'organization_email' => 'nullable|string|lowercase|email|max:255',
             'password' => [
@@ -59,9 +59,16 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        // Terms acceptance and marketing consent are stored separately; consent is never pre-ticked.
+        $user->forceFill([
+            'terms_accepted_at' => now(),
+            'marketing_consent_at' => $request->boolean('marketing_consent') ? now() : null,
+            'organization_name' => $request->organization_name,
+            'signup_source' => str_contains((string) session('url.intended'), '/guides/tools/') ? 'free-tool' : 'site',
+        ])->save();
 
         $user->userInfo()->create([
-            'phone_no' => $validate['phone_no'],
+            'phone_no' => $validate['phone_no'] ?? null,
             'organization_name' => $request->organization_name,
             'organization_email' => $request->organization_email,
             'ip_address' => $request->ip(),
@@ -75,6 +82,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return to_route('verification.notice');
+        return redirect()->intended(route('home'))->with('success', 'Your free account is ready. We sent a verification link to '.$user->email.'.');
     }
 }
