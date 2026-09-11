@@ -64,6 +64,7 @@ class SyncAiidCommand extends Command
         $years = $domains = $sectors = $countries = $harm = [];
         $domainByYear = [];
         $latest = [];
+        $incidents = [];
         foreach (array_slice($rows, 3) as $r) {
             $date = XlsxReader::excelDate($col($r, 'date'));
             if ($date === '') {
@@ -90,6 +91,12 @@ class SyncAiidCommand extends Command
                 $harm[$hl] = ($harm[$hl] ?? 0) + 1;
             }
             $latest[] = ['id' => (int) $col($r, 'Incident ID'), 'date' => $date, 'title' => mb_substr($col($r, 'title'), 0, 160), 'domain' => $domain, 'countries' => array_slice($cc, 0, 3)];
+            $incidents[] = [
+                'incident_id' => (int) $col($r, 'Incident ID'), 'date' => $date, 'title' => mb_substr($col($r, 'title'), 0, 200), 'description' => mb_substr($col($r, 'description'), 0, 500),
+                'deployers' => array_slice($list($col($r, 'deployer')), 0, 5), 'developers' => array_slice($list($col($r, 'developer')), 0, 5), 'harmed' => array_slice($list($col($r, 'harmed')), 0, 5), 'report_count' => (int) $col($r, 'report_count'),
+                'mit_domain' => $domain, 'mit_subdomain' => mb_substr(trim($col($r, 'Risk Subdomain')), 0, 120), 'entity' => trim($col($r, 'Responsible Entity')), 'intent' => trim($col($r, 'Intent')), 'timing' => trim($col($r, 'Timing')),
+                'sectors' => array_slice(array_map('strtolower', $list($col($r, 'Sector of Deployment'))), 0, 5), 'countries' => array_slice(array_map('strtoupper', $cc), 0, 5), 'harm_level' => $hl,
+            ];
         }
         ksort($years);
         arsort($domains);
@@ -121,6 +128,10 @@ class SyncAiidCommand extends Command
             'latest' => array_slice($latest, 0, 30),
         ];
         File::put(base_path(ExternalDataset::AIID), json_encode($out, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n");
+        usort($incidents, fn ($a, $b) => [$b['date'], $b['incident_id']] <=> [$a['date'], $a['incident_id']]);
+        File::put(base_path(ExternalDataset::AIID_INCIDENTS), json_encode([
+            'source' => $out['source'], 'source_url' => $out['source_url'], 'license' => $out['license'], 'license_url' => $out['license_url'], 'snapshot_date' => $snapshotDate, 'export_file' => $exportName, 'generated_at' => now()->toDateString(), 'count' => count($incidents), 'incidents' => $incidents,
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
         $this->info("AIID summary written: {$out['totals']['incidents']} incidents from {$exportName}.");
 
         return self::SUCCESS;

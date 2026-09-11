@@ -14,11 +14,15 @@
         <div class="rule pt-2"><dt class="meta">Snapshot</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ $aiid['snapshot_date'] }}</dd></div>
     </dl>
 
+    <p class="mt-4 text-sm"><a href="{{ route('risk.incidents.browse') }}" class="btn-primary">Browse and export all incidents</a></p>
     <div class="mt-10 grid gap-8 lg:grid-cols-2">
         <x-site.bar-chart :series="collect($aiid['incidents_per_year'])->filter(fn ($v, $y) => $y >= 2012)" title="Incidents per year (incident date)" note="Current year is partial" />
         <x-site.bar-chart :series="collect($aiid['by_mit_domain'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit(preg_replace('/^(AI system safety).*/', '$1…', $k), 26) => $v])" title="Incidents by MIT risk domain" />
     </div>
 
+    @if(!empty($aiid['domain_by_year']))
+    <x-site.stacked-chart class="mt-8" :series="collect($aiid['domain_by_year'])->filter(fn ($v, $y) => $y >= 2018)->all()" :keys="array_keys($aiid['by_mit_domain'])" title="Incidents per year by MIT risk domain" note="Classified incidents only" />
+    @endif
     <div class="mt-10 grid gap-10 lg:grid-cols-12">
         <section class="lg:col-span-5" aria-labelledby="sector-heading">
             <div class="rule-strong pt-3"><h2 id="sector-heading" class="section-title">Sector of deployment</h2></div>

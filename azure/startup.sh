@@ -24,6 +24,8 @@ php artisan view:cache
 
 # Load the canonical policy records from data/ (idempotent upsert).
 php artisan policy:import
+# Load the row-level external datasets (AI incidents, MIT risks) from data/external/.
+php artisan external:import
 
 # Admin account from ADMIN_* (idempotent upsert).
 php artisan db:seed --class=AdminSeeder --force

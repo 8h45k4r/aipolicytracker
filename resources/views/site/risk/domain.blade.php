@@ -11,7 +11,8 @@
             <div class="rule-strong pt-3"><h2 id="sub-heading" class="section-title">Subdomains</h2></div>
             <dl class="mt-2 divide-y divide-brand-line">
                 @foreach($domain['subdomains'] as $s)
-                <div class="py-4"><dt class="font-display text-lg text-brand-navy">{{ $s['id'] }} {{ $s['name'] }}</dt><dd class="mt-1 text-sm text-brand-body leading-6">{{ $s['description'] ?: '—' }}</dd></div>
+                <div class="py-4"><dt class="font-display text-lg text-brand-navy">{{ $s['id'] }} {{ $s['name'] }}</dt><dd class="mt-1 text-sm text-brand-body leading-6">{{ $s['description'] ?: '—' }}</dd>
+                    <dd class="mt-2 flex flex-wrap gap-2 text-xs"><a class="chip !min-h-0 !py-0.5" href="{{ route('risk.risks', ['subdomain' => $s['id']]) }}">{{ isset($subRisks[$s['id']]) ? number_format($subRisks[$s['id']]) : '—' }} risk entries</a><a class="chip !min-h-0 !py-0.5" href="{{ route('risk.incidents.browse', ['subdomain' => $s['name']]) }}">{{ isset($subIncidents[$s['name']]) ? number_format($subIncidents[$s['name']]) : '—' }} incidents</a></dd></div>
                 @endforeach
             </dl>
             <p class="mt-3 text-sm"><a href="{{ ($mit['navigator_url'] ?? 'https://airisk.mit.edu/navigator').'#/domain/'.$domain['id'] }}" rel="noopener">Explore this domain in the MIT AI Risk Navigator</a></p>
@@ -20,8 +21,20 @@
             <div class="rule-strong pt-3"><h2 class="section-title">Recorded incidents</h2></div>
             <p class="mt-2 text-sm text-brand-body"><span class="font-mono tabular-nums text-2xl text-brand-navy">{{ $incidents !== null ? number_format($incidents) : '—' }}</span> <span class="meta">incidents classified under "{{ $domain['aiid_domain_label'] ?: $domain['name'] }}" in the AI Incident Database (snapshot {{ $aiid['snapshot_date'] ?? '—' }})</span></p>
             @if($trend->sum() > 0)<x-site.bar-chart :series="$trend" title="Incidents in this domain per year" class="mt-3" />@endif
+            <p class="mt-3 text-sm"><a href="{{ route('risk.incidents.browse', ['domain' => $domain['aiid_domain_label']]) }}">Browse and export these incidents</a></p>
+            <div class="rule-strong pt-3 mt-8"><h2 class="section-title">Risk entries</h2></div>
+            <p class="mt-2 text-sm text-brand-body"><span class="font-mono tabular-nums text-2xl text-brand-navy">{{ $riskCount ? number_format($riskCount) : '—' }}</span> <span class="meta">entries coded to this domain in the MIT database</span></p>
+            @if($topPapers->isNotEmpty())<p class="mt-2 meta">Most-cited frameworks here:</p><ul class="mt-1 text-sm divide-y divide-brand-line">@foreach($topPapers as $p)<li class="py-1.5 flex justify-between gap-3"><a href="{{ route('risk.risks', ['paper' => $p->quick_ref, 'domain' => $domain['id']]) }}">{{ \Illuminate\Support\Str::limit($p->title, 60) }}</a><span class="font-mono tabular-nums text-brand-navy">{{ $p->n }}</span></li>@endforeach</ul>@endif
+            <p class="mt-3 text-sm"><a href="{{ route('risk.risks', ['domain' => $domain['id']]) }}">Browse and export these risk entries</a></p>
         </aside>
     </div>
+
+    @if($recent->isNotEmpty())
+    <section class="mt-12" aria-labelledby="recent-heading">
+        <div class="rule-strong pt-3"><h2 id="recent-heading" class="section-title">Recent incidents in this domain</h2></div>
+        <ol class="mt-2 divide-y divide-brand-line">@foreach($recent as $i)<li class="py-3 grid gap-1 sm:grid-cols-12 sm:gap-4 text-sm"><time class="datestamp sm:col-span-2" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><div class="sm:col-span-8"><a href="{{ $i->citeUrl() }}" rel="noopener" class="text-brand-navy no-underline hover:underline">{{ $i->title }}</a></div><div class="sm:col-span-2 meta">{{ \Illuminate\Support\Str::limit($i->mit_subdomain ?: '—', 34) }}</div></li>@endforeach</ol>
+    </section>
+    @endif
 
     <section class="mt-12" aria-labelledby="policies-heading">
         <div class="rule-strong pt-3 flex items-baseline justify-between"><h2 id="policies-heading" class="section-title">Policies addressing related use cases</h2><span class="meta">Editorial mapping by AIPolicyTracker</span></div>

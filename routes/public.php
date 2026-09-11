@@ -13,6 +13,7 @@ use App\Http\Controllers\Site\MachineReadableController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
+use App\Http\Controllers\Site\RiskBrowseController;
 use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,11 @@ Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', 
 
 Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
 Route::get('/ai-risk/incidents', [RiskController::class, 'incidents'])->name('risk.incidents');
+Route::get('/ai-risk/incidents/browse', [RiskBrowseController::class, 'incidentsBrowse'])->name('risk.incidents.browse');
+Route::get('/ai-risk/incidents/export.{format}', [RiskBrowseController::class, 'incidentsExport'])->where('format', 'csv|json')->name('risk.incidents.export');
+Route::get('/ai-risk/risks', [RiskBrowseController::class, 'risks'])->name('risk.risks');
+Route::get('/ai-risk/risks/export.{format}', [RiskBrowseController::class, 'risksExport'])->where('format', 'csv|json')->name('risk.risks.export');
+Route::get('/ai-risk/frameworks', [RiskBrowseController::class, 'frameworks'])->name('risk.frameworks');
 Route::get('/ai-risk/{domain}', [RiskController::class, 'domain'])->where('domain', '[1-7]')->name('risk.domain');
 
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');

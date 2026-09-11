@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Researcher tooling on AI risk: the full AI Incident Database (1,663 incidents, metadata only) and MIT AI Risk Repository database (2,500 risk entries from 74 frameworks) imported into read-model tables; browse pages with filters (year, domain, subdomain, entity, intent, timing, country, sector, harm level, keyword), CSV/JSON exports that carry licence and citation, a frameworks page, causal entity × intent matrix and stacked domain-by-year charts, and per-domain risk/incident counts and recent incidents.
+
 ### Removed
 - Legacy map site and admin CRUD (React/Inertia pages, controllers, models, seeders, the `ai_policies.json` sample dataset and ten database tables). `/map`, `/news`, `/timeline` and `/bookmarks` now redirect permanently to the structured pages; the change log and topic-based digest subscriptions replace news, timeline and bookmarks. Auth, profile and registration are unchanged.
 
