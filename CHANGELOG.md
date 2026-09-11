@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Security
+- Removed 15 unused JavaScript packages left from the legacy map site (amCharts, CKEditor, MUI, Emotion, react-select, react-slick, react-toastify, react-dropzone, DOMPurify) and applied `npm audit fix`; production dependencies now audit clean.
+
 ### Changed
 - README rewritten around what readers can do, with architecture, data-flow and free-tools diagrams (`docs/diagrams/`); hosting and rate-limit specifics moved out of the public README. Dependabot configuration removed; dependency updates are handled through the release process.
 
