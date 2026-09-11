@@ -1,0 +1,68 @@
+slug: indonesia
+name: Indonesia
+short_name: Indonesia
+iso_code: ID
+jurisdiction_type: country
+region: Asia
+subregion: South-East Asia
+featured: false
+published: true
+overview: >-
+  Indonesia's long-range national AI strategy, prepared by a BPPT-led multi-stakeholder working group. A ministerial
+  circular that lays out ethical values for developing and using AI, such as inclusivity, humanity, security, accessibility,
+  transparency, accountability, personal data protection, sustainability and respect for intellectual property.
+  A draft presidential regulation, prepared under Presidential Decree No.
+regulatory_status_summary: >-
+  Instruments on record: Strategi Nasional Kecerdasan Artifisial Indonesia 2020-2045 (2020, strategy, adopted);
+  Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial (2023,
+  regulation, in force); Rancangan Peraturan Presiden tentang Peta Jalan Kecerdasan Artifisial Nasional 2026-2029
+  (2026, strategy, proposed). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial.
+  Strategy or guidance: Strategi Nasional Kecerdasan Artifisial Indonesia 2020-2045, Rancangan Peraturan Presiden
+  tentang Peta Jalan Kecerdasan Artifisial Nasional 2026-2029.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    Strategi Nasional Kecerdasan Artifisial Indonesia 2020-2045 (National Strategy for Artificial Intelligence)
+  publisher: National Research and Innovation Agency (BRIN) repository / BPPT Press
+  url: https://karya.brin.go.id/id/eprint/13918/
+  document_date: '2020-08-10'
+  document_type: strategy
+  tier: 1
+- title: >-
+    Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial (Circular
+    Letter No. 9 of 2023 on AI Ethics)
+  publisher: JDIH Kementerian Komunikasi dan Digital
+  url: >-
+    https://jdih.komdigi.go.id/produk_hukum/view/id/883/t/surat+edaran+menteri+komunikasi+dan+informatika+nomor+9+tahun+2023
+  document_date: '2023-12-19'
+  document_type: legislation
+  tier: 1
+- title: >-
+    Rancangan Peraturan Presiden tentang Peta Jalan Kecerdasan Artifisial Nasional 2026-2029 (Draft Presidential
+    Regulation on the National AI Roadmap)
+  publisher: JDIH Kementerian Komunikasi dan Digital
+  url: https://jdih.komdigi.go.id/berita/view/113
+  document_date: '2026-02-11'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://karya.brin.go.id/id/eprint/13918/
+source_title: >-
+  Strategi Nasional Kecerdasan Artifisial Indonesia 2020-2045 (National Strategy for Artificial Intelligence)
+source_publisher: National Research and Innovation Agency (BRIN) repository / BPPT Press
+source_document_date: '2020-08-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

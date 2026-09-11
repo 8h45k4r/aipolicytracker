@@ -1,0 +1,55 @@
+slug: vietnam
+name: Vietnam
+short_name: Vietnam
+iso_code: VN
+jurisdiction_type: country
+region: Asia
+subregion: South-East Asia
+featured: false
+published: true
+overview: >-
+  A prime ministerial decision promulgating Vietnam's national AI strategy to 2030. Vietnam's first dedicated AI
+  statute, with eight chapters and 35 articles governing the research, development, provision, deployment and use
+  of AI systems.
+regulatory_status_summary: >-
+  Instruments on record: National Strategy on Research, Development and Application of Artificial Intelligence to
+  2030 (2021, strategy, adopted); Law on Artificial Intelligence (2025, act, in force). Each is linked to its official
+  source; human verification pending.
+binding_vs_guidance: >-
+  Binding: Law on Artificial Intelligence. Strategy or guidance: National Strategy on Research, Development and
+  Application of Artificial Intelligence to 2030.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    National Strategy on Research, Development and Application of Artificial Intelligence to 2030 (Decision No.
+    127/QD-TTg)
+  publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+  url: https://vanban.chinhphu.vn/default.aspx?pageid=27160&docid=202565
+  document_date: '2021-01-26'
+  document_type: strategy
+  tier: 1
+- title: Law on Artificial Intelligence (Law No. 134/2025/QH15)
+  publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+  url: https://vanban.chinhphu.vn/?pageid=27160&docid=216334&classid=1&orggroupid=1
+  document_date: '2025-12-10'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://vanban.chinhphu.vn/default.aspx?pageid=27160&docid=202565
+source_title: >-
+  National Strategy on Research, Development and Application of Artificial Intelligence to 2030 (Decision No. 127/QD-TTg)
+source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+source_document_date: '2021-01-26'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

@@ -1,0 +1,82 @@
+slug: >-
+  japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-technolo
+jurisdiction: japan
+title: >-
+  Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology (Act
+  No. 53 of 2025)
+short_title: >-
+  Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology
+instrument_type: act
+status: in_force
+status_note: >-
+  The Diet passed the bill on 28 May 2025; the announcement date used is the promulgation date. The 1 September
+  2025 full-effect date was reported by government sources found in search (gov-online.go.jp, which returned 403
+  to the fetch tool) and is consistent with the Act's 'within three months' commencement clause; the Cabinet Office
+  outline PDF fetched does not itself state the date.
+is_binding: true
+featured: false
+published: true
+issuing_body: National Diet of Japan; administered by the Cabinet Office
+summary_plain: >-
+  Japan's first AI-specific statute establishes basic principles and a governmental framework for promoting AI research,
+  development and use. It creates an AI Strategy Headquarters under the Cabinet, requires the government to adopt
+  an AI Basic Plan, and provides for guidelines, information gathering and investigation of cases where AI infringes
+  rights, together with guidance to businesses and the public. Businesses are asked to cooperate with government
+  measures; the Act contains no fines or prohibitions.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by National Diet of Japan; administered by the Cabinet
+  Office. Oversight: Artificial Intelligence Strategy Headquarters chaired by the Prime Minister with all Cabinet
+  ministers as members. Stated purpose: Promote AI research and use nationally while addressing public concern about
+  risks, without new penalties.
+key_dates_summary: >-
+  2025-06-04: Promulgated as Act No. 53 of 2025; general provisions in force on promulgation; 2025-09-01: Chapters
+  III and IV (Strategy Headquarters and Basic Plan) brought into effect by Cabinet Order
+adopted_on: '2025-06-04'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology
+    (Act No. 53 of 2025)
+  publisher: Japanese Law Translation Database (Ministry of Justice)
+  url: https://www.japaneselawtranslation.go.jp/en/laws/view/5066/en
+  document_date: '2025-06-04'
+  document_type: legislation
+  tier: 1
+- title: >-
+    Chapters III and IV (Strategy Headquarters and Basic Plan) brought into effect by Cabinet Order
+  publisher: Japanese Law Translation Database (Ministry of Justice)
+  url: https://www8.cao.go.jp/cstp/ai/ai_hou_gaiyou_en.pdf
+  document_date: '2025-09-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.japaneselawtranslation.go.jp/en/laws/view/5066/en
+source_title: >-
+  Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology (Act
+  No. 53 of 2025)
+source_publisher: Japanese Law Translation Database (Ministry of Justice)
+source_document_date: '2025-06-04'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

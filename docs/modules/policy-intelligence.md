@@ -396,3 +396,7 @@ Public routes expose only rows with `published_at` set. Contributor submissions,
 ## Debt
 
 See `docs/reference/technical-debt.md` #11 (seed records pending human verification), #12 (legacy `ai_policy_trackers` not cross-linked to `policy_instruments`), #13 (`composer.lock` incompatible with PHP 8.4).
+
+## Bridged records
+
+Records whose `change_summary` begins with "Imported from the source-backed legacy dataset" were generated from `database/data/ai_policies.json` (68 instruments researched from official sources). They carry only what the official page states (title, issuing body, dates, summary, sources, milestones), have empty obligation/deadline lists, and stay `pending_review` until a reviewer enriches and verifies them. Entries already curated by hand (EU AI Act, UK white paper, US EO 14179, NIST AI RMF, Nepal AI Policy, Singapore Model Framework, Australia Voluntary Standard, India Governance Guidelines, UAE Strategy 2031) were not duplicated.

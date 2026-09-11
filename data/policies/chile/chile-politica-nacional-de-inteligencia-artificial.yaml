@@ -1,0 +1,86 @@
+slug: chile-politica-nacional-de-inteligencia-artificial
+jurisdiction: chile
+title: >-
+  Política Nacional de Inteligencia Artificial – Actualización 2024 y Plan de Acción (National Artificial Intelligence
+  Policy – 2024 Update and Action Plan)
+short_title: Política Nacional de Inteligencia Artificial
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Second milestone date uses the first of the month because the ministry page states only 'April 2025'. The updated
+  policy PDF on minciencia.gob.cl loads but was not text-parsed; a decree formalising the update is reported by
+  third parties but was not verified on an official page.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación (MinCiencia)
+summary_plain: >-
+  Chile updated its 2021 National AI Policy in 2024, keeping the ten-year horizon to 2031 but reorienting it around
+  ethics, governance and inclusion after a participatory process across the country's regions. The accompanying
+  action plan lists 177 initiatives coordinated by 14 ministries under axes covering enabling factors, development
+  and adoption, and governance and ethics, with periodic progress reporting. The update was presented on 2 May 2024
+  together with the announcement of a government bill to regulate AI systems.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministerio de Ciencia, Tecnología, Conocimiento
+  e Innovación (MinCiencia). Oversight: MinCiencia leads; interministerial coordination with semi-annual monitoring
+  of the action plan. Stated purpose: Steer ethical, inclusive AI development and prepare the ground for regulation.
+key_dates_summary: >-
+  2024-05-02: Updated National AI Policy and Action Plan presented; 2025-04-01: Action plan progress report: 78%
+  of 177 initiatives implemented or completed (as of April 2025)
+adopted_on: '2024-05-02'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Política Nacional de Inteligencia Artificial – Actualización 2024 y Plan de Acción (National Artificial Intelligence
+    Policy – 2024 Update and Action Plan)
+  publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
+  url: https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/
+  document_date: '2024-05-02'
+  document_type: strategy
+  tier: 1
+- title: Updated National AI Policy and Action Plan presented
+  publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
+  url: >-
+    https://www.minrel.gob.cl/sala-de-prensa/canciller-asistio-a-la-presentacion-de-la-actualizacion-de-la-politica
+  document_date: '2024-05-02'
+  document_type: official
+  tier: 1
+- title: >-
+    Action plan progress report: 78% of 177 initiatives implemented or completed (as of April 2025)
+  publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
+  url: >-
+    https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/politica-Nacional-Inteligencia-Artificial-Plan-Accion/
+  document_date: '2025-04-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/
+source_title: >-
+  Política Nacional de Inteligencia Artificial – Actualización 2024 y Plan de Acción (National Artificial Intelligence
+  Policy – 2024 Update and Action Plan)
+source_publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
+source_document_date: '2024-05-02'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

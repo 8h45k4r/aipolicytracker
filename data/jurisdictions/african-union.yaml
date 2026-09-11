@@ -1,0 +1,41 @@
+slug: african-union
+name: African Union
+short_name: African Union
+jurisdiction_type: supranational
+region: Africa
+subregion: Continental
+featured: false
+published: true
+overview: >-
+  A continental framework that guides AU member states on harnessing AI for development while managing risks.
+regulatory_status_summary: >-
+  Instruments on record: Continental Artificial Intelligence Strategy (2024, strategy, adopted). Each is linked
+  to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Continental Artificial Intelligence Strategy.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Continental Artificial Intelligence Strategy
+  publisher: African Union
+  url: https://au.int/en/documents/20240809/continental-artificial-intelligence-strategy
+  document_date: '2024-07-18'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://au.int/en/documents/20240809/continental-artificial-intelligence-strategy
+source_title: Continental Artificial Intelligence Strategy
+source_publisher: African Union
+source_document_date: '2024-07-18'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.
