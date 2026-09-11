@@ -31,7 +31,14 @@ return [
     'github_url' => env('SITE_GITHUB_URL', 'https://github.com/8h45k4r/aipolicytracker'),
     'certifyi_url' => env('SITE_CERTIFYI_URL', 'https://certifyi.ai'),
     'newsletter_url' => env('SITE_NEWSLETTER_URL'), // optional external subscription form
-    'social_profiles' => $csv(env('SITE_SOCIAL_PROFILES')), // verified profile URLs for Organization sameAs
+    // Official project profiles: footer, email templates and Organization sameAs. Order is display order.
+    'social' => [
+        ['key' => 'linkedin', 'label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/company/aipolicytracker/'],
+        ['key' => 'x', 'label' => 'X (Twitter)', 'url' => 'https://x.com/aipolicytracker'],
+        ['key' => 'facebook', 'label' => 'Facebook', 'url' => 'https://www.facebook.com/aipolicytracker'],
+        ['key' => 'instagram', 'label' => 'Instagram', 'url' => 'https://www.instagram.com/aipolicytracker/'],
+    ],
+    'social_profiles' => $csv(env('SITE_SOCIAL_PROFILES')), // extra verified profile URLs for Organization sameAs
 
     // ---------------------------------------------------------------------
     // Open data
