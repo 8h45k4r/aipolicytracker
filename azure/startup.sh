@@ -15,6 +15,9 @@ php artisan migrate --force
 
 # Rebuild caches immediately after migrating so a failure in a later data
 # step can never leave the container serving a previous deployment's routes.
+# Clear every cache (config, routes, views, compiled, application cache) before rebuilding so
+# nothing from the previous release survives the deploy.
+php artisan optimize:clear || echo 'WARNING: optimize:clear failed'
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
@@ -28,3 +31,4 @@ php artisan external:import || echo 'WARNING: external:import failed; serving pr
 
 # Admin account from ADMIN_* (idempotent upsert).
 php artisan db:seed --class=AdminSeeder --force || echo 'WARNING: AdminSeeder failed'
+php artisan db:seed --class=ToolSeeder --force || echo 'WARNING: ToolSeeder failed'

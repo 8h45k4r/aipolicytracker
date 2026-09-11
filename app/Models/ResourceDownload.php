@@ -20,8 +20,13 @@ class ResourceDownload extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function resource(): ?array
+    public function tool(): BelongsTo
     {
-        return FreeTool::find($this->resource_slug);
+        return $this->belongsTo(Tool::class, 'resource_slug', 'slug');
+    }
+
+    public function file(): BelongsTo
+    {
+        return $this->belongsTo(ToolFile::class, 'tool_file_id');
     }
 }

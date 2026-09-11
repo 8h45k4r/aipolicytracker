@@ -60,9 +60,9 @@ class AdminController extends Controller
             'repeat' => \App\Models\ResourceDownload::selectRaw('user_id, COUNT(DISTINCT resource_slug) as n')->groupBy('user_id')->havingRaw('COUNT(DISTINCT resource_slug) > 1')->get()->count(),
         ];
         $byResource = \App\Models\ResourceDownload::selectRaw('resource_slug, COUNT(*) as n, COUNT(DISTINCT user_id) as users')->groupBy('resource_slug')->orderByDesc('n')->get()
-            ->map(fn ($r) => ['slug' => $r->resource_slug, 'title' => \App\Models\FreeTool::find($r->resource_slug)['title'] ?? $r->resource_slug, 'n' => $r->n, 'users' => $r->users]);
+            ->map(fn ($r) => ['slug' => $r->resource_slug, 'title' => \App\Models\Tool::where('slug', $r->resource_slug)->value('title') ?? $r->resource_slug, 'n' => $r->n, 'users' => $r->users]);
         $bySource = \App\Models\User::selectRaw("COALESCE(signup_source, 'legacy') as source, COUNT(*) as n")->groupBy('source')->orderByDesc('n')->pluck('n', 'source');
-        $recent = \App\Models\ResourceDownload::with('user')->orderByDesc('id')->paginate(25, ['*'], 'downloads')->withQueryString();
+        $recent = \App\Models\ResourceDownload::with(['user', 'tool'])->orderByDesc('id')->paginate(25, ['*'], 'downloads')->withQueryString();
         $users = \App\Models\User::withCount('resourceDownloads')->orderByDesc('id')->paginate(25, ['*'], 'users')->withQueryString();
 
         return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users'));

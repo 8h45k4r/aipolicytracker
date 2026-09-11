@@ -17,7 +17,9 @@ class PublicSiteTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        \Illuminate\Support\Facades\Storage::fake('local');
         (new PolicyImporter(PolicyDataRepository::default()))->run();
+        $this->seed(\Database\Seeders\ToolSeeder::class);
     }
 
     public function test_homepage_renders_product_positioning_without_javascript(): void
@@ -189,6 +191,41 @@ class PublicSiteTest extends TestCase
         $other = User::factory()->create();
         $this->actingAs($other)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertNotFound();
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('min-w-0', false);
+        // Multi-select filters and the archived state.
+        $this->get('/guides?framework[]=eu-ai-act&framework[]=nist-ai-rmf&topic[]=incident')->assertOk()->assertSee('AI Incident Response Checklist')->assertSee('noindex,follow');
+        \App\Models\Tool::where('slug', 'ai-system-inventory-template')->update(['status' => 'archived']);
+        $this->get('/guides/tools/ai-system-inventory-template')->assertNotFound();
+        $this->get('/guides')->assertOk()->assertDontSee('AI System Inventory Template');
+    }
+
+    public function test_admin_can_create_edit_upload_and_archive_tools(): void
+    {
+        config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
+        $admin = User::factory()->create(['email' => 'editor@example.test']);
+        $this->get('/backend/admin/tools')->assertRedirect(route('login'));
+        $this->actingAs($admin)->get('/backend/admin/tools')->assertOk()->assertSee('AI Risk Register Template')->assertSee('New tool');
+        $this->actingAs($admin)->post('/backend/admin/tools', ['title' => 'Vendor AI Due Diligence Questionnaire', 'slug' => 'vendor-ai-due-diligence', 'type' => 'checklist', 'status' => 'draft', 'short' => 'Questions to ask an AI vendor before signing.', 'version' => '1.0', 'fields_text' => "Vendor | Legal name\nModel | Model and version", 'instructions_text' => 'Send before contract signature.', 'frameworks' => ['eu-ai-act'], 'topics' => ['governance']])
+            ->assertRedirect();
+        $tool = \App\Models\Tool::where('slug', 'vendor-ai-due-diligence')->firstOrFail();
+        $this->assertSame([['Vendor', 'Legal name'], ['Model', 'Model and version']], $tool->fields);
+        $this->get('/guides/tools/vendor-ai-due-diligence')->assertNotFound(); // draft
+        // Publishing without a file is refused.
+        $this->actingAs($admin)->put('/backend/admin/tools/'.$tool->id, ['title' => $tool->title, 'slug' => $tool->slug, 'type' => 'checklist', 'status' => 'published', 'short' => $tool->short, 'version' => '1.0'])->assertSessionHasErrors('status');
+        $upload = \Illuminate\Http\UploadedFile::fake()->createWithContent('Vendor Questionnaire.csv', "Vendor,Model\nInformational only\n");
+        $this->actingAs($admin)->post('/backend/admin/tools/'.$tool->id.'/files', ['file' => $upload])->assertRedirect();
+        $file = $tool->files()->first();
+        $this->assertSame('vendor-questionnaire.csv', $file->file_name);
+        $this->assertSame('CSV', $file->label);
+        \Illuminate\Support\Facades\Storage::disk('local')->assertExists($file->disk_path);
+        $this->actingAs($admin)->put('/backend/admin/tools/'.$tool->id, ['title' => $tool->title, 'slug' => $tool->slug, 'type' => 'checklist', 'status' => 'published', 'short' => $tool->short, 'version' => '1.1', 'featured' => 1, 'fields_text' => "Vendor | Legal name\nModel | Model and version", 'frameworks' => ['eu-ai-act']])->assertRedirect();
+        $this->get('/guides/tools/vendor-ai-due-diligence')->assertOk()->assertSee('Vendor AI Due Diligence Questionnaire')->assertSee('Legal name')->assertSee('Formats: CSV');
+        $this->get('/guides?type=checklist')->assertOk()->assertSee('Vendor AI Due Diligence Questionnaire');
+        $this->actingAs($admin)->get('/backend/admin/tools/'.$tool->id.'/files/'.$file->id)->assertOk();
+        $this->actingAs($admin)->delete('/backend/admin/tools/'.$tool->id)->assertRedirect(route('backend.admin.tools.index'));
+        $this->assertSame('archived', $tool->fresh()->status);
+        $this->get('/guides/tools/vendor-ai-due-diligence')->assertNotFound();
+        $this->actingAs($admin)->delete('/backend/admin/tools/'.$tool->id.'/files/'.$file->id)->assertRedirect();
+        \Illuminate\Support\Facades\Storage::disk('local')->assertMissing($file->disk_path);
     }
 
     public function test_security_headers_include_a_nonce_based_csp_and_hide_server_version(): void

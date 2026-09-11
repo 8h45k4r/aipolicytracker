@@ -1,11 +1,11 @@
 @extends('backend.layouts.app', ['title' => 'Guides and downloads'])
 @section('content')
 <div class="flex flex-wrap items-start justify-between gap-3">
-    <div><h1 class="font-display text-2xl font-semibold text-brand-navy">Guides and downloads</h1><p class="mt-1 meta">Free tools are defined in <code>config/resources.php</code> and files under <code>resources/downloads/</code>. Downloads need a free account; each one records terms acceptance and the file version.</p></div>
-    <a href="{{ route('backend.admin.downloads.export') }}" class="btn-secondary">Export users CSV</a>
+    <div><h1 class="font-display text-2xl font-semibold text-brand-navy">Guides and downloads</h1><p class="mt-1 meta">Manage the free-tool library (tools, files, versions) and see who downloads what. Downloads need a free account; each one records terms acceptance and the file version.</p></div>
+    <div class="flex gap-2"><a href="{{ route('backend.admin.tools.index') }}" class="btn-primary">Manage library</a><a href="{{ route('backend.admin.downloads.export') }}" class="btn-secondary">Export users CSV</a></div>
 </div>
 <dl class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-    @foreach([['Registered users', $metrics['users_total']], ['New users: today / 7d / 30d', ($metrics['users_today'] ?: '—').' / '.($metrics['users_7d'] ?: '—').' / '.($metrics['users_30d'] ?: '—')], ['Verified email', $metrics['verified_pct'] === null ? '—' : $metrics['verified_pct'].'%'], ['Marketing opt-ins', $metrics['consent']], ['Downloads: today / 7d / 30d', ($metrics['downloads_today'] ?: '—').' / '.($metrics['downloads_7d'] ?: '—').' / '.($metrics['downloads_30d'] ?: '—')], ['Downloads total', $metrics['downloads_total']], ['Repeat downloaders (2+ tools)', $metrics['repeat']], ['Free tools published', count(config('resources.tools'))]] as [$label, $value])
+    @foreach([['Registered users', $metrics['users_total']], ['New users: today / 7d / 30d', ($metrics['users_today'] ?: '—').' / '.($metrics['users_7d'] ?: '—').' / '.($metrics['users_30d'] ?: '—')], ['Verified email', $metrics['verified_pct'] === null ? '—' : $metrics['verified_pct'].'%'], ['Marketing opt-ins', $metrics['consent']], ['Downloads: today / 7d / 30d', ($metrics['downloads_today'] ?: '—').' / '.($metrics['downloads_7d'] ?: '—').' / '.($metrics['downloads_30d'] ?: '—')], ['Downloads total', $metrics['downloads_total']], ['Repeat downloaders (2+ tools)', $metrics['repeat']], ['Free tools published', \App\Models\Tool::published()->count()]] as [$label, $value])
     <div class="card-flat p-4"><dt class="meta">{{ $label }}</dt><dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $value === 0 ? '—' : $value }}</dd></div>
     @endforeach
 </dl>
@@ -21,7 +21,7 @@
 <section class="mt-8" aria-labelledby="recent"><h2 id="recent" class="section-title !text-lg">Download activity</h2>
     @if($recent->isEmpty())<p class="mt-2 text-sm text-brand-muted">No downloads recorded.</p>@else
     <div class="table-wrap mt-3"><table><thead><tr><th>When</th><th>User</th><th>Resource</th><th>File</th><th>Version</th><th>Served</th><th>Referrer</th></tr></thead><tbody>
-    @foreach($recent as $d)<tr><td class="whitespace-nowrap font-mono">{{ $d->created_at->format('Y-m-d H:i') }}</td><td>{{ $d->user?->name ?? 'Unavailable' }} <span class="meta">{{ $d->user?->email }}</span></td><td>{{ $d->resource()['title'] ?? $d->resource_slug }}</td><td class="font-mono">{{ $d->file_name }}</td><td class="font-mono">{{ $d->version }}</td><td>{{ $d->downloaded_at?->format('H:i') ?? '—' }}</td><td class="meta">{{ $d->referrer ? \Illuminate\Support\Str::limit($d->referrer, 40) : '—' }}</td></tr>@endforeach
+    @foreach($recent as $d)<tr><td class="whitespace-nowrap font-mono">{{ $d->created_at->format('Y-m-d H:i') }}</td><td>{{ $d->user?->name ?? 'Unavailable' }} <span class="meta">{{ $d->user?->email }}</span></td><td>{{ $d->tool?->title ?? $d->resource_slug }}</td><td class="font-mono">{{ $d->file_name }}</td><td class="font-mono">{{ $d->version }}</td><td>{{ $d->downloaded_at?->format('H:i') ?? '—' }}</td><td class="meta">{{ $d->referrer ? \Illuminate\Support\Str::limit($d->referrer, 40) : '—' }}</td></tr>@endforeach
     </tbody></table></div><nav class="mt-3" aria-label="Downloads pagination">{{ $recent->links() }}</nav>@endif
 </section>
 <section class="mt-8" aria-labelledby="users"><h2 id="users" class="section-title !text-lg">Registered users</h2>
