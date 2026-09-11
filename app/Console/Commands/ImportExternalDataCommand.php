@@ -27,7 +27,11 @@ class ImportExternalDataCommand extends Command
         DB::transaction(function () use ($incidents, $risks) {
             if ($incidents) {
                 $ids = [];
-                foreach (array_chunk($incidents['incidents'] ?? [], 250) as $chunk) {
+                $unique = [];
+                foreach ($incidents['incidents'] ?? [] as $i) {
+                    $unique[$i['incident_id']] = $i;
+                }
+                foreach (array_chunk(array_values($unique), 250) as $chunk) {
                     $rows = array_map(fn ($i) => [
                         'incident_id' => $i['incident_id'], 'occurred_on' => $i['date'], 'year' => (int) substr($i['date'], 0, 4), 'title' => $i['title'], 'description' => $i['description'] ?: null,
                         'deployers' => json_encode($i['deployers'] ?? []), 'developers' => json_encode($i['developers'] ?? []), 'harmed' => json_encode($i['harmed'] ?? []), 'report_count' => $i['report_count'] ?? 0,
@@ -42,7 +46,17 @@ class ImportExternalDataCommand extends Command
             }
             if ($risks) {
                 $ids = [];
-                foreach (array_chunk($risks['risks'] ?? [], 250) as $chunk) {
+                $seen = [];
+                $unique = [];
+                foreach ($risks['risks'] ?? [] as $r) {
+                    $key = $r['ev_id'];
+                    $seen[$key] = ($seen[$key] ?? 0) + 1;
+                    if ($seen[$key] > 1) {
+                        $r['ev_id'] = $key.'#'.$seen[$key];
+                    }
+                    $unique[$r['ev_id']] = $r;
+                }
+                foreach (array_chunk(array_values($unique), 250) as $chunk) {
                     $rows = array_map(fn ($r) => [
                         'ev_id' => $r['ev_id'], 'quick_ref' => $r['quick_ref'], 'paper_title' => $r['paper_title'], 'level' => $r['level'], 'risk_category' => $r['risk_category'] ?: null, 'risk_subcategory' => $r['risk_subcategory'] ?: null,
                         'description' => $r['description'] ?: null, 'entity' => $r['entity'] ?: null, 'intent' => $r['intent'] ?: null, 'timing' => $r['timing'] ?: null, 'domain' => $r['domain'], 'subdomain' => $r['subdomain'],

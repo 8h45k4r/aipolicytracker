@@ -22,10 +22,9 @@ php artisan view:cache
 # Rebuild caches immediately after migrating so a failure in a later data
 # step can never leave the container serving a previous deployment's routes.
 
-# Load the canonical policy records from data/ (idempotent upsert).
-php artisan policy:import
-# Load the row-level external datasets (AI incidents, MIT risks) from data/external/.
-php artisan external:import
+# Data steps run after caches so a data failure logs loudly but never leaves the container down.
+php artisan policy:import || echo 'WARNING: policy:import failed; serving previous data'
+php artisan external:import || echo 'WARNING: external:import failed; serving previous external data'
 
 # Admin account from ADMIN_* (idempotent upsert).
-php artisan db:seed --class=AdminSeeder --force
+php artisan db:seed --class=AdminSeeder --force || echo 'WARNING: AdminSeeder failed'

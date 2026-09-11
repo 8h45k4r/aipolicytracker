@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- `external:import` failed on PostgreSQL when the MIT database contained duplicate `Ev_ID` values in one upsert batch; duplicates are now suffixed deterministically and the import is idempotent. Startup data steps no longer take the container down on failure.
+
 ### Changed
 - Space Grotesk (with Space Mono for numerals) is now the typeface across the public site, admin and emails.
 - HTML responses are served with no-store cache headers so every page reflects the latest import; API, exports, feeds and sitemaps keep their own caching.
