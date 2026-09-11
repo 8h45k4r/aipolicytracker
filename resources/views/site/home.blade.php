@@ -53,6 +53,7 @@
             </li>
             @empty<li class="py-3 text-sm text-brand-muted">No scheduled dates recorded.</li>@endforelse
         </ul>
+        <x-site.subscribe-form source="home" class="mt-8" />
     </aside>
 </div>
 

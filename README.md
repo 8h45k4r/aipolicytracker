@@ -159,6 +159,10 @@ Every change to `main` passes the four role gates in `docs/reference/change-gate
 
 Code is released under the Apache License 2.0 (see `LICENSE` and `NOTICE`). Policy metadata contributed to this project should come only from official or openly licensed sources; see `SOURCE_ATTRIBUTION.md` for what may and may not be contributed. Third-party libraries keep their own licences; note in particular that CKEditor 5 is GPL-licensed and amCharts uses a free-with-attribution licence.
 
+## Admin
+
+Sign in at `/login` with an address listed in `ADMIN_EMAILS`. The admin at `/backend/dashboard` covers the review queue, submissions and feedback, digest subscribers, external-data status and Settings (mail transport and Resend API key stored encrypted). The weekly digest is triggered by `.github/workflows/weekly-digest.yml` using the `CRON_TOKEN` secret.
+
 ## Data sources and references
 
 - Policy records: official government, legislature and regulator sources (see `SOURCE_ATTRIBUTION.md`).

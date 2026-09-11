@@ -9,7 +9,7 @@
 <div class="mx-auto max-w-7xl px-4 py-8">
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="text-2xl font-semibold text-slate-900">Review queue and publishing</h1>
-        <nav class="text-sm flex gap-3"><a href="{{ route('dashboard') }}">Admin dashboard</a><a href="{{ route('home') }}">Public site</a></nav>
+        <nav class="text-sm flex gap-3"><a href="{{ route('backend.admin.dashboard') }}">Admin dashboard</a><a href="{{ route('backend.admin.submissions') }}">Submissions</a><a href="{{ route('backend.admin.subscribers') }}">Subscribers</a><a href="{{ route('backend.admin.settings') }}">Settings</a><a href="{{ route('home') }}">Public site</a></nav>
     </div>
     @if(session('success'))<p class="mt-4 rounded-md bg-emerald-50 border border-emerald-200 px-3 py-2 text-sm text-emerald-900" role="status">{{ session('success') }}</p>@endif
     <p class="mt-2 text-sm text-slate-600">Submissions are triaged here. Approved content must still be applied to the data/ directory through a pull request; the publish switch controls visibility of imported records only.</p>
