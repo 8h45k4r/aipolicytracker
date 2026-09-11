@@ -7,6 +7,7 @@ use App\Models\ExternalRisk;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Loads data/external/aiid_incidents.json and data/external/mit_risks.json into the
@@ -24,6 +25,8 @@ class ImportExternalDataCommand extends Command
         $incidents = $this->read('data/external/aiid_incidents.json');
         $risks = $this->read('data/external/mit_risks.json');
         $reports = $this->read('data/external/aiid_reports.json');
+        // Local snapshot written by the live API sync (persistent disk): newer rows win over the repository file.
+        [$incidents, $reports] = $this->mergeLocalSnapshot($incidents, $reports);
 
         DB::transaction(function () use ($incidents, $risks, $reports) {
             if ($incidents) {
@@ -101,6 +104,44 @@ class ImportExternalDataCommand extends Command
         $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks.', ExternalIncident::count(), \App\Models\ExternalIncidentReport::count(), ExternalRisk::count()));
 
         return self::SUCCESS;
+    }
+
+    /** @return array{0: ?array, 1: ?array} */
+    private function mergeLocalSnapshot(?array $incidents, ?array $reports): array
+    {
+        $disk = Storage::disk('local');
+        $liveIncidents = $disk->exists(SyncAiidApiCommand::LOCAL_INCIDENTS) ? (json_decode($disk->get(SyncAiidApiCommand::LOCAL_INCIDENTS), true) ?: null) : null;
+        $liveReports = $disk->exists(SyncAiidApiCommand::LOCAL_REPORTS) ? (json_decode($disk->get(SyncAiidApiCommand::LOCAL_REPORTS), true) ?: null) : null;
+        if ($liveIncidents) {
+            $byId = [];
+            foreach ($incidents['incidents'] ?? [] as $i) {
+                $byId[(int) $i['incident_id']] = $i;
+            }
+            $added = 0;
+            foreach ($liveIncidents['incidents'] ?? [] as $i) {
+                $old = $byId[(int) $i['incident_id']] ?? null;
+                if (! $old || (($i['modified_at'] ?? '') >= ($old['modified_at'] ?? ''))) {
+                    $byId[(int) $i['incident_id']] = $i;
+                    $added++;
+                }
+            }
+            $incidents = ($incidents ?: ['snapshot_date' => $liveIncidents['api_synced_at'] ?? null]) + [];
+            $incidents['incidents'] = array_values($byId);
+            $this->line("Local live snapshot merged: {$added} incidents from ".($liveIncidents['api_synced_at'] ?? 'unknown time').'.');
+        }
+        if ($liveReports) {
+            $byNo = [];
+            foreach ($reports['reports'] ?? [] as $r) {
+                $byNo[(int) $r['report_number']] = $r;
+            }
+            foreach ($liveReports['reports'] ?? [] as $r) {
+                $byNo[(int) $r['report_number']] = $r;
+            }
+            $reports = ($reports ?: []) + [];
+            $reports['reports'] = array_values($byNo);
+        }
+
+        return [$incidents, $reports];
     }
 
     private function read(string $relative): ?array

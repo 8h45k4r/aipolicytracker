@@ -35,6 +35,7 @@ class ExternalSyncTest extends TestCase
 
     public function test_api_sync_upserts_incidents_with_details_and_survives_reimport(): void
     {
+        \Illuminate\Support\Facades\Storage::fake('local');
         $this->artisan('policy:import');
         $this->artisan('external:import')->assertExitCode(0);
         $existing = ExternalIncident::orderByDesc('incident_id')->first();
@@ -69,6 +70,17 @@ class ExternalSyncTest extends TestCase
         $this->assertSame('Existing Incident Updated Title', ExternalIncident::findOrFail($existing->incident_id)->title);
         $this->assertTrue(ExternalIncident::whereKey($newId)->exists());
         $this->assertTrue(ExternalIncidentReport::whereKey(900000 + $newId)->exists());
+
+        // The local snapshot on the private disk restores live-synced rows into a rebuilt database without the API.
+        \Illuminate\Support\Facades\Storage::disk('local')->assertExists(\App\Console\Commands\SyncAiidApiCommand::LOCAL_INCIDENTS);
+        ExternalIncidentReport::query()->delete();
+        ExternalIncident::query()->delete();
+        $this->artisan('external:import')->assertExitCode(0);
+        $restored = ExternalIncident::with('reports')->findOrFail($newId);
+        $this->assertSame('acme-robotics', $restored->entities['deployers'][0]['id']);
+        $this->assertSame('Existing Incident Updated Title', ExternalIncident::findOrFail($existing->incident_id)->title);
+        $this->assertCount(1, $restored->reports);
+        $this->get('/ai-risk/incidents/'.$newId)->assertOk()->assertSee('AI systems implicated');
     }
 
     public function test_api_failure_is_reported_and_cron_trigger_requires_token(): void
@@ -77,6 +89,10 @@ class ExternalSyncTest extends TestCase
         // Two 403s cover the client's retry; afterwards the API answers with an empty page.
         Http::fake([AiidApiClient::ENDPOINT => Http::sequence()->push(['error' => 'Forbidden - Invalid client'], 403)->push(['error' => 'Forbidden - Invalid client'], 403)->whenEmpty(Http::response(['data' => ['incidents' => []]]))]);
         $this->artisan('external:sync-aiid-api', ['--since' => '2026-09-01'])->assertExitCode(1);
+        // API down: the stored rows keep serving the pages.
+        $this->assertGreaterThan(1000, ExternalIncident::count());
+        $this->get('/ai-risk/incidents')->assertOk()->assertSee('Latest recorded incidents')->assertSee(route('risk.incidents.show', ExternalIncident::max('incident_id')));
+        $this->get('/ai-risk/incidents/browse')->assertOk();
 
         $this->postJson('/cron/external-sync')->assertStatus(401);
         AppSetting::put('cron_token', str_repeat('s', 32));

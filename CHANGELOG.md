@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Resilience of external data: each live sync also merges its rows into a local snapshot on the persistent private disk, and `external:import` reads that snapshot after the repository files, so a rebuilt database recovers every live-synced record without the AI Incident Database API; pages never call AIID at request time, and a failed sync leaves the stored data untouched.
+
 ### Fixed
 - Tool downloads returned 404 after a clean deploy because the private storage folder was replaced while the file rows survived. The `local` disk root is now configurable (`FILESYSTEM_LOCAL_ROOT`, set to persistent storage in production), the seeder restores missing seeded files at startup, and the download route falls back to the bundled copy.
 
