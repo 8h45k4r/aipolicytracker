@@ -92,9 +92,13 @@ class SubscriberAndSettingsTest extends TestCase
     {
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
         $admin = User::factory()->create(['email' => 'editor@example.test']);
-        foreach (['/backend/dashboard', '/backend/admin/submissions', '/backend/admin/subscribers', '/backend/admin/external', '/backend/admin/subscribers/export'] as $url) {
+        $urls = ['/backend/dashboard', '/backend/admin/submissions', '/backend/admin/subscribers', '/backend/admin/external', '/backend/admin/subscribers/export'];
+        foreach ($urls as $url) {
             $this->get($url)->assertRedirect('/login');
-            $this->actingAs($admin)->get($url)->assertOk();
+        }
+        $this->actingAs($admin);
+        foreach ($urls as $url) {
+            $this->get($url)->assertOk();
         }
     }
 }
