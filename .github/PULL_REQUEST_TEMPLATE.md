@@ -1,6 +1,6 @@
 ## Summary
 
-<!-- What does this change and why? Link the issue if there is one. -->
+<!-- What does this change and why? Link the issue. -->
 
 Closes #
 
@@ -18,29 +18,40 @@ Closes #
 |-----------------------|----------------------------------------|---------------|
 |                       |                                        |               |
 
-- [ ] Every data change links to an **official or publicly licensed** source (see `SOURCE_ATTRIBUTION.md`).
-- [ ] No copyrighted legal commentary, paid database content, or standards text (e.g. ISO) has been reproduced.
+- [ ] Every data change links to an official or publicly licensed source (`SOURCE_ATTRIBUTION.md`).
+- [ ] No copyrighted legal commentary, paid database content, or standards text reproduced.
 
-## Verification status
+## Role gates (binding, see `docs/reference/change-gates.md`)
 
-- [ ] Verified against the primary source
-- [ ] Partially verified (explain below)
-- [ ] Unverified (should not be merged into `main`)
+Fill every gate. Use **Pass**, **N/A (reason)**, or **Debt #n** (entry in `docs/reference/technical-debt.md`). Never leave a gate blank.
 
-## Tests / build
+### 1. Engineering & QA/QC
+- Static checks (`npm run lint`, `npm run build`, `composer lint`, `composer test`):
+- No fake success:
+- No demo tables/rows shipped:
+- Scoping enforced database-side / RLS or equivalent on new tables:
+- Interlinks proven by query (total = resolves), paste counts:
+- Module has real inbound and outbound links:
 
-- [ ] `composer lint` passes
-- [ ] `composer test` passes
-- [ ] `npm run lint` passes
-- [ ] `npm run build` passes
-- [ ] New or updated tests added where behaviour changed
+### 2. UI/UX
+- Platform primitives only (PageHeader, DataTable, FormDialog, ConfirmDialog, skeleton/empty/error):
+- Semantic colour tokens:
+- Null renders `—`, never `0`:
+- Simulated values labelled; unresolvable ids show "Unavailable":
+- No dead-end records:
+- Screenshots (before/after):
 
-## Screenshots (required for UI changes)
+### 3. Documentation
+- `docs/modules/<module>.md` exists and field table matches schema:
+- Interlinks documented both ways:
+- README and CHANGELOG updated:
+- Migration carries a why comment:
 
-<!-- Before / after screenshots or a short recording. -->
+### 4. Compliance
+- Mapped in `docs/reference/compliance-map.md` or out of scope with reason:
+- Evidence chain not weakened:
+- Secrets stored as digests / host secret store, never plaintext:
 
-## Checklist
+## Accepted debt
 
-- [ ] No secrets, credentials, personal data, or production exports are included
-- [ ] `CHANGELOG.md` updated (Unreleased section)
-- [ ] I have read `CONTRIBUTING.md`
+<!-- List technical-debt.md entry numbers added or touched by this PR, with owners. -->

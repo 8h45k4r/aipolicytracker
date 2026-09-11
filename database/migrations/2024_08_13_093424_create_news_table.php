@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Why: Dated updates that can be linked to a policy for the news feed and policy page.
+
 class CreateNewsTable extends Migration
 {
     /**

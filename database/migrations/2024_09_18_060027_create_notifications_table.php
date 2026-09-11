@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Why: Laravel database notification channel for in-app alerts.
+
 return new class extends Migration
 {
     /**

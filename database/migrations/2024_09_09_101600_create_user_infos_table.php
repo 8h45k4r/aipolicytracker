@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Why: Registration profile data (organisation, phone) kept apart from the auth table.
+
 return new class extends Migration {
     /**
      * Run the migrations.

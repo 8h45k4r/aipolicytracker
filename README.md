@@ -130,6 +130,8 @@ The app is a standard Laravel application and needs a PHP runtime. It cannot run
 
 ## Contribution workflow
 
+Every change to `main` passes the four role gates in `docs/reference/change-gates.md`; module docs live in `docs/modules/`, accepted debt in `docs/reference/technical-debt.md`, and the compliance map in `docs/reference/compliance-map.md`.
+
 1. Open an issue using one of the templates (bug, policy data correction, new jurisdiction/source, feature).
 2. Fork, create a branch (`feat/...`, `fix/...`, `data/...`).
 3. For data changes, include official source links and a verification status in the pull request.
