@@ -27,9 +27,11 @@ class SendDigestCommand extends Command
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->get();
         $deadlines = Deadline::with('policyInstrument.jurisdiction')->whereBetween('due_on', [now()->toDateString(), now()->addDays(60)->toDateString()])->orderBy('due_on')->limit(8)->get();
         $period = $since->format('j M').' – '.now()->format('j M Y');
+        $incidents = \App\Models\ExternalIncident::where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->limit(5)->get();
+        $incidentCount = \App\Models\ExternalIncident::where('occurred_on', '>=', $since->toDateString())->count();
 
         $sent = $skipped = 0;
-        Subscriber::active()->orderBy('id')->chunk(200, function ($subscribers) use ($changes, $deadlines, $period, $since, &$sent, &$skipped) {
+        Subscriber::active()->orderBy('id')->chunk(200, function ($subscribers) use ($changes, $deadlines, $period, $since, $incidents, $incidentCount, &$sent, &$skipped) {
             foreach ($subscribers as $subscriber) {
                 if ($subscriber->last_sent_at && $subscriber->last_sent_at->gte($since)) {
                     $skipped++;
@@ -37,13 +39,13 @@ class SendDigestCommand extends Command
                     continue;
                 }
                 $mine = $changes->filter(fn ($c) => $subscriber->wants($c))->values();
-                if ($mine->isEmpty() && $deadlines->isEmpty()) {
+                if ($mine->isEmpty() && $deadlines->isEmpty() && $incidents->isEmpty()) {
                     $skipped++;
 
                     continue;
                 }
                 if (! $this->option('dry-run')) {
-                    Mail::to($subscriber->email)->send(new WeeklyDigestMail($subscriber, $mine, $deadlines, $period));
+                    Mail::to($subscriber->email)->send(new WeeklyDigestMail($subscriber, $mine, $deadlines, $period, $incidents, $incidentCount));
                     $subscriber->update(['last_sent_at' => now()]);
                 }
                 $sent++;

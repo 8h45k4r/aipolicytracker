@@ -3,39 +3,71 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-3">AI risk</p>
-    <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[24ch]">Seven domains of AI risk, and the policies that answer them</h1>
-    <p class="mt-4 max-w-[64ch] text-brand-body leading-7">Policy is easier to read when it is anchored to concrete harms. This section uses the Domain Taxonomy from the MIT AI Risk Repository as a shared vocabulary, shows how often each domain appears in real-world incidents recorded by the AI Incident Database, and links to the instruments in this tracker that address related use cases. The mapping from risk domain to policy use case is our own editorial judgement and is labelled as such.</p>
+    <p class="eyebrow mt-3">AI risk, evidenced</p>
+    <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[26ch]">Advanced AI must be handled with great responsibility. Here is what has actually gone wrong, who it hurt, and which rules answer it.</h1>
+    <p class="mt-4 max-w-[68ch] text-brand-body leading-7">Concern about AI risk is now shared by researchers, boards, regulators and heads of state. This page keeps that concern honest: every number below comes from the AI Incident Database (recorded harms) and the MIT AI Risk Repository (how experts classify risk), is dated, and links to the record behind it and to the policy instruments that respond.</p>
 
-    <div class="mt-10 grid gap-10 lg:grid-cols-12">
-        <section class="lg:col-span-7" aria-labelledby="domains-heading">
-            <div class="rule-strong pt-3"><h2 id="domains-heading" class="section-title">Risk domains</h2></div>
-            <ol class="mt-2 divide-y divide-brand-line">
-                @foreach($mit['domains'] ?? [] as $d)
-                @php($count = $aiid['by_mit_domain'][$d['aiid_domain_label']] ?? null)
-                <li class="py-4 grid gap-2 sm:grid-cols-12 sm:gap-6">
-                    <div class="sm:col-span-8">
-                        <a href="{{ route('risk.domain', $d['id']) }}" class="font-display text-lg text-brand-navy no-underline hover:underline">{{ $d['id'] }}. {{ $d['name'] }}</a>
-                        <p class="meta mt-1">{{ count($d['subdomains']) }} {{ \Illuminate\Support\Str::plural('subdomain', count($d['subdomains'])) }}: {{ collect($d['subdomains'])->pluck('name')->map(fn ($n) => \Illuminate\Support\Str::limit($n, 48))->join('; ') }}</p>
-                    </div>
-                    <div class="sm:col-span-4 sm:text-right text-sm grid grid-cols-2 gap-2">
-                        <div><span class="font-mono tabular-nums text-brand-navy text-lg">{{ $count !== null ? number_format($count) : '—' }}</span><a href="{{ route('risk.incidents.browse', ['domain' => $d['aiid_domain_label']]) }}" class="meta block">incidents</a></div>
-                        <div><span class="font-mono tabular-nums text-brand-navy text-lg">{{ isset($riskByDomain[$d['id']]) ? number_format($riskByDomain[$d['id']]) : '—' }}</span><a href="{{ route('risk.risks', ['domain' => $d['id']]) }}" class="meta block">risk entries</a></div>
-                    </div>
-                </li>
-                @endforeach
-            </ol>
-        </section>
-        <aside class="lg:col-span-5" aria-labelledby="incidents-heading">
-            <div class="rule-strong pt-3"><h2 id="incidents-heading" class="section-title">Incidents by year</h2></div>
-            @if(!empty($aiid['incidents_per_year']))
-            <x-site.bar-chart :series="collect($aiid['incidents_per_year'])->filter(fn ($v, $y) => $y >= 2016)" title="AI incidents recorded per year" class="mt-3" :note="'Snapshot '.($aiid['snapshot_date'] ?? '')" />
-            <p class="mt-3 text-sm"><a href="{{ route('risk.incidents') }}">Full incident summary: domains, sectors, countries and latest records</a></p>
-            @else
-            <x-site.empty title="Incident summary not available yet" class="mt-3">The weekly refresh has not run. See the methodology for how external data is updated.</x-site.empty>
-            @endif
-            <p class="mt-6 meta">Counts reflect what has been reported and classified; they measure attention and reporting, not the true frequency or severity of harm.</p>
-        </aside>
-    </div>
+    <dl class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 text-sm">
+        @foreach([['Recorded incidents', number_format($aiid['totals']['incidents'] ?? 0), route('risk.incidents.browse'), 'since 2012, AI Incident Database'], ['Last 12 months', number_format($narrative['last12']), route('risk.incidents.browse', ['year' => now()->year]), $narrative['growth'] === null ? 'vs previous 12 months: —' : ($narrative['growth'] >= 0 ? '+' : '').$narrative['growth'].'% vs previous 12 months'], ['Classified to a risk domain', number_format($narrative['classified']), route('risk.incidents'), 'MIT taxonomy applied by AIID'], ['Risk entries', number_format($incidentTotals['risks']), route('risk.risks'), 'from 74 frameworks, MIT AI Risk Repository'], ['Instruments tracked', number_format(\App\Models\PolicyInstrument::published()->count()), route('policies.index'), 'across '.\App\Models\Jurisdiction::published()->count().' jurisdictions']] as [$label, $value, $href, $sub])
+        <div class="card-flat p-4"><dt class="meta">{{ $label }}</dt><dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $value }}</dd><a href="{{ $href }}" class="text-xs text-brand-muted hover:text-brand-navy">{{ $sub }}</a></div>
+        @endforeach
+    </dl>
+
+    <section class="mt-12" aria-labelledby="story-heading">
+        <div class="rule-strong pt-3"><h2 id="story-heading" class="section-title">1. Harm is rising, and its shape is changing</h2></div>
+        <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Recorded incidents grow year on year while the mix shifts: generative systems moved misinformation, impersonation and fraud from the margins to the centre. The timeline marks the policy milestones that followed; each bar opens the incidents of that year.</p>
+        <x-site.timeline-chart class="mt-4" :series="collect($aiid['incidents_per_year'] ?? [])->filter(fn ($v, $y) => $y >= 2016)" :milestones="$narrative['milestones']" title="AI incidents recorded per year, with policy milestones" note="Incident date; the current year is partial. Milestones are adoption or application dates recorded in the policy tracker." />
+        @if($narrative['domain_share'])
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
+            @foreach($narrative['domain_share'] as $year => $share)
+            <x-site.bar-chart :series="collect($share)->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit(preg_replace('/^(AI system safety).*/', '$1…', $k), 24) => $v])" :title="'Share of classified incidents by domain, '.$year.' (%)'" :height="140" note="Percent of incidents classified in that year" />
+            @endforeach
+        </div>
+        @endif
+    </section>
+
+    <section class="mt-12" aria-labelledby="who-heading">
+        <div class="rule-strong pt-3"><h2 id="who-heading" class="section-title">2. Who is harmed, and who deploys the systems involved</h2></div>
+        <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Harm concentrates on identifiable groups: minors, women, the public, workers and specific communities. The organisations named as deployers repeat, which is where obligations for deployers, transparency and post-market monitoring bite.</p>
+        <div class="mt-4 grid gap-6 lg:grid-cols-3">
+            <x-site.bar-chart :series="collect($narrative['top_harmed'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit($k, 22) => $v])" title="Most frequently named harmed parties" :height="200" note="Alleged harmed parties as recorded by AIID" />
+            <x-site.bar-chart :series="collect($narrative['top_deployers'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit($k, 22) => $v])" title="Most frequently named deployers" :height="200" note="Alleged deployers; a name is an allegation in a report, not a finding" />
+            <x-site.bar-chart :series="collect($aiid['by_harm_level'] ?? [])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit(ucfirst($k), 22) => $v])" title="Assessed harm level (CSET)" :height="200" note="Only incidents with a CSET assessment" />
+        </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="gap-heading">
+        <div class="rule-strong pt-3"><h2 id="gap-heading" class="section-title">3. Where harm is recorded versus where rules exist</h2></div>
+        <p class="mt-2 max-w-[68ch] text-brand-body leading-7">For policymakers and funders the question is coverage: do the places where incidents are recorded have binding AI rules? Only {{ number_format($narrative['with_country']) }} incidents carry a country code, and reporting is biased toward English-language media, so read this as a prompt for enquiry rather than a ranking.</p>
+        <div class="table-wrap mt-4"><table><caption class="sr-only">Incidents by country and the AI instruments recorded there</caption><thead><tr><th scope="col">Country</th><th scope="col" class="text-right">Incidents</th><th scope="col" class="text-right">Instruments tracked</th><th scope="col" class="text-right">Binding</th><th scope="col">Status</th></tr></thead><tbody>
+            @foreach($narrative['gap'] as $row)
+            <tr><td>@if($row['jurisdiction'])<a href="{{ $row['jurisdiction']->url() }}">{{ $row['jurisdiction']->name }}</a>@else<span class="font-mono">{{ $row['code'] }}</span> <span class="meta">(no record)</span>@endif</td><td class="text-right font-mono">{{ $row['incidents'] }}</td><td class="text-right font-mono">{{ $row['jurisdiction'] ? ($row['jurisdiction']->instruments ?: '—') : '—' }}</td><td class="text-right font-mono">{{ $row['jurisdiction'] ? ($row['jurisdiction']->binding ?: '—') : '—' }}</td><td class="text-brand-body">{{ $row['jurisdiction'] ? \Illuminate\Support\Str::limit($row['jurisdiction']->regulatory_status_summary, 110) : 'Not yet recorded' }}</td></tr>
+            @endforeach
+        </tbody></table></div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="respond-heading">
+        <div class="rule-strong pt-3"><h2 id="respond-heading" class="section-title">4. How policy responds, domain by domain</h2></div>
+        <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Each domain links to the instruments whose recorded use cases address it, and to the obligations, deadlines and templates behind them. Click a domain for its subdomains, frameworks and incidents.</p>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            @foreach($mit['domains'] ?? [] as $d)
+            <a href="{{ route('risk.domain', $d['id']) }}" class="card-flat p-4 no-underline hover:border-brand-navy">
+                <p class="eyebrow">Domain {{ $d['id'] }}</p><p class="mt-1 font-semibold text-brand-navy">{{ $d['name'] }}</p>
+                <dl class="mt-2 grid grid-cols-3 gap-1 text-xs text-brand-muted"><div><dt>Incidents</dt><dd class="font-mono text-brand-navy">{{ isset($aiid['by_mit_domain'][$d['aiid_domain_label']]) ? number_format($aiid['by_mit_domain'][$d['aiid_domain_label']]) : '—' }}</dd></div><div><dt>Risk entries</dt><dd class="font-mono text-brand-navy">{{ isset($riskByDomain[$d['id']]) ? number_format($riskByDomain[$d['id']]) : '—' }}</dd></div><div><dt>Instruments</dt><dd class="font-mono text-brand-navy">{{ $narrative['domain_instruments'][$d['id']] ?: '—' }}</dd></div></dl>
+            </a>
+            @endforeach
+        </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="persona-heading">
+        <div class="rule-strong pt-3"><h2 id="persona-heading" class="section-title">5. What to do with this, depending on who you are</h2></div>
+        <div class="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4 text-sm">
+            <div class="card-flat p-4"><p class="font-semibold text-brand-navy">AI CISO or compliance lead</p><p class="mt-1 text-brand-body">Start from the domains your systems touch, then the obligations with dates.</p><ul class="mt-2 space-y-1"><li><a href="{{ route('tools.applicability') }}">Applicability check</a></li><li><a href="{{ route('obligations.index') }}">Obligations with deadlines</a></li><li><a href="{{ route('tools.show', 'ai-risk-register-template') }}">AI risk register template</a></li></ul></div>
+            <div class="card-flat p-4"><p class="font-semibold text-brand-navy">Researcher</p><p class="mt-1 text-brand-body">Filter, drill down and export with licence and citation attached.</p><ul class="mt-2 space-y-1"><li><a href="{{ route('risk.incidents.browse') }}">Browse incidents</a></li><li><a href="{{ route('risk.risks') }}">Browse risk entries</a></li><li><a href="{{ route('open-data') }}">Open data and API</a></li></ul></div>
+            <div class="card-flat p-4"><p class="font-semibold text-brand-navy">Policymaker or diplomat</p><p class="mt-1 text-brand-body">Compare jurisdictions and see which harms remain unaddressed.</p><ul class="mt-2 space-y-1"><li><a href="{{ route('compare.index') }}">Compare jurisdictions</a></li><li><a href="{{ route('jurisdictions.show', 'international') }}">International instruments</a></li><li><a href="{{ route('changes.index') }}">Dated change log</a></li></ul></div>
+            <div class="card-flat p-4"><p class="font-semibold text-brand-navy">Civil society, donor, journalist</p><p class="mt-1 text-brand-body">Evidence of who is harmed and where governance is missing, with sources.</p><ul class="mt-2 space-y-1"><li><a href="{{ route('risk.incidents') }}">Incident summary</a></li><li><a href="{{ route('jurisdictions.index') }}">Every jurisdiction, honestly recorded</a></li><li><a href="{{ route('subscribe.show') }}">Weekly digest</a></li></ul></div>
+        </div>
+    </section>
 
     <section class="mt-12 grid gap-8 lg:grid-cols-12" aria-labelledby="causal-heading">
         <div class="lg:col-span-7">

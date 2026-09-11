@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 class WeeklyDigestMail extends Mailable
 {
-    public function __construct(public Subscriber $subscriber, public Collection $changes, public Collection $deadlines, public string $periodLabel) {}
+    public function __construct(public Subscriber $subscriber, public Collection $changes, public Collection $deadlines, public string $periodLabel, public Collection $incidents = new Collection, public int $incidentCount = 0) {}
 
     public function envelope(): Envelope
     {

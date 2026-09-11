@@ -55,10 +55,12 @@ class SubscriberAndSettingsTest extends TestCase
         Subscriber::create(['email' => 'a@example.org', 'token' => Subscriber::newToken(), 'topics' => ['all'], 'confirmed_at' => now()]);
         Subscriber::create(['email' => 'b@example.org', 'token' => Subscriber::newToken(), 'topics' => ['all']]); // unconfirmed
         DB::table('change_events')->limit(1)->update(['occurred_on' => now()->toDateString()]);
+        $this->artisan('external:import');
+        \App\Models\ExternalIncident::orderByDesc('incident_id')->limit(2)->update(['occurred_on' => now()->toDateString()]);
 
         $this->artisan('digest:send')->assertExitCode(0);
         Mail::assertSent(WeeklyDigestMail::class, 1);
-        Mail::assertSent(WeeklyDigestMail::class, fn ($m) => $m->hasTo('a@example.org'));
+        Mail::assertSent(WeeklyDigestMail::class, fn ($m) => $m->hasTo('a@example.org') && $m->incidentCount === 2 && str_contains($m->render(), 'AI incidents this week'));
 
         // Policy-level topics: a subscriber following one instrument only gets its changes.
         $change = \App\Models\ChangeEvent::with('policyInstrument')->whereNotNull('policy_instrument_id')->first();

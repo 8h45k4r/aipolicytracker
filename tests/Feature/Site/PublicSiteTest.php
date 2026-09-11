@@ -293,6 +293,12 @@ class PublicSiteTest extends TestCase
         $this->assertStringContainsString('1200', (string) getimagesize(public_path('og-default.png'))[0]);
     }
 
+    public function test_home_persona_paths_and_policy_risk_crosswalk_render(): void
+    {
+        $this->get('/')->assertOk()->assertSee('Start from your job')->assertSee('Compliance or CISO')->assertSee(route('tools.applicability'));
+        $this->get('/policies/eu-ai-act')->assertOk()->assertSee('AI risks this instrument addresses')->assertSee(route('risk.domain', 1));
+    }
+
     public function test_review_queue_is_admin_only_and_can_publish(): void
     {
         config(['aipolicytracker.admin_emails' => ['admin@example.com']]);
@@ -399,7 +405,7 @@ class PublicSiteTest extends TestCase
 
         $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
         $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents')->assertSee(route('risk.subdomain', [1, '1.1']));
-        $this->get('/ai-risk')->assertOk()->assertSee('Explore: domains and subdomains')->assertSee(route('risk.subdomain', [2, '2.1']));
+        $this->get('/ai-risk')->assertOk()->assertSee('Harm is rising, and its shape is changing')->assertSee('Where harm is recorded versus where rules exist')->assertSee('Most frequently named deployers')->assertSee('policy milestones')->assertSee('What to do with this, depending on who you are')->assertSee('Explore: domains and subdomains')->assertSee(route('risk.subdomain', [2, '2.1']));
         $this->get('/ai-risk/2/2.1')->assertOk()->assertSee('Compromise of privacy')->assertSee('Causal entity (risk entries)')->assertSee('Frameworks covering this subdomain')->assertSee('Recent incidents');
         $this->get('/ai-risk/2/9.9')->assertNotFound();
         $this->get('/sitemap-static.xml')->assertOk()->assertSee(route('risk.subdomain', [2, '2.1']));
