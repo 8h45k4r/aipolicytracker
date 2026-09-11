@@ -64,6 +64,14 @@
     </aside>
 </div>
 
+<section class="container-site py-8" aria-labelledby="persona-heading">
+    <div class="rule-strong pt-3"><h2 id="persona-heading" class="section-title">Start from your job</h2></div>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5 text-sm">
+        @foreach([['Compliance or CISO', 'Which rules apply, by when, and what evidence to keep.', route('tools.applicability')], ['Researcher', 'Incidents, risk taxonomy and exports with citation.', route('risk.index')], ['Policymaker', 'Compare jurisdictions and track dated changes.', route('compare.index')], ['Civil society or journalist', 'Who is harmed, who deploys, where rules are missing.', route('risk.index').'#gap-heading'], ['Founder or product lead', 'A 90-day readiness path and free templates.', route('guides.index')]] as [$who, $what, $href])
+        <a href="{{ $href }}" class="card-flat p-4 no-underline hover:border-brand-navy"><p class="font-semibold text-brand-navy">{{ $who }}</p><p class="mt-1 text-brand-body">{{ $what }}</p></a>
+        @endforeach
+    </div>
+</section>
 <section class="container-site py-4" aria-labelledby="jurisdictions-heading">
     <div class="flex items-baseline justify-between rule-strong pt-3">
         <h2 id="jurisdictions-heading" class="section-title">Jurisdictions</h2>

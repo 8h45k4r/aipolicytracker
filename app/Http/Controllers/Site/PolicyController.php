@@ -56,6 +56,10 @@ class PolicyController extends Controller
         $policy->load(['jurisdiction', 'terms', 'sections', 'obligations.terms', 'obligations.frameworkMappings', 'obligations.evidenceArtifacts', 'deadlines', 'versions', 'sourceDocuments', 'enforcementEvents', 'procurementRules', 'changeEvents', 'applicabilityRules']);
 
         $related = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $policy->related_policies ?? [])->get();
+        $useCases = $policy->termsOf('use_case')->pluck('slug')->all();
+        $mit = app(\App\Services\ExternalData\ExternalDataset::class)->mitRisk();
+        $aiid = app(\App\Services\ExternalData\ExternalDataset::class)->aiid();
+        $risksAddressed = collect($mit['domains'] ?? [])->filter(fn ($d) => array_intersect($d['use_cases'] ?? [], $useCases) !== [])->map(fn ($d) => ['id' => $d['id'], 'name' => $d['name'], 'incidents' => $aiid['by_mit_domain'][$d['aiid_domain_label']] ?? 0])->values();
         $sameJurisdiction = PolicyInstrument::published()->where('jurisdiction_id', $policy->jurisdiction_id)->where('id', '!=', $policy->id)->orderBy('title')->limit(6)->get();
         $name = $policy->short_title ?: $policy->title;
 
@@ -90,7 +94,7 @@ class PolicyController extends Controller
             ]);
         }
 
-        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction'));
+        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed'));
     }
 
     public function json(PolicyInstrument $policy, PolicySerializer $serializer): JsonResponse
