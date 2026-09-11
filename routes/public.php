@@ -84,3 +84,6 @@ Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name
 // Legacy URL redirects.
 Route::redirect('/about-ai-policy', '/about', 301);
 Route::redirect('/dashboard', '/', 301);
+// Pre-2026 record URLs still crawled by search engines (Search Console lists them as 5xx/404).
+Route::get('/news/{any}', fn () => redirect('/changes', 301))->where('any', '.*');
+Route::get('/aipolicytracker/{any?}', fn () => redirect('/policies', 301))->where('any', '.*');
