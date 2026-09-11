@@ -47,7 +47,7 @@ export default function Register() {
                                 />
                             </div> */}
 
-                            <div className=" bg-primary-light w-full h-full flex items-center justify-center rounded-md px-10 overflow-y-auto">
+                            <div className=" bg-primary w-full h-full flex items-center justify-center rounded-md px-10 overflow-y-auto">
                                 <div>
                                     <h1 className=" text-3xl font-bold text-center">
                                         Why Sign up?
@@ -139,7 +139,7 @@ export default function Register() {
                             alt="AI Policy Tracker"
                             className="w-[127px] h-[33px]"
                         />
-                        <h3 className="my-2 text-xl font-bold text-primary-light">
+                        <h3 className="my-2 text-xl font-bold text-primary">
                             Welcome to the AI Policy Tracker!
                         </h3>
 
@@ -188,7 +188,7 @@ export default function Register() {
                                     type="email"
                                     name="email"
                                     value={data.email}
-                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40"
                                     autoComplete="username"
                                     onChange={(e) =>
                                         setData("email", e.target.value)
@@ -214,7 +214,7 @@ export default function Register() {
                                     type="tel"
                                     name="phone_no"
                                     value={data.phone_no}
-                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40"
                                     autoComplete="username"
                                     onChange={(e) =>
                                         setData("phone_no", e.target.value)
@@ -240,7 +240,7 @@ export default function Register() {
                                     type="tel"
                                     name="phone_no"
                                     value={data.phone_no}
-                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40"
                                     autoComplete="tel"
                                     onChange={(e) => {
                                         const onlyNumbers = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
@@ -269,7 +269,7 @@ export default function Register() {
                                     type="text"
                                     name="organization_name"
                                     value={data.organization_name}
-                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 w-full"
+                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40 w-full"
                                     autoComplete="organization_name"
                                     onChange={(e) =>
                                         setData(
@@ -299,7 +299,7 @@ export default function Register() {
                                     type="text"
                                     name="organization_email"
                                     value={data.organization_email}
-                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 w-full"
+                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40 w-full"
                                     autoComplete="organization_email"
                                     onChange={(e) =>
                                         setData(
@@ -329,7 +329,7 @@ export default function Register() {
                                     type="password"
                                     name="password"
                                     value={data.password}
-                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 w-full"
+                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40 w-full"
                                     autoComplete="current-password"
                                     onChange={(e) =>
                                         setData("password", e.target.value)
@@ -353,7 +353,7 @@ export default function Register() {
                                     type="password"
                                     name="password_confirmation"
                                     value={data.password_confirmation}
-                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                    className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40"
                                     autoComplete="current-password"
                                     onChange={(e) =>
                                         setData(
@@ -373,7 +373,7 @@ export default function Register() {
                                     <div className="flex items-center space-x-2">
                                         <Checkbox
                                             name="terms_condition"
-                                            className="w-4 h-4 transition duration-300 rounded focus:ring-2 focus:ring-offset-0 focus:outline-none focus:ring-blue-200"
+                                            className="w-4 h-4 transition duration-300 rounded focus:ring-2 focus:ring-offset-0 focus:outline-none focus:ring-brand-cyan/40"
                                             checked={data.terms_condition}
                                             onChange={(e) =>
                                                 setData(
@@ -401,7 +401,7 @@ export default function Register() {
 
                                 <Link
                                     href={route("login")}
-                                    className="text-sm underline font-semibold text-primary-light hover:text-blue-900"
+                                    className="text-sm underline font-semibold text-primary hover:text-primary-dark"
                                 >
                                     Already registered?
                                 </Link>
@@ -410,18 +410,18 @@ export default function Register() {
                                 <button
                                     disabled={processing}
                                     type="submit"
-                                    className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-primary-light hover:bg-blue-900 rounded-md shadow focus:outline-none focus:ring-blue-200 focus:ring-4"
+                                    className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-primary hover:bg-primary-dark rounded-md shadow focus:outline-none focus:ring-brand-cyan/40 focus:ring-4"
                                 >
                                     {processing ? "Sign Up..." : "Sign Up"}
                                 </button>
                             </div>
                             <div className="mt-3 text-center">
-                                <Link
+                                <a
                                     href="/"
-                                    className="text-sm underline font-semibold text-primary-light hover:text-blue-900"
+                                    className="text-sm underline font-semibold text-primary hover:text-primary-dark"
                                 >
                                     Go to home
-                                </Link>
+                                </a>
                             </div>
                         </form>
                     </div>
