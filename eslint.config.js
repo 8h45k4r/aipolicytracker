@@ -7,6 +7,10 @@ export default [
     { ignores: ["node_modules/**", "public/**", "vendor/**", "storage/**", "bootstrap/cache/**"] },
     js.configs.recommended,
     {
+        files: ["cloudflare/**/*.js"],
+        languageOptions: { globals: { ...globals.serviceworker } },
+    },
+    {
         files: ["resources/js/**/*.{js,jsx}", "*.config.js", "eslint.config.js"],
         plugins: { react, "react-hooks": reactHooks },
         languageOptions: {

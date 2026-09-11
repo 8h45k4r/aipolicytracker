@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Why: Database queue for notification jobs so no external broker is required.
+
 return new class extends Migration
 {
     /**
