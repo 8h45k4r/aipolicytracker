@@ -20,7 +20,7 @@
             <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy">JSON record</a>
         </div>
         @if(!$policy->isVerified())
-        <p class="mt-3 rounded-sm border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">This record has not yet been verified by a human reviewer against the official source. Treat dates and details as provisional and confirm them in the linked source.</p>
+        <p class="mt-3 rounded-sm border border-state-warn/30 bg-state-warnbg px-3 py-2 text-xs text-state-warn">This record has not yet been verified by a human reviewer against the official source. Treat dates and details as provisional and confirm them in the linked source.</p>
         @endif
     </header>
 
@@ -62,7 +62,7 @@
                             <td class="whitespace-nowrap font-mono">@if($d->due_on)<time datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time>@else{{ $d->displayDate() }}@endif</td>
                             <td><span class="font-medium text-brand-navy">{{ $d->title }}</span>@if($d->description)<div class="text-brand-muted">{{ $d->description }}</div>@endif</td>
                             <td>{{ $d->source_reference ?: '—' }}</td>
-                            <td class="whitespace-nowrap">{{ ucfirst($d->deadline_status) }}@if($d->confidence_level !== 'high')<div class="text-xs text-amber-800">confidence: {{ $d->confidence_level }}</div>@endif</td>
+                            <td class="whitespace-nowrap">{{ ucfirst($d->deadline_status) }}@if($d->confidence_level !== 'high')<div class="text-xs text-state-warn">confidence: {{ $d->confidence_level }}</div>@endif</td>
                         </tr>
                         @endforeach
                         </tbody>

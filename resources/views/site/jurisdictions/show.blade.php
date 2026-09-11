@@ -26,7 +26,7 @@
                 <h2 id="deadlines-heading" class="section-title">Upcoming deadlines</h2>
                 @if($deadlines->isNotEmpty())
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Upcoming deadlines in {{ $jurisdiction->name }}</caption><thead><tr><th scope="col">Date</th><th scope="col">Milestone</th><th scope="col">Instrument</th></tr></thead><tbody>
-                @foreach($deadlines as $d)<tr><td class="whitespace-nowrap font-mono"><time datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time></td><td>{{ $d->title }}@if($d->confidence_level !== 'high')<div class="text-xs text-amber-800">confidence: {{ $d->confidence_level }}</div>@endif</td><td><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</a></td></tr>@endforeach
+                @foreach($deadlines as $d)<tr><td class="whitespace-nowrap font-mono"><time datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time></td><td>{{ $d->title }}@if($d->confidence_level !== 'high')<div class="text-xs text-state-warn">confidence: {{ $d->confidence_level }}</div>@endif</td><td><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</a></td></tr>@endforeach
                 </tbody></table></div>
                 @else<p class="mt-2 text-sm text-brand-muted">No scheduled future dates recorded. Past milestones are listed on each policy page.</p>@endif
             </section>

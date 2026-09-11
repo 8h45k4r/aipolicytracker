@@ -8,9 +8,9 @@
 
     <div class="mt-6 grid gap-10 lg:grid-cols-3">
         <form method="get" action="{{ route('tools.applicability') }}" class="card-flat p-4 sm:p-5 space-y-5 lg:col-span-1 self-start" data-track="applicability_submit" aria-label="Screening questionnaire">
-            <fieldset><legend class="label">1. Markets or jurisdictions <span class="text-rose-700" aria-hidden="true">*</span></legend>
+            <fieldset><legend class="label">1. Markets or jurisdictions <span class="text-state-bad" aria-hidden="true">*</span></legend>
                 <div class="grid gap-1.5">@foreach($jurisdictions as $j)<label class="flex items-center gap-2 text-sm min-h-[36px]"><input type="checkbox" name="jurisdictions[]" value="{{ $j->slug }}" class="rounded border-brand-line text-brand-blue focus:ring-brand-cyan" @checked(in_array($j->slug, $answers['jurisdictions'], true))> {{ $j->name }}</label>@endforeach</div>
-                @if(request()->has('jurisdictions') && $answers['jurisdictions'] === [])<p class="mt-1 text-xs text-rose-700" role="alert">Select at least one jurisdiction.</p>@endif
+                @if(request()->has('jurisdictions') && $answers['jurisdictions'] === [])<p class="mt-1 text-xs text-state-bad" role="alert">Select at least one jurisdiction.</p>@endif
             </fieldset>
             <div><label for="a-role" class="label">2. Your organisation's role</label><select id="a-role" name="role" class="input"><option value="">Not sure</option>@foreach($actors as $a)<option value="{{ $a->slug }}" @selected($answers['role'] === $a->slug)>{{ $a->name }}</option>@endforeach</select></div>
             <div><label for="a-use" class="label">3. Main AI use case</label><select id="a-use" name="use_case" class="input"><option value="">Not sure</option>@foreach($useCases as $u)<option value="{{ $u->slug }}" @selected($answers['use_case'] === $u->slug)>{{ $u->name }}</option>@endforeach</select></div>
