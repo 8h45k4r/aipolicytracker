@@ -1,0 +1,25 @@
+# AI Policy Statement Template
+
+_AI Policy Statement Template — AIPolicyTracker free template_  
+_Version 1.0 · Last updated 2026-09-12_  
+_Informational only, not legal advice. Completing this file does not make an organisation compliant with any law or standard. AIPolicyTracker (aipolicytracker.org), CC BY 4.0._  
+
+## Fields
+
+- **Clause** — Policy section.
+- **Text** — Suggested wording to adapt.
+- **Owner** — Role responsible for the clause.
+- **Review** — How often the clause is reviewed.
+
+## Table
+
+| Clause | Text | Owner | Review |
+|---|---|---|---|
+| Scope | This policy applies to every AI system we build, buy or embed, and to everyone who uses them on our behalf. | Governance lead | Annual |
+| Principles | We use AI lawfully, transparently and with human accountability; we do not deploy systems for prohibited practices. | Leadership | Annual |
+| Acceptable use | Staff may use approved AI tools for listed purposes; confidential or personal data may only be entered into approved systems. | IT / Security | Semi-annual |
+| Approval | New AI uses are recorded in the inventory and approved by the AI review group before production. | Governance lead | Per request |
+| Oversight | Every production system has a named owner, a human override and monitored metrics. | System owners | Quarterly |
+| Vendors | Vendors complete the due-diligence questionnaire; contracts allocate obligations. | Procurement | Per contract |
+| Incidents | AI incidents are reported within one working day and handled under the incident checklist. | Incident lead | Per incident |
+| Review | This policy and the risk register are reviewed annually and after any serious incident. | Leadership | Annual |

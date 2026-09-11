@@ -7,7 +7,7 @@
 @php($w = 720)
 @php($bw = max(8, floor(($w - 40) / $n) - 6))
 @php($palette = ['#002147', '#006AAC', '#009CE0', '#5D6B7E', '#0B6B4F', '#7A4B00', '#9B1C2E', '#8F81C7'])
-<figure {{ $attributes->merge(['class' => 'card-flat p-4']) }}>
+<figure {{ $attributes->merge(['class' => 'card-flat p-4']) }} data-chart="stacked">
     <figcaption class="flex items-baseline justify-between"><span class="text-sm font-medium text-brand-navy">{{ $title }}</span>@if($note)<span class="meta">{{ $note }}</span>@endif</figcaption>
     <svg viewBox="0 0 {{ $w }} {{ $height + 40 }}" role="img" aria-label="{{ $title }}" class="mt-2 w-full max-w-full h-auto">
         <title>{{ $title }}</title>
@@ -19,7 +19,7 @@
             @foreach($keys as $k => $key)
                 @php($v = (int) ($series[$label][$key] ?? 0))
                 @php($h = round(($v / $max) * ($height - 20)))
-                @if($h > 0)<rect x="{{ $x }}" y="{{ $y - $h }}" width="{{ $bw }}" height="{{ $h }}" fill="{{ $palette[$k % count($palette)] }}"><title>{{ $label }} · {{ $key }}: {{ $v }}</title></rect>@endif
+                @if($h > 0)<rect x="{{ $x }}" y="{{ $y - $h }}" width="{{ $bw }}" height="{{ $h }}" fill="{{ $palette[$k % count($palette)] }}" class="chart-bar" data-tip="{{ $label }} · {{ $key }}: {{ $v }}"><title>{{ $label }} · {{ $key }}: {{ $v }}</title></rect>@endif
                 @php($y -= $h)
             @endforeach
             <text x="{{ $x + $bw / 2 }}" y="{{ $height + 16 }}" font-size="11" text-anchor="middle" fill="#5D6B7E" font-family="ui-monospace, monospace">{{ $label }}</text>

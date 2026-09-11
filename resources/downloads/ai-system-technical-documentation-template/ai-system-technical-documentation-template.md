@@ -1,0 +1,26 @@
+# AI System Technical Documentation Template
+
+_AI System Technical Documentation Template — AIPolicyTracker free template_  
+_Version 1.0 · Last updated 2026-09-12_  
+_Informational only, not legal advice. Completing this file does not make an organisation compliant with any law or standard. AIPolicyTracker (aipolicytracker.org), CC BY 4.0._  
+
+## Fields
+
+- **Section** — Annex IV part or ISO clause.
+- **Content required** — What the section must describe.
+- **Our entry** — Free text or link.
+- **Evidence link** — Where the supporting artefact lives.
+- **Owner** — Person accountable.
+- **Status** — Draft, reviewed, approved.
+
+## Table
+
+| Section | Content required | Our entry | Evidence link | Owner | Status |
+|---|---|---|---|---|---|
+| 1. General description | Intended purpose, provider, version, interaction with hardware/software, forms of release |  |  |  |  |
+| 2. Development | Design specifications, architecture, data requirements, training methodology, validation and testing procedures |  |  |  |  |
+| 3. Monitoring and control | Capabilities and limits, accuracy levels, foreseeable unintended outcomes, human oversight measures |  |  |  |  |
+| 4. Risk management | Description of the risk management system per Article 9 |  |  |  |  |
+| 5. Changes | Changes through the lifecycle and re-assessment triggers |  |  |  |  |
+| 6. Standards | Harmonised standards or other specifications applied |  |  |  |  |
+| 7. Declaration | EU declaration of conformity and post-market monitoring plan |  |  |  |  |

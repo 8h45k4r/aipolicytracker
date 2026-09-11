@@ -222,6 +222,67 @@
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { document.querySelectorAll('[data-multi-select][open]').forEach(function (d) { d.open = false; }); } });
 
+    // Chart tooltips: one floating element for every [data-tip] (SVG bars, dots, treemap blocks).
+    var tip = document.createElement('div');
+    tip.className = 'pointer-events-none fixed z-50 hidden rounded-sm bg-brand-ink px-2 py-1 text-xs text-white shadow-lg';
+    tip.setAttribute('role', 'status');
+    document.body.appendChild(tip);
+    function moveTip(e) { tip.style.left = (e.clientX + 12) + 'px'; tip.style.top = (e.clientY + 12) + 'px'; }
+    document.addEventListener('mouseover', function (e) {
+        var el = e.target.closest && e.target.closest('[data-tip]');
+        if (!el) { return; }
+        tip.textContent = el.getAttribute('data-tip');
+        tip.classList.remove('hidden');
+        moveTip(e);
+    });
+    document.addEventListener('mousemove', function (e) { if (!tip.classList.contains('hidden')) { moveTip(e); } });
+    document.addEventListener('mouseout', function (e) { if (e.target.closest && e.target.closest('[data-tip]')) { tip.classList.add('hidden'); } });
+
+    // Chart export: SVG as-is, PNG rendered through a canvas, CSV from the accessible data table.
+    function saveBlob(blob, name) {
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    }
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('[data-chart-export]');
+        if (!btn) { return; }
+        var fig = btn.closest('figure[data-chart]');
+        var svg = fig && fig.querySelector('svg');
+        var name = (fig && fig.getAttribute('data-chart')) || 'chart';
+        var kind = btn.getAttribute('data-chart-export');
+        if (kind === 'csv') {
+            var rows = [];
+            fig.querySelectorAll('table tr').forEach(function (tr) {
+                rows.push(Array.prototype.map.call(tr.querySelectorAll('th,td'), function (c) { return '"' + c.textContent.trim().replace(/"/g, '""') + '"'; }).join(','));
+            });
+            rows.push('"Source: aipolicytracker.org, ' + document.title.replace(/"/g, '') + ', ' + new Date().toISOString().slice(0, 10) + '"');
+            saveBlob(new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' }), name + '.csv');
+            return;
+        }
+        if (!svg) { return; }
+        var clone = svg.cloneNode(true);
+        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        clone.querySelectorAll('[data-tip]').forEach(function (n) { n.removeAttribute('data-tip'); });
+        var box = svg.viewBox.baseVal;
+        var w = box && box.width ? box.width : svg.clientWidth, h = box && box.height ? box.height : svg.clientHeight;
+        clone.setAttribute('width', w); clone.setAttribute('height', h);
+        var credit = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        credit.setAttribute('x', 4); credit.setAttribute('y', h - 4); credit.setAttribute('font-size', '9'); credit.setAttribute('fill', '#5D6B7E');
+        credit.textContent = 'aipolicytracker.org · ' + new Date().toISOString().slice(0, 10);
+        clone.appendChild(credit);
+        var xml = new XMLSerializer().serializeToString(clone);
+        if (kind === 'svg') { saveBlob(new Blob([xml], { type: 'image/svg+xml;charset=utf-8' }), name + '.svg'); return; }
+        var img = new Image();
+        var url = URL.createObjectURL(new Blob([xml], { type: 'image/svg+xml;charset=utf-8' }));
+        img.onload = function () {
+            var canvas = document.createElement('canvas'); canvas.width = w * 2; canvas.height = h * 2;
+            var ctx = canvas.getContext('2d'); ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.scale(2, 2); ctx.drawImage(img, 0, 0);
+            URL.revokeObjectURL(url);
+            canvas.toBlob(function (blob) { if (blob) { saveBlob(blob, name + '.png'); } }, 'image/png');
+        };
+        img.src = url;
+    });
+
     // Auto-submit filter selects on desktop (forms still submit normally).
     document.querySelectorAll('form[data-autosubmit] select').forEach(function (sel) {
         sel.addEventListener('change', function () {

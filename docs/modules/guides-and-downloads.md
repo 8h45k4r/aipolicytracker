@@ -8,6 +8,13 @@ Free tools (templates, checklists, registers, a starter plan) listed on `/guides
 - Files: private local disk under `tools/<slug>/<file>` (outside `public/`; never linked directly). Allowed: XLSX, CSV, Markdown, PDF, DOCX, JSON, text, up to 10 MB. Every file should carry version, date and the informational-only notice.
 - Filter vocabularies (`frameworks`, `topics`) and the licence text stay in `config/resources.php`; editorial guides remain in `config/content.php` with `guide_tags` for the same filters.
 
+## How to add a tool (admin)
+
+1. Admin → Tool library → **New tool**: title, slug, content type, short description, purpose; status Draft.
+2. Preview fields (`Field name | what to record`, one per line), steps, frameworks, topics, related guides and policy slugs, next-step tool, version and date.
+3. Create, then upload each format in the Files panel (XLSX, CSV, Markdown, PDF, DOCX, JSON, text; 10 MB). Each file must state version, date and the informational-only note. Files can be deactivated, removed or downloaded for checking.
+4. Set status Published (requires an active file). Archive hides a tool while keeping download history.
+
 ## Schema: `tools`
 
 | Field | Type | Null | Default | Notes |
