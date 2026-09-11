@@ -34,6 +34,10 @@ Email digest subscriptions (double opt-in) and operator-managed settings stored 
 
 Public: `subscribe.store` (POST, throttled, honeypot), `subscribe.confirm`, `subscribe.unsubscribe` (GET and RFC 8058 POST), `cron.digest` (POST, bearer token). Admin (`auth` + `isAdmin`): `backend.admin.dashboard|submissions|subscribers|subscribers.export|subscribers.resend|subscribers.delete|external|settings|settings.save|settings.test`.
 
+## Email templates
+
+All mail (`SubscriptionConfirmMail`, `WeeklyDigestMail`, `SubmissionReceivedMail`, `TestMail`) renders through `resources/views/emails/site/layout.blade.php`: centred logo (`/brand/logo-on-light.png`), tagline, organisation name, body slot, "Follow us on social" icons from `config('aipolicytracker.social')` (PNG icons under `public/brand/social/`, SVG for the website footer), copyright and unsubscribe line. Plain-text alternates ship with every mailable.
+
 ## Scheduling
 
 `.github/workflows/weekly-digest.yml` calls `POST /cron/digest` on Mondays 06:00 UTC with the `CRON_TOKEN` repository secret; the same value is stored (encrypted) as the `cron_token` setting or in the `CRON_TOKEN` environment variable.

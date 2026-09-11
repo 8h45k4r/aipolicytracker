@@ -105,7 +105,7 @@ class Seo
             'founder' => collect(config('aipolicytracker.maintainers', []))->map(fn ($m) => ['@type' => 'Person', 'name' => $m['name'], 'url' => $m['url'], 'sameAs' => $m['same_as'] ?? []])->values()->all(),
             'description' => config('aipolicytracker.positioning'),
         ];
-        $profiles = array_values(array_filter(array_merge([config('aipolicytracker.github_url')], config('aipolicytracker.social_profiles', []))));
+        $profiles = array_values(array_unique(array_filter(array_merge([config('aipolicytracker.github_url')], array_column(config('aipolicytracker.social', []), 'url'), config('aipolicytracker.social_profiles', [])))));
         if ($profiles !== []) {
             $org['sameAs'] = $profiles;
         }

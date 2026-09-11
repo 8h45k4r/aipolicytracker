@@ -88,6 +88,20 @@ class SubscriberAndSettingsTest extends TestCase
         $this->assertSame('no-reply@example.org', config('mail.from.address'));
     }
 
+    public function test_test_mail_uses_the_branded_template_and_footer_lists_social_profiles(): void
+    {
+        Mail::fake();
+        config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
+        $admin = User::factory()->create(['email' => 'editor@example.test']);
+        $this->actingAs($admin)->post('/backend/admin/settings/test-mail', ['to' => 'ops@example.org'])->assertRedirect();
+        Mail::assertSent(\App\Mail\TestMail::class, function ($m) {
+            $html = $m->render();
+
+            return $m->hasTo('ops@example.org') && str_contains($html, 'Follow us on social') && str_contains($html, 'linkedin.com/company/aipolicytracker') && str_contains($html, 'brand/social/instagram.png');
+        });
+        $this->get('/')->assertOk()->assertSee('https://www.linkedin.com/company/aipolicytracker/')->assertSee('https://www.instagram.com/aipolicytracker/')->assertSee('https://x.com/aipolicytracker')->assertSee('https://www.facebook.com/aipolicytracker');
+    }
+
     public function test_admin_pages_render_for_admins_only(): void
     {
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
