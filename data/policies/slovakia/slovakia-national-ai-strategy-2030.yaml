@@ -12,8 +12,9 @@ summary_plain: >-
   The strategy to 2030 sets objectives for AI research, skills, data and infrastructure, adoption in public administration
   and industry, and trustworthy AI aligned with the EU AI Act.
 scope_summary: Government programme; no obligations on private organisations.
-adopted_on: '2024-01-01'
-date_notes: Year-level placeholder; adoption date to be confirmed.
+date_notes: >-
+  Adoption date not established from the official source and left empty rather than estimated; the year in the
+  title or summary is the best available indication. Reviewer to add the exact date with a source reference.
 actors:
 - public_authority
 ai_system_types: []

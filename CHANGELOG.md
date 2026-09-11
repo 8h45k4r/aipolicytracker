@@ -5,6 +5,10 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Durable human verification: the admin review queue lists unverified and low-confidence instruments first with a link to the official source; saving "verified" requires confirming the source was opened and records reviewer, date and confidence. Decisions are re-applied after every import and `policy:export-verifications` writes them back into the YAML records.
+
+### Changed
+- Removed the 24 estimated adoption dates added in the coverage expansion; those records now show no date until a reviewer sources one.
 - Download-links email after every free-tool download: 24-hour personal links to each format, the related guide and the next-step tool.
 - DOCX versions of the EU AI Act Readiness Checklist, AI Incident Response Checklist and 30-Day Starter Plan.
 - Anonymous daily page-view counts for the guides library and tool pages (no cookies, IPs or user ids) feeding a 30-day funnel on the admin Guides and downloads page: library views, tool views, download clicks, sign-ups from a gate, downloads, second-tool users.

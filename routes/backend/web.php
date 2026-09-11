@@ -45,4 +45,5 @@ Route::middleware(['auth', 'isAdmin'])->prefix('backend/review')->as('backend.re
     Route::get('/', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'index'])->name('index');
     Route::post('/submissions/{submission}/decide', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'decide'])->name('decide');
     Route::post('/publish/{type}/{slug}', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'publish'])->name('publish');
+    Route::post('/verify/{type}/{slug}', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'verify'])->name('verify');
 });
