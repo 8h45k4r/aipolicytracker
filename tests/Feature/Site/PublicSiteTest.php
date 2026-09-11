@@ -172,6 +172,9 @@ class PublicSiteTest extends TestCase
         $this->get('/guides/tools/does-not-exist')->assertNotFound();
         $this->assertSame(0, \App\Models\PageView::where('path', '/guides/tools/does-not-exist')->count(), '404s are not counted');
         $this->get('/guides/tools/eu-ai-act-readiness-checklist')->assertOk()->assertSee('DOCX');
+        $this->assertSame(10, \App\Models\Tool::published()->count());
+        $this->get('/guides/tools/global-ai-regulatory-applicability-matrix')->assertOk()->assertSee('Supervisor')->assertSee('Formats: XLSX, CSV, Markdown, DOCX');
+        $this->get('/guides/tools/ai-vendor-due-diligence-questionnaire')->assertOk()->assertSee('Evidence to request');
         $this->get('/guides/tools/ai-system-inventory-template/download')->assertOk()->assertSee('Continue with email')->assertSessionHas('url.intended');
         $this->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1])->assertRedirect(route('login'));
         $this->get('/register')->assertOk()->assertSee('Create free account')->assertSee('name="marketing_consent"', false);
@@ -208,7 +211,7 @@ class PublicSiteTest extends TestCase
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
         $admin = User::factory()->create(['email' => 'editor@example.test']);
         $this->get('/backend/admin/tools')->assertRedirect(route('login'));
-        $this->actingAs($admin)->get('/backend/admin/tools')->assertOk()->assertSee('AI Risk Register Template')->assertSee('New tool');
+        $this->actingAs($admin)->get('/backend/admin/tools')->assertOk()->assertSee('AI Risk Register Template')->assertSee('New tool')->assertSee('How to add a tool and upload its files');
         $this->actingAs($admin)->post('/backend/admin/tools', ['title' => 'Vendor AI Due Diligence Questionnaire', 'slug' => 'vendor-ai-due-diligence', 'type' => 'checklist', 'status' => 'draft', 'short' => 'Questions to ask an AI vendor before signing.', 'version' => '1.0', 'fields_text' => "Vendor | Legal name\nModel | Model and version", 'instructions_text' => 'Send before contract signature.', 'frameworks' => ['eu-ai-act'], 'topics' => ['governance']])
             ->assertRedirect();
         $tool = \App\Models\Tool::where('slug', 'vendor-ai-due-diligence')->firstOrFail();
@@ -405,7 +408,7 @@ class PublicSiteTest extends TestCase
 
         $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
         $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents')->assertSee(route('risk.subdomain', [1, '1.1']));
-        $this->get('/ai-risk')->assertOk()->assertSee('Harm is rising, and its shape is changing')->assertSee('Where harm is recorded versus where rules exist')->assertSee('Most frequently named deployers')->assertSee('policy milestones')->assertSee('What to do with this, depending on who you are')->assertSee('Explore: domains and subdomains')->assertSee(route('risk.subdomain', [2, '2.1']));
+        $this->get('/ai-risk')->assertOk()->assertSee('Harm is rising, and its shape is changing')->assertSee('Where harm is recorded versus where rules exist')->assertSee('Most frequently named deployers')->assertSee('policy milestones')->assertSee('What to do with this, depending on who you are')->assertSee('Explore: domains and subdomains')->assertSee('data-chart-export="png"', false)->assertSee('data-tip=', false)->assertSee('top quarter')->assertSee(route('risk.subdomain', [2, '2.1']));
         $this->get('/ai-risk/2/2.1')->assertOk()->assertSee('Compromise of privacy')->assertSee('Causal entity (risk entries)')->assertSee('Frameworks covering this subdomain')->assertSee('Recent incidents');
         $this->get('/ai-risk/2/9.9')->assertNotFound();
         $this->get('/sitemap-static.xml')->assertOk()->assertSee(route('risk.subdomain', [2, '2.1']));

@@ -1,0 +1,7 @@
+Global AI Regulatory Applicability Matrix — AIPolicyTracker free template
+Version 1.0 · Last updated 2026-09-12
+"Informational only, not legal advice. Completing this file does not make an organisation compliant with any law or standard. AIPolicyTracker (aipolicytracker.org), CC BY 4.0."
+
+Jurisdiction,Instrument,Status,Binding,Our role,Applies from,Supervisor,Key obligations,Evidence expected,Owner,Source URL,Last checked
+eu,EU AI Act (Regulation (EU) 2024/1689),In force (phased),Yes,Provider,2026-08-02 (high-risk),National market-surveillance authorities; AI Office for GPAI,"Risk management, data governance, technical documentation, logging, oversight, conformity assessment","Annex IV documentation, test reports, EU database registration",Head of Compliance,https://eur-lex.europa.eu/eli/reg/2024/1689/oj,2026-09-12
+us-colorado,Colorado AI Act (SB 24-205),Adopted,Yes,Deployer,2026-06-30,Colorado Attorney General,"Duty of care, impact assessment, consumer notices","Impact assessment, risk management programme",Head of Compliance,https://leg.colorado.gov/bills/sb24-205,2026-09-12

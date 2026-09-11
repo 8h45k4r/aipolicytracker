@@ -30,8 +30,8 @@
         <div class="rule-strong pt-3"><h2 id="who-heading" class="section-title">2. Who is harmed, and who deploys the systems involved</h2></div>
         <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Harm concentrates on identifiable groups: minors, women, the public, workers and specific communities. The organisations named as deployers repeat, which is where obligations for deployers, transparency and post-market monitoring bite.</p>
         <div class="mt-4 grid gap-6 lg:grid-cols-3">
-            <x-site.bar-chart :series="collect($narrative['top_harmed'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit($k, 22) => $v])" title="Most frequently named harmed parties" :height="200" note="Alleged harmed parties as recorded by AIID" />
-            <x-site.bar-chart :series="collect($narrative['top_deployers'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit($k, 22) => $v])" title="Most frequently named deployers" :height="200" note="Alleged deployers; a name is an allegation in a report, not a finding" />
+            <x-site.bar-chart :series="collect($narrative['top_harmed'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit($k, 22) => $v])" title="Most frequently named harmed parties" :height="200" :scale="true" note="Alleged harmed parties as recorded by AIID" />
+            <x-site.bar-chart :series="collect($narrative['top_deployers'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit($k, 22) => $v])" title="Most frequently named deployers" :height="200" :scale="true" note="Alleged deployers; a name is an allegation in a report, not a finding" />
             <x-site.bar-chart :series="collect($aiid['by_harm_level'] ?? [])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit(ucfirst($k), 22) => $v])" title="Assessed harm level (CSET)" :height="200" note="Only incidents with a CSET assessment" />
         </div>
     </section>
