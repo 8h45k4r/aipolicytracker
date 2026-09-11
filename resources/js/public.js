@@ -205,6 +205,23 @@
     }
     updateSavedCount();
 
+    // Compact multi-select dropdowns: close on outside click or Escape; submit the form when a
+    // panel closes with changed selections; "Clear" unticks the group and submits.
+    document.querySelectorAll('[data-multi-select]').forEach(function (details) {
+        var form = details.closest('form');
+        var changed = false;
+        details.addEventListener('change', function () { changed = true; });
+        details.addEventListener('toggle', function () {
+            if (!details.open && changed && form) { changed = false; form.requestSubmit ? form.requestSubmit() : form.submit(); }
+        });
+        var clear = details.querySelector('[data-multi-clear]');
+        if (clear) clear.addEventListener('click', function (e) { e.preventDefault(); details.querySelectorAll('input[type=checkbox]').forEach(function (c) { c.checked = false; }); changed = true; details.open = false; });
+    });
+    document.addEventListener('click', function (e) {
+        document.querySelectorAll('[data-multi-select][open]').forEach(function (d) { if (!d.contains(e.target)) { d.open = false; } });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { document.querySelectorAll('[data-multi-select][open]').forEach(function (d) { d.open = false; }); } });
+
     // Auto-submit filter selects on desktop (forms still submit normally).
     document.querySelectorAll('form[data-autosubmit] select').forEach(function (sel) {
         sel.addEventListener('change', function () {

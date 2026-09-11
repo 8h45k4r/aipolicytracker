@@ -197,7 +197,7 @@ class PublicSiteTest extends TestCase
         $this->actingAs($other)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertNotFound();
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('min-w-0', false);
         // Multi-select filters and the archived state.
-        $this->get('/guides?framework[]=eu-ai-act&framework[]=nist-ai-rmf&topic[]=incident')->assertOk()->assertSee('AI Incident Response Checklist')->assertSee('noindex,follow');
+        $this->get('/guides?framework[]=eu-ai-act&framework[]=nist-ai-rmf&topic[]=incident')->assertOk()->assertSee('AI Incident Response Checklist')->assertSee('noindex,follow')->assertSee('data-multi-select', false)->assertSee('2 selected')->assertDontSee('multiple size=', false);
         \App\Models\Tool::where('slug', 'ai-system-inventory-template')->update(['status' => 'archived']);
         $this->get('/guides/tools/ai-system-inventory-template')->assertNotFound();
         $this->get('/guides')->assertOk()->assertDontSee('AI System Inventory Template');

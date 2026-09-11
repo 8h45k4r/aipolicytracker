@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Guides framework and topic filters are compact dropdown buttons with a checkbox panel (showing the selected count) instead of native multi-select lists; selections apply when the panel closes.
+
 ### Added
 - Durable human verification: the admin review queue lists unverified and low-confidence instruments first with a link to the official source; saving "verified" requires confirming the source was opened and records reviewer, date and confidence. Decisions are re-applied after every import and `policy:export-verifications` writes them back into the YAML records.
 
