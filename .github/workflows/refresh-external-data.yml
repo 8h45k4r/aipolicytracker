@@ -27,6 +27,8 @@ jobs:
       - run: cp .env.example .env && php artisan key:generate --force
       - name: Sync AI Incident Database summary
         run: php artisan external:sync-aiid
+      - name: Sync AIID report metadata from the weekly backup
+        run: php artisan external:sync-aiid-reports
       - name: Sync MIT AI Risk Repository taxonomy
         run: php artisan external:sync-mit-risk
       - name: Open pull request

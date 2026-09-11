@@ -17,6 +17,11 @@ class ExternalIncident extends Model
         return ['occurred_on' => 'date', 'snapshot_date' => 'date', 'deployers' => 'array', 'developers' => 'array', 'harmed' => 'array', 'sectors' => 'array', 'countries' => 'array'];
     }
 
+    public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ExternalIncidentReport::class, 'incident_id', 'incident_id')->orderBy('date_published')->orderBy('report_number');
+    }
+
     public function url(): string
     {
         return route('risk.incidents.show', $this->incident_id);
