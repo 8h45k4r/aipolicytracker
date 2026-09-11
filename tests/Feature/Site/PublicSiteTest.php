@@ -53,7 +53,7 @@ class PublicSiteTest extends TestCase
         $response->assertOk()
             ->assertSee('EU AI Act: requirements, deadlines and compliance actions')
             ->assertSee('https://eur-lex.europa.eu/eli/reg/2024/1689/oj')
-            ->assertSee('Human verification pending')
+            ->assertSee('Source-linked')
             ->assertSee('Informational only, not legal advice')
             ->assertSee('<link rel="canonical" href="'.url('/policies/eu-ai-act').'"', false)
             ->assertSee('"@type":"BreadcrumbList"', false);

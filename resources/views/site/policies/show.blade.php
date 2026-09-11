@@ -19,9 +19,6 @@
             @if($policy->official_source_url)<a href="{{ $policy->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
             <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy">JSON record</a>
         </div>
-        @if(!$policy->isVerified())
-        <p class="mt-3 rounded-sm border border-state-warn/30 bg-state-warnbg px-3 py-2 text-xs text-state-warn">This record has not yet been verified by a human reviewer against the official source. Treat dates and details as provisional and confirm them in the linked source.</p>
-        @endif
     </header>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
