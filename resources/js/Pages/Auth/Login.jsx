@@ -34,7 +34,7 @@ export default function Login({ status, canResetPassword }) {
                     {/* logo and image side */}
                     <Responsive responsive={["lg", "xl"]}>
                         <div className="w-[50%] p-4 py-6 text-white md:flex-shrink-0 md:flex md:flex-col md:items-center md:justify-evenly rounded-md h-screen pr-9">
-                            {/* <div className=" bg-primary-light w-full h-full flex items-center justify-center rounded-md">
+                            {/* <div className=" bg-primary w-full h-full flex items-center justify-center rounded-md">
                                 <img
                                     src={AuthLoginImage}
                                     alt="AI Policy Tracker"
@@ -42,7 +42,7 @@ export default function Login({ status, canResetPassword }) {
                                 />
                             </div> */}
 
-                            <div className=" bg-primary-light w-full h-full flex items-center justify-center rounded-md px-10">
+                            <div className=" bg-primary w-full h-full flex items-center justify-center rounded-md px-10">
                                 <div>
                                     <h1 className=" text-3xl font-bold text-center">
                                         Welcome Back
@@ -136,7 +136,7 @@ export default function Login({ status, canResetPassword }) {
                                         alt="AI Policy Tracker"
                                         className="w-[127px] h-[33px]"
                                     />
-                                    <h3 className="my-4 font-bold text-xl text-primary-light">
+                                    <h3 className="my-4 font-bold text-xl text-primary">
                                         Welcom back!
                                     </h3>
 
@@ -161,7 +161,7 @@ export default function Login({ status, canResetPassword }) {
                                                 type="email"
                                                 name="email"
                                                 value={data.email}
-                                                className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                                className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40"
                                                 autoComplete="username"
                                                 isFocused={true}
                                                 onChange={(e) =>
@@ -187,7 +187,7 @@ export default function Login({ status, canResetPassword }) {
                                                 {/* {canResetPassword && (
                                                 <Link
                                                     href={route("password.request")}
-                                                    className="text-sm text-blue-600 hover:underline focus:text-blue-800"
+                                                    className="text-sm text-primary hover:underline focus:text-primary-dark"
                                                 >
                                                     Forgot your password?
                                                 </Link>
@@ -198,7 +198,7 @@ export default function Login({ status, canResetPassword }) {
                                                 type="password"
                                                 name="password"
                                                 value={data.password}
-                                                className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                                className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-brand-cyan/40"
                                                 autoComplete="current-password"
                                                 onChange={(e) =>
                                                     setData(
@@ -216,7 +216,7 @@ export default function Login({ status, canResetPassword }) {
                                             <div className="flex items-center space-x-2">
                                                 <Checkbox
                                                     name="remember"
-                                                    className="w-4 h-4 transition duration-300 rounded focus:ring-2 focus:ring-offset-0 focus:outline-none focus:ring-blue-200"
+                                                    className="w-4 h-4 transition duration-300 rounded focus:ring-2 focus:ring-offset-0 focus:outline-none focus:ring-brand-cyan/40"
                                                     checked={data.remember}
                                                     onChange={(e) =>
                                                         setData(
@@ -235,7 +235,7 @@ export default function Login({ status, canResetPassword }) {
                                             </div>
                                             <Link
                                                 href={route("register")}
-                                                className="text-sm underline font-semibold text-primary-light hover:text-blue-900"
+                                                className="text-sm underline font-semibold text-primary hover:text-primary-dark"
                                             >
                                                 Register
                                             </Link>
@@ -243,7 +243,7 @@ export default function Login({ status, canResetPassword }) {
                                         <div>
                                             <button
                                                 type="submit"
-                                                className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-primary-light hover:bg-blue-900 rounded-md shadow focus:outline-none focus:ring-blue-200 focus:ring-4"
+                                                className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-primary hover:bg-primary-dark rounded-md shadow focus:outline-none focus:ring-brand-cyan/40 focus:ring-4"
                                             >
                                                 {processing
                                                     ? "Sign in..."
@@ -251,12 +251,12 @@ export default function Login({ status, canResetPassword }) {
                                             </button>
                                         </div>
                                         <div className="mt-3 text-center">
-                                            <Link
+                                            <a
                                                 href="/"
-                                                className="text-sm underline font-semibold text-primary-light hover:text-blue-900"
+                                                className="text-sm underline font-semibold text-primary hover:text-primary-dark"
                                             >
                                                 Go to home
-                                            </Link>
+                                            </a>
                                         </div>
                                     </form>
                                 </div>
