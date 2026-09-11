@@ -5,7 +5,7 @@
     <title>{{ $title ?? 'Admin' }} | AIPolicyTracker admin</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=source-serif-4:400,600,700|ibm-plex-sans:400,500,600|ibm-plex-mono:400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
     @vite(['resources/css/public.css', 'resources/js/public.js'])
 </head>
 <body class="min-h-screen bg-brand-paper">

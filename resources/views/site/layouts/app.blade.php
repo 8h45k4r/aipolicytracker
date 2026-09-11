@@ -25,7 +25,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
     <meta name="theme-color" content="#002147">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=source-serif-4:400,600,700|ibm-plex-sans:400,500,600|ibm-plex-mono:400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
     @foreach($seo->jsonLd as $schema)
     <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
     @endforeach
