@@ -19,7 +19,7 @@ class HomeController extends Controller
             route('home')
         )->withJsonLd(Seo::organization())->withJsonLd(Seo::website());
 
-        return view('site.home', ['latestIncidents' => ExternalIncident::orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(4)->get(), 'incidentSnapshot' => ExternalIncident::max('snapshot_date'), 
+        return view('site.home', ['latestIncidents' => ExternalIncident::orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(4)->get(), 'incidentSnapshot' => ExternalIncident::max('synced_at') ?: ExternalIncident::max('snapshot_date'), 
             'seo' => $seo,
             'options' => $catalog->filterOptions(),
             'changes' => $catalog->latestChanges(6),

@@ -4,17 +4,17 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-3">AI incidents</p>
     <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[24ch]">What has actually gone wrong with AI, in numbers</h1>
-    <p class="mt-4 max-w-[64ch] text-brand-body leading-7">A weekly-refreshed summary of the AI Incident Database, an open catalogue of harms and near-misses involving AI systems. We keep only aggregate counts and incident metadata; every row links back to the original incident record.</p>
+    <p class="mt-4 max-w-[64ch] text-brand-body leading-7">The AI Incident Database is an open catalogue of harms and near-misses involving AI systems. New and updated records are synced from its API several times a day; the charts come from its weekly export. We keep incident metadata only, and every record links back to the original.</p>
     @if(empty($aiid['totals']))
     <x-site.empty title="Incident summary not available yet" class="mt-8">The weekly refresh has not produced a summary yet.</x-site.empty>
     @else
     <dl class="mt-8 grid gap-4 sm:grid-cols-3 text-sm max-w-2xl">
         <div class="rule pt-2"><dt class="meta">Incidents recorded</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['incidents']) }}</dd></div>
         <div class="rule pt-2"><dt class="meta">Classified by MIT risk domain</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['classified_mit']) }}</dd></div>
-        <div class="rule pt-2"><dt class="meta">Snapshot</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ $aiid['snapshot_date'] }}</dd></div>
+        <div class="rule pt-2"><dt class="meta">Last synced</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ $live['synced_at'] ? \Illuminate\Support\Carbon::parse($live['synced_at'])->format('j M Y') : $aiid['snapshot_date'] }}</dd></div>
     </dl>
 
-    <p class="mt-4 text-sm"><a href="{{ route('risk.incidents.browse') }}" class="btn-primary">Browse and export all incidents</a></p>
+    <p class="mt-4 text-sm flex flex-wrap gap-2"><a href="#latest" class="btn-primary">Latest recorded incidents</a><a href="{{ route('risk.incidents.browse') }}" class="btn-secondary">Browse and export all incidents</a></p>
     <div class="mt-10 grid gap-8 lg:grid-cols-2">
         <x-site.bar-chart :series="collect($aiid['incidents_per_year'])->filter(fn ($v, $y) => $y >= 2012)" title="Incidents per year (incident date)" note="Current year is partial" />
         <x-site.bar-chart :series="collect($aiid['by_mit_domain'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit(preg_replace('/^(AI system safety).*/', '$1…', $k), 26) => $v])" title="Incidents by MIT risk domain" />
@@ -43,10 +43,14 @@
         </section>
     </div>
 
-    <section class="mt-12" aria-labelledby="latest-heading">
-        <div class="rule-strong pt-3"><h2 id="latest-heading" class="section-title">Latest recorded incidents</h2></div>
+    @endif
+
+    <section class="mt-12" aria-labelledby="latest-heading" id="latest">
+        <div class="rule-strong pt-3 flex flex-wrap items-baseline justify-between gap-2"><h2 id="latest-heading" class="section-title">Latest recorded incidents</h2><p class="meta">@if($live['synced_at'])Synced from the AI Incident Database API <time datetime="{{ \Illuminate\Support\Carbon::parse($live['synced_at'])->toIso8601String() }}">{{ \Illuminate\Support\Carbon::parse($live['synced_at'])->diffForHumans() }}</time> · latest id #{{ $live['latest_id'] }}@else Weekly snapshot {{ $aiid['snapshot_date'] ?? '—' }}@endif</p></div>
+        <p class="mt-2 max-w-[64ch] text-sm text-brand-body">{{ number_format($live['recent']) }} {{ \Illuminate\Support\Str::plural('incident', $live['recent']) }} dated in the last 30 days out of {{ number_format($live['count']) }} on record. Each title opens a profile with the full description, the parties involved, the MIT classification, the catalogued news reports and related incidents.</p>
+        @if($latest->isEmpty())
         <ol class="mt-2 divide-y divide-brand-line">
-            @foreach($aiid['latest'] as $i)
+            @foreach($aiid['latest'] ?? [] as $i)
             <li class="py-3 grid gap-1 sm:grid-cols-12 sm:gap-4 text-sm min-w-0">
                 <time class="datestamp sm:col-span-2" datetime="{{ $i['date'] }}">{{ $i['date'] }}</time>
                 <div class="sm:col-span-8"><a href="https://incidentdatabase.ai/cite/{{ $i['id'] }}" rel="noopener" class="text-brand-navy no-underline hover:underline">{{ $i['title'] }}</a></div>
@@ -54,8 +58,26 @@
             </li>
             @endforeach
         </ol>
+        @else
+        <ol class="mt-3 divide-y divide-brand-line border-y border-brand-line">
+            @foreach($latest as $i)
+            <li class="py-4 grid gap-2 lg:grid-cols-12 lg:gap-6 text-sm min-w-0">
+                <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta">#{{ $i->incident_id }} · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
+                <div class="lg:col-span-7 min-w-0"><a href="{{ $i->url() }}" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->title }}</a> <a href="{{ $i->citeUrl() }}" rel="noopener" class="meta no-underline hover:underline" data-track="source_click">AIID ↗</a>
+                    <p class="mt-1 text-brand-body leading-6">{{ \Illuminate\Support\Str::limit($i->description, 260) ?: '—' }}</p>
+                    <p class="mt-1 meta">@if($i->deployers)Deployer: {{ implode(', ', array_slice($i->deployers, 0, 3)) }}@endif @if($i->harmed)· Harmed: {{ implode(', ', array_slice($i->harmed, 0, 3)) }}@endif</p>
+                    @if($i->reports->isNotEmpty())<p class="mt-1 meta">Latest report: <a href="{{ $i->reports->last()->url }}" rel="noopener nofollow">{{ \Illuminate\Support\Str::limit($i->reports->last()->title, 90) }}</a> ({{ $i->reports->last()->source_domain ?: '—' }})</p>@endif</div>
+                <div class="lg:col-span-3 flex flex-wrap gap-1.5 content-start">
+                    @if($i->mit_domain)<a class="chip !min-h-0 !py-0.5" href="{{ route('risk.incidents.browse', ['domain' => $i->mit_domain]) }}">{{ \Illuminate\Support\Str::limit($i->mit_domain, 30) }}</a>@else<span class="badge-neutral">Awaiting classification</span>@endif
+                    @if($i->harm_level)<span class="badge-neutral">{{ $i->harm_level }}</span>@endif
+                    @foreach($i->countries ?? [] as $c)<a class="chip !min-h-0 !py-0.5 font-mono" href="{{ route('risk.incidents.browse', ['country' => $c]) }}">{{ $c }}</a>@endforeach
+                </div>
+            </li>
+            @endforeach
+        </ol>
+        <p class="mt-3 text-sm"><a href="{{ route('risk.incidents.browse') }}" class="btn-secondary">Browse all {{ number_format($live['count']) }} incidents</a></p>
+        @endif
     </section>
-    @endif
 
     <x-site.attribution class="mt-12" :name="$aiid['source'] ?? 'AI Incident Database'" :url="$aiid['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$aiid['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$aiid['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$aiid['citation'] ?? null" :date="$aiid['snapshot_date'] ?? null" note="Incident titles and identifiers are reproduced under CC BY-SA 4.0; report texts are not. Derived aggregates on this page are shared under the same licence." />
     <x-site.disclaimer class="mt-6" />
