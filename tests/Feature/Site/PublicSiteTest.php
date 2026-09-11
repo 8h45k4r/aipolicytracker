@@ -159,6 +159,38 @@ class PublicSiteTest extends TestCase
         $this->get('/dashboard')->assertRedirect('/');
     }
 
+    public function test_guides_page_filters_and_free_tools_gate_downloads_behind_a_free_account(): void
+    {
+        $this->get('/guides')->assertOk()->assertSee('Free tools and templates')->assertSee('AI System Inventory Template')->assertSee('EU AI Act readiness for AI startups')->assertSee('index,follow');
+        $this->get('/guides?type=template')->assertOk()->assertSee('AI System Inventory Template')->assertDontSee('EU AI Act Readiness Checklist')->assertSee('noindex,follow');
+        $this->get('/guides?framework=eu-ai-act&topic=incident')->assertOk()->assertSee('AI Incident Response Checklist')->assertDontSee('AI Risk Register Template');
+        $this->get('/guides?q=zzzz-nothing')->assertOk()->assertSee('No guides or tools match');
+
+        $this->get('/guides/tools/ai-system-inventory-template')->assertOk()->assertSee('Preview: fields in the template')->assertSee('System ID')->assertSee('Create a free account to download')->assertSee(route('tools.gate', 'ai-system-inventory-template'));
+        $this->get('/guides/tools/does-not-exist')->assertNotFound();
+        $this->get('/guides/tools/ai-system-inventory-template/download')->assertOk()->assertSee('Continue with email')->assertSessionHas('url.intended');
+        $this->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1])->assertRedirect(route('login'));
+        $this->get('/register')->assertOk()->assertSee('Create free account')->assertSee('name="marketing_consent"', false);
+
+        $user = User::factory()->create();
+        $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', [])->assertSessionHasErrors('terms');
+        $this->assertSame(0, \App\Models\ResourceDownload::count());
+        $response = $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1, 'updates' => 1]);
+        $download = \App\Models\ResourceDownload::first();
+        $response->assertRedirect(route('tools.ready', ['ai-system-inventory-template', $download]));
+        $this->assertNotNull($user->fresh()->terms_accepted_at);
+        $this->assertNotNull($user->fresh()->marketing_consent_at);
+        $ready = $this->actingAs($user)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertOk()->assertSee('Your download is ready')->assertSee('Download XLSX');
+        preg_match('/href="([^"]*\/file\/[^"]*\.csv[^"]*)"/', $ready->getContent(), $m);
+        $this->assertNotEmpty($m, 'signed CSV link present');
+        $this->actingAs($user)->get(html_entity_decode($m[1]))->assertOk()->assertHeader('Content-Disposition', 'attachment; filename=ai-system-inventory-template.csv');
+        $this->assertNotNull($download->fresh()->downloaded_at);
+        $this->actingAs($user)->get(route('tools.file', ['slug' => 'ai-system-inventory-template', 'download' => $download, 'file' => 'ai-system-inventory-template.csv']))->assertStatus(403); // unsigned
+        $other = User::factory()->create();
+        $this->actingAs($other)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertNotFound();
+        $this->get('/ai-risk/incidents')->assertOk()->assertSee('min-w-0', false);
+    }
+
     public function test_review_queue_is_admin_only_and_can_publish(): void
     {
         config(['aipolicytracker.admin_emails' => ['admin@example.com']]);

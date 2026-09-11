@@ -45,6 +45,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'terms_accepted_at' => 'datetime',
+            'marketing_consent_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -68,6 +70,11 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Whether this user may access the admin area (configured via ADMIN_EMAILS).
      */
+    public function resourceDownloads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ResourceDownload::class);
+    }
+
     public function isAdmin(): bool
     {
         return in_array(strtolower((string) $this->email), array_map('strtolower', config('aipolicytracker.admin_emails', [])), true);

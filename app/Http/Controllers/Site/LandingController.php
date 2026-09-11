@@ -58,17 +58,57 @@ class LandingController extends Controller
         return view('site.landing', compact('seo', 'page', 'landing', 'jurisdictions', 'policies', 'primary', 'changes', 'deadlines', 'obligations'));
     }
 
-    public function guides(): View
+    public function guides(\Illuminate\Http\Request $request): View
     {
-        $guides = collect(config('content.guides'))->map(fn ($g, $slug) => ['slug' => $slug] + $g)->values();
+        $filters = [
+            'q' => trim((string) $request->query('q', '')),
+            'type' => array_key_exists($request->query('type', ''), config('resources.types')) ? $request->query('type') : null,
+            'framework' => array_key_exists($request->query('framework', ''), config('resources.frameworks')) ? $request->query('framework') : null,
+            'topic' => array_key_exists($request->query('topic', ''), config('resources.topics')) ? $request->query('topic') : null,
+            'access' => in_array($request->query('access'), ['read', 'download'], true) ? $request->query('access') : null,
+        ];
+        $items = \App\Models\FreeTool::guides()->concat(\App\Models\FreeTool::all())->filter(function ($i) use ($filters) {
+            if ($filters['type'] && $i['type'] !== $filters['type']) {
+                return false;
+            }
+            if ($filters['framework'] && ! in_array($filters['framework'], $i['frameworks'], true)) {
+                return false;
+            }
+            if ($filters['topic'] && ! in_array($filters['topic'], $i['topics'], true)) {
+                return false;
+            }
+            if ($filters['access'] === 'download' && empty($i['files'])) {
+                return false;
+            }
+            if ($filters['access'] === 'read' && ! empty($i['files'])) {
+                return false;
+            }
+            if ($filters['q'] !== '') {
+                $hay = mb_strtolower($i['title'].' '.$i['short'].' '.implode(' ', $i['frameworks']).' '.implode(' ', $i['topics']).' '.$i['type']);
+                foreach (preg_split('/\s+/', mb_strtolower($filters['q'])) as $term) {
+                    if ($term !== '' && ! str_contains($hay, $term)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        })->values();
+        $filtered = array_filter($filters) !== [];
+        $guides = $items->where('kind', 'guide')->values();
+        $tools = $items->where('kind', 'tool')->values();
+
         $seo = Seo::make(
-            'Guides: AI governance and regulation for startups and teams',
-            'Practical, source-backed guides on EU AI Act readiness, AI governance for startups, and how ISO/IEC 42001 and the NIST AI RMF relate to the EU AI Act.',
+            'Guides and free tools: AI governance templates, checklists and registers',
+            'Practical, source-backed guides plus free AI system inventory, risk register, EU AI Act readiness and incident response templates mapped to the EU AI Act, ISO/IEC 42001 and the NIST AI RMF.',
             route('guides.index')
         )->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')]])
-            ->withJsonLd(['@type' => 'CollectionPage', 'name' => 'Guides', 'url' => route('guides.index'), 'mainEntity' => ['@type' => 'ItemList', 'itemListElement' => $guides->map(fn ($g, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $g['h1'], 'url' => route('guides.show', $g['slug'])])->all()]]);
+            ->withJsonLd(['@type' => 'CollectionPage', 'name' => 'Guides and free tools', 'url' => route('guides.index'), 'mainEntity' => ['@type' => 'ItemList', 'itemListElement' => $items->map(fn ($g, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $g['title'], 'url' => $g['kind'] === 'tool' ? route('tools.show', $g['slug']) : route('guides.show', $g['slug'])])->all()]]);
+        if ($filtered) {
+            $seo->noindex(); // filter combinations are shareable but not indexable (thin/duplicate pages)
+        }
 
-        return view('site.guides.index', compact('seo', 'guides'));
+        return view('site.guides.index', compact('seo', 'guides', 'tools', 'filters', 'filtered'));
     }
 
     public function guide(string $slug): View

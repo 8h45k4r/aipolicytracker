@@ -12,3 +12,4 @@ One document per module. Each doc has: purpose, schema field table (must match t
 Framework tables (`cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, `migrations`) are Laravel-managed and not documented as modules.
 
 Sources/provenance, instrument versions, obligations, evidence artifacts and framework mappings are now delivered by the policy-intelligence module. Still planned: controls, and cross-linking the legacy `ai_policy_trackers` rows to `policy_instruments`.
+| Guides and downloads | [guides-and-downloads.md](guides-and-downloads.md) | `resource_downloads`, `users` additions | Free tools on `/guides`, gated downloads, admin activity |
