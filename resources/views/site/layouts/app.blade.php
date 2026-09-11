@@ -44,7 +44,7 @@
                 <img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" decoding="async">
             </a>
             <nav aria-label="Primary" class="hidden lg:flex items-center gap-6">
-                @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['tools.applicability','Applicability'],['open-data','Open data']] as [$r,$label])
+                @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['risk.index','AI risk'],['tools.applicability','Applicability'],['open-data','Open data']] as [$r,$label])
                 <a href="{{ route($r) }}" class="nav-link {{ request()->routeIs($r) ? 'nav-link-active' : '' }}" @if(request()->routeIs($r)) aria-current="page" @endif>{{ $label }}</a>
                 @endforeach
             </nav>
@@ -53,7 +53,7 @@
                 <details class="relative lg:hidden">
                     <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none" aria-label="Open menu">Menu</summary>
                     <nav aria-label="Mobile" class="absolute right-0 mt-2 w-64 rounded-sm border border-brand-line bg-white p-2 shadow-lg z-40">
-                        @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
+                        @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['risk.index','AI risk'],['risk.incidents','AI incidents'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
                         <a href="{{ route($r) }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body hover:bg-brand-paper no-underline">{{ $label }}</a>
                         @endforeach
                     </nav>
@@ -86,6 +86,7 @@
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('obligations.index') }}">Obligations</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('compare.index') }}">Compare</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.feed') }}">RSS</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.index') }}">AI risk</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.incidents') }}">Incidents</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('guides.index') }}">Guides</a></li>
             </ul>
         </div>

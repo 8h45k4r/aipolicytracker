@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- AI risk section: the seven MIT AI Risk Repository domains and 24 subdomains (CC BY 4.0) with incident counts, per-domain pages linking to related policies, and an AI incidents summary page (AI Incident Database, CC BY-SA 4.0) with yearly, domain, sector, country and harm-level views and links to each incident record. Data lives in `data/external/` and is refreshed weekly by `external:sync-aiid` / `external:sync-mit-risk` through a pull request.
+
+### Added
 - Structured records bridged from the source-backed legacy dataset: 29 new jurisdictions, 60 policy instruments and 96 dated change events (all `pending_review`, official source on every record), bringing the public site to 39 jurisdictions and 78 instruments.
 
 ### Changed

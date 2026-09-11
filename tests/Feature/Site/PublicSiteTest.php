@@ -189,4 +189,26 @@ class PublicSiteTest extends TestCase
             ->orWhere(fn ($w) => $w->where('assignable_type', \App\Models\Obligation::class)->whereExists(fn ($e) => $e->select(\Illuminate\Support\Facades\DB::raw(1))->from('obligations')->whereColumn('obligations.id', 'taxonomy_assignments.assignable_id'))))->count();
         $this->assertSame($morphs, $resolvedMorphs, 'taxonomy_assignments morphs resolve');
     }
+
+    public function test_ai_risk_and_incident_pages_render_with_attribution(): void
+    {
+        $this->get('/ai-risk')->assertOk()->assertSee('Discrimination')->assertSee('CC BY 4.0')->assertSee('incidentdatabase.ai');
+        $this->get('/ai-risk/1')->assertOk()->assertSee('Unfair discrimination')->assertSee('MIT AI Risk Navigator');
+        $this->get('/ai-risk/9')->assertNotFound();
+        $this->get('/ai-risk/incidents')->assertOk()->assertSee('CC BY-SA 4.0')->assertSee('Incidents per year')->assertSee('https://incidentdatabase.ai/cite/');
+        $this->get('/sitemap-static.xml')->assertSee(url('/ai-risk'))->assertSee(url('/ai-risk/incidents'));
+        $this->get('/llms.txt')->assertSee('/ai-risk');
+    }
+
+    public function test_external_sync_commands_rebuild_summaries_from_local_files(): void
+    {
+        $this->assertFileExists(base_path('data/external/aiid_summary.json'));
+        $this->assertFileExists(base_path('data/external/mit_ai_risk_domains.json'));
+        $mit = json_decode(file_get_contents(base_path('data/external/mit_ai_risk_domains.json')), true);
+        $this->assertCount(7, $mit['domains']);
+        $this->assertSame('CC BY 4.0', $mit['license']);
+        $aiid = json_decode(file_get_contents(base_path('data/external/aiid_summary.json')), true);
+        $this->assertSame('CC BY-SA 4.0', $aiid['license']);
+        $this->assertGreaterThan(1000, $aiid['totals']['incidents']);
+    }
 }
