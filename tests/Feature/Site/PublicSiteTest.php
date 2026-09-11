@@ -141,7 +141,9 @@ class PublicSiteTest extends TestCase
     {
         $this->get('/about-ai-policy')->assertRedirect('/about');
         $this->get('/dashboard')->assertRedirect('/map');
-        $this->get('/map')->assertOk()->assertSee('noindex', false);
+        $this->get('/map')->assertRedirect('/');
+        $this->get('/news')->assertRedirect('/changes');
+        $this->get('/timeline')->assertRedirect('/changes');
         $this->get('/this-page-does-not-exist')->assertNotFound()->assertSee('Page not found');
     }
 

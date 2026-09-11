@@ -27,6 +27,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 });
 
 
+// Legacy admin CRUD for the map tables. Disabled unless LEGACY_MAP_ENABLED=true.
+if (config('aipolicytracker.legacy_enabled')) {
 Route::middleware(['auth', 'isAdmin'])
     ->as("backend.")->group(function () {
 
@@ -90,6 +92,7 @@ Route::middleware(['auth', 'isAdmin'])
         });
 
     });
+}
 
 // Reviewer queue and publishing controls (admin only).
 Route::middleware(['auth', 'isAdmin'])->prefix('backend/review')->as('backend.review.')->group(function () {

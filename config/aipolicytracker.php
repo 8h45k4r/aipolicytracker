@@ -88,6 +88,10 @@ return [
         ['title' => 'Regulation (EU) 2024/1689 (Artificial Intelligence Act)', 'authors' => 'European Parliament and Council (2024)', 'url' => 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj', 'publisher' => 'Official Journal of the European Union', 'license' => 'EU reuse policy (Decision 2011/833/EU)'],
     ],
 
+    // Legacy map dashboard, news, timeline, bookmarks and their admin CRUD. Off by default:
+    // the public site no longer links to or reads these tables (see docs/reference/admin-audit.md).
+    'legacy_enabled' => (bool) env('LEGACY_MAP_ENABLED', false),
+
     // Shared secret for the scheduled digest trigger (can also be set from the admin settings page).
     'cron_token' => env('CRON_TOKEN'),
 
