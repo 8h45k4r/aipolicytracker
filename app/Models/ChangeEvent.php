@@ -63,4 +63,37 @@ class ChangeEvent extends Model
                 ->orWhereRaw('LOWER(change_events.what_changed) LIKE ?', [$like]);
         });
     }
+
+    /**
+     * Distinct years (newest first) of published change events.
+     * Computed in PHP so it works on PostgreSQL, MySQL and SQLite alike
+     * (substr() on a DATE column is not portable).
+     *
+     * @return array<int, string>
+     */
+    public static function publishedYears(): array
+    {
+        return static::published()
+            ->pluck('occurred_on')
+            ->map(fn ($d) => substr((string) $d, 0, 4))
+            ->filter()
+            ->unique()
+            ->sortDesc()
+            ->values()
+            ->all();
+    }
+
+    /**
+     * Year => latest updated_at among published change events in that year.
+     *
+     * @return \Illuminate\Support\Collection<string, mixed>
+     */
+    public static function publishedYearsLastModified(): \Illuminate\Support\Collection
+    {
+        return static::published()
+            ->get(['occurred_on', 'updated_at'])
+            ->groupBy(fn ($e) => substr((string) $e->occurred_on, 0, 4))
+            ->map(fn ($group) => $group->max('updated_at'))
+            ->sortKeysDesc();
+    }
 }
