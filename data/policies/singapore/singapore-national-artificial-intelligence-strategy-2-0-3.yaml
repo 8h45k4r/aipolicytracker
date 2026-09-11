@@ -1,0 +1,73 @@
+slug: singapore-national-artificial-intelligence-strategy-2-0-3
+jurisdiction: singapore
+title: National Artificial Intelligence Strategy 2.0 (NAIS 2.0)
+short_title: National Artificial Intelligence Strategy 2.0
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Smart Nation Group / Ministry of Digital Development and Information
+summary_plain: >-
+  Singapore's second national AI strategy, launched under the banner of AI for the public good. It sets goals of
+  excellence and empowerment and organises work across three systems, ten enablers and fifteen actions covering
+  talent, compute, data, industry adoption, research and governance. A 2026 update set ten refreshed priorities
+  and launched sector AI Missions under the new National AI Council.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Smart Nation Group / Ministry of Digital Development
+  and Information. Oversight: National AI Council (chaired by the Prime Minister since 2026) with Smart Nation Group
+  and MDDI. Stated purpose: Use AI for the public good while building Singapore into a trusted global AI hub.
+key_dates_summary: >-
+  2023-12-04: NAIS 2.0 launched by DPM Lawrence Wong; 2026-05-20: Update to the National AI Strategy released with
+  10 refreshed priorities
+adopted_on: '2023-12-04'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Artificial Intelligence Strategy 2.0 (NAIS 2.0)
+  publisher: Smart Nation Singapore
+  url: https://www.smartnation.gov.sg/initiatives/national-ai-strategy/
+  document_date: '2023-12-04'
+  document_type: strategy
+  tier: 1
+- title: NAIS 2.0 launched by DPM Lawrence Wong
+  publisher: Smart Nation Singapore
+  url: https://www.mddi.gov.sg/newsroom/04122023/
+  document_date: '2023-12-04'
+  document_type: official
+  tier: 1
+- title: Update to the National AI Strategy released with 10 refreshed priorities
+  publisher: Smart Nation Singapore
+  url: >-
+    https://www.mddi.gov.sg/newsroom/update-to-singapore-s-national-ai-strategy--refreshed-priorities-to-harness-ai-for-the-public-good-factsheet/
+  document_date: '2026-05-20'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.smartnation.gov.sg/initiatives/national-ai-strategy/
+source_title: National Artificial Intelligence Strategy 2.0 (NAIS 2.0)
+source_publisher: Smart Nation Singapore
+source_document_date: '2023-12-04'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

@@ -1,0 +1,76 @@
+slug: us-winning-the-race-america-s-ai-action-plan-3
+jurisdiction: us
+title: 'Winning the Race: America''s AI Action Plan'
+short_title: 'Winning the Race: America''s AI Action Plan'
+instrument_type: strategy
+status: adopted
+status_note: >-
+  The PDF loaded (HTTP 200) but its text was not extracted; content details are from the White House announcement
+  page.
+is_binding: false
+featured: false
+published: true
+issuing_body: The White House (Office of Science and Technology Policy)
+summary_plain: >-
+  America's AI Action Plan is the federal AI strategy mandated by Executive Order 14179. It lists more than 90 policy
+  actions grouped under three pillars: accelerating innovation (including removing regulatory barriers), building
+  AI infrastructure such as data centres and chip fabrication with streamlined permitting, and leading internationally
+  through AI exports and security measures. It was released with accompanying executive orders on federal procurement,
+  data-centre permitting and AI exports.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by The White House (Office of Science and Technology
+  Policy). Oversight: OSTP coordinates; implementation assigned to federal departments and agencies. Stated purpose:
+  Secure US leadership in AI through deregulation, infrastructure build-out and export of American AI.
+key_dates_summary: >-
+  2025-01-23: EO 14179 orders an AI action plan within 180 days; 2025-07-23: Action Plan published (PDF)
+adopted_on: '2025-07-23'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Winning the Race: America''s AI Action Plan'
+  publisher: The White House
+  url: https://www.whitehouse.gov/articles/2025/07/white-house-unveils-americas-ai-action-plan/
+  document_date: '2025-07-23'
+  document_type: strategy
+  tier: 1
+- title: EO 14179 orders an AI action plan within 180 days
+  publisher: The White House
+  url: >-
+    https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/
+  document_date: '2025-01-23'
+  document_type: official
+  tier: 1
+- title: Action Plan published (PDF)
+  publisher: The White House
+  url: https://www.whitehouse.gov/wp-content/uploads/2025/07/Americas-AI-Action-Plan.pdf
+  document_date: '2025-07-23'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.whitehouse.gov/articles/2025/07/white-house-unveils-americas-ai-action-plan/
+source_title: 'Winning the Race: America''s AI Action Plan'
+source_publisher: The White House
+source_document_date: '2025-07-23'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

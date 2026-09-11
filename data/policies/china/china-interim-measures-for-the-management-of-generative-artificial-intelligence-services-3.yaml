@@ -1,0 +1,66 @@
+slug: china-interim-measures-for-the-management-of-generative-artificial-intelligence-services-3
+jurisdiction: china
+title: Interim Measures for the Management of Generative Artificial Intelligence Services
+short_title: Interim Measures for the Management of Generative Artificial Intelligence Services
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Document is dated 10 July 2023 and was published on the CAC site on 13 July 2023; the publication date is used
+  as the announcement date.
+is_binding: true
+featured: false
+published: true
+issuing_body: >-
+  Cyberspace Administration of China with NDRC, Ministry of Education, MOST, MIIT, Ministry of Public Security and
+  NRTA
+summary_plain: >-
+  These measures govern generative AI services offered to the public in China, whether producing text, images, audio
+  or video. Providers must use lawfully sourced training data, take steps against discrimination, protect personal
+  information, label generated content, handle user complaints and ensure outputs comply with content rules. Services
+  with public-opinion or social-mobilisation capacity must complete security assessments and algorithm filing. The
+  measures took effect on 15 August 2023.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Cyberspace Administration of China with NDRC,
+  Ministry of Education, MOST, MIIT, Ministry of Public Security and NRTA. Oversight: Cyberspace Administration
+  of China leads; sectoral ministries supervise within their remits. Stated purpose: Regulate public-facing generative
+  AI to control content risks while supporting industry development.
+key_dates_summary: >-
+  2023-07-13: Measures published (Order No. 15, dated 10 July 2023); 2023-08-15: Measures enter into force
+adopted_on: '2023-07-13'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Interim Measures for the Management of Generative Artificial Intelligence Services
+  publisher: Cyberspace Administration of China
+  url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+  document_date: '2023-07-13'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+source_title: Interim Measures for the Management of Generative Artificial Intelligence Services
+source_publisher: Cyberspace Administration of China
+source_document_date: '2023-07-13'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

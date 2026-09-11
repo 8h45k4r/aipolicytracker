@@ -1,0 +1,67 @@
+slug: thailand-thailand-national-ai-strategy-and-action-plan-3
+jurisdiction: thailand
+title: Thailand National AI Strategy and Action Plan (2022-2027)
+short_title: Thailand National AI Strategy and Action Plan
+instrument_type: strategy
+status: adopted
+status_note: Second milestone date is month-level (file uploaded December 2022).
+is_binding: false
+featured: false
+published: true
+issuing_body: Cabinet of Thailand (prepared by MHESI and MDES; NECTEC/NSTDA secretariat)
+summary_plain: >-
+  A cabinet-approved strategy and action plan with five strategies: readiness in ethics, law and regulation; national
+  AI infrastructure; human capability and education; AI technology and innovation development; and promotion of
+  AI use in public and private sectors. It sets targets for AI talent, research prototypes and economic impact through
+  2027 and is implemented in phases coordinated across ministries.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Cabinet of Thailand (prepared by MHESI and MDES;
+  NECTEC/NSTDA secretariat). Oversight: National AI Committee with NECTEC/NSTDA as secretariat. Stated purpose:
+  Build an effective AI ecosystem to strengthen the economy and quality of life by 2027.
+key_dates_summary: >-
+  2022-07-26: Cabinet approves the National AI Strategy and Action Plan (2022-2027); 2022-12-01: English overview
+  of the strategy published on Thailand's official AI portal
+adopted_on: '2022-07-26'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Thailand National AI Strategy and Action Plan (2022-2027)
+  publisher: National Electronics and Computer Technology Center (NECTEC), NSTDA
+  url: https://www.nectec.or.th/en/about/news/cabinet-national-ai-strategy.html
+  document_date: '2022-07-26'
+  document_type: strategy
+  tier: 1
+- title: English overview of the strategy published on Thailand's official AI portal
+  publisher: National Electronics and Computer Technology Center (NECTEC), NSTDA
+  url: https://www.ai.in.th/wp-content/uploads/2022/12/2022-NAIS-Presentation-eng.pdf
+  document_date: '2022-12-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.nectec.or.th/en/about/news/cabinet-national-ai-strategy.html
+source_title: Thailand National AI Strategy and Action Plan (2022-2027)
+source_publisher: National Electronics and Computer Technology Center (NECTEC), NSTDA
+source_document_date: '2022-07-26'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

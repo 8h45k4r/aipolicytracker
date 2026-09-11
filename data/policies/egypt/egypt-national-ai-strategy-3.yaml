@@ -1,0 +1,77 @@
+slug: egypt-national-ai-strategy-3
+jurisdiction: egypt
+title: National AI Strategy - Second Edition 2025-2030
+short_title: National AI Strategy
+instrument_type: strategy
+status: adopted
+status_note: >-
+  MCIT lists the publication month as January 2025 only, so the first of the month is used; media reported a presidential
+  launch on 22 January 2025. Milestone 2 date is also month-only.
+is_binding: false
+featured: false
+published: true
+issuing_body: >-
+  National Council for Artificial Intelligence (NCAI), Ministry of Communications and Information Technology
+summary_plain: >-
+  The second edition updates Egypt's 2021 strategy for 2025-2030 around six pillars: governance, data, infrastructure,
+  technology, talent and ecosystem. It sets targets for AI specialists, startups and ICT's contribution to GDP,
+  and includes plans for national foundational models and expanded regional and international cooperation.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by National Council for Artificial Intelligence
+  (NCAI), Ministry of Communications and Information Technology. Oversight: NCAI (chaired by the ICT Minister) oversees
+  implementation across ministries. Stated purpose: Move from AI adoption to large-scale, sovereign AI capability
+  supporting Digital Egypt.
+key_dates_summary: >-
+  2025-01-01: Second edition published by MCIT (January 2025); 2026-01-01: NCAI mandate expanded to AI, Quantum
+  Computing and Emerging Technologies (January 2026)
+adopted_on: '2025-01-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National AI Strategy - Second Edition 2025-2030
+  publisher: Ministry of Communications and Information Technology, Egypt
+  url: https://mcit.gov.eg/en/Publication/Publication_Summary/10550
+  document_date: '2025-01-01'
+  document_type: strategy
+  tier: 1
+- title: Second edition published by MCIT (January 2025)
+  publisher: Ministry of Communications and Information Technology, Egypt
+  url: >-
+    https://mcit.gov.eg/Upcont/Documents/Publications_2212025000_National_AI_Strategy_Second_Edition_2025_2030.pdf
+  document_date: '2025-01-01'
+  document_type: official
+  tier: 1
+- title: NCAI mandate expanded to AI, Quantum Computing and Emerging Technologies (January 2026)
+  publisher: Ministry of Communications and Information Technology, Egypt
+  url: https://mcit.gov.eg/en/Artificial_Intelligence
+  document_date: '2026-01-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://mcit.gov.eg/en/Publication/Publication_Summary/10550
+source_title: National AI Strategy - Second Edition 2025-2030
+source_publisher: Ministry of Communications and Information Technology, Egypt
+source_document_date: '2025-01-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

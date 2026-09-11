@@ -1,0 +1,68 @@
+slug: vietnam-law-on-artificial-intelligence-3
+jurisdiction: vietnam
+title: Law on Artificial Intelligence (Law No. 134/2025/QH15)
+short_title: Law on Artificial Intelligence
+instrument_type: act
+status: in_force
+status_note: >-
+  Official portal lists issue date 10-12-2025 and effective date 01-03-2026. Signed PDF: https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat134.signed.pdf
+is_binding: true
+featured: false
+published: true
+issuing_body: National Assembly of Vietnam
+summary_plain: >-
+  Vietnam's first dedicated AI statute, with eight chapters and 35 articles governing the research, development,
+  provision, deployment and use of AI systems. It adopts a risk-based approach, requires human oversight in important
+  decisions, and provides for national AI infrastructure, a national AI development fund, a regulatory sandbox and
+  rules on AI-generated content. It took effect on 1 March 2026 with transition periods for existing systems.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by National Assembly of Vietnam. Oversight: Government/Ministry
+  of Science and Technology as state management body. Stated purpose: Establish a comprehensive, risk-based legal
+  framework for AI while promoting innovation.
+key_dates_summary: >-
+  2025-12-10: Law No. 134/2025/QH15 passed by the National Assembly; 2026-03-01: Law on Artificial Intelligence
+  enters into force
+adopted_on: '2025-12-10'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Law on Artificial Intelligence (Law No. 134/2025/QH15)
+  publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+  url: https://vanban.chinhphu.vn/?pageid=27160&docid=216334&classid=1&orggroupid=1
+  document_date: '2025-12-10'
+  document_type: legislation
+  tier: 1
+- title: Law No. 134/2025/QH15 passed by the National Assembly
+  publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+  url: https://congbao.chinhphu.vn/van-ban/luat-so-134-2025-qh15-468694.htm
+  document_date: '2025-12-10'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://vanban.chinhphu.vn/?pageid=27160&docid=216334&classid=1&orggroupid=1
+source_title: Law on Artificial Intelligence (Law No. 134/2025/QH15)
+source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+source_document_date: '2025-12-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

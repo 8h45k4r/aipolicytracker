@@ -1,0 +1,58 @@
+slug: uk-artificial-intelligence-playbook-for-the-uk-government-3
+jurisdiction: uk
+title: Artificial Intelligence Playbook for the UK Government
+short_title: Artificial Intelligence Playbook for the UK Government
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: Government Digital Service (Department for Science, Innovation and Technology)
+summary_plain: >-
+  The AI Playbook is official guidance for UK public-sector organisations on selecting, buying, building and deploying
+  AI. It sets ten principles covering legality, security, human oversight, transparency and accountability, and
+  explains AI capabilities, limitations and risks in plain terms. It expands and replaces the January 2024 Generative
+  AI Framework for HMG to cover a broader range of AI technologies.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Government Digital Service (Department for Science,
+  Innovation and Technology). Oversight: Government Digital Service; applied by departments and public bodies. Stated
+  purpose: Give civil servants practical rules for safe, lawful and effective use of AI in public services.
+key_dates_summary: '2025-02-10: AI Playbook published, superseding the Generative AI Framework for HMG'
+adopted_on: '2025-02-10'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Artificial Intelligence Playbook for the UK Government
+  publisher: GOV.UK (Government Digital Service)
+  url: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government
+  document_date: '2025-02-10'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government
+source_title: Artificial Intelligence Playbook for the UK Government
+source_publisher: GOV.UK (Government Digital Service)
+source_document_date: '2025-02-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

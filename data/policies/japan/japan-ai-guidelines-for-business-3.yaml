@@ -1,0 +1,71 @@
+slug: japan-ai-guidelines-for-business-3
+jurisdiction: japan
+title: AI Guidelines for Business
+short_title: AI Guidelines for Business
+instrument_type: guidance
+status: guidance
+status_note: >-
+  METI pages block automated fetches (HTTP 403/202) but were loaded and read in a browser session; version dates
+  come from the METI committee index page. Principle list summarised from general knowledge of the guidelines, not
+  re-read from the PDFs.
+is_binding: false
+featured: false
+published: true
+issuing_body: >-
+  Ministry of Economy, Trade and Industry and Ministry of Internal Affairs and Communications
+summary_plain: >-
+  The AI Guidelines for Business consolidate Japan's previous AI R&D, utilisation and governance guidelines into
+  a single non-binding document addressed to AI developers, providers and business users. They set common guiding
+  principles (such as human-centricity, safety, fairness, privacy, security, transparency and accountability) and
+  describe agile governance practices, with an appendix of practical methods and checklists. The guidelines are
+  updated periodically; version 1.0 was issued in April 2024 and version 1.2 in March 2026.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of Economy, Trade and Industry and Ministry
+  of Internal Affairs and Communications. Oversight: METI and MIC jointly maintain; secretariat shared with IPA/AI
+  Safety Institute; voluntary adoption by developers, providers and users. Stated purpose: Unify earlier AI ethics
+  and governance guidelines into one voluntary, risk-based guide for business.
+key_dates_summary: '2024-04-19: AI Guidelines for Business Ver1.0 published; 2026-03-31: Ver1.2 published'
+adopted_on: '2024-04-19'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI Guidelines for Business
+  publisher: Ministry of Economy, Trade and Industry
+  url: https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/index.html
+  document_date: '2024-04-19'
+  document_type: guidance
+  tier: 1
+- title: AI Guidelines for Business Ver1.0 published
+  publisher: Ministry of Economy, Trade and Industry
+  url: https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20240419_report.html
+  document_date: '2024-04-19'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/index.html
+source_title: AI Guidelines for Business
+source_publisher: Ministry of Economy, Trade and Industry
+source_document_date: '2024-04-19'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

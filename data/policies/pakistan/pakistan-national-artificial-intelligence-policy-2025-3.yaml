@@ -1,0 +1,70 @@
+slug: pakistan-national-artificial-intelligence-policy-2025-3
+jurisdiction: pakistan
+title: National Artificial Intelligence Policy 2025
+short_title: National Artificial Intelligence Policy 2025
+instrument_type: policy
+status: adopted
+status_note: >-
+  Cabinet approval on 30 July 2025 is widely reported and the PID release of 14 August 2025 confirms approval, but
+  no official notice stating the exact approval date was found. The older moitt.gov.pk/SiteImage/Misc PDF link returns
+  404; the /SiteImage/Policies path loads.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Information Technology and Telecommunication (approved by the Federal Cabinet)
+summary_plain: >-
+  Pakistan's first national AI policy, organised around six pillars: innovation ecosystem, awareness and readiness,
+  secure AI, transformation of sectors, AI infrastructure, and international partnerships. It proposes a National
+  AI Fund drawn from Ignite's R&D fund, centres of excellence, venture and innovation funds, regulatory sandboxes
+  and KPIs, with an AI Council to oversee delivery. Targets include large-scale training of AI professionals and
+  funded research projects.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of Information Technology and Telecommunication
+  (approved by the Federal Cabinet). Oversight: MoITT with a proposed national AI Council and implementation directorate.
+  Stated purpose: Build a domestic AI ecosystem, skills base and infrastructure while managing ethical and security
+  risks.
+key_dates_summary: '2025-08-14: MoITT press release confirms National AI Policy 2025 approved'
+adopted_on: '2025-07-30'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Artificial Intelligence Policy 2025
+  publisher: Ministry of Information Technology and Telecommunication, Government of Pakistan
+  url: https://www.moitt.gov.pk/SiteImage/Policies/National%20AI%20Policy.pdf
+  document_date: '2025-07-30'
+  document_type: strategy
+  tier: 1
+- title: MoITT press release confirms National AI Policy 2025 approved
+  publisher: Ministry of Information Technology and Telecommunication, Government of Pakistan
+  url: https://pid.gov.pk/site/press_detail/30025
+  document_date: '2025-08-14'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.moitt.gov.pk/SiteImage/Policies/National%20AI%20Policy.pdf
+source_title: National Artificial Intelligence Policy 2025
+source_publisher: Ministry of Information Technology and Telecommunication, Government of Pakistan
+source_document_date: '2025-07-30'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

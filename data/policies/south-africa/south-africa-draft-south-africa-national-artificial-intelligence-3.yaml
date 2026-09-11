@@ -1,0 +1,77 @@
+slug: south-africa-draft-south-africa-national-artificial-intelligence-3
+jurisdiction: south-africa
+title: Draft South Africa National Artificial Intelligence (AI) Policy
+short_title: Draft South Africa National Artificial Intelligence
+instrument_type: policy
+status: archived
+status_note: >-
+  The earlier South Africa National AI Policy Framework (Aug/Oct 2024, comments to 29 Nov 2024) is referenced in
+  the gazette notice, but its DCDT page (dcdt.gov.za/sa-national-ai-policy-framework/...) now serves unrelated content,
+  so it is not recorded as a separate entry. Withdrawal notice is signed 4 June 2026 and gazetted 12 June 2026.
+is_binding: false
+featured: false
+published: true
+issuing_body: Department of Communications and Digital Technologies (DCDT)
+summary_plain: >-
+  Approved by Cabinet in March/April 2026 and gazetted for a 60-day comment period, the draft policy proposed guiding
+  principles, institutional arrangements and implementation pathways for AI across the public and private sectors,
+  building on the department's 2024 National AI Policy Framework. The Minister announced its withdrawal on 26 April
+  2026 after fictitious citations were found in its reference list, and the withdrawal was formally gazetted in
+  June 2026.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Department of Communications and Digital Technologies
+  (DCDT). Oversight: DCDT; Cabinet-approved draft published for public comment. Stated purpose: Set national principles,
+  institutions and pathways for safe and inclusive AI adoption.
+key_dates_summary: >-
+  2026-04-26: Minister Malatsi announces withdrawal of the draft policy; 2026-06-12: Withdrawal gazetted (Notice
+  3978 of 2026, Gazette No. 54840)
+adopted_on: '2026-04-10'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Draft South Africa National Artificial Intelligence (AI) Policy
+  publisher: Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)
+  url: https://www.gov.za/sites/default/files/gcis_document/202604/54477gen3880.pdf
+  document_date: '2026-04-10'
+  document_type: strategy
+  tier: 1
+- title: Minister Malatsi announces withdrawal of the draft policy
+  publisher: Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)
+  url: https://www.sanews.gov.za/south-africa/minister-announces-withdrawal-draft-ai-policy
+  document_date: '2026-04-26'
+  document_type: official
+  tier: 1
+- title: Withdrawal gazetted (Notice 3978 of 2026, Gazette No. 54840)
+  publisher: Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)
+  url: https://www.gov.za/sites/default/files/gcis_document/202606/54840gen3978.pdf
+  document_date: '2026-06-12'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.gov.za/sites/default/files/gcis_document/202604/54477gen3880.pdf
+source_title: Draft South Africa National Artificial Intelligence (AI) Policy
+source_publisher: Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)
+source_document_date: '2026-04-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

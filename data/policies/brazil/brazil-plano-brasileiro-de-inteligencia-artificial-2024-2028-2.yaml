@@ -1,0 +1,87 @@
+slug: brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028-2
+jurisdiction: brazil
+title: >-
+  Plano Brasileiro de Inteligência Artificial 2024-2028 – PBIA (Brazilian Artificial Intelligence Plan 2024-2028)
+short_title: Plano Brasileiro de Inteligência Artificial 2024-2028
+instrument_type: strategy
+status: adopted
+status_note: >-
+  The MCTI landing page confirms launch at the 5th CNCTI without printing the day; the 30 July 2024 date is drawn
+  from gov.br news search snippets (MGI/MCTI) and the CCT resolution records its plenary of 29 July 2024. MGI news
+  page and CCT resolution page both return HTTP 200 (MGI page content not text-parsed). Full plan PDF at gov.br
+  returns HTTP 200. Some MCTI news pages served a 'Conteúdo Restrito' placeholder to automated fetches.
+is_binding: false
+featured: false
+published: true
+issuing_body: >-
+  Ministério da Ciência, Tecnologia e Inovação (MCTI) with the Conselho Nacional de Ciência e Tecnologia (CCT)
+summary_plain: >-
+  The PBIA is a four-year national plan that commits around R$23 billion to AI infrastructure, skills, public-sector
+  applications, business innovation and governance. Headline measures include acquiring a top-tier supercomputer
+  powered by renewable energy, developing Portuguese-language models, and short-term actions in health, education,
+  agriculture and public services. The proposal was presented at the 5th National Conference on Science, Technology
+  and Innovation and formally approved by the CCT through Resolução CCT nº 4/2024, with a final version later published
+  under MCTI coordination.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministério da Ciência, Tecnologia e Inovação
+  (MCTI) with the Conselho Nacional de Ciência e Tecnologia (CCT). Oversight: MCTI coordinates implementation; plan
+  proposal approved by the CCT. Stated purpose: Build sovereign AI capacity and public-interest AI applications.
+key_dates_summary: >-
+  2024-07-30: PBIA proposal presented at the 5th National CT&I Conference; 2024-11-12: Resolução CCT nº 4/2024 approving
+  the PBIA proposal published in the DOU
+adopted_on: '2024-07-30'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Plano Brasileiro de Inteligência Artificial 2024-2028 – PBIA (Brazilian Artificial Intelligence Plan 2024-2028)
+  publisher: Ministério da Ciência, Tecnologia e Inovação (gov.br)
+  url: >-
+    https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/transformacaodigital/plano-brasileiro-de-inteligencia-artificial
+  document_date: '2024-07-30'
+  document_type: strategy
+  tier: 1
+- title: PBIA proposal presented at the 5th National CT&I Conference
+  publisher: Ministério da Ciência, Tecnologia e Inovação (gov.br)
+  url: >-
+    https://www.gov.br/gestao/pt-br/assuntos/noticias/2024/julho/novo-plano-brasileiro-de-inteligencia-artificial-preve-o-investimento-de-r-1-76-bi-para-melhoria-de-servicos-publicos
+  document_date: '2024-07-30'
+  document_type: official
+  tier: 1
+- title: Resolução CCT nº 4/2024 approving the PBIA proposal published in the DOU
+  publisher: Ministério da Ciência, Tecnologia e Inovação (gov.br)
+  url: >-
+    https://antigo.mctic.gov.br/mctic/opencms/legislacao/outros_atos/resolucoes/Resolucao_CCT_n_4_de_08112024.html
+  document_date: '2024-11-12'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/transformacaodigital/plano-brasileiro-de-inteligencia-artificial
+source_title: >-
+  Plano Brasileiro de Inteligência Artificial 2024-2028 – PBIA (Brazilian Artificial Intelligence Plan 2024-2028)
+source_publisher: Ministério da Ciência, Tecnologia e Inovação (gov.br)
+source_document_date: '2024-07-30'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

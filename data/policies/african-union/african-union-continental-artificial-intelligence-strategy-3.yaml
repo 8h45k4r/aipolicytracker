@@ -1,0 +1,77 @@
+slug: african-union-continental-artificial-intelligence-strategy-3
+jurisdiction: african-union
+title: Continental Artificial Intelligence Strategy
+short_title: Continental Artificial Intelligence Strategy
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Announcement date is the AU Executive Council endorsement at its 45th Ordinary Session in Accra (18-19 July 2024)
+  as stated on the AU document page; the document itself is dated July 2024 and was posted 9 August 2024.
+is_binding: false
+featured: false
+published: true
+issuing_body: African Union Commission (endorsed by the AU Executive Council)
+summary_plain: >-
+  A continental framework that guides AU member states on harnessing AI for development while managing risks. It
+  is organised around five focus areas: capturing AI benefits, building capabilities, minimising risks, stimulating
+  investment, and fostering cooperation. It is non-binding and intended to inform national strategies and regional
+  harmonisation.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by African Union Commission (endorsed by the AU
+  Executive Council). Oversight: AU Commission coordinates; member states implement nationally. Stated purpose:
+  Africa-centric, development-focused AI adoption aligned with Agenda 2063.
+key_dates_summary: >-
+  2024-06-13: Adopted by African ICT and Communications Ministers (virtual session, 11-13 June 2024); 2024-08-09:
+  Strategy document published on AU website (English PDF)
+adopted_on: '2024-07-18'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Continental Artificial Intelligence Strategy
+  publisher: African Union
+  url: https://au.int/en/documents/20240809/continental-artificial-intelligence-strategy
+  document_date: '2024-07-18'
+  document_type: strategy
+  tier: 1
+- title: Adopted by African ICT and Communications Ministers (virtual session, 11-13 June 2024)
+  publisher: African Union
+  url: >-
+    https://au.int/en/pressreleases/20240617/african-ministers-adopt-landmark-continental-artificial-intelligence-strategy
+  document_date: '2024-06-13'
+  document_type: official
+  tier: 1
+- title: Strategy document published on AU website (English PDF)
+  publisher: African Union
+  url: >-
+    https://au.int/sites/default/files/documents/44004-doc-EN-_Continental_AI_Strategy_July_2024.pdf
+  document_date: '2024-08-09'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://au.int/en/documents/20240809/continental-artificial-intelligence-strategy
+source_title: Continental Artificial Intelligence Strategy
+source_publisher: African Union
+source_document_date: '2024-07-18'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

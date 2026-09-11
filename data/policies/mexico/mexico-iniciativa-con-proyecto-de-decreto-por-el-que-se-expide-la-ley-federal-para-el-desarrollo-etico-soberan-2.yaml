@@ -1,0 +1,84 @@
+slug: >-
+  mexico-iniciativa-con-proyecto-de-decreto-por-el-que-se-expide-la-ley-federal-para-el-desarrollo-etico-soberan-2
+jurisdiction: mexico
+title: >-
+  Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo Ético, Soberano e Inclusivo
+  de la Inteligencia Artificial (Initiative to enact the Federal Law for the Ethical, Sovereign and Inclusive Development
+  of Artificial…
+short_title: >-
+  Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo Ético, Soberano e Inclusivo
+  de
+instrument_type: bill
+status: proposed
+status_note: >-
+  SIL PDF downloaded (HTTP 200, text confirms title and proponents). Chamber of Deputies hosts (gaceta.diputados.gob.mx,
+  comunicacionsocial.diputados.gob.mx, sitl.diputados.gob.mx) refused connections from this environment, so the
+  Gaceta milestone URL is unverified. A Chamber press bulletin reports the initiative as presented on 22 April 2025;
+  the 30 April date reflects the Gaceta/SIL record. Several other AI bills exist in both chambers (e.g. a Senate
+  initiative of April 2024); none has been enacted.
+is_binding: false
+featured: false
+published: true
+issuing_body: Cámara de Diputados (LXVI Legislatura) – deputies of Morena and PVEM
+summary_plain: >-
+  This initiative, signed by a bloc of Morena and PVEM deputies and published in the Gaceta Parlamentaria on 30
+  April 2025, would create Mexico's first general federal AI law. It proposes principles of legality, transparency,
+  human oversight and precaution, a risk 'traffic light' classification with prohibited uses, a National AI Council
+  and an algorithmic audit platform. It was referred to committee and remains under consideration in Congress.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Cámara de Diputados (LXVI Legislatura) – deputies
+  of Morena and PVEM. Oversight: Bill proposes a National AI Council and a National Algorithmic Audit Platform.
+  Stated purpose: Comprehensive federal AI framework grounded in human rights and technological sovereignty.
+key_dates_summary: '2025-04-30: Initiative published in the Gaceta Parlamentaria and turned to committee'
+adopted_on: '2025-04-30'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo Ético, Soberano e
+    Inclusivo de la Inteligencia Artificial (Initiative to enact the Federal Law for the Ethical, Sovereign and
+    Inclusive Development of Artificial…
+  publisher: Sistema de Información Legislativa, Secretaría de Gobernación
+  url: >-
+    https://sil.gobernacion.gob.mx/Archivos/Documentos/2025/04/asun_4896460_20250430_1747757009.pdf
+  document_date: '2025-04-30'
+  document_type: legislation
+  tier: 1
+- title: Initiative published in the Gaceta Parlamentaria and turned to committee
+  publisher: Sistema de Información Legislativa, Secretaría de Gobernación
+  url: https://gaceta.diputados.gob.mx/PDF/66/2025/abr/20250430-II-1-2.pdf
+  document_date: '2025-04-30'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://sil.gobernacion.gob.mx/Archivos/Documentos/2025/04/asun_4896460_20250430_1747757009.pdf
+source_title: >-
+  Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo Ético, Soberano e Inclusivo
+  de la Inteligencia Artificial (Initiative to enact the Federal Law for the Ethical, Sovereign and Inclusive Development
+  of Artificial…
+source_publisher: Sistema de Información Legislativa, Secretaría de Gobernación
+source_document_date: '2025-04-30'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.
