@@ -170,6 +170,8 @@ class PublicSiteTest extends TestCase
 
         $this->get('/guides/tools/ai-system-inventory-template')->assertOk()->assertSee('Preview: fields in the template')->assertSee('System ID')->assertSee('Create a free account to download')->assertSee(route('tools.gate', 'ai-system-inventory-template'));
         $this->get('/guides/tools/does-not-exist')->assertNotFound();
+        $this->assertSame(0, \App\Models\PageView::where('path', '/guides/tools/does-not-exist')->count(), '404s are not counted');
+        $this->get('/guides/tools/eu-ai-act-readiness-checklist')->assertOk()->assertSee('DOCX');
         $this->get('/guides/tools/ai-system-inventory-template/download')->assertOk()->assertSee('Continue with email')->assertSessionHas('url.intended');
         $this->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1])->assertRedirect(route('login'));
         $this->get('/register')->assertOk()->assertSee('Create free account')->assertSee('name="marketing_consent"', false);
@@ -177,7 +179,10 @@ class PublicSiteTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', [])->assertSessionHasErrors('terms');
         $this->assertSame(0, \App\Models\ResourceDownload::count());
+        \Illuminate\Support\Facades\Mail::fake();
         $response = $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1, 'updates' => 1]);
+        \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\DownloadLinksMail::class, fn ($m) => $m->hasTo($user->email) && str_contains($m->render(), 'Download XLSX'));
+        $this->assertSame(1, \App\Models\PageView::where('path', '/guides/tools/ai-system-inventory-template')->sum('views'), 'tool page view counted once');
         $download = \App\Models\ResourceDownload::first();
         $response->assertRedirect(route('tools.ready', ['ai-system-inventory-template', $download]));
         $this->assertNotNull($user->fresh()->terms_accepted_at);

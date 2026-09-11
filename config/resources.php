@@ -85,7 +85,7 @@ return [
             'related_guides' => ['ai-startup-eu-ai-act-readiness', 'eu-ai-act'],
             'related_policies' => ['eu-ai-act'],
             'next' => 'ai-incident-response-checklist',
-            'files' => [['eu-ai-act-readiness-checklist.md', 'Markdown'], ['eu-ai-act-readiness-checklist.csv', 'CSV'], ['eu-ai-act-readiness-checklist.xlsx', 'XLSX']],
+            'files' => [['eu-ai-act-readiness-checklist.md', 'Markdown'], ['eu-ai-act-readiness-checklist.csv', 'CSV'], ['eu-ai-act-readiness-checklist.xlsx', 'XLSX'], ['eu-ai-act-readiness-checklist.docx', 'DOCX']],
         ],
         'ai-incident-response-checklist' => [
             'title' => 'AI Incident Response Checklist',
@@ -104,7 +104,7 @@ return [
             'related_guides' => ['ai-governance-for-startups'],
             'related_policies' => ['eu-ai-act'],
             'next' => 'ai-governance-30-day-starter-plan',
-            'files' => [['ai-incident-response-checklist.md', 'Markdown'], ['ai-incident-response-checklist.csv', 'CSV'], ['ai-incident-response-checklist.xlsx', 'XLSX']],
+            'files' => [['ai-incident-response-checklist.md', 'Markdown'], ['ai-incident-response-checklist.csv', 'CSV'], ['ai-incident-response-checklist.xlsx', 'XLSX'], ['ai-incident-response-checklist.docx', 'DOCX']],
         ],
         'ai-governance-30-day-starter-plan' => [
             'title' => 'AI Governance 30-Day Starter Plan',
@@ -123,7 +123,7 @@ return [
             'related_guides' => ['ai-governance-for-startups', 'nist-ai-rmf-vs-eu-ai-act'],
             'related_policies' => ['us-nist-ai-rmf'],
             'next' => 'ai-system-inventory-template',
-            'files' => [['ai-governance-30-day-starter-plan.md', 'Markdown'], ['ai-governance-30-day-starter-plan.csv', 'CSV']],
+            'files' => [['ai-governance-30-day-starter-plan.md', 'Markdown'], ['ai-governance-30-day-starter-plan.csv', 'CSV'], ['ai-governance-30-day-starter-plan.docx', 'DOCX']],
         ],
     ],
 ];
