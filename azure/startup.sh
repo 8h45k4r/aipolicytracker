@@ -21,6 +21,14 @@ if [ "${STATUS_COUNT:-0}" = "0" ]; then
     php artisan db:seed --class=AdminSeeder --force
 fi
 
+# Remove fictional sample rows left by pre-1.1 seeders, then load the
+# source-backed dataset if no policies exist yet (idempotent either way).
+php artisan policies:purge-sample
+POLICY_COUNT=$(php artisan tinker --execute='echo \App\Models\AiPolicyTracker::count();' 2>/dev/null | tail -n1 | tr -dc '0-9')
+if [ "${POLICY_COUNT:-0}" = "0" ]; then
+    php artisan db:seed --class=AiPolicyTrackerSeeder --force
+fi
+
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache

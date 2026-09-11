@@ -46,6 +46,12 @@ The core entity: one row per AI policy, strategy, or regulation instrument.
 - **Outbound:** `country_id` → [jurisdictions](jurisdictions.md); `status_id` → `statuses` (this doc).
 - **Inbound:** `news.policy_tracker_id` ([updates.md](updates.md)); `book_marks.ai_policy_tracker_id` ([bookmarks.md](bookmarks.md)); `a_i_policy_activity_logs.ai_policy_tracker_id` (this doc).
 
+## Dataset
+
+`database/data/ai_policies.json` is the source-backed policy dataset: one object per instrument with jurisdiction code, official title, instrument type, status, announcement date, issuing body, own-words summary, **official source URL**, publisher, access date, dated milestones (each with its own official URL), and a confidence level. `AiPolicyTrackerSeeder` loads it idempotently (matched on name + jurisdiction) and creates milestone rows in `news`. `tests/Feature/PolicyDatasetTest.php` enforces https official sources, valid statuses, and no duplicates. Contribute corrections through a *Policy data correction* issue or a pull request that edits the JSON and cites the source.
+
+Status mapping used by the dataset: `launched` = enacted / in force / officially published and operative; `development` = bill or draft under consideration or consultation; `pilot` = sandbox or pilot programme; `whitepaper` = white/discussion/concept paper; `research` = study or task-force stage; `cancelled` = withdrawn or repealed.
+
 ## Routes
 
 Admin: `backend.ai_policy_tracker.index|store|edit|update|delete|search`. Public: `frontend.dashboard`, `frontend.dashboard.filtered`, `frontend.single_ai_policy_tracker.index`, `frontend.time_line.index`.

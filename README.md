@@ -79,7 +79,7 @@ php artisan storage:link
 
 3. Run `php artisan migrate --seed` and `php artisan storage:link`.
 
-The seeder creates countries, statuses, the admin account from `ADMIN_*`, and a small set of **illustrative sample policies**. The sample policies are placeholders, not verified data; replace them with source-backed entries through the admin area.
+The seeder creates countries, statuses, the admin account from `ADMIN_*`, and the **source-backed policy dataset** from `database/data/ai_policies.json` (every entry cites an official source and access date; see `docs/modules/policies.md`). Re-running the seeder updates existing entries in place.
 
 If a database was provisioned from this repository's SQL translation of the migrations (for example with the Supabase SQL editor), the `migrations` table is already populated and `php artisan migrate` will report nothing to do.
 

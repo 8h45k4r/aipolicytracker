@@ -1,0 +1,1922 @@
+[
+  {
+    "country_symbol": "AU-ORG",
+    "country_name": "African Union",
+    "ai_policy_name": "Continental Artificial Intelligence Strategy",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2024-07-18",
+    "governing_body": "African Union Commission (endorsed by the AU Executive Council)",
+    "governance_structure": "AU Commission coordinates; member states implement nationally",
+    "main_motivation": "Africa-centric, development-focused AI adoption aligned with Agenda 2063",
+    "description": "A continental framework that guides AU member states on harnessing AI for development while managing risks. It is organised around five focus areas: capturing AI benefits, building capabilities, minimising risks, stimulating investment, and fostering cooperation. It is non-binding and intended to inform national strategies and regional harmonisation.",
+    "source_url": "https://au.int/en/documents/20240809/continental-artificial-intelligence-strategy",
+    "source_publisher": "African Union",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-06-13",
+        "title": "Adopted by African ICT and Communications Ministers (virtual session, 11-13 June 2024)",
+        "source_url": "https://au.int/en/pressreleases/20240617/african-ministers-adopt-landmark-continental-artificial-intelligence-strategy"
+      },
+      {
+        "date": "2024-08-09",
+        "title": "Strategy document published on AU website (English PDF)",
+        "source_url": "https://au.int/sites/default/files/documents/44004-doc-EN-_Continental_AI_Strategy_July_2024.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Announcement date is the AU Executive Council endorsement at its 45th Ordinary Session in Accra (18-19 July 2024) as stated on the AU document page; the document itself is dated July 2024 and was posted 9 August 2024.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "AR",
+    "country_name": "Argentina",
+    "ai_policy_name": "Disposición 2/2023 – Recomendaciones para una Inteligencia Artificial Fiable (Disposition 2/2023 – Recommendations for Trustworthy Artificial Intelligence)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2023-06-02",
+    "governing_body": "Subsecretaría de Tecnologías de la Información, Jefatura de Gabinete de Ministros",
+    "governance_structure": "Public-sector bodies apply the recommendations to their own AI projects",
+    "main_motivation": "Ethical guidance for AI projects in the national public administration",
+    "description": "Disposición 2/2023 approves a set of recommendations for trustworthy AI addressed to projects designed, developed or adopted by the national public sector, together with a diagram of the stages of an AI project. Aligned with the UNESCO Recommendation on the Ethics of AI, it emphasises human-centred design, transparency, human oversight, non-discrimination, data protection and accountability across the project lifecycle. It is guidance rather than a binding regulatory regime.",
+    "source_url": "https://www.argentina.gob.ar/normativa/nacional/disposición-2-2023-384656/texto",
+    "source_publisher": "Argentina.gob.ar (Jefatura de Gabinete de Ministros)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-06-02",
+        "title": "Published in the Boletín Oficial",
+        "source_url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/287679/20230602"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Signed 1 June 2023, published 2 June 2023. Both official pages fetched successfully.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "AR",
+    "country_name": "Argentina",
+    "ai_policy_name": "Decisión Administrativa 899/2024 – Mesa Interministerial sobre Inteligencia Artificial (Administrative Decision 899/2024 – Interministerial Board on Artificial Intelligence)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2024-09-24",
+    "governing_body": "Jefatura de Gabinete de Ministros",
+    "governance_structure": "Board chaired by the Secretaría de Innovación, Ciencia y Tecnología, co-coordinated with the Secretaría de Asuntos Estratégicos, with ministry members",
+    "main_motivation": "Coordinate national AI policy across ministries",
+    "description": "This administrative decision restructures the Interministerial Board on AI originally created in 2023, placing it under the presidency of the Secretariat of Innovation, Science and Technology and expanding its membership to ministries including Defence, Economy, Foreign Affairs, Health, Security, Human Capital, Justice and State Deregulation. The board is tasked with coordinating the government's approach to AI adoption across economic and social sectors and with developing national strategies. Argentina has not yet adopted a standalone national AI strategy or a binding AI law.",
+    "source_url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/314465/20240924",
+    "source_publisher": "Boletín Oficial de la República Argentina",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-09-24",
+        "title": "Decisión Administrativa 899/2024 published in the Boletín Oficial",
+        "source_url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/314465/20240924"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Signed 20 September 2024, published 24 September 2024. The original 2023 administrative decision creating the board was not separately fetched.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "AU",
+    "country_name": "Australia",
+    "ai_policy_name": "Voluntary AI Safety Standard",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2024-09-05",
+    "governing_body": "National Artificial Intelligence Centre (Department of Industry, Science and Resources)",
+    "governance_structure": "National AI Centre publishes and maintains; adoption by organisations is voluntary",
+    "main_motivation": "Give Australian organisations practical, internationally aligned guardrails for safe AI use",
+    "description": "The Voluntary AI Safety Standard sets out ten voluntary guardrails for organisations across the AI supply chain, covering accountability, risk management, data governance, testing, human oversight, transparency, contestability and record-keeping, and shows through examples how developers and deployers should apply them. Its language is aligned with international AI management standards. In October 2025 the government issued simplified Guidance for AI Adoption with six essential practices, which evolves and supersedes the standard.",
+    "source_url": "https://www.industry.gov.au/publications/voluntary-ai-safety-standard",
+    "source_publisher": "Department of Industry, Science and Resources",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-09-05",
+        "title": "Voluntary AI Safety Standard published",
+        "source_url": "https://www.industry.gov.au/publications/voluntary-ai-safety-standard"
+      },
+      {
+        "date": "2025-10-21",
+        "title": "Guidance for AI Adoption published, evolving the standard",
+        "source_url": "https://www.industry.gov.au/publications/guidance-for-ai-adoption"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Page verified in a browser session (publisher and dates shown on page). The page states the standard has been evolved into the Guidance for AI Adoption (21 October 2025); it remains published but is effectively superseded.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "AU",
+    "country_name": "Australia",
+    "ai_policy_name": "National AI Plan",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-12-02",
+    "governing_body": "Department of Industry, Science and Resources",
+    "governance_structure": "DISR leads whole-of-government delivery; National AI Centre supports industry; new Australian AI Safety Institute",
+    "main_motivation": "Grow an AI-enabled economy while managing harms through existing and targeted regulation",
+    "description": "The National AI Plan is the Australian Government's whole-of-government AI strategy with three goals: capture the opportunity through infrastructure, domestic capability and investment; spread the benefits through adoption, skills and better public services; and keep Australians safe through legal and regulatory frameworks and responsible-practice guidance. It consolidates existing AI funding commitments and signals a sector-by-sector regulatory approach supported by an AI Safety Institute, rather than a standalone AI act.",
+    "source_url": "https://www.industry.gov.au/publications/national-ai-plan",
+    "source_publisher": "Department of Industry, Science and Resources",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-12-02",
+        "title": "National AI Plan launched by ministers",
+        "source_url": "https://www.industry.gov.au/publications/national-ai-plan"
+      },
+      {
+        "date": "2024-09-05",
+        "title": "Preceding consultation on mandatory guardrails for high-risk AI opened (government later chose not to proceed with them)",
+        "source_url": "https://consult.industry.gov.au/ai-mandatory-guardrails"
+      }
+    ],
+    "confidence": "high",
+    "notes": "industry.gov.au could not be reached via curl/WebFetch from this environment but the page was loaded and read in a browser session, confirming title, publisher and 'Date published: 2 December 2025'.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "BH",
+    "country_name": "Bahrain",
+    "ai_policy_name": "General Policy for the Use of Artificial Intelligence",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-07-27",
+    "governing_body": "Information & eGovernment Authority (iGA)",
+    "governance_structure": "iGA under the Ministerial Committee for Information Technology and Communication (MCICT)",
+    "main_motivation": "Ensure safe, ethical and lawful use of AI by government entities in line with Vision 2030",
+    "description": "A binding policy for Bahraini government entities structured around four pillars: compliance with AI-related laws and policies (including the Personal Data Protection Law and the GCC AI ethics guide), use and adoption of AI technologies, awareness and education, and local and international cooperation. It defines roles and responsibilities for entities and assigns oversight to iGA. Alongside the policy, Bahrain adopted the GCC Guiding Manual on the Ethics of AI Use.",
+    "source_url": "https://www.iga.gov.bh/Media/Publications/National%20Digital%20Policies/General%20Policy%20for%20the%20Use%20of%20AI%20-%20%20Final%2030%20Jul%202025.pdf",
+    "source_publisher": "Information & eGovernment Authority, Kingdom of Bahrain",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-05-20",
+        "title": "Policy version 1.0 first release date (per document)",
+        "source_url": "https://www.iga.gov.bh/Media/Publications/National%20Digital%20Policies/General%20Policy%20for%20the%20Use%20of%20AI%20-%20%20Final%2030%20Jul%202025.pdf"
+      },
+      {
+        "date": "2025-07-27",
+        "title": "iGA publicly launches the National Policy for the Use of AI and adopts the GCC AI ethics manual",
+        "source_url": "https://www.iga.gov.bh/en/article/bahrain-launches-national-ai-policy-and-adopts-gcc-ethics-manual"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Document is dated 20 May 2025 (v1.0) while the iGA announcement is dated 27 July 2025; the announcement date is used. A separate standalone AI regulation bill (38 articles) was approved by the Shura Council in April 2024 and returned by the government for reconsideration, but no official Shura/parliament page could be verified, so it is omitted. A national AI strategy is reported to be in development (iGA) but no official document was found.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "BD",
+    "country_name": "Bangladesh",
+    "ai_policy_name": "National Artificial Intelligence Policy 2026-2030 (Draft V2.0)",
+    "gov_ai_index": "policy",
+    "status": "development",
+    "announcement_date": "2026-02-09",
+    "governing_body": "ICT Division, Ministry of Posts, Telecommunications and Information Technology",
+    "governance_structure": "ICT Division AI Policy Committee; proposed national AI coordination body",
+    "main_motivation": "Create a risk-based, rights-respecting framework for AI adoption after an earlier 2024 draft stalled",
+    "description": "A revised draft national AI policy published by the ICT Division for public review. It proposes a risk-based approach to AI regulation with prohibitions on certain uses, impact assessments for high-risk systems, and institutional arrangements for coordination and capacity building. Public consultation on the draft closed in February 2026 and the committee is reviewing submissions before finalisation.",
+    "source_url": "https://aipolicy.gov.bd/docs/national-ai-policy-bangladesh-2026-2030-draft-v2.0.pdf",
+    "source_publisher": "ICT Division, Government of Bangladesh",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2026-01-25",
+        "title": "Draft V1.1 released for public consultation",
+        "source_url": "https://aipolicy.gov.bd/"
+      },
+      {
+        "date": "2026-02-09",
+        "title": "Draft V2.0 published; consultation closed 8 February 2026",
+        "source_url": "https://aipolicy.gov.bd/"
+      }
+    ],
+    "confidence": "high",
+    "notes": "An earlier draft National AI Policy 2024 (April 2024) existed on the ICT Division portal but that URL now returns 404, so it is not recorded. Final adoption not yet confirmed as of access date.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "BT",
+    "country_name": "Bhutan",
+    "ai_policy_name": "Bhutan National AI Strategy 2025 (NAIS 2025)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-10-01",
+    "governing_body": "GovTech Agency, Royal Government of Bhutan",
+    "governance_structure": "GovTech Agency with annual action-plan reviews and a five-year strategy review",
+    "main_motivation": "Apply AI to national development in line with Gross National Happiness values",
+    "description": "A national strategy framed around the vision of AI rooted in Gross National Happiness. It identifies eight focus areas (agriculture and livestock, tourism, green energy, education, health, public service delivery, natural resources and biodiversity, and culture and language) and seven enablers such as infrastructure, governance and regulation, cybersecurity, skills, research, collaboration and funding. It aims to raise Bhutan's AI maturity by the end of the 13th Five Year Plan and includes monitoring, evaluation and risk-mitigation provisions.",
+    "source_url": "https://tech.gov.bt/wp-content/uploads/2025/10/National-AI-Strategy-2025.pdf",
+    "source_publisher": "GovTech Agency, Royal Government of Bhutan",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-10-01",
+        "title": "NAIS 2025 published in GovTech Agency's official publications list",
+        "source_url": "https://tech.gov.bt/publications/"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "Month-level date: PDF metadata shows creation on 10 October 2025 and it was uploaded to tech.gov.bt in October 2025. Formal approval by the GovTech Commission/Cabinet could not be confirmed from an official source; as of July 2025 it was reported as a draft pending submission.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "BR",
+    "country_name": "Brazil",
+    "ai_policy_name": "Projeto de Lei nº 2338/2023 – Dispõe sobre o uso da Inteligência Artificial (Bill No. 2338/2023 – On the use of Artificial Intelligence)",
+    "gov_ai_index": "policy",
+    "status": "development",
+    "announcement_date": "2023-05-03",
+    "governing_body": "Senado Federal (author: Senator Rodrigo Pacheco); now before the Câmara dos Deputados",
+    "governance_structure": "Bill proposes a national AI governance system led by a competent authority (SIA); currently under review by a Chamber of Deputies special committee",
+    "main_motivation": "Create a comprehensive, risk-based legal framework for AI in Brazil",
+    "description": "PL 2338/2023 is Brazil's flagship AI bill, introduced in the Senate in May 2023 and approved by the Senate plenary on 10 December 2024 after extensive amendment. It classifies AI systems by risk, bans certain uses, sets obligations for developers and deployers of high-risk systems, and provides for rights of affected persons and a national governance system. The Senate transmitted the text to the Chamber of Deputies on 17 March 2025, where a special committee is examining it.",
+    "source_url": "https://www25.senado.leg.br/web/atividade/materias/-/materia/157233",
+    "source_publisher": "Senado Federal",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-12-10",
+        "title": "Approved by the Senate plenary",
+        "source_url": "https://www25.senado.leg.br/web/atividade/materias/-/materia/157233"
+      },
+      {
+        "date": "2025-03-17",
+        "title": "Sent to the Chamber of Deputies for review; special committee subsequently created",
+        "source_url": "https://www2.camara.leg.br/atividade-legislativa/comissoes/comissoes-temporarias/especiais/57a-legislatura/comissao-especial-sobre-inteligencia-artificial-pl-2338-23"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Senate page confirms presentation 03/05/2023, plenary approval 10/12/2024 and remittance to the Chamber 17/03/2025. Chamber special committee page loads (HTTP 200) and shows ongoing hearings through late 2025; exact committee installation date not captured.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "BR",
+    "country_name": "Brazil",
+    "ai_policy_name": "Plano Brasileiro de Inteligência Artificial 2024-2028 – PBIA (Brazilian Artificial Intelligence Plan 2024-2028)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2024-07-30",
+    "governing_body": "Ministério da Ciência, Tecnologia e Inovação (MCTI) with the Conselho Nacional de Ciência e Tecnologia (CCT)",
+    "governance_structure": "MCTI coordinates implementation; plan proposal approved by the CCT",
+    "main_motivation": "Build sovereign AI capacity and public-interest AI applications",
+    "description": "The PBIA is a four-year national plan that commits around R$23 billion to AI infrastructure, skills, public-sector applications, business innovation and governance. Headline measures include acquiring a top-tier supercomputer powered by renewable energy, developing Portuguese-language models, and short-term actions in health, education, agriculture and public services. The proposal was presented at the 5th National Conference on Science, Technology and Innovation and formally approved by the CCT through Resolução CCT nº 4/2024, with a final version later published under MCTI coordination.",
+    "source_url": "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/transformacaodigital/plano-brasileiro-de-inteligencia-artificial",
+    "source_publisher": "Ministério da Ciência, Tecnologia e Inovação (gov.br)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-07-30",
+        "title": "PBIA proposal presented at the 5th National CT&I Conference",
+        "source_url": "https://www.gov.br/gestao/pt-br/assuntos/noticias/2024/julho/novo-plano-brasileiro-de-inteligencia-artificial-preve-o-investimento-de-r-1-76-bi-para-melhoria-de-servicos-publicos"
+      },
+      {
+        "date": "2024-11-12",
+        "title": "Resolução CCT nº 4/2024 approving the PBIA proposal published in the DOU",
+        "source_url": "https://antigo.mctic.gov.br/mctic/opencms/legislacao/outros_atos/resolucoes/Resolucao_CCT_n_4_de_08112024.html"
+      }
+    ],
+    "confidence": "high",
+    "notes": "The MCTI landing page confirms launch at the 5th CNCTI without printing the day; the 30 July 2024 date is drawn from gov.br news search snippets (MGI/MCTI) and the CCT resolution records its plenary of 29 July 2024. MGI news page and CCT resolution page both return HTTP 200 (MGI page content not text-parsed). Full plan PDF at gov.br returns HTTP 200. Some MCTI news pages served a 'Conteúdo Restrito' placeholder to automated fetches.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CA",
+    "country_name": "Canada",
+    "ai_policy_name": "Pan-Canadian Artificial Intelligence Strategy",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2017-03-22",
+    "governing_body": "Innovation, Science and Economic Development Canada",
+    "governance_structure": "ISED oversees; CIFAR delivers research and talent pillars with Amii, Mila and the Vector Institute",
+    "main_motivation": "Build Canadian AI research capacity, talent and commercialisation",
+    "description": "The Pan-Canadian AI Strategy is Canada's national AI strategy, first funded in Budget 2017 with $125 million and delivered largely through CIFAR and three national AI institutes. A second phase from 2021 added funding for commercialisation, standards and computing capacity, with further support in the 2024 Fall Economic Statement. It focuses on attracting and retaining researchers, translating research into industry adoption and promoting responsible AI.",
+    "source_url": "https://ised-isde.canada.ca/site/ai-strategy/en",
+    "source_publisher": "Innovation, Science and Economic Development Canada",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2017-03-22",
+        "title": "Strategy funded in Budget 2017 (Phase I, $125 million)",
+        "source_url": "https://ised-isde.canada.ca/site/ai-strategy/en"
+      },
+      {
+        "date": "2021-04-19",
+        "title": "Phase II announced in Budget 2021 ($443.8 million)",
+        "source_url": "https://ised-isde.canada.ca/site/ai-strategy/en"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "The ISED page gives launch year 2017 and Budget 2017/2021 funding but not exact dates; 2017-03-22 and 2021-04-19 are the federal budget dates and were not shown on the page itself.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CA",
+    "country_name": "Canada",
+    "ai_policy_name": "Artificial Intelligence and Data Act (Part 3 of Bill C-27, Digital Charter Implementation Act, 2022)",
+    "gov_ai_index": "policy",
+    "status": "cancelled",
+    "announcement_date": "2022-06-16",
+    "governing_body": "Parliament of Canada (sponsored by the Minister of Innovation, Science and Industry)",
+    "governance_structure": "Proposed AI and Data Commissioner within Innovation, Science and Economic Development Canada",
+    "main_motivation": "Regulate high-impact AI systems to prevent harm and biased output in the private sector",
+    "description": "The Artificial Intelligence and Data Act (AIDA) was proposed as Part 3 of Bill C-27 and would have required organisations designing, developing or deploying high-impact AI systems to assess and mitigate risks of harm and bias, keep records and publish information, with enforcement by an AI and Data Commissioner and penalties for serious offences. The bill passed second reading in the House of Commons in April 2023 and was studied in committee through 2024 but never advanced to report stage. It lapsed when the 44th Parliament ended in early 2025 without the bill being passed.",
+    "source_url": "https://www.parl.ca/legisinfo/en/bill/44-1/c-27",
+    "source_publisher": "Parliament of Canada (LEGISinfo)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2022-06-16",
+        "title": "Bill C-27 introduced at first reading in the House of Commons",
+        "source_url": "https://www.parl.ca/legisinfo/en/bill/44-1/c-27"
+      },
+      {
+        "date": "2023-04-24",
+        "title": "Second reading passed; referred to the Standing Committee on Industry and Technology",
+        "source_url": "https://www.parl.ca/legisinfo/en/bill/44-1/c-27"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "LEGISinfo still displays 'At consideration in committee' as the last recorded stage and does not itself state that the bill died. The 'cancelled' status reflects that the 44th Parliament was prorogued in January 2025 and dissolved in March 2025, which terminates unpassed bills; this was not confirmed on the fetched page.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CA",
+    "country_name": "Canada",
+    "ai_policy_name": "Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI Systems",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2023-09-27",
+    "governing_body": "Innovation, Science and Economic Development Canada",
+    "governance_structure": "ISED administers; signatory companies self-implement the commitments",
+    "main_motivation": "Interim voluntary safeguards for generative AI developers pending binding legislation",
+    "description": "This voluntary code asks Canadian developers and managers of advanced generative AI systems to commit to measures under six principles: accountability, safety, fairness and equity, transparency, human oversight and monitoring, and validity and robustness. Obligations are scaled according to whether a system is made available for general public use. It was introduced as a bridge while the Artificial Intelligence and Data Act was before Parliament, and lists around fifty signatory organisations.",
+    "source_url": "https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems",
+    "source_publisher": "Innovation, Science and Economic Development Canada",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-09-27",
+        "title": "Code published with initial signatories",
+        "source_url": "https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "The fetched page shows 'September 2023' without a day; 27 September 2023 is the widely reported launch date but was not confirmed on the page.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CL",
+    "country_name": "Chile",
+    "ai_policy_name": "Política Nacional de Inteligencia Artificial – Actualización 2024 y Plan de Acción (National Artificial Intelligence Policy – 2024 Update and Action Plan)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2024-05-02",
+    "governing_body": "Ministerio de Ciencia, Tecnología, Conocimiento e Innovación (MinCiencia)",
+    "governance_structure": "MinCiencia leads; interministerial coordination with semi-annual monitoring of the action plan",
+    "main_motivation": "Steer ethical, inclusive AI development and prepare the ground for regulation",
+    "description": "Chile updated its 2021 National AI Policy in 2024, keeping the ten-year horizon to 2031 but reorienting it around ethics, governance and inclusion after a participatory process across the country's regions. The accompanying action plan lists 177 initiatives coordinated by 14 ministries under axes covering enabling factors, development and adoption, and governance and ethics, with periodic progress reporting. The update was presented on 2 May 2024 together with the announcement of a government bill to regulate AI systems.",
+    "source_url": "https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/",
+    "source_publisher": "Ministerio de Ciencia, Tecnología, Conocimiento e Innovación",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-05-02",
+        "title": "Updated National AI Policy and Action Plan presented",
+        "source_url": "https://www.minrel.gob.cl/sala-de-prensa/canciller-asistio-a-la-presentacion-de-la-actualizacion-de-la-politica"
+      },
+      {
+        "date": "2025-04-01",
+        "title": "Action plan progress report: 78% of 177 initiatives implemented or completed (as of April 2025)",
+        "source_url": "https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/politica-Nacional-Inteligencia-Artificial-Plan-Accion/"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Second milestone date uses the first of the month because the ministry page states only 'April 2025'. The updated policy PDF on minciencia.gob.cl loads but was not text-parsed; a decree formalising the update is reported by third parties but was not verified on an official page.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CL",
+    "country_name": "Chile",
+    "ai_policy_name": "Proyecto de ley que regula los sistemas de inteligencia artificial, Boletín 16821-19 (Bill regulating artificial intelligence systems, Bulletin 16821-19)",
+    "gov_ai_index": "policy",
+    "status": "development",
+    "announcement_date": "2024-05-07",
+    "governing_body": "Presidencia de la República (Mensaje) / Congreso Nacional (Cámara de Diputadas y Diputados; Senado)",
+    "governance_structure": "Bill assigns oversight to MinCiencia with a Technical Advisory Council on AI and sanctioning powers for supervisory agencies",
+    "main_motivation": "Risk-based regulation of AI uses to protect fundamental rights",
+    "description": "Introduced by presidential message in May 2024 and merged with an earlier parliamentary motion (Boletín 15869-19), the bill classifies AI system uses into unacceptable, high, limited and no-evident-risk categories, prohibits certain practices, and sets obligations, incident reporting and sanctions. It creates a Technical Advisory Council on AI to advise MinCiencia and proposes periodic review of the law. The Chamber of Deputies approved the text in October 2025 and it is now in second constitutional stage before the Senate's Future Challenges, Science, Technology and Innovation Committee.",
+    "source_url": "https://www.senado.cl/comunicaciones/noticias/proyecto-que-regula-sistemas-de-inteligencia-artificial-sera-estudiado-por",
+    "source_publisher": "Senado de la República de Chile",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-05-07",
+        "title": "Bill entered the Chamber of Deputies by presidential message",
+        "source_url": "https://www.camara.cl/legislacion/proyectosdeley/tramitacion.aspx?prmID=17429&prmBOLETIN=16821-19"
+      },
+      {
+        "date": "2025-10-24",
+        "title": "Senate assigns bill (second constitutional stage) to the Future Challenges Committee",
+        "source_url": "https://www.senado.cl/comunicaciones/noticias/proyecto-que-regula-sistemas-de-inteligencia-artificial-sera-estudiado-por"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "The camara.cl tramitación page (primary record) returned HTTP 403 to automated fetches, so the ingreso date of 7 May 2024 and the Chamber approval (reported as 13 October 2025) rest on search snippets rather than a fetched official page. The Senate news page (fetched, HTTP 200) confirms second-stage status and committee assignment as of 24 October 2025.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CN",
+    "country_name": "China",
+    "ai_policy_name": "Interim Measures for the Management of Generative Artificial Intelligence Services",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2023-07-13",
+    "governing_body": "Cyberspace Administration of China with NDRC, Ministry of Education, MOST, MIIT, Ministry of Public Security and NRTA",
+    "governance_structure": "Cyberspace Administration of China leads; sectoral ministries supervise within their remits",
+    "main_motivation": "Regulate public-facing generative AI to control content risks while supporting industry development",
+    "description": "These measures govern generative AI services offered to the public in China, whether producing text, images, audio or video. Providers must use lawfully sourced training data, take steps against discrimination, protect personal information, label generated content, handle user complaints and ensure outputs comply with content rules. Services with public-opinion or social-mobilisation capacity must complete security assessments and algorithm filing. The measures took effect on 15 August 2023.",
+    "source_url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+    "source_publisher": "Cyberspace Administration of China",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-07-13",
+        "title": "Measures published (Order No. 15, dated 10 July 2023)",
+        "source_url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm"
+      },
+      {
+        "date": "2023-08-15",
+        "title": "Measures enter into force",
+        "source_url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Document is dated 10 July 2023 and was published on the CAC site on 13 July 2023; the publication date is used as the announcement date.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CN",
+    "country_name": "China",
+    "ai_policy_name": "Measures for Labeling Artificial Intelligence-Generated and Synthetic Content",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-03-14",
+    "governing_body": "Cyberspace Administration of China with MIIT, Ministry of Public Security and NRTA",
+    "governance_structure": "Cyberspace Administration of China coordinates; enforced through algorithm filing and security assessment processes",
+    "main_motivation": "Make AI-generated content identifiable to counter misinformation and misuse",
+    "description": "These measures require providers of AI generation and synthesis services to attach explicit labels (visible text, audio or graphic notices) and implicit labels (embedded metadata) to generated text, images, audio, video and virtual scenes. Platforms distributing content must check for and preserve labels, users must declare AI-generated material, and removing or forging labels is prohibited. Compliance is checked during algorithm filing and security assessments. The measures took effect on 1 September 2025.",
+    "source_url": "https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm",
+    "source_publisher": "Cyberspace Administration of China",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-03-14",
+        "title": "Measures published",
+        "source_url": "https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm"
+      },
+      {
+        "date": "2025-09-01",
+        "title": "Measures enter into force",
+        "source_url": "https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CN",
+    "country_name": "China",
+    "ai_policy_name": "Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-08-26",
+    "governing_body": "State Council of the People's Republic of China",
+    "governance_structure": "State Council; implemented by NDRC and line ministries with local governments",
+    "main_motivation": "Diffuse AI across the economy, public services and governance to drive growth",
+    "description": "This State Council policy document (Guofa [2025] No. 11) sets national targets for AI adoption: broad integration in six priority areas and over 70 percent penetration of intelligent terminals and agents by 2027, over 90 percent by 2030, and a fully intelligent economy and society by 2035. It directs actions in science and technology, industry, consumption, public welfare, governance and international cooperation, backed by measures on models, data, computing infrastructure, talent, law and safety. It succeeds the 2017 New Generation AI Development Plan as the current headline national AI strategy.",
+    "source_url": "https://www.gov.cn/zhengce/content/202508/content_7037861.htm",
+    "source_publisher": "Central People's Government of the PRC (gov.cn)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-08-26",
+        "title": "Opinions issued by the State Council (document dated 21 August 2025)",
+        "source_url": "https://www.gov.cn/zhengce/content/202508/content_7037861.htm"
+      },
+      {
+        "date": "2017-07-20",
+        "title": "Predecessor New Generation AI Development Plan (Guofa [2017] No. 35) issued",
+        "source_url": "https://www.gov.cn/zhengce/content/2017-07/20/content_5211996.htm"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Document dated 21 August 2025, published 26 August 2025; publication date used.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "CO",
+    "country_name": "Colombia",
+    "ai_policy_name": "Documento CONPES 4144 – Política Nacional de Inteligencia Artificial (CONPES Document 4144 – National Artificial Intelligence Policy)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-02-14",
+    "governing_body": "Consejo Nacional de Política Económica y Social (CONPES) / Departamento Nacional de Planeación (DNP)",
+    "governance_structure": "DNP steers the policy; MinTIC and Minciencias lead technical implementation with other ministries",
+    "main_motivation": "Promote ethical, sustainable AI adoption and close capability gaps to 2030",
+    "description": "CONPES 4144, approved on 14 February 2025, is Colombia's national AI policy and roadmap through 2030. It sets objectives on governance and ethics, data and infrastructure, research and talent, and adoption across the public and private sectors, backed by an action plan of more than 100 actions with assigned entities and an indicative budget. The DNP, MinTIC, Minciencias and several line ministries share responsibility for its execution and monitoring.",
+    "source_url": "https://normograma.mintic.gov.co/mintic/compilacion/docs/CONPES_DNP_4144_2025.htm",
+    "source_publisher": "Ministerio de Tecnologías de la Información y las Comunicaciones (normograma) – DNP document",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-02-14",
+        "title": "CONPES 4144 approved by the National Council for Economic and Social Policy",
+        "source_url": "https://normograma.mintic.gov.co/mintic/compilacion/docs/CONPES_DNP_4144_2025.htm"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "The primary DNP host (colaboracion.dnp.gov.co PDF and sisconpes.dnp.gov.co) timed out on every fetch attempt from this environment, so the recorded source is MinTIC's official legal compilation of the same document (HTTP 200). The DNP PDF URL is https://colaboracion.dnp.gov.co/CDT/Conpes/Económicos/4144.pdf. Reported figures of 100+ actions and about COP 479 billion come from DNP-affiliated summaries via search, not a fetched page.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "EG",
+    "country_name": "Egypt",
+    "ai_policy_name": "Egypt National Artificial Intelligence Strategy",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2021-07-01",
+    "governing_body": "National Council for Artificial Intelligence, Ministry of Communications and Information Technology",
+    "governance_structure": "NCAI coordinates implementation across ministries",
+    "main_motivation": "Leverage AI for sustainable development and regional leadership",
+    "description": "Egypt's first national AI strategy framed AI as a tool for the country's sustainable development goals and for positioning Egypt as an active contributor to AI in Africa and the Arab region. It covered AI for government, development, capacity building and international activities. It has been superseded by the 2025-2030 second edition.",
+    "source_url": "https://mcit.gov.eg/en/Publication/Publication_Summary/9283",
+    "source_publisher": "Ministry of Communications and Information Technology, Egypt",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2021-07-01",
+        "title": "Strategy published by MCIT (July 2021)",
+        "source_url": "https://mcit.gov.eg/Upcont/Documents/Publications_672021000_Egypt-National-AI-Strategy-English.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "MCIT gives the publication month as July 2021 only; first of month used. NCAI was established in 2019.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "EG",
+    "country_name": "Egypt",
+    "ai_policy_name": "National AI Strategy - Second Edition 2025-2030",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-01-01",
+    "governing_body": "National Council for Artificial Intelligence (NCAI), Ministry of Communications and Information Technology",
+    "governance_structure": "NCAI (chaired by the ICT Minister) oversees implementation across ministries",
+    "main_motivation": "Move from AI adoption to large-scale, sovereign AI capability supporting Digital Egypt",
+    "description": "The second edition updates Egypt's 2021 strategy for 2025-2030 around six pillars: governance, data, infrastructure, technology, talent and ecosystem. It sets targets for AI specialists, startups and ICT's contribution to GDP, and includes plans for national foundational models and expanded regional and international cooperation.",
+    "source_url": "https://mcit.gov.eg/en/Publication/Publication_Summary/10550",
+    "source_publisher": "Ministry of Communications and Information Technology, Egypt",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-01-01",
+        "title": "Second edition published by MCIT (January 2025)",
+        "source_url": "https://mcit.gov.eg/Upcont/Documents/Publications_2212025000_National_AI_Strategy_Second_Edition_2025_2030.pdf"
+      },
+      {
+        "date": "2026-01-01",
+        "title": "NCAI mandate expanded to AI, Quantum Computing and Emerging Technologies (January 2026)",
+        "source_url": "https://mcit.gov.eg/en/Artificial_Intelligence"
+      }
+    ],
+    "confidence": "high",
+    "notes": "MCIT lists the publication month as January 2025 only, so the first of the month is used; media reported a presidential launch on 22 January 2025. Milestone 2 date is also month-only.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "EU",
+    "country_name": "European Union",
+    "ai_policy_name": "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2024-06-13",
+    "governing_body": "European Parliament and Council of the European Union",
+    "governance_structure": "AI Office within the European Commission (general-purpose AI models); national market surveillance authorities; European Artificial Intelligence Board",
+    "main_motivation": "Risk-based product safety rules for AI to protect fundamental rights while enabling a single market for trustworthy AI",
+    "description": "The AI Act is a binding EU regulation that sorts AI systems into risk tiers: a short list of prohibited practices, a set of high-risk uses subject to conformity, documentation, data-governance and human-oversight duties, transparency duties for limited-risk systems, and no specific rules for the rest. It adds a separate obligations regime for general-purpose AI models, overseen centrally by the Commission's AI Office. Application is staggered over several years after entry into force on 1 August 2024, with prohibitions applying from February 2025 and general-purpose model duties from August 2025.",
+    "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+    "source_publisher": "Publications Office of the European Union (EUR-Lex)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2021-04-21",
+        "title": "Commission proposal COM(2021) 206 published",
+        "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:52021PC0206"
+      },
+      {
+        "date": "2024-07-12",
+        "title": "Published in the Official Journal; entered into force 1 August 2024",
+        "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+      },
+      {
+        "date": "2025-08-02",
+        "title": "Obligations for general-purpose AI models begin to apply",
+        "source_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Announcement date is the date of adoption shown in the title (13 June 2024); OJ publication was 12 July 2024. The Commission's policy page (accessed 2026-09-11) states the act has since been amended ('post-omnibus') and that high-risk obligations now apply from 2 December 2027 (Annex III) and 2 August 2028 (product-embedded); EUR-Lex shows a consolidated version dated 27 July 2026. Those amended dates were not independently verified against the amending act.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "EU",
+    "country_name": "European Union",
+    "ai_policy_name": "Apply AI Strategy",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-10-08",
+    "governing_body": "European Commission (DG CONNECT)",
+    "governance_structure": "European Commission, coordinated through the Apply AI Alliance stakeholder forum",
+    "main_motivation": "Accelerate AI adoption in EU industry and the public sector to boost competitiveness and technological sovereignty",
+    "description": "The Apply AI Strategy is a Commission communication that sets out how the EU intends to speed up use of AI across ten strategic sectors (such as healthcare, manufacturing, energy, mobility and defence) and in public administration. It combines sectoral flagship initiatives with cross-cutting support such as AI Factories, testing facilities and skills measures, and creates an Apply AI Alliance to coordinate industry, academia and public bodies. It sits within the broader AI Continent Action Plan and was presented together with a companion AI in Science strategy.",
+    "source_url": "https://digital-strategy.ec.europa.eu/en/policies/apply-ai",
+    "source_publisher": "European Commission, Shaping Europe's digital future",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-10-08",
+        "title": "Commission presents the Apply AI Strategy and AI in Science Strategy",
+        "source_url": "https://digital-strategy.ec.europa.eu/en/news/commission-launches-two-strategies-speed-ai-uptake-european-industry-and-science"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "GH",
+    "country_name": "Ghana",
+    "ai_policy_name": "Ghana National Artificial Intelligence Strategy (2025-2035)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2026-04-24",
+    "governing_body": "Ministry of Communication, Digital Technology and Innovations",
+    "governance_structure": "Ministry leads with NITA, Data Protection Commission and Cyber Security Authority; strategy recommends a Responsible AI Authority",
+    "main_motivation": "Make AI a driver of inclusive growth and position Ghana as a regional AI hub",
+    "description": "A ten-year national roadmap launched by President Mahama that treats data as a national asset and sets out pillars covering education and skills, infrastructure and compute, data governance, ecosystem development, sector adoption, applied research and public-sector AI. It proposes a National AI Fund and performance indicators for ministries, and emphasises localisation of AI for Ghanaian languages.",
+    "source_url": "https://moc.gov.gh/2026/04/24/ghana-launches-national-ai-strategy-to-drive-digital-transformation-and-economic-growth/",
+    "source_publisher": "Ministry of Communication, Digital Technology and Innovations, Ghana",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-05-02",
+        "title": "Minister announces development of National AI Strategy and stakeholder consultation",
+        "source_url": "https://moc.gov.gh/2025/05/02/ghana-to-develop-national-ai-strategy-initiative-amid-digital-transformation-push/"
+      },
+      {
+        "date": "2026-04-24",
+        "title": "Official launch in Accra; Minister's opening remarks published",
+        "source_url": "https://moc.gov.gh/wp-content/uploads/2023/03/Opening-Remarks_Hon-Minister_Launch-of-National-AI-Strategy_Final.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "I could not locate the full strategy PDF on an official Ghana government site; the launch article and the Minister's remarks are the official records. Third-party sources give a document date of 12 December 2025, unverified officially.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "IN",
+    "country_name": "India",
+    "ai_policy_name": "National Strategy for Artificial Intelligence (#AIforAll)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2018-06-01",
+    "governing_body": "NITI Aayog",
+    "governance_structure": "NITI Aayog (policy think tank of the Government of India)",
+    "main_motivation": "Position India as an AI leader while using AI for inclusive social and economic growth",
+    "description": "A discussion paper that set out India's first national approach to artificial intelligence. It prioritises five sectors (healthcare, agriculture, education, smart cities and infrastructure, and smart mobility) and proposes research institutions, data ecosystems and skilling measures to support adoption. It also flags privacy, fairness and explainability as issues needing attention and recommends institutional structures for responsible AI.",
+    "source_url": "https://www.niti.gov.in/sites/default/files/2023-03/National-Strategy-for-Artificial-Intelligence.pdf",
+    "source_publisher": "NITI Aayog",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2018-06-01",
+        "title": "NITI Aayog publishes the National Strategy for AI discussion paper (June 2018)",
+        "source_url": "https://www.niti.gov.in/sites/default/files/2023-03/National-Strategy-for-Artificial-Intelligence.pdf"
+      },
+      {
+        "date": "2024-03-07",
+        "title": "Union Cabinet approves the IndiaAI Mission, operationalising national AI investment",
+        "source_url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2012355"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Published June 2018; exact day not stated in the document, so first of month is used. Non-binding strategy document.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "IN",
+    "country_name": "India",
+    "ai_policy_name": "IndiaAI Mission",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2024-03-07",
+    "governing_body": "Ministry of Electronics and Information Technology (Union Cabinet approval)",
+    "governance_structure": "IndiaAI Independent Business Division under Digital India Corporation, MeitY",
+    "main_motivation": "Build sovereign AI compute, data and model capacity and fund the domestic AI ecosystem",
+    "description": "A five-year national programme approved by the Union Cabinet with an outlay of about INR 10,372 crore. It funds shared public AI compute (10,000+ GPUs), an innovation centre for indigenous foundation models, a datasets platform, application development for public problems, skilling programmes, startup financing and work on safe and trusted AI. Implementation is handled by the IndiaAI division of Digital India Corporation.",
+    "source_url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2012355",
+    "source_publisher": "Press Information Bureau, Government of India (Cabinet decision)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-03-07",
+        "title": "Cabinet approves IndiaAI Mission with INR 10,371.92 crore outlay",
+        "source_url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2012355"
+      },
+      {
+        "date": "2025-11-05",
+        "title": "MeitY releases India AI Governance Guidelines under the IndiaAI Mission",
+        "source_url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2186639"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "IN",
+    "country_name": "India",
+    "ai_policy_name": "India AI Governance Guidelines",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-11-05",
+    "governing_body": "Ministry of Electronics and Information Technology",
+    "governance_structure": "MeitY with a proposed AI Governance Group, Technology and Policy Expert Committee and AI Safety Institute",
+    "main_motivation": "Enable safe and responsible AI adoption through a light-touch, sector-led approach rather than a standalone AI law",
+    "description": "Sector-agnostic guidance released by MeitY that sets out core principles, recommendations and an action plan for governing AI in India. It favours using existing laws and sectoral regulators, supported by new coordinating institutions, instead of a single new AI statute. The guidelines also cover risk mitigation, accountability, transparency and capacity building for industry and regulators.",
+    "source_url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc2025115685601.pdf",
+    "source_publisher": "Ministry of Electronics and Information Technology (via Press Information Bureau)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-11-05",
+        "title": "MeitY unveils India AI Governance Guidelines",
+        "source_url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2186639"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Guidance document, not binding legislation. The March 2024 MeitY advisories on AI models could not be located on an official URL and were therefore not recorded.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "ID",
+    "country_name": "Indonesia",
+    "ai_policy_name": "Strategi Nasional Kecerdasan Artifisial Indonesia 2020-2045 (National Strategy for Artificial Intelligence)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2020-08-10",
+    "governing_body": "Agency for the Assessment and Application of Technology (BPPT), now part of BRIN",
+    "governance_structure": "BPPT-led working group (now BRIN) with ministries, universities and industry",
+    "main_motivation": "Direct AI development toward Indonesia's 2045 development goals across priority sectors",
+    "description": "Indonesia's long-range national AI strategy, prepared by a BPPT-led multi-stakeholder working group. It covers ethics and policy, talent, infrastructure and data, research and industry innovation, and names five priority areas: health, bureaucratic reform, education and research, food security, and mobility and smart cities. It includes quick wins and a phased implementation roadmap through 2045.",
+    "source_url": "https://karya.brin.go.id/id/eprint/13918/",
+    "source_publisher": "National Research and Innovation Agency (BRIN) repository / BPPT Press",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2020-08-10",
+        "title": "Stranas KA launched on National Technology Awakening Day (Hakteknas)",
+        "source_url": "https://karya.brin.go.id/id/eprint/13918/"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "The 10 August 2020 launch date is drawn from contemporaneous reports; the BRIN repository record confirms 2020 publication by BPPT Press but not the day. Non-binding strategy.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "ID",
+    "country_name": "Indonesia",
+    "ai_policy_name": "Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial (Circular Letter No. 9 of 2023 on AI Ethics)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2023-12-19",
+    "governing_body": "Ministry of Communication and Informatics (now Ministry of Communication and Digital)",
+    "governance_structure": "Ministry of Communication and Digital (Komdigi)",
+    "main_motivation": "Set ethical expectations for AI developers and electronic system operators pending binding regulation",
+    "description": "A ministerial circular that lays out ethical values for developing and using AI, such as inclusivity, humanity, security, accessibility, transparency, accountability, personal data protection, sustainability and respect for intellectual property. It applies to AI-related businesses and to public and private electronic system operators in Indonesia. It is soft-law guidance intended as a basis for future regulation.",
+    "source_url": "https://jdih.komdigi.go.id/produk_hukum/view/id/883/t/surat+edaran+menteri+komunikasi+dan+informatika+nomor+9+tahun+2023",
+    "source_publisher": "JDIH Kementerian Komunikasi dan Digital",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-12-19",
+        "title": "Circular Letter No. 9/2023 on AI Ethics signed by the Minister",
+        "source_url": "https://jdih.komdigi.go.id/produk_hukum/view/id/883/t/surat+edaran+menteri+komunikasi+dan+informatika+nomor+9+tahun+2023"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "ID",
+    "country_name": "Indonesia",
+    "ai_policy_name": "Rancangan Peraturan Presiden tentang Peta Jalan Kecerdasan Artifisial Nasional 2026-2029 (Draft Presidential Regulation on the National AI Roadmap)",
+    "gov_ai_index": "strategy",
+    "status": "development",
+    "announcement_date": "2026-02-11",
+    "governing_body": "Ministry of Communication and Digital (Komdigi)",
+    "governance_structure": "Komdigi as lead sector coordinating an inter-ministerial committee",
+    "main_motivation": "Give Indonesia's AI roadmap and ethics rules legal force through presidential regulations",
+    "description": "A draft presidential regulation, prepared under Presidential Decree No. 38 of 2025, that would establish a binding national AI roadmap for 2026-2029 alongside a companion draft regulation on AI ethics. Inter-ministerial discussion agreed four policy directions: stakeholder engagement, innovation, technology and research capability, and risk mitigation. Cross-ministry deliberations concluded in May 2026 and both drafts were submitted to the President for enactment.",
+    "source_url": "https://jdih.komdigi.go.id/berita/view/113",
+    "source_publisher": "JDIH Kementerian Komunikasi dan Digital",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2026-02-11",
+        "title": "Inter-ministerial plenary discusses draft Perpres on National AI Roadmap 2026-2029",
+        "source_url": "https://jdih.komdigi.go.id/berita/view/113"
+      },
+      {
+        "date": "2026-05-05",
+        "title": "Government completes inter-ministerial finalisation of the roadmap and ethics draft regulations",
+        "source_url": "https://jdih.komdigi.go.id/berita/view/116"
+      }
+    ],
+    "confidence": "high",
+    "notes": "As of the access date no enacted Perpres number was found; the drafts were reported as awaiting presidential signature.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "JP",
+    "country_name": "Japan",
+    "ai_policy_name": "AI Guidelines for Business",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2024-04-19",
+    "governing_body": "Ministry of Economy, Trade and Industry and Ministry of Internal Affairs and Communications",
+    "governance_structure": "METI and MIC jointly maintain; secretariat shared with IPA/AI Safety Institute; voluntary adoption by developers, providers and users",
+    "main_motivation": "Unify earlier AI ethics and governance guidelines into one voluntary, risk-based guide for business",
+    "description": "The AI Guidelines for Business consolidate Japan's previous AI R&D, utilisation and governance guidelines into a single non-binding document addressed to AI developers, providers and business users. They set common guiding principles (such as human-centricity, safety, fairness, privacy, security, transparency and accountability) and describe agile governance practices, with an appendix of practical methods and checklists. The guidelines are updated periodically; version 1.0 was issued in April 2024 and version 1.2 in March 2026.",
+    "source_url": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/index.html",
+    "source_publisher": "Ministry of Economy, Trade and Industry",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-04-19",
+        "title": "AI Guidelines for Business Ver1.0 published",
+        "source_url": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20240419_report.html"
+      },
+      {
+        "date": "2026-03-31",
+        "title": "Ver1.2 published",
+        "source_url": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/index.html"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "METI pages block automated fetches (HTTP 403/202) but were loaded and read in a browser session; version dates come from the METI committee index page. Principle list summarised from general knowledge of the guidelines, not re-read from the PDFs.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "JP",
+    "country_name": "Japan",
+    "ai_policy_name": "Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology (Act No. 53 of 2025)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-06-04",
+    "governing_body": "National Diet of Japan; administered by the Cabinet Office",
+    "governance_structure": "Artificial Intelligence Strategy Headquarters chaired by the Prime Minister with all Cabinet ministers as members",
+    "main_motivation": "Promote AI research and use nationally while addressing public concern about risks, without new penalties",
+    "description": "Japan's first AI-specific statute establishes basic principles and a governmental framework for promoting AI research, development and use. It creates an AI Strategy Headquarters under the Cabinet, requires the government to adopt an AI Basic Plan, and provides for guidelines, information gathering and investigation of cases where AI infringes rights, together with guidance to businesses and the public. Businesses are asked to cooperate with government measures; the Act contains no fines or prohibitions.",
+    "source_url": "https://www.japaneselawtranslation.go.jp/en/laws/view/5066/en",
+    "source_publisher": "Japanese Law Translation Database (Ministry of Justice)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-06-04",
+        "title": "Promulgated as Act No. 53 of 2025; general provisions in force on promulgation",
+        "source_url": "https://www.japaneselawtranslation.go.jp/en/laws/view/5066/en"
+      },
+      {
+        "date": "2025-09-01",
+        "title": "Chapters III and IV (Strategy Headquarters and Basic Plan) brought into effect by Cabinet Order",
+        "source_url": "https://www8.cao.go.jp/cstp/ai/ai_hou_gaiyou_en.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "The Diet passed the bill on 28 May 2025; the announcement date used is the promulgation date. The 1 September 2025 full-effect date was reported by government sources found in search (gov-online.go.jp, which returned 403 to the fetch tool) and is consistent with the Act's 'within three months' commencement clause; the Cabinet Office outline PDF fetched does not itself state the date.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "JP",
+    "country_name": "Japan",
+    "ai_policy_name": "Artificial Intelligence Basic Plan",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-12-23",
+    "governing_body": "Cabinet of Japan (Cabinet Office, AI Strategy Headquarters)",
+    "governance_structure": "AI Strategy Headquarters chaired by the Prime Minister; Cabinet Office coordinates follow-up and revisions",
+    "main_motivation": "Statutory national AI strategy to make Japan a leading AI-adopting nation",
+    "description": "The AI Basic Plan is the national strategy required under Article 18 of the 2025 AI Act. It sets basic policies and concrete measures across four areas: accelerating AI deployment, strengthening development capabilities, leading AI governance and building an AI-powered society, with the stated ambition of Japan becoming the most AI-friendly country. The first plan was adopted by Cabinet decision in December 2025 and a revised second plan was adopted in July 2026.",
+    "source_url": "https://www8.cao.go.jp/cstp/ai/ai_plan/ai_plan.html",
+    "source_publisher": "Cabinet Office, Government of Japan",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-12-23",
+        "title": "First AI Basic Plan adopted by Cabinet decision",
+        "source_url": "https://www8.cao.go.jp/cstp/ai/ai_plan/ai_plan.html"
+      },
+      {
+        "date": "2026-07-14",
+        "title": "Second AI Basic Plan adopted by Cabinet decision",
+        "source_url": "https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260714.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Dates confirmed from the Cabinet Office page (Reiwa 7-12-23 and Reiwa 8-7-14 Cabinet decisions) and the provisional English translation of the second plan.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "KE",
+    "country_name": "Kenya",
+    "ai_policy_name": "Kenya Artificial Intelligence Strategy 2025-2030",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-03-27",
+    "governing_body": "Ministry of Information, Communications and the Digital Economy (MICDE)",
+    "governance_structure": "MICDE leads implementation with partners; implementation roadmap published Dec 2025",
+    "main_motivation": "Position Kenya as a competitive, secure and future-ready AI economy",
+    "description": "Kenya's first national AI strategy sets a five-year agenda built on three pillars: AI digital infrastructure, data and AI governance, and AI research, innovation and commercialisation. It aligns with the Kenya National Digital Masterplan 2022-2032 and priorities sectors such as agriculture, health and education. A separate implementation roadmap was later published by the ministry.",
+    "source_url": "https://www.ict.go.ke/kenyas-artificial-intelligence-ai-strategy-2025-2030-launched-kicc-nairobi",
+    "source_publisher": "Ministry of Information, Communications and the Digital Economy",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-01-14",
+        "title": "Draft strategy released for public validation",
+        "source_url": "https://ict.go.ke/sites/default/files/2025-01/Kenya%20National%20AI%20Strategy%20(Draft)%20for%20Public%20Validation%20%20[14-01-2025].pdf"
+      },
+      {
+        "date": "2025-03-27",
+        "title": "Strategy launched at KICC, Nairobi; final PDF published",
+        "source_url": "https://ict.go.ke/sites/default/files/2025-03/Kenya%20AI%20Strategy%202025%20-%202030.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "ict.go.ke serves an incomplete TLS chain, so some clients report certificate errors; content loads with HTTP 200. The implementation roadmap PDF (Dec 2025) is at https://www.ict.go.ke/sites/default/files/2025-12/Kenya%20National%20AI%20Strategy%202025-2030%20Implementation%20Roadmap.pdf",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "MY",
+    "country_name": "Malaysia",
+    "ai_policy_name": "National Artificial Intelligence Roadmap 2021-2025 (AI-Rmap)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2021-12-01",
+    "governing_body": "Ministry of Science, Technology and Innovation (MOSTI)",
+    "governance_structure": "MOSTI with Malaysia Digital Economy Corporation",
+    "main_motivation": "Build a national AI innovation ecosystem to raise productivity and competitiveness",
+    "description": "Malaysia's five-year AI roadmap developed by MOSTI through a quadruple-helix consultation. It sets strategic thrusts on governance, R&D, infrastructure, talent and adoption, and identifies national use cases in five priority sectors: agriculture and forestry, healthcare, smart cities and transport, education and public services. It is guided by responsible AI principles including fairness, transparency, accountability and privacy.",
+    "source_url": "https://www.mosti.gov.my/en/berita/malaysias-national-artificial-intelligence-ai-roadmap-2021-2025/",
+    "source_publisher": "Ministry of Science, Technology and Innovation, Malaysia",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2021-12-01",
+        "title": "AI-Rmap 2021-2025 adopted by MOSTI",
+        "source_url": "https://mastic.mosti.gov.my/publication/artificial-intelligence-roadmap-2021-2025/"
+      },
+      {
+        "date": "2024-09-01",
+        "title": "National Guidelines on AI Governance and Ethics issued under the roadmap",
+        "source_url": "https://mastic.mosti.gov.my/publication/the-national-guidelines-on-ai-governance-ethics/"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "Exact adoption/launch date not stated on official pages; the MASTIC file is dated 19 Oct 2021 and third-party trackers cite adoption on 1 Dec 2021, so 2021-12-01 is used as a month-level date. Superseded in 2026 by the Ministry of Digital's AI Nation 2030 direction.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "MY",
+    "country_name": "Malaysia",
+    "ai_policy_name": "The National Guidelines on AI Governance & Ethics (AIGE)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2024-09-01",
+    "governing_body": "Ministry of Science, Technology and Innovation (MOSTI)",
+    "governance_structure": "MOSTI (guidelines are voluntary)",
+    "main_motivation": "Promote trustworthy, human-centred AI through shared principles for users, policymakers and developers",
+    "description": "Voluntary national guidelines that set out seven principles for responsible AI: fairness; reliability, safety and control; privacy and security; inclusiveness; transparency; accountability; and human-centricity. They give tailored guidance to end users, policymakers and AI developers and are meant to build public trust and reduce ethical risks while supporting adoption.",
+    "source_url": "https://mastic.mosti.gov.my/publication/the-national-guidelines-on-ai-governance-ethics/",
+    "source_publisher": "Malaysian Science, Technology Information Centre (MASTIC), MOSTI",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-09-01",
+        "title": "AIGE published by MOSTI (September 2024)",
+        "source_url": "https://mastic.mosti.gov.my/storage/2024/09/THE-NATIONAL-GUIDELINES-ON-AI-GOVERNANCE-ETHICS.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "MASTIC lists publication as September 2024; the launch is widely reported as 20 September 2024 but the day is not stated on the official page, so first of month is used.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "MY",
+    "country_name": "Malaysia",
+    "ai_policy_name": "Artificial Intelligence (AI) Governance Bill (proposed)",
+    "gov_ai_index": "policy",
+    "status": "development",
+    "announcement_date": "2026-07-10",
+    "governing_body": "Ministry of Digital / National AI Office (NAIO)",
+    "governance_structure": "National AI Office under the Ministry of Digital",
+    "main_motivation": "Create Malaysia's first horizontal, risk-based statutory framework for AI",
+    "description": "A proposed horizontal AI law announced for stakeholder engagement and public consultation by the Ministry of Digital through the National AI Office. It takes a risk-based approach across the AI lifecycle, assigns responsibilities according to actors' roles, and is intended to complement existing laws rather than regulate AI outputs directly. It encourages incident reporting, safeguards and sandboxes, and the government aims to table it in Parliament.",
+    "source_url": "https://www.digital.gov.my/en-GB/siaran/Kementerian-Digital-Mulakan-Libat-Urus-Cadangan-Rang-Undang-Undang-Tadbir-Urus-Kecerdasan-Buatan-(AI)",
+    "source_publisher": "Ministry of Digital, Malaysia",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2026-07-10",
+        "title": "Ministry of Digital begins engagement and public consultation on the AI Governance Bill",
+        "source_url": "https://www.digital.gov.my/en-GB/siaran/Kementerian-Digital-Mulakan-Libat-Urus-Cadangan-Rang-Undang-Undang-Tadbir-Urus-Kecerdasan-Buatan-(AI)"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Bill text not yet tabled as of access date; public consultation reportedly closed 31 July 2026.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "MX",
+    "country_name": "Mexico",
+    "ai_policy_name": "Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo Ético, Soberano e Inclusivo de la Inteligencia Artificial (Initiative to enact the Federal Law for the Ethical, Sovereign and Inclusive Development of Artificial…",
+    "gov_ai_index": "policy",
+    "status": "development",
+    "announcement_date": "2025-04-30",
+    "governing_body": "Cámara de Diputados (LXVI Legislatura) – deputies of Morena and PVEM",
+    "governance_structure": "Bill proposes a National AI Council and a National Algorithmic Audit Platform",
+    "main_motivation": "Comprehensive federal AI framework grounded in human rights and technological sovereignty",
+    "description": "This initiative, signed by a bloc of Morena and PVEM deputies and published in the Gaceta Parlamentaria on 30 April 2025, would create Mexico's first general federal AI law. It proposes principles of legality, transparency, human oversight and precaution, a risk 'traffic light' classification with prohibited uses, a National AI Council and an algorithmic audit platform. It was referred to committee and remains under consideration in Congress.",
+    "source_url": "https://sil.gobernacion.gob.mx/Archivos/Documentos/2025/04/asun_4896460_20250430_1747757009.pdf",
+    "source_publisher": "Sistema de Información Legislativa, Secretaría de Gobernación",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-04-30",
+        "title": "Initiative published in the Gaceta Parlamentaria and turned to committee",
+        "source_url": "https://gaceta.diputados.gob.mx/PDF/66/2025/abr/20250430-II-1-2.pdf"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "SIL PDF downloaded (HTTP 200, text confirms title and proponents). Chamber of Deputies hosts (gaceta.diputados.gob.mx, comunicacionsocial.diputados.gob.mx, sitl.diputados.gob.mx) refused connections from this environment, so the Gaceta milestone URL is unverified. A Chamber press bulletin reports the initiative as presented on 22 April 2025; the 30 April date reflects the Gaceta/SIL record. Several other AI bills exist in both chambers (e.g. a Senate initiative of April 2024); none has been enacted.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "MX",
+    "country_name": "Mexico",
+    "ai_policy_name": "Plan Nacional de Inteligencia Artificial (National Artificial Intelligence Plan)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2026-04-01",
+    "governing_body": "Agencia de Transformación Digital y Telecomunicaciones (ATDT)",
+    "governance_structure": "ATDT coordinates implementation across federal government",
+    "main_motivation": "Technological sovereignty and public-service AI capacity",
+    "description": "Mexico's National AI Plan, prepared by the ATDT and presented in April 2026, organises federal AI efforts around three pillars: an ethical and legal framework, talent and public software, and strategic compute infrastructure. It includes a public AI training centre aiming to certify tens of thousands of people, a government 'Fábrica de IA' developing solutions for public services, and the Coatlicue supercomputer, with 2026 milestones and 2030 targets for citizen-facing AI services.",
+    "source_url": "https://www.gob.mx/atdt/agendas/2030/inteligencia-artificial",
+    "source_publisher": "Agencia de Transformación Digital y Telecomunicaciones (gob.mx)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2026-04-01",
+        "title": "Plan Nacional de IA presented by ATDT (April 2026)",
+        "source_url": "https://www.gob.mx/atdt/agendas/2030/inteligencia-artificial"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "Only the month (April 2026) is confirmed, so the first of the month is used. The plan PDF (https://www.portal.atdt.gob.mx/wp-content/uploads/2026/06/Plan-Nacional-de-IA.pdf) returned HTTP 403 to automated fetches; the gob.mx agenda page (HTTP 200) describes the plan and links to it.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "NP",
+    "country_name": "Nepal",
+    "ai_policy_name": "Concept Paper on the Use and Practice of Artificial Intelligence in Nepal",
+    "gov_ai_index": "policy",
+    "status": "whitepaper",
+    "announcement_date": "2024-07-05",
+    "governing_body": "Ministry of Communication and Information Technology",
+    "governance_structure": "MoCIT technical committee",
+    "main_motivation": "Assess Nepal's AI readiness and lay the groundwork for a national AI policy and law",
+    "description": "A concept paper prepared by a ministry-appointed committee that surveys the state of AI use in Nepal, its opportunities and risks, and the gaps in existing law and infrastructure. It recommends formulating a national AI policy and strategy, addressing data protection, privacy and cybersecurity, and building governance structures. The paper was published for public suggestions and is cited in the 2025 policy as its precursor.",
+    "source_url": "https://mocit.gov.np/content/12663/12663-nepal/",
+    "source_publisher": "Ministry of Communication and Information Technology, Government of Nepal",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-07-05",
+        "title": "Concept paper published for comments on MoCIT website (21 Asar 2081)",
+        "source_url": "https://mocit.gov.np/content/12663/12663-nepal/"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Date converted from Bikram Sambat (21 Asar 2081). Superseded in practice by the National AI Policy 2025.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "NP",
+    "country_name": "Nepal",
+    "ai_policy_name": "National Artificial Intelligence (A.I.) Policy, 2025 (2082)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-08-19",
+    "governing_body": "Ministry of Communication and Information Technology (approved by the Council of Ministers)",
+    "governance_structure": "MoCIT as lead agency; proposed AI Regulation Council, National AI Centre and AI Excellence Centre",
+    "main_motivation": "Give Nepal a framework for responsible AI adoption, skills and regulation ahead of a dedicated AI law",
+    "description": "Nepal's first national AI policy, setting a vision, goals, strategies and action policies for developing and using AI across public services, education, health and the economy. It proposes institutional arrangements including an AI Regulation Council, a National AI Centre and an AI Excellence Centre, along with legal, financial and risk-management provisions and an implementation action plan. The policy calls for follow-on legislation and periodic review.",
+    "source_url": "https://mocit.gov.np/content/13077/national-artifacial-intelligence-aci-policy-2082/",
+    "source_publisher": "Ministry of Communication and Information Technology, Government of Nepal",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-02-04",
+        "title": "MoCIT publishes draft AI Policy 2081 for public comment (22 Magh 2081)",
+        "source_url": "https://mocit.gov.np/content/13001/relations-of-artifacial-intelligence-policy-2081-to/"
+      },
+      {
+        "date": "2025-08-19",
+        "title": "Approved National AI Policy 2082 published on MoCIT website (3 Bhadra 2082)",
+        "source_url": "https://mocit.gov.np/content/13077/national-artifacial-intelligence-aci-policy-2082/"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Date is the MoCIT publication date (3 Bhadra 2082, converted to Gregorian). Cabinet endorsement was reported in the press around 11 August 2025 but no official cabinet notice was found. The English PDF is served from the government CDN at https://giwmscdnone.gov.np/media/pdf_upload/National%20AI%20Policy-Final_uxc94vg.pdf; both the page and PDF were fetched successfully but mocit.gov.np is intermittently unreachable.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "NG",
+    "country_name": "Nigeria",
+    "ai_policy_name": "National Artificial Intelligence Strategy",
+    "gov_ai_index": "strategy",
+    "status": "development",
+    "announcement_date": "2024-08-01",
+    "governing_body": "Federal Ministry of Communications, Innovation and Digital Economy (FMCIDE) with NITDA / NCAIR",
+    "governance_structure": "FMCIDE leads; NITDA and its National Centre for AI and Robotics implement",
+    "main_motivation": "Use AI for economic growth, social inclusion and technological leadership",
+    "description": "The draft strategy sets out Nigeria's vision for AI across five pillars: infrastructure, a thriving AI ecosystem, sectoral adoption, responsible and ethical AI, and governance. It was co-created through a 2024 multi-stakeholder workshop convened by the ministry and includes an implementation roadmap with pilot projects and KPIs. The published document on the NCAIR site is marked as a draft dated August 2024.",
+    "source_url": "https://ncair.nitda.gov.ng/wp-content/uploads/2024/08/National-AI-Strategy_01082024-copy.pdf",
+    "source_publisher": "National Centre for Artificial Intelligence and Robotics (NITDA)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-08-28",
+        "title": "FMCIDE announces initiative to co-create a National AI Strategy",
+        "source_url": "https://fmcide.gov.ng/initiative/nais/"
+      },
+      {
+        "date": "2024-08-01",
+        "title": "Draft National AI Strategy 2024 published by NCAIR",
+        "source_url": "https://ncair.nitda.gov.ng/wp-content/uploads/2024/08/National-AI-Strategy_01082024-copy.pdf"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "Announcement date taken from the draft's filename/date (1 August 2024). Media reported a formal launch in Lagos in April 2025 and a NITDA article (Aug 2025) says the strategy was 'released in 2024', but I could not find an official final (non-draft) document or launch page on fmcide.gov.ng or nitda.gov.ng, so status is recorded as development.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "PK",
+    "country_name": "Pakistan",
+    "ai_policy_name": "National Artificial Intelligence Policy 2025",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-07-30",
+    "governing_body": "Ministry of Information Technology and Telecommunication (approved by the Federal Cabinet)",
+    "governance_structure": "MoITT with a proposed national AI Council and implementation directorate",
+    "main_motivation": "Build a domestic AI ecosystem, skills base and infrastructure while managing ethical and security risks",
+    "description": "Pakistan's first national AI policy, organised around six pillars: innovation ecosystem, awareness and readiness, secure AI, transformation of sectors, AI infrastructure, and international partnerships. It proposes a National AI Fund drawn from Ignite's R&D fund, centres of excellence, venture and innovation funds, regulatory sandboxes and KPIs, with an AI Council to oversee delivery. Targets include large-scale training of AI professionals and funded research projects.",
+    "source_url": "https://www.moitt.gov.pk/SiteImage/Policies/National%20AI%20Policy.pdf",
+    "source_publisher": "Ministry of Information Technology and Telecommunication, Government of Pakistan",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-08-14",
+        "title": "MoITT press release confirms National AI Policy 2025 approved",
+        "source_url": "https://pid.gov.pk/site/press_detail/30025"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "Cabinet approval on 30 July 2025 is widely reported and the PID release of 14 August 2025 confirms approval, but no official notice stating the exact approval date was found. The older moitt.gov.pk/SiteImage/Misc PDF link returns 404; the /SiteImage/Policies path loads.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "PE",
+    "country_name": "Peru",
+    "ai_policy_name": "Ley N° 31814 – Ley que promueve el uso de la inteligencia artificial en favor del desarrollo económico y social del país (Law No. 31814 – Law promoting the use of artificial intelligence for the country's economic and social development)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2023-07-05",
+    "governing_body": "Congreso de la República; implemented by the Presidencia del Consejo de Ministros (PCM)",
+    "governance_structure": "PCM, through the Secretaría de Gobierno y Transformación Digital, is the national technical-regulatory authority",
+    "main_motivation": "Promote AI adoption within the national digital transformation while safeguarding rights",
+    "description": "Law 31814, promulgated on 4 July 2023 and published on 5 July 2023, declares AI development of national interest and frames its use within Peru's digital transformation process. It sets principles such as risk-based safety, ethics, transparency and multi-stakeholder participation, and designates the PCM's digital government secretariat as the national AI authority. The law is promotional in character and left detailed obligations to a later regulation.",
+    "source_url": "https://busquedas.elperuano.pe/dispositivo/NL/2192926-1",
+    "source_publisher": "Diario Oficial El Peruano",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-07-05",
+        "title": "Law 31814 published in El Peruano",
+        "source_url": "https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/4565760-31814"
+      },
+      {
+        "date": "2025-09-09",
+        "title": "Implementing regulation (DS 115-2025-PCM) published",
+        "source_url": "https://www.gob.pe/institucion/pcm/normas-legales/7133522-115-2025-pcm"
+      }
+    ],
+    "confidence": "high",
+    "notes": "All three official URLs returned HTTP 200.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "PE",
+    "country_name": "Peru",
+    "ai_policy_name": "Decreto Supremo N° 115-2025-PCM – Reglamento de la Ley N° 31814 (Supreme Decree No. 115-2025-PCM – Regulation of Law No. 31814)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-09-09",
+    "governing_body": "Presidencia del Consejo de Ministros (PCM)",
+    "governance_structure": "PCM's Secretaría de Gobierno y Transformación Digital supervises compliance",
+    "main_motivation": "Operationalise the AI promotion law with risk-based obligations",
+    "description": "This regulation, published on 9 September 2025, develops Law 31814 with six titles and 36 articles. It introduces a risk classification distinguishing prohibited uses, high-risk systems and acceptable-risk systems, sets transparency, data protection and governance obligations for public and private actors, and provides for sandboxes, capacity-building and reporting channels. Compliance is phased in over one to four years depending on the sector and type of organisation.",
+    "source_url": "https://busquedas.elperuano.pe/dispositivo/NL/2436426-1",
+    "source_publisher": "Diario Oficial El Peruano",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-09-09",
+        "title": "DS 115-2025-PCM published in El Peruano",
+        "source_url": "https://www.gob.pe/institucion/pcm/normas-legales/7133522-115-2025-pcm"
+      }
+    ],
+    "confidence": "high",
+    "notes": "A draft regulation had been released for public comment in May 2024 before final approval.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "PH",
+    "country_name": "Philippines",
+    "ai_policy_name": "National AI Strategy Roadmap 2.0 (NAISR 2.0)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2024-07-03",
+    "governing_body": "Department of Trade and Industry (DTI)",
+    "governance_structure": "DTI with the Center for AI Research (CAIR)",
+    "main_motivation": "Accelerate AI adoption and R&D to boost competitiveness and public services",
+    "description": "An updated national AI roadmap launched by DTI together with the Center for AI Research, building on the 2021 roadmap and adding generative AI. It aims to strengthen entrepreneurship and competitiveness, improve public services, support responsible governance of AI and identify investment and R&D priorities. CAIR is intended to serve as a national AI research hub for industry-relevant solutions.",
+    "source_url": "https://www.dti.gov.ph/dti-archives/dti-news-archived/dti-dti-launches-national-ai-strategy-roadmap-2-0-center-ai-research-positioning-philippines-center-excellence-ai-rampd",
+    "source_publisher": "Department of Trade and Industry, Philippines",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-07-03",
+        "title": "DTI launches NAISR 2.0 and the Center for AI Research",
+        "source_url": "https://www.dti.gov.ph/dti-archives/dti-news-archived/dti-dti-launches-national-ai-strategy-roadmap-2-0-center-ai-research-positioning-philippines-center-excellence-ai-rampd"
+      },
+      {
+        "date": "2025-04-30",
+        "title": "DOST proposes a successor National AI Strategy for the Philippines (NAIS-PH)",
+        "source_url": "https://www.dost.gov.ph/knowledge-resources/news/86-2025-news/3989-dost-builds-on-ai-national-strategy.html"
+      }
+    ],
+    "confidence": "high",
+    "notes": "DTI now labels NAISR 2.0 an archived reference following DOST's NAIS-PH.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "PH",
+    "country_name": "Philippines",
+    "ai_policy_name": "National AI Strategy for the Philippines (NAIS-PH)",
+    "gov_ai_index": "strategy",
+    "status": "development",
+    "announcement_date": "2025-04-30",
+    "governing_body": "Department of Science and Technology (DOST)",
+    "governance_structure": "DOST with the National AI Center for Research and Innovation (NAICRI) and partner agencies",
+    "main_motivation": "Coordinate a whole-of-government AI strategy on infrastructure, workforce, innovation, ethics and deployment through 2028",
+    "description": "A national AI strategy proposed by DOST at National Innovation Day 2025, structured around five core strategies: infrastructure, workforce, innovation, ethics and policy, and deployment, phased from 2024 to 2028. It includes a national high-performance computing centre, AI micro-credentials and an AI hub linking regional industries to solutions, coordinated with DICT, DepEd, CHED, TESDA, DTI and others. DOST later launched NAICRI as its institutional backbone.",
+    "source_url": "https://www.dost.gov.ph/knowledge-resources/news/86-2025-news/3989-dost-builds-on-ai-national-strategy.html",
+    "source_publisher": "Department of Science and Technology, Philippines",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-04-30",
+        "title": "DOST Secretary presents NAIS-PH at National Innovation Day",
+        "source_url": "https://www.dost.gov.ph/knowledge-resources/news/86-2025-news/3989-dost-builds-on-ai-national-strategy.html"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "Presidential approval in May 2025 and the February 2026 NAICRI launch are reported in the press but were not confirmed from an official page; status kept at development. No standalone strategy document was found on dost.gov.ph.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "QA",
+    "country_name": "Qatar",
+    "ai_policy_name": "National Artificial Intelligence Strategy for Qatar 2019",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2019-10-29",
+    "governing_body": "Ministry of Communications and Information Technology (formerly Ministry of Transport and Communications)",
+    "governance_structure": "National Artificial Intelligence Committee under MCIT oversees implementation planning",
+    "main_motivation": "Prepare Qatar for an 'AI+X' future in line with Qatar National Vision 2030",
+    "description": "Developed by the Qatar Center for Artificial Intelligence and adopted by the government as the national strategy, the document sets out six pillars: education, data access, employment, business, research, and ethics. It provides recommendations for building an AI research and innovation ecosystem and for the responsible adoption of AI across society. A national AI committee was subsequently formed to develop an implementation plan.",
+    "source_url": "https://www.mcit.gov.qa/-/media/mcit/documents/strategies/national_artificial_intelligence_strategy_for_qatar_2019_en.pdf",
+    "source_publisher": "Ministry of Communications and Information Technology, Qatar",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2019-10-29",
+        "title": "Strategy adopted and announced by the government at QITCOM 2019",
+        "source_url": "https://www.mcit.gov.qa/-/media/mcit/documents/strategies/national_artificial_intelligence_strategy_for_qatar_2019_en.pdf"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "The PDF loads from mcit.gov.qa, but the MCIT AI Committee web page returned HTTP 403/500 during verification. The 29 October 2019 adoption date is from QCRI/HBKU announcements rather than a loadable MCIT page, and the strategy PDF itself carries only the year 2019.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "RW",
+    "country_name": "Rwanda",
+    "ai_policy_name": "The National AI Policy",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2023-04-20",
+    "governing_body": "Ministry of ICT and Innovation (MINICT) with Rwanda Utilities Regulatory Authority (RURA)",
+    "governance_structure": "MINICT leads; policy proposes a Responsible AI Office within MINICT to coordinate implementation",
+    "main_motivation": "Use AI to power growth and position Rwanda as a responsible-AI innovator",
+    "description": "Rwanda's national AI policy sets out six policy areas and fourteen recommendations covering skills and literacy, infrastructure, data, responsible AI governance, public-sector adoption and ecosystem development. It proposes a Responsible AI Office housed in MINICT to drive an implementation plan and monitor progress. Priority sectors include health, agriculture, education, finance and public services.",
+    "source_url": "https://www.minict.gov.rw/ai-policy",
+    "source_publisher": "Ministry of ICT and Innovation, Republic of Rwanda",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-04-20",
+        "title": "Policy approved by Cabinet (per policy partners); full text published by MINICT",
+        "source_url": "https://www.minict.gov.rw/fileadmin/user_upload/minict_user_upload/Documents/Artificial_Intelligence_Policy__1_.pdf"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "The MINICT page and PDF do not state an approval date; the 20 April 2023 Cabinet approval date comes from policy partners (The Future Society) and could not be confirmed on an official Rwandan page, so confidence is medium on the date only.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "SA",
+    "country_name": "Saudi Arabia",
+    "ai_policy_name": "National Strategy for Data & AI",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2020-07-17",
+    "governing_body": "Saudi Data and Artificial Intelligence Authority (SDAIA)",
+    "governance_structure": "SDAIA guides and supervises execution by government entities and runs its own initiatives",
+    "main_motivation": "Make the Kingdom a global hub for data and AI in support of Vision 2030",
+    "description": "The national strategy, approved by royal decision in July 2020, sets an ambition for Saudi Arabia to be among the leading data- and AI-driven economies through phased milestones to 2030. It targets talent development, welcoming regulation, investment attraction, research and an active ecosystem, with measurable goals such as training data and AI specialists, attracting investment and creating startups.",
+    "source_url": "https://sdaia.gov.sa/en/SDAIA/SdaiaStrategies/Pages/NationalStrategyForDataAndAI.aspx",
+    "source_publisher": "Saudi Data and Artificial Intelligence Authority",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2020-07-17",
+        "title": "Strategy approved by the King (per SDAIA)",
+        "source_url": "https://sdaia.gov.sa/en/SDAIA/SdaiaStrategies/Pages/NationalStrategyForDataAndAI.aspx"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Public launch was at the Global AI Summit in October 2020; the SDAIA page records the approval date of 17 July 2020, which is used here.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "SA",
+    "country_name": "Saudi Arabia",
+    "ai_policy_name": "AI Ethics Principles",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-05-01",
+    "governing_body": "Saudi Data and Artificial Intelligence Authority (SDAIA)",
+    "governance_structure": "SDAIA issues and updates the principles and oversees adoption by public entities",
+    "main_motivation": "Ensure responsible, safe and rights-respecting AI development and use in the Kingdom",
+    "description": "SDAIA's AI Ethics Principles set out ethical principles and associated controls for entities developing, deploying or affected by AI systems in Saudi Arabia, covering fairness, privacy and security, humanity, social and environmental benefit, reliability and safety, transparency, and accountability. The document assigns roles and responsibilities and marks certain controls as binding for public entities. The 2025 edition updates the September 2023 version 1.0.",
+    "source_url": "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf",
+    "source_publisher": "Saudi Data and Artificial Intelligence Authority",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-09-01",
+        "title": "AI Ethics Principles version 1.0 issued (September 2023)",
+        "source_url": "https://sdaia.gov.sa/en/SDAIA/about/Pages/AboutAI.aspx"
+      },
+      {
+        "date": "2025-05-01",
+        "title": "Updated 2025 edition published (document dated May 2025)",
+        "source_url": "https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "The 2025 PDF is dated 'May 2025' (month only), so first of month used. sdaia.gov.sa rejects some automated fetchers but serves the PDF and pages with HTTP 200 to a browser user-agent.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "SG",
+    "country_name": "Singapore",
+    "ai_policy_name": "Model Artificial Intelligence Governance Framework (Second Edition)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2020-01-21",
+    "governing_body": "Infocomm Media Development Authority and Personal Data Protection Commission",
+    "governance_structure": "IMDA/PDPC, with AI Verify Foundation supporting later editions",
+    "main_motivation": "Give organisations practical, voluntary guidance for deploying AI responsibly",
+    "description": "A voluntary framework that translates principles of explainability, transparency and human-centricity into practical measures for organisations deploying AI. It addresses internal governance, determining the level of human involvement in decisions, operations management and stakeholder communication. It has since been extended by a companion framework for generative AI (2024) and one for agentic AI (2026).",
+    "source_url": "https://www.pdpc.gov.sg/-/media/files/pdpc/pdf-files/resource-for-organisation/ai/sgmodelaigovframework2.pdf",
+    "source_publisher": "Personal Data Protection Commission / Infocomm Media Development Authority",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-01-16",
+        "title": "IMDA opens consultation on Model AI Governance Framework for Generative AI (final version released 30 May 2024)",
+        "source_url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2024/public-consult-model-ai-governance-framework-genai"
+      },
+      {
+        "date": "2026-01-22",
+        "title": "IMDA launches Model AI Governance Framework for Agentic AI",
+        "source_url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/new-model-ai-governance-framework-for-agentic-ai"
+      }
+    ],
+    "confidence": "high",
+    "notes": "First edition released 23 January 2019; second edition 21 January 2020. The May 2024 generative AI framework is hosted primarily on the AI Verify Foundation site (an IMDA subsidiary), so the PDPC-hosted second edition is used as the primary official document.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "SG",
+    "country_name": "Singapore",
+    "ai_policy_name": "National Artificial Intelligence Strategy 2.0 (NAIS 2.0)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2023-12-04",
+    "governing_body": "Smart Nation Group / Ministry of Digital Development and Information",
+    "governance_structure": "National AI Council (chaired by the Prime Minister since 2026) with Smart Nation Group and MDDI",
+    "main_motivation": "Use AI for the public good while building Singapore into a trusted global AI hub",
+    "description": "Singapore's second national AI strategy, launched under the banner of AI for the public good. It sets goals of excellence and empowerment and organises work across three systems, ten enablers and fifteen actions covering talent, compute, data, industry adoption, research and governance. A 2026 update set ten refreshed priorities and launched sector AI Missions under the new National AI Council.",
+    "source_url": "https://www.smartnation.gov.sg/initiatives/national-ai-strategy/",
+    "source_publisher": "Smart Nation Singapore",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-12-04",
+        "title": "NAIS 2.0 launched by DPM Lawrence Wong",
+        "source_url": "https://www.mddi.gov.sg/newsroom/04122023/"
+      },
+      {
+        "date": "2026-05-20",
+        "title": "Update to the National AI Strategy released with 10 refreshed priorities",
+        "source_url": "https://www.mddi.gov.sg/newsroom/update-to-singapore-s-national-ai-strategy--refreshed-priorities-to-harness-ai-for-the-public-good-factsheet/"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "ZA",
+    "country_name": "South Africa",
+    "ai_policy_name": "Draft South Africa National Artificial Intelligence (AI) Policy",
+    "gov_ai_index": "policy",
+    "status": "cancelled",
+    "announcement_date": "2026-04-10",
+    "governing_body": "Department of Communications and Digital Technologies (DCDT)",
+    "governance_structure": "DCDT; Cabinet-approved draft published for public comment",
+    "main_motivation": "Set national principles, institutions and pathways for safe and inclusive AI adoption",
+    "description": "Approved by Cabinet in March/April 2026 and gazetted for a 60-day comment period, the draft policy proposed guiding principles, institutional arrangements and implementation pathways for AI across the public and private sectors, building on the department's 2024 National AI Policy Framework. The Minister announced its withdrawal on 26 April 2026 after fictitious citations were found in its reference list, and the withdrawal was formally gazetted in June 2026.",
+    "source_url": "https://www.gov.za/sites/default/files/gcis_document/202604/54477gen3880.pdf",
+    "source_publisher": "Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2026-04-26",
+        "title": "Minister Malatsi announces withdrawal of the draft policy",
+        "source_url": "https://www.sanews.gov.za/south-africa/minister-announces-withdrawal-draft-ai-policy"
+      },
+      {
+        "date": "2026-06-12",
+        "title": "Withdrawal gazetted (Notice 3978 of 2026, Gazette No. 54840)",
+        "source_url": "https://www.gov.za/sites/default/files/gcis_document/202606/54840gen3978.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "The earlier South Africa National AI Policy Framework (Aug/Oct 2024, comments to 29 Nov 2024) is referenced in the gazette notice, but its DCDT page (dcdt.gov.za/sa-national-ai-policy-framework/...) now serves unrelated content, so it is not recorded as a separate entry. Withdrawal notice is signed 4 June 2026 and gazetted 12 June 2026.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "KR",
+    "country_name": "South Korea",
+    "ai_policy_name": "Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation for Trust (AI Basic Act, Act No. 20676)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-01-21",
+    "governing_body": "National Assembly of the Republic of Korea; competent ministry Ministry of Science and ICT",
+    "governance_structure": "Ministry of Science and ICT as competent authority; presidential National AI Committee; AI Safety Institute",
+    "main_motivation": "Promote the AI industry while establishing trust obligations for high-impact and generative AI",
+    "description": "Korea's AI Basic Act is a comprehensive framework statute combining industrial promotion with trust and safety rules. It gives a legal basis for a national AI master plan every three years and the National AI Committee, supports R&D, data, standardisation and SMEs, and imposes duties on operators of high-impact AI (risk management, explanation, human oversight) and transparency duties to notify users of generative AI output. Foreign operators above a threshold must designate a domestic representative. It was promulgated in January 2025 and took effect on 22 January 2026 after a one-year grace period.",
+    "source_url": "https://www.law.go.kr/lsInfoP.do?lsiSeq=268543",
+    "source_publisher": "Korea Ministry of Government Legislation, National Law Information Center",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-12-26",
+        "title": "Passed by the National Assembly plenary",
+        "source_url": "https://www.law.go.kr/lsInfoP.do?lsiSeq=268543"
+      },
+      {
+        "date": "2025-01-21",
+        "title": "Promulgated as Act No. 20676",
+        "source_url": "https://www.law.go.kr/lsInfoP.do?lsiSeq=268543"
+      },
+      {
+        "date": "2026-01-22",
+        "title": "Act enters into force",
+        "source_url": "https://www.law.go.kr/lsInfoP.do?lsiSeq=268543"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Official page is in Korean; law number, promulgation date (2025-01-21) and enforcement date (2026-01-22) were confirmed from it. The 26 December 2024 plenary passage date comes from search results rather than the fetched page. English title is the commonly used translation; an official English text was not fetched.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "TH",
+    "country_name": "Thailand",
+    "ai_policy_name": "Thailand National AI Strategy and Action Plan (2022-2027)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2022-07-26",
+    "governing_body": "Cabinet of Thailand (prepared by MHESI and MDES; NECTEC/NSTDA secretariat)",
+    "governance_structure": "National AI Committee with NECTEC/NSTDA as secretariat",
+    "main_motivation": "Build an effective AI ecosystem to strengthen the economy and quality of life by 2027",
+    "description": "A cabinet-approved strategy and action plan with five strategies: readiness in ethics, law and regulation; national AI infrastructure; human capability and education; AI technology and innovation development; and promotion of AI use in public and private sectors. It sets targets for AI talent, research prototypes and economic impact through 2027 and is implemented in phases coordinated across ministries.",
+    "source_url": "https://www.nectec.or.th/en/about/news/cabinet-national-ai-strategy.html",
+    "source_publisher": "National Electronics and Computer Technology Center (NECTEC), NSTDA",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2022-07-26",
+        "title": "Cabinet approves the National AI Strategy and Action Plan (2022-2027)",
+        "source_url": "https://www.nectec.or.th/en/about/news/cabinet-national-ai-strategy.html"
+      },
+      {
+        "date": "2022-12-01",
+        "title": "English overview of the strategy published on Thailand's official AI portal",
+        "source_url": "https://www.ai.in.th/wp-content/uploads/2022/12/2022-NAIS-Presentation-eng.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Second milestone date is month-level (file uploaded December 2022).",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "TH",
+    "country_name": "Thailand",
+    "ai_policy_name": "(Draft) Principles of the Law on Artificial Intelligence",
+    "gov_ai_index": "policy",
+    "status": "development",
+    "announcement_date": "2025-06-11",
+    "governing_body": "Ministry of Digital Economy and Society / Electronic Transactions Development Agency (ETDA)",
+    "governance_structure": "ETDA under MDES, with sectoral regulators envisaged",
+    "main_motivation": "Consolidate earlier draft AI instruments into one risk-based AI law",
+    "description": "Draft principles for a Thai AI law released for public hearing by MDES and ETDA. They propose a risk-based structure that distinguishes prohibited and high-risk AI, duties for providers and deployers, human oversight, incident reporting and a regulatory sandbox, while leaving sector regulators to set proportionate rules. The draft merges the 2022 ONDE royal decree draft and the 2023 ETDA promotion act draft.",
+    "source_url": "https://www.etda.or.th/th/pr-news/law_ai.aspx",
+    "source_publisher": "Electronic Transactions Development Agency (ETDA), Thailand",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-06-11",
+        "title": "ETDA opens public hearing on draft AI law principles (comments to 24 June 2025)",
+        "source_url": "https://www.etda.or.th/th/pr-news/law_ai.aspx"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Date is the ETDA news item date (11 June B.E. 2568). Subsequent revision status after the 2025 hearing not confirmed from an official page.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "AE",
+    "country_name": "United Arab Emirates",
+    "ai_policy_name": "UAE Strategy for Artificial Intelligence (UAE National Strategy for AI 2031)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2017-10-01",
+    "governing_body": "UAE Government / Minister of State for Artificial Intelligence",
+    "governance_structure": "UAE Council for Artificial Intelligence oversees implementation via committees and sub-councils",
+    "main_motivation": "Make the UAE a global AI leader by 2031 as the first project of UAE Centennial 2071",
+    "description": "Launched in October 2017, the strategy aims to embed AI across government services and priority sectors such as health, education, transport, energy and space, and to make the UAE a leading AI destination by 2031. Its objectives include AI-friendly legislation, talent development, research capability, data infrastructure and strong governance. The UAE Council for AI was created to drive implementation.",
+    "source_url": "https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/artificial-intelligence-in-government-policies",
+    "source_publisher": "Official Platform of the UAE Government (u.ae)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2017-10-01",
+        "title": "UAE Strategy for Artificial Intelligence launched (October 2017)",
+        "source_url": "https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/artificial-intelligence-in-government-policies"
+      }
+    ],
+    "confidence": "medium",
+    "notes": "Month-only launch date (October 2017); first of month used. The primary strategy PDF on ai.gov.ae and the dedicated u.ae strategy page could not be verified: ai.gov.ae is blocked by Cloudflare from this location and the u.ae strategy page returns 404. The recorded source is the official u.ae overview page that describes the strategy and the AI Council (last updated 8 Jul 2025).",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "AE",
+    "country_name": "United Arab Emirates",
+    "ai_policy_name": "The UAE Charter for the Development and Use of Artificial Intelligence",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2024-06-10",
+    "governing_body": "UAE Cabinet / Artificial Intelligence, Digital Economy and Remote Work Applications Office",
+    "governance_structure": "AI Office under the Minister of State for AI; applies across federal entities",
+    "main_motivation": "Guiding principles for safe, ethical and inclusive AI aligned with the 2031 strategy",
+    "description": "A twelve-principle charter approved by the UAE Cabinet setting expectations for AI development and use, including safety, algorithmic bias, data privacy, transparency, human oversight, governance and accountability, and compliance with applicable laws and treaties. It is a guiding framework rather than binding legislation and supports the objectives of the UAE Strategy for AI.",
+    "source_url": "https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/policies/Ai/The-UAE-Charter-for-the-Development-and-Use-of-Artificial-Intelligence",
+    "source_publisher": "Official Platform of the UAE Government (u.ae)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-06-10",
+        "title": "Charter issued (Cabinet approval) per UAE Legislation portal",
+        "source_url": "https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence"
+      }
+    ],
+    "confidence": "high",
+    "notes": "The uaelegislation.gov.ae page (issued date 10 Jun 2024) loaded in a browser but returns 403 to non-browser clients. The AI Office publicly released the charter document in July 2024.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "GB",
+    "country_name": "United Kingdom",
+    "ai_policy_name": "A pro-innovation approach to AI regulation",
+    "gov_ai_index": "policy",
+    "status": "whitepaper",
+    "announcement_date": "2023-03-29",
+    "governing_body": "Department for Science, Innovation and Technology (with the Office for Artificial Intelligence)",
+    "governance_structure": "Existing sectoral regulators apply five cross-cutting principles; central coordination function within DSIT",
+    "main_motivation": "Regulate AI through existing regulators and principles rather than a new AI statute, to support innovation",
+    "description": "This white paper sets out the UK government's framework for AI regulation, based on five cross-sector principles (safety and robustness, transparency and explainability, fairness, accountability and governance, contestability and redress) to be applied by existing regulators within their remits rather than through a single AI law. It proposes central government functions to monitor risks, support regulator coordination and run sandboxes. A consultation ran until June 2023, and the government response of February 2024 confirmed the approach while flagging that binding measures for highly capable general-purpose models may be needed later.",
+    "source_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach",
+    "source_publisher": "GOV.UK (Department for Science, Innovation and Technology)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-03-29",
+        "title": "White paper published and consultation opened",
+        "source_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach"
+      },
+      {
+        "date": "2024-02-06",
+        "title": "Government response to the consultation published",
+        "source_url": "https://www.gov.uk/government/consultations/ai-regulation-a-pro-innovation-approach-policy-proposals/outcome/a-pro-innovation-approach-to-ai-regulation-government-response"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Status set to 'whitepaper' because the instrument is a white paper; the principles-based approach it describes is operative through regulators but no AI statute has been enacted.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "GB",
+    "country_name": "United Kingdom",
+    "ai_policy_name": "AI Opportunities Action Plan",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-01-13",
+    "governing_body": "Department for Science, Innovation and Technology",
+    "governance_structure": "DSIT leads delivery across government; recommendations adopted via the government response",
+    "main_motivation": "Use AI to drive economic growth, public-service improvement and sovereign UK AI capability",
+    "description": "The AI Opportunities Action Plan is an independent report by Matt Clifford commissioned by the government, containing 50 recommendations organised under three aims: laying foundations (compute, data, skills and regulation), driving AI adoption across the public and private sectors, and securing homegrown frontier AI capability. The government published a response accepting the recommendations and treats the plan as its roadmap for AI-led growth.",
+    "source_url": "https://www.gov.uk/government/publications/ai-opportunities-action-plan",
+    "source_publisher": "GOV.UK (Department for Science, Innovation and Technology)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-01-13",
+        "title": "Action Plan and government response published",
+        "source_url": "https://www.gov.uk/government/publications/ai-opportunities-action-plan/ai-opportunities-action-plan"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "GB",
+    "country_name": "United Kingdom",
+    "ai_policy_name": "Artificial Intelligence Playbook for the UK Government",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-02-10",
+    "governing_body": "Government Digital Service (Department for Science, Innovation and Technology)",
+    "governance_structure": "Government Digital Service; applied by departments and public bodies",
+    "main_motivation": "Give civil servants practical rules for safe, lawful and effective use of AI in public services",
+    "description": "The AI Playbook is official guidance for UK public-sector organisations on selecting, buying, building and deploying AI. It sets ten principles covering legality, security, human oversight, transparency and accountability, and explains AI capabilities, limitations and risks in plain terms. It expands and replaces the January 2024 Generative AI Framework for HMG to cover a broader range of AI technologies.",
+    "source_url": "https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government",
+    "source_publisher": "GOV.UK (Government Digital Service)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-02-10",
+        "title": "AI Playbook published, superseding the Generative AI Framework for HMG",
+        "source_url": "https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "US",
+    "country_name": "United States",
+    "ai_policy_name": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2023-01-26",
+    "governing_body": "National Institute of Standards and Technology (US Department of Commerce)",
+    "governance_structure": "NIST maintains the framework; adoption by organisations is voluntary",
+    "main_motivation": "Give organisations a common, voluntary approach to identifying and managing AI risks",
+    "description": "The AI RMF is a voluntary framework developed by NIST with public input to help organisations manage risks to individuals, organisations and society from AI systems. It defines characteristics of trustworthy AI and organises risk management into four functions: Govern, Map, Measure and Manage. NIST has since added companion resources, including a Generative AI Profile (NIST AI 600-1) in July 2024, and has stated that the framework is being revised in line with the 2025 AI Action Plan.",
+    "source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+    "source_publisher": "National Institute of Standards and Technology",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2023-01-26",
+        "title": "AI RMF 1.0 released",
+        "source_url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      },
+      {
+        "date": "2024-07-26",
+        "title": "Generative AI Profile (NIST AI 600-1) released",
+        "source_url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "US",
+    "country_name": "United States",
+    "ai_policy_name": "Executive Order 14179: Removing Barriers to American Leadership in Artificial Intelligence",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-01-23",
+    "governing_body": "President of the United States (Executive Office of the President)",
+    "governance_structure": "Assistant to the President for Science and Technology, AI and Crypto Czar and National Security Advisor coordinate; OMB revises agency AI memoranda",
+    "main_motivation": "Reset federal AI policy toward deregulation and US global AI dominance",
+    "description": "This executive order revokes Executive Order 14110 of October 2023 and declares a federal policy of sustaining US leadership in AI. It directs senior White House officials to produce an AI action plan within 180 days, orders a review of all actions taken under the revoked order with suspension or rescission of those found inconsistent, and requires OMB to revise its agency AI governance memoranda.",
+    "source_url": "https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/",
+    "source_publisher": "The White House",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-01-23",
+        "title": "Executive Order signed; EO 14110 revoked",
+        "source_url": "https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/"
+      },
+      {
+        "date": "2025-07-23",
+        "title": "America's AI Action Plan released as required by the order",
+        "source_url": "https://www.whitehouse.gov/articles/2025/07/white-house-unveils-americas-ai-action-plan/"
+      }
+    ],
+    "confidence": "high",
+    "notes": "The Federal Register entry (90 FR 8741, published 31 January 2025) could not be fetched from this environment because federalregister.gov returned an access-challenge page; the White House page was used instead. EO number 14179 is from general knowledge of the Federal Register citation and was not verified on the fetched page.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "US",
+    "country_name": "United States",
+    "ai_policy_name": "Winning the Race: America's AI Action Plan",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2025-07-23",
+    "governing_body": "The White House (Office of Science and Technology Policy)",
+    "governance_structure": "OSTP coordinates; implementation assigned to federal departments and agencies",
+    "main_motivation": "Secure US leadership in AI through deregulation, infrastructure build-out and export of American AI",
+    "description": "America's AI Action Plan is the federal AI strategy mandated by Executive Order 14179. It lists more than 90 policy actions grouped under three pillars: accelerating innovation (including removing regulatory barriers), building AI infrastructure such as data centres and chip fabrication with streamlined permitting, and leading internationally through AI exports and security measures. It was released with accompanying executive orders on federal procurement, data-centre permitting and AI exports.",
+    "source_url": "https://www.whitehouse.gov/articles/2025/07/white-house-unveils-americas-ai-action-plan/",
+    "source_publisher": "The White House",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-01-23",
+        "title": "EO 14179 orders an AI action plan within 180 days",
+        "source_url": "https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/"
+      },
+      {
+        "date": "2025-07-23",
+        "title": "Action Plan published (PDF)",
+        "source_url": "https://www.whitehouse.gov/wp-content/uploads/2025/07/Americas-AI-Action-Plan.pdf"
+      }
+    ],
+    "confidence": "high",
+    "notes": "The PDF loaded (HTTP 200) but its text was not extracted; content details are from the White House announcement page.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "UY",
+    "country_name": "Uruguay",
+    "ai_policy_name": "Estrategia Nacional de Inteligencia Artificial del Uruguay 2024-2030 (National Artificial Intelligence Strategy of Uruguay 2024-2030)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2024-11-21",
+    "governing_body": "Agencia de Gobierno Electrónico y Sociedad de la Información y del Conocimiento (Agesic)",
+    "governance_structure": "Agesic leads implementation under the Comité Estratégico del Sector Público para IA y Datos, with mid-term review and periodic progress reports",
+    "main_motivation": "Ethical, sovereign AI development supporting sustainable growth",
+    "description": "Uruguay's 2024-2030 strategy was approved on 21 November 2024 by the public-sector Strategic Committee for AI and Data after a participatory process involving more than 300 people from state bodies, civil society and the private sector, with technical support from CAF and UNESCO. It sets guiding principles and three objectives: governance and safeguards for ethical and safe AI, national capabilities in infrastructure, data and talent, and use of AI for sustainable development and better public services. A roadmap with goals and semi-annual reporting accompanies the strategy.",
+    "source_url": "https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/comunicacion/publicaciones/estrategia-nacional-inteligencia-artificial-2024-2030",
+    "source_publisher": "Agesic (gub.uy)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2024-11-21",
+        "title": "Strategy approved by the Strategic Committee for Public-Sector AI and Data",
+        "source_url": "https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/comunicacion/noticias/se-aprobo-estrategia-nacional-inteligencia-artificial-2024-2030"
+      },
+      {
+        "date": "2024-11-22",
+        "title": "Strategy document published by Agesic",
+        "source_url": "https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/comunicacion/publicaciones/estrategia-nacional-inteligencia-artificial-2024-2030"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Both Agesic pages fetched successfully. A public consultation preceded approval on the national citizen-participation platform.",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "VN",
+    "country_name": "Vietnam",
+    "ai_policy_name": "National Strategy on Research, Development and Application of Artificial Intelligence to 2030 (Decision No. 127/QD-TTg)",
+    "gov_ai_index": "strategy",
+    "status": "launched",
+    "announcement_date": "2021-01-26",
+    "governing_body": "Prime Minister of Vietnam",
+    "governance_structure": "Ministry of Science and Technology as focal point coordinating 15+ ministries",
+    "main_motivation": "Make Vietnam a leading AI centre in ASEAN and the world's top 50 by 2030",
+    "description": "A prime ministerial decision promulgating Vietnam's national AI strategy to 2030. It targets a top-four ASEAN and top-50 global position in AI, three national big data and high-performance computing centres, national innovation centres for AI and open datasets across sectors. It directs work on a legal framework, infrastructure, talent and application of AI in government and industry, with the Ministry of Science and Technology coordinating.",
+    "source_url": "https://vanban.chinhphu.vn/default.aspx?pageid=27160&docid=202565",
+    "source_publisher": "Government of Vietnam legal document portal (vanban.chinhphu.vn)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2021-01-26",
+        "title": "Decision 127/QD-TTg signed by Deputy PM Vu Duc Dam",
+        "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2021/01/127.signed.pdf"
+      },
+      {
+        "date": "2025-12-10",
+        "title": "National Assembly passes the Law on Artificial Intelligence, creating a binding framework",
+        "source_url": "https://vanban.chinhphu.vn/?pageid=27160&docid=216334&classid=1&orggroupid=1"
+      }
+    ],
+    "confidence": "high",
+    "notes": "",
+    "technology_partners": null
+  },
+  {
+    "country_symbol": "VN",
+    "country_name": "Vietnam",
+    "ai_policy_name": "Law on Artificial Intelligence (Law No. 134/2025/QH15)",
+    "gov_ai_index": "policy",
+    "status": "launched",
+    "announcement_date": "2025-12-10",
+    "governing_body": "National Assembly of Vietnam",
+    "governance_structure": "Government/Ministry of Science and Technology as state management body",
+    "main_motivation": "Establish a comprehensive, risk-based legal framework for AI while promoting innovation",
+    "description": "Vietnam's first dedicated AI statute, with eight chapters and 35 articles governing the research, development, provision, deployment and use of AI systems. It adopts a risk-based approach, requires human oversight in important decisions, and provides for national AI infrastructure, a national AI development fund, a regulatory sandbox and rules on AI-generated content. It took effect on 1 March 2026 with transition periods for existing systems.",
+    "source_url": "https://vanban.chinhphu.vn/?pageid=27160&docid=216334&classid=1&orggroupid=1",
+    "source_publisher": "Government of Vietnam legal document portal (vanban.chinhphu.vn)",
+    "date_accessed": "2026-09-11",
+    "milestones": [
+      {
+        "date": "2025-12-10",
+        "title": "Law No. 134/2025/QH15 passed by the National Assembly",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-134-2025-qh15-468694.htm"
+      },
+      {
+        "date": "2026-03-01",
+        "title": "Law on Artificial Intelligence enters into force",
+        "source_url": "https://vanban.chinhphu.vn/?pageid=27160&docid=216334&classid=1&orggroupid=1"
+      }
+    ],
+    "confidence": "high",
+    "notes": "Official portal lists issue date 10-12-2025 and effective date 01-03-2026. Signed PDF: https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat134.signed.pdf",
+    "technology_partners": null
+  }
+]
