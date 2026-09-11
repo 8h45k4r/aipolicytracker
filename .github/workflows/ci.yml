@@ -65,22 +65,3 @@ jobs:
 
       - name: Build
         run: npm run build
-
-  # TEMPORARY: regenerate composer.lock for symfony/yaml; removed before merge.
-  lock:
-    name: Regenerate composer.lock (temporary)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          extensions: mbstring, intl, bcmath
-          coverage: none
-      - run: composer update symfony/yaml --with-all-dependencies --no-install --no-scripts --no-interaction --no-progress
-      - run: composer validate --no-check-publish
-      - uses: actions/upload-artifact@v4
-        with:
-          name: composer-lock
-          path: composer.lock
-          retention-days: 1
