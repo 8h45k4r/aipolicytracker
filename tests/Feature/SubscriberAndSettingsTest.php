@@ -67,8 +67,8 @@ class SubscriberAndSettingsTest extends TestCase
 
     public function test_settings_are_encrypted_at_rest_masked_in_ui_and_applied_to_config(): void
     {
-        config(['aipolicytracker.admin_emails' => ['admin@example.com']]);
-        $admin = User::factory()->create(['email' => 'admin@example.com']);
+        config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
+        $admin = User::factory()->create(['email' => 'editor@example.test']);
         $member = User::factory()->create();
 
         $this->actingAs($member)->get('/backend/admin/settings')->assertRedirect();
@@ -90,8 +90,8 @@ class SubscriberAndSettingsTest extends TestCase
 
     public function test_admin_pages_render_for_admins_only(): void
     {
-        config(['aipolicytracker.admin_emails' => ['admin@example.com']]);
-        $admin = User::factory()->create(['email' => 'admin@example.com']);
+        config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
+        $admin = User::factory()->create(['email' => 'editor@example.test']);
         foreach (['/backend/dashboard', '/backend/admin/submissions', '/backend/admin/subscribers', '/backend/admin/external', '/backend/admin/subscribers/export'] as $url) {
             $this->get($url)->assertRedirect('/login');
             $this->actingAs($admin)->get($url)->assertOk();
