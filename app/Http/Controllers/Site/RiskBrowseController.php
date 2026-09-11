@@ -90,7 +90,7 @@ class RiskBrowseController extends Controller
     /** Single-incident profile: every stored field, related incidents and the MIT risk entries that describe the same failure mode. */
     public function incidentShow(int $incident): View
     {
-        $i = ExternalIncident::findOrFail($incident);
+        $i = ExternalIncident::with('reports')->findOrFail($incident);
         $labels = ExternalIncident::domainLabels();
         $domainId = array_search($i->mit_domain, $labels, true) ?: null;
         $subdomainCode = $this->subdomainCode($i->mit_subdomain);
