@@ -21,9 +21,11 @@
     @if($seo->feedUrl)<link rel="alternate" type="application/rss+xml" title="AI policy changes" href="{{ $seo->feedUrl }}">@endif
     @if(config('aipolicytracker.google_site_verification'))<meta name="google-site-verification" content="{{ config('aipolicytracker.google_site_verification') }}">@endif
     @if(config('aipolicytracker.bing_site_verification'))<meta name="msvalidate.01" content="{{ config('aipolicytracker.bing_site_verification') }}">@endif
+    <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#002147">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=source-serif-4:400,600,700|ibm-plex-sans:400,500,600|ibm-plex-mono:400,500&display=swap" rel="stylesheet">
     @foreach($seo->jsonLd as $schema)
     <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
     @endforeach
@@ -35,25 +37,24 @@
 <body class="min-h-screen flex flex-col" @isset($pageTrack) data-page-track="{{ $pageTrack }}" @endisset>
 <a href="#main" class="skip-link">Skip to content</a>
 
-<header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between gap-4">
-            <a href="{{ route('home') }}" class="flex items-center gap-2 no-underline" aria-label="AIPolicyTracker home">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-md bg-slate-900 text-white font-bold text-sm" aria-hidden="true">AP</span>
-                <span class="text-base font-semibold text-slate-900 tracking-tight">AIPolicyTracker</span>
+<header class="border-b border-brand-line bg-white">
+    <div class="container-site">
+        <div class="flex items-center justify-between gap-6">
+            <a href="{{ route('home') }}" class="flex items-center py-3 no-underline shrink-0" aria-label="AIPolicyTracker home">
+                <img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" decoding="async">
             </a>
-            <nav aria-label="Primary" class="hidden lg:flex items-center gap-1 text-sm">
-                @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['tools.applicability','Applicability check'],['open-data','Open data']] as [$r,$label])
-                <a href="{{ route($r) }}" class="rounded-md px-3 py-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900 no-underline {{ request()->routeIs($r) ? 'bg-slate-100 font-medium text-slate-900' : '' }}" @if(request()->routeIs($r)) aria-current="page" @endif>{{ $label }}</a>
+            <nav aria-label="Primary" class="hidden lg:flex items-center gap-6">
+                @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['tools.applicability','Applicability'],['open-data','Open data']] as [$r,$label])
+                <a href="{{ route($r) }}" class="nav-link {{ request()->routeIs($r) ? 'nav-link-active' : '' }}" @if(request()->routeIs($r)) aria-current="page" @endif>{{ $label }}</a>
                 @endforeach
             </nav>
             <div class="flex items-center gap-2">
-                <a href="{{ route('policies.index') }}" class="hidden sm:inline-flex btn-secondary !min-h-[40px] !py-2" data-track="header_search_click">Search</a>
+                <a href="{{ route('policies.index') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click">Search</a>
                 <details class="relative lg:hidden">
-                    <summary class="btn-secondary !min-h-[40px] !py-2 list-none" aria-label="Open menu">Menu</summary>
-                    <nav aria-label="Mobile" class="absolute right-0 mt-2 w-64 rounded-lg border border-slate-200 bg-white p-2 shadow-lg z-40">
+                    <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none" aria-label="Open menu">Menu</summary>
+                    <nav aria-label="Mobile" class="absolute right-0 mt-2 w-64 rounded-sm border border-brand-line bg-white p-2 shadow-lg z-40">
                         @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
-                        <a href="{{ route($r) }}" class="block rounded-md px-3 py-2.5 text-sm text-slate-800 hover:bg-slate-100 no-underline">{{ $label }}</a>
+                        <a href="{{ route($r) }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body hover:bg-brand-paper no-underline">{{ $label }}</a>
                         @endforeach
                     </nav>
                 </details>
@@ -63,57 +64,62 @@
 </header>
 
 @if(session('success'))
-<div class="bg-emerald-50 border-b border-emerald-200" role="status"><div class="mx-auto max-w-7xl px-4 py-3 text-sm text-emerald-900">{{ session('success') }}</div></div>
+<div class="bg-brand-paper border-b border-brand-line" role="status"><div class="container-site py-3 text-sm text-brand-navy">{{ session('success') }}</div></div>
 @endif
 
 <main id="main" class="flex-1" tabindex="-1">
     @yield('content')
 </main>
 
-<footer class="mt-16 border-t border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-4 text-sm">
-        <div class="md:col-span-1">
-            <p class="font-semibold text-slate-900">AIPolicyTracker</p>
-            <p class="mt-2 text-slate-600">{{ config('aipolicytracker.positioning') }}</p>
-            <p class="mt-3 text-xs text-slate-500">{{ config('aipolicytracker.disclaimer') }}</p>
+<footer class="mt-20 bg-brand-ink text-white/80">
+    <div class="container-site py-12 grid gap-10 md:grid-cols-12 text-sm">
+        <div class="md:col-span-4">
+            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" loading="lazy" decoding="async">
+            <p class="mt-4 max-w-sm text-white/80">{{ config('aipolicytracker.positioning') }}</p>
+            <p class="mt-4 max-w-sm text-xs leading-5 text-white/60">{{ config('aipolicytracker.disclaimer') }}</p>
         </div>
-        <div>
-            <p class="font-semibold text-slate-900">Explore</p>
-            <ul class="mt-2 space-y-1.5">
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('policies.index') }}">Policies</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('obligations.index') }}">Obligations</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('compare.index') }}">Compare</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('changes.index') }}">Change log</a> · <a class="text-slate-700 hover:text-slate-900" href="{{ route('changes.feed') }}">RSS</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('guides.index') }}">Guides</a></li>
+        <div class="md:col-span-2">
+            <p class="eyebrow !text-brand-cyan">Explore</p>
+            <ul class="mt-3 space-y-2">
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('policies.index') }}">Policies</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('obligations.index') }}">Obligations</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('compare.index') }}">Compare</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.feed') }}">RSS</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('guides.index') }}">Guides</a></li>
             </ul>
         </div>
-        <div>
-            <p class="font-semibold text-slate-900">Project</p>
-            <ul class="mt-2 space-y-1.5">
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('open-data') }}">Open data and API</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('methodology') }}">Methodology</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('about') }}">About</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('contribute') }}">Contribute</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
-                <li><a class="text-slate-700 hover:text-slate-900" href="{{ route('llms') }}">llms.txt</a></li>
+        <div class="md:col-span-2">
+            <p class="eyebrow !text-brand-cyan">Project</p>
+            <ul class="mt-3 space-y-2">
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('methodology') }}">Methodology</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('about') }}">About</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('contribute') }}">Contribute</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('llms') }}">llms.txt</a></li>
             </ul>
         </div>
-        <div>
-            <p class="font-semibold text-slate-900">Turn obligations into workflows</p>
-            <p class="mt-2 text-slate-600">AIPolicyTracker is the open intelligence layer. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" class="text-slate-800" data-track="certifyi_click">Certifyi</a> is a separate compliance execution platform for teams that want to turn obligations into workflows.</p>
-            <p class="mt-4 text-xs text-slate-500">© {{ date('Y') }} AIPolicyTracker. Code Apache-2.0. Data {{ config('aipolicytracker.data_license') }}.
-                @if(config('aipolicytracker.links.privacy_policy'))· <a href="{{ config('aipolicytracker.links.privacy_policy') }}">Privacy</a>@endif
-                @if(config('aipolicytracker.links.terms_of_use'))· <a href="{{ config('aipolicytracker.links.terms_of_use') }}">Terms</a>@endif
+        <div class="md:col-span-4">
+            <p class="eyebrow !text-brand-cyan">From policy to practice</p>
+            <p class="mt-3 text-white/80">AIPolicyTracker is the open intelligence layer. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" class="text-white underline decoration-white/40 hover:decoration-white" data-track="certifyi_click">Certifyi</a> is a separate platform for teams that need to turn obligations into owned tasks, evidence and audit trails.</p>
+        </div>
+    </div>
+    <div class="border-t border-white/10">
+        <div class="container-site py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-white/55">
+            <p>© {{ date('Y') }} AIPolicyTracker · Code Apache-2.0 · Data {{ config('aipolicytracker.data_license') }}
+                @if(config('aipolicytracker.links.privacy_policy'))· <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.privacy_policy') }}">Privacy</a>@endif
+                @if(config('aipolicytracker.links.terms_of_use'))· <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.terms_of_use') }}">Terms</a>@endif
             </p>
+            <p>Built by <a class="text-white/70 hover:text-white no-underline" href="https://certifyi.ai" rel="noopener">Dignep Group Pvt. Ltd.</a> · Powering AI governance for regulated industries</p>
         </div>
     </div>
 </footer>
 
 @if(config('aipolicytracker.google_analytics_id') || config('aipolicytracker.cloudflare_analytics_token'))
-<div id="consent-banner" hidden class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white p-4 shadow-lg" role="dialog" aria-label="Analytics consent">
+<div id="consent-banner" hidden class="fixed inset-x-0 bottom-0 z-50 border-t border-brand-line bg-white p-4 shadow-lg" role="dialog" aria-label="Analytics consent">
     <div class="mx-auto max-w-7xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm">
-        <p class="text-slate-700">We use privacy-conscious analytics to understand which policies and tools are useful. No advertising. You can decline.</p>
+        <p class="text-brand-body">We use privacy-conscious analytics to understand which policies and tools are useful. No advertising. You can decline.</p>
         <div class="flex gap-2"><button type="button" class="btn-secondary" data-consent="no">Decline</button><button type="button" class="btn-primary" data-consent="yes">Allow analytics</button></div>
     </div>
 </div>

@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Public site brand refresh: official logo lockups (light and dark), SVG favicon from the mark, navy `#002147` primary with semantic brand and state colour tokens, Source Serif 4 / IBM Plex typography, editorial front page (lead changes, upcoming dates, jurisdiction rows) replacing stat tiles and card grids, navy footer with attribution.
+
 ### Fixed
 - Change log pages and the changes sitemap failed on PostgreSQL because year grouping used `substr()` on a date column; years are now derived portably.
 - Production startup: `symfony/yaml` declared as a runtime dependency and caches rebuilt before data steps.
