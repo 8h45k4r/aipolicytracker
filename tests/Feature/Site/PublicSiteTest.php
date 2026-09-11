@@ -196,6 +196,13 @@ class PublicSiteTest extends TestCase
         $this->actingAs($user)->get(html_entity_decode($m[1]))->assertOk()->assertHeader('Content-Disposition', 'attachment; filename=ai-system-inventory-template.csv');
         $this->assertNotNull($download->fresh()->downloaded_at);
         $this->actingAs($user)->get(route('tools.file', ['slug' => 'ai-system-inventory-template', 'download' => $download, 'file' => 'ai-system-inventory-template.csv']))->assertStatus(403); // unsigned
+        // A seeded file missing from the disk (clean deploy) is served from the bundled copy and restored; the seeder also restores it.
+        \Illuminate\Support\Facades\Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        $this->actingAs($user)->get(html_entity_decode($m[1]))->assertOk()->assertHeader('Content-Disposition', 'attachment; filename=ai-system-inventory-template.csv');
+        \Illuminate\Support\Facades\Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        \Illuminate\Support\Facades\Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        $this->seed(\Database\Seeders\ToolSeeder::class);
+        \Illuminate\Support\Facades\Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
         $other = User::factory()->create();
         $this->actingAs($other)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertNotFound();
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('min-w-0', false);
