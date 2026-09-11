@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Single-incident profiles (`/ai-risk/incidents/{id}`) with every stored field, alleged deployer/developer/harmed parties, MIT taxonomy classification, similar incidents, other incidents involving the same deployer, the MIT risk entries describing the same failure mode, a link to the incident's news reports on the AI Incident Database, Save button, JSON export and Article structured data.
+- Single-risk profiles (`/ai-risk/risks/{ev_id}`) for each MIT AI Risk Repository entry with the subdomain definition, matching real-world incidents, how other frameworks describe the same risk and the paper's other entries. Browse pages, the home page and domain pages now link to the profiles.
+- Maintainer links (website, X, LinkedIn, GitHub) on the About page and in the footer.
+
+### Changed
+- Admin sign-in is a server-rendered page in the admin theme with a show/hide password control; the legacy React login page with outdated feature copy and a register link is no longer served. Admin layout uses a sticky sidebar and full-height content area.
+
 ### Changed
 - Deploy workflow waits for the health endpoint and restarts the app once through the Kudu API if the platform stops the container after a deploy.
 

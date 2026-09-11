@@ -111,7 +111,8 @@
                 @if(config('aipolicytracker.links.privacy_policy'))· <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.privacy_policy') }}">Privacy</a>@endif
                 @if(config('aipolicytracker.links.terms_of_use'))· <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.terms_of_use') }}">Terms</a>@endif
             </p>
-            <p>Built by <a class="text-white/70 hover:text-white no-underline" href="https://certifyi.ai" rel="noopener">Dignep Group Pvt. Ltd.</a> · Powering AI governance for regulated industries</p>
+            <p>Built by <a class="text-white/70 hover:text-white no-underline" href="https://certifyi.ai" rel="noopener">Dignep Group Pvt. Ltd.</a> · Powering AI governance for regulated industries
+                @foreach(config('aipolicytracker.maintainers', []) as $m)<br>Maintained by <a class="text-white/70 hover:text-white no-underline" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/70 hover:text-white no-underline" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
         </div>
     </div>
 </footer>
