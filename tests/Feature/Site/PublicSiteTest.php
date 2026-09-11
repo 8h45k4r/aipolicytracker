@@ -233,4 +233,15 @@ class PublicSiteTest extends TestCase
         $this->assertStringContainsString('"attribution"', $json->streamedContent());
         $this->get('/ai-risk/risks/export.xml')->assertNotFound();
     }
+
+    public function test_html_is_not_cached_but_api_is_and_submissions_notify_admins(): void
+    {
+        $this->get('/')->assertOk()->assertHeader('Cache-Control', 'max-age=0, must-revalidate, no-cache, no-store, private');
+        $this->get('/api/v1/policies')->assertOk()->assertHeader('Cache-Control', 'max-age=600, public, stale-while-revalidate=3600');
+
+        config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
+        \Illuminate\Support\Facades\Mail::fake();
+        $this->post('/contribute', ['type' => 'correction', 'summary' => 'The in-force date for the EU AI Act is wrong.', 'proposed_source_url' => 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj'])->assertRedirect();
+        \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\SubmissionReceivedMail::class, fn ($m) => $m->hasTo('editor@example.test'));
+    }
 }

@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Space Grotesk (with Space Mono for numerals) is now the typeface across the public site, admin and emails.
+- HTML responses are served with no-store cache headers so every page reflects the latest import; API, exports, feeds and sitemaps keep their own caching.
+- Admins receive an email for every public submission (correction, source, policy, reviewer application) linking to the review queue.
+- Home page shows the latest AI incidents with the snapshot date; research pages carry Dataset structured data with CSV/JSON distributions and FAQ schema for search and answer engines.
+
 ### Added
 - Researcher tooling on AI risk: the full AI Incident Database (1,663 incidents, metadata only) and MIT AI Risk Repository database (2,500 risk entries from 74 frameworks) imported into read-model tables; browse pages with filters (year, domain, subdomain, entity, intent, timing, country, sector, harm level, keyword), CSV/JSON exports that carry licence and citation, a frameworks page, causal entity × intent matrix and stacked domain-by-year charts, and per-domain risk/incident counts and recent incidents.
 

@@ -4,7 +4,7 @@
 
 /*
  Public site design system.
- Tone: a published reference work, not a dashboard. Serif display type, a
+ Tone: a published reference work, not a dashboard. Space Grotesk throughout, a
  single navy primary (#002147) from the logo, hairline rules instead of card
  chrome, and generous measure. Colours come only from the brand tokens in
  tailwind.config.js.
@@ -16,7 +16,7 @@
         *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
     body { @apply bg-white text-brand-body antialiased font-sans; font-feature-settings: "kern", "liga", "calt"; }
-    h1, h2, h3 { @apply font-display text-brand-navy; }
+    h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
     h1 { @apply text-balance; }
     a { @apply text-brand-blue underline-offset-[3px] decoration-brand-line hover:decoration-brand-blue; }
     a.no-underline { text-decoration: none; }

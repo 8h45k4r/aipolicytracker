@@ -50,7 +50,14 @@ class ContributeController extends Controller
             'source_page' => ['nullable', 'url', 'max:2048'],
         ]);
 
-        ContributorSubmission::create($data + ['status' => 'pending_review']);
+        $submission = ContributorSubmission::create($data + ['status' => 'pending_review']);
+        foreach (config('aipolicytracker.admin_emails', []) as $admin) {
+            try {
+                \Illuminate\Support\Facades\Mail::to($admin)->send(new \App\Mail\SubmissionReceivedMail($submission));
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        }
 
         return redirect()->route('contribute')->with('success', 'Thank you. Your submission has been recorded with status "pending review". A reviewer will check it against official sources before anything is published.');
     }
