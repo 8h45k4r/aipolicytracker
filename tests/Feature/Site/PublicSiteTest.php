@@ -174,6 +174,8 @@ class PublicSiteTest extends TestCase
         $this->get('/map')->assertRedirect('/');
         $this->get('/news')->assertRedirect('/changes');
         $this->get('/timeline')->assertRedirect('/changes');
+        $this->get('/news/9e91d870-7893-41a9-9429-4749e8838881')->assertRedirect('/changes');
+        $this->get('/aipolicytracker/single-view/a109df5b-11b7-42ff-8665-5c7b6c10c53e')->assertRedirect('/policies');
         $this->get('/this-page-does-not-exist')->assertNotFound()->assertSee('Page not found');
     }
 
