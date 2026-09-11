@@ -79,6 +79,12 @@ class FreeToolController extends Controller
             'referrer' => mb_substr((string) $request->headers->get('referer'), 0, 255),
         ]);
 
+        try {
+            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\DownloadLinksMail($download, $tool));
+        } catch (\Throwable $e) {
+            report($e); // the ready page still shows the links
+        }
+
         return redirect()->route('tools.ready', [$slug, $download]);
     }
 
