@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Correction form prefilled from the record: opening "Report a correction" on a policy, jurisdiction, obligation or change shows the record, its official source, a field picker with the value currently displayed, and a "correct value" box. The captured context (field, shown value, proposed value, record URL and content version) is stored with the submission and shown in the admin queue and alert email.
+- `/subscribe` page with a jurisdiction picker grouped by region, subscriber count and recent changes; "Subscribe" and "Saved" links in the header, mobile menu and footer.
+- "Follow" box on every policy page: subscribers can receive changes for one instrument only (policy slugs are now valid digest topics).
+- Saved records: a per-browser reading list (`/saved`) with Save buttons on policy, jurisdiction and obligation pages, count badge in the header, and copy as Markdown or JSON.
+
+### Fixed
+- `/dashboard` redirected to `/map`, which redirected again; it now goes straight to the home page.
+
 ### Changed
 - Deploy workflow waits for the health endpoint and restarts the app once through the Kudu API if the platform stops the container after a deploy.
 

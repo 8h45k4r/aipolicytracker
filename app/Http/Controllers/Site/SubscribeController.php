@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SubscriptionConfirmMail;
+use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Subscriber;
 use App\Support\Seo;
@@ -18,6 +19,22 @@ use Illuminate\View\View;
  */
 class SubscribeController extends Controller
 {
+    /** Full subscription page: choose jurisdictions (or everything) and subscribe. */
+    public function show(Request $request): View
+    {
+        $seo = Seo::make(
+            'Subscribe: weekly AI policy digest by jurisdiction',
+            'A weekly email of dated, source-linked AI policy changes and upcoming application dates. Pick the jurisdictions you follow, or receive everything. Double opt-in, one-click unsubscribe.',
+            route('subscribe.show')
+        )->withBreadcrumbs([['Home', route('home')], ['Subscribe', route('subscribe.show')]]);
+
+        $jurisdictions = Jurisdiction::published()->orderBy('region')->orderBy('name')->get(['slug', 'name', 'region', 'jurisdiction_type'])->groupBy('region');
+        $selected = array_values(array_filter((array) $request->query('topics', []), fn ($t) => is_string($t) && preg_match('/^[a-z0-9-]+$/', $t)));
+        $recent = ChangeEvent::published()->with('jurisdiction')->orderByDesc('occurred_on')->limit(5)->get();
+
+        return view('site.subscribe.show', ['seo' => $seo, 'jurisdictions' => $jurisdictions, 'selected' => $selected, 'recent' => $recent, 'subscriberCount' => Subscriber::active()->count()]);
+    }
+
     public function store(Request $request): RedirectResponse
     {
         if ($request->filled('website')) { // honeypot

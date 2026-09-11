@@ -57,6 +57,8 @@ Route::get('/contribute', [ContributeController::class, 'show'])->name('contribu
 Route::post('/contribute', [ContributeController::class, 'store'])->middleware('throttle:10,1')->name('contribute.store');
 
 // Email digest subscriptions (double opt-in) and the scheduled-send trigger.
+Route::get('/subscribe', [SubscribeController::class, 'show'])->name('subscribe.show');
+Route::get('/saved', [PageController::class, 'saved'])->name('saved');
 Route::post('/subscribe', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
 Route::get('/subscribe/confirm/{token}', [SubscribeController::class, 'confirm'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.confirm');
 Route::get('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribe'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.unsubscribe');
@@ -79,4 +81,4 @@ Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name
 
 // Legacy URL redirects.
 Route::redirect('/about-ai-policy', '/about', 301);
-Route::redirect('/dashboard', '/map', 301);
+Route::redirect('/dashboard', '/', 301);

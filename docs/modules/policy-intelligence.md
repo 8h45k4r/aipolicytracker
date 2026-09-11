@@ -354,9 +354,9 @@ Every record type that makes a factual claim carries the shared source-quality c
 | submitter_name | varchar | yes |  |  |
 | submitter_email | varchar | yes |  |  |
 | submitter_affiliation | varchar | yes |  |  |
-| payload | text | yes |  |  |
+| payload | text | yes |  | JSON captured at submission for corrections: `field`, `current_value`, `proposed_value`, `record_title`, `record_url`, `record_official_source_url`, `record_content_version`. Correctable fields per record type are listed in `ContributeController::CORRECTABLE_FIELDS`. |
 | status | varchar | no | 'pending_review' | `App\\Enums\\SubmissionStatus`; defaults to pending_review |
-| source_page | varchar | yes |  |  |
+| source_page | varchar | yes |  | Canonical URL of the record when the form was opened from a record page, else the referrer |
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |
 

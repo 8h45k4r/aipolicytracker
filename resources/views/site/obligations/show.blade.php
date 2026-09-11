@@ -49,7 +49,7 @@
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
                 <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Source</p><p class="mt-1 text-brand-body">{{ $policy->source_title }}</p><p class="text-xs text-brand-muted">{{ $policy->source_publisher }}@if($obligation->source_reference) · {{ $obligation->source_reference }}@endif</p>@if($obligation->official_source_url)<a href="{{ $obligation->official_source_url }}" rel="noopener" class="mt-2 inline-block text-brand-blue hover:underline break-all" data-track="source_click">{{ \Illuminate\Support\Str::limit($obligation->official_source_url, 60) }}</a>@endif</div>
-                <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" class="flex-col [&>*]:w-full" />
+                <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" :save-title="$obligation->title" :save-url="$obligation->url()" :save-meta="($policy->short_title ?: $policy->title)" class="flex-col [&>*]:w-full" />
                 <x-site.certifyi-cta label="Turn this obligation into a tracked control" />
             </div>
         </aside>

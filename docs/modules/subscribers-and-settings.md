@@ -32,11 +32,15 @@ Email digest subscriptions (double opt-in) and operator-managed settings stored 
 
 ## Routes
 
-Public: `subscribe.store` (POST, throttled, honeypot), `subscribe.confirm`, `subscribe.unsubscribe` (GET and RFC 8058 POST), `cron.digest` (POST, bearer token). Admin (`auth` + `isAdmin`): `backend.admin.dashboard|submissions|subscribers|subscribers.export|subscribers.resend|subscribers.delete|external|settings|settings.save|settings.test`.
+Public: `subscribe.show` (GET `/subscribe`, jurisdiction picker grouped by region), `subscribe.store` (POST, throttled, honeypot), `subscribe.confirm`, `subscribe.unsubscribe` (GET and RFC 8058 POST), `cron.digest` (POST, bearer token). Admin (`auth` + `isAdmin`): `backend.admin.dashboard|submissions|subscribers|subscribers.export|subscribers.resend|subscribers.delete|external|settings|settings.save|settings.test`.
 
 ## Scheduling
 
 `.github/workflows/weekly-digest.yml` calls `POST /cron/digest` on Mondays 06:00 UTC with the `CRON_TOKEN` repository secret; the same value is stored (encrypted) as the `cron_token` setting or in the `CRON_TOKEN` environment variable.
+
+## Saved records (reading list)
+
+`/saved` (`PageController::saved`) renders a shell; the list itself is kept in the visitor's browser under the `localStorage` key `apt-saved` by `resources/js/public.js`. Record pages carry `<x-site.save-button>` (via `correction-cta`). Nothing is transmitted or stored server-side, so there is no schema, no personal data and no retention question; copying the list as Markdown or JSON is client-side only. The header shows the count with `data-saved-count`.
 
 ## Privacy
 

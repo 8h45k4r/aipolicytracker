@@ -60,6 +60,13 @@ class SubscriberAndSettingsTest extends TestCase
         Mail::assertSent(WeeklyDigestMail::class, 1);
         Mail::assertSent(WeeklyDigestMail::class, fn ($m) => $m->hasTo('a@example.org'));
 
+        // Policy-level topics: a subscriber following one instrument only gets its changes.
+        $change = \App\Models\ChangeEvent::with('policyInstrument')->whereNotNull('policy_instrument_id')->first();
+        $follower = Subscriber::create(['email' => 'c@example.org', 'token' => Subscriber::newToken(), 'topics' => [$change->policyInstrument->slug], 'confirmed_at' => now()]);
+        $this->assertTrue($follower->wants($change));
+        $other = \App\Models\ChangeEvent::where('id', '!=', $change->id)->where(fn ($q) => $q->whereNull('policy_instrument_id')->orWhere('policy_instrument_id', '!=', $change->policy_instrument_id))->where('jurisdiction_id', '!=', $change->jurisdiction_id)->first();
+        $this->assertFalse($follower->wants($other));
+
         $this->postJson('/cron/digest')->assertStatus(401);
         AppSetting::put('cron_token', str_repeat('t', 32));
         $this->postJson('/cron/digest', [], ['Authorization' => 'Bearer '.str_repeat('t', 32)])->assertOk();
