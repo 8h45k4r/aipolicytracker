@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Startup clears all Laravel caches (`optimize:clear`) before rebuilding them, so no configuration, route, view or application cache from the previous release survives a deploy.
+
+### Added
+- Admin → Tool library: create, edit, publish/draft/archive free tools; upload, activate, deactivate and remove their files (XLSX, CSV, Markdown, PDF, DOCX, JSON, text). Tools moved from configuration to `tools` and `tool_files` tables, seeded once from the previous configuration; downloads now record the served file and files count downloads.
+
+### Changed
+- Guides filters are a compact bar: search, content-type and access dropdowns, multi-select framework and topic lists, with active filters shown as removable chips.
 ### Fixed
 - Scheduled uptime self-heal: every 15 minutes the health endpoint is probed and, if it fails twice, the app is restarted once through the Kudu API (skipped while a deploy is running). Covers the container stalls seen after deploys on the free tier.
 

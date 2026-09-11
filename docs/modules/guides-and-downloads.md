@@ -4,9 +4,51 @@ Free tools (templates, checklists, registers, a starter plan) listed on `/guides
 
 ## Source of truth
 
-- Resource metadata: `config/resources.php` (`tools`, `guide_tags`, filter vocabularies, licence text). No admin CRUD yet (debt #19).
-- Files: `resources/downloads/<slug>/<file>` (outside `public/`; never linked directly). Every file carries version, date and the informational-only notice.
-- Editorial guides remain in `config/content.php`; `guide_tags` gives them the same framework/topic filters.
+- Tools live in the `tools` and `tool_files` tables and are managed in Admin → Tool library (create, edit, upload files, activate/deactivate files, archive). `database/seeders/ToolSeeder.php` seeds the initial five from `config/resources.php` and copies their files from `resources/downloads/` onto the private disk; it never overwrites admin edits.
+- Files: private local disk under `tools/<slug>/<file>` (outside `public/`; never linked directly). Allowed: XLSX, CSV, Markdown, PDF, DOCX, JSON, text, up to 10 MB. Every file should carry version, date and the informational-only notice.
+- Filter vocabularies (`frameworks`, `topics`) and the licence text stay in `config/resources.php`; editorial guides remain in `config/content.php` with `guide_tags` for the same filters.
+
+## Schema: `tools`
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | bigint | no | | |
+| slug | varchar(120) | no | | Unique; public URL `/guides/tools/{slug}` |
+| title | varchar(160) | no | | |
+| type | varchar(24) | no | | guide, template, checklist, register |
+| short | varchar(300) | no | | Card and meta description |
+| purpose | text | yes | | |
+| fields | json | yes | | `[[name, description], ...]` shown as the preview table |
+| instructions | json | yes | | List of steps |
+| frameworks / topics | json | yes | | Slugs from `config/resources.php` |
+| related_guides / related_policies | json | yes | | Guide slugs (`config/content.php`) and policy slugs |
+| next_slug | varchar(120) | yes | | "Next step" tool |
+| version | varchar(16) | no | 1.0 | |
+| updated_on | date | yes | | Shown publicly and in structured data |
+| featured | boolean | no | false | |
+| status | varchar(16) | no | draft | draft, published, archived; only published with an active file is public |
+| seo_title / seo_description | varchar | yes | | Optional overrides |
+| sort_order | int | no | 0 | |
+| updated_by | bigint | yes | | FK → users.id (null on delete) |
+| created_at / updated_at | timestamp | yes | | |
+
+## Schema: `tool_files`
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | bigint | no | | |
+| tool_id | bigint | no | | FK → tools.id (cascade) |
+| file_name | varchar(160) | no | | Unique per tool; slugified on upload |
+| label | varchar(40) | no | | XLSX, CSV, Markdown, PDF ... |
+| disk_path | varchar(255) | no | | Path on the private local disk |
+| mime | varchar(120) | yes | | |
+| size | bigint | no | 0 | Bytes |
+| checksum | varchar(64) | yes | | sha256 of the stored file |
+| version | varchar(16) | no | 1.0 | |
+| is_active | boolean | no | true | Inactive files are not offered |
+| download_count | int | no | 0 | Incremented when served |
+| sort_order | int | no | 0 | |
+| created_at / updated_at | timestamp | yes | | |
 
 ## Schema: `resource_downloads`
 
@@ -14,7 +56,8 @@ Free tools (templates, checklists, registers, a starter plan) listed on `/guides
 |-------|------|------|---------|-------|
 | id | bigint | no | | |
 | user_id | bigint | no | | FK → users.id (cascade) |
-| resource_slug | varchar(120) | no | | Key in `config('resources.tools')` |
+| resource_slug | varchar(120) | no | | `tools.slug` (kept as slug so history survives archiving) |
+| tool_file_id | bigint | yes | | FK → tool_files.id (null on delete); set when a file is served |
 | file_name | varchar(160) | no | | Last file served (first format until a file is served) |
 | version | varchar(16) | no | | Resource version at download time |
 | terms_accepted_at | timestamp | no | | Licence acceptance for this download |
@@ -40,7 +83,7 @@ Free tools (templates, checklists, registers, a starter plan) listed on `/guides
 
 ## Routes
 
-Public: `guides.index` (filters `q`, `type`, `framework`, `topic`, `access`; filtered pages are `noindex,follow`), `tools.show`, `tools.gate` (stores `url.intended`). Auth: `tools.download` (POST, throttled, requires `terms`), `tools.ready`, `tools.file` (`signed` middleware, 30-minute links, owner only). Admin: `backend.admin.downloads`, `backend.admin.downloads.export`.
+Public: `guides.index` (filters `q`, `type`, `framework`, `topic`, `access`; filtered pages are `noindex,follow`), `tools.show`, `tools.gate` (stores `url.intended`). Auth: `tools.download` (POST, throttled, requires `terms`), `tools.ready`, `tools.file` (`signed` middleware, 30-minute links, owner only). Admin: `backend.admin.downloads`, `backend.admin.downloads.export`, `backend.admin.tools.*` (index, create, store, edit, update, destroy = archive, files.store, files.toggle, files.destroy, files.download).
 
 ## Access rules
 
@@ -48,4 +91,4 @@ Read guide: public · Preview tool: public · Download: authenticated + licence 
 
 ## Not yet implemented (debt #19)
 
-Google/GitHub sign-in, PDF/DOCX formats, admin CRUD for the library, welcome email with file links, enforced email verification before download.
+Google/GitHub sign-in, generated PDF/DOCX for the seeded tools (admins can upload them), welcome email with file links, enforced email verification before download.
