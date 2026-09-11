@@ -15,7 +15,8 @@
         html { scroll-behavior: auto; }
         *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
-    body { @apply bg-white text-brand-body antialiased font-sans; font-feature-settings: "kern", "liga", "calt"; }
+    html { @apply overflow-x-hidden; }
+    body { @apply bg-white text-brand-body antialiased font-sans overflow-x-hidden; font-feature-settings: "kern", "liga", "calt"; }
     h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
     h1 { @apply text-balance; }
     a { @apply text-brand-blue underline-offset-[3px] decoration-brand-line hover:decoration-brand-blue; }

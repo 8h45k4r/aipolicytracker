@@ -56,6 +56,14 @@ class SitemapController extends Controller
             [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [route('risk.domain', 1), 'monthly', '0.6'], [route('risk.domain', 2), 'monthly', '0.6'], [route('risk.domain', 3), 'monthly', '0.6'], [route('risk.domain', 4), 'monthly', '0.6'], [route('risk.domain', 5), 'monthly', '0.6'], [route('risk.domain', 6), 'monthly', '0.6'], [route('risk.domain', 7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'],
             [route('about'), 'monthly', '0.5'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
+        foreach (config('resources.tools', []) as $slug => $tool) {
+            $pages[] = [route('tools.show', $slug), 'monthly', '0.8'];
+        }
+        foreach (array_keys(config('content.guides', [])) as $slug) {
+            if (! in_array($slug, ['eu-ai-act', 'ai-regulation-india', 'ai-policy-nepal', 'ai-governance-singapore', 'ai-regulation-australia', 'ai-regulation-uk', 'ai-regulation-usa', 'ai-governance-uae', 'ai-regulation-south-asia'], true)) {
+                $pages[] = [route('guides.show', $slug), 'monthly', '0.7'];
+            }
+        }
         $urls = collect($pages)->map(fn ($p) => ['loc' => $p[0], 'lastmod' => $lastmod, 'changefreq' => $p[1], 'priority' => $p[2]]);
         // Indexable single-filter listings: one per jurisdiction and one per obligation category.
         foreach (Jurisdiction::published()->orderBy('slug')->get() as $j) {

@@ -19,6 +19,7 @@
             ['backend.admin.submissions', 'Submissions and feedback'],
             ['backend.admin.subscribers', 'Subscribers'],
             ['backend.admin.external', 'External data'],
+            ['backend.admin.downloads', 'Guides and downloads'],
             ['backend.admin.settings', 'Settings and API keys'],
         ])
         <nav class="mt-4 space-y-1 text-sm" aria-label="Admin">
