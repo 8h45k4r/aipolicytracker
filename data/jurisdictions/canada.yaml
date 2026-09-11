@@ -1,0 +1,67 @@
+slug: canada
+name: Canada
+short_name: Canada
+iso_code: CA
+jurisdiction_type: country
+region: Americas
+subregion: Northern America
+featured: false
+published: true
+overview: >-
+  The Pan-Canadian AI Strategy is Canada's national AI strategy, first funded in Budget 2017 with $125 million and
+  delivered largely through CIFAR and three national AI institutes. The Artificial Intelligence and Data Act (AIDA)
+  was proposed as Part 3 of Bill C-27 and would have required organisations designing, developing or deploying high-impact
+  AI systems to assess and mitigate risks of harm and bias, keep records and publish information, with enforcement
+  by an AI and Data Commissioner and penalties for serious offences. This voluntary code asks Canadian developers
+  and managers of advanced generative AI systems to commit to measures under six principles: accountability, safety,
+  fairness and equity, transparency, human oversight and monitoring, and validity and robustness.
+regulatory_status_summary: >-
+  Instruments on record: Pan-Canadian Artificial Intelligence Strategy (2017, strategy, adopted); Artificial Intelligence
+  and Data Act (2022, bill, archived); Voluntary Code of Conduct on the Responsible Development and Management of
+  Advanced Generative AI Systems (2023, guidance, guidance). Each is linked to its official source; human verification
+  pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Pan-Canadian Artificial Intelligence Strategy, Artificial Intelligence
+  and Data Act, Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI
+  Systems.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Pan-Canadian Artificial Intelligence Strategy
+  publisher: Innovation, Science and Economic Development Canada
+  url: https://ised-isde.canada.ca/site/ai-strategy/en
+  document_date: '2017-03-22'
+  document_type: strategy
+  tier: 1
+- title: >-
+    Artificial Intelligence and Data Act (Part 3 of Bill C-27, Digital Charter Implementation Act, 2022)
+  publisher: Parliament of Canada (LEGISinfo)
+  url: https://www.parl.ca/legisinfo/en/bill/44-1/c-27
+  document_date: '2022-06-16'
+  document_type: legislation
+  tier: 1
+- title: >-
+    Voluntary Code of Conduct on the Responsible Development and Management of Advanced Generative AI Systems
+  publisher: Innovation, Science and Economic Development Canada
+  url: >-
+    https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems
+  document_date: '2023-09-27'
+  document_type: guidance
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://ised-isde.canada.ca/site/ai-strategy/en
+source_title: Pan-Canadian Artificial Intelligence Strategy
+source_publisher: Innovation, Science and Economic Development Canada
+source_document_date: '2017-03-22'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

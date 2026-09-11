@@ -1,0 +1,48 @@
+slug: south-korea
+name: South Korea
+short_name: South Korea
+iso_code: KR
+jurisdiction_type: country
+region: Asia
+subregion: Eastern Asia
+featured: false
+published: true
+overview: >-
+  Korea's AI Basic Act is a comprehensive framework statute combining industrial promotion with trust and safety
+  rules.
+regulatory_status_summary: >-
+  Instruments on record: Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation
+  for Trust (2025, act, in force). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation for Trust.
+  Strategy or guidance: none recorded.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation for Trust (AI
+    Basic Act, Act No. 20676)
+  publisher: Korea Ministry of Government Legislation, National Law Information Center
+  url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
+  document_date: '2025-01-21'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
+source_title: >-
+  Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation for Trust (AI Basic
+  Act, Act No. 20676)
+source_publisher: Korea Ministry of Government Legislation, National Law Information Center
+source_document_date: '2025-01-21'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

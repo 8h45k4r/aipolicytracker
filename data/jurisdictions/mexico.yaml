@@ -1,0 +1,61 @@
+slug: mexico
+name: Mexico
+short_name: Mexico
+iso_code: MX
+jurisdiction_type: country
+region: Americas
+subregion: Central America
+featured: false
+published: true
+overview: >-
+  This initiative, signed by a bloc of Morena and PVEM deputies and published in the Gaceta Parlamentaria on 30
+  April 2025, would create Mexico's first general federal AI law. Mexico's National AI Plan, prepared by the ATDT
+  and presented in April 2026, organises federal AI efforts around three pillars: an ethical and legal framework,
+  talent and public software, and strategic compute infrastructure.
+regulatory_status_summary: >-
+  Instruments on record: Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo
+  Ético, Soberano e Inclusivo de (2025, bill, proposed); Plan Nacional de Inteligencia Artificial (2026, strategy,
+  adopted). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Iniciativa con proyecto de decreto por el que se expide la Ley Federal
+  para el Desarrollo Ético, Soberano e Inclusivo de, Plan Nacional de Inteligencia Artificial.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo Ético, Soberano e
+    Inclusivo de la Inteligencia Artificial (Initiative to enact the Federal Law for the Ethical, Sovereign and
+    Inclusive Development of Artificial…
+  publisher: Sistema de Información Legislativa, Secretaría de Gobernación
+  url: >-
+    https://sil.gobernacion.gob.mx/Archivos/Documentos/2025/04/asun_4896460_20250430_1747757009.pdf
+  document_date: '2025-04-30'
+  document_type: legislation
+  tier: 1
+- title: Plan Nacional de Inteligencia Artificial (National Artificial Intelligence Plan)
+  publisher: Agencia de Transformación Digital y Telecomunicaciones (gob.mx)
+  url: https://www.gob.mx/atdt/agendas/2030/inteligencia-artificial
+  document_date: '2026-04-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://sil.gobernacion.gob.mx/Archivos/Documentos/2025/04/asun_4896460_20250430_1747757009.pdf
+source_title: >-
+  Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo Ético, Soberano e Inclusivo
+  de la Inteligencia Artificial (Initiative to enact the Federal Law for the Ethical, Sovereign and Inclusive Development
+  of Artificial…
+source_publisher: Sistema de Información Legislativa, Secretaría de Gobernación
+source_document_date: '2025-04-30'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

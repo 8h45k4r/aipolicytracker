@@ -1,0 +1,62 @@
+slug: mexico-plan-nacional-de-inteligencia-artificial
+jurisdiction: mexico
+title: Plan Nacional de Inteligencia Artificial (National Artificial Intelligence Plan)
+short_title: Plan Nacional de Inteligencia Artificial
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Only the month (April 2026) is confirmed, so the first of the month is used. The plan PDF (https://www.portal.atdt.gob.mx/wp-content/uploads/2026/06/Plan-Nacional-de-IA.pdf)
+  returned HTTP 403 to automated fetches; the gob.mx agenda page (HTTP 200) describes the plan and links to it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Agencia de Transformación Digital y Telecomunicaciones (ATDT)
+summary_plain: >-
+  Mexico's National AI Plan, prepared by the ATDT and presented in April 2026, organises federal AI efforts around
+  three pillars: an ethical and legal framework, talent and public software, and strategic compute infrastructure.
+  It includes a public AI training centre aiming to certify tens of thousands of people, a government 'Fábrica de
+  IA' developing solutions for public services, and the Coatlicue supercomputer, with 2026 milestones and 2030 targets
+  for citizen-facing AI services.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Agencia de Transformación Digital y Telecomunicaciones
+  (ATDT). Oversight: ATDT coordinates implementation across federal government. Stated purpose: Technological sovereignty
+  and public-service AI capacity.
+key_dates_summary: '2026-04-01: Plan Nacional de IA presented by ATDT (April 2026)'
+adopted_on: '2026-04-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Plan Nacional de Inteligencia Artificial (National Artificial Intelligence Plan)
+  publisher: Agencia de Transformación Digital y Telecomunicaciones (gob.mx)
+  url: https://www.gob.mx/atdt/agendas/2030/inteligencia-artificial
+  document_date: '2026-04-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.gob.mx/atdt/agendas/2030/inteligencia-artificial
+source_title: Plan Nacional de Inteligencia Artificial (National Artificial Intelligence Plan)
+source_publisher: Agencia de Transformación Digital y Telecomunicaciones (gob.mx)
+source_document_date: '2026-04-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

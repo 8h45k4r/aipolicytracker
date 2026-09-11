@@ -1,0 +1,43 @@
+slug: pakistan
+name: Pakistan
+short_name: Pakistan
+iso_code: PK
+jurisdiction_type: country
+region: Asia
+subregion: South Asia
+featured: false
+published: true
+overview: >-
+  Pakistan's first national AI policy, organised around six pillars: innovation ecosystem, awareness and readiness,
+  secure AI, transformation of sectors, AI infrastructure, and international partnerships.
+regulatory_status_summary: >-
+  Instruments on record: National Artificial Intelligence Policy 2025 (2025, policy, adopted). Each is linked to
+  its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: National Artificial Intelligence Policy 2025.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: National Artificial Intelligence Policy 2025
+  publisher: Ministry of Information Technology and Telecommunication, Government of Pakistan
+  url: https://www.moitt.gov.pk/SiteImage/Policies/National%20AI%20Policy.pdf
+  document_date: '2025-07-30'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.moitt.gov.pk/SiteImage/Policies/National%20AI%20Policy.pdf
+source_title: National Artificial Intelligence Policy 2025
+source_publisher: Ministry of Information Technology and Telecommunication, Government of Pakistan
+source_document_date: '2025-07-30'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

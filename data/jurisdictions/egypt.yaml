@@ -1,0 +1,50 @@
+slug: egypt
+name: Egypt
+short_name: Egypt
+iso_code: EG
+jurisdiction_type: country
+region: Africa
+subregion: Northern Africa
+featured: false
+published: true
+overview: >-
+  Egypt's first national AI strategy framed AI as a tool for the country's sustainable development goals and for
+  positioning Egypt as an active contributor to AI in Africa and the Arab region. The second edition updates Egypt's
+  2021 strategy for 2025-2030 around six pillars: governance, data, infrastructure, technology, talent and ecosystem.
+regulatory_status_summary: >-
+  Instruments on record: Egypt National Artificial Intelligence Strategy (2021, strategy, adopted); National AI
+  Strategy (2025, strategy, adopted). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Egypt National Artificial Intelligence Strategy, National AI Strategy.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Egypt National Artificial Intelligence Strategy
+  publisher: Ministry of Communications and Information Technology, Egypt
+  url: https://mcit.gov.eg/en/Publication/Publication_Summary/9283
+  document_date: '2021-07-01'
+  document_type: strategy
+  tier: 1
+- title: National AI Strategy - Second Edition 2025-2030
+  publisher: Ministry of Communications and Information Technology, Egypt
+  url: https://mcit.gov.eg/en/Publication/Publication_Summary/10550
+  document_date: '2025-01-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://mcit.gov.eg/en/Publication/Publication_Summary/9283
+source_title: Egypt National Artificial Intelligence Strategy
+source_publisher: Ministry of Communications and Information Technology, Egypt
+source_document_date: '2021-07-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

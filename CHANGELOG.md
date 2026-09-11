@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Structured records bridged from the source-backed legacy dataset: 29 new jurisdictions, 60 policy instruments and 96 dated change events (all `pending_review`, official source on every record), bringing the public site to 39 jurisdictions and 78 instruments.
+
 ### Changed
 - Public site brand refresh: official logo lockups (light and dark), SVG favicon from the mark, navy `#002147` primary with semantic brand and state colour tokens, Source Serif 4 / IBM Plex typography, editorial front page (lead changes, upcoming dates, jurisdiction rows) replacing stat tiles and card grids, navy footer with attribution.
 

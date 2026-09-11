@@ -1,0 +1,97 @@
+changes:
+  - slug: 2021-04-19-canada-pan-canadian-artificial-intelligence-strategy
+    jurisdiction: canada
+    policy: canada-pan-canadian-artificial-intelligence-strategy
+    occurred_on: '2021-04-19'
+    title: Phase II announced in Budget 2021 ($443.8 million)
+    what_changed: >-
+      Milestone recorded for Pan-Canadian Artificial Intelligence Strategy (Canada): Phase II announced in Budget
+      2021 ($443.8 million). Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://ised-isde.canada.ca/site/ai-strategy/en
+    source_title: Phase II announced in Budget 2021 ($443.8 million)
+    source_publisher: Innovation, Science and Economic Development Canada
+    source_document_date: '2021-04-19'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2021-07-01-egypt-egypt-national-artificial-intelligence-strategy
+    jurisdiction: egypt
+    policy: egypt-egypt-national-artificial-intelligence-strategy
+    occurred_on: '2021-07-01'
+    title: Strategy published by MCIT (July 2021)
+    what_changed: >-
+      Milestone recorded for Egypt National Artificial Intelligence Strategy (Egypt): Strategy published by MCIT (July
+      2021). Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://mcit.gov.eg/Upcont/Documents/Publications_672021000_Egypt-National-AI-Strategy-English.pdf
+    source_title: Strategy published by MCIT (July 2021)
+    source_publisher: Ministry of Communications and Information Technology, Egypt
+    source_document_date: '2021-07-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2021-12-01-malaysia-national-artificial-intelligence-roadmap-2021-2025
+    jurisdiction: malaysia
+    policy: malaysia-national-artificial-intelligence-roadmap-2021-2025
+    occurred_on: '2021-12-01'
+    title: AI-Rmap 2021-2025 adopted by MOSTI
+    what_changed: >-
+      Milestone recorded for National Artificial Intelligence Roadmap 2021-2025 (Malaysia): AI-Rmap 2021-2025 adopted
+      by MOSTI. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://mastic.mosti.gov.my/publication/artificial-intelligence-roadmap-2021-2025/
+    source_title: AI-Rmap 2021-2025 adopted by MOSTI
+    source_publisher: Ministry of Science, Technology and Innovation, Malaysia
+    source_document_date: '2021-12-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2021-01-26-vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
+    jurisdiction: vietnam
+    policy: >-
+      vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
+    occurred_on: '2021-01-26'
+    title: Decision 127/QD-TTg signed by Deputy PM Vu Duc Dam
+    what_changed: >-
+      Milestone recorded for National Strategy on Research, Development and Application of Artificial Intelligence
+      to 2030 (Vietnam): Decision 127/QD-TTg signed by Deputy PM Vu Duc Dam. Recorded from the official source listed;
+      details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://datafiles.chinhphu.vn/cpp/files/vbpq/2021/01/127.signed.pdf
+    source_title: Decision 127/QD-TTg signed by Deputy PM Vu Duc Dam
+    source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+    source_document_date: '2021-01-26'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.

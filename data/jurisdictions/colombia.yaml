@@ -1,0 +1,47 @@
+slug: colombia
+name: Colombia
+short_name: Colombia
+iso_code: CO
+jurisdiction_type: country
+region: Americas
+subregion: South America
+featured: false
+published: true
+overview: >-
+  CONPES 4144, approved on 14 February 2025, is Colombia's national AI policy and roadmap through 2030.
+regulatory_status_summary: >-
+  Instruments on record: Documento CONPES 4144 (2025, strategy, adopted). Each is linked to its official source;
+  human verification pending.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Documento CONPES 4144.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    Documento CONPES 4144 – Política Nacional de Inteligencia Artificial (CONPES Document 4144 – National Artificial
+    Intelligence Policy)
+  publisher: >-
+    Ministerio de Tecnologías de la Información y las Comunicaciones (normograma) – DNP document
+  url: https://normograma.mintic.gov.co/mintic/compilacion/docs/CONPES_DNP_4144_2025.htm
+  document_date: '2025-02-14'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://normograma.mintic.gov.co/mintic/compilacion/docs/CONPES_DNP_4144_2025.htm
+source_title: >-
+  Documento CONPES 4144 – Política Nacional de Inteligencia Artificial (CONPES Document 4144 – National Artificial
+  Intelligence Policy)
+source_publisher: >-
+  Ministerio de Tecnologías de la Información y las Comunicaciones (normograma) – DNP document
+source_document_date: '2025-02-14'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

@@ -1,0 +1,61 @@
+slug: china
+name: China
+short_name: China
+iso_code: CN
+jurisdiction_type: country
+region: Asia
+subregion: Eastern Asia
+featured: false
+published: true
+overview: >-
+  These measures govern generative AI services offered to the public in China, whether producing text, images, audio
+  or video. These measures require providers of AI generation and synthesis services to attach explicit labels (visible
+  text, audio or graphic notices) and implicit labels (embedded metadata) to generated text, images, audio, video
+  and virtual scenes. This State Council policy document (Guofa [2025] No.
+regulatory_status_summary: >-
+  Instruments on record: Interim Measures for the Management of Generative Artificial Intelligence Services (2023,
+  regulation, in force); Measures for Labeling Artificial Intelligence-Generated and Synthetic Content (2025, regulation,
+  in force); Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action (2025, strategy,
+  adopted). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: Interim Measures for the Management of Generative Artificial Intelligence Services, Measures for Labeling
+  Artificial Intelligence-Generated and Synthetic Content. Strategy or guidance: Opinions of the State Council on
+  Deepening the Implementation of the 'AI Plus' Action.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Interim Measures for the Management of Generative Artificial Intelligence Services
+  publisher: Cyberspace Administration of China
+  url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+  document_date: '2023-07-13'
+  document_type: legislation
+  tier: 1
+- title: Measures for Labeling Artificial Intelligence-Generated and Synthetic Content
+  publisher: Cyberspace Administration of China
+  url: https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm
+  document_date: '2025-03-14'
+  document_type: legislation
+  tier: 1
+- title: Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action
+  publisher: Central People's Government of the PRC (gov.cn)
+  url: https://www.gov.cn/zhengce/content/202508/content_7037861.htm
+  document_date: '2025-08-26'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+source_title: Interim Measures for the Management of Generative Artificial Intelligence Services
+source_publisher: Cyberspace Administration of China
+source_document_date: '2023-07-13'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

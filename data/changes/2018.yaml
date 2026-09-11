@@ -1,0 +1,26 @@
+changes:
+  - slug: 2018-06-01-india-national-strategy-for-artificial-intelligence
+    jurisdiction: india
+    policy: india-national-strategy-for-artificial-intelligence
+    occurred_on: '2018-06-01'
+    title: NITI Aayog publishes the National Strategy for AI discussion paper (June 2018)
+    what_changed: >-
+      Milestone recorded for National Strategy for Artificial Intelligence (India): NITI Aayog publishes the National
+      Strategy for AI discussion paper (June 2018). Recorded from the official source listed; details to be expanded
+      by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.niti.gov.in/sites/default/files/2023-03/National-Strategy-for-Artificial-Intelligence.pdf
+    source_title: NITI Aayog publishes the National Strategy for AI discussion paper (June 2018)
+    source_publisher: NITI Aayog
+    source_document_date: '2018-06-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.

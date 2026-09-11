@@ -1,0 +1,48 @@
+changes:
+  - slug: 2020-08-10-indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045
+    jurisdiction: indonesia
+    policy: indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045
+    occurred_on: '2020-08-10'
+    title: Stranas KA launched on National Technology Awakening Day (Hakteknas)
+    what_changed: >-
+      Milestone recorded for Strategi Nasional Kecerdasan Artifisial Indonesia 2020-2045 (Indonesia): Stranas KA launched
+      on National Technology Awakening Day (Hakteknas). Recorded from the official source listed; details to be expanded
+      by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://karya.brin.go.id/id/eprint/13918/
+    source_title: Stranas KA launched on National Technology Awakening Day (Hakteknas)
+    source_publisher: National Research and Innovation Agency (BRIN) repository / BPPT Press
+    source_document_date: '2020-08-10'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2020-07-17-saudi-arabia-national-strategy-for-data-ai
+    jurisdiction: saudi-arabia
+    policy: saudi-arabia-national-strategy-for-data-ai
+    occurred_on: '2020-07-17'
+    title: Strategy approved by the King (per SDAIA)
+    what_changed: >-
+      Milestone recorded for National Strategy for Data & AI (Saudi Arabia): Strategy approved by the King (per SDAIA).
+      Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://sdaia.gov.sa/en/SDAIA/SdaiaStrategies/Pages/NationalStrategyForDataAndAI.aspx
+    source_title: Strategy approved by the King (per SDAIA)
+    source_publisher: Saudi Data and Artificial Intelligence Authority
+    source_document_date: '2020-07-17'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.

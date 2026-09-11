@@ -1,0 +1,74 @@
+slug: nigeria-national-artificial-intelligence-strategy
+jurisdiction: nigeria
+title: National Artificial Intelligence Strategy
+short_title: National Artificial Intelligence Strategy
+instrument_type: strategy
+status: proposed
+status_note: >-
+  Announcement date taken from the draft's filename/date (1 August 2024). Media reported a formal launch in Lagos
+  in April 2025 and a NITDA article (Aug 2025) says the strategy was 'released in 2024', but I could not find an
+  official final (non-draft) document or launch page on fmcide.gov.ng or nitda.gov.ng, so status is recorded as
+  development.
+is_binding: false
+featured: false
+published: true
+issuing_body: >-
+  Federal Ministry of Communications, Innovation and Digital Economy (FMCIDE) with NITDA / NCAIR
+summary_plain: >-
+  The draft strategy sets out Nigeria's vision for AI across five pillars: infrastructure, a thriving AI ecosystem,
+  sectoral adoption, responsible and ethical AI, and governance. It was co-created through a 2024 multi-stakeholder
+  workshop convened by the ministry and includes an implementation roadmap with pilot projects and KPIs. The published
+  document on the NCAIR site is marked as a draft dated August 2024.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Federal Ministry of Communications, Innovation
+  and Digital Economy (FMCIDE) with NITDA / NCAIR. Oversight: FMCIDE leads; NITDA and its National Centre for AI
+  and Robotics implement. Stated purpose: Use AI for economic growth, social inclusion and technological leadership.
+key_dates_summary: >-
+  2023-08-28: FMCIDE announces initiative to co-create a National AI Strategy; 2024-08-01: Draft National AI Strategy
+  2024 published by NCAIR
+adopted_on: '2024-08-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Artificial Intelligence Strategy
+  publisher: National Centre for Artificial Intelligence and Robotics (NITDA)
+  url: >-
+    https://ncair.nitda.gov.ng/wp-content/uploads/2024/08/National-AI-Strategy_01082024-copy.pdf
+  document_date: '2024-08-01'
+  document_type: strategy
+  tier: 1
+- title: FMCIDE announces initiative to co-create a National AI Strategy
+  publisher: National Centre for Artificial Intelligence and Robotics (NITDA)
+  url: https://fmcide.gov.ng/initiative/nais/
+  document_date: '2023-08-28'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://ncair.nitda.gov.ng/wp-content/uploads/2024/08/National-AI-Strategy_01082024-copy.pdf
+source_title: National Artificial Intelligence Strategy
+source_publisher: National Centre for Artificial Intelligence and Robotics (NITDA)
+source_document_date: '2024-08-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

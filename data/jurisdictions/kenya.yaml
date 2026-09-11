@@ -1,0 +1,45 @@
+slug: kenya
+name: Kenya
+short_name: Kenya
+iso_code: KE
+jurisdiction_type: country
+region: Africa
+subregion: Eastern Africa
+featured: false
+published: true
+overview: >-
+  Kenya's first national AI strategy sets a five-year agenda built on three pillars: AI digital infrastructure,
+  data and AI governance, and AI research, innovation and commercialisation.
+regulatory_status_summary: >-
+  Instruments on record: Kenya Artificial Intelligence Strategy 2025-2030 (2025, strategy, adopted). Each is linked
+  to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Kenya Artificial Intelligence Strategy 2025-2030.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Kenya Artificial Intelligence Strategy 2025-2030
+  publisher: Ministry of Information, Communications and the Digital Economy
+  url: >-
+    https://www.ict.go.ke/kenyas-artificial-intelligence-ai-strategy-2025-2030-launched-kicc-nairobi
+  document_date: '2025-03-27'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://www.ict.go.ke/kenyas-artificial-intelligence-ai-strategy-2025-2030-launched-kicc-nairobi
+source_title: Kenya Artificial Intelligence Strategy 2025-2030
+source_publisher: Ministry of Information, Communications and the Digital Economy
+source_document_date: '2025-03-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

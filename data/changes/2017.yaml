@@ -1,0 +1,74 @@
+changes:
+  - slug: 2017-03-22-canada-pan-canadian-artificial-intelligence-strategy
+    jurisdiction: canada
+    policy: canada-pan-canadian-artificial-intelligence-strategy
+    occurred_on: '2017-03-22'
+    title: Strategy funded in Budget 2017 (Phase I, $125 million)
+    what_changed: >-
+      Milestone recorded for Pan-Canadian Artificial Intelligence Strategy (Canada): Strategy funded in Budget 2017
+      (Phase I, $125 million). Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://ised-isde.canada.ca/site/ai-strategy/en
+    source_title: Strategy funded in Budget 2017 (Phase I, $125 million)
+    source_publisher: Innovation, Science and Economic Development Canada
+    source_document_date: '2017-03-22'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2017-07-20-china-opinions-of-the-state-council-on-deepening-the-implementation-of-the-ai-plus-action
+    jurisdiction: china
+    policy: china-opinions-of-the-state-council-on-deepening-the-implementation-of-the-ai-plus-action
+    occurred_on: '2017-07-20'
+    title: Predecessor New Generation AI Development Plan (Guofa [2017] No. 35) issued
+    what_changed: >-
+      Milestone recorded for Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action
+      (China): Predecessor New Generation AI Development Plan (Guofa [2017] No. 35) issued. Recorded from the official
+      source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.gov.cn/zhengce/content/2017-07/20/content_5211996.htm
+    source_title: Predecessor New Generation AI Development Plan (Guofa [2017] No. 35) issued
+    source_publisher: Central People's Government of the PRC (gov.cn)
+    source_document_date: '2017-07-20'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2017-10-01-uae-uae-strategy-for-artificial-intelligence
+    jurisdiction: uae
+    policy: uae-uae-strategy-for-artificial-intelligence
+    occurred_on: '2017-10-01'
+    title: UAE Strategy for Artificial Intelligence launched (October 2017)
+    what_changed: >-
+      Milestone recorded for UAE Strategy for Artificial Intelligence (United Arab Emirates): UAE Strategy for Artificial
+      Intelligence launched (October 2017). Recorded from the official source listed; details to be expanded by a
+      reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/artificial-intelligence-in-government-policies
+    source_title: UAE Strategy for Artificial Intelligence launched (October 2017)
+    source_publisher: Official Platform of the UAE Government (u.ae)
+    source_document_date: '2017-10-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.

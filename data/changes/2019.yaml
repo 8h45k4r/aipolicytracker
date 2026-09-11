@@ -1,0 +1,26 @@
+changes:
+  - slug: 2019-10-29-qatar-national-artificial-intelligence-strategy-for-qatar-2019
+    jurisdiction: qatar
+    policy: qatar-national-artificial-intelligence-strategy-for-qatar-2019
+    occurred_on: '2019-10-29'
+    title: Strategy adopted and announced by the government at QITCOM 2019
+    what_changed: >-
+      Milestone recorded for National Artificial Intelligence Strategy for Qatar 2019 (Qatar): Strategy adopted and
+      announced by the government at QITCOM 2019. Recorded from the official source listed; details to be expanded
+      by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.mcit.gov.qa/-/media/mcit/documents/strategies/national_artificial_intelligence_strategy_for_qatar_2019_en.pdf
+    source_title: Strategy adopted and announced by the government at QITCOM 2019
+    source_publisher: Ministry of Communications and Information Technology, Qatar
+    source_document_date: '2019-10-29'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.

@@ -1,0 +1,63 @@
+slug: malaysia
+name: Malaysia
+short_name: Malaysia
+iso_code: MY
+jurisdiction_type: country
+region: Asia
+subregion: South-East Asia
+featured: false
+published: true
+overview: >-
+  Malaysia's five-year AI roadmap developed by MOSTI through a quadruple-helix consultation. Voluntary national
+  guidelines that set out seven principles for responsible AI: fairness; reliability, safety and control; privacy
+  and security; inclusiveness; transparency; accountability; and human-centricity. A proposed horizontal AI law
+  announced for stakeholder engagement and public consultation by the Ministry of Digital through the National AI
+  Office.
+regulatory_status_summary: >-
+  Instruments on record: National Artificial Intelligence Roadmap 2021-2025 (2021, strategy, adopted); The National
+  Guidelines on AI Governance & Ethics (2024, guidance, guidance); Artificial Intelligence (2026, bill, proposed).
+  Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: National Artificial Intelligence Roadmap 2021-2025, The National
+  Guidelines on AI Governance & Ethics, Artificial Intelligence.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: National Artificial Intelligence Roadmap 2021-2025 (AI-Rmap)
+  publisher: Ministry of Science, Technology and Innovation, Malaysia
+  url: >-
+    https://www.mosti.gov.my/en/berita/malaysias-national-artificial-intelligence-ai-roadmap-2021-2025/
+  document_date: '2021-12-01'
+  document_type: strategy
+  tier: 1
+- title: The National Guidelines on AI Governance & Ethics (AIGE)
+  publisher: Malaysian Science, Technology Information Centre (MASTIC), MOSTI
+  url: https://mastic.mosti.gov.my/publication/the-national-guidelines-on-ai-governance-ethics/
+  document_date: '2024-09-01'
+  document_type: guidance
+  tier: 1
+- title: Artificial Intelligence (AI) Governance Bill (proposed)
+  publisher: Ministry of Digital, Malaysia
+  url: >-
+    https://www.digital.gov.my/en-GB/siaran/Kementerian-Digital-Mulakan-Libat-Urus-Cadangan-Rang-Undang-Undang-Tadbir-Urus-Kecerdasan-Buatan-(AI)
+  document_date: '2026-07-10'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://www.mosti.gov.my/en/berita/malaysias-national-artificial-intelligence-ai-roadmap-2021-2025/
+source_title: National Artificial Intelligence Roadmap 2021-2025 (AI-Rmap)
+source_publisher: Ministry of Science, Technology and Innovation, Malaysia
+source_document_date: '2021-12-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

@@ -1,0 +1,54 @@
+slug: philippines
+name: Philippines
+short_name: Philippines
+iso_code: PH
+jurisdiction_type: country
+region: Asia
+subregion: South-East Asia
+featured: false
+published: true
+overview: >-
+  An updated national AI roadmap launched by DTI together with the Center for AI Research, building on the 2021
+  roadmap and adding generative AI. A national AI strategy proposed by DOST at National Innovation Day 2025, structured
+  around five core strategies: infrastructure, workforce, innovation, ethics and policy, and deployment, phased
+  from 2024 to 2028.
+regulatory_status_summary: >-
+  Instruments on record: National AI Strategy Roadmap 2.0 (2024, strategy, adopted); National AI Strategy for the
+  Philippines (2025, strategy, proposed). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: National AI Strategy Roadmap 2.0, National AI Strategy for the Philippines.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: National AI Strategy Roadmap 2.0 (NAISR 2.0)
+  publisher: Department of Trade and Industry, Philippines
+  url: >-
+    https://www.dti.gov.ph/dti-archives/dti-news-archived/dti-dti-launches-national-ai-strategy-roadmap-2-0-center-ai-research-positioning-philippines-center-excellence-ai-rampd
+  document_date: '2024-07-03'
+  document_type: strategy
+  tier: 1
+- title: National AI Strategy for the Philippines (NAIS-PH)
+  publisher: Department of Science and Technology, Philippines
+  url: >-
+    https://www.dost.gov.ph/knowledge-resources/news/86-2025-news/3989-dost-builds-on-ai-national-strategy.html
+  document_date: '2025-04-30'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://www.dti.gov.ph/dti-archives/dti-news-archived/dti-dti-launches-national-ai-strategy-roadmap-2-0-center-ai-research-positioning-philippines-center-excellence-ai-rampd
+source_title: National AI Strategy Roadmap 2.0 (NAISR 2.0)
+source_publisher: Department of Trade and Industry, Philippines
+source_document_date: '2024-07-03'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

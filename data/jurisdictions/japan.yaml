@@ -1,0 +1,61 @@
+slug: japan
+name: Japan
+short_name: Japan
+iso_code: JP
+jurisdiction_type: country
+region: Asia
+subregion: Eastern Asia
+featured: false
+published: true
+overview: >-
+  The AI Guidelines for Business consolidate Japan's previous AI R&D, utilisation and governance guidelines into
+  a single non-binding document addressed to AI developers, providers and business users. Japan's first AI-specific
+  statute establishes basic principles and a governmental framework for promoting AI research, development and use.
+  The AI Basic Plan is the national strategy required under Article 18 of the 2025 AI Act.
+regulatory_status_summary: >-
+  Instruments on record: AI Guidelines for Business (2024, guidance, guidance); Act on Promotion of Research and
+  Development, and Utilization of Artificial Intelligence-related Technology (2025, act, in force); Artificial Intelligence
+  Basic Plan (2025, strategy, adopted). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology.
+  Strategy or guidance: AI Guidelines for Business, Artificial Intelligence Basic Plan.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: AI Guidelines for Business
+  publisher: Ministry of Economy, Trade and Industry
+  url: https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/index.html
+  document_date: '2024-04-19'
+  document_type: guidance
+  tier: 1
+- title: >-
+    Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology
+    (Act No. 53 of 2025)
+  publisher: Japanese Law Translation Database (Ministry of Justice)
+  url: https://www.japaneselawtranslation.go.jp/en/laws/view/5066/en
+  document_date: '2025-06-04'
+  document_type: legislation
+  tier: 1
+- title: Artificial Intelligence Basic Plan
+  publisher: Cabinet Office, Government of Japan
+  url: https://www8.cao.go.jp/cstp/ai/ai_plan/ai_plan.html
+  document_date: '2025-12-23'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/index.html
+source_title: AI Guidelines for Business
+source_publisher: Ministry of Economy, Trade and Industry
+source_document_date: '2024-04-19'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

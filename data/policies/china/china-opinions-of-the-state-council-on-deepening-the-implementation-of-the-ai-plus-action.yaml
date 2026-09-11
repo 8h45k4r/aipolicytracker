@@ -1,0 +1,69 @@
+slug: china-opinions-of-the-state-council-on-deepening-the-implementation-of-the-ai-plus-action
+jurisdiction: china
+title: Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action
+short_title: Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action
+instrument_type: strategy
+status: adopted
+status_note: Document dated 21 August 2025, published 26 August 2025; publication date used.
+is_binding: false
+featured: false
+published: true
+issuing_body: State Council of the People's Republic of China
+summary_plain: >-
+  This State Council policy document (Guofa [2025] No. 11) sets national targets for AI adoption: broad integration
+  in six priority areas and over 70 percent penetration of intelligent terminals and agents by 2027, over 90 percent
+  by 2030, and a fully intelligent economy and society by 2035. It directs actions in science and technology, industry,
+  consumption, public welfare, governance and international cooperation, backed by measures on models, data, computing
+  infrastructure, talent, law and safety. It succeeds the 2017 New Generation AI Development Plan as the current
+  headline national AI strategy.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by State Council of the People's Republic of China.
+  Oversight: State Council; implemented by NDRC and line ministries with local governments. Stated purpose: Diffuse
+  AI across the economy, public services and governance to drive growth.
+key_dates_summary: >-
+  2017-07-20: Predecessor New Generation AI Development Plan (Guofa [2017] No. 35) issued; 2025-08-26: Opinions
+  issued by the State Council (document dated 21 August 2025)
+adopted_on: '2025-08-26'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action
+  publisher: Central People's Government of the PRC (gov.cn)
+  url: https://www.gov.cn/zhengce/content/202508/content_7037861.htm
+  document_date: '2025-08-26'
+  document_type: strategy
+  tier: 1
+- title: Predecessor New Generation AI Development Plan (Guofa [2017] No. 35) issued
+  publisher: Central People's Government of the PRC (gov.cn)
+  url: https://www.gov.cn/zhengce/content/2017-07/20/content_5211996.htm
+  document_date: '2017-07-20'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.gov.cn/zhengce/content/202508/content_7037861.htm
+source_title: Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action
+source_publisher: Central People's Government of the PRC (gov.cn)
+source_document_date: '2025-08-26'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

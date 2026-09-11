@@ -1,0 +1,53 @@
+slug: thailand
+name: Thailand
+short_name: Thailand
+iso_code: TH
+jurisdiction_type: country
+region: Asia
+subregion: South-East Asia
+featured: false
+published: true
+overview: >-
+  A cabinet-approved strategy and action plan with five strategies: readiness in ethics, law and regulation; national
+  AI infrastructure; human capability and education; AI technology and innovation development; and promotion of
+  AI use in public and private sectors. Draft principles for a Thai AI law released for public hearing by MDES and
+  ETDA.
+regulatory_status_summary: >-
+  Instruments on record: Thailand National AI Strategy and Action Plan (2022, strategy, adopted); (Draft) Principles
+  of the Law on Artificial Intelligence (2025, consultation, under consultation). Each is linked to its official
+  source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Thailand National AI Strategy and Action Plan, (Draft) Principles
+  of the Law on Artificial Intelligence.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Thailand National AI Strategy and Action Plan (2022-2027)
+  publisher: National Electronics and Computer Technology Center (NECTEC), NSTDA
+  url: https://www.nectec.or.th/en/about/news/cabinet-national-ai-strategy.html
+  document_date: '2022-07-26'
+  document_type: strategy
+  tier: 1
+- title: (Draft) Principles of the Law on Artificial Intelligence
+  publisher: Electronic Transactions Development Agency (ETDA), Thailand
+  url: https://www.etda.or.th/th/pr-news/law_ai.aspx
+  document_date: '2025-06-11'
+  document_type: consultation
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.nectec.or.th/en/about/news/cabinet-national-ai-strategy.html
+source_title: Thailand National AI Strategy and Action Plan (2022-2027)
+source_publisher: National Electronics and Computer Technology Center (NECTEC), NSTDA
+source_document_date: '2022-07-26'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

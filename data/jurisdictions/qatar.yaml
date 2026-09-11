@@ -1,0 +1,45 @@
+slug: qatar
+name: Qatar
+short_name: Qatar
+iso_code: QA
+jurisdiction_type: country
+region: Asia
+subregion: Gulf Cooperation Council
+featured: false
+published: true
+overview: >-
+  Developed by the Qatar Center for Artificial Intelligence and adopted by the government as the national strategy,
+  the document sets out six pillars: education, data access, employment, business, research, and ethics.
+regulatory_status_summary: >-
+  Instruments on record: National Artificial Intelligence Strategy for Qatar 2019 (2019, strategy, adopted). Each
+  is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: National Artificial Intelligence Strategy for Qatar 2019.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: National Artificial Intelligence Strategy for Qatar 2019
+  publisher: Ministry of Communications and Information Technology, Qatar
+  url: >-
+    https://www.mcit.gov.qa/-/media/mcit/documents/strategies/national_artificial_intelligence_strategy_for_qatar_2019_en.pdf
+  document_date: '2019-10-29'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://www.mcit.gov.qa/-/media/mcit/documents/strategies/national_artificial_intelligence_strategy_for_qatar_2019_en.pdf
+source_title: National Artificial Intelligence Strategy for Qatar 2019
+source_publisher: Ministry of Communications and Information Technology, Qatar
+source_document_date: '2019-10-29'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

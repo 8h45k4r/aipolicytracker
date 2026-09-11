@@ -1,0 +1,44 @@
+slug: nigeria
+name: Nigeria
+short_name: Nigeria
+iso_code: NG
+jurisdiction_type: country
+region: Africa
+subregion: Western Africa
+featured: false
+published: true
+overview: >-
+  The draft strategy sets out Nigeria's vision for AI across five pillars: infrastructure, a thriving AI ecosystem,
+  sectoral adoption, responsible and ethical AI, and governance.
+regulatory_status_summary: >-
+  Instruments on record: National Artificial Intelligence Strategy (2024, strategy, proposed). Each is linked to
+  its official source; human verification pending.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National Artificial Intelligence Strategy.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: National Artificial Intelligence Strategy
+  publisher: National Centre for Artificial Intelligence and Robotics (NITDA)
+  url: >-
+    https://ncair.nitda.gov.ng/wp-content/uploads/2024/08/National-AI-Strategy_01082024-copy.pdf
+  document_date: '2024-08-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://ncair.nitda.gov.ng/wp-content/uploads/2024/08/National-AI-Strategy_01082024-copy.pdf
+source_title: National Artificial Intelligence Strategy
+source_publisher: National Centre for Artificial Intelligence and Robotics (NITDA)
+source_document_date: '2024-08-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.
