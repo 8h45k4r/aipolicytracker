@@ -18,6 +18,12 @@ class ExternalRisk extends Model
 
     public const CAUSAL = ['entity' => ['Human', 'AI', 'Other', 'Not coded'], 'intent' => ['Intentional', 'Unintentional', 'Other', 'Not coded'], 'timing' => ['Pre-deployment', 'Post-deployment', 'Other', 'Not coded']];
 
+    /** Profile URL; "#n" de-duplication suffixes are written as "--n" so the id is URL-safe. */
+    public function url(): string
+    {
+        return route('risk.risks.show', str_replace('#', '--', $this->ev_id));
+    }
+
     public function navigatorUrl(): string
     {
         return 'https://airisk.mit.edu/navigator#/risks/browse';

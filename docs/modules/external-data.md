@@ -82,7 +82,7 @@ Report texts, images and submissions are never stored (excluded from AIID's lice
 
 ## Routes
 
-`/ai-risk`, `/ai-risk/{1-7}`, `/ai-risk/incidents` (`Site\RiskController`); `/ai-risk/incidents/browse`, `/ai-risk/incidents/export.{csv|json}`, `/ai-risk/risks`, `/ai-risk/risks/export.{csv|json}`, `/ai-risk/frameworks` (`Site\RiskBrowseController`). Exports prepend the source, licence and citation.
+`/ai-risk`, `/ai-risk/{1-7}`, `/ai-risk/incidents` (`Site\RiskController`); `/ai-risk/incidents/browse`, `/ai-risk/incidents/export.{csv|json}`, `/ai-risk/risks`, `/ai-risk/risks/export.{csv|json}`, `/ai-risk/frameworks`, `/ai-risk/incidents/{incident_id}` (single incident profile: all stored fields, similar incidents by subdomain and deployer, MIT risk entries for the same subdomain, links to the AIID cite page and Discover report list) and `/ai-risk/risks/{ev_id}` (single MIT entry: description, domain and subdomain definition, paper siblings, other frameworks in the same subdomain, matching incidents; `#n` de-duplication suffixes are written `--n` in URLs) (`Site\RiskBrowseController`). Exports prepend the source, licence and citation.
 
 ## Attribution rules
 
