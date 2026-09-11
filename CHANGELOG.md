@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- Deploys now clean the target folder before unpacking the release, so files deleted or moved in the repository no longer linger on the server (stale duplicates had blocked `policy:import`). When the import fails at startup, the validation errors are printed to the container log.
+
 ### Added
 - Correction form prefilled from the record: opening "Report a correction" on a policy, jurisdiction, obligation or change shows the record, its official source, a field picker with the value currently displayed, and a "correct value" box. The captured context (field, shown value, proposed value, record URL and content version) is stored with the submission and shown in the admin queue and alert email.
 - `/subscribe` page with a jurisdiction picker grouped by region, subscriber count and recent changes; "Subscribe" and "Saved" links in the header, mobile menu and footer.

@@ -58,6 +58,12 @@ jobs:
           app-name: ${{ vars.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: release.zip
+          # Zip deploys do not remove files that were deleted or moved in the repository;
+          # stale data/ files then fail policy:validate (duplicate slugs) and the import is
+          # skipped. Clean the target before unpacking so wwwroot mirrors the release.
+          type: zip
+          clean: true
+          restart: true
 
       # The Free-tier container is sometimes stopped by the platform seconds after a
       # deploy restarts it and no replacement is started. Poll the health endpoint and,
