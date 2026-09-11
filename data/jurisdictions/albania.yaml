@@ -1,0 +1,63 @@
+slug: albania
+name: Albania
+short_name: Albania
+iso_code: AL
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Albania has announced an AI strategy process and uses AI in public services (including an EU-accession document-screening
+  tool); no adopted AI-specific law or published national strategy has been recorded. General law (data protection where
+  enacted, consumer, telecommunications and sector rules) applies to AI systems. This record exists so that coverage is
+  complete and honest: it will be expanded when an official AI instrument is published or a reviewer adds one with its source.
+regulatory_status_summary: >-
+  Albania has announced an AI strategy process and uses AI in public services (including an EU-accession document-screening
+  tool); no adopted AI-specific law or published national strategy has been recorded. General law (data protection where
+  enacted, consumer, telecommunications and sector rules) applies to AI systems.
+binding_vs_guidance: 'Binding: no AI-specific instrument recorded. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Treat the absence of an AI-specific instrument as a gap in our records, not as legal certainty; check the government portal
+  and regulator sites linked here.
+regulators:
+- name: National Agency for Information Society (AKSHI)
+  url: https://www.akshi.gov.al/
+  role: Official government portal; AI policy lead not yet identified
+official_sources:
+- title: National Agency for Information Society (AKSHI)
+  publisher: Government of Albania
+  url: https://www.akshi.gov.al/
+  document_type: official
+  tier: 1
+- title: Data Protection and Privacy Legislation Worldwide (country table)
+  publisher: UNCTAD
+  url: https://unctad.org/page/data-protection-and-privacy-legislation-worldwide
+  document_type: secondary
+  tier: 3
+faq:
+- question: Does Albania regulate AI?
+  answer: >-
+    Albania has announced an AI strategy process and uses AI in public services (including an EU-accession document-screening
+    tool); no adopted AI-specific law or published national strategy has been recorded. General law (data protection where
+    enacted, consumer, telecommunications and sector rules) applies to AI systems. Report an official source through the
+    correction form and a reviewer will add it.
+related_jurisdictions:
+- eu
+- council-of-europe
+official_source_url: https://www.akshi.gov.al/
+source_title: National Agency for Information Society (AKSHI)
+source_publisher: Government of Albania
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

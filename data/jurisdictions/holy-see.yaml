@@ -1,0 +1,65 @@
+slug: holy-see
+name: Holy See (Vatican)
+short_name: Holy See (Vatican)
+iso_code: VA
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  The Holy See is the home of the Rome Call for AI Ethics (2020) promoted by the Pontifical Academy for Life, and issued
+  the doctrinal note "Antiqua et Nova" on AI and human intelligence (January 2025); Vatican City State adopted guidelines
+  on AI use in 2024. General law (data protection where enacted, consumer, telecommunications and sector rules) applies
+  to AI systems. This record exists so that coverage is complete and honest: it will be expanded when an official AI instrument
+  is published or a reviewer adds one with its source.
+regulatory_status_summary: >-
+  The Holy See is the home of the Rome Call for AI Ethics (2020) promoted by the Pontifical Academy for Life, and issued
+  the doctrinal note "Antiqua et Nova" on AI and human intelligence (January 2025); Vatican City State adopted guidelines
+  on AI use in 2024. General law (data protection where enacted, consumer, telecommunications and sector rules) applies
+  to AI systems.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Rome Call for AI Ethics.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Treat the absence of an AI-specific instrument as a gap in our records, not as legal certainty; check the government portal
+  and regulator sites linked here.
+regulators:
+- name: The Holy See
+  url: https://www.vatican.va/
+  role: Official government portal; AI policy lead not yet identified
+official_sources:
+- title: The Holy See
+  publisher: Government of Holy See (Vatican)
+  url: https://www.vatican.va/
+  document_type: official
+  tier: 1
+- title: Data Protection and Privacy Legislation Worldwide (country table)
+  publisher: UNCTAD
+  url: https://unctad.org/page/data-protection-and-privacy-legislation-worldwide
+  document_type: secondary
+  tier: 3
+faq:
+- question: Does Holy See (Vatican) regulate AI?
+  answer: >-
+    The Holy See is the home of the Rome Call for AI Ethics (2020) promoted by the Pontifical Academy for Life, and issued
+    the doctrinal note "Antiqua et Nova" on AI and human intelligence (January 2025); Vatican City State adopted guidelines
+    on AI use in 2024. General law (data protection where enacted, consumer, telecommunications and sector rules) applies
+    to AI systems. Report an official source through the correction form and a reviewer will add it.
+related_jurisdictions:
+- italy
+- international
+official_source_url: https://www.vatican.va/
+source_title: The Holy See
+source_publisher: Government of Holy See (Vatican)
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.
