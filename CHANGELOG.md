@@ -10,6 +10,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Fixed
 - AI incidents page no longer scrolls horizontally; grid children and charts are constrained to the viewport.
+### Changed
+- README rewritten around what readers can do, with architecture, data-flow and free-tools diagrams (`docs/diagrams/`); hosting and rate-limit specifics moved out of the public README. Dependabot configuration removed; dependency updates are handled through the release process.
 
 ### Fixed
 - Legacy record URLs (`/news/{id}`, `/aipolicytracker/single-view/{id}`) that Google still crawls now redirect permanently to the change log and policy explorer instead of returning 404 or 5xx.
