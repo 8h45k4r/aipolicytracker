@@ -61,11 +61,22 @@ class AdminController extends Controller
         ];
         $byResource = \App\Models\ResourceDownload::selectRaw('resource_slug, COUNT(*) as n, COUNT(DISTINCT user_id) as users')->groupBy('resource_slug')->orderByDesc('n')->get()
             ->map(fn ($r) => ['slug' => $r->resource_slug, 'title' => \App\Models\Tool::where('slug', $r->resource_slug)->value('title') ?? $r->resource_slug, 'n' => $r->n, 'users' => $r->users]);
+        $since = $now->copy()->subDays(30)->toDateString();
+        $views = \App\Models\PageView::where('day', '>=', $since)->selectRaw('path, SUM(views) as n')->groupBy('path')->pluck('n', 'path');
+        $funnel = [
+            'library_views' => (int) ($views['/guides'] ?? 0),
+            'tool_views' => (int) $views->filter(fn ($n, $p) => str_starts_with($p, '/guides/tools/') && ! str_contains($p, '/download') && ! str_contains($p, '/ready/'))->sum(),
+            'gate_views' => (int) $views->filter(fn ($n, $p) => str_ends_with($p, '/download'))->sum(),
+            'signups_from_tools' => \App\Models\User::where('signup_source', 'free-tool')->where('created_at', '>=', $since)->count(),
+            'downloads' => \App\Models\ResourceDownload::where('created_at', '>=', $since)->count(),
+            'second_downloads' => \App\Models\ResourceDownload::where('created_at', '>=', $since)->selectRaw('user_id, COUNT(DISTINCT resource_slug) as n')->groupBy('user_id')->havingRaw('COUNT(DISTINCT resource_slug) > 1')->get()->count(),
+        ];
+        $topPages = $views->sortDesc()->take(10);
         $bySource = \App\Models\User::selectRaw("COALESCE(signup_source, 'legacy') as source, COUNT(*) as n")->groupBy('source')->orderByDesc('n')->pluck('n', 'source');
         $recent = \App\Models\ResourceDownload::with(['user', 'tool'])->orderByDesc('id')->paginate(25, ['*'], 'downloads')->withQueryString();
         $users = \App\Models\User::withCount('resourceDownloads')->orderByDesc('id')->paginate(25, ['*'], 'users')->withQueryString();
 
-        return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users'));
+        return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users', 'funnel', 'topPages'));
     }
 
     public function downloadsExport(): StreamedResponse
