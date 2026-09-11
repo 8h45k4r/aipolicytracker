@@ -8,6 +8,14 @@ All notable changes to this project are documented here. The format follows [Kee
 - Download-links email after every free-tool download: 24-hour personal links to each format, the related guide and the next-step tool.
 - DOCX versions of the EU AI Act Readiness Checklist, AI Incident Response Checklist and 30-Day Starter Plan.
 - Anonymous daily page-view counts for the guides library and tool pages (no cookies, IPs or user ids) feeding a 30-day funnel on the admin Guides and downloads page: library views, tool views, download clicks, sign-ups from a gate, downloads, second-tool users.
+- "Report a correction" on AI incident and MIT risk profile pages, prefilled with the record's fields and its source link.
+- Account page (`/profile`) in the site theme: profile and organisation, password change, download history with fresh links, consent status, resend verification, account deletion.
+
+### Changed
+- Forgot-password, reset-password, verify-email and confirm-password pages are server-rendered in the site theme; the legacy React versions are no longer served.
+- Guide titles and summaries rewritten around the reader's outcome (who it is for, what they get) for the four featured guides.
+- Open Graph image regenerated in the navy brand (1200×630).
+- Technical-debt register: entries #3, #8, #9, #10 and #12 closed (legacy map, CMS and log mailer no longer exist).
 
 ### Changed
 - Startup clears all Laravel caches (`optimize:clear`) before rebuilding them, so no configuration, route, view or application cache from the previous release survives a deploy.
