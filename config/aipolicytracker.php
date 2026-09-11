@@ -88,6 +88,9 @@ return [
         ['title' => 'Regulation (EU) 2024/1689 (Artificial Intelligence Act)', 'authors' => 'European Parliament and Council (2024)', 'url' => 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj', 'publisher' => 'Official Journal of the European Union', 'license' => 'EU reuse policy (Decision 2011/833/EU)'],
     ],
 
+    // Shared secret for the scheduled digest trigger (can also be set from the admin settings page).
+    'cron_token' => env('CRON_TOKEN'),
+
     // Upper bound for client-supplied page sizes on JSON list endpoints.
     'max_per_page' => (int) env('MAX_PER_PAGE', 100),
 ];

@@ -9,7 +9,21 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/backend/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    // New admin (Blade). The legacy React dashboard stays reachable as backend.legacy_dashboard.
+    Route::get('/backend/dashboard', [\App\Http\Controllers\Backend\Admin\AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/backend/legacy-dashboard', [DashboardController::class, 'dashboard'])->name('backend.legacy_dashboard');
+    Route::prefix('backend/admin')->as('backend.admin.')->controller(\App\Http\Controllers\Backend\Admin\AdminController::class)->group(function () {
+        Route::get('/', 'dashboard')->name('dashboard');
+        Route::get('/submissions', 'submissions')->name('submissions');
+        Route::get('/subscribers', 'subscribers')->name('subscribers');
+        Route::get('/subscribers/export', 'subscribersExport')->name('subscribers.export');
+        Route::post('/subscribers/{subscriber}/resend', 'subscriberResend')->name('subscribers.resend');
+        Route::delete('/subscribers/{subscriber}', 'subscriberDelete')->name('subscribers.delete');
+        Route::get('/external', 'external')->name('external');
+        Route::get('/settings', 'settings')->name('settings');
+        Route::post('/settings', 'settingsSave')->name('settings.save');
+        Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
+    });
 });
 
 
