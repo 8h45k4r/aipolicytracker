@@ -12,6 +12,16 @@ chmod -R ug+rwX storage bootstrap/cache
 
 php artisan storage:link >/dev/null 2>&1 || true
 php artisan migrate --force
+
+# Rebuild caches immediately after migrating so a failure in a later data
+# step can never leave the container serving a previous deployment's routes.
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Rebuild caches immediately after migrating so a failure in a later data
+# step can never leave the container serving a previous deployment's routes.
+
 # Load the canonical policy records from data/ (idempotent upsert).
 php artisan policy:import
 
@@ -30,7 +40,3 @@ POLICY_COUNT=$(php artisan tinker --execute='echo \App\Models\AiPolicyTracker::c
 if [ "${POLICY_COUNT:-0}" = "0" ]; then
     php artisan db:seed --class=AiPolicyTrackerSeeder --force
 fi
-
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
