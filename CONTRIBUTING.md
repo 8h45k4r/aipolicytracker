@@ -55,6 +55,10 @@ php artisan serve   # and, in another terminal, npm run dev
 
 Editing existing content follows the same flow: change the YAML record in `data/`, bump `content_version` and write `change_summary`, cite the source, open a PR. Web-form submissions from `/contribute` are triaged at `/backend/review` and applied through the same PR process.
 
+## The four role gates (binding)
+
+Every change to `main`, including one-line fixes, must pass the four gates in `docs/reference/change-gates.md`, in order: Engineering & QA/QC, UI/UX, Documentation, Compliance. Record the outcome of each gate in the pull request description with evidence (command output, query counts). Mark a gate that does not apply as N/A with a reason; never leave it blank. Accepted debt goes in `docs/reference/technical-debt.md` with an owner. A new module without `docs/modules/<module>.md` does not merge.
+
 ## Pull requests
 
 Use the pull request template. Maintainers look for: linked issue, sources for data, passing CI, screenshots for UI changes, and no secrets or personal data in the diff.

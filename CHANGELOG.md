@@ -16,8 +16,11 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Changed
 - The homepage is now the policy-intelligence site; the legacy map dashboard moved to `/map` (noindex). The client-rendered legacy/admin shell is `noindex`.
-- `php artisan migrate --seed` imports `data/` records; the illustrative `AiPolicyTrackerSeeder` is no longer run by default.
+- `php artisan migrate --seed` also imports the structured `data/` records after the legacy map dataset.
 - Deployment scripts run `policy:import` after migrations.
+- Replaced the fictional sample policies with a source-backed dataset (`database/data/ai_policies.json`) covering the EU, UK, US, Canada, Australia, Japan, South Korea, China, South Asia, ASEAN, Africa, the GCC, and Latin America; every entry cites an official source and access date. The seeder is now idempotent and `policies:purge-sample` removes the old sample rows on deployment.
+- Binding four-role change gates (`docs/reference/change-gates.md`), technical-debt register, compliance map, module documentation for every existing module, data-integrity test proving all interlinks, and `CLAUDE.md` project rules; PR template restructured around the gates.
+- Why comments on every migration.
 - Licence changed from MIT to Apache License 2.0 (with `NOTICE`).
 
 ### Added

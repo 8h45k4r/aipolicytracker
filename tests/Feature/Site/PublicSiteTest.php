@@ -149,4 +149,44 @@ class PublicSiteTest extends TestCase
     {
         $this->artisan('policy:validate')->assertExitCode(0);
     }
+
+    /**
+     * Gate 1 evidence: every foreign key in the policy-intelligence module resolves
+     * (total rows equals rows whose reference exists).
+     */
+    public function test_policy_intelligence_interlinks_resolve(): void
+    {
+        $links = [
+            ['policy_instruments', 'jurisdiction_id', 'jurisdictions'],
+            ['policy_versions', 'policy_instrument_id', 'policy_instruments'],
+            ['policy_sections', 'policy_instrument_id', 'policy_instruments'],
+            ['obligations', 'policy_instrument_id', 'policy_instruments'],
+            ['obligations', 'policy_section_id', 'policy_sections'],
+            ['applicability_rules', 'policy_instrument_id', 'policy_instruments'],
+            ['applicability_rules', 'obligation_id', 'obligations'],
+            ['taxonomy_assignments', 'taxonomy_term_id', 'taxonomy_terms'],
+            ['deadlines', 'policy_instrument_id', 'policy_instruments'],
+            ['deadlines', 'obligation_id', 'obligations'],
+            ['enforcement_events', 'jurisdiction_id', 'jurisdictions'],
+            ['procurement_rules', 'jurisdiction_id', 'jurisdictions'],
+            ['procurement_rules', 'policy_instrument_id', 'policy_instruments'],
+            ['framework_mappings', 'obligation_id', 'obligations'],
+            ['evidence_artifacts', 'obligation_id', 'obligations'],
+            ['change_events', 'jurisdiction_id', 'jurisdictions'],
+            ['change_events', 'policy_instrument_id', 'policy_instruments'],
+            ['source_documents', 'policy_instrument_id', 'policy_instruments'],
+            ['jurisdictions', 'parent_jurisdiction_id', 'jurisdictions'],
+        ];
+        foreach ($links as [$table, $column, $target]) {
+            $total = \Illuminate\Support\Facades\DB::table($table)->whereNotNull($column)->count();
+            $resolved = \Illuminate\Support\Facades\DB::table($table)->whereNotNull($column)->whereExists(fn ($q) => $q->select(\Illuminate\Support\Facades\DB::raw(1))->from("{$target} as target_ref")->whereColumn('target_ref.id', "{$table}.{$column}"))->count();
+            $this->assertSame($total, $resolved, "{$table}.{$column} → {$target}: {$resolved} of {$total} resolve");
+        }
+        $this->assertGreaterThan(0, \Illuminate\Support\Facades\DB::table('taxonomy_assignments')->count());
+        $morphs = \Illuminate\Support\Facades\DB::table('taxonomy_assignments')->count();
+        $resolvedMorphs = \Illuminate\Support\Facades\DB::table('taxonomy_assignments')->where(fn ($q) => $q
+            ->where(fn ($w) => $w->where('assignable_type', \App\Models\PolicyInstrument::class)->whereExists(fn ($e) => $e->select(\Illuminate\Support\Facades\DB::raw(1))->from('policy_instruments')->whereColumn('policy_instruments.id', 'taxonomy_assignments.assignable_id')))
+            ->orWhere(fn ($w) => $w->where('assignable_type', \App\Models\Obligation::class)->whereExists(fn ($e) => $e->select(\Illuminate\Support\Facades\DB::raw(1))->from('obligations')->whereColumn('obligations.id', 'taxonomy_assignments.assignable_id'))))->count();
+        $this->assertSame($morphs, $resolvedMorphs, 'taxonomy_assignments morphs resolve');
+    }
 }

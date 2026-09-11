@@ -5,8 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Policy-intelligence schema: jurisdictions, policy instruments, obligations,
- * deadlines, change events, sources, and the contributor review workflow.
+ * Why: the legacy ai_policy_trackers table stores one free-text row per policy with a
+ * single link and no provenance. The public product needs structured jurisdictions,
+ * instruments, obligations, deadlines, change events, official sources and a review
+ * workflow, each with source-quality fields, so the site and API can show status,
+ * sources and verification state. This schema is the read model for the data/ records.
  *
  * Source-quality columns are shared by every table that makes a factual claim
  * (see addSourceQualityColumns). The canonical data lives in the data/ directory;

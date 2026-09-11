@@ -66,6 +66,27 @@ php artisan serve               # http://localhost:8000
 npm run dev                     # Vite with HMR (or npm run build)
 ```
 
+**Supabase / PostgreSQL (recommended):**
+
+1. Create a Supabase project and open *Project Settings → Database*.
+2. Copy the **Session pooler** connection details (IPv4-friendly) into `.env`:
+
+   ```dotenv
+   DB_CONNECTION=pgsql
+   DB_HOST=aws-0-<region>.pooler.supabase.com
+   DB_PORT=5432
+   DB_DATABASE=postgres
+   DB_USERNAME=postgres.<project-ref>
+   DB_PASSWORD=<database password>
+   DB_SSLMODE=require
+   ```
+
+3. Run `php artisan migrate --seed` and `php artisan storage:link`.
+
+The seeder creates countries, statuses, the admin account from `ADMIN_*`, the legacy map dataset from `database/data/ai_policies.json` (every entry cites an official source and access date; see `docs/modules/policies.md`), and imports the structured policy records from `data/` (see `docs/modules/policy-intelligence.md`). Re-running is idempotent.
+
+If a database was provisioned from this repository's SQL translation of the migrations (for example with the Supabase SQL editor), the `migrations` table is already populated and `php artisan migrate` will report nothing to do.
+
 ## Commands
 
 ```bash
@@ -118,6 +139,8 @@ The app is a standard Laravel application and needs a PHP runtime. It cannot run
 **Cloudflare.** Cloudflare provides DNS, TLS, caching, and a small Worker (`cloudflare/worker.js`) that forwards the public domain to the origin; see `cloudflare/README.md`. Add rate-limiting rules for `/login`, `/register`, `/contribute`, `/api/*` and `/*/filtered`. Purge `/sitemap*.xml`, `/robots.txt` and `/llms*.txt` after each deploy. The application itself cannot run on Workers or Pages. Suggested limits: 60 requests/minute per IP on JSON filter endpoints, 10/minute on `/login` and `/register` (login is also throttled in-app).
 
 ## Contribution workflow
+
+Every change to `main` passes the four role gates in `docs/reference/change-gates.md`; module docs live in `docs/modules/`, accepted debt in `docs/reference/technical-debt.md`, and the compliance map in `docs/reference/compliance-map.md`.
 
 1. Open an issue using one of the templates (bug, policy data correction, new jurisdiction/source, feature).
 2. Fork, create a branch (`feat/...`, `fix/...`, `data/...`).
