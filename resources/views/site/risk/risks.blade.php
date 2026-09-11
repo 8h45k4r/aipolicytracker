@@ -6,8 +6,8 @@
         <div><p class="eyebrow">MIT AI Risk Repository</p><h1 class="mt-1 font-display text-3xl font-semibold text-brand-navy">Browse AI risks</h1><p class="mt-2 max-w-[64ch] text-brand-body">{{ number_format($risks->total()) }} risk entries extracted from {{ count($facets['level']) ? '74' : '—' }} frameworks, coded by domain, subdomain, causal entity, intent and timing. Filter, then export the current selection with its licence and citation attached.</p></div>
         <div class="flex gap-2"><a href="{{ route('risk.risks.export', array_merge(['format' => 'csv'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export CSV</a><a href="{{ route('risk.risks.export', array_merge(['format' => 'json'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export JSON</a></div>
     </div>
-    <form method="get" action="{{ route('risk.risks') }}" class="mt-5 grid gap-3 sm:grid-cols-6" aria-label="Filter risks">
-        <div class="sm:col-span-2"><label for="r-q" class="label">Keyword</label><input id="r-q" type="search" name="q" value="{{ $filters['q'] }}" class="input" placeholder="e.g. bias, jailbreak, deepfake"></div>
+    <form method="get" action="{{ route('risk.risks') }}" class="mt-5 grid gap-3 sm:grid-cols-4 lg:grid-cols-8 lg:items-end" aria-label="Filter risks">
+        <div class="sm:col-span-2 lg:col-span-2"><label for="r-q" class="label">Keyword</label><input id="r-q" type="search" name="q" value="{{ $filters['q'] }}" class="input" placeholder="e.g. bias, jailbreak, deepfake"></div>
         <div><label for="r-d" class="label">Domain</label><select id="r-d" name="domain" class="input"><option value="">All</option>@foreach($mit['domains'] ?? [] as $d)<option value="{{ $d['id'] }}" @selected((string) $filters['domain'] === (string) $d['id'])>{{ $d['id'] }}. {{ \Illuminate\Support\Str::limit($d['name'], 28) }} ({{ $facets['domain'][$d['id']] ?? 0 }})</option>@endforeach</select></div>
         <div><label for="r-e" class="label">Entity</label><select id="r-e" name="entity" class="input"><option value="">All</option>@foreach(\App\Models\ExternalRisk::CAUSAL['entity'] as $v)<option value="{{ $v }}" @selected($filters['entity'] === $v)>{{ $v }} ({{ $facets['entity'][$v] ?? 0 }})</option>@endforeach</select></div>
         <div><label for="r-i" class="label">Intent</label><select id="r-i" name="intent" class="input"><option value="">All</option>@foreach(\App\Models\ExternalRisk::CAUSAL['intent'] as $v)<option value="{{ $v }}" @selected($filters['intent'] === $v)>{{ $v }} ({{ $facets['intent'][$v] ?? 0 }})</option>@endforeach</select></div>
@@ -15,9 +15,14 @@
         <div><label for="r-l" class="label">Level</label><select id="r-l" name="level" class="input"><option value="">All</option>@foreach(\App\Models\ExternalRisk::LEVELS as $k => $label)<option value="{{ $k }}" @selected($filters['level'] === $k)>{{ $label }} ({{ $facets['level'][$k] ?? 0 }})</option>@endforeach</select></div>
         @if($filters['subdomain'])<input type="hidden" name="subdomain" value="{{ $filters['subdomain'] }}">@endif
         @if($filters['paper'])<input type="hidden" name="paper" value="{{ $filters['paper'] }}">@endif
-        <div class="sm:col-span-5 flex gap-2"><button type="submit" class="btn-primary">Apply</button><a href="{{ route('risk.risks') }}" class="btn-secondary">Reset</a></div>
+        <div class="sm:col-span-2 lg:col-span-8 flex flex-wrap items-center gap-2">
+            <button type="submit" class="btn-primary">Apply</button><a href="{{ route('risk.risks') }}" class="btn-secondary">Reset</a>
+            @if($filters['subdomain'] || $filters['paper'])<span class="meta ml-2">Also filtered by</span>
+                @if($filters['subdomain'])<a class="chip chip-active !min-h-0" href="{{ route('risk.risks', array_filter(array_diff_key($filters, ['subdomain' => 1]))) }}" title="Remove subdomain filter">subdomain {{ $filters['subdomain'] }} ×</a>@endif
+                @if($filters['paper'])<a class="chip chip-active !min-h-0" href="{{ route('risk.risks', array_filter(array_diff_key($filters, ['paper' => 1]))) }}" title="Remove framework filter">framework {{ $filters['paper'] }} ×</a>@endif
+            @endif
+        </div>
     </form>
-    @if($filters['subdomain'] || $filters['paper'])<p class="mt-3 text-sm">Also filtered by @if($filters['subdomain'])subdomain <span class="chip chip-active !min-h-0">{{ $filters['subdomain'] }}</span>@endif @if($filters['paper'])framework <span class="chip chip-active !min-h-0">{{ $filters['paper'] }}</span>@endif</p>@endif
 
     <p class="mt-6 meta" role="status">{{ number_format($risks->total()) }} {{ \Illuminate\Support\Str::plural('entry', $risks->total()) }}@if($risks->lastPage() > 1) · page {{ $risks->currentPage() }} of {{ $risks->lastPage() }}@endif</p>
     @if($risks->isEmpty())<div class="mt-4"><x-site.empty title="No risks match these filters" :reset="route('risk.risks')" /></div>@else
