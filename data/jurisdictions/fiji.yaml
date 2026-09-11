@@ -1,0 +1,60 @@
+slug: fiji
+name: Fiji
+short_name: Fiji
+iso_code: FJ
+jurisdiction_type: country
+region: Oceania
+featured: false
+published: true
+overview: >-
+  No AI-specific law, strategy or guidance has been recorded for this jurisdiction as of September 2026. General law (data
+  protection where enacted, consumer, telecommunications and sector rules) applies to AI systems. This record exists so
+  that coverage is complete and honest: it will be expanded when an official AI instrument is published or a reviewer adds
+  one with its source.
+regulatory_status_summary: >-
+  No AI-specific law, strategy or guidance has been recorded for this jurisdiction as of September 2026. General law (data
+  protection where enacted, consumer, telecommunications and sector rules) applies to AI systems.
+binding_vs_guidance: 'Binding: no AI-specific instrument recorded. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Treat the absence of an AI-specific instrument as a gap in our records, not as legal certainty; check the government portal
+  and regulator sites linked here.
+regulators:
+- name: Fijian Government
+  url: https://www.fiji.gov.fj/
+  role: Official government portal; AI policy lead not yet identified
+official_sources:
+- title: Fijian Government
+  publisher: Government of Fiji
+  url: https://www.fiji.gov.fj/
+  document_type: official
+  tier: 1
+- title: Data Protection and Privacy Legislation Worldwide (country table)
+  publisher: UNCTAD
+  url: https://unctad.org/page/data-protection-and-privacy-legislation-worldwide
+  document_type: secondary
+  tier: 3
+faq:
+- question: Does Fiji regulate AI?
+  answer: >-
+    No AI-specific law, strategy or guidance has been recorded for this jurisdiction as of September 2026. General law (data
+    protection where enacted, consumer, telecommunications and sector rules) applies to AI systems. Report an official source
+    through the correction form and a reviewer will add it.
+related_jurisdictions:
+- australia
+- new-zealand
+official_source_url: https://www.fiji.gov.fj/
+source_title: Fijian Government
+source_publisher: Government of Fiji
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.
