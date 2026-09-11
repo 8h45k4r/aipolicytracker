@@ -65,14 +65,22 @@ class PageController extends Controller
 
     public function about(): View
     {
+        $faq = [
+            ['question' => 'What is AIPolicyTracker?', 'answer' => 'An open, source-backed reference for AI laws, strategies, guidance and their obligations across jurisdictions, with a bias towards markets that global trackers cover thinly. Every record links to its official source and shows its verification state.'],
+            ['question' => 'Is the data free to reuse?', 'answer' => 'Yes. The policy dataset is published under CC BY 4.0 and the code under Apache-2.0. Third-party datasets shown on the site (MIT AI Risk Repository, AI Incident Database) keep their own licences, which are stated on each page.'],
+            ['question' => 'Is this legal advice?', 'answer' => 'No. The site is informational. Confirm every date and obligation in the linked official source and consult qualified counsel before acting.'],
+            ['question' => 'How are records verified?', 'answer' => 'Records are created from official sources with a source URL and access date, then reviewed by a human who opens the source, confirms the fields and sets the verification date. Unverified records are labelled as source-linked rather than verified.'],
+            ['question' => 'Who maintains it?', 'answer' => 'AIPolicyTracker is founded and maintained by Bhaskar Bhatt and built by Dignep Group Pvt. Ltd. Contributions are welcome through GitHub.'],
+        ];
         $seo = Seo::make(
-            'About AIPolicyTracker',
-            'AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence platform. Mission, maintainers, reviewer invitation, contact and the relationship to Certifyi.',
+            'About AIPolicyTracker: open, source-backed AI policy intelligence',
+            'Why AIPolicyTracker exists, how it is built and verified, how to use it, the datasets and research it builds on, and who maintains it.',
             route('about')
         )->withBreadcrumbs([['Home', route('home')], ['About', route('about')]])
-            ->withJsonLd(['@type' => 'AboutPage', 'name' => 'About AIPolicyTracker', 'url' => route('about'), 'mainEntity' => ['@id' => url('/').'#organization']]);
+            ->withJsonLd(['@type' => 'AboutPage', 'name' => 'About AIPolicyTracker', 'url' => route('about'), 'mainEntity' => ['@id' => url('/').'#organization']])
+            ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]], $faq)]);
 
-        return view('site.pages.about', ['seo' => $seo, 'maintainers' => config('aipolicytracker.maintainers'), 'contacts' => config('aipolicytracker.contact_emails')]);
+        return view('site.pages.about', ['seo' => $seo, 'maintainers' => config('aipolicytracker.maintainers'), 'contacts' => config('aipolicytracker.contact_emails'), 'organization' => config('aipolicytracker.organization'), 'references' => config('aipolicytracker.references'), 'faq' => $faq]);
     }
 
     private function releases(): array

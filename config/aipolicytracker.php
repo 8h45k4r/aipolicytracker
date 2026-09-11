@@ -69,7 +69,23 @@ return [
 
     // Maintainers shown on the About page.
     'maintainers' => [
-        ['name' => 'Bhaskar Bhatt', 'role' => 'Founder and maintainer', 'url' => 'https://github.com/8h45k4r'],
+        ['name' => 'Bhaskar Bhatt', 'role' => 'Founder and maintainer', 'url' => 'https://bhaskar.com.np/', 'same_as' => ['https://github.com/8h45k4r', 'https://www.linkedin.com/in/8h45k4r/', 'https://x.com/8h45k4r']],
+    ],
+
+    // Organisation behind the project (shown on the About page and in structured data).
+    'organization' => [
+        'name' => 'Dignep Group Pvt. Ltd.',
+        'url' => 'https://certifyi.ai',
+        'tagline' => 'Powering AI governance for regulated industries',
+    ],
+
+    // Datasets and works this site builds on; rendered as references on the About page.
+    'references' => [
+        ['title' => 'The AI Risk Repository: A comprehensive meta-review, database, and taxonomy of risks from artificial intelligence', 'authors' => 'Slattery, P., Saeri, A. K., Grundy, E. A. C., Graham, J., Noetel, M., Uuk, R., Dao, J., Pour, S., Casper, S., & Thompson, N. (2025)', 'url' => 'https://arxiv.org/abs/2408.12622', 'publisher' => 'MIT AI Risk Initiative, arXiv:2408.12622', 'license' => 'CC BY 4.0'],
+        ['title' => 'Preventing Repeated Real World AI Failures by Cataloging Incidents: The AI Incident Database', 'authors' => 'McGregor, S. (2021)', 'url' => 'https://incidentdatabase.ai/', 'publisher' => 'Proceedings of the AAAI Conference on Artificial Intelligence (IAAI-21); Responsible AI Collaborative', 'license' => 'CC BY-SA 4.0'],
+        ['title' => 'Ethical and social risks of harm from Language Models', 'authors' => 'Weidinger, L. et al. (2021)', 'url' => 'https://arxiv.org/abs/2112.04359', 'publisher' => 'DeepMind, arXiv:2112.04359', 'license' => null],
+        ['title' => 'AI Risk Management Framework (AI RMF 1.0)', 'authors' => 'National Institute of Standards and Technology (2023)', 'url' => 'https://www.nist.gov/itl/ai-risk-management-framework', 'publisher' => 'NIST', 'license' => 'Public domain (US Government work)'],
+        ['title' => 'Regulation (EU) 2024/1689 (Artificial Intelligence Act)', 'authors' => 'European Parliament and Council (2024)', 'url' => 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj', 'publisher' => 'Official Journal of the European Union', 'license' => 'EU reuse policy (Decision 2011/833/EU)'],
     ],
 
     // Upper bound for client-supplied page sizes on JSON list endpoints.

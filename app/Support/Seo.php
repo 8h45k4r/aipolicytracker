@@ -100,7 +100,9 @@ class Seo
             '@id' => url('/').'#organization',
             'name' => config('aipolicytracker.site_name'),
             'url' => url('/'),
-            'logo' => url('/aipolicytracker-logo.jpg'),
+            'logo' => url('/brand/logo-on-light.svg'),
+            'parentOrganization' => ['@type' => 'Organization', 'name' => config('aipolicytracker.organization.name'), 'url' => config('aipolicytracker.organization.url')],
+            'founder' => collect(config('aipolicytracker.maintainers', []))->map(fn ($m) => ['@type' => 'Person', 'name' => $m['name'], 'url' => $m['url'], 'sameAs' => $m['same_as'] ?? []])->values()->all(),
             'description' => config('aipolicytracker.positioning'),
         ];
         $profiles = array_values(array_filter(array_merge([config('aipolicytracker.github_url')], config('aipolicytracker.social_profiles', []))));

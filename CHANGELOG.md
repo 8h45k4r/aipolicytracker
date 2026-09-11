@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Changed
+- About page rewritten with an original structure (why it exists, how to use it, how records are made, datasets and research references, team, open-by-default, reviewers, contact) plus FAQ structured data; Organization structured data now carries the founder (bhaskar.com.np) and parent organisation.
+
+### Changed
 - Record verification wording: unverified records now read "Source-linked · checked <date>" instead of "Human verification pending"; the amber banner on policy pages was removed (review status stays in the data, API and llms-full output).
 - Footer no longer lists llms.txt; it remains linked from the Open data page and served at /llms.txt.
 
