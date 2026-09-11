@@ -1,0 +1,54 @@
+slug: czechia-national-ai-strategy-2030
+jurisdiction: czechia
+title: Národní strategie umělé inteligence České republiky 2030
+short_title: National AI Strategy 2030
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of the Czech Republic (Ministry of Industry and Trade)
+summary_plain: >-
+  Approved by the government in July 2024, the strategy to 2030 replaces the 2019 strategy and sets priorities on research
+  and innovation, skills, infrastructure and data, industry and public-sector adoption, trustworthy AI and AI Act implementation,
+  with measurable goals and a governance structure.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-07-24'
+date_notes: Government approval July 2024; exact date to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Národní strategie umělé inteligence ČR 2030
+  publisher: Ministry of Industry and Trade
+  url: https://www.mpo.gov.cz/
+  document_date: '2024-07-24'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.mpo.gov.cz/
+source_title: Národní strategie umělé inteligence ČR 2030
+source_publisher: Ministry of Industry and Trade
+source_document_date: '2024-07-24'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

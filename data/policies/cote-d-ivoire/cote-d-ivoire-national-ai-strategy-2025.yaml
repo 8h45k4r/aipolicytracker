@@ -1,0 +1,51 @@
+slug: cote-d-ivoire-national-ai-strategy-2025
+jurisdiction: cote-d-ivoire
+title: Stratégie nationale de l'intelligence artificielle de la Côte d'Ivoire
+short_title: National AI Strategy (2025)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Côte d'Ivoire
+summary_plain: >-
+  The strategy sets priorities on AI talent and research, adoption in public services, agriculture, health and education,
+  data governance and infrastructure, and ethical use.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministère de la Transition Numérique
+  publisher: Government of Côte d'Ivoire
+  url: https://numerique.gouv.ci/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://numerique.gouv.ci/
+source_title: Ministère de la Transition Numérique
+source_publisher: Government of Côte d'Ivoire
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

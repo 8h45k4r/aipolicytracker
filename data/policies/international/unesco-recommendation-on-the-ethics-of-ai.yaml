@@ -1,0 +1,66 @@
+slug: unesco-recommendation-on-the-ethics-of-ai
+jurisdiction: international
+title: >-
+  UNESCO Recommendation on the Ethics of Artificial Intelligence (adopted by the General Conference, 23 November 2021)
+short_title: UNESCO Recommendation on the Ethics of AI
+instrument_type: framework
+status: adopted
+is_binding: false
+featured: true
+published: true
+issuing_body: UNESCO General Conference (193 member states)
+summary_plain: >-
+  The first global normative instrument on AI ethics. It sets values (human rights and dignity, environment and ecosystem
+  flourishing, diversity and inclusiveness, peaceful and just societies) and principles (proportionality and do no harm,
+  safety and security, fairness, sustainability, privacy, human oversight, transparency and explainability, responsibility,
+  awareness and literacy, multi-stakeholder governance), and eleven policy action areas from ethical impact assessment and
+  data policy to gender, education, health and the environment. UNESCO supports implementation with a Readiness Assessment
+  Methodology (RAM) and an Ethical Impact Assessment tool used by dozens of countries.
+scope_summary: Addressed to member states; recommends measures for public and private AI actors; non-binding.
+adopted_on: '2021-11-23'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+- provider
+- deployer
+ai_system_types: []
+sectors:
+- cross_sector
+- education
+- healthcare
+risk_categories: []
+use_cases:
+- public_services
+- education
+- health
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Recommendation on the Ethics of Artificial Intelligence
+  publisher: UNESCO
+  url: https://unesdoc.unesco.org/ark:/48223/pf0000381137
+  document_date: '2021-11-23'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://unesdoc.unesco.org/ark:/48223/pf0000381137
+source_title: Recommendation on the Ethics of Artificial Intelligence
+source_publisher: UNESCO
+source_document_date: '2021-11-23'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

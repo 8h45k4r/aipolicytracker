@@ -1,0 +1,62 @@
+slug: sweden
+name: Sweden
+short_name: Sweden
+iso_code: SE
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Sweden applies the EU AI Act and has framed national policy through a 2018 national approach to AI and the AI Commission's
+  roadmap for Sweden (SOU 2024:94, November 2024), which proposed investments, an AI task force, data access and public-sector
+  adoption measures. The Swedish Authority for Privacy Protection (IMY) has published regulatory guidance and run sandboxes
+  on AI; the government has proposed IMY, the Swedish Post and Telecom Authority and other bodies as AI Act authorities.
+regulatory_status_summary: >-
+  EU AI Act applies; AI Commission roadmap (2024) under implementation as policy; national approach (2018).
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI Commission roadmap for Sweden (SOU 2024:94).'
+current_priorities: >-
+  AI Act authority designation, AI investment package following the AI Commission, public-sector AI and data access.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Integritetsskyddsmyndigheten (IMY)
+  url: https://www.imy.se/en/
+  role: Data-protection authority; AI regulatory sandbox
+- name: Regeringskansliet (Government Offices of Sweden)
+  url: https://www.regeringen.se/
+  role: Government policy and AI Act implementation
+official_sources:
+- title: Färdplan för Sverige (SOU 2024:94)
+  publisher: Regeringskansliet, AI-kommissionen
+  url: https://www.regeringen.se/rattsliga-dokument/statens-offentliga-utredningar/2024/11/sou-202494/
+  document_date: '2024-11-26'
+  document_type: strategy
+  tier: 1
+- title: 'IMY: artificial intelligence'
+  publisher: Integritetsskyddsmyndigheten
+  url: https://www.imy.se/en/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- denmark
+- finland
+- norway
+official_source_url: https://www.regeringen.se/rattsliga-dokument/statens-offentliga-utredningar/2024/11/sou-202494/
+source_title: Färdplan för Sverige (SOU 2024:94)
+source_publisher: Regeringskansliet, AI-kommissionen
+source_document_date: '2024-11-26'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,51 @@
+slug: slovakia-national-ai-strategy-2030
+jurisdiction: slovakia
+title: Národná stratégia pre umelú inteligenciu 2030
+short_title: National AI Strategy 2030
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Slovakia (MIRRI)
+summary_plain: >-
+  The strategy to 2030 sets objectives for AI research, skills, data and infrastructure, adoption in public administration
+  and industry, and trustworthy AI aligned with the EU AI Act.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-01-01'
+date_notes: Year-level placeholder; adoption date to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: MIRRI
+  publisher: Government of Slovakia
+  url: https://www.mirri.gov.sk/en/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mirri.gov.sk/en/
+source_title: MIRRI
+source_publisher: Government of Slovakia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,53 @@
+slug: israel
+name: Israel
+short_name: Israel
+iso_code: IL
+jurisdiction_type: country
+region: Asia
+subregion: Western Asia
+featured: false
+published: true
+overview: >-
+  Israel published its national AI regulation and ethics policy in December 2023 (Ministry of Innovation, Science and Technology
+  with the Ministry of Justice), choosing a sector-based, risk-based and voluntary approach with common ethical principles,
+  soft regulation tools and a government AI policy coordination centre rather than a horizontal AI law. The Privacy Protection
+  Authority issued guidance on AI and privacy, and Israel signed the Council of Europe Framework Convention.
+regulatory_status_summary: >-
+  National AI policy (2023) as policy; sector regulators act within existing law; no horizontal AI statute.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI regulation and ethics policy (2023).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Innovation, Science and Technology
+  url: https://www.gov.il/en/departments/ministry_of_science_and_technology
+  role: AI policy lead; AI policy coordination centre
+- name: Privacy Protection Authority
+  url: https://www.gov.il/en/departments/the_privacy_protection_authority
+  role: Data-protection authority
+official_sources:
+- title: Israel's policy on artificial intelligence regulation and ethics
+  publisher: Ministry of Innovation, Science and Technology
+  url: https://www.gov.il/en/pages/ai_2023
+  document_date: '2023-12-17'
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- us
+- uk
+official_source_url: https://www.gov.il/en/pages/ai_2023
+source_title: Israel's policy on artificial intelligence regulation and ethics
+source_publisher: Ministry of Innovation, Science and Technology
+source_document_date: '2023-12-17'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

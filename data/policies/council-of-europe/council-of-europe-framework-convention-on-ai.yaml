@@ -1,0 +1,93 @@
+slug: council-of-europe-framework-convention-on-ai
+jurisdiction: council-of-europe
+title: >-
+  Council of Europe Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law (CETS
+  No. 225)
+short_title: Framework Convention on AI (CETS 225)
+instrument_type: act
+status: adopted
+status_note: >-
+  Adopted 17 May 2024 and open for signature since 5 September 2024. Entry into force requires five ratifications including
+  three Council of Europe member states; check the treaty office page for the current status.
+is_binding: true
+featured: true
+published: true
+issuing_body: Committee of Ministers of the Council of Europe
+summary_plain: >-
+  The first international treaty on AI. Parties must adopt or maintain measures so that activities within the lifecycle
+  of AI systems are consistent with human rights, democracy and the rule of law, covering public authorities and actors
+  on their behalf and, by choice of approach, private actors. It sets principles (human dignity and autonomy, transparency
+  and oversight, accountability, equality and non-discrimination, privacy, reliability, safe innovation), requires remedies,
+  procedural safeguards and risk and impact assessment, allows moratoria or bans for incompatible uses, and creates a Conference
+  of the Parties for follow-up. National-security activities and defence are excluded.
+scope_summary: >-
+  Obligations fall on state parties for the public sector; parties choose how to address private-sector AI activities. Activities
+  related to national security and research and development not yet in use are excluded.
+who_it_applies_to: States and the EU that ratify; public authorities and private actors through implementing measures.
+key_dates_summary: >-
+  2024-05-17: adopted by the Committee of Ministers; 2024-09-05: opened for signature in Vilnius; entry into force after
+  five ratifications (three from member states).
+adopted_on: '2024-05-17'
+published_on: '2024-09-05'
+date_notes: Entry into force date not confirmed from the treaty office at the time of checking.
+actors:
+- public_authority
+- provider
+- deployer
+- user
+ai_system_types: []
+sectors:
+- cross_sector
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies:
+- eu-ai-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines:
+- title: Opened for signature
+  due_on: '2024-09-05'
+  date_precision: exact
+  description: Signing conference in Vilnius, Lithuania.
+  deadline_status: passed
+  confidence_level: high
+- title: Entry into force
+  date_precision: tbd
+  description: >-
+    First day of the month following three months after the fifth ratification, including at least three Council of Europe
+    member states.
+  deadline_status: tbd
+  confidence_level: medium
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Framework Convention on AI (CETS No. 225)
+  publisher: Council of Europe
+  url: https://www.coe.int/en/web/conventions/full-list?module=treaty-detail&treatynum=225
+  document_date: '2024-05-17'
+  document_type: legislation
+  tier: 1
+faq:
+- question: Which countries have signed?
+  answer: >-
+    Signatories include the European Union, the United Kingdom, the United States, Canada, Japan, Israel, Andorra, Georgia,
+    Iceland, Norway, Moldova, San Marino, Switzerland and Ukraine, among others; check the Council of Europe treaty office
+    for the current list and ratifications.
+official_source_url: https://www.coe.int/en/web/conventions/full-list?module=treaty-detail&treatynum=225
+source_title: Framework Convention on AI (CETS No. 225)
+source_publisher: Council of Europe
+source_document_date: '2024-05-17'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

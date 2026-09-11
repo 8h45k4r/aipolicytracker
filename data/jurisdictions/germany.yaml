@@ -1,0 +1,71 @@
+slug: germany
+name: Germany
+short_name: Germany
+iso_code: DE
+jurisdiction_type: country
+region: Europe
+subregion: Western Europe
+featured: true
+published: true
+overview: >-
+  Germany applies the EU AI Act directly and is putting national implementation in place through a draft market-surveillance
+  and innovation act that makes the Federal Network Agency (Bundesnetzagentur) the central market surveillance authority.
+  The federal government has run a national AI strategy since 2018 (updated 2020) and the Federal Network Agency operates
+  an AI service desk for companies. General law applies alongside: the Federal Data Protection Act, product safety, non-discrimination
+  and works-council co-determination rules on algorithmic tools at work.
+regulatory_status_summary: >-
+  EU AI Act applies; national implementing act (KI-Marktüberwachungs- und Innovationsförderungsgesetz) proposed; national
+  AI strategy in force as policy.
+binding_vs_guidance: >-
+  Binding: AI Act implementation act (KI-MIG, draft). Strategy or guidance: AI Strategy of the Federal Government.
+current_priorities: >-
+  Adopting the AI Act implementation act, staffing the Bundesnetzagentur as coordinating market-surveillance authority,
+  regulatory sandboxes and AI compute capacity.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Bundesnetzagentur (Federal Network Agency)
+  url: https://www.bundesnetzagentur.de/EN/Areas/Digital-Services/AI/start.html
+  role: Designated coordinating market-surveillance authority for the AI Act; runs the KI-Service-Desk
+- name: Der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit (BfDI)
+  url: https://www.bfdi.bund.de/EN/Home/home_node.html
+  role: Federal data-protection supervision
+- name: Bundesministerium für Digitales und Staatsmodernisierung
+  url: https://www.bmds.bund.de/
+  role: Lead ministry for AI Act implementation and digital policy
+official_sources:
+- title: 'Bundesnetzagentur: Artificial Intelligence'
+  publisher: Bundesnetzagentur
+  url: https://www.bundesnetzagentur.de/EN/Areas/Digital-Services/AI/start.html
+  document_type: official
+  tier: 1
+- title: Strategie Künstliche Intelligenz der Bundesregierung
+  publisher: Die Bundesregierung
+  url: https://www.ki-strategie-deutschland.de/
+  document_date: '2020-12-01'
+  document_type: strategy
+  tier: 1
+faq:
+- question: Does Germany have its own AI law?
+  answer: >-
+    No. The EU AI Act applies directly. Germany is adopting a national act to designate market-surveillance authorities
+    and penalties, with the Bundesnetzagentur as the central authority.
+related_jurisdictions:
+- eu
+- france
+- austria
+official_source_url: https://www.bundesnetzagentur.de/EN/Areas/Digital-Services/AI/start.html
+source_title: 'Bundesnetzagentur: Artificial Intelligence'
+source_publisher: Bundesnetzagentur
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

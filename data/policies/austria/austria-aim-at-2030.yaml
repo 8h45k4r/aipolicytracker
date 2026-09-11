@@ -1,0 +1,55 @@
+slug: austria-aim-at-2030
+jurisdiction: austria
+title: >-
+  Strategie der Bundesregierung für Künstliche Intelligenz – Artificial Intelligence Mission Austria 2030 (AIM AT 2030)
+short_title: AIM AT 2030 (AI strategy)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Federal Government of Austria
+summary_plain: >-
+  Adopted in August 2021, AIM AT 2030 sets three objectives: broad use of AI oriented to the common good and fundamental
+  rights, Austria as a research and innovation location, and competitiveness of the Austrian technology and business location.
+  It lists fields of action including trustworthy AI, public administration, skills, data and infrastructure, with an implementation
+  and monitoring structure.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2021-08-25'
+date_notes: Adopted by the Council of Ministers in August 2021.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'KI-Servicestelle: AI strategy'
+  publisher: RTR
+  url: https://www.rtr.at/rtr/service/ki-servicestelle/ki-servicestelle.en.html
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.rtr.at/rtr/service/ki-servicestelle/ki-servicestelle.en.html
+source_title: 'KI-Servicestelle: AI strategy'
+source_publisher: RTR
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

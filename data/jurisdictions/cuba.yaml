@@ -1,0 +1,44 @@
+slug: cuba
+name: Cuba
+short_name: Cuba
+iso_code: CU
+jurisdiction_type: country
+region: Americas
+subregion: Caribbean
+featured: false
+published: true
+overview: >-
+  Cuba adopted a national strategy for the development and use of artificial intelligence and, in 2024, a Ministry of Communications
+  resolution on AI ethics and use in the public sector; implementation is led by the Ministry of Communications and the
+  University of Informatics Sciences.
+regulatory_status_summary: National AI strategy and ministerial resolution (2024) as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministerio de Comunicaciones
+  url: https://www.mincom.gob.cu/
+  role: AI strategy and regulation lead
+official_sources:
+- title: Ministerio de Comunicaciones de Cuba
+  publisher: Government of Cuba
+  url: https://www.mincom.gob.cu/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- mexico
+official_source_url: https://www.mincom.gob.cu/
+source_title: Ministerio de Comunicaciones de Cuba
+source_publisher: Government of Cuba
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

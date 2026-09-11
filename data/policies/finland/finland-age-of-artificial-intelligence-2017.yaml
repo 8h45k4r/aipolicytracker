@@ -1,0 +1,61 @@
+slug: finland-age-of-artificial-intelligence-2017
+jurisdiction: finland
+title: >-
+  Finland's Age of Artificial Intelligence: Turning Finland into a leading country in the application of AI (objective and
+  recommendations for measures)
+short_title: Finland's Age of Artificial Intelligence (2017)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Economic Affairs and Employment of Finland
+summary_plain: >-
+  The 2017 report of the steering group appointed by the Minister of Economic Affairs proposed eight key actions to make
+  Finland a leader in applying AI: enhancing business competitiveness, using data in all sectors, faster adoption, top-level
+  expertise and talent, bold decisions and investments, the best public services, new cooperation models and a human-centred
+  approach. It launched the national AI programme continued in the 2019 final report and the AI 4.0 programme.
+scope_summary: Government programme; no obligations on private organisations.
+key_dates_summary: '2017-10-23: interim report published; 2019-03: final report "Leading the way into the age of AI".'
+adopted_on: '2017-10-23'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Finland's Age of Artificial Intelligence
+  publisher: Ministry of Economic Affairs and Employment
+  url: https://julkaisut.valtioneuvosto.fi/handle/10024/160391
+  document_date: '2017-10-23'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://julkaisut.valtioneuvosto.fi/handle/10024/160391
+source_title: Finland's Age of Artificial Intelligence
+source_publisher: Ministry of Economic Affairs and Employment
+source_document_date: '2017-10-23'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

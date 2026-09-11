@@ -1,0 +1,62 @@
+slug: russia-national-ai-strategy-2030
+jurisdiction: russia
+title: >-
+  Национальная стратегия развития искусственного интеллекта на период до 2030 года (Presidential Decree No. 490 of 10 October
+  2019, as amended by Decree No. 124 of 15 February 2024)
+short_title: National AI Strategy to 2030 (Decree 490, updated 2024)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: President of the Russian Federation
+summary_plain: >-
+  The national strategy sets goals for AI research, compute, data, talent and adoption across the economy and public administration
+  to 2030, with the 2024 amendment adding targets on domestic compute capacity, large generative models, share of organisations
+  using AI, and trusted-AI requirements for the public sector. It is implemented through the federal "Artificial Intelligence"
+  project.
+scope_summary: Government programme; obligations arise only through implementing acts.
+key_dates_summary: '2019-10-10: Decree 490; 2024-02-15: Decree 124 amendments.'
+adopted_on: '2019-10-10'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Decree No. 490 of 10 October 2019
+  publisher: President of Russia
+  url: http://kremlin.ru/acts/bank/44731
+  document_date: '2019-10-10'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: http://kremlin.ru/acts/bank/44731
+source_title: Decree No. 490 of 10 October 2019
+source_publisher: President of Russia
+source_document_date: '2019-10-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,64 @@
+slug: spain-royal-decree-729-2023-aesia
+jurisdiction: spain
+title: >-
+  Real Decreto 729/2023, de 22 de agosto, por el que se aprueba el Estatuto de la Agencia Española de Supervisión de Inteligencia
+  Artificial
+short_title: Royal Decree 729/2023 (AESIA statute)
+instrument_type: regulation
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Government of Spain
+summary_plain: >-
+  Creates and organises AESIA, the Spanish AI Supervision Agency, as a public body attached to the Ministry for Digital
+  Transformation. AESIA supervises and inspects AI systems, promotes sandboxes and standards, and acts as national authority
+  for the EU AI Act. The decree sets its governance, functions and funding.
+scope_summary: >-
+  Institutional: establishes the agency and its powers over AI systems placed on or used in the Spanish market.
+key_dates_summary: '2023-08-22: approved by Council of Ministers; 2023-09-02: published in BOE.'
+adopted_on: '2023-08-22'
+published_on: '2023-09-02'
+in_force_on: '2023-09-03'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+- provider
+- deployer
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Real Decreto 729/2023
+  publisher: Boletín Oficial del Estado
+  url: https://www.boe.es/buscar/act.php?id=BOE-A-2023-18911
+  document_date: '2023-09-02'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.boe.es/buscar/act.php?id=BOE-A-2023-18911
+source_title: Real Decreto 729/2023
+source_publisher: Boletín Oficial del Estado
+source_document_date: '2023-09-02'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,48 @@
+slug: jamaica
+name: Jamaica
+short_name: Jamaica
+iso_code: JM
+jurisdiction_type: country
+region: Americas
+subregion: Caribbean
+featured: false
+published: true
+overview: >-
+  Jamaica's National AI Task Force delivered a national AI policy framework in 2024 covering governance, ethics, skills
+  and public-sector use, and the government committed to a national AI policy under the Ministry of Science, Energy, Telecommunications
+  and Transport; the Data Protection Act 2020 (in force December 2023) applies to AI processing personal data.
+regulatory_status_summary: National AI policy framework (2024) as policy; data-protection law applies.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI policy framework (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Science, Energy, Telecommunications and Transport
+  url: https://www.mset.gov.jm/
+  role: AI policy lead
+- name: Office of the Information Commissioner
+  url: https://oic.gov.jm/
+  role: Data-protection authority
+official_sources:
+- title: Ministry of Science, Energy, Telecommunications and Transport
+  publisher: Government of Jamaica
+  url: https://www.mset.gov.jm/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- dominican-republic
+- uk
+official_source_url: https://www.mset.gov.jm/
+source_title: Ministry of Science, Energy, Telecommunications and Transport
+source_publisher: Government of Jamaica
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.
