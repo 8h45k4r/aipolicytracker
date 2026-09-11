@@ -1,0 +1,57 @@
+slug: netherlands-government-algorithm-register
+jurisdiction: netherlands
+title: Algoritmeregister van de Nederlandse overheid (Government Algorithm Register)
+short_title: Government Algorithm Register
+instrument_type: policy
+status: in_force
+status_note: >-
+  Publication is a government policy commitment for public bodies; a statutory duty is planned in connection with AI Act
+  implementation but not confirmed from an official source.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of the Interior and Kingdom Relations
+summary_plain: >-
+  A public register in which Dutch government organisations describe the algorithms they use that affect citizens: purpose,
+  legal basis, data, human oversight, risks and contact points. Launched in December 2022 and extended since, it aims to
+  make automated decision-making by government transparent and contestable. Ministries were asked to publish all impactful
+  and high-risk algorithms.
+scope_summary: Public bodies in the Netherlands; no duty on private organisations.
+adopted_on: '2022-12-21'
+date_notes: Register launched 21 December 2022; coverage expanded through 2024–2025.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: The Algorithm Register of the Dutch government
+  publisher: Ministry of the Interior and Kingdom Relations
+  url: https://algoritmes.overheid.nl/en
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://algoritmes.overheid.nl/en
+source_title: The Algorithm Register of the Dutch government
+source_publisher: Ministry of the Interior and Kingdom Relations
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

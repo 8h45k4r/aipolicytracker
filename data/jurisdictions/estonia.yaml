@@ -1,0 +1,55 @@
+slug: estonia
+name: Estonia
+short_name: Estonia
+iso_code: EE
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Estonia applies the EU AI Act and pursues AI through its "kratt" programme: successive national AI strategies (2019–2021,
+  2022–2023, 2024–2026) focused on AI in public services, the Bürokratt virtual-assistant network and open-source components,
+  with the Ministry of Economic Affairs and Communications and the Information System Authority (RIA) leading. Estonia has
+  proposed the Consumer Protection and Technical Regulatory Authority (TTJA) as AI Act market-surveillance authority.
+regulatory_status_summary: EU AI Act applies; national AI strategy 2024–2026 as policy; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy 2024–2026.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Majandus- ja Kommunikatsiooniministeerium (Ministry of Economic Affairs and Communications)
+  url: https://www.mkm.ee/en
+  role: AI strategy lead
+- name: Tarbijakaitse ja Tehnilise Järelevalve Amet (TTJA)
+  url: https://www.ttja.ee/en
+  role: Proposed market-surveillance authority for the AI Act
+- name: Andmekaitse Inspektsioon
+  url: https://www.aki.ee/en
+  role: Data-protection authority
+official_sources:
+- title: Estonia's national AI strategy (kratid)
+  publisher: Ministry of Economic Affairs and Communications
+  url: https://www.kratid.ee/en
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- finland
+- latvia
+- lithuania
+official_source_url: https://www.kratid.ee/en
+source_title: Estonia's national AI strategy (kratid)
+source_publisher: Ministry of Economic Affairs and Communications
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

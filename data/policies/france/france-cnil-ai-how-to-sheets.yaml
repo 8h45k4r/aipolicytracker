@@ -1,0 +1,60 @@
+slug: france-cnil-ai-how-to-sheets
+jurisdiction: france
+title: CNIL recommendations on the development of AI systems and the GDPR (AI how-to sheets)
+short_title: CNIL AI how-to sheets
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: Commission nationale de l'informatique et des libertés (CNIL)
+summary_plain: >-
+  A series of practical guidance sheets, first published in 2024 and extended since, explaining how organisations can develop
+  and train AI systems in compliance with the GDPR: defining a purpose, choosing a legal basis (including legitimate interest
+  for web-scraped training data), data minimisation, retention, data-protection impact assessments, informing people and
+  honouring their rights, and security of training datasets and models.
+scope_summary: >-
+  Applies to any controller or processor developing or training AI systems with personal data under French and EU data-protection
+  law.
+adopted_on: '2024-04-08'
+date_notes: First set published 8 April 2024; further sheets in 2024–2025.
+actors:
+- provider
+- deployer
+ai_system_types:
+- general_purpose_ai_model
+- generative_ai
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI how-to sheets
+  publisher: CNIL
+  url: https://www.cnil.fr/en/ai-how-sheets
+  document_date: '2024-04-08'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.cnil.fr/en/ai-how-sheets
+source_title: AI how-to sheets
+source_publisher: CNIL
+source_document_date: '2024-04-08'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

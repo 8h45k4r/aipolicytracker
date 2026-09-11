@@ -1,0 +1,55 @@
+slug: france-national-ai-strategy
+jurisdiction: france
+title: Stratégie nationale pour l'intelligence artificielle (National AI Strategy, phases 1–3, 2018–2025)
+short_title: National AI strategy
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of France (Ministry of the Economy, SGPI)
+summary_plain: >-
+  Launched in March 2018 following the Villani report, the national AI strategy funds research institutes (3IA then AI clusters),
+  talent, compute and business adoption. The second phase (2021) focused on training and diffusion into the economy; the
+  third phase (2024–2025) emphasises sovereign generative-AI models, compute and public-sector use, and framed France's
+  hosting of the AI Action Summit in February 2025.
+scope_summary: Government investment and coordination programme; no obligations on private organisations.
+key_dates_summary: '2018-03-29: strategy launched; 2021-11-08: phase 2; 2025-02-10: AI Action Summit in Paris.'
+adopted_on: '2018-03-29'
+date_notes: Phase 1 announced 29 March 2018; phase 2 November 2021; phase 3 2024.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- generative_ai
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Stratégie nationale pour l'intelligence artificielle
+  publisher: Ministère de l'Économie, des Finances et de la Souveraineté industrielle et numérique
+  url: https://www.economie.gouv.fr/strategie-nationale-intelligence-artificielle
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.economie.gouv.fr/strategie-nationale-intelligence-artificielle
+source_title: Stratégie nationale pour l'intelligence artificielle
+source_publisher: Ministère de l'Économie, des Finances et de la Souveraineté industrielle et numérique
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

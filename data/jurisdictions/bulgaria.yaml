@@ -1,0 +1,53 @@
+slug: bulgaria
+name: Bulgaria
+short_name: Bulgaria
+iso_code: BG
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Bulgaria applies the EU AI Act and adopted a "Concept for the development of artificial intelligence in Bulgaria until
+  2030" in December 2020, coordinated by the Ministry of Transport, Information Technology and Communications (now the Ministry
+  of e-Government). The Commission for Personal Data Protection is the data-protection authority; AI Act authority designation
+  is in progress.
+regulatory_status_summary: EU AI Act applies; AI concept to 2030 (2020) as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Concept for the development of AI until 2030.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Министерство на електронното управление (Ministry of e-Government)
+  url: https://egov.government.bg/
+  role: Digital and AI policy
+- name: Комисия за защита на личните данни
+  url: https://www.cpdp.bg/
+  role: Data-protection authority
+official_sources:
+- title: Concept for the development of artificial intelligence in Bulgaria until 2030
+  publisher: Council of Ministers of Bulgaria
+  url: https://egov.government.bg/
+  document_date: '2020-12-16'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- romania
+- greece
+official_source_url: https://egov.government.bg/
+source_title: Concept for the development of artificial intelligence in Bulgaria until 2030
+source_publisher: Council of Ministers of Bulgaria
+source_document_date: '2020-12-16'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

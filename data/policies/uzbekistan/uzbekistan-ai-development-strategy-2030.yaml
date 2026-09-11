@@ -1,0 +1,54 @@
+slug: uzbekistan-ai-development-strategy-2030
+jurisdiction: uzbekistan
+title: >-
+  Strategy for the development of artificial intelligence technologies until 2030 (Presidential Resolution, October 2024)
+short_title: AI development strategy to 2030 (2024)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: President of the Republic of Uzbekistan
+summary_plain: >-
+  The 2024 resolution approves a strategy to 2030 to raise the AI services market, deploy AI in public administration and
+  priority sectors, build data centres and datasets, train specialists and adopt ethical principles and standards for AI.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-10-14'
+date_notes: Resolution date; document number to be added by a reviewer.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Lex.uz national legislation database
+  publisher: Ministry of Justice of Uzbekistan
+  url: https://lex.uz/
+  document_date: '2024-10-14'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://lex.uz/
+source_title: Lex.uz national legislation database
+source_publisher: Ministry of Justice of Uzbekistan
+source_document_date: '2024-10-14'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

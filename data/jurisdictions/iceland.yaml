@@ -1,0 +1,49 @@
+slug: iceland
+name: Iceland
+short_name: Iceland
+iso_code: IS
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Iceland, an EEA member, will incorporate the EU AI Act through the EEA Agreement. The government adopted an AI policy
+  in 2021 and an AI action plan for 2024–2026 focused on public services, the Icelandic language, skills and ethics; the
+  Ministry of Higher Education, Science and Innovation leads.
+regulatory_status_summary: EU AI Act to be incorporated via the EEA; AI policy (2021) and action plan 2024–2026 as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI action plan 2024–2026.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Háskóla-, iðnaðar- og nýsköpunarráðuneytið (Ministry of Higher Education, Science and Innovation)
+  url: https://www.stjornarradid.is/en/ministries/ministry-of-higher-education-science-and-innovation/
+  role: AI policy lead
+- name: Persónuvernd
+  url: https://www.personuvernd.is/
+  role: Data-protection authority
+official_sources:
+- title: 'Government of Iceland: artificial intelligence policy and action plan'
+  publisher: Government of Iceland
+  url: https://www.stjornarradid.is/en/ministries/ministry-of-higher-education-science-and-innovation/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- norway
+- denmark
+- eu
+official_source_url: https://www.stjornarradid.is/en/ministries/ministry-of-higher-education-science-and-innovation/
+source_title: 'Government of Iceland: artificial intelligence policy and action plan'
+source_publisher: Government of Iceland
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,56 @@
+slug: switzerland-guidelines-on-ai-for-the-federal-administration-2020
+jurisdiction: switzerland
+title: Leitlinien "Künstliche Intelligenz" für den Bund
+short_title: Guidelines on AI for the Federal Administration (2020)
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: Swiss Federal Council
+summary_plain: >-
+  Adopted in November 2020, seven guidelines steer the use of AI by the federal administration: putting people at the centre,
+  conditions for development and use, transparency and explainability, accountability, security, active participation in
+  AI governance, and involvement of stakeholders.
+scope_summary: Applies to the federal administration of Switzerland when it develops, procures or uses AI systems; cantons and private organisations are not bound.
+adopted_on: '2020-11-25'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Guidelines on artificial intelligence for the Confederation
+  publisher: Swiss Federal Council
+  url: https://www.bakom.admin.ch/
+  document_date: '2020-11-25'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.bakom.admin.ch/
+source_title: Guidelines on artificial intelligence for the Confederation
+source_publisher: Swiss Federal Council
+source_document_date: '2020-11-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,54 @@
+slug: dominican-republic-national-ai-strategy
+jurisdiction: dominican-republic
+title: Estrategia Nacional de Inteligencia Artificial de la República Dominicana (ENIA)
+short_title: National AI Strategy (ENIA)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of the Dominican Republic (OGTIC)
+summary_plain: >-
+  Adopted in 2023, ENIA sets objectives on ethical and responsible AI, talent development, AI in public services and priority
+  sectors (health, education, tourism, security), data infrastructure and research, with a governance committee and action
+  plan.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2023-10-01'
+date_notes: Month-level date; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: ENIA
+  publisher: OGTIC
+  url: https://ogtic.gob.do/
+  document_date: '2023-10-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://ogtic.gob.do/
+source_title: ENIA
+source_publisher: OGTIC
+source_document_date: '2023-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

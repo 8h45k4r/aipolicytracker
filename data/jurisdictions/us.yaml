@@ -3,7 +3,8 @@ name: United States
 short_name: US
 iso_code: US
 jurisdiction_type: country
-region: North America
+region: Americas
+subregion: Northern America
 featured: true
 published: true
 overview: >

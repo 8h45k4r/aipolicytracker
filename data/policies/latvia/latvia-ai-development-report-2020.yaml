@@ -1,0 +1,51 @@
+slug: latvia-ai-development-report-2020
+jurisdiction: latvia
+title: Informatīvais ziņojums "Par mākslīgā intelekta risinājumu attīstību"
+short_title: Informational report on AI development (2020)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Cabinet of Ministers of Latvia
+summary_plain: >-
+  The 2020 informational report approved by the Cabinet sets Latvia's direction on AI: public-sector use cases, data availability,
+  skills, research and ethical principles, later carried into the Digital Transformation Guidelines 2021–2027.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2020-02-01'
+date_notes: Month-level date; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of Environmental Protection and Regional Development
+  publisher: Government of Latvia
+  url: https://www.varam.gov.lv/en
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.varam.gov.lv/en
+source_title: Ministry of Environmental Protection and Regional Development
+source_publisher: Government of Latvia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

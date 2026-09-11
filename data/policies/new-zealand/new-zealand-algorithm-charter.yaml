@@ -1,0 +1,61 @@
+slug: new-zealand-algorithm-charter
+jurisdiction: new-zealand
+title: Algorithm Charter for Aotearoa New Zealand (2020)
+short_title: Algorithm Charter for Aotearoa New Zealand
+instrument_type: code_of_practice
+status: voluntary_standard
+is_binding: false
+featured: false
+published: true
+issuing_body: Stats NZ (Government Chief Data Steward) on behalf of signatory agencies
+summary_plain: >-
+  Launched in July 2020, the charter commits signatory government agencies to transparency (plain-English explanations of
+  how algorithms are used), partnership with Māori (Te Tiriti), people-focused use, data fit for purpose, privacy, ethics
+  and human rights safeguards, human oversight and channels for challenge, applied through a risk matrix for high-impact
+  algorithms. Around 30 agencies have signed; a 2021 review recommended stronger implementation.
+scope_summary: >-
+  Voluntary for New Zealand government agencies that sign; applies to operational algorithms that affect people.
+adopted_on: '2020-07-28'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Algorithm Charter for Aotearoa New Zealand
+  publisher: Stats NZ
+  url: >-
+    https://www.data.govt.nz/toolkit/data-ethics/government-algorithm-transparency-and-accountability/algorithm-charter/
+  document_date: '2020-07-28'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.data.govt.nz/toolkit/data-ethics/government-algorithm-transparency-and-accountability/algorithm-charter/
+source_title: Algorithm Charter for Aotearoa New Zealand
+source_publisher: Stats NZ
+source_document_date: '2020-07-28'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

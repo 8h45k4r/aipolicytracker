@@ -1,0 +1,65 @@
+slug: hong-kong
+name: Hong Kong SAR
+short_name: Hong Kong
+iso_code: HK
+jurisdiction_type: territory
+region: Asia
+subregion: Eastern Asia
+parent: china
+featured: false
+published: true
+overview: >-
+  Hong Kong has no AI-specific statute. The Office of the Privacy Commissioner for Personal Data (PCPD) issued the Model
+  Personal Data Protection Framework for AI (June 2024) and Guidance on Ethical Development and Use of AI (2021); the Digital
+  Policy Office published the Ethical AI Framework for government (updated 2024) and a Generative AI Technical and Application
+  Guideline (April 2025); the Securities and Futures Commission and Hong Kong Monetary Authority issued circulars on generative-AI
+  use in financial services. The Personal Data (Privacy) Ordinance applies.
+regulatory_status_summary: >-
+  No AI-specific law; PCPD AI frameworks and Digital Policy Office guidance; financial-regulator circulars.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: PCPD Model Personal Data Protection Framework for AI (2024); Generative
+  AI Technical and Application Guideline (2025).
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Office of the Privacy Commissioner for Personal Data (PCPD)
+  url: https://www.pcpd.org.hk/
+  role: Data-protection authority; AI guidance
+- name: Digital Policy Office
+  url: https://www.digitalpolicy.gov.hk/
+  role: Government AI ethics framework and generative-AI guideline
+- name: Hong Kong Monetary Authority
+  url: https://www.hkma.gov.hk/
+  role: Banking supervision; generative-AI guidance for banks
+official_sources:
+- title: 'Artificial Intelligence: Model Personal Data Protection Framework'
+  publisher: PCPD
+  url: https://www.pcpd.org.hk/english/resources_centre/publications/files/ai_protection_framework.pdf
+  document_date: '2024-06-11'
+  document_type: guidance
+  tier: 1
+- title: Ethical Artificial Intelligence Framework
+  publisher: Digital Policy Office
+  url: >-
+    https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/ethical_ai_framework/
+  document_type: guidance
+  tier: 1
+faq: []
+related_jurisdictions:
+- china
+- singapore
+official_source_url: https://www.pcpd.org.hk/english/resources_centre/publications/files/ai_protection_framework.pdf
+source_title: 'Artificial Intelligence: Model Personal Data Protection Framework'
+source_publisher: PCPD
+source_document_date: '2024-06-11'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

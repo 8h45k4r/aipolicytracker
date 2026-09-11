@@ -24,3 +24,22 @@ changes:
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
+  - slug: 2019-05-22-oecd-ai-principles
+    jurisdiction: international
+    policy: oecd-recommendation-on-artificial-intelligence
+    occurred_on: 2019-05-22
+    title: OECD adopts the first intergovernmental AI Principles
+    what_changed: >
+      The OECD Council adopted the Recommendation on Artificial Intelligence, setting five principles for trustworthy AI and five recommendations to governments; the G20 endorsed principles drawn from it in June 2019.
+    practical_impact: Baseline reference for national AI policies and later laws; organisations can map governance to its five principles.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449"
+    source_title: "OECD/LEGAL/0449"
+    source_publisher: "OECD"
+    source_document_date: 2019-05-22
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1

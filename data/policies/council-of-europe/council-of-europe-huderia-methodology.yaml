@@ -1,0 +1,64 @@
+slug: council-of-europe-huderia-methodology
+jurisdiction: council-of-europe
+title: >-
+  Methodology for the Risk and Impact Assessment of Artificial Intelligence Systems from the Point of View of Human Rights,
+  Democracy and the Rule of Law (HUDERIA)
+short_title: HUDERIA risk and impact assessment methodology
+instrument_type: framework
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: Council of Europe Committee on Artificial Intelligence (CAI)
+summary_plain: >-
+  Adopted by the CAI in November 2024, HUDERIA is a structured methodology for assessing risks and impacts of AI systems
+  on human rights, democracy and the rule of law across the lifecycle: context-based risk analysis, stakeholder engagement,
+  risk and impact assessment, and mitigation planning with iterative review. It supports implementation of the Framework
+  Convention and can be used by public and private organisations.
+scope_summary: >-
+  Voluntary methodology for developers and deployers of AI systems, and for states implementing the Convention.
+adopted_on: '2024-11-28'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks:
+- nist_ai_rmf
+- iso_42001
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: HUDERIA
+  publisher: Council of Europe
+  url: https://www.coe.int/en/web/artificial-intelligence/huderia
+  document_date: '2024-11-28'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.coe.int/en/web/artificial-intelligence/huderia
+source_title: HUDERIA
+source_publisher: Council of Europe
+source_document_date: '2024-11-28'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,68 @@
+slug: netherlands
+name: Netherlands
+short_name: Netherlands
+iso_code: NL
+jurisdiction_type: country
+region: Europe
+subregion: Western Europe
+featured: false
+published: true
+overview: >-
+  The Netherlands applies the EU AI Act and has an unusually developed public-sector algorithm governance practice: a public
+  Algorithm Register for government algorithms, the Autoriteit Persoonsgegevens (Dutch DPA) with a dedicated Directorate
+  for the Coordination of Algorithms, a government-wide vision on generative AI (January 2024) and an impact assessment
+  for fundamental rights and algorithms (IAMA) used by public bodies. The childcare-benefits scandal shaped a strong emphasis
+  on non-discrimination and transparency in automated decision-making.
+regulatory_status_summary: >-
+  EU AI Act applies; Dutch DPA coordinates algorithm supervision; public-sector algorithm register and generative-AI vision
+  as policy.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Government Algorithm Register; Government-wide vision on generative AI.
+current_priorities: >-
+  AI Act authority designation (Dutch DPA and Rijksinspectie Digitale Infrastructuur proposed), algorithm register coverage,
+  responsible generative-AI use in government.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Autoriteit Persoonsgegevens (Dutch Data Protection Authority)
+  url: https://www.autoriteitpersoonsgegevens.nl/en/themes/algorithms-ai
+  role: >-
+    Data-protection authority; Directorate for the Coordination of Algorithms; proposed AI Act coordinator
+- name: Rijksinspectie Digitale Infrastructuur (RDI)
+  url: https://www.rdi.nl/
+  role: Proposed market-surveillance authority for product-related AI
+official_sources:
+- title: Algorithms and AI
+  publisher: Autoriteit Persoonsgegevens
+  url: https://www.autoriteitpersoonsgegevens.nl/en/themes/algorithms-ai
+  document_type: official
+  tier: 1
+- title: The Algorithm Register of the Dutch government
+  publisher: Ministry of the Interior and Kingdom Relations
+  url: https://algoritmes.overheid.nl/en
+  document_type: official
+  tier: 1
+faq:
+- question: Is there a Dutch algorithm register?
+  answer: >-
+    Yes. Government organisations publish descriptions of impactful algorithms at algoritmes.overheid.nl; publication of
+    high-risk and impactful algorithms is expected of all national government bodies.
+related_jurisdictions:
+- eu
+- belgium
+- germany
+official_source_url: https://www.autoriteitpersoonsgegevens.nl/en/themes/algorithms-ai
+source_title: Algorithms and AI
+source_publisher: Autoriteit Persoonsgegevens
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,59 @@
+slug: us-illinois
+name: Illinois (United States)
+short_name: Illinois
+iso_code: US-IL
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Illinois regulates AI in employment through two laws: the Artificial Intelligence Video Interview Act (2020), which requires
+  notice, explanation and consent before AI analyses video interviews, and HB 3773 (Public Act 103-0804, signed August 2024,
+  effective 1 January 2026), which amends the Illinois Human Rights Act to make it a civil-rights violation for employers
+  to use AI that has a discriminatory effect on protected classes or to use zip codes as a proxy, and requires notice to
+  employees when AI is used in employment decisions. The Biometric Information Privacy Act (BIPA, 2008) remains the strictest
+  US biometric consent law.
+regulatory_status_summary: >-
+  AI Video Interview Act in force (2020); HB 3773 employment-AI amendments effective 1 January 2026; BIPA applies to biometric
+  AI.
+binding_vs_guidance: >-
+  Binding: Illinois HB 3773 (AI in employment, Human Rights Act amendment); Illinois AI Video Interview Act. Strategy or
+  guidance: none recorded.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Illinois Department of Human Rights
+  url: https://dhr.illinois.gov/
+  role: Enforces the Human Rights Act, including HB 3773 AI provisions
+- name: Illinois General Assembly
+  url: https://www.ilga.gov/
+  role: Legislative texts
+official_sources:
+- title: HB 3773, 103rd General Assembly (Public Act 103-0804)
+  publisher: Illinois General Assembly
+  url: https://www.ilga.gov/legislation/BillStatus.asp?DocNum=3773&GAID=17&DocTypeID=HB&SessionID=112
+  document_date: '2024-08-09'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+- us-colorado
+- us-new-york
+official_source_url: https://www.ilga.gov/legislation/BillStatus.asp?DocNum=3773&GAID=17&DocTypeID=HB&SessionID=112
+source_title: HB 3773, 103rd General Assembly (Public Act 103-0804)
+source_publisher: Illinois General Assembly
+source_document_date: '2024-08-09'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,52 @@
+slug: belgium-national-convergence-plan-for-ai-2022
+jurisdiction: belgium
+title: Plan national de convergence pour le développement de l'intelligence artificielle
+short_title: National Convergence Plan for AI (2022)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Federal Government of Belgium with the Regions and Communities
+summary_plain: >-
+  Adopted in 2022, the convergence plan coordinates the federal and regional AI initiatives around nine objectives, including
+  trustworthy AI, skills, data, research, public-sector adoption and international positioning, with AI4Belgium as the delivery
+  coalition.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2022-10-01'
+date_notes: Year-level date; exact adoption date to be confirmed by a reviewer.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI4Belgium
+  publisher: FPS BOSA
+  url: https://ai4belgium.be/
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://ai4belgium.be/
+source_title: AI4Belgium
+source_publisher: FPS BOSA
+source_tier: 2
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

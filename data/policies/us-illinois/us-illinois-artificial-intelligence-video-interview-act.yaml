@@ -1,0 +1,62 @@
+slug: us-illinois-artificial-intelligence-video-interview-act
+jurisdiction: us-illinois
+title: Illinois Artificial Intelligence Video Interview Act (820 ILCS 42)
+short_title: Illinois AI Video Interview Act
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Illinois General Assembly
+summary_plain: >-
+  In force since 1 January 2020, the Act requires employers that use AI to analyse video interviews of applicants for Illinois-based
+  positions to notify applicants, explain how the AI works and what characteristics it evaluates, obtain consent, limit
+  sharing of videos, and delete videos on request within 30 days; a 2022 amendment requires employers relying solely on
+  AI to decide who gets an in-person interview to report demographic data annually.
+scope_summary: Employers using AI analysis of video interviews for positions based in Illinois.
+key_dates_summary: '2020-01-01: effective; 2022-01-01: demographic reporting amendment effective.'
+adopted_on: '2019-08-09'
+in_force_on: '2020-01-01'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- deployer
+ai_system_types:
+- automated_decision_system
+- biometric_system
+sectors:
+- employment
+risk_categories:
+- transparency_risk
+use_cases:
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 820 ILCS 42 Artificial Intelligence Video Interview Act
+  publisher: Illinois General Assembly
+  url: https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=4015&ChapterID=68
+  document_date: '2020-01-01'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=4015&ChapterID=68
+source_title: 820 ILCS 42 Artificial Intelligence Video Interview Act
+source_publisher: Illinois General Assembly
+source_document_date: '2020-01-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

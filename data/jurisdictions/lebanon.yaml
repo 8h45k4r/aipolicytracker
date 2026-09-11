@@ -1,0 +1,45 @@
+slug: lebanon
+name: Lebanon
+short_name: Lebanon
+iso_code: LB
+jurisdiction_type: country
+region: Asia
+subregion: Western Asia
+featured: false
+published: true
+overview: >-
+  Lebanon's Office of the Minister of State for Administrative Reform (OMSAR) and the Ministry of Telecommunications published
+  a National AI Strategy 2024–2030 (2024) with UNESCO and UNDP support, covering governance, skills, public services and
+  the digital economy; no AI-specific law exists.
+regulatory_status_summary: National AI strategy 2024–2030 as policy; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy 2024–2030.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Office of the Minister of State for Administrative Reform (OMSAR)
+  url: https://www.omsar.gov.lb/
+  role: AI strategy lead
+official_sources:
+- title: OMSAR
+  publisher: Government of Lebanon
+  url: https://www.omsar.gov.lb/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- jordan
+- egypt
+official_source_url: https://www.omsar.gov.lb/
+source_title: OMSAR
+source_publisher: Government of Lebanon
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

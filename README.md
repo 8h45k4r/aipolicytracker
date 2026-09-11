@@ -9,6 +9,7 @@ Every important policy claim should link to a primary official source, show its 
 ## What the product does
 
 - **Policy explorer** (`/policies`): search and filter AI laws, regulations, strategies, frameworks, guidance and consultations by jurisdiction, status, type, sector, use case, risk category, actor and date.
+- **Coverage**: 117 jurisdictions (countries, US states, Canadian provinces, the EU, ASEAN, the Council of Europe and international bodies) and 182 instruments, each linked to an official source with an explicit review status and confidence level.
 - **Jurisdiction pages** (`/jurisdictions/{slug}`): "AI regulation in X" with status, binding rules vs guidance, key instruments, deadlines, changes, regulators and official sources.
 - **Policy pages** (`/policies/{slug}`): plain-language overview, scope, phased dates, obligations with evidence examples and original ISO/IEC 42001 and NIST AI RMF mappings, official sources with article references, change history, FAQ and a JSON record.
 - **Obligation explorer** (`/obligations`): practical requirements across instruments, with legal requirements separated from voluntary guidance.

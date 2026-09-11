@@ -1,0 +1,57 @@
+slug: norway
+name: Norway
+short_name: Norway
+iso_code: 'NO'
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Norway is not an EU member but is in the European Economic Area and is incorporating the EU AI Act through the EEA Agreement,
+  with the Norwegian Communications Authority (Nkom) proposed as coordinating market-surveillance authority. The 2020 National
+  Strategy for AI, the Norwegian Digitalisation Agency's guidance and the Data Protection Authority's regulatory sandbox
+  for responsible AI shape practice; a new national AI strategy is being prepared.
+regulatory_status_summary: >-
+  EU AI Act being incorporated via the EEA; national AI strategy (2020) as policy; DPA sandbox operating.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National Strategy for AI (2020).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Nasjonal kommunikasjonsmyndighet (Nkom)
+  url: https://www.nkom.no/
+  role: Proposed coordinating market-surveillance authority for the AI Act
+- name: Datatilsynet
+  url: https://www.datatilsynet.no/en/
+  role: Data-protection authority; regulatory sandbox for responsible AI
+- name: Digitaliseringsdirektoratet (Digdir)
+  url: https://www.digdir.no/
+  role: Public-sector digitalisation and AI guidance
+official_sources:
+- title: National Strategy for Artificial Intelligence
+  publisher: Norwegian Ministry of Local Government and Modernisation
+  url: https://www.regjeringen.no/en/dokumenter/nasjonal-strategi-for-kunstig-intelligens/id2685594/
+  document_date: '2020-01-14'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- sweden
+- denmark
+- iceland
+official_source_url: https://www.regjeringen.no/en/dokumenter/nasjonal-strategi-for-kunstig-intelligens/id2685594/
+source_title: National Strategy for Artificial Intelligence
+source_publisher: Norwegian Ministry of Local Government and Modernisation
+source_document_date: '2020-01-14'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

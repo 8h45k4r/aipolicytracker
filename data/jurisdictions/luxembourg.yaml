@@ -1,0 +1,53 @@
+slug: luxembourg
+name: Luxembourg
+short_name: Luxembourg
+iso_code: LU
+jurisdiction_type: country
+region: Europe
+subregion: Western Europe
+featured: false
+published: true
+overview: >-
+  Luxembourg applies the EU AI Act and published "Artificial Intelligence: a strategic vision for Luxembourg" in 2019, followed
+  by public-sector AI programmes (AI4Gov) and the national data-protection authority CNPD's guidance. Luxembourg has proposed
+  the CNPD and sector regulators (CSSF for finance) as AI Act authorities.
+regulatory_status_summary: EU AI Act applies; AI strategic vision (2019) as policy; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI: a strategic vision for Luxembourg (2019).'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Commission nationale pour la protection des données (CNPD)
+  url: https://cnpd.public.lu/en.html
+  role: Data-protection authority; proposed AI Act authority
+- name: Ministry of Digitalisation
+  url: https://digital.gouvernement.lu/en.html
+  role: Public-sector digital and AI programmes
+official_sources:
+- title: 'Artificial Intelligence: a strategic vision for Luxembourg'
+  publisher: Government of Luxembourg
+  url: https://digital.gouvernement.lu/en.html
+  document_date: '2019-05-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- belgium
+- france
+- germany
+official_source_url: https://digital.gouvernement.lu/en.html
+source_title: 'Artificial Intelligence: a strategic vision for Luxembourg'
+source_publisher: Government of Luxembourg
+source_document_date: '2019-05-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,60 @@
+slug: russia-federal-law-123-fz-moscow-ai-experimental-regime
+jurisdiction: russia
+title: >-
+  Federal Law No. 123-FZ of 24 April 2020 on an experiment to establish special regulation to create the conditions for
+  the development and implementation of AI technologies in Moscow
+short_title: Federal Law 123-FZ (Moscow AI experimental regime)
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Federal Assembly of the Russian Federation
+summary_plain: >-
+  Establishes a five-year experimental legal regime in Moscow (from 1 July 2020) allowing participants to develop and deploy
+  AI technologies under special rules, including processing of anonymised personal data for AI purposes, coordinated by
+  the Moscow government with a register of participants. It was accompanied by amendments to the personal-data law.
+scope_summary: Registered participants of the experiment in the city of Moscow.
+key_dates_summary: '2020-04-24: signed; 2020-07-01: regime starts; five-year term (extended per later acts).'
+adopted_on: '2020-04-24'
+in_force_on: '2020-07-01'
+date_notes: Extension beyond 2025 to be confirmed by a reviewer.
+actors:
+- provider
+- deployer
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Federal Law No. 123-FZ of 24 April 2020
+  publisher: President of Russia (acts bank)
+  url: http://kremlin.ru/acts/bank/45475
+  document_date: '2020-04-24'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: http://kremlin.ru/acts/bank/45475
+source_title: Federal Law No. 123-FZ of 24 April 2020
+source_publisher: President of Russia (acts bank)
+source_document_date: '2020-04-24'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

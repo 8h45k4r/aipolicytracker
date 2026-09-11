@@ -1,0 +1,54 @@
+slug: romania-national-ai-strategy-2024-2027
+jurisdiction: romania
+title: Strategia Națională în domeniul Inteligenței Artificiale 2024–2027
+short_title: National AI Strategy 2024–2027
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Romania
+summary_plain: >-
+  Approved by government decision in July 2024, the strategy sets objectives on infrastructure and data, research and innovation,
+  skills, public-sector and business adoption, and governance and ethics aligned with the EU AI Act, with an action plan
+  and monitoring indicators.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-07-11'
+date_notes: Government decision July 2024; exact date and Official Gazette reference to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Strategia Națională în domeniul Inteligenței Artificiale 2024–2027
+  publisher: Ministry of Research, Innovation and Digitalisation
+  url: https://www.mcid.gov.ro/
+  document_date: '2024-07-11'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.mcid.gov.ro/
+source_title: Strategia Națională în domeniul Inteligenței Artificiale 2024–2027
+source_publisher: Ministry of Research, Innovation and Digitalisation
+source_document_date: '2024-07-11'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

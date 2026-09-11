@@ -591,3 +591,155 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
+  - slug: 2024-03-21-un-general-assembly-ai-resolution
+    jurisdiction: international
+    policy: un-general-assembly-resolution-78-265-on-ai
+    occurred_on: 2024-03-21
+    title: UN General Assembly adopts its first resolution on safe, secure and trustworthy AI
+    what_changed: >
+      Resolution A/RES/78/265, adopted by consensus with more than 120 co-sponsors, encourages states to promote trustworthy AI for sustainable development and to develop governance frameworks.
+    practical_impact: Non-binding, but it anchors AI governance in the UN system and led to the 2025 scientific panel and global dialogue.
+    impact_level: routine
+    status_after: adopted
+    published: true
+    official_source_url: "https://docs.un.org/en/A/RES/78/265"
+    source_title: "A/RES/78/265"
+    source_publisher: "United Nations General Assembly"
+    source_document_date: 2024-03-21
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-05-01-utah-ai-policy-act-effective
+    jurisdiction: us-utah
+    policy: us-utah-artificial-intelligence-policy-act
+    occurred_on: 2024-05-01
+    title: Utah AI Policy Act takes effect with generative-AI disclosure duties
+    what_changed: >
+      SB 149 became effective, requiring disclosure of generative-AI interaction on request in consumer transactions and proactively in regulated occupations, and creating the Office of AI Policy and a learning laboratory.
+    practical_impact: Businesses using chatbots with Utah consumers need disclosure processes; the 2025 amendments narrowed the duty to high-risk interactions.
+    impact_level: high
+    status_after: in_force
+    published: true
+    official_source_url: "https://le.utah.gov/~2024/bills/static/SB0149.html"
+    source_title: "SB 149 Artificial Intelligence Amendments"
+    source_publisher: "Utah State Legislature"
+    source_document_date: 2024-03-13
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-05-03-oecd-ai-principles-revised
+    jurisdiction: international
+    policy: oecd-recommendation-on-artificial-intelligence
+    occurred_on: 2024-05-03
+    title: OECD revises its AI Principles and the definition of an AI system
+    what_changed: >
+      The OECD Council updated the Recommendation to reflect general-purpose and generative AI, misinformation and environmental sustainability, and adopted a revised definition of an AI system used by the EU AI Act and other laws.
+    practical_impact: The revised definition is the reference for scoping AI systems across jurisdictions.
+    impact_level: routine
+    status_after: adopted
+    published: true
+    official_source_url: "https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449"
+    source_title: "OECD/LEGAL/0449"
+    source_publisher: "OECD"
+    source_document_date: 2024-05-03
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-05-17-council-of-europe-ai-convention-adopted
+    jurisdiction: council-of-europe
+    policy: council-of-europe-framework-convention-on-ai
+    occurred_on: 2024-05-17
+    title: Council of Europe adopts the first binding international treaty on AI
+    what_changed: >
+      The Committee of Ministers adopted the Framework Convention on AI and Human Rights, Democracy and the Rule of Law (CETS 225); it opened for signature on 5 September 2024 with the EU, UK, US and others signing.
+    practical_impact: Ratifying states must ensure AI activities respect human rights, with risk and impact assessment and remedies; companies feel it through national implementation.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.coe.int/en/web/conventions/full-list?module=treaty-detail&treatynum=225"
+    source_title: "Framework Convention on AI (CETS No. 225)"
+    source_publisher: "Council of Europe"
+    source_document_date: 2024-05-17
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-06-11-hong-kong-pcpd-ai-framework
+    jurisdiction: hong-kong
+    policy: hong-kong-pcpd-model-personal-data-protection-framework-for-ai
+    occurred_on: 2024-06-11
+    title: Hong Kong PCPD publishes the Model Personal Data Protection Framework for AI
+    what_changed: >
+      The Privacy Commissioner issued recommendations for organisations procuring and deploying AI with personal data, covering governance, risk assessment and human oversight, model customisation and stakeholder communication.
+    practical_impact: Voluntary, but the PCPD checks against it in compliance reviews; organisations should set up an AI governance committee and risk-based oversight.
+    impact_level: routine
+    status_after: guidance
+    published: true
+    official_source_url: "https://www.pcpd.org.hk/english/resources_centre/publications/files/ai_protection_framework.pdf"
+    source_title: "Artificial Intelligence: Model Personal Data Protection Framework"
+    source_publisher: "PCPD"
+    source_document_date: 2024-06-11
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-07-01-tennessee-elvis-act-effective
+    jurisdiction: us-tennessee
+    policy: us-tennessee-elvis-act
+    occurred_on: 2024-07-01
+    title: Tennessee ELVIS Act takes effect, protecting voice against AI cloning
+    what_changed: >
+      The Act added voice to the right of publicity and created liability for tools primarily designed to produce unauthorised voice or likeness.
+    practical_impact: Providers of voice-cloning tools and users of synthetic voices need authorisation for identifiable individuals in Tennessee.
+    impact_level: routine
+    status_after: in_force
+    published: true
+    official_source_url: "https://www.capitol.tn.gov/Bills/113/Bill/HB2091.pdf"
+    source_title: "HB 2091 (ELVIS Act)"
+    source_publisher: "Tennessee General Assembly"
+    source_document_date: 2024-03-21
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-08-09-illinois-hb-3773-signed
+    jurisdiction: us-illinois
+    policy: us-illinois-hb-3773-ai-in-employment
+    occurred_on: 2024-08-09
+    title: Illinois makes discriminatory AI in employment a civil-rights violation
+    what_changed: >
+      Public Act 103-0804 amended the Human Rights Act so that using AI with a discriminatory effect in employment decisions, or zip codes as a proxy, is a violation, with notice duties; effective 1 January 2026.
+    practical_impact: Illinois employers must test AI hiring and HR tools for discriminatory effect and notify employees before 2026.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.ilga.gov/legislation/BillStatus.asp?DocNum=3773&GAID=17&DocTypeID=HB&SessionID=112"
+    source_title: "HB 3773 / Public Act 103-0804"
+    source_publisher: "Illinois General Assembly"
+    source_document_date: 2024-08-09
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2024-11-25-ontario-bill-194-royal-assent
+    jurisdiction: ca-ontario
+    policy: ca-ontario-enhancing-digital-security-and-trust-act-2024
+    occurred_on: 2024-11-25
+    title: Ontario enacts a framework for regulating public-sector AI use
+    what_changed: >
+      Bill 194 received royal assent, enabling regulations on disclosure, accountability frameworks, risk management and prohibited uses of AI by Ontario public-sector entities.
+    practical_impact: Public bodies in Ontario should inventory AI systems ahead of regulations; vendors to government should expect disclosure requirements.
+    impact_level: routine
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-194"
+    source_title: "Bill 194"
+    source_publisher: "Legislative Assembly of Ontario"
+    source_document_date: 2024-11-25
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1

@@ -95,3 +95,22 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
+  - slug: 2021-11-23-unesco-ethics-recommendation
+    jurisdiction: international
+    policy: unesco-recommendation-on-the-ethics-of-ai
+    occurred_on: 2021-11-23
+    title: UNESCO member states adopt the Recommendation on the Ethics of AI
+    what_changed: >
+      193 member states adopted the first global normative instrument on AI ethics at the 41st General Conference, with values, principles and eleven policy action areas and a readiness assessment methodology for implementation.
+    practical_impact: Governments use the readiness assessment to shape national AI strategies; organisations can use its ethical impact assessment.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://unesdoc.unesco.org/ark:/48223/pf0000381137"
+    source_title: "Recommendation on the Ethics of Artificial Intelligence"
+    source_publisher: "UNESCO"
+    source_document_date: 2021-11-23
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1

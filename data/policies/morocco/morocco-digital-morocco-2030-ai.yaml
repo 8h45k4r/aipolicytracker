@@ -1,0 +1,56 @@
+slug: morocco-digital-morocco-2030-ai
+jurisdiction: morocco
+title: 'Maroc Digital 2030: national digital strategy with an artificial intelligence pillar'
+short_title: Digital Morocco 2030 (AI pillar)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Morocco (Ministry of Digital Transition and Administrative Reform)
+summary_plain: >-
+  Launched in September 2024, Digital Morocco 2030 sets targets for digital public services, the digital economy and talent,
+  with an AI component covering a national AI centre, sovereign compute and data, sector use cases and governance, and announces
+  a national AI strategy and legal framework.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-09-25'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Digital Morocco 2030
+  publisher: Ministry of Digital Transition and Administrative Reform
+  url: https://www.mmps.gov.ma/
+  document_date: '2024-09-25'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.mmps.gov.ma/
+source_title: Digital Morocco 2030
+source_publisher: Ministry of Digital Transition and Administrative Reform
+source_document_date: '2024-09-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

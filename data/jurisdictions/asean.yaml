@@ -1,0 +1,53 @@
+slug: asean
+name: ASEAN (Association of Southeast Asian Nations)
+short_name: ASEAN
+jurisdiction_type: supranational
+region: Asia
+subregion: South-East Asia
+featured: false
+published: true
+overview: >-
+  ASEAN has chosen voluntary, regionally harmonised guidance rather than binding regulation: the ASEAN Guide on AI Governance
+  and Ethics (February 2024) sets principles and a governance framework for member states and organisations, and the Expanded
+  ASEAN Guide on AI Governance and Ethics – Generative AI (January 2025) addresses generative-AI risks. Member states retain
+  their own instruments; Singapore's Model AI Governance Framework strongly influenced the guide.
+regulatory_status_summary: Voluntary regional guides (2024, 2025); no binding ASEAN AI regulation.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: ASEAN Guide on AI Governance and Ethics (2024); Expanded ASEAN Guide on
+  AI Governance and Ethics – Generative AI (2025).
+how_to_use:
+- Use the ASEAN guides as the regional baseline, then check each member state's own instruments.
+- The guides are voluntary; obligations arise from national data-protection, consumer and sector law.
+regulators:
+- name: ASEAN Digital Ministers' Meeting (ADGMIN)
+  url: https://asean.org/
+  role: Endorses regional digital and AI guidance
+official_sources:
+- title: ASEAN Guide on AI Governance and Ethics
+  publisher: ASEAN Secretariat
+  url: >-
+    https://asean.org/wp-content/uploads/2024/02/ASEAN-Guide-on-AI-Governance-and-Ethics_beautified_201223_v2.pdf
+  document_date: '2024-02-02'
+  document_type: guidance
+  tier: 1
+faq: []
+related_jurisdictions:
+- singapore
+- malaysia
+- indonesia
+- thailand
+- vietnam
+- philippines
+official_source_url: >-
+  https://asean.org/wp-content/uploads/2024/02/ASEAN-Guide-on-AI-Governance-and-Ethics_beautified_201223_v2.pdf
+source_title: ASEAN Guide on AI Governance and Ethics
+source_publisher: ASEAN Secretariat
+source_document_date: '2024-02-02'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

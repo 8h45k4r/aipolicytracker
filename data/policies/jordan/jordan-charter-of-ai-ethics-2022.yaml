@@ -1,0 +1,53 @@
+slug: jordan-charter-of-ai-ethics-2022
+jurisdiction: jordan
+title: Jordanian Charter of Artificial Intelligence Ethics
+short_title: Charter of AI Ethics (2022)
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Digital Economy and Entrepreneurship
+summary_plain: >-
+  The charter sets ethical principles for the development and use of AI in Jordan, including human dignity, fairness, transparency,
+  accountability, safety, privacy and sustainability, addressed to public and private organisations.
+scope_summary: Voluntary; public and private AI actors in Jordan.
+adopted_on: '2022-08-01'
+date_notes: Month-level date.
+actors:
+- provider
+- deployer
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: MoDEE
+  publisher: Government of Jordan
+  url: https://www.modee.gov.jo/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.modee.gov.jo/
+source_title: MoDEE
+source_publisher: Government of Jordan
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

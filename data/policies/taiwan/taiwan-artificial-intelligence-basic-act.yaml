@@ -1,0 +1,64 @@
+slug: taiwan-artificial-intelligence-basic-act
+jurisdiction: taiwan
+title: 人工智慧基本法 (Artificial Intelligence Basic Act) – draft approved by the Executive Yuan, July 2024
+short_title: Artificial Intelligence Basic Act (draft)
+instrument_type: bill
+status: proposed
+status_note: >-
+  Executive Yuan approved the draft on 15 July 2024 and sent it to the Legislative Yuan; passage and promulgation reported
+  in late 2025 must be confirmed from the Legislative Yuan gazette before this record is updated.
+is_binding: true
+featured: false
+published: true
+issuing_body: Executive Yuan of Taiwan (National Science and Technology Council)
+summary_plain: >-
+  A framework act setting seven principles for AI development and use, requiring the government to promote AI research,
+  talent and infrastructure, to establish a risk-classification framework and safety standards, to protect personal data,
+  labour and consumers, to provide for liability, disclosure of AI-generated content and non-discrimination, and to designate
+  competent authorities by sector, with the NSTC coordinating.
+scope_summary: >-
+  Framework obligations on government agencies; obligations for private actors arise through sector regulation adopted under
+  the act.
+adopted_on: '2024-07-15'
+date_notes: Executive Yuan approval date; legislative status to be confirmed.
+actors:
+- public_authority
+- provider
+- deployer
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Science and Technology Council
+  publisher: Executive Yuan
+  url: https://www.nstc.gov.tw/
+  document_date: '2024-07-15'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.nstc.gov.tw/
+source_title: National Science and Technology Council
+source_publisher: Executive Yuan
+source_document_date: '2024-07-15'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

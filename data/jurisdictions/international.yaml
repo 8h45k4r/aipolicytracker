@@ -1,0 +1,73 @@
+slug: international
+name: International organisations (OECD, UNESCO, UN, G7, ISO)
+short_name: International
+jurisdiction_type: supranational
+region: International
+featured: true
+published: true
+overview: >-
+  Cross-border instruments that shape national AI policy without being national law: the OECD Recommendation on AI (2019,
+  revised 2024) whose definition of an AI system is used by the EU AI Act; the UNESCO Recommendation on the Ethics of AI
+  (2021) adopted by 193 states; the UN General Assembly's first AI resolution (March 2024) and the 2025 resolution creating
+  a Global Dialogue on AI Governance and an Independent International Scientific Panel; the G7 Hiroshima Process code of
+  conduct for advanced AI developers (2023); the Bletchley Declaration from the first AI Safety Summit (2023); and ISO/IEC
+  42001, the certifiable AI management-system standard (2023).
+regulatory_status_summary: >-
+  Non-binding recommendations, declarations and a voluntary standard; binding effect arises only through national implementation
+  or contractual adoption.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: OECD AI Principles (Recommendation on AI); UNESCO Recommendation on the
+  Ethics of AI; UN General Assembly resolution 78/265 on safe, secure and trustworthy AI; G7 Hiroshima AI Process code of
+  conduct; Bletchley Declaration (AI Safety Summit 2023); ISO/IEC 42001:2023 AI management system.
+how_to_use:
+- >-
+  Use these instruments to interpret national law and to design governance that will travel across jurisdictions.
+- ISO/IEC 42001 is the only certifiable instrument here; treat the rest as principles.
+- Open the official source for each instrument; this site does not reproduce standard text.
+regulators:
+- name: OECD.AI Policy Observatory
+  url: https://oecd.ai/
+  role: Tracks national AI policies and OECD instruments
+- name: UNESCO – Ethics of Artificial Intelligence
+  url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+  role: Implements the 2021 Recommendation
+- name: UN Office for Digital and Emerging Technologies
+  url: https://www.un.org/digital-emerging-technologies/
+  role: Secretariat for the Global Dialogue on AI Governance
+official_sources:
+- title: OECD Recommendation of the Council on Artificial Intelligence (OECD/LEGAL/0449)
+  publisher: OECD
+  url: https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449
+  document_date: '2024-05-03'
+  document_type: official
+  tier: 1
+- title: Recommendation on the Ethics of Artificial Intelligence
+  publisher: UNESCO
+  url: https://unesdoc.unesco.org/ark:/48223/pf0000381137
+  document_date: '2021-11-23'
+  document_type: official
+  tier: 1
+faq:
+- question: Which international AI instrument is binding?
+  answer: >-
+    None of the instruments on this page binds organisations directly. The Council of Europe Framework Convention (separate
+    page) binds ratifying states; ISO/IEC 42001 becomes binding only through contracts or procurement.
+related_jurisdictions:
+- eu
+- council-of-europe
+- us
+- uk
+- japan
+- asean
+official_source_url: https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449
+source_title: OECD Recommendation of the Council on Artificial Intelligence (OECD/LEGAL/0449)
+source_publisher: OECD
+source_document_date: '2024-05-03'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

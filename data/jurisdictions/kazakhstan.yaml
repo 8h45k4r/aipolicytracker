@@ -1,0 +1,48 @@
+slug: kazakhstan
+name: Kazakhstan
+short_name: Kazakhstan
+iso_code: KZ
+jurisdiction_type: country
+region: Asia
+subregion: Central Asia
+featured: false
+published: true
+overview: >-
+  Kazakhstan adopted a Law on Artificial Intelligence in November 2025, the first dedicated AI law in Central Asia, setting
+  principles, a risk-based classification, obligations for owners and operators of AI systems, transparency for AI-generated
+  content and a national AI platform, implemented by the Ministry of Artificial Intelligence and Digital Development. It
+  follows the Concept for AI development 2024–2029 (July 2024).
+regulatory_status_summary: Law on AI adopted (2025); AI development concept 2024–2029 as policy.
+binding_vs_guidance: >-
+  Binding: Law on Artificial Intelligence (2025). Strategy or guidance: Concept for AI development 2024–2029.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Artificial Intelligence and Digital Development
+  url: https://www.gov.kz/memleket/entities/mdai
+  role: AI policy and regulation lead
+official_sources:
+- title: Ministry of Artificial Intelligence and Digital Development of the Republic of Kazakhstan
+  publisher: Government of Kazakhstan
+  url: https://www.gov.kz/memleket/entities/mdai
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- uzbekistan
+- russia
+- china
+official_source_url: https://www.gov.kz/memleket/entities/mdai
+source_title: Ministry of Artificial Intelligence and Digital Development of the Republic of Kazakhstan
+source_publisher: Government of Kazakhstan
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

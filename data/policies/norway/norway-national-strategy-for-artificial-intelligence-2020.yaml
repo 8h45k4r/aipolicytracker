@@ -1,0 +1,56 @@
+slug: norway-national-strategy-for-artificial-intelligence-2020
+jurisdiction: norway
+title: Nasjonal strategi for kunstig intelligens (National Strategy for Artificial Intelligence)
+short_title: National Strategy for AI (2020)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Norwegian Ministry of Local Government and Modernisation
+summary_plain: >-
+  Published in January 2020, the strategy sets ethical principles for AI in Norway based on the EU High-Level Expert Group
+  guidelines, and measures on data access and sharing, language resources, research, skills, public-sector and business
+  adoption, security and the Data Protection Authority's sandbox.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2020-01-14'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Strategy for Artificial Intelligence
+  publisher: Government of Norway
+  url: https://www.regjeringen.no/en/dokumenter/nasjonal-strategi-for-kunstig-intelligens/id2685594/
+  document_date: '2020-01-14'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.regjeringen.no/en/dokumenter/nasjonal-strategi-for-kunstig-intelligens/id2685594/
+source_title: National Strategy for Artificial Intelligence
+source_publisher: Government of Norway
+source_document_date: '2020-01-14'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,51 @@
+slug: kuwait-national-ai-strategy-2025-2028
+jurisdiction: kuwait
+title: Kuwait National Artificial Intelligence Strategy 2025–2028
+short_title: National AI Strategy 2025–2028
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Kuwait (CAIT)
+summary_plain: >-
+  The strategy sets objectives on AI in government services, national talent, data and cloud infrastructure, ethical and
+  responsible AI, and partnerships, aligned with Kuwait Vision 2035.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Central Agency for Information Technology
+  publisher: Government of Kuwait
+  url: https://www.cait.gov.kw/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.cait.gov.kw/
+source_title: Central Agency for Information Technology
+source_publisher: Government of Kuwait
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

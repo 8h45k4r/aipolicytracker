@@ -1,0 +1,63 @@
+slug: spain-draft-law-on-good-use-and-governance-of-ai
+jurisdiction: spain
+title: Anteproyecto de Ley para el buen uso y la gobernanza de la inteligencia artificial
+short_title: Draft law on good use and governance of AI
+instrument_type: bill
+status: proposed
+status_note: >-
+  Approved as a preliminary draft by the Council of Ministers on 11 March 2025; parliamentary adoption not confirmed from
+  an official source at the time of checking.
+is_binding: true
+featured: false
+published: true
+issuing_body: Ministry for Digital Transformation and the Civil Service
+summary_plain: >-
+  The draft implements the EU AI Act in Spain: it allocates supervision among AESIA, the data-protection authority, the
+  electoral board, the financial and audiovisual regulators, sets the national penalty scale (up to EUR 35 million or 7%
+  of turnover for prohibited practices), treats failure to label AI-generated content as a serious infringement and provides
+  for the national sandbox to continue.
+scope_summary: >-
+  Providers, deployers, importers and distributors of AI systems in Spain within the scope of the EU AI Act.
+date_notes: Draft; dates to be confirmed once published in the BOE.
+actors:
+- provider
+- deployer
+- importer
+- distributor
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories:
+- prohibited
+- high_risk
+- transparency_risk
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'AESIA: normativa'
+  publisher: Agencia Española de Supervisión de la Inteligencia Artificial
+  url: https://aesia.digital.gob.es/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://aesia.digital.gob.es/
+source_title: 'AESIA: normativa'
+source_publisher: Agencia Española de Supervisión de la Inteligencia Artificial
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,55 @@
+slug: us-utah
+name: Utah (United States)
+short_name: Utah
+iso_code: US-UT
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Utah enacted the Artificial Intelligence Policy Act (SB 149) in March 2024, effective 1 May 2024, the first US state law
+  on generative-AI disclosure: businesses must tell consumers when they are interacting with generative AI if asked, and
+  regulated occupations must disclose proactively. It created the Office of Artificial Intelligence Policy and a learning-laboratory
+  (sandbox) programme, amended in 2025 (SB 226 and SB 332) to narrow disclosure to "high-risk" interactions and extend the
+  sunset, plus HB 452 on mental-health chatbots.
+regulatory_status_summary: >-
+  AI Policy Act in force since May 2024 (amended 2025); mental-health chatbot law (2025); Office of AI Policy operating.
+binding_vs_guidance: 'Binding: Utah Artificial Intelligence Policy Act (SB 149). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Utah Office of Artificial Intelligence Policy
+  url: https://ai.utah.gov/
+  role: Administers the learning laboratory and regulatory mitigation agreements
+- name: Utah Division of Consumer Protection
+  url: https://dcp.utah.gov/
+  role: Enforces disclosure requirements
+official_sources:
+- title: SB 149 Artificial Intelligence Amendments (2024 General Session)
+  publisher: Utah State Legislature
+  url: https://le.utah.gov/~2024/bills/static/SB0149.html
+  document_date: '2024-03-13'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+- us-colorado
+- us-texas
+official_source_url: https://le.utah.gov/~2024/bills/static/SB0149.html
+source_title: SB 149 Artificial Intelligence Amendments (2024 General Session)
+source_publisher: Utah State Legislature
+source_document_date: '2024-03-13'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,67 @@
+slug: switzerland
+name: Switzerland
+short_name: Switzerland
+iso_code: CH
+jurisdiction_type: country
+region: Europe
+subregion: Western Europe
+featured: false
+published: true
+overview: >-
+  Switzerland is outside the EU and does not apply the AI Act. In February 2025 the Federal Council decided its approach:
+  ratify the Council of Europe Framework Convention on AI, make targeted sector-specific legal changes (transparency, data
+  protection, non-discrimination) rather than a horizontal AI law, and rely on non-binding measures such as industry self-regulation;
+  a consultation draft was due by the end of 2026. The 2020 guidelines on AI for the Federal Administration and the Competence
+  Network for AI (CNAI) guide public-sector use.
+regulatory_status_summary: >-
+  No horizontal AI law; Federal Council approach (2025): Council of Europe convention plus sector rules; federal AI guidelines
+  (2020).
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Federal Council AI regulatory approach (2025); Guidelines on AI for the
+  Federal Administration (2020).
+current_priorities: >-
+  Drafting the ratification and sector-law package, transparency and data-protection rules for AI, CNAI coordination.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Federal Office of Communications (OFCOM)
+  url: https://www.bakom.admin.ch/
+  role: Lead office for the AI regulatory approach
+- name: Federal Data Protection and Information Commissioner (FDPIC)
+  url: https://www.edoeb.admin.ch/en
+  role: Data-protection authority; guidance on AI and the FADP
+official_sources:
+- title: >-
+    Federal Council wants to ratify the Council of Europe Convention on AI (press release, 12 February 2025)
+  publisher: Swiss Federal Council
+  url: https://www.admin.ch/gov/en/start/documentation/media-releases.msg-id-104110.html
+  document_date: '2025-02-12'
+  document_type: press_release
+  tier: 1
+faq:
+- question: Does the EU AI Act apply in Switzerland?
+  answer: >-
+    Not directly. Swiss companies placing AI systems on the EU market must comply with it, but Switzerland has chosen a
+    sector-by-sector approach anchored in the Council of Europe convention.
+related_jurisdictions:
+- eu
+- germany
+- france
+- austria
+- council-of-europe
+official_source_url: https://www.admin.ch/gov/en/start/documentation/media-releases.msg-id-104110.html
+source_title: >-
+  Federal Council wants to ratify the Council of Europe Convention on AI (press release, 12 February 2025)
+source_publisher: Swiss Federal Council
+source_document_date: '2025-02-12'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

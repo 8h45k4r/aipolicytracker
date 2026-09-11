@@ -1,0 +1,50 @@
+slug: kuwait
+name: Kuwait
+short_name: Kuwait
+iso_code: KW
+jurisdiction_type: country
+region: Asia
+subregion: Gulf Cooperation Council
+featured: false
+published: true
+overview: >-
+  Kuwait launched a National Artificial Intelligence Strategy 2025–2028 through the Central Agency for Information Technology
+  and the Communication and Information Technology Regulatory Authority, focused on government services, talent, data and
+  ethical AI, and CITRA issued guidelines on AI use; the Data Privacy Protection Regulation applies.
+regulatory_status_summary: National AI strategy 2025–2028 as policy; CITRA guidelines; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy 2025–2028.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Central Agency for Information Technology (CAIT)
+  url: https://www.cait.gov.kw/
+  role: National AI strategy
+- name: Communication and Information Technology Regulatory Authority (CITRA)
+  url: https://www.citra.gov.kw/
+  role: ICT regulation and data-privacy regulation
+official_sources:
+- title: Central Agency for Information Technology
+  publisher: Government of Kuwait
+  url: https://www.cait.gov.kw/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- saudi-arabia
+- uae
+- qatar
+- bahrain
+official_source_url: https://www.cait.gov.kw/
+source_title: Central Agency for Information Technology
+source_publisher: Government of Kuwait
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

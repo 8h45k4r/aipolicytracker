@@ -1,0 +1,67 @@
+slug: spain
+name: Spain
+short_name: Spain
+iso_code: ES
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: true
+published: true
+overview: >-
+  Spain created the first dedicated national AI supervisory agency in the EU, AESIA, by Royal Decree 729/2023, and ran the
+  first AI Act regulatory sandbox under Royal Decree 817/2023. The government approved a draft law on the good use and governance
+  of AI in March 2025 to implement the AI Act nationally (authorities, penalties, mandatory labelling of AI-generated content),
+  and the 2024 AI Strategy funds compute, language models in Spanish and co-official languages, and public-sector adoption.
+regulatory_status_summary: >-
+  EU AI Act applies; AESIA operational; national implementation bill proposed (2025); AI Strategy 2024 as policy.
+binding_vs_guidance: >-
+  Binding: Royal Decree 729/2023 (AESIA statute); Royal Decree 817/2023 (AI regulatory sandbox); Draft law on good use and
+  governance of AI. Strategy or guidance: none recorded.
+current_priorities: >-
+  Passing the AI governance bill, AESIA supervision, the sandbox, Spanish-language foundation models and supercomputing.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Agencia Española de Supervisión de la Inteligencia Artificial (AESIA)
+  url: https://aesia.digital.gob.es/
+  role: National AI supervisory agency and market-surveillance authority
+- name: Agencia Española de Protección de Datos (AEPD)
+  url: https://www.aepd.es/
+  role: Data-protection authority
+official_sources:
+- title: Real Decreto 729/2023, Estatuto de la AESIA
+  publisher: Boletín Oficial del Estado
+  url: https://www.boe.es/buscar/act.php?id=BOE-A-2023-18911
+  document_date: '2023-09-07'
+  document_type: legislation
+  tier: 1
+- title: AESIA
+  publisher: Ministerio para la Transformación Digital y de la Función Pública
+  url: https://aesia.digital.gob.es/
+  document_type: official
+  tier: 1
+faq:
+- question: What is AESIA?
+  answer: >-
+    The Spanish AI Supervision Agency, created by Royal Decree 729/2023 and based in A Coruña. It supervises AI systems,
+    runs the national sandbox and is Spain's market-surveillance authority under the EU AI Act.
+related_jurisdictions:
+- eu
+- portugal
+- italy
+official_source_url: https://www.boe.es/buscar/act.php?id=BOE-A-2023-18911
+source_title: Real Decreto 729/2023, Estatuto de la AESIA
+source_publisher: Boletín Oficial del Estado
+source_document_date: '2023-09-07'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

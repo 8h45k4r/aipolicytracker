@@ -1,0 +1,55 @@
+slug: ca-ontario
+name: Ontario (Canada)
+short_name: Ontario
+iso_code: CA-ON
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: canada
+featured: false
+published: true
+overview: >-
+  Ontario enacted the Enhancing Digital Security and Trust Act, 2024 (Bill 194), which lets the government regulate public-sector
+  use of AI (disclosure, accountability frameworks, risk management, prohibited uses) and the Working for Workers Four Act,
+  2024, which from 1 January 2026 requires employers with 25 or more employees to state in publicly advertised job postings
+  whether AI is used to screen, assess or select applicants.
+regulatory_status_summary: >-
+  Public-sector AI framework act (2024) with regulations to follow; job-posting AI disclosure in force from January 2026.
+binding_vs_guidance: >-
+  Binding: Ontario Enhancing Digital Security and Trust Act, 2024 (Bill 194); Ontario Working for Workers Four Act (AI disclosure
+  in job postings). Strategy or guidance: none recorded.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ontario Ministry of Public and Business Service Delivery and Procurement
+  url: https://www.ontario.ca/page/ministry-public-and-business-service-delivery-and-procurement
+  role: Public-sector AI rules under Bill 194
+- name: Ontario Ministry of Labour, Immigration, Training and Skills Development
+  url: https://www.ontario.ca/page/ministry-labour-immigration-training-skills-development
+  role: Employment Standards Act, including AI disclosure in job postings
+official_sources:
+- title: Bill 194, Strengthening Cyber Security and Building Trust in the Public Sector Act, 2024
+  publisher: Legislative Assembly of Ontario
+  url: https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-194
+  document_date: '2024-11-25'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- canada
+- ca-quebec
+official_source_url: https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-194
+source_title: Bill 194, Strengthening Cyber Security and Building Trust in the Public Sector Act, 2024
+source_publisher: Legislative Assembly of Ontario
+source_document_date: '2024-11-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

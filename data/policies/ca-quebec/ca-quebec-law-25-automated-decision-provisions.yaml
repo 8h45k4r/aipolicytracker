@@ -1,0 +1,78 @@
+slug: ca-quebec-law-25-automated-decision-provisions
+jurisdiction: ca-quebec
+title: >-
+  Quebec Law 25 (S.Q. 2021, c. 25): provisions on decisions based exclusively on automated processing and biometric systems
+short_title: Quebec Law 25 (automated decisions and biometrics)
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: National Assembly of Quebec
+summary_plain: >-
+  Section 12.1 of the private-sector privacy act (as amended by Law 25, in force 22 September 2023) requires any enterprise
+  that uses personal information to render a decision based exclusively on automated processing to inform the person no
+  later than when the decision is made, and, on request, to tell them what personal information was used, the reasons and
+  principal factors and parameters, and their right to have the information corrected, and to give them an opportunity to
+  submit observations to a person who can review the decision. Biometric identification databases must be declared to the
+  Commission d'accès à l'information 60 days before use, and privacy impact assessments are mandatory for projects involving
+  personal information. Penalties reach CAD 25 million or 4% of worldwide turnover.
+scope_summary: >-
+  Enterprises and public bodies in Quebec using personal information in exclusively automated decisions or biometric systems.
+key_dates_summary: >-
+  2021-09-22: assented; 2022-09-22: first provisions; 2023-09-22: automated-decision provisions in force; 2024-09-22: data
+  portability.
+penalties_summary: >-
+  Administrative monetary penalties up to CAD 10 million or 2% of worldwide turnover; penal fines up to CAD 25 million or
+  4% of worldwide turnover.
+adopted_on: '2021-09-22'
+in_force_on: '2023-09-22'
+applies_from: '2023-09-22'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- deployer
+- public_authority
+ai_system_types:
+- automated_decision_system
+- biometric_system
+sectors:
+- cross_sector
+risk_categories:
+- transparency_risk
+use_cases:
+- biometrics
+- finance_and_credit
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: S.Q. 2021, c. 25
+  publisher: Publications Québec
+  url: >-
+    https://www.publicationsduquebec.gouv.qc.ca/fileadmin/Fichiers_client/lois_et_reglements/LoisAnnuelles/en/2021/2021C25A.PDF
+  document_date: '2021-09-22'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.publicationsduquebec.gouv.qc.ca/fileadmin/Fichiers_client/lois_et_reglements/LoisAnnuelles/en/2021/2021C25A.PDF
+source_title: S.Q. 2021, c. 25
+source_publisher: Publications Québec
+source_document_date: '2021-09-22'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

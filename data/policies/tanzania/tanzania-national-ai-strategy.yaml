@@ -1,0 +1,51 @@
+slug: tanzania-national-ai-strategy
+jurisdiction: tanzania
+title: Tanzania National Artificial Intelligence Strategy
+short_title: National AI strategy (in development)
+instrument_type: strategy
+status: proposed
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Tanzania
+summary_plain: >-
+  A national AI strategy under development covering governance and ethics, skills, public-sector and agricultural use cases,
+  data and infrastructure.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-01-01'
+date_notes: Year-level placeholder; adoption to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of ICT
+  publisher: Government of Tanzania
+  url: https://www.mictit.go.tz/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mictit.go.tz/
+source_title: Ministry of ICT
+source_publisher: Government of Tanzania
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

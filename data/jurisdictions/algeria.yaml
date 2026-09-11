@@ -1,0 +1,48 @@
+slug: algeria
+name: Algeria
+short_name: Algeria
+iso_code: DZ
+jurisdiction_type: country
+region: Africa
+subregion: Northern Africa
+featured: false
+published: true
+overview: >-
+  Algeria created a National AI Council and adopted a national AI strategy (2025) through the Ministry of Knowledge Economy,
+  Start-ups and Micro-enterprises and the Ministry of Higher Education, with a national AI school opened in 2021; Law 18-07
+  on personal data applies.
+regulatory_status_summary: National AI strategy (2025) as policy; National AI Council; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy (2025).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministère de l'Économie de la Connaissance, des Start-up et des Micro-entreprises
+  url: https://www.mecsme.gov.dz/
+  role: AI strategy co-lead
+official_sources:
+- title: Ministère de l'Économie de la Connaissance, des Start-up et des Micro-entreprises
+  publisher: Government of Algeria
+  url: https://www.mecsme.gov.dz/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- morocco
+- tunisia
+official_source_url: https://www.mecsme.gov.dz/
+source_title: Ministère de l'Économie de la Connaissance, des Start-up et des Micro-entreprises
+source_publisher: Government of Algeria
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

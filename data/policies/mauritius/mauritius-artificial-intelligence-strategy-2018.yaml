@@ -1,0 +1,54 @@
+slug: mauritius-artificial-intelligence-strategy-2018
+jurisdiction: mauritius
+title: Mauritius Artificial Intelligence Strategy
+short_title: Mauritius AI Strategy (2018)
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Mauritius (Ministry of Technology, Communication and Innovation)
+summary_plain: >-
+  Published in November 2018, the strategy identifies AI applications in manufacturing, health, fintech, agriculture, ocean
+  economy and public services, proposes a Mauritius AI Council, skills programmes and data policies, and addresses ethics
+  and regulation.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2018-11-01'
+date_notes: Month-level date.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Mauritius Artificial Intelligence Strategy
+  publisher: National Computer Board
+  url: https://ncb.govmu.org/
+  document_date: '2018-11-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://ncb.govmu.org/
+source_title: Mauritius Artificial Intelligence Strategy
+source_publisher: National Computer Board
+source_document_date: '2018-11-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

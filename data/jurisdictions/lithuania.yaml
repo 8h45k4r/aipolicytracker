@@ -1,0 +1,51 @@
+slug: lithuania
+name: Lithuania
+short_name: Lithuania
+iso_code: LT
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Lithuania applies the EU AI Act, adopted a Lithuanian Artificial Intelligence Strategy in 2019 and updated AI measures
+  through its 2023–2025 digital agenda; the Communications Regulatory Authority (RRT) has been proposed as market-surveillance
+  authority and the Ministry of the Economy and Innovation leads policy.
+regulatory_status_summary: EU AI Act applies; AI strategy (2019) as policy; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Lithuanian Artificial Intelligence Strategy (2019).'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Ekonomikos ir inovacijų ministerija (Ministry of the Economy and Innovation)
+  url: https://eimin.lrv.lt/en/
+  role: AI strategy lead
+- name: Ryšių reguliavimo tarnyba (RRT)
+  url: https://www.rrt.lt/en/
+  role: Proposed market-surveillance authority for the AI Act
+official_sources:
+- title: Ministry of the Economy and Innovation
+  publisher: Government of Lithuania
+  url: https://eimin.lrv.lt/en/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- latvia
+- estonia
+- poland
+official_source_url: https://eimin.lrv.lt/en/
+source_title: Ministry of the Economy and Innovation
+source_publisher: Government of Lithuania
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

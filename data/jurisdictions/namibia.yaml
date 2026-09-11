@@ -1,0 +1,47 @@
+slug: namibia
+name: Namibia
+short_name: Namibia
+iso_code: NA
+jurisdiction_type: country
+region: Africa
+subregion: Southern Africa
+featured: false
+published: true
+overview: >-
+  Namibia's Ministry of Information and Communication Technology has been developing a national AI policy under the Fourth
+  Industrial Revolution task-force recommendations (2022), and a Data Protection Bill is before Parliament; no AI-specific
+  law exists.
+regulatory_status_summary: National AI policy in development; data-protection bill pending.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI policy (in development).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministry of Information and Communication Technology
+  url: https://mict.gov.na/
+  role: AI policy lead
+official_sources:
+- title: Ministry of Information and Communication Technology
+  publisher: Government of Namibia
+  url: https://mict.gov.na/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- south-africa
+official_source_url: https://mict.gov.na/
+source_title: Ministry of Information and Communication Technology
+source_publisher: Government of Namibia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

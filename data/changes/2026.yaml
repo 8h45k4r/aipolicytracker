@@ -382,3 +382,60 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
+  - slug: 2026-01-01-texas-traiga-effective
+    jurisdiction: us-texas
+    policy: us-texas-responsible-ai-governance-act-traiga
+    occurred_on: 2026-01-01
+    title: Texas TRAIGA takes effect
+    what_changed: >
+      The Texas Responsible Artificial Intelligence Governance Act became effective, with Attorney General enforcement after a 60-day cure period.
+    practical_impact: Prohibited-intent screening, government disclosure and sandbox applications are now live requirements in Texas.
+    impact_level: high
+    status_after: in_force
+    published: true
+    official_source_url: "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149"
+    source_title: "HB 149 (89R)"
+    source_publisher: "Texas Legislature Online"
+    source_document_date: 2025-06-22
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2026-01-01-illinois-hb-3773-effective
+    jurisdiction: us-illinois
+    policy: us-illinois-hb-3773-ai-in-employment
+    occurred_on: 2026-01-01
+    title: Illinois AI-in-employment provisions take effect
+    what_changed: >
+      Public Act 103-0804 became effective: discriminatory AI use in employment decisions is a civil-rights violation and employers must notify employees of AI use.
+    practical_impact: Employers must have notices and bias testing in place for AI tools affecting Illinois workers.
+    impact_level: high
+    status_after: in_force
+    published: true
+    official_source_url: "https://www.ilga.gov/legislation/BillStatus.asp?DocNum=3773&GAID=17&DocTypeID=HB&SessionID=112"
+    source_title: "HB 3773 / Public Act 103-0804"
+    source_publisher: "Illinois General Assembly"
+    source_document_date: 2024-08-09
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2026-01-01-ontario-job-posting-ai-disclosure
+    jurisdiction: ca-ontario
+    policy: ca-ontario-working-for-workers-four-act-ai-in-job-postings
+    occurred_on: 2026-01-01
+    title: Ontario job postings must disclose AI screening
+    what_changed: >
+      The Working for Workers Four Act provisions took effect requiring employers with 25 or more employees to state in public job postings whether AI is used to screen, assess or select applicants.
+    practical_impact: Add an AI-use statement to every public job posting for Ontario roles.
+    impact_level: routine
+    status_after: in_force
+    published: true
+    official_source_url: "https://www.ola.org/en/legislative-business/bills/parliament-43/session-1/bill-149"
+    source_title: "Bill 149"
+    source_publisher: "Legislative Assembly of Ontario"
+    source_document_date: 2024-03-21
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1

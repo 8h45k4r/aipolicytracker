@@ -1,0 +1,68 @@
+slug: switzerland-federal-council-ai-regulatory-approach-2025
+jurisdiction: switzerland
+title: >-
+  Federal Council decision on the regulation of artificial intelligence: ratification of the Council of Europe Convention
+  and sector-specific adjustments
+short_title: Federal Council AI regulatory approach (2025)
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Swiss Federal Council
+summary_plain: >-
+  On 12 February 2025 the Federal Council decided how Switzerland will regulate AI: it will ratify the Council of Europe
+  Framework Convention on AI and implement it mainly through targeted changes to existing law where needed (for example
+  transparency, data protection and non-discrimination), avoid a horizontal AI act, and complement legislation with non-binding
+  measures such as self-regulation and agreements with industry. Federal departments were tasked to prepare a consultation
+  draft by the end of 2026.
+scope_summary: >-
+  Sets direction for federal law-making; creates no obligations until implementing legislation is adopted.
+key_dates_summary: '2025-02-12: Federal Council decision; end of 2026: consultation draft due.'
+adopted_on: '2025-02-12'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines:
+- title: Consultation draft on ratification and legal amendments
+  due_on: '2026-12-31'
+  date_precision: year
+  description: Deadline set by the Federal Council for the consultation draft.
+  deadline_status: scheduled
+  confidence_level: medium
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Federal Council wants to ratify the Council of Europe Convention on AI
+  publisher: Swiss Federal Council
+  url: https://www.admin.ch/gov/en/start/documentation/media-releases.msg-id-104110.html
+  document_date: '2025-02-12'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://www.admin.ch/gov/en/start/documentation/media-releases.msg-id-104110.html
+source_title: Federal Council wants to ratify the Council of Europe Convention on AI
+source_publisher: Swiss Federal Council
+source_document_date: '2025-02-12'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

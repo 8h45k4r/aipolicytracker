@@ -1,0 +1,47 @@
+slug: jordan
+name: Jordan
+short_name: Jordan
+iso_code: JO
+jurisdiction_type: country
+region: Asia
+subregion: Western Asia
+featured: false
+published: true
+overview: >-
+  Jordan adopted a Jordanian Artificial Intelligence Strategy and Implementation Roadmap 2023–2027 (August 2023) and a Charter
+  of AI Ethics (2022) under the Ministry of Digital Economy and Entrepreneurship, with the Personal Data Protection Law
+  No. 24 of 2023 applying to AI processing personal data.
+regulatory_status_summary: National AI strategy 2023–2027 and AI ethics charter as policy; data-protection law applies.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: AI Strategy and Implementation Roadmap 2023–2027; Charter of AI Ethics (2022).
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Digital Economy and Entrepreneurship (MoDEE)
+  url: https://www.modee.gov.jo/
+  role: AI strategy and ethics charter lead
+official_sources:
+- title: Ministry of Digital Economy and Entrepreneurship
+  publisher: Government of Jordan
+  url: https://www.modee.gov.jo/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- uae
+- saudi-arabia
+- egypt
+official_source_url: https://www.modee.gov.jo/
+source_title: Ministry of Digital Economy and Entrepreneurship
+source_publisher: Government of Jordan
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

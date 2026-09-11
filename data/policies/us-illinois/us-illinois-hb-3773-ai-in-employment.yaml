@@ -1,0 +1,66 @@
+slug: us-illinois-hb-3773-ai-in-employment
+jurisdiction: us-illinois
+title: >-
+  Illinois Public Act 103-0804 (HB 3773): Artificial intelligence in employment decisions – amendment to the Illinois Human
+  Rights Act
+short_title: Illinois HB 3773 (AI in employment, Human Rights Act amendment)
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Illinois General Assembly
+summary_plain: >-
+  Signed 9 August 2024 and effective 1 January 2026, the Act makes it a civil-rights violation for an employer to use artificial
+  intelligence in recruitment, hiring, promotion, discipline, discharge or other terms of employment in a way that subjects
+  employees to discrimination on the basis of protected classes, or to use zip codes as a proxy for protected classes. Employers
+  must notify employees when AI is used for such decisions; the Department of Human Rights is to adopt rules on notice.
+scope_summary: >-
+  Employers covered by the Illinois Human Rights Act using AI in employment decisions affecting Illinois employees and applicants.
+key_dates_summary: '2024-08-09: signed; 2026-01-01: effective.'
+adopted_on: '2024-08-09'
+in_force_on: '2026-01-01'
+applies_from: '2026-01-01'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- deployer
+ai_system_types:
+- automated_decision_system
+- predictive_scoring
+sectors:
+- employment
+risk_categories:
+- high_risk
+use_cases:
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: HB 3773 / Public Act 103-0804
+  publisher: Illinois General Assembly
+  url: https://www.ilga.gov/legislation/BillStatus.asp?DocNum=3773&GAID=17&DocTypeID=HB&SessionID=112
+  document_date: '2024-08-09'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.ilga.gov/legislation/BillStatus.asp?DocNum=3773&GAID=17&DocTypeID=HB&SessionID=112
+source_title: HB 3773 / Public Act 103-0804
+source_publisher: Illinois General Assembly
+source_document_date: '2024-08-09'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

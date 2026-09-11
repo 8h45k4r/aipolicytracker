@@ -1,0 +1,49 @@
+slug: cambodia
+name: Cambodia
+short_name: Cambodia
+iso_code: KH
+jurisdiction_type: country
+region: Asia
+subregion: South-East Asia
+featured: false
+published: true
+overview: >-
+  Cambodia's Ministry of Post and Telecommunications and the Ministry of Industry, Science, Technology and Innovation have
+  prepared a national AI strategy and AI ethics guidance (2024–2025) with UNESCO and ASEAN support; no AI-specific law exists
+  and the ASEAN guides apply as regional reference.
+regulatory_status_summary: National AI strategy in preparation; ASEAN guides as reference; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy (in preparation).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Post and Telecommunications
+  url: https://www.mptc.gov.kh/
+  role: Digital policy lead
+- name: Ministry of Industry, Science, Technology and Innovation (MISTI)
+  url: https://www.misti.gov.kh/
+  role: Science and technology policy
+official_sources:
+- title: Ministry of Post and Telecommunications
+  publisher: Government of Cambodia
+  url: https://www.mptc.gov.kh/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- thailand
+- vietnam
+- asean
+official_source_url: https://www.mptc.gov.kh/
+source_title: Ministry of Post and Telecommunications
+source_publisher: Government of Cambodia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,69 @@
+slug: council-of-europe
+name: Council of Europe
+short_name: CoE
+jurisdiction_type: supranational
+region: Europe
+subregion: Continental
+featured: true
+published: true
+overview: >-
+  The Council of Europe adopted the first legally binding international treaty on AI, the Framework Convention on Artificial
+  Intelligence and Human Rights, Democracy and the Rule of Law (CETS No. 225), on 17 May 2024; it opened for signature in
+  Vilnius on 5 September 2024 and has been signed by the EU, the United Kingdom, the United States, Canada, Japan, Israel
+  and others. It requires parties to adopt measures so that AI activities are consistent with human rights, democracy and
+  the rule of law, using a risk- and impact-based approach, and is supplemented by the HUDERIA risk and impact assessment
+  methodology (2024).
+regulatory_status_summary: >-
+  Framework Convention adopted and open for signature; entry into force depends on ratifications; HUDERIA methodology adopted.
+binding_vs_guidance: >-
+  Binding: Framework Convention on AI (CETS 225). Strategy or guidance: HUDERIA risk and impact assessment methodology.
+how_to_use:
+- >-
+  Use the Convention to anticipate obligations that signatory states will implement through national law; it binds states,
+  not companies directly.
+- >-
+  Open the treaty office page to check current signatures and ratifications before citing entry into force.
+- Use HUDERIA as a reference methodology for human-rights impact assessment of AI systems.
+regulators:
+- name: Council of Europe Committee on Artificial Intelligence (CAI)
+  url: https://www.coe.int/en/web/artificial-intelligence/cai
+  role: Negotiated the Convention and follow-up instruments
+official_sources:
+- title: >-
+    Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law (CETS No. 225)
+  publisher: Council of Europe
+  url: https://www.coe.int/en/web/conventions/full-list?module=treaty-detail&treatynum=225
+  document_date: '2024-05-17'
+  document_type: legislation
+  tier: 1
+- title: The Framework Convention on Artificial Intelligence
+  publisher: Council of Europe
+  url: >-
+    https://www.coe.int/en/web/artificial-intelligence/the-framework-convention-on-artificial-intelligence
+  document_type: official
+  tier: 1
+faq:
+- question: Is the Council of Europe AI Convention binding on companies?
+  answer: >-
+    It binds the states (and the EU) that ratify it; they must implement its principles through domestic measures. Companies
+    feel it through national law, including the EU AI Act which the EU treats as its implementation.
+related_jurisdictions:
+- eu
+- uk
+- switzerland
+- us
+- canada
+- japan
+official_source_url: https://www.coe.int/en/web/conventions/full-list?module=treaty-detail&treatynum=225
+source_title: >-
+  Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law (CETS No. 225)
+source_publisher: Council of Europe
+source_document_date: '2024-05-17'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

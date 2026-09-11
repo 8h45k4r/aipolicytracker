@@ -1,0 +1,52 @@
+slug: serbia-ai-development-strategy-2025-2030
+jurisdiction: serbia
+title: Стратегија развоја вештачке интелигенције у Републици Србији за период 2025–2030
+short_title: AI Development Strategy 2025–2030
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of the Republic of Serbia
+summary_plain: >-
+  Adopted in 2025, the second national AI strategy sets goals to 2030 on research and talent, AI in the economy and public
+  administration, data and compute infrastructure, trustworthy AI and alignment with the EU AI Act and the Council of Europe
+  convention, and the preparation of an AI law.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-03-01'
+date_notes: Month-level date; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI Serbia
+  publisher: Government of the Republic of Serbia
+  url: https://www.ai.gov.rs/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.ai.gov.rs/
+source_title: AI Serbia
+source_publisher: Government of the Republic of Serbia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

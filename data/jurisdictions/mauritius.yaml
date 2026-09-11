@@ -1,0 +1,53 @@
+slug: mauritius
+name: Mauritius
+short_name: Mauritius
+iso_code: MU
+jurisdiction_type: country
+region: Africa
+subregion: Eastern Africa
+featured: false
+published: true
+overview: >-
+  Mauritius published one of Africa's first national AI strategies in 2018 (Mauritius Artificial Intelligence Strategy)
+  and an AI Council; the Data Protection Act 2017 and the Data Protection Office apply to AI processing personal data, and
+  the 2024–2025 digital transformation blueprint updates AI priorities.
+regulatory_status_summary: National AI strategy (2018) as policy; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Mauritius AI Strategy (2018).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministry of Information Technology, Communication and Innovation
+  url: https://mitci.govmu.org/
+  role: Digital and AI policy lead
+- name: Data Protection Office
+  url: https://dataprotection.govmu.org/
+  role: Data-protection authority
+official_sources:
+- title: Mauritius Artificial Intelligence Strategy
+  publisher: Ministry of Technology, Communication and Innovation
+  url: https://ncb.govmu.org/
+  document_date: '2018-11-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- south-africa
+- india
+official_source_url: https://ncb.govmu.org/
+source_title: Mauritius Artificial Intelligence Strategy
+source_publisher: Ministry of Technology, Communication and Innovation
+source_document_date: '2018-11-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

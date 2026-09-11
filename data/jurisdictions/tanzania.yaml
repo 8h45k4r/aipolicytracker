@@ -1,0 +1,51 @@
+slug: tanzania
+name: Tanzania
+short_name: Tanzania
+iso_code: TZ
+jurisdiction_type: country
+region: Africa
+subregion: Eastern Africa
+featured: false
+published: true
+overview: >-
+  Tanzania's Ministry of Information, Communication and Information Technology has been preparing a National AI Strategy
+  and issued AI guidelines for the public sector (2024–2025); the Personal Data Protection Act 2022 and the Personal Data
+  Protection Commission apply.
+regulatory_status_summary: National AI strategy in development; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy (in development).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministry of Information, Communication and Information Technology
+  url: https://www.mictit.go.tz/
+  role: AI strategy lead
+- name: Personal Data Protection Commission
+  url: https://www.pdpc.go.tz/
+  role: Data-protection authority
+official_sources:
+- title: Ministry of Information, Communication and Information Technology
+  publisher: Government of Tanzania
+  url: https://www.mictit.go.tz/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- kenya
+- uganda
+official_source_url: https://www.mictit.go.tz/
+source_title: Ministry of Information, Communication and Information Technology
+source_publisher: Government of Tanzania
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

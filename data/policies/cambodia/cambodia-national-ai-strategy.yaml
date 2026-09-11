@@ -1,0 +1,51 @@
+slug: cambodia-national-ai-strategy
+jurisdiction: cambodia
+title: Cambodia National Artificial Intelligence Strategy
+short_title: National AI strategy (in preparation)
+instrument_type: strategy
+status: proposed
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Cambodia (MPTC and MISTI)
+summary_plain: >-
+  A national AI strategy and ethics framework under preparation with UNESCO support, expected to cover governance, talent,
+  public-sector use and the digital economy.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2025-01-01'
+date_notes: Year-level placeholder; adoption to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of Post and Telecommunications
+  publisher: Government of Cambodia
+  url: https://www.mptc.gov.kh/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mptc.gov.kh/
+source_title: Ministry of Post and Telecommunications
+source_publisher: Government of Cambodia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

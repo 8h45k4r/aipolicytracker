@@ -1,0 +1,53 @@
+slug: turkiye
+name: Türkiye
+short_name: Türkiye
+iso_code: TR
+jurisdiction_type: country
+region: Asia
+subregion: Western Asia
+featured: false
+published: true
+overview: >-
+  Türkiye adopted its National Artificial Intelligence Strategy 2021–2025 in August 2021 (Digital Transformation Office
+  of the Presidency and Ministry of Industry and Technology) and updated the action plan for 2024–2025. A draft Artificial
+  Intelligence Law was submitted to the Grand National Assembly in June 2024 but has not been enacted; the Personal Data
+  Protection Authority (KVKK) has issued AI recommendations. Türkiye signed the Council of Europe Framework Convention on
+  AI.
+regulatory_status_summary: National AI strategy 2021–2025 as policy; draft AI law pending in parliament; KVKK AI guidance.
+binding_vs_guidance: >-
+  Binding: Draft Artificial Intelligence Law (2024). Strategy or guidance: National AI Strategy 2021–2025.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Cumhurbaşkanlığı Dijital Dönüşüm Ofisi (Digital Transformation Office)
+  url: https://cbddo.gov.tr/en/
+  role: National AI strategy coordination
+- name: Kişisel Verileri Koruma Kurumu (KVKK)
+  url: https://www.kvkk.gov.tr/
+  role: Data-protection authority; AI recommendations
+official_sources:
+- title: National Artificial Intelligence Strategy 2021–2025
+  publisher: Digital Transformation Office of the Presidency of the Republic of Türkiye
+  url: https://cbddo.gov.tr/en/nais/
+  document_date: '2021-08-20'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- council-of-europe
+official_source_url: https://cbddo.gov.tr/en/nais/
+source_title: National Artificial Intelligence Strategy 2021–2025
+source_publisher: Digital Transformation Office of the Presidency of the Republic of Türkiye
+source_document_date: '2021-08-20'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

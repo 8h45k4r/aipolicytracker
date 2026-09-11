@@ -1,0 +1,51 @@
+slug: ukraine
+name: Ukraine
+short_name: Ukraine
+iso_code: UA
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Ukraine, an EU candidate, adopted a Concept for the Development of AI in 2020 and, through the Ministry of Digital Transformation,
+  a 2023 roadmap for AI regulation that follows a "bottom-up" approach: voluntary tools, a code of conduct and sandboxes
+  first, with a law aligned to the EU AI Act to follow. Ukraine signed the Council of Europe Framework Convention on AI
+  in 2024.
+regulatory_status_summary: >-
+  AI concept (2020) and regulation roadmap (2023) as policy; AI law in preparation; Council of Europe convention signed.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: Roadmap for AI regulation (2023).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Digital Transformation of Ukraine
+  url: https://thedigital.gov.ua/
+  role: AI policy lead; expert committee on AI
+- name: Ukrainian Parliament Commissioner for Human Rights
+  url: https://www.ombudsman.gov.ua/
+  role: Data-protection supervision
+official_sources:
+- title: Ministry of Digital Transformation of Ukraine
+  publisher: Government of Ukraine
+  url: https://thedigital.gov.ua/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- poland
+- council-of-europe
+official_source_url: https://thedigital.gov.ua/
+source_title: Ministry of Digital Transformation of Ukraine
+source_publisher: Government of Ukraine
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

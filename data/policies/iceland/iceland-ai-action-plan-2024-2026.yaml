@@ -1,0 +1,51 @@
+slug: iceland-ai-action-plan-2024-2026
+jurisdiction: iceland
+title: Aðgerðaáætlun um gervigreind 2024–2026 (Action plan on artificial intelligence)
+short_title: AI action plan 2024–2026
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Iceland
+summary_plain: >-
+  The 2024–2026 action plan implements Iceland's AI policy with measures on AI in public services, the Icelandic language
+  in AI systems, skills and research, ethics and security, and preparation for the EU AI Act.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Government of Iceland: AI policy'
+  publisher: Government of Iceland
+  url: https://www.stjornarradid.is/en/ministries/ministry-of-higher-education-science-and-innovation/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.stjornarradid.is/en/ministries/ministry-of-higher-education-science-and-innovation/
+source_title: 'Government of Iceland: AI policy'
+source_publisher: Government of Iceland
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

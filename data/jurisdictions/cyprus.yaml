@@ -1,0 +1,51 @@
+slug: cyprus
+name: Cyprus
+short_name: Cyprus
+iso_code: CY
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Cyprus applies the EU AI Act and adopted a National AI Strategy in 2020, updated with an AI action plan in 2024 under
+  the Deputy Ministry of Research, Innovation and Digital Policy; the Commissioner for Personal Data Protection is the data-protection
+  authority.
+regulatory_status_summary: EU AI Act applies; national AI strategy (2020) and action plan (2024) as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (2020, action plan 2024).'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Deputy Ministry of Research, Innovation and Digital Policy
+  url: https://www.dmrid.gov.cy/
+  role: AI strategy lead
+- name: Commissioner for Personal Data Protection
+  url: https://www.dataprotection.gov.cy/
+  role: Data-protection authority
+official_sources:
+- title: National Artificial Intelligence Strategy
+  publisher: Deputy Ministry of Research, Innovation and Digital Policy
+  url: https://www.dmrid.gov.cy/
+  document_date: '2020-01-01'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- greece
+official_source_url: https://www.dmrid.gov.cy/
+source_title: National Artificial Intelligence Strategy
+source_publisher: Deputy Ministry of Research, Innovation and Digital Policy
+source_document_date: '2020-01-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

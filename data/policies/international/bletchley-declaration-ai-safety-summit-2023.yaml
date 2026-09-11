@@ -1,0 +1,62 @@
+slug: bletchley-declaration-ai-safety-summit-2023
+jurisdiction: international
+title: The Bletchley Declaration by countries attending the AI Safety Summit, 1–2 November 2023
+short_title: Bletchley Declaration (AI Safety Summit 2023)
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: 28 countries and the European Union attending the AI Safety Summit hosted by the United Kingdom
+summary_plain: >-
+  Signed by countries including the United States, China, the EU, India, Japan and Brazil, the declaration recognises the
+  opportunities of AI and the risks of frontier models, commits signatories to cooperate on identifying AI safety risks
+  and building risk-based policies, and launched the summit series continued in Seoul (2024) and Paris (2025) and the network
+  of AI safety institutes.
+scope_summary: Political declaration; no obligations for organisations.
+adopted_on: '2023-11-01'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+- gpai_provider
+ai_system_types:
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- systemic_risk
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: The Bletchley Declaration by Countries Attending the AI Safety Summit, 1-2 November 2023
+  publisher: UK Government (GOV.UK)
+  url: >-
+    https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-2-november-2023
+  document_date: '2023-11-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-2-november-2023
+source_title: The Bletchley Declaration by Countries Attending the AI Safety Summit, 1-2 November 2023
+source_publisher: UK Government (GOV.UK)
+source_document_date: '2023-11-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

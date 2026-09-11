@@ -1,0 +1,52 @@
+slug: belgium
+name: Belgium
+short_name: Belgium
+iso_code: BE
+jurisdiction_type: country
+region: Europe
+subregion: Western Europe
+featured: false
+published: true
+overview: >-
+  Belgium applies the EU AI Act and coordinates AI policy through the AI4Belgium coalition and the 2022 National Convergence
+  Plan for AI, which aligns federal and regional (Flanders, Wallonia, Brussels) AI programmes. The federal government has
+  proposed the FPS Economy as market-surveillance authority, with the Data Protection Authority and sector regulators in
+  their fields; regional strategies fund research and adoption.
+regulatory_status_summary: >-
+  EU AI Act applies; national convergence plan (2022) and regional strategies as policy; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National Convergence Plan for AI (2022).'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: FPS Economy, SMEs, Self-employed and Energy
+  url: https://economie.fgov.be/en
+  role: Proposed market-surveillance authority for the AI Act
+- name: Data Protection Authority (APD/GBA)
+  url: https://www.dataprotectionauthority.be/
+  role: Data-protection authority
+official_sources:
+- title: AI4Belgium
+  publisher: AI4Belgium (FPS BOSA)
+  url: https://ai4belgium.be/
+  document_type: official
+  tier: 2
+faq: []
+related_jurisdictions:
+- eu
+- netherlands
+- luxembourg
+official_source_url: https://ai4belgium.be/
+source_title: AI4Belgium
+source_publisher: AI4Belgium (FPS BOSA)
+source_tier: 2
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

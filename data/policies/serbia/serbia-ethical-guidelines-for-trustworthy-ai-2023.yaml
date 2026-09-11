@@ -1,0 +1,56 @@
+slug: serbia-ethical-guidelines-for-trustworthy-ai-2023
+jurisdiction: serbia
+title: Етичке смернице за развој, примену и употребу поуздане и одговорне вештачке интелигенције
+short_title: Ethical guidelines for trustworthy AI (2023)
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of the Republic of Serbia
+summary_plain: >-
+  Adopted in March 2023, the guidelines set principles and requirements for trustworthy and responsible AI in Serbia (human
+  agency, safety, privacy, transparency, non-discrimination, societal well-being, accountability), with self-assessment
+  questions for developers and users, drawing on the EU ethics guidelines and the UNESCO recommendation.
+scope_summary: Non-binding; addressed to public and private developers and users of AI in Serbia.
+adopted_on: '2023-03-23'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI Serbia
+  publisher: Government of the Republic of Serbia
+  url: https://www.ai.gov.rs/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.ai.gov.rs/
+source_title: AI Serbia
+source_publisher: Government of the Republic of Serbia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

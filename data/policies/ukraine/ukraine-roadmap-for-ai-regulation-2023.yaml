@@ -1,0 +1,52 @@
+slug: ukraine-roadmap-for-ai-regulation-2023
+jurisdiction: ukraine
+title: Roadmap for the regulation of artificial intelligence in Ukraine
+short_title: Roadmap for AI regulation (2023)
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Digital Transformation of Ukraine
+summary_plain: >-
+  Published in October 2023, the roadmap sets a two-stage, bottom-up approach: first voluntary instruments (white paper,
+  general and sector recommendations, a self-assessment tool, a code of conduct and regulatory sandboxes) to help businesses
+  prepare, then a law on AI harmonised with the EU AI Act, timed with Ukraine's EU accession path.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2023-10-01'
+date_notes: Month-level date.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ministry of Digital Transformation
+  publisher: Government of Ukraine
+  url: https://thedigital.gov.ua/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://thedigital.gov.ua/
+source_title: Ministry of Digital Transformation
+source_publisher: Government of Ukraine
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

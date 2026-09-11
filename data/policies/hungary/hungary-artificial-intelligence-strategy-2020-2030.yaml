@@ -1,0 +1,56 @@
+slug: hungary-artificial-intelligence-strategy-2020-2030
+jurisdiction: hungary
+title: Magyarország Mesterséges Intelligencia Stratégiája 2020–2030
+short_title: AI Strategy 2020–2030
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Hungary (Ministry for Innovation and Technology)
+summary_plain: >-
+  Adopted in September 2020, the strategy sets goals to 2030 on data economy, AI research and education, public-sector and
+  industrial adoption, and transformative programmes such as an AI-driven public administration and language technology,
+  coordinated with the AI Coalition of companies, universities and public bodies.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2020-09-08'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Hungary's Artificial Intelligence Strategy
+  publisher: AI Coalition
+  url: https://ai-hungary.com/
+  document_date: '2020-09-08'
+  document_type: strategy
+  tier: 2
+faq: []
+official_source_url: https://ai-hungary.com/
+source_title: Hungary's Artificial Intelligence Strategy
+source_publisher: AI Coalition
+source_document_date: '2020-09-08'
+source_tier: 2
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

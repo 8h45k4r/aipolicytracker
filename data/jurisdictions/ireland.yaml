@@ -1,0 +1,57 @@
+slug: ireland
+name: Ireland
+short_name: Ireland
+iso_code: IE
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Ireland applies the EU AI Act and hosts the European headquarters of many large AI and platform companies, which gives
+  the Irish Data Protection Commission a central role in GDPR enforcement affecting AI training. The national AI strategy
+  "AI – Here for Good" (2021, refreshed 2024) frames a people-centred approach; the government designated an initial set
+  of competent authorities for the AI Act in 2024–2025 and is establishing a national AI office within the Department of
+  Enterprise.
+regulatory_status_summary: EU AI Act applies; competent authorities designated in phases; national AI strategy refreshed
+  2024.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI – Here for Good (National AI Strategy).'
+current_priorities: >-
+  Setting up the national AI office and distributed supervision model, public-sector AI guidelines, GDPR enforcement on
+  AI training data.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Department of Enterprise, Tourism and Employment
+  url: https://enterprise.gov.ie/en/publications/national-ai-strategy.html
+  role: Lead department for AI policy and AI Act implementation
+- name: Data Protection Commission
+  url: https://www.dataprotection.ie/
+  role: Data-protection authority; lead supervisor for many AI companies under the GDPR
+official_sources:
+- title: 'National AI Strategy: AI – Here for Good (2021, refresh 2024)'
+  publisher: Department of Enterprise, Trade and Employment
+  url: https://enterprise.gov.ie/en/publications/national-ai-strategy.html
+  document_date: '2024-11-05'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- uk
+official_source_url: https://enterprise.gov.ie/en/publications/national-ai-strategy.html
+source_title: 'National AI Strategy: AI – Here for Good (2021, refresh 2024)'
+source_publisher: Department of Enterprise, Trade and Employment
+source_document_date: '2024-11-05'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

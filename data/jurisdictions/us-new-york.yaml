@@ -1,0 +1,58 @@
+slug: us-new-york
+name: New York (United States)
+short_name: New York
+iso_code: US-NY
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  New York City's Local Law 144 of 2021 (enforced since 5 July 2023) requires bias audits and notices for automated employment
+  decision tools used to hire or promote in the city. At state level, New York enacted the Responsible AI Safety and Education
+  (RAISE) Act in December 2025 imposing safety-protocol and incident-reporting duties on developers of frontier models,
+  with amendments to align with California's SB 53, and a 2025 law requiring disclosure of AI companion safeguards. The
+  Department of Financial Services issued a 2024 letter on AI cybersecurity risks.
+regulatory_status_summary: >-
+  NYC Local Law 144 enforced since July 2023; RAISE Act enacted December 2025 (effective 2027); DFS guidance for regulated
+  entities.
+binding_vs_guidance: >-
+  Binding: NYC Local Law 144 (automated employment decision tools); New York RAISE Act (frontier model safety). Strategy
+  or guidance: none recorded.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: NYC Department of Consumer and Worker Protection
+  url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
+  role: Enforces Local Law 144 on automated employment decision tools
+- name: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/
+  role: Cybersecurity and AI guidance for regulated financial entities
+official_sources:
+- title: Automated Employment Decision Tools (Local Law 144 of 2021)
+  publisher: NYC Department of Consumer and Worker Protection
+  url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
+  document_date: '2023-07-05'
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+- us-california
+- us-illinois
+official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
+source_title: Automated Employment Decision Tools (Local Law 144 of 2021)
+source_publisher: NYC Department of Consumer and Worker Protection
+source_document_date: '2023-07-05'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

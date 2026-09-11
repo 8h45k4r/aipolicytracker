@@ -1,0 +1,54 @@
+slug: denmark
+name: Denmark
+short_name: Denmark
+iso_code: DK
+jurisdiction_type: country
+region: Europe
+subregion: Northern Europe
+featured: false
+published: true
+overview: >-
+  Denmark applies the EU AI Act and has designated the Agency for Digital Government (Digitaliseringsstyrelsen) as the coordinating
+  national authority, with the Danish Data Protection Agency and sector supervisors competent in their fields. A 2019 national
+  AI strategy, a 2024 digitalisation strategy and public-sector "signature projects" on AI in health and administration
+  shape practice; Denmark also participates in the Nordic-Baltic AI cooperation.
+regulatory_status_summary: >-
+  EU AI Act applies; coordinating authority designated; national AI strategy (2019) and digital strategy as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National Strategy for Artificial Intelligence (2019).'
+current_priorities: >-
+  AI Act supervision set-up, public-sector AI signature projects, health data and AI in welfare services.
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Digitaliseringsstyrelsen (Agency for Digital Government)
+  url: https://en.digst.dk/
+  role: Coordinating national authority for the AI Act; runs public-sector AI programmes
+- name: Datatilsynet
+  url: https://www.datatilsynet.dk/english
+  role: Data-protection authority
+official_sources:
+- title: Agency for Digital Government
+  publisher: Digitaliseringsstyrelsen
+  url: https://en.digst.dk/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- sweden
+- norway
+official_source_url: https://en.digst.dk/
+source_title: Agency for Digital Government
+source_publisher: Digitaliseringsstyrelsen
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

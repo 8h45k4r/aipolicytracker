@@ -1,0 +1,55 @@
+slug: bulgaria-ai-concept-2030
+jurisdiction: bulgaria
+title: Концепция за развитието на изкуствения интелект в България до 2030 г.
+short_title: Concept for the development of AI until 2030
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Council of Ministers of Bulgaria
+summary_plain: >-
+  Adopted in December 2020, the concept sets a framework for AI in Bulgaria to 2030 in line with the EU coordinated plan:
+  research and infrastructure, skills, data, adoption in business and public administration, and trustworthy, ethical AI.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2020-12-16'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Concept for the development of AI in Bulgaria until 2030
+  publisher: Council of Ministers
+  url: https://egov.government.bg/
+  document_date: '2020-12-16'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://egov.government.bg/
+source_title: Concept for the development of AI in Bulgaria until 2030
+source_publisher: Council of Ministers
+source_document_date: '2020-12-16'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

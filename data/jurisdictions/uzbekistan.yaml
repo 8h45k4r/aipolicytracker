@@ -1,0 +1,45 @@
+slug: uzbekistan
+name: Uzbekistan
+short_name: Uzbekistan
+iso_code: UZ
+jurisdiction_type: country
+region: Asia
+subregion: Central Asia
+featured: false
+published: true
+overview: >-
+  Uzbekistan approved a Strategy for the development of artificial intelligence technologies until 2030 by Presidential
+  Resolution in October 2024, building on the 2021 AI development measures, with priorities on public services, data, talent
+  and an AI ethics framework; the Personal Data Law applies.
+regulatory_status_summary: AI development strategy to 2030 (2024) as policy; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI development strategy to 2030 (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Digital Technologies
+  url: https://digital.uz/
+  role: AI strategy implementation
+official_sources:
+- title: National database of legislation of the Republic of Uzbekistan (Lex.uz)
+  publisher: Ministry of Justice
+  url: https://lex.uz/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- kazakhstan
+- russia
+official_source_url: https://lex.uz/
+source_title: National database of legislation of the Republic of Uzbekistan (Lex.uz)
+source_publisher: Ministry of Justice
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

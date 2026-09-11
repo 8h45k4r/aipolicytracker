@@ -1,0 +1,50 @@
+slug: croatia
+name: Croatia
+short_name: Croatia
+iso_code: HR
+jurisdiction_type: country
+region: Europe
+subregion: Southern Europe
+featured: false
+published: true
+overview: >-
+  Croatia applies the EU AI Act; the Central State Office for the Development of the Digital Society prepared a National
+  Plan for the Development of AI, and the Croatian Personal Data Protection Agency (AZOP) is the data-protection authority.
+  AI Act authority designation is in progress.
+regulatory_status_summary: EU AI Act applies; national AI plan in preparation/adopted; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National Plan for the Development of AI.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Središnji državni ured za razvoj digitalnog društva
+  url: https://rdd.gov.hr/
+  role: Digital society and AI policy
+- name: Agencija za zaštitu osobnih podataka (AZOP)
+  url: https://azop.hr/
+  role: Data-protection authority
+official_sources:
+- title: Central State Office for the Development of the Digital Society
+  publisher: Government of Croatia
+  url: https://rdd.gov.hr/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- slovenia
+- serbia
+official_source_url: https://rdd.gov.hr/
+source_title: Central State Office for the Development of the Digital Society
+source_publisher: Government of Croatia
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

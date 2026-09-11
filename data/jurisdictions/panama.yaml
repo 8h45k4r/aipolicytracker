@@ -1,0 +1,48 @@
+slug: panama
+name: Panama
+short_name: Panama
+iso_code: PA
+jurisdiction_type: country
+region: Americas
+subregion: Central America
+featured: false
+published: true
+overview: >-
+  Panama's National Authority for Government Innovation (AIG) leads AI policy under the Digital Agenda; a bill to regulate
+  AI (2024) was introduced in the National Assembly, and the Personal Data Protection Law 81 of 2019 applies to AI processing
+  personal data. UNESCO's readiness assessment informed a national AI strategy process in 2024–2025.
+regulatory_status_summary: AI bill under consideration; national AI strategy in development; data-protection law applies.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI strategy (in development).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Autoridad Nacional para la Innovación Gubernamental (AIG)
+  url: https://aig.gob.pa/
+  role: Government innovation and AI policy lead
+- name: Autoridad Nacional de Transparencia y Acceso a la Información (ANTAI)
+  url: https://www.antai.gob.pa/
+  role: Data-protection supervision
+official_sources:
+- title: Autoridad Nacional para la Innovación Gubernamental
+  publisher: Government of Panama
+  url: https://aig.gob.pa/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- costa-rica
+- colombia
+official_source_url: https://aig.gob.pa/
+source_title: Autoridad Nacional para la Innovación Gubernamental
+source_publisher: Government of Panama
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

@@ -1,0 +1,109 @@
+slug: italy-law-132-2025-ai
+jurisdiction: italy
+title: >-
+  Legge 23 settembre 2025, n. 132 – Disposizioni e deleghe al Governo in materia di intelligenza artificiale
+short_title: Law No. 132/2025 on artificial intelligence
+instrument_type: act
+status: in_force
+is_binding: true
+featured: true
+published: true
+issuing_body: Parliament of the Italian Republic
+summary_plain: >-
+  Italy's framework AI law, published in the Official Gazette on 25 September 2025 and in force from 10 October 2025. It
+  states principles (human-centric, transparent, safe AI; protection of fundamental rights), sets sector rules for healthcare
+  (AI as support, not replacement, for clinical decisions), employment (information to workers, an AI-at-work observatory),
+  intellectual professions (client disclosure), justice (judge decides; AI only for organisational support) and public administration,
+  requires parental consent for children under 14, designates AgID and ACN as national authorities, delegates the government
+  to align national law with the EU AI Act, and creates a criminal offence for unlawful dissemination of AI-generated or
+  manipulated content with aggravating circumstances for other crimes committed with AI.
+scope_summary: >-
+  Applies in Italy to public and private users, developers and providers of AI systems, with sector chapters for health,
+  work, professions, justice and public administration; the EU AI Act continues to apply directly.
+who_it_applies_to: >-
+  Providers and deployers of AI systems operating in Italy; employers using AI; professionals; healthcare bodies; public
+  administrations; courts; platforms hosting AI-generated content.
+key_dates_summary: >-
+  2025-09-17: final Senate approval; 2025-09-25: published in Gazzetta Ufficiale; 2025-10-10: entry into force; implementing
+  decrees due within 12 months of entry into force.
+penalties_summary: >-
+  New Article 612-quater of the Criminal Code punishes unlawful dissemination of AI-generated or altered content that causes
+  unjust harm with imprisonment from one to five years; AI use is an aggravating circumstance for listed offences. Administrative
+  penalties for AI Act breaches are those set by the EU Regulation and national implementing decrees.
+what_organizations_must_do: >-
+  Map AI systems against the sector chapters (health, work, professions, justice, public administration), add disclosure
+  to workers and clients where required, apply the under-14 consent rule, and follow AgID/ACN guidance as delegated decrees
+  are adopted.
+adopted_on: '2025-09-17'
+published_on: '2025-09-25'
+in_force_on: '2025-10-10'
+date_notes: >-
+  Entry into force on the fifteenth day after publication, per the Gazette notice; delegated-decree deadlines run from that
+  date.
+actors:
+- provider
+- deployer
+- public_authority
+- user
+ai_system_types:
+- generative_ai
+- automated_decision_system
+sectors:
+- cross_sector
+- healthcare
+- employment
+- law_enforcement
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- health
+- hiring_and_hr
+- public_services
+- generative_ai
+related_policies:
+- eu-ai-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines:
+- title: Entry into force
+  due_on: '2025-10-10'
+  date_precision: exact
+  description: Fifteenth day after publication in the Gazzetta Ufficiale.
+  deadline_status: passed
+  confidence_level: high
+- title: Delegated decrees aligning national law with the EU AI Act
+  due_on: '2026-10-10'
+  date_precision: exact
+  description: Government delegation to be exercised within twelve months of entry into force.
+  deadline_status: scheduled
+  confidence_level: medium
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Legge 23 settembre 2025, n. 132
+  publisher: Gazzetta Ufficiale della Repubblica Italiana
+  url: https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00146/sg
+  document_date: '2025-09-25'
+  document_type: legislation
+  tier: 1
+faq:
+- question: Does the Italian AI law replace the EU AI Act?
+  answer: >-
+    No. It complements the Regulation with national authorities, sector rules, child-protection provisions and criminal
+    offences, and delegates the government to adopt aligning decrees.
+official_source_url: https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00146/sg
+source_title: Legge 23 settembre 2025, n. 132
+source_publisher: Gazzetta Ufficiale della Repubblica Italiana
+source_document_date: '2025-09-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

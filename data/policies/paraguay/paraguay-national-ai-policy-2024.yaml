@@ -1,0 +1,51 @@
+slug: paraguay-national-ai-policy-2024
+jurisdiction: paraguay
+title: Política Nacional de Inteligencia Artificial del Paraguay
+short_title: National AI Policy (2024)
+instrument_type: policy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Paraguay (MITIC)
+summary_plain: >-
+  Presented in 2024, the policy sets objectives on ethical and human-centred AI, capacity building, public-sector adoption,
+  data and infrastructure, and research, aligned with the UNESCO recommendation.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2024-01-01'
+date_notes: Year-level placeholder; to be confirmed.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: MITIC
+  publisher: Government of Paraguay
+  url: https://www.mitic.gov.py/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.mitic.gov.py/
+source_title: MITIC
+source_publisher: Government of Paraguay
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

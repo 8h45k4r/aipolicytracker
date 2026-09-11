@@ -1,0 +1,52 @@
+slug: senegal
+name: Senegal
+short_name: Senegal
+iso_code: SN
+jurisdiction_type: country
+region: Africa
+subregion: Western Africa
+featured: false
+published: true
+overview: >-
+  Senegal adopted a National Artificial Intelligence Strategy in 2025 through the Ministry of Communication, Telecommunications
+  and Digital Affairs within the "New Technological Deal" digital strategy, with priorities on public services, agriculture,
+  health, talent and ethics; Law 2008-12 on personal data and the CDP apply.
+regulatory_status_summary: National AI strategy (2025) as policy; data-protection law applies; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (2025).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministère de la Communication, des Télécommunications et du Numérique
+  url: https://numerique.gouv.sn/
+  role: AI strategy lead
+- name: Commission de protection des Données Personnelles (CDP)
+  url: https://www.cdp.sn/
+  role: Data-protection authority
+official_sources:
+- title: Ministère de la Communication, des Télécommunications et du Numérique
+  publisher: Government of Senegal
+  url: https://numerique.gouv.sn/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- ghana
+- nigeria
+- benin
+official_source_url: https://numerique.gouv.sn/
+source_title: Ministère de la Communication, des Télécommunications et du Numérique
+source_publisher: Government of Senegal
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

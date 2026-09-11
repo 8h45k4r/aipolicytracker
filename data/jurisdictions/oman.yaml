@@ -1,0 +1,46 @@
+slug: oman
+name: Oman
+short_name: Oman
+iso_code: OM
+jurisdiction_type: country
+region: Asia
+subregion: Gulf Cooperation Council
+featured: false
+published: true
+overview: >-
+  Oman's Ministry of Transport, Communications and Information Technology launched the National Programme for Artificial
+  Intelligence and Advanced Digital Technologies (2024) and an AI policy for government entities, within the Digital Economy
+  Programme; the Personal Data Protection Law (Royal Decree 6/2022) applies.
+regulatory_status_summary: National AI programme and government AI policy (2024) as policy; data-protection law applies.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI programme and government AI policy (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Transport, Communications and Information Technology (MTCIT)
+  url: https://www.mtcit.gov.om/
+  role: AI programme lead
+official_sources:
+- title: Ministry of Transport, Communications and Information Technology
+  publisher: Government of Oman
+  url: https://www.mtcit.gov.om/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- uae
+- saudi-arabia
+- qatar
+official_source_url: https://www.mtcit.gov.om/
+source_title: Ministry of Transport, Communications and Information Technology
+source_publisher: Government of Oman
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

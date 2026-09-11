@@ -1,0 +1,56 @@
+slug: benin-national-ai-and-big-data-strategy-2023-2027
+jurisdiction: benin
+title: Stratégie nationale d'intelligence artificielle et des mégadonnées 2023–2027
+short_title: National AI and Big Data Strategy 2023–2027
+instrument_type: strategy
+status: adopted
+is_binding: false
+featured: false
+published: true
+issuing_body: Government of Benin (Ministry of Digital Affairs and Digitalisation)
+summary_plain: >-
+  Adopted by the Council of Ministers in January 2023, the strategy sets objectives for AI and big-data skills, research,
+  data infrastructure and governance, ethical AI and priority use cases in health, education, agriculture, tourism and living
+  environment, with a 2027 horizon.
+scope_summary: Government programme; no obligations on private organisations.
+adopted_on: '2023-01-25'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- public_authority
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Stratégie nationale IA et mégadonnées 2023–2027
+  publisher: Ministère du Numérique et de la Digitalisation
+  url: https://numerique.gouv.bj/
+  document_date: '2023-01-25'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://numerique.gouv.bj/
+source_title: Stratégie nationale IA et mégadonnées 2023–2027
+source_publisher: Ministère du Numérique et de la Digitalisation
+source_document_date: '2023-01-25'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,67 @@
+slug: us-tennessee-elvis-act
+jurisdiction: us-tennessee
+title: Ensuring Likeness, Voice, and Image Security (ELVIS) Act of 2024 (Tennessee Public Chapter 588)
+short_title: Tennessee ELVIS Act
+instrument_type: act
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Tennessee General Assembly
+summary_plain: >-
+  Signed 21 March 2024 and effective 1 July 2024, the ELVIS Act updates Tennessee's Personal Rights Protection Act to add
+  voice to the protected attributes of name, photograph and likeness, prohibits publishing or making available an individual's
+  voice or likeness without authorisation, and creates liability for distributing or making available an algorithm, software
+  or tool whose primary purpose is producing an individual's voice or likeness without authorisation. It provides civil
+  actions for individuals and licensees and criminal penalties.
+scope_summary: >-
+  Anyone producing, publishing or distributing unauthorised AI-generated voice or likeness of individuals in Tennessee,
+  and providers of tools primarily for that purpose.
+key_dates_summary: '2024-03-21: signed; 2024-07-01: effective.'
+adopted_on: '2024-03-21'
+in_force_on: '2024-07-01'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+- user
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+- content_moderation
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: HB 2091 (ELVIS Act)
+  publisher: Tennessee General Assembly
+  url: https://www.capitol.tn.gov/Bills/113/Bill/HB2091.pdf
+  document_date: '2024-03-21'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.capitol.tn.gov/Bills/113/Bill/HB2091.pdf
+source_title: HB 2091 (ELVIS Act)
+source_publisher: Tennessee General Assembly
+source_document_date: '2024-03-21'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

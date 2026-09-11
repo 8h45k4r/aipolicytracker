@@ -1,0 +1,55 @@
+slug: turkiye-draft-artificial-intelligence-law-2024
+jurisdiction: turkiye
+title: >-
+  Yapay Zekâ Kanunu Teklifi (Artificial Intelligence Law proposal submitted to the Grand National Assembly, June 2024)
+short_title: Draft Artificial Intelligence Law (2024)
+instrument_type: bill
+status: proposed
+status_note: Submitted 24 June 2024; not enacted at the time of checking.
+is_binding: true
+featured: false
+published: true
+issuing_body: Grand National Assembly of Türkiye (private member's bill)
+summary_plain: >-
+  A short framework bill proposing principles for AI (safety, transparency, fairness, accountability, privacy), a risk-based
+  approach with registration of high-risk systems, operator obligations and penalties, and supervision by designated authorities,
+  broadly modelled on the EU AI Act.
+scope_summary: Would apply to developers, providers and users of AI systems in Türkiye if enacted.
+date_notes: Bill stage; no dates in force.
+actors:
+- provider
+- deployer
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories:
+- high_risk
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Digital Transformation Office: AI'
+  publisher: Presidency of the Republic of Türkiye
+  url: https://cbddo.gov.tr/en/
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://cbddo.gov.tr/en/
+source_title: 'Digital Transformation Office: AI'
+source_publisher: Presidency of the Republic of Türkiye
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

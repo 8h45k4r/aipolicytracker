@@ -1,0 +1,62 @@
+slug: iso-iec-42001-2023-ai-management-system
+jurisdiction: international
+title: ISO/IEC 42001:2023 Information technology – Artificial intelligence – Management system
+short_title: ISO/IEC 42001:2023 AI management system
+instrument_type: standard
+status: voluntary_standard
+is_binding: false
+featured: false
+published: true
+issuing_body: ISO/IEC JTC 1/SC 42
+summary_plain: >-
+  The first certifiable management-system standard for AI. It specifies requirements for establishing, implementing, maintaining
+  and improving an AI management system within an organisation: context and leadership, AI policy, risk and impact assessment,
+  objectives, resources and competence, operational controls across the AI lifecycle, performance evaluation and improvement,
+  with Annex A controls on data, transparency, human oversight, third parties and responsible use. Certification is voluntary
+  but increasingly requested in procurement; regulators reference it as evidence of governance.
+scope_summary: >-
+  Voluntary; any organisation developing, providing or using AI systems. This site does not reproduce the standard's text.
+adopted_on: '2023-12-18'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- government_procurement
+related_policies: []
+related_frameworks:
+- iso_42001
+- nist_ai_rmf
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: ISO/IEC 42001:2023
+  publisher: International Organization for Standardization
+  url: https://www.iso.org/standard/42001
+  document_date: '2023-12-18'
+  document_type: standard
+  tier: 1
+faq: []
+official_source_url: https://www.iso.org/standard/42001
+source_title: ISO/IEC 42001:2023
+source_publisher: International Organization for Standardization
+source_document_date: '2023-12-18'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

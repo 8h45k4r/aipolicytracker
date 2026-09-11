@@ -1,0 +1,57 @@
+slug: hong-kong-generative-ai-technical-and-application-guideline
+jurisdiction: hong-kong
+title: Hong Kong Generative Artificial Intelligence Technical and Application Guideline
+short_title: Generative AI Technical and Application Guideline (2025)
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: false
+published: true
+issuing_body: Digital Policy Office, with the Hong Kong Generative AI Research and Development Centre
+summary_plain: >-
+  Published in April 2025, the guideline covers the technical characteristics and risks of generative AI, governance principles
+  (safety, transparency, accountability, data protection, fairness) and practical application guidance for developers, service
+  providers and users across the AI lifecycle, and is intended as a reference for industry and government.
+scope_summary: Voluntary reference for developers, providers and users of generative AI in Hong Kong.
+adopted_on: '2025-04-15'
+date_notes: Month-level date.
+actors:
+- provider
+- deployer
+- user
+ai_system_types:
+- generative_ai
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Digital Policy Office: Ethical AI Framework and generative AI guideline'
+  publisher: Digital Policy Office
+  url: >-
+    https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/ethical_ai_framework/
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/ethical_ai_framework/
+source_title: 'Digital Policy Office: Ethical AI Framework and generative AI guideline'
+source_publisher: Digital Policy Office
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

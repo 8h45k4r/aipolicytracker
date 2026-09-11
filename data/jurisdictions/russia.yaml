@@ -1,0 +1,57 @@
+slug: russia
+name: Russia
+short_name: Russia
+iso_code: RU
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Russia's National Strategy for the Development of AI to 2030 was approved by Presidential Decree No. 490 of 10 October
+  2019 and substantially updated by Decree No. 124 of 15 February 2024. Federal Law No. 123-FZ (2020) created an experimental
+  legal regime for AI in Moscow, and Federal Law No. 258-FZ (2020) provides a general framework for digital-innovation experimental
+  regimes. An industry AI Code of Ethics (2021) has hundreds of signatories. No comprehensive binding AI law exists; personal-data
+  and information laws apply.
+regulatory_status_summary: >-
+  National AI strategy (2019, updated 2024) as policy; experimental legal regimes in force; AI ethics code voluntary.
+binding_vs_guidance: >-
+  Binding: Federal Law 123-FZ (Moscow AI experimental regime). Strategy or guidance: National AI Strategy to 2030 (Decree
+  490, updated 2024).
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+regulators:
+- name: Ministry of Digital Development, Communications and Mass Media
+  url: https://digital.gov.ru/
+  role: AI strategy implementation
+- name: Roskomnadzor
+  url: https://rkn.gov.ru/
+  role: Personal-data and communications supervision
+official_sources:
+- title: >-
+    Decree of the President of the Russian Federation No. 490 of 10 October 2019 on the development of artificial intelligence
+  publisher: President of Russia
+  url: http://kremlin.ru/acts/bank/44731
+  document_date: '2019-10-10'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- kazakhstan
+- china
+official_source_url: http://kremlin.ru/acts/bank/44731
+source_title: >-
+  Decree of the President of the Russian Federation No. 490 of 10 October 2019 on the development of artificial intelligence
+source_publisher: President of Russia
+source_document_date: '2019-10-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

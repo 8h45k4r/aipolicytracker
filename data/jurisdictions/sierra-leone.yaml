@@ -1,0 +1,47 @@
+slug: sierra-leone
+name: Sierra Leone
+short_name: Sierra Leone
+iso_code: SL
+jurisdiction_type: country
+region: Africa
+subregion: Western Africa
+featured: false
+published: true
+overview: >-
+  Sierra Leone's Ministry of Communication, Technology and Innovation adopted a National AI Strategy (2024) after UNESCO's
+  readiness assessment, focusing on public services, health, agriculture, education and skills; no AI-specific law exists.
+regulatory_status_summary: National AI strategy (2024) as policy; no AI-specific law.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy (2024).'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Use the African Union Continental AI Strategy (2024) as the regional reference where a national instrument is missing.
+regulators:
+- name: Ministry of Communication, Technology and Innovation
+  url: https://mocti.gov.sl/
+  role: AI strategy lead
+official_sources:
+- title: Ministry of Communication, Technology and Innovation
+  publisher: Government of Sierra Leone
+  url: https://mocti.gov.sl/
+  document_type: official
+  tier: 1
+faq: []
+related_jurisdictions:
+- african-union
+- ghana
+- nigeria
+official_source_url: https://mocti.gov.sl/
+source_title: Ministry of Communication, Technology and Innovation
+source_publisher: Government of Sierra Leone
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

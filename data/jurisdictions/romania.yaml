@@ -1,0 +1,56 @@
+slug: romania
+name: Romania
+short_name: Romania
+iso_code: RO
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Romania applies the EU AI Act and adopted a National Strategy for Artificial Intelligence 2024–2027 by government decision
+  in July 2024, coordinated by the Ministry of Research, Innovation and Digitalisation with the Authority for Digitalisation
+  of Romania (ADR). The National Supervisory Authority for Personal Data Processing is the data-protection authority; AI
+  Act market-surveillance designation is in progress.
+regulatory_status_summary: EU AI Act applies; National AI Strategy 2024–2027 adopted; authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy 2024–2027.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Ministerul Cercetării, Inovării și Digitalizării
+  url: https://www.mcid.gov.ro/
+  role: Lead ministry for the AI strategy
+- name: Autoritatea pentru Digitalizarea României (ADR)
+  url: https://www.adr.gov.ro/
+  role: Digital transformation and AI programmes
+- name: ANSPDCP
+  url: https://www.dataprotection.ro/
+  role: Data-protection authority
+official_sources:
+- title: Strategia Națională în domeniul Inteligenței Artificiale 2024–2027
+  publisher: Government of Romania (Ministry of Research, Innovation and Digitalisation)
+  url: https://www.mcid.gov.ro/
+  document_date: '2024-07-11'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- hungary
+- bulgaria
+official_source_url: https://www.mcid.gov.ro/
+source_title: Strategia Națională în domeniul Inteligenței Artificiale 2024–2027
+source_publisher: Government of Romania (Ministry of Research, Innovation and Digitalisation)
+source_document_date: '2024-07-11'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

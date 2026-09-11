@@ -1,0 +1,56 @@
+slug: czechia
+name: Czechia
+short_name: Czechia
+iso_code: CZ
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Czechia applies the EU AI Act, has adopted a National AI Strategy 2030 (July 2024) replacing the 2019 strategy, and has
+  proposed the Czech Telecommunication Office (ČTÚ) as the AI Act market-surveillance authority with the Office for Personal
+  Data Protection and sector bodies in their fields.
+regulatory_status_summary: EU AI Act applies; National AI Strategy 2030 (2024); authority designation in progress.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: National AI Strategy 2030.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Ministerstvo průmyslu a obchodu (Ministry of Industry and Trade)
+  url: https://www.mpo.gov.cz/
+  role: Lead ministry for the national AI strategy and AI Act implementation
+- name: Český telekomunikační úřad (ČTÚ)
+  url: https://www.ctu.cz/
+  role: Proposed market-surveillance authority for the AI Act
+- name: Úřad pro ochranu osobních údajů (ÚOOÚ)
+  url: https://uoou.gov.cz/
+  role: Data-protection authority
+official_sources:
+- title: Národní strategie umělé inteligence České republiky 2030
+  publisher: Ministry of Industry and Trade
+  url: https://www.mpo.gov.cz/
+  document_date: '2024-07-24'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- eu
+- poland
+- slovakia
+- austria
+official_source_url: https://www.mpo.gov.cz/
+source_title: Národní strategie umělé inteligence České republiky 2030
+source_publisher: Ministry of Industry and Trade
+source_document_date: '2024-07-24'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

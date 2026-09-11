@@ -1094,3 +1094,136 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-02-12-switzerland-ai-regulatory-approach
+    jurisdiction: switzerland
+    policy: switzerland-federal-council-ai-regulatory-approach-2025
+    occurred_on: 2025-02-12
+    title: Swiss Federal Council chooses sector rules and the Council of Europe convention over an AI act
+    what_changed: >
+      The Federal Council decided to ratify the Council of Europe Framework Convention and implement it through targeted sector-specific changes plus self-regulation, with a consultation draft due by the end of 2026.
+    practical_impact: Swiss organisations will not face a horizontal AI law; transparency, data-protection and non-discrimination amendments are the ones to watch.
+    impact_level: routine
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.admin.ch/gov/en/start/documentation/media-releases.msg-id-104110.html"
+    source_title: "Federal Council wants to ratify the Council of Europe Convention on AI"
+    source_publisher: "Swiss Federal Council"
+    source_document_date: 2025-02-12
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2025-03-11-spain-ai-governance-bill
+    jurisdiction: spain
+    policy: spain-draft-law-on-good-use-and-governance-of-ai
+    occurred_on: 2025-03-11
+    title: Spain approves a draft law implementing the EU AI Act with mandatory AI-content labelling
+    what_changed: >
+      The Council of Ministers approved the preliminary draft law on the good use and governance of AI, allocating supervision to AESIA and sector authorities, setting national penalties and treating unlabelled AI-generated content as a serious infringement.
+    practical_impact: Companies operating in Spain should prepare labelling of synthetic content and expect AESIA as the main supervisor.
+    impact_level: high
+    status_after: proposed
+    published: true
+    official_source_url: "https://aesia.digital.gob.es/"
+    source_title: "AESIA"
+    source_publisher: "Ministerio para la Transformación Digital y de la Función Pública"
+    source_document_date: 2025-03-11
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2025-06-22-texas-traiga-signed
+    jurisdiction: us-texas
+    policy: us-texas-responsible-ai-governance-act-traiga
+    occurred_on: 2025-06-22
+    title: Texas signs the Responsible AI Governance Act (TRAIGA), effective 1 January 2026
+    what_changed: >
+      The Governor signed HB 149, banning AI intended to manipulate people into self-harm or crime, government social scoring and certain biometric uses, requiring government AI disclosure, and creating a sandbox and AI council with Attorney General enforcement.
+    practical_impact: Developers and deployers serving Texas should screen for prohibited intents and document NIST-aligned governance to use the statutory defences.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149"
+    source_title: "HB 149 (89R)"
+    source_publisher: "Texas Legislature Online"
+    source_document_date: 2025-06-22
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2025-07-08-new-zealand-ai-strategy
+    jurisdiction: new-zealand
+    policy: new-zealand-ai-strategy-2025
+    occurred_on: 2025-07-08
+    title: New Zealand publishes its first national AI strategy and rules out a standalone AI act
+    what_changed: >
+      MBIE released the Strategy for Artificial Intelligence and Responsible AI Guidance for Businesses, opting for a light-touch approach based on existing law and OECD principles.
+    practical_impact: Businesses in New Zealand should apply the responsible-AI guidance and privacy law; no new AI statute is planned.
+    impact_level: routine
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.mbie.govt.nz/business-and-employment/business/support-for-business/artificial-intelligence-strategy"
+    source_title: "New Zealand's Strategy for Artificial Intelligence"
+    source_publisher: "MBIE"
+    source_document_date: 2025-07-08
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2025-09-25-italy-ai-law-published
+    jurisdiction: italy
+    policy: italy-law-132-2025-ai
+    occurred_on: 2025-09-25
+    title: Italy publishes Law 132/2025, the first national AI law in the EU
+    what_changed: >
+      Law No. 132 of 23 September 2025 was published in the Official Gazette and entered into force on 10 October 2025, designating AgID and ACN as national AI authorities, adding sector rules for health, work, professions, justice and public administration, an under-14 consent rule and a deepfake offence.
+    practical_impact: Organisations in Italy must combine EU AI Act compliance with the national sector rules and watch the delegated decrees due within twelve months.
+    impact_level: urgent
+    status_after: in_force
+    published: true
+    official_source_url: "https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00146/sg"
+    source_title: "Legge 23 settembre 2025, n. 132"
+    source_publisher: "Gazzetta Ufficiale"
+    source_document_date: 2025-09-25
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2025-11-17-kazakhstan-ai-law-signed
+    jurisdiction: kazakhstan
+    policy: kazakhstan-law-on-artificial-intelligence-2025
+    occurred_on: 2025-11-17
+    title: Kazakhstan signs Central Asia's first law on artificial intelligence
+    what_changed: >
+      The President signed the Law on Artificial Intelligence, introducing a risk-based classification, duties for owners and operators of AI systems, labelling of AI-generated content and a national AI platform.
+    practical_impact: Companies deploying AI in Kazakhstan should classify systems and prepare labelling and risk-management documentation; confirm the in-force date on the official legal database.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.gov.kz/memleket/entities/mdai"
+    source_title: "Ministry of Artificial Intelligence and Digital Development"
+    source_publisher: "Government of Kazakhstan"
+    source_document_date: 2025-11-17
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2025-12-19-new-york-raise-act-signed
+    jurisdiction: us-new-york
+    policy: us-new-york-raise-act
+    occurred_on: 2025-12-19
+    title: New York signs the RAISE Act on frontier-model safety
+    what_changed: >
+      The Governor signed the Responsible AI Safety and Education Act with agreed amendments aligning it to California SB 53, requiring large frontier developers to publish safety protocols and report critical incidents, reportedly effective 1 January 2027.
+    practical_impact: Frontier-model developers serving New York should align safety documentation with California SB 53 to satisfy both laws; verify the enrolled chapter text.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.nysenate.gov/legislation/bills/2025/S6953/amendment/B"
+    source_title: "S6953-B"
+    source_publisher: "New York State Senate"
+    source_document_date: 2025-12-19
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: low
+    content_version: 1

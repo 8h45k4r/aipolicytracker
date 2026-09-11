@@ -265,3 +265,117 @@ changes:
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
+  - slug: 2023-07-05-nyc-local-law-144-enforcement
+    jurisdiction: us-new-york
+    policy: us-new-york-city-local-law-144-automated-employment-decision-tools
+    occurred_on: 2023-07-05
+    title: New York City begins enforcing Local Law 144 on automated employment decision tools
+    what_changed: >
+      The Department of Consumer and Worker Protection started enforcing bias-audit, published-summary and candidate-notice requirements for automated employment decision tools used for hiring or promotion in the city.
+    practical_impact: Employers using screening tools for NYC roles need an annual independent bias audit and ten business days of notice to candidates.
+    impact_level: high
+    status_after: in_force
+    published: true
+    official_source_url: "https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page"
+    source_title: "Automated Employment Decision Tools (AEDT)"
+    source_publisher: "NYC Department of Consumer and Worker Protection"
+    source_document_date: 2023-07-05
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2023-09-22-quebec-law-25-automated-decisions
+    jurisdiction: ca-quebec
+    policy: ca-quebec-law-25-automated-decision-provisions
+    occurred_on: 2023-09-22
+    title: Quebec Law 25 automated-decision and biometric provisions take effect
+    what_changed: >
+      The second tranche of Law 25 came into force, requiring enterprises to inform individuals of decisions based exclusively on automated processing, explain factors on request, allow observations, declare biometric databases and run privacy impact assessments.
+    practical_impact: Any organisation making fully automated decisions about Quebec residents must add notices, explanation and human-review channels.
+    impact_level: high
+    status_after: in_force
+    published: true
+    official_source_url: "https://www.publicationsduquebec.gouv.qc.ca/fileadmin/Fichiers_client/lois_et_reglements/LoisAnnuelles/en/2021/2021C25A.PDF"
+    source_title: "S.Q. 2021, c. 25"
+    source_publisher: "Publications Québec"
+    source_document_date: 2021-09-22
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2023-10-30-g7-hiroshima-code-of-conduct
+    jurisdiction: international
+    policy: g7-hiroshima-process-code-of-conduct-for-advanced-ai
+    occurred_on: 2023-10-30
+    title: G7 leaders publish the Hiroshima Process code of conduct for advanced AI developers
+    what_changed: >
+      G7 leaders agreed international guiding principles and a voluntary code of conduct with eleven actions for organisations developing advanced AI systems, including risk evaluation, incident monitoring, transparency reporting and content authentication.
+    practical_impact: Frontier and foundation-model developers gained a common voluntary baseline that later fed into the OECD reporting framework and the EU GPAI code of practice.
+    impact_level: routine
+    status_after: voluntary_standard
+    published: true
+    official_source_url: "https://www.mofa.go.jp/files/100573473.pdf"
+    source_title: "Hiroshima Process International Code of Conduct for Organizations Developing Advanced AI Systems"
+    source_publisher: "Ministry of Foreign Affairs of Japan"
+    source_document_date: 2023-10-30
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2023-11-01-bletchley-declaration
+    jurisdiction: international
+    policy: bletchley-declaration-ai-safety-summit-2023
+    occurred_on: 2023-11-01
+    title: 28 countries and the EU sign the Bletchley Declaration on AI safety
+    what_changed: >
+      At the first AI Safety Summit, signatories including the US, China and the EU agreed to cooperate on identifying and managing frontier-AI safety risks, launching the summit series and the network of AI safety institutes.
+    practical_impact: Signals that frontier-model safety evaluation would become a shared government priority; no direct obligations.
+    impact_level: routine
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-2-november-2023"
+    source_title: "The Bletchley Declaration"
+    source_publisher: "UK Government"
+    source_document_date: 2023-11-01
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2023-12-17-israel-ai-policy
+    jurisdiction: israel
+    policy: israel-ai-regulation-and-ethics-policy-2023
+    occurred_on: 2023-12-17
+    title: Israel adopts a sector-based, risk-based national AI regulation and ethics policy
+    what_changed: >
+      The Ministry of Innovation, Science and Technology and the Ministry of Justice published Israel's AI policy, preferring sector regulation and soft tools over a horizontal law, with common ethical principles and a coordination centre.
+    practical_impact: Organisations in Israel should expect sector regulators, not a single AI law, to set requirements.
+    impact_level: routine
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.gov.il/en/pages/ai_2023"
+    source_title: "Israel's Policy on Artificial Intelligence Regulation and Ethics"
+    source_publisher: "Ministry of Innovation, Science and Technology"
+    source_document_date: 2023-12-17
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+  - slug: 2023-12-18-iso-iec-42001-published
+    jurisdiction: international
+    policy: iso-iec-42001-2023-ai-management-system
+    occurred_on: 2023-12-18
+    title: ISO/IEC 42001, the first AI management-system standard, is published
+    what_changed: >
+      ISO and IEC published ISO/IEC 42001:2023, a certifiable management-system standard for organisations developing, providing or using AI, with lifecycle controls in Annex A.
+    practical_impact: Organisations can certify AI governance; procurement and regulators increasingly reference it as evidence.
+    impact_level: routine
+    status_after: voluntary_standard
+    published: true
+    official_source_url: "https://www.iso.org/standard/42001"
+    source_title: "ISO/IEC 42001:2023"
+    source_publisher: "International Organization for Standardization"
+    source_document_date: 2023-12-18
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1

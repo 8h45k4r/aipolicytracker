@@ -1,0 +1,62 @@
+slug: hong-kong-pcpd-model-personal-data-protection-framework-for-ai
+jurisdiction: hong-kong
+title: 'Artificial Intelligence: Model Personal Data Protection Framework'
+short_title: PCPD Model Personal Data Protection Framework for AI (2024)
+instrument_type: guidance
+status: guidance
+is_binding: false
+featured: true
+published: true
+issuing_body: Office of the Privacy Commissioner for Personal Data, Hong Kong
+summary_plain: >-
+  Published 11 June 2024, the framework gives organisations that procure, implement and use AI systems involving personal
+  data recommendations in four areas: AI strategy and governance (an AI governance committee, procurement due diligence),
+  risk assessment and human oversight (a risk-based approach with levels of human involvement), customisation and implementation
+  of AI models (data preparation, testing, security), and communication and engagement with stakeholders (transparency,
+  explainability, opt-out, feedback). It builds on the 2021 Guidance on the Ethical Development and Use of AI.
+scope_summary: >-
+  Voluntary for organisations in Hong Kong deploying AI with personal data; compliance with the Personal Data (Privacy)
+  Ordinance remains mandatory.
+adopted_on: '2024-06-11'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- deployer
+- provider
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- customer_service
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Artificial Intelligence: Model Personal Data Protection Framework'
+  publisher: PCPD
+  url: https://www.pcpd.org.hk/english/resources_centre/publications/files/ai_protection_framework.pdf
+  document_date: '2024-06-11'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.pcpd.org.hk/english/resources_centre/publications/files/ai_protection_framework.pdf
+source_title: 'Artificial Intelligence: Model Personal Data Protection Framework'
+source_publisher: PCPD
+source_document_date: '2024-06-11'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

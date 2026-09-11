@@ -1,0 +1,54 @@
+slug: hungary
+name: Hungary
+short_name: Hungary
+iso_code: HU
+jurisdiction_type: country
+region: Europe
+subregion: Eastern Europe
+featured: false
+published: true
+overview: >-
+  Hungary applies the EU AI Act and adopted a national AI Strategy in 2020 coordinated by the AI Coalition and the Ministry
+  for Innovation and Technology (now the Ministry for National Economy and the Digital Hungary Agency). The National Authority
+  for Data Protection and Freedom of Information (NAIH) is the data-protection authority; AI Act authority designation is
+  in progress.
+regulatory_status_summary: EU AI Act applies; national AI strategy (2020) as policy.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI Strategy 2020–2030.'
+how_to_use:
+- >-
+  Start from the EU AI Act record for obligations; use this page for the national authorities, penalties and strategy.
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Check national data-protection, employment and consumer law that applies to AI systems regardless of the AI Act.
+regulators:
+- name: Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH)
+  url: https://www.naih.hu/
+  role: Data-protection authority
+- name: Mesterséges Intelligencia Koalíció
+  url: https://ai-hungary.com/
+  role: AI Coalition coordinating the national strategy
+official_sources:
+- title: Hungary's Artificial Intelligence Strategy 2020–2030
+  publisher: Ministry for Innovation and Technology / AI Coalition
+  url: https://ai-hungary.com/
+  document_date: '2020-09-08'
+  document_type: strategy
+  tier: 2
+faq: []
+related_jurisdictions:
+- eu
+- austria
+- slovakia
+- romania
+official_source_url: https://ai-hungary.com/
+source_title: Hungary's Artificial Intelligence Strategy 2020–2030
+source_publisher: Ministry for Innovation and Technology / AI Coalition
+source_document_date: '2020-09-08'
+source_tier: 2
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.
