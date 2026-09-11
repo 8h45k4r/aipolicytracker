@@ -80,8 +80,10 @@ class ExternalSyncTest extends TestCase
 
         $this->postJson('/cron/external-sync')->assertStatus(401);
         AppSetting::put('cron_token', str_repeat('s', 32));
-        $response = $this->postJson('/cron/external-sync', [], ['Authorization' => 'Bearer '.str_repeat('s', 32)])->assertOk();
-        $this->assertStringContainsString('No new or modified incidents', $response->json('message'));
+        $this->postJson('/cron/external-sync', [], ['Authorization' => 'Bearer '.str_repeat('s', 32)])->assertOk();
+        $run = \Illuminate\Support\Facades\Cache::get(\App\Console\Commands\SyncAiidApiCommand::LAST_RUN_KEY);
+        $this->assertSame(0, $run['incidents']);
+        $this->assertNull($run['error']);
     }
 
     public function test_admin_external_page_shows_live_sync_status(): void
