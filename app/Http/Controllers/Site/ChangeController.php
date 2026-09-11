@@ -30,7 +30,7 @@ class ChangeController extends Controller
         }
         $changes = $query->orderByDesc('occurred_on')->orderByDesc('id')->paginate(25)->withQueryString();
         $urgent = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereIn('impact_level', ['urgent', 'high'])->orderByDesc('occurred_on')->limit(5)->get();
-        $years = ChangeEvent::published()->selectRaw('substr(occurred_on, 1, 4) as y')->distinct()->orderByDesc('y')->pluck('y')->all();
+        $years = ChangeEvent::publishedYears();
         $indexable = empty($filters['q']) && $impact === null && empty($filters['jurisdiction']) && $changes->currentPage() === 1;
 
         $seo = Seo::make(
@@ -52,7 +52,7 @@ class ChangeController extends Controller
     {
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereBetween('occurred_on', ["{$year}-01-01", "{$year}-12-31"])->orderByDesc('occurred_on')->get();
         abort_if($changes->isEmpty(), 404);
-        $years = ChangeEvent::published()->selectRaw('substr(occurred_on, 1, 4) as y')->distinct()->orderByDesc('y')->pluck('y')->all();
+        $years = ChangeEvent::publishedYears();
 
         $seo = Seo::make(
             "AI policy changes in {$year}",
