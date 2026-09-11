@@ -25,6 +25,7 @@ AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence 
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
 - Guides: {{ route('guides.index') }}
+- About, maintainers and references: {{ route('about') }}
 
 ## Jurisdictions
 
