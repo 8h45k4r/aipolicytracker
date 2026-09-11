@@ -16,6 +16,8 @@ class RiskController extends Controller
 
     public function index(): View
     {
+        $treemapRisks = self::treemapRows($this->data->mitRisk(), 'risks');
+        $treemapIncidents = self::treemapRows($this->data->mitRisk(), 'incidents');
         $mit = $this->data->mitRisk();
         $aiid = $this->data->aiid();
         $seo = Seo::make(
@@ -37,7 +39,58 @@ class RiskController extends Controller
         $timing = ExternalRisk::selectRaw('timing, COUNT(*) as n')->whereNotNull('timing')->groupBy('timing')->pluck('n', 'timing');
         $incidentTotals = ['incidents' => ExternalIncident::count(), 'risks' => ExternalRisk::count()];
 
-        return view('site.risk.index', ['seo' => $seo, 'mit' => $mit, 'aiid' => $aiid, 'riskByDomain' => $riskByDomain, 'matrix' => $matrix, 'timing' => $timing, 'incidentTotals' => $incidentTotals]);
+        return view('site.risk.index', ['seo' => $seo, 'mit' => $mit, 'aiid' => $aiid, 'riskByDomain' => $riskByDomain, 'matrix' => $matrix, 'timing' => $timing, 'incidentTotals' => $incidentTotals, 'treemapRisks' => $treemapRisks, 'treemapIncidents' => $treemapIncidents]);
+    }
+
+    /** Subdomain profile: definition, causal breakdowns, frameworks, risk entries and incidents for one MIT subdomain (e.g. 2.1). */
+    public function subdomain(string $domain, string $sub): View
+    {
+        $d = $this->data->mitDomain($domain);
+        abort_unless($d, 404);
+        $meta = collect($d['subdomains'] ?? [])->firstWhere('id', $sub);
+        abort_unless($meta, 404);
+        $mit = $this->data->mitRisk();
+        $risksQuery = ExternalRisk::where('subdomain', $sub);
+        $riskCount = (clone $risksQuery)->count();
+        $breakdown = [];
+        foreach (['entity', 'intent', 'timing'] as $k) {
+            $breakdown[$k] = (clone $risksQuery)->selectRaw("{$k}, COUNT(*) as n")->whereNotNull($k)->groupBy($k)->orderByDesc('n')->pluck('n', $k);
+        }
+        $byLevel = (clone $risksQuery)->selectRaw('level, COUNT(*) as n')->groupBy('level')->pluck('n', 'level');
+        $papers = (clone $risksQuery)->selectRaw('quick_ref, MAX(paper_title) as title, COUNT(*) as n')->groupBy('quick_ref')->orderByDesc('n')->limit(12)->get();
+        $risks = (clone $risksQuery)->whereIn('level', ['Risk Category', 'Risk Sub-Category'])->orderBy('quick_ref')->orderBy('ev_id')->paginate(25)->withQueryString();
+        $incidentsQuery = ExternalIncident::whereRaw('lower(mit_subdomain) = ?', [mb_strtolower(trim($meta['name']))]);
+        $incidentCount = (clone $incidentsQuery)->count();
+        $incidentYears = (clone $incidentsQuery)->selectRaw('year, COUNT(*) as n')->groupBy('year')->orderBy('year')->pluck('n', 'year');
+        $incidents = (clone $incidentsQuery)->orderByDesc('occurred_on')->limit(10)->get();
+        $policies = $d['use_cases'] ? PolicyInstrument::published()->with('jurisdiction')->withTerm('use_case', $d['use_cases'])->orderBy('title')->limit(12)->get() : collect();
+
+        $seo = Seo::make(
+            "AI risk {$sub}: {$meta['name']}",
+            mb_substr(($meta['description'] ?: $meta['name']).' '.number_format($riskCount).' risk entries and '.number_format($incidentCount).' recorded incidents.', 0, 155),
+            route('risk.subdomain', [$d['id'], $sub])
+        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], [$d['name'], route('risk.domain', $d['id'])], [$sub, route('risk.subdomain', [$d['id'], $sub])]])
+            ->withJsonLd(['@type' => 'DefinedTerm', 'name' => $meta['name'], 'description' => $meta['description'] ?? null, 'identifier' => $sub, 'inDefinedTermSet' => 'https://airisk.mit.edu/', 'license' => $mit['license_url'] ?? null]);
+
+        return view('site.risk.subdomain', compact('seo', 'mit', 'd', 'meta', 'sub', 'riskCount', 'breakdown', 'byLevel', 'papers', 'risks', 'incidentCount', 'incidentYears', 'incidents', 'policies'));
+    }
+
+    /** Rows for the domain → subdomain treemap: cells sized by risk entries (or incidents). */
+    public static function treemapRows(array $mit, string $measure = 'risks'): array
+    {
+        $riskBySub = ExternalRisk::selectRaw('subdomain, COUNT(*) as n')->whereNotNull('subdomain')->groupBy('subdomain')->pluck('n', 'subdomain');
+        $incBySub = ExternalIncident::selectRaw('lower(mit_subdomain) as s, COUNT(*) as n')->whereNotNull('mit_subdomain')->groupBy('s')->pluck('n', 's');
+        $rows = [];
+        foreach ($mit['domains'] ?? [] as $d) {
+            $cells = [];
+            foreach ($d['subdomains'] ?? [] as $sd) {
+                $value = $measure === 'incidents' ? (int) ($incBySub[mb_strtolower(trim($sd['name']))] ?? 0) : (int) ($riskBySub[$sd['id']] ?? 0);
+                $cells[] = ['label' => $sd['id'].' '.$sd['name'], 'short' => $sd['id'], 'url' => route('risk.subdomain', [$d['id'], $sd['id']]), 'value' => $value];
+            }
+            $rows[] = ['label' => $d['id'].'. '.$d['name'], 'url' => route('risk.domain', $d['id']), 'total' => array_sum(array_column($cells, 'value')), 'cells' => $cells];
+        }
+
+        return $rows;
     }
 
     public function domain(string $domain): View

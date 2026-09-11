@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- MIT AI Risk drilldown: subdomain profile pages (`/ai-risk/{domain}/{subdomain}`) with the repository's definition, causal entity, intent, timing and level breakdowns, incidents per year, the frameworks that cite the subdomain, paginated risk entries and recent incidents; domain→subdomain treemaps on the AI risk hub sized by risk entries and by recorded incidents; subdomain pages in the sitemap.
+
+### Added
 - Incident profiles list the news reports the AI Incident Database catalogues for that incident (6,434 reports across 1,647 incidents): date, title linked to the publisher, source, authors and the AIID report number. Metadata only; synced weekly from the AIID backup by `external:sync-aiid-reports`.
 
 ### Changed

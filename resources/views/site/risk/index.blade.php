@@ -54,6 +54,14 @@
         </aside>
     </section>
 
+    <section class="mt-12" aria-labelledby="explore-heading">
+        <div class="rule-strong pt-3"><h2 id="explore-heading" class="section-title">Explore: domains and subdomains</h2></div>
+        <p class="mt-2 max-w-[64ch] text-sm text-brand-body">Each band is a domain; each block a subdomain, sized by how much of the evidence it carries. Click a block for its definition, causal breakdowns, frameworks, risk entries and incidents.</p>
+        <div class="mt-4 grid gap-6 lg:grid-cols-2">
+            <x-site.treemap :rows="$treemapRisks" title="Risk entries by subdomain (MIT AI Risk Repository)" note="2,500 entries from 74 frameworks, coded to a subdomain" />
+            <x-site.treemap :rows="$treemapIncidents" title="Recorded incidents by subdomain (AI Incident Database)" note="Incidents classified with the MIT taxonomy only" />
+        </div>
+    </section>
     <x-site.attribution class="mt-12" :name="$mit['source'] ?? 'MIT AI Risk Repository'" :url="$mit['source_url'] ?? 'https://airisk.mit.edu/'" :license="$mit['license'] ?? 'CC BY 4.0'" :licenseUrl="$mit['license_url'] ?? 'https://creativecommons.org/licenses/by/4.0/'" :citation="$mit['citation'] ?? null" :note="$mit['changes_note'] ?? null" />
     <x-site.attribution class="mt-3" :name="$aiid['source'] ?? 'AI Incident Database'" :url="$aiid['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$aiid['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$aiid['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$aiid['citation'] ?? null" :date="$aiid['snapshot_date'] ?? null" note="Aggregates only; report texts are not reproduced." />
     <x-site.disclaimer class="mt-6" />

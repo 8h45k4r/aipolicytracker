@@ -398,7 +398,11 @@ class PublicSiteTest extends TestCase
         $this->assertSame(\App\Models\ExternalRisk::count(), count(json_decode(file_get_contents(base_path('data/external/mit_risks.json')), true)['risks']));
 
         $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
-        $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents');
+        $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents')->assertSee(route('risk.subdomain', [1, '1.1']));
+        $this->get('/ai-risk')->assertOk()->assertSee('Explore: domains and subdomains')->assertSee(route('risk.subdomain', [2, '2.1']));
+        $this->get('/ai-risk/2/2.1')->assertOk()->assertSee('Compromise of privacy')->assertSee('Causal entity (risk entries)')->assertSee('Frameworks covering this subdomain')->assertSee('Recent incidents');
+        $this->get('/ai-risk/2/9.9')->assertNotFound();
+        $this->get('/sitemap-static.xml')->assertOk()->assertSee(route('risk.subdomain', [2, '2.1']));
         $this->get('/ai-risk/risks?domain=2&entity=Human')->assertOk()->assertSee('Privacy')->assertSee('noindex', false);
         $this->get('/ai-risk/risks?q=zzzz-no-such-term')->assertOk()->assertSee('No risks match');
         $this->get('/ai-risk/frameworks')->assertOk()->assertSee('Risk entries');
