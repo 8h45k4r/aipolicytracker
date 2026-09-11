@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Weekly email digest: double opt-in subscribe form (home, change log, jurisdiction pages), branded confirmation and digest emails with one-click unsubscribe, `digest:send` command and a weekly workflow trigger secured by a token.
+- New admin (Blade) at `/backend/dashboard`: live counts from the structured model, submissions and feedback with review decisions, subscribers (export CSV, re-send confirmation, delete), external-data status, and a Settings page where the Resend API key, mail transport and cron token are stored encrypted and applied without redeploying. Legacy React admin remains under "Legacy (map data)".
+
 ### Fixed
 - Legacy login, register and verify-email pages now use the navy primary and open "Go to home" as a full page load instead of an Inertia visit (which rendered the server-side home page inside a frame).
 
