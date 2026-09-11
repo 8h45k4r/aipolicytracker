@@ -1,0 +1,78 @@
+slug: malaysia-national-artificial-intelligence-roadmap-2021-2025
+jurisdiction: malaysia
+title: National Artificial Intelligence Roadmap 2021-2025 (AI-Rmap)
+short_title: National Artificial Intelligence Roadmap 2021-2025
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Exact adoption/launch date not stated on official pages; the MASTIC file is dated 19 Oct 2021 and third-party
+  trackers cite adoption on 1 Dec 2021, so 2021-12-01 is used as a month-level date. Superseded in 2026 by the Ministry
+  of Digital's AI Nation 2030 direction.
+is_binding: false
+featured: false
+published: true
+issuing_body: Ministry of Science, Technology and Innovation (MOSTI)
+summary_plain: >-
+  Malaysia's five-year AI roadmap developed by MOSTI through a quadruple-helix consultation. It sets strategic thrusts
+  on governance, R&D, infrastructure, talent and adoption, and identifies national use cases in five priority sectors:
+  agriculture and forestry, healthcare, smart cities and transport, education and public services. It is guided
+  by responsible AI principles including fairness, transparency, accountability and privacy.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of Science, Technology and Innovation
+  (MOSTI). Oversight: MOSTI with Malaysia Digital Economy Corporation. Stated purpose: Build a national AI innovation
+  ecosystem to raise productivity and competitiveness.
+key_dates_summary: >-
+  2021-12-01: AI-Rmap 2021-2025 adopted by MOSTI; 2024-09-01: National Guidelines on AI Governance and Ethics issued
+  under the roadmap
+adopted_on: '2021-12-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Artificial Intelligence Roadmap 2021-2025 (AI-Rmap)
+  publisher: Ministry of Science, Technology and Innovation, Malaysia
+  url: >-
+    https://www.mosti.gov.my/en/berita/malaysias-national-artificial-intelligence-ai-roadmap-2021-2025/
+  document_date: '2021-12-01'
+  document_type: strategy
+  tier: 1
+- title: AI-Rmap 2021-2025 adopted by MOSTI
+  publisher: Ministry of Science, Technology and Innovation, Malaysia
+  url: https://mastic.mosti.gov.my/publication/artificial-intelligence-roadmap-2021-2025/
+  document_date: '2021-12-01'
+  document_type: official
+  tier: 1
+- title: National Guidelines on AI Governance and Ethics issued under the roadmap
+  publisher: Ministry of Science, Technology and Innovation, Malaysia
+  url: https://mastic.mosti.gov.my/publication/the-national-guidelines-on-ai-governance-ethics/
+  document_date: '2024-09-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.mosti.gov.my/en/berita/malaysias-national-artificial-intelligence-ai-roadmap-2021-2025/
+source_title: National Artificial Intelligence Roadmap 2021-2025 (AI-Rmap)
+source_publisher: Ministry of Science, Technology and Innovation, Malaysia
+source_document_date: '2021-12-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

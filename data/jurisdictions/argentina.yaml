@@ -1,0 +1,58 @@
+slug: argentina
+name: Argentina
+short_name: Argentina
+iso_code: AR
+jurisdiction_type: country
+region: Americas
+subregion: South America
+featured: false
+published: true
+overview: >-
+  Disposición 2/2023 approves a set of recommendations for trustworthy AI addressed to projects designed, developed
+  or adopted by the national public sector, together with a diagram of the stages of an AI project. This administrative
+  decision restructures the Interministerial Board on AI originally created in 2023, placing it under the presidency
+  of the Secretariat of Innovation, Science and Technology and expanding its membership to ministries including
+  Defence, Economy, Foreign Affairs, Health, Security, Human Capital, Justice and State Deregulation.
+regulatory_status_summary: >-
+  Instruments on record: Disposición 2/2023 (2023, regulation, in force); Decisión Administrativa 899/2024 (2024,
+  regulation, in force). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: Disposición 2/2023, Decisión Administrativa 899/2024. Strategy or guidance: none recorded.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    Disposición 2/2023 – Recomendaciones para una Inteligencia Artificial Fiable (Disposition 2/2023 – Recommendations
+    for Trustworthy Artificial Intelligence)
+  publisher: Argentina.gob.ar (Jefatura de Gabinete de Ministros)
+  url: https://www.argentina.gob.ar/normativa/nacional/disposición-2-2023-384656/texto
+  document_date: '2023-06-02'
+  document_type: legislation
+  tier: 1
+- title: >-
+    Decisión Administrativa 899/2024 – Mesa Interministerial sobre Inteligencia Artificial (Administrative Decision
+    899/2024 – Interministerial Board on Artificial Intelligence)
+  publisher: Boletín Oficial de la República Argentina
+  url: https://www.boletinoficial.gob.ar/detalleAviso/primera/314465/20240924
+  document_date: '2024-09-24'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.argentina.gob.ar/normativa/nacional/disposición-2-2023-384656/texto
+source_title: >-
+  Disposición 2/2023 – Recomendaciones para una Inteligencia Artificial Fiable (Disposition 2/2023 – Recommendations
+  for Trustworthy Artificial Intelligence)
+source_publisher: Argentina.gob.ar (Jefatura de Gabinete de Ministros)
+source_document_date: '2023-06-02'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

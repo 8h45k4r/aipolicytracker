@@ -265,3 +265,832 @@ changes:
     confidence_level: low
     content_version: 1
     change_summary: Date and document link to be confirmed by reviewer.
+  - slug: 2025-05-20-bahrain-general-policy-for-the-use-of-artificial-intelligence
+    jurisdiction: bahrain
+    policy: bahrain-general-policy-for-the-use-of-artificial-intelligence
+    occurred_on: '2025-05-20'
+    title: Policy version 1.0 first release date (per document)
+    what_changed: >-
+      Milestone recorded for General Policy for the Use of Artificial Intelligence (Bahrain): Policy version 1.0 first
+      release date (per document). Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.iga.gov.bh/Media/Publications/National%20Digital%20Policies/General%20Policy%20for%20the%20Use%20of%20AI%20-%20%20Final%2030%20Jul%202025.pdf
+    source_title: Policy version 1.0 first release date (per document)
+    source_publisher: Information & eGovernment Authority, Kingdom of Bahrain
+    source_document_date: '2025-05-20'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-07-27-bahrain-general-policy-for-the-use-of-artificial-intelligence
+    jurisdiction: bahrain
+    policy: bahrain-general-policy-for-the-use-of-artificial-intelligence
+    occurred_on: '2025-07-27'
+    title: >-
+      iGA publicly launches the National Policy for the Use of AI and adopts the GCC AI ethics manual
+    what_changed: >-
+      Milestone recorded for General Policy for the Use of Artificial Intelligence (Bahrain): iGA publicly launches
+      the National Policy for the Use of AI and adopts the GCC AI ethics manual. Recorded from the official source
+      listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.iga.gov.bh/en/article/bahrain-launches-national-ai-policy-and-adopts-gcc-ethics-manual
+    source_title: >-
+      iGA publicly launches the National Policy for the Use of AI and adopts the GCC AI ethics manual
+    source_publisher: Information & eGovernment Authority, Kingdom of Bahrain
+    source_document_date: '2025-07-27'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-10-01-bhutan-bhutan-national-ai-strategy-2025
+    jurisdiction: bhutan
+    policy: bhutan-bhutan-national-ai-strategy-2025
+    occurred_on: '2025-10-01'
+    title: NAIS 2025 published in GovTech Agency's official publications list
+    what_changed: >-
+      Milestone recorded for Bhutan National AI Strategy 2025 (Bhutan): NAIS 2025 published in GovTech Agency's official
+      publications list. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://tech.gov.bt/publications/
+    source_title: NAIS 2025 published in GovTech Agency's official publications list
+    source_publisher: GovTech Agency, Royal Government of Bhutan
+    source_document_date: '2025-10-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-03-17-brazil-projeto-de-lei-n-2338-2023
+    jurisdiction: brazil
+    policy: brazil-projeto-de-lei-n-2338-2023
+    occurred_on: '2025-03-17'
+    title: Sent to the Chamber of Deputies for review; special committee subsequently created
+    what_changed: >-
+      Milestone recorded for Projeto de Lei nº 2338/2023 (Brazil): Sent to the Chamber of Deputies for review; special
+      committee subsequently created. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www2.camara.leg.br/atividade-legislativa/comissoes/comissoes-temporarias/especiais/57a-legislatura/comissao-especial-sobre-inteligencia-artificial-pl-2338-23
+    source_title: Sent to the Chamber of Deputies for review; special committee subsequently created
+    source_publisher: Senado Federal
+    source_document_date: '2025-03-17'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-04-01-chile-pol-tica-nacional-de-inteligencia-artificial
+    jurisdiction: chile
+    policy: chile-pol-tica-nacional-de-inteligencia-artificial
+    occurred_on: '2025-04-01'
+    title: >-
+      Action plan progress report: 78% of 177 initiatives implemented or completed (as of April 2025)
+    what_changed: >-
+      Milestone recorded for Política Nacional de Inteligencia Artificial (Chile): Action plan progress report: 78%
+      of 177 initiatives implemented or completed (as of April 2025). Recorded from the official source listed; details
+      to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/politica-Nacional-Inteligencia-Artificial-Plan-Accion/
+    source_title: >-
+      Action plan progress report: 78% of 177 initiatives implemented or completed (as of April 2025)
+    source_publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
+    source_document_date: '2025-04-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-10-24-chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-bolet-n-16821-19
+    jurisdiction: chile
+    policy: chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-bolet-n-16821-19
+    occurred_on: '2025-10-24'
+    title: Senate assigns bill (second constitutional stage) to the Future Challenges Committee
+    what_changed: >-
+      Milestone recorded for Proyecto de ley que regula los sistemas de inteligencia artificial, Boletín 16821-19
+      (Chile): Senate assigns bill (second constitutional stage) to the Future Challenges Committee. Recorded from
+      the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.senado.cl/comunicaciones/noticias/proyecto-que-regula-sistemas-de-inteligencia-artificial-sera-estudiado-por
+    source_title: Senate assigns bill (second constitutional stage) to the Future Challenges Committee
+    source_publisher: Senado de la República de Chile
+    source_document_date: '2025-10-24'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-03-14-china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+    jurisdiction: china
+    policy: china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+    occurred_on: '2025-03-14'
+    title: Measures published
+    what_changed: >-
+      Milestone recorded for Measures for Labeling Artificial Intelligence-Generated and Synthetic Content (China):
+      Measures published. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm
+    source_title: Measures published
+    source_publisher: Cyberspace Administration of China
+    source_document_date: '2025-03-14'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-09-01-china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+    jurisdiction: china
+    policy: china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+    occurred_on: '2025-09-01'
+    title: Measures enter into force
+    what_changed: >-
+      Milestone recorded for Measures for Labeling Artificial Intelligence-Generated and Synthetic Content (China):
+      Measures enter into force. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm
+    source_title: Measures enter into force
+    source_publisher: Cyberspace Administration of China
+    source_document_date: '2025-09-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-08-26-china-opinions-of-the-state-council-on-deepening-the-implementation-of-the-ai-plus-action
+    jurisdiction: china
+    policy: china-opinions-of-the-state-council-on-deepening-the-implementation-of-the-ai-plus-action
+    occurred_on: '2025-08-26'
+    title: Opinions issued by the State Council (document dated 21 August 2025)
+    what_changed: >-
+      Milestone recorded for Opinions of the State Council on Deepening the Implementation of the 'AI Plus' Action
+      (China): Opinions issued by the State Council (document dated 21 August 2025). Recorded from the official source
+      listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.gov.cn/zhengce/content/202508/content_7037861.htm
+    source_title: Opinions issued by the State Council (document dated 21 August 2025)
+    source_publisher: Central People's Government of the PRC (gov.cn)
+    source_document_date: '2025-08-26'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-02-14-colombia-documento-conpes-4144
+    jurisdiction: colombia
+    policy: colombia-documento-conpes-4144
+    occurred_on: '2025-02-14'
+    title: CONPES 4144 approved by the National Council for Economic and Social Policy
+    what_changed: >-
+      Milestone recorded for Documento CONPES 4144 (Colombia): CONPES 4144 approved by the National Council for Economic
+      and Social Policy. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://normograma.mintic.gov.co/mintic/compilacion/docs/CONPES_DNP_4144_2025.htm
+    source_title: CONPES 4144 approved by the National Council for Economic and Social Policy
+    source_publisher: >-
+      Ministerio de Tecnologías de la Información y las Comunicaciones (normograma) – DNP document
+    source_document_date: '2025-02-14'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-01-01-egypt-national-ai-strategy
+    jurisdiction: egypt
+    policy: egypt-national-ai-strategy
+    occurred_on: '2025-01-01'
+    title: Second edition published by MCIT (January 2025)
+    what_changed: >-
+      Milestone recorded for National AI Strategy (Egypt): Second edition published by MCIT (January 2025). Recorded
+      from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://mcit.gov.eg/Upcont/Documents/Publications_2212025000_National_AI_Strategy_Second_Edition_2025_2030.pdf
+    source_title: Second edition published by MCIT (January 2025)
+    source_publisher: Ministry of Communications and Information Technology, Egypt
+    source_document_date: '2025-01-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-10-08-eu-apply-ai-strategy
+    jurisdiction: eu
+    policy: eu-apply-ai-strategy
+    occurred_on: '2025-10-08'
+    title: Commission presents the Apply AI Strategy and AI in Science Strategy
+    what_changed: >-
+      Milestone recorded for Apply AI Strategy (European Union): Commission presents the Apply AI Strategy and AI
+      in Science Strategy. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://digital-strategy.ec.europa.eu/en/news/commission-launches-two-strategies-speed-ai-uptake-european-industry-and-science
+    source_title: Commission presents the Apply AI Strategy and AI in Science Strategy
+    source_publisher: European Commission, Shaping Europe's digital future
+    source_document_date: '2025-10-08'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-05-02-ghana-ghana-national-artificial-intelligence-strategy
+    jurisdiction: ghana
+    policy: ghana-ghana-national-artificial-intelligence-strategy
+    occurred_on: '2025-05-02'
+    title: Minister announces development of National AI Strategy and stakeholder consultation
+    what_changed: >-
+      Milestone recorded for Ghana National Artificial Intelligence Strategy (Ghana): Minister announces development
+      of National AI Strategy and stakeholder consultation. Recorded from the official source listed; details to be
+      expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://moc.gov.gh/2025/05/02/ghana-to-develop-national-ai-strategy-initiative-amid-digital-transformation-push/
+    source_title: Minister announces development of National AI Strategy and stakeholder consultation
+    source_publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
+    source_document_date: '2025-05-02'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-11-05-india-indiaai-mission
+    jurisdiction: india
+    policy: india-indiaai-mission
+    occurred_on: '2025-11-05'
+    title: MeitY releases India AI Governance Guidelines under the IndiaAI Mission
+    what_changed: >-
+      Milestone recorded for IndiaAI Mission (India): MeitY releases India AI Governance Guidelines under the IndiaAI
+      Mission. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2186639
+    source_title: MeitY releases India AI Governance Guidelines under the IndiaAI Mission
+    source_publisher: Press Information Bureau, Government of India (Cabinet decision)
+    source_document_date: '2025-11-05'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-06-04-japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-techn
+    jurisdiction: japan
+    policy: >-
+      japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-technolo
+    occurred_on: '2025-06-04'
+    title: Promulgated as Act No. 53 of 2025; general provisions in force on promulgation
+    what_changed: >-
+      Milestone recorded for Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related
+      Technology (Japan): Promulgated as Act No. 53 of 2025; general provisions in force on promulgation. Recorded
+      from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.japaneselawtranslation.go.jp/en/laws/view/5066/en
+    source_title: Promulgated as Act No. 53 of 2025; general provisions in force on promulgation
+    source_publisher: Japanese Law Translation Database (Ministry of Justice)
+    source_document_date: '2025-06-04'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-09-01-japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-techn
+    jurisdiction: japan
+    policy: >-
+      japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-technolo
+    occurred_on: '2025-09-01'
+    title: >-
+      Chapters III and IV (Strategy Headquarters and Basic Plan) brought into effect by Cabinet Order
+    what_changed: >-
+      Milestone recorded for Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related
+      Technology (Japan): Chapters III and IV (Strategy Headquarters and Basic Plan) brought into effect by Cabinet
+      Order. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www8.cao.go.jp/cstp/ai/ai_hou_gaiyou_en.pdf
+    source_title: >-
+      Chapters III and IV (Strategy Headquarters and Basic Plan) brought into effect by Cabinet Order
+    source_publisher: Japanese Law Translation Database (Ministry of Justice)
+    source_document_date: '2025-09-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-12-23-japan-artificial-intelligence-basic-plan
+    jurisdiction: japan
+    policy: japan-artificial-intelligence-basic-plan
+    occurred_on: '2025-12-23'
+    title: First AI Basic Plan adopted by Cabinet decision
+    what_changed: >-
+      Milestone recorded for Artificial Intelligence Basic Plan (Japan): First AI Basic Plan adopted by Cabinet decision.
+      Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www8.cao.go.jp/cstp/ai/ai_plan/ai_plan.html
+    source_title: First AI Basic Plan adopted by Cabinet decision
+    source_publisher: Cabinet Office, Government of Japan
+    source_document_date: '2025-12-23'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-01-14-kenya-kenya-artificial-intelligence-strategy-2025-2030
+    jurisdiction: kenya
+    policy: kenya-kenya-artificial-intelligence-strategy-2025-2030
+    occurred_on: '2025-01-14'
+    title: Draft strategy released for public validation
+    what_changed: >-
+      Milestone recorded for Kenya Artificial Intelligence Strategy 2025-2030 (Kenya): Draft strategy released for
+      public validation. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://ict.go.ke/sites/default/files/2025-01/Kenya%20National%20AI%20Strategy%20(Draft)%20for%20Public%20Validation%20%20[14-01-2025].pdf
+    source_title: Draft strategy released for public validation
+    source_publisher: Ministry of Information, Communications and the Digital Economy
+    source_document_date: '2025-01-14'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-03-27-kenya-kenya-artificial-intelligence-strategy-2025-2030
+    jurisdiction: kenya
+    policy: kenya-kenya-artificial-intelligence-strategy-2025-2030
+    occurred_on: '2025-03-27'
+    title: Strategy launched at KICC, Nairobi; final PDF published
+    what_changed: >-
+      Milestone recorded for Kenya Artificial Intelligence Strategy 2025-2030 (Kenya): Strategy launched at KICC,
+      Nairobi; final PDF published. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://ict.go.ke/sites/default/files/2025-03/Kenya%20AI%20Strategy%202025%20-%202030.pdf
+    source_title: Strategy launched at KICC, Nairobi; final PDF published
+    source_publisher: Ministry of Information, Communications and the Digital Economy
+    source_document_date: '2025-03-27'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-04-30-mexico-iniciativa-con-proyecto-de-decreto-por-el-que-se-expide-la-ley-federal-para-el-desarrollo-tico-sober
+    jurisdiction: mexico
+    policy: >-
+      mexico-iniciativa-con-proyecto-de-decreto-por-el-que-se-expide-la-ley-federal-para-el-desarrollo-tico-soberano
+    occurred_on: '2025-04-30'
+    title: Initiative published in the Gaceta Parlamentaria and turned to committee
+    what_changed: >-
+      Milestone recorded for Iniciativa con proyecto de decreto por el que se expide la Ley Federal para el Desarrollo
+      Ético, Soberano e Inclusivo de (Mexico): Initiative published in the Gaceta Parlamentaria and turned to committee.
+      Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://gaceta.diputados.gob.mx/PDF/66/2025/abr/20250430-II-1-2.pdf
+    source_title: Initiative published in the Gaceta Parlamentaria and turned to committee
+    source_publisher: Sistema de Información Legislativa, Secretaría de Gobernación
+    source_document_date: '2025-04-30'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-08-14-pakistan-national-artificial-intelligence-policy-2025
+    jurisdiction: pakistan
+    policy: pakistan-national-artificial-intelligence-policy-2025
+    occurred_on: '2025-08-14'
+    title: MoITT press release confirms National AI Policy 2025 approved
+    what_changed: >-
+      Milestone recorded for National Artificial Intelligence Policy 2025 (Pakistan): MoITT press release confirms
+      National AI Policy 2025 approved. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://pid.gov.pk/site/press_detail/30025
+    source_title: MoITT press release confirms National AI Policy 2025 approved
+    source_publisher: Ministry of Information Technology and Telecommunication, Government of Pakistan
+    source_document_date: '2025-08-14'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-09-09-peru-ley-n-31814
+    jurisdiction: peru
+    policy: peru-ley-n-31814
+    occurred_on: '2025-09-09'
+    title: Implementing regulation (DS 115-2025-PCM) published
+    what_changed: >-
+      Milestone recorded for Ley N° 31814 (Peru): Implementing regulation (DS 115-2025-PCM) published. Recorded from
+      the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.gob.pe/institucion/pcm/normas-legales/7133522-115-2025-pcm
+    source_title: Implementing regulation (DS 115-2025-PCM) published
+    source_publisher: Diario Oficial El Peruano
+    source_document_date: '2025-09-09'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-09-09-peru-decreto-supremo-n-115-2025-pcm
+    jurisdiction: peru
+    policy: peru-decreto-supremo-n-115-2025-pcm
+    occurred_on: '2025-09-09'
+    title: DS 115-2025-PCM published in El Peruano
+    what_changed: >-
+      Milestone recorded for Decreto Supremo N° 115-2025-PCM (Peru): DS 115-2025-PCM published in El Peruano. Recorded
+      from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.gob.pe/institucion/pcm/normas-legales/7133522-115-2025-pcm
+    source_title: DS 115-2025-PCM published in El Peruano
+    source_publisher: Diario Oficial El Peruano
+    source_document_date: '2025-09-09'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-04-30-philippines-national-ai-strategy-roadmap-2-0
+    jurisdiction: philippines
+    policy: philippines-national-ai-strategy-roadmap-2-0
+    occurred_on: '2025-04-30'
+    title: DOST proposes a successor National AI Strategy for the Philippines (NAIS-PH)
+    what_changed: >-
+      Milestone recorded for National AI Strategy Roadmap 2.0 (Philippines): DOST proposes a successor National AI
+      Strategy for the Philippines (NAIS-PH). Recorded from the official source listed; details to be expanded by
+      a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.dost.gov.ph/knowledge-resources/news/86-2025-news/3989-dost-builds-on-ai-national-strategy.html
+    source_title: DOST proposes a successor National AI Strategy for the Philippines (NAIS-PH)
+    source_publisher: Department of Trade and Industry, Philippines
+    source_document_date: '2025-04-30'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-04-30-philippines-national-ai-strategy-for-the-philippines
+    jurisdiction: philippines
+    policy: philippines-national-ai-strategy-for-the-philippines
+    occurred_on: '2025-04-30'
+    title: DOST Secretary presents NAIS-PH at National Innovation Day
+    what_changed: >-
+      Milestone recorded for National AI Strategy for the Philippines (Philippines): DOST Secretary presents NAIS-PH
+      at National Innovation Day. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.dost.gov.ph/knowledge-resources/news/86-2025-news/3989-dost-builds-on-ai-national-strategy.html
+    source_title: DOST Secretary presents NAIS-PH at National Innovation Day
+    source_publisher: Department of Science and Technology, Philippines
+    source_document_date: '2025-04-30'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-05-01-saudi-arabia-ai-ethics-principles
+    jurisdiction: saudi-arabia
+    policy: saudi-arabia-ai-ethics-principles
+    occurred_on: '2025-05-01'
+    title: Updated 2025 edition published (document dated May 2025)
+    what_changed: >-
+      Milestone recorded for AI Ethics Principles (Saudi Arabia): Updated 2025 edition published (document dated May
+      2025). Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf
+    source_title: Updated 2025 edition published (document dated May 2025)
+    source_publisher: Saudi Data and Artificial Intelligence Authority
+    source_document_date: '2025-05-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-01-21-south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-f
+    jurisdiction: south-korea
+    policy: >-
+      south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
+    occurred_on: '2025-01-21'
+    title: Promulgated as Act No. 20676
+    what_changed: >-
+      Milestone recorded for Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation
+      for Trust (South Korea): Promulgated as Act No. 20676. Recorded from the official source listed; details to
+      be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
+    source_title: Promulgated as Act No. 20676
+    source_publisher: Korea Ministry of Government Legislation, National Law Information Center
+    source_document_date: '2025-01-21'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-06-11-thailand-draft-principles-of-the-law-on-artificial-intelligence
+    jurisdiction: thailand
+    policy: thailand-draft-principles-of-the-law-on-artificial-intelligence
+    occurred_on: '2025-06-11'
+    title: ETDA opens public hearing on draft AI law principles (comments to 24 June 2025)
+    what_changed: >-
+      Milestone recorded for (Draft) Principles of the Law on Artificial Intelligence (Thailand): ETDA opens public
+      hearing on draft AI law principles (comments to 24 June 2025). Recorded from the official source listed; details
+      to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.etda.or.th/th/pr-news/law_ai.aspx
+    source_title: ETDA opens public hearing on draft AI law principles (comments to 24 June 2025)
+    source_publisher: Electronic Transactions Development Agency (ETDA), Thailand
+    source_document_date: '2025-06-11'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-01-13-uk-ai-opportunities-action-plan
+    jurisdiction: uk
+    policy: uk-ai-opportunities-action-plan
+    occurred_on: '2025-01-13'
+    title: Action Plan and government response published
+    what_changed: >-
+      Milestone recorded for AI Opportunities Action Plan (United Kingdom): Action Plan and government response published.
+      Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.gov.uk/government/publications/ai-opportunities-action-plan/ai-opportunities-action-plan
+    source_title: Action Plan and government response published
+    source_publisher: GOV.UK (Department for Science, Innovation and Technology)
+    source_document_date: '2025-01-13'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-02-10-uk-artificial-intelligence-playbook-for-the-uk-government
+    jurisdiction: uk
+    policy: uk-artificial-intelligence-playbook-for-the-uk-government
+    occurred_on: '2025-02-10'
+    title: AI Playbook published, superseding the Generative AI Framework for HMG
+    what_changed: >-
+      Milestone recorded for Artificial Intelligence Playbook for the UK Government (United Kingdom): AI Playbook
+      published, superseding the Generative AI Framework for HMG. Recorded from the official source listed; details
+      to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government
+    source_title: AI Playbook published, superseding the Generative AI Framework for HMG
+    source_publisher: GOV.UK (Government Digital Service)
+    source_document_date: '2025-02-10'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-01-23-us-winning-the-race-america-s-ai-action-plan
+    jurisdiction: us
+    policy: us-winning-the-race-america-s-ai-action-plan
+    occurred_on: '2025-01-23'
+    title: EO 14179 orders an AI action plan within 180 days
+    what_changed: >-
+      Milestone recorded for Winning the Race: America's AI Action Plan (United States): EO 14179 orders an AI action
+      plan within 180 days. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: >-
+      https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/
+    source_title: EO 14179 orders an AI action plan within 180 days
+    source_publisher: The White House
+    source_document_date: '2025-01-23'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-07-23-us-winning-the-race-america-s-ai-action-plan
+    jurisdiction: us
+    policy: us-winning-the-race-america-s-ai-action-plan
+    occurred_on: '2025-07-23'
+    title: Action Plan published (PDF)
+    what_changed: >-
+      Milestone recorded for Winning the Race: America's AI Action Plan (United States): Action Plan published (PDF).
+      Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.whitehouse.gov/wp-content/uploads/2025/07/Americas-AI-Action-Plan.pdf
+    source_title: Action Plan published (PDF)
+    source_publisher: The White House
+    source_document_date: '2025-07-23'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: >-
+      2025-12-10-vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
+    jurisdiction: vietnam
+    policy: >-
+      vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
+    occurred_on: '2025-12-10'
+    title: National Assembly passes the Law on Artificial Intelligence, creating a binding framework
+    what_changed: >-
+      Milestone recorded for National Strategy on Research, Development and Application of Artificial Intelligence
+      to 2030 (Vietnam): National Assembly passes the Law on Artificial Intelligence, creating a binding framework.
+      Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://vanban.chinhphu.vn/?pageid=27160&docid=216334&classid=1&orggroupid=1
+    source_title: National Assembly passes the Law on Artificial Intelligence, creating a binding framework
+    source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+    source_document_date: '2025-12-10'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2025-12-10-vietnam-law-on-artificial-intelligence
+    jurisdiction: vietnam
+    policy: vietnam-law-on-artificial-intelligence
+    occurred_on: '2025-12-10'
+    title: Law No. 134/2025/QH15 passed by the National Assembly
+    what_changed: >-
+      Milestone recorded for Law on Artificial Intelligence (Vietnam): Law No. 134/2025/QH15 passed by the National
+      Assembly. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://congbao.chinhphu.vn/van-ban/luat-so-134-2025-qh15-468694.htm
+    source_title: Law No. 134/2025/QH15 passed by the National Assembly
+    source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
+    source_document_date: '2025-12-10'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.

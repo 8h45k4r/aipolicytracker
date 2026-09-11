@@ -1,0 +1,63 @@
+slug: canada-pan-canadian-artificial-intelligence-strategy
+jurisdiction: canada
+title: Pan-Canadian Artificial Intelligence Strategy
+short_title: Pan-Canadian Artificial Intelligence Strategy
+instrument_type: strategy
+status: adopted
+status_note: >-
+  The ISED page gives launch year 2017 and Budget 2017/2021 funding but not exact dates; 2017-03-22 and 2021-04-19
+  are the federal budget dates and were not shown on the page itself.
+is_binding: false
+featured: false
+published: true
+issuing_body: Innovation, Science and Economic Development Canada
+summary_plain: >-
+  The Pan-Canadian AI Strategy is Canada's national AI strategy, first funded in Budget 2017 with $125 million and
+  delivered largely through CIFAR and three national AI institutes. A second phase from 2021 added funding for commercialisation,
+  standards and computing capacity, with further support in the 2024 Fall Economic Statement. It focuses on attracting
+  and retaining researchers, translating research into industry adoption and promoting responsible AI.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Innovation, Science and Economic Development
+  Canada. Oversight: ISED oversees; CIFAR delivers research and talent pillars with Amii, Mila and the Vector Institute.
+  Stated purpose: Build Canadian AI research capacity, talent and commercialisation.
+key_dates_summary: >-
+  2017-03-22: Strategy funded in Budget 2017 (Phase I, $125 million); 2021-04-19: Phase II announced in Budget 2021
+  ($443.8 million)
+adopted_on: '2017-03-22'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Pan-Canadian Artificial Intelligence Strategy
+  publisher: Innovation, Science and Economic Development Canada
+  url: https://ised-isde.canada.ca/site/ai-strategy/en
+  document_date: '2017-03-22'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://ised-isde.canada.ca/site/ai-strategy/en
+source_title: Pan-Canadian Artificial Intelligence Strategy
+source_publisher: Innovation, Science and Economic Development Canada
+source_document_date: '2017-03-22'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

@@ -1,0 +1,46 @@
+slug: ghana
+name: Ghana
+short_name: Ghana
+iso_code: GH
+jurisdiction_type: country
+region: Africa
+subregion: Western Africa
+featured: false
+published: true
+overview: >-
+  A ten-year national roadmap launched by President Mahama that treats data as a national asset and sets out pillars
+  covering education and skills, infrastructure and compute, data governance, ecosystem development, sector adoption,
+  applied research and public-sector AI.
+regulatory_status_summary: >-
+  Instruments on record: Ghana National Artificial Intelligence Strategy (2026, strategy, adopted). Each is linked
+  to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Ghana National Artificial Intelligence Strategy.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Ghana National Artificial Intelligence Strategy (2025-2035)
+  publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
+  url: >-
+    https://moc.gov.gh/2026/04/24/ghana-launches-national-ai-strategy-to-drive-digital-transformation-and-economic-growth/
+  document_date: '2026-04-24'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://moc.gov.gh/2026/04/24/ghana-launches-national-ai-strategy-to-drive-digital-transformation-and-economic-growth/
+source_title: Ghana National Artificial Intelligence Strategy (2025-2035)
+source_publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
+source_document_date: '2026-04-24'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

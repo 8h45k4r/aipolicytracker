@@ -1,0 +1,65 @@
+slug: uae-uae-strategy-for-artificial-intelligence
+jurisdiction: uae
+title: UAE Strategy for Artificial Intelligence (UAE National Strategy for AI 2031)
+short_title: UAE Strategy for Artificial Intelligence
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Month-only launch date (October 2017); first of month used. The primary strategy PDF on ai.gov.ae and the dedicated
+  u.ae strategy page could not be verified: ai.gov.ae is blocked by Cloudflare from this location and the u.ae strategy
+  page returns 404. The recorded source is the official u.ae overview page that describes the strategy and the AI
+  Council (last updated 8 Jul 2025).
+is_binding: false
+featured: false
+published: true
+issuing_body: UAE Government / Minister of State for Artificial Intelligence
+summary_plain: >-
+  Launched in October 2017, the strategy aims to embed AI across government services and priority sectors such as
+  health, education, transport, energy and space, and to make the UAE a leading AI destination by 2031. Its objectives
+  include AI-friendly legislation, talent development, research capability, data infrastructure and strong governance.
+  The UAE Council for AI was created to drive implementation.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by UAE Government / Minister of State for Artificial
+  Intelligence. Oversight: UAE Council for Artificial Intelligence oversees implementation via committees and sub-councils.
+  Stated purpose: Make the UAE a global AI leader by 2031 as the first project of UAE Centennial 2071.
+key_dates_summary: '2017-10-01: UAE Strategy for Artificial Intelligence launched (October 2017)'
+adopted_on: '2017-10-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: UAE Strategy for Artificial Intelligence (UAE National Strategy for AI 2031)
+  publisher: Official Platform of the UAE Government (u.ae)
+  url: >-
+    https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/artificial-intelligence-in-government-policies
+  document_date: '2017-10-01'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: >-
+  https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/artificial-intelligence-in-government-policies
+source_title: UAE Strategy for Artificial Intelligence (UAE National Strategy for AI 2031)
+source_publisher: Official Platform of the UAE Government (u.ae)
+source_document_date: '2017-10-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

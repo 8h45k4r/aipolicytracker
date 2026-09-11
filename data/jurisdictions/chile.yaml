@@ -1,0 +1,61 @@
+slug: chile
+name: Chile
+short_name: Chile
+iso_code: CL
+jurisdiction_type: country
+region: Americas
+subregion: South America
+featured: false
+published: true
+overview: >-
+  Chile updated its 2021 National AI Policy in 2024, keeping the ten-year horizon to 2031 but reorienting it around
+  ethics, governance and inclusion after a participatory process across the country's regions. Introduced by presidential
+  message in May 2024 and merged with an earlier parliamentary motion (Boletín 15869-19), the bill classifies AI
+  system uses into unacceptable, high, limited and no-evident-risk categories, prohibits certain practices, and
+  sets obligations, incident reporting and sanctions.
+regulatory_status_summary: >-
+  Instruments on record: Política Nacional de Inteligencia Artificial (2024, strategy, adopted); Proyecto de ley
+  que regula los sistemas de inteligencia artificial, Boletín 16821-19 (2024, bill, proposed). Each is linked to
+  its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Política Nacional de Inteligencia Artificial, Proyecto de ley que
+  regula los sistemas de inteligencia artificial, Boletín 16821-19.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    Política Nacional de Inteligencia Artificial – Actualización 2024 y Plan de Acción (National Artificial Intelligence
+    Policy – 2024 Update and Action Plan)
+  publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
+  url: https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/
+  document_date: '2024-05-02'
+  document_type: strategy
+  tier: 1
+- title: >-
+    Proyecto de ley que regula los sistemas de inteligencia artificial, Boletín 16821-19 (Bill regulating artificial
+    intelligence systems, Bulletin 16821-19)
+  publisher: Senado de la República de Chile
+  url: >-
+    https://www.senado.cl/comunicaciones/noticias/proyecto-que-regula-sistemas-de-inteligencia-artificial-sera-estudiado-por
+  document_date: '2024-05-07'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/
+source_title: >-
+  Política Nacional de Inteligencia Artificial – Actualización 2024 y Plan de Acción (National Artificial Intelligence
+  Policy – 2024 Update and Action Plan)
+source_publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
+source_document_date: '2024-05-02'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

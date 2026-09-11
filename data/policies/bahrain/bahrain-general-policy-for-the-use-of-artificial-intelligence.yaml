@@ -1,0 +1,76 @@
+slug: bahrain-general-policy-for-the-use-of-artificial-intelligence
+jurisdiction: bahrain
+title: General Policy for the Use of Artificial Intelligence
+short_title: General Policy for the Use of Artificial Intelligence
+instrument_type: policy
+status: adopted
+status_note: >-
+  Document is dated 20 May 2025 (v1.0) while the iGA announcement is dated 27 July 2025; the announcement date is
+  used. A separate standalone AI regulation bill (38 articles) was approved by the Shura Council in April 2024 and
+  returned by the government for reconsideration, but no official Shura/parliament page could be verified, so it
+  is omitted. A national AI strategy is reported to be in development (iGA) but no official document was found.
+is_binding: false
+featured: false
+published: true
+issuing_body: Information & eGovernment Authority (iGA)
+summary_plain: >-
+  A binding policy for Bahraini government entities structured around four pillars: compliance with AI-related laws
+  and policies (including the Personal Data Protection Law and the GCC AI ethics guide), use and adoption of AI
+  technologies, awareness and education, and local and international cooperation. It defines roles and responsibilities
+  for entities and assigns oversight to iGA. Alongside the policy, Bahrain adopted the GCC Guiding Manual on the
+  Ethics of AI Use.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Information & eGovernment Authority (iGA). Oversight:
+  iGA under the Ministerial Committee for Information Technology and Communication (MCICT). Stated purpose: Ensure
+  safe, ethical and lawful use of AI by government entities in line with Vision 2030.
+key_dates_summary: >-
+  2025-05-20: Policy version 1.0 first release date (per document); 2025-07-27: iGA publicly launches the National
+  Policy for the Use of AI and adopts the GCC AI ethics manual
+adopted_on: '2025-07-27'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: General Policy for the Use of Artificial Intelligence
+  publisher: Information & eGovernment Authority, Kingdom of Bahrain
+  url: >-
+    https://www.iga.gov.bh/Media/Publications/National%20Digital%20Policies/General%20Policy%20for%20the%20Use%20of%20AI%20-%20%20Final%2030%20Jul%202025.pdf
+  document_date: '2025-07-27'
+  document_type: strategy
+  tier: 1
+- title: >-
+    iGA publicly launches the National Policy for the Use of AI and adopts the GCC AI ethics manual
+  publisher: Information & eGovernment Authority, Kingdom of Bahrain
+  url: >-
+    https://www.iga.gov.bh/en/article/bahrain-launches-national-ai-policy-and-adopts-gcc-ethics-manual
+  document_date: '2025-07-27'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: >-
+  https://www.iga.gov.bh/Media/Publications/National%20Digital%20Policies/General%20Policy%20for%20the%20Use%20of%20AI%20-%20%20Final%2030%20Jul%202025.pdf
+source_title: General Policy for the Use of Artificial Intelligence
+source_publisher: Information & eGovernment Authority, Kingdom of Bahrain
+source_document_date: '2025-07-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

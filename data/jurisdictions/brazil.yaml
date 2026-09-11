@@ -1,0 +1,57 @@
+slug: brazil
+name: Brazil
+short_name: Brazil
+iso_code: BR
+jurisdiction_type: country
+region: Americas
+subregion: South America
+featured: false
+published: true
+overview: >-
+  PL 2338/2023 is Brazil's flagship AI bill, introduced in the Senate in May 2023 and approved by the Senate plenary
+  on 10 December 2024 after extensive amendment. The PBIA is a four-year national plan that commits around R$23
+  billion to AI infrastructure, skills, public-sector applications, business innovation and governance.
+regulatory_status_summary: >-
+  Instruments on record: Projeto de Lei nº 2338/2023 (2023, bill, proposed); Plano Brasileiro de Inteligência Artificial
+  2024-2028 (2024, strategy, adopted). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Projeto de Lei nº 2338/2023, Plano Brasileiro de Inteligência Artificial
+  2024-2028.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: >-
+    Projeto de Lei nº 2338/2023 – Dispõe sobre o uso da Inteligência Artificial (Bill No. 2338/2023 – On the use
+    of Artificial Intelligence)
+  publisher: Senado Federal
+  url: https://www25.senado.leg.br/web/atividade/materias/-/materia/157233
+  document_date: '2023-05-03'
+  document_type: legislation
+  tier: 1
+- title: >-
+    Plano Brasileiro de Inteligência Artificial 2024-2028 – PBIA (Brazilian Artificial Intelligence Plan 2024-2028)
+  publisher: Ministério da Ciência, Tecnologia e Inovação (gov.br)
+  url: >-
+    https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/transformacaodigital/plano-brasileiro-de-inteligencia-artificial
+  document_date: '2024-07-30'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www25.senado.leg.br/web/atividade/materias/-/materia/157233
+source_title: >-
+  Projeto de Lei nº 2338/2023 – Dispõe sobre o uso da Inteligência Artificial (Bill No. 2338/2023 – On the use of
+  Artificial Intelligence)
+source_publisher: Senado Federal
+source_document_date: '2023-05-03'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

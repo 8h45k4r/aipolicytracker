@@ -1,0 +1,70 @@
+slug: saudi-arabia-ai-ethics-principles
+jurisdiction: saudi-arabia
+title: AI Ethics Principles
+short_title: AI Ethics Principles
+instrument_type: guidance
+status: guidance
+status_note: >-
+  The 2025 PDF is dated 'May 2025' (month only), so first of month used. sdaia.gov.sa rejects some automated fetchers
+  but serves the PDF and pages with HTTP 200 to a browser user-agent.
+is_binding: false
+featured: false
+published: true
+issuing_body: Saudi Data and Artificial Intelligence Authority (SDAIA)
+summary_plain: >-
+  SDAIA's AI Ethics Principles set out ethical principles and associated controls for entities developing, deploying
+  or affected by AI systems in Saudi Arabia, covering fairness, privacy and security, humanity, social and environmental
+  benefit, reliability and safety, transparency, and accountability. The document assigns roles and responsibilities
+  and marks certain controls as binding for public entities. The 2025 edition updates the September 2023 version
+  1.0.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Saudi Data and Artificial Intelligence Authority
+  (SDAIA). Oversight: SDAIA issues and updates the principles and oversees adoption by public entities. Stated purpose:
+  Ensure responsible, safe and rights-respecting AI development and use in the Kingdom.
+key_dates_summary: >-
+  2023-09-01: AI Ethics Principles version 1.0 issued (September 2023); 2025-05-01: Updated 2025 edition published
+  (document dated May 2025)
+adopted_on: '2025-05-01'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI Ethics Principles
+  publisher: Saudi Data and Artificial Intelligence Authority
+  url: https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf
+  document_date: '2025-05-01'
+  document_type: guidance
+  tier: 1
+- title: AI Ethics Principles version 1.0 issued (September 2023)
+  publisher: Saudi Data and Artificial Intelligence Authority
+  url: https://sdaia.gov.sa/en/SDAIA/about/Pages/AboutAI.aspx
+  document_date: '2023-09-01'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf
+source_title: AI Ethics Principles
+source_publisher: Saudi Data and Artificial Intelligence Authority
+source_document_date: '2025-05-01'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

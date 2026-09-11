@@ -1,0 +1,60 @@
+slug: china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+jurisdiction: china
+title: Measures for Labeling Artificial Intelligence-Generated and Synthetic Content
+short_title: Measures for Labeling Artificial Intelligence-Generated and Synthetic Content
+instrument_type: regulation
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Cyberspace Administration of China with MIIT, Ministry of Public Security and NRTA
+summary_plain: >-
+  These measures require providers of AI generation and synthesis services to attach explicit labels (visible text,
+  audio or graphic notices) and implicit labels (embedded metadata) to generated text, images, audio, video and
+  virtual scenes. Platforms distributing content must check for and preserve labels, users must declare AI-generated
+  material, and removing or forging labels is prohibited. Compliance is checked during algorithm filing and security
+  assessments. The measures took effect on 1 September 2025.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Cyberspace Administration of China with MIIT,
+  Ministry of Public Security and NRTA. Oversight: Cyberspace Administration of China coordinates; enforced through
+  algorithm filing and security assessment processes. Stated purpose: Make AI-generated content identifiable to
+  counter misinformation and misuse.
+key_dates_summary: '2025-03-14: Measures published; 2025-09-01: Measures enter into force'
+adopted_on: '2025-03-14'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Measures for Labeling Artificial Intelligence-Generated and Synthetic Content
+  publisher: Cyberspace Administration of China
+  url: https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm
+  document_date: '2025-03-14'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm
+source_title: Measures for Labeling Artificial Intelligence-Generated and Synthetic Content
+source_publisher: Cyberspace Administration of China
+source_document_date: '2025-03-14'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

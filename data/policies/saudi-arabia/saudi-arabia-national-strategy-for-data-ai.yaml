@@ -1,0 +1,61 @@
+slug: saudi-arabia-national-strategy-for-data-ai
+jurisdiction: saudi-arabia
+title: National Strategy for Data & AI
+short_title: National Strategy for Data & AI
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Public launch was at the Global AI Summit in October 2020; the SDAIA page records the approval date of 17 July
+  2020, which is used here.
+is_binding: false
+featured: false
+published: true
+issuing_body: Saudi Data and Artificial Intelligence Authority (SDAIA)
+summary_plain: >-
+  The national strategy, approved by royal decision in July 2020, sets an ambition for Saudi Arabia to be among
+  the leading data- and AI-driven economies through phased milestones to 2030. It targets talent development, welcoming
+  regulation, investment attraction, research and an active ecosystem, with measurable goals such as training data
+  and AI specialists, attracting investment and creating startups.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Saudi Data and Artificial Intelligence Authority
+  (SDAIA). Oversight: SDAIA guides and supervises execution by government entities and runs its own initiatives.
+  Stated purpose: Make the Kingdom a global hub for data and AI in support of Vision 2030.
+key_dates_summary: '2020-07-17: Strategy approved by the King (per SDAIA)'
+adopted_on: '2020-07-17'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: National Strategy for Data & AI
+  publisher: Saudi Data and Artificial Intelligence Authority
+  url: https://sdaia.gov.sa/en/SDAIA/SdaiaStrategies/Pages/NationalStrategyForDataAndAI.aspx
+  document_date: '2020-07-17'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://sdaia.gov.sa/en/SDAIA/SdaiaStrategies/Pages/NationalStrategyForDataAndAI.aspx
+source_title: National Strategy for Data & AI
+source_publisher: Saudi Data and Artificial Intelligence Authority
+source_document_date: '2020-07-17'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

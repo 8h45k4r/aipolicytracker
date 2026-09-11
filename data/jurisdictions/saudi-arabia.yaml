@@ -1,0 +1,52 @@
+slug: saudi-arabia
+name: Saudi Arabia
+short_name: Saudi Arabia
+iso_code: SA
+jurisdiction_type: country
+region: Asia
+subregion: Gulf Cooperation Council
+featured: false
+published: true
+overview: >-
+  The national strategy, approved by royal decision in July 2020, sets an ambition for Saudi Arabia to be among
+  the leading data- and AI-driven economies through phased milestones to 2030. SDAIA's AI Ethics Principles set
+  out ethical principles and associated controls for entities developing, deploying or affected by AI systems in
+  Saudi Arabia, covering fairness, privacy and security, humanity, social and environmental benefit, reliability
+  and safety, transparency, and accountability.
+regulatory_status_summary: >-
+  Instruments on record: National Strategy for Data & AI (2020, strategy, adopted); AI Ethics Principles (2025,
+  guidance, guidance). Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: National Strategy for Data & AI, AI Ethics Principles.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: National Strategy for Data & AI
+  publisher: Saudi Data and Artificial Intelligence Authority
+  url: https://sdaia.gov.sa/en/SDAIA/SdaiaStrategies/Pages/NationalStrategyForDataAndAI.aspx
+  document_date: '2020-07-17'
+  document_type: strategy
+  tier: 1
+- title: AI Ethics Principles
+  publisher: Saudi Data and Artificial Intelligence Authority
+  url: https://sdaia.gov.sa/en/SDAIA/about/Documents/ai-principles.pdf
+  document_date: '2025-05-01'
+  document_type: guidance
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://sdaia.gov.sa/en/SDAIA/SdaiaStrategies/Pages/NationalStrategyForDataAndAI.aspx
+source_title: National Strategy for Data & AI
+source_publisher: Saudi Data and Artificial Intelligence Authority
+source_document_date: '2020-07-17'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.
