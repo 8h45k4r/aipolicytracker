@@ -127,6 +127,8 @@ class PublicSiteTest extends TestCase
         $this->get('/login')->assertOk()->assertSee('Sign in to the admin')->assertSee('data-password-toggle', false)->assertDontSee('Register')->assertSee('brand/logo-on-dark.svg');
         $this->get('/about')->assertOk()->assertSee('Follow on X (Twitter)')->assertSee('Get connected on LinkedIn')->assertSee('https://bhaskar.com.np/');
         $this->get('/')->assertOk()->assertSee('Maintained by');
+    }
+
     public function test_correction_form_is_prefilled_from_the_record_and_captures_field_context(): void
     {
         $this->get('/contribute?type=correction&subject_type=policy&subject_slug=eu-ai-act&field=in_force_on')
