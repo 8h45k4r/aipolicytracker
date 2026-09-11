@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- Tool downloads returned 404 after a clean deploy because the private storage folder was replaced while the file rows survived. The `local` disk root is now configurable (`FILESYSTEM_LOCAL_ROOT`, set to persistent storage in production), the seeder restores missing seeded files at startup, and the download route falls back to the bundled copy.
+
 ### Added
 - Live sync of AI incidents from the AI Incident Database API (`external:sync-aiid-api`): new and modified records with their alleged deployers, developers and harmed parties (with entity identifiers), implicated systems, editor notes, related incidents, MIT and CSET classifications and report metadata are pulled every six hours through the cron trigger, on demand from Admin → External data, and merged into the reviewed JSON by the weekly refresh. `/ai-risk/incidents` lists the latest recorded incidents from the read model with the sync time, each linking to its profile; profiles show editor notes, entity links, implicated systems, related incidents and sync dates. Re-imports of the weekly snapshot never delete or downgrade live-synced rows.
 
