@@ -18,7 +18,7 @@ This audit was written before any implementation change. It records what exists,
 | Rendering | **Client-side only.** Every page is an Inertia component. `resources/views/app.blade.php` ships a static `<title>` and meta, then hydrates React. Inertia SSR is not enabled, so no route renders its data as HTML. |
 | Database | PostgreSQL (Supabase recommended), MySQL, or SQLite. UUID primary keys. |
 | Data source | Admin CMS (`/backend/*`) writing to `ai_policy_trackers`, `countries`, `statuses`, `news`, `contributing_orgs`, `nav_bars`. Seeder `AiPolicyTrackerSeeder` loads **fictional placeholder policies** (fake URLs such as `http://www.ftc.gov/ai-regulation`, dates in 1990/1992/1995). |
-| Deployment | Azure App Service (PHP) behind a Cloudflare Worker (`cloudflare/worker.js`) that proxies `aipolicytracker.org` to `aip-scaffolders.azurewebsites.net`. Dockerfile + `fly.toml` also present. There is no Cloudflare Pages/Workers app, D1, KV, or R2 in use. |
+| Deployment | PHP application behind a CDN edge Worker (`cloudflare/worker.js`); hosting specifics are kept out of the repository. |
 | CI | GitHub Actions: PHP tests + Pint (advisory), ESLint + Vite build, CodeQL, Dependabot. `npm run typecheck` and `npm test` are echo placeholders. |
 | Analytics | Optional GA4 via `GOOGLE_ANALYTICS_ID` (gtag injected in `app.blade.php`, no consent handling, no event tracking). |
 

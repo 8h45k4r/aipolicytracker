@@ -70,3 +70,9 @@ By contributing you agree that your contributions are licensed under the Apache 
 ## Reporting security issues
 
 Please follow `SECURITY.md` rather than opening a public issue.
+
+## Merging into `main`
+
+- `main` is protected: changes arrive only through pull requests with at least one approving review from a code owner, all required checks green (PHP tests, JS build, Gate check), and every review conversation resolved.
+- The **Gate check** workflow fails a pull request whose description does not document the five role gates and the accepted-debt section; use the template.
+- Hosting details (origin hostnames, account or zone identifiers, credentials) never go into the repository. Deploy targets are GitHub Actions variables and secrets; the edge Worker reads its origin from an environment variable.
