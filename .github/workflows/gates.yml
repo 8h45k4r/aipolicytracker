@@ -1,0 +1,26 @@
+name: Gate check
+
+# Every pull request must document the five role gates (Engineering & QA/QC, UI/UX,
+# Documentation, Compliance, Security) and the accepted-debt section. This job fails when a
+# section is missing so the gates cannot be skipped silently. See docs/reference/change-gates.md.
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the pull request description
+        env:
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          missing=""
+          for s in "1. Engineering" "2. UI/UX" "3. Documentation" "4. Compliance" "5. Security" "Accepted debt"; do
+            echo "$BODY" | grep -qi "$s" || missing="$missing\n- $s"
+          done
+          if [ -n "$missing" ]; then printf "::error::Pull request description is missing gate sections:%b\nFill every gate (Pass, N/A with reason, or Debt #n) per docs/reference/change-gates.md.\n" "$missing"; exit 1; fi
+          echo "All five gates and the accepted-debt section are present."
