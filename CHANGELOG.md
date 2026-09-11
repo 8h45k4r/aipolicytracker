@@ -9,6 +9,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Changed
 - Guides filters are a compact bar: search, content-type and access dropdowns, multi-select framework and topic lists, with active filters shown as removable chips.
+### Fixed
+- Scheduled uptime self-heal: every 15 minutes the health endpoint is probed and, if it fails twice, the app is restarted once through the Kudu API (skipped while a deploy is running). Covers the container stalls seen after deploys on the free tier.
 
 ### Security
 - Nonce-based Content-Security-Policy and Cross-Origin-Opener-Policy on every response; PHP version header removed and nginx server tokens hidden. Fifth change gate (Security / VAPT) added to the process with the first assessment recorded in `docs/reference/vapt-2026-09-11.md`.
