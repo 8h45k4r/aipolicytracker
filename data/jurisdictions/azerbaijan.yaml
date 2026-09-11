@@ -1,0 +1,61 @@
+slug: azerbaijan
+name: Azerbaijan
+short_name: Azerbaijan
+iso_code: AZ
+jurisdiction_type: country
+region: Asia
+subregion: Western Asia
+featured: false
+published: true
+overview: >-
+  Azerbaijan approved the Artificial Intelligence Strategy 2025–2028 by presidential decree in March 2025. General law (data
+  protection where enacted, consumer, telecommunications and sector rules) applies to AI systems. This record exists so
+  that coverage is complete and honest: it will be expanded when an official AI instrument is published or a reviewer adds
+  one with its source.
+regulatory_status_summary: >-
+  Azerbaijan approved the Artificial Intelligence Strategy 2025–2028 by presidential decree in March 2025. General law (data
+  protection where enacted, consumer, telecommunications and sector rules) applies to AI systems.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI Strategy 2025–2028.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Treat the absence of an AI-specific instrument as a gap in our records, not as legal certainty; check the government portal
+  and regulator sites linked here.
+regulators:
+- name: President of the Republic of Azerbaijan
+  url: https://president.az/
+  role: Official government portal; AI policy lead not yet identified
+official_sources:
+- title: President of the Republic of Azerbaijan
+  publisher: Government of Azerbaijan
+  url: https://president.az/
+  document_type: official
+  tier: 1
+- title: Data Protection and Privacy Legislation Worldwide (country table)
+  publisher: UNCTAD
+  url: https://unctad.org/page/data-protection-and-privacy-legislation-worldwide
+  document_type: secondary
+  tier: 3
+faq:
+- question: Does Azerbaijan regulate AI?
+  answer: >-
+    Azerbaijan approved the Artificial Intelligence Strategy 2025–2028 by presidential decree in March 2025. General law
+    (data protection where enacted, consumer, telecommunications and sector rules) applies to AI systems. Report an official
+    source through the correction form and a reviewer will add it.
+related_jurisdictions:
+- turkiye
+- kazakhstan
+official_source_url: https://president.az/
+source_title: President of the Republic of Azerbaijan
+source_publisher: Government of Azerbaijan
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.

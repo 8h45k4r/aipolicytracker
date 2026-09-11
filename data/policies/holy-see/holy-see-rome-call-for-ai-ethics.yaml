@@ -1,0 +1,58 @@
+slug: holy-see-rome-call-for-ai-ethics
+jurisdiction: holy-see
+title: Rome Call for AI Ethics (Pontifical Academy for Life, 28 February 2020)
+short_title: Rome Call for AI Ethics
+instrument_type: framework
+status: voluntary_standard
+is_binding: false
+featured: false
+published: true
+issuing_body: Pontifical Academy for Life (RenAIssance Foundation)
+summary_plain: >-
+  A declaration of six principles for the ethical development of AI (transparency, inclusion, responsibility, impartiality,
+  reliability, security and privacy), first signed in February 2020 by the Pontifical Academy for Life, Microsoft, IBM,
+  FAO and the Italian government, and since joined by other religious leaders, universities and companies. It calls for
+  "algor-ethics" and human-centred design and is used as a reference in faith-based and corporate AI ethics commitments.
+scope_summary: Voluntary declaration for signatory organisations; no legal obligations.
+adopted_on: '2020-02-28'
+date_notes: >-
+  Dates are taken from the linked official source; a reviewer should confirm in-force and application dates before relying
+  on them.
+actors:
+- provider
+- deployer
+ai_system_types: []
+sectors:
+- cross_sector
+risk_categories: []
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Rome Call for AI Ethics
+  publisher: RenAIssance Foundation / Pontifical Academy for Life
+  url: https://www.romecall.org/
+  document_date: '2020-02-28'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.romecall.org/
+source_title: Rome Call for AI Ethics
+source_publisher: RenAIssance Foundation / Pontifical Academy for Life
+source_document_date: '2020-02-28'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
+  and scope against the source text.

@@ -1,0 +1,60 @@
+slug: cabo-verde
+name: Cabo Verde
+short_name: Cabo Verde
+iso_code: CV
+jurisdiction_type: country
+region: Africa
+subregion: Western Africa
+featured: false
+published: true
+overview: >-
+  Cabo Verde launched a national AI strategy process in 2024; adoption not confirmed. General law (data protection where
+  enacted, consumer, telecommunications and sector rules) applies to AI systems. This record exists so that coverage is
+  complete and honest: it will be expanded when an official AI instrument is published or a reviewer adds one with its source.
+regulatory_status_summary: >-
+  Cabo Verde launched a national AI strategy process in 2024; adoption not confirmed. General law (data protection where
+  enacted, consumer, telecommunications and sector rules) applies to AI systems.
+binding_vs_guidance: 'Binding: no AI-specific instrument recorded. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+- >-
+  Check data-protection, consumer, employment and sector law that applies to AI systems regardless of AI-specific instruments.
+- >-
+  Treat the absence of an AI-specific instrument as a gap in our records, not as legal certainty; check the government portal
+  and regulator sites linked here.
+regulators:
+- name: Governo de Cabo Verde
+  url: https://www.governo.cv/
+  role: Official government portal; AI policy lead not yet identified
+official_sources:
+- title: Governo de Cabo Verde
+  publisher: Government of Cabo Verde
+  url: https://www.governo.cv/
+  document_type: official
+  tier: 1
+- title: Data Protection and Privacy Legislation Worldwide (country table)
+  publisher: UNCTAD
+  url: https://unctad.org/page/data-protection-and-privacy-legislation-worldwide
+  document_type: secondary
+  tier: 3
+faq:
+- question: Does Cabo Verde regulate AI?
+  answer: >-
+    Cabo Verde launched a national AI strategy process in 2024; adoption not confirmed. General law (data protection where
+    enacted, consumer, telecommunications and sector rules) applies to AI systems. Report an official source through the
+    correction form and a reviewer will add it.
+related_jurisdictions:
+- african-union
+- senegal
+official_source_url: https://www.governo.cv/
+source_title: Governo de Cabo Verde
+source_publisher: Government of Cabo Verde
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the September 2026 global coverage expansion; overview composed from the listed instruments and official sources.
+  Reviewer to confirm regulators and status.
