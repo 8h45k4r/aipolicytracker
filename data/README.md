@@ -19,7 +19,8 @@ data/
 3. Run `php artisan policy:import` — idempotent upsert into the database (also runs on deploy).
 4. Open a pull request using the template; list every changed field with its official source URL.
 5. A reviewer opens each `official_source_url`, confirms the fields, sets `review_status: verified`
-   and `last_verified_at`, and merges.
+   and `last_verified_at`, and merges. Reviewers can also do this in Admin → Review queue; run
+   `php artisan policy:export-verifications` to write those decisions back into these files.
 
 ## Source-of-truth hierarchy (`source_tier`)
 

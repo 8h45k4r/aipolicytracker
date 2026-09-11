@@ -42,6 +42,9 @@ class PolicyImporter
             $this->importChanges();
         });
 
+        // Human verification decisions recorded in the admin outlive every re-import.
+        $this->stats['verifications_applied'] = \App\Models\RecordVerification::applyAll();
+
         return $this->stats;
     }
 
