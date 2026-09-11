@@ -40,12 +40,12 @@ The legacy plaintext `password` column was dropped by migration `2025_09_10_0000
 - **Inbound (policy intelligence):** `reviewer_decisions.reviewer_user_id` → `users.id` ([policy-intelligence.md](policy-intelligence.md)); nullable, set null on user deletion.
 
 - **Outbound:** none.
-- **Inbound:** `user_infos.user_id`; `book_marks.user_id` ([bookmarks.md](bookmarks.md)); `nav_bars.user_id`, `contributing_orgs.user_id` ([site-content.md](site-content.md)); `notifications.notifiable_id`; `a_i_policy_activity_logs.user_id` ([policies.md](policies.md)).
+- **Inbound:** `user_infos.user_id`; `notifications.notifiable_id`; `reviewer_decisions.reviewer_user_id` and `app_settings.updated_by` ([policy-intelligence.md](policy-intelligence.md), [subscribers-and-settings.md](subscribers-and-settings.md)).
 
 ## Admin access
 
-`ADMIN_EMAILS` → `User::isAdmin()` → `CheckAdmin` middleware. `User::scopeNonAdmin` excludes admins from user lists and counts.
+`ADMIN_EMAILS` → `User::isAdmin()` → `CheckAdmin` middleware. `User::scopeNonAdmin` excludes admins from counts.
 
 ## Routes
 
-`routes/auth.php` (Breeze), `profile.*`, admin `backend.users.index|view`.
+`routes/auth.php` (Breeze), `profile.*`.

@@ -26,14 +26,6 @@
             <a href="{{ route($r) }}" class="block rounded-sm px-3 py-2 no-underline {{ request()->routeIs($r) ? 'bg-white/10 text-white' : 'text-white/80 hover:bg-white/5 hover:text-white' }}" @if(request()->routeIs($r)) aria-current="page" @endif>{{ $label }}</a>
             @endforeach
         </nav>
-        @if(config('aipolicytracker.legacy_enabled'))
-        <p class="mt-6 eyebrow !text-white/50">Legacy (map data)</p>
-        <nav class="mt-2 space-y-1 text-sm" aria-label="Legacy admin">
-            @foreach([['backend.ai_policy_tracker.index', 'Map policies'], ['backend.news.index', 'News'], ['backend.country.index', 'Countries'], ['backend.users.index', 'Accounts'], ['backend.header_menu.index', 'Logos']] as [$r, $label])
-            <a href="{{ route($r) }}" class="block rounded-sm px-3 py-1.5 text-white/70 hover:text-white no-underline">{{ $label }}</a>
-            @endforeach
-        </nav>
-        @endif
         <div class="mt-8 text-xs text-white/60">
             <p>{{ auth()->user()->name }}</p>
             <p class="mt-1"><a href="{{ route('home') }}" class="text-white/80 no-underline hover:text-white">Public site</a> · <a href="{{ route('logout') }}" class="text-white/80 no-underline hover:text-white">Sign out</a></p>

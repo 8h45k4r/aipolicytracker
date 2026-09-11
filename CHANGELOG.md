@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Removed
+- Legacy map site and admin CRUD (React/Inertia pages, controllers, models, seeders, the `ai_policies.json` sample dataset and ten database tables). `/map`, `/news`, `/timeline` and `/bookmarks` now redirect permanently to the structured pages; the change log and topic-based digest subscriptions replace news, timeline and bookmarks. Auth, profile and registration are unchanged.
+
 ### Changed
 - Review queue moved into the shared admin layout with a jurisdictions publish table.
 - Legacy map site (`/map`, `/news`, `/timeline`, `/bookmarks`) and its admin CRUD are disabled by default (`LEGACY_MAP_ENABLED=false`); old URLs redirect to the new pages. Audit in `docs/reference/admin-audit.md`.
