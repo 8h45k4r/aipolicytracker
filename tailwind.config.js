@@ -20,13 +20,36 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                // sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                sans: ['"IBM Plex Sans"', ...defaultTheme.fontFamily.sans],
+                display: ['"Source Serif 4"', "Georgia", "Cambria", "serif"],
+                mono: ['"IBM Plex Mono"', ...defaultTheme.fontFamily.mono],
             },
             colors: {
+                // Brand tokens (from the logo). Use these semantic names in templates,
+                // never raw hex values.
+                brand: {
+                    navy: "#002147", // primary
+                    ink: "#00142B", // deepest navy: footer, emphasis
+                    blue: "#006AAC", // links, secondary emphasis
+                    cyan: "#009CE0", // accent, focus rings
+                    sky: "#0099DC",
+                    paper: "#F5F7FA", // tinted surfaces
+                    line: "#D8DEE8", // hairlines
+                    muted: "#5D6B7E", // secondary text
+                    body: "#1E2A3B", // body text
+                },
+                // Semantic state colours for status, impact and verification badges.
+                state: {
+                    good: "#0B6B4F", goodbg: "#E7F4EF",
+                    info: "#006AAC", infobg: "#E6F2FA",
+                    warn: "#7A4B00", warnbg: "#FFF3DC",
+                    bad: "#9B1C2E", badbg: "#FCE9EC",
+                    neutral: "#5D6B7E", neutralbg: "#F5F7FA",
+                },
                 primary: {
-                    light: "#002147",
-                    DEFAULT: "#0f4698",
-                    dark: "#4c1d95",
+                    light: "#006AAC",
+                    DEFAULT: "#002147",
+                    dark: "#00142B",
                 },
                 secondary: {
                     light: "#3b82f6",
