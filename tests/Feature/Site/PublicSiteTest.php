@@ -217,7 +217,7 @@ class PublicSiteTest extends TestCase
         $this->assertSame('vendor-questionnaire.csv', $file->file_name);
         $this->assertSame('CSV', $file->label);
         \Illuminate\Support\Facades\Storage::disk('local')->assertExists($file->disk_path);
-        $this->actingAs($admin)->put('/backend/admin/tools/'.$tool->id, ['title' => $tool->title, 'slug' => $tool->slug, 'type' => 'checklist', 'status' => 'published', 'short' => $tool->short, 'version' => '1.1', 'featured' => 1])->assertRedirect();
+        $this->actingAs($admin)->put('/backend/admin/tools/'.$tool->id, ['title' => $tool->title, 'slug' => $tool->slug, 'type' => 'checklist', 'status' => 'published', 'short' => $tool->short, 'version' => '1.1', 'featured' => 1, 'fields_text' => "Vendor | Legal name\nModel | Model and version", 'frameworks' => ['eu-ai-act']])->assertRedirect();
         $this->get('/guides/tools/vendor-ai-due-diligence')->assertOk()->assertSee('Vendor AI Due Diligence Questionnaire')->assertSee('Legal name')->assertSee('Formats: CSV');
         $this->get('/guides?type=checklist')->assertOk()->assertSee('Vendor AI Due Diligence Questionnaire');
         $this->actingAs($admin)->get('/backend/admin/tools/'.$tool->id.'/files/'.$file->id)->assertOk();
