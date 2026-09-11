@@ -83,7 +83,7 @@ npm run dev                     # Vite with HMR (or npm run build)
 
 3. Run `php artisan migrate --seed` and `php artisan storage:link`.
 
-The seeder creates countries, statuses, the admin account from `ADMIN_*`, the legacy map dataset from `database/data/ai_policies.json` (every entry cites an official source and access date; see `docs/modules/policies.md`), and imports the structured policy records from `data/` (see `docs/modules/policy-intelligence.md`). Re-running is idempotent.
+The seeder creates the admin account from `ADMIN_*`; structured policy records are imported from `data/` with `php artisan policy:import` (see `docs/modules/policy-intelligence.md`). Re-running is idempotent.
 
 If a database was provisioned from this repository's SQL translation of the migrations (for example with the Supabase SQL editor), the `migrations` table is already populated and `php artisan migrate` will report nothing to do.
 
@@ -97,7 +97,6 @@ composer lint                   # Laravel Pint
 composer test                   # PHPUnit (includes public-site, SEO and API tests)
 npm run lint                    # ESLint
 npm run build                   # production assets
-php artisan db:reset            # wipe + migrate + seed (development only)
 ```
 
 ## Environment
