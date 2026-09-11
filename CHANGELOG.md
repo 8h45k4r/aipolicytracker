@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Download-links email after every free-tool download: 24-hour personal links to each format, the related guide and the next-step tool.
+- DOCX versions of the EU AI Act Readiness Checklist, AI Incident Response Checklist and 30-Day Starter Plan.
+- Anonymous daily page-view counts for the guides library and tool pages (no cookies, IPs or user ids) feeding a 30-day funnel on the admin Guides and downloads page: library views, tool views, download clicks, sign-ups from a gate, downloads, second-tool users.
+
 ### Changed
 - Startup clears all Laravel caches (`optimize:clear`) before rebuilding them, so no configuration, route, view or application cache from the previous release survives a deploy.
 
