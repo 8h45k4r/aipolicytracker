@@ -68,6 +68,7 @@ Route::get('/subscribe/confirm/{token}', [SubscribeController::class, 'confirm']
 Route::get('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribe'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.unsubscribe');
 Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribePost'])->where('token', '[A-Za-z0-9]{48}')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('subscribe.unsubscribe.post');
 Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.digest');
+Route::post('/cron/external-sync', [CronController::class, 'externalSync'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.external-sync');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');

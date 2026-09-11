@@ -99,6 +99,7 @@ class RiskBrowseController extends Controller
         $deployer = $i->deployers[0] ?? null;
         $sameDeployer = $deployer ? ExternalIncident::where('incident_id', '!=', $i->incident_id)->where('deployers', 'like', '%'.str_replace(['%', '_'], ['\\%', '\\_'], json_encode($deployer, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)).'%')->orderByDesc('occurred_on')->limit(6)->get() : collect();
         $risks = $subdomainCode ? ExternalRisk::where('subdomain', $subdomainCode)->whereIn('level', ['Risk Category', 'Risk Sub-Category'])->orderBy('quick_ref')->limit(8)->get() : collect();
+        $related = ($ids = $i->similarIds()) ? ExternalIncident::whereIn('incident_id', $ids)->get()->sortBy(fn ($r) => array_search($r->incident_id, $ids, true))->values() : collect();
         $summary = $this->data->aiid();
 
         $seo = Seo::make(
@@ -106,15 +107,15 @@ class RiskBrowseController extends Controller
             mb_substr(($i->description ?: $i->title).' Dated '.$i->occurred_on->format('j F Y').'; '.$i->report_count.' reports on the AI Incident Database.', 0, 155),
             route('risk.incidents.show', $i->incident_id)
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Incidents', route('risk.incidents.browse')], ['#'.$i->incident_id, route('risk.incidents.show', $i->incident_id)]])
-          ->withModified($i->snapshot_date)
+          ->withModified($i->modified_at ?? $i->snapshot_date)
           ->withJsonLd([
               '@context' => 'https://schema.org', '@type' => 'Article', 'headline' => 'AI incident #'.$i->incident_id.': '.$i->title,
-              'datePublished' => $i->occurred_on->toDateString(), 'dateModified' => $i->snapshot_date?->toDateString(),
+              'datePublished' => $i->occurred_on->toDateString(), 'dateModified' => ($i->modified_at ?? $i->snapshot_date)?->toDateString(),
               'isBasedOn' => $i->citeUrl(), 'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
               'publisher' => Seo::organization(), 'about' => array_filter([$i->mit_domain, $i->mit_subdomain]),
           ]);
 
-        return view('site.risk.incident-show', compact('i', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'summary', 'seo', 'deployer'));
+        return view('site.risk.incident-show', compact('i', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
     }
 
     /** Single MIT risk entry with its paper siblings, other frameworks describing the same subdomain, and matching incidents. */

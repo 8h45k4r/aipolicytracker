@@ -74,7 +74,7 @@ npm run dev        # in one terminal
 php artisan serve  # in another
 ```
 
-Useful commands: `php artisan policy:validate`, `php artisan policy:import`, `php artisan external:import`, `php artisan external:sync-aiid`, `php artisan external:sync-mit-risk`, `php artisan digest:send --dry-run`, `composer test`, `composer lint`, `npm run lint`, `npm run build`.
+Useful commands: `php artisan policy:validate`, `php artisan policy:import`, `php artisan external:import`, `php artisan external:sync-aiid`, `php artisan external:sync-aiid-api`, `php artisan external:sync-mit-risk`, `php artisan digest:send --dry-run`, `composer test`, `composer lint`, `npm run lint`, `npm run build`.
 
 `.env.example` lists every variable; nothing deployment-specific is committed.
 

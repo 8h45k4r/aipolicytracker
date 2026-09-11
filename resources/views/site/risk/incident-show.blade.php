@@ -8,7 +8,7 @@
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <a href="{{ $i->citeUrl() }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open on the AI Incident Database</a>
             <a href="{{ $i->reportsUrl() }}" rel="noopener" class="text-brand-body hover:underline" data-track="source_click">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</a>
-            <span class="meta">Snapshot {{ $i->snapshot_date?->format('j M Y') ?? '—' }}</span>
+            <span class="meta">@if($i->synced_at)Synced from the AIID API <time datetime="{{ $i->synced_at->toIso8601String() }}">{{ $i->synced_at->diffForHumans() }}</time>@if($i->modified_at) · record last edited {{ $i->modified_at->format('j M Y') }}@endif @else Snapshot {{ $i->snapshot_date?->format('j M Y') ?? '—' }}@endif</span>
         </div>
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
@@ -16,6 +16,7 @@
             <section aria-labelledby="what-heading">
                 <h2 id="what-heading" class="section-title">What happened</h2>
                 <p class="prose-policy mt-2">{{ $i->description ?: '—' }}</p>
+                @if($i->editor_notes)<div class="mt-4 card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Editor's notes (AI Incident Database)</p><p class="mt-1 text-brand-body whitespace-pre-line">{{ $i->editor_notes }}</p></div>@endif
                 <p class="mt-3 text-sm text-brand-muted">Only the incident metadata is stored here. The underlying news reports are on the AI Incident Database (CC BY-SA 4.0); use the links above to read them.</p>
             </section>
             @if($i->reports->isNotEmpty())
@@ -35,10 +36,15 @@
             <section aria-labelledby="who-heading" class="mt-8">
                 <h2 id="who-heading" class="section-title">Who was involved</h2>
                 <dl class="mt-3 grid gap-4 sm:grid-cols-3 text-sm">
-                    @foreach([['Alleged deployer', $i->deployers, 'deployer'], ['Alleged developer', $i->developers, 'developer'], ['Alleged harmed party', $i->harmed, null]] as [$label, $vals, $param])
-                    <div><dt class="text-brand-muted">{{ $label }}</dt><dd class="mt-1 flex flex-wrap gap-1.5">@forelse($vals ?? [] as $v)@if($param)<a class="chip !min-h-0 !py-1" href="{{ route('risk.incidents.browse', [$param => $v]) }}">{{ $v }}</a>@else<span class="chip !min-h-0 !py-1">{{ $v }}</span>@endif @empty<span>—</span>@endforelse</dd></div>
+                    @foreach([['Alleged deployer', 'deployers', 'deployer'], ['Alleged developer', 'developers', 'developer'], ['Alleged harmed party', 'harmed', null]] as [$label, $role, $param])
+                    <div><dt class="text-brand-muted">{{ $label }}</dt><dd class="mt-1 flex flex-wrap gap-1.5">@forelse($i->entityList($role) as $e)@if($param)<a class="chip !min-h-0 !py-1" href="{{ route('risk.incidents.browse', [$param => $e['name']]) }}" title="Other incidents naming {{ $e['name'] }}">{{ $e['name'] }}</a>@else<span class="chip !min-h-0 !py-1">{{ $e['name'] }}</span>@endif @empty<span>—</span>@endforelse</dd>
+                    @if(collect($i->entityList($role))->contains(fn ($e) => ! empty($e['id'])))<dd class="mt-1 meta">On AIID: @foreach(collect($i->entityList($role))->filter(fn ($e) => ! empty($e['id'])) as $e)<a href="{{ \App\Models\ExternalIncident::entityUrl($e['id']) }}" rel="noopener" data-track="source_click">{{ $e['name'] }}</a>@if(! $loop->last), @endif @endforeach</dd>@endif</div>
                     @endforeach
                 </dl>
+                @if($i->implicated_systems)
+                <h3 class="mt-4 text-sm font-semibold text-brand-navy">AI systems implicated</h3>
+                <p class="mt-1 flex flex-wrap gap-1.5 text-sm">@foreach($i->implicated_systems as $sys)<a class="chip !min-h-0 !py-1" href="{{ \App\Models\ExternalIncident::entityUrl($sys['id']) }}" rel="noopener" data-track="source_click">{{ $sys['name'] }}</a>@endforeach</p>
+                @endif
             </section>
             <section aria-labelledby="class-heading" class="mt-8">
                 <h2 id="class-heading" class="section-title">Classification (MIT AI Risk Repository taxonomy)</h2>
@@ -60,9 +66,16 @@
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">@foreach($risks as $r)<li class="py-3"><a href="{{ $r->url() }}" class="font-medium text-brand-navy">{{ $r->risk_subcategory ?: $r->risk_category }}</a><p class="mt-0.5 text-brand-body">{{ \Illuminate\Support\Str::limit($r->description, 220) }}</p><p class="meta mt-0.5">{{ $r->paper_title }} ({{ $r->quick_ref }})</p></li>@endforeach</ul>
             </section>
             @endif
+            @if($related->isNotEmpty())
+            <section aria-labelledby="related-heading" class="mt-8">
+                <h2 id="related-heading" class="section-title">Related incidents on the AI Incident Database</h2>
+                <p class="mt-1 text-sm text-brand-muted">Linked by AIID editors or by its text-similarity model.</p>
+                <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">@foreach($related as $s)<li class="py-3 flex flex-wrap gap-x-4"><time class="datestamp shrink-0" datetime="{{ $s->occurred_on->toDateString() }}">{{ $s->occurred_on->format('j M Y') }}</time><a href="{{ $s->url() }}" class="text-brand-navy">{{ $s->title }}</a></li>@endforeach</ul>
+            </section>
+            @endif
             @if($sameSubdomain->isNotEmpty())
             <section aria-labelledby="similar-heading" class="mt-8">
-                <h2 id="similar-heading" class="section-title">Similar incidents</h2>
+                <h2 id="similar-heading" class="section-title">Incidents in the same risk subdomain</h2>
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">@foreach($sameSubdomain as $s)<li class="py-3 flex flex-wrap gap-x-4"><time class="datestamp shrink-0" datetime="{{ $s->occurred_on->toDateString() }}">{{ $s->occurred_on->format('j M Y') }}</time><a href="{{ $s->url() }}" class="text-brand-navy">{{ $s->title }}</a></li>@endforeach</ul>
                 <a href="{{ route('risk.incidents.browse', ['subdomain' => $i->mit_subdomain]) }}" class="mt-2 inline-block text-sm text-brand-muted hover:text-brand-navy">All incidents in this subdomain</a>
             </section>
@@ -83,6 +96,8 @@
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Incident ID</dt><dd class="font-mono">{{ $i->incident_id }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Date</dt><dd>{{ $i->occurred_on->format('j M Y') }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Reports</dt><dd>{{ $i->report_count }}</dd></div>
+                        @if($i->modified_at)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Last edited on AIID</dt><dd>{{ $i->modified_at->format('j M Y') }}</dd></div>@endif
+                        @if($i->synced_at)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Synced</dt><dd>{{ $i->synced_at->format('j M Y H:i') }} UTC</dd></div>@endif
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Source</dt><dd>AI Incident Database</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Licence</dt><dd>CC BY-SA 4.0</dd></div>
                     </dl>
