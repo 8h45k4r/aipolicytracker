@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Deploy workflow waits for the health endpoint and restarts the app once through the Kudu API if the platform stops the container after a deploy.
+
 ### Fixed
 - `external:import` failed on PostgreSQL when the MIT database contained duplicate `Ev_ID` values in one upsert batch; duplicates are now suffixed deterministically and the import is idempotent. Startup data steps no longer take the container down on failure.
 
