@@ -22,7 +22,7 @@
         @foreach($incidents as $i)
         <li class="py-4 grid gap-2 lg:grid-cols-12 lg:gap-6 text-sm">
             <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta">#{{ $i->incident_id }} · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
-            <div class="lg:col-span-7"><a href="{{ $i->citeUrl() }}" rel="noopener" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->title }}</a><p class="mt-1 text-brand-body leading-6">{{ $i->description ?: '—' }}</p>
+            <div class="lg:col-span-7"><a href="{{ $i->url() }}" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->title }}</a> <a href="{{ $i->citeUrl() }}" rel="noopener" class="meta no-underline hover:underline">AIID ↗</a><p class="mt-1 text-brand-body leading-6">{{ $i->description ?: '—' }}</p>
                 <p class="mt-1 meta">@if($i->deployers)Deployer: {{ implode(', ', $i->deployers) }}@endif @if($i->developers)· Developer: {{ implode(', ', $i->developers) }}@endif @if($i->harmed)· Harmed: {{ implode(', ', $i->harmed) }}@endif</p></div>
             <div class="lg:col-span-3 flex flex-wrap gap-1.5 content-start">
                 @if($i->mit_domain)<a class="chip !min-h-0 !py-0.5" href="{{ route('risk.incidents.browse', ['domain' => $i->mit_domain]) }}">{{ \Illuminate\Support\Str::limit($i->mit_domain, 30) }}</a>@endif

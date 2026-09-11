@@ -17,6 +17,17 @@ class ExternalIncident extends Model
         return ['occurred_on' => 'date', 'snapshot_date' => 'date', 'deployers' => 'array', 'developers' => 'array', 'harmed' => 'array', 'sectors' => 'array', 'countries' => 'array'];
     }
 
+    public function url(): string
+    {
+        return route('risk.incidents.show', $this->incident_id);
+    }
+
+    /** AIID Discover view listing every report on this incident (the reports themselves stay on AIID). */
+    public function reportsUrl(): string
+    {
+        return 'https://incidentdatabase.ai/apps/discover/?incident_id='.$this->incident_id;
+    }
+
     public function citeUrl(): string
     {
         return 'https://incidentdatabase.ai/cite/'.$this->incident_id;

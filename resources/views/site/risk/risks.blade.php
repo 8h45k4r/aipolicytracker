@@ -25,8 +25,8 @@
         @foreach($risks as $r)
         <li class="py-4 grid gap-2 lg:grid-cols-12 lg:gap-6 text-sm">
             <div class="lg:col-span-3">
-                <p class="font-mono text-xs text-brand-muted">{{ $r->ev_id }} · {{ $r->level }}</p>
-                <p class="mt-1 font-display text-base text-brand-navy">{{ $r->risk_category ?: '—' }}</p>
+                <p class="font-mono text-xs text-brand-muted"><a href="{{ $r->url() }}" class="no-underline hover:underline">{{ $r->ev_id }}</a> · {{ $r->level }}</p>
+                <p class="mt-1 font-display text-base text-brand-navy"><a href="{{ $r->url() }}" class="no-underline hover:underline">{{ $r->risk_category ?: '—' }}</a></p>
                 @if($r->risk_subcategory)<p class="text-brand-body">{{ $r->risk_subcategory }}</p>@endif
             </div>
             <div class="lg:col-span-6">
