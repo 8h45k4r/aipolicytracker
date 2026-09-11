@@ -64,10 +64,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new CustomVerifyEmailNotification());
     }
 
-    public function bookMarks()
-    {
-        return $this->hasMany(BookMark::class, 'user_id', 'id');
-    }
 
     /**
      * Whether this user may access the admin area (configured via ADMIN_EMAILS).
