@@ -48,6 +48,8 @@
 
     .card-flat { @apply rounded-sm border border-brand-line bg-white; }
     .rule { @apply border-t border-brand-line; }
+    .chart-bar, .chart-dot { transition: opacity .15s ease; cursor: pointer; }
+    .chart-bar:hover, .chart-dot:hover { opacity: .75; }
     .rule-strong { @apply border-t-2 border-brand-navy; }
 
     .table-wrap { @apply overflow-x-auto border-y border-brand-line -mx-4 sm:mx-0; }

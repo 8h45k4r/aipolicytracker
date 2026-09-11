@@ -5,6 +5,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Five global tool templates: Global AI Regulatory Applicability Matrix, AI Vendor Due Diligence Questionnaire, AI System Technical Documentation Template (Annex IV structure), AI Impact Assessment Template (FRIA and HUDERIA aligned) and AI Policy Statement Template, in XLSX, CSV, Markdown and DOCX; the library now holds ten tools.
+- Charts: hover tooltips on every bar, milestone and treemap block; a relative colour scale (below half of peak, half to three-quarters, top quarter) on the incident timeline and the harmed-party and deployer charts with a legend; Download SVG, PNG and CSV on every chart (with source and date stamped).
+- Admin Tool library: step-by-step "How to add a tool and upload its files" panel; matching section in the module documentation.
+
+### Added
 - AI risk hub rebuilt as an evidenced narrative: headline totals with 12-month growth, an incident timeline annotated with policy milestones (each bar opens that year's incidents), the shift in domain shares since 2019, most-named harmed parties and deployers, assessed harm levels, a "where harm is recorded versus where rules exist" coverage table (incidents by country against tracked and binding instruments), instruments per domain, and next steps by persona (CISO, researcher, policymaker or diplomat, civil society and journalists).
 - Home page "Start from your job" entry points; policy pages show the AI risk domains an instrument addresses with recorded incident counts; the weekly digest includes the week's recorded AI incidents.
 - `docs/reference/personas-and-jobs.md`: personas, pain points and the product's single USP (harm → rule → action, sourced at every step).

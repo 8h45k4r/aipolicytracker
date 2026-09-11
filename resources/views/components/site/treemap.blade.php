@@ -10,7 +10,7 @@
             <div class="col-span-8 sm:col-span-9 flex h-8 gap-px" style="width: {{ max(8, round(100 * $row['total'] / $max)) }}%">
                 @foreach($row['cells'] as $c)
                 @if($c['value'] > 0)
-                <a href="{{ $c['url'] }}" class="flex items-center justify-center overflow-hidden rounded-sm bg-brand-navy text-white no-underline hover:bg-brand-blue" style="flex: {{ $c['value'] }} 1 0; opacity: {{ 0.55 + 0.45 * ($loop->index % 2) }}" title="{{ $c['label'] }}: {{ number_format($c['value']) }}"><span class="truncate px-1">{{ $c['short'] ?? '' }}</span></a>
+                <a href="{{ $c['url'] }}" class="flex items-center justify-center overflow-hidden rounded-sm bg-brand-navy text-white no-underline hover:bg-brand-blue" style="flex: {{ $c['value'] }} 1 0; opacity: {{ 0.55 + 0.45 * ($loop->index % 2) }}" title="{{ $c['label'] }}: {{ number_format($c['value']) }}" data-tip="{{ $c['label'] }}: {{ number_format($c['value']) }}"><span class="truncate px-1">{{ $c['short'] ?? '' }}</span></a>
                 @endif
                 @endforeach
             </div>
