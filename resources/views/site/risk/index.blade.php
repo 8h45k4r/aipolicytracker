@@ -17,9 +17,9 @@
                         <a href="{{ route('risk.domain', $d['id']) }}" class="font-display text-lg text-brand-navy no-underline hover:underline">{{ $d['id'] }}. {{ $d['name'] }}</a>
                         <p class="meta mt-1">{{ count($d['subdomains']) }} {{ \Illuminate\Support\Str::plural('subdomain', count($d['subdomains'])) }}: {{ collect($d['subdomains'])->pluck('name')->map(fn ($n) => \Illuminate\Support\Str::limit($n, 48))->join('; ') }}</p>
                     </div>
-                    <div class="sm:col-span-4 sm:text-right text-sm">
-                        <span class="font-mono tabular-nums text-brand-navy text-lg">{{ $count !== null ? number_format($count) : '—' }}</span>
-                        <span class="meta block">recorded incidents</span>
+                    <div class="sm:col-span-4 sm:text-right text-sm grid grid-cols-2 gap-2">
+                        <div><span class="font-mono tabular-nums text-brand-navy text-lg">{{ $count !== null ? number_format($count) : '—' }}</span><a href="{{ route('risk.incidents.browse', ['domain' => $d['aiid_domain_label']]) }}" class="meta block">incidents</a></div>
+                        <div><span class="font-mono tabular-nums text-brand-navy text-lg">{{ isset($riskByDomain[$d['id']]) ? number_format($riskByDomain[$d['id']]) : '—' }}</span><a href="{{ route('risk.risks', ['domain' => $d['id']]) }}" class="meta block">risk entries</a></div>
                     </div>
                 </li>
                 @endforeach
@@ -36,6 +36,23 @@
             <p class="mt-6 meta">Counts reflect what has been reported and classified; they measure attention and reporting, not the true frequency or severity of harm.</p>
         </aside>
     </div>
+
+    <section class="mt-12 grid gap-8 lg:grid-cols-12" aria-labelledby="causal-heading">
+        <div class="lg:col-span-7">
+            <div class="rule-strong pt-3"><h2 id="causal-heading" class="section-title">Causal taxonomy: who causes the risk, and was it intended?</h2></div>
+            <p class="mt-2 meta">Risk entries in the MIT database by responsible entity and intent. Timing: @foreach($timing as $t => $n){{ $t }} {{ number_format($n) }}@if(!$loop->last) · @endif @endforeach.</p>
+            @if($matrix)<x-site.matrix-chart class="mt-3" :rows="['Human', 'AI', 'Other', 'Not coded']" :cols="['Intentional', 'Unintentional', 'Other', 'Not coded']" :cells="$matrix" title="Risk entries by entity × intent" rowLabel="Entity" colLabel="Intent" />@else<x-site.empty class="mt-3" title="Risk database not imported yet" />@endif
+        </div>
+        <aside class="lg:col-span-5">
+            <div class="rule-strong pt-3"><h2 class="section-title">For researchers</h2></div>
+            <ul class="mt-3 divide-y divide-brand-line text-sm">
+                <li class="py-3"><a href="{{ route('risk.risks') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Browse {{ number_format($incidentTotals['risks']) }} risk entries</a><p class="meta">Filter by domain, subdomain, entity, intent, timing, evidence level and framework; export CSV/JSON.</p></li>
+                <li class="py-3"><a href="{{ route('risk.incidents.browse') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Browse {{ number_format($incidentTotals['incidents']) }} incidents</a><p class="meta">Filter by year, domain, subdomain, country, sector, harm level and keyword; export CSV/JSON.</p></li>
+                <li class="py-3"><a href="{{ route('risk.frameworks') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Frameworks and papers</a><p class="meta">The 74 documents synthesised by the repository, with entry counts.</p></li>
+                <li class="py-3"><a href="{{ route('open-data') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Open data</a><p class="meta">Full datasets, taxonomy JSON and citation guidance.</p></li>
+            </ul>
+        </aside>
+    </section>
 
     <x-site.attribution class="mt-12" :name="$mit['source'] ?? 'MIT AI Risk Repository'" :url="$mit['source_url'] ?? 'https://airisk.mit.edu/'" :license="$mit['license'] ?? 'CC BY 4.0'" :licenseUrl="$mit['license_url'] ?? 'https://creativecommons.org/licenses/by/4.0/'" :citation="$mit['citation'] ?? null" :note="$mit['changes_note'] ?? null" />
     <x-site.attribution class="mt-3" :name="$aiid['source'] ?? 'AI Incident Database'" :url="$aiid['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$aiid['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$aiid['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$aiid['citation'] ?? null" :date="$aiid['snapshot_date'] ?? null" note="Aggregates only; report texts are not reproduced." />

@@ -213,4 +213,24 @@ class PublicSiteTest extends TestCase
         $this->assertSame('CC BY-SA 4.0', $aiid['license']);
         $this->assertGreaterThan(1000, $aiid['totals']['incidents']);
     }
+
+    public function test_research_browse_pages_and_exports_work_with_imported_external_rows(): void
+    {
+        $this->artisan('external:import')->assertExitCode(0);
+        $this->assertGreaterThan(1000, \App\Models\ExternalIncident::count());
+        $this->assertGreaterThan(2000, \App\Models\ExternalRisk::count());
+
+        $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
+        $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents');
+        $this->get('/ai-risk/risks?domain=2&entity=Human')->assertOk()->assertSee('Privacy')->assertSee('noindex', false);
+        $this->get('/ai-risk/risks?q=zzzz-no-such-term')->assertOk()->assertSee('No risks match');
+        $this->get('/ai-risk/frameworks')->assertOk()->assertSee('Risk entries');
+        $this->get('/ai-risk/incidents/browse?year=2024')->assertOk()->assertSee('incidentdatabase.ai/cite/');
+        $csv = $this->get('/ai-risk/incidents/export.csv?year=2024')->assertOk()->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
+        $this->assertStringContainsString('CC BY-SA 4.0', $csv->streamedContent());
+        $this->assertStringContainsString('incident_id,occurred_on,title', $csv->streamedContent());
+        $json = $this->get('/ai-risk/risks/export.json?domain=3')->assertOk()->assertHeader('Content-Type', 'application/json; charset=UTF-8');
+        $this->assertStringContainsString('"attribution"', $json->streamedContent());
+        $this->get('/ai-risk/risks/export.xml')->assertNotFound();
+    }
 }
