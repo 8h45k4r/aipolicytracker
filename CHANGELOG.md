@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Startup clears all Laravel caches (`optimize:clear`) before rebuilding them, so no configuration, route, view or application cache from the previous release survives a deploy.
+
 ### Added
 - Admin → Tool library: create, edit, publish/draft/archive free tools; upload, activate, deactivate and remove their files (XLSX, CSV, Markdown, PDF, DOCX, JSON, text). Tools moved from configuration to `tools` and `tool_files` tables, seeded once from the previous configuration; downloads now record the served file and files count downloads.
 
