@@ -276,6 +276,8 @@ class PublicSiteTest extends TestCase
             file_put_contents($src, $backup);
         }
         $this->assertTrue(\App\Models\RecordVerification::where('record_slug', 'eu-ai-act')->value('exported'));
+    }
+
     public function test_account_pages_are_server_rendered_in_the_site_theme(): void
     {
         $this->get('/forgot-password')->assertOk()->assertSee('Reset your password')->assertSee('brand/logo-on-dark.svg');
