@@ -53,7 +53,7 @@ export default function VerifyEmail({ status }) {
                     {/* logo and image side */}
                     <Responsive responsive={["lg", "xl"]}>
                         <div className="w-[50%] p-4 py-6 text-white md:flex-shrink-0 md:flex md:flex-col md:items-center md:justify-evenly rounded-md h-screen pr-9">
-                            {/* <div className=" bg-primary-light w-full h-full flex items-center justify-center rounded-md">
+                            {/* <div className=" bg-primary w-full h-full flex items-center justify-center rounded-md">
                             <img
                                 src={AuthLoginImage}
                                 alt="AI Policy Tracker"
@@ -61,7 +61,7 @@ export default function VerifyEmail({ status }) {
                             />
                         </div> */}
 
-                            <div className=" bg-primary-light w-full h-full flex items-center justify-center rounded-md px-10">
+                            <div className=" bg-primary w-full h-full flex items-center justify-center rounded-md px-10">
                                 <div>
                                     <h1 className=" text-3xl font-bold text-center">
                                         Welcome Back
@@ -155,7 +155,7 @@ export default function VerifyEmail({ status }) {
                                         alt="AI Policy Tracker"
                                         className="w-[127px] h-[33px]"
                                     />
-                                    <h3 className="my-4 font-bold text-xl text-primary-light">
+                                    <h3 className="my-4 font-bold text-xl text-primary">
                                         Verify you email
                                     </h3>
 
@@ -195,7 +195,7 @@ export default function VerifyEmail({ status }) {
                                             <button
                                                 disabled={processing}
                                                 type="submit"
-                                                className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-primary-light hover:bg-blue-900 rounded-md shadow focus:outline-none focus:ring-blue-200 focus:ring-4"
+                                                className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-primary hover:bg-primary-dark rounded-md shadow focus:outline-none focus:ring-brand-cyan/40 focus:ring-4"
                                             >
                                                 {processing
                                                     ? "Resend Verification Email..."
