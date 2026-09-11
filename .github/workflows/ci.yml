@@ -77,7 +77,7 @@ jobs:
           php-version: "8.2"
           extensions: mbstring, intl, bcmath
           coverage: none
-      - run: composer update symfony/yaml --with-all-dependencies --no-install --no-interaction --no-progress
+      - run: composer update symfony/yaml --with-all-dependencies --no-install --no-scripts --no-interaction --no-progress
       - run: composer validate --no-check-publish
       - uses: actions/upload-artifact@v4
         with:
