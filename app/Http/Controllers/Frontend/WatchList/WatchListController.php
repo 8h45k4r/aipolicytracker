@@ -58,7 +58,7 @@ class WatchListController extends Controller
             }
 
             if (!$id) {
-                return to_route('frontend.dashboard')->with('error', 'Woops! not booked');
+                return to_route('home')->with('error', 'Woops! not booked');
             }
 
             if ($isBooked == "true") {
@@ -80,7 +80,7 @@ class WatchListController extends Controller
             return back();
         } catch (\Throwable $th) {
             report($th);
-            return to_route('frontend.dashboard')->with('error', 'Oops! Something went wrong.');
+            return to_route('home')->with('error', 'Oops! Something went wrong.');
         }
 
     }

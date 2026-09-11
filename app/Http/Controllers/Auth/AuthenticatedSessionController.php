@@ -46,7 +46,7 @@ class AuthenticatedSessionController extends Controller
             return to_route('dashboard');
         }
 
-        return redirect()->intended(route('frontend.dashboard', absolute: false));
+        return redirect()->intended(route('home', absolute: false));
     }
 
     /**

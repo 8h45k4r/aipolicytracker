@@ -1,0 +1,74 @@
+slug: us-executive-order-14179
+jurisdiction: us
+title: "Executive Order 14179: Removing Barriers to American Leadership in Artificial Intelligence"
+short_title: EO 14179
+instrument_type: executive_order
+status: in_force
+status_note: >
+  Revoked Executive Order 14110 (Safe, Secure, and Trustworthy AI, October 2023) had already been rescinded by
+  Executive Order 14148 on 20 January 2025. EO 14179 directs development of an AI Action Plan, published in
+  July 2025. Executive orders bind federal agencies, not private organisations directly.
+is_binding: true
+published: true
+issuing_body: President of the United States
+summary_plain: >
+  Executive Order 14179, signed 23 January 2025, sets US federal policy to sustain and enhance American AI dominance,
+  directs the development of an AI Action Plan within 180 days, and orders agencies to review and revise or rescind
+  actions taken under the revoked Executive Order 14110 that are inconsistent with the new policy. It also called
+  for revision of the OMB memoranda governing federal agency use and procurement of AI, which OMB replaced in
+  April 2025 with M-25-21 and M-25-22.
+scope_summary: >
+  Binds executive departments and agencies of the US federal government. It does not itself impose obligations on
+  private companies, but it shapes federal procurement, agency guidance and enforcement priorities.
+who_it_applies_to: Federal executive departments and agencies; indirectly federal contractors and AI vendors.
+key_dates_summary: Signed 23 January 2025; AI Action Plan delivered 23 July 2025; OMB memoranda issued 3 April 2025.
+penalties_summary: None; executive-branch policy.
+what_organizations_must_do: >
+  Private organisations have no direct duties. Federal vendors should track the AI Action Plan and OMB memoranda
+  for procurement expectations.
+adopted_on: 2025-01-23
+published_on: 2025-01-31
+in_force_on: 2025-01-23
+actors: [public_authority, provider]
+ai_system_types: [general_purpose_ai_model, generative_ai]
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [government_procurement, generative_ai]
+related_policies: [us-omb-m-25-21, us-nist-ai-rmf]
+obligations:
+  - slug: us-eo-14179-agency-review-of-prior-actions
+    title: Federal agencies must review and revise actions inconsistent with the new AI policy
+    category: public_sector_use
+    source_reference: "Section 5"
+    is_binding: true
+    actors: [public_authority]
+    sectors: [public_services]
+    use_cases: [government_procurement]
+    summary: >
+      Agency heads were directed to identify actions taken under Executive Order 14110 that are inconsistent with
+      the policy of EO 14179 and to suspend, revise or rescind them, and OMB was directed to revise its federal AI
+      use and procurement memoranda.
+    practical_action: Vendors should check which prior agency AI requirements remain in force before bidding.
+    applicability:
+      description: Federal executive agencies.
+      actors: [public_authority]
+    evidence_examples: []
+    framework_mappings: []
+deadlines:
+  - { title: AI Action Plan due (180 days), due_on: 2025-07-22, date_precision: exact, description: "Deadline for the Action Plan required by Section 4; the plan was published 23 July 2025.", source_reference: "Section 4", deadline_status: passed, confidence_level: medium }
+sources:
+  - { title: "Removing Barriers to American Leadership in Artificial Intelligence (Executive Order 14179)", publisher: "The White House", url: "https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/", document_date: 2025-01-23, document_type: legislation, tier: 1 }
+  - { title: "America's AI Action Plan", publisher: "The White House", url: "https://www.ai.gov/action-plan", document_date: 2025-07-23, document_type: strategy, tier: 1 }
+official_source_url: "https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/"
+source_title: "Executive Order 14179 — Removing Barriers to American Leadership in Artificial Intelligence"
+source_publisher: "The White House"
+source_document_date: 2025-01-23
+source_reference: "90 FR 8741 (31 January 2025)"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

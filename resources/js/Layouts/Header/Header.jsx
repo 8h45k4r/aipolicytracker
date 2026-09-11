@@ -7,7 +7,9 @@ export function Header() {
     const links = site?.links ?? {};
 
     const NavBarLists = {
-        dashboard: { name: "Home", url: route("frontend.dashboard") },
+        home: { name: "Home", url: route("home") },
+        policies: { name: "Policies", url: route("policies.index") },
+        map: { name: "Map", url: route("frontend.map") },
         ...(links.airis ? { airis: { name: "airis", url: links.airis } } : {}),
         watchlist: { name: "Bookmarks", url: route("frontend.watch_list.index") },
         news: { name: "news", url: route("news.index") },

@@ -1,0 +1,141 @@
+slug: singapore-model-ai-governance-framework
+jurisdiction: singapore
+title: "Model AI Governance Framework (Second Edition) and Model AI Governance Framework for Generative AI"
+short_title: Singapore Model AI Governance Framework
+instrument_type: framework
+status: voluntary_standard
+is_binding: false
+featured: true
+published: true
+issuing_body: Infocomm Media Development Authority and Personal Data Protection Commission; AI Verify Foundation (generative AI edition)
+summary_plain: >
+  Singapore's Model AI Governance Framework is a voluntary, sector-agnostic guide for organisations deploying AI. The
+  second edition (January 2020) covers four areas: internal governance structures and measures, determining the level
+  of human involvement in AI-augmented decision-making, operations management (data, model development, monitoring),
+  and stakeholder interaction and communication. The May 2024 Model AI Governance Framework for Generative AI extends
+  it with nine dimensions including accountability, data, trusted development and deployment, incident reporting,
+  testing and assurance, security, content provenance, safety and alignment research, and AI for the public good.
+scope_summary: >
+  Voluntary; applicable to any organisation developing or deploying AI in Singapore or wishing to align with
+  Singapore's expectations. It is referenced by the PDPC and IMDA and underpins the AI Verify testing framework.
+who_it_applies_to: Organisations deploying AI (any sector), and developers of generative AI models and applications.
+key_dates_summary: First edition January 2019; second edition 21 January 2020; Generative AI framework 30 May 2024.
+penalties_summary: None; voluntary.
+what_organizations_must_do: >
+  Nothing mandatory. Adopters set up governance structures, choose a human-in/over/out-of-the-loop model based on
+  risk, manage data quality and model lifecycle, and communicate with users, with additional generative-AI measures.
+adopted_on: 2020-01-21
+published_on: 2020-01-21
+actors: [provider, deployer, gpai_provider]
+ai_system_types: [general_purpose_ai_model, generative_ai, automated_decision_system, recommender_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai, finance_and_credit, customer_service]
+related_policies: [singapore-pdpc-ai-advisory-guidelines, eu-ai-act, us-nist-ai-rmf]
+related_frameworks: [iso_42001, nist_ai_rmf]
+versions:
+  - { version_label: "First edition", version_date: 2019-01-23, summary: "Launched at the World Economic Forum in Davos.", official_source_url: "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework" }
+  - { version_label: "Second edition", version_date: 2020-01-21, summary: "Expanded with more use cases and guidance.", official_source_url: "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework" }
+  - { version_label: "Model AI Governance Framework for Generative AI", version_date: 2024-05-30, summary: "Companion framework with nine dimensions for generative AI.", official_source_url: "https://aiverifyfoundation.sg/resources/mgf-gen-ai/" }
+obligations:
+  - slug: singapore-mgf-internal-governance
+    title: Establish internal governance structures and measures for AI
+    category: governance_accountability
+    source_reference: "Second edition, Part on internal governance structures and measures"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, finance_and_credit]
+    summary: >
+      Organisations should adapt existing governance to AI: clear roles and responsibilities, board and senior
+      management oversight, risk-management and internal controls, and staff training.
+    practical_action: Assign an AI governance owner and add AI risks to the enterprise risk register.
+    applicability:
+      description: Voluntary for any organisation deploying AI.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: AI governance structure document, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 5 Leadership", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN 2.x", note: "Original editorial mapping.", confidence_level: high }
+  - slug: singapore-mgf-human-involvement
+    title: Determine the appropriate level of human involvement in AI decisions
+    category: human_oversight
+    source_reference: "Second edition, Part on human involvement in AI-augmented decision-making"
+    is_binding: false
+    actors: [deployer]
+    sectors: [cross_sector]
+    use_cases: [finance_and_credit, customer_service, hiring_and_hr]
+    summary: >
+      Using a risk-impact matrix (probability and severity of harm), organisations choose human-in-the-loop,
+      human-over-the-loop or human-out-of-the-loop designs and document the rationale.
+    practical_action: Record the human-involvement choice and rationale for each AI decision point.
+    applicability:
+      description: Voluntary for any organisation deploying AI for decisions.
+      actors: [deployer]
+    evidence_examples:
+      - { title: Risk-impact assessment and human-involvement decision, artifact_type: record }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 3.2, MANAGE 2.x", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: singapore-mgf-operations-management
+    title: Manage data quality, model development and monitoring across the lifecycle
+    category: data_governance
+    source_reference: "Second edition, Part on operations management"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, finance_and_credit]
+    summary: >
+      Covers data lineage and quality, minimising bias in datasets, model explainability, repeatability, robustness,
+      regular tuning and active monitoring after deployment.
+    practical_action: Maintain data lineage records and a model monitoring plan.
+    applicability:
+      description: Voluntary for any organisation building or deploying AI.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Data lineage and model monitoring records, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 8 Operation; Annex A data controls", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: singapore-mgf-genai-incident-reporting-and-provenance
+    title: Report incidents and mark AI-generated content (generative AI framework)
+    category: transparency
+    source_reference: "Generative AI framework, dimensions on incident reporting and content provenance"
+    is_binding: false
+    actors: [provider, deployer, gpai_provider]
+    sectors: [cross_sector, media_information]
+    use_cases: [generative_ai, content_moderation]
+    summary: >
+      The generative-AI framework recommends incident-reporting channels and processes for AI harms, and content
+      provenance measures such as digital watermarking and cryptographic provenance so that users can identify
+      AI-generated content.
+    practical_action: Implement provenance markers for generated media and an AI incident reporting channel.
+    applicability:
+      description: Voluntary for developers and deployers of generative AI.
+      actors: [provider, deployer, gpai_provider]
+    evidence_examples:
+      - { title: Content provenance implementation record, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "NIST AI 600-1 content provenance and incident disclosure", note: "Original editorial mapping.", confidence_level: medium }
+deadlines: []
+sources:
+  - { title: "Model Artificial Intelligence Governance Framework (Second Edition)", publisher: "PDPC and IMDA", url: "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework", document_date: 2020-01-21, document_type: guidance, tier: 1 }
+  - { title: "Model AI Governance Framework for Generative AI", publisher: "AI Verify Foundation and IMDA", url: "https://aiverifyfoundation.sg/resources/mgf-gen-ai/", document_date: 2024-05-30, document_type: guidance, tier: 1 }
+  - { title: "AI Verify Foundation", publisher: "AI Verify Foundation", url: "https://aiverifyfoundation.sg/", document_type: official, tier: 1 }
+faq:
+  - question: Is Singapore's Model AI Governance Framework mandatory?
+    answer: >
+      No. It is voluntary guidance from IMDA and the PDPC, but it reflects regulator expectations and underpins
+      the AI Verify testing framework.
+official_source_url: "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework"
+source_title: "Model AI Governance Framework (Second Edition)"
+source_publisher: "Personal Data Protection Commission Singapore and IMDA"
+source_document_date: 2020-01-21
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

@@ -1,0 +1,44 @@
+slug: us-colorado
+name: Colorado (United States)
+short_name: Colorado
+iso_code: US-CO
+jurisdiction_type: state
+region: North America
+subregion: United States
+parent: us
+published: true
+overview: >
+  Colorado enacted the first comprehensive US state law on algorithmic discrimination, Senate Bill 24-205 (the
+  Colorado Artificial Intelligence Act), signed on 17 May 2024. It imposes a duty of reasonable care on developers
+  and deployers of "high-risk" AI systems that make or substantially influence consequential decisions in areas
+  such as employment, lending, housing, education, healthcare, insurance and government services. Its effective
+  date was postponed by a 2025 special-session bill.
+regulatory_status_summary: >
+  Adopted state statute; originally effective 1 February 2026, delayed to 30 June 2026 by SB 25B-004 (August 2025).
+  Enforcement is by the Colorado Attorney General. A reviewer must confirm whether the 2026 regular session made
+  further amendments before the effective date.
+binding_vs_guidance: >
+  Binding: SB 24-205 as amended. The Attorney General may adopt rules; none were confirmed at the last check.
+current_priorities: Implementation guidance, rulemaking authority of the Attorney General, and possible amendments.
+how_to_use:
+  - Determine whether your system makes or substantially influences a "consequential decision" for Colorado residents.
+  - Decide whether you are a developer, a deployer, or both; obligations differ.
+  - Prepare risk-management programmes, impact assessments and consumer notices before the effective date.
+regulators:
+  - { name: Colorado Attorney General, url: "https://coag.gov/", role: "Exclusive enforcement authority" }
+official_sources:
+  - { title: "SB24-205 Consumer Protections for Artificial Intelligence", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb24-205", document_date: 2024-05-17, document_type: legislation, tier: 1 }
+related_jurisdictions: [us, us-california, eu]
+official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+source_title: "SB24-205 Consumer Protections for Artificial Intelligence"
+source_publisher: "Colorado General Assembly"
+source_document_date: 2024-05-17
+source_reference: "Colorado Revised Statutes 6-1-1701 et seq."
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; 2026 amendments to be confirmed.
+reviewed_by: null

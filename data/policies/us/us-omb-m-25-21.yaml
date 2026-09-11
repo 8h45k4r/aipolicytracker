@@ -1,0 +1,107 @@
+slug: us-omb-m-25-21
+jurisdiction: us
+title: "OMB Memorandum M-25-21: Accelerating Federal Use of AI through Innovation, Governance, and Public Trust"
+short_title: OMB M-25-21
+instrument_type: guidance
+status: in_force
+status_note: >
+  Binding on federal agencies as OMB policy; issued together with M-25-22 on federal acquisition of AI. Replaced
+  M-24-10 and M-24-18. Deadlines in the memo run from its issue date; a reviewer should confirm current status.
+is_binding: true
+published: true
+issuing_body: Office of Management and Budget, Executive Office of the President
+summary_plain: >
+  M-25-21 directs US federal agencies on how to govern and use AI. It requires agencies to designate Chief AI
+  Officers, maintain AI governance boards, publish AI use-case inventories, and apply minimum risk-management
+  practices to "high-impact" AI, including pre-deployment testing, AI impact assessments, ongoing monitoring,
+  human oversight and training, and remedies for affected individuals. It replaced the 2024 memoranda with a
+  greater emphasis on adoption and innovation while retaining core risk practices.
+scope_summary: >
+  Applies to federal executive agencies' development, acquisition and use of AI, with exceptions for national
+  security systems and certain research. It does not bind private organisations but sets the expectations
+  vendors must meet to sell AI to federal agencies.
+who_it_applies_to: Federal agencies, their Chief AI Officers, and by extension AI vendors and contractors.
+key_dates_summary: Issued 3 April 2025 with staggered compliance deadlines for governance, inventories and high-impact AI practices.
+penalties_summary: None; internal executive-branch policy.
+what_organizations_must_do: >
+  Agencies must implement the governance and high-impact practices; vendors should be able to supply documentation,
+  test results and monitoring support that agencies need for high-impact use cases.
+adopted_on: 2025-04-03
+published_on: 2025-04-03
+in_force_on: 2025-04-03
+actors: [public_authority, provider]
+ai_system_types: [automated_decision_system, generative_ai]
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [government_procurement, public_services]
+related_policies: [us-executive-order-14179, us-nist-ai-rmf]
+obligations:
+  - slug: us-omb-m-25-21-high-impact-ai-practices
+    title: Apply minimum risk-management practices to high-impact AI
+    category: risk_management
+    source_reference: "Section 4"
+    is_binding: true
+    actors: [public_authority]
+    sectors: [public_services]
+    use_cases: [public_services, government_procurement]
+    summary: >
+      For AI whose output serves as a principal basis for decisions with significant effects on rights, safety or
+      access to services, agencies must complete pre-deployment testing, an AI impact assessment, ongoing
+      monitoring, operator training, human oversight and a mechanism for affected people to seek remedy, or stop
+      using the AI.
+    practical_action: Vendors should prepare test evidence and documentation that agencies can reuse in impact assessments.
+    applicability:
+      description: Federal agencies using high-impact AI; indirectly their vendors.
+      actors: [public_authority, provider]
+    evidence_examples:
+      - { title: AI impact assessment, artifact_type: report }
+      - { title: Pre-deployment test results, artifact_type: report }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MAP, MEASURE, MANAGE", note: "The memo is aligned with the AI RMF vocabulary.", confidence_level: medium }
+  - slug: us-omb-m-25-21-use-case-inventory
+    title: Publish an annual AI use-case inventory
+    category: transparency
+    source_reference: "Section 3"
+    is_binding: true
+    actors: [public_authority]
+    sectors: [public_services]
+    use_cases: [public_services]
+    summary: >
+      Agencies must inventory their AI use cases annually and publish the inventory, identifying high-impact uses,
+      with limited exclusions.
+    practical_action: Agencies maintain the inventory; vendors may be asked for use-case descriptions.
+    applicability:
+      description: Federal agencies.
+      actors: [public_authority]
+    evidence_examples:
+      - { title: AI use-case inventory, artifact_type: register }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.6", note: "Inventory of AI systems.", confidence_level: medium }
+procurement_rules:
+  - title: Federal acquisition of AI must follow OMB M-25-22
+    summary: >
+      The companion memorandum M-25-22 sets requirements for agencies buying AI, including protecting government
+      data and avoiding vendor lock-in, performance-based contracting, and requiring vendors to support the
+      documentation and testing agencies need for high-impact AI.
+    applies_to: Federal executive agencies and their AI vendors
+    official_source_url: "https://www.whitehouse.gov/omb/information-for-agencies/memoranda/"
+    source_title: "OMB Memorandum M-25-22: Driving Efficient Acquisition of Artificial Intelligence in Government"
+    source_publisher: "Office of Management and Budget"
+    source_reference: "M-25-22, 3 April 2025"
+    confidence_level: medium
+    review_status: pending_review
+sources:
+  - { title: "OMB Memorandum M-25-21", publisher: "Office of Management and Budget", url: "https://www.whitehouse.gov/omb/information-for-agencies/memoranda/", document_date: 2025-04-03, document_type: guidance, tier: 1 }
+official_source_url: "https://www.whitehouse.gov/omb/information-for-agencies/memoranda/"
+source_title: "M-25-21 Accelerating Federal Use of AI through Innovation, Governance, and Public Trust"
+source_publisher: "Office of Management and Budget"
+source_document_date: 2025-04-03
+source_reference: "OMB memoranda index; reviewer to link the PDF directly"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; direct PDF link to be confirmed by reviewer.
+reviewed_by: null

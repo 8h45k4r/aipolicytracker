@@ -8,7 +8,7 @@ export default [
     js.configs.recommended,
     {
         files: ["cloudflare/**/*.js"],
-        languageOptions: { globals: { ...globals.serviceworker } },
+        languageOptions: { ecmaVersion: 2022, sourceType: "module", globals: { ...globals.serviceworker } },
     },
     {
         files: ["resources/js/**/*.{js,jsx}", "*.config.js", "eslint.config.js"],

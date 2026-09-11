@@ -1,0 +1,94 @@
+slug: uae-personal-data-protection-law
+jurisdiction: uae
+title: "Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data (UAE PDPL)"
+short_title: UAE PDPL
+instrument_type: act
+status: in_force
+status_note: >
+  In force since 2 January 2022. Executive regulations that trigger the compliance period for organisations had
+  not been confirmed as issued at the last check; a reviewer must confirm their status.
+is_binding: true
+published: true
+issuing_body: UAE Federal Government
+summary_plain: >
+  The UAE Personal Data Protection Law is the federal data-protection law applying outside the DIFC and ADGM free
+  zones. It sets principles for lawful processing, consent and its exceptions, data-subject rights (including the
+  right to object to automated decision-making without human intervention), controller and processor duties,
+  security and breach notification to the UAE Data Office, cross-border transfer rules, and data protection
+  impact assessments for high-risk processing including new technologies.
+scope_summary: >
+  Controllers and processors in the UAE (outside the financial free zones) and those outside the UAE processing
+  personal data of individuals in the UAE. Government data, security bodies and health and banking data covered
+  by other laws are excluded or partly excluded.
+who_it_applies_to: Organisations processing personal data of individuals in the UAE, including AI developers and deployers using such data.
+key_dates_summary: Issued 20 September 2021; in force 2 January 2022; compliance period runs from issuance of executive regulations (status to be confirmed).
+penalties_summary: Administrative penalties to be set by Cabinet decision (reviewer to confirm current position).
+what_organizations_must_do: >
+  Establish a lawful basis for AI data processing, provide rights including objection to automated decisions,
+  conduct impact assessments for high-risk AI processing, secure data and notify breaches to the Data Office.
+adopted_on: 2021-09-20
+published_on: 2021-09-27
+in_force_on: 2022-01-02
+actors: [provider, deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, hiring_and_hr, generative_ai]
+related_policies: [uae-national-ai-strategy-2031, india-dpdp-act]
+obligations:
+  - slug: uae-pdpl-automated-decision-objection
+    title: Respect the right to object to automated decision-making without human intervention
+    category: human_oversight
+    source_reference: "Article on data-subject rights relating to automated processing (reviewer to cite article number)"
+    is_binding: true
+    actors: [deployer]
+    sectors: [cross_sector]
+    use_cases: [finance_and_credit, hiring_and_hr]
+    summary: >
+      Data subjects may object to decisions based solely on automated processing, including profiling, that
+      produce legal or similarly serious effects, subject to exceptions such as contractual necessity or consent.
+    practical_action: Provide a human-review route for significant automated decisions affecting UAE residents.
+    applicability:
+      description: Controllers making solely automated decisions with significant effects.
+      actors: [deployer]
+    evidence_examples:
+      - { title: Automated decision objection procedure, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.x, MANAGE 4.x", note: "Original editorial mapping.", confidence_level: low }
+  - slug: uae-pdpl-impact-assessment-new-technologies
+    title: Conduct a data protection impact assessment for high-risk processing using new technologies
+    category: impact_assessment
+    source_reference: "Article on data protection impact assessment (reviewer to cite article number)"
+    is_binding: true
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, biometrics]
+    summary: >
+      Before processing that uses modern technologies and is likely to pose a high risk to privacy, controllers must
+      assess the impact on personal data protection, covering the processing, its purposes, risks and safeguards.
+    practical_action: Run a DPIA for AI systems processing personal data of UAE residents and keep it on file.
+    applicability:
+      description: Controllers using new technologies for high-risk processing.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Data protection impact assessment, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: medium }
+deadlines:
+  - { title: Law in force, due_on: 2022-01-02, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Entry into force." }
+  - { title: Compliance period after executive regulations, due_on: null, date_precision: tbd, date_label: "Depends on issuance of executive regulations (to be confirmed)", deadline_status: tbd, confidence_level: low, description: "Reviewer to confirm whether executive regulations have been issued." }
+sources:
+  - { title: "Data protection — UAE Government portal (Federal Decree-Law No. 45 of 2021)", publisher: "UAE Government", url: "https://u.ae/en/about-the-uae/digital-uae/data/data-protection", document_date: 2021-09-20, document_type: legislation, tier: 1 }
+official_source_url: "https://u.ae/en/about-the-uae/digital-uae/data/data-protection"
+source_title: "Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data"
+source_publisher: "UAE Government portal (u.ae)"
+source_document_date: 2021-09-20
+source_reference: "Article numbers to be added by reviewer"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; executive-regulation status unverified.
+reviewed_by: null
