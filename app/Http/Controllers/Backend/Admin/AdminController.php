@@ -31,6 +31,8 @@ class AdminController extends Controller
             'submissions_pending' => ContributorSubmission::where('status', 'pending_review')->count(),
             'subscribers_active' => Subscriber::active()->count(),
             'subscribers_unconfirmed' => Subscriber::whereNull('confirmed_at')->whereNull('unsubscribed_at')->count(),
+            'users' => \App\Models\User::count(),
+            'downloads_30d' => \App\Models\ResourceDownload::where('created_at', '>=', now()->subDays(30))->count(),
         ];
         $stale = PolicyInstrument::published()->where(fn ($q) => $q->whereNull('last_verified_at')->orWhere('last_verified_at', '<', now()->subDays(180)))->count();
         $recentSubmissions = ContributorSubmission::orderByDesc('created_at')->limit(5)->get();
@@ -38,6 +40,46 @@ class AdminController extends Controller
         $aiid = $external->aiid();
 
         return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid'));
+    }
+
+    /** Guides & downloads: registered users, download activity and the most requested free tools. */
+    public function downloads(Request $request): View
+    {
+        $now = now();
+        $metrics = [
+            'users_total' => \App\Models\User::count(),
+            'users_today' => \App\Models\User::where('created_at', '>=', $now->copy()->startOfDay())->count(),
+            'users_7d' => \App\Models\User::where('created_at', '>=', $now->copy()->subDays(7))->count(),
+            'users_30d' => \App\Models\User::where('created_at', '>=', $now->copy()->subDays(30))->count(),
+            'verified_pct' => ($t = \App\Models\User::count()) ? (int) round(100 * \App\Models\User::whereNotNull('email_verified_at')->count() / $t) : null,
+            'consent' => \App\Models\User::whereNotNull('marketing_consent_at')->count(),
+            'downloads_today' => \App\Models\ResourceDownload::where('created_at', '>=', $now->copy()->startOfDay())->count(),
+            'downloads_7d' => \App\Models\ResourceDownload::where('created_at', '>=', $now->copy()->subDays(7))->count(),
+            'downloads_30d' => \App\Models\ResourceDownload::where('created_at', '>=', $now->copy()->subDays(30))->count(),
+            'downloads_total' => \App\Models\ResourceDownload::count(),
+            'repeat' => \App\Models\ResourceDownload::selectRaw('user_id, COUNT(DISTINCT resource_slug) as n')->groupBy('user_id')->havingRaw('COUNT(DISTINCT resource_slug) > 1')->get()->count(),
+        ];
+        $byResource = \App\Models\ResourceDownload::selectRaw('resource_slug, COUNT(*) as n, COUNT(DISTINCT user_id) as users')->groupBy('resource_slug')->orderByDesc('n')->get()
+            ->map(fn ($r) => ['slug' => $r->resource_slug, 'title' => \App\Models\FreeTool::find($r->resource_slug)['title'] ?? $r->resource_slug, 'n' => $r->n, 'users' => $r->users]);
+        $bySource = \App\Models\User::selectRaw("COALESCE(signup_source, 'legacy') as source, COUNT(*) as n")->groupBy('source')->orderByDesc('n')->pluck('n', 'source');
+        $recent = \App\Models\ResourceDownload::with('user')->orderByDesc('id')->paginate(25, ['*'], 'downloads')->withQueryString();
+        $users = \App\Models\User::withCount('resourceDownloads')->orderByDesc('id')->paginate(25, ['*'], 'users')->withQueryString();
+
+        return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users'));
+    }
+
+    public function downloadsExport(): StreamedResponse
+    {
+        return response()->streamDownload(function () {
+            $out = fopen('php://output', 'w');
+            fputcsv($out, ['user_id', 'name', 'email', 'organization', 'signed_up', 'verified', 'terms_accepted', 'marketing_consent', 'signup_source', 'downloads']);
+            \App\Models\User::withCount('resourceDownloads')->orderBy('id')->chunk(500, function ($users) use ($out) {
+                foreach ($users as $u) {
+                    fputcsv($out, [$u->id, $u->name, $u->email, $u->organization_name, $u->created_at?->toDateString(), $u->email_verified_at?->toDateString(), $u->terms_accepted_at?->toDateString(), $u->marketing_consent_at?->toDateString(), $u->signup_source, $u->resource_downloads_count]);
+                }
+            });
+            fclose($out);
+        }, 'users-and-downloads-'.now()->toDateString().'.csv', ['Content-Type' => 'text/csv; charset=UTF-8']);
     }
 
     public function submissions(Request $request): View

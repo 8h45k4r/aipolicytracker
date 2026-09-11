@@ -9,7 +9,7 @@
 @php($palette = ['#002147', '#006AAC', '#009CE0', '#5D6B7E', '#0B6B4F', '#7A4B00', '#9B1C2E', '#8F81C7'])
 <figure {{ $attributes->merge(['class' => 'card-flat p-4']) }}>
     <figcaption class="flex items-baseline justify-between"><span class="text-sm font-medium text-brand-navy">{{ $title }}</span>@if($note)<span class="meta">{{ $note }}</span>@endif</figcaption>
-    <svg viewBox="0 0 {{ $w }} {{ $height + 40 }}" role="img" aria-label="{{ $title }}" class="mt-2 w-full h-auto">
+    <svg viewBox="0 0 {{ $w }} {{ $height + 40 }}" role="img" aria-label="{{ $title }}" class="mt-2 w-full max-w-full h-auto">
         <title>{{ $title }}</title>
         <line x1="32" y1="{{ $height }}" x2="{{ $w }}" y2="{{ $height }}" stroke="#D8DEE8" />
         <text x="0" y="12" font-size="11" fill="#5D6B7E" font-family="ui-monospace, monospace">{{ $max }}</text>
