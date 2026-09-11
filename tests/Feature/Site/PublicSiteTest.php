@@ -193,6 +193,7 @@ class PublicSiteTest extends TestCase
 
     public function test_security_headers_include_a_nonce_based_csp_and_hide_server_version(): void
     {
+        config(['aipolicytracker.google_analytics_id' => 'G-TEST']); // renders the inline analytics bootstrap
         $r = $this->get('/')->assertOk()->assertHeaderMissing('X-Powered-By')->assertHeader('X-Content-Type-Options', 'nosniff');
         $csp = $r->headers->get('Content-Security-Policy');
         $this->assertStringContainsString("default-src 'self'", $csp);
