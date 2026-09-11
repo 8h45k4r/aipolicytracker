@@ -50,6 +50,22 @@ Third-party datasets presented on the public site under their own licences. They
 | subdomain | varchar(8) | yes | e.g. 2.1; indexed |
 | created_at / updated_at | timestamp | yes | |
 
+## Schema: `external_incident_reports`
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| report_number | int | no | | Primary key; AIID report number |
+| incident_id | int | no | | FK (logical) → external_incidents.incident_id; rows for unknown incidents are skipped on import |
+| title | varchar(300) | no | | |
+| url | varchar(2048) | no | | Original publisher URL |
+| source_domain | varchar(190) | yes | | |
+| date_published | date | yes | | |
+| authors | json | yes | | Up to six names |
+| language | varchar(8) | yes | | |
+| created_at / updated_at | timestamp | yes | | |
+
+Source: `data/external/aiid_reports.json`, produced by `external:sync-aiid-reports` from the weekly AIID mongodump backup (`incidents.csv` gives the incident→report links, `reports.csv` the metadata). Article text and descriptions are never copied. Shown on incident profiles as "News reports".
+
 ## `aiid_summary.json` fields
 
 | Field | Type | Notes |
@@ -82,7 +98,7 @@ Report texts, images and submissions are never stored (excluded from AIID's lice
 
 ## Routes
 
-`/ai-risk`, `/ai-risk/{1-7}`, `/ai-risk/incidents` (`Site\RiskController`); `/ai-risk/incidents/browse`, `/ai-risk/incidents/export.{csv|json}`, `/ai-risk/risks`, `/ai-risk/risks/export.{csv|json}`, `/ai-risk/frameworks`, `/ai-risk/incidents/{incident_id}` (single incident profile: all stored fields, similar incidents by subdomain and deployer, MIT risk entries for the same subdomain, links to the AIID cite page and Discover report list) and `/ai-risk/risks/{ev_id}` (single MIT entry: description, domain and subdomain definition, paper siblings, other frameworks in the same subdomain, matching incidents; `#n` de-duplication suffixes are written `--n` in URLs) (`Site\RiskBrowseController`). Exports prepend the source, licence and citation.
+`/ai-risk`, `/ai-risk/{1-7}`, `/ai-risk/incidents` (`Site\RiskController`); `/ai-risk/incidents/browse`, `/ai-risk/incidents/export.{csv|json}`, `/ai-risk/risks`, `/ai-risk/risks/export.{csv|json}`, `/ai-risk/frameworks`, `/ai-risk/incidents/{incident_id}` (single incident profile: all stored fields, news-report metadata, similar incidents by subdomain and deployer, MIT risk entries for the same subdomain, links to the AIID cite page and Discover report list) and `/ai-risk/risks/{ev_id}` (single MIT entry: description, domain and subdomain definition, paper siblings, other frameworks in the same subdomain, matching incidents; `#n` de-duplication suffixes are written `--n` in URLs) (`Site\RiskBrowseController`). Exports prepend the source, licence and citation.
 
 ## Attribution rules
 

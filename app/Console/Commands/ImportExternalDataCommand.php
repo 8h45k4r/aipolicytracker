@@ -23,8 +23,9 @@ class ImportExternalDataCommand extends Command
     {
         $incidents = $this->read('data/external/aiid_incidents.json');
         $risks = $this->read('data/external/mit_risks.json');
+        $reports = $this->read('data/external/aiid_reports.json');
 
-        DB::transaction(function () use ($incidents, $risks) {
+        DB::transaction(function () use ($incidents, $risks, $reports) {
             if ($incidents) {
                 $ids = [];
                 $unique = [];
@@ -43,6 +44,26 @@ class ImportExternalDataCommand extends Command
                     $ids = array_merge($ids, array_column($chunk, 'incident_id'));
                 }
                 ExternalIncident::whereNotIn('incident_id', $ids)->delete();
+            }
+            if ($reports) {
+                $known = ExternalIncident::pluck('incident_id')->flip();
+                $ids = [];
+                $unique = [];
+                foreach ($reports['reports'] ?? [] as $r) {
+                    if (isset($known[$r['incident_id']])) {
+                        $unique[$r['report_number']] = $r;
+                    }
+                }
+                foreach (array_chunk(array_values($unique), 500) as $chunk) {
+                    $rows = array_map(fn ($r) => [
+                        'report_number' => $r['report_number'], 'incident_id' => $r['incident_id'], 'title' => $r['title'] ?: '(untitled)', 'url' => $r['url'],
+                        'source_domain' => $r['source_domain'] ?: null, 'date_published' => $r['date_published'] ?: null, 'authors' => json_encode($r['authors'] ?? []), 'language' => $r['language'] ?: null,
+                        'created_at' => now(), 'updated_at' => now(),
+                    ], $chunk);
+                    \App\Models\ExternalIncidentReport::upsert($rows, ['report_number'], array_diff(array_keys($rows[0]), ['report_number', 'created_at']));
+                    $ids = array_merge($ids, array_column($chunk, 'report_number'));
+                }
+                \App\Models\ExternalIncidentReport::whereNotIn('report_number', $ids)->delete();
             }
             if ($risks) {
                 $ids = [];
@@ -68,7 +89,7 @@ class ImportExternalDataCommand extends Command
                 ExternalRisk::whereNotIn('ev_id', $ids)->delete();
             }
         });
-        $this->info(sprintf('External data imported: %d incidents, %d risks.', ExternalIncident::count(), ExternalRisk::count()));
+        $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks.', ExternalIncident::count(), \App\Models\ExternalIncidentReport::count(), ExternalRisk::count()));
 
         return self::SUCCESS;
     }

@@ -18,6 +18,20 @@
                 <p class="prose-policy mt-2">{{ $i->description ?: '—' }}</p>
                 <p class="mt-3 text-sm text-brand-muted">Only the incident metadata is stored here. The underlying news reports are on the AI Incident Database (CC BY-SA 4.0); use the links above to read them.</p>
             </section>
+            @if($i->reports->isNotEmpty())
+            <section aria-labelledby="reports-heading" class="mt-8">
+                <h2 id="reports-heading" class="section-title">News reports ({{ $i->reports->count() }})</h2>
+                <p class="mt-1 text-sm text-brand-muted">Coverage catalogued by the AI Incident Database. Titles link to the original publisher; the text is not reproduced here.</p>
+                <ol class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
+                    @foreach($i->reports as $r)
+                    <li class="py-3 flex flex-wrap gap-x-4 gap-y-1">
+                        <time class="datestamp shrink-0" datetime="{{ $r->date_published?->toDateString() }}">{{ $r->date_published?->format('j M Y') ?? '—' }}</time>
+                        <div class="min-w-0 flex-1"><a href="{{ $r->url }}" rel="noopener nofollow" class="text-brand-navy" data-track="source_click">{{ $r->title }}</a><div class="meta">{{ $r->source_domain ?: '—' }}@if($r->authors) · {{ implode(', ', array_slice($r->authors, 0, 3)) }}@endif · <a href="{{ $r->aiidUrl() }}" rel="noopener">AIID #{{ $r->report_number }}</a></div></div>
+                    </li>
+                    @endforeach
+                </ol>
+            </section>
+            @endif
             <section aria-labelledby="who-heading" class="mt-8">
                 <h2 id="who-heading" class="section-title">Who was involved</h2>
                 <dl class="mt-3 grid gap-4 sm:grid-cols-3 text-sm">

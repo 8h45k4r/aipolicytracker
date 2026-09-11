@@ -392,6 +392,8 @@ class PublicSiteTest extends TestCase
         $this->artisan('external:import')->assertExitCode(0);
         $this->assertGreaterThan(1000, \App\Models\ExternalIncident::count());
         $this->assertGreaterThan(2000, \App\Models\ExternalRisk::count());
+        $this->assertGreaterThan(5000, \App\Models\ExternalIncidentReport::count());
+        $this->assertSame(0, \App\Models\ExternalIncidentReport::whereNotIn('incident_id', \App\Models\ExternalIncident::select('incident_id'))->count(), 'every report resolves to an incident');
         $this->artisan('external:import')->assertExitCode(0); // idempotent re-run
         $this->assertSame(\App\Models\ExternalRisk::count(), count(json_decode(file_get_contents(base_path('data/external/mit_risks.json')), true)['risks']));
 
@@ -402,7 +404,7 @@ class PublicSiteTest extends TestCase
         $this->get('/ai-risk/frameworks')->assertOk()->assertSee('Risk entries');
         $this->get('/ai-risk/incidents/browse?year=2024')->assertOk()->assertSee('incidentdatabase.ai/cite/');
         $incident = \App\Models\ExternalIncident::whereNotNull('mit_subdomain')->where('mit_subdomain', '!=', '')->orderByDesc('report_count')->first();
-        $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertOk()->assertSee($incident->title)->assertSee('news report')->assertSee('Classification (MIT AI Risk Repository taxonomy)')->assertSee('data-save="incident:'.$incident->incident_id.'"', false);
+        $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertOk()->assertSee($incident->title)->assertSee('news report')->assertSee('Classification (MIT AI Risk Repository taxonomy)')->assertSee('data-save="incident:'.$incident->incident_id.'"', false)->assertSee('News reports (');
         $this->get('/ai-risk/incidents/999999999')->assertNotFound();
         $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertSee(route('contribute', ['type' => 'correction', 'subject_type' => 'incident', 'subject_slug' => $incident->incident_id]));
         $this->get('/contribute?type=correction&subject_type=incident&subject_slug='.$incident->incident_id)->assertOk()->assertSee('Record you are correcting')->assertSee('incidentdatabase.ai/cite/'.$incident->incident_id);

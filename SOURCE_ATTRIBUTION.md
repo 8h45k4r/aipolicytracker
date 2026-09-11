@@ -33,3 +33,5 @@ If you believe content in this project infringes your rights or reproduces licen
 ## Disclaimer
 
 Entries reflect the maintainers' and contributors' reading of public sources at the time of contribution. They are informational only and are not legal advice.
+
+AI Incident Database report metadata (`data/external/aiid_reports.json`): titles, URLs, source domains, dates and author names of the news reports AIID catalogues, under CC BY-SA 4.0. Report texts and AIID descriptions are not reproduced; readers are sent to the original publisher.

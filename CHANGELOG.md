@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Incident profiles list the news reports the AI Incident Database catalogues for that incident (6,434 reports across 1,647 incidents): date, title linked to the publisher, source, authors and the AIID report number. Metadata only; synced weekly from the AIID backup by `external:sync-aiid-reports`.
+
 ### Changed
 - Guides framework and topic filters are compact dropdown buttons with a checkbox panel (showing the selected count) instead of native multi-select lists; selections apply when the panel closes.
 
