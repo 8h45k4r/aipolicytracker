@@ -20,9 +20,9 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['"IBM Plex Sans"', ...defaultTheme.fontFamily.sans],
-                display: ['"Source Serif 4"', "Georgia", "Cambria", "serif"],
-                mono: ['"IBM Plex Mono"', ...defaultTheme.fontFamily.mono],
+                sans: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
+                display: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
+                mono: ['"Space Mono"', ...defaultTheme.fontFamily.mono],
             },
             colors: {
                 // Brand tokens (from the logo). Use these semantic names in templates,

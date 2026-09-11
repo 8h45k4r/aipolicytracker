@@ -23,7 +23,11 @@ class RiskController extends Controller
             'The seven AI risk domains from the MIT AI Risk Repository, how often each appears in the AI Incident Database, and which AI policies in our tracker address them.',
             route('risk.index')
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')]])
-            ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI risk domains (MIT AI Risk Repository) with incident counts', 'url' => route('risk.index'), 'license' => $mit['license_url'] ?? null, 'isBasedOn' => [$mit['source_url'] ?? null, $aiid['source_url'] ?? null], 'creator' => ['@type' => 'Organization', 'name' => 'MIT AI Risk Initiative']]);
+            ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI risk domains (MIT AI Risk Repository) with incident counts', 'url' => route('risk.index'), 'license' => $mit['license_url'] ?? null, 'isBasedOn' => [$mit['source_url'] ?? null, $aiid['source_url'] ?? null], 'creator' => ['@type' => 'Organization', 'name' => 'MIT AI Risk Initiative'], 'isAccessibleForFree' => true, 'keywords' => ['AI risk taxonomy', 'AI incidents', 'AI policy']])
+            ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => [
+                ['@type' => 'Question', 'name' => 'What are the seven domains of AI risk?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Discrimination and toxicity; privacy and security; misinformation; malicious actors and misuse; human-computer interaction; socioeconomic and environmental harms; and AI system safety, failures and limitations, as defined by the MIT AI Risk Repository domain taxonomy.']],
+                ['@type' => 'Question', 'name' => 'Which AI risk domain has the most recorded incidents?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'In the current AI Incident Database snapshot, malicious actors and misuse leads, followed by AI system safety, failures and limitations, and discrimination and toxicity. Counts reflect reporting and classification, not true frequency.']],
+            ]]);
 
         $riskByDomain = ExternalRisk::selectRaw('domain, COUNT(*) as n')->whereNotNull('domain')->groupBy('domain')->pluck('n', 'domain');
         $matrix = [];

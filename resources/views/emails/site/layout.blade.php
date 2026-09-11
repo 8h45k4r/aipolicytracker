@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ $title ?? 'AI Policy Tracker' }}</title>
 </head>
-<body style="margin:0;padding:0;background:#F5F7FA;font-family:'IBM Plex Sans',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1E2A3B;">
+<body style="margin:0;padding:0;background:#F5F7FA;font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1E2A3B;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F5F7FA;padding:24px 0;">
 <tr><td align="center">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border:1px solid #D8DEE8;">
