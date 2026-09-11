@@ -170,7 +170,7 @@ class PublicSiteTest extends TestCase
     public function test_legacy_urls_redirect_or_are_noindex(): void
     {
         $this->get('/about-ai-policy')->assertRedirect('/about');
-        $this->get('/dashboard')->assertRedirect('/map');
+        $this->get('/dashboard')->assertRedirect('/');
         $this->get('/map')->assertRedirect('/');
         $this->get('/news')->assertRedirect('/changes');
         $this->get('/timeline')->assertRedirect('/changes');
