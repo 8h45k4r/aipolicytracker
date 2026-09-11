@@ -1,0 +1,74 @@
+slug: india-ai-governance-guidelines
+jurisdiction: india
+title: "India AI Governance Guidelines (MeitY, 2025)"
+short_title: India AI Governance Guidelines
+instrument_type: guidance
+status: guidance
+status_note: >
+  Released by MeitY in November 2025 following a 2025 consultation. Non-binding; a reviewer must confirm the
+  release date and the direct document link on indiaai.gov.in or meity.gov.in.
+is_binding: false
+featured: true
+published: true
+issuing_body: Ministry of Electronics and Information Technology
+summary_plain: >
+  The India AI Governance Guidelines set out a principle-based, pro-innovation approach to governing AI in India.
+  They articulate guiding principles (such as trust, people-first design, fairness, accountability, safety and
+  transparency), propose an institutional framework including an AI governance group and an AI Safety Institute
+  role, favour applying existing laws over a new AI statute, and recommend voluntary commitments, techno-legal
+  measures, risk-based oversight and incident reporting for AI systems.
+scope_summary: >
+  Non-binding guidance addressed to government bodies, industry and developers deploying AI in India. It does not
+  create legal obligations; it signals regulatory expectations and possible future measures.
+who_it_applies_to: Indian government agencies, AI developers, deployers and platforms operating in India (voluntary).
+key_dates_summary: Consultation on draft guidelines in 2025; final guidelines released November 2025 (to be confirmed).
+penalties_summary: None; non-binding.
+what_organizations_must_do: >
+  Nothing mandatory. Organisations can align governance programmes to the guidelines' principles and prepare for
+  voluntary commitments and incident reporting mechanisms they describe.
+adopted_on: 2025-11-05
+published_on: 2025-11-05
+actors: [provider, deployer, public_authority]
+ai_system_types: [general_purpose_ai_model, generative_ai, automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai, public_services]
+related_policies: [india-dpdp-act, singapore-model-ai-governance-framework]
+related_frameworks: [nist_ai_rmf]
+obligations:
+  - slug: india-ai-guidelines-principles-and-risk-based-governance
+    title: Adopt the guiding principles and risk-based governance (voluntary)
+    category: governance_accountability
+    source_reference: "Guiding principles and recommendations sections"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      The guidelines encourage organisations to embed principles such as fairness, accountability, safety and
+      transparency, to classify and mitigate risks proportionately, and to participate in voluntary frameworks and
+      incident reporting.
+    practical_action: Map your existing AI governance programme to the guidelines' principles and note the gaps.
+    applicability:
+      description: Voluntary for all AI developers and deployers in India.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Principles alignment statement, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN and MAP functions", note: "Original editorial mapping.", confidence_level: low }
+deadlines: []
+sources:
+  - { title: "India AI Governance Guidelines", publisher: "IndiaAI / Ministry of Electronics and Information Technology", url: "https://indiaai.gov.in/", document_date: 2025-11-05, document_type: guidance, tier: 2 }
+official_source_url: "https://indiaai.gov.in/"
+source_title: "India AI Governance Guidelines"
+source_publisher: "Ministry of Electronics and Information Technology"
+source_document_date: 2025-11-05
+source_reference: "Direct document link to be added by reviewer"
+source_tier: 2
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: Initial structured record; release date and direct link unverified.
+reviewed_by: null

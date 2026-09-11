@@ -1,0 +1,133 @@
+slug: india-dpdp-act
+jurisdiction: india
+title: "Digital Personal Data Protection Act, 2023 and DPDP Rules, 2025"
+short_title: India DPDP Act
+instrument_type: act
+status: partially_applicable
+status_note: >
+  The Act received Presidential assent on 11 August 2023 and comes into force on dates notified by the Central
+  Government. The DPDP Rules 2025 were notified in November 2025 with phased commencement (some provisions at
+  once, most substantive obligations after 12 to 18 months). A reviewer must confirm the exact commencement dates.
+is_binding: true
+featured: true
+published: true
+issuing_body: Parliament of India; Ministry of Electronics and Information Technology (Rules)
+summary_plain: >
+  The DPDP Act is India's cross-sector personal-data law. It applies to digital personal data processed in India
+  and to processing outside India connected with offering goods or services to people in India. It requires a lawful
+  basis (consent or specified legitimate uses), notice, purpose limitation, data accuracy, security safeguards,
+  breach notification to the Data Protection Board and affected individuals, and grants rights of access,
+  correction, erasure and grievance redress. Significant Data Fiduciaries face extra duties such as impact
+  assessments and audits. The Act does not mention AI specifically, but it governs the personal data used to train
+  and operate AI systems.
+scope_summary: >
+  Data Fiduciaries (controllers) and Data Processors handling digital personal data of individuals in India,
+  including foreign entities offering goods or services to India. Excludes personal or domestic use and publicly
+  available data made public by the individual or under law.
+who_it_applies_to: Any organisation processing digital personal data of individuals in India, including AI developers and deployers using such data.
+key_dates_summary: Assent 11 August 2023; DPDP Rules notified November 2025 with phased commencement; core obligations expected to apply about 18 months after notification (to be confirmed).
+penalties_summary: >
+  The Data Protection Board may impose monetary penalties up to INR 250 crore per instance for failure to take
+  reasonable security safeguards, with lower caps for other breaches, as set out in the Schedule to the Act.
+what_organizations_must_do: >
+  Map personal data flows into AI systems, obtain valid consent or identify a legitimate use, publish notices,
+  implement security safeguards and breach-notification processes, honour data-principal rights, and, if
+  designated a Significant Data Fiduciary, appoint a Data Protection Officer, run data protection impact
+  assessments and audits.
+adopted_on: 2023-08-11
+published_on: 2023-08-11
+in_force_on: null
+applies_from: null
+date_notes: Commencement is phased by notification; see the deadlines table and confirm with the official source.
+actors: [provider, deployer, public_authority]
+ai_system_types: [automated_decision_system, generative_ai, predictive_scoring]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai, finance_and_credit, hiring_and_hr, health]
+related_policies: [india-ai-governance-guidelines, eu-ai-act]
+obligations:
+  - slug: india-dpdp-consent-and-notice
+    title: Process personal data only with valid consent or a legitimate use, after notice
+    category: privacy_data_protection
+    source_reference: "Sections 4 to 7"
+    is_binding: true
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, finance_and_credit]
+    summary: >
+      Personal data may be processed only for a lawful purpose with the individual's free, specific, informed and
+      unambiguous consent, or for certain legitimate uses listed in the Act. A notice must describe the data,
+      purpose, and how to exercise rights and complain.
+    practical_action: Inventory training and inference data sources and document the consent or legitimate use for each.
+    applicability:
+      description: All Data Fiduciaries.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Consent records and notices, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: india-dpdp-security-and-breach-notification
+    title: Implement reasonable security safeguards and notify breaches
+    category: incident_handling
+    source_reference: "Section 8(5) and 8(6); DPDP Rules on breach intimation"
+    is_binding: true
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, health]
+    summary: >
+      Data Fiduciaries must protect personal data with reasonable security safeguards and, on a personal data
+      breach, inform the Data Protection Board and each affected individual in the form and manner prescribed by
+      the Rules.
+    practical_action: Extend incident response to cover AI training data and model outputs that reveal personal data.
+    applicability:
+      description: All Data Fiduciaries.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Breach notification procedure, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_27001, reference: "Annex A incident management controls", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: india-dpdp-significant-data-fiduciary-duties
+    title: Significant Data Fiduciaries must appoint a DPO and run impact assessments and audits
+    category: impact_assessment
+    source_reference: "Section 10"
+    is_binding: true
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, finance_and_credit]
+    summary: >
+      Entities notified as Significant Data Fiduciaries, based on factors such as volume and sensitivity of data
+      and risk to individuals, must appoint a Data Protection Officer based in India, an independent data auditor,
+      and periodically undertake data protection impact assessments and audits.
+    practical_action: Assess whether your AI data processing could trigger SDF designation and prepare DPIA tooling.
+    applicability:
+      description: Entities notified as Significant Data Fiduciaries.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Data protection impact assessment, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: medium }
+deadlines:
+  - { title: Presidential assent, due_on: 2023-08-11, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Act No. 22 of 2023." }
+  - { title: DPDP Rules 2025 notified, due_on: 2025-11-13, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Notification in the Gazette; reviewer to confirm exact date." }
+  - { title: Phased commencement of substantive obligations, due_on: null, date_precision: tbd, date_label: "12 to 18 months after Rules notification (to be confirmed)", deadline_status: tbd, confidence_level: low, description: "The Rules set staggered dates for consent-manager registration, notice, security and rights obligations." }
+sources:
+  - { title: "Digital Personal Data Protection Act, 2023 (No. 22 of 2023)", publisher: "Ministry of Electronics and Information Technology", url: "https://www.meity.gov.in/data-protection-framework", document_date: 2023-08-11, document_type: legislation, tier: 1 }
+  - { title: "Digital Personal Data Protection Rules, 2025", publisher: "Ministry of Electronics and Information Technology", url: "https://www.meity.gov.in/data-protection-framework", document_date: 2025-11-13, document_type: legislation, tier: 1 }
+faq:
+  - question: Does India's DPDP Act regulate AI?
+    answer: >
+      Not by name, but it governs any digital personal data used to train, fine-tune or operate AI systems,
+      requiring a lawful basis, notice, security safeguards and breach notification.
+official_source_url: "https://www.meity.gov.in/data-protection-framework"
+source_title: "Data Protection Framework — Digital Personal Data Protection Act, 2023"
+source_publisher: "Ministry of Electronics and Information Technology, Government of India"
+source_document_date: 2023-08-11
+source_reference: "Act No. 22 of 2023"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record; Rules commencement schedule to be confirmed.
+reviewed_by: null

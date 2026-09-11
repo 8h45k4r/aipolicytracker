@@ -1,0 +1,70 @@
+<?php
+
+// OpenAPI 3.1 description of the read-only public API. Served at /openapi.json.
+$base = url('/api/v1');
+$sourceQuality = [
+    'type' => 'object',
+    'properties' => [
+        'official_source_url' => ['type' => ['string', 'null'], 'format' => 'uri'],
+        'source_title' => ['type' => ['string', 'null']],
+        'source_publisher' => ['type' => ['string', 'null']],
+        'source_document_date' => ['type' => ['string', 'null'], 'format' => 'date'],
+        'source_reference' => ['type' => ['string', 'null']],
+        'source_tier' => ['type' => 'integer', 'minimum' => 1, 'maximum' => 4],
+        'last_checked_at' => ['type' => ['string', 'null'], 'format' => 'date'],
+        'last_verified_at' => ['type' => ['string', 'null'], 'format' => 'date'],
+        'review_status' => ['type' => 'string', 'enum' => ['draft', 'pending_review', 'verified', 'needs_update']],
+        'confidence_level' => ['type' => 'string', 'enum' => ['high', 'medium', 'low', 'unavailable']],
+        'content_version' => ['type' => 'integer'],
+        'change_summary' => ['type' => ['string', 'null']],
+        'reviewed_by' => ['type' => ['string', 'null']],
+    ],
+];
+$pagination = ['type' => 'object', 'properties' => ['total' => ['type' => 'integer'], 'per_page' => ['type' => 'integer'], 'current_page' => ['type' => 'integer'], 'last_page' => ['type' => 'integer']]];
+$filterParams = [
+    ['name' => 'q', 'in' => 'query', 'schema' => ['type' => 'string'], 'description' => 'Keyword search'],
+    ['name' => 'jurisdiction', 'in' => 'query', 'schema' => ['type' => 'string'], 'description' => 'Comma-separated jurisdiction slugs'],
+    ['name' => 'status', 'in' => 'query', 'schema' => ['type' => 'string'], 'description' => 'Comma-separated policy statuses'],
+    ['name' => 'type', 'in' => 'query', 'schema' => ['type' => 'string'], 'description' => 'Comma-separated instrument types'],
+    ['name' => 'sector', 'in' => 'query', 'schema' => ['type' => 'string']],
+    ['name' => 'use_case', 'in' => 'query', 'schema' => ['type' => 'string']],
+    ['name' => 'risk', 'in' => 'query', 'schema' => ['type' => 'string']],
+    ['name' => 'actor', 'in' => 'query', 'schema' => ['type' => 'string']],
+    ['name' => 'binding', 'in' => 'query', 'schema' => ['type' => 'string', 'enum' => ['yes', 'no']]],
+    ['name' => 'sort', 'in' => 'query', 'schema' => ['type' => 'string', 'enum' => ['updated', 'effective', 'relevance', 'jurisdiction']]],
+    ['name' => 'page', 'in' => 'query', 'schema' => ['type' => 'integer']],
+    ['name' => 'per_page', 'in' => 'query', 'schema' => ['type' => 'integer', 'maximum' => 100]],
+];
+
+return [
+    'openapi' => '3.1.0',
+    'info' => [
+        'title' => config('aipolicytracker.site_name').' public API',
+        'version' => '1.0.0',
+        'summary' => 'Read-only access to source-backed AI policy records.',
+        'description' => 'Open, source-backed AI policy and regulatory intelligence. All records carry an official source URL, review status, confidence level and verification dates. Data licence: '.config('aipolicytracker.data_license').'. Informational only; not legal advice.',
+        'license' => ['name' => config('aipolicytracker.data_license'), 'url' => config('aipolicytracker.data_license_url')],
+        'termsOfService' => route('methodology'),
+    ],
+    'servers' => [['url' => $base]],
+    'paths' => [
+        '/' => ['get' => ['summary' => 'API root and endpoint index', 'operationId' => 'root', 'responses' => ['200' => ['description' => 'Endpoint index']]]],
+        '/jurisdictions' => ['get' => ['summary' => 'List published jurisdictions', 'operationId' => 'listJurisdictions', 'responses' => ['200' => ['description' => 'Jurisdictions', 'content' => ['application/json' => ['schema' => ['type' => 'object', 'properties' => ['data' => ['type' => 'array', 'items' => ['$ref' => '#/components/schemas/Jurisdiction']]]]]]]]]],
+        '/jurisdictions/{slug}' => ['get' => ['summary' => 'Get a jurisdiction with its policies', 'operationId' => 'getJurisdiction', 'parameters' => [['name' => 'slug', 'in' => 'path', 'required' => true, 'schema' => ['type' => 'string']]], 'responses' => ['200' => ['description' => 'Jurisdiction'], '404' => ['description' => 'Not found']]]],
+        '/policies' => ['get' => ['summary' => 'Search and filter policy instruments', 'operationId' => 'listPolicies', 'parameters' => $filterParams, 'responses' => ['200' => ['description' => 'Paginated policies', 'content' => ['application/json' => ['schema' => ['type' => 'object', 'properties' => ['data' => ['type' => 'array', 'items' => ['$ref' => '#/components/schemas/PolicySummary']], 'meta' => $pagination]]]]]]]],
+        '/policies/{slug}' => ['get' => ['summary' => 'Get a full policy record', 'operationId' => 'getPolicy', 'parameters' => [['name' => 'slug', 'in' => 'path', 'required' => true, 'schema' => ['type' => 'string']]], 'responses' => ['200' => ['description' => 'Policy', 'content' => ['application/json' => ['schema' => ['type' => 'object', 'properties' => ['data' => ['$ref' => '#/components/schemas/Policy']]]]]], '404' => ['description' => 'Not found']]]],
+        '/obligations' => ['get' => ['summary' => 'Search and filter obligations', 'operationId' => 'listObligations', 'parameters' => array_merge($filterParams, [['name' => 'category', 'in' => 'query', 'schema' => ['type' => 'string'], 'description' => 'Obligation category slug']]), 'responses' => ['200' => ['description' => 'Paginated obligations']]]],
+        '/obligations/{slug}' => ['get' => ['summary' => 'Get an obligation', 'operationId' => 'getObligation', 'parameters' => [['name' => 'slug', 'in' => 'path', 'required' => true, 'schema' => ['type' => 'string']]], 'responses' => ['200' => ['description' => 'Obligation'], '404' => ['description' => 'Not found']]]],
+        '/changes' => ['get' => ['summary' => 'List change events (newest first)', 'operationId' => 'listChanges', 'parameters' => [['name' => 'since', 'in' => 'query', 'schema' => ['type' => 'string', 'format' => 'date']], ['name' => 'jurisdiction', 'in' => 'query', 'schema' => ['type' => 'string']], ['name' => 'page', 'in' => 'query', 'schema' => ['type' => 'integer']]], 'responses' => ['200' => ['description' => 'Paginated change events']]]],
+        '/taxonomies' => ['get' => ['summary' => 'Controlled vocabularies', 'operationId' => 'listTaxonomies', 'responses' => ['200' => ['description' => 'Taxonomy terms grouped by taxonomy']]]],
+    ],
+    'components' => [
+        'schemas' => [
+            'SourceQuality' => $sourceQuality,
+            'Jurisdiction' => ['type' => 'object', 'properties' => ['slug' => ['type' => 'string'], 'name' => ['type' => 'string'], 'iso_code' => ['type' => ['string', 'null']], 'jurisdiction_type' => ['type' => 'string'], 'region' => ['type' => ['string', 'null']], 'overview' => ['type' => ['string', 'null']], 'regulatory_status_summary' => ['type' => ['string', 'null']], 'regulators' => ['type' => 'array', 'items' => ['type' => 'object']], 'official_sources' => ['type' => 'array', 'items' => ['type' => 'object']], 'url' => ['type' => 'string', 'format' => 'uri'], 'source' => ['$ref' => '#/components/schemas/SourceQuality']]],
+            'PolicySummary' => ['type' => 'object', 'properties' => ['slug' => ['type' => 'string'], 'title' => ['type' => 'string'], 'short_title' => ['type' => ['string', 'null']], 'jurisdiction' => ['type' => 'string'], 'instrument_type' => ['type' => 'string'], 'status' => ['type' => 'string', 'enum' => \App\Enums\PolicyStatus::values()], 'is_binding' => ['type' => 'boolean'], 'summary_plain' => ['type' => ['string', 'null']], 'applies_from' => ['type' => ['string', 'null'], 'format' => 'date'], 'official_source_url' => ['type' => ['string', 'null'], 'format' => 'uri'], 'last_verified_at' => ['type' => ['string', 'null'], 'format' => 'date'], 'review_status' => ['type' => 'string'], 'confidence_level' => ['type' => 'string'], 'url' => ['type' => 'string', 'format' => 'uri']]],
+            'Policy' => ['allOf' => [['$ref' => '#/components/schemas/PolicySummary'], ['type' => 'object', 'properties' => ['scope_summary' => ['type' => ['string', 'null']], 'who_it_applies_to' => ['type' => ['string', 'null']], 'sections' => ['type' => 'array', 'items' => ['type' => 'object']], 'obligations' => ['type' => 'array', 'items' => ['$ref' => '#/components/schemas/Obligation']], 'deadlines' => ['type' => 'array', 'items' => ['type' => 'object']], 'sources' => ['type' => 'array', 'items' => ['type' => 'object']], 'faq' => ['type' => 'array', 'items' => ['type' => 'object']], 'source' => ['$ref' => '#/components/schemas/SourceQuality']]]]],
+            'Obligation' => ['type' => 'object', 'properties' => ['slug' => ['type' => 'string'], 'title' => ['type' => 'string'], 'category' => ['type' => 'string'], 'summary' => ['type' => ['string', 'null']], 'practical_action' => ['type' => ['string', 'null']], 'is_binding' => ['type' => 'boolean'], 'applies_from' => ['type' => ['string', 'null'], 'format' => 'date'], 'source_reference' => ['type' => ['string', 'null']], 'official_source_url' => ['type' => ['string', 'null']], 'evidence_examples' => ['type' => 'array', 'items' => ['type' => 'object']], 'framework_mappings' => ['type' => 'array', 'items' => ['type' => 'object']], 'url' => ['type' => 'string', 'format' => 'uri']]],
+        ],
+    ],
+];

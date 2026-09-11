@@ -28,7 +28,6 @@ export default function Dashboard({
     govAiIndex = [],
     organizationLogo
 }) {
-    console;
     var [countrywithStatus, setCountrywithStatus] = useState(
         initialCountrywithStatus
     );

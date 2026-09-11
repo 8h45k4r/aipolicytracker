@@ -1,0 +1,150 @@
+slug: us-nist-ai-rmf
+jurisdiction: us
+title: "NIST AI Risk Management Framework (AI RMF 1.0) and Generative AI Profile"
+short_title: NIST AI RMF
+instrument_type: framework
+status: voluntary_standard
+is_binding: false
+featured: true
+published: true
+issuing_body: National Institute of Standards and Technology (US Department of Commerce)
+summary_plain: >
+  The NIST AI Risk Management Framework is a voluntary framework for managing risks to individuals, organisations and
+  society from AI. It organises practices into four functions: Govern, Map, Measure and Manage, and describes
+  characteristics of trustworthy AI such as validity, safety, security, accountability, explainability, privacy and
+  fairness. The July 2024 Generative AI Profile (NIST AI 600-1) adds risks and suggested actions specific to
+  generative AI. Many US procurement requirements and state laws reference the framework as a recognised approach.
+scope_summary: >
+  Voluntary and sector-agnostic; usable by any organisation designing, developing, deploying or evaluating AI systems.
+  It creates no legal obligations, but Colorado SB 24-205 and federal procurement guidance treat conformity with the
+  framework as evidence of reasonable care.
+who_it_applies_to: Any organisation that chooses to adopt it; referenced by regulators, state laws and customers.
+key_dates_summary: AI RMF 1.0 released 26 January 2023; Generative AI Profile (NIST AI 600-1) released 26 July 2024.
+penalties_summary: None; voluntary.
+what_organizations_must_do: >
+  Nothing is mandatory. Organisations adopting it typically establish governance (Govern), document context and
+  impacts (Map), test and monitor (Measure), and prioritise and respond to risks (Manage), using the Playbook.
+adopted_on: 2023-01-26
+published_on: 2023-01-26
+actors: [provider, deployer, public_authority, gpai_provider]
+ai_system_types: [general_purpose_ai_model, generative_ai, automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai, hiring_and_hr, finance_and_credit, safety_critical]
+related_policies: [eu-ai-act, us-colorado-ai-act, us-omb-m-25-21]
+related_frameworks: [iso_42001]
+sections:
+  - { reference: "Part 1", title: "Foundational information", summary: "Framing AI risk, audiences, harms and trustworthiness characteristics." }
+  - { reference: "Part 2: Core", title: "Govern, Map, Measure, Manage", summary: "The four functions with categories and subcategories." }
+  - { reference: "NIST AI 600-1", title: "Generative AI Profile", summary: "Twelve generative-AI risk areas and suggested actions." }
+obligations:
+  - slug: us-nist-ai-rmf-govern
+    title: Establish AI governance policies, roles and accountability (Govern)
+    category: governance_accountability
+    section: "Part 2: Core"
+    source_reference: "GOVERN function"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, hiring_and_hr]
+    summary: >
+      Govern covers policies and procedures for AI risk, roles and responsibilities, workforce diversity and
+      training, organisational culture, stakeholder engagement, and third-party risk management. It is the
+      cross-cutting function that supports the other three.
+    practical_action: Adopt an AI policy, assign owners, and set a risk-tolerance statement approved by leadership.
+    applicability:
+      description: Voluntary; any organisation adopting the framework.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: AI governance policy, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clauses 4–5 and 7", note: "Original editorial mapping: leadership, context and support.", confidence_level: high }
+  - slug: us-nist-ai-rmf-map
+    title: Map context, intended use and potential impacts (Map)
+    category: impact_assessment
+    section: "Part 2: Core"
+    source_reference: "MAP function"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, public_services]
+    summary: >
+      Map establishes the context: intended purposes, users, deployment settings, legal requirements, risk
+      categorisation, benefits and costs, and impacts on individuals, groups, communities and society.
+    practical_action: Produce a system card or context document before development starts.
+    applicability:
+      description: Voluntary; any organisation adopting the framework.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: AI system context and impact document, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: high }
+  - slug: us-nist-ai-rmf-measure
+    title: Measure and test trustworthiness characteristics (Measure)
+    category: safety_testing
+    section: "Part 2: Core"
+    source_reference: "MEASURE function"
+    is_binding: false
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, safety_critical, biometrics]
+    summary: >
+      Measure covers selecting metrics and test methods, evaluating validity, safety, security, resilience,
+      explainability, privacy, fairness and bias, and monitoring these over time, including through independent
+      review and red-teaming for generative AI.
+    practical_action: Define a test plan with metrics for each trustworthiness characteristic and record results.
+    applicability:
+      description: Voluntary; any organisation adopting the framework.
+      actors: [provider]
+    evidence_examples:
+      - { title: Evaluation and red-team reports, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 9 Performance evaluation; Annex A verification controls", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: us-nist-ai-rmf-manage
+    title: Prioritise, respond to and monitor AI risks (Manage)
+    category: risk_management
+    section: "Part 2: Core"
+    source_reference: "MANAGE function"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, finance_and_credit]
+    summary: >
+      Manage allocates resources to mapped and measured risks, plans responses including decommissioning,
+      manages third-party risks, and documents post-deployment monitoring, incident response and communication.
+    practical_action: Maintain a risk-treatment plan and an incident and monitoring log per system.
+    applicability:
+      description: Voluntary; any organisation adopting the framework.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Risk treatment and monitoring plan, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clauses 8 and 10", note: "Operation and improvement.", confidence_level: medium }
+deadlines: []
+sources:
+  - { title: "Artificial Intelligence Risk Management Framework (AI RMF 1.0), NIST AI 100-1", publisher: "National Institute of Standards and Technology", url: "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf", document_date: 2023-01-26, document_type: standard, tier: 1, license_note: "US Government work; not subject to copyright in the United States." }
+  - { title: "AI RMF: Generative Artificial Intelligence Profile, NIST AI 600-1", publisher: "National Institute of Standards and Technology", url: "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf", document_date: 2024-07-26, document_type: standard, tier: 1 }
+  - { title: "AI RMF programme page and Playbook", publisher: "National Institute of Standards and Technology", url: "https://www.nist.gov/itl/ai-risk-management-framework", document_type: official, tier: 1 }
+faq:
+  - question: Is the NIST AI RMF mandatory?
+    answer: >
+      No. It is voluntary. Some laws and procurement rules reference it, and Colorado's AI Act treats compliance
+      with a recognised framework such as the AI RMF as relevant to the "reasonable care" defence.
+  - question: How does the NIST AI RMF relate to ISO/IEC 42001?
+    answer: >
+      Both are voluntary. The AI RMF is a risk-management framework with four functions; ISO/IEC 42001 is a
+      certifiable management-system standard. Organisations often use the AI RMF as the practice catalogue inside
+      an ISO/IEC 42001 management system.
+official_source_url: "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+source_title: "Artificial Intelligence Risk Management Framework (AI RMF 1.0)"
+source_publisher: "National Institute of Standards and Technology"
+source_document_date: 2023-01-26
+source_reference: "NIST AI 100-1"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

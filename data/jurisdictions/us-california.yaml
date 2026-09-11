@@ -1,0 +1,46 @@
+slug: us-california
+name: California (United States)
+short_name: California
+iso_code: US-CA
+jurisdiction_type: state
+region: North America
+subregion: United States
+parent: us
+published: true
+overview: >
+  California regulates AI through a set of targeted statutes and privacy rules rather than one AI act. Senate Bill 53,
+  the Transparency in Frontier Artificial Intelligence Act signed in September 2025, requires large frontier-model
+  developers to publish safety frameworks and report critical safety incidents. The California Privacy Protection
+  Agency has adopted regulations on automated decision-making technology under the CCPA, and earlier laws cover
+  AI-generated content disclosure, training-data transparency (AB 2013) and AI in healthcare communications.
+regulatory_status_summary: >
+  Several binding statutes in force or with 2026 effective dates; SB 53 operative from 1 January 2026. The state's
+  privacy regulator also enforces automated-decision-making rules. A reviewer must confirm current effective
+  dates and any federal pre-emption disputes.
+binding_vs_guidance: >
+  Binding: SB 53 (frontier models), AB 2013 (training-data transparency), CCPA and CPPA regulations on automated
+  decision-making technology, and sector laws. Guidance: Attorney General advisories on AI and existing law.
+current_priorities: Frontier-model safety transparency, automated decision-making rules under the CCPA, and AI-generated content provenance.
+how_to_use:
+  - Check whether you meet SB 53 thresholds for a "large frontier developer".
+  - If you process Californians' personal data with automated decision-making technology, review the CPPA regulations.
+  - Review disclosure duties for generative-AI outputs and training data.
+regulators:
+  - { name: California Privacy Protection Agency, url: "https://cppa.ca.gov/", role: "CCPA and automated decision-making regulations" }
+  - { name: California Attorney General, url: "https://oag.ca.gov/", role: "Enforcement of SB 53 and consumer law" }
+official_sources:
+  - { title: "SB 53 Transparency in Frontier Artificial Intelligence Act", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53", document_date: 2025-09-29, document_type: legislation, tier: 1 }
+related_jurisdictions: [us, us-colorado, eu]
+official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
+source_title: "SB 53 Transparency in Frontier Artificial Intelligence Act"
+source_publisher: "California Legislative Information"
+source_document_date: 2025-09-29
+source_reference: "California Business and Professions Code, Chapter 25.1"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

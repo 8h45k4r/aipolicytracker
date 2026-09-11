@@ -1,0 +1,74 @@
+# Controlled vocabularies used across policy and obligation records.
+actor:
+  - { slug: provider, name: Provider / developer, description: "Develops an AI system or model, or has it developed, and places it on the market or puts it into service under its own name." }
+  - { slug: deployer, name: Deployer / user organisation, description: "Uses an AI system under its own authority (other than personal, non-professional use)." }
+  - { slug: importer, name: Importer, description: "Places on a market an AI system that bears the name of a provider established outside that market." }
+  - { slug: distributor, name: Distributor, description: "Makes an AI system available on a market without being its provider or importer." }
+  - { slug: authorized_representative, name: Authorised representative, description: "Person or entity mandated by a non-established provider to carry out obligations on its behalf." }
+  - { slug: user, name: Individual user / affected person, description: "Natural person interacting with, or affected by, an AI system." }
+  - { slug: public_authority, name: Public authority / government body, description: "Public-sector body procuring, deploying or overseeing AI systems." }
+  - { slug: gpai_provider, name: General-purpose AI model provider, description: "Provider of a general-purpose AI model, including foundation and frontier models." }
+ai_system_type:
+  - { slug: general_purpose_ai_model, name: General-purpose AI model, description: "A model trained on broad data that can perform a wide range of tasks and be integrated into many systems." }
+  - { slug: generative_ai, name: Generative AI system, description: "System that produces text, images, audio, video or code." }
+  - { slug: automated_decision_system, name: Automated decision-making system, description: "System that makes or materially supports decisions about people." }
+  - { slug: biometric_system, name: Biometric identification or categorisation system, description: "System processing biometric data to identify, verify or categorise people, or recognise emotions." }
+  - { slug: recommender_system, name: Recommender / ranking system, description: "System that ranks, recommends or personalises content, products or people." }
+  - { slug: safety_component, name: Safety component of a product, description: "AI used as a safety component of machinery, vehicles, medical devices or similar regulated products." }
+  - { slug: conversational_agent, name: Chatbot / conversational agent, description: "System that interacts with people through natural language." }
+  - { slug: predictive_scoring, name: Predictive or scoring system, description: "System that scores, profiles or predicts behaviour, risk or eligibility." }
+sector:
+  - { slug: cross_sector, name: Cross-sector / all sectors }
+  - { slug: employment, name: Employment and HR }
+  - { slug: financial_services, name: Financial services and credit }
+  - { slug: healthcare, name: Healthcare and life sciences }
+  - { slug: education, name: Education and training }
+  - { slug: public_services, name: Public services and government }
+  - { slug: law_enforcement, name: Law enforcement and justice }
+  - { slug: critical_infrastructure, name: Critical infrastructure and utilities }
+  - { slug: migration_border, name: "Migration, asylum and border control" }
+  - { slug: media_information, name: "Media, platforms and information" }
+  - { slug: consumer_retail, name: Consumer products and retail }
+  - { slug: transport, name: Transport and mobility }
+  - { slug: telecommunications, name: Telecommunications and digital services }
+risk_category:
+  - { slug: prohibited, name: Prohibited practice, description: "Use banned outright (terminology used by the EU AI Act; other jurisdictions may differ)." }
+  - { slug: high_risk, name: High-risk, description: "Use subject to the strictest requirements before and after deployment." }
+  - { slug: transparency_risk, name: Transparency obligations, description: "Use permitted with disclosure or labelling duties (for example chatbots, synthetic content)." }
+  - { slug: minimal_risk, name: Minimal or unregulated risk, description: "No AI-specific obligations beyond general law." }
+  - { slug: systemic_risk, name: Systemic-risk general-purpose model, description: "General-purpose models with high-impact capabilities subject to additional duties." }
+  - { slug: unclassified, name: Not classified by the instrument, description: "The instrument does not use a risk tiering." }
+use_case:
+  - { slug: hiring_and_hr, name: AI in hiring and employment }
+  - { slug: biometrics, name: Biometrics and facial recognition }
+  - { slug: health, name: AI in healthcare }
+  - { slug: finance_and_credit, name: "AI in finance, credit and insurance" }
+  - { slug: education, name: AI in education }
+  - { slug: public_services, name: AI in public services }
+  - { slug: law_enforcement, name: AI in law enforcement }
+  - { slug: generative_ai, name: Generative AI and foundation models }
+  - { slug: content_moderation, name: Content moderation and platforms }
+  - { slug: customer_service, name: Customer service and chatbots }
+  - { slug: safety_critical, name: Safety-critical and infrastructure }
+  - { slug: government_procurement, name: Government procurement of AI }
+obligation_category:
+  - { slug: risk_management, name: AI risk management }
+  - { slug: data_governance, name: Data governance and quality }
+  - { slug: transparency, name: Transparency and disclosure }
+  - { slug: human_oversight, name: Human oversight }
+  - { slug: technical_documentation, name: Technical documentation }
+  - { slug: record_keeping, name: Record keeping and logging }
+  - { slug: accuracy_robustness_security, name: "Accuracy, robustness and cybersecurity" }
+  - { slug: quality_management, name: Quality management system }
+  - { slug: conformity_assessment, name: Conformity assessment and registration }
+  - { slug: post_market_monitoring, name: Post-market monitoring }
+  - { slug: incident_handling, name: Incident reporting and handling }
+  - { slug: vendor_governance, name: Vendor and supply-chain governance }
+  - { slug: impact_assessment, name: Impact assessment }
+  - { slug: ai_literacy, name: AI literacy and training }
+  - { slug: prohibited_practice, name: Prohibited practices }
+  - { slug: governance_accountability, name: Governance and accountability }
+  - { slug: copyright_training_data, name: Copyright and training-data transparency }
+  - { slug: public_sector_use, name: Public-sector use and procurement }
+  - { slug: privacy_data_protection, name: Privacy and personal-data protection }
+  - { slug: safety_testing, name: Safety testing and evaluation }

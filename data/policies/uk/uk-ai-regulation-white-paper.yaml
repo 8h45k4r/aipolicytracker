@@ -1,0 +1,180 @@
+slug: uk-ai-regulation-white-paper
+jurisdiction: uk
+title: "A pro-innovation approach to AI regulation (white paper and government response)"
+short_title: UK AI regulation framework
+instrument_type: policy
+status: guidance
+status_note: >
+  Non-statutory framework implemented by existing regulators. The government response of 6 February 2024 confirmed
+  the approach and asked regulators to publish their AI plans; a reviewer should confirm no statutory duty on
+  regulators has since been introduced.
+is_binding: false
+featured: true
+published: true
+issuing_body: Department for Science, Innovation and Technology
+summary_plain: >
+  The UK white paper sets out a principles-based, context-specific approach to regulating AI. Instead of a single
+  AI law, it asks existing regulators to interpret and apply five cross-cutting principles within their remits:
+  safety, security and robustness; appropriate transparency and explainability; fairness; accountability and
+  governance; and contestability and redress. Central government provides coordination, monitoring and guidance.
+scope_summary: >
+  Applies to UK regulators and, through them, to organisations developing or using AI in regulated activities in
+  the UK. It creates no direct legal obligations on businesses; obligations arise from the existing laws each
+  regulator enforces.
+who_it_applies_to: >
+  UK regulators (primary audience), and indirectly any organisation whose AI use falls within a regulator's remit.
+key_dates_summary: >
+  White paper published 29 March 2023; consultation closed 21 June 2023; government response published
+  6 February 2024, with regulators asked to publish their AI strategies by 30 April 2024.
+penalties_summary: None directly; penalties arise under the underlying laws enforced by each regulator.
+what_organizations_must_do: >
+  Map your AI uses to the regulators that cover them, read those regulators' AI guidance, and evidence how you meet
+  the five principles through your existing compliance programmes (data protection, equality, consumer, sector).
+adopted_on: 2023-03-29
+published_on: 2023-03-29
+in_force_on: null
+applies_from: null
+actors: [provider, deployer, public_authority]
+ai_system_types: [general_purpose_ai_model, automated_decision_system, generative_ai]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai, hiring_and_hr, finance_and_credit, public_services]
+related_policies: [eu-ai-act, uk-ico-ai-data-protection-guidance]
+related_frameworks: [nist_ai_rmf, iso_42001]
+sections:
+  - { reference: "Part 3", title: "Framework principles", summary: "The five cross-cutting principles for regulators." }
+  - { reference: "Part 4", title: "Central functions", summary: "Monitoring, risk assessment, coordination and sandbox support from central government." }
+obligations:
+  - slug: uk-principles-safety-security-robustness
+    title: Ensure AI systems are safe, secure and robust throughout their lifecycle
+    category: risk_management
+    section: "Part 3"
+    source_reference: "Principle 1, Part 3"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, generative_ai]
+    summary: >
+      Regulators are asked to ensure AI systems function in a robust, secure and safe way, with risks continually
+      identified, assessed and managed. In practice this is enforced through existing safety, security and
+      data-protection law rather than a new duty.
+    practical_action: >
+      Run lifecycle risk assessments and keep security testing evidence that you can show a regulator.
+    applicability:
+      description: Non-binding expectation for all AI developers and deployers in regulated activities.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: AI risk assessment, artifact_type: report }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.5–2.7", note: "Original editorial mapping.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Clause 6.1 and Annex A risk controls", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: uk-principles-transparency-explainability
+    title: Provide appropriate transparency and explainability
+    category: transparency
+    section: "Part 3"
+    source_reference: "Principle 2, Part 3"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, public_services]
+    summary: >
+      Organisations should communicate when and how AI is used and provide explanations proportionate to the
+      risk, so that people can understand decisions affecting them. For personal data, UK GDPR transparency and
+      automated decision-making rights make this binding in practice.
+    practical_action: >
+      Publish AI use notices and keep explainability documentation for decisions about individuals.
+    applicability:
+      description: All AI uses; binding where UK GDPR applies.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: AI transparency notice, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 4.x, MAP 1.x", note: "Original editorial mapping.", confidence_level: medium }
+  - slug: uk-principles-fairness
+    title: Use AI in ways that are fair and do not discriminate unlawfully
+    category: governance_accountability
+    section: "Part 3"
+    source_reference: "Principle 3, Part 3"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector, employment, financial_services]
+    use_cases: [hiring_and_hr, finance_and_credit]
+    summary: >
+      AI systems should not undermine legal rights, discriminate unfairly or create unfair market outcomes.
+      The Equality Act 2010 and UK GDPR fairness principle make key parts of this binding.
+    practical_action: >
+      Test for disparate outcomes across protected characteristics before and after deployment.
+    applicability:
+      description: All AI uses affecting people; binding under equality and data-protection law.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: Bias and fairness testing report, artifact_type: report }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.11", note: "Fairness and bias evaluation.", confidence_level: medium }
+  - slug: uk-principles-accountability-governance
+    title: Establish accountability and governance for AI
+    category: governance_accountability
+    section: "Part 3"
+    source_reference: "Principle 4, Part 3"
+    is_binding: false
+    actors: [provider, deployer]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, public_services]
+    summary: >
+      Governance measures should ensure effective oversight of AI supply and use with clear lines of
+      accountability across the lifecycle.
+    practical_action: >
+      Name an accountable owner for each AI system and record decisions in a governance log.
+    applicability:
+      description: All organisations developing or deploying AI.
+      actors: [provider, deployer]
+    evidence_examples:
+      - { title: AI governance policy and RACI, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 5 Leadership", note: "Original editorial mapping.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN 2.1", note: "Roles and responsibilities.", confidence_level: high }
+  - slug: uk-principles-contestability-redress
+    title: Provide routes to contest AI outcomes and seek redress
+    category: human_oversight
+    section: "Part 3"
+    source_reference: "Principle 5, Part 3"
+    is_binding: false
+    actors: [deployer, public_authority]
+    sectors: [cross_sector]
+    use_cases: [public_services, finance_and_credit, hiring_and_hr]
+    summary: >
+      Affected people should be able to contest harmful AI decisions or outcomes and obtain redress, through
+      existing complaint routes and regulators.
+    practical_action: >
+      Add an AI-decision challenge route to customer complaint procedures.
+    applicability:
+      description: Organisations whose AI produces decisions or outcomes affecting people.
+      actors: [deployer, public_authority]
+    evidence_examples:
+      - { title: Contest and redress procedure, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.x", note: "Feedback and recourse mechanisms.", confidence_level: medium }
+deadlines:
+  - { title: Consultation closed, due_on: 2023-06-21, date_precision: exact, description: "End of the white paper consultation period.", deadline_status: passed, confidence_level: high }
+  - { title: Government response published, due_on: 2024-02-06, date_precision: exact, description: "Confirmed the principles-based approach and asked regulators to publish AI plans.", deadline_status: passed, confidence_level: high }
+sources:
+  - { title: "A pro-innovation approach to AI regulation (white paper, CP 815)", publisher: "Department for Science, Innovation and Technology", url: "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach", document_date: 2023-03-29, document_type: guidance, tier: 1 }
+  - { title: "A pro-innovation approach to AI regulation: government response", publisher: "Department for Science, Innovation and Technology", url: "https://www.gov.uk/government/consultations/ai-regulation-a-pro-innovation-approach-policy-proposals/outcome/a-pro-innovation-approach-to-ai-regulation-government-response", document_date: 2024-02-06, document_type: guidance, tier: 1 }
+faq:
+  - question: Is the UK AI white paper legally binding?
+    answer: >
+      No. It is a policy framework for regulators. Legal obligations on businesses continue to come from existing
+      laws such as UK GDPR, the Equality Act 2010 and sector regulation.
+official_source_url: "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach"
+source_title: "A pro-innovation approach to AI regulation"
+source_publisher: "UK Government, Department for Science, Innovation and Technology"
+source_document_date: 2023-03-29
+source_reference: "CP 815; government response 6 February 2024"
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: Initial structured record.
+reviewed_by: null

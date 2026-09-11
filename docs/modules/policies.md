@@ -56,6 +56,10 @@ Status mapping used by the dataset: `launched` = enacted / in force / officially
 
 Admin: `backend.ai_policy_tracker.index|store|edit|update|delete|search`. Public: `frontend.dashboard`, `frontend.dashboard.filtered`, `frontend.single_ai_policy_tracker.index`, `frontend.time_line.index`.
 
+## Relationship to the policy-intelligence module
+
+This legacy table still drives the `/map` dashboard, timeline and bookmarks. The public site, API and sitemaps are served from the structured [policy-intelligence](policy-intelligence.md) module (`policy_instruments` and related tables), which carries the provenance and verification fields this table lacks. The two are not yet cross-linked (`docs/reference/technical-debt.md` #12).
+
 ## Debt
 
-No source/provenance or version model; status vocabulary is product-lifecycle rather than legal status; free-text columns should be structured. See `docs/reference/technical-debt.md` #3.
+Status vocabulary is product-lifecycle rather than legal status; free-text columns should be structured. Provenance is solved in the policy-intelligence module; cross-linking is `docs/reference/technical-debt.md` #12.

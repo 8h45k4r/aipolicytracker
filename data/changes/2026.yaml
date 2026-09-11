@@ -1,0 +1,21 @@
+changes:
+  - slug: 2026-01-01-california-sb-53-operative
+    jurisdiction: us-california
+    policy: us-california-sb-53
+    occurred_on: 2026-01-01
+    title: California SB 53 frontier-model transparency duties become operative
+    what_changed: >
+      Most provisions of the Transparency in Frontier Artificial Intelligence Act took effect, including the duty to
+      publish a frontier AI framework and report critical safety incidents.
+    practical_impact: Large frontier developers should now have a published framework and incident-reporting process.
+    impact_level: high
+    status_after: in_force
+    published: true
+    official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
+    source_title: "SB 53 Transparency in Frontier Artificial Intelligence Act"
+    source_publisher: "California Legislative Information"
+    source_document_date: 2025-09-29
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
