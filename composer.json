@@ -17,6 +17,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "php": "^8.2",
+        "resend/resend-php": "^0.15 || ^1.0",
         "symfony/yaml": "^7.1",
         "tightenco/ziggy": "^2.0"
     },
