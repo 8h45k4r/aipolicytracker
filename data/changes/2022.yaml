@@ -1,0 +1,72 @@
+changes:
+  - slug: 2022-06-16-canada-artificial-intelligence-and-data-act
+    jurisdiction: canada
+    policy: canada-artificial-intelligence-and-data-act
+    occurred_on: '2022-06-16'
+    title: Bill C-27 introduced at first reading in the House of Commons
+    what_changed: >-
+      Milestone recorded for Artificial Intelligence and Data Act (Canada): Bill C-27 introduced at first reading
+      in the House of Commons. Recorded from the official source listed; details to be expanded by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.parl.ca/legisinfo/en/bill/44-1/c-27
+    source_title: Bill C-27 introduced at first reading in the House of Commons
+    source_publisher: Parliament of Canada (LEGISinfo)
+    source_document_date: '2022-06-16'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2022-07-26-thailand-thailand-national-ai-strategy-and-action-plan
+    jurisdiction: thailand
+    policy: thailand-thailand-national-ai-strategy-and-action-plan
+    occurred_on: '2022-07-26'
+    title: Cabinet approves the National AI Strategy and Action Plan (2022-2027)
+    what_changed: >-
+      Milestone recorded for Thailand National AI Strategy and Action Plan (Thailand): Cabinet approves the National
+      AI Strategy and Action Plan (2022-2027). Recorded from the official source listed; details to be expanded by
+      a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.nectec.or.th/en/about/news/cabinet-national-ai-strategy.html
+    source_title: Cabinet approves the National AI Strategy and Action Plan (2022-2027)
+    source_publisher: National Electronics and Computer Technology Center (NECTEC), NSTDA
+    source_document_date: '2022-07-26'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.
+  - slug: 2022-12-01-thailand-thailand-national-ai-strategy-and-action-plan
+    jurisdiction: thailand
+    policy: thailand-thailand-national-ai-strategy-and-action-plan
+    occurred_on: '2022-12-01'
+    title: English overview of the strategy published on Thailand's official AI portal
+    what_changed: >-
+      Milestone recorded for Thailand National AI Strategy and Action Plan (Thailand): English overview of the strategy
+      published on Thailand's official AI portal. Recorded from the official source listed; details to be expanded
+      by a reviewer.
+    practical_impact: ''
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: https://www.ai.in.th/wp-content/uploads/2022/12/2022-NAIS-Presentation-eng.pdf
+    source_title: English overview of the strategy published on Thailand's official AI portal
+    source_publisher: National Electronics and Computer Technology Center (NECTEC), NSTDA
+    source_document_date: '2022-12-01'
+    source_tier: 1
+    last_checked_at: '2026-09-11'
+    last_verified_at: null
+    review_status: pending_review
+    confidence_level: high
+    content_version: 1
+    change_summary: Imported milestone from the legacy dataset.

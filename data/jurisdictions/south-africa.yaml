@@ -1,0 +1,44 @@
+slug: south-africa
+name: South Africa
+short_name: South Africa
+iso_code: ZA
+jurisdiction_type: country
+region: Africa
+subregion: Southern Africa
+featured: false
+published: true
+overview: >-
+  Approved by Cabinet in March/April 2026 and gazetted for a 60-day comment period, the draft policy proposed guiding
+  principles, institutional arrangements and implementation pathways for AI across the public and private sectors,
+  building on the department's 2024 National AI Policy Framework.
+regulatory_status_summary: >-
+  Instruments on record: Draft South Africa National Artificial Intelligence (2026, policy, archived). Each is linked
+  to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: Draft South Africa National Artificial Intelligence.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: Draft South Africa National Artificial Intelligence (AI) Policy
+  publisher: Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)
+  url: https://www.gov.za/sites/default/files/gcis_document/202604/54477gen3880.pdf
+  document_date: '2026-04-10'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.gov.za/sites/default/files/gcis_document/202604/54477gen3880.pdf
+source_title: Draft South Africa National Artificial Intelligence (AI) Policy
+source_publisher: Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)
+source_document_date: '2026-04-10'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

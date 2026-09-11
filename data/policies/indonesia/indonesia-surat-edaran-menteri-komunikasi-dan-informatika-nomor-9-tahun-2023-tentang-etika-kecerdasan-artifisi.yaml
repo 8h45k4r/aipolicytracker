@@ -1,0 +1,68 @@
+slug: >-
+  indonesia-surat-edaran-menteri-komunikasi-dan-informatika-nomor-9-tahun-2023-tentang-etika-kecerdasan-artifisi
+jurisdiction: indonesia
+title: >-
+  Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial (Circular
+  Letter No. 9 of 2023 on AI Ethics)
+short_title: >-
+  Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial
+instrument_type: regulation
+status: in_force
+is_binding: true
+featured: false
+published: true
+issuing_body: Ministry of Communication and Informatics (now Ministry of Communication and Digital)
+summary_plain: >-
+  A ministerial circular that lays out ethical values for developing and using AI, such as inclusivity, humanity,
+  security, accessibility, transparency, accountability, personal data protection, sustainability and respect for
+  intellectual property. It applies to AI-related businesses and to public and private electronic system operators
+  in Indonesia. It is soft-law guidance intended as a basis for future regulation.
+scope_summary: >-
+  Scope is as set out in the official text linked below. Issued by Ministry of Communication and Informatics (now
+  Ministry of Communication and Digital). Oversight: Ministry of Communication and Digital (Komdigi). Stated purpose:
+  Set ethical expectations for AI developers and electronic system operators pending binding regulation.
+key_dates_summary: '2023-12-19: Circular Letter No. 9/2023 on AI Ethics signed by the Minister'
+adopted_on: '2023-12-19'
+date_notes: >-
+  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
+  by a reviewer.
+actors: []
+ai_system_types: []
+sectors: []
+risk_categories: []
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial (Circular
+    Letter No. 9 of 2023 on AI Ethics)
+  publisher: JDIH Kementerian Komunikasi dan Digital
+  url: >-
+    https://jdih.komdigi.go.id/produk_hukum/view/id/883/t/surat+edaran+menteri+komunikasi+dan+informatika+nomor+9+tahun+2023
+  document_date: '2023-12-19'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: >-
+  https://jdih.komdigi.go.id/produk_hukum/view/id/883/t/surat+edaran+menteri+komunikasi+dan+informatika+nomor+9+tahun+2023
+source_title: >-
+  Surat Edaran Menteri Komunikasi dan Informatika Nomor 9 Tahun 2023 tentang Etika Kecerdasan Artifisial (Circular
+  Letter No. 9 of 2023 on AI Ethics)
+source_publisher: JDIH Kementerian Komunikasi dan Digital
+source_document_date: '2023-12-19'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: high
+content_version: 1
+change_summary: >-
+  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
+  source page states. Reviewer to enrich scope, dates and obligations.

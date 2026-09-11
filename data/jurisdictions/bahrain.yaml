@@ -1,0 +1,46 @@
+slug: bahrain
+name: Bahrain
+short_name: Bahrain
+iso_code: BH
+jurisdiction_type: country
+region: Asia
+subregion: Gulf Cooperation Council
+featured: false
+published: true
+overview: >-
+  A binding policy for Bahraini government entities structured around four pillars: compliance with AI-related laws
+  and policies (including the Personal Data Protection Law and the GCC AI ethics guide), use and adoption of AI
+  technologies, awareness and education, and local and international cooperation.
+regulatory_status_summary: >-
+  Instruments on record: General Policy for the Use of Artificial Intelligence (2025, policy, adopted). Each is
+  linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: General Policy for the Use of Artificial Intelligence.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: General Policy for the Use of Artificial Intelligence
+  publisher: Information & eGovernment Authority, Kingdom of Bahrain
+  url: >-
+    https://www.iga.gov.bh/Media/Publications/National%20Digital%20Policies/General%20Policy%20for%20the%20Use%20of%20AI%20-%20%20Final%2030%20Jul%202025.pdf
+  document_date: '2025-07-27'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: >-
+  https://www.iga.gov.bh/Media/Publications/National%20Digital%20Policies/General%20Policy%20for%20the%20Use%20of%20AI%20-%20%20Final%2030%20Jul%202025.pdf
+source_title: General Policy for the Use of Artificial Intelligence
+source_publisher: Information & eGovernment Authority, Kingdom of Bahrain
+source_document_date: '2025-07-27'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

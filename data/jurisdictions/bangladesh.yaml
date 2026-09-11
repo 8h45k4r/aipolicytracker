@@ -1,0 +1,41 @@
+slug: bangladesh
+name: Bangladesh
+short_name: Bangladesh
+iso_code: BD
+jurisdiction_type: country
+region: Asia
+subregion: South Asia
+featured: false
+published: true
+overview: A revised draft national AI policy published by the ICT Division for public review.
+regulatory_status_summary: >-
+  Instruments on record: National Artificial Intelligence Policy 2026-2030 (2026, consultation, under consultation).
+  Each is linked to its official source; human verification pending.
+binding_vs_guidance: >-
+  Binding: none recorded. Strategy or guidance: National Artificial Intelligence Policy 2026-2030.
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: National Artificial Intelligence Policy 2026-2030 (Draft V2.0)
+  publisher: ICT Division, Government of Bangladesh
+  url: https://aipolicy.gov.bd/docs/national-ai-policy-bangladesh-2026-2030-draft-v2.0.pdf
+  document_date: '2026-02-09'
+  document_type: consultation
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://aipolicy.gov.bd/docs/national-ai-policy-bangladesh-2026-2030-draft-v2.0.pdf
+source_title: National Artificial Intelligence Policy 2026-2030 (Draft V2.0)
+source_publisher: ICT Division, Government of Bangladesh
+source_document_date: '2026-02-09'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.

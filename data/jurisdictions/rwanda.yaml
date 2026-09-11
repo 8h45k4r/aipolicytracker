@@ -1,0 +1,42 @@
+slug: rwanda
+name: Rwanda
+short_name: Rwanda
+iso_code: RW
+jurisdiction_type: country
+region: Africa
+subregion: Eastern Africa
+featured: false
+published: true
+overview: >-
+  Rwanda's national AI policy sets out six policy areas and fourteen recommendations covering skills and literacy,
+  infrastructure, data, responsible AI governance, public-sector adoption and ecosystem development.
+regulatory_status_summary: >-
+  Instruments on record: The National AI Policy (2023, policy, adopted). Each is linked to its official source;
+  human verification pending.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: The National AI Policy.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- >-
+  Treat strategies and guidance as signals of coming regulation, not as binding requirements.
+regulators: []
+official_sources:
+- title: The National AI Policy
+  publisher: Ministry of ICT and Innovation, Republic of Rwanda
+  url: https://www.minict.gov.rw/ai-policy
+  document_date: '2023-04-20'
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions: []
+official_source_url: https://www.minict.gov.rw/ai-policy
+source_title: The National AI Policy
+source_publisher: Ministry of ICT and Innovation, Republic of Rwanda
+source_document_date: '2023-04-20'
+source_tier: 1
+last_checked_at: '2026-09-11'
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Generated from the source-backed legacy dataset; overview composed from the listed instruments. Reviewer to add
+  regulators and refine.
