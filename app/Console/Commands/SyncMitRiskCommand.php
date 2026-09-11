@@ -57,6 +57,47 @@ class SyncMitRiskCommand extends Command
         unset($current);
         $out = array_merge($existing, ['generated_at' => now()->toDateString(), 'domains' => $domains]);
         File::put(base_path(ExternalDataset::MIT_RISK), json_encode($out, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n");
+
+        // Row-level risk database (AI Risk Database v4 tab).
+        $dbTab = collect($reader->sheetNames())->first(fn ($n) => str_starts_with($n, 'AI Risk Database'));
+        if ($dbTab) {
+            $rows = $reader->rows($dbTab);
+            $header = $rows[2] ?? [];
+            $idx = array_flip($header);
+            $col = fn (array $r, string $name) => trim($r[$idx[$name] ?? -1] ?? '');
+            $code = fn (string $v) => preg_match('/^\s*(\d+)\s*[-.]/', $v, $m) ? (int) $m[1] : null;
+            $sub = fn (string $v) => preg_match('/^\s*(\d+\.\d+)/', $v, $m) ? $m[1] : null;
+            $maps = ['entity' => [1 => 'Human', 2 => 'AI', 3 => 'Other', 4 => 'Not coded'], 'intent' => [1 => 'Intentional', 2 => 'Unintentional', 3 => 'Other', 4 => 'Not coded'], 'timing' => [1 => 'Pre-deployment', 2 => 'Post-deployment', 3 => 'Other', 4 => 'Not coded']];
+            $risks = [];
+            $papers = [];
+            foreach (array_slice($rows, 3) as $r) {
+                if ($col($r, 'Title') === '') {
+                    continue;
+                }
+                if ($col($r, 'Category level') === 'Paper') {
+                    $papers[$col($r, 'QuickRef')] = ['quick_ref' => $col($r, 'QuickRef'), 'title' => $col($r, 'Title'), 'paper_id' => $col($r, 'Paper_ID'), 'risks' => 0];
+
+                    continue;
+                }
+                $risks[] = [
+                    'ev_id' => $col($r, 'Ev_ID'), 'quick_ref' => $col($r, 'QuickRef'), 'paper_title' => mb_substr($col($r, 'Title'), 0, 200), 'level' => $col($r, 'Category level'),
+                    'risk_category' => mb_substr($col($r, 'Risk category'), 0, 200), 'risk_subcategory' => mb_substr($col($r, 'Risk subcategory'), 0, 200), 'description' => mb_substr($col($r, 'Description'), 0, 600),
+                    'entity' => $maps['entity'][$code($col($r, 'Entity')) ?? 0] ?? '', 'intent' => $maps['intent'][$code($col($r, 'Intent')) ?? 0] ?? '', 'timing' => $maps['timing'][$code($col($r, 'Timing')) ?? 0] ?? '',
+                    'domain' => $code($col($r, 'Domain')), 'subdomain' => $sub($col($r, 'Sub-domain')),
+                ];
+            }
+            foreach ($risks as $rk) {
+                if (isset($papers[$rk['quick_ref']])) {
+                    $papers[$rk['quick_ref']]['risks']++;
+                }
+            }
+            usort($papers, fn ($a, $b) => $b['risks'] <=> $a['risks']);
+            File::put(base_path(ExternalDataset::MIT_RISKS), json_encode([
+                'source' => 'MIT AI Risk Repository, AI Risk Database v4 (MIT AI Risk Initiative)', 'source_url' => 'https://airisk.mit.edu/', 'license' => 'CC BY 4.0', 'license_url' => 'https://creativecommons.org/licenses/by/4.0/',
+                'edition' => $existing['edition'] ?? null, 'generated_at' => now()->toDateString(), 'count' => count($risks), 'papers' => array_values($papers), 'risks' => $risks,
+            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            $this->info('MIT risk database written: '.count($risks).' rows, '.count($papers).' papers.');
+        }
         $this->info('MIT domain taxonomy written: '.count($domains).' domains.');
 
         return self::SUCCESS;

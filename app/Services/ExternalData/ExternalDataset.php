@@ -16,6 +16,10 @@ class ExternalDataset
 
     public const MIT_RISK = 'data/external/mit_ai_risk_domains.json';
 
+    public const AIID_INCIDENTS = 'data/external/aiid_incidents.json';
+
+    public const MIT_RISKS = 'data/external/mit_risks.json';
+
     /** @return array<string, mixed> */
     public function aiid(): array
     {
@@ -26,6 +30,15 @@ class ExternalDataset
     public function mitRisk(): array
     {
         return $this->read(self::MIT_RISK);
+    }
+
+    /** @return array<string, mixed> Metadata of the row-level MIT risk file (papers list, counts). */
+    public function mitRisksMeta(): array
+    {
+        $all = $this->read(self::MIT_RISKS);
+        unset($all['risks']);
+
+        return $all;
     }
 
     /** @return array<string, mixed>|null */

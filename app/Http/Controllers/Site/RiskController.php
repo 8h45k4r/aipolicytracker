@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExternalIncident;
+use App\Models\ExternalRisk;
 use App\Models\PolicyInstrument;
 use App\Services\ExternalData\ExternalDataset;
 use App\Support\Seo;
@@ -23,7 +25,15 @@ class RiskController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')]])
             ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI risk domains (MIT AI Risk Repository) with incident counts', 'url' => route('risk.index'), 'license' => $mit['license_url'] ?? null, 'isBasedOn' => [$mit['source_url'] ?? null, $aiid['source_url'] ?? null], 'creator' => ['@type' => 'Organization', 'name' => 'MIT AI Risk Initiative']]);
 
-        return view('site.risk.index', ['seo' => $seo, 'mit' => $mit, 'aiid' => $aiid]);
+        $riskByDomain = ExternalRisk::selectRaw('domain, COUNT(*) as n')->whereNotNull('domain')->groupBy('domain')->pluck('n', 'domain');
+        $matrix = [];
+        foreach (ExternalRisk::selectRaw('entity, intent, COUNT(*) as n')->whereNotNull('entity')->whereNotNull('intent')->groupBy('entity', 'intent')->get() as $row) {
+            $matrix[$row->entity][$row->intent] = (int) $row->n;
+        }
+        $timing = ExternalRisk::selectRaw('timing, COUNT(*) as n')->whereNotNull('timing')->groupBy('timing')->pluck('n', 'timing');
+        $incidentTotals = ['incidents' => ExternalIncident::count(), 'risks' => ExternalRisk::count()];
+
+        return view('site.risk.index', ['seo' => $seo, 'mit' => $mit, 'aiid' => $aiid, 'riskByDomain' => $riskByDomain, 'matrix' => $matrix, 'timing' => $timing, 'incidentTotals' => $incidentTotals]);
     }
 
     public function domain(string $domain): View
@@ -43,7 +53,13 @@ class RiskController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], [$d['name'], route('risk.domain', $d['id'])]])
             ->withJsonLd(['@type' => 'DefinedTermSet', 'name' => $d['name'], 'url' => route('risk.domain', $d['id']), 'isBasedOn' => $mit['source_url'] ?? null, 'license' => $mit['license_url'] ?? null]);
 
-        return view('site.risk.domain', ['seo' => $seo, 'mit' => $mit, 'domain' => $d, 'incidents' => $incidents, 'trend' => $trend, 'policies' => $policies, 'aiid' => $aiid]);
+        $subRisks = ExternalRisk::selectRaw('subdomain, COUNT(*) as n')->where('domain', (int) $d['id'])->whereNotNull('subdomain')->groupBy('subdomain')->pluck('n', 'subdomain');
+        $subIncidents = ExternalIncident::selectRaw('mit_subdomain, COUNT(*) as n')->where('mit_domain', $d['aiid_domain_label'])->whereNotNull('mit_subdomain')->groupBy('mit_subdomain')->pluck('n', 'mit_subdomain');
+        $riskCount = ExternalRisk::where('domain', (int) $d['id'])->count();
+        $topPapers = ExternalRisk::selectRaw('quick_ref, MAX(paper_title) as title, COUNT(*) as n')->where('domain', (int) $d['id'])->groupBy('quick_ref')->orderByDesc('n')->limit(8)->get();
+        $recent = ExternalIncident::where('mit_domain', $d['aiid_domain_label'])->orderByDesc('occurred_on')->limit(8)->get();
+
+        return view('site.risk.domain', ['seo' => $seo, 'mit' => $mit, 'domain' => $d, 'incidents' => $incidents, 'trend' => $trend, 'policies' => $policies, 'aiid' => $aiid, 'subRisks' => $subRisks, 'subIncidents' => $subIncidents, 'riskCount' => $riskCount, 'topPapers' => $topPapers, 'recent' => $recent]);
     }
 
     public function incidents(): View
