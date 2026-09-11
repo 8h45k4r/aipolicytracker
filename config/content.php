@@ -13,6 +13,20 @@
 */
 
 return [
+    // Policy milestones overlaid on the AI-incident timeline (date, label, policy slug or null).
+    'risk_milestones' => [
+        ['2019-05-22', 'OECD AI Principles', 'oecd-recommendation-on-artificial-intelligence'],
+        ['2021-04-21', 'EU AI Act proposed', 'eu-ai-act'],
+        ['2021-11-23', 'UNESCO AI ethics recommendation', 'unesco-recommendation-on-the-ethics-of-ai'],
+        ['2023-01-26', 'NIST AI RMF 1.0', 'us-nist-ai-rmf'],
+        ['2023-11-01', 'Bletchley Declaration', 'bletchley-declaration-ai-safety-summit-2023'],
+        ['2024-05-17', 'Council of Europe AI Convention', 'council-of-europe-framework-convention-on-ai'],
+        ['2024-08-01', 'EU AI Act in force', 'eu-ai-act'],
+        ['2025-02-02', 'EU prohibited practices apply', 'eu-ai-act'],
+        ['2025-09-25', 'Italy Law 132/2025', 'italy-law-132-2025-ai'],
+        ['2026-01-01', 'Texas TRAIGA in force', 'us-texas-responsible-ai-governance-act-traiga'],
+        ['2026-08-02', 'EU high-risk obligations apply', 'eu-ai-act'],
+    ],
 
     'landings' => [
         'eu-ai-act' => [

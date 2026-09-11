@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
+use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Services\ExternalData\ExternalDataset;
 use App\Support\Seo;
@@ -38,8 +39,9 @@ class RiskController extends Controller
         }
         $timing = ExternalRisk::selectRaw('timing, COUNT(*) as n')->whereNotNull('timing')->groupBy('timing')->pluck('n', 'timing');
         $incidentTotals = ['incidents' => ExternalIncident::count(), 'risks' => ExternalRisk::count()];
+        $narrative = self::narrative($aiid, $mit);
 
-        return view('site.risk.index', ['seo' => $seo, 'mit' => $mit, 'aiid' => $aiid, 'riskByDomain' => $riskByDomain, 'matrix' => $matrix, 'timing' => $timing, 'incidentTotals' => $incidentTotals, 'treemapRisks' => $treemapRisks, 'treemapIncidents' => $treemapIncidents]);
+        return view('site.risk.index', ['seo' => $seo, 'mit' => $mit, 'aiid' => $aiid, 'riskByDomain' => $riskByDomain, 'matrix' => $matrix, 'timing' => $timing, 'incidentTotals' => $incidentTotals, 'treemapRisks' => $treemapRisks, 'treemapIncidents' => $treemapIncidents, 'narrative' => $narrative]);
     }
 
     /** Subdomain profile: definition, causal breakdowns, frameworks, risk entries and incidents for one MIT subdomain (e.g. 2.1). */
@@ -73,6 +75,52 @@ class RiskController extends Controller
             ->withJsonLd(['@type' => 'DefinedTerm', 'name' => $meta['name'], 'description' => $meta['description'] ?? null, 'identifier' => $sub, 'inDefinedTermSet' => 'https://airisk.mit.edu/', 'license' => $mit['license_url'] ?? null]);
 
         return view('site.risk.subdomain', compact('seo', 'mit', 'd', 'meta', 'sub', 'riskCount', 'breakdown', 'byLevel', 'papers', 'risks', 'incidentCount', 'incidentYears', 'incidents', 'policies'));
+    }
+
+    /**
+     * Numbers behind the AI-risk narrative: growth, who is harmed and who deploys, where harm is
+     * recorded versus where rules exist, and how instruments map to domains. Cached for an hour.
+     */
+    public static function narrative(array $aiid, array $mit): array
+    {
+        return \Illuminate\Support\Facades\Cache::remember('risk-narrative-v1', 3600, function () use ($aiid, $mit) {
+            $now = now();
+            $last12 = ExternalIncident::where('occurred_on', '>=', $now->copy()->subMonths(12)->toDateString())->count();
+            $prev12 = ExternalIncident::whereBetween('occurred_on', [$now->copy()->subMonths(24)->toDateString(), $now->copy()->subMonths(12)->toDateString()])->count();
+            $byYear = collect($aiid['incidents_per_year'] ?? []);
+            $domainShare = [];
+            foreach (['2019', (string) ($byYear->keys()->max() - 1)] as $y) {
+                $row = $aiid['domain_by_year'][$y] ?? [];
+                $tot = max(1, array_sum($row));
+                $domainShare[$y] = collect($row)->map(fn ($n) => round(100 * $n / $tot))->all();
+            }
+            $deployers = [];
+            $harmed = [];
+            foreach (ExternalIncident::select(['deployers', 'harmed'])->cursor() as $i) {
+                foreach ($i->deployers ?? [] as $d) {
+                    $deployers[$d] = ($deployers[$d] ?? 0) + 1;
+                }
+                foreach ($i->harmed ?? [] as $h) {
+                    $harmed[$h] = ($harmed[$h] ?? 0) + 1;
+                }
+            }
+            arsort($deployers);
+            arsort($harmed);
+            $countries = collect($aiid['by_country'] ?? [])->take(15);
+            $jurisdictions = Jurisdiction::published()->whereIn('iso_code', $countries->keys()->all())->withCount(['policyInstruments as instruments' => fn ($q) => $q->published(), 'policyInstruments as binding' => fn ($q) => $q->published()->where('is_binding', true)])->get()->keyBy('iso_code');
+            $gap = $countries->map(fn ($n, $cc) => ['code' => $cc, 'incidents' => $n, 'jurisdiction' => $jurisdictions[$cc] ?? null])->values()->all();
+            $domainInstruments = [];
+            foreach ($mit['domains'] ?? [] as $d) {
+                $domainInstruments[$d['id']] = $d['use_cases'] ? PolicyInstrument::published()->withTerm('use_case', $d['use_cases'])->count() : 0;
+            }
+
+            return [
+                'last12' => $last12, 'prev12' => $prev12, 'growth' => $prev12 ? round(100 * ($last12 - $prev12) / $prev12) : null,
+                'domain_share' => $domainShare, 'top_deployers' => array_slice($deployers, 0, 10, true), 'top_harmed' => array_slice($harmed, 0, 10, true),
+                'gap' => $gap, 'domain_instruments' => $domainInstruments, 'milestones' => config('content.risk_milestones', []),
+                'with_country' => $aiid['totals']['with_country'] ?? 0, 'classified' => $aiid['totals']['classified_mit'] ?? 0,
+            ];
+        });
     }
 
     /** Rows for the domain → subdomain treemap: cells sized by risk entries (or incidents). */

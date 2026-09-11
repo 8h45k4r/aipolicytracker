@@ -5,6 +5,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- AI risk hub rebuilt as an evidenced narrative: headline totals with 12-month growth, an incident timeline annotated with policy milestones (each bar opens that year's incidents), the shift in domain shares since 2019, most-named harmed parties and deployers, assessed harm levels, a "where harm is recorded versus where rules exist" coverage table (incidents by country against tracked and binding instruments), instruments per domain, and next steps by persona (CISO, researcher, policymaker or diplomat, civil society and journalists).
+- Home page "Start from your job" entry points; policy pages show the AI risk domains an instrument addresses with recorded incident counts; the weekly digest includes the week's recorded AI incidents.
+- `docs/reference/personas-and-jobs.md`: personas, pain points and the product's single USP (harm → rule → action, sourced at every step).
+
+### Added
 - Complete country coverage: 95 further jurisdictions so every UN member state (plus Kosovo, Palestine, Taiwan and Hong Kong) has a record. Where no AI-specific instrument exists the record says so and points to the government portal and a labelled secondary source; four instruments added (El Salvador's AI promotion law, the Holy See's Rome Call for AI Ethics, Azerbaijan's AI Strategy 2025–2028, Tajikistan's AI strategy to 2040). Totals: 212 jurisdictions, 186 instruments.
 
 ### Added
