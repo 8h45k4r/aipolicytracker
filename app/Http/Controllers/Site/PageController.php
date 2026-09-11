@@ -63,6 +63,19 @@ class PageController extends Controller
         return view('site.pages.methodology', ['seo' => $seo, 'statuses' => PolicyStatus::cases(), 'reviewStatuses' => ReviewStatus::cases(), 'tiers' => SourceDocument::TIERS, 'taxonomies' => TaxonomyTerm::TAXONOMIES]);
     }
 
+    /** Per-browser reading list; the list itself lives in localStorage and is rendered client-side. */
+    public function saved(): View
+    {
+        $seo = Seo::make(
+            'Saved records',
+            'Policies, jurisdictions and obligations you saved for later. Stored only in this browser; nothing is sent to the server.',
+            route('saved'),
+            false
+        )->noindex()->withBreadcrumbs([['Home', route('home')], ['Saved', route('saved')]]);
+
+        return view('site.pages.saved', ['seo' => $seo]);
+    }
+
     public function about(): View
     {
         $faq = [
