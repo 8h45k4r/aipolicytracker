@@ -1,0 +1,405 @@
+{
+ "source": "AI Incident Database (Responsible AI Collaborative)",
+ "source_url": "https://incidentdatabase.ai/",
+ "export_file": "AIID_Excel_Export-20260907.xlsx",
+ "snapshot_date": "2026-09-07",
+ "generated_at": "2026-09-11",
+ "license": "CC BY-SA 4.0",
+ "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+ "terms_url": "https://incidentdatabase.ai/terms-of-use/",
+ "citation": "McGregor, S. (2021). Preventing Repeated Real World AI Failures by Cataloging Incidents: The AI Incident Database. Proceedings of the AAAI Conference on Artificial Intelligence (IAAI-21).",
+ "totals": {
+  "incidents": 1663,
+  "classified_mit": 1496,
+  "with_country": 140
+ },
+ "incidents_per_year": {
+  "1983": 1,
+  "1992": 1,
+  "1996": 1,
+  "1998": 1,
+  "1999": 1,
+  "2003": 4,
+  "2006": 1,
+  "2007": 1,
+  "2008": 3,
+  "2009": 2,
+  "2010": 1,
+  "2011": 3,
+  "2012": 8,
+  "2013": 6,
+  "2014": 13,
+  "2015": 24,
+  "2016": 41,
+  "2017": 50,
+  "2018": 46,
+  "2019": 44,
+  "2020": 91,
+  "2021": 80,
+  "2022": 106,
+  "2023": 174,
+  "2024": 299,
+  "2025": 449,
+  "2026": 212
+ },
+ "by_mit_domain": {
+  "Malicious Actors & Misuse": 566,
+  "AI system safety, failures, and limitations": 313,
+  "Discrimination and Toxicity": 243,
+  "Misinformation": 196,
+  "Privacy & Security": 112,
+  "Human-Computer Interaction": 42,
+  "Socioeconomic & Environmental Harms": 24
+ },
+ "by_sector": {
+  "information and communication": 81,
+  "arts, entertainment and recreation": 35,
+  "transportation and storage": 28,
+  "wholesale and retail trade": 20,
+  "law enforcement": 16,
+  "human health and social work activities": 15,
+  "education": 15,
+  "public administration": 13,
+  "administrative and support service activities": 11,
+  "professional, scientific and technical activities": 8,
+  "financial and insurance activities": 7,
+  "accommodation and food service activities": 6
+ },
+ "by_country": {
+  "US": 91,
+  "GB": 6,
+  "RU": 4,
+  "CN": 4,
+  "DE": 3,
+  "NZ": 3,
+  "CA": 3,
+  "FR": 3,
+  "VN": 2,
+  "IN": 2,
+  "IE": 2,
+  "AU": 2,
+  "KR": 2,
+  "ID": 1,
+  "SE": 1,
+  "PS": 1,
+  "AR": 1,
+  "UNITED STATES": 1,
+  "IT": 1,
+  "CH": 1
+ },
+ "by_harm_level": {
+  "none": 126,
+  "AI tangible harm event": 44,
+  "unclear": 10,
+  "AI tangible harm near-miss": 10,
+  "AI tangible harm issue": 10
+ },
+ "domain_by_year": {
+  "2016": {
+   "Discrimination and Toxicity": 16,
+   "AI system safety, failures, and limitations": 18,
+   "Malicious Actors & Misuse": 3,
+   "Misinformation": 1,
+   "Privacy & Security": 1,
+   "Socioeconomic & Environmental Harms": 2
+  },
+  "2017": {
+   "AI system safety, failures, and limitations": 19,
+   "Discrimination and Toxicity": 15,
+   "Privacy & Security": 9,
+   "Misinformation": 2,
+   "Malicious Actors & Misuse": 4,
+   "Socioeconomic & Environmental Harms": 1
+  },
+  "2018": {
+   "AI system safety, failures, and limitations": 22,
+   "Human-Computer Interaction": 1,
+   "Discrimination and Toxicity": 14,
+   "Privacy & Security": 5,
+   "Socioeconomic & Environmental Harms": 2,
+   "Malicious Actors & Misuse": 1
+  },
+  "2019": {
+   "Privacy & Security": 6,
+   "AI system safety, failures, and limitations": 14,
+   "Discrimination and Toxicity": 16,
+   "Malicious Actors & Misuse": 5,
+   "Misinformation": 2,
+   "Human-Computer Interaction": 1
+  },
+  "2020": {
+   "Discrimination and Toxicity": 32,
+   "AI system safety, failures, and limitations": 31,
+   "Misinformation": 5,
+   "Malicious Actors & Misuse": 16,
+   "Socioeconomic & Environmental Harms": 1,
+   "Privacy & Security": 5
+  },
+  "2021": {
+   "Human-Computer Interaction": 6,
+   "AI system safety, failures, and limitations": 37,
+   "Discrimination and Toxicity": 18,
+   "Privacy & Security": 5,
+   "Misinformation": 4,
+   "Malicious Actors & Misuse": 7,
+   "Socioeconomic & Environmental Harms": 2
+  },
+  "2022": {
+   "Discrimination and Toxicity": 25,
+   "Human-Computer Interaction": 5,
+   "Malicious Actors & Misuse": 20,
+   "AI system safety, failures, and limitations": 32,
+   "Misinformation": 11,
+   "Privacy & Security": 10,
+   "Socioeconomic & Environmental Harms": 2
+  },
+  "2023": {
+   "AI system safety, failures, and limitations": 27,
+   "Malicious Actors & Misuse": 65,
+   "Discrimination and Toxicity": 24,
+   "Misinformation": 35,
+   "Privacy & Security": 12,
+   "Human-Computer Interaction": 5,
+   "Socioeconomic & Environmental Harms": 1
+  },
+  "2024": {
+   "Misinformation": 51,
+   "Socioeconomic & Environmental Harms": 3,
+   "Malicious Actors & Misuse": 155,
+   "Discrimination and Toxicity": 30,
+   "Privacy & Security": 17,
+   "AI system safety, failures, and limitations": 32,
+   "Human-Computer Interaction": 4
+  },
+  "2025": {
+   "Discrimination and Toxicity": 25,
+   "Malicious Actors & Misuse": 237,
+   "AI system safety, failures, and limitations": 37,
+   "Misinformation": 66,
+   "Human-Computer Interaction": 18,
+   "Privacy & Security": 24,
+   "Socioeconomic & Environmental Harms": 3
+  },
+  "2026": {
+   "Malicious Actors & Misuse": 49,
+   "Misinformation": 18,
+   "AI system safety, failures, and limitations": 13,
+   "Privacy & Security": 11,
+   "Discrimination and Toxicity": 5,
+   "Socioeconomic & Environmental Harms": 3,
+   "Human-Computer Interaction": 1
+  }
+ },
+ "latest": [
+  {
+   "id": 1675,
+   "date": "2026-08-21",
+   "title": "Instinct AI Personal Assistant Reportedly Summarized an AI Product Founder's Retained Emails After Google Access Was Disconnected",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1674,
+   "date": "2026-08-21",
+   "title": "Instinct AI Personal Assistant Reportedly Sent Email From Moxxie Ventures Founder's Account Without Approval",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1660,
+   "date": "2026-08-19",
+   "title": "Purportedly AI-Generated Videos Impersonating Miami Immigration Attorney Were Reportedly Used to Defraud Bronx Resident of $4,820",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1664,
+   "date": "2026-08-18",
+   "title": "Broadway Performer and SiriusXM Host Seth Rudetsky Reportedly Lost Facebook Page Access in Purportedly AI-Assisted Scam Impersonating Comedian Nikki Glaser",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1663,
+   "date": "2026-08-18",
+   "title": "Comedy Writer Bruce Vilanch Reportedly Sent Money in Purportedly AI-Assisted Scam Impersonating Fresh Air Host Terry Gross",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1665,
+   "date": "2026-08-17",
+   "title": "Purportedly AI-Generated Article Falsely Depicted Australian Broadcasting Corporation Finance Presenter Alan Kohler Interviewing Reserve Bank Governor Michele B",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1643,
+   "date": "2026-08-15",
+   "title": "Wyoming Woman's Childhood Photograph Reportedly Used to Generate Thousands of Explicit Images with Grok",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1659,
+   "date": "2026-08-14",
+   "title": "Purported Hanover Institute for Public Policy Reportedly Targeted Chatbot Responses in Israeli Government-Backed Influence Campaign",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1639,
+   "date": "2026-08-14",
+   "title": "Turkish National Reportedly Posted a Purportedly AI-Generated Image Depicting Himself with Eric Trump While Promoting Trump Hotel Dubai",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1649,
+   "date": "2026-08-05",
+   "title": "Meta AI Model Reportedly Exploited Security Vulnerability in Real Third-Party Service During Cybersecurity Evaluation",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1652,
+   "date": "2026-07-30",
+   "title": "Granola AI Notetaker Allegedly Captured and Transcribed Florida Meeting Participant Without Notice or Consent",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1629,
+   "date": "2026-07-30",
+   "title": "Anthropic Research Model Reportedly Scanned 9,000 Targets and Compromised Real Company's Application During Evaluation",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1628,
+   "date": "2026-07-30",
+   "title": "Claude Mythos 5 Reportedly Published Malicious PyPI Package That Compromised Real Security Company During Evaluation",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1627,
+   "date": "2026-07-30",
+   "title": "Claude Opus 4.7 Reportedly Compromised Real Company's Production Infrastructure During Cybersecurity Evaluation",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1648,
+   "date": "2026-07-29",
+   "title": "Hong Kong Man Reportedly Lost More Than HK$10 Million in WhatsApp Scam Using Purported AI-Generated Voice Impersonation of His Father",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1676,
+   "date": "2026-07-28",
+   "title": "Anthropic Claude Opus 5 Coding Agent Reportedly Reset a Live Supabase Production Database During Prisma Migration Work",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1633,
+   "date": "2026-07-26",
+   "title": "Anthropic and OpenAI AI Agents Reportedly Took Unsanctioned Actions on the Live Internet During UK AISI Cybersecurity Evaluations",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1621,
+   "date": "2026-07-26",
+   "title": "Publicly Shared Claude Artifacts Reportedly Became Discoverable Through Google Search",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1616,
+   "date": "2026-07-26",
+   "title": "U.S. State Department Reportedly Presented AI-Generated Map That Mislabeled Every Labeled African Country",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1647,
+   "date": "2026-07-24",
+   "title": "AI-Generated Voice Mimicking Taiwan President Lai Ching-te Reportedly Used in Political Video Criticizing Government Food-Safety Response",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1611,
+   "date": "2026-07-24",
+   "title": "Marrero, Louisiana, Woman Allegedly Created Purportedly AI-Generated Nude Media During Extortion Scheme",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1626,
+   "date": "2026-07-23",
+   "title": "American Exceptionalism Institute's Purportedly AI-Generated Ad Drew Defamation Claims Over Marsha Blackburn Pharmaceutical Bribery Allegations",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1637,
+   "date": "2026-07-22",
+   "title": "Hank Green Reportedly Used AI-Generated Scientific Image Containing Errors in Educational Video",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1615,
+   "date": "2026-07-17",
+   "title": "Scammers Allegedly Used AI-Generated Voice in Boone County, Missouri, Kidnapping Ransom Scam",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1596,
+   "date": "2026-07-15",
+   "title": "Purported Deepfake Impersonation of Starmangalsutra Director Reportedly Led to ₹10.70 Crore (Approximately US$1.11 Million) in Unauthorized Fund Transfers",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1601,
+   "date": "2026-07-14",
+   "title": "Purported AI-Generated Image Reportedly Won First Prize in Hohhot, Inner Mongolia, Photography Competition Before Award Was Revoked",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1672,
+   "date": "2026-07-13",
+   "title": "OpenAI GPT-5.6 Sol Reportedly Deleted Software Engineer's Production Database During Local Testing",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1592,
+   "date": "2026-07-13",
+   "title": "Purportedly AI-Generated Images Reportedly Used During Four-Year Catfishing Campaign Targeting Welsh Teenager",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1604,
+   "date": "2026-07-11",
+   "title": "OpenAI Models Reportedly Compromised Hugging Face Production Infrastructure During Cybersecurity Evaluation",
+   "domain": "",
+   "countries": []
+  },
+  {
+   "id": 1671,
+   "date": "2026-07-10",
+   "title": "OpenAI GPT-5.6 Sol Agent Reportedly Deleted Most Files in AI Startup Founder's Mac Home Directory",
+   "domain": "",
+   "countries": []
+  }
+ ]
+}
