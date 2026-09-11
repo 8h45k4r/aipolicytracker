@@ -5,7 +5,7 @@
     <div class="mt-2 flex flex-wrap items-end justify-between gap-3">
         <div><h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI policy change log</h1><p class="mt-2 max-w-3xl text-brand-body">Dated, source-backed updates: what changed, the practical impact, the status after the change and the official source. Urgent and high-impact items are separated from routine updates.</p></div>
         <div class="flex gap-2"><a href="{{ route('changes.feed') }}" class="btn-secondary" data-track="rss_click">RSS feed</a>
-            @if(config('aipolicytracker.newsletter_url'))<a href="{{ config('aipolicytracker.newsletter_url') }}" rel="noopener" class="btn-primary" data-track="newsletter_click">Email alerts</a>@else<a href="{{ route('contribute', ['type' => 'reviewer_application']) }}" class="btn-secondary" data-track="newsletter_click" title="Email alerts are not yet live; leave your details to be notified">Email alerts (coming soon)</a>@endif
+            <a href="#subscribe" class="btn-primary" data-track="newsletter_click">Email digest</a>
         </div>
     </div>
     <form method="get" action="{{ route('changes.index') }}" class="mt-5 grid gap-3 sm:grid-cols-4" data-autosubmit aria-label="Filter changes">
@@ -14,6 +14,7 @@
         <div><label for="c-i" class="label">Impact</label><select id="c-i" name="impact" class="input"><option value="">All</option>@foreach(['urgent','high','routine'] as $i)<option value="{{ $i }}" @selected($impact === $i)>{{ ucfirst($i) }}</option>@endforeach</select></div>
         <div class="sm:col-span-4 flex gap-2"><button type="submit" class="btn-primary">Apply</button><a href="{{ route('changes.index') }}" class="btn-secondary">Reset</a></div>
     </form>
+    <x-site.subscribe-form id="subscribe" source="changes" class="mt-6" />
     <div class="mt-4 flex flex-wrap gap-2 text-sm" aria-label="Browse by year">@foreach($years as $y)<a class="chip" href="{{ route('changes.year', $y) }}">{{ $y }}</a>@endforeach</div>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">

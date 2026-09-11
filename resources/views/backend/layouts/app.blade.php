@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow">
+    <title>{{ $title ?? 'Admin' }} | AIPolicyTracker admin</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=source-serif-4:400,600,700|ibm-plex-sans:400,500,600|ibm-plex-mono:400,500&display=swap" rel="stylesheet">
+    @vite(['resources/css/public.css', 'resources/js/public.js'])
+</head>
+<body class="min-h-screen bg-brand-paper">
+<div class="lg:grid lg:grid-cols-[240px_1fr] min-h-screen">
+    <aside class="bg-brand-ink text-white/85 px-4 py-5 lg:min-h-screen">
+        <a href="{{ route('backend.admin.dashboard') }}" class="block no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></a>
+        <p class="mt-2 eyebrow !text-brand-cyan">Admin</p>
+        @php($nav = [
+            ['backend.admin.dashboard', 'Dashboard'],
+            ['backend.review.index', 'Review queue'],
+            ['backend.admin.submissions', 'Submissions and feedback'],
+            ['backend.admin.subscribers', 'Subscribers'],
+            ['backend.admin.external', 'External data'],
+            ['backend.admin.settings', 'Settings and API keys'],
+        ])
+        <nav class="mt-4 space-y-1 text-sm" aria-label="Admin">
+            @foreach($nav as [$r, $label])
+            <a href="{{ route($r) }}" class="block rounded-sm px-3 py-2 no-underline {{ request()->routeIs($r) ? 'bg-white/10 text-white' : 'text-white/80 hover:bg-white/5 hover:text-white' }}" @if(request()->routeIs($r)) aria-current="page" @endif>{{ $label }}</a>
+            @endforeach
+        </nav>
+        <p class="mt-6 eyebrow !text-white/50">Legacy (map data)</p>
+        <nav class="mt-2 space-y-1 text-sm" aria-label="Legacy admin">
+            @foreach([['backend.ai_policy_tracker.index', 'Map policies'], ['backend.news.index', 'News'], ['backend.country.index', 'Countries'], ['backend.users.index', 'Accounts'], ['backend.header_menu.index', 'Logos']] as [$r, $label])
+            <a href="{{ route($r) }}" class="block rounded-sm px-3 py-1.5 text-white/70 hover:text-white no-underline">{{ $label }}</a>
+            @endforeach
+        </nav>
+        <div class="mt-8 text-xs text-white/60">
+            <p>{{ auth()->user()->name }}</p>
+            <p class="mt-1"><a href="{{ route('home') }}" class="text-white/80 no-underline hover:text-white">Public site</a> · <a href="{{ route('logout') }}" class="text-white/80 no-underline hover:text-white">Sign out</a></p>
+        </div>
+    </aside>
+    <main class="px-4 sm:px-8 py-8 min-w-0">
+        @if(session('success'))<div class="mb-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">{{ session('success') }}</div>@endif
+        @if($errors->any())<div class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ $errors->first() }}</div>@endif
+        @yield('content')
+    </main>
+</div>
+</body>
+</html>

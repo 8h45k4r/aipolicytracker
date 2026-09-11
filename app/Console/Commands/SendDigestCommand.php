@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Mail\WeeklyDigestMail;
+use App\Models\ChangeEvent;
+use App\Models\Deadline;
+use App\Models\Subscriber;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
+
+/**
+ * Sends the weekly digest to confirmed subscribers: published change events from
+ * the last 7 days (filtered by each subscriber's topics) plus application dates in
+ * the next 60 days. Idempotent per period: subscribers already sent to since the
+ * period started are skipped.
+ */
+class SendDigestCommand extends Command
+{
+    protected $signature = 'digest:send {--days=7 : Look-back window in days} {--dry-run : Report without sending}';
+
+    protected $description = 'Send the weekly AI policy digest to confirmed subscribers';
+
+    public function handle(): int
+    {
+        $since = now()->subDays((int) $this->option('days'))->startOfDay();
+        $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->get();
+        $deadlines = Deadline::with('policyInstrument.jurisdiction')->whereBetween('due_on', [now()->toDateString(), now()->addDays(60)->toDateString()])->orderBy('due_on')->limit(8)->get();
+        $period = $since->format('j M').' – '.now()->format('j M Y');
+
+        $sent = $skipped = 0;
+        Subscriber::active()->orderBy('id')->chunk(200, function ($subscribers) use ($changes, $deadlines, $period, $since, &$sent, &$skipped) {
+            foreach ($subscribers as $subscriber) {
+                if ($subscriber->last_sent_at && $subscriber->last_sent_at->gte($since)) {
+                    $skipped++;
+
+                    continue;
+                }
+                $mine = $changes->filter(fn ($c) => $subscriber->wants($c))->values();
+                if ($mine->isEmpty() && $deadlines->isEmpty()) {
+                    $skipped++;
+
+                    continue;
+                }
+                if (! $this->option('dry-run')) {
+                    Mail::to($subscriber->email)->send(new WeeklyDigestMail($subscriber, $mine, $deadlines, $period));
+                    $subscriber->update(['last_sent_at' => now()]);
+                }
+                $sent++;
+            }
+        });
+        $this->info("Digest: {$sent} sent, {$skipped} skipped, {$changes->count()} changes in window ({$period}).");
+
+        return self::SUCCESS;
+    }
+}

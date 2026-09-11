@@ -4,6 +4,8 @@ use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ChangeController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\ContributeController;
+use App\Http\Controllers\Site\CronController;
+use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
@@ -47,6 +49,13 @@ Route::get('/methodology', [PageController::class, 'methodology'])->name('method
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contribute', [ContributeController::class, 'show'])->name('contribute');
 Route::post('/contribute', [ContributeController::class, 'store'])->middleware('throttle:10,1')->name('contribute.store');
+
+// Email digest subscriptions (double opt-in) and the scheduled-send trigger.
+Route::post('/subscribe', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
+Route::get('/subscribe/confirm/{token}', [SubscribeController::class, 'confirm'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.confirm');
+Route::get('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribe'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.unsubscribe');
+Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribePost'])->where('token', '[A-Za-z0-9]{48}')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('subscribe.unsubscribe.post');
+Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.digest');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');

@@ -25,7 +25,7 @@ export default function SiderBar() {
                 <ApplicationLogo className="header-logo mb-3" />
                 <ul className="space-y-2 font-medium">
                     <li>
-                        <Link
+                        <a
                             href={route("dashboard")}
                             className={`flex items-center ${isActiveUrl(
                                 route("dashboard")
@@ -44,7 +44,7 @@ export default function SiderBar() {
                             <span className="ms-3 text-sm text-gray-700">
                                 Dashboard
                             </span>
-                        </Link>
+                        </a>
                     </li>
 
                     <li>
