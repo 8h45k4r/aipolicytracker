@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Open-source hygiene: the edge Worker reads its origin host from an `ORIGIN_HOST` variable instead of the repository; stale hosting examples removed; CODEOWNERS covers data, compliance docs, workflows and middleware; new required **Gate check** workflow fails pull requests that do not document the five gates and accepted debt; the deploy workflow purges the Cloudflare cache when the zone secrets are configured.
+
 ### Added
 - Five global tool templates: Global AI Regulatory Applicability Matrix, AI Vendor Due Diligence Questionnaire, AI System Technical Documentation Template (Annex IV structure), AI Impact Assessment Template (FRIA and HUDERIA aligned) and AI Policy Statement Template, in XLSX, CSV, Markdown and DOCX; the library now holds ten tools.
 - Charts: hover tooltips on every bar, milestone and treemap block; a relative colour scale (below half of peak, half to three-quarters, top quarter) on the incident timeline and the harmed-party and deployer charts with a legend; Download SVG, PNG and CSV on every chart (with source and date stamped).

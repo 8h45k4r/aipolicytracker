@@ -1,13 +1,8 @@
-# Cloudflare edge configuration
+# Cloudflare edge
 
-The application runs on a PHP host; Cloudflare provides DNS, TLS, CDN, and a tiny
-Worker that forwards requests for the public domain to the origin.
+Cloudflare provides DNS, TLS and caching for the public domain and a small Worker (`worker.js`) that forwards requests to the application origin.
 
-- **DNS:** `aipolicytracker.org` CNAME (proxied) to the origin hostname; `www` CNAME to the apex.
-- **Worker:** `worker.js`, deployed as `aip-scaffolders-edge` with routes
-  `aipolicytracker.org/*` and `www.aipolicytracker.org/*`. Deploy from the dashboard
-  editor or with `npx wrangler deploy` after creating a `wrangler.toml` with a
-  `name`, `main = "worker.js"`, and the two routes.
-- **Why a Worker:** the origin runs on a plan that cannot bind custom domains and
-  Cloudflare's Host-header override rule is Enterprise-only; a Worker fetch sets the
-  origin Host automatically and stays within the free tier.
+- **Worker:** deploy `worker.js` and attach routes for the apex and `www` hosts of the public domain. Do not use a wildcard route if other subdomains are served elsewhere.
+- **Origin host:** set the `ORIGIN_HOST` variable on the Worker (Settings → Variables) to the hostname that serves the application. The value is deliberately not stored in this repository.
+- **Cache:** HTML is served `no-store`; hashed assets are cached. The deploy workflow purges the zone cache after each release when the `CLOUDFLARE_ZONE_ID` and `CLOUDFLARE_API_TOKEN` repository secrets are set (token needs *Zone → Cache Purge*).
+- **Rate limiting:** add rules for sign-in, registration, contribution and API paths in the dashboard; login is also throttled in the application.

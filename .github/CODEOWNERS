@@ -1,2 +1,8 @@
-# Default reviewers for every change. At least one approval is required to merge.
+# Default reviewers for every change. At least one approval is required to merge into main.
 * @8h45k4r
+
+# Data and compliance-sensitive paths need the maintainer's review explicitly.
+/data/ @8h45k4r
+/docs/reference/ @8h45k4r
+/.github/ @8h45k4r
+/app/Http/Middleware/ @8h45k4r
