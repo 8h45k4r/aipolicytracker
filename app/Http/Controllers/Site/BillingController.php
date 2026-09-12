@@ -26,7 +26,7 @@ class BillingController extends Controller
     public function pricing(Request $request): View
     {
         $enabled = $this->config->enabled();
-        $seo = Seo::make('Pricing: Free and Pro plans', 'Every policy record stays free and open. Pro adds daily alerts for the instruments you follow, synced saved records, full change history and a higher API quota.', route('pricing'), $enabled)
+        $seo = Seo::make('Pricing: Free and Pro plans', 'Every policy record stays free and open. Pro adds a daily alert for the policies, jurisdictions and obligations you follow, and reminders before application dates fall due.', route('pricing'), $enabled)
             ->withBreadcrumbs([['Home', route('home')], ['Pricing', route('pricing')]]);
         if (! $enabled) {
             $seo->noindex();

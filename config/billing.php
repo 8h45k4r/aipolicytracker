@@ -41,14 +41,14 @@ return [
     'on_hold_grace_days' => (int) env('BILLING_ON_HOLD_GRACE_DAYS', 7),
 
     // Capabilities every visitor and free account has. Paid plans add to these.
+    // Only entitlements with a consumer in the code belong here: a key listed but
+    // unread is a promise the product does not keep (see docs/reference/technical-debt.md).
     'free' => [
         'name' => 'Free',
         'entitlements' => [
             'alerts.weekly' => true,
             'alerts.daily' => false,
             'saved.server' => false,
-            'history.full' => false,
-            'api.requests_per_day' => 1000,
         ],
     ],
 
@@ -64,8 +64,6 @@ return [
                 'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
-                'history.full' => true,
-                'api.requests_per_day' => 20000,
             ],
         ],
         'pro_yearly' => [
@@ -79,8 +77,6 @@ return [
                 'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
-                'history.full' => true,
-                'api.requests_per_day' => 20000,
             ],
         ],
     ],
@@ -94,10 +90,9 @@ return [
             'Read-only API at the public rate limit',
         ],
         'pro' => [
-            'Daily change and deadline alerts for the instruments you follow',
-            'Saved records synced to your account',
-            'Full change history and record version diffs',
-            'Higher API quota with your own key',
+            'Follow any policy, jurisdiction or obligation, synced to your account',
+            'One daily email when a record you follow changes, with the official source',
+            'Application-date reminders 30, 7 and 1 days before they fall due',
         ],
     ],
 ];
