@@ -48,7 +48,7 @@ Guides are free to read. Templates, checklists and registers can be previewed fi
 
 ## Plans
 
-The dataset is free and open (CC BY 4.0) for everyone. Pro (monthly or annual) pays for the service around it: daily alerts, synced saved records, full change history and a higher API quota. Payments run through Dodo Payments as merchant of record; access is granted only by verified webhooks. Billing is shipped disabled until the provider account is verified. See `docs/modules/billing.md`.
+The dataset is free and open (CC BY 4.0) for everyone. Pro (monthly or annual) pays for the service around it: follow any policy, jurisdiction or obligation and get one daily email when it changes, plus reminders before application dates fall due. Payments run through Dodo Payments as merchant of record; access is granted only by verified webhooks. Billing is shipped disabled until the provider account is verified. See `docs/modules/billing.md`.
 
 ## Tech stack
 
