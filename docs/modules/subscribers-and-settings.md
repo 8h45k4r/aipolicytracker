@@ -27,6 +27,8 @@ Email digest subscriptions (double opt-in) and operator-managed settings stored 
 
 ## Interlinks
 
+- **Inbound (billing):** `app_settings` keys `dodo_environment`, `dodo_api_key`, `dodo_webhook_secret`, `dodo_product_pro_monthly`, `dodo_product_pro_yearly` are read by `App\Services\Billing\BillingConfig` with environment fallbacks ([billing.md](billing.md)).
+
 - **Outbound:** `subscribers.topics` → `jurisdictions.slug` (logical); `app_settings.updated_by` → [accounts](accounts.md).
 - **Inbound:** `digest:send` reads published `change_events` and `deadlines` ([policy-intelligence.md](policy-intelligence.md)); `AppSettingsServiceProvider` applies settings to `mail.*` and `services.resend.key`.
 

@@ -27,6 +27,11 @@ class AppSetting extends Model
         'mail_from_address' => ['label' => 'From address', 'secret' => false, 'hint' => 'Must belong to a domain verified in Resend'],
         'mail_from_name' => ['label' => 'From name', 'secret' => false, 'hint' => 'e.g. AI Policy Tracker'],
         'cron_token' => ['label' => 'Cron token', 'secret' => true, 'hint' => 'Shared secret for the weekly digest trigger'],
+        'dodo_environment' => ['label' => 'Dodo environment', 'secret' => false, 'hint' => 'test_mode or live_mode'],
+        'dodo_api_key' => ['label' => 'Dodo API key', 'secret' => true, 'hint' => 'From Dodo Payments → Developer → API keys (test keys start with dodo_test_)'],
+        'dodo_webhook_secret' => ['label' => 'Dodo webhook secret', 'secret' => true, 'hint' => 'Signing secret of the webhook endpoint (starts with whsec_)'],
+        'dodo_product_pro_monthly' => ['label' => 'Product id: Pro monthly', 'secret' => false, 'hint' => 'pdt_… id of the monthly subscription product'],
+        'dodo_product_pro_yearly' => ['label' => 'Product id: Pro annual', 'secret' => false, 'hint' => 'pdt_… id of the annual subscription product'],
     ];
 
     public static function get(string $key, ?string $default = null): ?string
