@@ -37,7 +37,7 @@ class Provisioner
         AppSetting::put('dodo_webhook_secret', $webhook['secret'], $userId);
 
         $products = [];
-        $description = 'Daily change and deadline alerts, synced saved records, full change history and a higher API quota. The policy data itself stays free and open ('.config('aipolicytracker.data_license', 'CC BY 4.0').').';
+        $description = 'Follow any policy, jurisdiction or obligation and get one daily email when it changes, plus reminders before application dates fall due. The policy data itself stays free and open ('.config('aipolicytracker.data_license', 'CC BY 4.0').').';
         foreach ((array) config('billing.plans', []) as $key => $plan) {
             $name = config('aipolicytracker.site_name').' '.$plan['name'];
             $product = $this->gateway->provisionProduct($name, (int) $plan['price'], (string) $plan['currency'], $plan['interval'] === 'year' ? 'Year' : 'Month', $description);

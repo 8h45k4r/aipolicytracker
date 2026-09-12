@@ -14,9 +14,11 @@ Design rules:
 
 | Plan key | Name | Price (config) | Entitlements |
 |----------|------|----------------|--------------|
-| `free` (implicit) | Free | 0 | `alerts.weekly`, `api.requests_per_day: 1000` |
-| `pro_monthly` | Pro | $29 / month | `alerts.weekly`, `alerts.daily`, `saved.server`, `history.full`, `api.requests_per_day: 20000` |
+| `free` (implicit) | Free | 0 | `alerts.weekly` |
+| `pro_monthly` | Pro | $29 / month | `alerts.weekly`, `alerts.daily`, `saved.server` |
 | `pro_yearly` | Pro (annual) | $290 / year | same as Pro |
+
+Only entitlements with a consumer in the code are listed: `alerts.daily` and `saved.server` are read by the alerts module ([alerts.md](alerts.md)), `alerts.weekly` describes the digest that is open to everyone. A key with no reader is a promise the product does not keep, so it does not belong in the config or on the pricing page.
 
 Entitlement keys are strings such as `alerts.daily`; `User::entitled('alerts.daily')` answers from the covering subscription's plan or the free tier. `User::planKey()` returns `free` or the plan key. The `subscribed` middleware (`subscribed` for any plan, `subscribed:saved.server` for one capability) guards routes: guests go to sign-in, members without the entitlement go to `/pricing` (402 JSON for API callers). `follow.toggle` uses it.
 

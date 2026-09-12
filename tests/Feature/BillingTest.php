@@ -95,6 +95,24 @@ class BillingTest extends TestCase
         $this->get('/sitemap-static.xml')->assertOk()->assertSee('/pricing');
     }
 
+    /** Guard: a plan may only advertise and grant capabilities something in the code actually reads. */
+    public function test_plans_sell_only_delivered_capabilities(): void
+    {
+        $this->enable();
+        // Every entitlement key in config must be read somewhere in app/ (an unread key is an unkept promise).
+        $delivered = ['alerts.weekly', 'alerts.daily', 'saved.server'];
+        foreach (array_merge([config('billing.free')], array_values(config('billing.plans'))) as $plan) {
+            foreach (array_keys($plan['entitlements']) as $key) {
+                $this->assertContains($key, $delivered, "Entitlement {$key} is granted but nothing consumes it");
+            }
+        }
+        $page = $this->get('/pricing')->assertOk()->getContent();
+        foreach (['API quota', 'change history', 'version diffs'] as $unbacked) {
+            $this->assertStringNotContainsString($unbacked, $page, 'pricing page promises a capability that does not exist');
+        }
+        $this->get('/pricing')->assertSee('Follow any policy, jurisdiction or obligation, synced to your account');
+    }
+
     public function test_checkout_requires_verified_account_records_attempt_and_hands_off_to_provider(): void
     {
         $this->enable();
