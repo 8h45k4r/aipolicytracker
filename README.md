@@ -46,6 +46,10 @@ Every record carries an official source URL, publisher, document date, source ti
 
 Guides are free to read. Templates, checklists and registers can be previewed field by field; downloading needs a free account and an explicit licence acceptance, and files are delivered through short-lived personal links. See `docs/modules/guides-and-downloads.md`.
 
+## Plans
+
+The dataset is free and open (CC BY 4.0) for everyone. Pro (monthly or annual) pays for the service around it: daily alerts, synced saved records, full change history and a higher API quota. Payments run through Dodo Payments as merchant of record; access is granted only by verified webhooks. Billing is shipped disabled until the provider account is verified. See `docs/modules/billing.md`.
+
 ## Tech stack
 
 | Layer | Technology |
