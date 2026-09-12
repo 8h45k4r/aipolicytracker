@@ -25,6 +25,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/settings', 'settingsSave')->name('settings.save');
         Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
     });
+    // Billing: subscriptions, received webhooks and provider configuration check.
+    Route::prefix('backend/admin/billing')->as('backend.admin.billing.')->controller(\App\Http\Controllers\Backend\Admin\BillingController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/check', 'check')->name('check');
+    });
     // Free-tool library CRUD (tools, files, status).
     Route::prefix('backend/admin/tools')->as('backend.admin.tools.')->controller(\App\Http\Controllers\Backend\Admin\ToolController::class)->group(function () {
         Route::get('/', 'index')->name('index');

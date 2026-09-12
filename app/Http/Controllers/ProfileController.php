@@ -21,7 +21,10 @@ class ProfileController extends Controller
             ->withBreadcrumbs([['Home', route('home')], ['Your account', route('profile.edit')]]);
         $downloads = \App\Models\ResourceDownload::with('tool')->where('user_id', $user->id)->orderByDesc('id')->limit(20)->get();
 
-        return view('site.account.profile', compact('seo', 'user', 'downloads'));
+        $subscription = $user->activeSubscription();
+        $billingEnabled = (bool) config('billing.enabled');
+
+        return view('site.account.profile', compact('seo', 'user', 'downloads', 'subscription', 'billingEnabled'));
     }
 
     /**

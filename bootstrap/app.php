@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->alias([
             'isAdmin' => \App\Http\Middleware\CheckAdmin::class,
+            'subscribed' => \App\Http\Middleware\EnsureSubscribed::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

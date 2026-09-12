@@ -5,8 +5,25 @@
     <p class="eyebrow mt-3">Your account</p>
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $user->name }}</h1>
     <p class="mt-1 text-sm text-brand-muted">{{ $user->email }} · member since {{ $user->created_at?->format('j M Y') }}@if($user->isAdmin()) · <a href="{{ route('backend.admin.dashboard') }}">Admin</a>@endif</p>
+    @if(session('error'))<p class="mt-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
+    @if(session('status') === 'already-subscribed')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">You already have an active plan.</p>@endif
     @if(session('status') === 'profile-updated')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile saved.</p>@elseif(session('status') === 'password-updated')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Password updated.</p>@elseif(session('status') === 'verification-link-sent')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Verification link sent.</p>@endif
-    <div class="mt-8 grid gap-6 md:grid-cols-2">
+    <section class="mt-8 card-flat p-5" aria-labelledby="plan-h">
+        <h2 id="plan-h" class="section-title !text-lg">Your plan</h2>
+        @if($subscription)
+        <p class="mt-2 text-sm text-brand-body"><strong>{{ $subscription->planName() }}</strong>
+            @if($subscription->status === 'active') · renews {{ $subscription->current_period_end?->format('j M Y') ?? 'automatically' }}
+            @elseif($subscription->status === 'cancelled') · ends {{ $subscription->current_period_end?->format('j M Y') }}
+            @elseif(in_array($subscription->status, ['on_hold', 'past_due'])) · <span class="text-state-bad">payment failed, update your card to keep access</span>
+            @endif</p>
+        @if($billingEnabled)<form method="post" action="{{ route('billing.portal') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">Manage billing</button></form>@endif
+        <p class="mt-2 meta">Invoices, payment method and cancellation are handled by our payment provider. Cancelling keeps Pro until the end of the paid period.</p>
+        @else
+        <p class="mt-2 text-sm text-brand-body"><strong>Free</strong> · every record, weekly digest, applicability check and open data.</p>
+        <p class="mt-3 text-sm"><a href="{{ route('pricing') }}" class="btn-secondary">See Pro plans</a></p>
+        @endif
+    </section>
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
         <section class="card-flat p-5" aria-labelledby="dl-h">
             <h2 id="dl-h" class="section-title !text-lg">Your downloads</h2>
             @if($downloads->isEmpty())<p class="mt-2 text-sm text-brand-muted">No downloads yet. <a href="{{ route('guides.index', ['access' => 'download']) }}">Browse the free tools</a>.</p>@else

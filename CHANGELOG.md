@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Billing foundation with Dodo Payments as merchant of record: `/pricing` (Free and Pro monthly/annual), hosted checkout hand-off, return page that waits for confirmation, customer portal hand-off, a signature-verified webhook endpoint that mirrors subscriptions locally (idempotent by webhook id, stale-event guard), entitlements (`User::entitled()`, `subscribed` middleware), a plan card on the account page, a payment-failed email with a grace period, Dodo keys in Admin → Settings (encrypted) and an Admin → Billing page with a provider price check. Ships disabled (`BILLING_ENABLED=false`); see `docs/modules/billing.md`.
+
 ### Changed
 - Governance docs: a binding engineering standard (`docs/reference/engineering-standard.md`: inspect before coding, Analyze → Design → Implement → Test → Validate → Document, definition of done, verification language) referenced from `CLAUDE.md`, `CONTRIBUTING.md`, the change gates, the compliance map and the pull request template; stale "four gates" wording corrected to five; `IMPLEMENTATION_REPORT.md` marked as a point-in-time record of #16.
 - Resilience of external data: each live sync also merges its rows into a local snapshot on the persistent private disk, and `external:import` reads that snapshot after the repository files, so a rebuilt database recovers every live-synced record without the AI Incident Database API; pages never call AIID at request time, and a failed sync leaves the stored data untouched.
