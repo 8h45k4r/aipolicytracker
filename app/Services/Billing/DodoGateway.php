@@ -50,6 +50,39 @@ class DodoGateway implements BillingGateway
         ];
     }
 
+    public function provisionWebhook(string $url, array $events): array
+    {
+        $client = $this->client();
+        $existing = null;
+        foreach ($client->webhooks->list(limit: 100)->getItems() as $webhook) {
+            if ($webhook->url === $url) {
+                $existing = $webhook;
+                break;
+            }
+        }
+        $webhook = $existing ?? $client->webhooks->create(url: $url, description: config('aipolicytracker.site_name').' billing', filterTypes: $events);
+
+        return ['id' => $webhook->id, 'secret' => $client->webhooks->retrieveSecret($webhook->id)->secret, 'created' => $existing === null];
+    }
+
+    public function provisionProduct(string $name, int $price, string $currency, string $interval, string $description): array
+    {
+        $client = $this->client();
+        foreach ($client->products->list(pageSize: 100, recurring: true)->getItems() as $product) {
+            if ((string) $product->name === $name) {
+                return ['product_id' => $product->productID, 'created' => false];
+            }
+        }
+        $product = $client->products->create(
+            name: $name,
+            price: RecurringPrice::with(currency: strtoupper($currency), paymentFrequencyCount: 1, paymentFrequencyInterval: $interval, price: $price, subscriptionPeriodCount: 1, subscriptionPeriodInterval: $interval, taxInclusive: false),
+            taxCategory: 'saas',
+            description: $description,
+        );
+
+        return ['product_id' => $product->productID, 'created' => true];
+    }
+
     private function client(): Client
     {
         return $this->client ??= new Client(
