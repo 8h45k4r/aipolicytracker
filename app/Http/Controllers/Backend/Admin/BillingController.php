@@ -28,6 +28,7 @@ class BillingController extends Controller
         $byStatus = Subscription::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
         $events = BillingEvent::orderByDesc('id')->paginate(25, ['*'], 'events')->withQueryString();
         $checkouts = BillingCheckout::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
+        $recentCheckouts = BillingCheckout::with('user')->orderByDesc('id')->limit(10)->get();
         $setup = [
             'enabled' => $config->enabled(),
             'enabled_source' => $config->enabledSource(),
@@ -39,7 +40,7 @@ class BillingController extends Controller
         ];
         $check = session('billing_check');
 
-        return view('backend.admin.billing', compact('subscriptions', 'byStatus', 'events', 'checkouts', 'setup', 'status', 'check'));
+        return view('backend.admin.billing', compact('subscriptions', 'byStatus', 'events', 'checkouts', 'recentCheckouts', 'setup', 'status', 'check'));
     }
 
     /** Creates or reuses the webhook endpoint and plan products at the provider and stores the resulting keys. */
