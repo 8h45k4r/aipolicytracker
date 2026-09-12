@@ -184,7 +184,7 @@ class AdminController extends Controller
             $current = AppSetting::get($key);
             $values[$key] = ['meta' => $meta, 'set' => $current !== null && $current !== '', 'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''), 'env' => match ($key) {
                 'mail_mailer' => env('MAIL_MAILER'), 'resend_key' => env('RESEND_KEY') ? 'set in environment' : null, 'mail_from_address' => env('MAIL_FROM_ADDRESS'), 'mail_from_name' => env('MAIL_FROM_NAME'), 'cron_token' => env('CRON_TOKEN') ? 'set in environment' : null,
-                'dodo_environment' => env('DODO_PAYMENTS_ENVIRONMENT'), 'dodo_api_key' => env('DODO_PAYMENTS_API_KEY') ? 'set in environment' : null, 'dodo_webhook_secret' => env('DODO_PAYMENTS_WEBHOOK_KEY') ? 'set in environment' : null,
+                'billing_enabled' => env('BILLING_ENABLED') !== null ? (filter_var(env('BILLING_ENABLED'), FILTER_VALIDATE_BOOL) ? 'on' : 'off') : null, 'dodo_environment' => env('DODO_PAYMENTS_ENVIRONMENT'), 'dodo_api_key' => env('DODO_PAYMENTS_API_KEY') ? 'set in environment' : null, 'dodo_webhook_secret' => env('DODO_PAYMENTS_WEBHOOK_KEY') ? 'set in environment' : null,
                 'dodo_product_pro_monthly' => env('DODO_PRODUCT_PRO_MONTHLY'), 'dodo_product_pro_yearly' => env('DODO_PRODUCT_PRO_YEARLY'), default => null,
             }];
         }
@@ -200,6 +200,7 @@ class AdminController extends Controller
             'mail_from_address' => ['nullable', 'email', 'max:190'],
             'mail_from_name' => ['nullable', 'string', 'max:120'],
             'cron_token' => ['nullable', 'string', 'min:24', 'max:128'],
+            'billing_enabled' => ['nullable', 'in:on,off'],
             'dodo_environment' => ['nullable', 'in:test_mode,live_mode'],
             'dodo_api_key' => ['nullable', 'string', 'max:200', 'regex:/^[A-Za-z0-9_.-]{16,}$/'],
             'dodo_webhook_secret' => ['nullable', 'string', 'max:200', 'regex:/^(whsec_)?[A-Za-z0-9+\/=_-]{16,}$/'],

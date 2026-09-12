@@ -27,6 +27,7 @@ class AppSetting extends Model
         'mail_from_address' => ['label' => 'From address', 'secret' => false, 'hint' => 'Must belong to a domain verified in Resend'],
         'mail_from_name' => ['label' => 'From name', 'secret' => false, 'hint' => 'e.g. AI Policy Tracker'],
         'cron_token' => ['label' => 'Cron token', 'secret' => true, 'hint' => 'Shared secret for the weekly digest trigger'],
+        'billing_enabled' => ['label' => 'Checkout', 'secret' => false, 'hint' => 'on opens the pricing page for purchase (in the selected Dodo environment); off hides checkout. Empty falls back to BILLING_ENABLED.'],
         'dodo_environment' => ['label' => 'Dodo environment', 'secret' => false, 'hint' => 'test_mode or live_mode'],
         'dodo_api_key' => ['label' => 'Dodo API key', 'secret' => true, 'hint' => 'From Dodo Payments → Developer → API keys (test keys start with dodo_test_)'],
         'dodo_webhook_secret' => ['label' => 'Dodo webhook secret', 'secret' => true, 'hint' => 'Signing secret of the webhook endpoint (starts with whsec_)'],

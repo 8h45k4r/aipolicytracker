@@ -26,4 +26,20 @@ interface BillingGateway
      * @return array{product_id: string, name: ?string, price: ?int, currency: ?string, interval: ?string}
      */
     public function retrieveProduct(string $productId): array;
+
+    /**
+     * Ensure a webhook endpoint exists for the URL (reuse by URL, else create) and return its signing secret.
+     *
+     * @param  list<string>  $events  event types the endpoint should receive
+     * @return array{id: string, secret: string, created: bool}
+     */
+    public function provisionWebhook(string $url, array $events): array;
+
+    /**
+     * Ensure a recurring product exists (reuse by exact name, else create).
+     *
+     * @param  string  $interval  Month or Year
+     * @return array{product_id: string, created: bool}
+     */
+    public function provisionProduct(string $name, int $price, string $currency, string $interval, string $description): array;
 }
