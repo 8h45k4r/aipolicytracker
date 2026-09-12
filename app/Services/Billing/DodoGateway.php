@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\Billing\Contracts\BillingGateway;
 use Dodopayments\CheckoutSessions\ProductItemReq;
 use Dodopayments\Client;
+use Dodopayments\Payments\AttachExistingCustomer;
 use Dodopayments\Payments\NewCustomer;
 use Dodopayments\Products\Price\RecurringPrice;
 
@@ -22,7 +23,7 @@ class DodoGateway implements BillingGateway
         $response = $this->client()->checkoutSessions->create(
             productCart: [ProductItemReq::with(productID: $productId, quantity: 1)],
             customer: $customer
-                ? ['customer_id' => $customer->provider_customer_id]
+                ? AttachExistingCustomer::with(customerID: $customer->provider_customer_id)
                 : NewCustomer::with(email: $user->email, name: $user->name),
             metadata: $metadata,
             returnURL: $returnUrl,
