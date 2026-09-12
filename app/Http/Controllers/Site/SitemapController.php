@@ -56,6 +56,9 @@ class SitemapController extends Controller
             [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [route('risk.domain', 1), 'monthly', '0.6'], [route('risk.domain', 2), 'monthly', '0.6'], [route('risk.domain', 3), 'monthly', '0.6'], [route('risk.domain', 4), 'monthly', '0.6'], [route('risk.domain', 5), 'monthly', '0.6'], [route('risk.domain', 6), 'monthly', '0.6'], [route('risk.domain', 7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'],
             [route('about'), 'monthly', '0.5'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
+        if (config('billing.enabled')) {
+            $pages[] = [route('pricing'), 'monthly', '0.6']; // noindex while billing is off, so listed only when it is on
+        }
         foreach (app(\App\Services\ExternalData\ExternalDataset::class)->mitRisk()['domains'] ?? [] as $d) {
             foreach ($d['subdomains'] ?? [] as $sd) {
                 $pages[] = [route('risk.subdomain', [$d['id'], $sd['id']]), 'monthly', '0.6'];

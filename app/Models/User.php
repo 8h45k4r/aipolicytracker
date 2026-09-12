@@ -75,6 +75,34 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ResourceDownload::class);
     }
 
+    public function billingCustomer(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(BillingCustomer::class);
+    }
+
+    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Subscription::class)->orderByDesc('id');
+    }
+
+    /** The subscription currently granting access, if any (decided by the Entitlements service). */
+    public function activeSubscription(): ?Subscription
+    {
+        return app(\App\Services\Billing\Entitlements::class)->activeSubscription($this);
+    }
+
+    /** Plan key from config/billing.php ("free" when no paid plan is active). */
+    public function planKey(): string
+    {
+        return $this->activeSubscription()?->plan_key ?? 'free';
+    }
+
+    /** Whether the user's plan grants a capability such as "alerts.daily". */
+    public function entitled(string $capability): bool
+    {
+        return app(\App\Services\Billing\Entitlements::class)->allows($this, $capability);
+    }
+
     public function isAdmin(): bool
     {
         return in_array(strtolower((string) $this->email), array_map('strtolower', config('aipolicytracker.admin_emails', [])), true);
