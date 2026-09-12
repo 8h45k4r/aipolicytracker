@@ -66,7 +66,11 @@ class BillingController extends Controller
             Log::error('billing.checkout.failed', ['user_id' => $user->id, 'plan' => $plan, 'error' => $e->getMessage()]);
             $checkout->update(['status' => 'abandoned', 'error' => mb_substr($e->getMessage(), 0, 2000)]);
 
-            return redirect()->route('pricing')->with('error', 'We could not start the checkout. Please try again in a minute.');
+            $redirect = redirect()->route('pricing')->with('error', 'We could not start the checkout. Please try again in a minute.');
+
+            // Operators get the provider's own answer, so a refused checkout is diagnosed
+            // without server access. Customers keep the neutral message above.
+            return $user->isAdmin() ? $redirect->with('error_detail', mb_substr($e->getMessage(), 0, 2000)) : $redirect;
         }
         $checkout->update(['provider_session_id' => $session['session_id']]);
 

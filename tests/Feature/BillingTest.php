@@ -135,17 +135,42 @@ class BillingTest extends TestCase
         $this->assertNull($user->fresh()->activeSubscription());
     }
 
+    public function test_admin_can_ask_the_provider_whether_selling_works_without_charging_anyone(): void
+    {
+        $this->enable();
+        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
+        $admin = $this->user(['email' => 'admin@example.org']);
+
+        // Success: the provider's checkout URL is shown and no attempt row is created.
+        $this->actingAs($admin)->post('/backend/admin/billing/probe')->assertRedirect();
+        $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('the provider opened a checkout session')->assertSee('https://checkout.example.test/cs_1');
+        $this->assertSame(0, BillingCheckout::count(), 'a probe is not a purchase attempt');
+        $this->assertSame('1', $this->gateway->lastCheckout['metadata']['probe']);
+
+        // Refusal: the provider's own answer is shown verbatim.
+        $this->gateway->fail = true;
+        $this->actingAs($admin)->post('/backend/admin/billing/probe')->assertRedirect();
+        $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('the provider refused to open a checkout session')->assertSee('provider down');
+
+        $this->actingAs($this->user())->post('/backend/admin/billing/probe')->assertRedirect('/');
+    }
+
     public function test_checkout_failure_at_provider_is_reported_not_faked(): void
     {
         $this->enable();
         $this->gateway->fail = true;
         $user = $this->user();
         $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error');
+        // A customer never sees provider internals; an admin does.
+        $this->assertNull(session('error_detail'));
+        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
+        $admin = $this->user(['email' => 'admin@example.org']);
+        $this->actingAs($admin)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error_detail', 'provider down');
+        $this->actingAs($admin)->get('/pricing')->assertOk()->assertSee('Provider response (visible to admins only)');
         $attempt = BillingCheckout::where('user_id', $user->id)->firstOrFail();
         $this->assertSame('abandoned', $attempt->status);
         $this->assertSame('provider down', $attempt->error, 'provider answer kept for diagnosis');
-        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
-        $this->actingAs($this->user(['email' => 'admin@example.org']))->get('/backend/admin/billing')->assertOk()->assertSee('provider down')->assertSee('abandoned');
+        $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('provider down')->assertSee('abandoned');
     }
 
     public function test_webhook_rejects_missing_or_invalid_signatures_and_stores_nothing(): void

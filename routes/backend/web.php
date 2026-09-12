@@ -30,6 +30,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/check', 'check')->name('check');
         Route::post('/provision', 'provision')->name('provision');
+        Route::post('/probe', 'probe')->name('probe');
     });
     // Free-tool library CRUD (tools, files, status).
     Route::prefix('backend/admin/tools')->as('backend.admin.tools.')->controller(\App\Http\Controllers\Backend\Admin\ToolController::class)->group(function () {
