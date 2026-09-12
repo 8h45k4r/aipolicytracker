@@ -94,6 +94,7 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | product_id | varchar | no |  |  |
 | provider_session_id | varchar | yes |  | Unique; Dodo checkout session id |
 | status | varchar | no | 'created' | `created` → `returned` (customer came back) → `completed` (webhook applied); `abandoned` when the provider call failed |
+| error | text | yes |  | Provider response (status and body) when the session could not be created; shown in Admin → Billing |
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |
 

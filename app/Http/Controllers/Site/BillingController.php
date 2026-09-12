@@ -64,7 +64,7 @@ class BillingController extends Controller
             ], route('billing.return', ['checkout' => $checkout->id]));
         } catch (\Throwable $e) {
             Log::error('billing.checkout.failed', ['user_id' => $user->id, 'plan' => $plan, 'error' => $e->getMessage()]);
-            $checkout->update(['status' => 'abandoned']);
+            $checkout->update(['status' => 'abandoned', 'error' => mb_substr($e->getMessage(), 0, 2000)]);
 
             return redirect()->route('pricing')->with('error', 'We could not start the checkout. Please try again in a minute.');
         }

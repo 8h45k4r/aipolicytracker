@@ -36,6 +36,19 @@
     <div class="mt-3">{{ $subscriptions->links() }}</div>
 </section>
 <section class="mt-6 card-flat p-5">
+    <h2 class="section-title !text-lg">Recent checkout attempts</h2>
+    <p class="mt-1 meta">created → returned (customer came back) → completed (webhook applied). An abandoned attempt keeps the provider's answer so a refused session can be diagnosed here.</p>
+    <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
+        <thead><tr class="text-left text-brand-muted"><th class="py-1 pr-3">When</th><th class="py-1 pr-3">User</th><th class="py-1 pr-3">Plan</th><th class="py-1 pr-3">Status</th><th class="py-1">Provider response</th></tr></thead>
+        <tbody class="divide-y divide-brand-line">
+        @forelse($recentCheckouts as $c)
+        <tr><td class="py-1.5 pr-3 whitespace-nowrap">{{ $c->created_at?->format('j M Y H:i') }}</td><td class="py-1.5 pr-3">{{ $c->user?->email ?? '—' }}</td><td class="py-1.5 pr-3">{{ $c->plan_key }}</td><td class="py-1.5 pr-3 {{ $c->status === 'abandoned' ? 'text-state-bad' : '' }}">{{ $c->status }}</td><td class="py-1.5 text-xs font-mono whitespace-pre-wrap break-all text-brand-muted">{{ $c->error ? \Illuminate\Support\Str::limit($c->error, 600) : '—' }}</td></tr>
+        @empty
+        <tr><td colspan="5" class="py-3 text-brand-muted">No checkout attempts yet.</td></tr>
+        @endforelse
+        </tbody></table></div>
+</section>
+<section class="mt-6 card-flat p-5">
     <h2 class="section-title !text-lg">Received webhooks</h2>
     <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
         <thead><tr class="text-left text-brand-muted"><th class="py-1 pr-3">Received</th><th class="py-1 pr-3">Type</th><th class="py-1 pr-3">Subscription</th><th class="py-1 pr-3">Outcome</th><th class="py-1">Error</th></tr></thead>

@@ -123,7 +123,11 @@ class BillingTest extends TestCase
         $this->gateway->fail = true;
         $user = $this->user();
         $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error');
-        $this->assertSame('abandoned', BillingCheckout::where('user_id', $user->id)->value('status'));
+        $attempt = BillingCheckout::where('user_id', $user->id)->firstOrFail();
+        $this->assertSame('abandoned', $attempt->status);
+        $this->assertSame('provider down', $attempt->error, 'provider answer kept for diagnosis');
+        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
+        $this->actingAs($this->user(['email' => 'admin@example.org']))->get('/backend/admin/billing')->assertOk()->assertSee('provider down')->assertSee('abandoned');
     }
 
     public function test_webhook_rejects_missing_or_invalid_signatures_and_stores_nothing(): void
