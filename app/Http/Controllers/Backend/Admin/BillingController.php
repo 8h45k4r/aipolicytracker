@@ -9,6 +9,7 @@ use App\Models\Subscription;
 use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\PlanCatalog;
+use App\Services\Billing\Provisioner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -29,6 +30,7 @@ class BillingController extends Controller
         $checkouts = BillingCheckout::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
         $setup = [
             'enabled' => $config->enabled(),
+            'enabled_source' => $config->enabledSource(),
             'environment' => $config->environment(),
             'api_key' => $config->apiKey() !== '',
             'webhook_secret' => $config->webhookSecret() !== '',
@@ -38,6 +40,22 @@ class BillingController extends Controller
         $check = session('billing_check');
 
         return view('backend.admin.billing', compact('subscriptions', 'byStatus', 'events', 'checkouts', 'setup', 'status', 'check'));
+    }
+
+    /** Creates or reuses the webhook endpoint and plan products at the provider and stores the resulting keys. */
+    public function provision(Request $request, Provisioner $provisioner): RedirectResponse
+    {
+        try {
+            $report = $provisioner->run($request->user()->id);
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Provisioning failed: '.mb_substr($e->getMessage(), 0, 300));
+        }
+        $lines = ['Webhook '.$report['webhook']['id'].($report['webhook']['created'] ? ' created' : ' reused').', secret stored'];
+        foreach ($report['products'] as $p) {
+            $lines[] = $p['name'].': '.$p['product_id'].($p['created'] ? ' created' : ' reused');
+        }
+
+        return back()->with('success', 'Provisioned in '.$report['environment'].'. '.implode('; ', $lines).'. Run the product check below, then switch Checkout on under Settings.');
     }
 
     /** Fetches each configured product from the provider and compares its price with config/billing.php. */

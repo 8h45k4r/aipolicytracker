@@ -33,14 +33,16 @@
         <div class="sm:col-span-9"><input id="f-cron_token" name="cron_token" type="password" class="input" autocomplete="off" placeholder="{{ $v['set'] ? 'Stored: '.$v['display'] : 'Not set' }}"><p class="meta mt-1">{{ $v['meta']['hint'] }}; the same value goes into the repository secret <code>CRON_TOKEN</code> used by the "Weekly digest" workflow. Minimum 24 characters.@if($v['env']) · environment: {{ $v['env'] }}@endif @if($v['set'])<label class="ml-2"><input type="checkbox" name="clear[]" value="cron_token"> clear stored value</label>@endif</p></div>
     </div>
     <h2 class="section-title !text-lg pt-2">Billing (Dodo Payments)</h2>
-    <p class="text-sm text-brand-body">Keys from the Dodo dashboard (Developer → API keys, Webhooks). Point the webhook at <code>{{ route('billing.webhook') }}</code> with the subscription and payment events enabled. Checkout stays off until <code>BILLING_ENABLED=true</code> is set in the environment; see <a href="{{ route('backend.admin.billing.index') }}">Billing</a> to verify the products.</p>
-    @foreach(['dodo_environment', 'dodo_api_key', 'dodo_webhook_secret', 'dodo_product_pro_monthly', 'dodo_product_pro_yearly'] as $key)
+    <p class="text-sm text-brand-body">Keys from the Dodo dashboard (Developer → API keys, Webhooks). Point the webhook at <code>{{ route('billing.webhook') }}</code> with the subscription and payment events enabled. Store the API key, then use "Provision webhook and products" on <a href="{{ route('backend.admin.billing.index') }}">Billing</a> to create the endpoint and plans and fill the remaining fields automatically. Checkout stays off until the switch below (or <code>BILLING_ENABLED</code>) is on.</p>
+    @foreach(['billing_enabled', 'dodo_environment', 'dodo_api_key', 'dodo_webhook_secret', 'dodo_product_pro_monthly', 'dodo_product_pro_yearly'] as $key)
     @php($v = $values[$key])
     <div class="grid gap-1 sm:grid-cols-12 sm:gap-4 items-start">
         <label for="f-{{ $key }}" class="label sm:col-span-3 sm:pt-2">{{ $v['meta']['label'] }}</label>
         <div class="sm:col-span-9">
             @if($key === 'dodo_environment')
             <select id="f-{{ $key }}" name="{{ $key }}" class="input">@foreach(['' => 'Keep current', 'test_mode' => 'test_mode (sandbox)', 'live_mode' => 'live_mode'] as $opt => $label)<option value="{{ $opt }}" @selected($opt !== '' && $v['display'] === $opt)>{{ $label }}</option>@endforeach</select>
+            @elseif($key === 'billing_enabled')
+            <select id="f-{{ $key }}" name="{{ $key }}" class="input">@foreach(['' => 'Keep current', 'on' => 'on (sell plans)', 'off' => 'off (show plans as not yet available)'] as $opt => $label)<option value="{{ $opt }}" @selected($opt !== '' && $v['display'] === $opt)>{{ $label }}</option>@endforeach</select>
             @else
             <input id="f-{{ $key }}" name="{{ $key }}" type="{{ $v['meta']['secret'] ? 'password' : 'text' }}" class="input" autocomplete="off" placeholder="{{ $v['meta']['secret'] ? ($v['set'] ? 'Stored: '.$v['display'] : 'Not set') : ($v['display'] ?: 'Not set') }}">
             @endif

@@ -282,6 +282,58 @@ class BillingTest extends TestCase
         $this->actingAs($user->fresh())->get('/_test/pro')->assertOk()->assertSee('pro-only');
     }
 
+    public function test_admin_provisioning_creates_endpoint_and_products_once_and_stores_keys(): void
+    {
+        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
+        $admin = $this->user(['email' => 'admin@example.org']);
+        // Without an API key nothing is created.
+        config(['billing.api_key' => null]);
+        $this->actingAs($admin)->post('/backend/admin/billing/provision')->assertRedirect()->assertSessionHas('error');
+        $this->assertSame([], $this->gateway->webhooks);
+
+        AppSetting::put('dodo_api_key', 'dodo_test_abcdefghijklmnop');
+        $this->actingAs($admin)->post('/backend/admin/billing/provision')->assertRedirect()->assertSessionHas('success');
+        $webhook = $this->gateway->webhooks[route('billing.webhook')] ?? null;
+        $this->assertNotNull($webhook, 'endpoint registered for this site');
+        $this->assertContains('subscription.active', $webhook['events']);
+        $this->assertContains('payment.failed', $webhook['events']);
+        $this->assertSame($webhook['secret'], AppSetting::get('dodo_webhook_secret'));
+        $this->assertSame(1, (int) AppSetting::find('dodo_webhook_secret')->secret, 'stored as a secret');
+        $monthly = $this->gateway->createdProducts['AIPolicyTracker Pro'];
+        $yearly = $this->gateway->createdProducts['AIPolicyTracker Pro (annual)'];
+        $this->assertSame([2900, 'USD', 'Month'], [$monthly['price'], $monthly['currency'], $monthly['interval']]);
+        $this->assertSame([29000, 'USD', 'Year'], [$yearly['price'], $yearly['currency'], $yearly['interval']]);
+        $this->assertSame($monthly['product_id'], AppSetting::get('dodo_product_pro_monthly'));
+        $this->assertSame($yearly['product_id'], app(\App\Services\Billing\PlanCatalog::class)->plan('pro_yearly')['product_id']);
+
+        // The stored secret now verifies real webhooks and the stored ids resolve plans.
+        $member = $this->user();
+        config(['billing.webhook_secret' => null]);
+        $this->webhook($this->subscriptionEvent('subscription.active', $member, ['product_id' => $yearly['product_id']]), secret: $webhook['secret'])->assertOk()->assertJson(['outcome' => 'applied']);
+        $this->assertSame('pro_yearly', Subscription::first()->plan_key);
+
+        // Running it again reuses everything.
+        $this->actingAs($admin)->post('/backend/admin/billing/provision')->assertRedirect()->assertSessionHas('success');
+        $this->assertCount(1, $this->gateway->webhooks);
+        $this->assertCount(2, $this->gateway->createdProducts);
+        $this->actingAs($this->user())->post('/backend/admin/billing/provision')->assertRedirect('/');
+    }
+
+    public function test_checkout_switch_in_settings_overrides_the_environment(): void
+    {
+        config(['aipolicytracker.admin_emails' => ['admin@example.org'], 'billing.plans.pro_monthly.product_id' => 'pdt_month', 'billing.plans.pro_yearly.product_id' => 'pdt_year']);
+        $admin = $this->user(['email' => 'admin@example.org']);
+        $this->get('/pricing')->assertOk()->assertSee('Not yet available');
+        $this->actingAs($admin)->post('/backend/admin/settings', ['billing_enabled' => 'on'])->assertRedirect();
+        $this->get('/pricing')->assertOk()->assertDontSee('Not yet available')->assertSee('Subscribe to Pro');
+        $this->assertStringNotContainsString('noindex', $this->get('/pricing')->getContent());
+        config(['billing.enabled' => true]);
+        $this->actingAs($admin)->post('/backend/admin/settings', ['billing_enabled' => 'off'])->assertRedirect();
+        $this->get('/pricing')->assertOk()->assertSee('Not yet available');
+        $this->actingAs($admin)->post('/backend/admin/settings', ['billing_enabled' => 'maybe'])->assertSessionHasErrors('billing_enabled');
+        $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('from Settings');
+    }
+
     public function test_admin_billing_page_and_settings_are_admin_only_and_keys_are_stored_encrypted(): void
     {
         $this->enable();
@@ -311,7 +363,7 @@ class BillingTest extends TestCase
     }
 }
 
-/** In-memory gateway: records calls and returns deterministic URLs; never talks to the network. */
+/** In-memory gateway: records calls and returns deterministic ids; never talks to the network. */
 class FakeGateway implements BillingGateway
 {
     public bool $fail = false;
@@ -321,6 +373,26 @@ class FakeGateway implements BillingGateway
     public ?string $lastPortalCustomer = null;
 
     public array $products = [];
+
+    public array $webhooks = [];
+
+    public array $createdProducts = [];
+
+    public function provisionWebhook(string $url, array $events): array
+    {
+        $created = ! isset($this->webhooks[$url]);
+        $this->webhooks[$url] ??= ['id' => 'wh_'.count($this->webhooks), 'secret' => 'whsec_cHJvdmlzaW9uZWRzZWNyZXRwcm92aXNpb25lZA==', 'events' => $events];
+
+        return ['id' => $this->webhooks[$url]['id'], 'secret' => $this->webhooks[$url]['secret'], 'created' => $created];
+    }
+
+    public function provisionProduct(string $name, int $price, string $currency, string $interval, string $description): array
+    {
+        $created = ! isset($this->createdProducts[$name]);
+        $this->createdProducts[$name] ??= ['product_id' => 'pdt_'.strtolower(preg_replace('/[^a-z]+/i', '_', $name)), 'price' => $price, 'currency' => $currency, 'interval' => $interval];
+
+        return ['product_id' => $this->createdProducts[$name]['product_id'], 'created' => $created];
+    }
 
     public function createCheckout(User $user, string $productId, array $metadata, string $returnUrl): array
     {

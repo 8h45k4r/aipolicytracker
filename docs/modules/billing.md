@@ -7,7 +7,7 @@ Design rules:
 - **Access is granted only by a verified webhook.** The provider's return URL never activates anything; the return page shows "confirming" until the `subscription.active` event has been applied.
 - **Every webhook is stored exactly once** (`billing_events.event_id` is the provider's `webhook-id`), so retries are idempotent, and every entitlement change is traceable to a signed event.
 - **Out-of-order delivery cannot change access incorrectly.** An event older than the last applied one for the same subscription is recorded with outcome `stale` and skipped.
-- **Nothing is sold while `BILLING_ENABLED` is false.** The pricing page is `noindex` and shows plans as "Not yet available", checkout and portal routes return 404, and the webhook endpoint still records events so a test-mode integration can be verified before launch.
+- **Nothing is sold while checkout is off.** The switch is the `billing_enabled` setting (Admin → Settings, `on`/`off`), falling back to `BILLING_ENABLED`. While off the pricing page is `noindex` and shows plans as "Not yet available", checkout and portal routes return 404, and the webhook endpoint still records events so a test-mode integration can be verified before launch.
 - **The plan we sell is the plan in `config/billing.php`.** A subscription whose product id is not one of ours is mirrored (for the audit trail) but never grants access. Admin → Billing compares each configured product with the provider and flags a price mismatch.
 
 ## Plans and entitlements
@@ -110,7 +110,8 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | Plan definitions, feature lists, grace period | `config/billing.php` |
 | Key resolution (settings over env), environment base URL | `App\Services\Billing\BillingConfig` |
 | Plans, product-id lookup, price formatting | `App\Services\Billing\PlanCatalog` |
-| Provider calls (checkout session, portal link, product lookup) | `App\Services\Billing\Contracts\BillingGateway` → `DodoGateway` (official `dodopayments/client` SDK); tests bind an in-memory fake |
+| Provider calls (checkout session, portal link, product lookup, webhook and product provisioning) | `App\Services\Billing\Contracts\BillingGateway` → `DodoGateway` (official `dodopayments/client` SDK); tests bind an in-memory fake |
+| One-click provider setup (endpoint by URL, products by name, keys stored encrypted) | `App\Services\Billing\Provisioner` |
 | Signature verification (Standard Webhooks, HMAC-SHA256, 5-minute tolerance) | `App\Services\Billing\WebhookVerifier` |
 | Event storage and subscription mirror | `App\Services\Billing\WebhookProcessor` |
 | Access decisions | `App\Services\Billing\Entitlements`, `App\Http\Middleware\EnsureSubscribed` |
@@ -130,6 +131,7 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | POST | `/webhooks/dodo` | `billing.webhook` | signature-authenticated, no CSRF, throttle 120/min |
 | GET | `/backend/admin/billing` | `backend.admin.billing.index` | admin |
 | POST | `/backend/admin/billing/check` | `backend.admin.billing.check` | admin |
+| POST | `/backend/admin/billing/provision` | `backend.admin.billing.provision` | admin |
 
 Checkout and portal hand-offs render an interstitial page with a nonce-carrying redirect script and a plain link, because the site's CSP restricts `form-action` to `'self'`.
 
@@ -143,18 +145,17 @@ Responses: 400 for a missing or invalid signature or a stale timestamp (nothing 
 
 ## Operator setup
 
-1. Complete business verification in the Dodo dashboard (required before live mode).
-2. Create two subscription products (monthly $29, yearly $290) and copy their `pdt_…` ids.
-3. Developer → API keys: create a key for the environment in use.
-4. Developer → Webhooks → Endpoints: add `https://aipolicytracker.org/webhooks/dodo` with the subscription and payment events, copy the signing secret (`whsec_…`).
-5. Admin → Settings → Billing: store environment, API key, webhook secret and product ids (encrypted at rest) or set the equivalent environment variables (`DODO_PAYMENTS_ENVIRONMENT`, `DODO_PAYMENTS_API_KEY`, `DODO_PAYMENTS_WEBHOOK_KEY`, `DODO_PRODUCT_PRO_MONTHLY`, `DODO_PRODUCT_PRO_YEARLY`).
-6. Admin → Billing → "Check products against the provider": both plans must read "Price matches".
-7. In test mode, buy a plan with card `4242 4242 4242 4242` and confirm the subscription appears with status `active`; decline with `4000 0000 0000 0002` and confirm nothing is granted.
-8. Set `BILLING_ENABLED=true` to open checkout.
+1. Dodo dashboard → Developer → API keys: create a key for the environment (test-mode first).
+2. Admin → Settings → Billing: set the Dodo environment and paste the API key (stored encrypted). Save.
+3. Admin → Billing → "Provision webhook and products". The app registers `https://aipolicytracker.org/webhooks/dodo` for every subscription and payment event (reusing an endpoint with that URL), creates "AIPolicyTracker Pro" ($29/month) and "AIPolicyTracker Pro (annual)" ($290/year) as SaaS subscriptions (reusing products with the same name), and stores the signing secret and product ids as encrypted settings. The success message lists what was created or reused.
+4. Admin → Billing → "Check products against the provider": both plans must read "Price matches".
+5. In test mode, buy a plan with card `4242 4242 4242 4242` and confirm the subscription appears with status `active`; decline with `4000 0000 0000 0002` and confirm nothing is granted.
+6. Admin → Settings → Billing → Checkout `on` to open the pricing page for purchase. (Environment variables `BILLING_ENABLED`, `DODO_PAYMENTS_*` and `DODO_PRODUCT_*` remain the fallback for hosts without the settings table.)
+7. Going live: complete business verification in the Dodo dashboard, create a live API key, switch the environment setting to `live_mode`, paste the live key, run provisioning again (live objects are separate from test ones), re-run the product check, and keep Checkout `on`.
 
 ## Tests
 
-`tests/Feature/BillingTest.php`: pricing page disabled and enabled states; checkout guards, attempt record and hand-off; provider failure reported not faked; webhook signature rejection (missing, wrong secret, stale timestamp, no secret); signed activation grants entitlements and duplicate delivery is idempotent; unknown product never grants access; cancellation keeps access to period end, expiry revokes; failed renewal grace period and one email; stale events cannot reactivate; unknown customer ignored; email fallback resolution; portal hand-off; `subscribed` middleware; admin page, encrypted settings and product price check.
+`tests/Feature/BillingTest.php`: admin provisioning (endpoint and products created once, keys stored encrypted, stored secret verifies real webhooks, rerun reuses); checkout switch in settings overriding the environment; pricing page disabled and enabled states; checkout guards, attempt record and hand-off; provider failure reported not faked; webhook signature rejection (missing, wrong secret, stale timestamp, no secret); signed activation grants entitlements and duplicate delivery is idempotent; unknown product never grants access; cancellation keeps access to period end, expiry revokes; failed renewal grace period and one email; stale events cannot reactivate; unknown customer ignored; email fallback resolution; portal hand-off; `subscribed` middleware; admin page, encrypted settings and product price check.
 
 ## Open debt
 

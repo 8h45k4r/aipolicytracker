@@ -10,9 +10,20 @@ use App\Models\AppSetting;
  */
 class BillingConfig
 {
+    /** Checkout switch: the admin setting (on/off) overrides BILLING_ENABLED. */
     public function enabled(): bool
     {
-        return (bool) config('billing.enabled');
+        return match (AppSetting::get('billing_enabled')) {
+            'on' => true,
+            'off' => false,
+            default => (bool) config('billing.enabled'),
+        };
+    }
+
+    /** Where the current enabled value comes from, for the admin page. */
+    public function enabledSource(): string
+    {
+        return in_array(AppSetting::get('billing_enabled'), ['on', 'off'], true) ? 'setting' : 'environment';
     }
 
     /** True when an API key and a webhook secret exist, whatever the source. */
