@@ -14,5 +14,6 @@ Framework tables (`cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, 
 Sources/provenance, instrument versions, obligations, evidence artifacts and framework mappings are now delivered by the policy-intelligence module. Still planned: controls, and cross-linking the legacy `ai_policy_trackers` rows to `policy_instruments`.
 | Guides and downloads | [guides-and-downloads.md](guides-and-downloads.md) | `resource_downloads`, `users` additions | Free tools on `/guides`, gated downloads, admin activity |
 | Billing | [billing.md](billing.md) | `billing_customers`, `subscriptions`, `billing_events`, `billing_checkouts` | Pro plans via Dodo Payments (merchant of record), webhook-driven entitlements, `/pricing`, admin billing |
+| Alerts | [alerts.md](alerts.md) | `follows`, `alert_deliveries` | Pro follows on policies, jurisdictions and obligations; daily change and deadline alerts (`alerts:send`, `/cron/alerts`) |
 
 Product reference: [docs/reference/personas-and-jobs.md](../reference/personas-and-jobs.md) describes who uses the site, their pain points and the single USP that every feature must serve.

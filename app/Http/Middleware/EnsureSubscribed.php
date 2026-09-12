@@ -25,7 +25,7 @@ class EnsureSubscribed
                 return response()->json(['message' => 'This feature requires a Pro plan.'], 402);
             }
 
-            return redirect()->route('pricing')->with('error', 'This feature requires a Pro plan.');
+            return redirect()->route('pricing')->with('error', $capability === 'saved.server' ? 'Following records for daily alerts is part of Pro.' : 'This feature requires a Pro plan.');
         }
 
         return $next($request);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\ChangeController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\ContributeController;
+use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\CronController;
 use App\Http\Controllers\Site\FreeToolController;
 use App\Http\Controllers\Site\SubscribeController;
@@ -79,6 +80,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/billing/return/{checkout}', [BillingController::class, 'returned'])->where('checkout', '[0-9]+')->name('billing.return');
     Route::post('/billing/portal', [BillingController::class, 'portal'])->middleware('throttle:10,1')->name('billing.portal');
 });
+// Follows and daily alerts (Pro): the toggle needs the saved.server entitlement; the list page needs an account.
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/following', [FollowController::class, 'index'])->name('following.index');
+    Route::post('/follow/{type}/{slug}', [FollowController::class, 'toggle'])->where(['type' => '[a-z]+', 'slug' => '[A-Za-z0-9._-]{1,160}'])->middleware(['subscribed:saved.server', 'throttle:60,1'])->name('follow.toggle');
+});
+Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.alerts');
 Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('throttle:120,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('billing.webhook');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
