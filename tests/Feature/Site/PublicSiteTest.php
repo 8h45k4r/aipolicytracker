@@ -27,6 +27,7 @@ class PublicSiteTest extends TestCase
         $response = $this->get('/');
         $response->assertOk()
             ->assertSee('Track AI policy. Build compliant AI.')
+            ->assertSee('The regulatory intelligence layer for AI governance')
             ->assertSee('<link rel="canonical" href="'.url('/').'"', false)
             ->assertSee('application/ld+json', false)
             ->assertDontSee('SOC 2');

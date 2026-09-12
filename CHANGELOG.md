@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Positioning: "AIPolicyTracker is the regulatory intelligence layer for AI governance. Monitor source-backed AI policy changes, map obligations to real AI systems, and turn regulatory requirements into practical governance actions." applied to the home page eyebrow and meta description, footer, about page, email header, `llms.txt`, Organization structured data and README.
+
 ### Added
 - Billing foundation with Dodo Payments as merchant of record: `/pricing` (Free and Pro monthly/annual), hosted checkout hand-off, return page that waits for confirmation, customer portal hand-off, a signature-verified webhook endpoint that mirrors subscriptions locally (idempotent by webhook id, stale-event guard), entitlements (`User::entitled()`, `subscribed` middleware), a plan card on the account page, a payment-failed email with a grace period, Dodo keys in Admin → Settings (encrypted) and an Admin → Billing page with a provider price check. Ships disabled (`BILLING_ENABLED=false`); see `docs/modules/billing.md`.
 

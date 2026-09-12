@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $seo = Seo::make(
             'AIPolicyTracker: Track AI policy. Build compliant AI.',
-            'Open, source-backed AI policy tracker: laws, regulations, standards, obligations, deadlines and compliance actions across the EU, UK, US, India, Nepal, Singapore, Australia, UAE and more.',
+            'The regulatory intelligence layer for AI governance: monitor source-backed AI policy changes, map obligations to real AI systems and turn requirements into governance actions across 212 jurisdictions.',
             route('home')
         )->withJsonLd(Seo::organization())->withJsonLd(Seo::website());
 

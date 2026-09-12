@@ -3,7 +3,7 @@
 <section class="border-b border-brand-line">
     <div class="container-site py-12 sm:py-16 grid gap-10 lg:grid-cols-12 lg:items-end">
         <div class="lg:col-span-8">
-            <p class="eyebrow">Open, source-backed AI policy intelligence</p>
+            <p class="eyebrow">The regulatory intelligence layer for AI governance</p>
             <h1 class="mt-3 font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] font-semibold text-brand-navy max-w-[18ch]">AI policy, verified at the source.</h1>
             <p class="mt-5 max-w-[60ch] text-lg leading-8 text-brand-body">{{ config('aipolicytracker.supporting') }}</p>
             <form action="{{ route('policies.index') }}" method="get" role="search" class="mt-8 max-w-2xl" data-track="home_search">
