@@ -5,7 +5,7 @@
 <section class="mt-6 card-flat p-5">
     <h2 class="section-title !text-lg">Setup</h2>
     <dl class="mt-3 text-sm divide-y divide-brand-line">
-        <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Checkout enabled (BILLING_ENABLED)</dt><dd>{{ $setup['enabled'] ? 'yes' : 'no' }}</dd></div>
+        <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Checkout</dt><dd>{{ $setup['enabled'] ? 'on' : 'off' }} <span class="meta">(from {{ $setup['enabled_source'] === 'setting' ? 'Settings' : 'BILLING_ENABLED' }})</span></dd></div>
         <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Environment</dt><dd class="font-mono">{{ $setup['environment'] }}</dd></div>
         <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">API key</dt><dd>{{ $setup['api_key'] ? 'configured' : 'missing' }}</dd></div>
         <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Webhook secret</dt><dd>{{ $setup['webhook_secret'] ? 'configured' : 'missing' }}</dd></div>
@@ -15,7 +15,11 @@
             @if(isset($check[$key]))<br><span class="{{ $check[$key]['ok'] ? 'text-state-good' : 'text-state-bad' }}">{{ $check[$key]['note'] }}@if(!empty($check[$key]['remote'])) (provider: {{ $check[$key]['remote']['price'] }} {{ $check[$key]['remote']['currency'] }} / {{ $check[$key]['remote']['interval'] ?? '?' }})@endif</span>@endif</dd></div>
         @endforeach
     </dl>
-    <form method="post" action="{{ route('backend.admin.billing.check') }}" class="mt-4">@csrf<button type="submit" class="btn-secondary">Check products against the provider</button></form>
+    <div class="mt-4 flex flex-wrap gap-2">
+        <form method="post" action="{{ route('backend.admin.billing.provision') }}">@csrf<button type="submit" class="btn-primary" @disabled(!$setup['api_key'])>Provision webhook and products</button></form>
+        <form method="post" action="{{ route('backend.admin.billing.check') }}">@csrf<button type="submit" class="btn-secondary">Check products against the provider</button></form>
+    </div>
+    <p class="meta mt-2">Provisioning needs only the API key: it registers <span class="font-mono">{{ $setup['webhook_url'] }}</span> for every subscription and payment event (reusing an endpoint with that URL), creates one recurring product per plan (reusing products with the same name) and stores the signing secret and product ids encrypted. Repeat it after switching the environment to live_mode.</p>
 </section>
 <section class="mt-6 card-flat p-5">
     <h2 class="section-title !text-lg">Subscriptions</h2>

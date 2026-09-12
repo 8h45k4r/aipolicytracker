@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Billing: one-click provider setup from Admin → Billing ("Provision webhook and products" registers the webhook endpoint for every subscription and payment event, creates the Pro monthly and annual products, and stores the signing secret and product ids encrypted; idempotent) and a Checkout on/off switch in Admin → Settings that overrides `BILLING_ENABLED`, so test-mode selling can start without a redeploy.
+
 ### Changed
 - Positioning: "AIPolicyTracker is the regulatory intelligence layer for AI governance. Monitor source-backed AI policy changes, map obligations to real AI systems, and turn regulatory requirements into practical governance actions." applied to the home page eyebrow and meta description, footer, about page, email header, `llms.txt`, Organization structured data and README.
 
