@@ -1,8 +1,8 @@
 # Implementation Report: AIPolicyTracker rebuild
 
-Branch: `claude/relaxed-ritchie-eb25kl` · Date: 2026-09-10 · Nothing has been deployed or published.
+Branch: `claude/relaxed-ritchie-eb25kl` · Written 2026-09-10 · Merged to `main` as #16 on 2026-09-11 (squash commit `8359752`); the Deploy workflow ran on that commit.
 
-Read `PRODUCT_SEO_AEO_AUDIT.md` first for the pre-change audit. This report lists what was built, how to run it, and what remains manual.
+This report is a point-in-time record of the rebuild. Later pull requests changed some of what it describes (for example the legacy map was removed under debt #17, public colour tokens were added under debt #14, global coverage was expanded under debt #18, and a fifth Security gate was added). For current state use `CHANGELOG.md`, `docs/modules/README.md`, `docs/reference/technical-debt.md` and `docs/reference/compliance-map.md`. Read `PRODUCT_SEO_AEO_AUDIT.md` for the pre-change audit.
 
 ## 1. Routes created or changed
 

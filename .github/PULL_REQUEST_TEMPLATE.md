@@ -4,6 +4,10 @@
 
 Closes #
 
+## Engineering standard
+
+- [ ] Followed `docs/reference/engineering-standard.md`: inspected the affected architecture, database, APIs, auth/RBAC and tests; Analyze → Design → Implement → Test → Validate → Document; root cause fixed; verification output pasted in gate 1.
+
 ## Type of change
 
 - [ ] Bug fix
