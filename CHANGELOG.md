@@ -7,6 +7,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Changed
 - Positioning: "AIPolicyTracker is the regulatory intelligence layer for AI governance. Monitor source-backed AI policy changes, map obligations to real AI systems, and turn regulatory requirements into practical governance actions." applied to the home page eyebrow and meta description, footer, about page, email header, `llms.txt`, Organization structured data and README.
 
+### Added
+- Billing diagnosis: Admin → Billing → "Can we sell right now?" asks the provider to open a checkout session for the first purchasable plan and prints its answer (nothing is charged, no attempt row is written); when a customer's checkout is refused, admins also see the provider's response inline on the pricing page, while customers keep the neutral message.
+
 ### Changed
 - Pricing now lists only what Pro delivers: following records, the daily alert email and application-date reminders. The unbacked "full change history" and "higher API quota" lines, and their unread entitlements, are removed from `config/billing.php`, the pricing page, the account return page, the provider product description and the README (debt #22 closed; remaining plan gaps tracked as #24).
 

@@ -8,6 +8,7 @@
         <p class="mt-3 text-brand-body leading-7">Every policy, jurisdiction, obligation and change record is open under CC BY 4.0 and always will be. Pro is for teams that need to know the day something changes, not the week after.</p>
         @if(!$enabled)<p class="mt-4 rounded-sm border border-brand-line bg-brand-paper px-3 py-2 text-sm text-brand-body" role="status">Paid plans are not on sale yet. The Free plan is complete and available today; <a href="{{ route('subscribe.show') }}">subscribe to the weekly digest</a> to hear when Pro opens.</p>@endif
         @if(session('error'))<p class="mt-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
+        @if(session('error_detail'))<details class="mt-2 card-flat p-3 text-sm" open><summary class="cursor-pointer font-semibold text-brand-navy">Provider response (visible to admins only)</summary><pre class="mt-2 overflow-x-auto whitespace-pre-wrap break-all text-xs text-brand-body">{{ session('error_detail') }}</pre><p class="meta mt-2">Also recorded under <a href="{{ route('backend.admin.billing.index') }}">Admin → Billing</a>, with the checkout attempt.</p></details>@endif
     </div>
     <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <section class="card-flat p-5 flex flex-col" aria-labelledby="plan-free">
