@@ -38,6 +38,7 @@ The legacy plaintext `password` column was dropped by migration `2025_09_10_0000
 ## Interlinks
 
 - **Inbound (policy intelligence):** `reviewer_decisions.reviewer_user_id` → `users.id` ([policy-intelligence.md](policy-intelligence.md)); nullable, set null on user deletion.
+- **Inbound (alerts):** `follows.user_id`, `alert_deliveries.user_id` → `users.id` ([alerts.md](alerts.md)); cascade on user deletion. `/following` lists an account's follows; the profile page links to it.
 - **Inbound (billing):** `billing_customers.user_id` (unique), `subscriptions.user_id`, `billing_checkouts.user_id` → `users.id` ([billing.md](billing.md)); cascade on user deletion. `User::activeSubscription()`, `planKey()` and `entitled()` answer from the billing module; the profile page shows the plan and a "Manage billing" hand-off.
 
 - **Outbound:** none.
