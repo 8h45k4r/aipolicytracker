@@ -25,6 +25,17 @@ class CronController extends Controller
         return response()->json(['message' => trim(Artisan::output())]);
     }
 
+    /** Daily change and deadline alerts for Pro accounts (see alerts:send). */
+    public function alerts(Request $request): JsonResponse
+    {
+        if ($denied = $this->authorize($request)) {
+            return $denied;
+        }
+        Artisan::call('alerts:send');
+
+        return response()->json(['message' => trim(Artisan::output())]);
+    }
+
     /** Incremental pull of new and modified AI Incident Database records (see external:sync-aiid-api). */
     public function externalSync(Request $request): JsonResponse
     {

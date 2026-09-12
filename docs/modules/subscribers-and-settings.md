@@ -42,7 +42,7 @@ All mail (`SubscriptionConfirmMail`, `WeeklyDigestMail`, `SubmissionReceivedMail
 
 ## Scheduling
 
-`.github/workflows/weekly-digest.yml` calls `POST /cron/digest` on Mondays 06:00 UTC with the `CRON_TOKEN` repository secret; the same value is stored (encrypted) as the `cron_token` setting or in the `CRON_TOKEN` environment variable.
+`.github/workflows/weekly-digest.yml` calls `POST /cron/digest` on Mondays 06:00 UTC and `.github/workflows/daily-alerts.yml` calls `POST /cron/alerts` daily at 06:30 UTC ([alerts.md](alerts.md)), both with the `CRON_TOKEN` repository secret; the same value is stored (encrypted) as the `cron_token` setting or in the `CRON_TOKEN` environment variable.
 
 ## Saved records (reading list)
 
