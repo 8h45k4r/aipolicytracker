@@ -84,7 +84,7 @@ The application needs a PHP runtime and a PostgreSQL database; a CDN in front ha
 
 ## Contributing
 
-Every change to `main` passes four role gates (engineering, UI/UX, documentation, compliance) described in `docs/reference/change-gates.md`; module docs live in `docs/modules/`, accepted debt in `docs/reference/technical-debt.md` and the compliance map in `docs/reference/compliance-map.md`.
+Every change follows the engineering standard in `docs/reference/engineering-standard.md` (inspect first, Analyze → Design → Implement → Test → Validate → Document, nothing claimed working without evidence) and passes five role gates (engineering, UI/UX, documentation, compliance, security) described in `docs/reference/change-gates.md`; module docs live in `docs/modules/`, accepted debt in `docs/reference/technical-debt.md` and the compliance map in `docs/reference/compliance-map.md`.
 
 1. Open an issue using one of the templates (bug, policy data correction, new jurisdiction or source, feature).
 2. Fork, branch (`feat/...`, `fix/...`, `data/...`), and for data changes include official source links and a verification status.

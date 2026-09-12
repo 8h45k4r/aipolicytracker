@@ -1,6 +1,8 @@
 # Change gates
 
-Every change to `main` must pass the five role gates below, in order. Each gate re-checks the one before it. This is binding, not advisory, and applies to one-line changes as much as to features. Record the outcome of all four gates in the pull request description with evidence (query output, counts, command output). A gate that does not apply is marked **N/A with a reason**, never left blank.
+How a change is made so that this evidence exists is defined in the [engineering standard](engineering-standard.md); the gates below are what the pull request must prove.
+
+Every change to `main` must pass the five role gates below, in order. Each gate re-checks the one before it. This is binding, not advisory, and applies to one-line changes as much as to features. Record the outcome of all five gates in the pull request description with evidence (query output, counts, command output). A gate that does not apply is marked **N/A with a reason**, never left blank.
 
 ## 1. Engineering & QA/QC
 
@@ -9,7 +11,7 @@ Every change to `main` must pass the five role gates below, in order. Each gate 
 - No demo `<name>_table` or demo rows shipped to production; sample data lives only in seeders that are explicitly labelled illustrative and are not run by the production startup script.
 - Organisation/user scoping is enforced database-side (query scopes or policies), never only in the client.
 - Row-level security (or the equivalent database policy) on new tables where the database supports it; on this stack, scoping is enforced through Eloquent global scopes and authorisation policies, and that must be stated in the gate.
-- Every interlink is proven with a query: for each foreign key, `total rows` must equal `rows whose reference resolves`. `tests/Feature/DataIntegrityTest.php` runs these checks in CI.
+- Every interlink is proven with a query: for each foreign key, `total rows` must equal `rows whose reference resolves`. `tests/Feature/Site/PublicSiteTest.php::test_policy_intelligence_interlinks_resolve` runs these checks in CI.
 - The module has real inbound and outbound links (it is referenced by, and references, other modules).
 
 ## 2. UI/UX
