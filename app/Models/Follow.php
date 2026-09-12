@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/** A user follows a policy, jurisdiction or obligation; daily alerts are built from these rows. */
+class Follow extends Model
+{
+    public const TYPES = ['policy', 'jurisdiction', 'obligation'];
+
+    protected $guarded = [];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /** The followed record, or null when it no longer exists or is unpublished. */
+    public function subject(): ?Model
+    {
+        return match ($this->subject_type) {
+            'policy' => PolicyInstrument::published()->where('slug', $this->subject_slug)->first(),
+            'jurisdiction' => Jurisdiction::published()->where('slug', $this->subject_slug)->first(),
+            'obligation' => Obligation::published()->where('slug', $this->subject_slug)->first(),
+            default => null,
+        };
+    }
+
+    public static function typeLabel(string $type): string
+    {
+        return match ($type) {
+            'policy' => 'Policy', 'jurisdiction' => 'Jurisdiction', 'obligation' => 'Obligation', default => ucfirst($type)
+        };
+    }
+}

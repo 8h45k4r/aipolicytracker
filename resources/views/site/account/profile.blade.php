@@ -18,8 +18,10 @@
             @endif</p>
         @if($billingEnabled)<form method="post" action="{{ route('billing.portal') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">Manage billing</button></form>@endif
         <p class="mt-2 meta">Invoices, payment method and cancellation are handled by our payment provider. Cancelling keeps Pro until the end of the paid period.</p>
+        <p class="mt-3 text-sm"><a href="{{ route('following.index') }}">Records you follow ({{ $user->follows()->count() }})</a> · daily alerts go to {{ $user->email }} when something changes.</p>
         @else
         <p class="mt-2 text-sm text-brand-body"><strong>Free</strong> · every record, weekly digest, applicability check and open data.</p>
+        <p class="mt-2 text-sm text-brand-body">Pro adds a "Follow" button on every policy, jurisdiction and obligation and emails you the day one changes.</p>
         <p class="mt-3 text-sm"><a href="{{ route('pricing') }}" class="btn-secondary">See Pro plans</a></p>
         @endif
     </section>

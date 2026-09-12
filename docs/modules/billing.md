@@ -18,7 +18,7 @@ Design rules:
 | `pro_monthly` | Pro | $29 / month | `alerts.weekly`, `alerts.daily`, `saved.server`, `history.full`, `api.requests_per_day: 20000` |
 | `pro_yearly` | Pro (annual) | $290 / year | same as Pro |
 
-Entitlement keys are strings such as `alerts.daily`; `User::entitled('alerts.daily')` answers from the covering subscription's plan or the free tier. `User::planKey()` returns `free` or the plan key. The `subscribed` middleware (`subscribed` for any plan, `subscribed:alerts.daily` for one capability) guards routes: guests go to sign-in, members without the entitlement go to `/pricing` (402 JSON for API callers). No route uses it yet; the alerts and API modules that follow will.
+Entitlement keys are strings such as `alerts.daily`; `User::entitled('alerts.daily')` answers from the covering subscription's plan or the free tier. `User::planKey()` returns `free` or the plan key. The `subscribed` middleware (`subscribed` for any plan, `subscribed:saved.server` for one capability) guards routes: guests go to sign-in, members without the entitlement go to `/pricing` (402 JSON for API callers). `follow.toggle` uses it.
 
 Access rules (`Entitlements::covers`):
 
@@ -102,7 +102,7 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 
 - **Outbound (accounts):** `billing_customers.user_id`, `subscriptions.user_id`, `billing_checkouts.user_id` → `users.id` ([accounts.md](accounts.md)); rows are deleted with the account. `User` gains `billingCustomer()`, `subscriptions()`, `activeSubscription()`, `planKey()` and `entitled()`.
 - **Outbound (subscribers and settings):** provider keys live in `app_settings` (`dodo_environment`, `dodo_api_key`, `dodo_webhook_secret`, `dodo_product_pro_monthly`, `dodo_product_pro_yearly`), encrypted, with environment fallbacks ([subscribers-and-settings.md](subscribers-and-settings.md)).
-- **Inbound:** none yet. Alerts and API keys will read entitlements through `Entitlements`.
+- **Inbound (alerts):** `saved.server` gates the follow toggle and `alerts.daily` gates the daily send ([alerts.md](alerts.md)). API keys will follow the same pattern.
 
 ## Code map
 
