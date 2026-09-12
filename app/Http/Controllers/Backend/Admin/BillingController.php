@@ -39,8 +39,32 @@ class BillingController extends Controller
             'plans' => $catalog->plans(),
         ];
         $check = session('billing_check');
+        $probe = session('probe');
 
-        return view('backend.admin.billing', compact('subscriptions', 'byStatus', 'events', 'checkouts', 'recentCheckouts', 'setup', 'status', 'check'));
+        return view('backend.admin.billing', compact('subscriptions', 'byStatus', 'events', 'checkouts', 'recentCheckouts', 'setup', 'status', 'check', 'probe'));
+    }
+
+    /**
+     * Asks the provider to open a checkout session for the first purchasable plan and
+     * reports its answer. No charge is made and no attempt row is written: this only
+     * proves whether the account, key and product can sell right now.
+     */
+    public function probe(Request $request, BillingConfig $config, PlanCatalog $catalog, BillingGateway $gateway): RedirectResponse
+    {
+        if (! $config->configured()) {
+            return back()->with('error', 'Add the API key and webhook secret under Settings first.');
+        }
+        $plan = collect($catalog->plans())->first(fn ($p) => ! empty($p['product_id']));
+        if (! $plan) {
+            return back()->with('error', 'No plan has a product id yet. Run "Provision webhook and products" first.');
+        }
+        try {
+            $session = $gateway->createCheckout($request->user(), $plan['product_id'], ['probe' => '1'], route('pricing'));
+        } catch (\Throwable $e) {
+            return back()->with('probe', ['ok' => false, 'plan' => $plan['name'], 'environment' => $config->environment(), 'detail' => mb_substr($e->getMessage(), 0, 2000)]);
+        }
+
+        return back()->with('probe', ['ok' => true, 'plan' => $plan['name'], 'environment' => $config->environment(), 'detail' => $session['url']]);
     }
 
     /** Creates or reuses the webhook endpoint and plan products at the provider and stores the resulting keys. */

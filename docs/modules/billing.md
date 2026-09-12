@@ -115,6 +115,7 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | Plans, product-id lookup, price formatting | `App\Services\Billing\PlanCatalog` |
 | Provider calls (checkout session, portal link, product lookup, webhook and product provisioning) | `App\Services\Billing\Contracts\BillingGateway` → `DodoGateway` (official `dodopayments/client` SDK); tests bind an in-memory fake |
 | One-click provider setup (endpoint by URL, products by name, keys stored encrypted) | `App\Services\Billing\Provisioner` |
+| "Can we sell right now?" probe (asks the provider to open a session, shows its answer, charges nothing, writes no attempt row) | `Backend\Admin\BillingController::probe` |
 | Signature verification (Standard Webhooks, HMAC-SHA256, 5-minute tolerance) | `App\Services\Billing\WebhookVerifier` |
 | Event storage and subscription mirror | `App\Services\Billing\WebhookProcessor` |
 | Access decisions | `App\Services\Billing\Entitlements`, `App\Http\Middleware\EnsureSubscribed` |
@@ -135,6 +136,7 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | GET | `/backend/admin/billing` | `backend.admin.billing.index` | admin |
 | POST | `/backend/admin/billing/check` | `backend.admin.billing.check` | admin |
 | POST | `/backend/admin/billing/provision` | `backend.admin.billing.provision` | admin |
+| POST | `/backend/admin/billing/probe` | `backend.admin.billing.probe` | admin |
 
 Checkout and portal hand-offs render an interstitial page with a nonce-carrying redirect script and a plain link, because the site's CSP restricts `form-action` to `'self'`.
 
@@ -154,6 +156,10 @@ Responses: 400 for a missing or invalid signature or a stale timestamp (nothing 
 4. Admin → Billing → "Check products against the provider": both plans must read "Price matches".
 5. In test mode, buy a plan with card `4242 4242 4242 4242` and confirm the subscription appears with status `active`; decline with `4000 0000 0000 0002` and confirm nothing is granted.
 6. Admin → Settings → Billing → Checkout `on` to open the pricing page for purchase. (Environment variables `BILLING_ENABLED`, `DODO_PAYMENTS_*` and `DODO_PRODUCT_*` remain the fallback for hosts without the settings table.)
+### When checkout fails
+
+The customer always sees a neutral message. The provider's own answer is kept on the checkout attempt (`billing_checkouts.error`, listed under Admin → Billing), shown inline on `/pricing` to admins only, and reproducible on demand with Admin → Billing → "Can we sell right now?", which opens a session for the first purchasable plan and prints the result. A refusal there is the provider's verdict, not the application's: typically an unverified business, a product that cannot sell in that environment, or a key without payment permission.
+
 7. Going live: complete business verification in the Dodo dashboard, create a live API key, switch the environment setting to `live_mode`, paste the live key, run provisioning again (live objects are separate from test ones), re-run the product check, and keep Checkout `on`.
 
 ## Tests
