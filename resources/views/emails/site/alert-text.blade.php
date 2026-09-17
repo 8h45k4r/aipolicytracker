@@ -4,6 +4,7 @@ Daily alert · {{ $periodLabel }}
 @foreach($changes as $c)
 
 {{ $c->occurred_on->format('j M Y') }} · {{ $c->jurisdiction?->name }}@if($c->policyInstrument) · {{ $c->policyInstrument->short_title ?: $c->policyInstrument->title }}@endif
+@if(!empty($reasons[$c->id]))May affect: {{ implode(', ', $reasons[$c->id]) }}@endif
 
 {{ $c->title }}
 {{ $c->what_changed }}
