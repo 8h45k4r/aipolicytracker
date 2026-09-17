@@ -41,6 +41,9 @@ Route::get('/compare/{comparison}', [CompareController::class, 'show'])->name('c
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
+Route::get('/calendar', [\App\Http\Controllers\Site\CalendarController::class, 'show'])->name('calendar');
+Route::get('/calendar/ai-policy-deadlines.ics', [\App\Http\Controllers\Site\CalendarController::class, 'feed'])->name('calendar.feed');
+Route::get('/calendar/{jurisdiction}.ics', [\App\Http\Controllers\Site\CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->name('calendar.feed.jurisdiction');
 Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', '20[0-9]{2}')->name('changes.year');
 
 Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
