@@ -7,6 +7,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Changed
 - Positioning: "AIPolicyTracker is the regulatory intelligence layer for AI governance. Monitor source-backed AI policy changes, map obligations to real AI systems, and turn regulatory requirements into practical governance actions." applied to the home page eyebrow and meta description, footer, about page, email header, `llms.txt`, Organization structured data and README.
 
+### Changed
+- Repository hygiene: the implementation report no longer names the working branch used to produce it; pull request descriptions carry no tooling attribution.
+
 ### Added
 - Change-impact alerts: a Pro account can save an applicability screening as a named profile from the free check, and the daily alert then flags changes that fall in that profile's scope with "May affect: <name>", naming the system in the subject line when one profile is affected. The screening logic moved into `ApplicabilityScreener` so the free tool and the paid alert use one implementation; profiles hold answers only, never customer systems, and every alert repeats that relevance is not a legal determination. Documented in `docs/modules/alerts.md`; debt #25 records that verification depth, not the engine, is what limits the claim.
 - Billing diagnosis: Admin → Billing → "Can we sell right now?" asks the provider to open a checkout session for the first purchasable plan and prints its answer (nothing is charged, no attempt row is written); when a customer's checkout is refused, admins also see the provider's response inline on the pricing page, while customers keep the neutral message.
