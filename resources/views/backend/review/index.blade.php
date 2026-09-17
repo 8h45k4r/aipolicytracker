@@ -14,10 +14,11 @@
             @if($s->details)<p class="mt-1 whitespace-pre-line text-brand-body">{{ $s->details }}</p>@endif
             @if($s->proposed_source_url)<p class="mt-1"><a href="{{ $s->proposed_source_url }}" rel="noopener noreferrer" class="break-all">{{ $s->proposed_source_url }}</a></p>@endif
             <p class="mt-1 meta">From: {{ $s->submitter_name ?: 'anonymous' }} {{ $s->submitter_email ? '<'.$s->submitter_email.'>' : '' }} {{ $s->submitter_affiliation }}@if($s->source_page) · via {{ $s->source_page }}@endif</p>
-            @foreach($s->decisions as $d)<p class="mt-1 meta">Decision: {{ $d->decision }} by {{ $d->reviewer?->name ?? 'unknown' }} on {{ $d->decided_at->format('j M Y') }}@if($d->notes) — {{ $d->notes }}@endif</p>@endforeach
+            @foreach($s->decisions as $d)<p class="mt-1 meta">Decision: {{ $d->decision }} by {{ $d->reviewer?->name ?? 'unknown' }} on {{ $d->decided_at->format('j M Y') }}@if($d->notes) — {{ $d->notes }} @endif @if($d->public_note) · published: {{ $d->public_note }} @endif</p>@endforeach
             <form method="post" action="{{ route('backend.review.decide', $s) }}" class="mt-3 flex flex-wrap gap-2 items-end">@csrf
                 <div><label for="d-{{ $s->id }}" class="label">Decision</label><select id="d-{{ $s->id }}" name="decision" class="input !min-h-0"><option value="approved">Approve</option><option value="needs_information">Needs information</option><option value="rejected">Reject</option></select></div>
-                <div class="flex-1 min-w-[12rem]"><label for="n-{{ $s->id }}" class="label">Notes</label><input id="n-{{ $s->id }}" name="notes" class="input !min-h-0" maxlength="2000"></div>
+                <div class="flex-1 min-w-[12rem]"><label for="n-{{ $s->id }}" class="label">Notes (internal)</label><input id="n-{{ $s->id }}" name="notes" class="input !min-h-0" maxlength="2000"></div>
+                <div class="flex-1 min-w-[12rem]"><label for="pn-{{ $s->id }}" class="label">Public note</label><input id="pn-{{ $s->id }}" name="public_note" class="input !min-h-0" maxlength="500" placeholder="Shown on /corrections. Leave empty to publish the facts only."></div>
                 <button type="submit" class="btn-primary !min-h-0">Record decision</button>
             </form>
         </article>

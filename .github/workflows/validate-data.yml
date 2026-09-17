@@ -2,12 +2,13 @@ name: Validate policy data
 
 # Runs the schema and cross-reference validator over data/ and prints every error,
 # then checks the corpus against the verification policy so records cannot go stale
-# unnoticed. Use it from the Actions tab (workflow_dispatch) when PHP is not
+# unnoticed, and against the completeness policy so a record cannot be published
+# without what makes it checkable. Use it from the Actions tab (workflow_dispatch) when PHP is not
 # available locally.
 on:
   workflow_dispatch:
   pull_request:
-    paths: ['data/**', 'config/verification.php', 'app/Services/Verification/**']
+    paths: ['data/**', 'config/verification.php', 'app/Services/Verification/**', 'config/completeness.php', 'app/Services/Completeness/**']
 
 permissions:
   contents: read
@@ -29,3 +30,5 @@ jobs:
         run: php artisan migrate --force && php artisan db:seed --force && php artisan policy:import
       - name: Verification policy (freshness)
         run: php artisan policy:freshness --list=40
+      - name: Completeness policy (coverage)
+        run: php artisan policy:coverage --list=40

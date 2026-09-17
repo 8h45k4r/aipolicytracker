@@ -17,7 +17,7 @@ class ContributeController extends Controller
 {
     /** Fields a reader can single out when reporting a correction, per record type. */
     public const CORRECTABLE_FIELDS = [
-        'policy' => ['title', 'status', 'instrument_type', 'is_binding', 'issuing_body', 'adopted_on', 'in_force_on', 'applies_from', 'summary_plain', 'scope_summary', 'key_dates_summary', 'penalties_summary', 'official_source_url'],
+        'policy' => ['title', 'status', 'instrument_type', 'is_binding', 'issuing_body', 'adopted_on', 'in_force_on', 'applies_from', 'summary_plain', 'scope_summary', 'key_dates_summary', 'penalties_summary', 'who_it_applies_to', 'what_organizations_must_do', 'official_source_url'],
         'jurisdiction' => ['name', 'regulatory_status_summary', 'binding_vs_guidance', 'current_priorities', 'regulators', 'official_source_url'],
         'obligation' => ['title', 'category', 'is_binding', 'summary', 'practical_action', 'applies_from', 'source_reference', 'official_source_url'],
         'change' => ['title', 'occurred_on', 'what_changed', 'practical_impact', 'impact_level', 'status_after', 'official_source_url'],
@@ -113,15 +113,6 @@ class ContributeController extends Controller
         if (! $type || $slug === '' || ! preg_match('/^[A-Za-z0-9._-]{1,160}$/', $slug)) {
             return null;
         }
-        $labels = [
-            'title' => 'Title', 'name' => 'Name', 'status' => 'Status', 'instrument_type' => 'Instrument type', 'is_binding' => 'Binding or non-binding',
-            'issuing_body' => 'Issuing body', 'adopted_on' => 'Adopted on', 'in_force_on' => 'In force on', 'applies_from' => 'Applies from',
-            'summary_plain' => 'Plain-language summary', 'scope_summary' => 'Scope', 'key_dates_summary' => 'Key dates', 'penalties_summary' => 'Penalties',
-            'official_source_url' => 'Official source URL', 'regulatory_status_summary' => 'Regulatory status', 'binding_vs_guidance' => 'Binding vs guidance',
-            'current_priorities' => 'Current priorities', 'regulators' => 'Regulators', 'category' => 'Category', 'summary' => 'Summary',
-            'practical_action' => 'Practical action', 'source_reference' => 'Source reference', 'occurred_on' => 'Date of change',
-            'what_changed' => 'What changed', 'description' => 'Description', 'deployers' => 'Alleged deployer', 'developers' => 'Alleged developer', 'harmed' => 'Alleged harmed party', 'mit_domain' => 'Risk domain', 'mit_subdomain' => 'Risk subdomain', 'entity' => 'Causal entity', 'intent' => 'Intent', 'timing' => 'Timing', 'harm_level' => 'Harm level', 'countries' => 'Countries', 'risk_category' => 'Risk category', 'risk_subcategory' => 'Risk subcategory', 'domain' => 'Domain', 'subdomain' => 'Subdomain', 'paper_title' => 'Source paper', 'practical_impact' => 'Practical impact', 'impact_level' => 'Impact level', 'status_after' => 'Status after change',
-        ];
 
         $record = match ($type) {
             'policy' => PolicyInstrument::published()->with('jurisdiction')->where('slug', $slug)->first(),
@@ -139,7 +130,7 @@ class ContributeController extends Controller
         $fields = [];
         foreach (self::CORRECTABLE_FIELDS[$type] as $field) {
             $value = $record->{$field} ?? null;
-            $fields[$field] = ['label' => $labels[$field] ?? ucfirst(str_replace('_', ' ', $field)), 'value' => self::stringify($value)];
+            $fields[$field] = ['label' => \App\Support\SubmissionFieldLabels::label($field), 'value' => self::stringify($value)];
         }
 
         [$title, $url, $jurisdiction] = match ($type) {
@@ -156,8 +147,12 @@ class ContributeController extends Controller
             'slug' => $slug,
             'title' => $title,
             'url' => $url,
-            'official_source_url' => match ($type) { 'incident' => $record->citeUrl(), 'risk' => $record->navigatorUrl(), 'obligation' => $record->official_source_url ?? $record->policyInstrument?->official_source_url, default => $record->official_source_url },
-            'source_title' => match ($type) { 'incident' => 'AI Incident Database record', 'risk' => 'MIT AI Risk Repository (Risk Navigator)', 'obligation' => $record->source_title ?? $record->policyInstrument?->source_title, default => $record->source_title },
+            'official_source_url' => match ($type) {
+                'incident' => $record->citeUrl(), 'risk' => $record->navigatorUrl(), 'obligation' => $record->official_source_url ?? $record->policyInstrument?->official_source_url, default => $record->official_source_url
+            },
+            'source_title' => match ($type) {
+                'incident' => 'AI Incident Database record', 'risk' => 'MIT AI Risk Repository (Risk Navigator)', 'obligation' => $record->source_title ?? $record->policyInstrument?->source_title, default => $record->source_title
+            },
             'jurisdiction' => $jurisdiction,
             'content_version' => isset($record->content_version) ? (int) $record->content_version : null,
             'fields' => $fields,
