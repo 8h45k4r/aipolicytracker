@@ -19,7 +19,7 @@ class PolicyValidateCommand extends Command
         $validator = new PolicyDataValidator($repository, new SchemaValidator($repository->schemaDir()));
 
         $errors = $validator->run();
-        $files = count($repository->jurisdictions()) + count($repository->policies()) + count($repository->changeFiles()) + 1;
+        $files = count($repository->jurisdictions()) + count($repository->policies()) + count($repository->changeFiles()) + count($repository->reviewers()) + 1;
 
         if ($errors === []) {
             $this->info("OK: {$files} data files validated with no errors.");
