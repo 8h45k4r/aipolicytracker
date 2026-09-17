@@ -33,7 +33,9 @@ php artisan policy:freshness --list=0   # counts only
 
 ### The budget is a ratchet
 
-`critical_budget` was set to the number of critical breaches on the day the policy was introduced (2026-09-17). It exists so the check can be enforced immediately without blocking every other change on a backlog nobody has worked through yet.
+`critical_budget` holds the number of critical breaches measured over the whole corpus on the day the policy was introduced: 2026-09-17, 594 records under the policy, 99 of them critical and never confirmed. It exists so the check can be enforced immediately without blocking every other change on a backlog nobody has worked through yet.
+
+Measure it against the full corpus, not a partial local database. A development database seeded with a subset reports a smaller number; the gate runs after a full import and will fail if the budget was set from the subset. That is the gate working, not a false alarm.
 
 It may only be **lowered**. After verifying a batch of records, run the command, read the new critical count, and lower the budget to it in the same pull request. Raising it is a deliberate act that must be argued for in the pull request description and recorded in the technical debt register.
 
