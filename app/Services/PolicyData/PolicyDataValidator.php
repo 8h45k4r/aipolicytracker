@@ -5,10 +5,14 @@ namespace App\Services\PolicyData;
 /**
  * Validates every record in data/ against its JSON Schema, then runs the
  * cross-record checks the schema cannot express (unique slugs, taxonomy slugs,
- * jurisdiction references, verified records must carry a verification date).
+ * jurisdiction references, verified records must carry a verification date and
+ * name a reviewer who has published a declaration of interest).
  */
 class PolicyDataValidator
 {
+    /** Names of published reviewers, collected before the records are walked. @var list<string> */
+    private array $reviewerNames = [];
+
     public function __construct(
         private readonly PolicyDataRepository $repository,
         private readonly SchemaValidator $schema,
@@ -18,6 +22,7 @@ class PolicyDataValidator
     public function run(): array
     {
         $errors = [];
+        $this->reviewerNames = $this->validateReviewers($errors);
         $taxonomies = $this->repository->taxonomies();
         foreach ($this->schema->validate($taxonomies, 'taxonomy.schema.json') as $e) {
             $errors['taxonomies/terms.yaml'][] = $e;
@@ -134,6 +139,34 @@ class PolicyDataValidator
         return $errors;
     }
 
+    /**
+     * Validates the roster and returns the names of its published entries.
+     *
+     * @return list<string>
+     */
+    private function validateReviewers(array &$errors): array
+    {
+        $names = [];
+        $slugs = [];
+        foreach ($this->repository->reviewers() as $file => $record) {
+            foreach ($this->schema->validate($record, 'reviewer.schema.json') as $e) {
+                $errors[$file][] = $e;
+            }
+            $slug = $record['slug'] ?? null;
+            if ($slug !== null) {
+                if (isset($slugs[$slug])) {
+                    $errors[$file][] = "duplicate reviewer slug \"{$slug}\" (also in {$slugs[$slug]})";
+                }
+                $slugs[$slug] = $file;
+            }
+            if (($record['published'] ?? true) && isset($record['name'])) {
+                $names[] = (string) $record['name'];
+            }
+        }
+
+        return $names;
+    }
+
     private function checkVerification(array $record, string $file, string $path, array &$errors): void
     {
         $status = $record['review_status'] ?? null;
@@ -142,6 +175,12 @@ class PolicyDataValidator
         }
         if ($status === 'verified' && empty($record['reviewed_by'])) {
             $errors[$file][] = "{$path}: review_status is \"verified\" but reviewed_by is empty";
+        }
+        // A verification is only worth something if the person who made it is named and has
+        // published what they are interested in. Without this, "verified by" is an unchecked
+        // string and the roster is decoration.
+        if ($status === 'verified' && ! empty($record['reviewed_by']) && ! in_array($record['reviewed_by'], $this->reviewerNames, true)) {
+            $errors[$file][] = "{$path}: reviewed_by \"{$record['reviewed_by']}\" is not a published reviewer; add them to data/reviewers with a declaration of interest";
         }
         if (! empty($record['last_verified_at']) && $status !== 'verified') {
             $errors[$file][] = "{$path}: last_verified_at is set but review_status is not \"verified\"";

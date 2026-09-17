@@ -67,6 +67,7 @@ Route::get('/verification', [\App\Http\Controllers\Site\VerificationController::
 Route::get('/coverage', [\App\Http\Controllers\Site\CoverageController::class, 'show'])->name('coverage');
 Route::get('/gaps', [\App\Http\Controllers\Site\CoverageController::class, 'gaps'])->name('gaps');
 Route::get('/corrections', [\App\Http\Controllers\Site\CorrectionsController::class, 'show'])->name('corrections');
+Route::get('/reviewers', [\App\Http\Controllers\Site\ReviewersController::class, 'show'])->name('reviewers');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contribute', [ContributeController::class, 'show'])->name('contribute');
 Route::post('/contribute', [ContributeController::class, 'store'])->middleware('throttle:10,1')->name('contribute.store');

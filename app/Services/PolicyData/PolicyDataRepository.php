@@ -46,6 +46,12 @@ class PolicyDataRepository
         return $this->parseDirectory('policies');
     }
 
+    /** @return array<string, array> relative path => reviewer roster entry */
+    public function reviewers(): array
+    {
+        return $this->parseDirectory('reviewers');
+    }
+
     /** @return array<string, array> relative path => file contents ({changes: [...]}) */
     public function changeFiles(): array
     {
