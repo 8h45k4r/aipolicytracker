@@ -5,8 +5,8 @@ namespace App\Services\PolicyData;
 /**
  * Small JSON Schema (draft 2020-12 subset) validator used by policy:validate.
  *
- * Supported keywords: type, properties, required, items, enum, pattern, minLength,
- * maxLength, minimum, maximum, format (date, uri), anyOf, allOf, $ref (local "#/$defs/x"
+ * Supported keywords: type, properties, required, items, minItems, maxItems, enum, pattern,
+ * minLength, maxLength, minimum, maximum, format (date, uri), anyOf, allOf, $ref (local "#/$defs/x"
  * and sibling-file "name.schema.json#/$defs/x"), additionalProperties (schema form).
  * It is deliberately dependency-free so contributors can run it anywhere PHP runs.
  */
@@ -129,6 +129,18 @@ class SchemaValidator
             }
             if (isset($schema['maximum']) && $data > $schema['maximum']) {
                 $errors[] = "{$path}: must be <= {$schema['maximum']}";
+            }
+        }
+
+        if (is_array($data) && ($this->isList($data) || $data === []) && ($schema['type'] ?? null) === 'array') {
+            // An empty YAML list parses as [], which is indistinguishable from an empty
+            // mapping, so the array bounds are checked here where the schema says which it is.
+            $count = count($data);
+            if (isset($schema['minItems']) && $count < $schema['minItems']) {
+                $errors[] = "{$path}: must have at least {$schema['minItems']} item(s)";
+            }
+            if (isset($schema['maxItems']) && $count > $schema['maxItems']) {
+                $errors[] = "{$path}: must have at most {$schema['maxItems']} item(s)";
             }
         }
 

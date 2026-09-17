@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aipolicytracker.org/schema/reviewer.schema.json",
+  "title": "Reviewer roster entry",
+  "description": "A person who verifies records against official sources. Kept in data/ rather than a database so that a declaration of interest is version-controlled, reviewed in a pull request and auditable line by line, exactly like the policy records themselves. A reviewer cannot be published without declaring their interests: `interests` is required, and \"none\" is a declaration, not an omission.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "name": { "type": "string", "minLength": 2, "maxLength": 120 },
+    "role": {
+      "type": "string",
+      "enum": ["editor", "reviewer", "contributor"],
+      "description": "editor: may publish and unpublish records. reviewer: may mark a record verified. contributor: proposes changes only."
+    },
+    "published": { "type": "boolean" },
+    "joined_on": { "$ref": "common.schema.json#/$defs/date" },
+    "bio": { "type": "string", "maxLength": 1000 },
+    "expertise": { "type": "array", "items": { "type": "string", "maxLength": 120 } },
+    "jurisdictions": {
+      "type": "array",
+      "description": "Jurisdiction slugs this reviewer covers. Validated against data/jurisdictions.",
+      "items": { "$ref": "common.schema.json#/$defs/slug" }
+    },
+    "affiliations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "organisation": { "type": "string", "maxLength": 200 },
+          "role": { "type": "string", "maxLength": 200 },
+          "current": { "type": "boolean" }
+        },
+        "required": ["organisation"]
+      }
+    },
+    "interests": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Declared conflicts of interest. Required. An entry of {\"declaration\": \"None declared.\"} is how a reviewer states there are none; leaving the field out is not.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "declaration": { "type": "string", "minLength": 4, "maxLength": 600 },
+          "affects": {
+            "type": "array",
+            "description": "Jurisdiction slugs the interest bears on, when it is narrower than the whole corpus.",
+            "items": { "$ref": "common.schema.json#/$defs/slug" }
+          },
+          "mitigation": { "type": "string", "maxLength": 600 },
+          "declared_on": { "$ref": "common.schema.json#/$defs/date" }
+        },
+        "required": ["declaration"]
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": { "type": "string", "maxLength": 80 },
+          "url": { "type": "string", "format": "uri", "maxLength": 2048 }
+        },
+        "required": ["label", "url"]
+      }
+    }
+  },
+  "required": ["slug", "name", "role", "interests"]
+}

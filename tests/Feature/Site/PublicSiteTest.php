@@ -297,15 +297,26 @@ class PublicSiteTest extends TestCase
         // Export writes the fields into a copy of the YAML file.
         $src = collect(glob(base_path('data/policies/*/eu-ai-act.yaml')))->first();
         $backup = file_get_contents($src);
+        // A verification is only valid once the person who signed it is on the published
+        // roster with a declaration of interest, so the export is accompanied by one here
+        // exactly as it would be in a real pull request.
+        $roster = base_path('data/reviewers/editor-one.yaml');
         try {
             $this->artisan('policy:export-verifications')->assertExitCode(0);
             $yaml = \Symfony\Component\Yaml\Yaml::parseFile($src);
             $this->assertSame('verified', $yaml['review_status']);
             $this->assertSame('Editor One', $yaml['reviewed_by']);
             $this->assertNotEmpty($yaml['last_verified_at']);
+            // Without the roster entry the data check rejects the signature.
+            $this->artisan('policy:validate')->assertExitCode(1);
+            file_put_contents($roster, \Symfony\Component\Yaml\Yaml::dump([
+                'slug' => 'editor-one', 'name' => 'Editor One', 'role' => 'editor', 'published' => true,
+                'interests' => [['declaration' => 'None declared.']],
+            ], 6, 2));
             $this->artisan('policy:validate')->assertExitCode(0);
         } finally {
             file_put_contents($src, $backup);
+            @unlink($roster);
         }
         $this->assertTrue(\App\Models\RecordVerification::where('record_slug', 'eu-ai-act')->value('exported'));
     }
