@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Coverage, gaps and corrections: `/coverage` publishes what a record must carry to be checkable (`config/completeness.php`) and how many published records carry it; `/gaps` turns every shortfall into an open queue, required first, filterable by record type and by check, where each row links to the correction form with the record and field already selected; `/corrections` publishes what readers reported and what was decided, refusals included, without the submitter's identity or any text the site never moderated. `php artisan policy:coverage` runs the same report in the data workflow and fails when required gaps exceed the budget, which launched at zero against the full corpus. See `docs/reference/completeness-policy.md`.
 - Verification policy: every record type now has a published maximum age before its facts must be confirmed again, with an owner per queue (`config/verification.php`). `/verification` publishes the rules, the live counts and the longest overdue records, and `php artisan policy:freshness` runs the same report in the data workflow and fails when critical breaches exceed the agreed budget. A record that has never been confirmed counts as overdue rather than current. The budget is a ratchet set to the backlog that existed at launch and may only be lowered (debt #26). See `docs/reference/verification-policy.md`.
 
 ### Fixed

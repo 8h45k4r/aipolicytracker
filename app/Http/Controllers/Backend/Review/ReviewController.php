@@ -37,17 +37,21 @@ class ReviewController extends Controller
         $data = $request->validate([
             'decision' => ['required', 'in:approved,rejected,needs_information'],
             'notes' => ['nullable', 'string', 'max:2000'],
+            // Written deliberately for /corrections. `notes` is the internal record and is
+            // never published, so a reviewer who wants to say something publicly says it here.
+            'public_note' => ['nullable', 'string', 'max:500'],
         ]);
         ReviewerDecision::create([
             'contributor_submission_id' => $submission->id,
             'reviewer_user_id' => $request->user()->id,
             'decision' => $data['decision'],
             'notes' => $data['notes'] ?? null,
+            'public_note' => $data['public_note'] ?? null,
             'decided_at' => now(),
         ]);
         $submission->update(['status' => $data['decision']]);
 
-        return back()->with('success', 'Decision recorded. Approved submissions must still be applied to the data/ directory through a pull request.');
+        return back()->with('success', 'Decision recorded and published to the corrections log. Approved submissions must still be applied to the data/ directory through a pull request.');
     }
 
     /** Records a human verification (reviewer opened the official source) and applies it to the live row. */
