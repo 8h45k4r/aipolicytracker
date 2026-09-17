@@ -97,7 +97,7 @@
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('obligations.index') }}">Obligations</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('compare.index') }}">Compare</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.feed') }}">RSS</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.feed') }}">RSS</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('calendar') }}">Calendar</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.index') }}">AI risk</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.incidents') }}">Incidents</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('guides.index') }}">Guides</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('subscribe.show') }}">Weekly digest</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('saved') }}">Saved</a></li>
