@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Social cards declare the preview image's size and alt text (`og:image:width`, `og:image:height`, `og:image:alt`, `twitter:image:alt`), so Slack, LinkedIn and X reserve the correct box before the file loads and screen readers get a description. Dimensions are configurable (`SITE_OG_IMAGE_WIDTH`, `SITE_OG_IMAGE_HEIGHT`) and emitted only for the default image; a test asserts they match the file actually served.
+
 ### Changed
 - Positioning: "AIPolicyTracker is the regulatory intelligence layer for AI governance. Monitor source-backed AI policy changes, map obligations to real AI systems, and turn regulatory requirements into practical governance actions." applied to the home page eyebrow and meta description, footer, about page, email header, `llms.txt`, Organization structured data and README.
 

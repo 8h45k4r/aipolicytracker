@@ -22,6 +22,27 @@ class PublicSiteTest extends TestCase
         $this->seed(\Database\Seeders\ToolSeeder::class);
     }
 
+    public function test_social_card_declares_its_image_with_size_and_alt_text(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        foreach ([
+            '<meta property="og:image" content="'.url(config('aipolicytracker.default_og_image')).'">',
+            '<meta property="og:image:width" content="1200">',
+            '<meta property="og:image:height" content="630">',
+            '<meta name="twitter:card" content="summary_large_image">',
+        ] as $tag) {
+            $this->assertStringContainsString($tag, $html);
+        }
+        $this->assertStringContainsString('og:image:alt', $html);
+        $this->assertStringContainsString('regulatory intelligence layer for AI governance', $html);
+
+        // The declared size describes the file that is actually served.
+        $file = public_path(ltrim(config('aipolicytracker.default_og_image'), '/'));
+        $this->assertFileExists($file);
+        [$width, $height] = getimagesize($file);
+        $this->assertSame([(int) config('aipolicytracker.default_og_image_width'), (int) config('aipolicytracker.default_og_image_height')], [$width, $height], 'og:image dimensions must match the file in public/');
+    }
+
     public function test_homepage_renders_product_positioning_without_javascript(): void
     {
         $response = $this->get('/');
@@ -432,7 +453,9 @@ class PublicSiteTest extends TestCase
         $risk = \App\Models\ExternalRisk::where('level', 'Risk Sub-Category')->whereNotNull('subdomain')->first();
         $this->get($risk->url())->assertOk()->assertSee($risk->risk_subcategory ?: $risk->risk_category)->assertSee('Real-world incidents in this subdomain')->assertSee($risk->quick_ref);
         $dup = \App\Models\ExternalRisk::where('ev_id', 'like', '%#%')->first();
-        if ($dup) { $this->get($dup->url())->assertOk(); }
+        if ($dup) {
+            $this->get($dup->url())->assertOk();
+        }
         $csv = $this->get('/ai-risk/incidents/export.csv?year=2024')->assertOk()->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
         $this->assertStringContainsString('CC BY-SA 4.0', $csv->streamedContent());
         $this->assertStringContainsString('incident_id,occurred_on,title', $csv->streamedContent());

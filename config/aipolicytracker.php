@@ -28,6 +28,11 @@ return [
     'trust_statement' => 'Every important policy claim should link to a primary official source, show its current status, and display a last-verified date.',
     'disclaimer' => 'Informational only. Nothing on this site is legal advice. Check the linked official sources and consult qualified counsel before acting.',
     'default_og_image' => env('SITE_OG_IMAGE', '/og-default.png'),
+    // Dimensions of the default social card. Declared in the markup so Slack, LinkedIn
+    // and X reserve the right box before the file loads; only emitted for the default
+    // image, because a per-page image may have its own size.
+    'default_og_image_width' => (int) env('SITE_OG_IMAGE_WIDTH', 1200),
+    'default_og_image_height' => (int) env('SITE_OG_IMAGE_HEIGHT', 630),
     'github_url' => env('SITE_GITHUB_URL', 'https://github.com/8h45k4r/aipolicytracker'),
     'certifyi_url' => env('SITE_CERTIFYI_URL', 'https://certifyi.ai'),
     'newsletter_url' => env('SITE_NEWSLETTER_URL'), // optional external subscription form
