@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\AlertDelivery;
+use App\Models\ApplicabilityProfile;
 use App\Models\Follow;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
@@ -29,10 +30,11 @@ class FollowController extends Controller
             return ['follow' => $f, 'subject' => $subject, 'title' => $subject?->short_title ?? $subject?->title ?? $subject?->name ?? $f->subject_slug, 'url' => $subject?->url()];
         });
         $lastAlert = AlertDelivery::where('user_id', $user->id)->orderByDesc('sent_on')->first();
+        $profiles = ApplicabilityProfile::where('user_id', $user->id)->orderBy('name')->get();
         $seo = Seo::make('Records you follow', 'Policies, jurisdictions and obligations you follow for daily alerts.', route('following.index'), false)
             ->withBreadcrumbs([['Home', route('home')], ['Your account', route('profile.edit')], ['Following', route('following.index')]]);
 
-        return view('site.account.following', compact('seo', 'follows', 'lastAlert', 'user'));
+        return view('site.account.following', compact('seo', 'follows', 'lastAlert', 'user', 'profiles'));
     }
 
     /** Toggles a follow and returns to the record. */

@@ -75,6 +75,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ResourceDownload::class);
     }
 
+    public function applicabilityProfiles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ApplicabilityProfile::class)->orderBy('name');
+    }
+
     public function follows(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Follow::class)->orderByDesc('id');
