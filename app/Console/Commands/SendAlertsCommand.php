@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Mail\DailyAlertMail;
 use App\Models\AlertDelivery;
+use App\Models\ApplicabilityProfile;
 use App\Models\Follow;
 use App\Models\User;
 use App\Services\Alerts\AlertBuilder;
@@ -21,14 +22,15 @@ class SendAlertsCommand extends Command
 {
     protected $signature = 'alerts:send {--dry-run : Report without sending}';
 
-    protected $description = 'Send daily change and deadline alerts to Pro accounts for the records they follow';
+    protected $description = 'Send daily change and deadline alerts to Pro accounts for the records they follow and the profiles they saved';
 
     public function handle(AlertBuilder $builder): int
     {
         $now = now();
         $today = $now->toDateString();
         $sent = $skipped = $empty = 0;
-        $userIds = Follow::query()->distinct()->pluck('user_id');
+        $userIds = Follow::query()->distinct()->pluck('user_id')
+            ->merge(ApplicabilityProfile::query()->distinct()->pluck('user_id'))->unique()->values();
         User::whereIn('id', $userIds)->orderBy('id')->chunk(100, function ($users) use ($builder, $now, $today, &$sent, &$skipped, &$empty) {
             foreach ($users as $user) {
                 if (! $user->entitled('alerts.daily') || AlertDelivery::where('user_id', $user->id)->where('sent_on', $today)->exists()) {
@@ -46,7 +48,10 @@ class SendAlertsCommand extends Command
                 }
                 if (! $this->option('dry-run')) {
                     AlertDelivery::create(['user_id' => $user->id, 'sent_on' => $today, 'window_start' => $since, 'window_end' => $now, 'changes_count' => $digest['changes']->count(), 'deadlines_count' => $digest['deadlines']->count()]);
-                    Mail::to($user->email)->send(new DailyAlertMail($user, $digest['changes'], $digest['deadlines'], $since, $now));
+                    Mail::to($user->email)->send(new DailyAlertMail($user, $digest['changes'], $digest['deadlines'], $since, $now, $digest['reasons']));
+                    if ($digest['reasons'] !== []) {
+                        ApplicabilityProfile::where('user_id', $user->id)->update(['last_matched_at' => $now]);
+                    }
                 }
                 $sent++;
             }
