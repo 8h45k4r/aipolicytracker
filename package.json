@@ -7,7 +7,7 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "typecheck": "echo \"No TypeScript sources; static checks run via 'npm run lint' and 'composer lint'.\"",
-        "test": "echo \"JavaScript has no unit tests yet; PHP tests run via 'composer test'.\""
+        "test": "node --test agent/*.test.mjs"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.5",

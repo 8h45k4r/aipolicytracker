@@ -30,6 +30,25 @@ AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence 
 - Guides: {{ route('guides.index') }}
 - About, maintainers and references: {{ route('about') }}
 
+## How far this data can be trusted
+
+Read {{ route('open-data.health') }} before quoting any record as settled. It reports, as JSON, how many records are past their re-check date, how many are missing a field a checkable record needs, and how many have been verified by a named reviewer. Most records are structured summaries that no reviewer has yet confirmed against the official source; the record itself says so, and so does every context file below.
+
+- Verification policy (how old a fact may be, by record type): {{ route('verification') }}
+- Coverage (what a record must carry, and what is missing): {{ route('coverage') }}
+- Open queue of gaps: {{ route('gaps') }}
+- Corrections log (what readers reported and what was decided): {{ route('corrections') }}
+- Reviewers and their declared interests: {{ route('reviewers') }}
+
+## Reading a record without scraping a page
+
+Every published record is also served as one Markdown context file with a provenance block:
+
+- `/policies/{slug}.md` — e.g. {{ route('policies.context', 'eu-ai-act') }}
+- `/jurisdictions/{slug}.md`, `/obligations/{slug}.md`, `/changes/{slug}.md`
+
+Whole-corpus exports, one self-contained row at a time: `/open-data/{dataset}.csv` and `/open-data/{dataset}.ndjson` for jurisdictions, policies, obligations, changes and deadlines. JSON Schemas resolve at `/schema/{name}.schema.json`. An assistant can call these through the Model Context Protocol server in the repository's `agent/` directory.
+
 ## Jurisdictions
 
 @foreach($jurisdictions as $j)
