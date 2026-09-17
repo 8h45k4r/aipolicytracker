@@ -13,10 +13,16 @@
     <meta property="og:description" content="{{ $seo->description }}">
     <meta property="og:url" content="{{ $seo->canonical }}">
     <meta property="og:image" content="{{ url($seo->ogImage ?? config('aipolicytracker.default_og_image')) }}">
+    <meta property="og:image:alt" content="{{ config('aipolicytracker.site_name') }}: {{ config('aipolicytracker.positioning') }}">
+    @unless($seo->ogImage)
+    <meta property="og:image:width" content="{{ config('aipolicytracker.default_og_image_width') }}">
+    <meta property="og:image:height" content="{{ config('aipolicytracker.default_og_image_height') }}">
+    @endunless
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $seo->title }}">
     <meta name="twitter:description" content="{{ $seo->description }}">
     <meta name="twitter:image" content="{{ url($seo->ogImage ?? config('aipolicytracker.default_og_image')) }}">
+    <meta name="twitter:image:alt" content="{{ config('aipolicytracker.site_name') }}: {{ config('aipolicytracker.positioning') }}">
     @if($seo->modified)<meta property="article:modified_time" content="{{ $seo->modified->format(DATE_ATOM) }}">@endif
     @if($seo->feedUrl)<link rel="alternate" type="application/rss+xml" title="AI policy changes" href="{{ $seo->feedUrl }}">@endif
     @if(config('aipolicytracker.google_site_verification'))<meta name="google-site-verification" content="{{ config('aipolicytracker.google_site_verification') }}">@endif
