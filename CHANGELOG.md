@@ -6,6 +6,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Added
 - Deadline calendar: `/calendar` publishes a subscribable iCalendar feed of dated application deadlines, whole-corpus or per jurisdiction, with reminders 30 and 7 days ahead and the record's review status and confidence in every entry. Only scheduled dates recorded to an exact day are published; a date held as a month, a year or still undecided is left out rather than guessed into a day.
+- Verification policy: every record type now has a published maximum age before its facts must be confirmed again, with an owner per queue (`config/verification.php`). `/verification` publishes the rules, the live counts and the longest overdue records, and `php artisan policy:freshness` runs the same report in the data workflow and fails when critical breaches exceed the agreed budget. A record that has never been confirmed counts as overdue rather than current. The budget is a ratchet set to the backlog that existed at launch and may only be lowered (debt #26). See `docs/reference/verification-policy.md`.
 
 ### Fixed
 - Alerts: the module documentation claimed a saved profile contributed no application dates, while the code already included the deadlines of the instruments in the profile's scope. The documentation now matches the behaviour, a test proves that an account which follows nothing but saved a profile is still told when a date in that scope approaches, and an unused helper that could have implied obligations the email never shows was removed.

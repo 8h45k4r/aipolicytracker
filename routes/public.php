@@ -63,6 +63,7 @@ Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'
 Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
 Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->name('open-data.download');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
+Route::get('/verification', [\App\Http\Controllers\Site\VerificationController::class, 'show'])->name('verification');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contribute', [ContributeController::class, 'show'])->name('contribute');
 Route::post('/contribute', [ContributeController::class, 'store'])->middleware('throttle:10,1')->name('contribute.store');
