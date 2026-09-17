@@ -108,7 +108,7 @@
             <ul class="mt-3 space-y-2">
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('pricing') }}">Pricing</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('methodology') }}">Methodology</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('methodology') }}">Methodology</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('verification') }}">Verification</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('about') }}">About</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('contribute') }}">Contribute</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
