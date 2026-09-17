@@ -11,6 +11,12 @@ export default [
         languageOptions: { ecmaVersion: 2022, sourceType: "module", globals: { ...globals.serviceworker } },
     },
     {
+        // The agent server and its test run under Node, not in a browser.
+        files: ["agent/**/*.mjs"],
+        languageOptions: { ecmaVersion: 2022, sourceType: "module", globals: { ...globals.node } },
+        rules: { "no-console": ["error", { allow: ["warn", "error"] }] },
+    },
+    {
         files: ["resources/js/**/*.{js,jsx}", "*.config.js", "eslint.config.js"],
         plugins: { react, "react-hooks": reactHooks },
         languageOptions: {

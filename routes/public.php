@@ -28,12 +28,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/policies', [PolicyController::class, 'index'])->name('policies.index');
 Route::get('/policies/{policy}.json', [PolicyController::class, 'json'])->name('policies.json');
+Route::get('/policies/{policy}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'policy'])->where('policy', '[a-z0-9-]+')->name('policies.context');
 Route::get('/policies/{policy}', [PolicyController::class, 'show'])->name('policies.show');
 
 Route::get('/jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
+Route::get('/jurisdictions/{jurisdiction}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->name('jurisdictions.context');
 Route::get('/jurisdictions/{jurisdiction}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 Route::get('/obligations', [ObligationController::class, 'index'])->name('obligations.index');
+Route::get('/obligations/{obligation}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->name('obligations.context');
 Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
 
 Route::get('/compare', [CompareController::class, 'index'])->name('compare.index');
@@ -41,6 +44,7 @@ Route::get('/compare/{comparison}', [CompareController::class, 'show'])->name('c
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
+Route::get('/changes/{change}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->name('changes.context');
 Route::get('/calendar', [\App\Http\Controllers\Site\CalendarController::class, 'show'])->name('calendar');
 Route::get('/calendar/ai-policy-deadlines.ics', [\App\Http\Controllers\Site\CalendarController::class, 'feed'])->name('calendar.feed');
 Route::get('/calendar/{jurisdiction}.ics', [\App\Http\Controllers\Site\CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->name('calendar.feed.jurisdiction');
@@ -62,6 +66,10 @@ Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'
 
 Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
 Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->name('open-data.download');
+Route::get('/open-data/health.json', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'health'])->name('open-data.health');
+Route::get('/open-data/{dataset}.csv', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->name('open-data.csv');
+Route::get('/open-data/{dataset}.ndjson', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->name('open-data.ndjson');
+Route::get('/schema/{name}.schema.json', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'schema'])->where('name', '[a-z]+')->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
 Route::get('/verification', [\App\Http\Controllers\Site\VerificationController::class, 'show'])->name('verification');
 Route::get('/coverage', [\App\Http\Controllers\Site\CoverageController::class, 'show'])->name('coverage');
