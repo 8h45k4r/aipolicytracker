@@ -190,6 +190,25 @@ class AlertsTest extends TestCase
         $this->assertSame(1, ApplicabilityProfile::count(), 'only the owner profile was removed');
     }
 
+    public function test_a_profile_alone_reports_an_approaching_application_date(): void
+    {
+        Mail::fake();
+        DB::table('change_events')->update(['occurred_on' => '2001-01-01']);
+        $obligation = Obligation::published()->whereNotNull('policy_instrument_id')->with('policyInstrument.jurisdiction')->firstOrFail();
+        $instrument = $obligation->policyInstrument;
+        Deadline::create(['policy_instrument_id' => $instrument->id, 'obligation_id' => $obligation->id, 'title' => 'Profile-scoped application date', 'due_on' => now()->addDays(30)->toDateString(), 'date_precision' => 'day', 'deadline_status' => 'scheduled', 'confidence_level' => 'high', 'sort_order' => 98]);
+
+        // This account follows nothing; it only described a system.
+        $user = $this->pro(['email' => 'profile-deadline@example.org']);
+        ApplicabilityProfile::create(['user_id' => $user->id, 'name' => 'Screened system', 'answers' => app(\App\Services\Applicability\ApplicabilityScreener::class)->normalise(['jurisdictions' => [$instrument->jurisdiction->slug], 'personal_data' => 'yes'])]);
+        $this->assertSame(0, Follow::where('user_id', $user->id)->count());
+
+        $this->artisan('alerts:send')->expectsOutputToContain('1 sent')->assertSuccessful();
+        Mail::assertSent(DailyAlertMail::class, function (DailyAlertMail $m) use ($user) {
+            return $m->hasTo($user->email) && $m->changes->isEmpty() && $m->deadlines->contains('title', 'Profile-scoped application date');
+        });
+    }
+
     public function test_cron_alerts_requires_the_token(): void
     {
         $this->postJson('/cron/alerts')->assertStatus(401);

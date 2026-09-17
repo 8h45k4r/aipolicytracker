@@ -46,9 +46,9 @@ Index (`user_id`, `name`).
 | Policy | changes with that `policy_instrument_id` | deadlines with that `policy_instrument_id` |
 | Obligation | changes of the obligation's instrument | deadlines with that `obligation_id` (plus the instrument's) |
 
-| Saved profile | changes in its jurisdictions and in the instruments its screen scored above zero | none (deadlines still come from follows) |
+| Saved profile | changes in its jurisdictions and in the instruments its screen scored above zero | deadlines of those same instruments |
 
-An email is sent when at least one change falls in the window, or when a deadline is exactly 30, 7 or 1 days away (`AlertBuilder::DEADLINE_MILESTONES`). Deadlines within the next 30 days (`DEADLINE_HORIZON_DAYS`) are listed as context in every alert. When exactly one profile is affected, the subject line names it.
+An email is sent when at least one change falls in the window, or when a deadline is exactly 30, 7 or 1 days away (`AlertBuilder::DEADLINE_MILESTONES`). A profile alone can trigger both: an account that follows nothing but saved a profile still receives the alert when an instrument in that profile's scope changes or has a date falling due. Deadlines within the next 30 days (`DEADLINE_HORIZON_DAYS`) are listed as context in every alert. When exactly one profile is affected, the subject line names it.
 
 ## Schema: `follows`
 

@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- Alerts: the module documentation claimed a saved profile contributed no application dates, while the code already included the deadlines of the instruments in the profile's scope. The documentation now matches the behaviour, a test proves that an account which follows nothing but saved a profile is still told when a date in that scope approaches, and an unused helper that could have implied obligations the email never shows was removed.
+
 ### Added
 - Social cards declare the preview image's size and alt text (`og:image:width`, `og:image:height`, `og:image:alt`, `twitter:image:alt`), so Slack, LinkedIn and X reserve the correct box before the file loads and screen readers get a description. Dimensions are configurable (`SITE_OG_IMAGE_WIDTH`, `SITE_OG_IMAGE_HEIGHT`) and emitted only for the default image; a test asserts they match the file actually served.
 
