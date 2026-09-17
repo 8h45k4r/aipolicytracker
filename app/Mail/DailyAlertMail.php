@@ -13,12 +13,18 @@ use Illuminate\Support\Collection;
 /** Daily alert for a Pro account: changes since the last alert and upcoming dates for the records it follows. */
 class DailyAlertMail extends Mailable
 {
-    public function __construct(public User $user, public Collection $changes, public Collection $deadlines, public CarbonInterface $since, public CarbonInterface $until) {}
+    /** @param  array<int, list<string>>  $reasons  change id => names of the saved profiles it may affect */
+    public function __construct(public User $user, public Collection $changes, public Collection $deadlines, public CarbonInterface $since, public CarbonInterface $until, public array $reasons = []) {}
 
     public function envelope(): Envelope
     {
         $n = $this->changes->count();
-        $subject = $n > 0 ? $n.' '.($n === 1 ? 'change' : 'changes').' in the AI policies you follow' : 'Application date approaching for a policy you follow';
+        $affected = array_values(array_unique(array_merge(...array_values($this->reasons) ?: [[]])));
+        $subject = match (true) {
+            $n > 0 && count($affected) === 1 => $n.' '.($n === 1 ? 'change' : 'changes').' that may affect '.$affected[0],
+            $n > 0 => $n.' '.($n === 1 ? 'change' : 'changes').' in the AI policies you follow',
+            default => 'Application date approaching for a policy you follow',
+        };
 
         return new Envelope(subject: $subject);
     }

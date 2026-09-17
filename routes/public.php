@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Site\ApplicabilityController;
+use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\BillingController;
 use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\ChangeController;
@@ -83,6 +84,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Follows and daily alerts (Pro): the toggle needs the saved.server entitlement; the list page needs an account.
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/following', [FollowController::class, 'index'])->name('following.index');
+    Route::post('/profiles', [ApplicabilityProfileController::class, 'store'])->middleware(['subscribed:saved.server', 'throttle:30,1'])->name('profiles.store');
+    Route::delete('/profiles/{profile}', [ApplicabilityProfileController::class, 'destroy'])->whereNumber('profile')->name('profiles.destroy');
     Route::post('/follow/{type}/{slug}', [FollowController::class, 'toggle'])->where(['type' => '[a-z]+', 'slug' => '[A-Za-z0-9._-]{1,160}'])->middleware(['subscribed:saved.server', 'throttle:60,1'])->name('follow.toggle');
 });
 Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.alerts');

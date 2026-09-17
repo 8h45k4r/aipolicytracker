@@ -25,6 +25,27 @@
             @if(!$submitted)
                 <div class="rounded-sm border border-dashed border-brand-line p-8 text-sm text-brand-muted"><p class="font-medium text-brand-navy">Your results will appear here.</p><p class="mt-1">The screening lists recorded policies whose scope overlaps your answers, the obligations that mention your role and use case, questions to investigate, a starter checklist and official sources. Nothing is stored.</p></div>
             @else
+                @if(session('error'))<p class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
+                <section class="mb-6 card-flat p-4" aria-labelledby="r-watch">
+                    <h2 id="r-watch" class="section-title !text-lg">Watch this screening</h2>
+                    @if($savedProfile)
+                        <p class="mt-1 text-sm text-brand-body">Saved as <strong>{{ $savedProfile->name }}</strong>. Changes in scope reach you in the daily alert. <a href="{{ route('following.index') }}">Manage profiles</a>.</p>
+                    @elseif($canSave)
+                        <p class="mt-1 text-sm text-brand-body">Save these answers and the daily alert will tell you when a change may affect this system, with the official source to check.</p>
+                        <form method="post" action="{{ route('profiles.store') }}" class="mt-3 flex flex-wrap items-end gap-2">@csrf
+                            @foreach($answers as $key => $value)
+                                @if(is_array($value))@foreach($value as $v)<input type="hidden" name="answers[{{ $key }}][]" value="{{ $v }}">@endforeach
+                                @elseif($value !== null)<input type="hidden" name="answers[{{ $key }}]" value="{{ $value }}">@endif
+                            @endforeach
+                            <div class="flex-1 min-w-[220px]"><label for="profile-name" class="label">Name this system or programme</label><input id="profile-name" name="name" class="input" required maxlength="120" placeholder="e.g. Customer support agent, EU and Australia"></div>
+                            <button type="submit" class="btn-primary" data-track="profile_save">Save and alert me</button>
+                        </form>
+                    @else
+                        <p class="mt-1 text-sm text-brand-body">Pro accounts can save this screening and get a daily alert when a change may affect it, naming the system and linking the official source.</p>
+                        <p class="mt-3"><a href="{{ route('pricing') }}" class="btn-secondary" data-track="profile_upsell">See Pro plans</a></p>
+                    @endif
+                    <p class="mt-2 meta">Screening is relevance, not a legal determination. Nothing about your systems is published.</p>
+                </section>
                 <section aria-labelledby="r-policies"><h2 id="r-policies" class="section-title">Likely relevant policies</h2>
                     <p class="mt-1 text-xs text-brand-muted">Ranked by overlap with your answers. "Why" explains the match; it is not a legal conclusion.</p>
                     <div class="mt-2 divide-y divide-brand-line border-y border-brand-line">

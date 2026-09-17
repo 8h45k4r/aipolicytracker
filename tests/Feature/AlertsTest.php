@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Mail\DailyAlertMail;
 use App\Models\AlertDelivery;
+use App\Models\ApplicabilityProfile;
 use App\Models\AppSetting;
 use App\Models\ChangeEvent;
 use App\Models\Deadline;
@@ -136,6 +137,57 @@ class AlertsTest extends TestCase
         $this->travelTo(now()->addDay());
         $this->artisan('alerts:send')->expectsOutputToContain('0 sent')->assertSuccessful();
         $this->travelBack();
+    }
+
+    public function test_saved_profile_is_a_pro_capability_and_scopes_the_daily_alert(): void
+    {
+        Mail::fake();
+        $change = ChangeEvent::published()->whereNotNull('policy_instrument_id')->with(['policyInstrument.jurisdiction'])->firstOrFail();
+        $change->forceFill(['occurred_on' => now()->toDateString()])->save();
+        $jurisdiction = $change->policyInstrument->jurisdiction;
+        $answers = ['jurisdictions' => [$jurisdiction->slug], 'personal_data' => 'yes'];
+        $other = Jurisdiction::published()->where('id', '!=', $jurisdiction->id)->firstOrFail();
+
+        // Guests and free accounts get the upsell, not the form, and cannot save.
+        $url = '/tools/applicability-check?jurisdictions[]='.$jurisdiction->slug.'&personal_data=yes';
+        $this->get($url)->assertOk()->assertSee('See Pro plans')->assertDontSee('Save and alert me');
+        $free = $this->free();
+        $this->actingAs($free)->post('/profiles', ['name' => 'Free try', 'answers' => $answers])->assertRedirect('/pricing');
+        $this->assertSame(0, ApplicabilityProfile::count());
+
+        $pro = $this->pro(['email' => 'profile@example.org']);
+        $this->actingAs($pro)->get($url)->assertOk()->assertSee('Save and alert me');
+        $this->actingAs($pro)->post('/profiles', ['name' => 'EU support agent', 'answers' => $answers])->assertRedirect('/following')->assertSessionHas('status', 'profile-saved');
+        $profile = ApplicabilityProfile::where('user_id', $pro->id)->firstOrFail();
+        $this->assertSame([$jurisdiction->slug], $profile->answers['jurisdictions'], 'answers normalised and stored');
+        $this->actingAs($pro)->get($url)->assertOk()->assertSee('Saved as');
+
+        // Saving the same screen again does not duplicate it.
+        $this->actingAs($pro)->post('/profiles', ['name' => 'Copy', 'answers' => $answers])->assertSessionHas('status', 'profile-exists');
+        $this->assertSame(1, ApplicabilityProfile::count());
+
+        // A profile elsewhere never matches this change.
+        $elsewhere = $this->pro(['email' => 'elsewhere@example.org']);
+        ApplicabilityProfile::create(['user_id' => $elsewhere->id, 'name' => 'Other market', 'answers' => ['jurisdictions' => [$other->slug], 'role' => null, 'use_case' => null, 'sector' => null, 'personal_data' => null, 'domains' => [], 'genai' => null]]);
+
+        $this->artisan('alerts:send')->assertSuccessful();
+        Mail::assertSent(DailyAlertMail::class, function (DailyAlertMail $m) use ($pro, $change) {
+            return $m->hasTo($pro->email)
+                && ($m->reasons[$change->id] ?? []) === ['EU support agent']
+                && str_contains($m->envelope()->subject, 'may affect EU support agent');
+        });
+        Mail::assertNotSent(DailyAlertMail::class, fn ($m) => $m->hasTo('elsewhere@example.org'));
+        $this->assertNotNull(ApplicabilityProfile::where('user_id', $pro->id)->value('last_matched_at'));
+
+        $rendered = (new DailyAlertMail($pro, collect([$change]), collect(), now()->subDay(), now(), [$change->id => ['EU support agent']]))->render();
+        $this->assertStringContainsString('May affect: EU support agent', $rendered);
+        $this->assertStringContainsString('not legal advice', $rendered);
+
+        // The list page shows it and only the owner may delete it.
+        $this->actingAs($pro)->get('/following')->assertOk()->assertSee('EU support agent')->assertSee('Systems you screened');
+        $this->actingAs($elsewhere)->delete('/profiles/'.$profile->id)->assertNotFound();
+        $this->actingAs($pro)->delete('/profiles/'.$profile->id)->assertRedirect('/following')->assertSessionHas('status', 'profile-deleted');
+        $this->assertSame(1, ApplicabilityProfile::count(), 'only the owner profile was removed');
     }
 
     public function test_cron_alerts_requires_the_token(): void

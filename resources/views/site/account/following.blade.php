@@ -5,6 +5,9 @@
     <p class="eyebrow mt-3">Daily alerts</p>
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Records you follow</h1>
     <p class="mt-3 text-brand-body leading-7">Every morning we check the policies, jurisdictions and obligations below. When a dated, source-linked change is recorded, or an application date is 30, 7 or 1 days away, you get one email at {{ $user->email }}. Quiet days send nothing.</p>
+    @if(session('status') === 'profile-saved')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile saved. The daily alert will name it when a change may affect it.</p>@endif
+    @if(session('status') === 'profile-exists')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">You already have a profile with those answers.</p>@endif
+    @if(session('status') === 'profile-deleted')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile deleted.</p>@endif
     @if(session('status') === 'unfollowed')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Unfollowed.</p>@endif
     <p class="mt-3 meta">@if($lastAlert)Last alert sent {{ $lastAlert->sent_on->format('j M Y') }} ({{ $lastAlert->changes_count }} {{ \Illuminate\Support\Str::plural('change', $lastAlert->changes_count) }}).@else No alert sent yet.@endif</p>
     @if($follows->isEmpty())
@@ -21,6 +24,23 @@
         @endforeach
     </ul>
     @endif
+    <section class="mt-10" aria-labelledby="prof-h">
+        <h2 id="prof-h" class="section-title">Systems you screened</h2>
+        <p class="mt-1 text-sm text-brand-body">Saved answers from the <a href="{{ route('tools.applicability') }}">applicability check</a>. A change inside a profile's scope is flagged in the daily alert with the profile's name, so you know which system to review.</p>
+        @if($profiles->isEmpty())
+        <p class="mt-4 text-sm text-brand-muted">No profiles yet. Run the <a href="{{ route('tools.applicability') }}">applicability check</a> and choose "Save and alert me".</p>
+        @else
+        <ul class="mt-4 divide-y divide-brand-line border-y border-brand-line" aria-label="Saved profiles">
+            @foreach($profiles as $p)
+            <li class="flex flex-wrap items-start justify-between gap-3 py-3">
+                <div><a href="{{ $p->url() }}" class="font-medium text-brand-navy hover:underline">{{ $p->name }}</a>
+                    <div class="text-xs text-brand-muted">{{ $p->summary() }} · saved {{ $p->created_at->format('j M Y') }}@if($p->last_matched_at) · last flagged {{ $p->last_matched_at->format('j M Y') }}@endif</div></div>
+                <form method="post" action="{{ route('profiles.destroy', $p) }}">@csrf @method('DELETE')<button type="submit" class="btn-secondary !min-h-[36px] !py-1">Delete</button></form>
+            </li>
+            @endforeach
+        </ul>
+        @endif
+    </section>
     <p class="mt-6 text-sm"><a href="{{ route('profile.edit') }}">Back to your account</a></p>
 </div>
 @endsection
