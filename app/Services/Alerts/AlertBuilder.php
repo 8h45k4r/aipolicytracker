@@ -94,18 +94,6 @@ class AlertBuilder
         ];
     }
 
-    /**
-     * Obligations a profile flags for a change, so the email can say what to review.
-     *
-     * @return Collection<int, Obligation>
-     */
-    public function obligationsFor(ApplicabilityProfile $profile, ChangeEvent $change): Collection
-    {
-        $screen = $this->screener->screen($profile->answers);
-
-        return $screen['obligations']->filter(fn (Obligation $o) => $o->policy_instrument_id === $change->policy_instrument_id)->values();
-    }
-
     /** @return array{0: list<int>, 1: list<int>, 2: list<int>} jurisdiction, instrument and obligation ids from follows */
     private function followedIds(Collection $follows): array
     {
