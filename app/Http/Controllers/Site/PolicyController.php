@@ -87,6 +87,13 @@ class PolicyController extends Controller
                 ],
                 'citation' => $policy->sourceDocuments->map(fn ($s) => ['@type' => 'CreativeWork', 'name' => $s->title, 'url' => $s->url, 'publisher' => $s->publisher])->values()->all(),
             ]);
+        // A binding instrument is described as Legislation as well as a page, so an answer
+        // engine is told its jurisdiction, type, dates and — the part most often got wrong —
+        // whether it is actually in force. Non-binding instruments get no such claim.
+        if ($policy->is_binding) {
+            $seo->withJsonLd(Seo::legislation($policy));
+        }
+
         if (! empty($policy->faq)) {
             $seo->withJsonLd([
                 '@type' => 'FAQPage',
