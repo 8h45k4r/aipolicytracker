@@ -5,12 +5,13 @@
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Compare AI regulation across jurisdictions</h1>
     <p class="mt-2 max-w-3xl text-brand-body">Pick two to four jurisdictions. Every cell is derived from published, source-backed records so you can see where binding rules exist, where guidance applies and where nothing is recorded yet.</p>
     <form method="get" action="{{ route('compare.index') }}" class="mt-5 card-flat p-4">
-        <fieldset><legend class="label">Jurisdictions (choose 2 to 4)</legend>
-            <div class="mt-2 grid gap-2 sm:grid-cols-3 lg:grid-cols-5">
-                @foreach($all as $j)<label class="flex items-center gap-2 text-sm min-h-[40px]"><input type="checkbox" name="j[]" value="{{ $j->slug }}" class="rounded border-brand-line text-brand-blue focus:ring-brand-cyan" @checked($selected->contains($j->slug))> {{ $j->name }}</label>@endforeach
-            </div>
-        </fieldset>
-        <button type="submit" class="btn-primary mt-4" data-track="compare_submit">Compare</button>
+        <x-site.jurisdiction-picker name="j" :jurisdictions="$all" :selected="$selected->all()" :max="4"
+            legend="Jurisdictions (choose 2 to 4)"
+            hint="{{ $all->count() }} recorded. The number beside a name is how many instruments it has; a dash means nothing AI-specific is recorded yet, which a comparison will show as gaps." />
+        <div class="mt-4 flex flex-wrap gap-2">
+            <button type="submit" class="btn-primary" data-track="compare_submit">Compare</button>
+            @if($selected->isNotEmpty())<a href="{{ route('compare.index') }}" class="btn-secondary">Start again</a>@endif
+        </div>
     </form>
     @if($jurisdictions->count() >= 2)
         <h2 class="mt-8 section-title">{{ $jurisdictions->pluck('short_name')->map(fn($s, $i) => $s ?: $jurisdictions[$i]->name)->implode(' vs ') }}</h2>
