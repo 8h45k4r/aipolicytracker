@@ -201,8 +201,36 @@ else
   ok "nginx reloaded"
 fi
 
+# php-fpm is shared with the other site on this host. A malformed pool file is
+# the one way this script could disturb it, so the whole configuration is tested
+# before anything is signalled. A failed test leaves the running master alone.
+if command -v "php-fpm$PHPV" >/dev/null 2>&1; then
+  "php-fpm$PHPV" -t 2>&1 | sed 's/^/    /' || die "php-fpm config test failed; nothing was reloaded and the other site is untouched"
+else
+  warn "php-fpm$PHPV binary not on PATH; skipping the config test"
+fi
 systemctl reload "php$PHPV-fpm"
-ok "php$PHPV-fpm reloaded (only this pool was added)"
+ok "php$PHPV-fpm reloaded (a reload re-reads config; running workers finish their requests)"
+
+echo
+echo "== 7. isolation check (read-only)"
+
+# Can this site's user read the other site's files? It should not be able to.
+LEAK=0
+for d in /var/www/*/; do
+  case "$d" in "$APP_DIR"/|/var/www/html/) continue ;; esac
+  if sudo -u aip test -r "$d" 2>/dev/null; then
+    warn "user aip can read $d — tighten it with: chmod 750 $d"
+    LEAK=1
+  else
+    ok "user aip cannot read $d"
+  fi
+done
+[ "$LEAK" = 0 ] && ok "no other site's files are readable by this one"
+
+# And the reverse: this site's environment file must be readable only by aip.
+perm="$(stat -c '%a %U' "$ENVF" 2>/dev/null || true)"
+[ "$perm" = "600 aip" ] && ok "$ENVF is $perm" || warn "$ENVF is '$perm', expected '600 aip'"
 
 echo
 echo "  Next:"

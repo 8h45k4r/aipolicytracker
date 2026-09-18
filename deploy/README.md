@@ -53,6 +53,31 @@ It installs no web server, no database server and no PHP. On a host that already
 serves another site, that is deliberate: those are shared, and a script should not
 touch them.
 
+#### What it does to the other site on this host
+
+Nothing is deployed, configured, restarted or read from the other application.
+The complete list of paths written:
+
+```
+/var/www/aip/**
+/etc/php/<detected>/fpm/pool.d/aip.conf
+/etc/nginx/sites-available/aip  and the symlink in sites-enabled
+/etc/ssl/aip/                   (directory only; you install the certificate)
+/etc/logrotate.d/aip
+one PostgreSQL role and one database, both named aip*
+```
+
+Two services are shared and are **reloaded**, not restarted: nginx and PHP-FPM.
+A reload re-reads configuration while running workers finish the requests they
+are holding, so no visitor to either site sees a dropped connection. Both are
+tested before being signalled — `nginx -t` and `php-fpm -t` — and the script
+stops without reloading if either test fails, which leaves the running
+configuration exactly as it was.
+
+It then checks isolation in both directions and reports rather than changes:
+whether this site's user can read any other site's directory, and whether this
+site's environment file is readable by anyone but its own user.
+
 The manual equivalents follow, for reading or for doing it by hand.
 
 ### 2b. Users, directories, services
