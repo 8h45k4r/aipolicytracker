@@ -81,8 +81,23 @@ class AdminController extends Controller
         return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users', 'funnel', 'topPages'));
     }
 
-    public function downloadsExport(): StreamedResponse
+    public function downloadsExport(Request $request): StreamedResponse
     {
+        // One row per download, for following up leads: who took which template, when,
+        // and the organisation they gave at the time.
+        if ($request->query('rows') === 'downloads') {
+            return response()->streamDownload(function () {
+                $out = fopen('php://output', 'w');
+                fputcsv($out, ['downloaded_at', 'tool', 'version', 'file', 'name', 'email', 'organization', 'signup_source', 'marketing_consent', 'referrer']);
+                \App\Models\ResourceDownload::with('user')->orderByDesc('id')->chunk(500, function ($rows) use ($out) {
+                    foreach ($rows as $d) {
+                        fputcsv($out, [$d->created_at?->toDateTimeString(), $d->resource_slug, $d->version, $d->file_name, $d->user?->name, $d->user?->email, $d->user?->organization_name, $d->user?->signup_source, $d->user?->marketing_consent_at?->toDateString(), $d->referrer]);
+                    }
+                });
+                fclose($out);
+            }, 'downloads-'.now()->toDateString().'.csv', ['Content-Type' => 'text/csv; charset=UTF-8']);
+        }
+
         return response()->streamDownload(function () {
             $out = fopen('php://output', 'w');
             fputcsv($out, ['user_id', 'name', 'email', 'organization', 'signed_up', 'verified', 'terms_accepted', 'marketing_consent', 'signup_source', 'downloads']);

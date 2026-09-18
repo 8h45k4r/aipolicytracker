@@ -74,13 +74,24 @@ Free tools (templates, checklists, registers, a starter plan) listed on `/guides
 | downloaded_at | timestamp | yes | | Set when a file is actually served |
 | created_at / updated_at | timestamp | yes | | |
 
+## Lead capture
+
+A template download is a lead. Sign-up left the organisation optional, so a download record
+could exist with nobody to follow up. Name and organisation are therefore confirmed at the point
+of download (prefilled from the account, editable, required) and kept on the account, and
+registration requires the organisation when the reader arrived at a tool's download gate. Both
+exports carry it.
+
+`user_infos.phone_no` is nullable (2026-09-18): the registration form has never collected a
+phone number, and the NOT NULL column made every form sign-up fail after the user row existed.
+
 ## Schema additions: `users`
 
 | Field | Type | Null | Notes |
 |-------|------|------|-------|
 | terms_accepted_at | timestamp | yes | Set at registration and on first download |
 | marketing_consent_at | timestamp | yes | Set only when the user ticks the (unticked) updates box |
-| organization_name | varchar | yes | Optional at sign-up |
+| organization_name | varchar | yes | Optional at an ordinary sign-up; **required** when sign-up starts from a tool gate, and confirmed (required) again at every download |
 | signup_source | varchar(64) | yes | `free-tool` when sign-up started from a tool gate, else `site` |
 
 ## Schema: `page_views`
@@ -106,7 +117,7 @@ Free tools (templates, checklists, registers, a starter plan) listed on `/guides
 
 ## Routes
 
-Public: `guides.index` (filters `q`, `type`, `framework`, `topic`, `access`; filtered pages are `noindex,follow`), `tools.show`, `tools.gate` (stores `url.intended`). Auth: `tools.download` (POST, throttled, requires `terms`), `tools.ready`, `tools.file` (`signed` middleware, 30-minute links, owner only). Admin: `backend.admin.downloads`, `backend.admin.downloads.export`, `backend.admin.tools.*` (index, create, store, edit, update, destroy = archive, files.store, files.toggle, files.destroy, files.download).
+Public: `guides.index` (filters `q`, `type`, `framework`, `topic`, `access`; filtered pages are `noindex,follow`), `tools.show`, `tools.gate` (stores `url.intended`). Auth: `tools.download` (POST, throttled, requires `terms`, `name` and `organization_name`; the last two are written back to the account), `tools.ready`, `tools.file` (`signed` middleware, 30-minute links, owner only). Admin: `backend.admin.downloads`, `backend.admin.downloads.export` (per user; with `?rows=downloads`, one row per download: date, tool, version, file, name, email, organisation, sign-up source, consent, referrer), `backend.admin.tools.*` (index, create, store, edit, update, destroy = archive, files.store, files.toggle, files.destroy, files.download).
 
 ## Access rules
 

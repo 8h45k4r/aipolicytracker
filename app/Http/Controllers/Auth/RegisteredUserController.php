@@ -32,10 +32,12 @@ class RegisteredUserController extends Controller
 
         $validate = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'phone_no' => 'nullable|numeric',
             'marketing_consent' => 'nullable|boolean',
-            'organization_name' => 'nullable|string|max:255',
+            // Required when the reader arrived to download a template: a template download
+            // is a lead, and a lead without an organisation cannot be followed up.
+            'organization_name' => [\Illuminate\Validation\Rule::requiredIf(fn () => str_contains((string) session('url.intended'), '/guides/tools/')), 'nullable', 'string', 'max:255'],
             'organization_email' => 'nullable|string|lowercase|email|max:255',
             'password' => [
                 'required',
@@ -52,6 +54,7 @@ class RegisteredUserController extends Controller
             'password.min' => 'The password must be at least 8 characters.',
             'password.regex' => 'The password must contain at least one uppercase letter, one lowercase letter, and one special character.',
             'terms_condition.accepted' => 'You must accept the terms and conditions.',
+            'organization_name.required' => 'Please tell us the organisation the template is for.',
         ]);
 
         $user = User::create([
