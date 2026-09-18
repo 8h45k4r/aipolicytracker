@@ -15,9 +15,10 @@
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $name }}: requirements, deadlines and compliance actions</h1>
         @if($policy->short_title && $policy->short_title !== $policy->title)<p class="mt-1 text-sm text-brand-muted">{{ $policy->title }}</p>@endif
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <x-site.verified :record="$policy" class="!text-sm" />
+            <a href="{{ route('verification') }}" class="no-underline" title="How current this record has to be, and how many are past that date"><x-site.verified :record="$policy" class="!text-sm" /></a>
             @if($policy->official_source_url)<a href="{{ $policy->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
             <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy">JSON record</a>
+            <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Context file</a>
         </div>
     </header>
 

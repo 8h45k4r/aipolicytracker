@@ -51,6 +51,9 @@ class LandingController extends Controller
                 'publisher' => ['@id' => url('/').'#organization'],
                 'isPartOf' => ['@id' => url('/').'#website'],
             ]);
+        if (! empty($page['steps'])) {
+            $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('guides.show', $slug), $page['steps']));
+        }
         if (! empty($page['faq'])) {
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($page['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }
@@ -127,6 +130,9 @@ class LandingController extends Controller
             ->withModified($lastModified)
             ->withOgType('article')
             ->withJsonLd(['@type' => 'Article', 'headline' => $page['h1'], 'description' => $page['description'], 'url' => route('guides.show', $slug), 'dateModified' => $lastModified?->toIso8601String(), 'author' => ['@id' => url('/').'#organization'], 'publisher' => ['@id' => url('/').'#organization'], 'isPartOf' => ['@id' => url('/').'#website']]);
+        if (! empty($page['steps'])) {
+            $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('guides.show', $slug), $page['steps']));
+        }
         if (! empty($page['faq'])) {
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($page['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }

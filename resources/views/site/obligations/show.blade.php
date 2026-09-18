@@ -11,7 +11,7 @@
             <x-site.status-badge :status="$policy->statusEnum()" />
         </div>
         <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $obligation->title }}</h1>
-        <p class="mt-1 text-sm text-brand-muted">Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
+        <p class="mt-1 text-sm text-brand-muted"><a href="{{ route('obligations.context', $obligation->slug) }}" class="float-right text-brand-muted hover:text-brand-navy" title="This duty as one Markdown file, with its provenance">Context file</a>Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" />@if($obligation->official_source_url)<a href="{{ $obligation->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif</div>
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
