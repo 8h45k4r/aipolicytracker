@@ -33,7 +33,29 @@ Three things in the database are encrypted with it:
 A new key looks like it worked, right up to the first email or the first admin
 sign-in. Copy the old one.
 
-### 2. Users, directories, services
+### 2. One command instead of steps 2 to 5
+
+`deploy/bootstrap-server.sh` does everything in the next four sections in one
+idempotent pass, and refuses rather than guesses:
+
+```bash
+CONFIRM=yes bash deploy/bootstrap-server.sh
+```
+
+It stops with an explanation if nginx, PHP 8.2 or later, PostgreSQL or any
+required extension is absent; if another vhost already claims this hostname; or
+if the certificate is not installed yet. It prints the access list of every other
+database on the host for you to check, and changes none of them. It generates the
+database password itself and never prints it. Running it twice changes nothing
+the second time.
+
+It installs no web server, no database server and no PHP. On a host that already
+serves another site, that is deliberate: those are shared, and a script should not
+touch them.
+
+The manual equivalents follow, for reading or for doing it by hand.
+
+### 2b. Users, directories, services
 
 ```bash
 adduser --system --group --home /var/www/aip --shell /bin/bash aip
