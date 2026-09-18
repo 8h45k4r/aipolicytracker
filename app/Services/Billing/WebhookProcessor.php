@@ -49,7 +49,16 @@ class WebhookProcessor
         $eventAt = $this->parseDate($payload['timestamp'] ?? null) ?? now();
 
         try {
-            $event = BillingEvent::create([
+            // Wrapped so the insert has its own transaction, or a SAVEPOINT when one
+            // is already open. Idempotency is the unique index on `event_id`, so the
+            // duplicate path runs *after* a failed insert — and PostgreSQL aborts the
+            // whole transaction on a constraint violation, refusing every later
+            // statement with SQLSTATE 25P02 until it is rolled back. Without the
+            // savepoint the existence check inside the catch is itself refused, and a
+            // provider's ordinary retry gets a 500 instead of an acknowledgement,
+            // which makes it retry harder. SQLite does not poison the transaction, so
+            // the suite never saw it; PostgreSQL in CI is what found it.
+            $event = DB::transaction(fn () => BillingEvent::create([
                 'provider' => 'dodo',
                 'event_id' => $eventId,
                 'event_type' => $type !== '' ? $type : 'unknown',
@@ -57,7 +66,7 @@ class WebhookProcessor
                 'event_at' => $eventAt,
                 'payload' => $payload,
                 'received_at' => now(),
-            ]);
+            ]));
         } catch (QueryException $e) {
             if (BillingEvent::where('event_id', $eventId)->exists()) {
                 return self::OUTCOME_DUPLICATE;

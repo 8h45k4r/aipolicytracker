@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- A retried billing webhook was answered with a 500 instead of an acknowledgement. Idempotency is the unique index on the event id, so the duplicate path runs after a failed insert, and PostgreSQL refuses every later statement in a transaction once one has failed. The existence check inside the error handler was itself refused. Providers retry on a non-2xx, so the failure encouraged more of the same. The insert now runs in its own savepoint, and a test asserts the retry is acknowledged while a transaction is open.
+
+### Added
+- CI runs the full PHP suite a second time against `postgres:16`, the engine production uses, after running the migrations and the policy import exactly as the deploy does. The suite had only ever run on in-memory SQLite, and the two disagree in ways that reached production silently: an unmatched double-quoted identifier is a string literal in SQLite and an error in PostgreSQL, which took `/reviewers` down, and a constraint violation poisons a transaction in PostgreSQL but not in SQLite, which is the webhook bug above. The new job found that one on its first run. Closes technical debt #15.
+
 ### Added
 - A privacy policy at `/privacy` and terms of use at `/terms`, served by the application and linked from the footer of every page, from the sign-up form and from the sitemap. The sign-up checkbox asked readers to accept terms and a privacy policy that resolved to the About page whenever two optional environment variables were unset, which is how the site shipped, and the download gate recorded that acceptance. The privacy page is built from the real schema rather than boilerplate: it names the account columns that exist, states that page counts carry no identifier, that analytics do not load before consent, that no card data touches this application, and that the sign-up IP address is the one field kept in full rather than hashed, which is recorded as technical debt instead of glossed. Two facts that cannot be derived from the codebase, the address for data requests and the governing law, are omitted rather than invented, and appear as soon as they are configured. An externally hosted policy still overrides both pages.
 

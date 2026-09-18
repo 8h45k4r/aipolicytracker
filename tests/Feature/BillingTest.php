@@ -408,6 +408,31 @@ class BillingTest extends TestCase
         $this->actingAs($admin)->post('/backend/admin/billing/check')->assertRedirect();
         $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('Price differs')->assertSee('Price matches');
     }
+
+    public function test_a_retried_webhook_is_acknowledged_even_while_a_transaction_is_open(): void
+    {
+        // Idempotency is the unique index on `event_id`, so the duplicate path runs
+        // after a failed insert. PostgreSQL refuses every statement in a transaction
+        // once one has failed (SQLSTATE 25P02), so without a savepoint around the
+        // insert the existence check inside the catch is itself refused and the
+        // provider's ordinary retry gets a 500 instead of an acknowledgement.
+        //
+        // SQLite does not poison the transaction, which is why the suite was green
+        // for months. This asserts the behaviour on whichever driver is running; the
+        // PostgreSQL job in CI is what makes it meaningful.
+        $user = User::factory()->create();
+        $payload = $this->subscriptionEvent('subscription.active', $user);
+        $processor = app(\App\Services\Billing\WebhookProcessor::class);
+
+        \Illuminate\Support\Facades\DB::beginTransaction();
+        try {
+            $processor->handle($payload, 'msg_retry');
+            $this->assertSame('duplicate', $processor->handle($payload, 'msg_retry'), 'a retry must be acknowledged, not 500');
+            $this->assertSame(1, BillingEvent::where('event_id', 'msg_retry')->count(), 'and recorded once');
+        } finally {
+            \Illuminate\Support\Facades\DB::rollBack();
+        }
+    }
 }
 
 /** In-memory gateway: records calls and returns deterministic ids; never talks to the network. */
