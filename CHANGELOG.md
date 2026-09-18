@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Choosing jurisdictions on the comparison page and the applicability check no longer means scanning 212 checkboxes in one flat list. Both now use a shared picker that groups them by region behind collapsible headings, shows beside each name how many instruments are recorded for it (a dash where nothing AI-specific exists yet, so a reader does not pick a jurisdiction and then find the comparison empty), and adds a type-ahead filter, a live count and removable chips for the current selection. The comparison picker states its four-jurisdiction limit rather than silently discarding the rest. Every checkbox still submits without JavaScript; the search box and chips are rendered hidden and revealed by the script, so nothing inert is ever on screen.
+
 ### Added
 - Structured data for answer engines: a binding instrument is now described as schema.org `Legislation` — its jurisdiction, issuing body, type, adoption and application dates, official source, and `legislationLegalForce` stating in a controlled vocabulary whether it is actually in force, which is the question most often got wrong. Non-binding instruments are deliberately never described as legislation, and a proposal's legal force is left unstated rather than asserted as "not in force". Guides that lay out ordered steps are described as `HowTo`.
 - Interlinks to surfaces that shipped but were reachable from nowhere: the review-status badge on every policy and jurisdiction now links to the verification policy, every policy, jurisdiction and obligation offers its Markdown context file beside the record, and a jurisdiction's deadlines section links its own calendar feed.
