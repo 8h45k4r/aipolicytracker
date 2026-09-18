@@ -5,6 +5,10 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Structured data for answer engines: a binding instrument is now described as schema.org `Legislation` — its jurisdiction, issuing body, type, adoption and application dates, official source, and `legislationLegalForce` stating in a controlled vocabulary whether it is actually in force, which is the question most often got wrong. Non-binding instruments are deliberately never described as legislation, and a proposal's legal force is left unstated rather than asserted as "not in force". Guides that lay out ordered steps are described as `HowTo`.
+- Interlinks to surfaces that shipped but were reachable from nowhere: the review-status badge on every policy and jurisdiction now links to the verification policy, every policy, jurisdiction and obligation offers its Markdown context file beside the record, and a jurisdiction's deadlines section links its own calendar feed.
+
+### Added
 - Admin security: every admin session now proves a time-based one-time code as well as a password, enrolment is mandatory before any backend route answers, and the actions that change secrets or remove things (settings save, billing provisioning, tool and file deletion, recovery-code regeneration) require a freshly confirmed password. The authenticator secret and the eight single-use recovery codes are encrypted at rest and never serialised; the enrolment page shows the key as text and an `otpauth://` link rather than sending it to a third-party QR service. `php artisan admin:two-factor-reset` is the operator escape hatch for a lost device. A new audit log records every state-changing admin request — who, route, record, status, hashed IP, never request bodies — and is published at Admin → Audit log. RFC 6238 is implemented in-repo with the specification's own test vectors in the suite, rather than adding a dependency.
 
 ### Changed

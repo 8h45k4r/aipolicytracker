@@ -113,6 +113,68 @@ class Seo
         return $org;
     }
 
+    /**
+     * schema.org Legislation for a binding instrument.
+     *
+     * Binding instruments only. A strategy, a framework or a voluntary standard is
+     * not legislation, and this project's whole argument is that the difference
+     * matters, so saying otherwise to an answer engine would be the same overclaim
+     * in machine-readable form.
+     *
+     * `legislationLegalForce` is the valuable part: it states in a controlled
+     * vocabulary whether the law is actually in force, which is the question
+     * readers and answer engines get wrong most often.
+     */
+    public static function legislation(\App\Models\PolicyInstrument $policy): array
+    {
+        $force = match ($policy->status) {
+            'in_force' => 'https://schema.org/InForce',
+            'partially_applicable' => 'https://schema.org/PartiallyInForce',
+            'superseded', 'repealed', 'archived' => 'https://schema.org/NotInForce',
+            // Proposed, adopted-but-not-applying and consultations are deliberately
+            // left unstated rather than asserted as "not in force", which would read
+            // as a finding about them rather than an absence of one.
+            default => null,
+        };
+
+        return array_filter([
+            '@type' => 'Legislation',
+            'name' => $policy->short_title ?: $policy->title,
+            'alternateName' => $policy->short_title ? $policy->title : null,
+            'url' => $policy->url(),
+            'description' => $policy->summary_plain ? self::trim(preg_replace('/\s+/', ' ', $policy->summary_plain), 300) : null,
+            'legislationIdentifier' => $policy->source_reference ?: null,
+            'legislationType' => $policy->typeEnum()->label(),
+            'legislationJurisdiction' => $policy->jurisdiction ? ['@type' => 'AdministrativeArea', 'name' => $policy->jurisdiction->name] : null,
+            'legislationPassedBy' => $policy->issuing_body ? ['@type' => 'Organization', 'name' => $policy->issuing_body] : null,
+            'legislationDate' => $policy->adopted_on?->toDateString(),
+            'legislationDateOfApplicability' => $policy->applies_from?->toDateString(),
+            'legislationLegalForce' => $force,
+            'datePublished' => $policy->published_on?->toDateString(),
+            'dateModified' => $policy->updated_at?->toIso8601String(),
+            'isBasedOn' => $policy->official_source_url ?: null,
+            'publisher' => ['@id' => url('/').'#organization'],
+            'isPartOf' => ['@id' => url('/').'#website'],
+        ], fn ($v) => $v !== null && $v !== '');
+    }
+
+    /** schema.org HowTo for a guide that lays out ordered, named steps. */
+    public static function howTo(string $name, string $description, string $url, array $steps): array
+    {
+        return [
+            '@type' => 'HowTo',
+            'name' => $name,
+            'description' => $description,
+            'url' => $url,
+            'step' => collect($steps)->values()->map(fn ($step, $i) => array_filter([
+                '@type' => 'HowToStep',
+                'position' => $i + 1,
+                'name' => is_array($step) ? ($step['title'] ?? null) : null,
+                'text' => is_array($step) ? ($step['body'] ?? $step['text'] ?? null) : (string) $step,
+            ], fn ($v) => $v !== null && $v !== ''))->all(),
+        ];
+    }
+
     public static function website(): array
     {
         return [
