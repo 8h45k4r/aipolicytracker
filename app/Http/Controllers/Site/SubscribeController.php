@@ -41,7 +41,7 @@ class SubscribeController extends Controller
             return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
         $data = $request->validate([
-            'email' => ['required', 'email:rfc', 'max:190'],
+            'email' => ['required', 'email:rfc', 'max:190', new \App\Rules\NotDisposableEmail],
             'topics' => ['nullable', 'array', 'max:20'],
             'topics.*' => ['string', 'max:64', 'regex:/^[a-z0-9-]+$/'],
             'source' => ['nullable', 'string', 'max:64'],

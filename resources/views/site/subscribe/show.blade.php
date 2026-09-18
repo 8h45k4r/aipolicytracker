@@ -17,6 +17,7 @@
                 <div>
                     <label for="sub-email" class="label">Email address <span class="text-state-bad" aria-hidden="true">*</span></label>
                     <input id="sub-email" type="email" name="email" required class="input max-w-md" placeholder="you@example.org" autocomplete="email" value="{{ old('email') }}">
+                    <p class="mt-1 text-xs text-brand-muted">Work or personal, whichever you read. Temporary mailboxes are not accepted: an alert sent to one never reaches anybody.</p>
                 </div>
                 <fieldset>
                     <legend class="label">Jurisdictions to follow</legend>
