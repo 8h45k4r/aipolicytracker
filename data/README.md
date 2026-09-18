@@ -11,7 +11,15 @@ data/
   policies/       one YAML file per policy instrument, grouped by jurisdiction
   changes/        dated change-log entries, one file per month
   reviewers/      one YAML file per reviewer, with their declared interests
+  email/          address-quality lists (not policy records; see docs/modules/accounts.md)
 ```
+
+`email/` is the one directory here that does not hold policy records. It holds the
+trusted-provider, throwaway-domain and throwaway-exchanger lists used to keep temporary
+mailboxes out of accounts and the newsletter. It is version-controlled for the same reason
+the policy records are: a rule that decides whether somebody can sign up should be readable
+and reviewable, not buried in code. It is not validated by `policy:validate`; it is covered
+by `EmailDomainPolicyTest`.
 
 ## Workflow
 
