@@ -129,7 +129,7 @@ Route::get('/{landing}', [LandingController::class, 'landing'])
 
 // Machine-readable assets.
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|changes|resources')->name('sitemap.section');
+Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|changes|resources|incidents|risks')->name('sitemap.section');
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
 Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->name('llms.full');
 Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');

@@ -30,7 +30,10 @@ class ObligationController extends Controller
 
         $seo = Seo::make($title, $description, $catalog->canonicalFor(route('obligations.index'), $filters), $indexable)
             ->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')]])
-            ->withJsonLd(['@type' => 'CollectionPage', 'name' => $title, 'url' => route('obligations.index'), 'isPartOf' => ['@id' => url('/').'#website']]);
+            ->withPageType('CollectionPage', [
+                'name' => $title,
+                'mainEntity' => Seo::itemList($obligations->getCollection(), fn ($o) => $o->title, fn ($o) => $o->url(), 'AI obligations'),
+            ]);
 
         return view('site.obligations.index', compact('seo', 'obligations', 'filters', 'options'));
     }
@@ -50,15 +53,21 @@ class ObligationController extends Controller
             filled($obligation->summary) && $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')], [$obligation->title, $obligation->url()]])
             ->withModified($obligation->updated_at)
-            ->withJsonLd([
-                '@type' => 'WebPage',
+            ->withPageProperties([
                 'name' => $obligation->title,
-                'url' => $obligation->url(),
-                'dateModified' => $obligation->updated_at?->toIso8601String(),
-                'isPartOf' => ['@id' => url('/').'#website'],
                 'about' => ['@type' => 'DefinedTerm', 'name' => $categoryName, 'inDefinedTermSet' => route('obligations.index')],
                 'citation' => $obligation->official_source_url,
-            ]);
+                // An obligation is read out of an instrument; saying which one is the
+                // difference between a requirement and a floating assertion.
+                'isPartOf' => [['@id' => url('/').'#website'], ['@type' => 'Legislation', 'name' => $policy->short_title ?: $policy->title, 'url' => $policy->url()]],
+            ])
+            ->withJsonLd(Seo::dataset(
+                $obligation->title,
+                ($obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance').' under '.($policy->short_title ?: $policy->title).' in '.$policy->jurisdiction->name.'.',
+                $obligation->url(),
+                ['text/markdown' => route('obligations.context', $obligation->slug)],
+                $obligation->updated_at,
+            ));
 
         return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName'));
     }

@@ -24,7 +24,16 @@ class CalendarController extends Controller
             'AI policy deadline calendar (subscribe)',
             'Subscribe to dated application deadlines from tracked AI policy instruments in your own calendar, with reminders 30 and 7 days ahead. Only dates recorded to an exact day are published.',
             route('calendar')
-        )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], ['Deadline calendar', route('calendar')]]);
+        )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], ['Deadline calendar', route('calendar')]])
+            ->withPageType('CollectionPage')
+            // The page is a view of a feed that exists. Naming the .ics distribution
+            // tells a machine it can subscribe rather than scrape.
+            ->withJsonLd(Seo::dataset(
+                'AI policy compliance deadlines',
+                'Dated compliance deadlines from recorded AI policy instruments, each linked to the instrument and its official source.',
+                route('calendar'),
+                ['text/calendar' => route('calendar.feed')],
+            ));
 
         return view('site.pages.calendar', compact('seo', 'events', 'jurisdictions'));
     }

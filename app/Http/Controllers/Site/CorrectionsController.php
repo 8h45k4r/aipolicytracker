@@ -70,7 +70,8 @@ class CorrectionsController extends Controller
             'Corrections log: what readers reported and what was done about it',
             'Every error report and source proposal a reviewer has decided on, including the ones that were turned down, with the record it concerned and how long the decision took.',
             route('corrections')
-        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Corrections', route('corrections')]]);
+        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Corrections', route('corrections')]])
+            ->withPageType('CollectionPage');
 
         return view('site.pages.corrections', [
             'seo' => $seo,

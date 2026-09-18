@@ -35,7 +35,8 @@ class ContributeController extends Controller
             $subject ? 'Report a correction: '.$subject['title'] : 'Contribute: report errors, propose sources, submit policy records',
             'How to report an error, propose an official source, submit a new AI policy record or volunteer as a reviewer. Submissions default to pending review before publication.',
             route('contribute')
-        )->withBreadcrumbs([['Home', route('home')], ['Contribute', route('contribute')]]);
+        )->withBreadcrumbs([['Home', route('home')], ['Contribute', route('contribute')]])
+            ->withPageType('ContactPage');
         if ($subject) {
             $seo->noindex();
         }

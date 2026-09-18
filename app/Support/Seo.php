@@ -20,6 +20,16 @@ class Seo
 
     public ?\DateTimeInterface $modified = null;
 
+    /**
+     * schema.org type for this page's own node. Controllers that describe a page
+     * more precisely (a collection, an about page, an article) set it here instead
+     * of hand-writing a node, so every page carries exactly one page entity.
+     */
+    public string $pageType = 'WebPage';
+
+    /** Extra properties merged into this page's own node, e.g. `about`, `mainEntity`. */
+    public array $pageProperties = [];
+
     private function __construct(
         public string $title,
         public string $description,
@@ -52,8 +62,25 @@ class Seo
             $items[] = ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $name, 'item' => $url];
         }
         if ($items !== []) {
-            $this->jsonLd[] = ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $items];
+            $this->jsonLd[] = ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', '@id' => $this->canonical.'#breadcrumb', 'itemListElement' => $items];
         }
+
+        return $this;
+    }
+
+    /** Describe the page itself more precisely than the default `WebPage`. */
+    public function withPageType(string $type, array $properties = []): self
+    {
+        $this->pageType = $type;
+        $this->pageProperties = array_merge($this->pageProperties, $properties);
+
+        return $this;
+    }
+
+    /** Merge properties into this page's own node without changing its type. */
+    public function withPageProperties(array $properties): self
+    {
+        $this->pageProperties = array_merge($this->pageProperties, $properties);
 
         return $this;
     }
@@ -93,6 +120,105 @@ class Seo
         return str_ends_with($this->title, $site) ? $this->title : $this->title.' | '.$site;
     }
 
+    /**
+     * Page types that already describe the page itself. A page carrying one of
+     * these needs no generated node; anything else gets one.
+     *
+     * FAQPage is deliberately absent. On this site it always sits *beside* a page
+     * node rather than replacing it — a policy page with questions is a page that
+     * happens to answer questions, not a page made of questions.
+     */
+    private const PAGE_TYPES = [
+        'WebPage', 'CollectionPage', 'AboutPage', 'ContactPage', 'ProfilePage',
+        'ItemPage', 'SearchResultsPage', 'CheckoutPage', 'Article', 'NewsArticle', 'BlogPosting',
+    ];
+
+    /**
+     * Everything this page publishes as JSON-LD, in the order it is rendered.
+     *
+     * The shared nodes come first and appear on *every* page. They used to be on
+     * the homepage alone, which meant every inner page referenced `#organization`
+     * and `#website` identifiers that resolved to nothing when that page was
+     * fetched on its own — and a record page fetched on its own is exactly how an
+     * answer engine reads this site.
+     *
+     * @return list<array<string,mixed>>
+     */
+    public function jsonLdBlocks(): array
+    {
+        $blocks = array_map(fn ($node) => ['@context' => 'https://schema.org'] + $node, self::graph());
+
+        if (! $this->hasOwnPageNode()) {
+            $blocks[] = ['@context' => 'https://schema.org'] + $this->pageNode();
+        }
+
+        return array_merge($blocks, $this->jsonLd);
+    }
+
+    private function hasOwnPageNode(): bool
+    {
+        foreach ($this->jsonLd as $node) {
+            if (in_array($node['@type'] ?? '', self::PAGE_TYPES, true)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /** This page as an entity: what it is, what it belongs to, when it changed. */
+    private function pageNode(): array
+    {
+        return array_filter(array_merge([
+            '@type' => $this->pageType,
+            '@id' => $this->canonical.'#webpage',
+            'url' => $this->canonical,
+            'name' => $this->title,
+            'description' => $this->description,
+            'isPartOf' => ['@id' => url('/').'#website'],
+            'breadcrumb' => $this->breadcrumbs !== [] ? ['@id' => $this->canonical.'#breadcrumb'] : null,
+            'inLanguage' => 'en',
+            'dateModified' => $this->modified?->format(DATE_ATOM),
+            'publisher' => ['@id' => url('/').'#organization'],
+            'license' => config('aipolicytracker.data_license_url'),
+        ], $this->pageProperties), fn ($v) => $v !== null && $v !== [] && $v !== '');
+    }
+
+    /**
+     * The nodes that are true of every page: who publishes this and what the site is.
+     *
+     * @return list<array<string,mixed>>
+     */
+    public static function graph(): array
+    {
+        return [self::organization(), self::website()];
+    }
+
+    /** A list of records as an ItemList, for a page that enumerates them. */
+    public static function itemList(iterable $items, callable $name, callable $url, ?string $listName = null): array
+    {
+        $elements = [];
+        foreach ($items as $item) {
+            $href = $url($item);
+            if (! $href) {
+                continue;
+            }
+            $elements[] = array_filter([
+                '@type' => 'ListItem',
+                'position' => count($elements) + 1,
+                'name' => $name($item),
+                'url' => $href,
+            ], fn ($v) => $v !== null && $v !== '');
+        }
+
+        return array_filter([
+            '@type' => 'ItemList',
+            'name' => $listName,
+            'numberOfItems' => count($elements),
+            'itemListElement' => $elements,
+        ], fn ($v) => $v !== null && $v !== '');
+    }
+
     public static function organization(): array
     {
         $org = [
@@ -110,7 +236,91 @@ class Seo
             $org['sameAs'] = $profiles;
         }
 
+        // What the corpus actually covers, read from the corpus. A claim to serve
+        // a region is only made where published jurisdictions exist in it, and the
+        // subjects come from the taxonomy the records are filed under. Stating a
+        // global remit the data does not support would be the same overclaim this
+        // project exists to avoid, in machine-readable form.
+        $coverage = self::coverage();
+        if ($coverage['regions'] !== []) {
+            $org['areaServed'] = array_map(fn ($r) => ['@type' => 'Place', 'name' => $r], $coverage['regions']);
+        }
+        if ($coverage['subjects'] !== []) {
+            $org['knowsAbout'] = $coverage['subjects'];
+        }
+
         return $org;
+    }
+
+    /**
+     * Regions and subjects the published corpus covers.
+     *
+     * Cached for a day and wrapped, because this now runs on every page render:
+     * an Organization node that cannot be enriched is still a correct Organization
+     * node, and a database hiccup must never take a page down to decorate one.
+     *
+     * @return array{regions: list<string>, subjects: list<string>}
+     */
+    private static function coverage(): array
+    {
+        // Deliberately no static memo. A static would outlive the request in a
+        // worker and outlive the database in a test run, handing every later page
+        // an answer computed against data that has since changed. The cache is the
+        // memo, and it is scoped to the application instance that owns it.
+        try {
+            return \Illuminate\Support\Facades\Cache::remember('seo.coverage', 86400, function () {
+                $regions = \App\Models\Jurisdiction::query()->published()
+                    ->whereNotNull('region')->distinct()->orderBy('region')->pluck('region')
+                    ->filter()->values()->all();
+
+                // The named topics the site is about, then whatever the taxonomy
+                // adds on top of them, capped so the node stays a description
+                // rather than a keyword dump.
+                $subjects = ['AI regulation', 'AI governance', 'AI compliance', 'AI policy', 'algorithmic accountability'];
+                $terms = \App\Models\TaxonomyTerm::query()->orderBy('name')->pluck('name')
+                    ->map(fn ($t) => trim((string) $t))->filter()->values()->all();
+
+                return [
+                    'regions' => $regions,
+                    'subjects' => array_values(array_slice(array_unique(array_merge($subjects, $terms)), 0, 40)),
+                ];
+            });
+        } catch (\Throwable) {
+            // An Organization node that cannot be enriched is still a correct
+            // Organization node. A database hiccup must never take a page down to
+            // decorate one.
+            return ['regions' => [], 'subjects' => []];
+        }
+    }
+
+    /**
+     * A record as an openly licensed Dataset, with the files that actually serve it.
+     *
+     * This is the strongest thing the site can say to an answer engine: the page
+     * is not prose about a law, it is a structured record with a machine-readable
+     * form at a stable URL under a licence that permits reuse with attribution.
+     *
+     * @param  array<string,string>  $distributions  media type => URL
+     */
+    public static function dataset(string $name, string $description, string $url, array $distributions, ?\DateTimeInterface $modified = null, ?string $identifier = null): array
+    {
+        return array_filter([
+            '@type' => 'Dataset',
+            'name' => $name,
+            'description' => $description,
+            'url' => $url,
+            'identifier' => $identifier,
+            'license' => config('aipolicytracker.data_license_url'),
+            'isAccessibleForFree' => true,
+            'creator' => ['@id' => url('/').'#organization'],
+            'publisher' => ['@id' => url('/').'#organization'],
+            'isPartOf' => ['@id' => url('/').'#website'],
+            'dateModified' => $modified?->format(DATE_ATOM),
+            'distribution' => array_values(array_map(
+                fn ($type, $href) => ['@type' => 'DataDownload', 'encodingFormat' => $type, 'contentUrl' => $href],
+                array_keys($distributions), $distributions
+            )),
+        ], fn ($v) => $v !== null && $v !== '' && $v !== []);
     }
 
     /**
