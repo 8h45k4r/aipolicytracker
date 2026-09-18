@@ -13,7 +13,8 @@ class CompareController extends Controller
 {
     public function index(Request $request, ComparisonBuilder $builder): View
     {
-        $all = Jurisdiction::published()->orderBy('name')->get();
+        // The count tells a reader whether comparing a jurisdiction will show anything.
+        $all = Jurisdiction::published()->withCount(['policyInstruments' => fn ($q) => $q->published()])->orderBy('name')->get();
         $raw = $request->query('j', '');
         $selected = collect(is_array($raw) ? $raw : explode(',', (string) $raw))->map(fn ($v) => trim((string) $v))->filter()->unique()->take(4)->values();
         $jurisdictions = $selected->isEmpty() ? collect() : $all->whereIn('slug', $selected)->values();

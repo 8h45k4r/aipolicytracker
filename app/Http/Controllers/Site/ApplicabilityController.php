@@ -24,7 +24,7 @@ class ApplicabilityController extends Controller
 
     public function show(Request $request, ApplicabilityScreener $screener): View
     {
-        $jurisdictions = Jurisdiction::published()->orderBy('name')->get(['id', 'slug', 'name']);
+        $jurisdictions = Jurisdiction::published()->withCount(['policyInstruments' => fn ($q) => $q->published()])->orderBy('name')->get(['id', 'slug', 'name', 'short_name', 'region']);
         $actors = TaxonomyTerm::taxonomy('actor')->get();
         $useCases = TaxonomyTerm::taxonomy('use_case')->get();
         $sectors = TaxonomyTerm::taxonomy('sector')->get();

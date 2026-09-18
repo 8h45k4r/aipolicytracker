@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Choosing jurisdictions on the comparison page and the applicability check no longer means scanning 212 checkboxes in one flat list. Both now use a shared picker that groups them by region behind collapsible headings, shows beside each name how many instruments are recorded for it (a dash where nothing AI-specific exists yet, so a reader does not pick a jurisdiction and then find the comparison empty), and adds a type-ahead filter, a live count and removable chips for the current selection. The comparison picker states its four-jurisdiction limit rather than silently discarding the rest. Every checkbox still submits without JavaScript; the search box and chips are rendered hidden and revealed by the script, so nothing inert is ever on screen.
+
 ### Added
 - Admin security: every admin session now proves a time-based one-time code as well as a password, enrolment is mandatory before any backend route answers, and the actions that change secrets or remove things (settings save, billing provisioning, tool and file deletion, recovery-code regeneration) require a freshly confirmed password. The authenticator secret and the eight single-use recovery codes are encrypted at rest and never serialised; the enrolment page shows the key as text and an `otpauth://` link rather than sending it to a third-party QR service. `php artisan admin:two-factor-reset` is the operator escape hatch for a lost device. A new audit log records every state-changing admin request — who, route, record, status, hashed IP, never request bodies — and is published at Admin → Audit log. RFC 6238 is implemented in-repo with the specification's own test vectors in the suite, rather than adding a dependency.
 
