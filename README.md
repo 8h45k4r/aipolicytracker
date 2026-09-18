@@ -21,6 +21,7 @@ Live site: [aipolicytracker.org](https://aipolicytracker.org) · Open data: [/op
 | Screen whether a rule applies to you (educational, not advice) | [/tools/applicability-check](https://aipolicytracker.org/tools/applicability-check) |
 | Read practical guides and download free templates, checklists and registers | [/guides](https://aipolicytracker.org/guides) |
 | Reuse the dataset (CC BY 4.0) through JSON, CSV, an OpenAPI description and `llms.txt` | [/open-data](https://aipolicytracker.org/open-data) |
+| Read the corpus as structured data: every page publishes schema.org JSON-LD, and a binding instrument states whether it is actually in force | any page's `<head>`, [docs](docs/reference/machine-readable-surfaces.md) |
 | Report a correction with the record and field prefilled | "Report a correction" on any record |
 
 The related product **Certifyi** ([certifyi.ai](https://certifyi.ai)) is a separate compliance execution platform; AIPolicyTracker is the open, public intelligence layer.
@@ -56,7 +57,7 @@ The dataset is free and open (CC BY 4.0) for everyone. Pro (monthly or annual) p
 |-------|------------|
 | Public site and admin | Laravel 11, Blade (server-rendered), Tailwind CSS 3, a small progressive-enhancement script |
 | Backend | PHP 8.3, Laravel 11 |
-| Database | PostgreSQL in production, SQLite for tests |
+| Database | PostgreSQL in production. The suite runs twice in CI: once on in-memory SQLite for speed, once on PostgreSQL 16 because the two disagree in ways that used to reach production |
 | Tooling | Vite 5, ESLint 9, Laravel Pint, PHPUnit 11, GitHub Actions |
 
 ## Local setup

@@ -41,15 +41,9 @@ class LandingController extends Controller
             ->withBreadcrumbs([['Home', route('home')], [$page['h1'], route('landing', $landing)]])
             ->withModified($lastModified)
             ->withOgType('article')
-            ->withJsonLd([
-                '@type' => 'Article',
+            ->withPageType('Article', [
                 'headline' => $page['h1'],
-                'description' => $page['description'],
-                'url' => route('landing', $landing),
-                'dateModified' => $lastModified?->toIso8601String(),
                 'author' => ['@id' => url('/').'#organization'],
-                'publisher' => ['@id' => url('/').'#organization'],
-                'isPartOf' => ['@id' => url('/').'#website'],
             ]);
         if (! empty($page['steps'])) {
             $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('guides.show', $slug), $page['steps']));
@@ -108,7 +102,15 @@ class LandingController extends Controller
             'Practical, source-backed guides plus free AI system inventory, risk register, EU AI Act readiness and incident response templates mapped to the EU AI Act, ISO/IEC 42001 and the NIST AI RMF.',
             route('guides.index')
         )->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')]])
-            ->withJsonLd(['@type' => 'CollectionPage', 'name' => 'Guides and free tools', 'url' => route('guides.index'), 'mainEntity' => ['@type' => 'ItemList', 'itemListElement' => $items->map(fn ($g, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $g['title'], 'url' => $g['kind'] === 'tool' ? route('tools.show', $g['slug']) : route('guides.show', $g['slug'])])->all()]]);
+            ->withPageType('CollectionPage', [
+                'name' => 'Guides and free tools',
+                'mainEntity' => Seo::itemList(
+                    $items,
+                    fn ($g) => $g['title'],
+                    fn ($g) => $g['kind'] === 'tool' ? route('tools.show', $g['slug']) : route('guides.show', $g['slug']),
+                    'Guides and free tools',
+                ),
+            ]);
         if ($filtered) {
             $seo->noindex(); // filter combinations are shareable but not indexable (thin/duplicate pages)
         }
@@ -129,7 +131,7 @@ class LandingController extends Controller
             ->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')], [$page['h1'], route('guides.show', $slug)]])
             ->withModified($lastModified)
             ->withOgType('article')
-            ->withJsonLd(['@type' => 'Article', 'headline' => $page['h1'], 'description' => $page['description'], 'url' => route('guides.show', $slug), 'dateModified' => $lastModified?->toIso8601String(), 'author' => ['@id' => url('/').'#organization'], 'publisher' => ['@id' => url('/').'#organization'], 'isPartOf' => ['@id' => url('/').'#website']]);
+            ->withPageType('Article', ['headline' => $page['h1'], 'author' => ['@id' => url('/').'#organization']]);
         if (! empty($page['steps'])) {
             $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('guides.show', $slug), $page['steps']));
         }

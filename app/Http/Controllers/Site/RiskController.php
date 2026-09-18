@@ -26,7 +26,20 @@ class RiskController extends Controller
             'The seven AI risk domains from the MIT AI Risk Repository, how often each appears in the AI Incident Database, and which AI policies in our tracker address them.',
             route('risk.index')
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')]])
-            ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI risk domains (MIT AI Risk Repository) with incident counts', 'url' => route('risk.index'), 'license' => $mit['license_url'] ?? null, 'isBasedOn' => [$mit['source_url'] ?? null, $aiid['source_url'] ?? null], 'creator' => ['@type' => 'Organization', 'name' => 'MIT AI Risk Initiative'], 'isAccessibleForFree' => true, 'keywords' => ['AI risk taxonomy', 'AI incidents', 'AI policy']])
+            // A Dataset without a description is a dataset a machine cannot summarise,
+            // and Search Console reports it as a missing required field.
+            ->withJsonLd(array_filter([
+                '@type' => 'Dataset',
+                'name' => 'AI risk domains (MIT AI Risk Repository) with incident counts',
+                'description' => 'The seven risk domains and twenty-four subdomains of the MIT AI Risk Repository, each mapped to the recorded incidents classified under it, with counts per domain. Incident counts are refreshed weekly from the AI Incident Database; the counts reflect reporting and classification rather than true frequency.',
+                'url' => route('risk.index'),
+                'license' => $mit['license_url'] ?? null,
+                'isBasedOn' => array_values(array_filter([$mit['source_url'] ?? null, $aiid['source_url'] ?? null])),
+                'creator' => ['@type' => 'Organization', 'name' => 'MIT AI Risk Initiative'],
+                'dateModified' => $aiid['snapshot_date'] ?? null,
+                'isAccessibleForFree' => true,
+                'keywords' => ['AI risk taxonomy', 'AI incidents', 'AI policy'],
+            ], fn ($v) => $v !== null && $v !== '' && $v !== []))
             ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => [
                 ['@type' => 'Question', 'name' => 'What are the seven domains of AI risk?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Discrimination and toxicity; privacy and security; misinformation; malicious actors and misuse; human-computer interaction; socioeconomic and environmental harms; and AI system safety, failures and limitations, as defined by the MIT AI Risk Repository domain taxonomy.']],
                 ['@type' => 'Question', 'name' => 'Which AI risk domain has the most recorded incidents?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'In the current AI Incident Database snapshot, malicious actors and misuse leads, followed by AI system safety, failures and limitations, and discrimination and toxicity. Counts reflect reporting and classification, not true frequency.']],
@@ -181,7 +194,17 @@ class RiskController extends Controller
             route('risk.incidents')
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['AI incidents', route('risk.incidents')]])
             ->withModified($modified)
-            ->withJsonLd(['@type' => 'Dataset', 'name' => 'AI Incident Database: latest incidents and weekly summary', 'url' => route('risk.incidents'), 'license' => $aiid['license_url'] ?? null, 'isBasedOn' => $aiid['source_url'] ?? null, 'dateModified' => $modified?->toDateString(), 'creator' => ['@type' => 'Organization', 'name' => 'Responsible AI Collaborative']])
+            ->withJsonLd(array_filter([
+                '@type' => 'Dataset',
+                'name' => 'AI Incident Database: latest incidents and weekly summary',
+                'description' => 'The most recently recorded AI incidents from the AI Incident Database, with a weekly summary and each incident classified by MIT risk domain and subdomain, sector and country. Refreshed weekly from the published export; every page shows the snapshot date it was built from.',
+                'url' => route('risk.incidents'),
+                'license' => $aiid['license_url'] ?? null,
+                'isBasedOn' => $aiid['source_url'] ?? null,
+                'dateModified' => $modified?->toDateString(),
+                'creator' => ['@type' => 'Organization', 'name' => 'Responsible AI Collaborative'],
+                'isAccessibleForFree' => true,
+            ], fn ($v) => $v !== null && $v !== '' && $v !== []))
             ->withJsonLd(['@type' => 'ItemList', 'name' => 'Latest recorded AI incidents', 'itemListOrder' => 'https://schema.org/ItemListOrderDescending', 'numberOfItems' => $latest->count(), 'itemListElement' => $latest->take(10)->values()->map(fn ($i, $k) => ['@type' => 'ListItem', 'position' => $k + 1, 'url' => $i->url(), 'name' => $i->title])->all()]);
 
         return view('site.risk.incidents', ['seo' => $seo, 'aiid' => $aiid, 'mit' => $this->data->mitRisk(), 'latest' => $latest, 'live' => $live]);
