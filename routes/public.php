@@ -7,10 +7,9 @@ use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\ChangeController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\ContributeController;
-use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\CronController;
+use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FreeToolController;
-use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
@@ -21,6 +20,7 @@ use App\Http\Controllers\Site\PolicyController;
 use App\Http\Controllers\Site\RiskBrowseController;
 use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
+use App\Http\Controllers\Site\SubscribeController;
 use Illuminate\Support\Facades\Route;
 
 // Public, server-rendered policy-intelligence site.
@@ -77,6 +77,11 @@ Route::get('/gaps', [\App\Http\Controllers\Site\CoverageController::class, 'gaps
 Route::get('/corrections', [\App\Http\Controllers\Site\CorrectionsController::class, 'show'])->name('corrections');
 Route::get('/reviewers', [\App\Http\Controllers\Site\ReviewersController::class, 'show'])->name('reviewers');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+// The sign-up form asks readers to accept these and the download gate records the
+// acceptance, so they have to be real pages rather than a configurable link that
+// fell back to /about when unset.
+Route::get('/privacy', [\App\Http\Controllers\Site\LegalController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [\App\Http\Controllers\Site\LegalController::class, 'terms'])->name('terms');
 Route::get('/contribute', [ContributeController::class, 'show'])->name('contribute');
 Route::post('/contribute', [ContributeController::class, 'store'])->middleware('throttle:10,1')->name('contribute.store');
 
