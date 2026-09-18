@@ -1,0 +1,81 @@
+# Domains that are never treated as disposable, whatever any other list says.
+#
+# The product's readers are compliance, legal, clinical and engineering staff.
+# Many of them sign up from a personal mailbox before their employer's domain is
+# involved, and a false positive on a mailbox someone has used for fifteen years
+# is far more damaging than letting one throwaway address through. This list is
+# checked first and wins outright.
+#
+# Matching is by suffix: a line "google.com" also covers "mail.google.com".
+# Freemail that people actually keep
+gmail.com
+googlemail.com
+outlook.com
+hotmail.com
+hotmail.co.uk
+live.com
+msn.com
+yahoo.com
+yahoo.co.uk
+yahoo.co.in
+ymail.com
+rocketmail.com
+icloud.com
+me.com
+mac.com
+aol.com
+gmx.com
+gmx.de
+gmx.net
+web.de
+mail.com
+zoho.com
+zohomail.com
+fastmail.com
+fastmail.fm
+hey.com
+proton.me
+protonmail.com
+protonmail.ch
+pm.me
+tutanota.com
+tuta.io
+tutamail.com
+posteo.de
+mailbox.org
+runbox.com
+hushmail.com
+yandex.com
+yandex.ru
+qq.com
+163.com
+126.com
+naver.com
+daum.net
+rediffmail.com
+seznam.cz
+libero.it
+orange.fr
+free.fr
+laposte.net
+wanadoo.fr
+t-online.de
+bluewin.ch
+telus.net
+shaw.ca
+rogers.com
+bt.com
+btinternet.com
+sky.com
+virginmedia.com
+comcast.net
+verizon.net
+att.net
+sbcglobal.net
+cox.net
+charter.net
+optonline.net
+bigpond.com
+optusnet.com.au
+xtra.co.nz
+ntlworld.com

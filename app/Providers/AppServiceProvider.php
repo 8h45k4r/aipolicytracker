@@ -17,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
         // roster) can be injected; the import and validate commands still pass an explicit
         // path when --path is given.
         $this->app->singleton(\App\Services\PolicyData\PolicyDataRepository::class, fn () => \App\Services\PolicyData\PolicyDataRepository::default());
+        // Which mail route a domain has. Bound to the interface so a test of the
+        // address policy can decide the answer instead of asking the network.
+        $this->app->bind(\App\Services\Security\MailDomainResolver::class, \App\Services\Security\SystemMailDomainResolver::class);
+        $this->app->singleton(\App\Services\Security\EmailDomainPolicy::class);
     }
 
     /**

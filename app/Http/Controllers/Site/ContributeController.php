@@ -71,7 +71,7 @@ class ContributeController extends Controller
             'details' => ['nullable', 'string', 'max:5000'],
             'proposed_source_url' => ['nullable', 'url', 'max:2048'],
             'submitter_name' => ['nullable', 'string', 'max:120'],
-            'submitter_email' => ['nullable', 'email', 'max:190'],
+            'submitter_email' => ['nullable', 'email', 'max:190', new \App\Rules\NotDisposableEmail],
             'submitter_affiliation' => ['nullable', 'string', 'max:190'],
             'source_page' => ['nullable', 'url', 'max:2048'],
         ]);

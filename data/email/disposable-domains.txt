@@ -1,0 +1,100 @@
+# Domains belonging to services whose stated purpose is a throwaway inbox.
+#
+# Scope: a service that hands out an address nobody owns, that expires, or whose
+# inbox is public. Anything a person keeps and can be reached at later is out of
+# scope and belongs nowhere near this file — including alias and relay services
+# (SimpleLogin, AnonAddy/addy.io, Apple's Hide My Email, DuckDuckGo, Firefox
+# Relay). An alias that forwards to a mailbox its owner reads is a real address
+# with a privacy wrapper, and refusing it would punish exactly the
+# privacy-conscious readers this site is written for.
+#
+# Matching is by suffix, so "mailinator.com" also covers "team.mailinator.com".
+# This list is deliberately short and hand-kept. It is not the defence on its
+# own: most throwaway traffic arrives on rotating domains that no static list
+# has ever seen, and is stopped by the mail-host and deliverability checks
+# instead. See docs/modules/accounts.md.
+#
+# Operators can add to this without a deploy: see the overlay file named in
+# config/email.php and `php artisan email:domains-refresh`.
+mailinator.com
+yopmail.com
+yopmail.fr
+yopmail.net
+guerrillamail.com
+guerrillamail.net
+guerrillamail.org
+guerrillamail.biz
+guerrillamailblock.com
+sharklasers.com
+grr.la
+spam4.me
+10minutemail.com
+10minutemail.net
+10minemail.com
+20minutemail.com
+temp-mail.org
+temp-mail.io
+tempmail.com
+tempmail.net
+tempmailo.com
+tempail.com
+tempr.email
+tempmailer.com
+tempinbox.com
+tmpmail.org
+tmpmail.net
+minuteinbox.com
+mohmal.com
+mailnesia.com
+maildrop.cc
+mailsac.com
+mailcatch.com
+mintemail.com
+dispostable.com
+discard.email
+discardmail.com
+throwawaymail.com
+throwawaymail.net
+fakeinbox.com
+fakemail.net
+fakemailgenerator.com
+emailfake.com
+emailondeck.com
+generator.email
+getnada.com
+nada.email
+inboxkitten.com
+harakirimail.com
+incognitomail.com
+trashmail.com
+trashmail.de
+trashmail.net
+trash-mail.com
+wegwerfmail.de
+wegwerfmail.net
+byom.de
+mytemp.email
+spambog.com
+spamgourmet.com
+spamdecoy.net
+jetable.org
+mail.tm
+mail7.io
+moakt.com
+mailpoof.com
+linshiyouxiang.net
+burnermail.io
+33mail.com
+mailde.de
+mail-temporaire.fr
+correotemporal.org
+einrot.com
+armyspy.com
+cuvox.de
+dayrep.com
+fleckens.hu
+gustr.com
+jourrapide.com
+rhyta.com
+superrito.com
+teleworm.us

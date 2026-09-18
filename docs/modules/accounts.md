@@ -77,6 +77,42 @@ Three further gates stand in front of the backend (2026-09-18):
 
 **Audit log.** Admin → Audit log lists actions newest first. Reads are not recorded. A request refused by an earlier gate (bounced to password confirmation) is recorded as an attempt. One gap is deliberate: route-model binding runs in the `web` group, ahead of all route middleware, so a POST naming a record that does not exist 404s before the audit middleware runs — nothing was changed in that case.
 
+## Address quality
+
+Applied 2026-09-18. A throwaway address breaks the product's only promise — that a reader hears when a deadline moves — and it inflates the subscriber and download figures the site publishes about itself. Work addresses and personal addresses are both accepted; a mailbox that expires is not.
+
+`App\Rules\NotDisposableEmail` runs on registration (`email` and `organization_email`), a change of address on the profile, the newsletter form, and the optional contact address on a contribution. It is deliberately **absent** from sign-in, password reset and the free-tool download form: an account that already exists must always be able to get back in, whatever its address, so a rule added today cannot strand somebody who signed up before it. The profile rule only fires when the address actually changes, for the same reason.
+
+`App\Services\Security\EmailDomainPolicy` decides, in this order:
+
+| # | Check | Source | Effect |
+|---|-------|--------|--------|
+| 1 | Trusted providers | `data/email/trusted-domains.txt` | Accepted outright. Nothing later can overrule it, so no heuristic can take a fifteen-year-old personal mailbox away from a reader. |
+| 2 | Reserved names | `config/email.php` (`reserved`) | Refused. RFC 2606 and RFC 6761 names reach nobody. |
+| 3 | Known throwaway domains | `data/email/disposable-domains.txt` + the operator overlay | Refused. |
+| 4 | Where the domain's mail goes | MX lookup vs `data/email/disposable-mail-hosts.txt` | Refused if the exchanger belongs to a throwaway service, or if the domain has no mail route at all. |
+
+Matching is by suffix on label boundaries, so `mailinator.com` covers `team.mailinator.com` and never `notmailinator.com`.
+
+**Check 4 is the one that works.** A throwaway service rotates thousands of domains but runs its own mail servers, so blocking the exchanger stops the domains no list has catalogued yet. Measured against a random sample of 400 known throwaway domains: 62.5% refused, of which the domain list accounted for 0.2% and the mail route for 62.3% (36.5% by exchanger, 25.8% with no mail route). The same policy accepted 50 out of 50 legitimate work, regulator, university, hospital and freemail domains. The static domain list is the weakest of the four and is never relied on alone.
+
+**Shared infrastructure is deliberately excluded** from the exchanger list — Cloudflare Email Routing, Google Workspace, Microsoft 365, Amazon SES, Mailgun, ImprovMX, Forward Email, Zoho — because real organisations use it and a line there would refuse every business behind it. A test asserts each of those names stays out.
+
+**Alias and relay services are not throwaway.** SimpleLogin, addy.io, Apple's Hide My Email, DuckDuckGo and Firefox Relay forward to a mailbox their owner reads, so they are accepted. Refusing them would punish exactly the privacy-conscious readers this site is written for.
+
+**Everything uncertain is accepted.** If the resolver cannot answer, the address passes. A control domain is resolved before "no mail route" is believed, so a DNS outage cannot become a sign-up outage for the whole site.
+
+**Operating it.**
+
+| Need | Command or setting |
+|------|--------------------|
+| Explain a refusal | `php artisan email:check someone@example-domain.tld` — prints the domain, verdict, reason and the exact list entry that decided. |
+| Block a new service without a deploy | Add a line to the overlay file named by `email.overlay` (`storage/app/email/disposable-domains.txt`), or run `php artisan email:domains-refresh --source=https://…` with a list whose licence you have read. The overlay is untracked, so the project never redistributes a third-party list. |
+| Stop enforcing entirely | `EMAIL_DOMAIN_ENFORCEMENT=false`. |
+| Skip the DNS lookup | `EMAIL_CHECK_DELIVERABILITY=false` — leaves the curated lists working. |
+
+Enforcement is off under `testing` by default: every other suite uses RFC 2606 addresses, which have no mail route by design. `EmailDomainPolicyTest` turns it on and supplies its own resolver, so the decision under test is the policy's and not the day's DNS.
+
 ## Routes
 
 All account pages are server-rendered Blade in the site theme: `/login`, `/register`, `/forgot-password`, `/reset-password/{token}`, `/verify-email`, `/confirm-password` (through `x-auth-shell`) and `/profile` (profile, password, downloads, consent, account deletion). The profile form also stores `organization_name` and toggles `marketing_consent_at`.

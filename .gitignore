@@ -9,6 +9,9 @@
 /storage/*.key
 /storage/app/public/*
 !/storage/app/public/.gitignore
+# Operator overlay of throwaway e-mail domains, written by `email:domains-refresh`.
+# Deliberately untracked: it is somebody else's list under somebody else's licence.
+/storage/app/email/
 /bootstrap/cache/*
 !/bootstrap/cache/.gitignore
 /.phpunit.cache
