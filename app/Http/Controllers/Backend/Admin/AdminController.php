@@ -81,6 +81,14 @@ class AdminController extends Controller
         return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users', 'funnel', 'topPages'));
     }
 
+    /** Who did what in the admin: every state-changing request, newest first. */
+    public function audit(Request $request): View
+    {
+        $entries = \App\Models\AdminAuditLog::with('user')->orderByDesc('id')->paginate(100)->withQueryString();
+
+        return view('backend.admin.audit', compact('entries'));
+    }
+
     public function downloadsExport(): StreamedResponse
     {
         return response()->streamDownload(function () {
