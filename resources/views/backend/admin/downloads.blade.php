@@ -2,7 +2,7 @@
 @section('content')
 <div class="flex flex-wrap items-start justify-between gap-3">
     <div><h1 class="font-display text-2xl font-semibold text-brand-navy">Guides and downloads</h1><p class="mt-1 meta">Manage the free-tool library (tools, files, versions) and see who downloads what. Downloads need a free account; each one records terms acceptance and the file version.</p></div>
-    <div class="flex gap-2"><a href="{{ route('backend.admin.tools.index') }}" class="btn-primary">Manage library</a><a href="{{ route('backend.admin.downloads.export') }}" class="btn-secondary">Export users CSV</a></div>
+    <div class="flex gap-2"><a href="{{ route('backend.admin.tools.index') }}" class="btn-primary">Manage library</a><a href="{{ route('backend.admin.downloads.export') }}" class="btn-secondary">Export users CSV</a><a href="{{ route('backend.admin.downloads.export', ['rows' => 'downloads']) }}" class="btn-secondary">Export downloads CSV (one row each)</a></div>
 </div>
 <dl class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     @foreach([['Registered users', $metrics['users_total']], ['New users: today / 7d / 30d', ($metrics['users_today'] ?: '—').' / '.($metrics['users_7d'] ?: '—').' / '.($metrics['users_30d'] ?: '—')], ['Verified email', $metrics['verified_pct'] === null ? '—' : $metrics['verified_pct'].'%'], ['Marketing opt-ins', $metrics['consent']], ['Downloads: today / 7d / 30d', ($metrics['downloads_today'] ?: '—').' / '.($metrics['downloads_7d'] ?: '—').' / '.($metrics['downloads_30d'] ?: '—')], ['Downloads total', $metrics['downloads_total']], ['Repeat downloaders (2+ tools)', $metrics['repeat']], ['Free tools published', \App\Models\Tool::published()->count()]] as [$label, $value])
