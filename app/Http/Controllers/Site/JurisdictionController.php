@@ -25,11 +25,9 @@ class JurisdictionController extends Controller
             'Directory of jurisdictions with source-backed AI laws, strategies and guidance: current regulatory status, binding rules versus guidance, deadlines and official sources.',
             route('jurisdictions.index')
         )->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')]])
-            ->withJsonLd([
-                '@type' => 'CollectionPage',
+            ->withPageType('CollectionPage', [
                 'name' => 'AI regulation by country and region',
-                'url' => route('jurisdictions.index'),
-                'mainEntity' => ['@type' => 'ItemList', 'itemListElement' => $jurisdictions->values()->map(fn ($j, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $j->name, 'url' => $j->url()])->all()],
+                'mainEntity' => Seo::itemList($jurisdictions, fn ($j) => $j->name, fn ($j) => $j->url(), 'Jurisdictions with recorded AI policy'),
             ]);
 
         return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions'));
@@ -55,15 +53,18 @@ class JurisdictionController extends Controller
             $jurisdiction->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], [$jurisdiction->name, $jurisdiction->url()]])
             ->withModified($lastModified)
-            ->withJsonLd([
-                '@type' => 'WebPage',
+            ->withPageType('CollectionPage', [
                 'name' => 'AI regulation in '.$jurisdiction->nameWithArticle(),
-                'url' => $jurisdiction->url(),
-                'dateModified' => $lastModified?->toIso8601String(),
-                'isPartOf' => ['@id' => url('/').'#website'],
                 'about' => ['@type' => $jurisdiction->jurisdiction_type === 'supranational' ? 'AdministrativeArea' : ($jurisdiction->jurisdiction_type === 'state' ? 'State' : 'Country'), 'name' => $jurisdiction->name],
-                'mainEntity' => ['@type' => 'ItemList', 'itemListElement' => $policies->values()->map(fn ($p, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $p->title, 'url' => $p->url()])->all()],
-            ]);
+                'mainEntity' => Seo::itemList($policies, fn ($p) => $p->title, fn ($p) => $p->url(), 'AI policy instruments recorded for '.$jurisdiction->name),
+            ])
+            ->withJsonLd(Seo::dataset(
+                'AI regulation in '.$jurisdiction->name,
+                'Recorded AI policy instruments, obligations and deadlines for '.$jurisdiction->name.', each linked to its official source.',
+                $jurisdiction->url(),
+                ['text/markdown' => route('jurisdictions.context', $jurisdiction->slug)],
+                $lastModified,
+            ));
         if (! empty($jurisdiction->faq)) {
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($jurisdiction->faq)->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => trim($f['answer'])]])->values()->all()]);
         }

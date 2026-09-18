@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
+use App\Models\ExternalIncident;
+use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -26,6 +28,12 @@ class SitemapController extends Controller
             'obligations' => Obligation::published()->max('updated_at'),
             'changes' => ChangeEvent::published()->max('updated_at'),
             'resources' => PolicyInstrument::published()->max('updated_at'),
+            // The research corpus: roughly 1,700 incident pages and 2,500 risk
+            // entries that were reachable, indexable and in no sitemap at all,
+            // which is most of what Search Console reports as discovered and not
+            // indexed. A page nothing points a crawler at is a page nobody finds.
+            'incidents' => ExternalIncident::query()->max('snapshot_date'),
+            'risks' => ExternalRisk::query()->max('updated_at'),
         ];
         $entries = collect($sections)->map(fn ($mod, $key) => ['loc' => route('sitemap.section', $key), 'lastmod' => $mod ? Carbon::parse($mod)->toAtomString() : null]);
 
@@ -41,9 +49,42 @@ class SitemapController extends Controller
             'obligations' => Obligation::published()->with('policyInstrument')->orderBy('slug')->get()->filter(fn ($o) => filled($o->summary) && $o->policyInstrument?->isIndexable())->map(fn ($o) => ['loc' => $o->url(), 'lastmod' => $o->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.7'])->values(),
             'changes' => $this->changeUrls(),
             'resources' => $this->resourceUrls(),
+            'incidents' => $this->incidentUrls(),
+            'risks' => $this->riskUrls(),
         };
 
         return $this->xml(view('site.sitemap.urlset', compact('urls'))->render());
+    }
+
+    /**
+     * One entry per recorded AI incident.
+     *
+     * Read lazily: this is the largest section by an order of magnitude, and a
+     * sitemap that has to hold the whole table in memory to be served is a
+     * sitemap that stops being served as the corpus grows.
+     */
+    private function incidentUrls()
+    {
+        return ExternalIncident::query()->orderBy('incident_id')->lazy(500)->map(fn ($i) => [
+            'loc' => $i->url(),
+            // What is actually known about when this record last moved. The
+            // snapshot date is the fallback because it is when we last confirmed
+            // the record, not when the incident happened.
+            'lastmod' => ($i->modified_at ?? $i->snapshot_date)?->toAtomString(),
+            'changefreq' => 'monthly',
+            'priority' => '0.6',
+        ])->values();
+    }
+
+    /** One entry per MIT AI Risk Repository entry that has a page of its own. */
+    private function riskUrls()
+    {
+        return ExternalRisk::query()->orderBy('ev_id')->lazy(500)->map(fn ($r) => [
+            'loc' => $r->url(),
+            'lastmod' => $r->updated_at?->toAtomString(),
+            'changefreq' => 'monthly',
+            'priority' => '0.5',
+        ])->values();
     }
 
     private function staticUrls()

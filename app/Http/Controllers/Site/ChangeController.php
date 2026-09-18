@@ -40,7 +40,20 @@ class ChangeController extends Controller
             $indexable
         )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')]])
             ->withFeed(route('changes.feed'))
-            ->withJsonLd(['@type' => 'CollectionPage', 'name' => 'AI policy change log', 'url' => route('changes.index'), 'isPartOf' => ['@id' => url('/').'#website']]);
+            ->withPageType('CollectionPage', [
+                'name' => 'AI policy change log',
+                // A change has no page of its own; its stable address is the
+                // machine-readable record, so that is what the list points at.
+                'mainEntity' => Seo::itemList($changes->getCollection(), fn ($c) => $c->title, fn ($c) => $c->slug ? route('changes.context', $c->slug) : null, 'Recorded AI policy changes'),
+            ])
+            // The log is also a feed. Saying so lets a machine follow it instead of
+            // re-reading the page to find out whether anything moved.
+            ->withJsonLd(Seo::dataset(
+                'AI policy change log',
+                'Dated, source-backed record of AI policy changes across jurisdictions, with the practical impact and the status after each change.',
+                route('changes.index'),
+                ['application/rss+xml' => route('changes.feed')],
+            ));
 
         return view('site.changes.index', [
             'seo' => $seo, 'changes' => $changes, 'urgent' => $urgent, 'years' => $years, 'filters' => $filters, 'impact' => $impact,

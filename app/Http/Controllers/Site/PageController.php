@@ -90,7 +90,7 @@ class PageController extends Controller
             'Why AIPolicyTracker exists, how it is built and verified, how to use it, the datasets and research it builds on, and who maintains it.',
             route('about')
         )->withBreadcrumbs([['Home', route('home')], ['About', route('about')]])
-            ->withJsonLd(['@type' => 'AboutPage', 'name' => 'About AIPolicyTracker', 'url' => route('about'), 'mainEntity' => ['@id' => url('/').'#organization']])
+            ->withPageType('AboutPage', ['name' => 'About AIPolicyTracker', 'mainEntity' => ['@id' => url('/').'#organization']])
             ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]], $faq)]);
 
         return view('site.pages.about', ['seo' => $seo, 'maintainers' => config('aipolicytracker.maintainers'), 'contacts' => config('aipolicytracker.contact_emails'), 'organization' => config('aipolicytracker.organization'), 'references' => config('aipolicytracker.references'), 'faq' => $faq]);

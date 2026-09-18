@@ -30,7 +30,8 @@ class CoverageController extends Controller
             'Coverage: what every published record carries, and what it is missing',
             'What a published AI policy record must carry to be checkable, how many records carry it today, and exactly which ones do not. The same check runs on every data change.',
             route('coverage')
-        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Coverage', route('coverage')]]);
+        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Coverage', route('coverage')]])
+            ->withPageType('CollectionPage');
 
         return view('site.pages.coverage', compact('seo', 'report'));
     }
@@ -50,7 +51,8 @@ class CoverageController extends Controller
             'Gaps: the open queue of records missing something',
             'Every published record that is missing a source link, a summary, a provision reference or another field a checkable record needs. Each one links to the form that fixes it.',
             route('gaps')
-        )->withBreadcrumbs([['Home', route('home')], ['Coverage', route('coverage')], ['Gaps', route('gaps')]]);
+        )->withBreadcrumbs([['Home', route('home')], ['Coverage', route('coverage')], ['Gaps', route('gaps')]])
+            ->withPageType('CollectionPage');
         // A filtered queue is one view of the same records, so only the unfiltered page is indexed.
         if ($kind || $check) {
             $seo->noindex();
