@@ -68,6 +68,7 @@ class PolicyController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')], [$name, $policy->url()]])
             ->withModified($policy->updated_at)
             ->withOgType('article')
+            ->withCard('policy', $policy->slug, $policy->updated_at)
             // Merged into the page's own node rather than written as a second one, so
             // it carries the identifier, breadcrumb, language and publisher every page
             // node gets instead of a thinner hand-made copy.

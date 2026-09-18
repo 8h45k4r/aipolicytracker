@@ -26,9 +26,12 @@ class PublicSiteTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
         foreach ([
-            '<meta property="og:image" content="'.url(config('aipolicytracker.default_og_image')).'">',
+            // The homepage now points at a card drawn from the corpus rather than
+            // the static file, whose counts had gone stale inside the image.
+            '<meta property="og:image" content="'.route('social.card', ['kind' => 'site', 'slug' => 'default']),
             '<meta property="og:image:width" content="1200">',
             '<meta property="og:image:height" content="630">',
+            '<meta property="og:image:type" content="image/png">',
             '<meta name="twitter:card" content="summary_large_image">',
         ] as $tag) {
             $this->assertStringContainsString($tag, $html);
@@ -36,11 +39,17 @@ class PublicSiteTest extends TestCase
         $this->assertStringContainsString('og:image:alt', $html);
         $this->assertStringContainsString('regulatory intelligence layer for AI governance', $html);
 
-        // The declared size describes the file that is actually served.
-        $file = public_path(ltrim(config('aipolicytracker.default_og_image'), '/'));
-        $this->assertFileExists($file);
-        [$width, $height] = getimagesize($file);
-        $this->assertSame([(int) config('aipolicytracker.default_og_image_width'), (int) config('aipolicytracker.default_og_image_height')], [$width, $height], 'og:image dimensions must match the file in public/');
+        // The declared size describes the image that is actually served, whether
+        // that is a drawn card or the static file the site falls back to.
+        if (app(\App\Services\Social\SocialCard::class)->available()) {
+            $bytes = $this->get(route('social.card', ['kind' => 'site', 'slug' => 'default']))->assertOk()->getContent();
+            [$width, $height] = getimagesizefromstring($bytes);
+        } else {
+            $file = public_path(ltrim(config('aipolicytracker.default_og_image'), '/'));
+            $this->assertFileExists($file);
+            [$width, $height] = getimagesize($file);
+        }
+        $this->assertSame([(int) config('social.width'), (int) config('social.height')], [$width, $height], 'the declared og:image size must match the image served');
     }
 
     public function test_homepage_renders_product_positioning_without_javascript(): void
