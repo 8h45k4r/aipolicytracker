@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Fixed
+- Two documents still credited Dependabot with keeping dependencies updated, which stopped being true when its configuration was removed. A security policy that claims a control the repository does not run is worse than one that claims nothing, so `SECURITY.md` and the compliance map now describe what actually happens: CodeQL on every pull request and weekly, dependency updates made through the release process, and `npm audit` and `composer audit` recorded in each change. Whether GitHub raises advisory alerts is named as a repository setting rather than asserted as a fact about the code.
+
+### Fixed
 - The image every page showed when it was shared had counts painted into it, and they had stopped being true: it read "117 jurisdictions · 182 instruments" against a corpus of 212 and 186. A number inside a PNG cannot be kept current, and nothing in the system could tell that it had drifted, which on a site whose argument is that its figures can be trusted is the worst place to carry a stale one. Preview cards are now drawn from the record: a policy card shows its real title, jurisdiction, instrument type, whether it binds anybody, and whether a person has verified it, and the site-wide card reads its figures from the database at render time. Each card's URL carries a token derived from the record, because a platform caches a preview against its URL and will otherwise keep showing an old title after an edit. Cards are drawn once and kept on disk. Where a host has no TrueType font the site serves exactly the image it served before rather than a broken one, and `php artisan social:doctor` reports which face resolved on a given host.
 
 ### Added
