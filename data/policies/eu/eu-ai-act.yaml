@@ -52,8 +52,12 @@ published_on: 2024-07-12
 in_force_on: 2024-08-01
 applies_from: 2026-08-02
 date_notes: >
-  "applies_from" shows the general application date in Article 113. Earlier and later dates apply to specific
-  chapters; see the deadlines table.
+  "applies_from" shows the general application date in Article 113 of the adopted text. Earlier and later dates
+  apply to specific chapters; see the deadlines table. NOT CURRENT: secondary reporting indicates that Article 113
+  was amended during 2026 and that the high-risk application dates moved, which would make the 2026-08-02 and
+  2027-08-02 entries below wrong. The amending act has not been read against the Official Journal by a reviewer
+  here, so no date has been changed: this record is marked needs_update and its confidence lowered rather than
+  restated from second-hand sources. Open the official source before relying on any date on this page.
 actors: [provider, deployer, importer, distributor, authorized_representative, public_authority, gpai_provider]
 ai_system_types: [general_purpose_ai_model, generative_ai, automated_decision_system, biometric_system, safety_component, conversational_agent, predictive_scoring]
 sectors: [cross_sector, employment, financial_services, healthcare, education, public_services, law_enforcement, critical_infrastructure, migration_border]
@@ -609,8 +613,8 @@ deadlines:
   - { title: Entry into force, due_on: 2024-08-01, date_precision: exact, description: "Twentieth day after publication in the Official Journal.", source_reference: "Article 113", deadline_status: passed, confidence_level: high }
   - { title: "Prohibited practices and AI literacy apply (Chapters I and II)", due_on: 2025-02-02, date_precision: exact, description: "Article 5 bans and Article 4 literacy duties apply.", source_reference: "Article 113(a)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-prohibited-practices }
   - { title: "General-purpose AI, governance, notified bodies and penalties apply", due_on: 2025-08-02, date_precision: exact, description: "Chapter V (GPAI models), Chapter III Section 4, Chapter VII, Chapter XII (except Article 101) and Article 78 apply.", source_reference: "Article 113(b)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-gpai-provider-obligations }
-  - { title: "General application, including Annex III high-risk systems and Article 50 transparency", due_on: 2026-08-02, date_precision: exact, description: "Default application date for the remainder of the Regulation, as set in the adopted text. Subject to any adopted amendment from the 2025 Digital Omnibus proposal, which a reviewer must confirm.", source_reference: "Article 113", deadline_status: scheduled, confidence_level: medium, obligation: eu-ai-act-risk-management-system }
-  - { title: "High-risk AI as safety components of Annex I products", due_on: 2027-08-02, date_precision: exact, description: "Article 6(1) obligations for AI in products covered by Annex I harmonisation legislation.", source_reference: "Article 113(c)", deadline_status: scheduled, confidence_level: high }
+  - { title: "General application, including Annex III high-risk systems and Article 50 transparency", due_on: 2026-08-02, date_precision: exact, description: "Default application date for the remainder of the Regulation, as set in the adopted text. Secondary reporting indicates Article 113 was amended during 2026 and that this date moved for Annex III high-risk systems; unconfirmed against the Official Journal, so the adopted-text date is shown with low confidence rather than replaced. Check the official source.", source_reference: "Article 113", deadline_status: scheduled, confidence_level: low, obligation: eu-ai-act-risk-management-system }
+  - { title: "High-risk AI as safety components of Annex I products", due_on: 2027-08-02, date_precision: exact, description: "Article 6(1) obligations for AI in products covered by Annex I harmonisation legislation. Secondary reporting indicates this date moved under a 2026 amendment to Article 113; unconfirmed against the Official Journal, so the adopted-text date is shown with low confidence rather than replaced. Check the official source.", source_reference: "Article 113(c)", deadline_status: scheduled, confidence_level: low }
   - { title: "General-purpose models placed on the market before 2 August 2025 must comply", due_on: 2027-08-02, date_precision: exact, description: "Transitional period for models already on the market.", source_reference: "Article 111(3)", deadline_status: scheduled, confidence_level: medium }
   - { title: "Large-scale IT systems listed in Annex X placed on the market before 2 August 2027", due_on: 2030-12-31, date_precision: exact, description: "Transitional period for certain EU large-scale IT systems in the area of freedom, security and justice.", source_reference: "Article 111(1)", deadline_status: scheduled, confidence_level: medium }
 procurement_rules:
@@ -662,8 +666,8 @@ source_reference: "OJ L, 2024/1689, 12.7.2024"
 source_tier: 1
 last_checked_at: null
 last_verified_at: null
-review_status: pending_review
-confidence_level: high
+review_status: needs_update
+confidence_level: low
 content_version: 1
 change_summary: Initial structured record from the adopted text; Digital Omnibus adjustments not yet reflected.
 reviewed_by: null
