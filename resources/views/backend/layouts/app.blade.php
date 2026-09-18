@@ -23,6 +23,8 @@
             ['backend.admin.tools.index', 'Tool library'],
             ['backend.admin.billing.index', 'Billing'],
             ['backend.admin.settings', 'Settings and API keys'],
+            ['backend.admin.audit', 'Audit log'],
+            ['admin.two-factor.recovery', 'Authenticator'],
         ])
         <nav class="mt-4 space-y-1 text-sm" aria-label="Admin">
             @foreach($nav as [$r, $label])
