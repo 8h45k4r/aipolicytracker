@@ -38,7 +38,12 @@ jobs:
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
-          php artisan optimize:clear
+          # Clear them again before the suite, or the tests run against cached config and
+          # routes rather than their own environment. Targeted clears only: optimize:clear
+          # also runs cache:clear, which needs the database, and there is none here yet.
+          php artisan config:clear
+          php artisan route:clear
+          php artisan view:clear
 
       - name: Run tests
         run: composer test
