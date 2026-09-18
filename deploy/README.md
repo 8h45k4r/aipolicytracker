@@ -18,6 +18,36 @@ to change, the step says stop and ask.
 
 ## Before the first deploy
 
+### 0. Survey the host before you put anything on it
+
+```bash
+bash deploy/audit-server.sh 2>&1 | tee /root/audit-$(date +%F).txt
+```
+
+Read-only. It installs nothing, starts nothing and edits nothing, so it is safe
+on a host that is serving live traffic. It prints no secret values: environment
+files are listed by key name only, database passwords are never read, and public
+keys appear as fingerprints. The file it produces is still a map of the machine,
+so keep it off shared storage.
+
+Run it first because two things have to be settled before a second site goes on
+this box:
+
+1. **The egress anomaly.** Section 6 shows every established outbound
+   connection with the process holding it, those connections grouped by remote
+   address, and any listening or connecting binary that no package owns. That is
+   normally enough to name the cause. Section 13 is the corroborating check:
+   modified package files, `ld.so.preload`, setuid binaries in unusual places,
+   executables under `/tmp`, and anything in `/etc` changed in the last two
+   weeks.
+2. **Whether there is room.** Sections 1 and 15 give memory, swap and free disk.
+   This site needs roughly 300 MB with the pool settings in
+   `php-fpm-aip.conf`.
+
+If section 6 shows outbound traffic you cannot account for, or section 13 shows
+modified package files or a present `ld.so.preload`, stop. Do not deploy onto
+it. Rebuild the host instead — the migration is the cheap moment to do that.
+
 ### 1. The single most important step
 
 **Copy `APP_KEY` from Azure into `shared/.env`. Do not generate a new one.**
