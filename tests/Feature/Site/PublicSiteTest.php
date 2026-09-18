@@ -213,7 +213,7 @@ class PublicSiteTest extends TestCase
         $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', [])->assertSessionHasErrors('terms');
         $this->assertSame(0, \App\Models\ResourceDownload::count());
         \Illuminate\Support\Facades\Mail::fake();
-        $response = $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1, 'updates' => 1]);
+        $response = $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1, 'updates' => 1, 'name' => $user->name, 'organization_name' => 'Example Ltd']);
         \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\DownloadLinksMail::class, fn ($m) => $m->hasTo($user->email) && str_contains($m->render(), 'Download XLSX'));
         $this->assertSame(1, \App\Models\PageView::where('path', '/guides/tools/ai-system-inventory-template')->sum('views'), 'tool page view counted once');
         $download = \App\Models\ResourceDownload::first();
