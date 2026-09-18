@@ -81,7 +81,15 @@ class PublicSiteTest extends TestCase
             ->assertSee('Informational only, not legal advice')
             ->assertSee('<link rel="canonical" href="'.url('/policies/eu-ai-act').'"', false)
             ->assertSee('"@type":"BreadcrumbList"', false);
-        $this->get('/policies/eu-ai-act.json')->assertOk()->assertJsonPath('slug', 'eu-ai-act')->assertJsonPath('source.review_status', 'pending_review');
+        // The verification state is asserted against the record rather than a literal. Pinning
+        // it to a string made an editorial decision -- moving a record to needs_update after its
+        // dates came into question -- fail a metadata test that has nothing to do with it. The
+        // point here is that the JSON exposes the record's real review state, whatever it is.
+        $policy = \App\Models\PolicyInstrument::where('slug', 'eu-ai-act')->firstOrFail();
+        $this->get('/policies/eu-ai-act.json')->assertOk()
+            ->assertJsonPath('slug', 'eu-ai-act')
+            ->assertJsonPath('source.review_status', $policy->review_status);
+        $this->assertContains($policy->review_status, ['draft', 'pending_review', 'verified', 'needs_update']);
     }
 
     public function test_titles_are_unique_across_key_pages(): void
