@@ -29,6 +29,11 @@
                 @auth
                 <h2 id="dl-heading" class="section-title">Download free {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }}</h2>
                 <form method="post" action="{{ route('tools.download', $tool->slug) }}" class="mt-3 space-y-3 text-sm">@csrf
+                    <p class="meta">Downloading as {{ auth()->user()->email }}. Confirm who this is for; we keep it with the download record so we can tell you when the template changes.</p>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div><label for="dl-name" class="label">Your name</label><input id="dl-name" name="name" value="{{ old('name', auth()->user()->name) }}" required maxlength="120" autocomplete="name" class="input">@error('name')<p class="mt-1 text-xs text-state-bad">{{ $message }}</p>@enderror</div>
+                        <div><label for="dl-org" class="label">Organisation</label><input id="dl-org" name="organization_name" value="{{ old('organization_name', auth()->user()->organization_name) }}" required maxlength="190" autocomplete="organization" placeholder="Company, agency, university or self" class="input">@error('organization_name')<p class="mt-1 text-xs text-state-bad">{{ $message }}</p>@enderror</div>
+                    </div>
                     <label class="flex items-start gap-2"><input type="checkbox" name="terms" value="1" required class="mt-1 rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy"><span>I accept the template licence: {{ config('resources.license') }}</span></label>
                     @error('terms')<p class="text-xs text-state-bad">{{ $message }}</p>@enderror
                     <label class="flex items-start gap-2"><input type="checkbox" name="updates" value="1" class="mt-1 rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy" @checked(auth()->user()->marketing_consent_at)><span>Email me when a related AI policy requirement changes (optional; unsubscribe any time).</span></label>

@@ -66,9 +66,24 @@ class FreeToolController extends Controller
     {
         $tool = $this->tool($slug);
         abort_if($tool->activeFiles->isEmpty(), 404);
-        $data = $request->validate(['terms' => ['accepted'], 'updates' => ['nullable', 'boolean']], ['terms.accepted' => 'Please accept the template licence to download.']);
+        // Name and organisation are taken at the point of download, not only at sign-up,
+        // because sign-up left organisation optional and a download record without one is
+        // a lead nobody can act on. The account keeps whatever the reader confirms here.
+        $data = $request->validate([
+            'terms' => ['accepted'],
+            'updates' => ['nullable', 'boolean'],
+            'name' => ['required', 'string', 'max:120'],
+            'organization_name' => ['required', 'string', 'max:190'],
+        ], [
+            'terms.accepted' => 'Please accept the template licence to download.',
+            'organization_name.required' => 'Please tell us the organisation this download is for.',
+        ]);
         $user = $request->user();
-        $user->forceFill(['terms_accepted_at' => $user->terms_accepted_at ?? now()]);
+        $user->forceFill([
+            'terms_accepted_at' => $user->terms_accepted_at ?? now(),
+            'name' => trim($data['name']),
+            'organization_name' => trim($data['organization_name']),
+        ]);
         if (! empty($data['updates']) && ! $user->marketing_consent_at) {
             $user->marketing_consent_at = now();
         }
