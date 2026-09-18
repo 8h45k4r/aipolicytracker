@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Admin security: every admin session now proves a time-based one-time code as well as a password, enrolment is mandatory before any backend route answers, and the actions that change secrets or remove things (settings save, billing provisioning, tool and file deletion, recovery-code regeneration) require a freshly confirmed password. The authenticator secret and the eight single-use recovery codes are encrypted at rest and never serialised; the enrolment page shows the key as text and an `otpauth://` link rather than sending it to a third-party QR service. `php artisan admin:two-factor-reset` is the operator escape hatch for a lost device. A new audit log records every state-changing admin request — who, route, record, status, hashed IP, never request bodies — and is published at Admin → Audit log. RFC 6238 is implemented in-repo with the specification's own test vectors in the suite, rather than adding a dependency.
+
 ### Changed
 - Free-tool downloads now confirm the reader's name and organisation at the point of download and keep both on the account, and registration requires an organisation when the reader arrived at a template's download gate. A template download is a lead, and sign-up had left the organisation optional, so download records existed that nobody could follow up. Admin → Downloads gains a second export with one row per download (date, tool, version, name, email, organisation, sign-up source, consent, referrer) beside the existing per-user export.
 
