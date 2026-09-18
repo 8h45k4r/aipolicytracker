@@ -283,6 +283,98 @@
         img.src = url;
     });
 
+    // Jurisdiction picker: reveal the type-ahead and the chip row, keep both in step
+    // with the checkboxes, and warn when a capped picker is over its limit. Everything
+    // here is enhancement: the checkboxes submit on their own if this never runs.
+    document.querySelectorAll('[data-jurisdiction-picker]').forEach(function (picker) {
+        var searchWrap = picker.querySelector('[data-picker-search-wrap]');
+        var search = picker.querySelector('[data-picker-search]');
+        var summary = picker.querySelector('[data-picker-summary]');
+        var chips = picker.querySelector('[data-picker-chips]');
+        var countEl = picker.querySelector('[data-picker-count]');
+        var limitEl = picker.querySelector('[data-picker-limit]');
+        var emptyEl = picker.querySelector('[data-picker-empty]');
+        var max = parseInt(picker.getAttribute('data-max') || '0', 10);
+        var boxes = Array.prototype.slice.call(picker.querySelectorAll('input[type=checkbox]'));
+        if (!boxes.length) { return; }
+
+        if (searchWrap) { searchWrap.hidden = false; }
+        if (summary) { summary.hidden = false; }
+
+        function checked() { return boxes.filter(function (b) { return b.checked; }); }
+
+        function label(box) {
+            var span = box.parentNode.querySelector('span');
+            return span ? span.textContent.trim() : box.value;
+        }
+
+        function paint() {
+            var on = checked();
+            if (countEl) { countEl.textContent = String(on.length); }
+            if (limitEl) { limitEl.hidden = !(max && on.length > max); }
+            if (chips) {
+                chips.innerHTML = '';
+                on.forEach(function (box) {
+                    var li = document.createElement('li');
+                    var btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'chip !min-h-0 !py-1 inline-flex items-center gap-1';
+                    btn.setAttribute('data-picker-remove', box.value);
+                    btn.appendChild(document.createTextNode(label(box)));
+                    var x = document.createElement('span');
+                    x.setAttribute('aria-hidden', 'true');
+                    x.textContent = '\u00d7';
+                    btn.appendChild(x);
+                    var sr = document.createElement('span');
+                    sr.className = 'sr-only';
+                    sr.textContent = 'Remove ' + label(box);
+                    btn.appendChild(sr);
+                    li.appendChild(btn);
+                    chips.appendChild(li);
+                });
+            }
+            picker.querySelectorAll('[data-picker-group]').forEach(function (group) {
+                var n = group.querySelectorAll('input[type=checkbox]:checked').length;
+                var out = group.querySelector('[data-picker-group-count]');
+                if (out) { out.textContent = n ? n + ' selected' : ''; }
+            });
+        }
+
+        picker.addEventListener('change', function (e) {
+            if (e.target && e.target.type === 'checkbox') { paint(); }
+        });
+
+        picker.addEventListener('click', function (e) {
+            var remove = e.target.closest('[data-picker-remove]');
+            if (!remove) { return; }
+            e.preventDefault();
+            var box = boxes.filter(function (b) { return b.value === remove.getAttribute('data-picker-remove'); })[0];
+            if (box) { box.checked = false; paint(); box.focus(); }
+        });
+
+        if (search) {
+            search.addEventListener('input', function () {
+                var term = search.value.trim().toLowerCase();
+                var anyVisible = false;
+                picker.querySelectorAll('[data-picker-group]').forEach(function (group) {
+                    var shown = 0;
+                    group.querySelectorAll('[data-picker-option]').forEach(function (opt) {
+                        var hit = !term || opt.getAttribute('data-picker-label').indexOf(term) !== -1;
+                        opt.hidden = !hit;
+                        if (hit) { shown++; }
+                    });
+                    group.hidden = shown === 0;
+                    // Open every group while filtering so matches are not hidden behind a closed heading.
+                    if (term && shown) { group.open = true; }
+                    if (shown) { anyVisible = true; }
+                });
+                if (emptyEl) { emptyEl.hidden = anyVisible; }
+            });
+        }
+
+        paint();
+    });
+
     // Auto-submit filter selects on desktop (forms still submit normally).
     document.querySelectorAll('form[data-autosubmit] select').forEach(function (sel) {
         sel.addEventListener('change', function () {
