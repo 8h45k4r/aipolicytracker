@@ -26,7 +26,15 @@ class CompareController extends Controller
             'Compare 2 to 4 jurisdictions side by side: regulatory status, binding legislation, high-risk and generative-AI rules, transparency, impact assessment, data governance, oversight, public-sector rules, dates and official sources.',
             route('compare.index'),
             $jurisdictions->isEmpty()
-        )->withBreadcrumbs([['Home', route('home')], ['Compare', route('compare.index')]]);
+        )->withBreadcrumbs([['Home', route('home')], ['Compare', route('compare.index')]])
+            ->withPageType('CollectionPage', [
+                'mainEntity' => Seo::itemList(
+                    $curated,
+                    fn ($c) => is_array($c) ? ($c['title'] ?? $c['short'] ?? '') : (string) $c,
+                    fn ($c, $k = null) => is_array($c) && isset($c['slug']) ? route('compare.show', $c['slug']) : null,
+                    'Prepared jurisdiction comparisons',
+                ),
+            ]);
 
         return view('site.compare.index', compact('seo', 'all', 'jurisdictions', 'rows', 'curated', 'selected'));
     }
@@ -43,7 +51,7 @@ class CompareController extends Controller
         $seo = Seo::make($config['title'], $config['description'], route('compare.show', $comparison))
             ->withBreadcrumbs([['Home', route('home')], ['Compare', route('compare.index')], [$config['short'], route('compare.show', $comparison)]])
             ->withModified($lastModified)
-            ->withJsonLd(['@type' => 'WebPage', 'name' => $config['title'], 'url' => route('compare.show', $comparison), 'dateModified' => $lastModified?->toIso8601String(), 'isPartOf' => ['@id' => url('/').'#website']]);
+            ->withPageType('CollectionPage', ['name' => $config['title']]);
         if (! empty($config['faq'])) {
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($config['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }

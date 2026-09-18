@@ -107,13 +107,16 @@ class RiskBrowseController extends Controller
             mb_substr(($i->description ?: $i->title).' Dated '.$i->occurred_on->format('j F Y').'; '.$i->report_count.' reports on the AI Incident Database.', 0, 155),
             route('risk.incidents.show', $i->incident_id)
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Incidents', route('risk.incidents.browse')], ['#'.$i->incident_id, route('risk.incidents.show', $i->incident_id)]])
-          ->withModified($i->modified_at ?? $i->snapshot_date)
-          ->withJsonLd([
-              '@context' => 'https://schema.org', '@type' => 'Article', 'headline' => 'AI incident #'.$i->incident_id.': '.$i->title,
-              'datePublished' => $i->occurred_on->toDateString(), 'dateModified' => ($i->modified_at ?? $i->snapshot_date)?->toDateString(),
-              'isBasedOn' => $i->citeUrl(), 'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
-              'publisher' => Seo::organization(), 'about' => array_filter([$i->mit_domain, $i->mit_subdomain]),
-          ]);
+            ->withModified($i->modified_at ?? $i->snapshot_date)
+            ->withPageType('Article', [
+                'headline' => 'AI incident #'.$i->incident_id.': '.$i->title,
+                'datePublished' => $i->occurred_on->toDateString(),
+                // This record is the AI Incident Database's, under its own licence,
+                // which is not the licence the rest of this site publishes under.
+                'isBasedOn' => $i->citeUrl(),
+                'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
+                'about' => array_values(array_filter([$i->mit_domain, $i->mit_subdomain])),
+            ]);
 
         return view('site.risk.incident-show', compact('i', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
     }
@@ -141,10 +144,10 @@ class RiskBrowseController extends Controller
             mb_substr(($r->description ?: 'Risk entry from '.$r->paper_title).' Coded as '.implode(', ', array_filter([$r->entity, $r->intent, $r->timing])).' in the MIT AI Risk Repository.', 0, 155),
             route('risk.risks.show', $ev)
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Risk entries', route('risk.risks')], [$r->ev_id, route('risk.risks.show', $ev)]])
-          ->withJsonLd([
-              '@context' => 'https://schema.org', '@type' => 'DefinedTerm', 'name' => $r->risk_subcategory ?: $r->risk_category, 'description' => $r->description,
-              'identifier' => $r->ev_id, 'inDefinedTermSet' => 'https://airisk.mit.edu/', 'license' => 'https://creativecommons.org/licenses/by/4.0/',
-          ]);
+            ->withJsonLd([
+                '@context' => 'https://schema.org', '@type' => 'DefinedTerm', 'name' => $r->risk_subcategory ?: $r->risk_category, 'description' => $r->description,
+                'identifier' => $r->ev_id, 'inDefinedTermSet' => 'https://airisk.mit.edu/', 'license' => 'https://creativecommons.org/licenses/by/4.0/',
+            ]);
 
         return view('site.risk.risk-show', compact('r', 'ev', 'domain', 'subdomainMeta', 'siblings', 'peers', 'incidents', 'paper', 'seo', 'labels'));
     }

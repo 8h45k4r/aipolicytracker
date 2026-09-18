@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 
 /**
  * llms.txt, llms-full.txt and the OpenAPI document for the public API.
- * These are discoverability aids for AI assistants and crawlers; they do not
+ * These are discoverability aids for answer engines and crawlers; they do not
  * guarantee citation or ranking.
  */
 class MachineReadableController extends Controller

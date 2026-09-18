@@ -35,16 +35,13 @@ class PolicyController extends Controller
 
         $seo = Seo::make($title, $description, $catalog->canonicalFor(route('policies.index'), $filters).($policies->currentPage() > 1 && $indexable ? '?page='.$policies->currentPage() : ''), $indexable || ($policies->currentPage() > 1 && $catalog->isIndexableFilterSet($filters)))
             ->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')]])
-            ->withJsonLd([
-                '@type' => 'CollectionPage',
+            ->withPageType('CollectionPage', [
                 'name' => $title,
-                'url' => route('policies.index'),
-                'isPartOf' => ['@id' => url('/').'#website'],
-                'mainEntity' => [
-                    '@type' => 'ItemList',
-                    'numberOfItems' => $policies->total(),
-                    'itemListElement' => $policies->getCollection()->values()->map(fn ($p, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $p->title, 'url' => $p->url()])->all(),
-                ],
+                // The list states what this page lists. The size of the whole
+                // collection is a separate claim, because a list that says 186 and
+                // shows 20 is describing something it is not.
+                'mainEntity' => Seo::itemList($policies->getCollection(), fn ($p) => $p->title, fn ($p) => $p->url(), 'AI policy instruments'),
+                'isBasedOn' => route('open-data.download'),
             ]);
 
         return view('site.policies.index', compact('seo', 'policies', 'filters', 'options'));
@@ -71,12 +68,11 @@ class PolicyController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')], [$name, $policy->url()]])
             ->withModified($policy->updated_at)
             ->withOgType('article')
-            ->withJsonLd([
-                '@type' => 'WebPage',
+            // Merged into the page's own node rather than written as a second one, so
+            // it carries the identifier, breadcrumb, language and publisher every page
+            // node gets instead of a thinner hand-made copy.
+            ->withPageProperties([
                 'name' => $name.': requirements, deadlines and compliance actions',
-                'url' => $policy->url(),
-                'dateModified' => $policy->updated_at?->toIso8601String(),
-                'isPartOf' => ['@id' => url('/').'#website'],
                 'about' => [
                     '@type' => 'Legislation',
                     'name' => $policy->title,
@@ -86,7 +82,18 @@ class PolicyController extends Controller
                     'datePublished' => $policy->published_on?->toDateString(),
                 ],
                 'citation' => $policy->sourceDocuments->map(fn ($s) => ['@type' => 'CreativeWork', 'name' => $s->title, 'url' => $s->url, 'publisher' => $s->publisher])->values()->all(),
-            ]);
+            ])
+            // The record behind the page, with the files that actually serve it. This is
+            // the claim worth making to an answer engine: not prose about a law, but a
+            // structured record at a stable URL under a licence that permits reuse.
+            ->withJsonLd(Seo::dataset(
+                $name,
+                $policy->summary_plain ? \Illuminate\Support\Str::limit(preg_replace('/\s+/', ' ', $policy->summary_plain), 300) : $name,
+                $policy->url(),
+                ['application/json' => route('policies.json', $policy->slug), 'text/markdown' => route('policies.context', $policy->slug)],
+                $policy->updated_at,
+                $policy->source_reference ?: null,
+            ));
         // A binding instrument is described as Legislation as well as a page, so an answer
         // engine is told its jurisdiction, type, dates and — the part most often got wrong —
         // whether it is actually in force. Non-binding instruments get no such claim.

@@ -24,7 +24,8 @@ class ReviewersController extends Controller
             'Reviewers: who checks the records, and what they have declared',
             'The people who verify AI policy records against official sources, the interests each of them has declared, and how many records each has actually verified.',
             route('reviewers')
-        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Reviewers', route('reviewers')]]);
+        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Reviewers', route('reviewers')]])
+            ->withPageType('CollectionPage');
 
         return view('site.pages.reviewers', [
             'seo' => $seo,

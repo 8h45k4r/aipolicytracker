@@ -32,7 +32,10 @@
     <meta name="theme-color" content="#002147">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
-    @foreach($seo->jsonLd as $schema)
+    {{-- The shared Organization and WebSite nodes are emitted on every page, not
+         only the homepage, so the `@id` references on a record page resolve when
+         that page is fetched on its own — which is how an answer engine reads it. --}}
+    @foreach($seo->jsonLdBlocks() as $schema)
     <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
     @endforeach
     @vite(['resources/css/public.css', 'resources/js/public.js'])
