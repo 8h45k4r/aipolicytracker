@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Notifications\CustomVerifyEmailNotification;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Carbon\Carbon;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -34,6 +34,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
     ];
 
     /**
@@ -48,6 +50,12 @@ class User extends Authenticatable implements MustVerifyEmail
             'terms_accepted_at' => 'datetime',
             'marketing_consent_at' => 'datetime',
             'password' => 'hashed',
+            // Encrypted at rest: the authenticator secret is equivalent to a second password,
+            // and the recovery codes (already bcrypt-hashed) are wrapped again so a database
+            // dump alone reveals neither.
+            'two_factor_secret' => 'encrypted',
+            'two_factor_recovery_codes' => 'encrypted:array',
+            'two_factor_confirmed_at' => 'datetime',
         ];
     }
 
@@ -63,9 +71,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new CustomVerifyEmailNotification());
+        $this->notify(new CustomVerifyEmailNotification);
     }
-
 
     /**
      * Whether this user may access the admin area (configured via ADMIN_EMAILS).
@@ -116,6 +123,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function entitled(string $capability): bool
     {
         return app(\App\Services\Billing\Entitlements::class)->allows($this, $capability);
+    }
+
+    /** An admin who has scanned a secret and proved one code from it. */
+    public function hasTwoFactorEnabled(): bool
+    {
+        return $this->two_factor_secret !== null && $this->two_factor_confirmed_at !== null;
     }
 
     public function isAdmin(): bool

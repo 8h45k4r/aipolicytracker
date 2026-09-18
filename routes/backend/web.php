@@ -1,13 +1,22 @@
 <?php
-use App\Http\Controllers\Backend\AiPolicyTrackerController;
-use App\Http\Controllers\Backend\CMS\HeaderMenuController;
-use App\Http\Controllers\Backend\CountryController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\NewsController;
-use App\Http\Controllers\Backend\UserController;
+
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
+// Second-factor enrolment and challenge. Reachable by an admin who has not yet passed the
+// factor, which is why these sit outside the gated groups below; still audited.
+Route::middleware(['auth', 'isAdmin', 'admin.audit'])->prefix('backend/security')->as('admin.two-factor.')->controller(\App\Http\Controllers\Backend\Security\TwoFactorController::class)->group(function () {
+    Route::get('/enrol', 'enrol')->name('enrol');
+    Route::post('/enrol', 'confirm')->middleware('throttle:10,1')->name('confirm');
+    Route::get('/challenge', 'challenge')->name('challenge');
+    Route::post('/challenge', 'verify')->middleware('throttle:5,1')->name('verify');
+});
+// Recovery codes are shown once and regenerated only behind a fresh password.
+Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('backend/security')->as('admin.two-factor.')->controller(\App\Http\Controllers\Backend\Security\TwoFactorController::class)->group(function () {
+    Route::get('/recovery-codes', 'recovery')->name('recovery');
+    Route::post('/recovery-codes', 'regenerate')->middleware('password.confirm')->name('regenerate');
+});
+
+Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(function () {
     // Admin (Blade).
     Route::get('/backend/dashboard', [\App\Http\Controllers\Backend\Admin\AdminController::class, 'dashboard'])->name('dashboard');
     Route::prefix('backend/admin')->as('backend.admin.')->controller(\App\Http\Controllers\Backend\Admin\AdminController::class)->group(function () {
@@ -22,14 +31,15 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/downloads', 'downloads')->name('downloads');
         Route::get('/downloads/export', 'downloadsExport')->name('downloads.export');
         Route::get('/settings', 'settings')->name('settings');
-        Route::post('/settings', 'settingsSave')->name('settings.save');
+        Route::post('/settings', 'settingsSave')->middleware('password.confirm')->name('settings.save');
+        Route::get('/audit', 'audit')->name('audit');
         Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
     });
     // Billing: subscriptions, received webhooks and provider configuration check.
     Route::prefix('backend/admin/billing')->as('backend.admin.billing.')->controller(\App\Http\Controllers\Backend\Admin\BillingController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/check', 'check')->name('check');
-        Route::post('/provision', 'provision')->name('provision');
+        Route::post('/provision', 'provision')->middleware('password.confirm')->name('provision');
         Route::post('/probe', 'probe')->name('probe');
     });
     // Free-tool library CRUD (tools, files, status).
@@ -39,17 +49,16 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/', 'store')->name('store');
         Route::get('/{tool}/edit', 'edit')->name('edit');
         Route::put('/{tool}', 'update')->name('update');
-        Route::delete('/{tool}', 'destroy')->name('destroy');
+        Route::delete('/{tool}', 'destroy')->middleware('password.confirm')->name('destroy');
         Route::post('/{tool}/files', 'fileStore')->name('files.store');
         Route::post('/{tool}/files/{file}/toggle', 'fileToggle')->name('files.toggle');
-        Route::delete('/{tool}/files/{file}', 'fileDestroy')->name('files.destroy');
+        Route::delete('/{tool}/files/{file}', 'fileDestroy')->middleware('password.confirm')->name('files.destroy');
         Route::get('/{tool}/files/{file}', 'fileDownload')->name('files.download');
     });
 });
 
-
 // Reviewer queue and publishing controls (admin only).
-Route::middleware(['auth', 'isAdmin'])->prefix('backend/review')->as('backend.review.')->group(function () {
+Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('backend/review')->as('backend.review.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'index'])->name('index');
     Route::post('/submissions/{submission}/decide', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'decide'])->name('decide');
     Route::post('/publish/{type}/{slug}', [\App\Http\Controllers\Backend\Review\ReviewController::class, 'publish'])->name('publish');
