@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Rules\NotDisposableEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,13 +33,13 @@ class RegisteredUserController extends Controller
 
         $validate = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class, new NotDisposableEmail],
             'phone_no' => 'nullable|numeric',
             'marketing_consent' => 'nullable|boolean',
             // Required when the reader arrived to download a template: a template download
             // is a lead, and a lead without an organisation cannot be followed up.
             'organization_name' => [\Illuminate\Validation\Rule::requiredIf(fn () => str_contains((string) session('url.intended'), '/guides/tools/')), 'nullable', 'string', 'max:255'],
-            'organization_email' => 'nullable|string|lowercase|email|max:255',
+            'organization_email' => ['nullable', 'string', 'lowercase', 'email', 'max:255', new NotDisposableEmail],
             'password' => [
                 'required',
                 'string',

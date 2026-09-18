@@ -1,0 +1,54 @@
+# Mail exchangers operated by throwaway-inbox services.
+#
+# This is the part that actually works. A throwaway service hands out thousands
+# of rotating domains, but it runs its own mail servers, so every one of those
+# domains points at a handful of exchangers. Blocking the exchanger stops the
+# domains nobody has catalogued yet — including the ones registered tomorrow.
+#
+# Derived by resolving MX records for a random sample of 400 known throwaway
+# domains and keeping only the exchangers that no legitimate sender uses.
+# Shared infrastructure that also served those domains was deliberately left
+# out and must stay out, because real organisations use it: Cloudflare Email
+# Routing (cloudflare.net), Google Workspace (google.com, googlemail.com),
+# Microsoft 365 (outlook.com), Amazon SES (amazonaws.com), Mailgun
+# (mailgun.org), ImprovMX (improvmx.com), Forward Email (forwardemail.net),
+# Zoho (zoho.com) and shared hosting resellers.
+#
+# Matching is by suffix on the exchanger's hostname, so "mailinator.com" covers
+# "mail2.mailinator.com". A false positive here is reported with
+# `php artisan email:check <address>`, which names the exact line that decided.
+# Named services
+mailinator.com
+yopmail.com
+guerrillamail.com
+mail.tm
+moakt.com
+tempm.com
+tempe-mail.com
+emailfake.com
+generator.email
+rejecthost.com
+1secmail.com
+maildrop.cc
+mailsac.com
+trashmail.com
+mailpoof.com
+inboxkitten.com
+# Exchangers that serve throwaway domains and nothing else, by observation
+erinn.biz
+gravityengine.cc
+vietxf.com
+tinyhost.shop
+wabblywabble.com
+wallywatts.com
+casadorock.com
+beavis99.com
+beavis99.net
+oneb.net
+brushemail.com
+mainnetmail.com
+aerospaceemail.com
+patternemail.com
+notboxletters.com
+bumpemail.com
+emailax.pro
