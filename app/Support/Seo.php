@@ -68,6 +68,60 @@ class Seo
         return $this;
     }
 
+    /**
+     * Use the card drawn for this record instead of the site-wide image.
+     *
+     * The version token is part of the URL on purpose. Platforms cache a preview
+     * against its URL and re-fetch only when that changes, so a card whose URL is
+     * fixed keeps showing yesterday's title forever. Anything that moves when the
+     * record moves works; the record's own update time is the obvious one.
+     */
+    public function withCard(string $kind, string $slug, ?\DateTimeInterface $version = null): self
+    {
+        $this->ogImage = route('social.card', ['kind' => $kind, 'slug' => $slug])
+            .'?v='.substr(hash('crc32b', ($version?->format('U') ?? '0').$slug), 0, 8);
+
+        return $this;
+    }
+
+    /**
+     * The preview image for this page: its own card, the site card, or the static
+     * file when cards cannot be drawn.
+     *
+     * The site card is generated too, rather than a file, because the file it
+     * replaces had counts painted into it and had been wrong for months without
+     * anything being able to notice.
+     */
+    public function socialImage(): string
+    {
+        if ($this->ogImage) {
+            return $this->ogImage;
+        }
+
+        if (! config('social.cards', true)) {
+            return url(config('aipolicytracker.default_og_image'));
+        }
+
+        return route('social.card', ['kind' => 'site', 'slug' => 'default']).'?v='.self::corpusVersion();
+    }
+
+    /**
+     * A token that moves when the corpus does, so a platform re-fetches the site
+     * card after an import instead of showing last month's counts.
+     */
+    private static function corpusVersion(): string
+    {
+        try {
+            return \Illuminate\Support\Facades\Cache::remember('seo.corpus-version', 3600, function () {
+                $stamp = \App\Models\PolicyInstrument::query()->published()->max('updated_at');
+
+                return substr(hash('crc32b', (string) $stamp), 0, 8);
+            });
+        } catch (\Throwable) {
+            return '0';
+        }
+    }
+
     /** Describe the page itself more precisely than the default `WebPage`. */
     public function withPageType(string $type, array $properties = []): self
     {

@@ -53,6 +53,7 @@ class JurisdictionController extends Controller
             $jurisdiction->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], [$jurisdiction->name, $jurisdiction->url()]])
             ->withModified($lastModified)
+            ->withCard('jurisdiction', $jurisdiction->slug, $lastModified)
             ->withPageType('CollectionPage', [
                 'name' => 'AI regulation in '.$jurisdiction->nameWithArticle(),
                 'about' => ['@type' => $jurisdiction->jurisdiction_type === 'supranational' ? 'AdministrativeArea' : ($jurisdiction->jurisdiction_type === 'state' ? 'State' : 'Country'), 'name' => $jurisdiction->name],
