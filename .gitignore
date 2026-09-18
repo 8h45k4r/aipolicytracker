@@ -12,6 +12,9 @@
 # Operator overlay of throwaway e-mail domains, written by `email:domains-refresh`.
 # Deliberately untracked: it is somebody else's list under somebody else's licence.
 /storage/app/email/
+# Rendered social preview cards. Generated on demand and keyed by content, so
+# they are disposable: deleting them costs one redraw.
+/storage/app/social-cards/
 /bootstrap/cache/*
 !/bootstrap/cache/.gitignore
 /.phpunit.cache

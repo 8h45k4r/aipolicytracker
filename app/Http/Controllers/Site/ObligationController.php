@@ -53,6 +53,7 @@ class ObligationController extends Controller
             filled($obligation->summary) && $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')], [$obligation->title, $obligation->url()]])
             ->withModified($obligation->updated_at)
+            ->withCard('obligation', $obligation->slug, $obligation->updated_at)
             ->withPageProperties([
                 'name' => $obligation->title,
                 'about' => ['@type' => 'DefinedTerm', 'name' => $categoryName, 'inDefinedTermSet' => route('obligations.index')],

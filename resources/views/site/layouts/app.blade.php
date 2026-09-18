@@ -12,17 +12,19 @@
     <meta property="og:title" content="{{ $seo->title }}">
     <meta property="og:description" content="{{ $seo->description }}">
     <meta property="og:url" content="{{ $seo->canonical }}">
-    <meta property="og:image" content="{{ url($seo->ogImage ?? config('aipolicytracker.default_og_image')) }}">
-    <meta property="og:image:alt" content="{{ config('aipolicytracker.site_name') }}: {{ config('aipolicytracker.positioning') }}">
-    @unless($seo->ogImage)
-    <meta property="og:image:width" content="{{ config('aipolicytracker.default_og_image_width') }}">
-    <meta property="og:image:height" content="{{ config('aipolicytracker.default_og_image_height') }}">
-    @endunless
+    {{-- Cards are drawn at a fixed size, so the dimensions are always known and
+         always declared: a platform that knows them reserves the right box before
+         the image loads instead of reflowing the preview. --}}
+    <meta property="og:image" content="{{ $seo->socialImage() }}">
+    <meta property="og:image:alt" content="{{ $seo->title }} — {{ config('aipolicytracker.site_name') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="{{ config('social.width', config('aipolicytracker.default_og_image_width')) }}">
+    <meta property="og:image:height" content="{{ config('social.height', config('aipolicytracker.default_og_image_height')) }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $seo->title }}">
     <meta name="twitter:description" content="{{ $seo->description }}">
-    <meta name="twitter:image" content="{{ url($seo->ogImage ?? config('aipolicytracker.default_og_image')) }}">
-    <meta name="twitter:image:alt" content="{{ config('aipolicytracker.site_name') }}: {{ config('aipolicytracker.positioning') }}">
+    <meta name="twitter:image" content="{{ $seo->socialImage() }}">
+    <meta name="twitter:image:alt" content="{{ $seo->title }} — {{ config('aipolicytracker.site_name') }}">
     @if($seo->modified)<meta property="article:modified_time" content="{{ $seo->modified->format(DATE_ATOM) }}">@endif
     @if($seo->feedUrl)<link rel="alternate" type="application/rss+xml" title="AI policy changes" href="{{ $seo->feedUrl }}">@endif
     @if(config('aipolicytracker.google_site_verification'))<meta name="google-site-verification" content="{{ config('aipolicytracker.google_site_verification') }}">@endif

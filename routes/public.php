@@ -128,6 +128,13 @@ Route::get('/{landing}', [LandingController::class, 'landing'])
     ->name('landing');
 
 // Machine-readable assets.
+// The image a platform shows when a page is shared, drawn from the record. The
+// `v` query parameter is a version token from the record itself: it is what makes
+// a platform fetch a new card after a retitle, and it is ignored when rendering.
+Route::get('/og/{kind}/{slug}.png', \App\Http\Controllers\Site\SocialCardController::class)
+    ->where(['kind' => 'policy|jurisdiction|obligation|site', 'slug' => '[a-z0-9-]+'])
+    ->name('social.card');
+
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|changes|resources|incidents|risks')->name('sitemap.section');
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');

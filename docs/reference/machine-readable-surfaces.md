@@ -93,6 +93,47 @@ not support would be the same overclaim this project exists to avoid, in machine
 a test compares the claim against the database. `FAQPage` appears only where a record carries
 real questions. Nothing is invented to fill a node.
 
+## Social preview cards
+
+Applied 2026-09-18. `/og/{kind}/{slug}.png` draws the image a platform shows when a page is
+shared. Kinds: `policy`, `jurisdiction`, `obligation`, `site`.
+
+**Why this exists.** Every page shared one static PNG, and that file had counts painted into it:
+it read *117 jurisdictions · 182 instruments* against a corpus of 212 and 186. A number inside an
+image cannot be kept current, and nothing in the system could tell that it had drifted. On a site
+whose argument is that its figures can be trusted, that is the worst place to carry a stale one.
+The site card now reads its figures from the database at render time, so the same drift cannot
+recur.
+
+| Card | Shows |
+|------|-------|
+| `policy` | Title, jurisdiction, instrument type, binding or not, status, and whether a person has verified it |
+| `jurisdiction` | The jurisdiction, how many instruments are recorded for it, or that none is |
+| `obligation` | Whether it is a legal requirement or guidance, the instrument it comes from, the jurisdiction |
+| `site` | The tagline and live corpus counts |
+
+**The version token matters.** Each card URL carries `?v=` derived from the record's own update
+time. Platforms cache a preview against its URL and re-fetch only when it changes, so a card at a
+fixed URL keeps showing an old title forever. Nothing reads the parameter when rendering; its
+only job is to move.
+
+**Fonts are the one external dependency.** The brand faces are served from a font CDN rather than
+vendored, so cards are drawn with whichever system face resolves first, DejaVu by default. If none
+resolves, nothing is drawn and the static image is served, so a host without fonts behaves exactly
+as the site did before rather than serving a broken preview. `php artisan social:doctor` reports
+which face resolved on a given host and writes a sample to look at; `--out=` copies it somewhere
+readable. `SOCIAL_CARDS_ENABLED=false` turns the whole thing off.
+
+**Caching.** Rendered cards are keyed by their content and kept on disk, so a retitled record
+produces a new file rather than needing a cache cleared. They are disposable: deleting them costs
+one redraw. A response is cached for a day, not marked immutable, because the bytes at a path do
+change when a record is retitled — it is the version token in the markup that makes a platform
+fetch the new one.
+
+**A caveat worth stating.** Platforms cache previews hard and on their own schedule. After a
+deploy the old card can persist for days on links already shared; each platform's own debugger
+forces a re-scrape.
+
 ## Sitemaps
 
 Eight sections under `/sitemap.xml`: `static`, `jurisdictions`, `policies`, `obligations`,
@@ -121,6 +162,7 @@ actually served.
 | Flat rows for CSV and NDJSON | `app/Services/MachineReadable/BulkExport.php` |
 | Routing, streaming, schemas, health | `app/Http/Controllers/Site/AgentSurfaceController.php` |
 | Agent server and its test | `agent/server.mjs`, `agent/server.test.mjs`, `agent/README.md` |
+| Social preview cards | `app/Services/Social/SocialCard.php`, `app/Http/Controllers/Site/SocialCardController.php`, `config/social.php`, `php artisan social:doctor` |
 | Page structured data | `app/Support/Seo.php` (`jsonLdBlocks`, `graph`, `dataset`, `itemList`, `legislation`, `howTo`) |
 | Tests | `tests/Feature/MachineReadableSurfacesTest.php`, `tests/Feature/StructuredDataGraphTest.php`, `tests/Feature/StructuredDataAndInterlinksTest.php`, `npm test` |
 
