@@ -10,10 +10,16 @@
 | figures quoted on the site stop describing real people. Work and personal
 | mailboxes are both welcome; an inbox that expires in ten minutes is not.
 |
-| Enforcement is off under `testing` on purpose. Every other suite is about its
-| own subject and uses addresses at RFC 2606 reserved domains, which have no MX
-| record by design and would be refused here. The suite that is about this
-| policy switches it on and supplies its own resolver.
+| Enforcement is off under `testing`, set explicitly in phpunit.xml rather than
+| derived from APP_ENV here. Every other suite is about its own subject and uses
+| addresses at RFC 2606 reserved domains, which have no MX record by design and
+| would be refused. The suite that is about this policy switches it on and
+| supplies its own resolver.
+|
+| Deriving the default from APP_ENV was tried and was wrong: `.env.example` sets
+| this key, CI copies that file to `.env`, and an explicit value in the
+| environment beats any default a config file can express. The test environment
+| must state what it wants, not infer it.
 |
 */
 
@@ -21,7 +27,7 @@ return [
 
     // Master switch. Off means the rule passes everything, so a site can be
     // brought up or an incident contained without editing validation rules.
-    'enforce' => (bool) env('EMAIL_DOMAIN_ENFORCEMENT', env('APP_ENV') !== 'testing'),
+    'enforce' => (bool) env('EMAIL_DOMAIN_ENFORCEMENT', true),
 
     // Look the domain up in DNS and refuse one that cannot receive mail at all.
     // This catches more throwaway traffic than any blocklist: roughly a third of

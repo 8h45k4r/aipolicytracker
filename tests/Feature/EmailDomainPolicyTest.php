@@ -59,6 +59,20 @@ class EmailDomainPolicyTest extends TestCase
         return $this->app->make(EmailDomainPolicy::class);
     }
 
+    public function test_the_suite_at_large_runs_with_the_policy_off(): void
+    {
+        // A regression guard with a history. `.env.example` sets this key, CI copies
+        // that file to `.env`, and an explicit value in the environment beats any
+        // default a config file can express — so four unrelated suites started
+        // failing on RFC 2606 addresses. phpunit.xml now states it. If that is ever
+        // removed, this fails here with the reason rather than there without one.
+        $this->assertFalse(
+            filter_var(env('EMAIL_DOMAIN_ENFORCEMENT'), FILTER_VALIDATE_BOOL),
+            'EMAIL_DOMAIN_ENFORCEMENT must be false for the suite. Set it in phpunit.xml; '
+            .'do not rely on a default in config/email.php, which an environment value overrides.'
+        );
+    }
+
     public function test_a_work_address_is_accepted(): void
     {
         $verdict = $this->policy()->inspect('r.patel@stmarys-trust.nhs.uk');
