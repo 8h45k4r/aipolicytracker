@@ -19,7 +19,9 @@ gap is recorded as debt so it is not quietly forgotten.
 
 ## The checks
 
-Defined in `config/completeness.php`. Each check names one field or relationship, the record
+Defined in `App\Services\Completeness\CompletenessChecks`, which lives in `app/` rather than
+`config/` because the checks carry closures and `php artisan config:cache` cannot serialize a
+closure — and `azure/startup.sh` runs that command on every deploy. Each check names one field or relationship, the record
 kind it applies to, and a severity:
 
 | Severity | Meaning | Gated |
@@ -85,7 +87,9 @@ testimonial, not a record.
 
 | Concern | File |
 |---------|------|
-| The checks and the budget | `config/completeness.php` |
+| The checks (closures; not in config/, which must stay cacheable) | `app/Services/Completeness/CompletenessChecks.php` |
+| The checks | `app/Services/Completeness/CompletenessChecks.php` |
+| Record kinds and the budget | `config/completeness.php` |
 | Applying them to the corpus | `app/Services/Completeness/CompletenessReport.php` |
 | The gate | `app/Console/Commands/CoverageCommand.php` |
 | `/coverage` and `/gaps` | `app/Http/Controllers/Site/CoverageController.php` |
@@ -95,7 +99,7 @@ testimonial, not a record.
 
 ## Adding a check
 
-1. Add it to `config/completeness.php` with a `label`, a `why` a reader will understand, a
+1. Add it to `App\Services\Completeness\CompletenessChecks` with a `label`, a `why` a reader will understand, a
    severity and a `missing` closure. Use `applies` when it does not cover every record of its kind.
 2. Point `field` at a field the correction form accepts for that kind
    (`ContributeController::CORRECTABLE_FIELDS`), or the "Fill this in" link will silently drop it.

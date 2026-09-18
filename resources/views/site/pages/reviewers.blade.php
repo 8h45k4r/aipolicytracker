@@ -14,6 +14,8 @@
         <div class="card-flat p-4"><p class="text-2xl font-semibold {{ $standing['unattributed'] ? 'text-state-warn' : 'text-brand-navy' }}">{{ $standing['unattributed'] ?: '—' }}</p><p class="meta mt-1">Verified by an unlisted name</p></div>
     </div>
 
+    <p class="mt-3 meta">Of those, {{ number_format($standing['attributable']) }} can carry a reviewer's name. Obligations cannot: they record a review status and a date but no reviewer, because an obligation's verification belongs to the instrument it was read out of.</p>
+
     @if($standing['verified'] === 0)
     <p class="mt-4 card-flat p-4 text-sm text-brand-body leading-7"><strong class="text-brand-navy">No record has yet been verified by a named reviewer.</strong> Every published record therefore shows its review status as pending, with its confidence level beside it, and the <a href="{{ route('verification') }}">verification policy</a> counts all of them as overdue. That is the honest state of the corpus and it is published rather than hidden. If you are qualified to check AI policy records against official sources, <a href="{{ route('contribute', ['type' => 'reviewer_application']) }}">volunteer as a reviewer</a>.</p>
     @endif

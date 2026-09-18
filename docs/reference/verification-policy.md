@@ -6,7 +6,9 @@ The dataset's value is that every claim traces to an official source **and** car
 
 ## The rules
 
-Defined in `config/verification.php`. A record is governed by the **first** rule whose `applies` closure matches it, so the order in that file is the policy.
+Defined in `App\Services\Verification\VerificationRuleset`. A record is governed by the **first** rule whose `applies` closure matches it, so the order in that file is the policy.
+
+The rules live in `app/` rather than `config/` because they carry closures and `php artisan config:cache` cannot serialize a closure. `azure/startup.sh` runs that command on every deploy, so a closure in `config/` aborts the container's startup before the data import. Anything in `config/` must stay serializable; a test enforces it.
 
 | Rule | Track | Maximum age | Critical |
 |------|-------|-------------|----------|
@@ -55,7 +57,8 @@ This is a deliberate trade. Publishing the backlog costs a little credibility to
 
 | Piece | Location |
 |-------|----------|
-| The rules, tracks and budget | `config/verification.php` |
+| The rules | `app/Services/Verification/VerificationRuleset.php` |
+| Tracks and the budget | `config/verification.php` |
 | Assessment and report | `App\Services\Verification\VerificationPolicy` |
 | Command and gate | `App\Console\Commands\VerificationFreshnessCommand` (`policy:freshness`) |
 | Public page | `Site\VerificationController`, `site/pages/verification` |

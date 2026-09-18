@@ -9,6 +9,7 @@ use App\Services\PolicyData\SchemaValidator;
 use App\Services\Reviewers\ReviewerRoster;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Yaml\Yaml;
 use Tests\TestCase;
 
@@ -64,6 +65,45 @@ class ReviewerRosterTest extends TestCase
         $repository = new PolicyDataRepository($this->dataDir);
 
         return (new PolicyDataValidator($repository, new SchemaValidator($repository->schemaDir())))->run();
+    }
+
+    public function test_every_kind_the_roster_attributes_actually_carries_a_reviewer_column(): void
+    {
+        // This is the guard for the bug that took /reviewers down in production.
+        // ReviewerRoster queried obligations for `reviewed_by`, a column that does not
+        // exist. SQLite reads an unmatched double-quoted identifier as a string literal,
+        // so `where "reviewed_by" is not null` silently matched every row and the suite
+        // stayed green; PostgreSQL rejects it and the page returned 500. Asserting the
+        // column exists catches it on either driver.
+        $reflection = new \ReflectionClass(ReviewerRoster::class);
+        $attributable = $reflection->getConstant('ATTRIBUTABLE');
+        $this->assertNotEmpty($attributable);
+
+        foreach ($attributable as $kind => $class) {
+            $table = (new $class)->getTable();
+            $this->assertTrue(
+                Schema::hasColumn($table, 'reviewed_by'),
+                "ReviewerRoster attributes {$kind} records to a reviewer, but {$table} has no reviewed_by column"
+            );
+        }
+
+        // And the kind that does not carry one must not be attributed.
+        $this->assertFalse(Schema::hasColumn('obligations', 'reviewed_by'));
+        $this->assertArrayNotHasKey('obligation', $attributable);
+    }
+
+    public function test_the_corpus_total_counts_every_published_kind_not_only_the_attributable_ones(): void
+    {
+        $standing = app(ReviewerRoster::class)->standing();
+        $obligations = \App\Models\Obligation::published()->count();
+
+        $this->assertGreaterThan(0, $obligations, 'fixture must publish obligations for this to mean anything');
+        $this->assertSame(
+            $standing['attributable'] + $obligations,
+            $standing['published'],
+            'obligations belong in the corpus total even though no reviewer can be named on them'
+        );
+        $this->assertLessThan($standing['published'], $standing['attributable']);
     }
 
     public function test_the_shipped_data_directory_validates_including_the_roster(): void

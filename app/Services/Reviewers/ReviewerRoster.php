@@ -26,13 +26,23 @@ use Illuminate\Support\Collection;
  */
 class ReviewerRoster
 {
-    /** Record kinds that carry `reviewed_by`, in the order the page counts them. */
-    private const VERIFIABLE = [
+    /**
+     * Record kinds that carry `reviewed_by`, so a verification can be attributed to a person.
+     *
+     * Obligations are deliberately absent. They carry `review_status`,
+     * `confidence_level` and `last_verified_at` but no reviewer name: the data
+     * schema does not define one, the table has no column and the importer maps
+     * none, because an obligation's verification belongs to the instrument it was
+     * read out of. Querying them for `reviewed_by` is what took /reviewers down.
+     */
+    private const ATTRIBUTABLE = [
         'policy' => PolicyInstrument::class,
-        'obligation' => Obligation::class,
         'change' => ChangeEvent::class,
         'jurisdiction' => Jurisdiction::class,
     ];
+
+    /** Every published kind, for the corpus total. Matches what /coverage counts. */
+    private const ALL_KINDS = self::ATTRIBUTABLE + ['obligation' => Obligation::class];
 
     /** @var Collection<int, array>|null */
     private ?Collection $published = null;
@@ -84,7 +94,7 @@ class ReviewerRoster
     public function verifiedCounts(): array
     {
         $counts = [];
-        foreach (self::VERIFIABLE as $class) {
+        foreach (self::ATTRIBUTABLE as $class) {
             /** @var class-string<\Illuminate\Database\Eloquent\Model> $class */
             foreach ($class::published()->whereNotNull('reviewed_by')->where('review_status', 'verified')->pluck('reviewed_by') as $name) {
                 $counts[(string) $name] = ($counts[(string) $name] ?? 0) + 1;
@@ -97,15 +107,21 @@ class ReviewerRoster
     /**
      * Corpus standing: how much of what is published has been through a named reviewer.
      *
-     * @return array{published: int, verified: int, reviewers: int, unattributed: int}
+     * @return array{published: int, attributable: int, verified: int, reviewers: int, unattributed: int}
      */
     public function standing(): array
     {
         $published = 0;
-        $verified = 0;
-        foreach (self::VERIFIABLE as $class) {
+        foreach (self::ALL_KINDS as $class) {
             /** @var class-string<\Illuminate\Database\Eloquent\Model> $class */
             $published += $class::published()->count();
+        }
+
+        $attributable = 0;
+        $verified = 0;
+        foreach (self::ATTRIBUTABLE as $class) {
+            /** @var class-string<\Illuminate\Database\Eloquent\Model> $class */
+            $attributable += $class::published()->count();
             $verified += $class::published()->where('review_status', 'verified')->whereNotNull('reviewed_by')->count();
         }
 
@@ -123,6 +139,7 @@ class ReviewerRoster
 
         return [
             'published' => $published,
+            'attributable' => $attributable,
             'verified' => $verified,
             'reviewers' => $this->published()->count(),
             'unattributed' => $unattributed,
