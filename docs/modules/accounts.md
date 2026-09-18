@@ -113,6 +113,21 @@ Matching is by suffix on label boundaries, so `mailinator.com` covers `team.mail
 
 Enforcement is off under `testing` by default: every other suite uses RFC 2606 addresses, which have no mail route by design. `EmailDomainPolicyTest` turns it on and supplies its own resolver, so the decision under test is the policy's and not the day's DNS.
 
+## Terms and privacy
+
+Added 2026-09-18. The sign-up form asks readers to accept terms and a privacy policy, and the download gate writes `terms_accepted_at` against that acceptance. Both links resolved to `/about` whenever `SITE_LINK_TERMS_OF_USE` and `SITE_LINK_PRIVACY_POLICY` were unset, which is how the site shipped. An acceptance checkbox pointing at a page that does not contain the terms is not consent.
+
+`/privacy` and `/terms` are now served by `App\Http\Controllers\Site\LegalController` and linked from the footer of every page, from the sign-up form and from the sitemap. The two environment variables still win when set, so a policy hosted elsewhere overrides the built-in page without a code change.
+
+The text is built from `config/legal.php` and from the application's real schema. The account table on the privacy page lists the columns that exist, not a boilerplate inventory, and `LegalPagesTest` asserts that the page mentions each of them. Two facts that cannot be derived from the codebase are deliberately absent by default rather than invented:
+
+| Value | Setting | Effect while unset |
+|---|---|---|
+| Address for data requests | `LEGAL_PRIVACY_EMAIL`, falling back to `CONTACT_EMAILS` | The page routes requests to the contribution form instead of a mailbox. |
+| Governing law and venue | `LEGAL_GOVERNING_LAW` | The governing-law clause is omitted from the terms entirely. |
+
+Both are recorded as debt #29. Debt #28 records the related honesty problem the privacy page surfaced: `user_infos.ip_address` keeps the sign-up address in full while `resource_downloads` and `admin_audit_logs` both hash theirs. The page says so in plain words rather than glossing it.
+
 ## Routes
 
 All account pages are server-rendered Blade in the site theme: `/login`, `/register`, `/forgot-password`, `/reset-password/{token}`, `/verify-email`, `/confirm-password` (through `x-auth-shell`) and `/profile` (profile, password, downloads, consent, account deletion). The profile form also stores `organization_name` and toggles `marketing_consent_at`.

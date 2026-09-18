@@ -68,6 +68,8 @@ return [
     'links' => [
         'airis' => env('SITE_LINK_AIRIS'),
         'whitepaper' => env('SITE_LINK_WHITEPAPER'),
+        // Set only to point at a policy hosted elsewhere. Left empty, the site's own
+        // /privacy and /terms pages are used; see config/legal.php.
         'privacy_policy' => env('SITE_LINK_PRIVACY_POLICY'),
         'terms_of_use' => env('SITE_LINK_TERMS_OF_USE'),
     ],
