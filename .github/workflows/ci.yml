@@ -30,6 +30,16 @@ jobs:
           cp .env.example .env
           php artisan key:generate --force
 
+      # The deploy script runs these on every release. A config file holding a
+      # closure, or a broken route or view, fails here instead of aborting the
+      # container's startup after the site is already live.
+      - name: Production caches build (config, routes, views)
+        run: |
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+          php artisan optimize:clear
+
       - name: Run tests
         run: composer test
 

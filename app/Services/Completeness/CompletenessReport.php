@@ -48,7 +48,7 @@ class CompletenessReport
     /** @return list<array{id: string, kind: string, field: string, label: string, why: string, severity: string, missing: callable, applies?: callable}> */
     public function checks(): array
     {
-        return (array) config('completeness.checks', []);
+        return CompletenessChecks::all();
     }
 
     /** @return list<array> The checks that apply to one record kind. */

@@ -35,7 +35,7 @@ class VerificationPolicy
     /** @return list<array{id: string, label: string, track: string, days: int, critical: bool, applies: callable}> */
     public function rules(): array
     {
-        return (array) config('verification.rules', []);
+        return VerificationRuleset::rules();
     }
 
     /** The first rule that claims this record, or null when the policy does not cover it. */
