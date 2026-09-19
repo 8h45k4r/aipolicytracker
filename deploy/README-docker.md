@@ -56,6 +56,24 @@ from that host must be used instead** — `app_settings` values and admin
 second-factor secrets are encrypted with it, and a new key makes them
 unreadable without any error to tell you so.
 
+Fill in the rest of the environment. The block above carries only what the
+container needs to boot; the application reads roughly eighty keys and the
+missing ones fail quietly rather than loudly:
+
+```bash
+bash ../env-fill.sh .env
+```
+
+It keeps every value already set, adds the rest from `.env.example`, generates a
+`CRON_TOKEN`, and lists the handful that need a real value from you. Two of
+those are not optional in practice:
+
+- **`ADMIN_EMAILS`** — administrator access is a list of addresses, not a column
+  on the users table. With it unset, nobody can reach `/backend`, and the
+  middleware redirects to the homepage rather than showing an error.
+- **`CRON_TOKEN`** — the scheduled workflows authenticate to `/cron/*` with it.
+  Unset, every one of them gets 401 and the data stops refreshing, silently.
+
 Build and start:
 
 ```bash
