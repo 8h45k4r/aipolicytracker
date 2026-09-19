@@ -105,7 +105,8 @@ class RiskBrowseController extends Controller
         $seo = Seo::make(
             'AI incident #'.$i->incident_id.': '.$i->title,
             mb_substr(($i->description ?: $i->title).' Dated '.$i->occurred_on->format('j F Y').'; '.$i->report_count.' reports on the AI Incident Database.', 0, 155),
-            route('risk.incidents.show', $i->incident_id)
+            route('risk.incidents.show', $i->incident_id),
+            $i->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Incidents', route('risk.incidents.browse')], ['#'.$i->incident_id, route('risk.incidents.show', $i->incident_id)]])
             ->withModified($i->modified_at ?? $i->snapshot_date)
             ->withPageType('Article', [
@@ -142,8 +143,13 @@ class RiskBrowseController extends Controller
         $seo = Seo::make(
             ($r->risk_subcategory ?: $r->risk_category ?: 'Risk entry').' ('.$r->quick_ref.')',
             mb_substr(($r->description ?: 'Risk entry from '.$r->paper_title).' Coded as '.implode(', ', array_filter([$r->entity, $r->intent, $r->timing])).' in the MIT AI Risk Repository.', 0, 155),
-            route('risk.risks.show', $ev)
+            route('risk.risks.show', $ev),
+            $r->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Risk entries', route('risk.risks')], [$r->ev_id, route('risk.risks.show', $ev)]])
+            // The sitemap has always published updated_at as this page's lastmod
+            // while the page itself stated no dateModified at all. Two answers to
+            // one question is worse than either, so the page now gives the same one.
+            ->withModified($r->updated_at)
             ->withJsonLd([
                 '@context' => 'https://schema.org', '@type' => 'DefinedTerm', 'name' => $r->risk_subcategory ?: $r->risk_category, 'description' => $r->description,
                 'identifier' => $r->ev_id, 'inDefinedTermSet' => 'https://airisk.mit.edu/', 'license' => 'https://creativecommons.org/licenses/by/4.0/',

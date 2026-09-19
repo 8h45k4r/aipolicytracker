@@ -104,7 +104,7 @@ class SitemapController extends Controller
      */
     private function incidentUrls()
     {
-        return ExternalIncident::query()->orderBy('incident_id')->lazy(500)->map(fn ($i) => [
+        return ExternalIncident::query()->orderBy('incident_id')->lazy(500)->filter->isIndexable()->map(fn ($i) => [
             'loc' => $i->url(),
             // What is actually known about when this record last moved. The
             // snapshot date is the fallback because it is when we last confirmed
@@ -115,10 +115,18 @@ class SitemapController extends Controller
         ])->values();
     }
 
-    /** One entry per MIT AI Risk Repository entry that has a page of its own. */
+    /**
+     * One entry per MIT AI Risk Repository entry that earns a page of its own.
+     *
+     * Filtered on the same isIndexable() the page itself uses, because a sitemap
+     * that lists a noindex page and a page that refuses the listing are two
+     * halves of one contradiction, and an index resolves it by trusting neither.
+     * This drops roughly a third of the 2,500 entries: the ones with no
+     * description, which is all the page would have had.
+     */
     private function riskUrls()
     {
-        return ExternalRisk::query()->orderBy('ev_id')->lazy(500)->map(fn ($r) => [
+        return ExternalRisk::query()->orderBy('ev_id')->lazy(500)->filter->isIndexable()->map(fn ($r) => [
             'loc' => $r->url(),
             'lastmod' => $r->updated_at?->toAtomString(),
             'changefreq' => 'monthly',
