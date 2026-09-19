@@ -56,3 +56,8 @@ Thumbs.db
 # Local tooling
 Homestead.json
 Homestead.yaml
+
+# Local notes for editor and assistant tooling; not part of the project.
+CLAUDE.md
+AGENTS.md
+.claude/

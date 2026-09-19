@@ -1,13 +1,13 @@
 # Deploying aipolicytracker.org on the EverestCloud VPS
 
 > **This runbook is for a host with PHP-FPM and PostgreSQL installed natively.**
-> `certifyi-prod-01` is not such a host: it has no PHP, no PostgreSQL and no
+> the target host is not such a host: it has no PHP, no PostgreSQL and no
 > Node, and nginx there reverse-proxies Docker containers.
 > **For that host, follow [`README-docker.md`](README-docker.md) instead.**
 > `bootstrap-server.sh` refuses on it, correctly, with
 > `no PHP-FPM found under /etc/php`. Recorded as debt #31.
 
-Runbook for `202.58.120.67`. The host also runs Certifyi; **nothing in this
+Runbook for `<origin-ip>`. The host also runs Certifyi; **nothing in this
 document changes a shared configuration file, another site's pool, another
 database, or any unit that is not this site's.** Where a shared file would have
 to change, the step says stop and ask.
@@ -257,7 +257,7 @@ curl -s -o /dev/null -w 'certifyi: %{http_code}\n' https://<certifyi-host>/
 ## Cutover
 
 Cloudflare, DNS: change the `A` record for `aipolicytracker.org` to
-`202.58.120.67`, proxied (orange). Same for `www`. SSL mode Full (strict).
+`<origin-ip>`, proxied (orange). Same for `www`. SSL mode Full (strict).
 
 **One expectation to correct.** Moving the origin does not change the edge. The
 site is currently unreachable to Googlebot and that fault was traced to the
@@ -273,7 +273,7 @@ download history, submissions, billing records and the audit log.
 
 Then, in this order:
 
-1. App Service `aip-scaffolders`
-2. Plan `aip-scaffolders-plan`
-3. PostgreSQL `aip-scaffolders-db`
-4. Resource group `aip-scaffolders-rg`
+1. App Service `<app-service>`
+2. Plan `<app-service>-plan`
+3. PostgreSQL `<app-service>-db`
+4. Resource group `<app-service>-rg`

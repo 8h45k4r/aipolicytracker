@@ -1,6 +1,6 @@
 # Deploying aipolicytracker.org on a Docker host
 
-This is the path for `certifyi-prod-01` and any host like it: nginx on the
+This is the path for the target host and any host like it: nginx on the
 metal, reverse-proxying containers, with **no PHP, no PostgreSQL and no Node
 installed on the host**.
 
@@ -26,7 +26,7 @@ this host cannot reach it even by accident, and neither can anything else.
 ## Prerequisites on the host
 
 Only Docker with the Compose plugin, and nginx. Both are already present on
-`certifyi-prod-01`. Nothing else is installed.
+the target host. Nothing else is installed.
 
 ## First deploy
 

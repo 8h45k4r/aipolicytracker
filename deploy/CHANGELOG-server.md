@@ -1,6 +1,6 @@
 # Server change log
 
-Every command that changed the state of `202.58.120.67` belongs here, in order,
+Every command that changed the state of `<origin-ip>` belongs here, in order,
 with the date and who ran it. No passwords, no keys, no `.env` contents.
 
 The point of this file is that a year from now somebody can tell what was done
