@@ -44,9 +44,9 @@ class SitemapController extends Controller
     {
         $urls = match ($section) {
             'static' => $this->staticUrls(),
-            'jurisdictions' => Jurisdiction::published()->orderBy('slug')->get()->filter->isIndexable()->map(fn ($j) => ['loc' => $j->url(), 'lastmod' => $j->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])->values(),
-            'policies' => PolicyInstrument::published()->orderBy('slug')->get()->filter->isIndexable()->map(fn ($p) => ['loc' => $p->url(), 'lastmod' => $p->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])->values(),
-            'obligations' => Obligation::published()->with('policyInstrument')->orderBy('slug')->get()->filter(fn ($o) => filled($o->summary) && $o->policyInstrument?->isIndexable())->map(fn ($o) => ['loc' => $o->url(), 'lastmod' => $o->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.7'])->values(),
+            'jurisdictions' => $this->jurisdictionUrls(),
+            'policies' => $this->policyUrls(),
+            'obligations' => $this->obligationUrls(),
             'changes' => $this->changeUrls(),
             'resources' => $this->resourceUrls(),
             'incidents' => $this->incidentUrls(),
@@ -54,6 +54,45 @@ class SitemapController extends Controller
         };
 
         return $this->xml(view('site.sitemap.urlset', compact('urls'))->render());
+    }
+
+    /**
+     * These three streamed with get() while incidents and risks streamed with
+     * lazy(). At the present size that is survivable, but the jurisdiction
+     * filter also called isIndexable() per row, which issued one exists() query
+     * each. withPublishedInstrument() collapses that to a single aggregate, and
+     * lazy() keeps the whole set from being hydrated at once as it grows.
+     */
+    private function jurisdictionUrls()
+    {
+        return Jurisdiction::published()
+            ->withPublishedInstrument()
+            ->orderBy('slug')
+            ->lazy(500)
+            ->filter->isIndexable()
+            ->map(fn ($j) => ['loc' => $j->url(), 'lastmod' => $j->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])
+            ->values();
+    }
+
+    private function policyUrls()
+    {
+        return PolicyInstrument::published()
+            ->orderBy('slug')
+            ->lazy(500)
+            ->filter->isIndexable()
+            ->map(fn ($p) => ['loc' => $p->url(), 'lastmod' => $p->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])
+            ->values();
+    }
+
+    private function obligationUrls()
+    {
+        return Obligation::published()
+            ->with('policyInstrument')
+            ->orderBy('slug')
+            ->lazy(500)
+            ->filter(fn ($o) => filled($o->summary) && $o->policyInstrument?->isIndexable())
+            ->map(fn ($o) => ['loc' => $o->url(), 'lastmod' => $o->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.7'])
+            ->values();
     }
 
     /**
@@ -65,7 +104,7 @@ class SitemapController extends Controller
      */
     private function incidentUrls()
     {
-        return ExternalIncident::query()->orderBy('incident_id')->lazy(500)->map(fn ($i) => [
+        return ExternalIncident::query()->orderBy('incident_id')->lazy(500)->filter->isIndexable()->map(fn ($i) => [
             'loc' => $i->url(),
             // What is actually known about when this record last moved. The
             // snapshot date is the fallback because it is when we last confirmed
@@ -76,10 +115,18 @@ class SitemapController extends Controller
         ])->values();
     }
 
-    /** One entry per MIT AI Risk Repository entry that has a page of its own. */
+    /**
+     * One entry per MIT AI Risk Repository entry that earns a page of its own.
+     *
+     * Filtered on the same isIndexable() the page itself uses, because a sitemap
+     * that lists a noindex page and a page that refuses the listing are two
+     * halves of one contradiction, and an index resolves it by trusting neither.
+     * This drops roughly a third of the 2,500 entries: the ones with no
+     * description, which is all the page would have had.
+     */
     private function riskUrls()
     {
-        return ExternalRisk::query()->orderBy('ev_id')->lazy(500)->map(fn ($r) => [
+        return ExternalRisk::query()->orderBy('ev_id')->lazy(500)->filter->isIndexable()->map(fn ($r) => [
             'loc' => $r->url(),
             'lastmod' => $r->updated_at?->toAtomString(),
             'changefreq' => 'monthly',

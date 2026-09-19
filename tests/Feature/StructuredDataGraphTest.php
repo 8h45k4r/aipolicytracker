@@ -261,12 +261,21 @@ class StructuredDataGraphTest extends TestCase
         // whether the sitemap enumerates the table, not how big the table is.
         \App\Models\ExternalIncident::create([
             'incident_id' => 4242, 'title' => 'Recruitment model rejected applicants by postcode',
+            'description' => 'A screening model trained on historic hiring data rejected applicants from particular postcodes at a markedly higher rate.',
             'occurred_on' => '2026-03-04', 'year' => 2026, 'report_count' => 3,
             'snapshot_date' => '2026-09-07', 'mit_domain' => '1', 'mit_subdomain' => '1.1',
         ]);
         \App\Models\ExternalRisk::create([
             'ev_id' => '99.01.00', 'quick_ref' => 'Test2026', 'paper_title' => 'A framework used in this test',
             'level' => 'Risk Category', 'domain' => '1', 'subdomain' => '1.1',
+            'description' => 'A risk entry that says something of its own, and so earns a listing.',
+        ]);
+        // The negative case: an "Additional evidence" row with no description of
+        // its own, hanging under the entry above. A third of the real corpus looks
+        // like this, and the sitemap used to offer every one of them.
+        \App\Models\ExternalRisk::create([
+            'ev_id' => '99.01.00.a', 'quick_ref' => 'Test2026', 'paper_title' => 'A framework used in this test',
+            'level' => 'Additional evidence', 'domain' => '1', 'subdomain' => '1.1',
         ]);
 
         $index = $this->get('/sitemap.xml')->assertOk()->getContent();
@@ -277,15 +286,34 @@ class StructuredDataGraphTest extends TestCase
             $xml = $this->get(route('sitemap.section', $section))->assertOk()
                 ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')->getContent();
 
-            $expected = $model::query()->count();
-            $this->assertSame($expected, substr_count($xml, '<loc>'), "the {$section} sitemap does not list every record");
-            // Every entry carries a date, so a crawler can tell what has moved.
-            $this->assertSame($expected, substr_count($xml, '<lastmod>'), "an entry in the {$section} sitemap has no lastmod");
+            // The sitemap lists the records that earn a listing -- no more, and
+            // no fewer. "Every record" was the old contract and it was the wrong
+            // one: it put a third of the risk corpus, pages carrying nothing but a
+            // category name, in front of crawlers as results worth having.
+            $all = $model::query()->get();
+            $indexable = $all->filter->isIndexable();
+            $this->assertTrue($indexable->isNotEmpty(), "the {$section} fixture has no indexable record to assert on");
 
-            $first = $model::query()->first();
-            $this->assertStringContainsString('<loc>'.$first->url().'</loc>', $xml);
-            // And the page it points at is actually served.
-            $this->get($first->url())->assertOk();
+            $this->assertSame($indexable->count(), substr_count($xml, '<loc>'), "the {$section} sitemap does not list exactly the indexable records");
+            // Every entry carries a date, so a crawler can tell what has moved.
+            $this->assertSame($indexable->count(), substr_count($xml, '<lastmod>'), "an entry in the {$section} sitemap has no lastmod");
+
+            foreach ($indexable as $record) {
+                $this->assertStringContainsString('<loc>'.$record->url().'</loc>', $xml, "an indexable {$section} record is missing from the sitemap");
+            }
+
+            // A record that does not earn a listing is absent from the sitemap and
+            // still served to people, saying noindex on its own page. Those two
+            // facts have to agree: a sitemap that offers a noindex page, or a page
+            // that refuses a listing the sitemap makes, is one contradiction an
+            // index resolves by trusting neither.
+            foreach ($all->reject->isIndexable() as $record) {
+                $this->assertStringNotContainsString('<loc>'.$record->url().'</loc>', $xml, "a non-indexable {$section} record is listed in the sitemap");
+                $this->get($record->url())->assertOk()->assertSee('noindex,follow', false);
+            }
+
+            // And the page a listing points at is actually served.
+            $this->get($indexable->first()->url())->assertOk();
         }
     }
 
