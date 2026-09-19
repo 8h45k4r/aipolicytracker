@@ -6,6 +6,13 @@ cd /var/www/html
 php artisan migrate --force
 # Load the canonical policy records from data/ (idempotent upsert).
 php artisan policy:import
+# And the incident and risk rows from data/external/. This line was missing, so
+# a container deployment came up with empty incidents and risks tables while the
+# release script running the same application loaded them. Nothing reported the
+# difference: the pages render, they are simply empty. Both imports are
+# idempotent upserts, so running them on every start costs a few seconds and
+# makes the container and the release script agree.
+php artisan external:import
 php artisan storage:link >/dev/null 2>&1 || true
 php artisan config:cache
 php artisan route:cache
