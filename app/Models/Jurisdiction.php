@@ -79,7 +79,24 @@ class Jurisdiction extends Model
             return false;
         }
 
+        // Read the flag when the caller loaded it with withPublishedInstrument(),
+        // so a list of jurisdictions costs one query rather than one per row.
+        // Falling back to the query keeps a single hydrated model correct.
+        if (isset($this->attributes['has_published_instrument'])) {
+            return (bool) $this->attributes['has_published_instrument'];
+        }
+
         return $this->policyInstruments()->published()->whereNotNull('official_source_url')->exists();
+    }
+
+    /**
+     * Load the flag isIndexable() needs, as one aggregate rather than a query per
+     * row. Use this anywhere a collection of jurisdictions is filtered by it.
+     */
+    public function scopeWithPublishedInstrument($query)
+    {
+        return $query->withExists(['policyInstruments as has_published_instrument' => fn ($q) => $q->published()->whereNotNull('official_source_url'),
+        ]);
     }
 
     /** Name with a definite article where English requires one ("the United Kingdom"). */
