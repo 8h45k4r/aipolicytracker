@@ -19,7 +19,7 @@ class MachineReadableController extends Controller
 {
     public function llms(): Response
     {
-        $jurisdictions = Jurisdiction::published()->orderBy('name')->get()->filter->isIndexable();
+        $jurisdictions = Jurisdiction::published()->withPublishedInstrument()->orderBy('name')->get()->filter->isIndexable();
         $policies = PolicyInstrument::published()->with('jurisdiction')->where('featured', true)->orderBy('title')->get();
 
         return $this->text(view('site.machine.llms', compact('jurisdictions', 'policies'))->render());
@@ -27,7 +27,7 @@ class MachineReadableController extends Controller
 
     public function llmsFull(): Response
     {
-        $jurisdictions = Jurisdiction::published()->orderBy('name')->get()->filter->isIndexable();
+        $jurisdictions = Jurisdiction::published()->withPublishedInstrument()->orderBy('name')->get()->filter->isIndexable();
         $policies = PolicyInstrument::published()->with(['jurisdiction', 'deadlines'])->orderBy('title')->get()->filter->isIndexable();
         $obligations = Obligation::published()->with('policyInstrument')->orderBy('category')->orderBy('title')->get();
         $changes = ChangeEvent::published()->with('jurisdiction')->orderByDesc('occurred_on')->limit(100)->get();

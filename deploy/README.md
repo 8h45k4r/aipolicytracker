@@ -1,5 +1,12 @@
 # Deploying aipolicytracker.org on the EverestCloud VPS
 
+> **This runbook is for a host with PHP-FPM and PostgreSQL installed natively.**
+> the target host is not such a host: it has no PHP, no PostgreSQL and no
+> Node, and nginx there reverse-proxies Docker containers.
+> **For that host, follow [`README-docker.md`](README-docker.md) instead.**
+> `bootstrap-server.sh` refuses on it, correctly, with
+> `no PHP-FPM found under /etc/php`. Recorded as debt #31.
+
 Runbook for `<origin-ip>`. The host also runs Certifyi; **nothing in this
 document changes a shared configuration file, another site's pool, another
 database, or any unit that is not this site's.** Where a shared file would have
@@ -266,7 +273,7 @@ download history, submissions, billing records and the audit log.
 
 Then, in this order:
 
-1. App Service `<azure-resource>`
-2. Plan `<azure-resource>`
-3. PostgreSQL `<azure-resource>`
-4. Resource group `<azure-resource>`
+1. App Service `<app-service>`
+2. Plan `<app-service>-plan`
+3. PostgreSQL `<app-service>-db`
+4. Resource group `<app-service>-rg`

@@ -27,6 +27,21 @@ class ExternalIncident extends Model
         return route('risk.incidents.show', $this->incident_id);
     }
 
+    /**
+     * The same threshold as every other record type, stated rather than assumed.
+     *
+     * Every one of the 1,663 incidents currently carries a description, so this
+     * excludes nothing today and the sitemap is unchanged by it. That is the
+     * point: the incident corpus was passing a test nobody had written, and a
+     * test nobody has written cannot fail when a future import brings in a record
+     * with no description. An entry that arrives empty is now served
+     * noindex,follow instead of being offered as a result with nothing on it.
+     */
+    public function isIndexable(): bool
+    {
+        return filled($this->description);
+    }
+
     /** AIID Discover view listing every report on this incident (the reports themselves stay on AIID). */
     public function reportsUrl(): string
     {

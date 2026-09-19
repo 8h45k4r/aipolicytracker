@@ -15,7 +15,7 @@
         "php": "^8.2",
         "dodopayments/client": "^6.25",
         "inertiajs/inertia-laravel": "^1.0",
-        "laravel/framework": "^11.9",
+        "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "resend/resend-php": "^0.15 || ^1.0",
@@ -76,6 +76,9 @@
     },
     "config": {
         "optimize-autoloader": true,
+        "platform": {
+            "php": "8.2"
+        },
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {

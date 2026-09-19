@@ -1,10 +1,18 @@
-name: Uptime self-heal
+name: Uptime check
 
-# The Free-tier App Service container is sometimes stopped a few minutes after a
-# deploy finishes, after the deploy workflow's own health wait has passed. This check
-# runs every 15 minutes, and if the health endpoint fails twice 30 seconds apart it
-# issues one restart through the Kudu API using the publish profile already stored
-# as a repository secret. It never changes application settings or code.
+# Probes the public site every fifteen minutes and fails if it stays down, which
+# is the alert: a failed scheduled run notifies the repository's watchers.
+#
+# It used to probe the App Service hostname directly and, when that failed,
+# issue a restart through the Kudu API. Both halves are wrong now. The site is
+# served from its own host, so probing the old hostname measured something this
+# project no longer runs, and the restart was aimed at an application that has
+# been deliberately stopped — it fired every fifteen minutes against it.
+#
+# There is deliberately no self-heal step any more. Restarting the current host
+# would need credentials for it, and a scheduled workflow holding credentials
+# that can restart production is a larger thing to own than the outage it would
+# shorten. It reports; a person decides.
 on:
   schedule:
     - cron: '*/15 * * * *'
@@ -14,31 +22,24 @@ permissions:
   contents: read
 
 concurrency:
-  group: uptime-self-heal
+  group: uptime-check
   cancel-in-progress: false
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Probe health endpoint and restart once if it stays down
+      - name: Probe the public health endpoint
         env:
-          APP_NAME: ${{ vars.AZURE_WEBAPP_NAME }}
-          PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          GH_TOKEN: ${{ github.token }}
+          SITE: ${{ vars.SITE_URL || 'https://aipolicytracker.org' }}
         run: |
           set -u
-          probe() { curl -s -o /dev/null --max-time 20 -w '%{http_code}' "https://${APP_NAME}.azurewebsites.net/up"; }
+          probe() { curl -s -o /dev/null --max-time 20 -w '%{http_code}' "$SITE/up"; }
           a=$(probe); echo "probe 1: $a"
           [ "$a" = "200" ] && exit 0
+          # One retry, because a single timeout is not an outage.
           sleep 30
           b=$(probe); echo "probe 2: $b"
           [ "$b" = "200" ] && exit 0
-          # Skip a restart while a deploy is running; the deploy workflow handles its own health wait.
-          if gh run list --workflow deploy.yml --status in_progress --limit 1 --json databaseId -q '.[0].databaseId' 2>/dev/null | grep -q .; then echo "deploy in progress; not restarting"; exit 0; fi
-          user=$(echo "$PROFILE" | sed -n 's/.*publishMethod="MSDeploy"[^>]*userName="\([^"]*\)".*/\1/p' | head -1)
-          pass=$(echo "$PROFILE" | sed -n 's/.*publishMethod="MSDeploy"[^>]*userPWD="\([^"]*\)".*/\1/p' | head -1)
-          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -u "$user:$pass" "https://${APP_NAME}.scm.azurewebsites.net/api/app/restart")
-          echo "restart: $code"
-          for i in $(seq 1 10); do sleep 30; c=$(probe); echo "after restart $i: $c"; [ "$c" = "200" ] && exit 0; done
-          echo "::error::site still down after restart"; exit 1
+          echo "::error::$SITE/up did not answer 200 (got $a then $b)"
+          exit 1

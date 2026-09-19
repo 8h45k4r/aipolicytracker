@@ -23,10 +23,16 @@ php artisan serve   # and, in another terminal, npm run dev
 - Branch from `main`: `feat/<topic>`, `fix/<topic>`, `data/<jurisdiction>`, `docs/<topic>`.
 - Write clear commit messages in the imperative mood ("Add Kenya AI strategy entry").
 - Update `CHANGELOG.md` under *Unreleased* for user-visible changes.
+- A commit is authored by the person accountable for it. Do not add trailers or
+  footers crediting tooling, in commit messages, code comments or documentation.
+  The history records who is answerable for a change, not what was used to write
+  it.
 
 ## Code contributions
 
 Every change follows `docs/reference/engineering-standard.md`: inspect before coding, Analyze → Design → Implement → Test → Validate → Document, fix root causes, keep changes small and reversible, and never claim something works without the command output that proves it.
+
+Every change carries its own enforcement: access control and per-user isolation, server-side validation, publication rules and auditability. Frontend, backend, database, API and documentation move together — a change that updates one and leaves another behind is incomplete.
 
 1. Follow existing conventions: Laravel controllers/requests/models on the backend, React function components with Inertia on the frontend, Tailwind for styling.
 2. Validate all request input in a Form Request or `$request->validate()`.
@@ -77,4 +83,12 @@ Please follow `SECURITY.md` rather than opening a public issue.
 
 - `main` is protected: changes arrive only through pull requests with at least one approving review from a code owner, all required checks green (PHP tests, JS build, Gate check), and every review conversation resolved.
 - The **Gate check** workflow fails a pull request whose description does not document the five role gates and the accepted-debt section; use the template.
-- Hosting details (origin hostnames, account or zone identifiers, credentials) never go into the repository. Deploy targets are GitHub Actions variables and secrets; the edge Worker reads its origin from an environment variable.
+- **Hosting details never go into the repository**: origin IP addresses, server
+  hostnames, account or zone identifiers, cloud resource names, credentials.
+  This holds for runbooks, comments, commit messages and the debt register as
+  much as for code. Deploy targets are GitHub Actions variables and secrets; the
+  edge Worker reads its origin from an environment variable. Where a runbook
+  needs to refer to a host, it uses a placeholder such as `<origin-ip>`.
+  An origin address in particular is what a proxying CDN exists to conceal:
+  publishing it lets the edge be bypassed, so it is a security defect and not
+  merely untidy.

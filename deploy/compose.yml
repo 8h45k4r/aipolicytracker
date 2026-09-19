@@ -1,0 +1,86 @@
+# aipolicytracker.org on a Docker host that already runs something else.
+#
+#   cd /opt/aip && docker compose up -d --build
+#
+# What this does and does not touch:
+#   - Its own bridge network. The database is NOT published to the host, so
+#     nothing outside this network can reach it, including the other tenant.
+#   - Publishes the application on 127.0.0.1 only. nginx on the host is the
+#     only way in, exactly as the other site on this host is arranged.
+#   - Names every object aip-* so nothing collides with an existing container,
+#     volume or network.
+#
+# Secrets live in .env beside this file, never in git.
+
+name: aip
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: aip-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:?set DB_DATABASE in .env}
+      POSTGRES_USER: ${DB_USERNAME:?set DB_USERNAME in .env}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+    volumes:
+      - aip-db-data:/var/lib/postgresql/data
+    networks: [aip]
+    # Deliberately no ports: the database is reachable only from this network.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: aip-app:latest
+    container_name: aip-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: "5432"
+      SESSION_DRIVER: database
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+      PORT: "8080"
+      # The image serves with `artisan serve`, i.e. PHP's built-in server,
+      # which handles one request at a time unless told to fork. Without this
+      # a single slow request blocks every other visitor. Four workers is
+      # ample for this site and costs nothing while idle.
+      PHP_CLI_SERVER_WORKERS: "4"
+    volumes:
+      - aip-storage:/var/www/html/storage/app
+    # Host port is configurable because this host is busy; 8080 is the default.
+    ports:
+      - "127.0.0.1:${AIP_PORT:-8080}:8080"
+    networks: [aip]
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+networks:
+  aip:
+    name: aip-net
+
+volumes:
+  aip-db-data:
+    name: aip-db-data
+  aip-storage:
+    name: aip-storage
