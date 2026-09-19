@@ -3,7 +3,11 @@
 /vendor
 
 # Build output & generated files
-/public/build
+# /public/build is deliberately NOT ignored: the production host does not build
+# assets. A Vite build needs Node plus roughly 200 MB of node_modules, which is
+# most of the memory budget on the host this site shares with another
+# application. deploy/deploy.sh therefore serves the build that arrives in the
+# ref, and stops rather than serve a site with no stylesheet.
 /public/hot
 /public/storage
 /storage/*.key
