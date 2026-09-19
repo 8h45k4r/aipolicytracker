@@ -146,30 +146,33 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Build
+        run: npm run build
+
       # public/build is committed, because the production host does not build
       # assets: a Vite build needs Node plus roughly 200 MB of node_modules,
       # which is most of the memory budget on the host this site shares with
       # another application.
       #
-      # The output directory is removed first. Vite's chunk hashes come out
-      # deterministic from a clean tree and different when it builds over an
-      # existing public/build, so a clean build is what makes the comparison
-      # below meaningful rather than noise.
-      - name: Build
+      # This checks that the committed manifest is present and covers every
+      # Vite input. It deliberately does NOT compare the committed bytes against
+      # a fresh build: the bundle is not reproducible across machines. The same
+      # source and the same package-lock produced app.js at 257.32 kB here,
+      # 257.48 kB with a stale node_modules and 257.50 kB on a runner, so a byte
+      # comparison fails on every pull request regardless of whether the assets
+      # are stale. Freshness is debt #30, not something this step can establish.
+      - name: Committed manifest covers every entry
         run: |
-          rm -rf public/build
-          npm run build
-
-      # A commit that changes front-end source without rebuilding would ship a
-      # stale stylesheet to production and nothing would say so. Vite names its
-      # output by content hash, so any source change moves a filename and this
-      # step fails.
-      - name: Committed assets match the source
-        run: |
-          git diff --quiet -- public/build && exit 0
-          echo "public/build does not match a clean build of this source."
-          echo
-          git diff --stat -- public/build
-          echo
-          echo "Fix: run 'rm -rf public/build && npm run build' and commit public/build."
-          exit 1
+          test -f public/build/manifest.json \
+            || { echo "public/build/manifest.json is not committed"; exit 1; }
+          node -e '
+            const m = require("./public/build/manifest.json");
+            const want = ["resources/js/app.jsx", "resources/css/public.css", "resources/js/public.js"];
+            const missing = want.filter(k => !m[k]);
+            if (missing.length) {
+              console.error("committed manifest is missing entries: " + missing.join(", "));
+              console.error("run: npm run build, and commit public/build");
+              process.exit(1);
+            }
+            console.log("manifest covers all " + want.length + " entries");
+          '
