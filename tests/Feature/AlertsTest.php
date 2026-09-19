@@ -44,15 +44,24 @@ class AlertsTest extends TestCase
         return User::factory()->create(['email_verified_at' => now()]);
     }
 
-    public function test_following_is_a_pro_capability_and_validates_the_record(): void
+    /**
+     * Following used to be gated on a subscription. Selling is retired, so the
+     * gate is now sign-in: an account is still required because a follow is a row
+     * owned by a user, but nothing is sold. A guest is invited to sign in rather
+     * than to buy.
+     */
+    public function test_following_is_free_for_any_signed_in_account_and_validates_the_record(): void
     {
         $policy = PolicyInstrument::published()->firstOrFail();
-        $this->get($policy->url())->assertOk()->assertSee('Follow with Pro')->assertDontSee('Follow for daily alerts');
+        $this->get($policy->url())->assertOk()->assertSee('Sign in to follow')->assertDontSee('Follow for daily alerts');
         $this->post('/follow/policy/'.$policy->slug)->assertRedirect('/login');
 
+        // An account with no subscription of any kind can follow.
         $free = $this->free();
-        $this->actingAs($free)->get($policy->url())->assertOk()->assertSee('Follow with Pro');
-        $this->actingAs($free)->post('/follow/policy/'.$policy->slug)->assertRedirect('/pricing')->assertSessionHas('error');
+        $this->actingAs($free)->get($policy->url())->assertOk()->assertSee('Follow for daily alerts');
+        $this->actingAs($free)->post('/follow/policy/'.$policy->slug)->assertRedirect($policy->url())->assertSessionHas('status', 'followed');
+        $this->assertSame(1, Follow::where('user_id', $free->id)->count());
+        $this->actingAs($free)->post('/follow/policy/'.$policy->slug)->assertRedirect($policy->url())->assertSessionHas('status', 'unfollowed');
         $this->assertSame(0, Follow::count());
 
         $pro = $this->pro();
@@ -74,7 +83,13 @@ class AlertsTest extends TestCase
         $this->assertSame(0, Follow::count());
     }
 
-    public function test_daily_alert_goes_only_to_entitled_followers_of_changed_records_once_per_day(): void
+    /**
+     * Targeting is still the point: an alert goes to the people following the
+     * record that changed and to nobody else, once a day. What no longer filters
+     * anyone out is subscription state, because with selling retired a lapsed or
+     * never-subscribed account holds the same capabilities as any other.
+     */
+    public function test_daily_alert_goes_to_followers_of_changed_records_once_per_day(): void
     {
         Mail::fake();
         $change = ChangeEvent::published()->whereNotNull('policy_instrument_id')->with(['policyInstrument', 'jurisdiction'])->firstOrFail();
@@ -93,23 +108,25 @@ class AlertsTest extends TestCase
         $freeFollower = $this->free();
         Follow::create(['user_id' => $freeFollower->id, 'subject_type' => 'policy', 'subject_slug' => $change->policyInstrument->slug]);
 
-        $this->artisan('alerts:send')->expectsOutputToContain('2 sent')->assertSuccessful();
+        $this->artisan('alerts:send')->expectsOutputToContain('4 sent')->assertSuccessful();
         Mail::assertSent(DailyAlertMail::class, fn ($m) => $m->hasTo('policy@example.org') && $m->changes->contains('id', $change->id));
         Mail::assertSent(DailyAlertMail::class, fn ($m) => $m->hasTo('jurisdiction@example.org'));
         Mail::assertNotSent(DailyAlertMail::class, fn ($m) => $m->hasTo('unrelated@example.org'));
-        Mail::assertNotSent(DailyAlertMail::class, fn ($m) => $m->hasTo('lapsed@example.org'));
-        Mail::assertNotSent(DailyAlertMail::class, fn ($m) => $m->hasTo($freeFollower->email));
-        $this->assertSame(2, AlertDelivery::count());
+        // A lapsed subscription no longer withholds anything, because nothing is sold.
+        Mail::assertSent(DailyAlertMail::class, fn ($m) => $m->hasTo('lapsed@example.org'));
+        // An account that never subscribed is alerted on the same terms.
+        Mail::assertSent(DailyAlertMail::class, fn ($m) => $m->hasTo($freeFollower->email));
+        $this->assertSame(4, AlertDelivery::count());
         $this->assertSame(1, AlertDelivery::where('user_id', $byPolicy->id)->value('changes_count'));
 
         // Re-running the same day sends nothing more.
         $this->artisan('alerts:send')->expectsOutputToContain('0 sent')->assertSuccessful();
-        Mail::assertSent(DailyAlertMail::class, 2);
+        Mail::assertSent(DailyAlertMail::class, 4);
 
         // The next day, with nothing new in the window, nothing is sent; the window starts at the last delivery.
         $this->travelTo(now()->addDay());
         $this->artisan('alerts:send')->expectsOutputToContain('0 sent')->assertSuccessful();
-        Mail::assertSent(DailyAlertMail::class, 2);
+        Mail::assertSent(DailyAlertMail::class, 4);
         $this->travelBack();
 
         $this->actingAs($byPolicy)->get('/following')->assertOk()->assertSee('Last alert sent');
@@ -139,7 +156,7 @@ class AlertsTest extends TestCase
         $this->travelBack();
     }
 
-    public function test_saved_profile_is_a_pro_capability_and_scopes_the_daily_alert(): void
+    public function test_saved_profile_is_free_and_scopes_the_daily_alert(): void
     {
         Mail::fake();
         $change = ChangeEvent::published()->whereNotNull('policy_instrument_id')->with(['policyInstrument.jurisdiction'])->firstOrFail();
@@ -148,12 +165,13 @@ class AlertsTest extends TestCase
         $answers = ['jurisdictions' => [$jurisdiction->slug], 'personal_data' => 'yes'];
         $other = Jurisdiction::published()->where('id', '!=', $jurisdiction->id)->firstOrFail();
 
-        // Guests and free accounts get the upsell, not the form, and cannot save.
+        // Guests are invited to sign in; an account with no subscription can save.
         $url = '/tools/applicability-check?jurisdictions[]='.$jurisdiction->slug.'&personal_data=yes';
-        $this->get($url)->assertOk()->assertSee('See Pro plans')->assertDontSee('Save and alert me');
+        $this->get($url)->assertOk()->assertSee('Sign in to save this screening')->assertDontSee('Save and alert me');
         $free = $this->free();
-        $this->actingAs($free)->post('/profiles', ['name' => 'Free try', 'answers' => $answers])->assertRedirect('/pricing');
-        $this->assertSame(0, ApplicabilityProfile::count());
+        $this->actingAs($free)->post('/profiles', ['name' => 'Free try', 'answers' => $answers])->assertRedirect('/following')->assertSessionHas('status', 'profile-saved');
+        $this->assertSame(1, ApplicabilityProfile::count());
+        ApplicabilityProfile::query()->delete();
 
         $pro = $this->pro(['email' => 'profile@example.org']);
         $this->actingAs($pro)->get($url)->assertOk()->assertSee('Save and alert me');
