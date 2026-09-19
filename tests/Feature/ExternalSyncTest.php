@@ -179,4 +179,50 @@ class ExternalSyncTest extends TestCase
 
         $this->assertSame($counts[90002], $counts[90003], 'outbound source links scale with report count');
     }
+
+    /**
+     * The causal profile is the strongest claim the incident corpus supports, so
+     * it is also the easiest to overstate. This pins the two things that keep it
+     * a finding rather than a headline: percentages are taken over the records
+     * that carry the coding, and the page says so.
+     *
+     * A future change that divides by the whole corpus would quietly turn
+     * "97.6% of classified records" into a smaller, wrong number and present
+     * uncoded records as if they were evidence of absence.
+     */
+    public function test_the_causal_profile_is_measured_over_classified_records_and_says_so(): void
+    {
+        foreach ([[91001, 'AI', 'Unintentional', 'Post-deployment'], [91002, 'Human', 'Intentional', 'Post-deployment']] as [$id, $entity, $intent, $timing]) {
+            ExternalIncident::create([
+                'incident_id' => $id, 'title' => 'Coded incident '.$id,
+                'description' => 'A description long enough to stand on its own.',
+                'occurred_on' => '2026-04-02', 'year' => 2026, 'report_count' => 1,
+                'snapshot_date' => '2026-09-07', 'developers' => ['D'], 'deployers' => ['P'], 'harmed' => ['H'],
+                'entity' => $entity, 'intent' => $intent, 'timing' => $timing,
+            ]);
+        }
+        // One record with no coding at all: it must widen the denominator the page
+        // discloses without being counted as a category.
+        ExternalIncident::create([
+            'incident_id' => 91003, 'title' => 'Uncoded incident',
+            'description' => 'A description long enough to stand on its own.',
+            'occurred_on' => '2026-04-03', 'year' => 2026, 'report_count' => 1,
+            'snapshot_date' => '2026-09-07', 'developers' => ['D'], 'deployers' => ['P'], 'harmed' => ['H'],
+        ]);
+
+        $profile = \App\Http\Controllers\Site\RiskController::causalProfile();
+
+        $this->assertSame(2, $profile['classified'], 'uncoded records must not count as classified');
+        $this->assertSame(3, $profile['total'], 'the corpus total must include uncoded records');
+        $this->assertSame(2, $profile['timing']['Post-deployment']);
+        $this->assertSame(1, $profile['matrix']['AI']['Unintentional']);
+        $this->assertArrayNotHasKey('', $profile['entity'], 'a blank code must never become a category');
+
+        // 2 of 2 classified is 100%, not 67% of the corpus -- and the page states
+        // the denominator rather than leaving the reader to assume it.
+        $html = $this->get(route('risk.incidents'))->assertOk()->getContent();
+        $this->assertStringContainsString('100%', $html);
+        $this->assertStringContainsString('2 of 3 records', $html);
+        $this->assertStringContainsString('unknown rather than none of the above', $html);
+    }
 }
