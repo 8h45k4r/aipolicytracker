@@ -38,13 +38,46 @@ fi
 
 have() { grep -qE "^${1}=" "$ENVF"; }
 
+# .env.example is a development template. Copying it verbatim onto a production
+# host hands over APP_DEBUG=true, DB_CONNECTION=sqlite and a session cookie that
+# is not marked Secure. The keys whose correct production value differs from the
+# example's are listed here and win over it. Everything else comes from the
+# example unchanged.
+prod_value() {
+  case "$1" in
+    APP_ENV)               echo "production" ;;
+    APP_DEBUG)             echo "false" ;;
+    DB_CONNECTION)         echo "pgsql" ;;
+    LOG_CHANNEL)           echo "stderr" ;;
+    LOG_LEVEL)             echo "warning" ;;
+    # Behind TLS the session cookie must be Secure, or it is sent in clear on
+    # any request that somehow reaches the origin over http.
+    SESSION_SECURE_COOKIE) echo "true" ;;
+    SESSION_ENCRYPT)       echo "true" ;;
+    MAIL_MAILER)           echo "resend" ;;
+    APP_MAINTENANCE_DRIVER) echo "cache" ;;
+    # An example address in ADMIN_EMAILS is worse than an empty one: it reads as
+    # configured while granting the backend to nobody.
+    ADMIN_EMAILS|ADMIN_EMAIL|CONTACT_EMAILS|MAIL_FROM_ADDRESS|ADMIN_PASSWORD) echo "" ;;
+    *) return 1 ;;
+  esac
+}
+
 added=0
+overridden=0
 while IFS= read -r line; do
   case "$line" in ''|\#*) continue ;; esac
   key="${line%%=*}"
   case "$key" in *[!A-Z0-9_]*|'') continue ;; esac
   have "$key" && continue
-  printf '%s\n' "$line" >> "$ENVF"
+  if pv="$(prod_value "$key")"; then
+    printf '%s=%s\n' "$key" "$pv" >> "$ENVF"
+    overridden=$((overridden + 1))
+  else
+    # Strip any trailing comment; dotenv mostly copes, but the file is read by
+    # people too and a value with prose after it invites a bad edit.
+    printf '%s\n' "${line%%  #*}" >> "$ENVF"
+  fi
   added=$((added + 1))
 done < "$EXAMPLE"
 
@@ -57,7 +90,7 @@ if ! grep -qE '^CRON_TOKEN=.+' "$ENVF"; then
 fi
 
 chmod 600 "$ENVF"
-echo "  $added key(s) added; existing values untouched"
+echo "  $added key(s) added ($overridden with production values instead of the example's); existing values untouched"
 echo
 
 # Report, never reveal. A key counts as needing attention when its value is
