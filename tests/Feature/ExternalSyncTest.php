@@ -62,7 +62,11 @@ class ExternalSyncTest extends TestCase
         $this->assertSame($existing->mit_domain, $updated->mit_domain, 'snapshot classification kept when the API has none');
 
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('Synced Warehouse Robot Incident')->assertSee('Synced from the AI Incident Database API')->assertSee(route('risk.incidents.show', $newId))->assertSee('https://incidentdatabase.ai/cite/');
-        $this->get('/ai-risk/incidents/'.$newId)->assertOk()->assertSee("Editor's notes", false)->assertSee('dates are approximate')->assertSee('AI systems implicated')->assertSee('Related incidents on the AI Incident Database')->assertSee('entities/acme-robotics')->assertSee('Synced from the AIID API');
+        $this->get('/ai-risk/incidents/'.$newId)->assertOk()->assertSee("Editor's notes", false)->assertSee('dates are approximate')->assertSee('AI systems implicated')->assertSee('Related incidents')->assertSee('Synced from source');
+        // The source is credited once, at the foot of the page, instead of on every
+        // entity and every catalogued report. These two assertions are the contract:
+        // the per-entity link-out is gone, and the licence credit is not.
+        $this->get('/ai-risk/incidents/'.$newId)->assertOk()->assertDontSee('entities/acme-robotics')->assertSee('CC BY-SA 4.0');
         $this->get('/')->assertOk()->assertSee('Synced Warehouse Robot Incident');
 
         // Re-importing the weekly snapshot must not delete or downgrade rows the live sync added or refreshed.
@@ -110,5 +114,115 @@ class ExternalSyncTest extends TestCase
         $this->actingAs($admin)->get('/backend/admin/external')->assertOk()->assertSee('Live API sync')->assertSee('Sync now from the AIID API');
         Http::fake([AiidApiClient::ENDPOINT => Http::response(['data' => ['incidents' => []]])]);
         $this->actingAs($admin)->post('/backend/admin/external/sync')->assertRedirect()->assertSessionHas('success');
+    }
+
+    /**
+     * The incident page is the site's own page about a record it did not author.
+     * Two things therefore have to be true at once, and this asserts both:
+     * it has to say something of its own, and it has to keep the credit.
+     *
+     * The credit is the part worth a test. The AIID data is CC BY-SA 4.0, where
+     * attribution is a condition of the licence, not a courtesy -- remove it and
+     * the licence to redistribute 1,663 incidents terminates. A future tidy-up
+     * that deletes the attribution block should fail here rather than ship.
+     */
+    public function test_an_incident_page_carries_its_own_summary_and_keeps_the_source_credit(): void
+    {
+        $incident = ExternalIncident::create([
+            'incident_id' => 90001,
+            'title' => 'Screening model down-ranked applicants by postcode',
+            'description' => 'A recruitment screening model rejected applicants from particular postcodes at a markedly higher rate.',
+            'occurred_on' => '2026-02-11', 'year' => 2026, 'report_count' => 2,
+            'snapshot_date' => '2026-09-07', 'mit_domain' => '1', 'mit_subdomain' => '1.1',
+            'developers' => ['Northwind Analytics'],
+            'deployers' => ['Acme Retail'],
+            'harmed' => ['Job applicants, Residents of affected postcodes'],
+        ]);
+
+        $html = $this->get($incident->url())->assertOk()->getContent();
+
+        // Its own summary, built from the record rather than copied from the source.
+        $this->assertStringContainsString('An AI system built by Northwind Analytics and deployed by Acme Retail', $html);
+        $this->assertStringContainsString('allegedly harmed', $html);
+
+        // The credit, and the licence it is a condition of.
+        $this->assertStringContainsString('CC BY-SA 4.0', $html);
+        $this->assertStringContainsString('incidentdatabase.ai', $html);
+
+        // The line that advertised the page as a thin copy is gone.
+        $this->assertStringNotContainsString('Only the incident metadata is stored here', $html);
+    }
+
+    /**
+     * Outbound links to the source must not scale with report count. They used to:
+     * every catalogued report carried its own link out, so a heavily reported
+     * incident sent a reader away more than a dozen times from one page.
+     */
+    public function test_source_links_do_not_multiply_with_the_number_of_reports(): void
+    {
+        foreach ([[90002, 1], [90003, 12]] as [$id, $reports]) {
+            $incident = ExternalIncident::create([
+                'incident_id' => $id, 'title' => 'Incident '.$id,
+                'description' => 'A description long enough to make this page indexable on its own terms.',
+                'occurred_on' => '2026-02-11', 'year' => 2026, 'report_count' => $reports,
+                'snapshot_date' => '2026-09-07', 'developers' => ['D'], 'deployers' => ['P'], 'harmed' => ['H'],
+            ]);
+            for ($n = 1; $n <= $reports; $n++) {
+                \App\Models\ExternalIncidentReport::create([
+                    'incident_id' => $id, 'report_number' => ($id * 100) + $n, 'title' => 'Report '.$n,
+                    'url' => 'https://news.example.com/'.$n, 'source_domain' => 'news.example.com',
+                    'date_published' => '2026-03-0'.min($n, 9),
+                ]);
+            }
+            $counts[$id] = substr_count($this->get($incident->url())->assertOk()->getContent(), 'https://incidentdatabase.ai');
+        }
+
+        $this->assertSame($counts[90002], $counts[90003], 'outbound source links scale with report count');
+    }
+
+    /**
+     * The causal profile is the strongest claim the incident corpus supports, so
+     * it is also the easiest to overstate. This pins the two things that keep it
+     * a finding rather than a headline: percentages are taken over the records
+     * that carry the coding, and the page says so.
+     *
+     * A future change that divides by the whole corpus would quietly turn
+     * "97.6% of classified records" into a smaller, wrong number and present
+     * uncoded records as if they were evidence of absence.
+     */
+    public function test_the_causal_profile_is_measured_over_classified_records_and_says_so(): void
+    {
+        foreach ([[91001, 'AI', 'Unintentional', 'Post-deployment'], [91002, 'Human', 'Intentional', 'Post-deployment']] as [$id, $entity, $intent, $timing]) {
+            ExternalIncident::create([
+                'incident_id' => $id, 'title' => 'Coded incident '.$id,
+                'description' => 'A description long enough to stand on its own.',
+                'occurred_on' => '2026-04-02', 'year' => 2026, 'report_count' => 1,
+                'snapshot_date' => '2026-09-07', 'developers' => ['D'], 'deployers' => ['P'], 'harmed' => ['H'],
+                'entity' => $entity, 'intent' => $intent, 'timing' => $timing,
+            ]);
+        }
+        // One record with no coding at all: it must widen the denominator the page
+        // discloses without being counted as a category.
+        ExternalIncident::create([
+            'incident_id' => 91003, 'title' => 'Uncoded incident',
+            'description' => 'A description long enough to stand on its own.',
+            'occurred_on' => '2026-04-03', 'year' => 2026, 'report_count' => 1,
+            'snapshot_date' => '2026-09-07', 'developers' => ['D'], 'deployers' => ['P'], 'harmed' => ['H'],
+        ]);
+
+        $profile = \App\Http\Controllers\Site\RiskController::causalProfile();
+
+        $this->assertSame(2, $profile['classified'], 'uncoded records must not count as classified');
+        $this->assertSame(3, $profile['total'], 'the corpus total must include uncoded records');
+        $this->assertSame(2, $profile['timing']['Post-deployment']);
+        $this->assertSame(1, $profile['matrix']['AI']['Unintentional']);
+        $this->assertArrayNotHasKey('', $profile['entity'], 'a blank code must never become a category');
+
+        // 2 of 2 classified is 100%, not 67% of the corpus -- and the page states
+        // the denominator rather than leaving the reader to assume it.
+        $html = $this->get(route('risk.incidents'))->assertOk()->getContent();
+        $this->assertStringContainsString('100%', $html);
+        $this->assertStringContainsString('2 of 3 records', $html);
+        $this->assertStringContainsString('unknown rather than none of the above', $html);
     }
 }
