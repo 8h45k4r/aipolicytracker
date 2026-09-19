@@ -146,5 +146,30 @@ jobs:
       - name: Test
         run: npm test
 
+      # public/build is committed, because the production host does not build
+      # assets: a Vite build needs Node plus roughly 200 MB of node_modules,
+      # which is most of the memory budget on the host this site shares with
+      # another application.
+      #
+      # The output directory is removed first. Vite's chunk hashes come out
+      # deterministic from a clean tree and different when it builds over an
+      # existing public/build, so a clean build is what makes the comparison
+      # below meaningful rather than noise.
       - name: Build
-        run: npm run build
+        run: |
+          rm -rf public/build
+          npm run build
+
+      # A commit that changes front-end source without rebuilding would ship a
+      # stale stylesheet to production and nothing would say so. Vite names its
+      # output by content hash, so any source change moves a filename and this
+      # step fails.
+      - name: Committed assets match the source
+        run: |
+          git diff --quiet -- public/build && exit 0
+          echo "public/build does not match a clean build of this source."
+          echo
+          git diff --stat -- public/build
+          echo
+          echo "Fix: run 'rm -rf public/build && npm run build' and commit public/build."
+          exit 1

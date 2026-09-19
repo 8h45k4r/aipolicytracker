@@ -1,0 +1,1 @@
+import{j as t}from"./app-B64lKCtK.js";function s({className:e="",children:o="",...r}){return t.jsx("div",{children:t.jsx("button",{...r,className:"ms-4 px-5 py-1 rounded-md text-white font-bold bg-blue-600 hover:bg-blue-500 "+e,children:o})})}export{s as P};
