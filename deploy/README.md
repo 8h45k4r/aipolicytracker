@@ -1,5 +1,12 @@
 # Deploying aipolicytracker.org on the EverestCloud VPS
 
+> **This runbook is for a host with PHP-FPM and PostgreSQL installed natively.**
+> `certifyi-prod-01` is not such a host: it has no PHP, no PostgreSQL and no
+> Node, and nginx there reverse-proxies Docker containers.
+> **For that host, follow [`README-docker.md`](README-docker.md) instead.**
+> `bootstrap-server.sh` refuses on it, correctly, with
+> `no PHP-FPM found under /etc/php`. Recorded as debt #31.
+
 Runbook for `202.58.120.67`. The host also runs Certifyi; **nothing in this
 document changes a shared configuration file, another site's pool, another
 database, or any unit that is not this site's.** Where a shared file would have
