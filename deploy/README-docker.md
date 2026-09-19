@@ -75,42 +75,38 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8080/up
 
 ## nginx
 
-Two server blocks ship, for the two Cloudflare SSL modes. Install exactly one.
+One server block, `nginx-aip-docker.conf`, works in every Cloudflare SSL mode:
 
-| SSL mode | File | Origin certificate | Cloudflare→origin |
+| SSL mode | Cloudflare connects on | Origin certificate | Cloudflare→origin |
 |---|---|---|---|
-| Flexible | `nginx-aip-flexible.conf` | not needed | **plain HTTP** (debt #34) |
-| Full (strict) | `nginx-aip-docker.conf` | required | encrypted |
+| Flexible | port 80 | not needed | **plain HTTP** (debt #34) |
+| Full | port 443 | any, unchecked | encrypted |
+| Full (strict) | port 443 | required, validated | encrypted |
 
-Both restrict nothing about the application; they differ only in TLS. The
-flexible block additionally allows only Cloudflare's published ranges, because
-port 80 being open otherwise lets anyone reach this origin directly with a
-forged Host header and bypass the edge.
+The mode can be changed in the dashboard with no matching change here and no
+window where the site is broken.
 
-### Flexible
+**There is deliberately no redirect from 80 to 443.** Behind Cloudflare the
+origin must not redirect: under Flexible the request already arrived as https to
+the visitor, so a 301 to https travels back through Cloudflare and loops until
+the browser gives up. Upgrading visitors to https is the edge's job — turn on
+**Always Use HTTPS** in Cloudflare instead.
 
-Set SSL/TLS mode to Flexible in Cloudflare first, then:
+Port 80 stays open because Cloudflare may use it, so the block allows only
+Cloudflare's published ranges on both ports. Without that, anyone could reach
+the origin directly with a forged `Host` header and bypass the edge — the WAF,
+the rate limits and the bot rules with it. A request from anywhere else gets
+403, which is why a `curl` from the host itself is expected to be refused.
 
-```bash
-cp nginx-aip-flexible.conf /etc/nginx/sites-available/aip
-ln -sfn /etc/nginx/sites-available/aip /etc/nginx/sites-enabled/aip
-nginx -t && systemctl reload nginx
-```
+### Install
 
-There is deliberately no redirect to https in that block: under Flexible the
-request arrives on port 80 having already been https to the visitor, so a 301
-to https goes back through Cloudflare and loops forever.
-
-### Full (strict)
-
-The Cloudflare origin certificate must be in place first, because SSL mode
-Full (strict) validates it:
+The certificate must exist before the reload, because the block references it:
 
 ```bash
 mkdir -p /etc/ssl/aip
-# paste the certificate and key from Cloudflare > SSL/TLS > Origin Server
-nano /etc/ssl/aip/origin.pem
-nano /etc/ssl/aip/origin.key
+# Cloudflare > SSL/TLS > Origin Server > Create Certificate
+nano /etc/ssl/aip/origin.pem     # the Origin Certificate box
+nano /etc/ssl/aip/origin.key     # the Private Key box, shown once
 chmod 600 /etc/ssl/aip/origin.key
 ```
 
@@ -121,7 +117,9 @@ nginx -t && systemctl reload nginx
 ```
 
 `nginx -t` tests the whole configuration, the other site's blocks included, so a
-mistake here is caught before the reload rather than after it.
+mistake is caught before the reload rather than after it.
+
+Then move Cloudflare to **Full (strict)**. Nothing on the host changes.
 
 ## Verify, then move DNS
 
