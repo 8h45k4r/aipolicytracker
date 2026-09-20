@@ -49,12 +49,51 @@ class Entitlements
         return is_bool($value) ? $value : (is_numeric($value) && $value > 0);
     }
 
-    /** Raw entitlement value (bool or number), null when the capability is unknown. */
+    /**
+     * Raw entitlement value (bool or number), null when the capability is unknown.
+     *
+     * With selling switched off there is no route by which anyone can hold a
+     * subscription, so gating on one would not make a capability paid -- it would
+     * make it unreachable. Following records for daily alerts, and saving an
+     * applicability profile, would become dead code behind a door with no key.
+     *
+     * So while billing is disabled the most permissive value any plan defines is
+     * granted to every signed-in account. Sign-in is still required: these
+     * capabilities write rows owned by a user. Turning billing back on restores
+     * the subscription check with no further change here.
+     */
     public function value(User $user, string $capability): mixed
     {
+        if (! $this->config->enabled()) {
+            return $this->mostPermissive($capability);
+        }
+
         $sub = $this->activeSubscription($user);
         $entitlements = $sub ? ($this->catalog->plan($sub->plan_key)['entitlements'] ?? []) : ($this->catalog->free()['entitlements'] ?? []);
 
         return $entitlements[$capability] ?? null;
+    }
+
+    /**
+     * The strongest value any tier defines for a capability: true over false, and
+     * the largest number over smaller ones. Reads the same configuration the paid
+     * tiers are built from, so a capability that no tier defines stays unknown
+     * rather than being invented here.
+     */
+    private function mostPermissive(string $capability): mixed
+    {
+        $best = $this->catalog->free()['entitlements'][$capability] ?? null;
+
+        foreach ($this->catalog->plans() as $plan) {
+            $value = $plan['entitlements'][$capability] ?? null;
+            if ($value === null) {
+                continue;
+            }
+            if ($best === null || ($value === true && $best !== true) || (is_numeric($value) && is_numeric($best) && $value > $best)) {
+                $best = $value;
+            }
+        }
+
+        return $best;
     }
 }

@@ -41,8 +41,7 @@
                             <button type="submit" class="btn-primary" data-track="profile_save">Save and alert me</button>
                         </form>
                     @else
-                        <p class="mt-1 text-sm text-brand-body">Pro accounts can save this screening and get a daily alert when a change may affect it, naming the system and linking the official source.</p>
-                        <p class="mt-3"><a href="{{ route('pricing') }}" class="btn-secondary" data-track="profile_upsell">See Pro plans</a></p>
+                        <p class="mt-1 text-sm text-brand-body">Sign in to save this screening and get a daily alert when a change may affect it, naming the system and linking the official source. It is free.</p>
                     @endif
                     <p class="mt-2 meta">Screening is relevance, not a legal determination. Nothing about your systems is published.</p>
                 </section>

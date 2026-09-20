@@ -82,6 +82,89 @@ class ExternalIncident extends Model
         return array_map(fn ($name) => ['id' => null, 'name' => $name], $this->{$role === 'harmed' ? 'harmed' : $role} ?? []);
     }
 
+    /**
+     * The actor chain as one readable sentence: who built it, who ran it, who it
+     * hurt. Every word of it is "alleged", because that is how these records are
+     * classified and a summary that quietly drops the qualifier would be making a
+     * finding this project has not made.
+     *
+     * Built from the three fields that are populated on essentially every record
+     * (developers and deployers 100%, harmed 99.9%). Fields like `countries` and
+     * `implicated_systems` are deliberately not used here: they are populated on
+     * 8.4% and 0% of records, so anything built on them renders blank far more
+     * often than it renders.
+     *
+     * A sentence rather than three chip lists because a sentence is what a reader
+     * skims and what an answer engine can quote.
+     */
+    public function actorLine(): ?string
+    {
+        $names = function (string $role, int $max = 2): ?string {
+            // Each stored element can itself be a comma-joined list -- incident
+            // 1466 holds all nine of its harmed parties in a single string -- so
+            // splitting is what makes the cap mean anything. Without it the
+            // sentence prints every name and stops being a summary.
+            $all = [];
+            foreach ($this->entityList($role) as $entity) {
+                foreach (explode(',', (string) ($entity['name'] ?? '')) as $part) {
+                    if (($part = trim($part)) !== '') {
+                        $all[] = $part;
+                    }
+                }
+            }
+            $all = array_values(array_unique($all));
+            if ($all === []) {
+                return null;
+            }
+            $shown = array_slice($all, 0, $max);
+            $rest = count($all) - count($shown);
+            if ($rest > 0) {
+                return implode(', ', $shown).' and '.$rest.' '.($rest === 1 ? 'other' : 'others');
+            }
+
+            return count($shown) === 2 ? $shown[0].' and '.$shown[1] : $shown[0];
+        };
+
+        $developer = $names('developers');
+        $deployer = $names('deployers');
+        $harmed = $names('harmed');
+
+        $built = match (true) {
+            $developer !== null && $deployer !== null && $developer === $deployer => 'An AI system built and deployed by '.$developer,
+            $developer !== null && $deployer !== null => 'An AI system built by '.$developer.' and deployed by '.$deployer,
+            $developer !== null => 'An AI system built by '.$developer,
+            $deployer !== null => 'An AI system deployed by '.$deployer,
+            default => null,
+        };
+
+        if ($built === null) {
+            return null;
+        }
+
+        return $harmed !== null
+            ? $built.' allegedly harmed '.$harmed.'.'
+            : $built.'.';
+    }
+
+    /**
+     * The period the catalogued coverage spans, e.g. "Mar 2019 - Jan 2021".
+     *
+     * Reads the loaded reports rather than issuing its own query, so a page that
+     * already has them pays nothing. Null when no report carries a date, which is
+     * the honest answer rather than inventing a range from the incident date.
+     */
+    public function reportSpan(): ?string
+    {
+        $dates = $this->reports->pluck('date_published')->filter();
+        if ($dates->isEmpty()) {
+            return null;
+        }
+        $first = $dates->min()->format('M Y');
+        $last = $dates->max()->format('M Y');
+
+        return $first === $last ? $first : $first.' - '.$last;
+    }
+
     /** Domain number (1-7) derived from the AIID label, via the MIT taxonomy file. */
     public static function domainLabels(): array
     {
