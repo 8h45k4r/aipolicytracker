@@ -76,27 +76,8 @@ class BillingTest extends TestCase
         ];
     }
 
-    public function test_pricing_page_is_noindex_and_sells_nothing_while_billing_is_disabled(): void
-    {
-        $res = $this->get('/pricing')->assertOk()->assertSee('Not yet available')->assertDontSee('Subscribe to Pro');
-        $this->assertStringContainsString('noindex', $res->getContent());
-        $this->actingAs($this->user())->post('/billing/checkout/pro_monthly')->assertNotFound();
-        $this->actingAs($this->user())->post('/billing/portal')->assertNotFound();
-        $this->get('/sitemap-static.xml')->assertOk()->assertDontSee('/pricing');
-    }
-
-    public function test_pricing_page_is_indexable_and_offers_checkout_when_enabled(): void
-    {
-        $this->enable();
-        $res = $this->get('/pricing')->assertOk()->assertSee('$29')->assertSee('$290')->assertSee('Sign in to subscribe');
-        $this->assertStringContainsString('index,follow', $res->getContent());
-        $this->assertStringNotContainsString('noindex', $res->getContent());
-        $this->actingAs($this->user())->get('/pricing')->assertOk()->assertSee('Subscribe to Pro');
-        $this->get('/sitemap-static.xml')->assertOk()->assertSee('/pricing');
-    }
-
     /** Guard: a plan may only advertise and grant capabilities something in the code actually reads. */
-    public function test_plans_sell_only_delivered_capabilities(): void
+    public function test_every_entitlement_key_is_consumed_by_code(): void
     {
         $this->enable();
         // Every entitlement key in config must be read somewhere in app/ (an unread key is an unkept promise).
@@ -106,33 +87,9 @@ class BillingTest extends TestCase
                 $this->assertContains($key, $delivered, "Entitlement {$key} is granted but nothing consumes it");
             }
         }
-        $page = $this->get('/pricing')->assertOk()->getContent();
-        foreach (['API quota', 'change history', 'version diffs'] as $unbacked) {
-            $this->assertStringNotContainsString($unbacked, $page, 'pricing page promises a capability that does not exist');
-        }
-        $this->get('/pricing')->assertSee('Follow any policy, jurisdiction or obligation, synced to your account');
-    }
-
-    public function test_checkout_requires_verified_account_records_attempt_and_hands_off_to_provider(): void
-    {
-        $this->enable();
-        $this->post('/billing/checkout/pro_monthly')->assertRedirect('/login');
-        $unverified = User::factory()->create(['email_verified_at' => null]);
-        $this->actingAs($unverified)->post('/billing/checkout/pro_monthly')->assertRedirect(route('verification.notice'));
-        $this->actingAs($this->user())->post('/billing/checkout/no_such_plan')->assertNotFound();
-
-        $user = $this->user();
-        $res = $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk()->assertSee('https://checkout.example.test/cs_1');
-        $checkout = BillingCheckout::where('user_id', $user->id)->firstOrFail();
-        $this->assertSame('pdt_month', $checkout->product_id);
-        $this->assertSame('cs_1', $checkout->provider_session_id);
-        $this->assertSame((string) $user->id, $this->gateway->lastCheckout['metadata']['app_user_id']);
-        $this->assertStringContainsString('/billing/return/'.$checkout->id, $this->gateway->lastCheckout['return_url']);
-        // Return page: no subscription yet, so the page says it is still confirming, never "active".
-        $this->actingAs($user)->get('/billing/return/'.$checkout->id)->assertOk()->assertSee('Confirming your subscription');
-        $this->assertSame('returned', $checkout->fresh()->status);
-        $this->actingAs($this->user())->get('/billing/return/'.$checkout->id)->assertNotFound();
-        $this->assertNull($user->fresh()->activeSubscription());
+        // The page that listed these is gone; the rule it enforced is not. An
+        // entitlement key nothing reads is still an unkept promise, whether or
+        // not there is a page making it.
     }
 
     public function test_admin_can_ask_the_provider_whether_selling_works_without_charging_anyone(): void
@@ -153,24 +110,6 @@ class BillingTest extends TestCase
         $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('the provider refused to open a checkout session')->assertSee('provider down');
 
         $this->actingAs($this->user())->post('/backend/admin/billing/probe')->assertRedirect('/');
-    }
-
-    public function test_checkout_failure_at_provider_is_reported_not_faked(): void
-    {
-        $this->enable();
-        $this->gateway->fail = true;
-        $user = $this->user();
-        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error');
-        // A customer never sees provider internals; an admin does.
-        $this->assertNull(session('error_detail'));
-        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
-        $admin = $this->user(['email' => 'admin@example.org']);
-        $this->actingAs($admin)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error_detail', 'provider down');
-        $this->actingAs($admin)->get('/pricing')->assertOk()->assertSee('Provider response (visible to admins only)');
-        $attempt = BillingCheckout::where('user_id', $user->id)->firstOrFail();
-        $this->assertSame('abandoned', $attempt->status);
-        $this->assertSame('provider down', $attempt->error, 'provider answer kept for diagnosis');
-        $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('provider down')->assertSee('abandoned');
     }
 
     public function test_webhook_rejects_missing_or_invalid_signatures_and_stores_nothing(): void
@@ -212,9 +151,10 @@ class BillingTest extends TestCase
         $this->assertSame(1, Subscription::count());
         $this->assertSame('applied', BillingEvent::first()->outcome);
 
-        $this->actingAs($user)->get('/profile')->assertOk()->assertSee('Pro')->assertSee('Manage billing');
-        $this->actingAs($user)->get('/pricing')->assertOk()->assertSee('Your current plan');
-        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect('/profile');
+        // The pricing page, the checkout route and the "Manage billing" control
+        // were removed with the selling surface. What the webhook grants is still
+        // asserted above, from the subscription row rather than from a page.
+        $this->assertTrue($user->fresh()->entitled('alerts.daily'));
     }
 
     public function test_unknown_product_never_grants_access_and_payment_events_are_recorded_but_ignored(): void
@@ -308,23 +248,13 @@ class BillingTest extends TestCase
         $this->assertSame($user->id, Subscription::first()->user_id);
     }
 
-    public function test_portal_redirects_subscribed_users_to_the_provider(): void
-    {
-        $this->enable();
-        $user = $this->user();
-        $this->actingAs($user)->post('/billing/portal')->assertRedirect('/profile')->assertSessionHas('error');
-        $this->webhook($this->subscriptionEvent('subscription.active', $user))->assertOk();
-        $this->actingAs($user->fresh())->post('/billing/portal')->assertOk()->assertSee('https://portal.example.test/cus_1');
-        $this->assertSame('cus_1', $this->gateway->lastPortalCustomer);
-    }
-
     public function test_subscribed_middleware_guards_paid_routes(): void
     {
         $this->enable();
         Route::middleware(['web', 'subscribed:alerts.daily'])->get('/_test/pro', fn () => 'pro-only');
         $this->get('/_test/pro')->assertRedirect('/login');
         $user = $this->user();
-        $this->actingAs($user)->get('/_test/pro')->assertRedirect('/pricing');
+        $this->actingAs($user)->get('/_test/pro')->assertRedirect('/');
         $this->webhook($this->subscriptionEvent('subscription.active', $user))->assertOk();
         $this->actingAs($user->fresh())->get('/_test/pro')->assertOk()->assertSee('pro-only');
     }
@@ -364,21 +294,6 @@ class BillingTest extends TestCase
         $this->assertCount(1, $this->gateway->webhooks);
         $this->assertCount(2, $this->gateway->createdProducts);
         $this->actingAs($this->user())->post('/backend/admin/billing/provision')->assertRedirect('/');
-    }
-
-    public function test_checkout_switch_in_settings_overrides_the_environment(): void
-    {
-        config(['aipolicytracker.admin_emails' => ['admin@example.org'], 'billing.plans.pro_monthly.product_id' => 'pdt_month', 'billing.plans.pro_yearly.product_id' => 'pdt_year']);
-        $admin = $this->user(['email' => 'admin@example.org']);
-        $this->get('/pricing')->assertOk()->assertSee('Not yet available');
-        $this->actingAs($admin)->post('/backend/admin/settings', ['billing_enabled' => 'on'])->assertRedirect();
-        $this->get('/pricing')->assertOk()->assertDontSee('Not yet available')->assertSee('Subscribe to Pro');
-        $this->assertStringNotContainsString('noindex', $this->get('/pricing')->getContent());
-        config(['billing.enabled' => true]);
-        $this->actingAs($admin)->post('/backend/admin/settings', ['billing_enabled' => 'off'])->assertRedirect();
-        $this->get('/pricing')->assertOk()->assertSee('Not yet available');
-        $this->actingAs($admin)->post('/backend/admin/settings', ['billing_enabled' => 'maybe'])->assertSessionHasErrors('billing_enabled');
-        $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('from Settings');
     }
 
     public function test_admin_billing_page_and_settings_are_admin_only_and_keys_are_stored_encrypted(): void

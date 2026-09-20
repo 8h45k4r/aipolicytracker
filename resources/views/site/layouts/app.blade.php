@@ -65,7 +65,7 @@
                 <details class="relative lg:hidden">
                     <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none" aria-label="Open menu">Menu</summary>
                     <nav aria-label="Mobile" class="absolute right-0 mt-2 w-64 rounded-sm border border-brand-line bg-white p-2 shadow-lg z-40">
-                        @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['risk.index','AI risk'],['risk.incidents','AI incidents'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['subscribe.show','Subscribe to the digest'],['saved','Saved records'],['pricing','Pricing'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
+                        @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['changes.index','Changes'],['risk.index','AI risk'],['risk.incidents','AI incidents'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['subscribe.show','Subscribe to the digest'],['saved','Saved records'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
                         <a href="{{ route($r) }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body hover:bg-brand-paper no-underline">{{ $label }}</a>
                         @endforeach
                     </nav>
@@ -112,7 +112,6 @@
             <p class="eyebrow !text-brand-cyan">Project</p>
             <ul class="mt-3 space-y-2">
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('pricing') }}">Pricing</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('methodology') }}">Methodology</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('verification') }}">Verification</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('coverage') }}">Coverage</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('gaps') }}">Open queue</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('reviewers') }}">Reviewers</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('about') }}">About</a></li>

@@ -23,6 +23,52 @@
     @if(!empty($aiid['domain_by_year']))
     <x-site.stacked-chart class="mt-8" :series="collect($aiid['domain_by_year'])->filter(fn ($v, $y) => $y >= 2018)->all()" :keys="array_keys($aiid['by_mit_domain'])" title="Incidents per year by MIT risk domain" note="Classified incidents only" />
     @endif
+    @if($causal['classified'] > 0)
+    @php($pct = fn ($n) => round(100 * $n / max(1, $causal['classified']), 1))
+    @php($post = $causal['timing']['Post-deployment'] ?? 0)
+    @php($aiUnintended = $causal['matrix']['AI']['Unintentional'] ?? 0)
+    <section class="mt-10" aria-labelledby="causal-heading">
+        <div class="rule-strong pt-3">
+            <h2 id="causal-heading" class="section-title">How these harms arise</h2>
+            <p class="mt-2 max-w-[70ch] text-brand-body">Every record above is coded for who caused the harm, whether it was intended, and whether it happened before or after the system was released. That coding is what turns a list of incidents into an argument about where regulation has to act.</p>
+        </div>
+
+        <div class="mt-5 grid gap-4 sm:grid-cols-3">
+            <div class="card-flat p-4">
+                <p class="font-mono tabular-nums text-3xl text-brand-navy">{{ $pct($post) }}%</p>
+                <p class="mt-1 text-sm font-medium text-brand-navy">happened after deployment</p>
+                <p class="mt-1 meta">{{ number_format($post) }} of {{ number_format($causal['classified']) }} classified records. Pre-release testing is not where these were caught.</p>
+            </div>
+            <div class="card-flat p-4">
+                <p class="font-mono tabular-nums text-3xl text-brand-navy">{{ $pct($aiUnintended) }}%</p>
+                <p class="mt-1 text-sm font-medium text-brand-navy">the system itself, unintended</p>
+                <p class="mt-1 meta">{{ number_format($aiUnintended) }} records where the AI was the cause and the harm was not intended by anyone.</p>
+            </div>
+            <div class="card-flat p-4">
+                <p class="font-mono tabular-nums text-3xl text-brand-navy">{{ $pct($causal['matrix']['Human']['Intentional'] ?? 0) }}%</p>
+                <p class="mt-1 text-sm font-medium text-brand-navy">deliberate human misuse</p>
+                <p class="mt-1 meta">{{ number_format($causal['matrix']['Human']['Intentional'] ?? 0) }} records where a person used the system to cause the harm on purpose.</p>
+            </div>
+        </div>
+
+        <div class="mt-6 grid gap-8 lg:grid-cols-2">
+            <x-site.matrix-chart
+                :rows="array_keys($causal['entity'])"
+                :cols="array_keys($causal['intent'])"
+                :cells="$causal['matrix']"
+                title="Who caused it, and was it intended"
+                rowLabel="Cause"
+                colLabel="Intent" />
+            <x-site.bar-chart
+                :series="$causal['timing']"
+                title="When it happened in the system's life"
+                note="Classified records only" />
+        </div>
+
+        <p class="mt-3 meta">Coded on {{ number_format($causal['classified']) }} of {{ number_format($causal['total']) }} records ({{ round(100 * $causal['classified'] / max(1, $causal['total'])) }}%). Percentages are of the classified records; the remaining {{ number_format($causal['total'] - $causal['classified']) }} are uncoded, which means unknown rather than none of the above. Classification is the source dataset's, not ours.</p>
+    </section>
+    @endif
+
     <div class="mt-10 grid gap-10 lg:grid-cols-12">
         <section class="lg:col-span-5 min-w-0" aria-labelledby="sector-heading">
             <div class="rule-strong pt-3"><h2 id="sector-heading" class="section-title">Sector of deployment</h2></div>

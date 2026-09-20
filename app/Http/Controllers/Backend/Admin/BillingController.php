@@ -59,7 +59,7 @@ class BillingController extends Controller
             return back()->with('error', 'No plan has a product id yet. Run "Provision webhook and products" first.');
         }
         try {
-            $session = $gateway->createCheckout($request->user(), $plan['product_id'], ['probe' => '1'], route('pricing'));
+            $session = $gateway->createCheckout($request->user(), $plan['product_id'], ['probe' => '1'], route('home'));
         } catch (\Throwable $e) {
             return back()->with('probe', ['ok' => false, 'plan' => $plan['name'], 'environment' => $config->environment(), 'detail' => mb_substr($e->getMessage(), 0, 2000)]);
         }

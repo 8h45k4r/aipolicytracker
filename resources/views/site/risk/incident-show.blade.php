@@ -6,28 +6,64 @@
         <p class="eyebrow">AI incident #{{ $i->incident_id }} · <time datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j F Y') }}</time></p>
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $i->title }}</h1>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <a href="{{ $i->citeUrl() }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open on the AI Incident Database</a>
-            <a href="{{ $i->reportsUrl() }}" rel="noopener" class="text-brand-body hover:underline" data-track="source_click">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</a>
-            <span class="meta">@if($i->synced_at)Synced from the AIID API <time datetime="{{ $i->synced_at->toIso8601String() }}">{{ $i->synced_at->diffForHumans() }}</time>@if($i->modified_at) · record last edited {{ $i->modified_at->format('j M Y') }}@endif @else Snapshot {{ $i->snapshot_date?->format('j M Y') ?? '—' }}@endif</span>
+            @if($i->reports->isNotEmpty())<a href="#reports-heading" class="text-brand-body hover:underline">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</a>@else<span class="meta">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</span>@endif
+            <span class="meta">@if($i->synced_at)Synced from source <time datetime="{{ $i->synced_at->toIso8601String() }}">{{ $i->synced_at->diffForHumans() }}</time>@if($i->modified_at) · record last edited {{ $i->modified_at->format('j M Y') }}@endif @else Snapshot {{ $i->snapshot_date?->format('j M Y') ?? '—' }}@endif</span>
         </div>
     </header>
+    @if($i->actorLine())
+    <section aria-labelledby="brief-heading" class="mt-6 card-flat p-5">
+        <h2 id="brief-heading" class="sr-only">In brief</h2>
+        <p class="text-base text-brand-navy">{{ $i->actorLine() }}</p>
+        <dl class="mt-4 grid gap-3 sm:grid-cols-3 text-sm">
+            <div>
+                <dt class="text-brand-muted">Risk domain</dt>
+                <dd class="mt-0.5">
+                    @if($i->mit_domain)
+                        @if($domainId)
+                            <a href="{{ route('risk.domain', $domainId) }}" class="text-brand-navy hover:underline">{{ $i->mit_domain }}</a>
+                        @else
+                            {{ $i->mit_domain }}
+                        @endif
+                        @if($i->mit_subdomain)
+                            <span class="block meta">{{ $i->mit_subdomain }}</span>
+                        @endif
+                    @else
+                        <span class="text-brand-muted">Not classified</span>
+                    @endif
+                </dd>
+            </div>
+            <div>
+                <dt class="text-brand-muted">Occurred</dt>
+                <dd class="mt-0.5"><time datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j F Y') }}</time></dd>
+            </div>
+            <div>
+                <dt class="text-brand-muted">Coverage</dt>
+                <dd class="mt-0.5">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}@if($i->reportSpan())<span class="block meta">{{ $i->reportSpan() }}</span>@endif</dd>
+            </div>
+        </dl>
+    </section>
+    @endif
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             <section aria-labelledby="what-heading">
                 <h2 id="what-heading" class="section-title">What happened</h2>
                 <p class="prose-policy mt-2">{{ $i->description ?: '—' }}</p>
-                @if($i->editor_notes)<div class="mt-4 card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Editor's notes (AI Incident Database)</p><p class="mt-1 text-brand-body whitespace-pre-line">{{ $i->editor_notes }}</p></div>@endif
-                <p class="mt-3 text-sm text-brand-muted">Only the incident metadata is stored here. The underlying news reports are on the AI Incident Database (CC BY-SA 4.0); use the links above to read them.</p>
+                @if($i->editor_notes)
+                    <div class="mt-4 card-flat p-4 text-sm">
+                        <p class="font-semibold text-brand-navy">Editor's notes</p>
+                        <p class="mt-1 text-brand-body whitespace-pre-line">{{ $i->editor_notes }}</p>
+                    </div>
+                @endif
             </section>
             @if($i->reports->isNotEmpty())
             <section aria-labelledby="reports-heading" class="mt-8">
                 <h2 id="reports-heading" class="section-title">News reports ({{ $i->reports->count() }})</h2>
-                <p class="mt-1 text-sm text-brand-muted">Coverage catalogued by the AI Incident Database. Titles link to the original publisher; the text is not reproduced here.</p>
+                <p class="mt-1 text-sm text-brand-muted">Titles link to the original publisher; report text is not reproduced here.</p>
                 <ol class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
                     @foreach($i->reports as $r)
                     <li class="py-3 flex flex-wrap gap-x-4 gap-y-1">
                         <time class="datestamp shrink-0" datetime="{{ $r->date_published?->toDateString() }}">{{ $r->date_published?->format('j M Y') ?? '—' }}</time>
-                        <div class="min-w-0 flex-1"><a href="{{ $r->url }}" rel="noopener nofollow" class="text-brand-navy" data-track="source_click">{{ $r->title }}</a><div class="meta">{{ $r->source_domain ?: '—' }}@if($r->authors) · {{ implode(', ', array_slice($r->authors, 0, 3)) }}@endif · <a href="{{ $r->aiidUrl() }}" rel="noopener">AIID #{{ $r->report_number }}</a></div></div>
+                        <div class="min-w-0 flex-1"><a href="{{ $r->url }}" rel="noopener nofollow" class="text-brand-navy" data-track="source_click">{{ $r->title }}</a><div class="meta">{{ $r->source_domain ?: '—' }}@if($r->authors) · {{ implode(', ', array_slice($r->authors, 0, 3)) }}@endif</div></div>
                     </li>
                     @endforeach
                 </ol>
@@ -37,8 +73,7 @@
                 <h2 id="who-heading" class="section-title">Who was involved</h2>
                 <dl class="mt-3 grid gap-4 sm:grid-cols-3 text-sm">
                     @foreach([['Alleged deployer', 'deployers', 'deployer'], ['Alleged developer', 'developers', 'developer'], ['Alleged harmed party', 'harmed', null]] as [$label, $role, $param])
-                    <div><dt class="text-brand-muted">{{ $label }}</dt><dd class="mt-1 flex flex-wrap gap-1.5">@forelse($i->entityList($role) as $e)@if($param)<a class="chip !min-h-0 !py-1" href="{{ route('risk.incidents.browse', [$param => $e['name']]) }}" title="Other incidents naming {{ $e['name'] }}">{{ $e['name'] }}</a>@else<span class="chip !min-h-0 !py-1">{{ $e['name'] }}</span>@endif @empty<span>—</span>@endforelse</dd>
-                    @if(collect($i->entityList($role))->contains(fn ($e) => ! empty($e['id'])))<dd class="mt-1 meta">On AIID: @foreach(collect($i->entityList($role))->filter(fn ($e) => ! empty($e['id'])) as $e)<a href="{{ \App\Models\ExternalIncident::entityUrl($e['id']) }}" rel="noopener" data-track="source_click">{{ $e['name'] }}</a>@if(! $loop->last), @endif @endforeach</dd>@endif</div>
+                    <div><dt class="text-brand-muted">{{ $label }}</dt><dd class="mt-1 flex flex-wrap gap-1.5">@forelse($i->entityList($role) as $e)@if($param)<a class="chip !min-h-0 !py-1" href="{{ route('risk.incidents.browse', [$param => $e['name']]) }}" title="Other incidents naming {{ $e['name'] }}">{{ $e['name'] }}</a>@else<span class="chip !min-h-0 !py-1">{{ $e['name'] }}</span>@endif @empty<span>—</span>@endforelse</dd></div>
                     @endforeach
                 </dl>
                 @if($i->implicated_systems)
@@ -68,8 +103,8 @@
             @endif
             @if($related->isNotEmpty())
             <section aria-labelledby="related-heading" class="mt-8">
-                <h2 id="related-heading" class="section-title">Related incidents on the AI Incident Database</h2>
-                <p class="mt-1 text-sm text-brand-muted">Linked by AIID editors or by its text-similarity model.</p>
+                <h2 id="related-heading" class="section-title">Related incidents</h2>
+                <p class="mt-1 text-sm text-brand-muted">Linked by editors or by text similarity in the source dataset.</p>
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">@foreach($related as $s)<li class="py-3 flex flex-wrap gap-x-4"><time class="datestamp shrink-0" datetime="{{ $s->occurred_on->toDateString() }}">{{ $s->occurred_on->format('j M Y') }}</time><a href="{{ $s->url() }}" class="text-brand-navy">{{ $s->title }}</a></li>@endforeach</ul>
             </section>
             @endif
@@ -86,7 +121,8 @@
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">@foreach($sameDeployer as $s)<li class="py-3 flex flex-wrap gap-x-4"><time class="datestamp shrink-0" datetime="{{ $s->occurred_on->toDateString() }}">{{ $s->occurred_on->format('j M Y') }}</time><a href="{{ $s->url() }}" class="text-brand-navy">{{ $s->title }}</a></li>@endforeach</ul>
             </section>
             @endif
-            <x-site.attribution class="mt-10" :name="$summary['source'] ?? 'AI Incident Database'" :url="$summary['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$summary['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$summary['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$summary['citation'] ?? null" :date="$summary['snapshot_date'] ?? null" note="Title, description and classification are reproduced under CC BY-SA 4.0; report texts are not. Read the reports on the AI Incident Database." />
+            <p class="mt-10 text-sm text-brand-muted">Source record: <a href="{{ $i->citeUrl() }}" rel="noopener" class="hover:underline" data-track="source_click">incident #{{ $i->incident_id }} on the AI Incident Database</a>@if($i->report_count) · <a href="{{ $i->reportsUrl() }}" rel="noopener" class="hover:underline" data-track="source_click">all {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</a>@endif</p>
+            <x-site.attribution class="mt-3" :name="$summary['source'] ?? 'AI Incident Database'" :url="$summary['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$summary['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$summary['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$summary['citation'] ?? null" :date="$summary['snapshot_date'] ?? null" note="Title, description and classification are reproduced under CC BY-SA 4.0; report texts are not. Read the reports on the AI Incident Database." />
         </div>
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
@@ -96,7 +132,7 @@
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Incident ID</dt><dd class="font-mono">{{ $i->incident_id }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Date</dt><dd>{{ $i->occurred_on->format('j M Y') }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Reports</dt><dd>{{ $i->report_count }}</dd></div>
-                        @if($i->modified_at)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Last edited on AIID</dt><dd>{{ $i->modified_at->format('j M Y') }}</dd></div>@endif
+                        @if($i->modified_at)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Last edited at source</dt><dd>{{ $i->modified_at->format('j M Y') }}</dd></div>@endif
                         @if($i->synced_at)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Synced</dt><dd>{{ $i->synced_at->format('j M Y H:i') }} UTC</dd></div>@endif
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Source</dt><dd>AI Incident Database</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Licence</dt><dd>CC BY-SA 4.0</dd></div>

@@ -25,7 +25,11 @@ class EnsureSubscribed
                 return response()->json(['message' => 'This feature requires a Pro plan.'], 402);
             }
 
-            return redirect()->route('pricing')->with('error', $capability === 'saved.server' ? 'Following records for daily alerts is part of Pro.' : 'This feature requires a Pro plan.');
+            // Selling is retired, so there is no page to send anyone to and no
+            // plan to buy. With billing disabled every signed-in account already
+            // holds these capabilities, so reaching this line means the feature is
+            // genuinely unavailable rather than merely unpaid.
+            return redirect()->route('home')->with('error', 'That feature is not available on this account.');
         }
 
         return $next($request);
