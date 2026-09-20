@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
-use App\Http\Controllers\Site\BillingController;
 use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\ChangeController;
 use App\Http\Controllers\Site\CompareController;
@@ -95,12 +94,11 @@ Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsu
 Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.digest');
 Route::post('/cron/external-sync', [CronController::class, 'externalSync'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.external-sync');
 
-// Billing: pricing is public; checkout and portal need a verified account; the webhook is signature-authenticated.
-Route::get('/pricing', [BillingController::class, 'pricing'])->name('pricing');
+// Selling is retired: there is no pricing page, checkout or portal. The
+// webhook stays mounted and signature-authenticated so that events for any
+// subscription created before this change are still recorded rather than
+// silently dropped. See debt #41.
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::post('/billing/checkout/{plan}', [BillingController::class, 'checkout'])->where('plan', '[a-z0-9_]+')->middleware('throttle:10,1')->name('billing.checkout');
-    Route::get('/billing/return/{checkout}', [BillingController::class, 'returned'])->where('checkout', '[0-9]+')->name('billing.return');
-    Route::post('/billing/portal', [BillingController::class, 'portal'])->middleware('throttle:10,1')->name('billing.portal');
 });
 // Follows and daily alerts (Pro): the toggle needs the saved.server entitlement; the list page needs an account.
 Route::middleware(['auth', 'verified'])->group(function () {

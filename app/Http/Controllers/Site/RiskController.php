@@ -94,6 +94,48 @@ class RiskController extends Controller
      * Numbers behind the AI-risk narrative: growth, who is harmed and who deploys, where harm is
      * recorded versus where rules exist, and how instruments map to domains. Cached for an hour.
      */
+    /**
+     * How recorded AI harms actually arise: who caused it, whether it was meant,
+     * and whether it happened before or after the system was released.
+     *
+     * These three fields are the MIT causal taxonomy and are coded on 1,496 of
+     * 1,663 records (90%). They are read from the incident table rather than the
+     * weekly snapshot because the API sync keeps the table ahead of it between
+     * imports, and they are charted nowhere else on the site.
+     *
+     * `classified` is returned so the page can state the denominator. Every
+     * percentage here is of the classified records, not of the corpus, and
+     * saying so is the difference between a finding and an overclaim: the 167
+     * uncoded records are unknown, not "none of the above".
+     *
+     * @return array{classified:int, total:int, entity:array, intent:array, timing:array, matrix:array}
+     */
+    public static function causalProfile(): array
+    {
+        $coded = fn (string $column) => ExternalIncident::query()
+            ->whereNotNull($column)->where($column, '!=', '')
+            ->selectRaw($column.' as k, count(*) as c')->groupBy($column)
+            ->orderByDesc('c')->pluck('c', 'k')->map(fn ($c) => (int) $c)->all();
+
+        $matrix = [];
+        $rows = ExternalIncident::query()
+            ->whereNotNull('entity')->where('entity', '!=', '')
+            ->whereNotNull('intent')->where('intent', '!=', '')
+            ->selectRaw('entity, intent, count(*) as c')->groupBy('entity', 'intent')->get();
+        foreach ($rows as $row) {
+            $matrix[$row->entity][$row->intent] = (int) $row->c;
+        }
+
+        return [
+            'classified' => ExternalIncident::whereNotNull('entity')->where('entity', '!=', '')->count(),
+            'total' => ExternalIncident::count(),
+            'entity' => $coded('entity'),
+            'intent' => $coded('intent'),
+            'timing' => $coded('timing'),
+            'matrix' => $matrix,
+        ];
+    }
+
     public static function narrative(array $aiid, array $mit): array
     {
         return \Illuminate\Support\Facades\Cache::remember('risk-narrative-v1', 3600, function () use ($aiid, $mit) {
@@ -207,6 +249,6 @@ class RiskController extends Controller
             ], fn ($v) => $v !== null && $v !== '' && $v !== []))
             ->withJsonLd(['@type' => 'ItemList', 'name' => 'Latest recorded AI incidents', 'itemListOrder' => 'https://schema.org/ItemListOrderDescending', 'numberOfItems' => $latest->count(), 'itemListElement' => $latest->take(10)->values()->map(fn ($i, $k) => ['@type' => 'ListItem', 'position' => $k + 1, 'url' => $i->url(), 'name' => $i->title])->all()]);
 
-        return view('site.risk.incidents', ['seo' => $seo, 'aiid' => $aiid, 'mit' => $this->data->mitRisk(), 'latest' => $latest, 'live' => $live]);
+        return view('site.risk.incidents', ['seo' => $seo, 'aiid' => $aiid, 'mit' => $this->data->mitRisk(), 'latest' => $latest, 'live' => $live, 'causal' => self::causalProfile()]);
     }
 }

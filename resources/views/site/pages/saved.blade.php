@@ -4,7 +4,7 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-3">Reading list</p>
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Saved records</h1>
-    <p class="mt-3 text-brand-body leading-7">Policies, jurisdictions and obligations you saved with the "Save" button. The list lives only in this browser: nothing is sent to the server and it will not follow you to another device. For updates by email, <a href="{{ route('subscribe.show') }}">subscribe to the weekly digest</a>, or <a href="{{ route('pricing') }}">follow records with Pro</a> to get a daily alert the day one changes.</p>
+    <p class="mt-3 text-brand-body leading-7">Policies, jurisdictions and obligations you saved with the "Save" button. The list lives only in this browser: nothing is sent to the server and it will not follow you to another device. For updates by email, <a href="{{ route('subscribe.show') }}">subscribe to the weekly digest</a>, or <a href="{{ route('login') }}">sign in and follow records</a> to get a daily alert the day one changes.</p>
     <div class="mt-6 flex flex-wrap gap-2" data-saved-tools hidden>
         <button type="button" class="btn-secondary" data-saved-copy>Copy list as Markdown</button>
         <button type="button" class="btn-secondary" data-saved-json>Copy list as JSON</button>
