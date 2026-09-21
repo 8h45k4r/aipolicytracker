@@ -149,6 +149,22 @@ class SitemapController extends Controller
                 $pages[] = [route('risk.subdomain', [$d['id'], $sd['id']]), 'monthly', '0.6'];
             }
         }
+        // Framework crosswalks. Only the pages that pass the same indexability threshold
+        // the page itself applies are listed, so the sitemap never advertises a URL that
+        // serves a noindex tag.
+        $crosswalk = app(\App\Services\PolicyData\FrameworkCrosswalk::class);
+        $pages[] = [route('frameworks.index'), 'weekly', '0.8'];
+        foreach ($crosswalk->summary() as $framework) {
+            if ($framework['obligations'] < \App\Services\PolicyData\FrameworkCrosswalk::MIN_INDEXABLE_OBLIGATIONS) {
+                continue;
+            }
+            $pages[] = [route('frameworks.show', $framework['slug']), 'weekly', '0.8'];
+            foreach ($crosswalk->jurisdictionsFor($framework['key']) as $row) {
+                if ($row['rows'] >= \App\Services\PolicyData\FrameworkCrosswalk::MIN_INDEXABLE_ROWS) {
+                    $pages[] = [route('frameworks.crosswalk', [$framework['slug'], $row['jurisdiction']->slug]), 'weekly', '0.7'];
+                }
+            }
+        }
         foreach (\App\Models\Tool::published()->orderBy('sort_order')->pluck('slug') as $slug) {
             $pages[] = [route('tools.show', $slug), 'monthly', '0.8'];
         }

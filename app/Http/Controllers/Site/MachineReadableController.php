@@ -7,6 +7,7 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\PolicyData\FrameworkCrosswalk;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -21,8 +22,9 @@ class MachineReadableController extends Controller
     {
         $jurisdictions = Jurisdiction::published()->withPublishedInstrument()->orderBy('name')->get()->filter->isIndexable();
         $policies = PolicyInstrument::published()->with('jurisdiction')->where('featured', true)->orderBy('title')->get();
+        $crosswalks = $this->crosswalkIndex();
 
-        return $this->text(view('site.machine.llms', compact('jurisdictions', 'policies'))->render());
+        return $this->text(view('site.machine.llms', compact('jurisdictions', 'policies', 'crosswalks'))->render());
     }
 
     public function llmsFull(): Response
@@ -33,6 +35,38 @@ class MachineReadableController extends Controller
         $changes = ChangeEvent::published()->with('jurisdiction')->orderByDesc('occurred_on')->limit(100)->get();
 
         return $this->text(view('site.machine.llms-full', compact('jurisdictions', 'policies', 'obligations', 'changes'))->render());
+    }
+
+    /**
+     * The law-to-standard crosswalks worth an agent's attention: frameworks that carry
+     * enough mapped duties to be indexed, and the jurisdiction pairs that do the same.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private function crosswalkIndex(): array
+    {
+        $crosswalk = app(FrameworkCrosswalk::class);
+
+        return $crosswalk->summary()
+            ->filter(fn (array $f) => $f['obligations'] >= FrameworkCrosswalk::MIN_INDEXABLE_OBLIGATIONS)
+            ->map(function (array $f) use ($crosswalk) {
+                $pairs = $crosswalk->jurisdictionsFor($f['key'])
+                    ->filter(fn (array $row) => $row['rows'] >= FrameworkCrosswalk::MIN_INDEXABLE_ROWS)
+                    ->map(fn (array $row) => [
+                        'name' => $row['jurisdiction']->name.' AI rules mapped to '.$f['short'],
+                        'url' => route('frameworks.crosswalk', [$f['slug'], $row['jurisdiction']->slug]),
+                        'mapped' => $row['rows'],
+                        'recorded' => $crosswalk->crosswalk($f['key'], $row['jurisdiction'])['total_obligations'],
+                    ])->values()->all();
+
+                return [
+                    'name' => $f['name'],
+                    'url' => route('frameworks.show', $f['slug']),
+                    'obligations' => $f['obligations'],
+                    'jurisdictions' => $f['jurisdictions'],
+                    'pairs' => $pairs,
+                ];
+            })->values()->all();
     }
 
     public function openapi(): JsonResponse
