@@ -14,4 +14,15 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
     Route::get('/obligations/{slug}', [PublicApiController::class, 'obligation'])->name('obligation');
     Route::get('/changes', [PublicApiController::class, 'changes'])->name('changes');
     Route::get('/taxonomies', [PublicApiController::class, 'taxonomies'])->name('taxonomies');
+
+    // Crosswalks between legal duties and the standards organisations are audited against.
+    Route::get('/frameworks', [PublicApiController::class, 'frameworks'])->name('frameworks');
+    Route::get('/frameworks/{framework}', [PublicApiController::class, 'framework'])->where('framework', '[a-z0-9-]+')->name('framework');
+    Route::get('/frameworks/{framework}/{jurisdiction}', [PublicApiController::class, 'frameworkCrosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('framework.crosswalk');
+
+    Route::get('/deadlines', [PublicApiController::class, 'deadlines'])->name('deadlines');
+
+    // Mirrored external datasets. Responses carry their source, licence and citation.
+    Route::get('/incidents', [PublicApiController::class, 'incidents'])->name('incidents');
+    Route::get('/risks', [PublicApiController::class, 'risks'])->name('risks');
 });

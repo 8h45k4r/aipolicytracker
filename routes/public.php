@@ -8,6 +8,7 @@ use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\ContributeController;
 use App\Http\Controllers\Site\CronController;
 use App\Http\Controllers\Site\FollowController;
+use App\Http\Controllers\Site\FrameworkController;
 use App\Http\Controllers\Site\FreeToolController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\JurisdictionController;
@@ -40,6 +41,11 @@ Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->
 
 Route::get('/compare', [CompareController::class, 'index'])->name('compare.index');
 Route::get('/compare/{comparison}', [CompareController::class, 'show'])->name('compare.show');
+
+// Crosswalks between legal duties and the standards organisations are audited against.
+Route::get('/frameworks', [FrameworkController::class, 'index'])->name('frameworks.index');
+Route::get('/frameworks/{framework}', [FrameworkController::class, 'show'])->where('framework', '[a-z0-9-]+')->name('frameworks.show');
+Route::get('/frameworks/{framework}/{jurisdiction}', [FrameworkController::class, 'crosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('frameworks.crosswalk');
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
