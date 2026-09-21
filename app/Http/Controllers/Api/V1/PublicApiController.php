@@ -269,7 +269,10 @@ class PublicApiController extends Controller
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = ExternalIncident::query()
                 ->when($filters['domain'], fn ($q, $d) => $q->where('mit_domain', $d))
-                ->when($filters['country'], fn ($q, $c) => $q->whereJsonContains('countries', $c))
+                // The same predicate RiskBrowseController uses for this column: it is a
+                // json column, not jsonb, and matching the quoted token works identically
+                // on SQLite and PostgreSQL where a containment operator does not.
+                ->when($filters['country'], fn ($q, $c) => $q->where('countries', 'like', '%"'.$c.'"%'))
                 ->when($filters['from'], fn ($q, $f) => $q->where('occurred_on', '>=', $f))
                 ->orderByDesc('occurred_on')->paginate($perPage)->withQueryString();
 
