@@ -36,8 +36,10 @@
             <section aria-labelledby="mapping-heading" class="mt-8">
                 <h2 id="mapping-heading" class="section-title">Framework mappings</h2>
                 <p class="mt-1 text-xs text-brand-muted">Original editorial crosswalks. They cite clause numbers only and reproduce no standard text; confidence reflects how direct the mapping is.</p>
+                @php($mappedSlug = config('frameworks.'.$obligation->frameworkMappings->first()->framework.'.slug'))
+                @if($mappedSlug)<p class="mt-1 text-xs"><a href="{{ route('frameworks.crosswalk', [$mappedSlug, $policy->jurisdiction->slug]) }}" class="text-brand-blue hover:underline">See every {{ $policy->jurisdiction->name }} duty mapped this way &rarr;</a></p>@endif
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Framework mappings</caption><thead><tr><th scope="col">Framework</th><th scope="col">Reference</th><th scope="col">Note</th><th scope="col">Confidence</th></tr></thead><tbody>
-                @foreach($obligation->frameworkMappings as $m)<tr><td class="whitespace-nowrap font-medium">{{ $m->frameworkName() }}</td><td>{{ $m->reference }}</td><td>{{ $m->note }}</td><td>{{ $m->confidence_level }}</td></tr>@endforeach
+                @foreach($obligation->frameworkMappings as $m)<tr><td class="whitespace-nowrap font-medium">@if(config('frameworks.'.$m->framework))<a href="{{ route('frameworks.show', config('frameworks.'.$m->framework.'.slug')) }}" class="text-brand-navy hover:underline">{{ $m->frameworkName() }}</a>@else{{ $m->frameworkName() }}@endif</td><td>{{ $m->reference }}</td><td>{{ $m->note }}</td><td>{{ $m->confidence_level }}</td></tr>@endforeach
                 </tbody></table></div>
             </section>
             @endif

@@ -24,6 +24,7 @@ AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence 
 - Browse and export incidents: {{ route('risk.incidents.browse') }} (CSV: {{ route('risk.incidents.export', 'csv') }})
 - Browse and export MIT AI Risk Repository entries: {{ route('risk.risks') }} (CSV: {{ route('risk.risks.export', 'csv') }})
 - Frameworks behind the risk database: {{ route('risk.frameworks') }}
+- Law-to-standard crosswalks (which legal duties map to ISO/IEC 42001 and the NIST AI RMF): {{ route('frameworks.index') }}
 - Applicability check (educational): {{ route('tools.applicability') }}
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
@@ -59,6 +60,17 @@ Whole-corpus exports, one self-contained row at a time: `/open-data/{dataset}.cs
 
 @foreach($policies as $p)
 - [{{ $p->short_title ?: $p->title }}]({{ $p->url() }}) ({{ $p->jurisdiction->name }}, {{ $p->statusEnum()->label() }}): {{ \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', $p->summary_plain)), 200) }} Official source: {{ $p->official_source_url }}
+@endforeach
+
+## Law-to-standard crosswalks
+
+Organisations are audited against standards but regulated by statutes. Each mapping below records, for one legal duty, the clause or function of a standard it corresponds to. A mapping means the two ask for overlapping work, so evidence may be reusable; it never means certification discharges the duty. Mappings cite clause numbers only and reproduce no standard text.
+
+@foreach($crosswalks as $c)
+- [{{ $c['name'] }}]({{ $c['url'] }}): {{ $c['obligations'] }} duties across {{ $c['jurisdictions'] }} jurisdictions.
+@foreach($c['pairs'] as $pair)
+  - [{{ $pair['name'] }}]({{ $pair['url'] }}): {{ $pair['mapped'] }} of {{ $pair['recorded'] }} recorded duties mapped.
+@endforeach
 @endforeach
 
 ## Editorial landing pages
