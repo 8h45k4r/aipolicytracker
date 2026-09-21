@@ -274,7 +274,9 @@ class PublicApiController extends Controller
                 // on SQLite and PostgreSQL where a containment operator does not.
                 ->when($filters['country'], fn ($q, $c) => $q->where('countries', 'like', '%"'.$c.'"%'))
                 ->when($filters['from'], fn ($q, $f) => $q->where('occurred_on', '>=', $f))
-                ->orderByDesc('occurred_on')->paginate($perPage)->withQueryString();
+                // occurred_on repeats across incidents, so the key breaks the tie and keeps
+                // pagination stable rather than letting rows shift between pages.
+                ->orderByDesc('occurred_on')->orderByDesc('incident_id')->paginate($perPage)->withQueryString();
 
             return [
                 'data' => $page->getCollection()->map(fn ($i) => [
@@ -320,8 +322,11 @@ class PublicApiController extends Controller
                     $query->where($field, $filters[$field]);
                 }
             }
+            // external_risks is keyed by ev_id and has no id column. Ordering by a column
+            // that does not exist is silently accepted by SQLite, which reads an unmatched
+            // double-quoted identifier as a string literal, and rejected by PostgreSQL.
             $page = $query->when($filters['domain'], fn ($q, $d) => $q->where('domain', $d))
-                ->orderBy('id')->paginate($perPage)->withQueryString();
+                ->orderBy('ev_id')->paginate($perPage)->withQueryString();
 
             return [
                 'data' => $page->getCollection()->map(fn ($r) => [

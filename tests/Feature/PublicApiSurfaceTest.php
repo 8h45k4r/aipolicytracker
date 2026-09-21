@@ -97,6 +97,23 @@ class PublicApiSurfaceTest extends TestCase
         ]);
     }
 
+    public function test_listings_are_returned_in_a_stable_declared_order(): void
+    {
+        // Ordering by a column that does not exist is silently accepted by SQLite, which
+        // reads an unmatched double-quoted identifier as a string literal, so asserting
+        // the order rather than the status code is what catches it on either engine.
+        foreach (['EV-3', 'EV-1', 'EV-2'] as $id) {
+            $this->risk($id);
+        }
+        $this->assertSame(['EV-1', 'EV-2', 'EV-3'], array_column($this->getJson('/api/v1/risks')->assertOk()->json('data'), 'ev_id'));
+
+        // Incidents share dates, so the key has to break the tie or pages overlap.
+        foreach ([9101, 9103, 9102] as $id) {
+            $this->incident($id, 'France');
+        }
+        $this->assertSame([9103, 9102, 9101], array_column($this->getJson('/api/v1/incidents')->assertOk()->json('data'), 'incident_id'));
+    }
+
     /** The risks table has no title; it is keyed by ev_id and described by its category pair. */
     private function risk(string $id): ExternalRisk
     {
