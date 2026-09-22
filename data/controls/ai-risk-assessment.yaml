@@ -1,0 +1,28 @@
+slug: ai-risk-assessment
+title: AI risk assessment and lifecycle risk register
+kind: process
+purpose: >
+  Identifies, rates and treats the risks that a specific AI system poses to health, safety, rights and the
+  organisation itself, and keeps that analysis alive from design through retirement.
+description: >
+  For each in-scope system a cross-functional team runs a structured assessment: it lists foreseeable harms
+  under intended use and reasonably foreseeable misuse, rates likelihood and severity, records existing and
+  planned mitigations and decides whether residual risk is acceptable. Findings feed a per-system risk register
+  with an owner and review date for each item. The assessment is redone on material change, after significant
+  incidents and on a fixed cadence, and its outputs feed the testing plan, the human-oversight design and the
+  release decision. Residual-risk acceptance is signed by an accountable person rather than the delivery team.
+owner_role: AI system owner
+frequency: per_system
+risk_subdomains: ["1.1", "1.3", "5.1", "7.3", "6.5"]
+evidence:
+  - { type: risk_assessment, title: AI system risk assessment, description: "Method, identified risks, ratings, treatments and residual-risk decision for one system." }
+  - { type: risk_register, title: Per-system AI risk register, description: "Live list of risks with owner, rating, treatment status and next review." }
+  - { type: approval_record, title: Residual-risk acceptance }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 6.1.2, 6.1.3, 8.2, 8.3", confidence_level: high }
+  - { framework: iso_23894, reference: "Clause 6.4, 6.5, 6.6", note: "Risk identification, analysis, evaluation, treatment and monitoring.", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "MAP 3, MAP 4, MANAGE 1.2, 1.3, 2.1", confidence_level: high }
+related_controls: [ai-impact-assessment, accuracy-robustness-security-testing, human-oversight-and-override, post-market-monitoring-and-drift-detection]
+review_status: pending_review
+confidence_level: high
+published: true

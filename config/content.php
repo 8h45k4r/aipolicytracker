@@ -28,6 +28,165 @@ return [
         ['2026-08-02', 'EU high-risk obligations apply', 'eu-ai-act'],
     ],
 
+    /*
+    | Audience pages: one instrument-independent cut of the corpus per role, sector or
+    | use case, generated from the taxonomy terms every obligation already carries. The
+    | editorial part is orientation; the duties, controls, evidence and dates are live.
+    | A page is indexable only when the cut returns at least five duties.
+    */
+    'audiences' => [
+        'providers' => [
+            'taxonomy' => 'actor', 'term' => 'provider',
+            'h1' => 'AI regulation for providers and developers',
+            'title' => 'AI rules for providers and developers: duties, controls, evidence',
+            'description' => 'Every recorded duty that binds an organisation that develops an AI system or places it on a market, across jurisdictions, with the controls that meet it and the evidence a reviewer expects.',
+            'answer' => 'A provider is the organisation that develops an AI system, or has one developed, and puts it on a market or into service under its own name. Most binding AI law lands here first: risk management, data governance, technical documentation, logging, accuracy and security, conformity assessment and post-market monitoring are provider duties before they are anyone else\'s.',
+            'sections' => [
+                ['heading' => 'What is different about being a provider?', 'body' => 'The provider carries the design-time duties and the paper trail. A deployer can rely on the provider\'s instructions and documentation; the provider has to have produced them. That makes the technical file, the risk management record and the quality management system the centre of gravity, and it makes a change to the system a regulatory event rather than an engineering one.'],
+                ['heading' => 'Where the same control does double duty', 'body' => 'A risk assessment written once to the structure a management standard expects satisfies or supports the risk-management duty in several jurisdictions at once. The controls listed below are counted by the number of duties each one serves, so the ones worth building first are at the top.'],
+            ],
+            'faq' => [
+                ['question' => 'Am I a provider if I fine-tune or rebrand someone else\'s model?', 'answer' => 'Often yes. Several instruments treat a substantial modification, or putting a system on the market under your own name, as becoming the provider. Check the definition in the instrument that applies to you; the duty pages cite the article.'],
+                ['question' => 'Does this page tell me which duties apply to my product?', 'answer' => 'No. It lists every recorded duty that binds providers anywhere. Use the applicability check for a screening of your own situation, then open the official source.'],
+            ],
+        ],
+        'deployers' => [
+            'taxonomy' => 'actor', 'term' => 'deployer',
+            'h1' => 'AI regulation for deployers and user organisations',
+            'title' => 'AI rules for deployers: duties, controls and evidence by jurisdiction',
+            'description' => 'Every recorded duty on organisations that use AI systems under their own authority, with the controls that meet it, the evidence to keep and the dates that apply.',
+            'answer' => 'A deployer uses an AI system under its own authority in the course of its business. Deployer duties are lighter than provider duties but they are the ones most organisations actually have: follow the instructions, keep humans in a position to oversee, retain logs, tell people when AI is used in decisions about them, and in some jurisdictions assess the impact before use.',
+            'sections' => [
+                ['heading' => 'What deployers get wrong', 'body' => 'Treating a purchased system as the vendor\'s problem. The vendor\'s documentation is an input to the deployer\'s own oversight, notice and logging duties, not a substitute for them, and a deployer who materially changes a system can become its provider.'],
+                ['heading' => 'The short list', 'body' => 'An inventory of the systems in use, a named owner for each, the vendor documentation on file, a human oversight arrangement that can actually intervene, notices to affected people, and logs kept for the period the instrument names. The controls below cover that list and say which duty each one serves.'],
+            ],
+            'faq' => [
+                ['question' => 'Do deployer duties apply to internal tools?', 'answer' => 'Usually yes when the tool makes or supports decisions about people, such as hiring, credit or access to services. Purely personal, non-professional use is typically excluded. The duty pages cite the scope article.'],
+                ['question' => 'What evidence should a deployer keep?', 'answer' => 'The system register entry, the vendor\'s instructions and documentation, the oversight arrangement, the notices shown to people, the logs, and any impact assessment the instrument requires. The controls below list each item.'],
+            ],
+        ],
+        'general-purpose-ai-providers' => [
+            'taxonomy' => 'actor', 'term' => 'gpai_provider',
+            'h1' => 'AI regulation for general-purpose and foundation model providers',
+            'title' => 'Rules for foundation model providers: duties, controls, evidence',
+            'description' => 'Recorded duties on providers of general-purpose AI models, including systemic-risk tiers, with the controls, documentation and evidence they call for.',
+            'answer' => 'Providers of general-purpose AI models face a distinct set of duties: technical documentation for downstream integrators, a copyright policy and training-data summary, and for the most capable models, evaluation, adversarial testing, incident reporting and cybersecurity. These duties sit with the model provider even when the model is used inside someone else\'s system.',
+            'sections' => [
+                ['heading' => 'Model duties versus system duties', 'body' => 'A model is not a system. The model provider documents the model and its training; the system provider who builds on it documents the system. Both chains of documentation have to exist and reference each other, which is why downstream documentation is a control of its own below.'],
+                ['heading' => 'Systemic-risk tiers', 'body' => 'Where an instrument defines a higher tier by capability or compute, the duties step up to evaluation, red-teaming, incident reporting and security. The controls for those duties are listed with the risk areas they address, so the evaluation report and the incident record can be planned together.'],
+            ],
+            'faq' => [
+                ['question' => 'Are open-weight models exempt?', 'answer' => 'Partly, in some instruments: openly released models can be relieved of some documentation duties but not of copyright or, where it applies, systemic-risk duties. Check the exemption clause cited on the duty page.'],
+                ['question' => 'Which evidence matters most?', 'answer' => 'The model documentation for downstream users, the training-data summary and copyright policy, and for higher tiers the evaluation and adversarial-testing reports and the incident log.'],
+            ],
+        ],
+        'public-sector' => [
+            'taxonomy' => 'actor', 'term' => 'public_authority',
+            'h1' => 'AI regulation for public bodies and government',
+            'title' => 'AI rules for public bodies: duties, controls, procurement evidence',
+            'description' => 'Recorded duties on public authorities that procure, deploy or oversee AI, across jurisdictions, with the controls that meet them and the transparency evidence citizens and auditors expect.',
+            'answer' => 'Public bodies are deployers with extra duties: impact assessment before use, public registers of systems, procurement rules that pass duties to suppliers, and explanations to people affected by automated decisions. Several jurisdictions regulate government use of AI before, or instead of, private use.',
+            'sections' => [
+                ['heading' => 'Procurement as the control point', 'body' => 'For a public body most AI arrives through a contract. The contractual allocation of duties, the supplier\'s documentation and the right to audit are where governance is won or lost, which is why contractual controls carry as much weight below as technical ones.'],
+                ['heading' => 'Transparency to the public', 'body' => 'Registers, notices and explanations are duties in their own right, and they are the evidence an auditor or a court will ask for first.'],
+            ],
+            'faq' => [
+                ['question' => 'Do government AI rules apply to contractors?', 'answer' => 'Frequently, through the contract or through procurement rules that require suppliers to meet the same standard. The duty pages say which instrument and article.'],
+                ['question' => 'What should a public body publish?', 'answer' => 'At minimum an inventory or register entry per system and a notice where a decision about a person is automated; several instruments require an impact assessment to be published or available on request.'],
+            ],
+        ],
+        'hr-and-recruitment' => [
+            'taxonomy' => 'use_case', 'term' => 'hiring_and_hr',
+            'h1' => 'AI in hiring and employment: the rules that apply',
+            'title' => 'AI in hiring and HR: duties, controls and evidence by jurisdiction',
+            'description' => 'Every recorded duty on AI used in recruitment, screening, promotion and workforce management, across jurisdictions, with the controls that meet it and the evidence to keep.',
+            'answer' => 'Hiring and employment is the use case regulated most often and most specifically: bias audits, notices to candidates, impact assessments, human review of decisions and record keeping appear in city, state, national and supranational rules. An organisation that uses AI anywhere in the employee lifecycle is a deployer in most of them.',
+            'sections' => [
+                ['heading' => 'What the rules have in common', 'body' => 'Tell the candidate, test for disparate impact, keep a human able to change the outcome, and keep the records that show you did. The wording differs; the controls do not, which is why one bias-testing control below serves duties in several jurisdictions.'],
+                ['heading' => 'Where they differ', 'body' => 'Who must run the audit, how often, whether it is published, and whether a candidate can opt out or request an alternative process. Those details are on each duty page with the article cited.'],
+            ],
+            'faq' => [
+                ['question' => 'Does using an off-the-shelf screening tool make my company responsible?', 'answer' => 'In most instruments yes: the employer is the deployer and carries the notice, oversight and record-keeping duties, whatever the vendor promised. Some rules place the audit duty on the vendor, others on the employer.'],
+                ['question' => 'What evidence do these duties produce?', 'answer' => 'A bias or impact assessment, the notice text shown to candidates, the human-review procedure, the system register entry and the decision logs. The controls below list each one.'],
+            ],
+        ],
+        'healthcare' => [
+            'taxonomy' => 'sector', 'term' => 'healthcare',
+            'h1' => 'AI regulation in healthcare and life sciences',
+            'title' => 'AI rules for healthcare: duties, controls and evidence by jurisdiction',
+            'description' => 'Recorded AI duties that reach hospitals, clinicians, device makers and health data holders, across jurisdictions, with the controls that meet them and the clinical and data-governance evidence they call for.',
+            'answer' => 'Healthcare AI sits under two regimes at once: medical-device and safety law for the product, and AI and data-protection law for the decision. A diagnostic or triage system is usually high-risk under AI law and a regulated device under health law, so its technical file, clinical evaluation and post-market surveillance have to satisfy both.',
+            'sections' => [
+                ['heading' => 'One technical file, two regulators', 'body' => 'The documentation duties overlap heavily. The controls below are counted by the duties they serve so that the technical documentation and post-market monitoring work can be planned once and cited twice.'],
+                ['heading' => 'Data governance is the hard part', 'body' => 'Training data provenance, representativeness across patient groups and lawful basis for health data are where healthcare AI programmes stall. The dataset documentation and privacy controls carry those duties.'],
+            ],
+            'faq' => [
+                ['question' => 'Is clinical decision support high-risk?', 'answer' => 'Under several instruments, systems that inform or take decisions about access to health services or that act as safety components of medical devices are high-risk. Check the annex or schedule the duty page cites.'],
+                ['question' => 'Which evidence overlaps with device regulation?', 'answer' => 'The technical file, clinical or performance evaluation, risk management file, and post-market surveillance records. Keep one set that references both regimes.'],
+            ],
+        ],
+        'financial-services' => [
+            'taxonomy' => 'sector', 'term' => 'financial_services',
+            'h1' => 'AI regulation in financial services, credit and insurance',
+            'title' => 'AI rules for financial services: duties, controls, model evidence',
+            'description' => 'Recorded AI duties that reach lenders, insurers, payment firms and their vendors, with the controls that meet them and the model-governance evidence supervisors expect.',
+            'answer' => 'Financial firms already run model risk management, so most AI duties land on existing controls: model inventories, validation, monitoring, explanations of adverse decisions and vendor oversight. What changes is scope and evidence: credit scoring and insurance pricing are high-risk uses in several instruments, and the explanation given to a consumer is a duty rather than a courtesy.',
+            'sections' => [
+                ['heading' => 'Extend model risk management, do not duplicate it', 'body' => 'The controls below map onto validation, monitoring and vendor-management practice a supervised firm has already. The value is in the mapping: knowing which duty a validation report already evidences, and which one still needs a fairness test or a consumer notice.'],
+                ['heading' => 'Explanations and adverse action', 'body' => 'Several regimes require a specific, reviewable reason for an automated adverse decision. That is a transparency control with a data-governance dependency: the features have to be explainable to be explained.'],
+            ],
+            'faq' => [
+                ['question' => 'Is credit scoring high-risk?', 'answer' => 'Under the instruments that use a risk tiering, creditworthiness assessment of natural persons is typically listed as high-risk, with fraud detection often excluded. The duty pages cite the entry.'],
+                ['question' => 'What evidence do supervisors ask for?', 'answer' => 'The model inventory entry, the validation report, monitoring records, the fairness assessment, the consumer notice and the vendor assessment. The controls below list them.'],
+            ],
+        ],
+        'education' => [
+            'taxonomy' => 'sector', 'term' => 'education',
+            'h1' => 'AI regulation in education and training',
+            'title' => 'AI rules for education: duties, controls and evidence',
+            'description' => 'Recorded AI duties that reach schools, universities, edtech vendors and examination bodies, with the controls that meet them and the evidence to keep.',
+            'answer' => 'Education is named as a high-risk area in several instruments: admissions, assessment, proctoring and the allocation of learning are decisions about people, often minors. Institutions are deployers; edtech vendors are providers; the duties on both are listed here with the controls that meet them.',
+            'sections' => [
+                ['heading' => 'Minors raise the bar', 'body' => 'Data-protection law and AI law both treat children as needing stronger safeguards. Notices have to be understood by the people receiving them, oversight has to be real, and emotion recognition and some biometric uses are prohibited outright in some jurisdictions.'],
+                ['heading' => 'Procurement again', 'body' => 'Most educational AI is bought, so the contract and the vendor\'s documentation are the institution\'s first evidence. The contractual and vendor controls below carry that.'],
+            ],
+            'faq' => [
+                ['question' => 'Is automated proctoring regulated?', 'answer' => 'Under several instruments, monitoring students during tests is a high-risk use, and emotion recognition in education is prohibited in at least one. Check the duty pages for the article.'],
+                ['question' => 'What should an institution keep?', 'answer' => 'A register of the systems in use, the vendor documentation, the notices given to students and parents, the human-review procedure for assessments, and the impact assessment where required.'],
+            ],
+        ],
+        'generative-ai' => [
+            'taxonomy' => 'use_case', 'term' => 'generative_ai',
+            'h1' => 'Generative AI and foundation models: the rules that apply',
+            'title' => 'Generative AI rules: duties, controls and evidence by jurisdiction',
+            'description' => 'Recorded duties on generative AI systems and the models behind them, from content labelling and disclosure to training-data transparency and safety testing, with the controls that meet them.',
+            'answer' => 'Generative AI attracts three families of duty: transparency (tell people they are interacting with AI, label synthetic content), model governance (document the model, publish a training-data summary, respect copyright) and safety (evaluate, red-team, report incidents, secure the system). Several jurisdictions have rules specific to synthetic media even where they have no general AI law.',
+            'sections' => [
+                ['heading' => 'Labelling is a technical control', 'body' => 'A duty to mark synthetic content is met by provenance and watermarking measures, a disclosure notice and a procedure for exceptions. The synthetic-content control below serves that duty wherever it appears.'],
+                ['heading' => 'Testing is the new documentation', 'body' => 'For higher-capability models the evidence that matters is the evaluation and adversarial-testing record, tied to the risk areas it covers. The controls list those risk areas with the incidents recorded against them.'],
+            ],
+            'faq' => [
+                ['question' => 'Do chatbot disclosure duties apply to internal tools?', 'answer' => 'Usually they apply where a natural person interacts with the system without it being obvious; an internal tool used by staff who know it is AI is often out of scope. The duty page cites the wording.'],
+                ['question' => 'Which evidence do these duties call for?', 'answer' => 'The disclosure notice, the content-labelling mechanism, the model documentation and training-data summary, the copyright policy, and the evaluation and red-team reports.'],
+            ],
+        ],
+        'biometrics' => [
+            'taxonomy' => 'use_case', 'term' => 'biometrics',
+            'h1' => 'Biometric and facial recognition AI: the rules that apply',
+            'title' => 'Biometric AI rules: prohibitions, duties, controls and evidence',
+            'description' => 'Recorded duties and prohibitions on biometric identification, categorisation and emotion recognition, across jurisdictions, with the controls that meet them.',
+            'answer' => 'Biometric AI is where prohibitions live. Real-time remote identification in public spaces, biometric categorisation by sensitive traits and emotion recognition in workplaces and schools are banned or tightly conditioned in several jurisdictions; where a biometric use is allowed it is almost always high-risk, with the full set of provider and deployer duties on top of data-protection rules for biometric data.',
+            'sections' => [
+                ['heading' => 'Screen for prohibited uses first', 'body' => 'The prohibited-use gate is a control of its own below: an inventory question answered before any risk assessment, because a prohibited use has no compliant configuration.'],
+                ['heading' => 'Then the high-risk set', 'body' => 'Accuracy across demographic groups, human verification of matches, logging and a data-protection impact assessment are the duties that follow. The controls are listed with the incident history of the risk areas they address.'],
+            ],
+            'faq' => [
+                ['question' => 'Is verification (one-to-one) treated like identification (one-to-many)?', 'answer' => 'Generally no: one-to-one verification such as unlocking a device is often excluded from the strictest categories, while one-to-many identification is the prohibited or high-risk case. The duty page cites the definition.'],
+                ['question' => 'What evidence does a permitted biometric use need?', 'answer' => 'The prohibited-use screening record, the impact assessment, accuracy testing by group, the human verification procedure, the notice, and the logs.'],
+            ],
+        ],
+    ],
+
     'landings' => [
         'eu-ai-act' => [
             'h1' => 'EU AI Act: what it is, who it covers and what to do',

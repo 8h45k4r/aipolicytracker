@@ -12,6 +12,8 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
     Route::get('/policies/{slug}', [PublicApiController::class, 'policy'])->name('policy');
     Route::get('/obligations', [PublicApiController::class, 'obligations'])->name('obligations');
     Route::get('/obligations/{slug}', [PublicApiController::class, 'obligation'])->name('obligation');
+    Route::get('/controls', [PublicApiController::class, 'controls'])->name('controls');
+    Route::get('/controls/{slug}', [PublicApiController::class, 'control'])->name('control');
     Route::get('/changes', [PublicApiController::class, 'changes'])->name('changes');
     Route::get('/taxonomies', [PublicApiController::class, 'taxonomies'])->name('taxonomies');
 

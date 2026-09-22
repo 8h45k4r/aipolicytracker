@@ -13,6 +13,7 @@ class TaxonomyTerm extends Model
         'ai_system_type' => 'AI system type',
         'sector' => 'Sector',
         'risk_category' => 'Risk category',
+        'evidence_type' => 'Evidence type',
         'use_case' => 'AI use case',
         'obligation_category' => 'Obligation category',
     ];

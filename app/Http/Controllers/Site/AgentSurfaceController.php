@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -45,6 +46,13 @@ class AgentSurfaceController extends Controller
     public function obligation(string $slug, RecordContext $context): Response
     {
         $record = Obligation::published()->with('policyInstrument.jurisdiction')->where('slug', $slug)->firstOrFail();
+
+        return $this->markdown($context->render($record), $slug, $record->url());
+    }
+
+    public function control(string $slug, RecordContext $context): Response
+    {
+        $record = Control::published()->where('slug', $slug)->firstOrFail();
 
         return $this->markdown($context->render($record), $slug, $record->url());
     }

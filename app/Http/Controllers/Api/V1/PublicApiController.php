@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Deadline;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
@@ -45,6 +46,7 @@ class PublicApiController extends Controller
                 'jurisdictions' => route('api.v1.jurisdictions'),
                 'policies' => route('api.v1.policies'),
                 'obligations' => route('api.v1.obligations'),
+                'controls' => route('api.v1.controls'),
                 'changes' => route('api.v1.changes'),
                 'taxonomies' => route('api.v1.taxonomies'),
                 'frameworks' => route('api.v1.frameworks'),
@@ -119,6 +121,28 @@ class PublicApiController extends Controller
         abort_unless($o, 404);
 
         return $this->cached('api.obligation.'.$slug, fn () => ['data' => $this->serializer->obligation($o)]);
+    }
+
+    public function controls(Request $request): JsonResponse
+    {
+        $kind = array_key_exists((string) $request->query('kind'), Control::KINDS) ? $request->query('kind') : null;
+        $framework = preg_match('/^[a-z0-9_]+$/', (string) $request->query('framework')) ? $request->query('framework') : null;
+
+        return $this->cached('api.controls.'.md5($kind.$framework), fn () => [
+            'data' => Control::published()
+                ->when($kind, fn ($q) => $q->where('kind', $kind))
+                ->when($framework, fn ($q) => $q->whereHas('frameworkReferences', fn ($r) => $r->where('framework', $framework)))
+                ->orderBy('title')->get()->map(fn ($c) => $this->serializer->control($c))->all(),
+            'meta' => ['kinds' => Control::KINDS, 'filters' => array_filter(compact('kind', 'framework'))],
+        ]);
+    }
+
+    public function control(string $slug): JsonResponse
+    {
+        $c = Control::published()->where('slug', $slug)->first();
+        abort_unless($c, 404);
+
+        return $this->cached('api.control.'.$slug, fn () => ['data' => $this->serializer->control($c)]);
     }
 
     public function changes(Request $request): JsonResponse

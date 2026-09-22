@@ -73,6 +73,9 @@ obligations:
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "Whole framework (named in the statute)", note: "The statute names the AI RMF as a recognised framework.", confidence_level: high }
       - { framework: iso_42001, reference: "Whole management system (named in the statute)", note: "The statute names ISO/IEC 42001 as a recognised framework.", confidence_level: high }
+    controls:
+      - { control: ai-risk-assessment, relationship: satisfies, note: "Per-system identification, documentation and mitigation of algorithmic discrimination risk.", confidence_level: high }
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "The risk-management policy, principles and personnel the statute expects.", confidence_level: medium }
   - slug: us-colorado-deployer-impact-assessment
     title: Deployers must complete impact assessments for high-risk AI
     category: impact_assessment
@@ -97,6 +100,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "MAP 5.x", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: ai-impact-assessment, relationship: satisfies, note: "Templated assessment aligned to the statutory elements, refreshed annually and on material change.", confidence_level: high }
+      - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Post-deployment monitoring described in the assessment.", confidence_level: medium }
   - slug: us-colorado-consumer-notice-and-adverse-decision-explanation
     title: Notify consumers and explain adverse consequential decisions
     category: transparency
@@ -120,6 +126,9 @@ obligations:
       - { title: Consumer notice and adverse-action explanation templates, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 5.x, MANAGE 4.x", note: "Recourse and communication.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Pre-decision notice with purpose, nature and contact details.", confidence_level: high }
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Adverse-decision reasons, data correction and appeal for human review.", confidence_level: high }
   - slug: us-colorado-developer-documentation-and-disclosure
     title: Developers must document high-risk systems and disclose known risks
     category: technical_documentation
@@ -144,6 +153,9 @@ obligations:
       - { title: Public statement on high-risk systems, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 1.4, MAP 3.x", note: "Documentation and transparency.", confidence_level: medium }
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Deployer information pack and public statement derived from the documentation set.", confidence_level: high }
+      - { control: training-data-provenance-and-copyright-register, relationship: supports, note: "Training-data summaries.", confidence_level: medium }
 deadlines:
   - { title: Signed into law, due_on: 2024-05-17, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Governor signed SB 24-205." }
   - { title: Original effective date (superseded), due_on: 2026-02-01, date_precision: exact, deadline_status: superseded, confidence_level: high, description: "Replaced by SB 25B-004." }

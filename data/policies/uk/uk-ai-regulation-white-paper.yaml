@@ -68,6 +68,9 @@ obligations:
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "MEASURE 2.5–2.7", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: iso_42001, reference: "Clause 6.1 and Annex A risk controls", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: ai-risk-assessment, relationship: satisfies, note: "Lifecycle identification and management of risks.", confidence_level: medium }
+      - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Security and robustness evidence to show a regulator.", confidence_level: medium }
   - slug: uk-principles-transparency-explainability
     title: Provide appropriate transparency and explainability
     category: transparency
@@ -90,6 +93,10 @@ obligations:
       - { title: AI transparency notice, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 4.x, MAP 1.x", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Public AI use notices.", confidence_level: medium }
+      - { control: decision-explanation-and-appeal-route, relationship: supports, note: "Explanations of decisions about individuals.", confidence_level: high }
+      - { control: technical-documentation-and-model-cards, relationship: supports, note: "Explainability documentation.", confidence_level: medium }
   - slug: uk-principles-fairness
     title: Use AI in ways that are fair and do not discriminate unlawfully
     category: governance_accountability
@@ -111,6 +118,10 @@ obligations:
       - { title: Bias and fairness testing report, artifact_type: report }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "MEASURE 2.11", note: "Fairness and bias evaluation.", confidence_level: medium }
+    controls:
+      - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Disparate-outcome testing across protected characteristics before and after deployment.", confidence_level: medium }
+      - { control: ai-impact-assessment, relationship: supports, note: "Identifies groups at risk of unfair treatment.", confidence_level: medium }
+      - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Bias checks on training data.", confidence_level: medium }
   - slug: uk-principles-accountability-governance
     title: Establish accountability and governance for AI
     category: governance_accountability
@@ -133,6 +144,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 5 Leadership", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "GOVERN 2.1", note: "Roles and responsibilities.", confidence_level: high }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Clear lines of accountability and a governance decision log.", confidence_level: high }
+      - { control: ai-system-inventory, relationship: supports, note: "Named owner for each AI system.", confidence_level: high }
   - slug: uk-principles-contestability-redress
     title: Provide routes to contest AI outcomes and seek redress
     category: human_oversight
@@ -154,6 +168,8 @@ obligations:
       - { title: Contest and redress procedure, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.x", note: "Feedback and recourse mechanisms.", confidence_level: medium }
+    controls:
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "An AI-decision challenge path within complaint procedures.", confidence_level: high }
 deadlines:
   - { title: Consultation closed, due_on: 2023-06-21, date_precision: exact, description: "End of the white paper consultation period.", deadline_status: passed, confidence_level: high }
   - { title: Government response published, due_on: 2024-02-06, date_precision: exact, description: "Confirmed the principles-based approach and asked regulators to publish AI plans.", deadline_status: passed, confidence_level: high }

@@ -1,0 +1,28 @@
+slug: post-market-monitoring-and-drift-detection
+title: Post-deployment monitoring and drift detection
+kind: technical
+purpose: >
+  Watches a live AI system for falling performance, shifting data, emerging bias and unexpected use, and
+  turns what it sees into corrective action, incident reports and documentation updates.
+description: >
+  Each deployed system has a monitoring plan that names the indicators to be tracked, the thresholds that
+  trigger review, the feedback channels open to users and deployers, and who looks at the results and how
+  often. Telemetry from logs, sampled human review of outputs, complaint data and periodic re-testing feed a
+  dashboard or report. When an indicator breaches its threshold the owner opens a ticket, decides whether
+  retraining, rollback, extra oversight or an incident report is needed and records the outcome. Monitoring
+  findings are reviewed at governance meetings and feed the annual refresh of the risk and impact assessments.
+owner_role: AI system owner
+frequency: continuous
+risk_subdomains: ["7.3", "1.3", "5.1", "6.5"]
+evidence:
+  - { type: procedure, title: Post-market monitoring plan, description: "Indicators, thresholds, feedback channels, review cadence and responsibilities for one system." }
+  - { type: monitoring_record, title: Monitoring dashboard or periodic monitoring report }
+  - { type: approval_record, title: Monitoring review decision, description: "Recorded decision on retraining, rollback or escalation after a threshold breach." }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 9.1; Annex A.6.2.6", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "MEASURE 3.1, 3.3; MANAGE 4.1", confidence_level: high }
+  - { framework: iso_23894, reference: "Clause 6.6", note: "Monitoring and review of AI risks.", confidence_level: medium }
+related_controls: [record-keeping-and-logging, ai-incident-management-and-reporting, accuracy-robustness-security-testing, ai-risk-assessment]
+review_status: pending_review
+confidence_level: high
+published: true

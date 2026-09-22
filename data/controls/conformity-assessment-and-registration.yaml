@@ -1,0 +1,27 @@
+slug: conformity-assessment-and-registration
+title: Conformity assessment, declaration and registration
+kind: process
+purpose: >
+  Takes a regulated system through the applicable pre-market assessment, produces the signed declaration or
+  certificate and completes any registration with authorities before the system is placed on the market.
+description: >
+  Early in the project the compliance lead determines which assessment route applies, whether an outside body
+  must be involved and what registrations follow, and books notified-body capacity if needed. A conformity
+  checklist maps each legal requirement to the evidence in the technical file, and a gap review is completed
+  before the assessment is formally started. On a successful outcome the declaration is signed by an
+  authorised person, markings are applied, registrations are filed and the records are retained for the
+  required period. A re-assessment trigger list defines which changes require the exercise to be repeated.
+owner_role: Regulatory compliance lead
+frequency: per_system
+risk_subdomains: ["6.5", "7.3"]
+evidence:
+  - { type: conformity_declaration, title: Declaration of conformity or certificate }
+  - { type: regulatory_filing, title: Registration record in the relevant database }
+  - { type: technical_file, title: Conformity evidence pack, description: "Requirement-to-evidence map with the supporting documents." }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 9.2; Annex A.6.2.7", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "GOVERN 1.1; MAP 4.1", confidence_level: low }
+related_controls: [technical-documentation-and-model-cards, ai-quality-management-system, accuracy-robustness-security-testing, model-release-and-change-management-gate]
+review_status: pending_review
+confidence_level: medium
+published: true

@@ -1,0 +1,30 @@
+slug: ai-governance-policy-and-accountability
+title: AI governance policy and accountability structure
+kind: policy
+purpose: >
+  Gives the organisation a single approved statement of how it will develop, buy and use AI, and names
+  the people who are answerable for it, so that every other AI control has a mandate and an owner.
+description: >
+  Senior management approves a short AI policy that sets the organisation's risk appetite, the principles it
+  commits to, the scope of systems covered and the decisions that must be escalated. The policy is backed by a
+  responsibility map: an executive sponsor, a governance lead, system owners and the committee or forum that
+  reviews high-risk cases. Meeting cadence, escalation routes and the relationship to existing risk, privacy
+  and security functions are written down. The policy is reviewed at least once a year and whenever a new law
+  or a material incident changes the picture, and decisions of the governance forum are minuted so that a
+  regulator or auditor can trace who decided what and when.
+owner_role: Executive sponsor for AI
+frequency: annual
+risk_subdomains: ["6.5", "5.2"]
+evidence:
+  - { type: policy_document, title: AI policy, description: "Approved and versioned statement of scope, principles, risk appetite and escalation rules." }
+  - { type: approval_record, title: Board or executive approval of the AI policy }
+  - { type: meeting_record, title: AI governance forum minutes, description: "Decisions, attendees and actions from each governance meeting." }
+  - { type: register_entry, title: AI responsibility map, description: "Named owner for each AI role and for each system." }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 5.1, 5.2, 5.3, 9.3; Annex A.2, A.3", note: "Editorial mapping to leadership, policy, roles and management review.", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "GOVERN 1.1, 1.2, 1.3, 2.1, 3.1", confidence_level: high }
+  - { framework: oecd_ai_principles, reference: "Principle 1.5 Accountability", confidence_level: medium }
+related_controls: [ai-system-inventory, ai-risk-assessment, ai-literacy-and-role-based-training, ai-quality-management-system]
+review_status: pending_review
+confidence_level: medium
+published: true

@@ -52,6 +52,9 @@ obligations:
       - { title: Consent and purpose records, artifact_type: record }
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: low }
+    controls:
+      - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Consent and purpose documentation for Nepal personal data.", confidence_level: high }
+      - { control: training-data-provenance-and-copyright-register, relationship: supports, note: "Source register records the basis for each training source.", confidence_level: medium }
 deadlines: []
 sources:
   - { title: "Individual Privacy Act, 2075 (2018)", publisher: "Nepal Law Commission", url: "https://lawcommission.gov.np/", document_date: 2018-09-18, document_type: legislation, tier: 1, language: ne }

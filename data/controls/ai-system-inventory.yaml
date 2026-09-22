@@ -1,0 +1,28 @@
+slug: ai-system-inventory
+title: AI system inventory and classification
+kind: process
+purpose: >
+  Ensures the organisation knows every AI system it builds, buys or embeds, who owns it, what it is for and
+  which legal risk tier it falls into, so that obligations can be assigned rather than discovered after the fact.
+description: >
+  A central register is populated through intake forms, procurement gates, code and vendor scans and periodic
+  attestations from business units. Each entry records the owner, purpose, users and affected people, the
+  jurisdictions it operates in, the models and vendors involved, the personal-data involvement and the current
+  lifecycle status. A classification step assigns a risk tier using the organisation's own criteria and the
+  categories defined by applicable law, and the tier drives which further controls apply. Shadow-AI discovery
+  and a rule that nothing goes live without a register entry keep the inventory current.
+owner_role: AI governance lead
+frequency: continuous
+risk_subdomains: ["6.5", "7.4"]
+evidence:
+  - { type: register_entry, title: AI system register, description: "One row per system with owner, purpose, risk tier, jurisdictions, vendors and status." }
+  - { type: approval_record, title: Risk-tier classification sign-off, description: "Reviewer confirmation of the assigned tier and the rationale." }
+  - { type: procedure, title: AI intake and classification procedure }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 4.1, 4.3, 8.1; Annex A.6.2.2, A.9.4", note: "Editorial mapping to scope, operational planning and intended-use records.", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MAP 1.1, 1.5; GOVERN 1.6", confidence_level: high }
+  - { framework: mitre_atlas, reference: "AML.M0023 AI Bill of Materials", confidence_level: low }
+related_controls: [ai-governance-policy-and-accountability, ai-risk-assessment, prohibited-use-screening-gate, public-sector-ai-use-case-register]
+review_status: pending_review
+confidence_level: medium
+published: true

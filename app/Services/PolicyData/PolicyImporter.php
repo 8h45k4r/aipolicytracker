@@ -4,6 +4,9 @@ namespace App\Services\PolicyData;
 
 use App\Models\ApplicabilityRule;
 use App\Models\ChangeEvent;
+use App\Models\Control;
+use App\Models\ControlEvidence;
+use App\Models\ControlFrameworkReference;
 use App\Models\Deadline;
 use App\Models\EnforcementEvent;
 use App\Models\EvidenceArtifact;
@@ -14,9 +17,11 @@ use App\Models\PolicyInstrument;
 use App\Models\PolicySection;
 use App\Models\PolicyVersion;
 use App\Models\ProcurementRule;
+use App\Models\RecordVerification;
 use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -29,7 +34,10 @@ class PolicyImporter
     /** @var array<string, array<string, TaxonomyTerm>> */
     private array $terms = [];
 
-    private array $stats = ['jurisdictions' => 0, 'policies' => 0, 'obligations' => 0, 'changes' => 0, 'terms' => 0];
+    private array $stats = ['jurisdictions' => 0, 'policies' => 0, 'obligations' => 0, 'controls' => 0, 'changes' => 0, 'terms' => 0];
+
+    /** @var array<string, Control> */
+    private array $controls = [];
 
     public function __construct(private readonly PolicyDataRepository $repository) {}
 
@@ -38,12 +46,14 @@ class PolicyImporter
         DB::transaction(function () {
             $this->importTaxonomies();
             $this->importJurisdictions();
+            // Controls first: an obligation references them by slug.
+            $this->importControls();
             $this->importPolicies();
             $this->importChanges();
         });
 
         // Human verification decisions recorded in the admin outlive every re-import.
-        $this->stats['verifications_applied'] = \App\Models\RecordVerification::applyAll();
+        $this->stats['verifications_applied'] = RecordVerification::applyAll();
 
         return $this->stats;
     }
@@ -60,6 +70,46 @@ class PolicyImporter
                 $this->stats['terms']++;
             }
         }
+    }
+
+    /**
+     * Controls are keyed by slug and their child rows (evidence, framework
+     * references) are replaced wholesale, the same way an obligation's are.
+     * A control missing from data/ after an import is unpublished, not deleted,
+     * so a link from an obligation never dangles.
+     */
+    private function importControls(): void
+    {
+        $kept = [];
+        foreach ($this->repository->controls() as $file => $record) {
+            $control = Control::updateOrCreate(['slug' => $record['slug']], [
+                'title' => $record['title'],
+                'kind' => $record['kind'],
+                'purpose' => $record['purpose'],
+                'description' => $record['description'] ?? null,
+                'owner_role' => $record['owner_role'],
+                'frequency' => $record['frequency'],
+                'risk_subdomains' => array_values($record['risk_subdomains'] ?? []),
+                'related_controls' => array_values($record['related_controls'] ?? []),
+                'review_status' => $record['review_status'] ?? 'pending_review',
+                'confidence_level' => $record['confidence_level'] ?? 'medium',
+                'last_verified_at' => $record['last_verified_at'] ?? null,
+                'reviewed_by' => $record['reviewed_by'] ?? null,
+                'published_at' => ($record['published'] ?? true) ? now() : null,
+            ]);
+            $control->evidence()->delete();
+            foreach ($record['evidence'] ?? [] as $i => $evidence) {
+                ControlEvidence::create(['control_id' => $control->id, 'evidence_type' => $evidence['type'], 'sort_order' => $i, ...Arr::only($evidence, ['title', 'description'])]);
+            }
+            $control->frameworkReferences()->delete();
+            foreach ($record['framework_references'] ?? [] as $reference) {
+                ControlFrameworkReference::create(['control_id' => $control->id, 'confidence_level' => $reference['confidence_level'] ?? 'medium', ...Arr::only($reference, ['framework', 'reference', 'note'])]);
+            }
+            $this->controls[$record['slug']] = $control;
+            $kept[] = $control->id;
+            $this->stats['controls']++;
+        }
+        Control::whereNotIn('id', $kept)->update(['published_at' => null]);
     }
 
     private function importJurisdictions(): void
@@ -176,6 +226,13 @@ class PolicyImporter
                 foreach ($item['evidence_examples'] ?? [] as $evidence) {
                     EvidenceArtifact::create(['obligation_id' => $obligation->id, 'artifact_type' => $evidence['artifact_type'] ?? 'document', ...Arr::only($evidence, ['title', 'description'])]);
                 }
+                $links = [];
+                foreach ($item['controls'] ?? [] as $link) {
+                    if (isset($this->controls[$link['control']])) {
+                        $links[$this->controls[$link['control']]->id] = ['relationship' => $link['relationship'] ?? 'supports', 'note' => $link['note'] ?? null, 'confidence_level' => $link['confidence_level'] ?? 'medium'];
+                    }
+                }
+                $obligation->controls()->sync($links);
                 $obligation->applicabilityRules()->delete();
                 if (! empty($item['applicability'])) {
                     ApplicabilityRule::create(['policy_instrument_id' => $policy->id, 'obligation_id' => $obligation->id, ...Arr::only($item['applicability'], ['description', 'actors', 'ai_system_types', 'sectors', 'risk_categories', 'use_cases', 'conditions', 'source_reference'])]);
@@ -287,7 +344,7 @@ class PolicyImporter
         ];
     }
 
-    private function publishedAt(array $record): ?\Illuminate\Support\Carbon
+    private function publishedAt(array $record): ?Carbon
     {
         return ($record['published'] ?? true) ? now() : null;
     }

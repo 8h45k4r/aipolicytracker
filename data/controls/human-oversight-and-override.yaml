@@ -1,0 +1,29 @@
+slug: human-oversight-and-override
+title: Human oversight design and override procedure
+kind: process
+purpose: >
+  Ensures that competent people can understand, question, correct, stop or decline to use an AI system's
+  output, and that the degree of human involvement is chosen deliberately for each decision point.
+description: >
+  For every decision point the system influences, the owner records whether a person decides with the
+  system's help, reviews after the fact, or is only alerted on exceptions, and why that level is proportionate
+  to the harm at stake. The interface exposes confidence, limitations and the reasons for an output where
+  feasible, and includes a documented way to override, pause or shut the system down. Overseers are named,
+  trained against automation bias and given the time and authority to intervene. Override events are logged and
+  reviewed so that the oversight design can be tightened if interventions are rare or ineffective.
+owner_role: AI system owner
+frequency: per_system
+risk_subdomains: ["5.1", "5.2", "7.3"]
+evidence:
+  - { type: procedure, title: Human oversight and override procedure, description: "Named overseers, the involvement level per decision point, escalation and stop mechanisms." }
+  - { type: approval_record, title: Human-involvement design rationale, description: "Signed record of the oversight level chosen for each decision point and the reasoning." }
+  - { type: training_record, title: Overseer training completion }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.6.2.5, A.9.2, A.9.3", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "GOVERN 3.2; MAP 3.5; MANAGE 2.4", confidence_level: high }
+  - { framework: oecd_ai_principles, reference: "Principle 1.2 Human-centred values and fairness", confidence_level: medium }
+  - { framework: owasp_llm_top10, reference: "LLM06 Excessive Agency", confidence_level: medium }
+related_controls: [ai-risk-assessment, decision-explanation-and-appeal-route, ai-literacy-and-role-based-training, record-keeping-and-logging]
+review_status: pending_review
+confidence_level: high
+published: true

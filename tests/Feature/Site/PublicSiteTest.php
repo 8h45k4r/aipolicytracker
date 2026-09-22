@@ -372,7 +372,7 @@ class PublicSiteTest extends TestCase
 
     public function test_home_persona_paths_and_policy_risk_crosswalk_render(): void
     {
-        $this->get('/')->assertOk()->assertSee('Start from your job')->assertSee('Compliance or CISO')->assertSee(route('tools.applicability'));
+        $this->get('/')->assertOk()->assertSee('Start from who you are')->assertSee('Compliance or CISO')->assertSee(route('tools.applicability'))->assertSee(route('controls.index'))->assertSee(route('audiences.show', 'deployers'));
         $this->get('/policies/eu-ai-act')->assertOk()->assertSee('AI risks this instrument addresses')->assertSee(route('risk.domain', 1));
     }
 
