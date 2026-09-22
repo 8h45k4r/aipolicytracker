@@ -6,6 +6,8 @@ use App\Models\Control;
 use App\Models\ControlFrameworkReference;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
+use App\Models\Obligation;
+use App\Models\TaxonomyTerm;
 use App\Services\ExternalData\ExternalDataset;
 use Illuminate\Support\Collection;
 
@@ -79,6 +81,44 @@ class ControlIntelligence
             'incidents' => $subdomains->filter(fn ($id) => isset($known[$id]))->sum(fn ($id) => $this->incidentCount($known[$id]['name'])),
             'list' => $controls->sortBy('title')->values(),
         ];
+    }
+
+    /**
+     * The framework relationship matrix: for every obligation category, how many
+     * distinct controls that meet duties in that category cite each framework.
+     * A cell says "the work this category asks for has a home in that framework",
+     * which is the reuse question; it never says one framework satisfies another.
+     *
+     * @return array{frameworks: array<string, array<string,mixed>>, rows: list<array{category: string, name: string, obligations: int, controls: int, cells: array<string,int>}>, totals: array<string,int>}
+     */
+    public function relationshipMatrix(): array
+    {
+        $frameworks = collect(config('frameworks'))->map(fn ($meta, $key) => $meta + ['key' => $key])->all();
+        $categories = TaxonomyTerm::where('taxonomy', 'obligation_category')->orderBy('sort_order')->get();
+        $obligations = Obligation::published()->with('controls.frameworkReferences')->get();
+
+        $rows = [];
+        $totals = array_fill_keys(array_keys($frameworks), 0);
+        $all = collect();
+        foreach ($categories as $category) {
+            $inCategory = $obligations->where('category', $category->slug);
+            if ($inCategory->isEmpty()) {
+                continue;
+            }
+            $controls = $inCategory->flatMap(fn ($o) => $o->controls->filter(fn ($c) => $c->published_at))->unique('id')->values();
+            $all = $all->merge($controls);
+            $cells = [];
+            foreach ($frameworks as $key => $meta) {
+                $cells[$key] = $controls->filter(fn ($c) => $c->frameworkReferences->contains('framework', $key))->count();
+            }
+            $rows[] = ['category' => $category->slug, 'name' => $category->name, 'obligations' => $inCategory->count(), 'controls' => $controls->count(), 'cells' => $cells];
+        }
+        $all = $all->unique('id');
+        foreach ($frameworks as $key => $meta) {
+            $totals[$key] = $all->filter(fn ($c) => $c->frameworkReferences->contains('framework', $key))->count();
+        }
+
+        return ['frameworks' => $frameworks, 'rows' => $rows, 'totals' => $totals, 'controls' => $all->count()];
     }
 
     /** Controls that cite a framework, keyed by the reference they cite, for a framework page. */
