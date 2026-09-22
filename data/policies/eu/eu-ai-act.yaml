@@ -672,6 +672,876 @@ obligations:
       - { control: third-party-ai-due-diligence, relationship: satisfies, note: "Onboarding verifies the provider's conformity assessment, documentation, marking and representative.", confidence_level: high }
       - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Supplier terms require the paperwork and notice of changes.", confidence_level: medium }
       - { control: conformity-assessment-and-registration, relationship: supports, note: "Knowledge of the assessment route needed to verify it.", confidence_level: low }
+  - slug: eu-ai-act-art-16-provider-obligations
+    title: Providers must meet the full set of provider duties for high-risk AI
+    category: governance_accountability
+    section: "Articles 16–27"
+    source_reference: "Article 16"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, biometrics, safety_critical]
+    summary: >
+      Article 16 lists what a provider of a high-risk AI system owes: compliance with the Section 2 requirements,
+      its name and contact details on the system or its documentation, a quality management system, retention of
+      documentation and logs, conformity assessment, an EU declaration of conformity, CE marking, registration,
+      corrective action when needed, cooperation with authorities on request, and accessibility in line with
+      the EU accessibility directives.
+    practical_action: >
+      Map each Article 16 point to an owner and an evidence location in a compliance matrix for every high-risk system.
+    applicability:
+      description: Any provider placing a high-risk AI system on the EU market or putting it into service, wherever established.
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "Article 16"
+    evidence_examples:
+      - { title: Provider compliance matrix, description: "Article 16 points (a)–(l) mapped to owners, status and evidence for each high-risk system.", artifact_type: register }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 5.3; Annex A.3.2", note: "Original editorial mapping to roles, responsibilities and authorities.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.1, GOVERN 2.1", note: "Legal requirements identified and roles assigned.", confidence_level: medium }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Assigns each provider duty to a named owner with a reporting line.", confidence_level: medium }
+      - { control: ai-quality-management-system, relationship: supports, note: "The QMS is where most Article 16 duties are operated.", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-18-documentation-keeping
+    title: Providers must keep high-risk AI documentation for ten years
+    category: record_keeping
+    section: "Articles 16–27"
+    source_reference: "Article 18"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector, financial_services]
+    use_cases: [safety_critical, finance_and_credit]
+    summary: >
+      For ten years after a high-risk AI system is placed on the market or put into service, the provider must keep
+      at the disposal of national competent authorities the technical documentation, the quality management system
+      documentation, any changes approved by a notified body, the notified body's decisions and other documents,
+      and the EU declaration of conformity. Financial institutions keep these as part of their sector record-keeping.
+    practical_action: >
+      Set a ten-year retention class for the technical file, QMS records and conformity documents of each high-risk system.
+    applicability:
+      description: Providers of high-risk AI systems; retention runs from the date the system was placed on the market or put into service.
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "Article 18(1)"
+    evidence_examples:
+      - { title: Retention schedule for AI conformity records, description: "Retention class, storage location and disposal date per document type.", artifact_type: document }
+      - { title: Technical file archive index, artifact_type: register }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 7.5.3; Annex A.6.2.7", note: "Control of documented information and technical documentation.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.4", note: "Documentation of governance and risk decisions retained.", confidence_level: medium }
+    controls:
+      - { control: record-keeping-and-logging, relationship: satisfies, note: "Retention classes and archive controls for the listed documents.", confidence_level: high }
+      - { control: technical-documentation-and-model-cards, relationship: supports, note: "Produces the technical file that must be retained.", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-19-provider-log-retention
+    title: Providers must retain automatically generated logs under their control
+    category: record_keeping
+    section: "Articles 16–27"
+    source_reference: "Article 19"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector, financial_services]
+    use_cases: [biometrics, finance_and_credit, safety_critical]
+    summary: >
+      Providers must keep the event logs that a high-risk AI system generates under Article 12, to the extent those
+      logs are within their control, for a period appropriate to the system's intended purpose and in any case for at
+      least six months, unless Union or national law on personal data sets a different period. Financial institutions
+      keep the logs under their sector rules.
+    practical_action: >
+      Configure log retention for hosted or API-served high-risk systems to at least six months with a documented rationale for any longer period.
+    applicability:
+      description: Providers that host, operate or otherwise hold the logs of a high-risk AI system; deployers have the parallel duty in Article 26(6).
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "Article 19(1)"
+    evidence_examples:
+      - { title: Log retention configuration and policy, artifact_type: document }
+      - { title: Sample log export demonstrating retention period, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.6.2.8", note: "AI system recording of event logs.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.4, MANAGE 4.1", note: "Traceability data for monitoring.", confidence_level: medium }
+    controls:
+      - { control: record-keeping-and-logging, relationship: satisfies, note: "Retention of Article 12 logs for the required period.", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-20-corrective-actions-and-information
+    title: Providers must take corrective action and inform the supply chain about non-conforming high-risk AI
+    category: incident_handling
+    section: "Articles 16–27"
+    source_reference: "Article 20"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, hiring_and_hr, finance_and_credit]
+    summary: >
+      A provider that considers, or has reason to consider, that a high-risk system it has placed on the market is not
+      in conformity must immediately correct it, withdraw it, disable it or recall it as appropriate, and inform the
+      distributors, deployers, authorised representative and importers. Where the system presents a risk to health,
+      safety or fundamental rights and the provider becomes aware of that risk, it must immediately investigate the
+      causes together with the reporting deployer and inform the market surveillance authorities and, where relevant,
+      the notified body.
+    practical_action: >
+      Add a non-conformity and recall procedure for AI products with a supply-chain notification list and an authority-notification step.
+    applicability:
+      description: Providers of high-risk AI systems already on the market or in service.
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "Article 20(1) and 20(2)"
+    evidence_examples:
+      - { title: Corrective action and recall procedure for AI systems, artifact_type: document }
+      - { title: Non-conformity investigation record, description: "Root cause, action taken, parties notified and dates.", artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 10.2; Annex A.8.4", note: "Nonconformity and corrective action; communication of incidents.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MANAGE 2.4, MANAGE 4.3", note: "Mechanisms to deactivate or supersede systems and respond to incidents.", confidence_level: high }
+    controls:
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Investigation, corrective action and notification of authorities and the supply chain.", confidence_level: high }
+      - { control: model-release-and-change-management-gate, relationship: supports, note: "Withdrawal, disabling and re-release pass through the gate.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-21-cooperation-with-authorities
+    title: Providers must supply conformity evidence and log access to authorities on request
+    category: governance_accountability
+    section: "Articles 16–27"
+    source_reference: "Article 21"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, biometrics, public_services]
+    summary: >
+      On a reasoned request from a national competent authority, a provider of a high-risk AI system must supply all
+      the information and documentation needed to show that the system meets the Section 2 requirements, in a language
+      the authority can readily understand, and must give the authority access to the automatically generated logs
+      it holds. Authorities must treat what they receive as confidential under Article 78.
+    practical_action: >
+      Keep an authority-request playbook with a named contact, the documentation index and a pre-agreed export format for logs.
+    applicability:
+      description: Providers of high-risk AI systems; requests may come from any national competent authority.
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "Article 21(1) and 21(2)"
+    evidence_examples:
+      - { title: Regulator request handling procedure, artifact_type: document }
+      - { title: Log of authority requests and responses, artifact_type: register }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 7.5; Annex A.8.3", note: "Documented information available for external reporting.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.4, GOVERN 4.2", note: "Transparency and accountability records.", confidence_level: medium }
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: supports, note: "The documentation set that is handed over.", confidence_level: high }
+      - { control: record-keeping-and-logging, relationship: supports, note: "Logs must be retrievable in a usable format.", confidence_level: high }
+      - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Names the regulator liaison and escalation path.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-22-authorised-representative
+    title: Non-EU providers must appoint an EU authorised representative for high-risk AI
+    category: governance_accountability
+    section: "Articles 16–27"
+    source_reference: "Article 22"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider, authorized_representative]
+    sectors: [cross_sector]
+    use_cases: [safety_critical, hiring_and_hr, biometrics]
+    summary: >
+      Before making a high-risk AI system available in the Union, a provider established outside the EU must appoint,
+      by written mandate, an authorised representative established in the Union. The representative verifies that
+      the EU declaration of conformity and technical documentation exist and that conformity assessment was done,
+      keeps the provider's contact details and the documentation available for ten years, supplies information to
+      authorities, cooperates with them, and must end the mandate if the provider acts contrary to the Regulation.
+    practical_action: >
+      Sign a written mandate with an EU-established representative and give them a controlled copy of the technical file and declaration.
+    applicability:
+      description: Providers established in a third country that place high-risk AI systems on the EU market; the mandated representative carries the listed tasks.
+      actors: [provider, authorized_representative]
+      risk_categories: [high_risk]
+      source_reference: "Article 22(1)–(3)"
+    evidence_examples:
+      - { title: Written mandate of authorised representative, artifact_type: document }
+      - { title: Representative's documentation checklist, description: "Verification that the declaration, technical file and conformity assessment are in place.", artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 5.3; Annex A.10.2", note: "Allocation of responsibilities to an external party.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 2.1, GOVERN 6.1", note: "Roles and third-party arrangements.", confidence_level: low }
+    controls:
+      - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The written mandate allocates the representative's tasks.", confidence_level: high }
+      - { control: conformity-assessment-and-registration, relationship: supports, note: "Items the representative must verify.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-25-value-chain-becoming-provider
+    title: Deployers, distributors and importers must assume provider duties when they rebrand or substantially modify high-risk AI
+    category: governance_accountability
+    section: "Articles 16–27"
+    source_reference: "Article 25(1) and 25(2)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, distributor, importer, provider]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, safety_critical]
+    summary: >
+      A distributor, importer, deployer or other third party is treated as the provider of a high-risk AI system,
+      with all Article 16 duties, if it puts its own name or trademark on a system already on the market, makes a
+      substantial modification to a high-risk system that stays high-risk, or changes the intended purpose of a
+      system so that it becomes high-risk. The original provider then ceases to be provider for that system but must
+      cooperate and supply the information and access needed for the new provider to comply.
+    practical_action: >
+      Add a reclassification check to change control so that white-labelling, fine-tuning or repurposing a high-risk system triggers the provider workstream.
+    applicability:
+      description: Any organisation in the value chain that rebrands, substantially modifies or repurposes a high-risk AI system; original providers owe the cooperation duty.
+      actors: [deployer, distributor, importer, provider]
+      risk_categories: [high_risk]
+      source_reference: "Article 25(1)–(2)"
+    evidence_examples:
+      - { title: Change-control reclassification assessment, description: "Documented decision on whether a modification or rebranding triggers provider status.", artifact_type: record }
+      - { title: Cooperation clause with original provider, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 4.1; Annex A.10.2", note: "Determining the organisation's role and allocating responsibilities along the chain.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 6.1, MAP 1.1", note: "Roles across the AI supply chain and context of use.", confidence_level: medium }
+    controls:
+      - { control: model-release-and-change-management-gate, relationship: satisfies, note: "The gate flags substantial modification, rebranding and repurposing and opens the provider duties.", confidence_level: medium }
+      - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Contracts set out cooperation from the original provider.", confidence_level: high }
+      - { control: ai-system-inventory, relationship: supports, note: "Inventory records the organisation's role for each system.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-25-4-written-agreements-with-component-suppliers
+    title: Providers of high-risk AI must have written agreements with suppliers of components, tools and services
+    category: vendor_governance
+    section: "Articles 16–27"
+    source_reference: "Article 25(4)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai, safety_critical, finance_and_credit]
+    summary: >
+      A provider of a high-risk AI system and any third party that supplies AI systems, tools, services, components
+      or processes used in or integrated into it must set out, in a written agreement, the information, capabilities,
+      technical access and other assistance needed for the provider to meet its obligations, based on the generally
+      acknowledged state of the art. Suppliers of free and open-source tools and components other than general-purpose
+      AI models are outside this duty. The AI Office may publish voluntary model terms.
+    practical_action: >
+      Insert AI Act information, access and assistance clauses into contracts with model, data and component suppliers.
+    applicability:
+      description: Providers of high-risk AI systems and their third-party suppliers of components, models, tools, services or processes.
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "Article 25(4)"
+    evidence_examples:
+      - { title: Supplier agreement with AI Act information and access clauses, artifact_type: document }
+      - { title: Supplier register with agreement status, artifact_type: register }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.10.3", note: "Supplier relationships aligned with the organisation's AI responsibilities.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN 6.1", note: "Policies for third-party AI risks.", confidence_level: high }
+    controls:
+      - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The written agreement itself.", confidence_level: high }
+      - { control: third-party-ai-due-diligence, relationship: supports, note: "Identifies which suppliers fall within Article 25(4).", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-6-4-non-high-risk-assessment-documentation
+    title: Providers must document and register a conclusion that an Annex III system is not high-risk
+    category: technical_documentation
+    section: "Articles 6–7"
+    source_reference: "Article 6(4); Article 49(2)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider]
+    sectors: [cross_sector, employment, financial_services, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
+    summary: >
+      A provider that considers a system listed in Annex III to be outside the high-risk tier because it meets one of
+      the Article 6(3) conditions, such as performing a narrow procedural task or only preparing a human assessment,
+      must write down that assessment before placing the system on the market or putting it into service, register
+      the system in the EU database under Article 49(2), and hand over the assessment on request from a national
+      competent authority.
+    practical_action: >
+      Record a reasoned Article 6(3) assessment in the design file and register the system before launch rather than relying on an informal judgement.
+    applicability:
+      description: Providers of AI systems in an Annex III area that they judge not to be high-risk under Article 6(3); systems that profile natural persons are always high-risk.
+      actors: [provider]
+      risk_categories: [high_risk, minimal_risk]
+      source_reference: "Article 6(3)–(4); Article 49(2)"
+    evidence_examples:
+      - { title: Article 6(3) classification assessment, description: "Reasoned analysis of which condition applies, dated before market placement.", artifact_type: record }
+      - { title: EU database registration entry, artifact_type: register }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.2; Annex A.6.2.7", note: "Risk-based classification recorded in the technical documentation.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MAP 1.5, MAP 3.1", note: "Scoping and classification of the system's impact.", confidence_level: medium }
+    controls:
+      - { control: ai-system-inventory, relationship: satisfies, note: "Classification with recorded rationale per system.", confidence_level: medium }
+      - { control: conformity-assessment-and-registration, relationship: supports, note: "Registration under Article 49(2).", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-26-4-deployer-input-data
+    title: Deployers must ensure input data they control is relevant and representative
+    category: data_governance
+    section: "Articles 16–27"
+    source_reference: "Article 26(4)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, employment, financial_services, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, public_services]
+    summary: >
+      To the extent a deployer controls the data fed into a high-risk AI system, it must make sure that input data
+      is relevant to, and sufficiently representative for, the system's intended purpose. The duty sits with the
+      deployer even though the provider designed the system, because the deployer chooses what the system is run on.
+    practical_action: >
+      Define input-data quality checks for each high-risk system, including population coverage and field validation, and review them with the provider's instructions.
+    applicability:
+      description: Deployers of high-risk AI systems that select or supply the operational input data.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+      source_reference: "Article 26(4)"
+    evidence_examples:
+      - { title: Input-data quality checklist, artifact_type: document }
+      - { title: Input-data validation results, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.7.4, A.7.6", note: "Data quality and data preparation.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MAP 2.3, MEASURE 2.2", note: "Data representativeness in context.", confidence_level: medium }
+    controls:
+      - { control: data-governance-and-dataset-documentation, relationship: satisfies, note: "Applied to operational input data rather than training data.", confidence_level: medium }
+      - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Detects input drift away from the intended population.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-26-5-deployer-monitoring-and-suspension
+    title: Deployers must monitor high-risk AI, suspend use on risk and report serious incidents
+    category: post_market_monitoring
+    section: "Articles 16–27"
+    source_reference: "Article 26(5)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, employment, financial_services, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, public_services, safety_critical]
+    summary: >
+      Deployers must monitor a high-risk AI system's operation against the provider's instructions and feed
+      observations to the provider under Article 72. If they have reason to think the system as used may present a
+      risk to health, safety or fundamental rights, they must inform the provider or distributor and the market
+      surveillance authority without undue delay and suspend use. On a serious incident, they must immediately inform
+      the provider, then the importer or distributor and the authorities. Financial institutions meet this through
+      their internal governance rules.
+    practical_action: >
+      Give each high-risk system an operational owner with a kill-switch authority and a written escalation route to the provider and the authority.
+    applicability:
+      description: Deployers of high-risk AI systems; the incident-reporting leg is aligned with Article 73.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+      source_reference: "Article 26(5)"
+    evidence_examples:
+      - { title: Operational monitoring log, artifact_type: record }
+      - { title: Suspension and escalation procedure, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 9.1; Annex A.6.2.6, A.8.4", note: "Operation and monitoring; communication of incidents.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MANAGE 2.4, MANAGE 4.1, MANAGE 4.3", note: "Deactivation mechanisms, post-deployment monitoring and incident response.", confidence_level: high }
+    controls:
+      - { control: post-market-monitoring-and-drift-detection, relationship: satisfies, note: "Deployer-side monitoring with feedback to the provider.", confidence_level: high }
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Suspension decision and notifications to provider and authority.", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-26-7-worker-information
+    title: Employers must inform workers and their representatives before using high-risk AI at work
+    category: transparency
+    section: "Articles 16–27"
+    source_reference: "Article 26(7)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [employment, cross_sector]
+    use_cases: [hiring_and_hr]
+    summary: >
+      Before putting a high-risk AI system into service or using it at the workplace, a deployer that is an employer
+      must tell the workers' representatives and the affected workers that they will be subject to the system. The
+      information is given following the procedures and rules on informing workers and their representatives under
+      Union and national law and practice, which may include works-council consultation.
+    practical_action: >
+      Add an AI Act notice step to the HR technology change process and consult the works council where national law requires it.
+    applicability:
+      description: Employers deploying high-risk AI in recruitment, task allocation, performance monitoring or other employment uses listed in Annex III.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+      source_reference: "Article 26(7)"
+    evidence_examples:
+      - { title: Worker and works-council notification, description: "Dated notice describing the system, its purpose and the affected roles.", artifact_type: document }
+      - { title: Consultation minutes, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.8.5", note: "Information for interested parties.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MAP 1.6", note: "Engagement with affected groups.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Workforce-facing notice before go-live.", confidence_level: high }
+      - { control: ai-impact-assessment, relationship: supports, note: "Identifies the affected worker groups to notify.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-26-8-public-authority-registration-before-use
+    title: Public authorities must register their use of high-risk AI and must not use unregistered systems
+    category: public_sector_use
+    section: "Articles 16–27"
+    source_reference: "Article 26(8); Article 49(3) and 49(4)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [public_authority, deployer]
+    sectors: [public_services, law_enforcement, migration_border]
+    use_cases: [public_services, law_enforcement, biometrics]
+    summary: >
+      Deployers that are public authorities or Union institutions, bodies, offices or agencies must register their
+      use of an Annex III high-risk AI system in the EU database before putting it into service. If they find that
+      the system they intend to use has not been registered in the database by its provider, they must not use it
+      and must inform the provider or distributor.
+    practical_action: >
+      Check the EU database entry for the provider's system as a procurement acceptance criterion, then register the deployment before go-live.
+    applicability:
+      description: Public authorities and EU bodies deploying Annex III high-risk AI systems, other than the law-enforcement and migration systems that are registered in the secure non-public section.
+      actors: [public_authority, deployer]
+      risk_categories: [high_risk]
+      source_reference: "Article 26(8); Article 49(3)"
+    evidence_examples:
+      - { title: EU database deployer registration record, artifact_type: register }
+      - { title: Procurement acceptance checklist with registration check, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.8.2, A.8.5", note: "System documentation and information for interested parties.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.6, MAP 1.1", note: "Inventory of deployed systems and context.", confidence_level: medium }
+    controls:
+      - { control: public-sector-ai-use-case-register, relationship: satisfies, note: "Registration of public-authority use with the required Annex VIII information.", confidence_level: high }
+      - { control: third-party-ai-due-diligence, relationship: supports, note: "Verifies the provider's registration before purchase.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-26-9-dpia-using-provider-information
+    title: Deployers must use the provider's transparency information in their data protection impact assessment
+    category: privacy_data_protection
+    section: "Articles 16–27"
+    source_reference: "Article 26(9)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, employment, financial_services, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, biometrics, public_services]
+    summary: >
+      Where a deployer of a high-risk AI system is required to carry out a data protection impact assessment under
+      Article 35 of the GDPR or Article 27 of the Law Enforcement Directive, it must draw on the information the
+      provider supplied under Article 13, such as the intended purpose, performance, limitations and human-oversight
+      measures, when producing that assessment.
+    practical_action: >
+      Attach the provider's instructions for use to the DPIA template and cross-reference the Article 27 fundamental rights impact assessment where one is required.
+    applicability:
+      description: Deployers of high-risk AI systems that process personal data in a way that triggers a DPIA.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+      source_reference: "Article 26(9)"
+    evidence_examples:
+      - { title: Data protection impact assessment citing the provider's Article 13 information, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 6.1.4; Annex A.5.2", note: "AI system impact assessment process.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MAP 3.1, MEASURE 2.10", note: "Privacy risk assessed with system information.", confidence_level: medium }
+    controls:
+      - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "DPIA built on the provider's documentation.", confidence_level: high }
+      - { control: ai-impact-assessment, relationship: supports, note: "Shared inputs with the fundamental rights impact assessment.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-26-10-post-remote-biometric-identification-authorisation
+    title: Law-enforcement deployers must obtain authorisation for post-remote biometric identification and report annually
+    category: governance_accountability
+    section: "Articles 16–27"
+    source_reference: "Article 26(10)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [law_enforcement]
+    use_cases: [law_enforcement, biometrics]
+    summary: >
+      A deployer using a high-risk post-remote biometric identification system in a criminal investigation must
+      request authorisation from a judicial or independent administrative authority in advance or within 48 hours,
+      unless the use is only the initial identification of a potential suspect on objective and verifiable facts.
+      Use is limited to a targeted search; if authorisation is refused, use stops and the data is deleted. No
+      adverse legal decision may rest solely on the output, each use is documented, and the deployer reports
+      annually to the market surveillance and data protection authorities.
+    practical_action: >
+      Build the authorisation request, 48-hour clock and deletion step into the investigation workflow and schedule the annual report.
+    applicability:
+      description: Law enforcement authorities deploying post-remote biometric identification in criminal investigations; real-time use is governed by Article 5.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+      source_reference: "Article 26(10)"
+    evidence_examples:
+      - { title: Authorisation request and decision record, artifact_type: record }
+      - { title: Annual report on post-remote biometric identification use, artifact_type: report }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.9.2, A.9.4", note: "Processes for responsible use and intended use.", confidence_level: low }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MANAGE 1.3", note: "Legal requirements and documented use decisions.", confidence_level: low }
+    controls:
+      - { control: human-oversight-and-override, relationship: supports, note: "No adverse decision solely on the system's output.", confidence_level: medium }
+      - { control: record-keeping-and-logging, relationship: supports, note: "Per-use documentation and annual reporting data.", confidence_level: medium }
+      - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Authorisation workflow ownership.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: medium
+  - slug: eu-ai-act-art-26-11-notice-to-affected-persons
+    title: Deployers must tell natural persons that a high-risk AI system is used in decisions about them
+    category: transparency
+    section: "Articles 16–27"
+    source_reference: "Article 26(11)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, employment, financial_services, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
+    summary: >
+      Deployers of Annex III high-risk AI systems that take decisions about natural persons, or help take them, must
+      inform those persons that they are subject to the system. The notice is separate from any explanation owed
+      under Article 86 and from the worker notice in Article 26(7). In law-enforcement contexts the duty follows
+      the information rules of the Law Enforcement Directive.
+    practical_action: >
+      Add a plain-language AI-use notice to application forms, decision letters or account terms for each affected decision process.
+    applicability:
+      description: Deployers using Annex III systems for decisions about individuals, for example in recruitment, credit, education admissions or public benefits.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+      source_reference: "Article 26(11)"
+    evidence_examples:
+      - { title: Affected-person notice template and placement record, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.8.5", note: "Information for interested parties.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.1", note: "Communication with affected individuals.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Notice to decision subjects at the point of the decision process.", confidence_level: high }
+      - { control: decision-explanation-and-appeal-route, relationship: supports, note: "Notice links to the Article 86 explanation route.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-50-2-synthetic-content-marking
+    title: Providers of generative AI must mark synthetic output as artificially generated in a machine-readable way
+    category: transparency
+    section: "Article 50"
+    source_reference: "Article 50(2)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [provider, gpai_provider]
+    sectors: [media_information, cross_sector, consumer_retail]
+    use_cases: [generative_ai, content_moderation]
+    summary: >
+      Providers of AI systems, including general-purpose AI systems, that generate synthetic audio, image, video or
+      text must ensure the output is marked in a machine-readable format and detectable as artificially generated or
+      manipulated. The technical solution must be effective, interoperable, robust and reliable as far as the state
+      of the art allows, taking account of content type and cost. Systems that only perform assistive editing or do
+      not substantially alter the input, and law-authorised criminal-detection uses, are outside the duty.
+    practical_action: >
+      Implement watermarking or content credentials on generated output and keep test evidence that the mark survives common transformations.
+    applicability:
+      description: Providers of systems that generate synthetic media or text, whatever the risk tier; codes of practice under Article 50(7) will detail acceptable techniques.
+      actors: [provider, gpai_provider]
+      risk_categories: [transparency_risk]
+      source_reference: "Article 50(2)"
+    evidence_examples:
+      - { title: Provenance marking design and robustness test report, artifact_type: report }
+      - { title: Output sample with embedded machine-readable mark, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.8.2, A.6.2.4", note: "System documentation; verification and validation of the marking.", confidence_level: low }
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.7, MANAGE 4.1", note: "Provenance mechanisms as recommended in NIST AI 600-1.", confidence_level: medium }
+    controls:
+      - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "Machine-readable marking with robustness evidence.", confidence_level: high }
+      - { control: accuracy-robustness-security-testing, relationship: supports, note: "Tests that the mark is robust and reliable.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-50-3-emotion-recognition-notice
+    title: Deployers of emotion recognition or biometric categorisation must inform exposed persons
+    category: transparency
+    section: "Article 50"
+    source_reference: "Article 50(3)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, consumer_retail, healthcare]
+    use_cases: [biometrics, customer_service, health]
+    summary: >
+      A deployer of an emotion recognition system or a biometric categorisation system must inform the natural
+      persons exposed to it that the system is operating and must process their personal data in line with the GDPR,
+      the Law Enforcement Directive and the EU institutions data protection regulation. Systems permitted by law to
+      detect, prevent or investigate criminal offences are excepted, subject to safeguards. Use in workplaces and
+      schools is separately banned by Article 5 except for medical or safety reasons.
+    practical_action: >
+      Place a visible notice at the point of capture and confirm a lawful basis for the biometric processing before switch-on.
+    applicability:
+      description: Deployers of emotion recognition or biometric categorisation systems that are not prohibited under Article 5.
+      actors: [deployer, public_authority]
+      risk_categories: [transparency_risk, high_risk]
+      source_reference: "Article 50(3)"
+    evidence_examples:
+      - { title: Exposure notice and signage, artifact_type: document }
+      - { title: Lawful-basis record for biometric processing, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.8.5", note: "Information for interested parties.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MEASURE 2.10", note: "Communication and privacy risk.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Notice to persons exposed to the system.", confidence_level: high }
+      - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Lawful basis and safeguards for biometric data.", confidence_level: high }
+      - { control: prohibited-use-screening-gate, relationship: supports, note: "Confirms the use is not banned by Article 5.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-50-4-deepfake-and-public-interest-text-disclosure
+    title: Deployers must disclose deepfakes and AI-generated text published on matters of public interest
+    category: transparency
+    section: "Article 50"
+    source_reference: "Article 50(4)"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [media_information, cross_sector]
+    use_cases: [generative_ai, content_moderation]
+    summary: >
+      A deployer that generates or manipulates image, audio or video content that is a deep fake must disclose that
+      the content has been artificially generated or manipulated, with lighter treatment for evidently artistic,
+      creative, satirical or fictional works so that the disclosure does not spoil the work. A deployer that
+      publishes AI-generated text to inform the public on matters of public interest must disclose this unless the
+      text passed human review or editorial control and someone holds editorial responsibility. The disclosure
+      must reach people clearly at the latest at first exposure.
+    practical_action: >
+      Adopt a labelling standard for published synthetic media and a newsroom rule that AI-drafted public-interest text is either labelled or editorially signed off.
+    applicability:
+      description: Any organisation publishing deepfakes or AI-generated public-interest text, including media, marketing and public bodies.
+      actors: [deployer, public_authority]
+      risk_categories: [transparency_risk]
+      source_reference: "Article 50(4) and 50(5)"
+    evidence_examples:
+      - { title: Synthetic media labelling standard, artifact_type: document }
+      - { title: Editorial sign-off record for AI-drafted text, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.9.2, A.8.5", note: "Responsible-use processes and information to interested parties.", confidence_level: low }
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.1", note: "Transparency to end users; NIST AI 600-1 content provenance.", confidence_level: medium }
+    controls:
+      - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "User-facing labels on deepfakes and public-interest text.", confidence_level: high }
+      - { control: human-oversight-and-override, relationship: supports, note: "Editorial control that lifts the text-disclosure duty.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-52-systemic-risk-notification
+    title: Providers of GPAI models must notify the Commission within two weeks of meeting the systemic-risk threshold
+    category: governance_accountability
+    section: "Articles 51–56"
+    source_reference: "Article 52(1)"
+    is_binding: true
+    applies_from: 2025-08-02
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      A provider whose general-purpose AI model meets the Article 51(1)(a) high-impact capability condition, which
+      is presumed once cumulative training compute exceeds 10^25 floating-point operations, must notify the
+      Commission without delay and in any event within two weeks of the condition being met or of learning that it
+      will be met. The notification may include arguments that the model nonetheless does not present systemic
+      risk; the Commission decides and keeps a public list of designated models.
+    practical_action: >
+      Track cumulative training compute per model against the threshold and pre-draft the notification and any rebuttal arguments.
+    applicability:
+      description: Providers of general-purpose AI models approaching or exceeding the compute threshold, including during training.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk]
+      source_reference: "Article 52(1)–(2)"
+    evidence_examples:
+      - { title: Training compute tracking record, artifact_type: register }
+      - { title: Notification to the Commission, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 4.2; Annex A.8.3", note: "Interested-party requirements and external reporting.", confidence_level: low }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MAP 1.1", note: "Legal requirement tracking and system context.", confidence_level: medium }
+    controls:
+      - { control: frontier-model-safety-framework, relationship: satisfies, note: "Compute tracking and threshold notification are part of the framework.", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-53-gpai-technical-and-downstream-documentation
+    title: Providers of GPAI models must maintain technical documentation and inform downstream providers
+    category: technical_documentation
+    section: "Articles 51–56"
+    source_reference: "Article 53(1)(a) and 53(1)(b); Annexes XI and XII"
+    is_binding: true
+    applies_from: 2025-08-02
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Providers of general-purpose AI models must draw up and keep up to date technical documentation covering the
+      training and testing process and evaluation results, as set in Annex XI, and supply it to the AI Office or
+      national authorities on request. They must also keep current the Annex XII information for providers that
+      integrate the model into their own AI systems, so those providers understand its capabilities and limitations
+      and can meet their own duties. Free and open-source models without systemic risk are exempt from both duties.
+    practical_action: >
+      Maintain a model card and technical file aligned to Annexes XI and XII with version control tied to each model release.
+    applicability:
+      description: Providers placing general-purpose AI models on the EU market, other than free and open-source models that do not present systemic risk.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk, minimal_risk]
+      conditions: Models placed on the market before 2 August 2025 have until 2 August 2027 under Article 111(3).
+      source_reference: "Article 53(1)(a)–(b), 53(2)"
+    evidence_examples:
+      - { title: Annex XI technical documentation, artifact_type: document }
+      - { title: Annex XII downstream integration documentation, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.6.2.7, A.8.2, A.10.4", note: "Technical documentation, system documentation and information for customers.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.4, MAP 2.2, MEASURE 2.1", note: "Documentation of design, testing and evaluation.", confidence_level: medium }
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Model card and technical file structured to Annexes XI and XII.", confidence_level: high }
+      - { control: model-release-and-change-management-gate, relationship: supports, note: "Release requires the documentation to be current.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-54-gpai-authorised-representative
+    title: Non-EU providers of GPAI models must appoint an EU authorised representative
+    category: governance_accountability
+    section: "Articles 51–56"
+    source_reference: "Article 54"
+    is_binding: true
+    applies_from: 2025-08-02
+    actors: [gpai_provider, authorized_representative]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Before placing a general-purpose AI model on the Union market, a provider established in a third country must
+      appoint, by written mandate, an authorised representative established in the Union. The representative checks
+      that the Annex XI documentation exists and the Article 53 duties are met, keeps a copy of the documentation and
+      the provider's contact details for ten years after market placement, provides information to the AI Office on
+      request, cooperates with authorities, and must end the mandate if the provider breaches the Regulation.
+      Open-source models without systemic risk are exempt.
+    practical_action: >
+      Appoint an EU representative under a written mandate covering document retention and AI Office liaison before the model reaches EU users.
+    applicability:
+      description: Providers of general-purpose AI models established outside the EU, unless the model is free and open-source and not of systemic risk.
+      actors: [gpai_provider, authorized_representative]
+      risk_categories: [systemic_risk, minimal_risk]
+      source_reference: "Article 54(1)–(6)"
+    evidence_examples:
+      - { title: Written mandate of authorised representative for GPAI, artifact_type: document }
+      - { title: Representative's verification of Annex XI documentation, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 5.3; Annex A.10.2", note: "Responsibilities allocated to an external party.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 2.1, GOVERN 6.1", note: "Roles and third-party arrangements.", confidence_level: low }
+    controls:
+      - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The mandate and its task list.", confidence_level: high }
+      - { control: technical-documentation-and-model-cards, relationship: supports, note: "The documentation the representative holds.", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-55-systemic-risk-incident-reporting
+    title: Providers of systemic-risk GPAI models must track and report serious incidents to the AI Office
+    category: incident_handling
+    section: "Articles 51–56"
+    source_reference: "Article 55(1)(c)"
+    is_binding: true
+    applies_from: 2025-08-02
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Providers of general-purpose AI models with systemic risk must keep track of, document and report without undue
+      delay to the AI Office and, where relevant, to national competent authorities the relevant information about
+      serious incidents and the possible corrective measures to address them. The General-Purpose AI Code of Practice
+      sets out timelines and content that providers may follow to demonstrate compliance.
+    practical_action: >
+      Define serious-incident criteria for the model, a tracking log and an AI Office notification template with owner and clock.
+    applicability:
+      description: Providers of general-purpose AI models classified as having systemic risk under Article 51.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk]
+      source_reference: "Article 55(1)(c)"
+    evidence_examples:
+      - { title: Serious incident tracking log for the model, artifact_type: register }
+      - { title: AI Office incident notification, artifact_type: document }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Clause 10.2; Annex A.8.4", note: "Corrective action and incident communication.", confidence_level: high }
+      - { framework: nist_ai_rmf, reference: "MANAGE 4.3, MEASURE 3.1", note: "Incident response and tracking of emergent risks.", confidence_level: high }
+    controls:
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Model-level incident criteria, log and AI Office reporting.", confidence_level: high }
+      - { control: frontier-model-safety-framework, relationship: supports, note: "Framework defines the incident types and escalation.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-55-systemic-risk-cybersecurity
+    title: Providers of systemic-risk GPAI models must secure the model and its infrastructure
+    category: accuracy_robustness_security
+    section: "Articles 51–56"
+    source_reference: "Article 55(1)(d)"
+    is_binding: true
+    applies_from: 2025-08-02
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Providers of general-purpose AI models with systemic risk must ensure an adequate level of cybersecurity
+      protection for the model and for the physical infrastructure it runs on, which in practice covers protection of
+      model weights, training and inference environments, and access controls against theft, tampering and
+      unauthorised release. Codes of practice and harmonised standards may be used to show compliance.
+    practical_action: >
+      Apply a documented security standard to weight storage, training clusters and inference endpoints, with penetration tests and insider-risk controls.
+    applicability:
+      description: Providers of general-purpose AI models classified as having systemic risk under Article 51.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk]
+      source_reference: "Article 55(1)(d)"
+    evidence_examples:
+      - { title: Model and infrastructure security assessment, artifact_type: report }
+      - { title: Weight access control records, artifact_type: record }
+    framework_mappings:
+      - { framework: iso_27001, reference: "Clause 8.1; Annex A 5.15, A 8.24", note: "Access control and cryptography applied to model assets.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.7, MANAGE 2.2", note: "Security and resilience of the system.", confidence_level: medium }
+      - { framework: mitre_atlas, reference: "AML.M0005, AML.M0001", note: "Control access to models and limit artifact release.", confidence_level: medium }
+    controls:
+      - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Security testing of the model and its serving infrastructure.", confidence_level: medium }
+      - { control: frontier-model-safety-framework, relationship: supports, note: "Framework commits to the weight-security measures.", confidence_level: high }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
+  - slug: eu-ai-act-art-86-right-to-explanation
+    title: Deployers must explain individual decisions taken with high-risk AI on request
+    category: transparency
+    section: "Chapter IX — Remedies"
+    source_reference: "Article 86"
+    is_binding: true
+    applies_from: 2026-08-02
+    actors: [deployer, public_authority]
+    sectors: [cross_sector, employment, financial_services, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
+    summary: >
+      A person affected by a decision that a deployer took on the basis of the output of an Annex III high-risk AI
+      system, other than critical-infrastructure systems, which produces legal effects or similarly significantly
+      affects them in a way they consider adverse to their health, safety or fundamental rights, has the right to
+      obtain from the deployer clear and meaningful explanations of the role the system played in the decision and
+      the main elements of the decision. The right does not apply where Union or national law provides an exception.
+    practical_action: >
+      Set up a request channel and an explanation template that names the system's role, the key inputs and the human decision points for each affected process.
+    applicability:
+      description: Deployers using Annex III high-risk systems for decisions with legal or similarly significant effects on individuals; overlaps with GDPR Article 22 rights.
+      actors: [deployer, public_authority]
+      risk_categories: [high_risk]
+      source_reference: "Article 86(1)–(3)"
+    evidence_examples:
+      - { title: Explanation request procedure and template, artifact_type: document }
+      - { title: Register of explanation requests and responses, artifact_type: register }
+    framework_mappings:
+      - { framework: iso_42001, reference: "Annex A.8.5, A.9.2", note: "Information for interested parties and responsible-use processes.", confidence_level: medium }
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.1", note: "Recourse and communication for affected individuals.", confidence_level: medium }
+    controls:
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Request channel and explanation of the system's role and main decision elements.", confidence_level: high }
+      - { control: record-keeping-and-logging, relationship: supports, note: "Logs supply the inputs cited in the explanation.", confidence_level: medium }
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    review_status: pending_review
+    confidence_level: high
 deadlines:
   - { title: Entry into force, due_on: 2024-08-01, date_precision: exact, description: "Twentieth day after publication in the Official Journal.", source_reference: "Article 113", deadline_status: passed, confidence_level: high }
   - { title: "Prohibited practices and AI literacy apply (Chapters I and II)", due_on: 2025-02-02, date_precision: exact, description: "Article 5 bans and Article 4 literacy duties apply.", source_reference: "Article 113(a)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-prohibited-practices }

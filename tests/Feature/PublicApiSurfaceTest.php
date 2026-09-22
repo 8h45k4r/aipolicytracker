@@ -32,7 +32,7 @@ class PublicApiSurfaceTest extends TestCase
         $iso = collect($body['data'])->firstWhere('slug', 'iso-42001');
 
         $this->assertSame('ISO/IEC 42001:2023', $iso['name']);
-        $this->assertSame(35, $iso['obligations_mapped']);
+        $this->assertSame(89, $iso['obligations_mapped']);
         $this->assertTrue($iso['certifiable']);
         $this->assertNotNull($iso['href']);
 
@@ -53,9 +53,9 @@ class PublicApiSurfaceTest extends TestCase
     {
         $body = $this->getJson('/api/v1/frameworks/iso-42001/eu')->assertOk()->json('data');
 
-        $this->assertSame(18, $body['obligations_mapped']);
-        $this->assertSame(19, $body['obligations_recorded']);
-        $this->assertCount(18, $body['mappings']);
+        $this->assertSame(42, $body['obligations_mapped']);
+        $this->assertSame(44, $body['obligations_recorded']);
+        $this->assertCount(42, $body['mappings']);
         $this->assertSame('European Union', $body['jurisdiction']['name']);
     }
 
