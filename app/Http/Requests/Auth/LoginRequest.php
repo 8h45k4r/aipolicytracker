@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -22,7 +23,7 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
@@ -35,7 +36,7 @@ class LoginRequest extends FormRequest
     /**
      * Attempt to authenticate the request's credentials.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function authenticate(): void
     {
@@ -49,13 +50,26 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        // Suspension is the stop button: it blocks sign-in outright rather than only removing
+        // admin access, so a compromised or departed account can be stopped without deleting
+        // the history attached to it. Checked after a correct password so the message cannot
+        // be used to enumerate which addresses are suspended.
+        if (Auth::user()?->isSuspended()) {
+            Auth::logout();
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 
     /**
      * Ensure the login request is not rate limited.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function ensureIsNotRateLimited(): void
     {
