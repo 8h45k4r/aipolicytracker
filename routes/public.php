@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Site\AgentSurfaceController;
 use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\BillingWebhookController;
+use App\Http\Controllers\Site\CalendarController;
 use App\Http\Controllers\Site\ChangeController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\ContributeController;
+use App\Http\Controllers\Site\CorrectionsController;
+use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
 use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FrameworkController;
@@ -13,14 +17,19 @@ use App\Http\Controllers\Site\FreeToolController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
+use App\Http\Controllers\Site\LegalController;
 use App\Http\Controllers\Site\MachineReadableController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
+use App\Http\Controllers\Site\ReviewersController;
 use App\Http\Controllers\Site\RiskBrowseController;
 use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
+use App\Http\Controllers\Site\SocialCardController;
 use App\Http\Controllers\Site\SubscribeController;
+use App\Http\Controllers\Site\VerificationController;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 // Public, server-rendered policy-intelligence site.
@@ -28,15 +37,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/policies', [PolicyController::class, 'index'])->name('policies.index');
 Route::get('/policies/{policy}.json', [PolicyController::class, 'json'])->name('policies.json');
-Route::get('/policies/{policy}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'policy'])->where('policy', '[a-z0-9-]+')->name('policies.context');
+Route::get('/policies/{policy}.md', [AgentSurfaceController::class, 'policy'])->where('policy', '[a-z0-9-]+')->name('policies.context');
 Route::get('/policies/{policy}', [PolicyController::class, 'show'])->name('policies.show');
 
 Route::get('/jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
-Route::get('/jurisdictions/{jurisdiction}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->name('jurisdictions.context');
+Route::get('/jurisdictions/{jurisdiction}.md', [AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->name('jurisdictions.context');
 Route::get('/jurisdictions/{jurisdiction}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 Route::get('/obligations', [ObligationController::class, 'index'])->name('obligations.index');
-Route::get('/obligations/{obligation}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->name('obligations.context');
+Route::get('/obligations/{obligation}.md', [AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->name('obligations.context');
 Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
 
 Route::get('/compare', [CompareController::class, 'index'])->name('compare.index');
@@ -49,11 +58,14 @@ Route::get('/frameworks/{framework}/{jurisdiction}', [FrameworkController::class
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
-Route::get('/changes/{change}.md', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->name('changes.context');
-Route::get('/calendar', [\App\Http\Controllers\Site\CalendarController::class, 'show'])->name('calendar');
-Route::get('/calendar/ai-policy-deadlines.ics', [\App\Http\Controllers\Site\CalendarController::class, 'feed'])->name('calendar.feed');
-Route::get('/calendar/{jurisdiction}.ics', [\App\Http\Controllers\Site\CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->name('calendar.feed.jurisdiction');
+Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->name('changes.context');
+Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
+Route::get('/calendar/ai-policy-deadlines.ics', [CalendarController::class, 'feed'])->name('calendar.feed');
+Route::get('/calendar/{jurisdiction}.ics', [CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->name('calendar.feed.jurisdiction');
 Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', '20[0-9]{2}')->name('changes.year');
+// One page per change. A development that only existed as an anchor on a list
+// could not be shared, cited or returned as an answer on its own.
+Route::get('/changes/{change}', [ChangeController::class, 'show'])->where('change', '[a-z0-9][a-z0-9-]*')->name('changes.show');
 
 Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
 Route::get('/ai-risk/incidents', [RiskController::class, 'incidents'])->name('risk.incidents');
@@ -71,22 +83,22 @@ Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'
 
 Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
 Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->name('open-data.download');
-Route::get('/open-data/health.json', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'health'])->name('open-data.health');
-Route::get('/open-data/{dataset}.csv', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->name('open-data.csv');
-Route::get('/open-data/{dataset}.ndjson', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->name('open-data.ndjson');
-Route::get('/schema/{name}.schema.json', [\App\Http\Controllers\Site\AgentSurfaceController::class, 'schema'])->where('name', '[a-z]+')->name('schema.show');
+Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->name('open-data.health');
+Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->name('open-data.csv');
+Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->name('open-data.ndjson');
+Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z]+')->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
-Route::get('/verification', [\App\Http\Controllers\Site\VerificationController::class, 'show'])->name('verification');
-Route::get('/coverage', [\App\Http\Controllers\Site\CoverageController::class, 'show'])->name('coverage');
-Route::get('/gaps', [\App\Http\Controllers\Site\CoverageController::class, 'gaps'])->name('gaps');
-Route::get('/corrections', [\App\Http\Controllers\Site\CorrectionsController::class, 'show'])->name('corrections');
-Route::get('/reviewers', [\App\Http\Controllers\Site\ReviewersController::class, 'show'])->name('reviewers');
+Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
+Route::get('/coverage', [CoverageController::class, 'show'])->name('coverage');
+Route::get('/gaps', [CoverageController::class, 'gaps'])->name('gaps');
+Route::get('/corrections', [CorrectionsController::class, 'show'])->name('corrections');
+Route::get('/reviewers', [ReviewersController::class, 'show'])->name('reviewers');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 // The sign-up form asks readers to accept these and the download gate records the
 // acceptance, so they have to be real pages rather than a configurable link that
 // fell back to /about when unset.
-Route::get('/privacy', [\App\Http\Controllers\Site\LegalController::class, 'privacy'])->name('privacy');
-Route::get('/terms', [\App\Http\Controllers\Site\LegalController::class, 'terms'])->name('terms');
+Route::get('/privacy', [LegalController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [LegalController::class, 'terms'])->name('terms');
 Route::get('/contribute', [ContributeController::class, 'show'])->name('contribute');
 Route::post('/contribute', [ContributeController::class, 'store'])->middleware('throttle:10,1')->name('contribute.store');
 
@@ -96,16 +108,15 @@ Route::get('/saved', [PageController::class, 'saved'])->name('saved');
 Route::post('/subscribe', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
 Route::get('/subscribe/confirm/{token}', [SubscribeController::class, 'confirm'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.confirm');
 Route::get('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribe'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.unsubscribe');
-Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribePost'])->where('token', '[A-Za-z0-9]{48}')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('subscribe.unsubscribe.post');
-Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.digest');
-Route::post('/cron/external-sync', [CronController::class, 'externalSync'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.external-sync');
+Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribePost'])->where('token', '[A-Za-z0-9]{48}')->withoutMiddleware([ValidateCsrfToken::class])->name('subscribe.unsubscribe.post');
+Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.digest');
+Route::post('/cron/external-sync', [CronController::class, 'externalSync'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.external-sync');
 
 // Selling is retired: there is no pricing page, checkout or portal. The
 // webhook stays mounted and signature-authenticated so that events for any
 // subscription created before this change are still recorded rather than
 // silently dropped. See debt #41.
-Route::middleware(['auth', 'verified'])->group(function () {
-});
+Route::middleware(['auth', 'verified'])->group(function () {});
 // Follows and daily alerts (Pro): the toggle needs the saved.server entitlement; the list page needs an account.
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/following', [FollowController::class, 'index'])->name('following.index');
@@ -113,8 +124,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profiles/{profile}', [ApplicabilityProfileController::class, 'destroy'])->whereNumber('profile')->name('profiles.destroy');
     Route::post('/follow/{type}/{slug}', [FollowController::class, 'toggle'])->where(['type' => '[a-z]+', 'slug' => '[A-Za-z0-9._-]{1,160}'])->middleware(['subscribed:saved.server', 'throttle:60,1'])->name('follow.toggle');
 });
-Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('cron.alerts');
-Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('throttle:120,1')->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])->name('billing.webhook');
+Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.alerts');
+Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('throttle:120,1')->withoutMiddleware([ValidateCsrfToken::class])->name('billing.webhook');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');
@@ -135,7 +146,7 @@ Route::get('/{landing}', [LandingController::class, 'landing'])
 // The image a platform shows when a page is shared, drawn from the record. The
 // `v` query parameter is a version token from the record itself: it is what makes
 // a platform fetch a new card after a retitle, and it is ignored when rendering.
-Route::get('/og/{kind}/{slug}.png', \App\Http\Controllers\Site\SocialCardController::class)
+Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
     ->where(['kind' => 'policy|jurisdiction|obligation|site', 'slug' => '[a-z0-9-]+'])
     ->name('social.card');
 
@@ -144,6 +155,10 @@ Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->whe
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
 Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->name('llms.full');
 Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');
+// RFC 9116: where a security researcher should write. Generated rather than a
+// static file so the mandatory Expires field can never fall into the past.
+Route::get('/.well-known/security.txt', [MachineReadableController::class, 'securityTxt'])->name('security.txt');
+Route::redirect('/security.txt', '/.well-known/security.txt', 301);
 
 // Legacy URL redirects.
 Route::redirect('/about-ai-policy', '/about', 301);

@@ -7,7 +7,7 @@
         <span class="badge {{ $impact->value === 'urgent' ? 'bg-state-badbg text-state-bad ring-state-bad/20' : ($impact->value === 'high' ? 'bg-state-warnbg text-state-warn ring-state-warn/20' : 'bg-state-neutralbg text-brand-body ring-brand-line') }}">{{ $impact->label() }}</span>
         @if($change->statusAfterEnum())<x-site.status-badge :status="$change->statusAfterEnum()" />@endif
     </div>
-    <h3 class="mt-1.5 font-display text-lg font-semibold text-brand-navy leading-snug">{{ $change->title }}</h3>
+    <h3 class="mt-1.5 font-display text-lg font-semibold text-brand-navy leading-snug"><a href="{{ $change->url() }}" class="text-brand-navy no-underline hover:underline">{{ $change->title }}</a></h3>
     @unless($compact)
     <p class="mt-1.5 text-sm text-brand-body">{{ $change->what_changed }}</p>
     @if($change->practical_impact)<p class="mt-1.5 text-sm text-brand-body"><span class="font-medium text-brand-navy">Practical impact:</span> {{ $change->practical_impact }}</p>@endif

@@ -9,7 +9,9 @@ Only the `main` branch and the latest tagged release receive security fixes.
 Please **do not** open a public GitHub issue for security problems.
 
 1. Use GitHub's private vulnerability reporting: <https://github.com/8h45k4r/aipolicytracker/security/advisories/new>, or
-2. E-mail the maintainers at the contact address listed on the project's About page with the subject `SECURITY: aipolicytracker`.
+2. E-mail **bhaskar@aipolicytracker.org** with the subject `SECURITY: aipolicytracker`.
+
+The same contact is published in machine-readable form at <https://aipolicytracker.org/.well-known/security.txt> (RFC 9116).
 
 Automated scanning: CodeQL runs on every pull request and weekly (`.github/workflows/codeql.yml`). Dependency version updates are not automated in this repository: the Dependabot configuration was removed and updates are made through the release process, with `npm audit --omit=dev` and `composer audit` run and recorded in every pull request. Whether GitHub raises Dependabot alerts for known advisories is a repository setting rather than anything configured here; the security tab is the authority on it.
 

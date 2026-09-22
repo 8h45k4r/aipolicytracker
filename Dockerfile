@@ -22,10 +22,14 @@ RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts --opti
 COPY . .
 COPY --from=assets /app/public/build ./public/build
 RUN composer dump-autoload --optimize \
-    && chown -R www-data:www-data storage bootstrap/cache
+    && chown -R www-data:www-data storage bootstrap/cache public
 
 ENV APP_ENV=production APP_DEBUG=false LOG_CHANNEL=stderr
 EXPOSE 8080
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+# Everything the entrypoint writes (caches, the storage link, uploads, the
+# import lock in /tmp) is owned by www-data, and the listener binds 8080, so
+# nothing here needs root. A process that serves the internet does not get it.
+USER www-data
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

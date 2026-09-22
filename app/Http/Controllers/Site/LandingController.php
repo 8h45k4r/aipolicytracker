@@ -48,7 +48,7 @@ class LandingController extends Controller
                 'author' => ['@id' => url('/').'#organization'],
             ]);
         if (! empty($page['steps'])) {
-            $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('guides.show', $slug), $page['steps']));
+            $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('landing', $landing), $page['steps']));
         }
         if (! empty($page['faq'])) {
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($page['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);

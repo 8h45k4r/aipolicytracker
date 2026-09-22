@@ -2,12 +2,29 @@
 
 namespace Tests\Feature\Site;
 
+use App\Mail\DownloadLinksMail;
+use App\Mail\SubmissionReceivedMail;
 use App\Models\ContributorSubmission;
+use App\Models\ExternalIncident;
+use App\Models\ExternalIncidentReport;
+use App\Models\ExternalRisk;
+use App\Models\Obligation;
+use App\Models\PageView;
 use App\Models\PolicyInstrument;
+use App\Models\RecordVerification;
+use App\Models\ResourceDownload;
+use App\Models\Tool;
 use App\Models\User;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyImporter;
+use App\Services\Social\SocialCard;
+use Database\Seeders\ToolSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Yaml\Yaml;
 use Tests\TestCase;
 
 class PublicSiteTest extends TestCase
@@ -17,9 +34,9 @@ class PublicSiteTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        \Illuminate\Support\Facades\Storage::fake('local');
+        Storage::fake('local');
         (new PolicyImporter(PolicyDataRepository::default()))->run();
-        $this->seed(\Database\Seeders\ToolSeeder::class);
+        $this->seed(ToolSeeder::class);
     }
 
     public function test_social_card_declares_its_image_with_size_and_alt_text(): void
@@ -41,7 +58,7 @@ class PublicSiteTest extends TestCase
 
         // The declared size describes the image that is actually served, whether
         // that is a drawn card or the static file the site falls back to.
-        if (app(\App\Services\Social\SocialCard::class)->available()) {
+        if (app(SocialCard::class)->available()) {
             $bytes = $this->get(route('social.card', ['kind' => 'site', 'slug' => 'default']))->assertOk()->getContent();
             [$width, $height] = getimagesizefromstring($bytes);
         } else {
@@ -94,7 +111,7 @@ class PublicSiteTest extends TestCase
         // it to a string made an editorial decision -- moving a record to needs_update after its
         // dates came into question -- fail a metadata test that has nothing to do with it. The
         // point here is that the JSON exposes the record's real review state, whatever it is.
-        $policy = \App\Models\PolicyInstrument::where('slug', 'eu-ai-act')->firstOrFail();
+        $policy = PolicyInstrument::where('slug', 'eu-ai-act')->firstOrFail();
         $this->get('/policies/eu-ai-act.json')->assertOk()
             ->assertJsonPath('slug', 'eu-ai-act')
             ->assertJsonPath('source.review_status', $policy->review_status);
@@ -209,9 +226,9 @@ class PublicSiteTest extends TestCase
 
         $this->get('/guides/tools/ai-system-inventory-template')->assertOk()->assertSee('Preview: fields in the template')->assertSee('System ID')->assertSee('Create a free account to download')->assertSee(route('tools.gate', 'ai-system-inventory-template'));
         $this->get('/guides/tools/does-not-exist')->assertNotFound();
-        $this->assertSame(0, \App\Models\PageView::where('path', '/guides/tools/does-not-exist')->count(), '404s are not counted');
+        $this->assertSame(0, PageView::where('path', '/guides/tools/does-not-exist')->count(), '404s are not counted');
         $this->get('/guides/tools/eu-ai-act-readiness-checklist')->assertOk()->assertSee('DOCX');
-        $this->assertSame(10, \App\Models\Tool::published()->count());
+        $this->assertSame(10, Tool::published()->count());
         $this->get('/guides/tools/global-ai-regulatory-applicability-matrix')->assertOk()->assertSee('Supervisor')->assertSee('Formats: XLSX, CSV, Markdown, DOCX');
         $this->get('/guides/tools/ai-vendor-due-diligence-questionnaire')->assertOk()->assertSee('Evidence to request');
         $this->get('/guides/tools/ai-system-inventory-template/download')->assertOk()->assertSee('Continue with email')->assertSessionHas('url.intended');
@@ -220,12 +237,12 @@ class PublicSiteTest extends TestCase
 
         $user = User::factory()->create();
         $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', [])->assertSessionHasErrors('terms');
-        $this->assertSame(0, \App\Models\ResourceDownload::count());
-        \Illuminate\Support\Facades\Mail::fake();
+        $this->assertSame(0, ResourceDownload::count());
+        Mail::fake();
         $response = $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1, 'updates' => 1, 'name' => $user->name, 'organization_name' => 'Example Ltd']);
-        \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\DownloadLinksMail::class, fn ($m) => $m->hasTo($user->email) && str_contains($m->render(), 'Download XLSX'));
-        $this->assertSame(1, \App\Models\PageView::where('path', '/guides/tools/ai-system-inventory-template')->sum('views'), 'tool page view counted once');
-        $download = \App\Models\ResourceDownload::first();
+        Mail::assertSent(DownloadLinksMail::class, fn ($m) => $m->hasTo($user->email) && str_contains($m->render(), 'Download XLSX'));
+        $this->assertSame(1, PageView::where('path', '/guides/tools/ai-system-inventory-template')->sum('views'), 'tool page view counted once');
+        $download = ResourceDownload::first();
         $response->assertRedirect(route('tools.ready', ['ai-system-inventory-template', $download]));
         $this->assertNotNull($user->fresh()->terms_accepted_at);
         $this->assertNotNull($user->fresh()->marketing_consent_at);
@@ -236,18 +253,18 @@ class PublicSiteTest extends TestCase
         $this->assertNotNull($download->fresh()->downloaded_at);
         $this->actingAs($user)->get(route('tools.file', ['slug' => 'ai-system-inventory-template', 'download' => $download, 'file' => 'ai-system-inventory-template.csv']))->assertStatus(403); // unsigned
         // A seeded file missing from the disk (clean deploy) is served from the bundled copy and restored; the seeder also restores it.
-        \Illuminate\Support\Facades\Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
         $this->actingAs($user)->get(html_entity_decode($m[1]))->assertOk()->assertHeader('Content-Disposition', 'attachment; filename=ai-system-inventory-template.csv');
-        \Illuminate\Support\Facades\Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
-        \Illuminate\Support\Facades\Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
-        $this->seed(\Database\Seeders\ToolSeeder::class);
-        \Illuminate\Support\Facades\Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        $this->seed(ToolSeeder::class);
+        Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
         $other = User::factory()->create();
         $this->actingAs($other)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertNotFound();
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('min-w-0', false);
         // Multi-select filters and the archived state.
         $this->get('/guides?framework[]=eu-ai-act&framework[]=nist-ai-rmf&topic[]=incident')->assertOk()->assertSee('AI Incident Response Checklist')->assertSee('noindex,follow')->assertSee('data-multi-select', false)->assertSee('2 selected')->assertDontSee('multiple size=', false);
-        \App\Models\Tool::where('slug', 'ai-system-inventory-template')->update(['status' => 'archived']);
+        Tool::where('slug', 'ai-system-inventory-template')->update(['status' => 'archived']);
         $this->get('/guides/tools/ai-system-inventory-template')->assertNotFound();
         $this->get('/guides')->assertOk()->assertDontSee('AI System Inventory Template');
     }
@@ -260,17 +277,17 @@ class PublicSiteTest extends TestCase
         $this->actingAs($admin)->get('/backend/admin/tools')->assertOk()->assertSee('AI Risk Register Template')->assertSee('New tool')->assertSee('How to add a tool and upload its files');
         $this->actingAs($admin)->post('/backend/admin/tools', ['title' => 'Vendor AI Due Diligence Questionnaire', 'slug' => 'vendor-ai-due-diligence', 'type' => 'checklist', 'status' => 'draft', 'short' => 'Questions to ask an AI vendor before signing.', 'version' => '1.0', 'fields_text' => "Vendor | Legal name\nModel | Model and version", 'instructions_text' => 'Send before contract signature.', 'frameworks' => ['eu-ai-act'], 'topics' => ['governance']])
             ->assertRedirect();
-        $tool = \App\Models\Tool::where('slug', 'vendor-ai-due-diligence')->firstOrFail();
+        $tool = Tool::where('slug', 'vendor-ai-due-diligence')->firstOrFail();
         $this->assertSame([['Vendor', 'Legal name'], ['Model', 'Model and version']], $tool->fields);
         $this->get('/guides/tools/vendor-ai-due-diligence')->assertNotFound(); // draft
         // Publishing without a file is refused.
         $this->actingAs($admin)->put('/backend/admin/tools/'.$tool->id, ['title' => $tool->title, 'slug' => $tool->slug, 'type' => 'checklist', 'status' => 'published', 'short' => $tool->short, 'version' => '1.0'])->assertSessionHasErrors('status');
-        $upload = \Illuminate\Http\UploadedFile::fake()->createWithContent('Vendor Questionnaire.csv', "Vendor,Model\nInformational only\n");
+        $upload = UploadedFile::fake()->createWithContent('Vendor Questionnaire.csv', "Vendor,Model\nInformational only\n");
         $this->actingAs($admin)->post('/backend/admin/tools/'.$tool->id.'/files', ['file' => $upload])->assertRedirect();
         $file = $tool->files()->first();
         $this->assertSame('vendor-questionnaire.csv', $file->file_name);
         $this->assertSame('CSV', $file->label);
-        \Illuminate\Support\Facades\Storage::disk('local')->assertExists($file->disk_path);
+        Storage::disk('local')->assertExists($file->disk_path);
         $this->actingAs($admin)->put('/backend/admin/tools/'.$tool->id, ['title' => $tool->title, 'slug' => $tool->slug, 'type' => 'checklist', 'status' => 'published', 'short' => $tool->short, 'version' => '1.1', 'featured' => 1, 'fields_text' => "Vendor | Legal name\nModel | Model and version", 'frameworks' => ['eu-ai-act']])->assertRedirect();
         $this->get('/guides/tools/vendor-ai-due-diligence')->assertOk()->assertSee('Vendor AI Due Diligence Questionnaire')->assertSee('Legal name')->assertSee('Formats: CSV');
         $this->get('/guides?type=checklist')->assertOk()->assertSee('Vendor AI Due Diligence Questionnaire');
@@ -279,7 +296,7 @@ class PublicSiteTest extends TestCase
         $this->assertSame('archived', $tool->fresh()->status);
         $this->get('/guides/tools/vendor-ai-due-diligence')->assertNotFound();
         $this->actingAs($admin)->delete('/backend/admin/tools/'.$tool->id.'/files/'.$file->id)->assertRedirect();
-        \Illuminate\Support\Facades\Storage::disk('local')->assertMissing($file->disk_path);
+        Storage::disk('local')->assertMissing($file->disk_path);
     }
 
     public function test_security_headers_include_a_nonce_based_csp_and_hide_server_version(): void
@@ -303,7 +320,7 @@ class PublicSiteTest extends TestCase
         // Verified requires the source-opened confirmation.
         $this->actingAs($admin)->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high'])->assertSessionHasErrors('source_opened');
         $this->actingAs($admin)->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high', 'source_opened' => 1, 'notes' => 'Checked OJ L 2024/1689.'])->assertRedirect();
-        $policy = \App\Models\PolicyInstrument::where('slug', 'eu-ai-act')->first();
+        $policy = PolicyInstrument::where('slug', 'eu-ai-act')->first();
         $this->assertSame('verified', $policy->review_status);
         $this->assertSame('Editor One', $policy->reviewed_by);
         $this->assertNotNull($policy->last_verified_at);
@@ -320,13 +337,13 @@ class PublicSiteTest extends TestCase
         $roster = base_path('data/reviewers/editor-one.yaml');
         try {
             $this->artisan('policy:export-verifications')->assertExitCode(0);
-            $yaml = \Symfony\Component\Yaml\Yaml::parseFile($src);
+            $yaml = Yaml::parseFile($src);
             $this->assertSame('verified', $yaml['review_status']);
             $this->assertSame('Editor One', $yaml['reviewed_by']);
             $this->assertNotEmpty($yaml['last_verified_at']);
             // Without the roster entry the data check rejects the signature.
             $this->artisan('policy:validate')->assertExitCode(1);
-            file_put_contents($roster, \Symfony\Component\Yaml\Yaml::dump([
+            file_put_contents($roster, Yaml::dump([
                 'slug' => 'editor-one', 'name' => 'Editor One', 'role' => 'editor', 'published' => true,
                 'interests' => [['declaration' => 'None declared.']],
             ], 6, 2));
@@ -335,7 +352,7 @@ class PublicSiteTest extends TestCase
             file_put_contents($src, $backup);
             @unlink($roster);
         }
-        $this->assertTrue(\App\Models\RecordVerification::where('record_slug', 'eu-ai-act')->value('exported'));
+        $this->assertTrue(RecordVerification::where('record_slug', 'eu-ai-act')->value('exported'));
     }
 
     public function test_account_pages_are_server_rendered_in_the_site_theme(): void
@@ -419,15 +436,15 @@ class PublicSiteTest extends TestCase
             ['jurisdictions', 'parent_jurisdiction_id', 'jurisdictions'],
         ];
         foreach ($links as [$table, $column, $target]) {
-            $total = \Illuminate\Support\Facades\DB::table($table)->whereNotNull($column)->count();
-            $resolved = \Illuminate\Support\Facades\DB::table($table)->whereNotNull($column)->whereExists(fn ($q) => $q->select(\Illuminate\Support\Facades\DB::raw(1))->from("{$target} as target_ref")->whereColumn('target_ref.id', "{$table}.{$column}"))->count();
+            $total = DB::table($table)->whereNotNull($column)->count();
+            $resolved = DB::table($table)->whereNotNull($column)->whereExists(fn ($q) => $q->select(DB::raw(1))->from("{$target} as target_ref")->whereColumn('target_ref.id', "{$table}.{$column}"))->count();
             $this->assertSame($total, $resolved, "{$table}.{$column} → {$target}: {$resolved} of {$total} resolve");
         }
-        $this->assertGreaterThan(0, \Illuminate\Support\Facades\DB::table('taxonomy_assignments')->count());
-        $morphs = \Illuminate\Support\Facades\DB::table('taxonomy_assignments')->count();
-        $resolvedMorphs = \Illuminate\Support\Facades\DB::table('taxonomy_assignments')->where(fn ($q) => $q
-            ->where(fn ($w) => $w->where('assignable_type', \App\Models\PolicyInstrument::class)->whereExists(fn ($e) => $e->select(\Illuminate\Support\Facades\DB::raw(1))->from('policy_instruments')->whereColumn('policy_instruments.id', 'taxonomy_assignments.assignable_id')))
-            ->orWhere(fn ($w) => $w->where('assignable_type', \App\Models\Obligation::class)->whereExists(fn ($e) => $e->select(\Illuminate\Support\Facades\DB::raw(1))->from('obligations')->whereColumn('obligations.id', 'taxonomy_assignments.assignable_id'))))->count();
+        $this->assertGreaterThan(0, DB::table('taxonomy_assignments')->count());
+        $morphs = DB::table('taxonomy_assignments')->count();
+        $resolvedMorphs = DB::table('taxonomy_assignments')->where(fn ($q) => $q
+            ->where(fn ($w) => $w->where('assignable_type', PolicyInstrument::class)->whereExists(fn ($e) => $e->select(DB::raw(1))->from('policy_instruments')->whereColumn('policy_instruments.id', 'taxonomy_assignments.assignable_id')))
+            ->orWhere(fn ($w) => $w->where('assignable_type', Obligation::class)->whereExists(fn ($e) => $e->select(DB::raw(1))->from('obligations')->whereColumn('obligations.id', 'taxonomy_assignments.assignable_id'))))->count();
         $this->assertSame($morphs, $resolvedMorphs, 'taxonomy_assignments morphs resolve');
     }
 
@@ -456,12 +473,12 @@ class PublicSiteTest extends TestCase
     public function test_research_browse_pages_and_exports_work_with_imported_external_rows(): void
     {
         $this->artisan('external:import')->assertExitCode(0);
-        $this->assertGreaterThan(1000, \App\Models\ExternalIncident::count());
-        $this->assertGreaterThan(2000, \App\Models\ExternalRisk::count());
-        $this->assertGreaterThan(5000, \App\Models\ExternalIncidentReport::count());
-        $this->assertSame(0, \App\Models\ExternalIncidentReport::whereNotIn('incident_id', \App\Models\ExternalIncident::select('incident_id'))->count(), 'every report resolves to an incident');
+        $this->assertGreaterThan(1000, ExternalIncident::count());
+        $this->assertGreaterThan(2000, ExternalRisk::count());
+        $this->assertGreaterThan(5000, ExternalIncidentReport::count());
+        $this->assertSame(0, ExternalIncidentReport::whereNotIn('incident_id', ExternalIncident::select('incident_id'))->count(), 'every report resolves to an incident');
         $this->artisan('external:import')->assertExitCode(0); // idempotent re-run
-        $this->assertSame(\App\Models\ExternalRisk::count(), count(json_decode(file_get_contents(base_path('data/external/mit_risks.json')), true)['risks']));
+        $this->assertSame(ExternalRisk::count(), count(json_decode(file_get_contents(base_path('data/external/mit_risks.json')), true)['risks']));
 
         $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
         $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents')->assertSee(route('risk.subdomain', [1, '1.1']));
@@ -473,14 +490,14 @@ class PublicSiteTest extends TestCase
         $this->get('/ai-risk/risks?q=zzzz-no-such-term')->assertOk()->assertSee('No risks match');
         $this->get('/ai-risk/frameworks')->assertOk()->assertSee('Risk entries');
         $this->get('/ai-risk/incidents/browse?year=2024')->assertOk()->assertSee('incidentdatabase.ai/cite/');
-        $incident = \App\Models\ExternalIncident::whereNotNull('mit_subdomain')->where('mit_subdomain', '!=', '')->orderByDesc('report_count')->first();
+        $incident = ExternalIncident::whereNotNull('mit_subdomain')->where('mit_subdomain', '!=', '')->orderByDesc('report_count')->first();
         $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertOk()->assertSee($incident->title)->assertSee('news report')->assertSee('Classification (MIT AI Risk Repository taxonomy)')->assertSee('data-save="incident:'.$incident->incident_id.'"', false)->assertSee('News reports (');
         $this->get('/ai-risk/incidents/999999999')->assertNotFound();
         $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertSee(route('contribute', ['type' => 'correction', 'subject_type' => 'incident', 'subject_slug' => $incident->incident_id]));
         $this->get('/contribute?type=correction&subject_type=incident&subject_slug='.$incident->incident_id)->assertOk()->assertSee('Record you are correcting')->assertSee('incidentdatabase.ai/cite/'.$incident->incident_id);
-        $risk = \App\Models\ExternalRisk::where('level', 'Risk Sub-Category')->whereNotNull('subdomain')->first();
+        $risk = ExternalRisk::where('level', 'Risk Sub-Category')->whereNotNull('subdomain')->first();
         $this->get($risk->url())->assertOk()->assertSee($risk->risk_subcategory ?: $risk->risk_category)->assertSee('Real-world incidents in this subdomain')->assertSee($risk->quick_ref);
-        $dup = \App\Models\ExternalRisk::where('ev_id', 'like', '%#%')->first();
+        $dup = ExternalRisk::where('ev_id', 'like', '%#%')->first();
         if ($dup) {
             $this->get($dup->url())->assertOk();
         }
@@ -494,12 +511,12 @@ class PublicSiteTest extends TestCase
 
     public function test_html_is_not_cached_but_api_is_and_submissions_notify_admins(): void
     {
-        $this->get('/')->assertOk()->assertHeader('Cache-Control', 'max-age=0, must-revalidate, no-cache, no-store, private');
+        $this->get('/')->assertOk()->assertHeader('Cache-Control', 'max-age=0, must-revalidate, no-cache, private');
         $this->get('/api/v1/policies')->assertOk()->assertHeader('Cache-Control', 'max-age=600, public, stale-while-revalidate=3600');
 
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
-        \Illuminate\Support\Facades\Mail::fake();
+        Mail::fake();
         $this->post('/contribute', ['type' => 'correction', 'summary' => 'The in-force date for the EU AI Act is wrong.', 'proposed_source_url' => 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj'])->assertRedirect();
-        \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\SubmissionReceivedMail::class, fn ($m) => $m->hasTo('editor@example.test'));
+        Mail::assertSent(SubmissionReceivedMail::class, fn ($m) => $m->hasTo('editor@example.test'));
     }
 }

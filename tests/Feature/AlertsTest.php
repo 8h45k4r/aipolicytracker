@@ -14,6 +14,7 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Services\Applicability\ApplicabilityScreener;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -218,7 +219,7 @@ class AlertsTest extends TestCase
 
         // This account follows nothing; it only described a system.
         $user = $this->pro(['email' => 'profile-deadline@example.org']);
-        ApplicabilityProfile::create(['user_id' => $user->id, 'name' => 'Screened system', 'answers' => app(\App\Services\Applicability\ApplicabilityScreener::class)->normalise(['jurisdictions' => [$instrument->jurisdiction->slug], 'personal_data' => 'yes'])]);
+        ApplicabilityProfile::create(['user_id' => $user->id, 'name' => 'Screened system', 'answers' => app(ApplicabilityScreener::class)->normalise(['jurisdictions' => [$instrument->jurisdiction->slug], 'personal_data' => 'yes'])]);
         $this->assertSame(0, Follow::where('user_id', $user->id)->count());
 
         $this->artisan('alerts:send')->expectsOutputToContain('1 sent')->assertSuccessful();
@@ -233,5 +234,17 @@ class AlertsTest extends TestCase
         AppSetting::put('cron_token', str_repeat('a', 32));
         $this->postJson('/cron/alerts', [], ['Authorization' => 'Bearer '.str_repeat('a', 32)])->assertOk()->assertJsonStructure(['message']);
         $this->assertSame(0, AlertDelivery::count());
+    }
+
+    public function test_the_return_target_after_unfollowing_stays_on_this_site(): void
+    {
+        $policy = PolicyInstrument::published()->firstOrFail();
+        $pro = $this->pro();
+
+        $this->actingAs($pro)->post('/follow/policy/'.$policy->slug)->assertSessionHas('status', 'followed');
+        $this->actingAs($pro)->post('/follow/policy/'.$policy->slug, ['return' => '//evil.example/phish'])->assertRedirect($policy->url());
+
+        $this->actingAs($pro)->post('/follow/policy/'.$policy->slug)->assertSessionHas('status', 'followed');
+        $this->actingAs($pro)->post('/follow/policy/'.$policy->slug, ['return' => '/following'])->assertRedirect('/following');
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\PolicyStatus;
+
 // OpenAPI 3.1 description of the read-only public API. Served at /openapi.json.
 $base = url('/api/v1');
 $sourceQuality = [
@@ -45,6 +47,7 @@ return [
         'description' => 'Open, source-backed AI policy and regulatory intelligence. All records carry an official source URL, review status, confidence level and verification dates. Data licence: '.config('aipolicytracker.data_license').'. Informational only; not legal advice.',
         'license' => ['name' => config('aipolicytracker.data_license'), 'url' => config('aipolicytracker.data_license_url')],
         'termsOfService' => route('methodology'),
+        'contact' => ['name' => config('aipolicytracker.site_name'), 'email' => config('aipolicytracker.contact_email'), 'url' => route('about')],
     ],
     'servers' => [['url' => $base]],
     'paths' => [
@@ -68,7 +71,7 @@ return [
         'schemas' => [
             'SourceQuality' => $sourceQuality,
             'Jurisdiction' => ['type' => 'object', 'properties' => ['slug' => ['type' => 'string'], 'name' => ['type' => 'string'], 'iso_code' => ['type' => ['string', 'null']], 'jurisdiction_type' => ['type' => 'string'], 'region' => ['type' => ['string', 'null']], 'overview' => ['type' => ['string', 'null']], 'regulatory_status_summary' => ['type' => ['string', 'null']], 'regulators' => ['type' => 'array', 'items' => ['type' => 'object']], 'official_sources' => ['type' => 'array', 'items' => ['type' => 'object']], 'url' => ['type' => 'string', 'format' => 'uri'], 'source' => ['$ref' => '#/components/schemas/SourceQuality']]],
-            'PolicySummary' => ['type' => 'object', 'properties' => ['slug' => ['type' => 'string'], 'title' => ['type' => 'string'], 'short_title' => ['type' => ['string', 'null']], 'jurisdiction' => ['type' => 'string'], 'instrument_type' => ['type' => 'string'], 'status' => ['type' => 'string', 'enum' => \App\Enums\PolicyStatus::values()], 'is_binding' => ['type' => 'boolean'], 'summary_plain' => ['type' => ['string', 'null']], 'applies_from' => ['type' => ['string', 'null'], 'format' => 'date'], 'official_source_url' => ['type' => ['string', 'null'], 'format' => 'uri'], 'last_verified_at' => ['type' => ['string', 'null'], 'format' => 'date'], 'review_status' => ['type' => 'string'], 'confidence_level' => ['type' => 'string'], 'url' => ['type' => 'string', 'format' => 'uri']]],
+            'PolicySummary' => ['type' => 'object', 'properties' => ['slug' => ['type' => 'string'], 'title' => ['type' => 'string'], 'short_title' => ['type' => ['string', 'null']], 'jurisdiction' => ['type' => 'string'], 'instrument_type' => ['type' => 'string'], 'status' => ['type' => 'string', 'enum' => PolicyStatus::values()], 'is_binding' => ['type' => 'boolean'], 'summary_plain' => ['type' => ['string', 'null']], 'applies_from' => ['type' => ['string', 'null'], 'format' => 'date'], 'official_source_url' => ['type' => ['string', 'null'], 'format' => 'uri'], 'last_verified_at' => ['type' => ['string', 'null'], 'format' => 'date'], 'review_status' => ['type' => 'string'], 'confidence_level' => ['type' => 'string'], 'url' => ['type' => 'string', 'format' => 'uri']]],
             'Policy' => ['allOf' => [['$ref' => '#/components/schemas/PolicySummary'], ['type' => 'object', 'properties' => ['scope_summary' => ['type' => ['string', 'null']], 'who_it_applies_to' => ['type' => ['string', 'null']], 'sections' => ['type' => 'array', 'items' => ['type' => 'object']], 'obligations' => ['type' => 'array', 'items' => ['$ref' => '#/components/schemas/Obligation']], 'deadlines' => ['type' => 'array', 'items' => ['type' => 'object']], 'sources' => ['type' => 'array', 'items' => ['type' => 'object']], 'faq' => ['type' => 'array', 'items' => ['type' => 'object']], 'source' => ['$ref' => '#/components/schemas/SourceQuality']]]]],
             'Obligation' => ['type' => 'object', 'properties' => ['slug' => ['type' => 'string'], 'title' => ['type' => 'string'], 'category' => ['type' => 'string'], 'summary' => ['type' => ['string', 'null']], 'practical_action' => ['type' => ['string', 'null']], 'is_binding' => ['type' => 'boolean'], 'applies_from' => ['type' => ['string', 'null'], 'format' => 'date'], 'source_reference' => ['type' => ['string', 'null']], 'official_source_url' => ['type' => ['string', 'null']], 'evidence_examples' => ['type' => 'array', 'items' => ['type' => 'object']], 'framework_mappings' => ['type' => 'array', 'items' => ['type' => 'object']], 'url' => ['type' => 'string', 'format' => 'uri']]],
         ],

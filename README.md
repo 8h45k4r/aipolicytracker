@@ -95,7 +95,11 @@ Every change follows the engineering standard in `docs/reference/engineering-sta
 2. Fork, branch (`feat/...`, `fix/...`, `data/...`), and for data changes include official source links and a verification status.
 3. Make sure `composer lint`, `composer test`, `npm run lint` and `npm run build` pass, then open a pull request with the template.
 
-See `CONTRIBUTING.md`, `SOURCE_ATTRIBUTION.md` and `CODE_OF_CONDUCT.md`. Security issues: private reporting through the repository's *Security* tab (`SECURITY.md`).
+See `CONTRIBUTING.md`, `SOURCE_ATTRIBUTION.md` and `CODE_OF_CONDUCT.md`. Security issues: private reporting through the repository's *Security* tab (`SECURITY.md`) or bhaskar@aipolicytracker.org.
+
+## Contact
+
+Official address for corrections, partnerships, press and security reports: **[bhaskar@aipolicytracker.org](mailto:bhaskar@aipolicytracker.org)**. Data corrections can also be filed from the "Report a correction" link on any record, and the address is published for automated discovery at `/.well-known/security.txt`.
 
 ## License and sources
 
