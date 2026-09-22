@@ -112,4 +112,5 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('back
     });
     Route::post('/publish/{type}/{slug}', [ReviewController::class, 'publish'])->middleware('can:records.publish')->name('publish');
     Route::post('/verify/{type}/{slug}', [ReviewController::class, 'verify'])->middleware('can:records.verify')->name('verify');
+    Route::post('/verify-many/{type}', [ReviewController::class, 'verifyMany'])->where('type', 'policy|jurisdiction|control')->middleware('can:records.verify')->name('verify.many');
 });

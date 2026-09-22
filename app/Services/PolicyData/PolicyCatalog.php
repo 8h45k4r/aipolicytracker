@@ -165,6 +165,7 @@ class PolicyCatalog
             'evidence_types' => ControlEvidence::whereHas('control', fn ($q) => $q->published())->distinct()->count('evidence_type'),
             'changes' => ChangeEvent::published()->count(),
             'verified' => PolicyInstrument::published()->where('review_status', 'verified')->count(),
+            'sourced' => PolicyInstrument::published()->whereNotNull('official_source_url')->where('official_source_url', '!=', '')->count(),
             'last_updated' => PolicyInstrument::published()->max('updated_at'),
         ]);
     }

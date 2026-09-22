@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyDataValidator;
@@ -95,7 +96,7 @@ class ReviewerRosterTest extends TestCase
     public function test_the_corpus_total_counts_every_published_kind_not_only_the_attributable_ones(): void
     {
         $standing = app(ReviewerRoster::class)->standing();
-        $obligations = \App\Models\Obligation::published()->count();
+        $obligations = Obligation::published()->count();
 
         $this->assertGreaterThan(0, $obligations, 'fixture must publish obligations for this to mean anything');
         $this->assertSame(
@@ -202,6 +203,13 @@ class ReviewerRosterTest extends TestCase
 
     public function test_an_empty_roster_says_so_rather_than_implying_review_has_happened(): void
     {
+        // The shipped roster is no longer empty, so the empty state is exercised against a
+        // data directory that holds no reviewer: the page must still refuse to imply review.
+        $empty = sys_get_temp_dir().'/roster-'.uniqid();
+        mkdir($empty.'/reviewers', 0777, true);
+        $this->app->bind(ReviewerRoster::class, fn () => new ReviewerRoster(new PolicyDataRepository($empty)));
+        PolicyInstrument::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
+
         $response = $this->get('/reviewers');
         $response->assertOk();
         $response->assertSee('No reviewer has published a declaration yet');

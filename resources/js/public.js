@@ -430,3 +430,14 @@
         });
     }
 })();
+
+// Admin review queue: one checkbox that ticks every row currently shown, so a
+// reviewer who has just read a whole set can record it in one action. Nothing
+// here decides anything; the attestation and the submit are still the reviewer's.
+document.querySelectorAll('[data-bulk-all]').forEach(function (master) {
+    master.addEventListener('change', function () {
+        document.querySelectorAll('[data-bulk-item]').forEach(function (box) {
+            if (box.offsetParent !== null) { box.checked = master.checked; }
+        });
+    });
+});
