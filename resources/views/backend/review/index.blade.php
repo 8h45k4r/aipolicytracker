@@ -30,8 +30,19 @@
 <section class="mt-10" aria-labelledby="pub-heading">
     <h2 id="pub-heading" class="section-title !text-lg">Policy instruments</h2>
     <p class="mt-1 meta">{{ $policies->count() }} imported records; unverified and low-confidence first. Open the official source, then save the review status and confidence. Decisions survive re-imports @if($pendingExport); <strong>{{ $pendingExport }}</strong> not yet written back to data/ (run <code>php artisan policy:export-verifications</code> and open a pull request)@endif. Unpublishing hides a record from the public site, API and sitemaps.</p>
-    <div class="table-wrap mt-3 bg-white"><table><thead><tr><th scope="col">Policy</th><th scope="col">Jurisdiction</th><th scope="col">Review status</th><th scope="col">Last verified</th><th scope="col">Published</th><th scope="col">Action</th></tr></thead><tbody>
+    <form method="post" action="{{ route('backend.review.verify.many', ['type' => 'policy']) }}" id="bulk-policies">@csrf
+        <div class="mt-3 flex flex-wrap items-end gap-2 rounded-sm border border-brand-line bg-white p-3 text-xs">
+            <p class="w-full text-sm font-medium text-brand-navy">Verify the selected records</p>
+            <p class="w-full meta">One attestation for the selection. Tick only what you have actually opened and confirmed: each record is dated and published under your name, and the site tells readers a person checked it.</p>
+            <label class="flex items-center gap-1"><input type="checkbox" data-bulk-all> select all shown</label>
+            <select name="review_status" class="input !min-h-0 !py-1 !w-auto" aria-label="Review status for the selection"><option value="verified">verified</option><option value="needs_update">needs update</option><option value="pending_review">pending</option></select>
+            <select name="confidence_level" class="input !min-h-0 !py-1 !w-auto" aria-label="Confidence for the selection">@foreach(['high','medium','low','unavailable'] as $c)<option value="{{ $c }}" @selected($c === 'high')>{{ $c }}</option>@endforeach</select>
+            <label class="flex items-center gap-1"><input type="checkbox" name="source_opened" value="1"> I opened the official source of every selected record</label>
+            <button type="submit" class="btn-primary !min-h-0 !py-1">Save selected</button>
+        </div>
+    <div class="table-wrap mt-3 bg-white"><table><thead><tr><th scope="col"><span class="sr-only">Select</span></th><th scope="col">Policy</th><th scope="col">Jurisdiction</th><th scope="col">Review status</th><th scope="col">Last verified</th><th scope="col">Published</th><th scope="col">Action</th></tr></thead><tbody>
         @foreach($policies as $p)<tr>
+            <td><input type="checkbox" name="slugs[]" value="{{ $p->slug }}" form="bulk-policies" aria-label="Select {{ $p->short_title ?: $p->title }}" data-bulk-item></td>
             <td><a href="{{ $p->url() }}">{{ $p->short_title ?: $p->title }}</a><div class="meta">@if($p->official_source_url)<a href="{{ $p->official_source_url }}" target="_blank" rel="noopener">Open official source ↗</a>@else no source URL @endif · confidence {{ $p->confidence_level }}@if($p->date_notes && str_contains($p->date_notes, 'not established')) · <span class="text-state-warn">date missing</span>@endif</div></td>
             <td>{{ $p->jurisdiction->name }}</td>
             <td><span class="badge {{ $p->review_status === 'verified' ? 'bg-state-goodbg text-state-good ring-state-good/30' : 'badge-neutral' }}">{{ $p->review_status }}</span></td>
@@ -47,6 +58,7 @@
                 <form method="post" action="{{ route('backend.review.publish', ['type' => 'policy', 'slug' => $p->slug]) }}" class="mt-1">@csrf<input type="hidden" name="publish" value="{{ $p->published_at ? 0 : 1 }}"><button type="submit" class="btn-secondary !min-h-0 !py-1 text-xs">{{ $p->published_at ? 'Unpublish' : 'Publish' }}</button></form>
             </td></tr>@endforeach
     </tbody></table></div>
+    </form>
 </section>
 
 <section class="mt-10" aria-labelledby="jur-heading">
