@@ -47,6 +47,21 @@
     .input { @apply block w-full rounded-sm border-brand-line text-sm shadow-none focus:border-brand-navy focus:ring-brand-cyan min-h-[44px]; }
 
     .card-flat { @apply rounded-sm border border-brand-line bg-white; }
+    .card-link { @apply card-flat transition-colors hover:border-brand-navy focus-within:border-brand-navy; }
+
+    /* A figure with its label. One definition, so counts look the same on every page. */
+    .stat { @apply card-flat p-4 min-w-0; }
+    .stat-label { @apply block text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-muted; }
+    .stat-value { @apply mt-1 block font-mono text-3xl leading-none tabular-nums text-brand-navy; }
+    .stat-note { @apply mt-1.5 block text-xs text-brand-muted; }
+
+    /* The law → duty → control → evidence strip. Steps join with a rule on wide
+       screens and stack with a left rule on narrow ones, so the sequence reads in
+       both directions. */
+    .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-sm overflow-hidden sm:grid-cols-5; }
+    .chain-step { @apply bg-white; }
+    .chain-link { @apply block h-full p-4 no-underline hover:bg-brand-paper transition-colors relative; }
+    .chain-step + .chain-step .chain-link::before { content: "→"; @apply absolute -left-2.5 top-5 hidden sm:block text-brand-muted text-sm bg-white px-0.5 rounded-sm; }
     .rule { @apply border-t border-brand-line; }
     .chart-bar, .chart-dot { transition: opacity .15s ease; cursor: pointer; }
     .chart-bar:hover, .chart-dot:hover { opacity: .75; }

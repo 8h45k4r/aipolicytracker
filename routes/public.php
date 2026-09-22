@@ -3,11 +3,13 @@
 use App\Http\Controllers\Site\AgentSurfaceController;
 use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
+use App\Http\Controllers\Site\AudienceController;
 use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\CalendarController;
 use App\Http\Controllers\Site\ChangeController;
 use App\Http\Controllers\Site\CompareController;
 use App\Http\Controllers\Site\ContributeController;
+use App\Http\Controllers\Site\ControlController;
 use App\Http\Controllers\Site\CorrectionsController;
 use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
@@ -48,11 +50,24 @@ Route::get('/obligations', [ObligationController::class, 'index'])->name('obliga
 Route::get('/obligations/{obligation}.md', [AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->name('obligations.context');
 Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
 
+// Controls: what an organisation operates to meet the duties above. One control
+// serves many duties in many jurisdictions, which is the reuse a compliance lead
+// is looking for.
+Route::get('/controls', [ControlController::class, 'index'])->name('controls.index');
+Route::get('/controls/{control}.md', [AgentSurfaceController::class, 'control'])->where('control', '[a-z0-9-]+')->name('controls.context');
+Route::get('/controls/{control}', [ControlController::class, 'show'])->where('control', '[a-z0-9-]+')->name('controls.show');
+
+// The corpus cut by role, sector and use case, generated from the taxonomy terms
+// every obligation carries.
+Route::get('/for', [AudienceController::class, 'index'])->name('audiences.index');
+Route::get('/for/{audience}', [AudienceController::class, 'show'])->where('audience', '[a-z0-9-]+')->name('audiences.show');
+
 Route::get('/compare', [CompareController::class, 'index'])->name('compare.index');
 Route::get('/compare/{comparison}', [CompareController::class, 'show'])->name('compare.show');
 
 // Crosswalks between legal duties and the standards organisations are audited against.
 Route::get('/frameworks', [FrameworkController::class, 'index'])->name('frameworks.index');
+Route::get('/frameworks/compare', [FrameworkController::class, 'compare'])->name('frameworks.compare');
 Route::get('/frameworks/{framework}', [FrameworkController::class, 'show'])->where('framework', '[a-z0-9-]+')->name('frameworks.show');
 Route::get('/frameworks/{framework}/{jurisdiction}', [FrameworkController::class, 'crosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('frameworks.crosswalk');
 
@@ -151,7 +166,7 @@ Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
     ->name('social.card');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|changes|resources|incidents|risks')->name('sitemap.section');
+Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|resources|incidents|risks')->name('sitemap.section');
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
 Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->name('llms.full');
 Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');

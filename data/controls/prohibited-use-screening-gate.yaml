@@ -1,0 +1,26 @@
+slug: prohibited-use-screening-gate
+title: Prohibited and unacceptable-use screening gate
+kind: process
+purpose: >
+  Stops the organisation from building, buying or operating an AI use that the law bans or that its own
+  policy rules out, by checking every proposed and existing use against a maintained list.
+description: >
+  The governance lead maintains a screening list that combines the practices prohibited in each jurisdiction
+  the organisation operates in with the uses its own policy excludes. Intake, design review and vendor
+  onboarding each include the screen, and every existing system in the register is screened once and
+  re-screened when its purpose, users or jurisdictions change. Borderline cases go to legal and the governance
+  forum, and the outcome, reasoning and any conditions are recorded against the register entry. The list is
+  reviewed whenever the law or official guidance changes.
+owner_role: AI governance lead
+frequency: per_system
+risk_subdomains: ["4.1", "5.2", "1.1", "6.5"]
+evidence:
+  - { type: approval_record, title: Prohibited-use screening record, description: "Dated checklist outcome per system with reviewer and rationale." }
+  - { type: procedure, title: Screening list and escalation procedure }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 6.1.4; Annex A.5.2, A.9.3", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "GOVERN 1.1; MAP 1.1", confidence_level: medium }
+related_controls: [ai-system-inventory, ai-impact-assessment, ai-governance-policy-and-accountability]
+review_status: pending_review
+confidence_level: medium
+published: true

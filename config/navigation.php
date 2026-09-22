@@ -18,6 +18,7 @@ return [
                     'items' => [
                         ['route' => 'policies.index', 'label' => 'Policy explorer', 'note' => 'Every recorded instrument, filterable'],
                         ['route' => 'obligations.index', 'label' => 'Obligations', 'note' => 'What the rules actually require'],
+                        ['route' => 'controls.index', 'label' => 'Controls', 'note' => 'What you operate to meet them, and the evidence'],
                         ['route' => 'compare.index', 'label' => 'Compare jurisdictions', 'note' => 'Two to four side by side'],
                         ['route' => 'calendar', 'label' => 'Deadline calendar', 'note' => 'Dated milestones, with a feed'],
                         ['route' => 'changes.index', 'label' => 'Change log', 'note' => 'What moved, and what it means'],
@@ -49,6 +50,7 @@ return [
                     'heading' => 'Standards',
                     'items' => [
                         ['route' => 'frameworks.index', 'label' => 'All crosswalks', 'note' => 'Coverage, framework by framework'],
+                        ['route' => 'frameworks.compare', 'label' => 'Compare frameworks', 'note' => 'What can be reused, computed'],
                         ['route' => 'frameworks.show', 'params' => ['iso-42001'], 'label' => 'ISO/IEC 42001', 'note' => 'Duties grouped by clause'],
                         ['route' => 'frameworks.show', 'params' => ['nist-ai-rmf'], 'label' => 'NIST AI RMF', 'note' => 'Duties grouped by function'],
                     ],
@@ -95,8 +97,13 @@ return [
                     ],
                 ],
                 [
-                    'heading' => 'Tools',
+                    'heading' => 'By role and sector',
                     'items' => [
+                        ['route' => 'audiences.index', 'label' => 'Start from who you are', 'note' => 'Duties, controls and evidence per audience'],
+                        ['route' => 'audiences.show', 'params' => ['deployers'], 'label' => 'Deployers'],
+                        ['route' => 'audiences.show', 'params' => ['providers'], 'label' => 'Providers and developers'],
+                        ['route' => 'audiences.show', 'params' => ['hr-and-recruitment'], 'label' => 'Hiring and HR'],
+                        ['route' => 'audiences.show', 'params' => ['generative-ai'], 'label' => 'Generative AI'],
                         ['route' => 'tools.applicability', 'label' => 'Applicability check', 'note' => 'Which duties may reach you'],
                     ],
                 ],

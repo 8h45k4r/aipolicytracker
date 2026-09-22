@@ -48,7 +48,7 @@ class ObligationController extends Controller
     public function show(Obligation $obligation): View
     {
         abort_unless($obligation->published_at, 404);
-        $obligation->load(['policyInstrument.jurisdiction', 'section', 'terms', 'frameworkMappings', 'evidenceArtifacts', 'applicabilityRules', 'deadlines']);
+        $obligation->load(['policyInstrument.jurisdiction', 'section', 'terms', 'frameworkMappings', 'evidenceArtifacts', 'applicabilityRules', 'deadlines', 'controls.evidence']);
         $policy = $obligation->policyInstrument;
         $similar = Obligation::published()->with('policyInstrument.jurisdiction')->where('category', $obligation->category)->where('id', '!=', $obligation->id)->orderByDesc('is_binding')->limit(8)->get();
         $categoryName = TaxonomyTerm::where('taxonomy', 'obligation_category')->where('slug', $obligation->category)->value('name') ?? $obligation->category;

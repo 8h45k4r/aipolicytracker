@@ -17,6 +17,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Policy explorer: {{ route('policies.index') }}
 - Jurisdictions: {{ route('jurisdictions.index') }}
 - Obligations: {{ route('obligations.index') }}
+- Controls (one control, the duties it satisfies, the evidence it produces): {{ route('controls.index') }}
 - Compare: {{ route('compare.index') }}
 - Change log: {{ route('changes.index') }} (RSS: {{ route('changes.feed') }})
 - AI risk domains (MIT AI Risk Repository taxonomy with incident counts): {{ route('risk.index') }}
@@ -25,6 +26,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Browse and export MIT AI Risk Repository entries: {{ route('risk.risks') }} (CSV: {{ route('risk.risks.export', 'csv') }})
 - Frameworks behind the risk database: {{ route('risk.frameworks') }}
 - Law-to-standard crosswalks (which legal duties map to ISO/IEC 42001 and the NIST AI RMF): {{ route('frameworks.index') }}
+- Frameworks compared, with the reuse matrix by duty category: {{ route('frameworks.compare') }}
 - Applicability check (educational): {{ route('tools.applicability') }}
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
@@ -47,9 +49,9 @@ Read {{ route('open-data.health') }} before quoting any record as settled. It re
 Every published record is also served as one Markdown context file with a provenance block:
 
 - `/policies/{slug}.md` — e.g. {{ route('policies.context', 'eu-ai-act') }}
-- `/jurisdictions/{slug}.md`, `/obligations/{slug}.md`, `/changes/{slug}.md` (each change also has a page at `/changes/{slug}`)
+- `/jurisdictions/{slug}.md`, `/obligations/{slug}.md`, `/controls/{slug}.md`, `/changes/{slug}.md` (each change also has a page at `/changes/{slug}`)
 
-Whole-corpus exports, one self-contained row at a time: `/open-data/{dataset}.csv` and `/open-data/{dataset}.ndjson` for jurisdictions, policies, obligations, changes and deadlines. JSON Schemas resolve at `/schema/{name}.schema.json`. An assistant can call these through the Model Context Protocol server in the repository's `agent/` directory.
+Whole-corpus exports, one self-contained row at a time: `/open-data/{dataset}.csv` and `/open-data/{dataset}.ndjson` for jurisdictions, policies, obligations, controls, changes and deadlines. JSON Schemas resolve at `/schema/{name}.schema.json`. An assistant can call these through the Model Context Protocol server in the repository's `agent/` directory.
 
 ## Jurisdictions
 
@@ -72,6 +74,14 @@ Organisations are audited against standards but regulated by statutes. Each mapp
 @foreach($c['pairs'] as $pair)
   - [{{ $pair['name'] }}]({{ $pair['url'] }}): {{ $pair['mapped'] }} of {{ $pair['recorded'] }} recorded duties mapped.
 @endforeach
+@endforeach
+
+## By role, sector and use case
+
+Generated cuts of the corpus: every recorded duty naming the audience, the controls that meet them and the evidence to keep.
+
+@foreach(config('content.audiences') as $slug => $page)
+- [{{ $page['h1'] }}]({{ route('audiences.show', $slug) }})
 @endforeach
 
 ## Editorial landing pages

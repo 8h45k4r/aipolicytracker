@@ -138,6 +138,14 @@
 
         <aside class="lg:col-span-1 space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                @if($controls->isNotEmpty())
+                <div class="card-flat p-4 text-sm">
+                    <p class="font-semibold text-brand-navy">Controls that meet its duties</p>
+                    <p class="mt-1 text-xs text-brand-muted">Duties satisfied / duties served, out of this instrument's recorded duties.</p>
+                    <ul class="mt-2 space-y-1.5">@foreach($controls->take(7) as $r)<li class="flex items-baseline justify-between gap-2"><a href="{{ $r['control']->url() }}" class="text-brand-navy hover:underline">{{ $r['control']->title }}</a><span class="font-mono text-xs tabular-nums text-brand-muted whitespace-nowrap">{{ $r['satisfies'] }} / {{ $r['duties'] }}</span></li>@endforeach</ul>
+                    @if($controls->count() > 7)<p class="mt-2 text-xs"><a href="{{ route('controls.index') }}">All {{ $controls->count() }} controls &rarr;</a></p>@endif
+                </div>
+                @endif
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">At a glance</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">

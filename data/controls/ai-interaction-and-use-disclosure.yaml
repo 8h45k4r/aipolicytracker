@@ -1,0 +1,28 @@
+slug: ai-interaction-and-use-disclosure
+title: AI interaction and use disclosure notices
+kind: process
+purpose: >
+  Tells people, in plain language and at the right moment, that they are interacting with an AI system, that
+  AI is being used in a decision about them or that their data feeds an AI system.
+description: >
+  The organisation keeps a catalogue of the situations in which people meet its AI systems and, for each,
+  approves a notice: a conversational banner, a pre-decision statement, a privacy-notice section or a
+  product label. Notices say what the system does, what it is for, what it means for the person and where to
+  ask questions or opt out where that right exists. Legal, product and accessibility reviewers sign off wording
+  and placement, the live text is versioned, and a periodic check confirms that notices still appear where
+  the system is used. Public notices about AI use are kept in a single, findable place.
+owner_role: Product owner
+frequency: on_material_change
+risk_subdomains: ["7.4", "4.3", "5.2"]
+evidence:
+  - { type: disclosure_notice, title: AI interaction or use notice, description: "The approved text and placement shown to people for each interaction or decision point." }
+  - { type: register_entry, title: Notice catalogue, description: "Where each notice appears, its version and its owner." }
+  - { type: approval_record, title: Notice wording approval }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.8.2, A.8.5", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MEASURE 2.8; GOVERN 5.1", confidence_level: medium }
+  - { framework: oecd_ai_principles, reference: "Principle 1.3 Transparency and explainability", confidence_level: high }
+related_controls: [synthetic-content-labelling-and-provenance, decision-explanation-and-appeal-route, privacy-and-data-protection-for-ai]
+review_status: pending_review
+confidence_level: high
+published: true

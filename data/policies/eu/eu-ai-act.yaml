@@ -122,6 +122,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 6.1.2 and Annex A control on AI system impact assessment", note: "Original editorial mapping: the AI-impact-assessment process is a natural place to screen for prohibited uses.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MAP 1.1", note: "Original editorial mapping to legal-requirement identification and context mapping.", confidence_level: medium }
+    controls:
+      - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens every new and existing system against the banned practices with a recorded outcome.", confidence_level: high }
+      - { control: ai-system-inventory, relationship: supports, note: "A complete register is the population to be screened.", confidence_level: high }
   - slug: eu-ai-act-ai-literacy
     title: Ensure AI literacy of staff operating AI systems
     category: ai_literacy
@@ -147,6 +150,8 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 7.2 Competence and 7.3 Awareness", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "GOVERN 2.2", note: "Workforce training and awareness.", confidence_level: medium }
+    controls:
+      - { control: ai-literacy-and-role-based-training, relationship: satisfies, note: "Role-based curricula with completion records are the expected measure.", confidence_level: high }
   - slug: eu-ai-act-risk-management-system
     title: Establish a risk management system for high-risk AI
     category: risk_management
@@ -175,6 +180,10 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clauses 6.1.2, 6.1.3, 8.2, 8.3 and Annex A controls on AI risk", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "MAP, MEASURE and MANAGE functions", note: "The AI RMF's core functions map closely to Article 9's iterative process.", confidence_level: high }
+    controls:
+      - { control: ai-risk-assessment, relationship: satisfies, note: "Continuous lifecycle risk process with register, testing evidence and residual-risk acceptance.", confidence_level: high }
+      - { control: accuracy-robustness-security-testing, relationship: supports, note: "Testing confirms that mitigations work.", confidence_level: high }
+      - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Post-market data feeds risk re-evaluation.", confidence_level: medium }
   - slug: eu-ai-act-data-governance
     title: Apply data governance and quality criteria to training, validation and testing data
     category: data_governance
@@ -203,6 +212,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "MAP 2.3, MEASURE 2.1, MEASURE 2.11", note: "Data quality and bias measurement.", confidence_level: medium }
+    controls:
+      - { control: data-governance-and-dataset-documentation, relationship: satisfies, note: "Dataset documentation, representativeness and bias checks per dataset.", confidence_level: high }
+      - { control: training-data-provenance-and-copyright-register, relationship: supports, note: "Origin and collection records for each source.", confidence_level: medium }
   - slug: eu-ai-act-technical-documentation
     title: Draw up technical documentation before placing a high-risk system on the market
     category: technical_documentation
@@ -230,6 +242,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 7.5 Documented information; Annex A control on system documentation", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "GOVERN 1.4, MAP 3.x", note: "Documentation practices.", confidence_level: medium }
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Versioned technical file structured to the required elements.", confidence_level: high }
+      - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Dataset sheets supply the data sections.", confidence_level: high }
   - slug: eu-ai-act-record-keeping
     title: Design high-risk systems to log events automatically
     category: record_keeping
@@ -256,6 +271,8 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A control on event logging", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "MEASURE 2.x, MANAGE 4.1", note: "Monitoring and traceability.", confidence_level: medium }
+    controls:
+      - { control: record-keeping-and-logging, relationship: satisfies, note: "Automatic logging with a defined schema, retention and access controls.", confidence_level: high }
   - slug: eu-ai-act-transparency-to-deployers
     title: Provide deployers with clear instructions for use
     category: transparency
@@ -282,6 +299,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on information for interested parties", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "GOVERN 4.x, MAP 1.x", note: "Transparency to downstream users.", confidence_level: medium }
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Instructions for use derived from the technical documentation.", confidence_level: medium }
+      - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Customer terms carry the instructions and feedback channels.", confidence_level: medium }
   - slug: eu-ai-act-human-oversight
     title: Enable and assign effective human oversight
     category: human_oversight
@@ -309,6 +329,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A control on human oversight", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "GOVERN 3.2, MANAGE 2.x", note: "Roles and human-AI configuration.", confidence_level: medium }
+    controls:
+      - { control: human-oversight-and-override, relationship: satisfies, note: "Oversight roles, interface measures, stop mechanism and override paths per deployment.", confidence_level: high }
+      - { control: ai-literacy-and-role-based-training, relationship: supports, note: "Overseers must be competent and alert to automation bias.", confidence_level: medium }
   - slug: eu-ai-act-accuracy-robustness-cybersecurity
     title: Achieve appropriate accuracy, robustness and cybersecurity
     category: accuracy_robustness_security
@@ -338,6 +361,10 @@ obligations:
       - { framework: iso_42001, reference: "Annex A controls on AI system verification and validation", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: iso_27001, reference: "Clause 8 and Annex A security controls", note: "Original editorial mapping for cybersecurity aspects.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "MEASURE 2.5, 2.6, 2.7", note: "Validity, safety, security and resilience measurement.", confidence_level: high }
+    controls:
+      - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Declared accuracy metrics, robustness and AI-specific security testing come from the release test programme.", confidence_level: high }
+      - { control: genai-red-team-testing, relationship: supports, note: "Adversarial exercises cover poisoning, evasion and extraction attempts.", confidence_level: medium }
+      - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Consistent performance over the lifecycle is confirmed in operation.", confidence_level: medium }
   - slug: eu-ai-act-quality-management-system
     title: Operate a quality management system
     category: quality_management
@@ -365,6 +392,10 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Whole management system (Clauses 4–10)", note: "ISO/IEC 42001 is a certifiable AI management system standard; certification is not a legal presumption of conformity under the AI Act.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "GOVERN function", note: "Governance structures and policies.", confidence_level: medium }
+    controls:
+      - { control: ai-quality-management-system, relationship: satisfies, note: "A documented management system covering the required elements.", confidence_level: high }
+      - { control: model-release-and-change-management-gate, relationship: supports, note: "Design, release and change procedures within the system.", confidence_level: medium }
+      - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Accountability and resource allocation.", confidence_level: medium }
   - slug: eu-ai-act-conformity-assessment-registration
     title: Complete conformity assessment, CE marking and EU database registration
     category: conformity_assessment
@@ -391,6 +422,10 @@ obligations:
       - { title: EU database registration record, artifact_type: record }
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 9 Performance evaluation; internal audit", note: "Original editorial mapping; not a substitute for legal conformity assessment.", confidence_level: low }
+    controls:
+      - { control: conformity-assessment-and-registration, relationship: satisfies, note: "Covers route selection, declaration, marking and database registration.", confidence_level: high }
+      - { control: technical-documentation-and-model-cards, relationship: supports, note: "The technical file is the input to the assessment.", confidence_level: high }
+      - { control: ai-quality-management-system, relationship: supports, note: "Internal-control assessment relies on the documented management system.", confidence_level: medium }
   - slug: eu-ai-act-deployer-obligations
     title: Use high-risk AI as instructed, monitor it and inform affected people
     category: governance_accountability
@@ -419,6 +454,10 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on responsible use of AI systems", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "MANAGE 3.x, GOVERN 5.x", note: "Deployment management and stakeholder engagement.", confidence_level: medium }
+    controls:
+      - { control: human-oversight-and-override, relationship: supports, note: "Assigning trained natural persons to oversee the system.", confidence_level: high }
+      - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Monitoring operation and informing the provider of risks.", confidence_level: medium }
+      - { control: ai-interaction-and-use-disclosure, relationship: supports, note: "Informing workers and affected people that a high-risk system is used.", confidence_level: medium }
   - slug: eu-ai-act-fundamental-rights-impact-assessment
     title: Carry out a fundamental rights impact assessment before deployment
     category: impact_assessment
@@ -447,6 +486,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment; Annex A control on impact assessment", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "MAP 5.1, MAP 5.2", note: "Impacts on individuals, groups and society.", confidence_level: medium }
+    controls:
+      - { control: ai-impact-assessment, relationship: satisfies, note: "A rights-focused assessment template covering the required elements.", confidence_level: high }
+      - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Reuse of the DPIA workflow and findings.", confidence_level: high }
   - slug: eu-ai-act-transparency-article-50
     title: Disclose AI interaction and label synthetic content
     category: transparency
@@ -474,6 +516,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A control on communication with interested parties", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "GOVERN 4.x; NIST AI 600-1 content provenance suggestions", note: "Generative AI profile guidance on provenance.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "User-facing AI interaction notices.", confidence_level: high }
+      - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "Machine-readable marking of synthetic output and deepfake labels.", confidence_level: high }
   - slug: eu-ai-act-gpai-provider-obligations
     title: Meet general-purpose AI model provider obligations
     category: copyright_training_data
@@ -503,6 +548,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on data provenance and documentation", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "NIST AI 600-1 (Generative AI profile) — intellectual property and data privacy risks", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: training-data-provenance-and-copyright-register, relationship: satisfies, note: "Produces the copyright policy and the public training-content summary.", confidence_level: high }
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Provides the model documentation and the downstream information pack.", confidence_level: medium }
   - slug: eu-ai-act-gpai-systemic-risk
     title: Manage systemic risk for high-impact general-purpose models
     category: safety_testing
@@ -529,6 +577,10 @@ obligations:
       - { title: Commission notification record, artifact_type: record }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "MEASURE 2.x; NIST AI 600-1", note: "Evaluation and red-teaming practices.", confidence_level: medium }
+    controls:
+      - { control: frontier-model-safety-framework, relationship: satisfies, note: "Compute tracking, notification and the safety and security framework.", confidence_level: medium }
+      - { control: genai-red-team-testing, relationship: satisfies, note: "Model evaluation including adversarial testing.", confidence_level: medium }
+      - { control: ai-incident-management-and-reporting, relationship: supports, note: "Tracking and reporting serious incidents to the AI Office.", confidence_level: medium }
   - slug: eu-ai-act-post-market-monitoring
     title: Operate a post-market monitoring system
     category: post_market_monitoring
@@ -555,6 +607,10 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 9.1 Monitoring, measurement, analysis and evaluation", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "MANAGE 4.1, MEASURE 3.x", note: "Post-deployment monitoring.", confidence_level: high }
+    controls:
+      - { control: post-market-monitoring-and-drift-detection, relationship: satisfies, note: "Documented monitoring plan with indicators, feedback channels and review cadence.", confidence_level: high }
+      - { control: record-keeping-and-logging, relationship: supports, note: "Logs are the primary data source.", confidence_level: high }
+      - { control: ai-incident-management-and-reporting, relationship: supports, note: "Monitoring findings escalate into incidents.", confidence_level: medium }
   - slug: eu-ai-act-serious-incident-reporting
     title: Report serious incidents to market surveillance authorities
     category: incident_handling
@@ -583,6 +639,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 10 Improvement; Annex A control on incident handling", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "MANAGE 4.3", note: "Incident response and communication.", confidence_level: high }
+    controls:
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Serious-incident criteria, causal-link decision and the reporting clock in the playbook.", confidence_level: high }
+      - { control: record-keeping-and-logging, relationship: supports, note: "Logs support the investigation and report.", confidence_level: medium }
   - slug: eu-ai-act-importer-distributor-obligations
     title: Verify conformity before importing or distributing high-risk AI
     category: vendor_governance
@@ -609,6 +668,10 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on third parties and suppliers", note: "Original editorial mapping.", confidence_level: medium }
       - { framework: nist_ai_rmf, reference: "GOVERN 6.1, GOVERN 6.2", note: "Third-party risk management.", confidence_level: high }
+    controls:
+      - { control: third-party-ai-due-diligence, relationship: satisfies, note: "Onboarding verifies the provider's conformity assessment, documentation, marking and representative.", confidence_level: high }
+      - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Supplier terms require the paperwork and notice of changes.", confidence_level: medium }
+      - { control: conformity-assessment-and-registration, relationship: supports, note: "Knowledge of the assessment route needed to verify it.", confidence_level: low }
 deadlines:
   - { title: Entry into force, due_on: 2024-08-01, date_precision: exact, description: "Twentieth day after publication in the Official Journal.", source_reference: "Article 113", deadline_status: passed, confidence_level: high }
   - { title: "Prohibited practices and AI literacy apply (Chapters I and II)", due_on: 2025-02-02, date_precision: exact, description: "Article 5 bans and Article 4 literacy duties apply.", source_reference: "Article 113(a)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-prohibited-practices }

@@ -59,6 +59,10 @@ obligations:
       - { title: AI governance policy, artifact_type: document }
     framework_mappings:
       - { framework: iso_42001, reference: "Clauses 4–5 and 7", note: "Original editorial mapping: leadership, context and support.", confidence_level: high }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Policy, roles, risk tolerance and culture map to the Govern outcomes.", confidence_level: high }
+      - { control: ai-literacy-and-role-based-training, relationship: supports, note: "Workforce training outcomes.", confidence_level: high }
+      - { control: third-party-ai-due-diligence, relationship: supports, note: "Third-party risk management outcomes.", confidence_level: high }
   - slug: us-nist-ai-rmf-map
     title: Map context, intended use and potential impacts (Map)
     category: impact_assessment
@@ -79,6 +83,10 @@ obligations:
       - { title: AI system context and impact document, artifact_type: document }
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: high }
+    controls:
+      - { control: ai-impact-assessment, relationship: satisfies, note: "Context, affected people and impact analysis produced before development.", confidence_level: medium }
+      - { control: ai-system-inventory, relationship: supports, note: "Intended purpose, users and settings recorded at intake.", confidence_level: high }
+      - { control: ai-risk-assessment, relationship: supports, note: "Risk categorisation and benefit-cost analysis.", confidence_level: medium }
   - slug: us-nist-ai-rmf-measure
     title: Measure and test trustworthiness characteristics (Measure)
     category: safety_testing
@@ -100,6 +108,10 @@ obligations:
       - { title: Evaluation and red-team reports, artifact_type: report }
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 9 Performance evaluation; Annex A verification controls", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Metrics and test methods for each trustworthiness characteristic.", confidence_level: medium }
+      - { control: genai-red-team-testing, relationship: supports, note: "Red-teaming and independent review for generative AI.", confidence_level: high }
+      - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Tracking metrics over time.", confidence_level: high }
   - slug: us-nist-ai-rmf-manage
     title: Prioritise, respond to and monitor AI risks (Manage)
     category: risk_management
@@ -120,6 +132,10 @@ obligations:
       - { title: Risk treatment and monitoring plan, artifact_type: document }
     framework_mappings:
       - { framework: iso_42001, reference: "Clauses 8 and 10", note: "Operation and improvement.", confidence_level: medium }
+    controls:
+      - { control: ai-risk-assessment, relationship: satisfies, note: "Risk treatment planning and resource allocation for mapped and measured risks.", confidence_level: medium }
+      - { control: ai-incident-management-and-reporting, relationship: supports, note: "Incident response and communication outcomes.", confidence_level: high }
+      - { control: third-party-ai-due-diligence, relationship: supports, note: "Third-party risk management outcomes.", confidence_level: medium }
 deadlines: []
 sources:
   - { title: "Artificial Intelligence Risk Management Framework (AI RMF 1.0), NIST AI 100-1", publisher: "National Institute of Standards and Technology", url: "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf", document_date: 2023-01-26, document_type: standard, tier: 1, license_note: "US Government work; not subject to copyright in the United States." }

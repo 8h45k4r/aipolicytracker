@@ -9,6 +9,7 @@ data/
   taxonomies/     controlled vocabularies (actors, sectors, use cases, ...)
   jurisdictions/  one YAML file per jurisdiction
   policies/       one YAML file per policy instrument, grouped by jurisdiction
+  controls/       one YAML file per organisational control (see docs/modules/controls.md)
   changes/        dated change-log entries, one file per month
   reviewers/      one YAML file per reviewer, with their declared interests
   email/          address-quality lists (not policy records; see docs/modules/accounts.md)

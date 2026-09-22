@@ -1,0 +1,28 @@
+slug: public-sector-ai-use-case-register
+title: Public-sector AI use-case register and algorithmic transparency
+kind: process
+purpose: >
+  Lets a public body account for the AI it uses by keeping an inventory of use cases, flagging those that
+  affect rights or services, and publishing what the public and oversight bodies are entitled to see.
+description: >
+  Each agency or department nominates a responsible official who collects use cases from programme teams
+  through a standard form covering purpose, stage, data, vendors, affected people and whether the use is
+  high-impact. Entries are reviewed for completeness and consistency with the procurement record, exclusions
+  are documented, and the resulting inventory is published on the required cadence with sensitive items
+  summarised. Vendors are asked at contract time for the descriptions and evidence the agency will need, and
+  the register is used to track that high-impact uses have the extra assessments and safeguards required.
+owner_role: Agency AI officer
+frequency: annual
+risk_subdomains: ["6.5", "7.4", "5.2"]
+evidence:
+  - { type: register_entry, title: Public AI use-case inventory, description: "Published list of use cases with purpose, stage and high-impact flag." }
+  - { type: disclosure_notice, title: Algorithmic transparency statement for one use case }
+  - { type: approval_record, title: Inventory review and publication sign-off }
+framework_references:
+  - { framework: nist_ai_rmf, reference: "MAP 1.1, 1.5; GOVERN 1.6, 5.1", confidence_level: medium }
+  - { framework: iso_42001, reference: "Clause 4.1; Annex A.8.5", confidence_level: low }
+  - { framework: oecd_ai_principles, reference: "Principle 1.3 Transparency and explainability", confidence_level: medium }
+related_controls: [ai-system-inventory, ai-impact-assessment, ai-interaction-and-use-disclosure]
+review_status: pending_review
+confidence_level: medium
+published: true

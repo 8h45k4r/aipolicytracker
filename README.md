@@ -1,6 +1,6 @@
 # AIPolicyTracker
 
-**AIPolicyTracker is the regulatory intelligence layer for AI governance.** Monitor source-backed AI policy changes, map obligations to real AI systems, and turn regulatory requirements into practical governance actions. Source-backed AI laws, regulations, strategies, standards and guidance across 212 jurisdictions (every UN member state plus territories, sub-national and international bodies), the obligations and deadlines they create, recorded AI incidents and risks, and free templates that help teams act on them.
+**AIPolicyTracker is the regulatory intelligence layer for AI governance.** Monitor source-backed AI policy changes, map every obligation to the controls that meet it and the evidence that proves it, and turn regulatory requirements into practical governance actions. Source-backed AI laws, regulations, strategies, standards and guidance across 212 jurisdictions (every UN member state plus territories, sub-national and international bodies), the obligations and deadlines they create, recorded AI incidents and risks, and free templates that help teams act on them.
 
 Live site: [aipolicytracker.org](https://aipolicytracker.org) · Open data: [/open-data](https://aipolicytracker.org/open-data) · Weekly digest: [/subscribe](https://aipolicytracker.org/subscribe)
 
@@ -15,6 +15,7 @@ Live site: [aipolicytracker.org](https://aipolicytracker.org) · Open data: [/op
 | Find every AI instrument in a country or bloc, with status, regulators and official sources | [/jurisdictions](https://aipolicytracker.org/jurisdictions) |
 | Read a plain-language record of a law or strategy: scope, dates, obligations, penalties, FAQ, JSON | [/policies](https://aipolicytracker.org/policies) |
 | See what organisations must actually do, legal requirements separated from voluntary guidance | [/obligations](https://aipolicytracker.org/obligations) |
+| Find the control that meets a duty, every other duty it serves, and the evidence that proves it is operating | [/controls](https://aipolicytracker.org/controls) |
 | Compare two to four jurisdictions side by side | [/compare](https://aipolicytracker.org/compare) |
 | Follow dated, source-linked changes (RSS and weekly email) | [/changes](https://aipolicytracker.org/changes) |
 | Explore recorded AI incidents and the MIT AI Risk Repository, with profiles, charts and exports | [/ai-risk](https://aipolicytracker.org/ai-risk) |
@@ -36,6 +37,7 @@ data/
   taxonomies/terms.yaml   actors, AI system types, sectors, risk categories, use cases, obligation categories
   jurisdictions/*.yaml    one file per jurisdiction
   policies/<j>/*.yaml     one file per policy instrument (sections, obligations, deadlines, sources, FAQ)
+  controls/*.yaml         one file per organisational control: evidence, owner, risks, standards clauses
   changes/<year>.yaml     dated change events
 ```
 

@@ -1,0 +1,28 @@
+slug: model-release-and-change-management-gate
+title: Model release and change-management gate
+kind: process
+purpose: >
+  Makes every release, retraining and material change to an AI system pass through a documented decision
+  that confirms the required assessments, tests and documentation are complete and current.
+description: >
+  A release checklist tied to the system's risk tier lists the artefacts that must exist and be current
+  before go-live: risk and impact assessments, test reports, documentation, oversight design, notices,
+  monitoring plan and, where relevant, conformity and registration records. A change-classification rule
+  distinguishes routine updates from material changes that re-open the assessments. The gate is applied in
+  the deployment pipeline where possible, with a human approver for higher tiers, and decisions, deferrals
+  and conditions are recorded. Decommissioning follows the same path in reverse, with data, logs and
+  documentation retained as required.
+owner_role: Release manager
+frequency: on_material_change
+risk_subdomains: ["7.3", "6.5"]
+evidence:
+  - { type: approval_record, title: Release or change approval record, description: "Checklist outcome, approver, conditions and date for one release or material change." }
+  - { type: procedure, title: Release and change-classification procedure }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 8.1; Annex A.6.2.5, A.6.1.3", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MANAGE 1.1, 2.3; GOVERN 1.7", confidence_level: medium }
+  - { framework: iso_27001, reference: "Annex A 8.32 Change management", confidence_level: medium }
+related_controls: [accuracy-robustness-security-testing, technical-documentation-and-model-cards, conformity-assessment-and-registration, ai-quality-management-system]
+review_status: pending_review
+confidence_level: medium
+published: true
