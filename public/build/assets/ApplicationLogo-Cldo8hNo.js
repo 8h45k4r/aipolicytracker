@@ -1,1 +1,0 @@
-import{a as e,t}from"./app-PifoyyyO.js";var n=t();function r({className:t=` `,...r}){let{logo:i}=e().props;return(0,n.jsx)(`div`,{className:t,children:(0,n.jsx)(`img`,{src:`/brand/logo-on-light.svg`,...r,alt:``,className:`w-full h-full`})})}export{r as t};

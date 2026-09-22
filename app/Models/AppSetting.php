@@ -33,6 +33,18 @@ class AppSetting extends Model
         'dodo_webhook_secret' => ['label' => 'Dodo webhook secret', 'secret' => true, 'hint' => 'Signing secret of the webhook endpoint (starts with whsec_)'],
         'dodo_product_pro_monthly' => ['label' => 'Product id: Pro monthly', 'secret' => false, 'hint' => 'pdt_… id of the monthly subscription product'],
         'dodo_product_pro_yearly' => ['label' => 'Product id: Pro annual', 'secret' => false, 'hint' => 'pdt_… id of the annual subscription product'],
+        // Site and features. Each overrides the matching environment value; empty falls back.
+        'contact_email' => ['label' => 'Official contact address', 'secret' => false, 'hint' => 'Shown on About, in the footer, structured data, security.txt and the API description'],
+        'x_handle' => ['label' => 'X handle', 'secret' => false, 'hint' => 'For the twitter:site card attribution, e.g. @aipolicytracker'],
+        'newsletter_url' => ['label' => 'External newsletter URL', 'secret' => false, 'hint' => 'Optional; leave empty to use the built-in subscribe page'],
+        'google_analytics_id' => ['label' => 'Google Analytics 4 id', 'secret' => false, 'hint' => 'G-XXXXXXXX; empty disables the tag'],
+        'cloudflare_analytics_token' => ['label' => 'Cloudflare Web Analytics token', 'secret' => true, 'hint' => 'Empty disables the beacon'],
+        'analytics_require_consent' => ['label' => 'Ask for analytics consent', 'secret' => false, 'hint' => 'on shows the consent banner before any analytics script loads'],
+        'social_cards_enabled' => ['label' => 'Drawn social cards', 'secret' => false, 'hint' => 'on draws a preview image per record; off serves the static og-default.png everywhere'],
+        'email_domain_enforcement' => ['label' => 'Refuse throwaway mailboxes', 'secret' => false, 'hint' => 'on refuses disposable addresses on sign-up, subscribe and contribute'],
+        'stale_after_days' => ['label' => 'Stale after (days)', 'secret' => false, 'hint' => 'A record not verified within this many days is flagged stale. Default 180'],
+        'google_site_verification' => ['label' => 'Google Search Console token', 'secret' => false, 'hint' => 'The HTML-tag verification value'],
+        'bing_site_verification' => ['label' => 'Bing Webmaster token', 'secret' => false, 'hint' => 'The msvalidate.01 value'],
     ];
 
     public static function get(string $key, ?string $default = null): ?string

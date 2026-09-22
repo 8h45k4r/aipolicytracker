@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- **Jobs and schedule** in the admin area. Every recurring job (weekly digest, daily alerts, incident sync, external and policy imports, validation, freshness, coverage, domain-list refresh) is catalogued once, runs on its own timetable through Laravel's scheduler, and can be run from the browser. Each run is recorded with who or what started it, how long it took and how it ended, so the dashboard and the jobs page can say when a job last ran instead of an operator guessing. Jobs that send e-mail or rewrite data ask for the password first. The cron endpoints record their runs the same way, and the container runs the scheduler itself, so the platform no longer depends on GitHub Actions to do its recurring work.
+- Eleven more settings an operator can change from the browser instead of a deploy: the official contact address, the X handle, an external newsletter URL, the Google Analytics and Cloudflare Analytics tokens, whether analytics wait for consent, whether drawn social cards are used, whether throwaway mailboxes are refused, the staleness threshold in days, and the Search Console and Bing verification tokens. Each overrides the environment value; an empty field keeps it.
+
+### Changed
+- The social preview image is the site rather than a poster: the real wordmark, the white page, navy type, the brand rule and a navy footer band with the domain, drawn at render time with live counts. It read as a generic dark slab with numbers that had been wrong for months.
+- The comparison page opens on the table, not the picker. With a comparison on screen the jurisdiction picker folds behind one line; without one it opens compact, with quick-pick chips for the ten most-recorded jurisdictions and every region collapsed. It had filled a screen and a half before a reader saw a single row of data.
+
 ### Changed
 - Positioning. The site now says what it does: "AI governance intelligence, from regulation to evidence" as the product line, "Track regulations. Map obligations. Operationalise controls. Prove compliance." beneath it, and "AI policy, verified at the source" kept as the trust line. The homepage chain names the verb at each step. The framework comparison says in its own words that it is not a ranking, and shows purpose and structure before any count.
 - Controls can be corrected through the contribution form (with their own fields), verified and published from the admin review page, and are counted as an expected gap on any obligation that names none. The applicability screening now ends with the controls to build first. Open-data and reference docs list every control surface.

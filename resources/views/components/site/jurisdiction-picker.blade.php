@@ -6,6 +6,9 @@
     'legend' => 'Markets or jurisdictions',
     'hint' => null,
     'required' => false,
+    // Compact: quick picks for the most-recorded jurisdictions, every region
+    // collapsed, a shorter list, and the hint kept to one line.
+    'compact' => false,
 ])
 {{--
     Picking jurisdictions out of 212 checkboxes in one flat list is the worst
@@ -22,6 +25,7 @@
     $groups = $jurisdictions->groupBy(fn ($j) => $j->region ?: 'Other')->sortKeys();
     $chosen = $jurisdictions->whereIn('slug', $selected)->sortBy('name')->values();
     $withRecords = $jurisdictions->filter(fn ($j) => ($j->policy_instruments_count ?? 0) > 0)->count();
+    $quick = $compact ? $jurisdictions->sortByDesc(fn ($j) => [(int) ($j->policy_instruments_count ?? 0), $j->featured ?? false])->take(10)->sortBy('name')->values() : collect();
 @endphp
 <fieldset {{ $attributes->merge(['class' => 'min-w-0']) }} data-jurisdiction-picker @if($max) data-max="{{ $max }}" @endif>
     <legend class="label">{{ $legend }} @if($required)<span class="text-state-bad" aria-hidden="true">*</span>@endif</legend>
@@ -39,16 +43,24 @@
         <p class="mt-1 text-xs text-state-bad" data-picker-limit hidden>Only the first {{ $max }} are compared.</p>
     </div>
 
+    @if($quick->isNotEmpty())
+    <div class="mt-2 flex flex-wrap gap-1.5" aria-label="Most recorded jurisdictions" data-picker-quick>
+        @foreach($quick as $j)
+        <button type="button" class="chip !min-h-0 !py-1 {{ in_array($j->slug, $selected, true) ? 'chip-active' : '' }}" data-picker-quick-pick="{{ $j->slug }}" aria-pressed="{{ in_array($j->slug, $selected, true) ? 'true' : 'false' }}">{{ $j->short_name ?: $j->name }}</button>
+        @endforeach
+    </div>
+    @endif
+
     <div class="mt-3" data-picker-search-wrap hidden>
         <label for="{{ $name }}-search" class="sr-only">Filter the list of jurisdictions</label>
         <input id="{{ $name }}-search" type="search" class="input !min-h-[40px]" placeholder="Type to filter, e.g. Brazil or Europe" autocomplete="off" data-picker-search>
         <p class="mt-1 text-xs text-brand-muted" data-picker-empty hidden>No jurisdiction matches that.</p>
     </div>
 
-    <div class="mt-2 max-h-[22rem] overflow-y-auto rounded-sm border border-brand-line divide-y divide-brand-line">
+    <div class="mt-2 {{ $compact ? 'max-h-[13rem]' : 'max-h-[22rem]' }} overflow-y-auto rounded-sm border border-brand-line divide-y divide-brand-line">
         @foreach($groups as $region => $list)
         @php($inRegion = $list->whereIn('slug', $selected)->count())
-        <details data-picker-group @if($inRegion || $loop->first) open @endif>
+        <details data-picker-group @if($inRegion || (! $compact && $loop->first)) open @endif>
             <summary class="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-sm font-medium text-brand-navy hover:bg-brand-paper">
                 <span>{{ $region }} <span class="font-normal text-brand-muted">({{ $list->count() }})</span></span>
                 <span class="text-xs text-brand-muted" data-picker-group-count>{{ $inRegion ? $inRegion.' selected' : '' }}</span>

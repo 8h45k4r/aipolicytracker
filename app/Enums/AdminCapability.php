@@ -22,6 +22,7 @@ enum AdminCapability: string
     case DecideSubmissions = 'submissions.decide';
     case ManageTools = 'tools.manage';
     case SyncExternalData = 'external.sync';
+    case RunJobs = 'jobs.run';
     case ManageSubscribers = 'subscribers.manage';
 
     // Reading. Separated from the above so an analyst can be given sight without reach.
@@ -40,6 +41,7 @@ enum AdminCapability: string
             self::DecideSubmissions => 'Decide contributor submissions',
             self::ManageTools => 'Manage tools and downloads',
             self::SyncExternalData => 'Trigger external data syncs',
+            self::RunJobs => 'Run scheduled jobs on demand',
             self::ManageSubscribers => 'Manage subscribers',
             self::ViewDashboard => 'View the dashboard',
             self::ViewAudit => 'View the audit log',

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Jurisdiction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 /**
@@ -53,7 +54,7 @@ class JurisdictionPickerTest extends TestCase
         $html = $this->get('/compare')->assertOk()->getContent();
 
         // A reader should not pick a jurisdiction for comparison and then find it empty.
-        $this->assertStringContainsString('recorded '.\Illuminate\Support\Str::plural('instrument', $withRecords->policyInstruments()->published()->count()), $html);
+        $this->assertStringContainsString('recorded '.Str::plural('instrument', $withRecords->policyInstruments()->published()->count()), $html);
         $this->assertStringContainsString('No AI-specific instrument recorded yet', $html);
     }
 
@@ -93,7 +94,8 @@ class JurisdictionPickerTest extends TestCase
 
         $this->assertStringContainsString('data-max="4"', $html);
         $this->assertStringContainsString('Only the first 4 are compared.', $html);
-        $this->assertStringContainsString('choose 2 to 4', $html);
+        $this->assertStringContainsString('Choose two to four jurisdictions', $html);
+        $this->assertStringContainsString('Up to four.', $html);
     }
 
     public function test_the_applicability_check_uses_the_same_picker_and_still_screens(): void

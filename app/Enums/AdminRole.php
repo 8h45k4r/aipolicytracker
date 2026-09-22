@@ -46,6 +46,7 @@ enum AdminRole: string
                 AdminCapability::DecideSubmissions,
                 AdminCapability::ManageTools,
                 AdminCapability::SyncExternalData,
+                AdminCapability::RunJobs,
                 AdminCapability::ManageSubscribers,
                 AdminCapability::ViewDashboard,
                 AdminCapability::ViewAudience,

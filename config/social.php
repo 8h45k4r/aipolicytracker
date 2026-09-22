@@ -55,12 +55,20 @@ return [
     // Brand tokens, matching tailwind.config.js. Kept here as integers because
     // GD wants components, not hex strings.
     'palette' => [
-        'background' => [0, 20, 43],     // brand ink
-        'panel' => [0, 33, 71],          // brand navy
-        'accent' => [0, 156, 224],       // brand cyan
-        'text' => [255, 255, 255],
-        'muted' => [154, 173, 196],
+        'background' => [255, 255, 255], // the page is white; so is the card
+        'panel' => [0, 33, 71],          // brand navy: the footer band
+        'accent' => [0, 156, 224],       // brand cyan: the rule
+        'text' => [0, 33, 71],           // navy on white, as on the site
+        'muted' => [93, 107, 126],       // brand muted
+        'footer' => [255, 255, 255],     // white on the navy band
+        'line' => [216, 222, 232],       // hairline
     ],
+
+    // The brand as raster, for the drawing routine: the wordmark top-left, the
+    // mark as a large watermark on the right. Both transparent PNGs rendered
+    // from the SVGs in public/brand.
+    'wordmark' => public_path('brand/logo-on-light@2x.png'),
+    'mark' => public_path('brand/mark-512.png'),
 
     // Rendered cards are cached here and keyed by their content, so a record
     // whose title changes gets a new file and the old one is simply unused.

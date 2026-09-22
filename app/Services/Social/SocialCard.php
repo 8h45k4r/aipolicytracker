@@ -89,16 +89,54 @@ class SocialCard
             $palette = (array) config('social.palette');
             $colour = fn (string $name) => imagecolorallocate($image, ...array_map('intval', $palette[$name]));
 
+            // The card is the site's own header and hero, not a poster: white page,
+            // the real wordmark top-left, the mark faintly on the right, navy text,
+            // and the footer as a navy band with the cyan rule the site uses.
+            imagealphablending($image, true);
             imagefilledrectangle($image, 0, 0, $width, $height, $colour('background'));
-            // A band of the primary navy, with the accent as a rule beneath it, so
-            // the card reads as this site at thumbnail size rather than as a
-            // rectangle of text.
-            imagefilledrectangle($image, 0, 0, $width, $height - 96, $colour('panel'));
-            imagefilledrectangle($image, 0, $height - 96, $width, $height - 90, $colour('accent'));
+            $band = 88;
+            imagefilledrectangle($image, 0, $height - $band, $width, $height, $colour('panel'));
+            imagefilledrectangle($image, 0, $height - $band - 4, $width, $height - $band, $colour('accent'));
+            imagefilledrectangle($image, 0, 0, $width, 1, $colour('line'));
 
             $left = 72;
             $right = $width - 72;
-            $panelBottom = $height - 96;
+            $panelBottom = $height - $band;
+
+            $wordmark = $this->raster((string) config('social.wordmark'));
+            if ($wordmark) {
+                // Scale to the same height the site header shows it at, relative to the card.
+                $h = 56;
+                $w = (int) round(imagesx($wordmark) * $h / imagesy($wordmark));
+                imagecopyresampled($image, $wordmark, $left, 48, 0, 0, $w, $h, imagesx($wordmark), imagesy($wordmark));
+                imagedestroy($wordmark);
+            }
+            $mark = $this->raster((string) config('social.mark'));
+            if ($mark) {
+                // The mark, large and quiet on the right. Its own transparency has to be
+                // kept: the merge function that would fade a whole layer ignores the alpha
+                // channel and paints the transparent background as a grey square, so the
+                // fade is applied per pixel to the alpha itself before the copy.
+                $size = 300;
+                $ghost = imagecreatetruecolor($size, $size);
+                imagealphablending($ghost, false);
+                imagesavealpha($ghost, true);
+                imagefill($ghost, 0, 0, imagecolorallocatealpha($ghost, 0, 0, 0, 127));
+                imagecopyresampled($ghost, $mark, 0, 0, 0, 0, $size, $size, imagesx($mark), imagesy($mark));
+                for ($gx = 0; $gx < $size; $gx++) {
+                    for ($gy = 0; $gy < $size; $gy++) {
+                        $pixel = imagecolorat($ghost, $gx, $gy);
+                        $alpha = ($pixel >> 24) & 0x7F;
+                        if ($alpha < 127) {
+                            imagesetpixel($ghost, $gx, $gy, imagecolorallocatealpha($ghost, ($pixel >> 16) & 0xFF, ($pixel >> 8) & 0xFF, $pixel & 0xFF, (int) min(127, 127 - (127 - $alpha) * 0.16)));
+                        }
+                    }
+                }
+                imagecopy($image, $ghost, $width - $size - 48, 150, 0, 0, $size, $size);
+                imagedestroy($ghost);
+                imagedestroy($mark);
+                $right = $width - $size - 96;
+            }
 
             // Compose first, then place. Laying the block out top-down left a long
             // dead band above the rule on short titles, which at thumbnail size
@@ -109,7 +147,9 @@ class SocialCard
             $metaLines = ! empty($content['meta']) ? $this->wrap($this->clean($content['meta']), $regular, 26, $right - $left, 2) : [];
 
             $blockHeight = ($eyebrow ? 58 : 0) + (count($titleLines) * 66) + ($metaLines ? 22 + count($metaLines) * 40 : 0);
-            $y = max(96, (int) (($panelBottom - $blockHeight) / 2));
+            // Below the wordmark, centred in what remains above the band.
+            $top = 140;
+            $y = max($top, $top + (int) (($panelBottom - $top - $blockHeight) / 2) - 12);
 
             if ($eyebrow !== null) {
                 $y += 24;
@@ -131,7 +171,9 @@ class SocialCard
             }
 
             $footer = $this->clean($content['footer'] ?? config('aipolicytracker.site_name'));
-            imagettftext($image, 24, 0, $left, $height - 34, $colour('muted'), $regular, $footer);
+            imagettftext($image, 22, 0, $left, $height - 34, $colour('footer'), $regular, $footer);
+            $domain = parse_url((string) config('app.url'), PHP_URL_HOST) ?: 'aipolicytracker.org';
+            imagettftext($image, 22, 0, $width - 72 - $this->widthOf($domain, $bold, 22), $height - 34, $colour('footer'), $bold, $domain);
 
             ob_start();
             imagepng($image, null, 6);
@@ -140,6 +182,22 @@ class SocialCard
         } finally {
             imagedestroy($image);
         }
+    }
+
+    /** A brand raster, or null when the file is missing so the card still draws. */
+    private function raster(string $path): ?\GdImage
+    {
+        if ($path === '' || ! is_file($path)) {
+            return null;
+        }
+        $image = @imagecreatefrompng($path);
+        if ($image === false) {
+            return null;
+        }
+        imagealphablending($image, true);
+        imagesavealpha($image, true);
+
+        return $image;
     }
 
     /** Collapse whitespace and drop control characters that would render as boxes. */
