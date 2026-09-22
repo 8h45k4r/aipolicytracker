@@ -6,6 +6,7 @@
         <p class="eyebrow">Framework relationships</p>
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">What can be reused between frameworks?</h1>
         <p class="mt-3 text-lg leading-8 text-brand-body">Organisations are audited against standards but regulated by statutes. This page puts the documents side by side and then, for every category of legal duty, counts the controls that meet those duties and have a home in each framework. It is computed from the recorded mappings, so it moves when they do.</p>
+        <p class="mt-2 text-sm text-brand-muted">It is not a ranking. A management-system standard, a risk framework, an assessment method and a threat model exist for different purposes and cover different parts of the lifecycle, so a column with more filled cells is broader in this corpus, not better. Read the purpose row first.</p>
     </header>
 
     <section class="mt-8" aria-labelledby="kinds-heading">
@@ -14,10 +15,12 @@
             <caption class="sr-only">Frameworks compared by type</caption>
             <thead><tr><th scope="col">Dimension</th>@foreach($matrix['frameworks'] as $f)<th scope="col"><a href="{{ route('frameworks.show', $f['slug']) }}" class="text-brand-navy">{{ $f['short'] }}</a></th>@endforeach</tr></thead>
             <tbody>
+                <tr><th scope="row" class="bg-white font-medium">Purpose</th>@foreach($matrix['frameworks'] as $f)<td class="text-xs">{{ $f['summary'] }}</td>@endforeach</tr>
                 <tr><th scope="row" class="bg-white font-medium">Type</th>@foreach($matrix['frameworks'] as $f)<td>{{ $kinds[$f['kind']] ?? ucfirst(str_replace('_', ' ', $f['kind'])) }}</td>@endforeach</tr>
                 <tr><th scope="row" class="bg-white font-medium">Legally binding</th>@foreach($matrix['frameworks'] as $f)<td>No</td>@endforeach</tr>
                 <tr><th scope="row" class="bg-white font-medium">Certification</th>@foreach($matrix['frameworks'] as $f)<td>{{ $f['certifiable'] ? 'Yes' : 'No' }}</td>@endforeach</tr>
                 <tr><th scope="row" class="bg-white font-medium">Publisher</th>@foreach($matrix['frameworks'] as $f)<td class="text-xs">{{ $f['publisher'] }} · {{ $f['published'] }}</td>@endforeach</tr>
+                <tr><th scope="row" class="bg-white font-medium">Structure and unit cited</th>@foreach($matrix['frameworks'] as $f)<td class="text-xs">{{ $f['structure'] }} Cited here by {{ strtolower($f['unit']) }}.</td>@endforeach</tr>
                 <tr><th scope="row" class="bg-white font-medium">Cited by</th>@foreach($matrix['frameworks'] as $f)<td class="tabular-nums">{{ $matrix['totals'][$f['key']] }} of {{ $matrix['controls'] }} controls</td>@endforeach</tr>
             </tbody>
         </table></div>
@@ -44,7 +47,7 @@
                 @endforeach
             </tbody>
         </table></div>
-        <p class="mt-2 text-xs text-brand-muted">Shaded green where at least half the controls in the category cite the framework.</p>
+        <p class="mt-2 text-xs text-brand-muted">Shaded green where at least half the controls in the category cite the framework. A cell compares a framework with a category of duty, never one framework with another: a threat model is not expected to cover quality management, and a management standard is not expected to name an attack technique.</p>
     </section>
     <x-site.disclaimer class="mt-10" />
 </div>

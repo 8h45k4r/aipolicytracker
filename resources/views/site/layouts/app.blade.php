@@ -138,7 +138,7 @@
         </div>
         <div class="md:col-span-4">
             <p class="eyebrow !text-brand-cyan">From policy to practice</p>
-            <p class="mt-3 text-white/80">AIPolicyTracker is the regulatory intelligence layer for AI governance. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" class="text-white underline decoration-white/40 hover:decoration-white" data-track="certifyi_click">Certifyi</a> is a separate platform for teams that need to turn obligations into owned tasks, evidence and audit trails.</p>
+            <p class="mt-3 text-white/80">AIPolicyTracker is AI governance intelligence, from regulation to evidence. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" class="text-white underline decoration-white/40 hover:decoration-white" data-track="certifyi_click">Certifyi</a> is a separate platform for teams that need to turn obligations into owned tasks, evidence and audit trails.</p>
         </div>
     </div>
     <div class="border-t border-white/10">

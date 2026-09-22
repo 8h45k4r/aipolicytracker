@@ -114,7 +114,7 @@
                     <ul class="mt-2 space-y-1.5">@foreach($related as $r)<li><a href="{{ $r->url() }}" class="text-brand-navy hover:underline">{{ $r->title }}</a> <span class="text-xs text-brand-muted">{{ $r->kindLabel() }}</span></li>@endforeach</ul>
                 </div>
                 @endif
-                <x-site.correction-cta subject-type="other" :subject-slug="$control->slug" :save-title="$control->title" :save-url="$control->url()" save-meta="Control" class="flex-col [&>*]:w-full" />
+                <x-site.correction-cta subject-type="control" :subject-slug="$control->slug" :save-title="$control->title" :save-url="$control->url()" save-meta="Control" class="flex-col [&>*]:w-full" />
                 <x-site.certifyi-cta label="Run this control as a tracked task" />
             </div>
         </aside>

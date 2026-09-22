@@ -66,7 +66,7 @@
                     @endforeach
                     <li><a href="{{ $organization['url'] }}" rel="noopener" class="font-medium text-brand-navy">{{ $organization['name'] }}</a><span class="meta block">{{ $organization['tagline'] }}</span></li>
                 </ul>
-                <p class="mt-3 text-sm text-brand-body">AIPolicyTracker is the regulatory intelligence layer for AI governance. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" data-track="certifyi_click">Certifyi</a> is a separate product for turning obligations into owned tasks and evidence; nothing here requires an account there.</p>
+                <p class="mt-3 text-sm text-brand-body">AIPolicyTracker is AI governance intelligence, from regulation to evidence. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" data-track="certifyi_click">Certifyi</a> is a separate product for turning obligations into owned tasks and evidence; nothing here requires an account there.</p>
             </section>
             <section aria-labelledby="open-heading">
                 <div class="rule-strong pt-3"><h2 id="open-heading" class="section-title">Open by default</h2></div>
