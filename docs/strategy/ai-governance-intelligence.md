@@ -233,3 +233,25 @@ the current line is the honest one.
 - Standards: https://www.iso.org/standard/42005 , https://www.iso.org/standard/42006 , https://blog.ansi.org/ansi/iso-iec-23894-2023-ai-risk-management/
 - OWASP GenAI LLM Top 10 2026: https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/
 - MITRE ATLAS and OWASP compared: https://www.redfoxsec.com/blog/mitre-atlas-vs-owasp-llm-top-10-which-framework-should-you-use-in-2026
+
+## 6. Mandate after the first build (2026-09-22)
+
+The control layer, audience pages, framework registry and comparison shipped the same day this note was written, and the maintainer's review changed the recommendation: the centre of gravity has moved from tracker to governance intelligence, so the next bottleneck is depth and authority of the data, not surface area.
+
+Standing instruction for whoever works on this next: **do not redesign the UI; do not add generic framework articles; expand the graph.**
+
+| Priority | Work | Gate |
+|---|---|---|
+| P0 | Obligations from 57 to about 150, EU AI Act first as the reference implementation | Every record: official source, exact article, jurisdiction, status, actor, applicability, effective date, the duty in plain words, at least one control, evidence, framework references where justified, risk relationship where applicable |
+| P0 | Make each of the 26 controls a knowledge object: regulations, duties, frameworks, risks, incidents, evidence with owner and frequency, implementation steps | A control page must be useful to a CISO, an auditor and an engineer at once |
+| P1 | CSA AI Controls Matrix, only as a mapping on existing controls, once the licence is confirmed | The question is "how does one control map across the governance ecosystems", never "do we support AICM" |
+| P1 | Comparison methodology | The page must never read as a leaderboard: purpose and normative status before any count |
+| P1 | Audience pages | Keep the taxonomy tight; a thin cut stays unindexed |
+| P2 | Framework articles as entry points to the graph | Only after the data is deep enough that the article can link into it |
+| P2 | Further UI | The current UI is sufficient |
+
+Relationship semantics stay visible everywhere a control meets a duty: `satisfies` (the control, operated properly, does the work the article asks for) and `supports` (it contributes; the duty needs more). Neither says a control satisfies a law; the official text decides.
+
+Positioning approved: "AI governance intelligence, from regulation to evidence." as the product line; "Track regulations. Map obligations. Operationalise controls. Prove compliance." beneath it; "AI policy, verified at the source." kept as the trust line.
+
+KPIs to track from here are graph KPIs first: verified obligations, primary-source coverage, controls, control–obligation links, framework, evidence, risk and incident mappings, jurisdictions covered, freshness. Product KPIs second: control and obligation views, crosswalk use, API calls, exports, saved records, repeat visits. Traffic alone is not the measure.

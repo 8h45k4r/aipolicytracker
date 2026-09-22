@@ -17,8 +17,8 @@ class HomeController extends Controller
     public function index(PolicyCatalog $catalog): View
     {
         $seo = Seo::make(
-            'AIPolicyTracker: Track AI policy. Build compliant AI.',
-            'The regulatory intelligence layer for AI governance: monitor source-backed AI policy changes, map obligations to real AI systems and turn requirements into governance actions across 212 jurisdictions.',
+            'AIPolicyTracker: AI governance intelligence, from regulation to evidence',
+            'Track AI regulations and obligations across 212 jurisdictions, connect them to the controls, risks and evidence that meet them, and prove compliance with every claim traceable to its official source.',
             route('home')
         );
         // Organization and WebSite are now emitted on every page by the layout, so

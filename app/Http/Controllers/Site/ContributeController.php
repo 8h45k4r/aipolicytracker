@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\SubmissionReceivedMail;
 use App\Models\ChangeEvent;
 use App\Models\ContributorSubmission;
+use App\Models\Control;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
@@ -25,8 +26,9 @@ class ContributeController extends Controller
     public const CORRECTABLE_FIELDS = [
         'policy' => ['title', 'status', 'instrument_type', 'is_binding', 'issuing_body', 'adopted_on', 'in_force_on', 'applies_from', 'summary_plain', 'scope_summary', 'key_dates_summary', 'penalties_summary', 'who_it_applies_to', 'what_organizations_must_do', 'official_source_url'],
         'jurisdiction' => ['name', 'regulatory_status_summary', 'binding_vs_guidance', 'current_priorities', 'regulators', 'official_source_url'],
-        'obligation' => ['title', 'category', 'is_binding', 'summary', 'practical_action', 'applies_from', 'source_reference', 'official_source_url'],
+        'obligation' => ['title', 'category', 'is_binding', 'summary', 'practical_action', 'applies_from', 'source_reference', 'official_source_url', 'controls'],
         'change' => ['title', 'occurred_on', 'what_changed', 'practical_impact', 'impact_level', 'status_after', 'official_source_url'],
+        'control' => ['title', 'kind', 'purpose', 'description', 'owner_role', 'frequency'],
         'incident' => ['title', 'occurred_on', 'description', 'deployers', 'developers', 'harmed', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'countries'],
         'risk' => ['risk_category', 'risk_subcategory', 'description', 'domain', 'subdomain', 'entity', 'intent', 'timing', 'paper_title'],
     ];
@@ -53,7 +55,7 @@ class ContributeController extends Controller
             'subject' => $subject,
             'prefill' => [
                 'type' => array_key_exists($request->query('type', ''), ContributorSubmission::TYPES) ? $request->query('type') : 'correction',
-                'subject_type' => $subject['type'] ?? (in_array($subjectType, ['policy', 'jurisdiction', 'obligation', 'change', 'incident', 'risk', 'other'], true) ? $subjectType : null),
+                'subject_type' => $subject['type'] ?? (in_array($subjectType, ['policy', 'jurisdiction', 'obligation', 'change', 'control', 'incident', 'risk', 'other'], true) ? $subjectType : null),
                 'subject_slug' => $subject['slug'] ?? (preg_match('/^[A-Za-z0-9._-]{0,160}$/', $subjectSlug) ? $subjectSlug : null),
                 'field' => $subject && array_key_exists((string) $request->query('field'), $subject['fields']) ? $request->query('field') : null,
             ],
@@ -69,7 +71,7 @@ class ContributeController extends Controller
 
         $data = $request->validate([
             'type' => ['required', 'in:'.implode(',', array_keys(ContributorSubmission::TYPES))],
-            'subject_type' => ['nullable', 'in:policy,jurisdiction,obligation,change,incident,risk,other'],
+            'subject_type' => ['nullable', 'in:policy,jurisdiction,obligation,change,control,incident,risk,other'],
             'subject_slug' => ['nullable', 'string', 'max:160', 'regex:/^[A-Za-z0-9._-]*$/'],
             'field' => ['nullable', 'string', 'max:64', 'regex:/^[a-z_]*$/'],
             'current_value' => ['nullable', 'string', 'max:4000'],
@@ -126,6 +128,7 @@ class ContributeController extends Controller
             'jurisdiction' => Jurisdiction::published()->where('slug', $slug)->first(),
             'obligation' => Obligation::published()->with('policyInstrument.jurisdiction')->where('slug', $slug)->first(),
             'change' => ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('slug', $slug)->first(),
+            'control' => Control::published()->where('slug', $slug)->first(),
             'incident' => ctype_digit($slug) ? ExternalIncident::find((int) $slug) : null,
             'risk' => ExternalRisk::find(str_replace('--', '#', $slug)),
             default => null,
@@ -135,8 +138,9 @@ class ContributeController extends Controller
         }
 
         $fields = [];
-        foreach (self::CORRECTABLE_FIELDS[$type] as $field) {
-            $value = $record->{$field} ?? null;
+        foreach (self::CORRECTABLE_FIELDS[$type] ?? [] as $field) {
+            // A relation is reported by the slugs it points at, so a reader can say which link is wrong.
+            $value = $field === 'controls' ? $record->controls->pluck('slug')->all() : ($record->{$field} ?? null);
             $fields[$field] = ['label' => SubmissionFieldLabels::label($field), 'value' => self::stringify($value)];
         }
 
@@ -144,7 +148,8 @@ class ContributeController extends Controller
             'policy' => [$record->short_title ?: $record->title, $record->url(), $record->jurisdiction?->name],
             'jurisdiction' => [$record->name, $record->url(), null],
             'obligation' => [$record->title, $record->url(), $record->policyInstrument?->jurisdiction?->name],
-            'change' => [$record->title, route('changes.year', $record->occurred_on->year).'#'.$record->slug, $record->jurisdiction?->name],
+            'change' => [$record->title, $record->url(), $record->jurisdiction?->name],
+            'control' => [$record->title, $record->url(), null],
             'incident' => ['AI incident #'.$record->incident_id.': '.$record->title, $record->url(), 'AI Incident Database'],
             'risk' => [($record->risk_subcategory ?: $record->risk_category ?: $record->ev_id).' ('.$record->quick_ref.')', $record->url(), 'MIT AI Risk Repository'],
         };
@@ -155,10 +160,10 @@ class ContributeController extends Controller
             'title' => $title,
             'url' => $url,
             'official_source_url' => match ($type) {
-                'incident' => $record->citeUrl(), 'risk' => $record->navigatorUrl(), 'obligation' => $record->official_source_url ?? $record->policyInstrument?->official_source_url, default => $record->official_source_url
+                'incident' => $record->citeUrl(), 'risk' => $record->navigatorUrl(), 'obligation' => $record->official_source_url ?? $record->policyInstrument?->official_source_url, 'control' => null, default => $record->official_source_url
             },
             'source_title' => match ($type) {
-                'incident' => 'AI Incident Database record', 'risk' => 'MIT AI Risk Repository (Risk Navigator)', 'obligation' => $record->source_title ?? $record->policyInstrument?->source_title, default => $record->source_title
+                'incident' => 'AI Incident Database record', 'risk' => 'MIT AI Risk Repository (Risk Navigator)', 'obligation' => $record->source_title ?? $record->policyInstrument?->source_title, 'control' => 'Original control record (editorial)', default => $record->source_title
             },
             'jurisdiction' => $jurisdiction,
             'content_version' => isset($record->content_version) ? (int) $record->content_version : null,

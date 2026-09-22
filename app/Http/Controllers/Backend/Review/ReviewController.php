@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend\Review;
 use App\Enums\SubmissionStatus;
 use App\Http\Controllers\Controller;
 use App\Models\ContributorSubmission;
+use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
+use App\Models\RecordVerification;
 use App\Models\ReviewerDecision;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,10 +28,11 @@ class ReviewController extends Controller
         $submissions = ContributorSubmission::where('status', $status)->with('decisions.reviewer')->orderByDesc('created_at')->paginate(25)->withQueryString();
         $counts = ContributorSubmission::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
         $policies = PolicyInstrument::with('jurisdiction')->orderByRaw("CASE review_status WHEN 'verified' THEN 1 ELSE 0 END")->orderBy('confidence_level')->orderBy('title')->get();
-        $pendingExport = \App\Models\RecordVerification::where('exported', false)->count();
+        $pendingExport = RecordVerification::where('exported', false)->count();
         $jurisdictions = Jurisdiction::orderBy('name')->get();
+        $controls = Control::withCount('obligations')->orderByRaw("CASE review_status WHEN 'verified' THEN 1 ELSE 0 END")->orderBy('title')->get();
 
-        return view('backend.review.index', compact('pendingExport', 'submissions', 'status', 'counts', 'policies', 'jurisdictions'));
+        return view('backend.review.index', compact('pendingExport', 'submissions', 'status', 'counts', 'policies', 'jurisdictions', 'controls'));
     }
 
     public function decide(Request $request, ContributorSubmission $submission): RedirectResponse
@@ -60,6 +63,7 @@ class ReviewController extends Controller
         $model = match ($type) {
             'policy' => PolicyInstrument::where('slug', $slug)->firstOrFail(),
             'jurisdiction' => Jurisdiction::where('slug', $slug)->firstOrFail(),
+            'control' => Control::where('slug', $slug)->firstOrFail(),
             default => abort(404),
         };
         $data = $request->validate([
@@ -69,7 +73,7 @@ class ReviewController extends Controller
             'notes' => ['nullable', 'string', 'max:2000'],
         ], ['source_opened.accepted' => 'Confirm that you opened the official source before marking a record verified.']);
         $verified = $data['review_status'] === 'verified';
-        $verification = \App\Models\RecordVerification::updateOrCreate(['record_type' => $type, 'record_slug' => $slug], [
+        $verification = RecordVerification::updateOrCreate(['record_type' => $type, 'record_slug' => $slug], [
             'review_status' => $data['review_status'], 'confidence_level' => $data['confidence_level'], 'last_verified_at' => $verified ? now()->toDateString() : null,
             'reviewed_by' => $request->user()->name, 'source_checked_url' => $model->official_source_url, 'notes' => $data['notes'] ?? null, 'user_id' => $request->user()->id, 'exported' => false,
         ]);
@@ -84,6 +88,7 @@ class ReviewController extends Controller
         $model = match ($type) {
             'policy' => PolicyInstrument::where('slug', $slug)->firstOrFail(),
             'jurisdiction' => Jurisdiction::where('slug', $slug)->firstOrFail(),
+            'control' => Control::where('slug', $slug)->firstOrFail(),
             default => abort(404),
         };
         $publish = $request->boolean('publish');

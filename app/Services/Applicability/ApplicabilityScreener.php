@@ -5,6 +5,7 @@ namespace App\Services\Applicability;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TaxonomyTerm;
 use Illuminate\Support\Collection;
 
 /**
@@ -33,7 +34,7 @@ class ApplicabilityScreener
     /** Answers reduced to the keys the screen understands, with unknown values dropped. */
     public function normalise(array $input): array
     {
-        $slugs = fn (string $taxonomy) => \App\Models\TaxonomyTerm::taxonomy($taxonomy)->pluck('slug')->all();
+        $slugs = fn (string $taxonomy) => TaxonomyTerm::taxonomy($taxonomy)->pluck('slug')->all();
 
         return [
             'jurisdictions' => array_values(array_intersect((array) ($input['jurisdictions'] ?? []), Jurisdiction::published()->pluck('slug')->all())),
@@ -83,7 +84,7 @@ class ApplicabilityScreener
             return ['policy' => $p, 'score' => $score, 'why' => $why];
         })->sortByDesc('score')->values();
 
-        $obligations = Obligation::published()->with(['policyInstrument.jurisdiction', 'terms'])->whereIn('policy_instrument_id', $scored->pluck('policy.id'))->get()
+        $obligations = Obligation::published()->with(['policyInstrument.jurisdiction', 'terms', 'controls'])->whereIn('policy_instrument_id', $scored->pluck('policy.id'))->get()
             ->filter(function (Obligation $o) use ($a, $wantedUseCases) {
                 $roleOk = ! $a['role'] || $o->terms->where('taxonomy', 'actor')->isEmpty() || $o->terms->contains(fn ($t) => $t->taxonomy === 'actor' && $t->slug === $a['role']);
                 $useOk = $wantedUseCases === [] || $o->terms->contains(fn ($t) => $t->taxonomy === 'use_case' && in_array($t->slug, $wantedUseCases, true));
