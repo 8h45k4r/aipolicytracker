@@ -315,14 +315,22 @@ class PublicSiteTest extends TestCase
     public function test_admin_verification_survives_reimport_and_exports_to_yaml(): void
     {
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
-        $admin = User::factory()->create(['email' => 'editor@example.test', 'name' => 'Editor One']);
+        // The name is the join to the reviewer roster: only a person who has published a
+        // declaration of interest may mark a record verified, which is what the data
+        // validator enforces on export and what /reviewers publishes.
+        $admin = User::factory()->create(['email' => 'editor@example.test', 'name' => 'Bhaskar Bhatt']);
         $this->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high'])->assertRedirect(route('login'));
         // Verified requires the source-opened confirmation.
         $this->actingAs($admin)->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high'])->assertSessionHasErrors('source_opened');
+        // And a name that is not on the published roster is refused outright.
+        $unlisted = User::factory()->create(['email' => 'stranger@example.test', 'name' => 'Not On The Roster']);
+        config(['aipolicytracker.admin_emails' => ['editor@example.test', 'stranger@example.test']]);
+        $this->actingAs($unlisted)->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high', 'source_opened' => 1])->assertSessionHasErrors('source_opened');
+        $this->assertNotSame('verified', PolicyInstrument::where('slug', 'eu-ai-act')->value('review_status'));
         $this->actingAs($admin)->post('/backend/review/verify/policy/eu-ai-act', ['review_status' => 'verified', 'confidence_level' => 'high', 'source_opened' => 1, 'notes' => 'Checked OJ L 2024/1689.'])->assertRedirect();
         $policy = PolicyInstrument::where('slug', 'eu-ai-act')->first();
         $this->assertSame('verified', $policy->review_status);
-        $this->assertSame('Editor One', $policy->reviewed_by);
+        $this->assertSame('Bhaskar Bhatt', $policy->reviewed_by);
         $this->assertNotNull($policy->last_verified_at);
         // A re-import from data/ (which still says pending_review) keeps the decision.
         (new PolicyImporter(PolicyDataRepository::default()))->run();
@@ -331,26 +339,21 @@ class PublicSiteTest extends TestCase
         // Export writes the fields into a copy of the YAML file.
         $src = collect(glob(base_path('data/policies/*/eu-ai-act.yaml')))->first();
         $backup = file_get_contents($src);
-        // A verification is only valid once the person who signed it is on the published
-        // roster with a declaration of interest, so the export is accompanied by one here
-        // exactly as it would be in a real pull request.
-        $roster = base_path('data/reviewers/editor-one.yaml');
+        // A verification is only valid when the person who signed it is on the published
+        // roster with a declaration of interest. The signer here is, so the export passes
+        // the data check; renaming the signature to somebody who is not fails it.
         try {
             $this->artisan('policy:export-verifications')->assertExitCode(0);
             $yaml = Yaml::parseFile($src);
             $this->assertSame('verified', $yaml['review_status']);
-            $this->assertSame('Editor One', $yaml['reviewed_by']);
+            $this->assertSame('Bhaskar Bhatt', $yaml['reviewed_by']);
             $this->assertNotEmpty($yaml['last_verified_at']);
-            // Without the roster entry the data check rejects the signature.
-            $this->artisan('policy:validate')->assertExitCode(1);
-            file_put_contents($roster, Yaml::dump([
-                'slug' => 'editor-one', 'name' => 'Editor One', 'role' => 'editor', 'published' => true,
-                'interests' => [['declaration' => 'None declared.']],
-            ], 6, 2));
             $this->artisan('policy:validate')->assertExitCode(0);
+
+            file_put_contents($src, preg_replace('/^reviewed_by:.*$/m', "reviewed_by: 'Not On The Roster'", file_get_contents($src)));
+            $this->artisan('policy:validate')->assertExitCode(1);
         } finally {
             file_put_contents($src, $backup);
-            @unlink($roster);
         }
         $this->assertTrue(RecordVerification::where('record_slug', 'eu-ai-act')->value('exported'));
     }

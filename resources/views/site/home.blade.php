@@ -26,7 +26,8 @@
             <p class="eyebrow">How it fits together</p>
             <p class="mt-3 text-sm leading-6 text-brand-body">A law creates a <a href="{{ route('obligations.index') }}">duty</a>. A duty is met by a <a href="{{ route('controls.index') }}">control</a>. A control produces <a href="{{ route('controls.index') }}#evidence">evidence</a>. Every record links its official source and states when a person last checked it.</p>
             <dl class="mt-4 divide-y divide-brand-line text-sm">
-                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Human-verified instruments</dt><dd class="font-mono tabular-nums text-brand-navy">{{ (int) $stats['verified'] }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
+                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Instruments linked to an official source</dt><dd class="font-mono tabular-nums text-brand-navy">{{ (int) ($stats['sourced'] ?? 0) }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
+                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted"><a href="{{ route('verification') }}" class="no-underline hover:underline">Confirmed by a named reviewer</a></dt><dd class="font-mono tabular-nums text-brand-navy">{{ (int) $stats['verified'] }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
                 <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Corpus last updated</dt><dd class="font-mono tabular-nums text-brand-navy">{{ $stats['last_updated'] ? \Illuminate\Support\Carbon::parse($stats['last_updated'])->format('j M Y') : '—' }}</dd></div>
             </dl>
             <p class="mt-3 meta"><a href="{{ route('methodology') }}">How records are verified</a> · <a href="{{ route('coverage') }}">What is still missing</a></p>

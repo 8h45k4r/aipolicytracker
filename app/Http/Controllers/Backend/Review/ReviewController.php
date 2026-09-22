@@ -10,9 +10,12 @@ use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Models\RecordVerification;
 use App\Models\ReviewerDecision;
+use App\Services\Reviewers\ReviewerRoster;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -57,6 +60,43 @@ class ReviewController extends Controller
         return back()->with('success', 'Decision recorded and published to the corrections log. Approved submissions must still be applied to the data/ directory through a pull request.');
     }
 
+    /**
+     * Records one reviewer's verification of many records at once.
+     *
+     * The single-row form is the right shape for a careful pass over one record; it is
+     * the wrong shape for a reviewer who has just read a jurisdiction's instruments end
+     * to end and wants to record that. The attestation is the same, made once for the
+     * selection rather than once per row, and each record still gets its own dated,
+     * named verification that survives re-import and exports to data/.
+     */
+    public function verifyMany(Request $request, string $type): RedirectResponse
+    {
+        $data = $request->validate([
+            'slugs' => ['required', 'array', 'min:1', 'max:500'],
+            'slugs.*' => ['string', 'max:190'],
+            'review_status' => ['required', 'in:verified,pending_review,needs_update'],
+            'confidence_level' => ['required', 'in:high,medium,low,unavailable'],
+            'source_opened' => ['required_if:review_status,verified', 'accepted'],
+            'notes' => ['nullable', 'string', 'max:2000'],
+        ], ['source_opened.accepted' => 'Confirm that you opened the official source of every selected record before marking them verified.']);
+
+        if ($data['review_status'] === 'verified' && ! $this->isPublishedReviewer($request->user()->name)) {
+            return back()->withErrors(['source_opened' => $this->rosterError($request->user()->name)]);
+        }
+
+        $recorded = 0;
+        foreach (array_unique($data['slugs']) as $slug) {
+            $model = $this->reviewable($type, $slug, orFail: false);
+            if ($model) {
+                $this->record($type, $slug, $model, $data, $request->user());
+                $recorded++;
+            }
+        }
+        Cache::flush();
+
+        return back()->with('success', $recorded.' '.Str::plural($type, $recorded).' marked '.$data['review_status'].' ('.$data['confidence_level'].') by '.$request->user()->name.'. Run `php artisan policy:export-verifications` and open a pull request to write it into data/.');
+    }
+
     /** Records a human verification (reviewer opened the official source) and applies it to the live row. */
     public function verify(Request $request, string $type, string $slug): RedirectResponse
     {
@@ -72,15 +112,53 @@ class ReviewController extends Controller
             'source_opened' => ['required_if:review_status,verified', 'accepted'],
             'notes' => ['nullable', 'string', 'max:2000'],
         ], ['source_opened.accepted' => 'Confirm that you opened the official source before marking a record verified.']);
-        $verified = $data['review_status'] === 'verified';
-        $verification = RecordVerification::updateOrCreate(['record_type' => $type, 'record_slug' => $slug], [
-            'review_status' => $data['review_status'], 'confidence_level' => $data['confidence_level'], 'last_verified_at' => $verified ? now()->toDateString() : null,
-            'reviewed_by' => $request->user()->name, 'source_checked_url' => $model->official_source_url, 'notes' => $data['notes'] ?? null, 'user_id' => $request->user()->id, 'exported' => false,
-        ]);
-        $model->forceFill(['review_status' => $verification->review_status, 'confidence_level' => $verification->confidence_level, 'last_verified_at' => $verification->last_verified_at, 'reviewed_by' => $verification->reviewed_by])->save();
+
+        // A verification is only worth something if the person who made it is named and
+        // has published what they are interested in. The data validator refuses a record
+        // verified by anyone outside the roster, so refusing it here too keeps the admin
+        // from writing a decision that could never be exported.
+        if ($data['review_status'] === 'verified' && ! $this->isPublishedReviewer($request->user()->name)) {
+            return back()->withErrors(['source_opened' => $this->rosterError($request->user()->name)]);
+        }
+
+        $this->record($type, $slug, $model, $data, $request->user());
         Cache::flush();
 
         return back()->with('success', ucfirst($type).' '.$slug.' marked '.$data['review_status'].' ('.$data['confidence_level'].'). Run `php artisan policy:export-verifications` and open a pull request to write it into data/.');
+    }
+
+    /** One stored verification, applied to the live row so the site reflects it before the export. */
+    private function record(string $type, string $slug, $model, array $data, $user): void
+    {
+        $verified = $data['review_status'] === 'verified';
+        $verification = RecordVerification::updateOrCreate(['record_type' => $type, 'record_slug' => $slug], [
+            'review_status' => $data['review_status'], 'confidence_level' => $data['confidence_level'], 'last_verified_at' => $verified ? now()->toDateString() : null,
+            'reviewed_by' => $user->name, 'source_checked_url' => $model->official_source_url, 'notes' => $data['notes'] ?? null, 'user_id' => $user->id, 'exported' => false,
+        ]);
+        $model->forceFill(['review_status' => $verification->review_status, 'confidence_level' => $verification->confidence_level, 'last_verified_at' => $verification->last_verified_at, 'reviewed_by' => $verification->reviewed_by])->save();
+    }
+
+    /** @return Model|null */
+    private function reviewable(string $type, string $slug, bool $orFail = true)
+    {
+        $query = match ($type) {
+            'policy' => PolicyInstrument::where('slug', $slug),
+            'jurisdiction' => Jurisdiction::where('slug', $slug),
+            'control' => Control::where('slug', $slug),
+            default => abort(404),
+        };
+
+        return $orFail ? $query->firstOrFail() : $query->first();
+    }
+
+    private function isPublishedReviewer(?string $name): bool
+    {
+        return app(ReviewerRoster::class)->published()->contains(fn ($r) => ($r['name'] ?? null) === $name);
+    }
+
+    private function rosterError(?string $name): string
+    {
+        return 'Only a reviewer published on the roster may mark a record verified. Add "'.$name.'" to data/reviewers with a declaration of interest, import, and try again.';
     }
 
     public function publish(Request $request, string $type, string $slug): RedirectResponse

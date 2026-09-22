@@ -5,6 +5,14 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- The maintainer is on the reviewer roster (`data/reviewers/bhaskar-bhatt.yaml`) with a declared interest in the related commercial platform. Nobody could mark a record verified before this: the data validator refuses a signature from a name that has not published a declaration, so the roster had to have somebody on it before the first verification could exist.
+- Bulk verification in the review queue. A reviewer who has just read a jurisdiction's instruments end to end selects them, makes the attestation once and records the lot; each record still gets its own dated, named decision that survives re-import and exports to `data/`. The one-at-a-time form was the right shape for a single careful pass and the wrong shape for a reviewing session.
+
+### Changed
+- The admin now refuses to record a verification signed by a name that is not on the published roster, instead of storing a decision the data check would reject on export. The rule the site publishes and the rule the software enforces are the same rule.
+- The homepage leads with the figure that is true of the whole corpus, instruments linked to an official source, and publishes the reviewer-confirmed count beneath it as a link to the verification policy. It had led with a bare zero, which described the review backlog rather than the work.
+
+### Added
 - **Jobs and schedule** in the admin area. Every recurring job (weekly digest, daily alerts, incident sync, external and policy imports, validation, freshness, coverage, domain-list refresh) is catalogued once, runs on its own timetable through Laravel's scheduler, and can be run from the browser. Each run is recorded with who or what started it, how long it took and how it ended, so the dashboard and the jobs page can say when a job last ran instead of an operator guessing. Jobs that send e-mail or rewrite data ask for the password first. The cron endpoints record their runs the same way, and the container runs the scheduler itself, so the platform no longer depends on GitHub Actions to do its recurring work.
 - Eleven more settings an operator can change from the browser instead of a deploy: the official contact address, the X handle, an external newsletter URL, the Google Analytics and Cloudflare Analytics tokens, whether analytics wait for consent, whether drawn social cards are used, whether throwaway mailboxes are refused, the staleness threshold in days, and the Search Console and Bing verification tokens. Each overrides the environment value; an empty field keeps it.
 

@@ -1,0 +1,29 @@
+slug: bhaskar-bhatt
+name: Bhaskar Bhatt
+role: editor
+published: true
+joined_on: 2026-09-22
+bio: >-
+  Founder and maintainer of AIPolicyTracker. Builds and reviews the source-backed
+  records behind the platform, working from official journals, regulator and
+  ministry publications across the covered jurisdictions.
+expertise:
+- AI governance
+- AI regulation and policy
+- Compliance and assurance
+interests:
+- declaration: >-
+    Founder of AIPolicyTracker and associated with Dignep Group Pvt. Ltd., which
+    operates Certifyi, a commercial AI-governance compliance platform. A record on
+    this site can therefore be read as supporting a related commercial interest.
+  mitigation: >-
+    Verifications are recorded against the official source only, and the record
+    itself links that source so any reader can check it. This platform names no
+    vendor or product in its records, and the relationship is disclosed on the
+    About page and here.
+  declared_on: 2026-09-22
+links:
+- label: Public profile
+  url: https://bhaskar.com.np/
+- label: GitHub
+  url: https://github.com/8h45k4r
