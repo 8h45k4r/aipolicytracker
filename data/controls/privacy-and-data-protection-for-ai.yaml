@@ -1,0 +1,32 @@
+slug: privacy-and-data-protection-for-ai
+title: Privacy and data-protection controls for AI
+kind: process
+purpose: >
+  Ensures that personal data used to train, tune or run an AI system is processed on a documented lawful
+  basis, with the assessments, notices, security and individual rights that data-protection law requires.
+description: >
+  The privacy function maps every AI data flow to a legal basis or recognised exception and records the
+  conditions relied on, such as consent wording, the scope of a business-improvement or research exception,
+  or a legitimate-interest balancing. Where the processing is high-risk, a data protection impact assessment
+  is completed before it starts and merged with the wider AI impact assessment where possible. Privacy
+  notices are updated to describe AI uses, minimisation and retention rules are applied to training and
+  inference data, and rights requests and breach handling are extended to cover model outputs that could reveal
+  personal data. Where a regime designates the organisation for enhanced duties, the officer, auditor and
+  periodic assessment requirements are scheduled.
+owner_role: Data protection officer
+frequency: per_system
+risk_subdomains: ["2.1", "1.1", "4.1"]
+evidence:
+  - { type: data_protection_assessment, title: Data protection impact assessment for an AI system }
+  - { type: register_entry, title: AI data-flow and legal-basis record, description: "Each dataset or inference flow with its purpose, legal basis or exception and the conditions met." }
+  - { type: disclosure_notice, title: Privacy notice section on AI use }
+  - { type: audit_report, title: Independent data audit or DPO review }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.7.2, A.7.3; Clause 6.1.4", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MEASURE 2.10; MAP 4.1; GOVERN 1.1", confidence_level: medium }
+  - { framework: iso_27001, reference: "Annex A 5.34 Privacy and protection of PII", confidence_level: medium }
+  - { framework: owasp_llm_top10, reference: "LLM02 Sensitive Information Disclosure", confidence_level: medium }
+related_controls: [ai-impact-assessment, data-governance-and-dataset-documentation, ai-interaction-and-use-disclosure, ai-incident-management-and-reporting]
+review_status: pending_review
+confidence_level: high
+published: true

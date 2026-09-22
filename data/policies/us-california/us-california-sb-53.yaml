@@ -59,6 +59,9 @@ obligations:
       - { title: Published frontier AI framework, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 1.x; NIST AI 600-1", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: frontier-model-safety-framework, relationship: satisfies, note: "The published, annually reviewed framework with a change log.", confidence_level: high }
+      - { control: genai-red-team-testing, relationship: supports, note: "Catastrophic-risk assessment evidence.", confidence_level: medium }
   - slug: us-california-sb-53-critical-safety-incident-reporting
     title: Report critical safety incidents to the Office of Emergency Services
     category: incident_handling
@@ -80,6 +83,9 @@ obligations:
       - { title: Incident classification and reporting procedure, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "MANAGE 4.3", note: "Incident response.", confidence_level: medium }
+    controls:
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Critical-safety-incident criteria and escalation to the state office within the statutory time.", confidence_level: high }
+      - { control: frontier-model-safety-framework, relationship: supports, note: "Defines the incident types the framework is meant to prevent.", confidence_level: medium }
 deadlines:
   - { title: Operative date, due_on: 2026-01-01, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Most provisions operative; confirm on the official bill page." }
 sources:

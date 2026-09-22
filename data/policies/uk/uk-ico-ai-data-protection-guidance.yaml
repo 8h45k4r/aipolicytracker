@@ -55,6 +55,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "MAP 5.1", note: "Impact assessment.", confidence_level: medium }
+    controls:
+      - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "DPIA with AI-specific sections before processing starts.", confidence_level: high }
+      - { control: ai-impact-assessment, relationship: supports, note: "Bias, explainability and oversight analysis reused in the DPIA.", confidence_level: medium }
   - slug: uk-ico-automated-decision-safeguards
     title: Apply safeguards to solely automated decisions with significant effects
     category: human_oversight
@@ -76,6 +79,10 @@ obligations:
       - { title: Automated decision register and review procedure, artifact_type: register }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 5.x, MANAGE 4.x", note: "Recourse mechanisms.", confidence_level: medium }
+    controls:
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Notice, human intervention and contest route for significant automated decisions.", confidence_level: high }
+      - { control: ai-interaction-and-use-disclosure, relationship: supports, note: "Telling people a solely automated decision was made.", confidence_level: medium }
+      - { control: human-oversight-and-override, relationship: supports, note: "Meaningful human intervention design.", confidence_level: medium }
 sources:
   - { title: "Guidance on AI and data protection", publisher: "Information Commissioner's Office", url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/", document_type: guidance, tier: 2 }
   - { title: "Data (Use and Access) Act 2025", publisher: "legislation.gov.uk", url: "https://www.legislation.gov.uk/ukpga/2025/18", document_date: 2025-06-19, document_type: legislation, tier: 1 }

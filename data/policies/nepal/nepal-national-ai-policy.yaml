@@ -56,6 +56,9 @@ obligations:
       actors: [public_authority]
     evidence_examples: []
     framework_mappings: []
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: supports, note: "A policy referencing the national principles positions public bodies and vendors for future measures.", confidence_level: low }
+      - { control: public-sector-ai-use-case-register, relationship: supports, note: "Institutional oversight of government AI use.", confidence_level: low }
 deadlines:
   - { title: National AI Policy approved by the Council of Ministers, due_on: 2025-08-01, date_precision: month, deadline_status: passed, confidence_level: medium, description: "Month-level date; exact date to be confirmed." }
 sources:

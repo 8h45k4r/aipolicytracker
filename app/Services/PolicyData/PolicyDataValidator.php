@@ -49,6 +49,40 @@ class PolicyDataValidator
             $this->checkVerification($record, $file, '$', $errors);
         }
 
+        // Controls: schema, slug equals file name, evidence types from the taxonomy,
+        // related controls resolve. Collected first so an obligation's reference to
+        // one can be checked below.
+        $controlSlugs = [];
+        $controls = $this->repository->controls();
+        foreach ($controls as $file => $record) {
+            foreach ($this->schema->validate($record, 'control.schema.json') as $e) {
+                $errors[$file][] = $e;
+            }
+            $slug = $record['slug'] ?? null;
+            if ($slug) {
+                if (isset($controlSlugs[$slug])) {
+                    $errors[$file][] = "duplicate control slug \"{$slug}\" (also in {$controlSlugs[$slug]})";
+                }
+                if (basename($file, '.yaml') !== $slug) {
+                    $errors[$file][] = "control slug \"{$slug}\" must match the file name";
+                }
+                $controlSlugs[$slug] = $file;
+            }
+            foreach ($record['evidence'] ?? [] as $i => $evidence) {
+                if (! in_array($evidence['type'] ?? '', $termSlugs['evidence_type'] ?? [], true)) {
+                    $errors[$file][] = "$.evidence[{$i}].type: unknown evidence_type term \"".($evidence['type'] ?? '').'"';
+                }
+            }
+            $this->checkVerification($record, $file, '$', $errors);
+        }
+        foreach ($controls as $file => $record) {
+            foreach ($record['related_controls'] ?? [] as $related) {
+                if (! isset($controlSlugs[$related])) {
+                    $errors[$file][] = "$.related_controls: unknown control slug \"{$related}\"";
+                }
+            }
+        }
+
         $policySlugs = [];
         $obligationSlugs = [];
         $policies = $this->repository->policies();
@@ -88,6 +122,11 @@ class PolicyDataValidator
                         if (! in_array($value, $termSlugs[$taxonomy] ?? [], true)) {
                             $errors[$file][] = "$.obligations[{$i}].{$field}: unknown {$taxonomy} term \"{$value}\"";
                         }
+                    }
+                }
+                foreach ($obligation['controls'] ?? [] as $k => $link) {
+                    if (! isset($controlSlugs[$link['control'] ?? ''])) {
+                        $errors[$file][] = "$.obligations[{$i}].controls[{$k}]: unknown control \"".($link['control'] ?? '').'"';
                     }
                 }
                 $this->checkVerification($obligation, $file, "$.obligations[{$i}]", $errors);

@@ -1,0 +1,29 @@
+slug: training-data-provenance-and-copyright-register
+title: Training-data provenance and copyright register
+kind: process
+purpose: >
+  Records the origin, licence and rights status of every source used to train or fine-tune a model so that the
+  organisation can honour opt-outs, answer downstream questions and publish a truthful summary of training content.
+description: >
+  Model developers keep a register of training sources that captures the source, the acquisition route, the
+  licence or legal basis relied on, whether machine-readable rights reservations were checked and honoured, and
+  the date of collection. A written copyright and rights policy sets out how crawls respect opt-out signals,
+  how licensed and public-domain material is distinguished and how takedown or objection requests are handled.
+  From the register the team generates the public summary of training content and the information pack that
+  downstream integrators need. The register is updated on every new training run and reviewed by legal before
+  a model is released.
+owner_role: Model development lead
+frequency: on_material_change
+risk_subdomains: ["6.3", "2.1", "6.5"]
+evidence:
+  - { type: register_entry, title: Training source register, description: "Source, acquisition route, licence or legal basis, opt-out check and collection date per source." }
+  - { type: policy_document, title: Copyright and rights-reservation policy }
+  - { type: disclosure_notice, title: Public summary of training content }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.7.3, A.7.5", note: "Data acquisition and provenance records.", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MAP 4.1; GOVERN 6.1", confidence_level: medium }
+  - { framework: mitre_atlas, reference: "AML.M0025 Maintain AI Dataset Provenance", confidence_level: medium }
+related_controls: [data-governance-and-dataset-documentation, technical-documentation-and-model-cards, privacy-and-data-protection-for-ai]
+review_status: pending_review
+confidence_level: medium
+published: true

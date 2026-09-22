@@ -58,6 +58,10 @@ obligations:
       - { title: Pre-deployment test results, artifact_type: report }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "MAP, MEASURE, MANAGE", note: "The memo is aligned with the AI RMF vocabulary.", confidence_level: medium }
+    controls:
+      - { control: accuracy-robustness-security-testing, relationship: supports, note: "Pre-deployment test evidence agencies can reuse.", confidence_level: medium }
+      - { control: ai-impact-assessment, relationship: supports, note: "AI impact assessment content.", confidence_level: medium }
+      - { control: human-oversight-and-override, relationship: supports, note: "Human oversight and operator arrangements.", confidence_level: medium }
   - slug: us-omb-m-25-21-use-case-inventory
     title: Publish an annual AI use-case inventory
     category: transparency
@@ -77,6 +81,9 @@ obligations:
       - { title: AI use-case inventory, artifact_type: register }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 1.6", note: "Inventory of AI systems.", confidence_level: medium }
+    controls:
+      - { control: public-sector-ai-use-case-register, relationship: satisfies, note: "Annual collection, review and publication of use cases with high-impact flags.", confidence_level: high }
+      - { control: ai-system-inventory, relationship: supports, note: "Vendor-side register supplies the use-case descriptions agencies ask for.", confidence_level: medium }
 procurement_rules:
   - title: Federal acquisition of AI must follow OMB M-25-22
     summary: >

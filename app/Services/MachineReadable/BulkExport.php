@@ -3,6 +3,7 @@
 namespace App\Services\MachineReadable;
 
 use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
@@ -32,6 +33,7 @@ class BulkExport
         'obligations' => ['label' => 'Obligations', 'model' => Obligation::class, 'with' => ['policyInstrument.jurisdiction']],
         'changes' => ['label' => 'Change log entries', 'model' => ChangeEvent::class, 'with' => ['jurisdiction', 'policyInstrument']],
         'deadlines' => ['label' => 'Dated deadlines', 'model' => Deadline::class, 'with' => ['policyInstrument.jurisdiction']],
+        'controls' => ['label' => 'Controls', 'model' => Control::class, 'with' => ['evidence', 'frameworkReferences', 'obligations']],
     ];
 
     public function exists(string $dataset): bool
@@ -139,9 +141,27 @@ class BulkExport
                 'status_after' => $r->status_after,
                 'what_changed' => $this->text($r->what_changed),
                 'practical_impact' => $this->text($r->practical_impact),
-                'url' => $r->exists && $r->occurred_on ? route('changes.year', $r->occurred_on->year).'#'.$r->slug : null,
+                'url' => $r->exists ? $r->url() : null,
                 'context_url' => $r->exists ? route('changes.context', $r->slug) : null,
             ] + $this->provenance($r),
+            $r instanceof Control => [
+                'slug' => $r->slug,
+                'title' => $r->title,
+                'kind' => $r->kind,
+                'purpose' => $this->text($r->purpose),
+                'owner_role' => $r->owner_role,
+                'frequency' => $r->frequency,
+                'risk_subdomains' => $this->list($r->risk_subdomains),
+                'evidence_types' => $this->list($r->exists ? $r->evidence->pluck('evidence_type')->values()->all() : []),
+                'framework_references' => $this->list($r->exists ? $r->frameworkReferences->map(fn ($f) => $f->framework.': '.$f->reference)->values()->all() : []),
+                'obligations' => $this->list($r->exists ? $r->obligations->pluck('slug')->values()->all() : []),
+                'review_status' => $r->review_status,
+                'confidence_level' => $r->confidence_level,
+                'last_verified_at' => $this->date($r->last_verified_at),
+                'reviewed_by' => $r->reviewed_by,
+                'url' => $r->exists ? $r->url() : null,
+                'context_url' => $r->exists ? route('controls.context', $r->slug) : null,
+            ],
             $r instanceof Deadline => [
                 'policy' => $r->policyInstrument?->slug,
                 'jurisdiction' => $r->policyInstrument?->jurisdiction?->slug,

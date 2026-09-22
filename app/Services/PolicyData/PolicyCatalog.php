@@ -5,6 +5,8 @@ namespace App\Services\PolicyData;
 use App\Enums\InstrumentType;
 use App\Enums\PolicyStatus;
 use App\Models\ChangeEvent;
+use App\Models\Control;
+use App\Models\ControlEvidence;
 use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
@@ -159,6 +161,8 @@ class PolicyCatalog
             'jurisdictions' => Jurisdiction::published()->count(),
             'policies' => PolicyInstrument::published()->count(),
             'obligations' => Obligation::published()->count(),
+            'controls' => Control::published()->count(),
+            'evidence_types' => ControlEvidence::whereHas('control', fn ($q) => $q->published())->distinct()->count('evidence_type'),
             'changes' => ChangeEvent::published()->count(),
             'verified' => PolicyInstrument::published()->where('review_status', 'verified')->count(),
             'last_updated' => PolicyInstrument::published()->max('updated_at'),

@@ -1,0 +1,30 @@
+slug: third-party-ai-due-diligence
+title: Vendor and third-party AI due diligence
+kind: process
+purpose: >
+  Checks, before an external model, dataset, component or AI service is adopted or resold, that the supplier
+  has met its own duties and that the organisation understands what it is taking on.
+description: >
+  Procurement and onboarding include an AI questionnaire and evidence request tailored to the supplier's role:
+  documentation and test results for a model, provenance for a dataset, conformity evidence and markings for a
+  regulated system, security posture for a hosted service. Reviewers verify the answers against the
+  organisation's minimum requirements, record findings and residual risks and decide whether to proceed,
+  proceed with conditions or decline. Importers and distributors confirm the upstream party's paperwork is
+  complete before the product moves. Supplier entries in the AI register are re-assessed at renewal and when
+  the supplier reports a material change.
+owner_role: Procurement or vendor risk lead
+frequency: per_system
+risk_subdomains: ["6.5", "2.2", "7.3"]
+evidence:
+  - { type: supplier_assessment, title: AI supplier due-diligence assessment, description: "Completed questionnaire, evidence review and decision for one supplier or component." }
+  - { type: register_entry, title: AI supplier and component register }
+  - { type: approval_record, title: Supplier onboarding decision }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.10.2, A.10.3", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "GOVERN 6.1, 6.2; MAP 4.1, 4.2; MANAGE 3.1", confidence_level: high }
+  - { framework: iso_27001, reference: "Annex A 5.19 to 5.22 Supplier relationships", confidence_level: medium }
+  - { framework: owasp_llm_top10, reference: "LLM03 Supply Chain", confidence_level: high }
+related_controls: [contractual-allocation-of-ai-duties, ai-system-inventory, conformity-assessment-and-registration]
+review_status: pending_review
+confidence_level: high
+published: true

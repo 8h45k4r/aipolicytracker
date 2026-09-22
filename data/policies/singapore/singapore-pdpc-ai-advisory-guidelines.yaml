@@ -52,6 +52,9 @@ obligations:
       - { title: Legal basis assessment for AI personal data, artifact_type: record }
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Maps each AI data use to consent or a named exception and records the conditions.", confidence_level: high }
+      - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Dataset sheets record the legal basis alongside provenance.", confidence_level: medium }
   - slug: singapore-pdpc-ai-notification
     title: Notify individuals about the use of personal data in AI recommendations and decisions
     category: transparency
@@ -71,6 +74,9 @@ obligations:
       - { title: AI notification wording, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 4.x", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "AI-specific disclosures in privacy notices and in product.", confidence_level: high }
+      - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Privacy notice content on AI data use.", confidence_level: high }
 deadlines: []
 sources:
   - { title: "Advisory Guidelines on Use of Personal Data in AI Recommendation and Decision Systems", publisher: "Personal Data Protection Commission Singapore", url: "https://www.pdpc.gov.sg/guidelines-and-consultation/2024/02/advisory-guidelines-on-use-of-personal-data-in-ai-recommendation-and-decision-systems", document_date: 2024-03-01, document_type: guidance, tier: 2 }

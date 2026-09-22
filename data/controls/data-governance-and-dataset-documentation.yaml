@@ -1,0 +1,29 @@
+slug: data-governance-and-dataset-documentation
+title: Data governance and dataset documentation
+kind: process
+purpose: >
+  Makes sure the data used to train, tune, validate and test an AI system is fit for purpose, understood and
+  documented, so that quality and bias problems are found in the data before they surface in decisions.
+description: >
+  Each dataset used in building a system gets a documentation sheet describing where it came from, how it was
+  collected and labelled, what it is meant to represent, known gaps and the cleaning and transformation steps
+  applied. Data owners check representativeness against the intended population and run bias and quality
+  checks before a dataset is approved for use. Access, retention and change control apply to datasets in the
+  same way as to code, and the documentation is versioned alongside the model that consumed it. Deployers who
+  supply their own input data apply a lighter version of the same checks to confirm relevance.
+owner_role: Data governance lead
+frequency: per_system
+risk_subdomains: ["1.1", "1.3", "7.3", "2.1"]
+evidence:
+  - { type: dataset_documentation, title: Dataset documentation sheet, description: "Provenance, collection, labelling, representativeness, limitations and preparation steps for one dataset." }
+  - { type: evaluation_report, title: Data quality and bias check report }
+  - { type: approval_record, title: Dataset approval for use }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.7.2, A.7.3, A.7.4, A.7.6", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "MAP 2.3; MEASURE 2.1, 2.2, 2.11", confidence_level: medium }
+  - { framework: mitre_atlas, reference: "AML.M0007 Sanitize Training Data", confidence_level: medium }
+  - { framework: owasp_llm_top10, reference: "LLM04 Data and Model Poisoning", confidence_level: medium }
+related_controls: [training-data-provenance-and-copyright-register, technical-documentation-and-model-cards, privacy-and-data-protection-for-ai, accuracy-robustness-security-testing]
+review_status: pending_review
+confidence_level: high
+published: true

@@ -72,3 +72,27 @@ obligation_category:
   - { slug: public_sector_use, name: Public-sector use and procurement }
   - { slug: privacy_data_protection, name: Privacy and personal-data protection }
   - { slug: safety_testing, name: Safety testing and evaluation }
+evidence_type:
+  - { slug: policy_document, name: Policy document, description: "An approved, versioned statement of intent and rules, signed off by accountable management." }
+  - { slug: procedure, name: Procedure or standard operating process, description: "A documented, repeatable process with steps, roles and inputs." }
+  - { slug: register_entry, name: Register entry, description: "A row in a maintained inventory: AI systems, vendors, models or datasets." }
+  - { slug: risk_register, name: Risk register, description: "A maintained list of identified risks with owner, rating, treatment and review date." }
+  - { slug: risk_assessment, name: Risk assessment, description: "A completed assessment of one system's risks, with method, findings and treatment decisions." }
+  - { slug: impact_assessment, name: Impact assessment, description: "A completed assessment of effects on people, groups or rights, with mitigations." }
+  - { slug: data_protection_assessment, name: Data protection impact assessment, description: "An assessment required by data-protection law for high-risk processing of personal data." }
+  - { slug: dataset_documentation, name: Dataset documentation, description: "Provenance, collection, labelling, representativeness and known limitations of training, validation and test data." }
+  - { slug: model_documentation, name: Model documentation, description: "Intended purpose, architecture, training, evaluation and limitations of a model." }
+  - { slug: technical_file, name: Technical documentation file, description: "The assembled documentation a regulator or notified body would review." }
+  - { slug: evaluation_report, name: Evaluation or test report, description: "Results of testing accuracy, robustness, bias, safety or security against defined criteria." }
+  - { slug: monitoring_record, name: Monitoring record, description: "Logs, dashboards or reports from ongoing performance and drift monitoring." }
+  - { slug: incident_record, name: Incident record, description: "A recorded incident with timeline, impact, root cause and corrective action." }
+  - { slug: regulatory_filing, name: Regulatory filing or notification, description: "A submission made to an authority: a registration, a report, a declaration." }
+  - { slug: approval_record, name: Approval or sign-off record, description: "Evidence that an accountable person approved a decision, with date and scope." }
+  - { slug: meeting_record, name: Governance meeting record, description: "Minutes or decisions of a board, committee or review body." }
+  - { slug: training_record, name: Training record, description: "Who was trained on what, when, with completion evidence." }
+  - { slug: contract_clause, name: Contract clause or supplier term, description: "Agreed terms with a vendor or customer allocating AI duties, data rights and notification." }
+  - { slug: supplier_assessment, name: Supplier assessment, description: "A completed due-diligence questionnaire or audit of a third party." }
+  - { slug: disclosure_notice, name: Disclosure or notice, description: "The text shown to a person: an AI interaction notice, a content label, an explanation of a decision." }
+  - { slug: access_log, name: Access or activity log, description: "System-generated records of who did what, retained for a defined period." }
+  - { slug: audit_report, name: Audit or assurance report, description: "An internal or external review of whether a control operates as described." }
+  - { slug: conformity_declaration, name: Conformity declaration or certificate, description: "A signed declaration or third-party certificate of conformity with a rule or standard." }

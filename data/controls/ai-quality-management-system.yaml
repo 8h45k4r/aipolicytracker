@@ -1,0 +1,27 @@
+slug: ai-quality-management-system
+title: Quality management system for AI development and supply
+kind: policy
+purpose: >
+  Binds the organisation's AI processes into one documented, audited management system so that compliance
+  is repeatable across products rather than reinvented for each one.
+description: >
+  Building on an existing quality or information-security management system, the organisation documents the
+  procedures that cover the AI lifecycle: how regulatory requirements are identified, how systems are designed,
+  built, tested and released, how data and documentation are managed, how post-market monitoring and
+  incidents are run, how suppliers are controlled and how corrective action is tracked. Roles and resources
+  are assigned, internal audits check that procedures are followed, and management reviews the system's
+  performance at least annually. Records of the system itself are retained for the period authorities expect.
+owner_role: Quality lead
+frequency: annual
+risk_subdomains: ["6.5", "7.3"]
+evidence:
+  - { type: policy_document, title: AI quality management system manual, description: "Scope, procedures, roles and records that make up the management system." }
+  - { type: audit_report, title: Internal audit of the AI management system }
+  - { type: meeting_record, title: Management review minutes }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 4 to 10", note: "The management-system structure as a whole; certification is optional.", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "GOVERN 1.4, 1.5, 1.7", confidence_level: medium }
+related_controls: [ai-governance-policy-and-accountability, technical-documentation-and-model-cards, model-release-and-change-management-gate, conformity-assessment-and-registration]
+review_status: pending_review
+confidence_level: high
+published: true

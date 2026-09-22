@@ -114,7 +114,8 @@
             <ul class="mt-3 space-y-2">
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('policies.index') }}">Policies</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('obligations.index') }}">Obligations</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('obligations.index') }}">Obligations</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('controls.index') }}">Controls</a></li>
+                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('audiences.index') }}">By role and sector</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('compare.index') }}">Compare</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('frameworks.index') }}">Frameworks</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.feed') }}">RSS</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('calendar') }}">Calendar</a></li>

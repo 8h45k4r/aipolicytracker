@@ -3,6 +3,7 @@
 namespace App\Services\PolicyData;
 
 use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -66,7 +67,7 @@ class PolicySerializer
 
     public function policy(PolicyInstrument $p): array
     {
-        $p->loadMissing(['jurisdiction', 'terms', 'sections', 'obligations.terms', 'obligations.frameworkMappings', 'obligations.evidenceArtifacts', 'obligations.applicabilityRules', 'deadlines', 'versions', 'sourceDocuments', 'enforcementEvents', 'procurementRules', 'applicabilityRules']);
+        $p->loadMissing(['jurisdiction', 'terms', 'sections', 'obligations.terms', 'obligations.frameworkMappings', 'obligations.evidenceArtifacts', 'obligations.applicabilityRules', 'obligations.controls', 'deadlines', 'versions', 'sourceDocuments', 'enforcementEvents', 'procurementRules', 'applicabilityRules']);
 
         return [
             ...$this->policySummary($p),
@@ -94,6 +95,39 @@ class PolicySerializer
         ];
     }
 
+    /** A control with the duties it serves, the evidence it produces and the clauses it cites. */
+    public function control(Control $c): array
+    {
+        $c->loadMissing(['evidence', 'frameworkReferences', 'obligations.policyInstrument.jurisdiction']);
+
+        return [
+            'slug' => $c->slug,
+            'title' => $c->title,
+            'kind' => $c->kind,
+            'kind_label' => $c->kindLabel(),
+            'purpose' => $c->purpose,
+            'description' => $c->description,
+            'owner_role' => $c->owner_role,
+            'frequency' => $c->frequency,
+            'frequency_label' => $c->frequencyLabel(),
+            'risk_subdomains' => $c->risk_subdomains ?? [],
+            'evidence' => $c->evidence->map(fn ($e) => ['type' => $e->evidence_type, 'title' => $e->title, 'description' => $e->description])->all(),
+            'framework_references' => $c->frameworkReferences->map(fn ($r) => ['framework' => $r->framework, 'framework_name' => $r->frameworkName(), 'reference' => $r->reference, 'note' => $r->note, 'confidence_level' => $r->confidence_level])->all(),
+            'obligations' => $c->obligations->filter(fn ($o) => $o->published_at && $o->policyInstrument?->published_at)->map(fn ($o) => [
+                'slug' => $o->slug, 'title' => $o->title, 'relationship' => $o->pivot->relationship, 'note' => $o->pivot->note, 'confidence_level' => $o->pivot->confidence_level,
+                'is_binding' => $o->is_binding, 'policy' => $o->policyInstrument?->slug, 'jurisdiction' => $o->policyInstrument?->jurisdiction?->slug, 'url' => $o->url(),
+            ])->values()->all(),
+            'related_controls' => $c->related_controls ?? [],
+            'review_status' => $c->review_status,
+            'confidence_level' => $c->confidence_level,
+            'last_verified_at' => $c->last_verified_at?->toDateString(),
+            'reviewed_by' => $c->reviewed_by,
+            'updated_at' => $c->updated_at?->toIso8601String(),
+            'url' => $c->url(),
+            'context_url' => route('controls.context', $c->slug),
+        ];
+    }
+
     public function obligation(Obligation $o, bool $withPolicy = true): array
     {
         $out = [
@@ -116,6 +150,7 @@ class PolicySerializer
             'applicability' => $o->applicabilityRules->map(fn ($r) => ['description' => $r->description, 'actors' => $r->actors, 'conditions' => $r->conditions])->values()->all(),
             'evidence_examples' => $o->evidenceArtifacts->map(fn ($e) => ['title' => $e->title, 'description' => $e->description, 'artifact_type' => $e->artifact_type])->all(),
             'framework_mappings' => $o->frameworkMappings->map(fn ($m) => ['framework' => $m->framework, 'framework_name' => $m->frameworkName(), 'reference' => $m->reference, 'note' => $m->note, 'confidence_level' => $m->confidence_level, 'is_original' => $m->is_original])->all(),
+            'controls' => $o->controls->filter(fn ($c) => $c->published_at)->map(fn ($c) => ['slug' => $c->slug, 'title' => $c->title, 'kind' => $c->kind, 'relationship' => $c->pivot->relationship, 'note' => $c->pivot->note, 'confidence_level' => $c->pivot->confidence_level, 'url' => $c->url()])->values()->all(),
             'url' => $o->url(),
         ];
         if ($withPolicy && $o->relationLoaded('policyInstrument') && $o->policyInstrument) {

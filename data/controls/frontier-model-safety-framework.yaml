@@ -1,0 +1,31 @@
+slug: frontier-model-safety-framework
+title: Frontier model safety and security framework
+kind: policy
+purpose: >
+  Commits a developer of the most capable general-purpose models to a published, regularly reviewed
+  description of how it identifies catastrophic and systemic risks, decides when a model is safe to train
+  further or release, and protects model weights.
+description: >
+  The developer writes and publishes a framework that sets capability thresholds of concern, the evaluations
+  used to detect them, the mitigations that must be in place before crossing each threshold, the security
+  measures for weights and infrastructure, and the internal governance that makes go or no-go decisions.
+  Training compute is tracked against regulatory thresholds so that notification duties are met on time.
+  The framework is reviewed at least annually and after significant capability jumps or incidents, changes
+  are recorded in a version log, and summaries of evaluations and mitigations are shared with authorities
+  and downstream providers as required.
+owner_role: Head of AI safety
+frequency: annual
+risk_subdomains: ["7.2", "7.1", "4.2", "6.1"]
+evidence:
+  - { type: policy_document, title: Published frontier safety framework, description: "Capability thresholds, evaluations, mitigations, security measures and governance, with a version log." }
+  - { type: evaluation_report, title: Dangerous-capability evaluation report }
+  - { type: regulatory_filing, title: Threshold notification to an authority }
+  - { type: register_entry, title: Training compute tracking record }
+framework_references:
+  - { framework: nist_ai_rmf, reference: "GOVERN 1.3, 1.4; MAP 5.1; MEASURE 2.6; MANAGE 1.3", confidence_level: medium }
+  - { framework: iso_42001, reference: "Clause 5.2, 6.1.2; Annex A.6.1.2", confidence_level: low }
+  - { framework: mitre_atlas, reference: "AML.M0001 Limit Model Artifact Release, AML.M0005 Control Access to ML Models and Data at Rest", confidence_level: medium }
+related_controls: [genai-red-team-testing, ai-risk-assessment, ai-incident-management-and-reporting]
+review_status: pending_review
+confidence_level: medium
+published: true

@@ -14,6 +14,10 @@ class FrameworkMapping extends Model
         'nist_ai_rmf' => 'NIST AI RMF 1.0',
         'iso_27001' => 'ISO/IEC 27001:2022',
         'oecd_ai_principles' => 'OECD AI Principles',
+        'iso_23894' => 'ISO/IEC 23894:2023',
+        'iso_42005' => 'ISO/IEC 42005:2025',
+        'owasp_llm_top10' => 'OWASP Top 10 for LLM Applications',
+        'mitre_atlas' => 'MITRE ATLAS',
     ];
 
     protected function casts(): array

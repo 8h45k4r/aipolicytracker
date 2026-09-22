@@ -3,6 +3,7 @@
 namespace App\Services\MachineReadable;
 
 use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -32,6 +33,7 @@ class RecordContext
             $record instanceof PolicyInstrument => $this->policy($record),
             $record instanceof Jurisdiction => $this->jurisdiction($record),
             $record instanceof Obligation => $this->obligation($record),
+            $record instanceof Control => $this->control($record),
             $record instanceof ChangeEvent => $this->change($record),
             default => throw new \InvalidArgumentException('No context format for '.$record::class),
         };
@@ -143,11 +145,44 @@ class RecordContext
 
         $lines[] = $this->section('What the duty requires', $o->summary);
         $lines[] = $this->section('What an organisation does about it', $o->practical_action);
+        $controls = $o->controls()->whereNotNull('controls.published_at')->get();
+        if ($controls->isNotEmpty()) {
+            $lines[] = $this->section('Controls that meet this duty', $controls->map(fn ($c) => '- '.$c->title.' ('.$c->pivot->relationship.'): '.$c->url())->implode("\n"), raw: true);
+        }
         if ($instrument) {
             $lines[] = $this->section('Parent instrument', '- '.$instrument->title."\n  - Record: ".$instrument->url()."\n  - Context file: ".route('policies.context', $instrument->slug), raw: true);
         }
 
         $lines[] = $this->provenance($o, $o->url(), $instrument?->official_source_url);
+
+        return $this->join($lines);
+    }
+
+    private function control(Control $c): string
+    {
+        $c->loadMissing(['evidence', 'frameworkReferences', 'obligations.policyInstrument.jurisdiction']);
+        $lines = [
+            '# '.$c->title."\n",
+            $this->frontMatter([
+                'Record type' => 'Control',
+                'Kind' => $c->kindLabel(),
+                'Owner' => $c->owner_role,
+                'Frequency' => $c->frequencyLabel(),
+                'Duties served' => (string) $c->obligations->count(),
+            ]),
+        ];
+        $lines[] = $this->section('What the control achieves', $c->purpose);
+        $lines[] = $this->section('How it is typically implemented', $c->description);
+        $lines[] = $this->section('Evidence it produces', $c->evidence->map(fn ($e) => '- '.$e->title.' ('.$e->evidence_type.')'.($e->description ? ': '.$this->flatten($e->description) : ''))->implode("\n"), raw: true);
+        $duties = $c->obligations->filter(fn ($o) => $o->published_at)->map(fn ($o) => '- '.$o->title.' — '.($o->policyInstrument?->short_title ?: $o->policyInstrument?->title).', '.$o->policyInstrument?->jurisdiction?->name.' ('.$o->pivot->relationship.'): '.$o->url());
+        $lines[] = $this->section('Legal duties this control serves', $duties->implode("\n"), raw: true);
+        if ($c->frameworkReferences->isNotEmpty()) {
+            $lines[] = $this->section('Standards clauses it corresponds to (clause numbers only)', $c->frameworkReferences->map(fn ($r) => '- '.$r->frameworkName().': '.$r->reference.($r->note ? ' — '.$this->flatten($r->note) : ''))->implode("\n"), raw: true);
+        }
+        if (! empty($c->risk_subdomains)) {
+            $lines[] = $this->section('MIT AI Risk Repository subdomains addressed', implode(', ', $c->risk_subdomains));
+        }
+        $lines[] = $this->provenance($c, $c->url());
 
         return $this->join($lines);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
@@ -29,6 +30,7 @@ class SitemapController extends Controller
             'jurisdictions' => Jurisdiction::published()->max('updated_at'),
             'policies' => PolicyInstrument::published()->max('updated_at'),
             'obligations' => Obligation::published()->max('updated_at'),
+            'controls' => Control::published()->max('updated_at'),
             'changes' => ChangeEvent::published()->max('updated_at'),
             'resources' => PolicyInstrument::published()->max('updated_at'),
             // The research corpus: roughly 1,700 incident pages and 2,500 risk
@@ -50,6 +52,7 @@ class SitemapController extends Controller
             'jurisdictions' => $this->jurisdictionUrls(),
             'policies' => $this->policyUrls(),
             'obligations' => $this->obligationUrls(),
+            'controls' => $this->controlUrls(),
             'changes' => $this->changeUrls(),
             'resources' => $this->resourceUrls(),
             'incidents' => $this->incidentUrls(),
@@ -85,6 +88,15 @@ class SitemapController extends Controller
             ->filter->isIndexable()
             ->map(fn ($p) => ['loc' => $p->url(), 'lastmod' => $p->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])
             ->values();
+    }
+
+    private function controlUrls()
+    {
+        $urls = collect([['loc' => route('controls.index'), 'lastmod' => optional(Control::published()->max('updated_at'), fn ($m) => Carbon::parse($m)->toAtomString()), 'changefreq' => 'weekly', 'priority' => '0.8']]);
+
+        return $urls->concat(Control::published()->with(['evidence', 'obligations'])->orderBy('slug')->get()
+            ->filter->isIndexable()
+            ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $c->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.7']))->values();
     }
 
     private function obligationUrls()
@@ -219,6 +231,13 @@ class SitemapController extends Controller
         $urls = collect();
         foreach (array_keys(config('content.landings')) as $slug) {
             $urls->push(['loc' => route('landing', $slug), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.8']);
+        }
+        $urls->push(['loc' => route('audiences.index'), 'lastmod' => null, 'changefreq' => 'weekly', 'priority' => '0.7']);
+        foreach (config('content.audiences', []) as $slug => $page) {
+            $duties = Obligation::published()->withTerm($page['taxonomy'], $page['term'])->count();
+            if ($duties >= AudienceController::MIN_INDEXABLE_DUTIES) {
+                $urls->push(['loc' => route('audiences.show', $slug), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.8']);
+            }
         }
         // Editorial pages carry no lastmod: nothing here knows when their text changed.
         foreach (array_keys(config('content.guides')) as $slug) {

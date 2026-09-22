@@ -1,0 +1,31 @@
+slug: accuracy-robustness-security-testing
+title: Accuracy, robustness, fairness and security testing
+kind: technical
+purpose: >
+  Verifies before release, and again after material change, that a system performs to declared accuracy
+  levels, behaves consistently across groups and conditions, and resists the attacks specific to AI.
+description: >
+  A test plan defines the metrics, datasets, thresholds and acceptance criteria for each trustworthiness
+  property the risk assessment flagged: accuracy and calibration, performance across demographic and
+  operational subgroups, resilience to noisy or out-of-distribution input, and security against data and
+  model poisoning, evasion and extraction. Tests are run by people independent of the developers where
+  practical, results are compared against the criteria and failures block release until fixed or formally
+  accepted. Declared performance figures in user documentation are drawn directly from the latest report,
+  and the plan is re-run on retraining or a change in operating context.
+owner_role: Quality or testing lead
+frequency: on_material_change
+risk_subdomains: ["7.3", "1.3", "2.2", "1.1"]
+evidence:
+  - { type: evaluation_report, title: Pre-release test report, description: "Metrics, subgroup results, robustness and security findings against acceptance criteria." }
+  - { type: procedure, title: Test plan and acceptance criteria }
+  - { type: approval_record, title: Release test sign-off }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.6.2.4", note: "Verification and validation.", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "MEASURE 2.5, 2.6, 2.7, 2.11", confidence_level: high }
+  - { framework: iso_27001, reference: "Clause 8.1; Annex A 8.29 Security testing in development", confidence_level: medium }
+  - { framework: mitre_atlas, reference: "AML.M0008 Validate ML Model, AML.M0003 Model Hardening, AML.M0015 Adversarial Input Detection", confidence_level: medium }
+  - { framework: owasp_llm_top10, reference: "LLM04 Data and Model Poisoning", confidence_level: medium }
+related_controls: [ai-risk-assessment, genai-red-team-testing, post-market-monitoring-and-drift-detection, model-release-and-change-management-gate]
+review_status: pending_review
+confidence_level: high
+published: true

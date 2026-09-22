@@ -1,0 +1,29 @@
+slug: ai-incident-management-and-reporting
+title: AI incident management and regulatory reporting
+kind: process
+purpose: >
+  Ensures that harm or near-harm caused by an AI system is detected, contained, investigated and, where a
+  rule requires it, reported to the right authority and affected people within the applicable time limit.
+description: >
+  The existing incident-response playbook is extended with AI-specific triggers: harmful or discriminatory
+  output, safety failures, security breaches involving models or training data, misuse of the system and
+  loss of control over an agent. A severity scale maps each trigger to the reporting regimes that may apply
+  and their clocks, and a named coordinator decides within a set time whether a report is due. Investigation
+  records the timeline, impact, root cause and corrective action, and lessons feed back into testing,
+  monitoring and the risk register. Reporting channels for staff, users and third parties are published,
+  and reports made to authorities are logged.
+owner_role: Incident coordinator
+frequency: continuous
+risk_subdomains: ["6.5", "7.3", "2.2", "4.2"]
+evidence:
+  - { type: procedure, title: AI incident response playbook, description: "Triggers, severity scale, reporting clocks per regime, roles and escalation." }
+  - { type: incident_record, title: AI incident record, description: "Timeline, impact, root cause, corrective action and reporting decisions for one incident." }
+  - { type: regulatory_filing, title: Incident report to an authority }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 10.2; Annex A.8.3, A.8.4", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "MANAGE 4.1, 4.3; GOVERN 4.3, 6.2", confidence_level: high }
+  - { framework: iso_27001, reference: "Annex A 5.24 to 5.28 Information security incident management", confidence_level: medium }
+related_controls: [post-market-monitoring-and-drift-detection, record-keeping-and-logging, genai-red-team-testing, privacy-and-data-protection-for-ai]
+review_status: pending_review
+confidence_level: high
+published: true

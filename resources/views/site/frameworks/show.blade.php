@@ -18,7 +18,12 @@
                 <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Mappings</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $data['mappings'] }}</dd></div>
                 <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Jurisdictions</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $data['jurisdictions']->count() }}</dd></div>
                 <div class="card-flat py-3"><dt class="text-xs text-brand-muted">{{ $meta['unit'] }}s used</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $data['families']->count() }}</dd></div>
+                <div class="card-flat py-3"><dt class="text-xs text-brand-muted"><a href="#controls-heading" class="no-underline hover:underline">Controls</a></dt><dd class="text-2xl font-semibold text-brand-navy">{{ $counters['controls'] }}</dd></div>
+                <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Evidence types</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $counters['evidence_types'] }}</dd></div>
+                <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Risk areas</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $counters['risk_subdomains'] }}</dd></div>
+                <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Recorded incidents</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $counters['incidents'] ? number_format($counters['incidents']) : '—' }}</dd></div>
             </dl>
+            <p class="mt-2 text-xs text-brand-muted">Duties are what the law asks; controls are what an organisation operates to meet them; evidence is how it shows it did. Incidents are the harms the AI Incident Database has recorded under the risk areas those controls address.</p>
 
             <section aria-labelledby="structure-heading" class="mt-8">
                 <h2 id="structure-heading" class="section-title">How it is structured</h2>
@@ -44,6 +49,16 @@
                 </div>
                 @endforeach
             </section>
+            @if($references->isNotEmpty())
+            <section aria-labelledby="controls-heading" class="mt-8">
+                <h2 id="controls-heading" class="section-title">Controls that cite this {{ strtolower($meta['kind'] === 'threat_model' ? 'threat model' : 'standard') }}</h2>
+                <p class="mt-1 text-xs text-brand-muted">Each control is an original description of what an organisation operates. The reference is the {{ strtolower($meta['unit']) }} it corresponds to, by number only.</p>
+                <div class="table-wrap mt-3"><table><caption class="sr-only">Controls referencing {{ $meta['short'] }}</caption>
+                    <thead><tr><th scope="col">Control</th><th scope="col">{{ $meta['unit'] }}</th><th scope="col">Duties served</th><th scope="col">Evidence</th></tr></thead>
+                    <tbody>@foreach($references as $r)<tr><td><a href="{{ $r->control->url() }}" class="font-medium text-brand-navy hover:underline">{{ $r->control->title }}</a><div class="text-xs text-brand-muted">{{ $r->control->kindLabel() }}</div></td><td>{{ $r->reference }}</td><td class="tabular-nums">{{ $r->control->obligations()->whereNotNull('obligations.published_at')->count() }}</td><td class="text-xs">{{ $r->control->evidence->pluck('title')->take(3)->join(', ') }}</td></tr>@endforeach</tbody>
+                </table></div>
+            </section>
+            @endif
             <x-site.disclaimer class="mt-8" />
         </div>
 

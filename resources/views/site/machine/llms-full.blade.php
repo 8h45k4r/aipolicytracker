@@ -34,6 +34,14 @@ Generated {{ now()->toDateString() }}. Licence: {{ config('aipolicytracker.data_
 - [{{ $o->title }}]({{ $o->url() }}) — {{ $o->category }}; {{ $o->is_binding ? 'legal requirement' : 'voluntary' }}; {{ $o->policyInstrument->short_title ?: $o->policyInstrument->title }}@if($o->source_reference), {{ $o->source_reference }}@endif
 @endforeach
 
+## Controls ({{ $controls->count() }})
+
+One control serves many duties. Each line names the control, its kind, the number of recorded duties it satisfies or supports, and the evidence it produces.
+
+@foreach($controls as $c)
+- [{{ $c->title }}]({{ $c->url() }}) — {{ $c->kindLabel() }}; serves {{ $c->obligations->count() }} {{ \Illuminate\Support\Str::plural('duty', $c->obligations->count()) }}; evidence: {{ $c->evidence->pluck('title')->join(', ') }}
+@endforeach
+
 ## Recent change events ({{ $changes->count() }})
 
 @foreach($changes as $c)

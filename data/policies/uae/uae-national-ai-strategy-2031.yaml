@@ -49,6 +49,8 @@ obligations:
       actors: [public_authority]
     evidence_examples: []
     framework_mappings: []
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Referencing the UAE ethics principles and charter in the organisation's own AI policy.", confidence_level: low }
 deadlines:
   - { title: Strategy horizon, due_on: 2031-12-31, date_precision: year, deadline_status: scheduled, confidence_level: high, description: "Target year for the strategy's objectives." }
 sources:

@@ -1,0 +1,28 @@
+slug: ai-literacy-and-role-based-training
+title: AI literacy and role-based training programme
+kind: training
+purpose: >
+  Gives everyone who builds, buys, operates or is overseen by AI systems the knowledge they need for their
+  role, from general awareness to the specific skills of overseeing a high-risk system.
+description: >
+  A training matrix maps roles to curricula: a short awareness module for all staff, deeper content for
+  developers, product owners, procurement, legal and risk, and system-specific instruction for people who
+  operate or oversee a particular deployment. Content covers how the systems work, their limits, the
+  organisation's rules, the risks of over-reliance and how to raise concerns. Completion is tracked in the
+  learning system, refreshers are scheduled and material is revised when systems, rules or incidents change.
+  Contractors and partners who operate systems on the organisation's behalf are included.
+owner_role: Learning and development lead
+frequency: annual
+risk_subdomains: ["5.1", "6.5", "4.3"]
+evidence:
+  - { type: training_record, title: AI training completion records, description: "Who completed which module, when, and the refresh due date." }
+  - { type: procedure, title: Role-to-curriculum training matrix }
+  - { type: policy_document, title: AI training curriculum and materials }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 7.2, 7.3; Annex A.4.6", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "GOVERN 2.2, 4.1", confidence_level: high }
+  - { framework: mitre_atlas, reference: "AML.M0018 User Training", confidence_level: medium }
+related_controls: [ai-governance-policy-and-accountability, human-oversight-and-override]
+review_status: pending_review
+confidence_level: high
+published: true

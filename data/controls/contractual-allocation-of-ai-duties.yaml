@@ -1,0 +1,27 @@
+slug: contractual-allocation-of-ai-duties
+title: Contractual allocation of AI duties across the supply chain
+kind: contractual
+purpose: >
+  Writes into supplier and customer agreements who does what on documentation, testing, notification,
+  data rights and cooperation, so that legal duties do not fall into the gap between organisations.
+description: >
+  Legal maintains a set of AI clauses for supplier, customer and partner agreements. Supplier terms cover the
+  information and documentation to be provided, notice of material changes and incidents, cooperation with
+  regulators, audit rights and restrictions on repurposing data. Customer and deployer terms cover permitted
+  uses, the instructions to be followed, feedback channels and the logs and records each side keeps.
+  Deal teams select clauses based on the system's risk tier and the counterparty's role, deviations are
+  approved by legal, and signed clauses are indexed against the register entry for the system.
+owner_role: Legal counsel
+frequency: per_system
+risk_subdomains: ["6.5", "6.4"]
+evidence:
+  - { type: contract_clause, title: AI supplier clause set, description: "Agreed terms on documentation, change and incident notice, cooperation, audit and data use." }
+  - { type: contract_clause, title: AI customer or deployer clause set }
+  - { type: register_entry, title: Contract clause index against the AI register }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.10.2, A.10.3, A.10.4", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "GOVERN 6.1; MANAGE 3.1", confidence_level: medium }
+related_controls: [third-party-ai-due-diligence, technical-documentation-and-model-cards, ai-system-inventory]
+review_status: pending_review
+confidence_level: medium
+published: true

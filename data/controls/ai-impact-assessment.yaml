@@ -1,0 +1,30 @@
+slug: ai-impact-assessment
+title: AI impact and fundamental-rights impact assessment
+kind: process
+purpose: >
+  Examines how a planned AI use will affect the people, groups and communities it touches, with particular
+  attention to discrimination and rights, and records the mitigations chosen before the system goes live.
+description: >
+  Before deployment, and again on material change or a set anniversary, the deploying team completes a
+  templated assessment that describes the use, the decisions or outputs it influences, the people affected and
+  the ways they could be harmed. It examines disparate effects across relevant groups, consults affected
+  stakeholders where practical, and documents the transparency, oversight and monitoring measures that will
+  accompany the deployment. The template is designed so that a single exercise can produce the outputs that
+  data-protection, algorithmic-discrimination and rights-based regimes each expect. Completed assessments are
+  retained for the period the strictest applicable rule requires and are available to regulators on request.
+owner_role: AI system owner
+frequency: per_system
+risk_subdomains: ["1.1", "1.3", "5.2", "6.2"]
+evidence:
+  - { type: impact_assessment, title: AI impact assessment, description: "Completed assessment of purpose, affected people, discrimination risk, mitigations and monitoring plan." }
+  - { type: approval_record, title: Impact assessment approval, description: "Sign-off by the accountable owner and, where required, the privacy or legal function." }
+  - { type: procedure, title: Impact assessment procedure and template }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 6.1.4, 8.4; Annex A.5", confidence_level: high }
+  - { framework: iso_42005, reference: "ISO/IEC 42005 Clause 5, 6", note: "Guidance on running and documenting AI system impact assessments.", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MAP 5.1, 5.2; MEASURE 2.11", confidence_level: high }
+  - { framework: oecd_ai_principles, reference: "Principle 1.2 Human-centred values and fairness", confidence_level: medium }
+related_controls: [ai-risk-assessment, privacy-and-data-protection-for-ai, human-oversight-and-override, ai-interaction-and-use-disclosure]
+review_status: pending_review
+confidence_level: high
+published: true

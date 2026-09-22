@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aipolicytracker.org/schema/control.schema.json",
+  "title": "Control",
+  "description": "One organisational control: a policy, process, technical measure, contractual term or training programme that an organisation puts in place, the evidence it produces, the risks it addresses and the standards clauses it corresponds to. Obligations reference controls; a control never restates a law.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "title": { "type": "string", "minLength": 5, "maxLength": 120 },
+    "kind": { "type": "string", "enum": ["policy", "process", "technical", "contractual", "training"] },
+    "purpose": { "type": "string", "minLength": 40, "maxLength": 700, "description": "What the control achieves, in one or two sentences of original prose." },
+    "description": { "type": "string", "maxLength": 3000, "description": "How the control is typically implemented. Original prose; no standard text." },
+    "owner_role": { "type": "string", "minLength": 3, "maxLength": 80 },
+    "frequency": { "type": "string", "enum": ["once", "per_system", "on_material_change", "continuous", "quarterly", "annual"] },
+    "risk_subdomains": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[1-7]\\.[0-9]{1,2}$" },
+      "uniqueItems": true,
+      "description": "MIT AI Risk Repository subdomain identifiers the control mitigates."
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "type": { "$ref": "common.schema.json#/$defs/termSlug", "description": "An evidence_type taxonomy slug." },
+          "title": { "type": "string", "minLength": 3, "maxLength": 120 },
+          "description": { "type": "string", "maxLength": 600 }
+        },
+        "required": ["type", "title"]
+      }
+    },
+    "framework_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "framework": { "type": "string", "enum": ["iso_42001", "nist_ai_rmf", "iso_27001", "oecd_ai_principles", "iso_23894", "iso_42005", "owasp_llm_top10", "mitre_atlas"] },
+          "reference": { "type": "string", "minLength": 1, "maxLength": 160 },
+          "note": { "type": "string", "maxLength": 600 },
+          "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" }
+        },
+        "required": ["framework", "reference"]
+      }
+    },
+    "related_controls": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/slug" }, "uniqueItems": true },
+    "review_status": { "$ref": "common.schema.json#/$defs/reviewStatus" },
+    "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" },
+    "last_verified_at": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "reviewed_by": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "published": { "type": "boolean" }
+  },
+  "required": ["slug", "title", "kind", "purpose", "owner_role", "frequency", "evidence"]
+}

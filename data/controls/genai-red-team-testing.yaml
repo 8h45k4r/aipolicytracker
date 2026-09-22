@@ -1,0 +1,30 @@
+slug: genai-red-team-testing
+title: Adversarial and red-team testing for generative AI
+kind: technical
+purpose: >
+  Finds the ways a generative or general-purpose model can be made to produce harmful, deceptive or
+  dangerous output before users or attackers do, and feeds the findings back into mitigations.
+description: >
+  A red team with a mix of security, domain and safety expertise, drawn partly from outside the development
+  group, attacks the model and the product around it using scenario libraries that cover prompt injection,
+  jailbreaks, data leakage, harmful-capability elicitation, bias provocation and misuse of tools or agents.
+  Exercises are scoped and rules of engagement agreed in advance; findings are rated, tracked to closure and
+  regression-tested in the next round. For the largest models the programme includes structured evaluations of
+  dangerous capabilities and the organisation's mitigations are recorded in the safety framework. Results are
+  summarised for governance and, where required, for authorities or downstream integrators.
+owner_role: AI security or safety lead
+frequency: on_material_change
+risk_subdomains: ["2.2", "4.2", "4.3", "1.2", "7.2"]
+evidence:
+  - { type: evaluation_report, title: Red-team exercise report, description: "Scope, methods, findings by severity and remediation status for one exercise." }
+  - { type: procedure, title: Red-team rules of engagement and scenario library }
+  - { type: risk_register, title: Adversarial findings tracker }
+framework_references:
+  - { framework: nist_ai_rmf, reference: "MEASURE 2.6, 2.7; MANAGE 2.2", note: "Testing safety, security and resilience, including structured adversarial exercises for generative AI.", confidence_level: high }
+  - { framework: iso_42001, reference: "Annex A.6.2.4", confidence_level: medium }
+  - { framework: owasp_llm_top10, reference: "LLM01 Prompt Injection, LLM02 Sensitive Information Disclosure, LLM05 Improper Output Handling, LLM06 Excessive Agency, LLM07 System Prompt Leakage", confidence_level: high }
+  - { framework: mitre_atlas, reference: "AML.M0020 Generative AI Guardrails, AML.M0022 Generative AI Model Alignment", confidence_level: medium }
+related_controls: [accuracy-robustness-security-testing, frontier-model-safety-framework, ai-incident-management-and-reporting]
+review_status: pending_review
+confidence_level: high
+published: true

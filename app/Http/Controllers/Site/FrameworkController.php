@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurisdiction;
+use App\Services\PolicyData\ControlIntelligence;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Support\Seo;
 use Illuminate\View\View;
@@ -15,13 +16,14 @@ use Illuminate\View\View;
  */
 class FrameworkController extends Controller
 {
-    public function __construct(private readonly FrameworkCrosswalk $crosswalk) {}
+    public function __construct(private readonly FrameworkCrosswalk $crosswalk, private readonly ControlIntelligence $intelligence) {}
 
     public function index(): View
     {
         $frameworks = $this->crosswalk->summary();
         $covered = $frameworks->where('obligations', '>', 0);
         $crosswalkRows = $covered->mapWithKeys(fn (array $f) => [$f['key'] => $this->crosswalk->jurisdictionsFor($f['key'])]);
+        $controlCounts = $frameworks->mapWithKeys(fn (array $f) => [$f['key'] => $this->intelligence->frameworkCounters($f['key'])['controls']]);
 
         $seo = Seo::make(
             'AI framework crosswalks: which legal duties map to ISO/IEC 42001 and the NIST AI RMF',
@@ -37,7 +39,7 @@ class FrameworkController extends Controller
                 ),
             ]);
 
-        return view('site.frameworks.index', compact('seo', 'frameworks', 'covered', 'crosswalkRows'));
+        return view('site.frameworks.index', compact('seo', 'frameworks', 'covered', 'crosswalkRows', 'controlCounts'));
     }
 
     public function show(string $framework): View
@@ -64,7 +66,10 @@ class FrameworkController extends Controller
                 ['question' => 'Does '.$meta['short'].' make an organisation legally compliant?', 'answer' => 'No. '.($meta['certifiable'] ? 'Certification' : 'Adoption').' evidences a management practice, not compliance with any statute. A crosswalk shows where the two overlap so existing evidence can be reused; it does not transfer legal obligations.'],
             ]);
 
-        return view('site.frameworks.show', compact('seo', 'data', 'meta'));
+        $counters = $this->intelligence->frameworkCounters($key);
+        $references = $this->intelligence->controlsByReference($key);
+
+        return view('site.frameworks.show', compact('seo', 'data', 'meta', 'counters', 'references'));
     }
 
     public function crosswalk(string $framework, string $jurisdiction): View

@@ -65,6 +65,13 @@ class PolicyController extends Controller
         $risksAddressed = collect($mit['domains'] ?? [])->filter(fn ($d) => array_intersect($d['use_cases'] ?? [], $useCases) !== [])->map(fn ($d) => ['id' => $d['id'], 'name' => $d['name'], 'incidents' => $aiid['by_mit_domain'][$d['aiid_domain_label']] ?? 0])->values();
         $sameJurisdiction = PolicyInstrument::published()->where('jurisdiction_id', $policy->jurisdiction_id)->where('id', '!=', $policy->id)->orderBy('title')->limit(6)->get();
         $name = $policy->short_title ?: $policy->title;
+        // The controls that meet this instrument's duties, counted by how many they
+        // serve here, so a reader sees what to build rather than only what is asked.
+        $controls = $policy->obligations()->published()->with('controls')->get()
+            ->flatMap(fn ($o) => $o->controls->filter(fn ($c) => $c->published_at)->map(fn ($c) => ['control' => $c, 'satisfies' => $c->pivot->relationship === 'satisfies']))
+            ->groupBy(fn ($r) => $r['control']->slug)
+            ->map(fn ($rows) => ['control' => $rows->first()['control'], 'satisfies' => $rows->where('satisfies', true)->count(), 'duties' => $rows->count()])
+            ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
         // The long pattern only where it fits the result-page budget; a long
         // instrument name gets a shorter suffix rather than a truncated one.
@@ -133,7 +140,7 @@ class PolicyController extends Controller
             ]);
         }
 
-        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed'));
+        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls'));
     }
 
     public function json(PolicyInstrument $policy, PolicySerializer $serializer): JsonResponse
