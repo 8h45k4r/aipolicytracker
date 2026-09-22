@@ -12,6 +12,11 @@ Laravel Breeze authentication with e-mail verification, plus a profile extension
 | email_verified_at | timestamp | yes | |
 | password | varchar(255) | no | bcrypt hash |
 | remember_token | varchar(100) | yes | |
+| admin_role | varchar(16) | yes | One of `App\Enums\AdminRole` (`editor`, `reviewer`, `analyst`), or null for no admin access. **Not in `$fillable`**, so a crafted registration cannot grant it |
+| admin_role_granted_by | bigint | yes | FK `users.id`, null on delete. Answers "who let them in" after the audit log has rotated |
+| admin_role_granted_at | timestamp | yes | |
+| suspended_at | timestamp | yes | Set means the account cannot sign in at all, not merely that it lost admin access |
+| suspended_reason | varchar(255) | yes | Optional, captured on the suspend form |
 | created_at / updated_at | timestamp | yes | |
 
 ## Schema: `admin_audit_logs`
@@ -61,7 +66,64 @@ The legacy plaintext `password` column was dropped by migration `2025_09_10_0000
 
 ## Admin access
 
-`ADMIN_EMAILS` → `User::isAdmin()` → `CheckAdmin` middleware. `User::scopeNonAdmin` excludes admins from counts.
+Access has two independent sources, deliberately:
+
+| | Where it lives | Who can change it |
+|---|---|---|
+| **Owner** | the `ADMIN_EMAILS` environment list | only someone who can edit `deploy/.env` on the host and restart the container |
+| **Editor, Reviewer, Analyst** | `users.admin_role` | an owner, from Admin → Users and roles |
+
+Ownership is never stored in the database. That is the point: a mistake in the `users` table, or
+write access to it, cannot create an owner, cannot remove the last one, and cannot lock everybody
+out of a running deployment. The recovery path is always the host.
+
+`User::isAdmin()` means *any* access and is what `CheckAdmin` gates `/backend` with. It returns
+false for a suspended account **including an owner** — suspension is the stop button, so it has to
+stop everyone. `User::scopeNonAdmin` excludes both owners and role holders from counts.
+
+### Capabilities
+
+Routes declare what they need, not who they trust. `App\Enums\AdminCapability` names twelve
+abilities; `AppServiceProvider` registers one Gate per capability; route groups carry
+`can:<capability>`. Adding a page means naming its capability once on the route, instead of editing
+role conditions in several places and missing one.
+
+| Capability | Owner | Editor | Reviewer | Analyst |
+|---|---|---|---|---|
+| `settings.manage`, `billing.manage`, `users.manage` | ✅ | | | |
+| `records.publish` | ✅ | ✅ | | |
+| `records.verify` | ✅ | ✅ | ✅ | |
+| `submissions.decide` | ✅ | ✅ | ✅ | |
+| `tools.manage`, `external.sync`, `subscribers.manage` | ✅ | ✅ | | |
+| `audience.view` | ✅ | ✅ | | ✅ |
+| `audit.view` | ✅ | | | ✅ |
+| `dashboard.view` | ✅ | ✅ | ✅ | ✅ |
+
+The three owner-only capabilities are held by **no** storable role. That is structural rather than
+conventional, and `AdminRolesTest` asserts it, so a second route to ownership cannot appear by
+someone editing a role's capability list.
+
+33 of the 39 backend routes carry a capability. The six that do not are second-factor enrolment,
+challenge and recovery codes: a newly granted role has to reach those before it can do anything
+else, so gating them would lock out every new administrator.
+
+### Users and roles page
+
+Admin → Users and roles (owner only, `can:users.manage`). Lists every account with its role, second
+factor, status and grant provenance; filters by search, role and status. Actions: grant or clear a
+role, suspend with an optional reason, restore, reset the second factor, delete.
+
+Two rules apply to every write, enforced in `UserController::guardFor()`:
+
+- **Nobody acts on their own account.** The useful version of that is a mistake — demoting or
+  suspending yourself mid-session is how someone locks themselves out. The legitimate cases are
+  another owner, or the shell.
+- **Nobody acts on an owner.** Ownership is not stored here, so allowing it would let a web form
+  contradict the environment and destroy the recovery path above.
+
+The admin sidebar hides any page whose capability the signed-in account lacks, and shows the account's
+role beside its name. The route middleware is still what enforces access; hiding only stops offering
+a link that would answer 403, which reads as a broken admin rather than a scoped one.
 
 Three further gates stand in front of the backend (2026-09-18):
 
