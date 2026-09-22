@@ -2,6 +2,11 @@
 
 namespace App\Support;
 
+use App\Models\Jurisdiction;
+use App\Models\PolicyInstrument;
+use App\Models\TaxonomyTerm;
+use Illuminate\Support\Facades\Cache;
+
 /**
  * Per-page metadata passed from controllers to the public layout.
  * Every indexable page must set a unique title, description and canonical URL.
@@ -9,6 +14,13 @@ namespace App\Support;
 class Seo
 {
     public array $jsonLd = [];
+
+    /**
+     * The page's questions, rendered once by the layout rather than by every view.
+     *
+     * @var list<array{question: string, answer: string}>
+     */
+    public array $faq = [];
 
     public array $breadcrumbs = [];
 
@@ -112,8 +124,8 @@ class Seo
     private static function corpusVersion(): string
     {
         try {
-            return \Illuminate\Support\Facades\Cache::remember('seo.corpus-version', 3600, function () {
-                $stamp = \App\Models\PolicyInstrument::query()->published()->max('updated_at');
+            return Cache::remember('seo.corpus-version', 3600, function () {
+                $stamp = PolicyInstrument::query()->published()->max('updated_at');
 
                 return substr(hash('crc32b', (string) $stamp), 0, 8);
             });
@@ -144,6 +156,38 @@ class Seo
         $this->jsonLd[] = ['@context' => 'https://schema.org'] + $schema;
 
         return $this;
+    }
+
+    /**
+     * Attach the page's questions. This both emits FAQPage and hands the items to the layout,
+     * which renders them visibly: Google's guidance is that FAQPage markup must describe
+     * content the visitor can actually see, so the schema and the section ship together or
+     * not at all.
+     *
+     * @param  list<array{question: string, answer: string}>  $items
+     */
+    public function withFaq(array $items): self
+    {
+        if ($items === []) {
+            return $this;
+        }
+
+        $this->faq = array_values($items);
+
+        return $this->withJsonLd([
+            '@type' => 'FAQPage',
+            'mainEntity' => array_map(fn (array $item) => [
+                '@type' => 'Question',
+                'name' => $item['question'],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => trim($item['answer'])],
+            ], $this->faq),
+        ]);
+    }
+
+    /** @return list<array{question: string, answer: string}> */
+    public function faqItems(): array
+    {
+        return $this->faq;
     }
 
     public function withFeed(string $url): self
@@ -322,8 +366,8 @@ class Seo
         // an answer computed against data that has since changed. The cache is the
         // memo, and it is scoped to the application instance that owns it.
         try {
-            return \Illuminate\Support\Facades\Cache::remember('seo.coverage', 86400, function () {
-                $regions = \App\Models\Jurisdiction::query()->published()
+            return Cache::remember('seo.coverage', 86400, function () {
+                $regions = Jurisdiction::query()->published()
                     ->whereNotNull('region')->distinct()->orderBy('region')->pluck('region')
                     ->filter()->values()->all();
 
@@ -331,7 +375,7 @@ class Seo
                 // adds on top of them, capped so the node stays a description
                 // rather than a keyword dump.
                 $subjects = ['AI regulation', 'AI governance', 'AI compliance', 'AI policy', 'algorithmic accountability'];
-                $terms = \App\Models\TaxonomyTerm::query()->orderBy('name')->pluck('name')
+                $terms = TaxonomyTerm::query()->orderBy('name')->pluck('name')
                     ->map(fn ($t) => trim((string) $t))->filter()->values()->all();
 
                 return [
@@ -389,7 +433,7 @@ class Seo
      * vocabulary whether the law is actually in force, which is the question
      * readers and answer engines get wrong most often.
      */
-    public static function legislation(\App\Models\PolicyInstrument $policy): array
+    public static function legislation(PolicyInstrument $policy): array
     {
         $force = match ($policy->status) {
             'in_force' => 'https://schema.org/InForce',

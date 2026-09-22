@@ -16,6 +16,9 @@ return [
         'summary' => 'A certifiable management system standard for artificial intelligence. It sets out what an organisation must put in place to govern the AI systems it develops or uses: scope, leadership, objectives, risk and impact assessment, operational controls, monitoring and improvement.',
         'structure' => 'Requirements sit in clauses 4 to 10, following the harmonised structure shared by other ISO management system standards. Annex A lists reference controls that an organisation selects from and justifies.',
         'unit' => 'Clause',
+        // The written comparison that accompanies this crosswalk. The two pages target the
+        // same question, so each links the other rather than competing unlinked.
+        'guide' => ['slug' => 'iso-42001-vs-eu-ai-act', 'jurisdiction' => 'eu'],
         'why' => 'Because it is certifiable, ISO/IEC 42001 is what most organisations are audited against. Knowing which legal duties a clause already covers tells you how much of a statute your existing certification evidence reaches.',
     ],
     'nist_ai_rmf' => [
@@ -29,6 +32,7 @@ return [
         'summary' => 'A voluntary framework for managing risk across the AI lifecycle. There is no certification against it; organisations adopt it as a common vocabulary for identifying, measuring and treating AI risk.',
         'structure' => 'Four functions - GOVERN, MAP, MEASURE and MANAGE - each broken into categories and subcategories. GOVERN runs throughout; the other three describe a cycle.',
         'unit' => 'Function',
+        'guide' => ['slug' => 'nist-ai-rmf-vs-eu-ai-act', 'jurisdiction' => 'eu'],
         'why' => 'It is the reference point for US federal AI policy and for a growing number of procurement questionnaires, so a duty that maps cleanly to a function is one you can evidence in terms a US counterparty already uses.',
     ],
     'iso_27001' => [

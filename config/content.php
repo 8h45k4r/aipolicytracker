@@ -213,6 +213,7 @@ return [
             'summary' => 'Certification is not conformity. An obligation-by-clause crosswalk that shows where ISO/IEC 42001 helps with the EU AI Act, where it stops, and how CISOs should use both.',
             'policies' => ['eu-ai-act'],
             'framework' => 'iso_42001',
+            'framework_jurisdiction' => 'eu',
             'steps' => [
                 ['title' => 'Different kinds of instrument', 'body' => 'The EU AI Act is binding law with obligations that attach to specific AI systems by risk category. ISO/IEC 42001 is a voluntary, certifiable management-system standard describing how an organisation governs AI across its portfolio. Certification demonstrates a functioning management system; it is not a presumption of conformity with the AI Act, and it does not replace conformity assessment or registration for high-risk systems.'],
                 ['title' => 'Where they overlap', 'body' => 'Both expect leadership accountability, a risk process, impact assessment, competence and awareness, documented information, operational controls over data and development, monitoring, incident handling and continual improvement. An organisation running ISO/IEC 42001 will already produce much of the evidence the AI Act\'s quality-management, risk-management and post-market monitoring articles require.'],
@@ -230,6 +231,7 @@ return [
             'summary' => 'Built on NIST AI RMF and selling into Europe? See which Govern, Map, Measure and Manage outputs count as EU AI Act evidence, and which binding duties the framework never covers.',
             'policies' => ['eu-ai-act', 'us-nist-ai-rmf'],
             'framework' => 'nist_ai_rmf',
+            'framework_jurisdiction' => 'eu',
             'steps' => [
                 ['title' => 'A framework and a law', 'body' => 'The NIST AI RMF is voluntary guidance organised into Govern, Map, Measure and Manage, with a Generative AI Profile. The EU AI Act is binding legislation with duties attached to roles and risk categories. Many organisations use the RMF as their practice catalogue and the AI Act as the requirement set.'],
                 ['title' => 'Shared concepts', 'body' => 'Both centre on lifecycle risk management, context and impact mapping, measurement of validity, safety, security, bias and explainability, documentation, monitoring and incident response. The RMF\'s trustworthiness characteristics line up with the AI Act\'s Articles 9 to 15 requirements for high-risk systems.'],
