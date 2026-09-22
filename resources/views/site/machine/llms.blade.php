@@ -26,6 +26,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Browse and export MIT AI Risk Repository entries: {{ route('risk.risks') }} (CSV: {{ route('risk.risks.export', 'csv') }})
 - Frameworks behind the risk database: {{ route('risk.frameworks') }}
 - Law-to-standard crosswalks (which legal duties map to ISO/IEC 42001 and the NIST AI RMF): {{ route('frameworks.index') }}
+- Frameworks compared, with the reuse matrix by duty category: {{ route('frameworks.compare') }}
 - Applicability check (educational): {{ route('tools.applicability') }}
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})

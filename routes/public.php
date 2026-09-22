@@ -67,6 +67,7 @@ Route::get('/compare/{comparison}', [CompareController::class, 'show'])->name('c
 
 // Crosswalks between legal duties and the standards organisations are audited against.
 Route::get('/frameworks', [FrameworkController::class, 'index'])->name('frameworks.index');
+Route::get('/frameworks/compare', [FrameworkController::class, 'compare'])->name('frameworks.compare');
 Route::get('/frameworks/{framework}', [FrameworkController::class, 'show'])->where('framework', '[a-z0-9-]+')->name('frameworks.show');
 Route::get('/frameworks/{framework}/{jurisdiction}', [FrameworkController::class, 'crosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('frameworks.crosswalk');
 

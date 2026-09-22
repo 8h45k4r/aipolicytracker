@@ -6,6 +6,7 @@ use App\Models\Control;
 use App\Models\ControlFrameworkReference;
 use App\Models\FrameworkMapping;
 use App\Models\Obligation;
+use App\Services\PolicyData\ControlIntelligence;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyDataValidator;
 use App\Services\PolicyData\SchemaValidator;
@@ -106,5 +107,18 @@ class ControlsTest extends TestCase
         if (FrameworkMapping::where('framework', $framework)->exists()) {
             $this->get(route('frameworks.show', $slug))->assertOk()->assertSee('Controls that cite this')->assertSee((string) $count);
         }
+    }
+
+    public function test_the_framework_comparison_is_computed_from_the_mappings(): void
+    {
+        $page = $this->get('/frameworks/compare')->assertOk()
+            ->assertSee('What can be reused between frameworks?')
+            ->assertSee('ISO/IEC 42001')->assertSee('NIST AI RMF')->assertSee('OWASP LLM Top 10')->assertSee('MITRE ATLAS')
+            ->assertSee('AI risk management');
+        $matrix = app(ControlIntelligence::class)->relationshipMatrix();
+        $this->assertGreaterThan(0, $matrix['totals']['iso_42001']);
+        $this->assertGreaterThan(0, $matrix['totals']['nist_ai_rmf']);
+        $this->assertSame(1, substr_count(str_replace(' ', '', $page->getContent()), '"@type":"FAQPage"'));
+        $this->get('/sitemap-static.xml')->assertOk()->assertSee(route('frameworks.compare'));
     }
 }

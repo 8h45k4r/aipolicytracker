@@ -169,6 +169,7 @@ class SitemapController extends Controller
         // serves a noindex tag.
         $crosswalk = app(FrameworkCrosswalk::class);
         $pages[] = [route('frameworks.index'), 'weekly', '0.8'];
+        $pages[] = [route('frameworks.compare'), 'weekly', '0.7'];
         foreach ($crosswalk->summary() as $framework) {
             if ($framework['obligations'] < FrameworkCrosswalk::MIN_INDEXABLE_OBLIGATIONS) {
                 continue;
