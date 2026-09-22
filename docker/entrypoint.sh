@@ -48,5 +48,9 @@ php artisan view:cache
 # Queue worker for e-mail notifications, in the background.
 php artisan queue:work --tries=3 --sleep=3 &
 
+# The scheduler: digests, alerts, syncs and imports on their own timetable
+# (routes/console.php), so the container needs no external cron.
+php artisan schedule:work > /dev/null 2>&1 &
+
 # Serve the app. Replace with php-fpm + nginx if you need higher throughput.
 exec php artisan serve --host=0.0.0.0 --port="${PORT:-8080}"

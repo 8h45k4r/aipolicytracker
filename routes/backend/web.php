@@ -47,6 +47,13 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
             Route::post('/subscribers/{subscriber}/resend', 'subscriberResend')->name('subscribers.resend');
             Route::delete('/subscribers/{subscriber}', 'subscriberDelete')->name('subscribers.delete');
         });
+        // Every scheduled job, runnable now, with its last outcome. The ones that send
+        // mail or rewrite data ask for the password first.
+        Route::middleware('can:jobs.run')->group(function () {
+            Route::get('/jobs', 'jobs')->name('jobs');
+            Route::post('/jobs/{job}', 'runJob')->where('job', '[a-z_]+')->name('jobs.run');
+            Route::post('/jobs/{job}/confirmed', 'runJob')->where('job', '[a-z_]+')->middleware('password.confirm')->name('jobs.run.confirmed');
+        });
         Route::middleware('can:external.sync')->group(function () {
             Route::get('/external', 'external')->name('external');
             Route::post('/external/sync', 'externalSync')->name('external.sync');

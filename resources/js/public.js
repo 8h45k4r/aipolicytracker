@@ -310,6 +310,11 @@
 
         function paint() {
             var on = checked();
+            picker.querySelectorAll('[data-picker-quick-pick]').forEach(function (chip) {
+                var isOn = on.some(function (b) { return b.value === chip.getAttribute('data-picker-quick-pick'); });
+                chip.classList.toggle('chip-active', isOn);
+                chip.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+            });
             if (countEl) { countEl.textContent = String(on.length); }
             if (limitEl) { limitEl.hidden = !(max && on.length > max); }
             if (chips) {
@@ -345,6 +350,17 @@
         });
 
         picker.addEventListener('click', function (e) {
+            var quick = e.target.closest('[data-picker-quick-pick]');
+            if (quick) {
+                var qbox = boxes.filter(function (b) { return b.value === quick.getAttribute('data-picker-quick-pick'); })[0];
+                if (qbox) {
+                    qbox.checked = !qbox.checked;
+                    quick.classList.toggle('chip-active', qbox.checked);
+                    quick.setAttribute('aria-pressed', qbox.checked ? 'true' : 'false');
+                    qbox.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                return;
+            }
             var remove = e.target.closest('[data-picker-remove]');
             if (!remove) { return; }
             e.preventDefault();

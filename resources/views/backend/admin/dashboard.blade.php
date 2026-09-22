@@ -3,7 +3,7 @@
 <h1 class="font-display text-2xl font-semibold text-brand-navy">Dashboard</h1>
 <p class="mt-1 meta">Live counts from the structured policy-intelligence model that powers the public site.</p>
 <dl class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-    @foreach([['Published jurisdictions', $stats['jurisdictions'], route('jurisdictions.index')], ['Published instruments', $stats['policies'], route('policies.index')], ['Human-verified instruments', $stats['policies_verified'].' / '.$stats['policies'], route('backend.review.index')], ['Obligations', $stats['obligations'], route('obligations.index')], ['Changes in last 30 days', $stats['changes_30d'], route('changes.index')], ['Submissions awaiting review', $stats['submissions_pending'], route('backend.admin.submissions', ['status' => 'pending_review'])], ['Active subscribers', $stats['subscribers_active'], route('backend.admin.subscribers')], ['Unconfirmed subscribers', $stats['subscribers_unconfirmed'], route('backend.admin.subscribers', ['state' => 'unconfirmed'])], ['Registered users', $stats['users'], route('backend.admin.downloads')], ['Template downloads (30 days)', $stats['downloads_30d'], route('backend.admin.downloads')]] as [$label, $value, $href])
+    @foreach([['Published jurisdictions', $stats['jurisdictions'], route('jurisdictions.index')], ['Published instruments', $stats['policies'], route('policies.index')], ['Human-verified instruments', $stats['policies_verified'].' / '.$stats['policies'], route('backend.review.index')], ['Obligations', $stats['obligations'], route('obligations.index')], ['Controls', $stats['controls'], route('controls.index')], ['Changes in last 30 days', $stats['changes_30d'], route('changes.index')], ['Submissions awaiting review', $stats['submissions_pending'], route('backend.admin.submissions', ['status' => 'pending_review'])], ['Active subscribers', $stats['subscribers_active'], route('backend.admin.subscribers')], ['Unconfirmed subscribers', $stats['subscribers_unconfirmed'], route('backend.admin.subscribers', ['state' => 'unconfirmed'])], ['Registered users', $stats['users'], route('backend.admin.downloads')], ['Template downloads (30 days)', $stats['downloads_30d'], route('backend.admin.downloads')]] as [$label, $value, $href])
     <div class="card-flat p-4"><dt class="meta">{{ $label }}</dt><dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $value === 0 || $value === '0 / 0' ? '—' : $value }}</dd><a href="{{ $href }}" class="text-xs">Open</a></div>
     @endforeach
 </dl>
@@ -26,6 +26,17 @@
         @if($mail['mailer'] === 'log')<p class="mt-3 text-sm text-state-warn">Mail is written to the log only. Configure Resend under <a href="{{ route('backend.admin.settings') }}">Settings and API keys</a>.</p>@endif
     </section>
 </div>
+<section class="mt-8 card-flat p-5" aria-labelledby="jobs-panel">
+    <div class="flex flex-wrap items-baseline justify-between gap-3"><h2 id="jobs-panel" class="section-title !text-lg">Scheduled jobs</h2>@can('jobs.run')<a href="{{ route('backend.admin.jobs') }}" class="text-sm">Run a job or see the timetable</a>@endcan</div>
+    <ul class="mt-3 divide-y divide-brand-line text-sm">
+        @foreach(\App\Models\JobRun::JOBS as $key => $job)
+        @php($last = $jobs[$key])
+        @if($job['schedule'] !== 'On demand')
+        <li class="py-2 flex flex-wrap items-baseline justify-between gap-2"><span>{{ $job['label'] }} <span class="meta">{{ $job['schedule'] }}</span></span><span class="text-xs">@if($last)<span class="badge {{ $last->finished_at && $last->succeeded() ? 'bg-state-goodbg text-state-good ring-state-good/20' : ($last->finished_at ? 'bg-state-badbg text-state-bad ring-state-bad/20' : 'bg-state-warnbg text-state-warn ring-state-warn/20') }}">{{ $last->finished_at ? ($last->succeeded() ? 'ok' : 'failed') : 'running' }}</span> {{ $last->started_at->diffForHumans() }}@else<span class="text-brand-muted">never run</span>@endif</span></li>
+        @endif
+        @endforeach
+    </ul>
+</section>
 <section class="mt-8 card-flat p-5" aria-labelledby="recent">
     <h2 id="recent" class="section-title !text-lg">Latest submissions</h2>
     @if($recentSubmissions->isEmpty())<p class="mt-3 text-sm text-brand-muted">No submissions yet.</p>@else
