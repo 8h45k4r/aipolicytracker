@@ -1,0 +1,27 @@
+slug: technical-documentation-and-model-cards
+title: Technical documentation, model cards and instructions for use
+kind: process
+purpose: >
+  Produces and maintains the documentation that lets a regulator, a customer or a deployer understand what a
+  system is, how it was built and tested, what it is for and how to use it safely.
+description: >
+  A documentation set is started at design time and grows with the system: intended purpose and out-of-scope
+  uses, architecture and dependencies, training and evaluation data, performance results and their limits,
+  known risks and mitigations, oversight measures and the resources needed to operate it. From the same source
+  the team derives a shorter model card or deployer information pack and the instructions for use that ship
+  with each release. Documents live under version control, each release tags the version it was assessed
+  against, and an owner is responsible for updating them whenever the system changes materially.
+owner_role: Product or model owner
+frequency: on_material_change
+risk_subdomains: ["7.4", "5.1", "7.3"]
+evidence:
+  - { type: technical_file, title: Technical documentation file, description: "Assembled, versioned documentation of design, data, testing, risks and oversight for one system." }
+  - { type: model_documentation, title: Model card or deployer information pack }
+  - { type: disclosure_notice, title: Instructions for use, description: "User-facing document describing purpose, limits, oversight measures and how to interpret output." }
+framework_references:
+  - { framework: iso_42001, reference: "Clause 7.5; Annex A.6.2.3, A.6.2.7, A.8.2", confidence_level: high }
+  - { framework: nist_ai_rmf, reference: "GOVERN 1.4; MAP 2.2; MEASURE 2.8", confidence_level: medium }
+related_controls: [data-governance-and-dataset-documentation, accuracy-robustness-security-testing, conformity-assessment-and-registration, model-release-and-change-management-gate]
+review_status: pending_review
+confidence_level: high
+published: true

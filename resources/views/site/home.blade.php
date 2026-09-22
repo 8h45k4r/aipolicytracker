@@ -21,16 +21,18 @@
                 <a class="chip" href="{{ route('policies.index', ['sector' => 'public_services']) }}" data-track="quick_filter">Public sector</a>
             </div>
         </div>
-        <aside class="lg:col-span-4 lg:border-l lg:border-brand-line lg:pl-8" aria-label="Coverage">
-            <p class="eyebrow">Coverage</p>
-            <dl class="mt-3 divide-y divide-brand-line text-sm">
-                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Jurisdictions</dt><dd class="font-mono tabular-nums text-brand-navy">{{ $stats['jurisdictions'] ?: '—' }}</dd></div>
-                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Policy instruments</dt><dd class="font-mono tabular-nums text-brand-navy">{{ $stats['policies'] ?: '—' }}</dd></div>
-                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Obligations mapped</dt><dd class="font-mono tabular-nums text-brand-navy">{{ $stats['obligations'] ?: '—' }}</dd></div>
-                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Human-verified records</dt><dd class="font-mono tabular-nums text-brand-navy">{{ $stats['verified'] ?: '—' }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
+        <aside class="lg:col-span-4 lg:border-l lg:border-brand-line lg:pl-8" aria-label="How to read this site">
+            <p class="eyebrow">How it fits together</p>
+            <p class="mt-3 text-sm leading-6 text-brand-body">A law creates a <a href="{{ route('obligations.index') }}">duty</a>. A duty is met by a <a href="{{ route('controls.index') }}">control</a>. A control produces <a href="{{ route('controls.index') }}#evidence">evidence</a>. Every record links its official source and states when a person last checked it.</p>
+            <dl class="mt-4 divide-y divide-brand-line text-sm">
+                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Human-verified instruments</dt><dd class="font-mono tabular-nums text-brand-navy">{{ (int) $stats['verified'] }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
+                <div class="flex items-baseline justify-between py-2"><dt class="text-brand-muted">Corpus last updated</dt><dd class="font-mono tabular-nums text-brand-navy">{{ $stats['last_updated'] ? \Illuminate\Support\Carbon::parse($stats['last_updated'])->format('j M Y') : '—' }}</dd></div>
             </dl>
-            <p class="mt-3 meta">Every record links its official source. <a href="{{ route('methodology') }}">How records are verified</a>.</p>
+            <p class="mt-3 meta"><a href="{{ route('methodology') }}">How records are verified</a> · <a href="{{ route('coverage') }}">What is still missing</a></p>
         </aside>
+    </div>
+    <div class="container-site pb-10">
+        <x-site.chain :stats="$stats" />
     </div>
 </section>
 
@@ -64,11 +66,20 @@
     </aside>
 </div>
 
-<section class="container-site py-8" aria-labelledby="persona-heading">
-    <div class="rule-strong pt-3"><h2 id="persona-heading" class="section-title">Start from your job</h2></div>
+<section class="container-site py-8" aria-labelledby="audience-heading">
+    <div class="flex items-baseline justify-between rule-strong pt-3">
+        <h2 id="audience-heading" class="section-title">Start from who you are</h2>
+        <a href="{{ route('audiences.index') }}" class="text-sm">All roles, sectors and use cases</a>
+    </div>
+    <p class="mt-2 max-w-[64ch] text-sm text-brand-body">Every recorded duty that names your situation, the controls that meet them and the evidence a reviewer would expect. Generated from the records, so it moves when they do.</p>
+    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-sm">
+        @foreach(collect($audiences)->sortByDesc('duties')->take(8) as $a)
+        <li><a href="{{ route('audiences.show', $a['slug']) }}" class="card-link block p-4 no-underline h-full"><p class="eyebrow !text-brand-muted">{{ ['actor' => 'Role', 'sector' => 'Sector', 'use_case' => 'Use case'][$a['taxonomy']] ?? '' }}</p><p class="mt-1 font-semibold text-brand-navy leading-snug">{{ $a['h1'] }}</p><p class="mt-2 font-mono text-xs tabular-nums text-brand-muted">{{ $a['duties'] }} recorded {{ \Illuminate\Support\Str::plural('duty', $a['duties']) }}</p></a></li>
+        @endforeach
+    </ul>
     <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5 text-sm">
-        @foreach([['Compliance or CISO', 'Which rules apply, by when, and what evidence to keep.', route('tools.applicability')], ['Researcher', 'Incidents, risk taxonomy and exports with citation.', route('risk.index')], ['Policymaker', 'Compare jurisdictions and track dated changes.', route('compare.index')], ['Civil society or journalist', 'Who is harmed, who deploys, where rules are missing.', route('risk.index').'#gap-heading'], ['Founder or product lead', 'A 90-day readiness path and free templates.', route('guides.index')]] as [$who, $what, $href])
-        <a href="{{ $href }}" class="card-flat p-4 no-underline hover:border-brand-navy"><p class="font-semibold text-brand-navy">{{ $who }}</p><p class="mt-1 text-brand-body">{{ $what }}</p></a>
+        @foreach([['Compliance or CISO', 'Which controls meet which duties, and the evidence to keep.', route('controls.index')], ['Researcher', 'Incidents, risk taxonomy and exports with citation.', route('risk.index')], ['Policymaker', 'Compare jurisdictions and track dated changes.', route('compare.index')], ['Civil society or journalist', 'Who is harmed, who deploys, where rules are missing.', route('risk.index').'#gap-heading'], ['Founder or product lead', 'Screen applicability, then a 90-day readiness path.', route('tools.applicability')]] as [$who, $what, $href])
+        <a href="{{ $href }}" class="card-link p-4 no-underline"><p class="font-semibold text-brand-navy">{{ $who }}</p><p class="mt-1 text-brand-body">{{ $what }}</p></a>
         @endforeach
     </div>
 </section>
@@ -97,9 +108,9 @@
 <section class="container-site py-4" aria-labelledby="tools-heading">
     <div class="rule-strong pt-3"><h2 id="tools-heading" class="section-title">Tools</h2></div>
     <ul class="mt-2 grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-brand-line border-b border-brand-line text-sm">
-        <li class="py-4 sm:pr-6"><a href="{{ route('compare.index') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Compare jurisdictions</a><p class="mt-1 text-brand-body">Side-by-side status, binding rules, high-risk and generative AI, oversight and dates.</p></li>
+        <li class="py-4 sm:pr-6"><a href="{{ route('controls.index') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Controls and evidence</a><p class="mt-1 text-brand-body">One control, every duty it serves, and the evidence that shows it is operating.</p></li>
         <li class="py-4 sm:px-6"><a href="{{ route('tools.applicability') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Applicability check</a><p class="mt-1 text-brand-body">Educational screening of which policies and obligations may be relevant. Not legal advice.</p></li>
-        <li class="py-4 sm:px-6"><a href="{{ route('changes.index') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Change log</a><p class="mt-1 text-brand-body">Dated, source-backed updates with practical impact, filters and RSS.</p></li>
+        <li class="py-4 sm:px-6"><a href="{{ route('compare.index') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Compare jurisdictions</a><p class="mt-1 text-brand-body">Side-by-side status, binding rules, high-risk and generative AI, oversight and dates.</p></li>
         <li class="py-4 sm:pl-6"><a href="{{ route('open-data') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Open data and API</a><p class="mt-1 text-brand-body">CC BY 4.0 dataset, JSON Schema, read-only API and citation guidance.</p></li>
     </ul>
 </section>

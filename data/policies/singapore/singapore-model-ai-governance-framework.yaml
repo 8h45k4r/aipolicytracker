@@ -58,6 +58,10 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 5 Leadership", note: "Original editorial mapping.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "GOVERN 2.x", note: "Original editorial mapping.", confidence_level: high }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Roles, board oversight and internal controls for AI.", confidence_level: high }
+      - { control: ai-literacy-and-role-based-training, relationship: supports, note: "Staff training component.", confidence_level: medium }
+      - { control: ai-risk-assessment, relationship: supports, note: "Adding AI risks to enterprise risk management.", confidence_level: medium }
   - slug: singapore-mgf-human-involvement
     title: Determine the appropriate level of human involvement in AI decisions
     category: human_oversight
@@ -77,6 +81,9 @@ obligations:
       - { title: Risk-impact assessment and human-involvement decision, artifact_type: record }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 3.2, MANAGE 2.x", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: human-oversight-and-override, relationship: satisfies, note: "Records the in-the-loop, over-the-loop or out-of-the-loop choice and rationale.", confidence_level: high }
+      - { control: ai-risk-assessment, relationship: supports, note: "Probability and severity of harm drive the involvement level.", confidence_level: medium }
   - slug: singapore-mgf-operations-management
     title: Manage data quality, model development and monitoring across the lifecycle
     category: data_governance
@@ -96,6 +103,10 @@ obligations:
       - { title: Data lineage and model monitoring records, artifact_type: record }
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 8 Operation; Annex A data controls", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: data-governance-and-dataset-documentation, relationship: satisfies, note: "Data lineage and dataset bias minimisation.", confidence_level: medium }
+      - { control: post-market-monitoring-and-drift-detection, relationship: satisfies, note: "Active monitoring and regular tuning after deployment.", confidence_level: medium }
+      - { control: accuracy-robustness-security-testing, relationship: supports, note: "Repeatability and robustness evidence before release.", confidence_level: medium }
   - slug: singapore-mgf-genai-incident-reporting-and-provenance
     title: Report incidents and mark AI-generated content (generative AI framework)
     category: transparency
@@ -116,6 +127,9 @@ obligations:
       - { title: Content provenance implementation record, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "NIST AI 600-1 content provenance and incident disclosure", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "Watermarking and cryptographic provenance for generated media.", confidence_level: medium }
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Incident reporting channel and process.", confidence_level: medium }
 deadlines: []
 sources:
   - { title: "Model Artificial Intelligence Governance Framework (Second Edition)", publisher: "PDPC and IMDA", url: "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework", document_date: 2020-01-21, document_type: guidance, tier: 1 }

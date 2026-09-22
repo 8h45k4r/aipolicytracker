@@ -66,6 +66,9 @@ obligations:
       - { title: Consent records and notices, artifact_type: record }
     framework_mappings:
       - { framework: iso_42001, reference: "Annex A controls on data for AI systems", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Legal basis and notice recorded for each training and inference data source.", confidence_level: high }
+      - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Dataset documentation records consent status per source.", confidence_level: medium }
   - slug: india-dpdp-security-and-breach-notification
     title: Implement reasonable security safeguards and notify breaches
     category: incident_handling
@@ -86,6 +89,10 @@ obligations:
       - { title: Breach notification procedure, artifact_type: document }
     framework_mappings:
       - { framework: iso_27001, reference: "Annex A incident management controls", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Breach notification to the Board and individuals within the incident process.", confidence_level: medium }
+      - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Breach handling extended to model outputs and training data.", confidence_level: medium }
+      - { control: accuracy-robustness-security-testing, relationship: supports, note: "Reasonable security safeguards evidenced by testing.", confidence_level: medium }
   - slug: india-dpdp-significant-data-fiduciary-duties
     title: Significant Data Fiduciaries must appoint a DPO and run impact assessments and audits
     category: impact_assessment
@@ -106,6 +113,9 @@ obligations:
       - { title: Data protection impact assessment, artifact_type: report }
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Schedules the DPO, independent audit and periodic DPIA duties.", confidence_level: medium }
+      - { control: ai-impact-assessment, relationship: supports, note: "Assessment content can be shared with the DPIA.", confidence_level: medium }
 deadlines:
   - { title: Presidential assent, due_on: 2023-08-11, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Act No. 22 of 2023." }
   - { title: DPDP Rules 2025 notified, due_on: 2025-11-13, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Notification in the Gazette; reviewer to confirm exact date." }

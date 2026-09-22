@@ -1,0 +1,29 @@
+slug: record-keeping-and-logging
+title: Automatic event logging and record retention
+kind: technical
+purpose: >
+  Captures what an AI system did, when and with what inputs, and keeps those records long enough to
+  reconstruct a decision, investigate an incident and demonstrate ongoing monitoring.
+description: >
+  Engineers define a log schema for each system that covers at minimum the time of use, the version of model
+  and configuration, the inputs or their references, the output produced and any human intervention. Logs are
+  written automatically, protected against tampering, access-controlled and retained for a period set by the
+  strictest applicable rule and the organisation's own needs. Deployers confirm that logs generated under their
+  control are retained and can be handed to the provider or an authority. Retention, deletion and access are
+  reviewed periodically and the schema is updated when the system changes.
+owner_role: Engineering lead
+frequency: continuous
+risk_subdomains: ["7.4", "6.5", "2.2"]
+evidence:
+  - { type: access_log, title: AI system event logs, description: "System-generated records of use, versions, inputs, outputs and interventions, retained for the defined period." }
+  - { type: procedure, title: Log schema and retention standard }
+  - { type: audit_report, title: Log integrity and retention check }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.6.2.8", note: "Recording of event logs.", confidence_level: high }
+  - { framework: iso_27001, reference: "Annex A 8.15 Logging, 8.16 Monitoring activities", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MEASURE 2.4; MANAGE 4.1", confidence_level: medium }
+  - { framework: mitre_atlas, reference: "AML.M0024 AI Telemetry Logging", confidence_level: medium }
+related_controls: [post-market-monitoring-and-drift-detection, ai-incident-management-and-reporting, human-oversight-and-override]
+review_status: pending_review
+confidence_level: high
+published: true

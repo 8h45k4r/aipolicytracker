@@ -56,6 +56,9 @@ obligations:
       - { title: Principles alignment statement, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN and MAP functions", note: "Original editorial mapping.", confidence_level: low }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Embeds the principles and proportionate risk classification in an approved policy.", confidence_level: medium }
+      - { control: ai-risk-assessment, relationship: supports, note: "Proportionate risk classification and mitigation per system.", confidence_level: medium }
 deadlines: []
 sources:
   - { title: "India AI Governance Guidelines", publisher: "IndiaAI / Ministry of Electronics and Information Technology", url: "https://indiaai.gov.in/", document_date: 2025-11-05, document_type: guidance, tier: 2 }

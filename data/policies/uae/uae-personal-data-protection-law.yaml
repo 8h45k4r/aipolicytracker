@@ -55,6 +55,9 @@ obligations:
       - { title: Automated decision objection procedure, artifact_type: document }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 5.x, MANAGE 4.x", note: "Original editorial mapping.", confidence_level: low }
+    controls:
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Provides the human-review route for solely automated decisions.", confidence_level: high }
+      - { control: human-oversight-and-override, relationship: supports, note: "Design of the human intervention step.", confidence_level: medium }
   - slug: uae-pdpl-impact-assessment-new-technologies
     title: Conduct a data protection impact assessment for high-risk processing using new technologies
     category: impact_assessment
@@ -74,6 +77,9 @@ obligations:
       - { title: Data protection impact assessment, artifact_type: report }
     framework_mappings:
       - { framework: iso_42001, reference: "Clause 6.1.4 AI system impact assessment", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "DPIA before high-risk processing with new technologies.", confidence_level: high }
+      - { control: ai-impact-assessment, relationship: supports, note: "Broader impact analysis feeds the DPIA.", confidence_level: medium }
 deadlines:
   - { title: Law in force, due_on: 2022-01-02, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Entry into force." }
   - { title: Compliance period after executive regulations, due_on: null, date_precision: tbd, date_label: "Depends on issuance of executive regulations (to be confirmed)", deadline_status: tbd, confidence_level: low, description: "Reviewer to confirm whether executive regulations have been issued." }

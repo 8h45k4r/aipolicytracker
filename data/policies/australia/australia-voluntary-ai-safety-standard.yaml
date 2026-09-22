@@ -53,6 +53,9 @@ obligations:
     framework_mappings:
       - { framework: iso_42001, reference: "Clauses 5 and 6", note: "The standard states it is aligned with ISO/IEC 42001 and the NIST AI RMF.", confidence_level: high }
       - { framework: nist_ai_rmf, reference: "GOVERN and MAP", note: "Original editorial mapping.", confidence_level: high }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Guardrail 1: accountable owner, policy and compliance strategy.", confidence_level: high }
+      - { control: ai-risk-assessment, relationship: satisfies, note: "Guardrail 2: per-use-case lifecycle risk process.", confidence_level: high }
   - slug: australia-vaiss-testing-human-control-transparency
     title: Test and monitor systems, enable human control, and be transparent with users (guardrails 4 to 6)
     category: human_oversight
@@ -72,6 +75,10 @@ obligations:
       - { title: Test reports and user disclosure records, artifact_type: report }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "MEASURE and MANAGE functions", note: "Original editorial mapping.", confidence_level: medium }
+    controls:
+      - { control: accuracy-robustness-security-testing, relationship: supports, note: "Guardrail 3: pre-deployment testing.", confidence_level: high }
+      - { control: human-oversight-and-override, relationship: supports, note: "Guardrail 4: meaningful human control.", confidence_level: high }
+      - { control: ai-interaction-and-use-disclosure, relationship: supports, note: "Guardrail 5: informing end users.", confidence_level: high }
   - slug: australia-vaiss-contestability-supply-chain-records
     title: Provide contestability, supply-chain transparency and records (guardrails 7 to 9)
     category: vendor_governance
@@ -92,6 +99,10 @@ obligations:
       - { title: AI system register and supplier disclosures, artifact_type: register }
     framework_mappings:
       - { framework: nist_ai_rmf, reference: "GOVERN 6.x", note: "Third-party risk.", confidence_level: medium }
+    controls:
+      - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "AI clauses make supply-chain transparency and record sharing enforceable.", confidence_level: medium }
+      - { control: decision-explanation-and-appeal-route, relationship: supports, note: "Challenge process for impacted people.", confidence_level: high }
+      - { control: ai-system-inventory, relationship: supports, note: "Register with evidence links for third-party review.", confidence_level: high }
 deadlines: []
 sources:
   - { title: "Voluntary AI Safety Standard", publisher: "Department of Industry, Science and Resources", url: "https://www.industry.gov.au/publications/voluntary-ai-safety-standard", document_date: 2024-09-05, document_type: guidance, tier: 1 }

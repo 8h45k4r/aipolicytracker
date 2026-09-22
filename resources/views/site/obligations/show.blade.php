@@ -29,8 +29,27 @@
                 </dl>
                 @if($obligation->applies_from)<p class="mt-3 text-sm text-brand-body"><span class="font-medium">Applies from:</span> <time datetime="{{ $obligation->applies_from->toDateString() }}">{{ $obligation->applies_from->format('j F Y') }}</time></p>@endif
             </section>
+            @php($controls = $obligation->controls->filter(fn ($c) => $c->published_at))
+            @if($controls->isNotEmpty())
+            <section aria-labelledby="controls-heading" class="mt-8">
+                <h2 id="controls-heading" class="section-title">Which controls meet this duty?</h2>
+                <p class="mt-1 text-xs text-brand-muted"><span class="font-medium text-brand-navy">Satisfies</span>: the control, operated properly, does the work the duty asks for. <span class="font-medium text-brand-navy">Supports</span>: it contributes but the duty needs more. Each control page lists every other duty it serves, so work done once can be counted once.</p>
+                <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
+                    @foreach($controls->sortBy(fn ($c) => $c->pivot->relationship) as $c)
+                    <li class="py-3">
+                        <div class="flex flex-wrap items-center gap-2 text-xs"><span class="badge {{ $c->pivot->relationship === 'satisfies' ? 'bg-state-goodbg text-state-good ring-state-good/20' : 'bg-brand-paper text-brand-body ring-brand-line' }}">{{ $c->pivot->relationship }}</span><span class="badge bg-brand-paper text-brand-body ring-brand-line">{{ $c->kindLabel() }}</span><span class="text-brand-muted">{{ $c->owner_role }} · {{ strtolower($c->frequencyLabel()) }}</span></div>
+                        <a href="{{ $c->url() }}" class="mt-1 block font-medium text-brand-navy no-underline hover:underline">{{ $c->title }}</a>
+                        <p class="text-xs text-brand-muted">Serves {{ $c->obligations()->whereNotNull('obligations.published_at')->count() }} recorded duties · evidence: {{ $c->evidence->pluck('title')->take(3)->join(', ') }}</p>
+                        @if($c->pivot->note)<p class="mt-1 text-brand-body">{{ $c->pivot->note }}</p>@endif
+                    </li>
+                    @endforeach
+                </ul>
+            </section>
+            @endif
             @if($obligation->evidenceArtifacts->isNotEmpty())
-            <section aria-labelledby="evidence-heading" class="mt-8"><h2 id="evidence-heading" class="section-title">Evidence examples</h2><ul class="mt-2 space-y-1.5 text-sm text-brand-body list-disc pl-5">@foreach($obligation->evidenceArtifacts as $e)<li><span class="font-medium text-brand-navy">{{ $e->title }}</span>@if($e->description) — {{ $e->description }}@endif <span class="text-xs text-brand-muted">({{ $e->artifact_type }})</span></li>@endforeach</ul></section>
+            <section aria-labelledby="evidence-heading" class="mt-8"><h2 id="evidence-heading" class="section-title">What evidence would a reviewer expect?</h2>
+                <div class="table-wrap mt-3"><table><caption class="sr-only">Evidence examples</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Type</th><th scope="col">Notes</th></tr></thead><tbody>@foreach($obligation->evidenceArtifacts as $e)<tr><td class="font-medium text-brand-navy">{{ $e->title }}</td><td class="whitespace-nowrap">{{ str_replace('_', ' ', $e->artifact_type) }}</td><td>{{ $e->description }}</td></tr>@endforeach</tbody></table></div>
+            </section>
             @endif
             @if($obligation->frameworkMappings->isNotEmpty())
             <section aria-labelledby="mapping-heading" class="mt-8">

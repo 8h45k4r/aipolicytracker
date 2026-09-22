@@ -6,6 +6,7 @@ use App\Models\Concerns\HasSourceQuality;
 use App\Models\Concerns\HasTaxonomyTerms;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Obligation extends Model
@@ -58,6 +59,12 @@ class Obligation extends Model
     public function deadlines(): HasMany
     {
         return $this->hasMany(Deadline::class);
+    }
+
+    /** The controls an organisation operates to meet this duty, with whether each satisfies or supports it. */
+    public function controls(): BelongsToMany
+    {
+        return $this->belongsToMany(Control::class)->withPivot(['relationship', 'note', 'confidence_level'])->withTimestamps();
     }
 
     public function url(): string

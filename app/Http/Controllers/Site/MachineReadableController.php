@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -33,8 +34,9 @@ class MachineReadableController extends Controller
         $policies = PolicyInstrument::published()->with(['jurisdiction', 'deadlines'])->orderBy('title')->get()->filter->isIndexable();
         $obligations = Obligation::published()->with('policyInstrument')->orderBy('category')->orderBy('title')->get();
         $changes = ChangeEvent::published()->with('jurisdiction')->orderByDesc('occurred_on')->limit(100)->get();
+        $controls = Control::published()->with(['evidence', 'obligations'])->orderBy('title')->get();
 
-        return $this->text(view('site.machine.llms-full', compact('jurisdictions', 'policies', 'obligations', 'changes'))->render());
+        return $this->text(view('site.machine.llms-full', compact('jurisdictions', 'policies', 'obligations', 'changes', 'controls'))->render());
     }
 
     /**

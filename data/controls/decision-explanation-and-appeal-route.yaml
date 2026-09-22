@@ -1,0 +1,28 @@
+slug: decision-explanation-and-appeal-route
+title: Decision explanation, human review and appeal route
+kind: process
+purpose: >
+  Gives people affected by a significant automated or AI-assisted decision a meaningful explanation, a way to
+  correct the data behind it, and a route to have a person reconsider it.
+description: >
+  For each decision point that has legal or similarly significant effects, the owner defines what the person
+  is told after the decision: the main reasons, the data relied on and its sources, and how to challenge the
+  outcome. Complaint and customer-service procedures are extended with an AI-decision challenge path staffed by
+  people with the authority and information to change the result, and with target response times. Requests,
+  outcomes and reversals are logged and reviewed, both to satisfy individual rights and to detect systematic
+  problems that should feed back into the model or the oversight design.
+owner_role: Customer operations lead
+frequency: per_system
+risk_subdomains: ["5.2", "1.1", "7.4"]
+evidence:
+  - { type: disclosure_notice, title: Adverse-decision explanation template }
+  - { type: procedure, title: AI decision challenge and human review procedure, description: "Intake route, reviewer authority, response times and record-keeping for challenges." }
+  - { type: monitoring_record, title: Challenge and reversal log }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.8.2, A.8.3, A.9.2", confidence_level: medium }
+  - { framework: nist_ai_rmf, reference: "MEASURE 2.9; GOVERN 5.1; MANAGE 4.1", confidence_level: medium }
+  - { framework: oecd_ai_principles, reference: "Principle 1.3 Transparency and explainability", confidence_level: high }
+related_controls: [human-oversight-and-override, ai-interaction-and-use-disclosure, record-keeping-and-logging]
+review_status: pending_review
+confidence_level: high
+published: true

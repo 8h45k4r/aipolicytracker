@@ -3,49 +3,147 @@
   "$id": "https://aipolicytracker.org/schema/policy.schema.json",
   "title": "Policy instrument record",
   "type": "object",
-  "allOf": [ { "$ref": "common.schema.json#/$defs/sourceQuality" } ],
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/sourceQuality"
+    }
+  ],
   "properties": {
-    "slug": { "$ref": "common.schema.json#/$defs/slug" },
-    "jurisdiction": { "$ref": "common.schema.json#/$defs/slug" },
-    "title": { "type": "string", "minLength": 5 },
-    "short_title": { "$ref": "common.schema.json#/$defs/nullableString" },
-    "instrument_type": { "$ref": "common.schema.json#/$defs/instrumentType" },
-    "status": { "$ref": "common.schema.json#/$defs/policyStatus" },
-    "status_note": { "$ref": "common.schema.json#/$defs/nullableString" },
-    "is_binding": { "type": "boolean" },
-    "featured": { "type": "boolean" },
-    "published": { "type": "boolean" },
-    "issuing_body": { "type": "string" },
-    "summary_plain": { "type": "string", "minLength": 80 },
-    "scope_summary": { "type": "string", "minLength": 40 },
-    "who_it_applies_to": { "type": "string" },
-    "key_dates_summary": { "type": "string" },
-    "penalties_summary": { "$ref": "common.schema.json#/$defs/nullableString" },
-    "what_organizations_must_do": { "type": "string" },
-    "adopted_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
-    "published_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
-    "in_force_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
-    "applies_from": { "$ref": "common.schema.json#/$defs/nullableDate" },
-    "date_notes": { "$ref": "common.schema.json#/$defs/nullableString" },
-    "actors": { "type": "array", "items": { "type": "string" } },
-    "ai_system_types": { "type": "array", "items": { "type": "string" } },
-    "sectors": { "type": "array", "items": { "type": "string" } },
-    "risk_categories": { "type": "array", "items": { "type": "string" } },
-    "use_cases": { "type": "array", "items": { "type": "string" } },
-    "related_policies": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/slug" } },
-    "related_frameworks": { "type": "array", "items": { "type": "string" } },
+    "slug": {
+      "$ref": "common.schema.json#/$defs/slug"
+    },
+    "jurisdiction": {
+      "$ref": "common.schema.json#/$defs/slug"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5
+    },
+    "short_title": {
+      "$ref": "common.schema.json#/$defs/nullableString"
+    },
+    "instrument_type": {
+      "$ref": "common.schema.json#/$defs/instrumentType"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/policyStatus"
+    },
+    "status_note": {
+      "$ref": "common.schema.json#/$defs/nullableString"
+    },
+    "is_binding": {
+      "type": "boolean"
+    },
+    "featured": {
+      "type": "boolean"
+    },
+    "published": {
+      "type": "boolean"
+    },
+    "issuing_body": {
+      "type": "string"
+    },
+    "summary_plain": {
+      "type": "string",
+      "minLength": 80
+    },
+    "scope_summary": {
+      "type": "string",
+      "minLength": 40
+    },
+    "who_it_applies_to": {
+      "type": "string"
+    },
+    "key_dates_summary": {
+      "type": "string"
+    },
+    "penalties_summary": {
+      "$ref": "common.schema.json#/$defs/nullableString"
+    },
+    "what_organizations_must_do": {
+      "type": "string"
+    },
+    "adopted_on": {
+      "$ref": "common.schema.json#/$defs/nullableDate"
+    },
+    "published_on": {
+      "$ref": "common.schema.json#/$defs/nullableDate"
+    },
+    "in_force_on": {
+      "$ref": "common.schema.json#/$defs/nullableDate"
+    },
+    "applies_from": {
+      "$ref": "common.schema.json#/$defs/nullableDate"
+    },
+    "date_notes": {
+      "$ref": "common.schema.json#/$defs/nullableString"
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ai_system_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sectors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "use_cases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_policies": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/slug"
+      }
+    },
+    "related_frameworks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "versions": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "version_label": { "type": "string" },
-          "version_date": { "$ref": "common.schema.json#/$defs/nullableDate" },
-          "summary": { "type": "string" },
-          "official_source_url": { "$ref": "common.schema.json#/$defs/url" },
-          "source_reference": { "$ref": "common.schema.json#/$defs/nullableString" }
+          "version_label": {
+            "type": "string"
+          },
+          "version_date": {
+            "$ref": "common.schema.json#/$defs/nullableDate"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "official_source_url": {
+            "$ref": "common.schema.json#/$defs/url"
+          },
+          "source_reference": {
+            "$ref": "common.schema.json#/$defs/nullableString"
+          }
         },
-        "required": ["version_label"]
+        "required": [
+          "version_label"
+        ]
       }
     },
     "sections": {
@@ -53,12 +151,23 @@
       "items": {
         "type": "object",
         "properties": {
-          "reference": { "type": "string" },
-          "title": { "type": "string" },
-          "summary": { "type": "string" },
-          "official_source_url": { "$ref": "common.schema.json#/$defs/url" }
+          "reference": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "official_source_url": {
+            "$ref": "common.schema.json#/$defs/url"
+          }
         },
-        "required": ["reference", "title"]
+        "required": [
+          "reference",
+          "title"
+        ]
       }
     },
     "obligations": {
@@ -66,81 +175,414 @@
       "items": {
         "type": "object",
         "properties": {
-          "slug": { "$ref": "common.schema.json#/$defs/slug" },
-          "title": { "type": "string", "minLength": 5 },
-          "category": { "type": "string" },
-          "summary": { "type": "string", "minLength": 40 },
-          "practical_action": { "type": "string" },
-          "is_binding": { "type": "boolean" },
-          "applies_from": { "$ref": "common.schema.json#/$defs/nullableDate" },
-          "section": { "$ref": "common.schema.json#/$defs/nullableString" },
-          "source_reference": { "$ref": "common.schema.json#/$defs/nullableString" },
-          "official_source_url": { "$ref": "common.schema.json#/$defs/url" },
-          "review_status": { "$ref": "common.schema.json#/$defs/reviewStatus" },
-          "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" },
-          "last_verified_at": { "$ref": "common.schema.json#/$defs/nullableDate" },
-          "actors": { "type": "array", "items": { "type": "string" } },
-          "sectors": { "type": "array", "items": { "type": "string" } },
-          "use_cases": { "type": "array", "items": { "type": "string" } },
+          "slug": {
+            "$ref": "common.schema.json#/$defs/slug"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 5
+          },
+          "category": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 40
+          },
+          "practical_action": {
+            "type": "string"
+          },
+          "is_binding": {
+            "type": "boolean"
+          },
+          "applies_from": {
+            "$ref": "common.schema.json#/$defs/nullableDate"
+          },
+          "section": {
+            "$ref": "common.schema.json#/$defs/nullableString"
+          },
+          "source_reference": {
+            "$ref": "common.schema.json#/$defs/nullableString"
+          },
+          "official_source_url": {
+            "$ref": "common.schema.json#/$defs/url"
+          },
+          "review_status": {
+            "$ref": "common.schema.json#/$defs/reviewStatus"
+          },
+          "confidence_level": {
+            "$ref": "common.schema.json#/$defs/confidenceLevel"
+          },
+          "last_verified_at": {
+            "$ref": "common.schema.json#/$defs/nullableDate"
+          },
+          "actors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sectors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "use_cases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "applicability": {
             "type": "object",
             "properties": {
-              "description": { "type": "string" },
-              "actors": { "type": "array", "items": { "type": "string" } },
-              "ai_system_types": { "type": "array", "items": { "type": "string" } },
-              "sectors": { "type": "array", "items": { "type": "string" } },
-              "risk_categories": { "type": "array", "items": { "type": "string" } },
-              "use_cases": { "type": "array", "items": { "type": "string" } },
-              "conditions": { "type": "string" },
-              "source_reference": { "type": "string" }
+              "description": {
+                "type": "string"
+              },
+              "actors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ai_system_types": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sectors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "risk_categories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "use_cases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "conditions": {
+                "type": "string"
+              },
+              "source_reference": {
+                "type": "string"
+              }
             },
-            "required": ["description"]
+            "required": [
+              "description"
+            ]
           },
           "evidence_examples": {
             "type": "array",
-            "items": { "type": "object", "properties": { "title": { "type": "string" }, "description": { "type": "string" }, "artifact_type": { "type": "string" } }, "required": ["title"] }
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "artifact_type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
           },
           "framework_mappings": {
             "type": "array",
-            "items": { "type": "object", "properties": { "framework": { "type": "string", "enum": ["iso_42001", "nist_ai_rmf", "iso_27001", "oecd_ai_principles"] }, "reference": { "type": "string" }, "note": { "type": "string" }, "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" } }, "required": ["framework", "reference"] }
+            "items": {
+              "type": "object",
+              "properties": {
+                "framework": {
+                  "type": "string",
+                  "enum": [
+                    "iso_42001",
+                    "nist_ai_rmf",
+                    "iso_27001",
+                    "oecd_ai_principles",
+                    "iso_23894",
+                    "iso_42005",
+                    "owasp_llm_top10",
+                    "mitre_atlas"
+                  ]
+                },
+                "reference": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "confidence_level": {
+                  "$ref": "common.schema.json#/$defs/confidenceLevel"
+                }
+              },
+              "required": [
+                "framework",
+                "reference"
+              ]
+            }
+          },
+          "controls": {
+            "type": "array",
+            "description": "Controls an organisation puts in place to meet this duty. `satisfies` means the control, done properly, discharges the duty; `supports` means it contributes but is not sufficient on its own.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "control": {
+                  "$ref": "common.schema.json#/$defs/slug"
+                },
+                "relationship": {
+                  "type": "string",
+                  "enum": [
+                    "satisfies",
+                    "supports"
+                  ]
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 600
+                },
+                "confidence_level": {
+                  "$ref": "common.schema.json#/$defs/confidenceLevel"
+                }
+              },
+              "required": [
+                "control",
+                "relationship"
+              ]
+            }
           }
         },
-        "required": ["slug", "title", "category", "summary", "is_binding"]
+        "required": [
+          "slug",
+          "title",
+          "category",
+          "summary",
+          "is_binding"
+        ]
       }
     },
     "applicability_rules": {
       "type": "array",
-      "items": { "type": "object", "properties": { "description": { "type": "string" }, "actors": { "type": "array", "items": { "type": "string" } }, "ai_system_types": { "type": "array", "items": { "type": "string" } }, "sectors": { "type": "array", "items": { "type": "string" } }, "risk_categories": { "type": "array", "items": { "type": "string" } }, "use_cases": { "type": "array", "items": { "type": "string" } }, "conditions": { "type": "string" }, "source_reference": { "type": "string" } }, "required": ["description"] }
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "actors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ai_system_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sectors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risk_categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "use_cases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conditions": {
+            "type": "string"
+          },
+          "source_reference": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description"
+        ]
+      }
     },
     "deadlines": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "title": { "type": "string" },
-          "due_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
-          "date_precision": { "$ref": "common.schema.json#/$defs/datePrecision" },
-          "date_label": { "$ref": "common.schema.json#/$defs/nullableString" },
-          "description": { "type": "string" },
-          "source_reference": { "$ref": "common.schema.json#/$defs/nullableString" },
-          "official_source_url": { "$ref": "common.schema.json#/$defs/url" },
-          "deadline_status": { "type": "string", "enum": ["scheduled", "passed", "tbd", "superseded"] },
-          "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" },
-          "obligation": { "$ref": "common.schema.json#/$defs/nullableString" }
+          "title": {
+            "type": "string"
+          },
+          "due_on": {
+            "$ref": "common.schema.json#/$defs/nullableDate"
+          },
+          "date_precision": {
+            "$ref": "common.schema.json#/$defs/datePrecision"
+          },
+          "date_label": {
+            "$ref": "common.schema.json#/$defs/nullableString"
+          },
+          "description": {
+            "type": "string"
+          },
+          "source_reference": {
+            "$ref": "common.schema.json#/$defs/nullableString"
+          },
+          "official_source_url": {
+            "$ref": "common.schema.json#/$defs/url"
+          },
+          "deadline_status": {
+            "type": "string",
+            "enum": [
+              "scheduled",
+              "passed",
+              "tbd",
+              "superseded"
+            ]
+          },
+          "confidence_level": {
+            "$ref": "common.schema.json#/$defs/confidenceLevel"
+          },
+          "obligation": {
+            "$ref": "common.schema.json#/$defs/nullableString"
+          }
         },
-        "required": ["title", "date_precision"]
+        "required": [
+          "title",
+          "date_precision"
+        ]
       }
     },
     "enforcement_events": {
       "type": "array",
-      "items": { "type": "object", "properties": { "title": { "type": "string" }, "occurred_on": { "$ref": "common.schema.json#/$defs/nullableDate" }, "authority": { "type": "string" }, "summary": { "type": "string" }, "outcome": { "type": "string" }, "official_source_url": { "$ref": "common.schema.json#/$defs/url" }, "source_title": { "type": "string" }, "source_publisher": { "type": "string" }, "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" }, "review_status": { "$ref": "common.schema.json#/$defs/reviewStatus" } }, "required": ["title", "official_source_url", "source_title", "source_publisher"] }
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "occurred_on": {
+            "$ref": "common.schema.json#/$defs/nullableDate"
+          },
+          "authority": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "official_source_url": {
+            "$ref": "common.schema.json#/$defs/url"
+          },
+          "source_title": {
+            "type": "string"
+          },
+          "source_publisher": {
+            "type": "string"
+          },
+          "confidence_level": {
+            "$ref": "common.schema.json#/$defs/confidenceLevel"
+          },
+          "review_status": {
+            "$ref": "common.schema.json#/$defs/reviewStatus"
+          }
+        },
+        "required": [
+          "title",
+          "official_source_url",
+          "source_title",
+          "source_publisher"
+        ]
+      }
     },
     "procurement_rules": {
       "type": "array",
-      "items": { "type": "object", "properties": { "title": { "type": "string" }, "summary": { "type": "string" }, "applies_to": { "type": "string" }, "official_source_url": { "$ref": "common.schema.json#/$defs/url" }, "source_title": { "type": "string" }, "source_publisher": { "type": "string" }, "source_reference": { "type": "string" }, "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" }, "review_status": { "$ref": "common.schema.json#/$defs/reviewStatus" } }, "required": ["title", "summary", "official_source_url", "source_title", "source_publisher"] }
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "applies_to": {
+            "type": "string"
+          },
+          "official_source_url": {
+            "$ref": "common.schema.json#/$defs/url"
+          },
+          "source_title": {
+            "type": "string"
+          },
+          "source_publisher": {
+            "type": "string"
+          },
+          "source_reference": {
+            "type": "string"
+          },
+          "confidence_level": {
+            "$ref": "common.schema.json#/$defs/confidenceLevel"
+          },
+          "review_status": {
+            "$ref": "common.schema.json#/$defs/reviewStatus"
+          }
+        },
+        "required": [
+          "title",
+          "summary",
+          "official_source_url",
+          "source_title",
+          "source_publisher"
+        ]
+      }
     },
-    "sources": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/sourceDocument" } },
-    "faq": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/faqItem" } }
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/sourceDocument"
+      }
+    },
+    "faq": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/faqItem"
+      }
+    }
   },
-  "required": ["slug", "jurisdiction", "title", "instrument_type", "status", "is_binding", "issuing_body", "summary_plain", "scope_summary", "sources"]
+  "required": [
+    "slug",
+    "jurisdiction",
+    "title",
+    "instrument_type",
+    "status",
+    "is_binding",
+    "issuing_body",
+    "summary_plain",
+    "scope_summary",
+    "sources"
+  ]
 }

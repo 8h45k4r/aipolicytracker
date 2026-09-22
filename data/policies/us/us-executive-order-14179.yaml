@@ -54,6 +54,9 @@ obligations:
       actors: [public_authority]
     evidence_examples: []
     framework_mappings: []
+    controls:
+      - { control: public-sector-ai-use-case-register, relationship: supports, note: "Agency inventories are where superseded requirements are identified.", confidence_level: low }
+      - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Vendors track which agency requirements still apply through their policy review.", confidence_level: low }
 deadlines:
   - { title: AI Action Plan due (180 days), due_on: 2025-07-22, date_precision: exact, description: "Deadline for the Action Plan required by Section 4; the plan was published 23 July 2025.", source_reference: "Section 4", deadline_status: passed, confidence_level: medium }
 sources:

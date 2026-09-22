@@ -45,6 +45,13 @@ class JurisdictionController extends Controller
         $sectors = $policies->flatMap(fn ($p) => $p->terms->where('taxonomy', 'sector'))->unique('slug')->sortBy('name')->values();
         $related = Jurisdiction::published()->whereIn('slug', $jurisdiction->related_jurisdictions ?? [])->orderBy('name')->get();
         $lastModified = collect([$jurisdiction->updated_at, $policies->max('updated_at'), $changes->max('updated_at')])->filter()->max();
+        // What an organisation operates to meet this jurisdiction's duties, counted by
+        // how many of them each control satisfies.
+        $controls = Obligation::published()->whereIn('policy_instrument_id', $policies->pluck('id'))->with('controls')->get()
+            ->flatMap(fn ($o) => $o->controls->filter(fn ($c) => $c->published_at)->map(fn ($c) => ['control' => $c, 'satisfies' => $c->pivot->relationship === 'satisfies']))
+            ->groupBy(fn ($r) => $r['control']->slug)
+            ->map(fn ($rows) => ['control' => $rows->first()['control'], 'satisfies' => $rows->where('satisfies', true)->count(), 'duties' => $rows->count()])
+            ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
         $seo = Seo::make(
             'AI regulation in '.$jurisdiction->nameWithArticle().': laws, status and deadlines',
@@ -73,7 +80,7 @@ class JurisdictionController extends Controller
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($jurisdiction->faq)->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => trim($f['answer'])]])->values()->all()]);
         }
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls'));
     }
 
     private function firstSentence(?string $text): string

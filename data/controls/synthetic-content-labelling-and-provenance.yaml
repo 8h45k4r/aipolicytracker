@@ -1,0 +1,28 @@
+slug: synthetic-content-labelling-and-provenance
+title: Synthetic content labelling and provenance marking
+kind: technical
+purpose: >
+  Makes AI-generated or manipulated audio, image, video and text identifiable as such, both to people looking
+  at it and to software checking it, so that it cannot easily be passed off as authentic.
+description: >
+  Generation pipelines attach a machine-readable provenance signal to output, for example a content credential
+  manifest, an invisible watermark or metadata, using a method that survives the common ways the content will
+  be shared. Where the audience needs to see it, a visible label or spoken notice is added as well. The team
+  documents which methods are used for which modality, tests detectability and robustness to editing, and
+  keeps a verification tool or endpoint available. Downstream products that display deepfakes or AI-written
+  material of public interest apply the label rules set by the organisation's editorial policy.
+owner_role: Engineering lead
+frequency: continuous
+risk_subdomains: ["3.1", "3.2", "4.1", "4.3"]
+evidence:
+  - { type: procedure, title: Content labelling and provenance standard, description: "Methods used per modality, label wording and exceptions." }
+  - { type: evaluation_report, title: Watermark and provenance robustness test }
+  - { type: disclosure_notice, title: Visible AI-generated content label }
+framework_references:
+  - { framework: iso_42001, reference: "Annex A.8.2, A.9.3", confidence_level: low }
+  - { framework: nist_ai_rmf, reference: "MEASURE 2.8; MANAGE 4.1", note: "Transparency measures for generative AI outputs.", confidence_level: medium }
+  - { framework: owasp_llm_top10, reference: "LLM09 Misinformation", confidence_level: medium }
+related_controls: [ai-interaction-and-use-disclosure, genai-red-team-testing]
+review_status: pending_review
+confidence_level: medium
+published: true
