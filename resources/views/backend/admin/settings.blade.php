@@ -50,6 +50,22 @@
         </div>
     </div>
     @endforeach
+    <h2 class="section-title !text-lg pt-2">Site and features</h2>
+    <p class="text-sm text-brand-body">Each value overrides the environment variable of the same meaning; an empty field keeps the environment value. Switches take effect on the next request.</p>
+    @foreach(['contact_email', 'x_handle', 'newsletter_url', 'google_analytics_id', 'cloudflare_analytics_token', 'analytics_require_consent', 'social_cards_enabled', 'email_domain_enforcement', 'stale_after_days', 'google_site_verification', 'bing_site_verification'] as $key)
+    @php($v = $values[$key])
+    <div class="grid gap-1 sm:grid-cols-12 sm:gap-4 items-start">
+        <label for="f-{{ $key }}" class="label sm:col-span-3 sm:pt-2">{{ $v['meta']['label'] }}</label>
+        <div class="sm:col-span-9">
+            @if(in_array($key, ['analytics_require_consent', 'social_cards_enabled', 'email_domain_enforcement'], true))
+            <select id="f-{{ $key }}" name="{{ $key }}" class="input">@foreach(['' => 'Keep current', 'on' => 'on', 'off' => 'off'] as $opt => $label)<option value="{{ $opt }}" @selected($opt !== '' && $v['display'] === $opt)>{{ $label }}</option>@endforeach</select>
+            @else
+            <input id="f-{{ $key }}" name="{{ $key }}" type="{{ $v['meta']['secret'] ? 'password' : ($key === 'stale_after_days' ? 'number' : 'text') }}" class="input" autocomplete="off" placeholder="{{ $v['meta']['secret'] ? ($v['set'] ? 'Stored: '.$v['display'] : 'Not set') : ($v['display'] ?: 'Not set') }}">
+            @endif
+            <p class="meta mt-1">{{ $v['meta']['hint'] }}@if($v['env']) · environment: {{ $v['env'] }}@endif @if($v['set'])<label class="ml-2"><input type="checkbox" name="clear[]" value="{{ $key }}"> clear stored value</label>@endif</p>
+        </div>
+    </div>
+    @endforeach
     <div class="flex gap-2"><button type="submit" class="btn-primary">Save settings</button></div>
 </form>
 <form method="post" action="{{ route('backend.admin.settings.test') }}" class="mt-6 card-flat p-5 flex flex-wrap items-end gap-3">@csrf

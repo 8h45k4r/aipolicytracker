@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\AppSetting;
+use App\Models\JobRun;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 
 /**
  * Trigger for scheduled work on hosts without a persistent scheduler. The
@@ -20,9 +20,9 @@ class CronController extends Controller
         if ($denied = $this->authorize($request)) {
             return $denied;
         }
-        Artisan::call('digest:send');
+        $run = JobRun::run('digest', 'cron');
 
-        return response()->json(['message' => trim(Artisan::output())]);
+        return response()->json(['message' => (string) $run->output], $run->succeeded() ? 200 : 502);
     }
 
     /** Daily change and deadline alerts for Pro accounts (see alerts:send). */
@@ -31,9 +31,9 @@ class CronController extends Controller
         if ($denied = $this->authorize($request)) {
             return $denied;
         }
-        Artisan::call('alerts:send');
+        $run = JobRun::run('alerts', 'cron');
 
-        return response()->json(['message' => trim(Artisan::output())]);
+        return response()->json(['message' => (string) $run->output], $run->succeeded() ? 200 : 502);
     }
 
     /** Incremental pull of new and modified AI Incident Database records (see external:sync-aiid-api). */
@@ -42,10 +42,9 @@ class CronController extends Controller
         if ($denied = $this->authorize($request)) {
             return $denied;
         }
-        @set_time_limit(280);
-        $code = Artisan::call('external:sync-aiid-api', ['--max' => 300]);
+        $run = JobRun::run('aiid_sync', 'cron');
 
-        return response()->json(['message' => trim(Artisan::output())], $code === 0 ? 200 : 502);
+        return response()->json(['message' => (string) $run->output], $run->succeeded() ? 200 : 502);
     }
 
     private function authorize(Request $request): ?JsonResponse

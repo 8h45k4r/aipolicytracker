@@ -10,8 +10,10 @@ use App\Models\AdminAuditLog;
 use App\Models\AppSetting;
 use App\Models\ChangeEvent;
 use App\Models\ContributorSubmission;
+use App\Models\Control;
 use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
+use App\Models\JobRun;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PageView;
@@ -26,6 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -49,8 +52,10 @@ class AdminController extends Controller
         $recentSubmissions = ContributorSubmission::orderByDesc('created_at')->limit(5)->get();
         $mail = ['mailer' => config('mail.default'), 'from' => config('mail.from.address'), 'resend_key_set' => (bool) config('services.resend.key')];
         $aiid = $external->aiid();
+        $stats['controls'] = Control::published()->count();
+        $jobs = JobRun::latest();
 
-        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid'));
+        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs'));
     }
 
     /** Guides & downloads: registered users, download activity and the most requested free tools. */
@@ -226,6 +231,30 @@ class AdminController extends Controller
         return back()->with($code === 0 ? 'success' : 'error', $out ?: ($code === 0 ? 'Sync finished.' : 'Sync failed.'));
     }
 
+    /** The timetable: every job, when it runs, how its last run ended, and a button to run it now. */
+    public function jobs(): View
+    {
+        $latest = JobRun::latest();
+        $history = JobRun::with('user')->orderByDesc('started_at')->limit(40)->get();
+        $scheduler = ['last_tick' => Cache::get('scheduler.last_tick')];
+
+        return view('backend.admin.jobs', ['jobs' => JobRun::JOBS, 'latest' => $latest, 'history' => $history, 'scheduler' => $scheduler]);
+    }
+
+    public function runJob(Request $request, string $job): RedirectResponse
+    {
+        $meta = JobRun::JOBS[$job] ?? null;
+        abort_unless($meta, 404);
+        // A job that sends mail or rewrites data only runs through the confirmed route.
+        if ($meta['confirm'] && ! $request->routeIs('backend.admin.jobs.run.confirmed')) {
+            return redirect()->route('password.confirm')->with('url.intended', route('backend.admin.jobs'));
+        }
+        $run = JobRun::run($job, 'admin', $request->user()->id);
+        Cache::flush();
+
+        return redirect()->route('backend.admin.jobs')->with($run->succeeded() ? 'success' : 'error', $meta['label'].($run->succeeded() ? ' finished' : ' failed').($run->output ? ': '.Str::limit($run->output, 300) : '.'));
+    }
+
     public function settings(): View
     {
         $values = [];
@@ -234,7 +263,11 @@ class AdminController extends Controller
             $values[$key] = ['meta' => $meta, 'set' => $current !== null && $current !== '', 'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''), 'env' => match ($key) {
                 'mail_mailer' => env('MAIL_MAILER'), 'resend_key' => env('RESEND_KEY') ? 'set in environment' : null, 'mail_from_address' => env('MAIL_FROM_ADDRESS'), 'mail_from_name' => env('MAIL_FROM_NAME'), 'cron_token' => env('CRON_TOKEN') ? 'set in environment' : null,
                 'billing_enabled' => env('BILLING_ENABLED') !== null ? (filter_var(env('BILLING_ENABLED'), FILTER_VALIDATE_BOOL) ? 'on' : 'off') : null, 'dodo_environment' => env('DODO_PAYMENTS_ENVIRONMENT'), 'dodo_api_key' => env('DODO_PAYMENTS_API_KEY') ? 'set in environment' : null, 'dodo_webhook_secret' => env('DODO_PAYMENTS_WEBHOOK_KEY') ? 'set in environment' : null,
-                'dodo_product_pro_monthly' => env('DODO_PRODUCT_PRO_MONTHLY'), 'dodo_product_pro_yearly' => env('DODO_PRODUCT_PRO_YEARLY'), default => null,
+                'dodo_product_pro_monthly' => env('DODO_PRODUCT_PRO_MONTHLY'), 'dodo_product_pro_yearly' => env('DODO_PRODUCT_PRO_YEARLY'),
+                'contact_email' => env('CONTACT_EMAIL'), 'google_analytics_id' => env('GOOGLE_ANALYTICS_ID'), 'cloudflare_analytics_token' => env('CLOUDFLARE_ANALYTICS_TOKEN') ? 'set in environment' : null,
+                'analytics_require_consent' => env('ANALYTICS_REQUIRE_CONSENT'), 'social_cards_enabled' => env('SOCIAL_CARDS_ENABLED'), 'email_domain_enforcement' => env('EMAIL_DOMAIN_ENFORCEMENT'),
+                'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'), 'bing_site_verification' => env('BING_SITE_VERIFICATION'), 'x_handle' => env('SITE_X_HANDLE'), 'stale_after_days' => null, 'newsletter_url' => env('SITE_NEWSLETTER_URL'),
+                default => null,
             }];
         }
 
@@ -255,6 +288,17 @@ class AdminController extends Controller
             'dodo_webhook_secret' => ['nullable', 'string', 'max:200', 'regex:/^(whsec_)?[A-Za-z0-9+\/=_-]{16,}$/'],
             'dodo_product_pro_monthly' => ['nullable', 'string', 'max:64', 'regex:/^[A-Za-z0-9_-]+$/'],
             'dodo_product_pro_yearly' => ['nullable', 'string', 'max:64', 'regex:/^[A-Za-z0-9_-]+$/'],
+            'contact_email' => ['nullable', 'email', 'max:190'],
+            'google_analytics_id' => ['nullable', 'string', 'max:32', 'regex:/^G-[A-Z0-9]+$/'],
+            'cloudflare_analytics_token' => ['nullable', 'string', 'max:64', 'regex:/^[a-f0-9]{16,}$/'],
+            'analytics_require_consent' => ['nullable', 'in:on,off'],
+            'social_cards_enabled' => ['nullable', 'in:on,off'],
+            'email_domain_enforcement' => ['nullable', 'in:on,off'],
+            'google_site_verification' => ['nullable', 'string', 'max:128', 'regex:/^[A-Za-z0-9_-]+$/'],
+            'bing_site_verification' => ['nullable', 'string', 'max:128', 'regex:/^[A-Za-z0-9]+$/'],
+            'x_handle' => ['nullable', 'string', 'max:32', 'regex:/^@[A-Za-z0-9_]{1,15}$/'],
+            'stale_after_days' => ['nullable', 'integer', 'min:30', 'max:730'],
+            'newsletter_url' => ['nullable', 'url:https', 'max:512'],
             'clear' => ['nullable', 'array'],
             'clear.*' => ['in:'.implode(',', array_keys(AppSetting::KEYS))],
         ]);

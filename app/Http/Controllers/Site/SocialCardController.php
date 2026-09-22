@@ -8,8 +8,11 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Social\SocialCard;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * Serves the preview image a platform shows when a page is shared.
@@ -24,7 +27,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class SocialCardController extends Controller
 {
-    public function __invoke(string $kind, string $slug, SocialCard $cards, PolicyCatalog $catalog): Response|\Illuminate\Http\RedirectResponse
+    public function __invoke(string $kind, string $slug, SocialCard $cards, PolicyCatalog $catalog): Response|RedirectResponse
     {
         $content = $this->contentFor($kind, $slug, $catalog);
         abort_if($content === null, 404);
@@ -37,7 +40,7 @@ class SocialCardController extends Controller
         if ($path === null) {
             // No usable font on this host. Say so once in the log rather than
             // silently serving a different image than the markup promised.
-            \Illuminate\Support\Facades\Log::notice('social.card.unavailable', ['reason' => 'no usable TrueType font; run social:doctor on the host']);
+            Log::notice('social.card.unavailable', ['reason' => 'no usable TrueType font; run social:doctor on the host']);
 
             return redirect(url(config('aipolicytracker.default_og_image')), 302);
         }
@@ -100,7 +103,7 @@ class SocialCardController extends Controller
             'eyebrow' => 'Jurisdiction',
             'title' => 'AI regulation in '.$jurisdiction->name,
             'meta' => $count > 0
-                ? $count.' recorded '.\Illuminate\Support\Str::plural('instrument', $count).($jurisdiction->region ? ' · '.$jurisdiction->region : '')
+                ? $count.' recorded '.Str::plural('instrument', $count).($jurisdiction->region ? ' · '.$jurisdiction->region : '')
                 : 'No AI-specific instrument recorded yet'.($jurisdiction->region ? ' · '.$jurisdiction->region : ''),
             'footer' => config('aipolicytracker.site_name').' · every record linked to its official source',
         ];
@@ -130,13 +133,14 @@ class SocialCardController extends Controller
             isset($stats['jurisdictions']) ? $stats['jurisdictions'].' jurisdictions' : null,
             isset($stats['policies']) ? $stats['policies'].' instruments' : null,
             isset($stats['obligations']) ? $stats['obligations'].' obligations' : null,
+            isset($stats['controls']) && $stats['controls'] ? $stats['controls'].' controls' : null,
         ]);
 
         return [
-            'eyebrow' => config('aipolicytracker.site_name'),
-            'title' => config('aipolicytracker.tagline'),
-            'meta' => $parts === [] ? config('aipolicytracker.positioning') : implode(' · ', $parts),
-            'footer' => 'Open data (CC BY 4.0) · every record linked to its official source',
+            'eyebrow' => 'AI governance intelligence',
+            'title' => 'From regulation to evidence.',
+            'meta' => $parts === [] ? config('aipolicytracker.supporting') : implode(' · ', $parts),
+            'footer' => 'Open data, CC BY 4.0 · AI policy, verified at the source',
         ];
     }
 

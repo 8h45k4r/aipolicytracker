@@ -23,6 +23,7 @@
             ['backend.admin.submissions', 'Submissions and feedback', 'submissions.decide'],
             ['backend.admin.subscribers', 'Subscribers', 'audience.view'],
             ['backend.admin.external', 'External data', 'external.sync'],
+            ['backend.admin.jobs', 'Jobs and schedule', 'jobs.run'],
             ['backend.admin.downloads', 'Guides and downloads', 'audience.view'],
             ['backend.admin.tools.index', 'Tool library', 'tools.manage'],
             ['backend.admin.users.index', 'Users and roles', 'users.manage'],
