@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Enums\AdminCapability;
+use App\Models\User;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\DodoGateway;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\Security\EmailDomainPolicy;
 use App\Services\Security\MailDomainResolver;
 use App\Services\Security\SystemMailDomainResolver;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -45,6 +48,14 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production') && config('app.url')) {
             URL::forceRootUrl(config('app.url'));
             URL::forceScheme('https');
+        }
+
+        // One ability per administrative capability, so a route group says what it needs
+        // ("can:users.manage") instead of naming the roles it trusts. Adding a page means
+        // naming its capability once, here and on the route, rather than editing role
+        // conditions in several places and missing one.
+        foreach (AdminCapability::cases() as $capability) {
+            Gate::define($capability->value, fn (User $user) => $user->hasCapability($capability));
         }
     }
 }
