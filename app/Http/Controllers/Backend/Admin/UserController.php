@@ -40,7 +40,9 @@ class UserController extends Controller
             // Owners are matched by address because that is where ownership is defined.
             'owner' => $owners === [] ? $query->whereRaw('1 = 0') : $query->whereIn('email', $owners),
             'none' => $query->whereNull('admin_role')->when($owners !== [], fn ($q) => $q->whereNotIn('email', $owners)),
-            'any' => $query->whereNotNull('admin_role')->when($owners !== [], fn ($q) => $q->orWhereIn('email', $owners)),
+            // Grouped, because the owner clause is an OR: ungrouped it escapes the search
+            // above and "bob" with this filter returns every owner regardless of name.
+            'any' => $query->where(fn ($q) => $q->whereNotNull('admin_role')->when($owners !== [], fn ($inner) => $inner->orWhereIn('email', $owners))),
             default => in_array($filters['role'], AdminRole::values(), true) ? $query->where('admin_role', $filters['role']) : $query,
         };
 

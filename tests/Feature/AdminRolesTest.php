@@ -185,6 +185,24 @@ class AdminRolesTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_searching_while_filtering_by_any_admin_access_does_not_leak_owners(): void
+    {
+        // The owner clause is an OR. Ungrouped it escapes the search clause, so a search for
+        // one name silently returns every owner as well -- a filter that quietly ignores what
+        // was typed is worse than one that returns nothing.
+        $owner = $this->owner();
+        $owner->forceFill(['name' => 'Ophelia Owner'])->save();
+        $match = User::factory()->create(['name' => 'Bob Editor']);
+        $match->forceFill(['admin_role' => AdminRole::Editor])->save();
+
+        $html = $this->actingAs($owner)
+            ->get(route('backend.admin.users.index', ['q' => 'Bob', 'role' => 'any']))
+            ->assertOk()->getContent();
+
+        $this->assertStringContainsString($match->email, $html);
+        $this->assertStringNotContainsString(self::OWNER, $html, 'The owner does not match "Bob" and must not appear.');
+    }
+
     public function test_a_suspension_reason_is_stored_and_shown(): void
     {
         $owner = $this->owner();
