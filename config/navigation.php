@@ -50,6 +50,7 @@ return [
                     'heading' => 'Standards',
                     'items' => [
                         ['route' => 'frameworks.index', 'label' => 'All crosswalks', 'note' => 'Coverage, framework by framework'],
+                        ['route' => 'frameworks.compare', 'label' => 'Compare frameworks', 'note' => 'What can be reused, computed'],
                         ['route' => 'frameworks.show', 'params' => ['iso-42001'], 'label' => 'ISO/IEC 42001', 'note' => 'Duties grouped by clause'],
                         ['route' => 'frameworks.show', 'params' => ['nist-ai-rmf'], 'label' => 'NIST AI RMF', 'note' => 'Duties grouped by function'],
                     ],

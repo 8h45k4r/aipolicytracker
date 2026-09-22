@@ -4,7 +4,7 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Which AI legal duties map to which standard</h1>
     <p class="mt-2 max-w-3xl text-brand-body">Organisations are audited against standards, but regulated by statutes. These crosswalks record, duty by duty, which clause of a standard corresponds to a legal requirement &mdash; so you can see which duties your existing evidence already reaches, and which it does not.</p>
-    <p class="mt-2 max-w-3xl text-sm text-brand-muted">Every mapping is an editorial judgement recorded against one obligation and reviewable in the open data. Mappings cite clause numbers only and reproduce no standard text.</p>
+    <p class="mt-2 max-w-3xl text-sm text-brand-muted">Every mapping is an editorial judgement recorded against one obligation and reviewable in the open data. Mappings cite clause numbers only and reproduce no standard text. <a href="{{ route('frameworks.compare') }}">Compare the frameworks side by side</a>, or start from the <a href="{{ route('controls.index') }}">controls</a> that meet the duties.</p>
 
     <section class="mt-8" aria-labelledby="frameworks-heading">
         <h2 id="frameworks-heading" class="section-title">Frameworks</h2>

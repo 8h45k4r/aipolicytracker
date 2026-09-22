@@ -24,7 +24,7 @@ return [
     'site_name' => env('SITE_NAME', 'AIPolicyTracker'),
     'tagline' => 'Track AI policy. Build compliant AI.',
     'positioning' => 'AIPolicyTracker is the regulatory intelligence layer for AI governance.',
-    'supporting' => 'Monitor source-backed AI policy changes, map obligations to real AI systems, and turn regulatory requirements into practical governance actions.',
+    'supporting' => 'Monitor source-backed AI policy changes, map every obligation to the controls that meet it and the evidence that proves it, and turn regulatory requirements into practical governance actions.',
     'trust_statement' => 'Every important policy claim should link to a primary official source, show its current status, and display a last-verified date.',
     'disclaimer' => 'Informational only. Nothing on this site is legal advice. Check the linked official sources and consult qualified counsel before acting.',
     'default_og_image' => env('SITE_OG_IMAGE', '/og-default.png'),
