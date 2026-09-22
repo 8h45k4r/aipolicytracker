@@ -13,6 +13,7 @@ use App\Services\Security\SystemMailDomainResolver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // One password rule for sign-up, reset and change. Sign-up used to ask
+        // for mixed case and a symbol while a reset accepted any eight
+        // characters, so the weakest path set the real minimum.
+        Password::defaults(fn () => Password::min(8)->mixedCase()->symbols());
+
         // Behind a proxy that rewrites the Host header (e.g. Cloudflare in front
         // of an App Service default hostname) generated URLs must use APP_URL.
         if ($this->app->environment('production') && config('app.url')) {

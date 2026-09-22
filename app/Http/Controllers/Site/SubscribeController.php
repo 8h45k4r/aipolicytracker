@@ -7,6 +7,7 @@ use App\Mail\SubscriptionConfirmMail;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Subscriber;
+use App\Rules\NotDisposableEmail;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class SubscribeController extends Controller
             return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
         $data = $request->validate([
-            'email' => ['required', 'email:rfc', 'max:190', new \App\Rules\NotDisposableEmail],
+            'email' => ['required', 'email:rfc', 'max:190', new NotDisposableEmail],
             'topics' => ['nullable', 'array', 'max:20'],
             'topics.*' => ['string', 'max:64', 'regex:/^[a-z0-9-]+$/'],
             'source' => ['nullable', 'string', 'max:64'],
@@ -49,17 +50,26 @@ class SubscribeController extends Controller
         $topics = array_values(array_unique($data['topics'] ?? [])) ?: ['all'];
 
         $subscriber = Subscriber::firstOrNew(['email' => strtolower($data['email'])]);
-        $subscriber->fill(['topics' => $topics, 'source' => $data['source'] ?? null, 'unsubscribed_at' => null]);
-        if (! $subscriber->token) {
-            $subscriber->token = Subscriber::newToken();
+
+        // An address that is already receiving the digest is left exactly as it
+        // is. The form is public, so anyone who knows an address could otherwise
+        // rewrite its topics; the owner changes them from the link in any email.
+        // The reply is the same in every case so the form cannot be used to find
+        // out whether an address is subscribed.
+        if ($subscriber->exists && $subscriber->isActive()) {
+            return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
+
+        // An address that opted out, or one that never confirmed, starts over:
+        // new topics, a new token, and a fresh confirmation the owner has to click.
+        // Anything less would let a third party quietly re-enrol someone who left.
+        $subscriber->fill(['topics' => $topics, 'source' => $data['source'] ?? null, 'confirmed_at' => null, 'unsubscribed_at' => null]);
+        $subscriber->token = Subscriber::newToken();
         $subscriber->save();
 
-        if (! $subscriber->confirmed_at) {
-            Mail::to($subscriber->email)->send(new SubscriptionConfirmMail($subscriber));
-        }
+        Mail::to($subscriber->email)->send(new SubscriptionConfirmMail($subscriber));
 
-        return back()->with('success', $subscriber->confirmed_at ? 'Your subscription is already active; topics updated.' : 'Check your inbox to confirm your subscription.');
+        return back()->with('success', 'Check your inbox to confirm your subscription.');
     }
 
     public function confirm(string $token): View

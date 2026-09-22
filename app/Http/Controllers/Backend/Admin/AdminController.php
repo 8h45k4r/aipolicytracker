@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
+use App\Console\Commands\SyncAiidApiCommand;
 use App\Http\Controllers\Controller;
 use App\Mail\SubscriptionConfirmMail;
+use App\Mail\TestMail;
+use App\Models\AdminAuditLog;
 use App\Models\AppSetting;
 use App\Models\ChangeEvent;
 use App\Models\ContributorSubmission;
 use App\Models\ExternalIncident;
+use App\Models\ExternalIncidentReport;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
+use App\Models\PageView;
 use App\Models\PolicyInstrument;
+use App\Models\ResourceDownload;
 use App\Models\Subscriber;
+use App\Models\Tool;
+use App\Models\User;
 use App\Services\ExternalData\ExternalDataset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -33,8 +42,8 @@ class AdminController extends Controller
             'submissions_pending' => ContributorSubmission::where('status', 'pending_review')->count(),
             'subscribers_active' => Subscriber::active()->count(),
             'subscribers_unconfirmed' => Subscriber::whereNull('confirmed_at')->whereNull('unsubscribed_at')->count(),
-            'users' => \App\Models\User::count(),
-            'downloads_30d' => \App\Models\ResourceDownload::where('created_at', '>=', now()->subDays(30))->count(),
+            'users' => User::count(),
+            'downloads_30d' => ResourceDownload::where('created_at', '>=', now()->subDays(30))->count(),
         ];
         $stale = PolicyInstrument::published()->where(fn ($q) => $q->whereNull('last_verified_at')->orWhere('last_verified_at', '<', now()->subDays(180)))->count();
         $recentSubmissions = ContributorSubmission::orderByDesc('created_at')->limit(5)->get();
@@ -49,34 +58,34 @@ class AdminController extends Controller
     {
         $now = now();
         $metrics = [
-            'users_total' => \App\Models\User::count(),
-            'users_today' => \App\Models\User::where('created_at', '>=', $now->copy()->startOfDay())->count(),
-            'users_7d' => \App\Models\User::where('created_at', '>=', $now->copy()->subDays(7))->count(),
-            'users_30d' => \App\Models\User::where('created_at', '>=', $now->copy()->subDays(30))->count(),
-            'verified_pct' => ($t = \App\Models\User::count()) ? (int) round(100 * \App\Models\User::whereNotNull('email_verified_at')->count() / $t) : null,
-            'consent' => \App\Models\User::whereNotNull('marketing_consent_at')->count(),
-            'downloads_today' => \App\Models\ResourceDownload::where('created_at', '>=', $now->copy()->startOfDay())->count(),
-            'downloads_7d' => \App\Models\ResourceDownload::where('created_at', '>=', $now->copy()->subDays(7))->count(),
-            'downloads_30d' => \App\Models\ResourceDownload::where('created_at', '>=', $now->copy()->subDays(30))->count(),
-            'downloads_total' => \App\Models\ResourceDownload::count(),
-            'repeat' => \App\Models\ResourceDownload::selectRaw('user_id, COUNT(DISTINCT resource_slug) as n')->groupBy('user_id')->havingRaw('COUNT(DISTINCT resource_slug) > 1')->get()->count(),
+            'users_total' => User::count(),
+            'users_today' => User::where('created_at', '>=', $now->copy()->startOfDay())->count(),
+            'users_7d' => User::where('created_at', '>=', $now->copy()->subDays(7))->count(),
+            'users_30d' => User::where('created_at', '>=', $now->copy()->subDays(30))->count(),
+            'verified_pct' => ($t = User::count()) ? (int) round(100 * User::whereNotNull('email_verified_at')->count() / $t) : null,
+            'consent' => User::whereNotNull('marketing_consent_at')->count(),
+            'downloads_today' => ResourceDownload::where('created_at', '>=', $now->copy()->startOfDay())->count(),
+            'downloads_7d' => ResourceDownload::where('created_at', '>=', $now->copy()->subDays(7))->count(),
+            'downloads_30d' => ResourceDownload::where('created_at', '>=', $now->copy()->subDays(30))->count(),
+            'downloads_total' => ResourceDownload::count(),
+            'repeat' => ResourceDownload::selectRaw('user_id, COUNT(DISTINCT resource_slug) as n')->groupBy('user_id')->havingRaw('COUNT(DISTINCT resource_slug) > 1')->get()->count(),
         ];
-        $byResource = \App\Models\ResourceDownload::selectRaw('resource_slug, COUNT(*) as n, COUNT(DISTINCT user_id) as users')->groupBy('resource_slug')->orderByDesc('n')->get()
-            ->map(fn ($r) => ['slug' => $r->resource_slug, 'title' => \App\Models\Tool::where('slug', $r->resource_slug)->value('title') ?? $r->resource_slug, 'n' => $r->n, 'users' => $r->users]);
+        $byResource = ResourceDownload::selectRaw('resource_slug, COUNT(*) as n, COUNT(DISTINCT user_id) as users')->groupBy('resource_slug')->orderByDesc('n')->get()
+            ->map(fn ($r) => ['slug' => $r->resource_slug, 'title' => Tool::where('slug', $r->resource_slug)->value('title') ?? $r->resource_slug, 'n' => $r->n, 'users' => $r->users]);
         $since = $now->copy()->subDays(30)->toDateString();
-        $views = \App\Models\PageView::where('day', '>=', $since)->selectRaw('path, SUM(views) as n')->groupBy('path')->pluck('n', 'path');
+        $views = PageView::where('day', '>=', $since)->selectRaw('path, SUM(views) as n')->groupBy('path')->pluck('n', 'path');
         $funnel = [
             'library_views' => (int) ($views['/guides'] ?? 0),
             'tool_views' => (int) $views->filter(fn ($n, $p) => str_starts_with($p, '/guides/tools/') && ! str_contains($p, '/download') && ! str_contains($p, '/ready/'))->sum(),
             'gate_views' => (int) $views->filter(fn ($n, $p) => str_ends_with($p, '/download'))->sum(),
-            'signups_from_tools' => \App\Models\User::where('signup_source', 'free-tool')->where('created_at', '>=', $since)->count(),
-            'downloads' => \App\Models\ResourceDownload::where('created_at', '>=', $since)->count(),
-            'second_downloads' => \App\Models\ResourceDownload::where('created_at', '>=', $since)->selectRaw('user_id, COUNT(DISTINCT resource_slug) as n')->groupBy('user_id')->havingRaw('COUNT(DISTINCT resource_slug) > 1')->get()->count(),
+            'signups_from_tools' => User::where('signup_source', 'free-tool')->where('created_at', '>=', $since)->count(),
+            'downloads' => ResourceDownload::where('created_at', '>=', $since)->count(),
+            'second_downloads' => ResourceDownload::where('created_at', '>=', $since)->selectRaw('user_id, COUNT(DISTINCT resource_slug) as n')->groupBy('user_id')->havingRaw('COUNT(DISTINCT resource_slug) > 1')->get()->count(),
         ];
         $topPages = $views->sortDesc()->take(10);
-        $bySource = \App\Models\User::selectRaw("COALESCE(signup_source, 'legacy') as source, COUNT(*) as n")->groupBy('source')->orderByDesc('n')->pluck('n', 'source');
-        $recent = \App\Models\ResourceDownload::with(['user', 'tool'])->orderByDesc('id')->paginate(25, ['*'], 'downloads')->withQueryString();
-        $users = \App\Models\User::withCount('resourceDownloads')->orderByDesc('id')->paginate(25, ['*'], 'users')->withQueryString();
+        $bySource = User::selectRaw("COALESCE(signup_source, 'legacy') as source, COUNT(*) as n")->groupBy('source')->orderByDesc('n')->pluck('n', 'source');
+        $recent = ResourceDownload::with(['user', 'tool'])->orderByDesc('id')->paginate(25, ['*'], 'downloads')->withQueryString();
+        $users = User::withCount('resourceDownloads')->orderByDesc('id')->paginate(25, ['*'], 'users')->withQueryString();
 
         return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users', 'funnel', 'topPages'));
     }
@@ -84,9 +93,26 @@ class AdminController extends Controller
     /** Who did what in the admin: every state-changing request, newest first. */
     public function audit(Request $request): View
     {
-        $entries = \App\Models\AdminAuditLog::with('user')->orderByDesc('id')->paginate(100)->withQueryString();
+        $entries = AdminAuditLog::with('user')->orderByDesc('id')->paginate(100)->withQueryString();
 
         return view('backend.admin.audit', compact('entries'));
+    }
+
+    /**
+     * Cells that a spreadsheet would run as a formula are prefixed so they open
+     * as text. Names, organisations and referrers are typed by readers, and an
+     * export is opened in exactly the program that executes `=`, `+`, `-` and `@`.
+     *
+     * @param  list<mixed>  $cells
+     * @return list<mixed>
+     */
+    private static function csvRow(array $cells): array
+    {
+        return array_map(function ($cell) {
+            $text = $cell instanceof \DateTimeInterface ? $cell->format('Y-m-d H:i:s') : $cell;
+
+            return is_string($text) && $text !== '' && strpbrk($text[0], "=+-@\t\r") !== false ? "'".$text : $text;
+        }, $cells);
     }
 
     public function downloadsExport(Request $request): StreamedResponse
@@ -97,9 +123,9 @@ class AdminController extends Controller
             return response()->streamDownload(function () {
                 $out = fopen('php://output', 'w');
                 fputcsv($out, ['downloaded_at', 'tool', 'version', 'file', 'name', 'email', 'organization', 'signup_source', 'marketing_consent', 'referrer']);
-                \App\Models\ResourceDownload::with('user')->orderByDesc('id')->chunk(500, function ($rows) use ($out) {
+                ResourceDownload::with('user')->orderByDesc('id')->chunk(500, function ($rows) use ($out) {
                     foreach ($rows as $d) {
-                        fputcsv($out, [$d->created_at?->toDateTimeString(), $d->resource_slug, $d->version, $d->file_name, $d->user?->name, $d->user?->email, $d->user?->organization_name, $d->user?->signup_source, $d->user?->marketing_consent_at?->toDateString(), $d->referrer]);
+                        fputcsv($out, self::csvRow([$d->created_at?->toDateTimeString(), $d->resource_slug, $d->version, $d->file_name, $d->user?->name, $d->user?->email, $d->user?->organization_name, $d->user?->signup_source, $d->user?->marketing_consent_at?->toDateString(), $d->referrer]));
                     }
                 });
                 fclose($out);
@@ -109,9 +135,9 @@ class AdminController extends Controller
         return response()->streamDownload(function () {
             $out = fopen('php://output', 'w');
             fputcsv($out, ['user_id', 'name', 'email', 'organization', 'signed_up', 'verified', 'terms_accepted', 'marketing_consent', 'signup_source', 'downloads']);
-            \App\Models\User::withCount('resourceDownloads')->orderBy('id')->chunk(500, function ($users) use ($out) {
+            User::withCount('resourceDownloads')->orderBy('id')->chunk(500, function ($users) use ($out) {
                 foreach ($users as $u) {
-                    fputcsv($out, [$u->id, $u->name, $u->email, $u->organization_name, $u->created_at?->toDateString(), $u->email_verified_at?->toDateString(), $u->terms_accepted_at?->toDateString(), $u->marketing_consent_at?->toDateString(), $u->signup_source, $u->resource_downloads_count]);
+                    fputcsv($out, self::csvRow([$u->id, $u->name, $u->email, $u->organization_name, $u->created_at?->toDateString(), $u->email_verified_at?->toDateString(), $u->terms_accepted_at?->toDateString(), $u->marketing_consent_at?->toDateString(), $u->signup_source, $u->resource_downloads_count]));
                 }
             });
             fclose($out);
@@ -159,7 +185,7 @@ class AdminController extends Controller
             fputcsv($out, ['email', 'topics', 'confirmed_at', 'unsubscribed_at', 'last_sent_at', 'source', 'created_at']);
             Subscriber::orderBy('id')->chunk(500, function ($rows) use ($out) {
                 foreach ($rows as $s) {
-                    fputcsv($out, [$s->email, implode('|', $s->topics ?? []), $s->confirmed_at, $s->unsubscribed_at, $s->last_sent_at, $s->source, $s->created_at]);
+                    fputcsv($out, self::csvRow([$s->email, implode('|', $s->topics ?? []), $s->confirmed_at, $s->unsubscribed_at, $s->last_sent_at, $s->source, $s->created_at]));
                 }
             });
             fclose($out);
@@ -184,7 +210,7 @@ class AdminController extends Controller
     {
         $live = [
             'rows' => ExternalIncident::count(), 'synced_rows' => ExternalIncident::whereNotNull('synced_at')->count(), 'synced_at' => ExternalIncident::max('synced_at'), 'latest_id' => ExternalIncident::max('incident_id'),
-            'reports' => \App\Models\ExternalIncidentReport::count(), 'last_run' => \Illuminate\Support\Facades\Cache::get(\App\Console\Commands\SyncAiidApiCommand::LAST_RUN_KEY),
+            'reports' => ExternalIncidentReport::count(), 'last_run' => Cache::get(SyncAiidApiCommand::LAST_RUN_KEY),
         ];
 
         return view('backend.admin.external', ['aiid' => $external->aiid(), 'mit' => $external->mitRisk(), 'live' => $live]);
@@ -250,7 +276,7 @@ class AdminController extends Controller
     {
         $to = $request->validate(['to' => ['required', 'email']])['to'];
         try {
-            Mail::to($to)->send(new \App\Mail\TestMail((string) config('mail.default')));
+            Mail::to($to)->send(new TestMail((string) config('mail.default')));
         } catch (\Throwable $e) {
             report($e);
 

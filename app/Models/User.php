@@ -65,6 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'admin_role' => AdminRole::class,
             'admin_role_granted_at' => 'datetime',
             'suspended_at' => 'datetime',
+            'two_factor_last_step' => 'integer',
         ];
     }
 

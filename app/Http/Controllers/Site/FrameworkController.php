@@ -56,10 +56,13 @@ class FrameworkController extends Controller
             $data['indexable'],
         )->withBreadcrumbs([['Home', route('home')], ['Frameworks', route('frameworks.index')], [$meta['short'], route('frameworks.show', $meta['slug'])]])
             ->withPageType('CollectionPage', ['name' => $meta['name'].' crosswalk'])
-            ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => [
-                ['@type' => 'Question', 'name' => 'What is '.$meta['name'].'?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $meta['summary']]],
-                ['@type' => 'Question', 'name' => 'Does '.$meta['short'].' make an organisation legally compliant?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No. '.($meta['certifiable'] ? 'Certification' : 'Adoption').' evidences a management practice, not compliance with any statute. A crosswalk shows where the two overlap so existing evidence can be reused; it does not transfer legal obligations.']],
-            ]]);
+            // Through withFaq() so the layout renders the questions where a reader
+            // can see them: FAQ markup for text that is not on the page is exactly
+            // what the search guidelines call unsupported.
+            ->withFaq([
+                ['question' => 'What is '.$meta['name'].'?', 'answer' => $meta['summary']],
+                ['question' => 'Does '.$meta['short'].' make an organisation legally compliant?', 'answer' => 'No. '.($meta['certifiable'] ? 'Certification' : 'Adoption').' evidences a management practice, not compliance with any statute. A crosswalk shows where the two overlap so existing evidence can be reused; it does not transfer legal obligations.'],
+            ]);
 
         return view('site.frameworks.show', compact('seo', 'data', 'meta'));
     }
@@ -83,10 +86,10 @@ class FrameworkController extends Controller
             $data['indexable'],
         )->withBreadcrumbs([['Home', route('home')], ['Frameworks', route('frameworks.index')], [$meta['short'], route('frameworks.show', $meta['slug'])], [$j->name, route('frameworks.crosswalk', [$meta['slug'], $j->slug])]])
             ->withPageType('CollectionPage', ['name' => $title])
-            ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => [
-                ['@type' => 'Question', 'name' => 'Does '.$meta['short'].' '.($meta['certifiable'] ? 'certification ' : 'adoption ').'satisfy '.$j->name.' AI rules?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No. '.$meta['short'].' is '.($meta['certifiable'] ? 'a certifiable management system standard' : 'a voluntary framework').' and carries no legal force in '.$j->name.'. This crosswalk records that '.$data['rows']->count().' of the '.$data['total_obligations'].' duties tracked here have a corresponding clause, which means the evidence may be reusable, not that the duty is discharged.']],
-                ['@type' => 'Question', 'name' => 'How many '.$j->name.' AI duties map to '.$meta['short'].'?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $data['rows']->count().' of '.$data['total_obligations'].' duties recorded for '.$j->name.' carry a mapping to '.$meta['name'].'.']],
-            ]]);
+            ->withFaq([
+                ['question' => 'Does '.$meta['short'].' '.($meta['certifiable'] ? 'certification ' : 'adoption ').'satisfy '.$j->name.' AI rules?', 'answer' => 'No. '.$meta['short'].' is '.($meta['certifiable'] ? 'a certifiable management system standard' : 'a voluntary framework').' and carries no legal force in '.$j->name.'. This crosswalk records that '.$data['rows']->count().' of the '.$data['total_obligations'].' duties tracked here have a corresponding clause, which means the evidence may be reusable, not that the duty is discharged.'],
+                ['question' => 'How many '.$j->name.' AI duties map to '.$meta['short'].'?', 'answer' => $data['rows']->count().' of '.$data['total_obligations'].' duties recorded for '.$j->name.' carry a mapping to '.$meta['name'].'.'],
+            ]);
 
         return view('site.frameworks.crosswalk', compact('seo', 'data', 'meta', 'j'));
     }

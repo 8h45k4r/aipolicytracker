@@ -1,0 +1,15 @@
+{
+  "name": "AIPolicyTracker",
+  "short_name": "AIPolicyTracker",
+  "description": "Source-backed AI laws, regulations, strategies and guidance across 212 jurisdictions, with the obligations and deadlines they create.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#002147",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

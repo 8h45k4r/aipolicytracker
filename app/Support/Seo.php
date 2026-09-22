@@ -32,6 +32,17 @@ class Seo
 
     public ?\DateTimeInterface $modified = null;
 
+    public ?\DateTimeInterface $published = null;
+
+    /**
+     * Other representations of this same page, emitted as `rel="alternate"`
+     * links. Pointing at them from the HTML is what tells a crawler the JSON and
+     * Markdown files are this page in another form rather than pages of their own.
+     *
+     * @var list<array{type: string, url: string}>
+     */
+    public array $alternates = [];
+
     /**
      * schema.org type for this page's own node. Controllers that describe a page
      * more precisely (a collection, an about page, an article) set it here instead
@@ -51,6 +62,9 @@ class Seo
 
     public static function make(string $title, string $description, string $canonical, bool $index = true): self
     {
+        // A result page shows about sixty characters and the site name is appended
+        // after this, so a record title should be chosen to fit: see fitTitle().
+        // The hard stop here is a last resort for a title nothing shortened.
         return new self(
             self::trim($title, 70),
             self::trim($description, 160),
@@ -204,6 +218,71 @@ class Seo
         return $this;
     }
 
+    public function withPublished(?\DateTimeInterface $date): self
+    {
+        $this->published = $date;
+
+        return $this;
+    }
+
+    /** Another representation of this page at a stable URL (JSON, Markdown, a feed). */
+    public function withAlternate(string $type, string $url): self
+    {
+        $this->alternates[] = ['type' => $type, 'url' => $url];
+
+        return $this;
+    }
+
+    /**
+     * The page address for page N of a listing. The base may already carry a
+     * filter query, in which case `?page=` would have produced a URL with two
+     * question marks, which is what the listings used to emit.
+     */
+    public static function pagedUrl(string $url, int $page): string
+    {
+        if ($page <= 1) {
+            return $url;
+        }
+
+        return $url.(str_contains($url, '?') ? '&' : '?').'page='.$page;
+    }
+
+    /**
+     * The first title pattern that fits the budget, so a long instrument name
+     * gets a shorter suffix instead of a truncated one.
+     *
+     * @param  list<string>  $suffixes  tried in order; the last should be ''
+     */
+    public static function fitTitle(string $name, array $suffixes, int $max = 60): string
+    {
+        foreach ($suffixes as $suffix) {
+            if (mb_strlen($name.$suffix) <= $max) {
+                return $name.$suffix;
+            }
+        }
+
+        return $name;
+    }
+
+    /**
+     * Who stands behind a record, for the page node: the organisation as author
+     * and, when a named reviewer has confirmed the record against its source,
+     * that person. Only a verified record names a reviewer; a pending one has
+     * nobody to name yet, and saying otherwise would be the overclaim this
+     * project exists to avoid.
+     *
+     * @return array<string,mixed>
+     */
+    public static function provenance(object $record): array
+    {
+        $props = ['author' => ['@id' => url('/').'#organization']];
+        if (method_exists($record, 'isVerified') && $record->isVerified() && filled($record->reviewed_by ?? null)) {
+            $props['reviewedBy'] = ['@type' => 'Person', 'name' => (string) $record->reviewed_by, 'url' => route('reviewers')];
+        }
+
+        return $props;
+    }
+
     public function withOgType(string $type): self
     {
         $this->ogType = $type;
@@ -276,6 +355,7 @@ class Seo
             'isPartOf' => ['@id' => url('/').'#website'],
             'breadcrumb' => $this->breadcrumbs !== [] ? ['@id' => $this->canonical.'#breadcrumb'] : null,
             'inLanguage' => 'en',
+            'datePublished' => $this->published?->format(DATE_ATOM),
             'dateModified' => $this->modified?->format(DATE_ATOM),
             'publisher' => ['@id' => url('/').'#organization'],
             'license' => config('aipolicytracker.data_license_url'),
@@ -324,11 +404,27 @@ class Seo
             '@id' => url('/').'#organization',
             'name' => config('aipolicytracker.site_name'),
             'url' => url('/'),
-            'logo' => url('/brand/logo-on-light.svg'),
+            // A raster with declared dimensions: the guidance for a publisher logo
+            // asks for an image at least 112px on each side, and an SVG carries no
+            // pixel size for a crawler to check against that.
+            'logo' => ['@type' => 'ImageObject', 'url' => url('/brand/logo-on-light.png'), 'width' => 720, 'height' => 222],
             'parentOrganization' => ['@type' => 'Organization', 'name' => config('aipolicytracker.organization.name'), 'url' => config('aipolicytracker.organization.url')],
             'founder' => collect(config('aipolicytracker.maintainers', []))->map(fn ($m) => ['@type' => 'Person', 'name' => $m['name'], 'url' => $m['url'], 'sameAs' => $m['same_as'] ?? []])->values()->all(),
             'description' => config('aipolicytracker.positioning'),
         ];
+        // A named mailbox is what lets a search engine attach the entity to a real
+        // contact and lets an answer engine tell a reader who to write to about a
+        // record. The same address is published at /.well-known/security.txt.
+        if ($email = config('aipolicytracker.contact_email')) {
+            $org['email'] = $email;
+            $org['contactPoint'] = [[
+                '@type' => 'ContactPoint',
+                'contactType' => 'editorial and data corrections',
+                'email' => $email,
+                'url' => route('contribute'),
+                'availableLanguage' => 'en',
+            ]];
+        }
         $profiles = array_values(array_unique(array_filter(array_merge([config('aipolicytracker.github_url')], array_column(config('aipolicytracker.social', []), 'url'), config('aipolicytracker.social_profiles', [])))));
         if ($profiles !== []) {
             $org['sameAs'] = $profiles;
@@ -400,7 +496,7 @@ class Seo
      *
      * @param  array<string,string>  $distributions  media type => URL
      */
-    public static function dataset(string $name, string $description, string $url, array $distributions, ?\DateTimeInterface $modified = null, ?string $identifier = null): array
+    public static function dataset(string $name, string $description, string $url, array $distributions, ?\DateTimeInterface $modified = null, ?string $identifier = null, array $extra = []): array
     {
         return array_filter([
             '@type' => 'Dataset',
@@ -408,6 +504,12 @@ class Seo
             'description' => $description,
             'url' => $url,
             'identifier' => $identifier,
+            // What the record was built from and where it applies. `isBasedOn` is
+            // the official text; `spatialCoverage` is the jurisdiction. Both are
+            // the questions an answer engine asks before it cites a record.
+            'isBasedOn' => $extra['isBasedOn'] ?? null,
+            'spatialCoverage' => isset($extra['spatialCoverage']) ? ['@type' => 'Place', 'name' => $extra['spatialCoverage']] : null,
+            'sameAs' => $extra['sameAs'] ?? null,
             'license' => config('aipolicytracker.data_license_url'),
             'isAccessibleForFree' => true,
             'creator' => ['@id' => url('/').'#organization'],

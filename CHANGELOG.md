@@ -4,6 +4,40 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- An official mailbox, bhaskar@aipolicytracker.org, published everywhere a person or a machine looks for one: the About page and footer, `SECURITY.md`, the code of conduct and contributing guide, the issue-template chooser, the Composer and npm manifests, `llms.txt`, the OpenAPI description, the `Organization` structured data (as `email` and a `ContactPoint`) and a generated `/.well-known/security.txt` (RFC 9116) whose `Expires` field can never fall into the past. The address is one configuration value, `CONTACT_EMAIL`, so a fork changes it in one place.
+- A page for every change-log entry at `/changes/{slug}`. A development that only existed as an anchor on a list could not be shared, cited or returned as an answer on its own; the page states what changed, what it means in practice, the official source, the review status and the related changes, is described as an `Article` dated by the event, and is what the RSS feed, the digest e-mail, the policy page's history, the Markdown context file and the changes sitemap now point at.
+- "Cite this record" on every policy, jurisdiction, obligation and change page: the record's address, the date read and the official text it rests on, in the format the open-data page already publishes.
+- A named reviewer, where one has verified the record, shown beside the verification line and published as `reviewedBy` in the page's structured data, with the organisation as `author`. Only a verified record names anybody.
+- `rel="alternate"` links from each record page to its JSON and Markdown forms, and `X-Robots-Tag: noindex` with a `Link: rel="canonical"` header on those forms and on the CSV and NDJSON exports, so an index treats them as the page in another shape rather than as competing documents.
+- `og:locale`, `twitter:site`, `rel="license"`, a web manifest, a 180px Apple touch icon, 192px and 512px icons, and a real `favicon.ico`: the file served at that address was zero bytes.
+- Explicit `robots.txt` groups for the answer-engine and assistant crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended and the rest), each allowed on the same terms as every other reader, so a future change to the stance is a decision rather than an accident of the default.
+- A regression suite for the search and answer-engine surfaces (`tests/Feature/SeoSurfacesTest.php`) and for the proxy-trust rule (`tests/Feature/TrustedProxiesTest.php`).
+
+### Changed
+- Titles are trimmed to 60 characters before the site name is appended, and a policy whose name does not fit the long pattern gets a shorter suffix rather than a truncated one. Two page types carried a literal ellipsis in the browser tab.
+- Every page of an indexable listing (policies, obligations, changes) is indexable and canonical to itself. Obligations and changes sent `noindex` together with a canonical to page one, which the search guidelines call contradictory, and a filtered policy listing joined its page number with a second question mark.
+- Framework pages route their questions through `Seo::withFaq()`, so the layout renders them where a reader can see them. They carried `FAQPage` markup for text that was on no page.
+- A non-binding instrument is described to an answer engine as a `CreativeWork`, not as `Legislation`; a binding one's page node links to its `Legislation` node by identifier instead of carrying a second, thinner description. Record datasets state the official text they rest on, the place they apply to and the source file in the repository. The publisher logo is a raster with declared dimensions, which is what the guidance for one asks for.
+- Sitemap dates are claimed only where they are known: static and editorial pages no longer carry the corpus import time, which moved `/privacy` on every deploy; filtered listings are dated by their own records and gated on the same rule the jurisdiction page applies to itself; guides are listed once instead of twice.
+- `robots.txt` no longer blocks the API, which the open-data page publishes as a dataset distribution and which sets its own `noindex`, nor the search-result URLs, which are `noindex` and can only carry that tag if a crawler is allowed to read it. A stale rule for a path that has redirected for a year is gone.
+- HTML responses are `private, no-cache, must-revalidate` rather than `no-store`. Both force revalidation on every use; `no-store` also barred the back/forward cache, so a reader pressing Back re-rendered the page they had just left.
+- Both nginx configurations redirect `www.` to the apex and strip trailing slashes, so a page has one address; and the origin refuses a connection that did not arrive through the edge.
+- `llms.txt` dates itself, links each jurisdiction and policy to its Markdown context file, and names the contact address.
+
+### Security
+- The visitor's address could be chosen by the visitor on the PHP-FPM deployment: nginx resolved the real address from the edge header and then passed the client's own `X-Forwarded-For` through to an application that trusted every proxy. That address keys every rate limit, the login limiter and the hashed addresses in the audit log. nginx now hands the application only the address it resolved, and which proxies may speak for a visitor is a configuration value, `TRUSTED_PROXIES`, read at request time and covered by a test.
+- Anyone who knew an address could re-enrol it in the digest after it had unsubscribed, or rewrite its topics, from the public form without a confirmation. An active subscription is now left untouched by the form, an address that opted out starts over with a fresh double opt-in, and the reply is the same in every case so the form cannot be used to find out whether an address is subscribed.
+- An authenticator code is accepted once. The step of the last accepted code is kept on the account and a code from that step or earlier is refused, so a code seen over a shoulder cannot be replayed inside the ninety-second window (RFC 6238 §5.2).
+- Registration and password-reset requests are rate limited per caller. Both hash, resolve a mail domain or send mail on every request and had no limit but the broker's per-address one.
+- One password rule for sign-up, reset and change. Sign-up asked for mixed case and a symbol while a reset accepted any eight characters, so the weakest path set the real minimum.
+- Sign-out is a POST. A sign-out reachable by GET can be triggered by any page that embeds the URL as an image.
+- The return target after unfollowing a record is honoured only when it is a path on this site; `//host` was accepted as one.
+- An uploaded template file keeps its name only when the extension is one of the allowed set, so a text file uploaded as `something.php` is refused rather than stored under a name a web server might one day execute.
+- Admin CSV exports prefix any cell that a spreadsheet would run as a formula; names, organisations and referrers are typed by readers.
+- Hashed network addresses are keyed with the application secret. A plain SHA-256 of an IPv4 address is reversible in seconds by hashing every candidate.
+- The contribution form accepts only `http` and `https` source URLs; the composer-lock workflow passes its input through the environment rather than into the command line; the container runs as `www-data`; the Inertia layout's icon stylesheet, blocked by the content security policy, is now allowed from its host.
+
 ### Fixed
 - Two documents still credited Dependabot with keeping dependencies updated, which stopped being true when its configuration was removed. A security policy that claims a control the repository does not run is worse than one that claims nothing, so `SECURITY.md` and the compliance map now describe what actually happens: CodeQL on every pull request and weekly, dependency updates made through the release process, and `npm audit` and `composer audit` recorded in each change. Whether GitHub raises advisory alerts is named as a repository setting rather than asserted as a fact about the code.
 

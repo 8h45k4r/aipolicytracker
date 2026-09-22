@@ -44,6 +44,8 @@ return [
         ['key' => 'instagram', 'label' => 'Instagram', 'url' => 'https://www.instagram.com/aipolicytracker/'],
     ],
     'social_profiles' => $csv(env('SITE_SOCIAL_PROFILES')), // extra verified profile URLs for Organization sameAs
+    // The project's X handle, for the `twitter:site` card attribution.
+    'x_handle' => env('SITE_X_HANDLE', '@aipolicytracker'),
 
     // ---------------------------------------------------------------------
     // Open data
@@ -74,8 +76,15 @@ return [
         'terms_of_use' => env('SITE_LINK_TERMS_OF_USE'),
     ],
 
-    // Contact e-mail addresses listed on the About page.
-    'contact_emails' => $csv(env('CONTACT_EMAILS')),
+    // The project's official mailbox. It is the address on the About page, in the
+    // footer, in the Organization structured data, in /.well-known/security.txt and
+    // in the API description, so a reader, a crawler and a security researcher all
+    // reach the same person. Override per deployment with CONTACT_EMAIL.
+    'contact_email' => env('CONTACT_EMAIL', 'bhaskar@aipolicytracker.org'),
+
+    // Every contact address listed on the About page. Defaults to the official
+    // mailbox above; set CONTACT_EMAILS to list more than one.
+    'contact_emails' => $csv(env('CONTACT_EMAILS')) ?: array_values(array_filter([env('CONTACT_EMAIL', 'bhaskar@aipolicytracker.org')])),
 
     // Key contributors listed on the About page. Edit here (not secret) or leave empty.
     // Each entry: ['name' => '...', 'url' => 'https://...', 'icon' => 'fa-brands fa-linkedin']

@@ -9,6 +9,7 @@ use App\Services\PolicyData\PolicyCatalog;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ChangeController extends Controller
@@ -31,20 +32,18 @@ class ChangeController extends Controller
         $changes = $query->orderByDesc('occurred_on')->orderByDesc('id')->paginate(25)->withQueryString();
         $urgent = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereIn('impact_level', ['urgent', 'high'])->orderByDesc('occurred_on')->limit(5)->get();
         $years = ChangeEvent::publishedYears();
-        $indexable = empty($filters['q']) && $impact === null && empty($filters['jurisdiction']) && $changes->currentPage() === 1;
+        $indexable = empty($filters['q']) && $impact === null && empty($filters['jurisdiction']);
 
         $seo = Seo::make(
-            'AI policy change log: dated, source-backed regulatory updates',
+            'AI policy change log: dated, source-backed regulatory updates'.($changes->currentPage() > 1 ? ' (page '.$changes->currentPage().')' : ''),
             'Chronological log of AI policy changes across jurisdictions: what changed, practical impact, status after the change, official source and verification date. RSS available.',
-            route('changes.index'),
+            Seo::pagedUrl(route('changes.index'), $indexable ? $changes->currentPage() : 1),
             $indexable
         )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')]])
             ->withFeed(route('changes.feed'))
             ->withPageType('CollectionPage', [
                 'name' => 'AI policy change log',
-                // A change has no page of its own; its stable address is the
-                // machine-readable record, so that is what the list points at.
-                'mainEntity' => Seo::itemList($changes->getCollection(), fn ($c) => $c->title, fn ($c) => $c->slug ? route('changes.context', $c->slug) : null, 'Recorded AI policy changes'),
+                'mainEntity' => Seo::itemList($changes->getCollection(), fn ($c) => $c->title, fn ($c) => $c->slug ? $c->url() : null, 'Recorded AI policy changes'),
             ])
             // The log is also a feed. Saying so lets a machine follow it instead of
             // re-reading the page to find out whether anything moved.
@@ -59,6 +58,46 @@ class ChangeController extends Controller
             'seo' => $seo, 'changes' => $changes, 'urgent' => $urgent, 'years' => $years, 'filters' => $filters, 'impact' => $impact,
             'jurisdictions' => Jurisdiction::published()->orderBy('name')->get(['slug', 'name']),
         ]);
+    }
+
+    /**
+     * A single change as a page. The record is short, so the page says what
+     * changed, what it means, where it came from and where it sits, and then
+     * points at the instrument, the jurisdiction and the year around it.
+     */
+    public function show(ChangeEvent $change): View
+    {
+        abort_unless($change->published_at, 404);
+        $change->load(['jurisdiction', 'policyInstrument']);
+        $related = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
+            ->where('id', '!=', $change->id)
+            ->where(fn ($q) => $q->where('jurisdiction_id', $change->jurisdiction_id)->when($change->policy_instrument_id, fn ($q) => $q->orWhere('policy_instrument_id', $change->policy_instrument_id)))
+            ->orderByDesc('occurred_on')->limit(5)->get();
+        $name = $change->jurisdiction?->name;
+        $instrument = $change->policyInstrument;
+
+        $seo = Seo::make(
+            Seo::fitTitle($change->title, [' ('.$name.', '.$change->occurred_on->format('M Y').')', ' ('.$change->occurred_on->format('M Y').')', '']),
+            Str::limit(trim(preg_replace('/\s+/', ' ', $change->what_changed)), 155),
+            $change->url(),
+            filled($change->what_changed) && filled($change->official_source_url)
+        )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], [(string) $change->occurred_on->year, route('changes.year', $change->occurred_on->year)], [$change->title, $change->url()]])
+            ->withModified($change->updated_at)
+            ->withPublished($change->occurred_on)
+            ->withOgType('article')
+            ->withFeed(route('changes.feed'))
+            ->withAlternate('text/markdown', route('changes.context', $change->slug))
+            ->withPageType('Article', array_filter([
+                'headline' => $change->title,
+                'articleSection' => 'AI policy change log',
+                'isBasedOn' => $change->official_source_url ?: null,
+                'about' => array_values(array_filter([
+                    $instrument ? ['@type' => $instrument->is_binding ? 'Legislation' : 'CreativeWork', 'name' => $instrument->short_title ?: $instrument->title, 'url' => $instrument->url()] : null,
+                    $name ? ['@type' => 'Place', 'name' => $name] : null,
+                ])),
+            ]) + Seo::provenance($change));
+
+        return view('site.changes.show', compact('seo', 'change', 'related', 'instrument'));
     }
 
     public function year(int $year): View

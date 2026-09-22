@@ -13,8 +13,11 @@
     <title>{{ $seo->fullTitle() }}</title>
     <meta name="description" content="{{ $seo->description }}">
     <link rel="canonical" href="{{ $seo->canonical }}">
-    <meta name="robots" content="{{ $seo->robots }}">
+    @foreach($seo->alternates as $alt)<link rel="alternate" type="{{ $alt['type'] }}" href="{{ $alt['url'] }}">
+    @endforeach<meta name="robots" content="{{ $seo->robots }}">
+    <link rel="license" href="{{ config('aipolicytracker.data_license_url') }}">
     <meta property="og:site_name" content="{{ config('aipolicytracker.site_name') }}">
+    <meta property="og:locale" content="en_US">
     <meta property="og:type" content="{{ $seo->ogType }}">
     <meta property="og:title" content="{{ $seo->title }}">
     <meta property="og:description" content="{{ $seo->description }}">
@@ -28,6 +31,7 @@
     <meta property="og:image:width" content="{{ config('social.width', config('aipolicytracker.default_og_image_width')) }}">
     <meta property="og:image:height" content="{{ config('social.height', config('aipolicytracker.default_og_image_height')) }}">
     <meta name="twitter:card" content="summary_large_image">
+    @if(config('aipolicytracker.x_handle'))<meta name="twitter:site" content="{{ config('aipolicytracker.x_handle') }}">@endif
     <meta name="twitter:title" content="{{ $seo->title }}">
     <meta name="twitter:description" content="{{ $seo->description }}">
     <meta name="twitter:image" content="{{ $seo->socialImage() }}">
@@ -36,10 +40,16 @@
     @if($seo->feedUrl)<link rel="alternate" type="application/rss+xml" title="AI policy changes" href="{{ $seo->feedUrl }}">@endif
     @if(config('aipolicytracker.google_site_verification'))<meta name="google-site-verification" content="{{ config('aipolicytracker.google_site_verification') }}">@endif
     @if(config('aipolicytracker.bing_site_verification'))<meta name="msvalidate.01" content="{{ config('aipolicytracker.bing_site_verification') }}">@endif
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
     <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icon-192.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
     <meta name="theme-color" content="#002147">
-    <link rel="preconnect" href="https://fonts.bunny.net">
+    {{-- Font files are fetched in anonymous CORS mode, so the early connection
+         has to be opened the same way or the browser opens a second one. --}}
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
     {{-- The shared Organization and WebSite nodes are emitted on every page, not
          only the homepage, so the `@id` references on a record page resolve when
@@ -122,6 +132,7 @@
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('about') }}">About</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('contribute') }}">Contribute</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('corrections') }}">Corrections log</a></li>
                 <li><a class="text-white/85 hover:text-white no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
+                @if(config('aipolicytracker.contact_email'))<li><a class="text-white/85 hover:text-white no-underline" href="mailto:{{ config('aipolicytracker.contact_email') }}" data-track="contact_click">{{ config('aipolicytracker.contact_email') }}</a></li>@endif
             </ul>
         </div>
         <div class="md:col-span-4">
