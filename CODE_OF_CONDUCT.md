@@ -25,7 +25,7 @@ Examples of unacceptable behaviour:
 
 Maintainers are responsible for clarifying standards and will take appropriate, fair corrective action in response to unacceptable behaviour, including removing or rejecting contributions and temporarily or permanently banning contributors.
 
-Report incidents to the maintainers through the contact address listed on the project's About page or by e-mailing the repository owner. All reports will be reviewed and investigated promptly and confidentially.
+Report incidents to the maintainers at bhaskar@aipolicytracker.org. All reports will be reviewed and investigated promptly and confidentially.
 
 ## Attribution
 

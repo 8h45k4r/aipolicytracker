@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Models\AdminAuditLog;
+use App\Support\Privacy;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -67,7 +69,7 @@ class RecordAdminAction
                 'path' => mb_substr('/'.ltrim($request->path(), '/'), 0, 512),
                 'route_params' => $this->scalarParams($request),
                 'status' => $status,
-                'ip_hash' => $request->ip() ? hash('sha256', (string) $request->ip()) : null,
+                'ip_hash' => $request->ip() ? Privacy::ipHash((string) $request->ip()) : null,
                 'user_agent' => mb_substr((string) $request->userAgent(), 0, 255),
                 'created_at' => now(),
             ]);
@@ -81,7 +83,7 @@ class RecordAdminAction
     {
         $out = [];
         foreach ($request->route()?->parameters() ?? [] as $name => $value) {
-            $out[$name] = $value instanceof \Illuminate\Database\Eloquent\Model ? $value->getKey() : (is_scalar($value) ? $value : null);
+            $out[$name] = $value instanceof Model ? $value->getKey() : (is_scalar($value) ? $value : null);
         }
 
         return $out === [] ? null : $out;

@@ -77,7 +77,7 @@ By contributing you agree that your contributions are licensed under the Apache 
 
 ## Reporting security issues
 
-Please follow `SECURITY.md` rather than opening a public issue.
+Please follow `SECURITY.md` rather than opening a public issue: use GitHub's private vulnerability reporting or write to bhaskar@aipolicytracker.org.
 
 ## Merging into `main`
 

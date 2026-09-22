@@ -76,6 +76,28 @@ class MachineReadableController extends Controller
         return response()->json($spec, 200, ['Cache-Control' => 'public, max-age=3600'], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
+    /**
+     * RFC 9116 security.txt. The address is the project's official mailbox, the
+     * same one on the About page and in the Organization structured data, so a
+     * researcher and a reader are pointed at the same person. Expires is set a
+     * year out from each request, because a static file with a fixed date goes
+     * stale and a stale security.txt is treated as absent.
+     */
+    public function securityTxt(): Response
+    {
+        $lines = [
+            'Contact: mailto:'.config('aipolicytracker.contact_email'),
+            'Contact: '.config('aipolicytracker.github_url').'/security/advisories/new',
+            'Expires: '.now()->addYear()->startOfDay()->format('Y-m-d\TH:i:s\Z'),
+            'Preferred-Languages: en',
+            'Canonical: '.route('security.txt'),
+            'Policy: '.config('aipolicytracker.github_url').'/blob/main/SECURITY.md',
+            'Acknowledgments: '.route('about'),
+        ];
+
+        return response(implode("\n", $lines)."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'public, max-age=86400']);
+    }
+
     private function text(string $body): Response
     {
         return response($body, 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'public, max-age=3600']);

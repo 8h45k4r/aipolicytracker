@@ -58,6 +58,7 @@
             @endif
 
             <x-site.source-list :sources="collect($jurisdiction->official_sources ?? [])" title="Official government and regulator sources" class="mt-8" />
+            <x-site.cite :title="'AI regulation in '.$jurisdiction->name" :url="$jurisdiction->url()" class="mt-8" />
             <x-site.faq :items="$jurisdiction->faq ?? []" />
             <x-site.subscribe-form source="jurisdiction" :topic="$jurisdiction->slug" class="mt-10" />
             <x-site.disclaimer class="mt-8" />

@@ -10,6 +10,9 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Models\Tool;
+use App\Services\ExternalData\ExternalDataset;
+use App\Services\PolicyData\FrameworkCrosswalk;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 
@@ -144,7 +147,7 @@ class SitemapController extends Controller
             [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [route('risk.domain', 1), 'monthly', '0.6'], [route('risk.domain', 2), 'monthly', '0.6'], [route('risk.domain', 3), 'monthly', '0.6'], [route('risk.domain', 4), 'monthly', '0.6'], [route('risk.domain', 5), 'monthly', '0.6'], [route('risk.domain', 6), 'monthly', '0.6'], [route('risk.domain', 7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
             [route('about'), 'monthly', '0.5'], [route('privacy'), 'yearly', '0.3'], [route('terms'), 'yearly', '0.3'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
-        foreach (app(\App\Services\ExternalData\ExternalDataset::class)->mitRisk()['domains'] ?? [] as $d) {
+        foreach (app(ExternalDataset::class)->mitRisk()['domains'] ?? [] as $d) {
             foreach ($d['subdomains'] ?? [] as $sd) {
                 $pages[] = [route('risk.subdomain', [$d['id'], $sd['id']]), 'monthly', '0.6'];
             }
@@ -152,37 +155,44 @@ class SitemapController extends Controller
         // Framework crosswalks. Only the pages that pass the same indexability threshold
         // the page itself applies are listed, so the sitemap never advertises a URL that
         // serves a noindex tag.
-        $crosswalk = app(\App\Services\PolicyData\FrameworkCrosswalk::class);
+        $crosswalk = app(FrameworkCrosswalk::class);
         $pages[] = [route('frameworks.index'), 'weekly', '0.8'];
         foreach ($crosswalk->summary() as $framework) {
-            if ($framework['obligations'] < \App\Services\PolicyData\FrameworkCrosswalk::MIN_INDEXABLE_OBLIGATIONS) {
+            if ($framework['obligations'] < FrameworkCrosswalk::MIN_INDEXABLE_OBLIGATIONS) {
                 continue;
             }
             $pages[] = [route('frameworks.show', $framework['slug']), 'weekly', '0.8'];
             foreach ($crosswalk->jurisdictionsFor($framework['key']) as $row) {
-                if ($row['rows'] >= \App\Services\PolicyData\FrameworkCrosswalk::MIN_INDEXABLE_ROWS) {
+                if ($row['rows'] >= FrameworkCrosswalk::MIN_INDEXABLE_ROWS) {
                     $pages[] = [route('frameworks.crosswalk', [$framework['slug'], $row['jurisdiction']->slug]), 'weekly', '0.7'];
                 }
             }
         }
-        foreach (\App\Models\Tool::published()->orderBy('sort_order')->pluck('slug') as $slug) {
+        foreach (Tool::published()->orderBy('sort_order')->pluck('slug') as $slug) {
             $pages[] = [route('tools.show', $slug), 'monthly', '0.8'];
         }
-        foreach (array_keys(config('content.guides', [])) as $slug) {
-            if (! in_array($slug, ['eu-ai-act', 'ai-regulation-india', 'ai-policy-nepal', 'ai-governance-singapore', 'ai-regulation-australia', 'ai-regulation-uk', 'ai-regulation-usa', 'ai-governance-uae', 'ai-regulation-south-asia'], true)) {
-                $pages[] = [route('guides.show', $slug), 'monthly', '0.7'];
-            }
-        }
-        $urls = collect($pages)->map(fn ($p) => ['loc' => $p[0], 'lastmod' => $lastmod, 'changefreq' => $p[1], 'priority' => $p[2]]);
-        // Indexable single-filter listings: one per jurisdiction and one per obligation category.
-        foreach (Jurisdiction::published()->orderBy('slug')->get() as $j) {
-            if ($j->policyInstruments()->published()->exists()) {
-                $urls->push(['loc' => route('policies.index', ['jurisdiction' => $j->slug]), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.6']);
+        // Guides are listed once, in the resources sitemap.
+        //
+        // No lastmod on an editorial or static page. The date used to be the
+        // corpus-wide import time, which moved /privacy and /about on every deploy;
+        // an index that catches a lastmod lying stops believing any of them, and
+        // an absent date costs nothing. Pages built from records carry the date of
+        // the records they are built from, below.
+        $listings = [route('home'), route('policies.index'), route('jurisdictions.index'), route('obligations.index'), route('changes.index'), route('calendar'), route('coverage'), route('gaps'), route('corrections'), route('verification')];
+        $urls = collect($pages)->map(fn ($p) => ['loc' => $p[0], 'lastmod' => in_array($p[0], $listings, true) ? $lastmod : null, 'changefreq' => $p[1], 'priority' => $p[2]]);
+        // Indexable single-filter listings: one per jurisdiction and one per
+        // obligation category, dated by their own records and gated on the same
+        // rule the jurisdiction page applies to itself.
+        foreach (Jurisdiction::published()->withPublishedInstrument()->orderBy('slug')->get() as $j) {
+            if ($j->isIndexable()) {
+                $mod = $j->policyInstruments()->published()->max('updated_at');
+                $urls->push(['loc' => route('policies.index', ['jurisdiction' => $j->slug]), 'lastmod' => $mod ? Carbon::parse($mod)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6']);
             }
         }
         foreach (TaxonomyTerm::taxonomy('obligation_category')->get() as $c) {
-            if (Obligation::published()->where('category', $c->slug)->exists()) {
-                $urls->push(['loc' => route('obligations.index', ['category' => $c->slug]), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.6']);
+            $mod = Obligation::published()->where('category', $c->slug)->max('updated_at');
+            if ($mod) {
+                $urls->push(['loc' => route('obligations.index', ['category' => $c->slug]), 'lastmod' => Carbon::parse($mod)->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.6']);
             }
         }
 
@@ -192,8 +202,14 @@ class SitemapController extends Controller
     private function changeUrls()
     {
         $years = ChangeEvent::publishedYearsLastModified();
+        $urls = $years->map(fn ($m, $y) => ['loc' => route('changes.year', $y), 'lastmod' => $m ? Carbon::parse($m)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6'])->values();
 
-        return $years->map(fn ($m, $y) => ['loc' => route('changes.year', $y), 'lastmod' => $m ? Carbon::parse($m)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6'])->values();
+        // Each change is a page now, dated by itself. Only one that can be
+        // indexed is listed: the page applies the same test.
+        return $urls->concat(
+            ChangeEvent::published()->whereNotNull('official_source_url')->whereNotNull('what_changed')->orderByDesc('occurred_on')->lazy(500)
+                ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $c->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5'])
+        )->values();
     }
 
     private function resourceUrls()
@@ -204,8 +220,9 @@ class SitemapController extends Controller
         foreach (array_keys(config('content.landings')) as $slug) {
             $urls->push(['loc' => route('landing', $slug), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.8']);
         }
+        // Editorial pages carry no lastmod: nothing here knows when their text changed.
         foreach (array_keys(config('content.guides')) as $slug) {
-            $urls->push(['loc' => route('guides.show', $slug), 'lastmod' => $lastmod, 'changefreq' => 'monthly', 'priority' => '0.7']);
+            $urls->push(['loc' => route('guides.show', $slug), 'lastmod' => null, 'changefreq' => 'monthly', 'priority' => '0.7']);
         }
         foreach (array_keys(config('content.comparisons')) as $slug) {
             $urls->push(['loc' => route('compare.show', $slug), 'lastmod' => $lastmod, 'changefreq' => 'monthly', 'priority' => '0.7']);

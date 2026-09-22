@@ -11,6 +11,21 @@
         "regulation"
     ],
     "license": "Apache-2.0",
+    "homepage": "https://aipolicytracker.org",
+    "authors": [
+        {
+            "name": "Bhaskar Bhatt",
+            "email": "bhaskar@aipolicytracker.org",
+            "homepage": "https://bhaskar.com.np/",
+            "role": "Founder and maintainer"
+        }
+    ],
+    "support": {
+        "email": "bhaskar@aipolicytracker.org",
+        "issues": "https://github.com/8h45k4r/aipolicytracker/issues",
+        "source": "https://github.com/8h45k4r/aipolicytracker",
+        "security": "https://github.com/8h45k4r/aipolicytracker/security/advisories/new"
+    },
     "require": {
         "php": "^8.2",
         "dodopayments/client": "^6.25",
