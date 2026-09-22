@@ -60,7 +60,235 @@ related_policies:
 related_frameworks: []
 versions: []
 sections: []
-obligations: []
+obligations:
+- slug: us-texas-responsible-ai-governance-act-traiga-government-agency-ai-interaction-disclosure
+  title: Government agencies must disclose to consumers that they are interacting with an AI system
+  category: transparency
+  source_reference: "Business and Commerce Code Section 551.051"
+  is_binding: true
+  applies_from: 2026-01-01
+  actors: [public_authority, deployer]
+  sectors: [public_services]
+  use_cases: [public_services, customer_service, generative_ai]
+  summary: >
+    A governmental agency that makes an AI system available to interact with consumers must disclose to each
+    consumer, before or at the time of the interaction, that they are interacting with an AI system. The
+    disclosure is owed even where the AI nature of the interaction would be obvious, must be clear and
+    conspicuous, written in plain language and may not use a dark pattern; a hyperlink to the disclosure is
+    acceptable for online services.
+  practical_action: >
+    Put a plain-language AI notice at the entry point of every public-facing chatbot, voice line or automated service and keep a screenshot record.
+  applicability:
+    description: Texas state agencies and other governmental agencies that offer consumer-facing AI systems.
+    actors: [public_authority, deployer]
+    risk_categories: [transparency_risk]
+    source_reference: "Business and Commerce Code Section 551.051"
+  evidence_examples:
+    - { title: AI interaction disclosure copy and placement record, artifact_type: document }
+  framework_mappings:
+    - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.1", note: "Transparency to end users.", confidence_level: medium }
+    - { framework: iso_42001, reference: "Annex A.8.5", note: "Information for interested parties.", confidence_level: medium }
+  controls:
+    - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Point-of-interaction notice in plain language.", confidence_level: high }
+    - { control: public-sector-ai-use-case-register, relationship: supports, note: "Register identifies the consumer-facing systems that need the notice.", confidence_level: medium }
+  official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  review_status: pending_review
+  confidence_level: high
+- slug: us-texas-responsible-ai-governance-act-traiga-health-care-ai-disclosure
+  title: Health-care providers must disclose the use of AI in patient services
+  category: transparency
+  source_reference: "Business and Commerce Code Section 551.051"
+  is_binding: true
+  applies_from: 2026-01-01
+  actors: [deployer]
+  sectors: [healthcare]
+  use_cases: [health, customer_service]
+  summary: >
+    A person who provides health-care services or treatment and uses an AI system in relation to those services
+    must disclose that use to the patient, or to the patient's personal representative or guardian, no later than
+    the date the service or treatment is first provided, with an exception for emergencies where the disclosure
+    is made as soon as reasonably possible. The disclosure must be clear, conspicuous and in plain language.
+  practical_action: >
+    Add an AI-use statement to intake and consent materials for services that use AI, with an emergency-follow-up rule.
+  applicability:
+    description: Health-care service and treatment providers in Texas that use AI in relation to patient services.
+    actors: [deployer]
+    risk_categories: [transparency_risk, high_risk]
+    source_reference: "Business and Commerce Code Section 551.051"
+  evidence_examples:
+    - { title: Patient AI-use disclosure in intake or consent documents, artifact_type: document }
+  framework_mappings:
+    - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.1", note: "Transparency to affected individuals.", confidence_level: medium }
+    - { framework: iso_42001, reference: "Annex A.8.5", note: "Information for interested parties.", confidence_level: medium }
+  controls:
+    - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Patient-facing disclosure before first service.", confidence_level: high }
+    - { control: ai-system-inventory, relationship: supports, note: "Identifies clinical and administrative systems that use AI.", confidence_level: medium }
+  official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  review_status: pending_review
+  confidence_level: medium
+- slug: us-texas-responsible-ai-governance-act-traiga-manipulation-prohibition
+  title: Developers and deployers must not use AI to incite self-harm, harm to others or crime
+  category: prohibited_practice
+  source_reference: "Business and Commerce Code Section 551.052"
+  is_binding: true
+  applies_from: 2026-01-01
+  actors: [provider, deployer]
+  sectors: [cross_sector, media_information, consumer_retail]
+  use_cases: [generative_ai, content_moderation, customer_service]
+  summary: >
+    A person may not develop or deploy an AI system in a manner that intentionally aims to incite or encourage a
+    person to commit physical self-harm, including suicide, to harm another person, or to engage in criminal
+    activity. The prohibition turns on the developer's or deployer's intent rather than on the system's effects,
+    which is the pattern followed throughout the Act's prohibited-use provisions.
+  practical_action: >
+    Record the intended purpose of each system at design review and add safety testing for self-harm and violence content in conversational products.
+  applicability:
+    description: Any person developing or deploying AI systems in Texas or for Texas residents.
+    actors: [provider, deployer]
+    risk_categories: [prohibited]
+    source_reference: "Business and Commerce Code Section 551.052"
+  evidence_examples:
+    - { title: Intended-purpose statement and prohibited-use screening record, artifact_type: record }
+    - { title: Safety evaluation for self-harm and violence content, artifact_type: report }
+  framework_mappings:
+    - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MAP 1.1, MEASURE 2.6", note: "Legal requirements, intended purpose and safety evaluation.", confidence_level: medium }
+    - { framework: iso_42001, reference: "Annex A.9.4, A.6.1.2", note: "Intended use and system objectives.", confidence_level: medium }
+  controls:
+    - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens intent and design against the banned purposes.", confidence_level: high }
+    - { control: genai-red-team-testing, relationship: supports, note: "Tests for harmful-incitement behaviour in generative systems.", confidence_level: medium }
+  official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  review_status: pending_review
+  confidence_level: high
+- slug: us-texas-responsible-ai-governance-act-traiga-government-social-scoring-prohibition
+  title: Governmental entities must not use AI for social scoring
+  category: prohibited_practice
+  source_reference: "Business and Commerce Code Section 551.053"
+  is_binding: true
+  applies_from: 2026-01-01
+  actors: [public_authority]
+  sectors: [public_services, law_enforcement]
+  use_cases: [public_services, law_enforcement]
+  summary: >
+    A governmental entity may not develop or deploy an AI system that evaluates or classifies natural persons or
+    groups on the basis of their social behaviour or personal characteristics, with the intent to calculate or
+    assign a social score or similar valuation that leads to detrimental or unfavourable treatment unrelated to the
+    context in which the data was collected, or that is unjustified or disproportionate to the behaviour.
+  practical_action: >
+    Screen agency scoring, eligibility and risk-ranking tools for social-scoring characteristics before procurement or build.
+  applicability:
+    description: Texas governmental entities developing or deploying AI that scores or classifies people.
+    actors: [public_authority]
+    risk_categories: [prohibited]
+    source_reference: "Business and Commerce Code Section 551.053"
+  evidence_examples:
+    - { title: Prohibited-use screening record for scoring tools, artifact_type: record }
+  framework_mappings:
+    - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MAP 1.1", note: "Legal requirements and context mapping.", confidence_level: medium }
+    - { framework: iso_42001, reference: "Clause 6.1.4; Annex A.5.2", note: "Impact assessment identifies detrimental treatment.", confidence_level: medium }
+  controls:
+    - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens public-sector scoring tools against the ban.", confidence_level: high }
+    - { control: public-sector-ai-use-case-register, relationship: supports, note: "Register is the population to be screened.", confidence_level: medium }
+  official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  review_status: pending_review
+  confidence_level: high
+- slug: us-texas-responsible-ai-governance-act-traiga-government-biometric-identification-prohibition
+  title: Governmental entities must not use AI for biometric identification from public data without consent where it infringes rights
+  category: prohibited_practice
+  source_reference: "Business and Commerce Code Section 551.054"
+  is_binding: true
+  applies_from: 2026-01-01
+  actors: [public_authority]
+  sectors: [public_services, law_enforcement]
+  use_cases: [biometrics, law_enforcement]
+  summary: >
+    A governmental entity may not develop or deploy an AI system for the purpose of uniquely identifying a specific
+    individual using biometric data, or of gathering images or other media from the internet or another public
+    source without the individual's consent, where doing so would infringe a right guaranteed under the United
+    States or Texas constitutions or violate state or federal law. The Act preserves lawful uses that comply with
+    existing biometric-privacy law.
+  practical_action: >
+    Require legal sign-off on lawful basis and constitutional review before any agency biometric-matching or public-image scraping project.
+  applicability:
+    description: Texas governmental entities using AI for biometric identification or collection of public images.
+    actors: [public_authority]
+    risk_categories: [prohibited, high_risk]
+    source_reference: "Business and Commerce Code Section 551.054"
+  evidence_examples:
+    - { title: Legal review of biometric AI use, artifact_type: record }
+  framework_mappings:
+    - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MEASURE 2.10", note: "Legal requirements and privacy risk.", confidence_level: medium }
+    - { framework: iso_42001, reference: "Annex A.5.2, A.7.3", note: "Impact assessment and data acquisition.", confidence_level: medium }
+  controls:
+    - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens biometric projects against the ban.", confidence_level: high }
+    - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Consent and lawful basis for biometric data.", confidence_level: high }
+  official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  review_status: pending_review
+  confidence_level: high
+- slug: us-texas-responsible-ai-governance-act-traiga-unlawful-discrimination-prohibition
+  title: Developers and deployers must not use AI with the intent to unlawfully discriminate against a protected class
+  category: prohibited_practice
+  source_reference: "Business and Commerce Code Section 551.056"
+  is_binding: true
+  applies_from: 2026-01-01
+  actors: [provider, deployer, public_authority]
+  sectors: [cross_sector, employment, financial_services, public_services]
+  use_cases: [hiring_and_hr, finance_and_credit, public_services]
+  summary: >
+    A person may not develop or deploy an AI system with the intent to unlawfully discriminate against a protected
+    class in violation of state or federal law. A disparate impact on a protected class is not, by itself,
+    sufficient to show an intent to discriminate, and insurers and financial institutions acting under their own
+    regulatory regimes are treated separately.
+  practical_action: >
+    Document the non-discriminatory purpose of each decision system and keep fairness testing evidence that shows there was no intent to discriminate.
+  applicability:
+    description: Any person developing or deploying AI systems affecting Texas residents; intent, not effect, is the test.
+    actors: [provider, deployer, public_authority]
+    risk_categories: [prohibited]
+    source_reference: "Business and Commerce Code Section 551.056"
+  evidence_examples:
+    - { title: Purpose statement and fairness testing record, artifact_type: record }
+  framework_mappings:
+    - { framework: nist_ai_rmf, reference: "MEASURE 2.11, MANAGE 1.3", note: "Fairness and bias evaluated and managed.", confidence_level: medium }
+    - { framework: iso_42001, reference: "Annex A.6.1.2, A.9.4", note: "Objectives and intended use recorded.", confidence_level: medium }
+  controls:
+    - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens purpose against the discrimination ban.", confidence_level: high }
+    - { control: accuracy-robustness-security-testing, relationship: supports, note: "Fairness testing evidence supports the absence of intent.", confidence_level: medium }
+  official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  review_status: pending_review
+  confidence_level: high
+- slug: us-texas-responsible-ai-governance-act-traiga-sexual-content-and-csam-prohibition
+  title: Developers and distributors must not build AI intended to produce child sexual abuse material or unlawful sexual deepfakes
+  category: prohibited_practice
+  source_reference: "Business and Commerce Code Section 551.057"
+  is_binding: true
+  applies_from: 2026-01-01
+  actors: [provider, distributor, deployer]
+  sectors: [cross_sector, media_information]
+  use_cases: [generative_ai, content_moderation]
+  summary: >
+    A person may not develop or distribute an AI system with the sole intent of producing, assisting or aiding in
+    producing, or distributing child pornography or unlawful deep-fake videos or images, including sexually
+    explicit deepfakes of a person without consent, or of engaging in sexually explicit text-based conversations
+    while impersonating or imitating a child, in violation of the Texas Penal Code.
+  practical_action: >
+    Enforce content-safety filters and abuse-detection on generative products and record the intended purpose of any image or chat model at release.
+  applicability:
+    description: Developers and distributors of generative AI systems available in Texas.
+    actors: [provider, distributor, deployer]
+    risk_categories: [prohibited]
+    source_reference: "Business and Commerce Code Section 551.057"
+  evidence_examples:
+    - { title: Content-safety policy and filter test results, artifact_type: report }
+    - { title: Prohibited-use screening record, artifact_type: record }
+  framework_mappings:
+    - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MEASURE 2.6, MANAGE 2.3", note: "Legal requirements, safety evaluation and abuse mitigation; NIST AI 600-1 addresses obscene and abusive content.", confidence_level: medium }
+    - { framework: iso_42001, reference: "Annex A.9.4", note: "Intended use of the AI system.", confidence_level: low }
+  controls:
+    - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens product intent against the ban.", confidence_level: high }
+    - { control: genai-red-team-testing, relationship: supports, note: "Tests that safeguards block sexual content involving minors.", confidence_level: high }
+  official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
+  review_status: pending_review
+  confidence_level: high
 applicability_rules: []
 deadlines:
 - title: Effective date

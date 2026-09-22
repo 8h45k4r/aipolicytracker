@@ -86,6 +86,108 @@ obligations:
     controls:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Critical-safety-incident criteria and escalation to the state office within the statutory time.", confidence_level: high }
       - { control: frontier-model-safety-framework, relationship: supports, note: "Defines the incident types the framework is meant to prevent.", confidence_level: medium }
+  - slug: us-california-sb-53-transparency-report
+    title: Frontier developers must publish a transparency report before deploying a new frontier model
+    category: transparency
+    source_reference: "Business and Professions Code Section 22757.12 (as added by SB 53)"
+    is_binding: true
+    applies_from: 2026-01-01
+    actors: [gpai_provider, provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      Before or at the time a frontier developer deploys a new frontier model, or a substantially modified version,
+      it must publish a transparency report on its website describing the model, its intended uses and restrictions,
+      the release date and modalities, and how to contact the developer. A large frontier developer must add a
+      summary of its catastrophic-risk assessment for the model, the results, any third-party evaluators involved
+      and the steps taken under its frontier AI framework, with trade-secret and security redactions explained.
+    practical_action: >
+      Attach a model-release transparency report to the launch checklist, with a redaction log for withheld details.
+    applicability:
+      description: Frontier developers above the compute threshold; the catastrophic-risk elements apply to large frontier developers above the revenue threshold.
+      actors: [gpai_provider, provider]
+      risk_categories: [systemic_risk]
+      source_reference: "Business and Professions Code Section 22757.12"
+    evidence_examples:
+      - { title: Published model transparency report, artifact_type: document }
+      - { title: Redaction justification log, artifact_type: record }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 4.2, MAP 5.1, MEASURE 2.6", note: "Public documentation of intended use and safety evaluation.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Annex A.8.2, A.8.3", note: "System documentation and external reporting.", confidence_level: medium }
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "The model card content the report is built from.", confidence_level: high }
+      - { control: model-release-and-change-management-gate, relationship: supports, note: "Release is gated on the report being published.", confidence_level: high }
+      - { control: frontier-model-safety-framework, relationship: supports, note: "Report describes steps taken under the framework.", confidence_level: medium }
+    official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
+    review_status: pending_review
+    confidence_level: medium
+  - slug: us-california-sb-53-catastrophic-risk-assessment-summaries
+    title: Large frontier developers must send periodic summaries of catastrophic-risk assessments to the state
+    category: safety_testing
+    source_reference: "Business and Professions Code Section 22757.12 (as added by SB 53)"
+    is_binding: true
+    applies_from: 2026-01-01
+    actors: [gpai_provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      A large frontier developer must transmit to the California Office of Emergency Services, on the periodic
+      schedule the statute sets, a summary of any assessment of catastrophic risk that results from the internal use
+      of its frontier models. This covers risks arising before public deployment, such as during internal
+      evaluation or use of the model to accelerate research, and complements the public transparency report.
+    practical_action: >
+      Schedule a recurring internal-use risk assessment and a state submission with a fixed owner in the safety team.
+    applicability:
+      description: Large frontier developers above the statutory compute and revenue thresholds.
+      actors: [gpai_provider]
+      risk_categories: [systemic_risk]
+      source_reference: "Business and Professions Code Section 22757.12"
+    evidence_examples:
+      - { title: Internal-use catastrophic risk assessment summary sent to the Office of Emergency Services, artifact_type: report }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MEASURE 2.6, MANAGE 1.2, GOVERN 4.3", note: "Safety evaluation, prioritisation and information sharing with authorities.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Clause 9.1; Annex A.8.3", note: "Monitoring and external reporting.", confidence_level: low }
+    controls:
+      - { control: frontier-model-safety-framework, relationship: satisfies, note: "Framework defines the catastrophic-risk assessment whose summaries are submitted.", confidence_level: medium }
+      - { control: genai-red-team-testing, relationship: supports, note: "Dangerous-capability evaluations feed the assessment.", confidence_level: medium }
+    official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
+    review_status: pending_review
+    confidence_level: medium
+  - slug: us-california-sb-53-whistleblower-protections
+    title: Frontier developers must protect employees who report catastrophic-risk concerns
+    category: governance_accountability
+    source_reference: "Labor Code Section 1107 (as added by SB 53)"
+    is_binding: true
+    applies_from: 2026-01-01
+    actors: [gpai_provider, provider]
+    sectors: [cross_sector]
+    use_cases: [generative_ai]
+    summary: >
+      A frontier developer must not adopt rules or take action that prevent or retaliate against a covered employee
+      for disclosing to the Attorney General, a federal authority, a manager or another employee with authority
+      that the developer's activities pose a specific and substantial danger to public health or safety from
+      catastrophic risk, or that it has violated the Act. Covered employees must be given clear notice of these
+      rights, and large frontier developers must run an anonymous internal reporting process with regular updates
+      to the reporter and to officers and directors.
+    practical_action: >
+      Publish a whistleblower policy covering catastrophic-risk concerns, stand up an anonymous channel and brief managers on the anti-retaliation rule.
+    applicability:
+      description: Frontier developers and their contractors and employees responsible for assessing, managing or responding to catastrophic risk; the anonymous internal process is required of large frontier developers.
+      actors: [gpai_provider, provider]
+      risk_categories: [systemic_risk]
+      source_reference: "Labor Code Section 1107"
+    evidence_examples:
+      - { title: Whistleblower policy and employee notice, artifact_type: document }
+      - { title: Anonymous reporting channel records, description: "Case log with status updates to reporters and board reporting.", artifact_type: record }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 4.1, GOVERN 4.3", note: "Culture that surfaces risks and incident-sharing practices.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Clause 5.1, 7.4; Annex A.3.2", note: "Leadership, communication and roles.", confidence_level: low }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Whistleblower policy, anonymous channel and escalation to the board.", confidence_level: medium }
+      - { control: ai-incident-management-and-reporting, relationship: supports, note: "Reports feed the incident process.", confidence_level: medium }
+    official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
+    review_status: pending_review
+    confidence_level: medium
 deadlines:
   - { title: Operative date, due_on: 2026-01-01, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Most provisions operative; confirm on the official bill page." }
 sources:

@@ -162,7 +162,7 @@ class PublicSiteTest extends TestCase
     {
         $this->getJson('/api/v1')->assertOk()->assertJsonPath('version', 'v1');
         $this->getJson('/api/v1/policies?jurisdiction=eu')->assertOk()->assertJsonPath('data.0.jurisdiction', 'eu')->assertHeader('Cache-Control', 'max-age=600, public, stale-while-revalidate=3600');
-        $this->getJson('/api/v1/policies/eu-ai-act')->assertOk()->assertJsonPath('data.slug', 'eu-ai-act')->assertJsonCount(19, 'data.obligations');
+        $this->getJson('/api/v1/policies/eu-ai-act')->assertOk()->assertJsonPath('data.slug', 'eu-ai-act')->assertJsonCount(44, 'data.obligations');
         $this->getJson('/api/v1/obligations?category=risk_management')->assertOk();
         $this->getJson('/api/v1/changes?since=2025-01-01')->assertOk();
         $this->getJson('/api/v1/jurisdictions/nepal')->assertOk()->assertJsonPath('data.slug', 'nepal');

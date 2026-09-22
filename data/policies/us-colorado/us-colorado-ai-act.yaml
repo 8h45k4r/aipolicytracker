@@ -156,6 +156,198 @@ obligations:
     controls:
       - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Deployer information pack and public statement derived from the documentation set.", confidence_level: high }
       - { control: training-data-provenance-and-copyright-register, relationship: supports, note: "Training-data summaries.", confidence_level: medium }
+  - slug: us-colorado-ai-act-developer-reasonable-care
+    title: Developers must use reasonable care to avoid algorithmic discrimination
+    category: risk_management
+    source_reference: "C.R.S. 6-1-1702(1)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [provider]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      A developer of a high-risk AI system must use reasonable care to protect consumers from any known or reasonably
+      foreseeable risk of algorithmic discrimination arising from the intended and contracted uses of the system. A
+      developer that meets the documentation, public-statement and Attorney General disclosure duties in the rest of
+      section 6-1-1702 benefits from a rebuttable presumption that it used reasonable care.
+    practical_action: >
+      Run and record a discrimination-risk assessment for each high-risk system before release and keep it current so the statutory presumption can be claimed.
+    applicability:
+      description: Developers doing business in Colorado that develop or intentionally and substantially modify a high-risk AI system.
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "C.R.S. 6-1-1702(1)"
+    evidence_examples:
+      - { title: Algorithmic discrimination risk assessment, artifact_type: report }
+      - { title: Bias evaluation results and mitigation record, artifact_type: record }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MAP 1.1, MEASURE 2.11, MANAGE 1.3", note: "Fairness and bias evaluated and managed.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Clause 6.1.2, 6.1.3", note: "AI risk assessment and treatment.", confidence_level: medium }
+    controls:
+      - { control: ai-risk-assessment, relationship: satisfies, note: "Identifies and treats discrimination risk per system.", confidence_level: high }
+      - { control: accuracy-robustness-security-testing, relationship: supports, note: "Disparate-impact testing across protected classes.", confidence_level: high }
+    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-colorado-ai-act-developer-disclosure-to-attorney-general
+    title: Developers must notify the Attorney General and deployers of discovered algorithmic discrimination
+    category: incident_handling
+    source_reference: "C.R.S. 6-1-1702(5)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [provider]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      Within 90 days after a developer discovers, through ongoing testing or a credible report from a deployer, that
+      a high-risk AI system it developed has caused or is reasonably likely to have caused algorithmic
+      discrimination, it must disclose this to the Colorado Attorney General and to all known deployers or other
+      developers of the system, without unreasonable delay.
+    practical_action: >
+      Route bias findings and deployer complaints into an incident process with a 90-day regulatory and customer notification clock.
+    applicability:
+      description: Developers of high-risk AI systems that become aware of algorithmic discrimination caused by their system.
+      actors: [provider]
+      risk_categories: [high_risk]
+      source_reference: "C.R.S. 6-1-1702(5)"
+    evidence_examples:
+      - { title: Discrimination incident log with notification dates, artifact_type: register }
+      - { title: Attorney General and deployer notification letters, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MANAGE 4.3, GOVERN 6.2", note: "Incident communication to authorities and downstream parties.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Clause 10.2; Annex A.8.4", note: "Corrective action and incident communication.", confidence_level: medium }
+    controls:
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Discrimination findings treated as reportable incidents with the 90-day clock.", confidence_level: high }
+      - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Ongoing testing is one of the discovery routes the statute names.", confidence_level: medium }
+    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-colorado-ai-act-deployer-reasonable-care
+    title: Deployers must use reasonable care to avoid algorithmic discrimination
+    category: risk_management
+    source_reference: "C.R.S. 6-1-1703(1)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      A deployer of a high-risk AI system must use reasonable care to protect consumers from known or reasonably
+      foreseeable risks of algorithmic discrimination. A deployer that runs the required risk-management programme,
+      completes impact assessments, gives consumer notices and makes the required disclosures benefits from a
+      rebuttable presumption of reasonable care; some deployers with fewer than 50 employees are relieved of parts of
+      the programme and assessment duties when they rely on the developer's impact assessment.
+    practical_action: >
+      Treat each consequential-decision use of AI as a governed system with an owner, a risk record and the statutory paperwork so the presumption is available.
+    applicability:
+      description: Deployers doing business in Colorado that use a high-risk AI system to make or substantially inform consequential decisions.
+      actors: [deployer]
+      risk_categories: [high_risk]
+      source_reference: "C.R.S. 6-1-1703(1) and 6-1-1703(6)"
+    evidence_examples:
+      - { title: Deployer compliance checklist per high-risk system, artifact_type: record }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 1.1, MANAGE 1.3", note: "Legal requirements and risk treatment for deployed systems.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Clause 6.1.2; Annex A.9.2", note: "Risk assessment and responsible-use processes.", confidence_level: medium }
+    controls:
+      - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Ownership and the standard of care documented for each system.", confidence_level: medium }
+      - { control: ai-risk-assessment, relationship: supports, note: "Discrimination risk identified for each consequential-decision use.", confidence_level: high }
+    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-colorado-ai-act-deployer-public-statement
+    title: Deployers must publish a statement about the high-risk AI systems they use
+    category: transparency
+    source_reference: "C.R.S. 6-1-1703(5)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      A deployer must make available on its website, or in another public way, a clear and readily available
+      statement summarising the types of high-risk AI systems it currently deploys, how it manages known or
+      reasonably foreseeable risks of algorithmic discrimination from those systems, and the nature, source and
+      extent of the information it collects and uses. The statement must be updated periodically.
+    practical_action: >
+      Publish an AI-use page listing high-risk systems in plain language and review it whenever a system is added or changed.
+    applicability:
+      description: Deployers of high-risk AI systems, subject to the small-deployer relief in 6-1-1703(6).
+      actors: [deployer]
+      risk_categories: [high_risk]
+      source_reference: "C.R.S. 6-1-1703(5)"
+    evidence_examples:
+      - { title: Public statement on high-risk AI use, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 4.2, MAP 5.2", note: "Transparency about deployed systems and their impacts.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Annex A.8.5", note: "Information for interested parties.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Organisation-level public statement rather than per-interaction notice.", confidence_level: medium }
+      - { control: ai-system-inventory, relationship: supports, note: "Source of the list of deployed high-risk systems.", confidence_level: high }
+    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-colorado-ai-act-deployer-disclosure-to-attorney-general
+    title: Deployers must notify the Attorney General of discovered algorithmic discrimination
+    category: incident_handling
+    source_reference: "C.R.S. 6-1-1703(7)"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      If a deployer discovers that a high-risk AI system it uses has caused algorithmic discrimination, it must
+      send a notice to the Colorado Attorney General within 90 days of the discovery, in the form the Attorney
+      General prescribes, without unreasonable delay.
+    practical_action: >
+      Add a 90-day Attorney General notification step to the incident playbook for consequential-decision systems.
+    applicability:
+      description: Deployers of high-risk AI systems that discover the system has caused algorithmic discrimination.
+      actors: [deployer]
+      risk_categories: [high_risk]
+      source_reference: "C.R.S. 6-1-1703(7)"
+    evidence_examples:
+      - { title: Attorney General notification record, artifact_type: record }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "MANAGE 4.3", note: "Incident response and reporting.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Annex A.8.4", note: "Communication of incidents.", confidence_level: medium }
+    controls:
+      - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Discrimination discovery treated as a reportable incident with the statutory clock.", confidence_level: high }
+    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-colorado-ai-act-consumer-ai-interaction-disclosure
+    title: Deployers and developers must disclose to consumers that they are interacting with an AI system
+    category: transparency
+    source_reference: "C.R.S. 6-1-1704"
+    is_binding: true
+    applies_from: 2026-06-30
+    actors: [deployer, provider]
+    sectors: [cross_sector, consumer_retail, financial_services, healthcare]
+    use_cases: [customer_service, generative_ai]
+    summary: >
+      Any developer or deployer that makes an AI system available to consumers that is intended to interact with
+      them must disclose to each consumer that they are interacting with an AI system, unless that would be obvious
+      to a reasonable person. This duty is not limited to high-risk systems and covers chatbots and voice agents
+      offered to Colorado consumers.
+    practical_action: >
+      Add an AI disclosure at the start of chatbot, voice and messaging interactions and record where it appears.
+    applicability:
+      description: Developers and deployers of any consumer-facing AI system intended to interact with consumers, whatever its risk level.
+      actors: [deployer, provider]
+      risk_categories: [transparency_risk, high_risk, minimal_risk]
+      source_reference: "C.R.S. 6-1-1704"
+    evidence_examples:
+      - { title: AI interaction disclosure copy and screenshots, artifact_type: document }
+    framework_mappings:
+      - { framework: nist_ai_rmf, reference: "GOVERN 5.1, MANAGE 4.1", note: "Transparency to end users.", confidence_level: medium }
+      - { framework: iso_42001, reference: "Annex A.8.5", note: "Information for interested parties.", confidence_level: medium }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Point-of-interaction notice.", confidence_level: high }
+    official_source_url: "https://leg.colorado.gov/bills/sb24-205"
+    review_status: pending_review
+    confidence_level: high
 deadlines:
   - { title: Signed into law, due_on: 2024-05-17, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Governor signed SB 24-205." }
   - { title: Original effective date (superseded), due_on: 2026-02-01, date_precision: exact, deadline_status: superseded, confidence_level: high, description: "Replaced by SB 25B-004." }

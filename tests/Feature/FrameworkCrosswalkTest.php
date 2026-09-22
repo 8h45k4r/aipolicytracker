@@ -53,7 +53,7 @@ class FrameworkCrosswalkTest extends TestCase
         $mapped = FrameworkMapping::where('framework', 'iso_42001')
             ->whereHas('obligation.policyInstrument.jurisdiction', fn ($q) => $q->where('slug', 'eu'))->count();
 
-        $this->assertSame(18, $mapped, 'The EU AI Act crosswalk is the flagship page; if this count moves, the page copy needs rechecking.');
+        $this->assertSame(42, $mapped, 'The EU AI Act crosswalk is the flagship page; if this count moves, the page copy needs rechecking.');
 
         $this->get(route('frameworks.crosswalk', ['iso-42001', 'eu']))
             ->assertOk()
@@ -112,7 +112,7 @@ class FrameworkCrosswalkTest extends TestCase
 
         $this->assertStringContainsString('## Law-to-standard crosswalks', $body);
         $this->assertStringContainsString('European Union AI rules mapped to ISO/IEC 42001', $body);
-        $this->assertStringContainsString('18 of 19 recorded duties mapped', $body);
+        $this->assertStringContainsString('42 of 44 recorded duties mapped', $body);
         $this->assertStringContainsString('never means certification discharges the duty', $body);
     }
 
