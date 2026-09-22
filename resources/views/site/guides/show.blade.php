@@ -14,7 +14,12 @@
             <section class="mt-10" aria-labelledby="xwalk-heading"><h2 id="xwalk-heading" class="section-title">Crosswalk from recorded obligations</h2><p class="mt-1 text-xs text-brand-muted">Original editorial mappings with confidence levels; clause references only, no standard text.</p>
                 <div class="table-wrap table-sticky mt-3"><table><caption class="sr-only">Framework crosswalk</caption><thead><tr><th scope="col">Obligation</th><th scope="col">Instrument</th><th scope="col">Framework reference</th><th scope="col">Confidence</th></tr></thead><tbody>
                 @foreach($frameworkObligations as $o)@foreach($o->frameworkMappings->where('framework', $page['framework']) as $m)<tr><th scope="row" class="font-medium"><a href="{{ $o->url() }}" class="text-brand-navy hover:underline">{{ $o->title }}</a></th><td>{{ $o->policyInstrument->short_title ?: $o->policyInstrument->title }}</td><td>{{ $m->reference }}@if($m->note)<div class="text-xs text-brand-muted">{{ $m->note }}</div>@endif</td><td>{{ $m->confidence_level }}</td></tr>@endforeach @endforeach
-                </tbody></table></div></section>
+                </tbody></table></div>
+                @php($fw = config('frameworks.'.$page['framework']))
+                @if($fw)
+                <p class="mt-3 text-sm"><a href="{{ route('frameworks.show', $fw['slug']) }}" class="text-brand-blue hover:underline">Every {{ $fw['short'] }} mapping on the platform, grouped by {{ strtolower($fw['unit']) }} &rarr;</a></p>
+                @endif
+            </section>
             @endif
             <x-site.faq :items="$page['faq'] ?? []" />
             <x-site.disclaimer class="mt-8" />
