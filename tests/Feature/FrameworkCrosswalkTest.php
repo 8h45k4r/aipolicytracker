@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\FrameworkMapping;
+use App\Models\Obligation;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyImporter;
@@ -113,6 +114,36 @@ class FrameworkCrosswalkTest extends TestCase
         $this->assertStringContainsString('European Union AI rules mapped to ISO/IEC 42001', $body);
         $this->assertStringContainsString('18 of 19 recorded duties mapped', $body);
         $this->assertStringContainsString('never means certification discharges the duty', $body);
+    }
+
+    public function test_the_written_guide_and_the_data_page_point_at_each_other(): void
+    {
+        // Both target "ISO 42001 vs the EU AI Act". Unlinked they split the same signal, and
+        // the guide additionally rendered every mapping across every jurisdiction, duplicating
+        // /frameworks/iso-42001 wholesale on a page whose title promises the EU.
+        $guide = $this->get(route('guides.show', 'iso-42001-vs-eu-ai-act'))->assertOk();
+        $guide->assertSee(route('frameworks.show', 'iso-42001'), false);
+
+        $this->get(route('frameworks.show', 'iso-42001'))->assertOk()
+            ->assertSee(route('guides.show', 'iso-42001-vs-eu-ai-act'), false);
+
+        $this->get(route('frameworks.crosswalk', ['iso-42001', 'eu']))->assertOk()
+            ->assertSee(route('guides.show', 'iso-42001-vs-eu-ai-act'), false);
+    }
+
+    public function test_the_guide_crosswalk_is_scoped_to_the_jurisdiction_it_names(): void
+    {
+        $body = $this->get(route('guides.show', 'iso-42001-vs-eu-ai-act'))->assertOk()->getContent();
+
+        // The table is the guide's own jurisdiction only. A duty from elsewhere appearing here
+        // means the scope regressed and the page duplicates the framework page again.
+        $elsewhere = Obligation::published()
+            ->whereHas('frameworkMappings', fn ($q) => $q->where('framework', 'iso_42001'))
+            ->whereHas('policyInstrument.jurisdiction', fn ($j) => $j->where('slug', '!=', 'eu'))
+            ->first();
+
+        $this->assertNotNull($elsewhere, 'The fixture needs a non-EU mapped duty for this to mean anything.');
+        $this->assertStringNotContainsString($elsewhere->url(), $body, "{$elsewhere->title} is outside the EU yet appears in the EU guide's crosswalk.");
     }
 
     public function test_clause_references_are_parsed_into_families_including_ranges_and_lists(): void

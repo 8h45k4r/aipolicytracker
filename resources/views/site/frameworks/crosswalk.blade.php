@@ -69,6 +69,9 @@
             @endforeach
         </ul>
         <p class="mt-4 text-sm"><a href="{{ route('frameworks.show', $meta['slug']) }}" class="text-brand-blue hover:underline">All {{ $meta['short'] }} mappings across every jurisdiction &rarr;</a></p>
+        @if(! empty($meta['guide']) && $meta['guide']['jurisdiction'] === $j->slug && config('content.guides.'.$meta['guide']['slug']))
+        <p class="mt-1 text-sm"><a href="{{ route('guides.show', $meta['guide']['slug']) }}" class="text-brand-blue hover:underline">{{ config('content.guides.'.$meta['guide']['slug'].'.h1') }} &rarr;</a></p>
+        @endif
     </section>
     <x-site.disclaimer class="mt-8" />
 </div>

@@ -381,4 +381,36 @@
             if (window.matchMedia('(min-width: 768px)').matches) { sel.form.requestSubmit ? sel.form.requestSubmit() : sel.form.submit(); }
         });
     });
+
+    // Primary-nav dropdowns. Each group is a <details>, so it already opens, closes and
+    // takes keyboard focus without this. What native <details> does not do is close when
+    // you click elsewhere, close on Escape, or close a sibling when another group opens,
+    // which is what a menu bar is expected to do. All three are added here.
+    var navGroups = Array.prototype.slice.call(document.querySelectorAll('[data-nav] [data-nav-group]'));
+    if (navGroups.length) {
+        var closeAll = function (except) {
+            navGroups.forEach(function (g) { if (g !== except) { g.open = false; } });
+        };
+
+        navGroups.forEach(function (group) {
+            // 'toggle' fires after the browser has changed state, so reading .open is safe.
+            group.addEventListener('toggle', function () {
+                if (group.open) { closeAll(group); }
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('[data-nav-group]')) { closeAll(null); }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key !== 'Escape') { return; }
+            var open = navGroups.filter(function (g) { return g.open; })[0];
+            if (!open) { return; }
+            closeAll(null);
+            // Return focus to the trigger, or the menu is dismissed with focus nowhere.
+            var summary = open.querySelector('summary');
+            if (summary) { summary.focus(); }
+        });
+    }
 })();
