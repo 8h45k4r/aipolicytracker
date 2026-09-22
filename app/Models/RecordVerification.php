@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/** A human verification decision for a policy or jurisdiction record, kept across imports. */
+/** A human verification decision for a policy, jurisdiction or control record, kept across imports. */
 class RecordVerification extends Model
 {
     protected $guarded = [];
@@ -19,7 +19,11 @@ class RecordVerification extends Model
     {
         $n = 0;
         foreach (static::query()->cursor() as $v) {
-            $model = $v->record_type === 'policy' ? PolicyInstrument::where('slug', $v->record_slug)->first() : Jurisdiction::where('slug', $v->record_slug)->first();
+            $model = match ($v->record_type) {
+                'policy' => PolicyInstrument::where('slug', $v->record_slug)->first(),
+                'control' => Control::where('slug', $v->record_slug)->first(),
+                default => Jurisdiction::where('slug', $v->record_slug)->first(),
+            };
             if ($model) {
                 $model->forceFill(['review_status' => $v->review_status, 'confidence_level' => $v->confidence_level, 'last_verified_at' => $v->last_verified_at, 'reviewed_by' => $v->reviewed_by])->save();
                 $n++;

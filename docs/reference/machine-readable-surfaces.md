@@ -19,13 +19,13 @@ and a model.
 | Surface | Shape | For |
 |---------|-------|-----|
 | `/open-data/health.json` | JSON | How far the corpus can be trusted right now: freshness, completeness and review standing in one document. |
-| `/policies/{slug}.md` and the same for `jurisdictions`, `obligations`, `changes` | Markdown | One record, in one file, with a provenance block. Dropped into a context window without scraping. |
+| `/policies/{slug}.md` and the same for `jurisdictions`, `obligations`, `controls`, `changes` | Markdown | One record, in one file, with a provenance block. Dropped into a context window without scraping. |
 | `/open-data/{dataset}.csv` | CSV | A spreadsheet. Nested lists are JSON-encoded in the cell rather than flattened, so their links survive. |
 | `/open-data/{dataset}.ndjson` | Newline-delimited JSON | A pipeline. One self-contained record per line, streamed in chunks so the corpus is never held in memory whole. |
 | `/schema/{name}.schema.json` | JSON Schema | Validators, at the URL each schema's own `$id` declares. |
 | `agent/server.mjs` | MCP over stdio | An assistant querying the surfaces directly. See `agent/README.md`. |
 
-Datasets: `jurisdictions`, `policies`, `obligations`, `changes`, `deadlines`.
+Datasets: `jurisdictions`, `policies`, `obligations`, `controls`, `changes`, `deadlines`. Every Markdown, JSON, CSV and NDJSON form carries `X-Robots-Tag: noindex`; the per-record forms add a `Link: rel="canonical"` header back to the HTML page, which in turn names them as `rel="alternate"`.
 
 These sit alongside what already existed — the nested bundle at
 `/open-data/aipolicytracker-latest.json`, the read-only JSON API at `/api/v1`, `/openapi.json`,

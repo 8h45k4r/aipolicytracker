@@ -129,6 +129,16 @@ class CompletenessChecks
                 'missing' => fn ($r) => blank($r->practical_action),
             ],
 
+            [
+                'id' => 'obligation-controls',
+                'kind' => 'obligation',
+                'field' => 'controls',
+                'label' => 'A control that meets the duty',
+                'why' => 'A duty with no control named against it cannot be planned, owned or evidenced; it is a requirement without a response.',
+                'severity' => 'expected',
+                'missing' => fn ($r) => ! $r->controls()->whereNotNull('controls.published_at')->exists(),
+            ],
+
             // ---- Change log entries ------------------------------------------------
             [
                 'id' => 'change-source-url',

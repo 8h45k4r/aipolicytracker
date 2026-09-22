@@ -55,4 +55,18 @@
         @foreach($jurisdictions as $j)<tr><td><a href="{{ $j->url() }}">{{ $j->name }}</a></td><td>{{ $j->region ?: '—' }}</td><td><span class="badge-neutral">{{ $j->review_status }}</span></td><td>{{ $j->published_at ? 'yes' : 'no' }}</td><td><form method="post" action="{{ route('backend.review.publish', ['type' => 'jurisdiction', 'slug' => $j->slug]) }}">@csrf<input type="hidden" name="publish" value="{{ $j->published_at ? 0 : 1 }}"><button type="submit" class="btn-secondary !min-h-0 !py-1">{{ $j->published_at ? 'Unpublish' : 'Publish' }}</button></form></td></tr>@endforeach
     </tbody></table></div>
 </section>
+
+<section class="mt-10" aria-labelledby="ctl-heading">
+    <h2 id="ctl-heading" class="section-title !text-lg">Controls</h2>
+    <p class="mt-1 meta">A control is verified when a reviewer has read its purpose, evidence and clause references against the standards it cites and the duties it serves.</p>
+    <div class="table-wrap mt-3"><table><caption class="sr-only">Controls</caption><thead><tr><th scope="col">Control</th><th scope="col">Kind</th><th scope="col">Duties</th><th scope="col">Review</th><th scope="col">Published</th><th scope="col">Verify</th><th scope="col">Publish</th></tr></thead><tbody>
+    @foreach($controls as $c)<tr><td><a href="{{ $c->url() }}">{{ $c->title }}</a></td><td>{{ $c->kindLabel() }}</td><td class="tabular-nums">{{ $c->obligations_count }}</td><td><span class="badge-neutral">{{ $c->review_status }}</span>@if($c->reviewed_by)<div class="meta">{{ $c->reviewed_by }}</div>@endif</td><td>{{ $c->published_at ? 'yes' : 'no' }}</td>
+        <td><form method="post" action="{{ route('backend.review.verify', ['type' => 'control', 'slug' => $c->slug]) }}" class="flex flex-wrap items-end gap-1.5 text-xs">@csrf
+            <select name="review_status" class="input !min-h-0 !py-1 !text-xs w-36">@foreach(['verified', 'pending_review', 'needs_update'] as $st)<option value="{{ $st }}" @selected($c->review_status === $st)>{{ $st }}</option>@endforeach</select>
+            <select name="confidence_level" class="input !min-h-0 !py-1 !text-xs w-28">@foreach(['high', 'medium', 'low', 'unavailable'] as $cl)<option value="{{ $cl }}" @selected($c->confidence_level === $cl)>{{ $cl }}</option>@endforeach</select>
+            <label class="flex items-center gap-1"><input type="checkbox" name="source_opened" value="1">references checked</label>
+            <button type="submit" class="btn-secondary !min-h-0 !py-1">Save</button></form></td>
+        <td><form method="post" action="{{ route('backend.review.publish', ['type' => 'control', 'slug' => $c->slug]) }}">@csrf<input type="hidden" name="publish" value="{{ $c->published_at ? 0 : 1 }}"><button type="submit" class="btn-secondary !min-h-0 !py-1 text-xs">{{ $c->published_at ? 'Unpublish' : 'Publish' }}</button></form></td></tr>@endforeach
+    </tbody></table></div>
+</section>
 @endsection

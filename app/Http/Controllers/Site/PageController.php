@@ -11,6 +11,7 @@ use App\Services\PolicyData\OpenDataExporter;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
@@ -19,16 +20,16 @@ class PageController extends Controller
     public function openData(PolicyCatalog $catalog): View
     {
         $stats = $catalog->stats();
-        $lastUpdated = $stats['last_updated'] ? \Illuminate\Support\Carbon::parse($stats['last_updated']) : null;
+        $lastUpdated = $stats['last_updated'] ? Carbon::parse($stats['last_updated']) : null;
         $seo = Seo::make(
             'Open AI policy dataset, schema and API',
-            'Download the AIPolicyTracker dataset (CC BY 4.0): jurisdictions, policy instruments, obligations, deadlines and change events with official sources. JSON Schema, read-only API and citation guidance.',
+            'Download the AIPolicyTracker dataset (CC BY 4.0): jurisdictions, policy instruments, obligations, controls, deadlines and change events with official sources. JSON Schema, read-only API and citation guidance.',
             route('open-data')
         )->withBreadcrumbs([['Home', route('home')], ['Open data', route('open-data')]])
             ->withJsonLd([
                 '@type' => 'Dataset',
                 'name' => 'AIPolicyTracker open AI policy dataset',
-                'description' => 'Structured, source-backed records of AI laws, regulations, standards, guidance, obligations, deadlines and change events across jurisdictions.',
+                'description' => 'Structured, source-backed records of AI laws, regulations, standards, guidance, obligations, the controls that meet them, deadlines and change events across jurisdictions.',
                 'url' => route('open-data'),
                 'license' => config('aipolicytracker.data_license_url'),
                 'isAccessibleForFree' => true,

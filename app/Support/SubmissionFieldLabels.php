@@ -21,7 +21,7 @@ class SubmissionFieldLabels
         'who_it_applies_to' => 'Who it applies to', 'what_organizations_must_do' => 'What organisations must do', 'key_dates_summary' => 'Key dates', 'penalties_summary' => 'Penalties',
         'official_source_url' => 'Official source URL', 'regulatory_status_summary' => 'Regulatory status', 'binding_vs_guidance' => 'Binding vs guidance',
         'current_priorities' => 'Current priorities', 'regulators' => 'Regulators', 'category' => 'Category', 'summary' => 'Summary',
-        'practical_action' => 'Practical action', 'source_reference' => 'Source reference', 'occurred_on' => 'Date of change',
+        'practical_action' => 'Practical action', 'controls' => 'Controls that meet the duty', 'kind' => 'Kind of control', 'purpose' => 'Purpose', 'owner_role' => 'Owner role', 'frequency' => 'Frequency', 'source_reference' => 'Source reference', 'occurred_on' => 'Date of change',
         'what_changed' => 'What changed', 'description' => 'Description', 'deployers' => 'Alleged deployer', 'developers' => 'Alleged developer',
         'harmed' => 'Alleged harmed party', 'mit_domain' => 'Risk domain', 'mit_subdomain' => 'Risk subdomain', 'entity' => 'Causal entity',
         'intent' => 'Intent', 'timing' => 'Timing', 'harm_level' => 'Harm level', 'countries' => 'Countries', 'risk_category' => 'Risk category',

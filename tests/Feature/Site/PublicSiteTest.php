@@ -54,7 +54,7 @@ class PublicSiteTest extends TestCase
             $this->assertStringContainsString($tag, $html);
         }
         $this->assertStringContainsString('og:image:alt', $html);
-        $this->assertStringContainsString('regulatory intelligence layer for AI governance', $html);
+        $this->assertStringContainsString('AI governance intelligence, from regulation to evidence', $html);
 
         // The declared size describes the image that is actually served, whether
         // that is a drawn card or the static file the site falls back to.
@@ -73,8 +73,8 @@ class PublicSiteTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertOk()
-            ->assertSee('Track AI policy. Build compliant AI.')
-            ->assertSee('The regulatory intelligence layer for AI governance')
+            ->assertSee('From regulation to evidence.')
+            ->assertSee('AI policy, verified at the source.')
             ->assertSee('<link rel="canonical" href="'.url('/').'"', false)
             ->assertSee('application/ld+json', false)
             ->assertDontSee('SOC 2');

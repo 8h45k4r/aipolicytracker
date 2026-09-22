@@ -1,6 +1,6 @@
 # AIPolicyTracker
 
-**AIPolicyTracker is the regulatory intelligence layer for AI governance.** Monitor source-backed AI policy changes, map every obligation to the controls that meet it and the evidence that proves it, and turn regulatory requirements into practical governance actions. Source-backed AI laws, regulations, strategies, standards and guidance across 212 jurisdictions (every UN member state plus territories, sub-national and international bodies), the obligations and deadlines they create, recorded AI incidents and risks, and free templates that help teams act on them.
+**AIPolicyTracker is AI governance intelligence, from regulation to evidence.** Track regulations. Map obligations. Operationalise controls. Prove compliance. Every claim is traceable to its official source: AI policy, verified at the source. Source-backed AI laws, regulations, strategies, standards and guidance across 212 jurisdictions (every UN member state plus territories, sub-national and international bodies), the obligations and deadlines they create, recorded AI incidents and risks, and free templates that help teams act on them.
 
 Live site: [aipolicytracker.org](https://aipolicytracker.org) · Open data: [/open-data](https://aipolicytracker.org/open-data) · Weekly digest: [/subscribe](https://aipolicytracker.org/subscribe)
 

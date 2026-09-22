@@ -6,6 +6,7 @@ use App\Models\Control;
 use App\Models\ControlFrameworkReference;
 use App\Models\FrameworkMapping;
 use App\Models\Obligation;
+use App\Services\Completeness\CompletenessChecks;
 use App\Services\PolicyData\ControlIntelligence;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyDataValidator;
@@ -120,5 +121,24 @@ class ControlsTest extends TestCase
         $this->assertGreaterThan(0, $matrix['totals']['nist_ai_rmf']);
         $this->assertSame(1, substr_count(str_replace(' ', '', $page->getContent()), '"@type":"FAQPage"'));
         $this->get('/sitemap-static.xml')->assertOk()->assertSee(route('frameworks.compare'));
+    }
+
+    public function test_a_control_can_be_corrected_screened_for_and_counted_as_missing(): void
+    {
+        $control = Control::published()->firstOrFail();
+
+        // The correction form prefills the control's own fields.
+        $this->get(route('contribute', ['type' => 'correction', 'subject_type' => 'control', 'subject_slug' => $control->slug]))->assertOk()->assertSee($control->title);
+
+        // The applicability screening names the controls behind the duties it found.
+        $this->get('/tools/applicability-check?jurisdictions[]=eu&role=provider&use_case=hiring_and_hr&personal_data=yes&genai=yes')->assertOk()->assertSee('Controls to build first');
+
+        // An obligation without a control is a published, expected gap.
+        $checks = collect(CompletenessChecks::all())->firstWhere('id', 'obligation-controls');
+        $this->assertNotNull($checks);
+        $obligation = Obligation::published()->has('controls')->firstOrFail();
+        $this->assertFalse($checks['missing']($obligation));
+        $obligation->controls()->detach();
+        $this->assertTrue($checks['missing']($obligation->fresh()));
     }
 }

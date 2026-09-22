@@ -22,10 +22,10 @@ return [
     // Product identity and positioning (used in metadata and structured data)
     // ---------------------------------------------------------------------
     'site_name' => env('SITE_NAME', 'AIPolicyTracker'),
-    'tagline' => 'Track AI policy. Build compliant AI.',
-    'positioning' => 'AIPolicyTracker is the regulatory intelligence layer for AI governance.',
-    'supporting' => 'Monitor source-backed AI policy changes, map every obligation to the controls that meet it and the evidence that proves it, and turn regulatory requirements into practical governance actions.',
-    'trust_statement' => 'Every important policy claim should link to a primary official source, show its current status, and display a last-verified date.',
+    'tagline' => 'AI governance intelligence, from regulation to evidence.',
+    'positioning' => 'AIPolicyTracker is AI governance intelligence, from regulation to evidence.',
+    'supporting' => 'Track regulations. Map obligations. Operationalise controls. Prove compliance. Every claim traceable to its official source.',
+    'trust_statement' => 'AI policy, verified at the source: every important policy claim links to a primary official source, shows its current status and displays a last-verified date.',
     'disclaimer' => 'Informational only. Nothing on this site is legal advice. Check the linked official sources and consult qualified counsel before acting.',
     'default_og_image' => env('SITE_OG_IMAGE', '/og-default.png'),
     // Dimensions of the default social card. Declared in the markup so Slack, LinkedIn
