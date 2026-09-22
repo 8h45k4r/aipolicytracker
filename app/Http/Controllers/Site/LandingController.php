@@ -7,8 +7,10 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\Tool;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\Seo;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -55,18 +57,18 @@ class LandingController extends Controller
         return view('site.landing', compact('seo', 'page', 'landing', 'jurisdictions', 'policies', 'primary', 'changes', 'deadlines', 'obligations'));
     }
 
-    public function guides(\Illuminate\Http\Request $request): View
+    public function guides(Request $request): View
     {
         $multi = fn (string $key, array $allowed) => array_values(array_intersect(array_map('strval', (array) $request->query($key, [])), array_keys($allowed)));
         $filters = [
             'q' => trim((string) $request->query('q', '')),
-            'type' => array_key_exists($request->query('type', ''), \App\Models\Tool::TYPES) ? $request->query('type') : null,
+            'type' => array_key_exists($request->query('type', ''), Tool::TYPES) ? $request->query('type') : null,
             'framework' => $multi('framework', config('resources.frameworks')),
             'topic' => $multi('topic', config('resources.topics')),
             'access' => in_array($request->query('access'), ['read', 'download'], true) ? $request->query('access') : null,
         ];
-        $tools = \App\Models\Tool::published()->with('activeFiles')->orderBy('sort_order')->orderBy('title')->get()->map->card();
-        $items = \App\Models\Tool::guideCards()->concat($tools)->filter(function ($i) use ($filters) {
+        $tools = Tool::published()->with('activeFiles')->orderBy('sort_order')->orderBy('title')->get()->map->card();
+        $items = Tool::guideCards()->concat($tools)->filter(function ($i) use ($filters) {
             if ($filters['type'] && $i['type'] !== $filters['type']) {
                 return false;
             }
@@ -124,7 +126,15 @@ class LandingController extends Controller
         abort_unless($page, 404);
         $policies = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $page['policies'] ?? [])->get();
         $obligations = Obligation::published()->with('policyInstrument.jurisdiction')->whereIn('slug', $page['obligations'] ?? [])->get();
-        $frameworkObligations = ! empty($page['framework']) ? Obligation::published()->with(['policyInstrument.jurisdiction', 'frameworkMappings'])->whereHas('frameworkMappings', fn ($q) => $q->where('framework', $page['framework']))->orderBy('sort_order')->get() : collect();
+        // Scoped to the jurisdiction the guide is about when it names one. Without that this
+        // table repeated every mapping across every jurisdiction, which both contradicted the
+        // guide's own title and duplicated /frameworks/{framework} wholesale.
+        $frameworkObligations = ! empty($page['framework'])
+            ? Obligation::published()->with(['policyInstrument.jurisdiction', 'frameworkMappings'])
+                ->whereHas('frameworkMappings', fn ($q) => $q->where('framework', $page['framework']))
+                ->when(! empty($page['framework_jurisdiction']), fn ($q) => $q->whereHas('policyInstrument.jurisdiction', fn ($j) => $j->where('slug', $page['framework_jurisdiction'])))
+                ->orderBy('sort_order')->get()
+            : collect();
         $lastModified = $policies->max('updated_at');
 
         $seo = Seo::make($page['title'], $page['description'], route('guides.show', $slug))

@@ -66,6 +66,14 @@
     .datestamp { @apply font-mono text-xs text-brand-navy tabular-nums; }
     .skeleton { @apply animate-pulse rounded-sm bg-brand-paper; }
 
-    .nav-link { @apply inline-flex items-center border-b-2 border-transparent px-1 py-5 text-sm font-medium text-brand-body no-underline hover:text-brand-navy hover:border-brand-line; }
+    .nav-link { @apply inline-flex items-center border-b-2 border-transparent px-2.5 py-5 text-sm font-medium text-brand-body no-underline hover:text-brand-navy hover:border-brand-line; }
     .nav-link-active { @apply border-brand-navy text-brand-navy; }
+
+    /* Dropdown panel for a primary-nav group. The group is a <details>, so this is only
+       laid out when the browser has opened it; the rotation gives the chevron a state. */
+    .nav-panel { @apply absolute left-0 top-full z-40 rounded-sm border border-brand-line bg-white p-2 shadow-lg; }
+    [data-nav-group][open] > summary { @apply text-brand-navy border-brand-line; }
+    [data-nav-group][open] > summary svg { @apply rotate-180; }
+    /* The last groups sit near the right edge, so their panels open leftwards. */
+    [data-nav-group]:nth-last-child(-n+2) > .nav-panel { @apply left-auto right-0; }
 }

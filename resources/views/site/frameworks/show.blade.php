@@ -60,6 +60,13 @@
                         @endforeach
                     </ul>
                 </div>
+                @if(! empty($meta['guide']) && config('content.guides.'.$meta['guide']['slug']))
+                <div class="card-flat p-4 text-sm">
+                    <p class="font-semibold text-brand-navy">Written comparison</p>
+                    <p class="mt-1 text-brand-body">This page is the data. The guide explains what {{ $meta['short'] }} does and does not settle for a regulated organisation.</p>
+                    <a href="{{ route('guides.show', $meta['guide']['slug']) }}" class="mt-2 inline-block text-brand-blue hover:underline">{{ config('content.guides.'.$meta['guide']['slug'].'.h1') }} &rarr;</a>
+                </div>
+                @endif
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">The standard itself</p>
                     <p class="mt-1 text-brand-body">This platform records clause numbers only. The text of the standard is published by {{ $meta['publisher'] }}.</p>

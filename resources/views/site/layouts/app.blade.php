@@ -1,3 +1,10 @@
+{{--
+    Questions for this page come from config/faq.php, keyed by route name, and are attached
+    before <head> renders because the FAQPage block goes there while the visible section goes
+    in <main>. A controller that has already called withFaq() wins, so a page with bespoke
+    questions is left alone.
+--}}
+@php($seo->faqItems() ?: $seo->withFaq(\App\Support\Faq::for(request()->route()?->getName() ?? '')))
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,21 +61,13 @@
             <a href="{{ route('home') }}" class="flex items-center py-3 no-underline shrink-0" aria-label="AIPolicyTracker home">
                 <img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" decoding="async">
             </a>
-            <nav aria-label="Primary" class="hidden lg:flex items-center gap-6">
-                @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['frameworks.index','Frameworks'],['changes.index','Changes'],['risk.index','AI risk'],['tools.applicability','Applicability'],['open-data','Open data']] as [$r,$label])
-                <a href="{{ route($r) }}" class="nav-link {{ request()->routeIs($r) ? 'nav-link-active' : '' }}" @if(request()->routeIs($r)) aria-current="page" @endif>{{ $label }}</a>
-                @endforeach
-            </nav>
+            <x-site.nav />
             <div class="flex items-center gap-2">
                 <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
                 <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
                 <details class="relative lg:hidden">
                     <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none" aria-label="Open menu">Menu</summary>
-                    <nav aria-label="Mobile" class="absolute right-0 mt-2 w-64 rounded-sm border border-brand-line bg-white p-2 shadow-lg z-40">
-                        @foreach([['policies.index','Policies'],['jurisdictions.index','Jurisdictions'],['obligations.index','Obligations'],['compare.index','Compare'],['frameworks.index','Frameworks'],['changes.index','Changes'],['risk.index','AI risk'],['risk.incidents','AI incidents'],['tools.applicability','Applicability check'],['open-data','Open data'],['guides.index','Guides'],['subscribe.show','Subscribe to the digest'],['saved','Saved records'],['methodology','Methodology'],['about','About'],['contribute','Contribute']] as [$r,$label])
-                        <a href="{{ route($r) }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body hover:bg-brand-paper no-underline">{{ $label }}</a>
-                        @endforeach
-                    </nav>
+                    <x-site.nav-mobile />
                 </details>
             </div>
         </div>
@@ -81,6 +80,11 @@
 
 <main id="main" class="flex-1" tabindex="-1">
     @yield('content')
+    @if($seo->faqItems())
+        {{-- Rendered here rather than per view, so every page that declares questions shows
+             them in the same place and the markup always matches what a visitor can read. --}}
+        <div class="container-site pb-14"><x-site.faq :items="$seo->faqItems()" /></div>
+    @endif
 </main>
 
 <footer class="mt-20 bg-brand-ink text-white/80">
