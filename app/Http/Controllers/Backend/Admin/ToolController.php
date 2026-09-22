@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -71,7 +72,13 @@ class ToolController extends Controller
             'version' => ['nullable', 'string', 'max:16'],
         ]);
         $upload = $data['file'];
+        // `mimes:` checked the sniffed content; the stored name must match it too,
+        // so a text file uploaded as `something.php` is refused rather than kept
+        // under a name a future web server might execute.
         $ext = strtolower($upload->getClientOriginalExtension());
+        if (! in_array($ext, ToolFile::ALLOWED, true)) {
+            throw ValidationException::withMessages(['file' => 'The file name must end in one of: '.implode(', ', ToolFile::ALLOWED).'.']);
+        }
         $name = Str::slug(pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$ext;
         $path = 'tools/'.$tool->slug.'/'.$name;
         Storage::disk(ToolFile::DISK)->putFileAs('tools/'.$tool->slug, $upload, $name);

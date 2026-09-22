@@ -29,8 +29,11 @@ class SecurityHeaders
 
         // Server-rendered pages must always reflect the latest import; only endpoints
         // that set their own Cache-Control (API, exports, feeds, sitemaps) are cached.
+        // `no-cache` already forces revalidation on every use. `no-store` on top of
+        // it added nothing to freshness and cost the back/forward cache, so a reader
+        // pressing Back re-rendered the page they had just left.
         if (! $response->headers->has('Cache-Control') || str_contains((string) $response->headers->get('Cache-Control'), 'no-cache, private')) {
-            $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+            $response->headers->set('Cache-Control', 'private, no-cache, must-revalidate, max-age=0');
         }
 
         if ($request->isSecure()) {
@@ -47,8 +50,8 @@ class SecurityHeaders
         return implode('; ', [
             "default-src 'self'",
             "script-src 'self' 'nonce-{$nonce}' https://www.googletagmanager.com https://static.cloudflareinsights.com https://cdn.jsdelivr.net/npm/flowbite@2.4.1/".$dev,
-            "style-src 'self' 'unsafe-inline' https://fonts.bunny.net".$dev,
-            "font-src 'self' data: https://fonts.bunny.net",
+            "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://cdnjs.cloudflare.com".$dev,
+            "font-src 'self' data: https://fonts.bunny.net https://cdnjs.cloudflare.com",
             "img-src 'self' data: https:",
             "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://cloudflareinsights.com".$dev,
             "frame-ancestors 'self'",

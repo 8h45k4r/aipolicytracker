@@ -6,7 +6,10 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\Completeness\CompletenessReport;
 use App\Services\MachineReadable\BulkExport;
+use App\Services\Verification\VerificationPolicy;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -145,8 +148,8 @@ class MachineReadableSurfacesTest extends TestCase
 
     public function test_the_health_document_reports_the_same_numbers_as_the_policies_it_summarises(): void
     {
-        $verification = app(\App\Services\Verification\VerificationPolicy::class)->report();
-        $completeness = app(\App\Services\Completeness\CompletenessReport::class)->report();
+        $verification = app(VerificationPolicy::class)->report();
+        $completeness = app(CompletenessReport::class)->report();
 
         $response = $this->get(route('open-data.health'));
         $response->assertOk();
@@ -171,5 +174,29 @@ class MachineReadableSurfacesTest extends TestCase
         ] as $url) {
             $this->get($url)->assertOk()->assertHeader('Access-Control-Allow-Origin', '*');
         }
+    }
+
+    public function test_security_txt_names_the_official_mailbox_and_has_not_expired(): void
+    {
+        $response = $this->get('/.well-known/security.txt');
+        $response->assertOk();
+        $response->assertHeader('Content-Type', 'text/plain; charset=UTF-8');
+        $body = $response->getContent();
+
+        $this->assertStringContainsString('Contact: mailto:'.config('aipolicytracker.contact_email'), $body);
+        $this->assertMatchesRegularExpression('/^Expires: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/m', $body);
+        preg_match('/^Expires: (.+)$/m', $body, $m);
+        $this->assertTrue(now()->lt(Carbon::parse($m[1])), 'security.txt must not be expired when served');
+        $this->assertStringContainsString('Canonical: '.url('/.well-known/security.txt'), $body);
+
+        $this->get('/security.txt')->assertRedirect('/.well-known/security.txt');
+    }
+
+    public function test_every_page_publishes_the_official_mailbox_in_its_organization_node(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringContainsString('"email":"'.config('aipolicytracker.contact_email').'"', $html);
+        $this->assertStringContainsString('"@type":"ContactPoint"', $html);
+        $this->assertStringContainsString('mailto:'.config('aipolicytracker.contact_email'), $html);
     }
 }

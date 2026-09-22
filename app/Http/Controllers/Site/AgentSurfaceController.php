@@ -32,28 +32,28 @@ class AgentSurfaceController extends Controller
     {
         $record = PolicyInstrument::published()->with(['jurisdiction', 'obligations', 'deadlines'])->where('slug', $slug)->firstOrFail();
 
-        return $this->markdown($context->render($record), $slug);
+        return $this->markdown($context->render($record), $slug, $record->url());
     }
 
     public function jurisdiction(string $slug, RecordContext $context): Response
     {
         $record = Jurisdiction::published()->where('slug', $slug)->firstOrFail();
 
-        return $this->markdown($context->render($record), $slug);
+        return $this->markdown($context->render($record), $slug, $record->url());
     }
 
     public function obligation(string $slug, RecordContext $context): Response
     {
         $record = Obligation::published()->with('policyInstrument.jurisdiction')->where('slug', $slug)->firstOrFail();
 
-        return $this->markdown($context->render($record), $slug);
+        return $this->markdown($context->render($record), $slug, $record->url());
     }
 
     public function change(string $slug, RecordContext $context): Response
     {
         $record = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('slug', $slug)->firstOrFail();
 
-        return $this->markdown($context->render($record), $slug);
+        return $this->markdown($context->render($record), $slug, $record->url());
     }
 
     /** One JSON Schema, served at the URL its own `$id` declares. */
@@ -91,6 +91,7 @@ class AgentSurfaceController extends Controller
         }, 'aipolicytracker-'.$dataset.'.csv', [
             'Content-Type' => 'text/csv; charset=UTF-8',
             'Cache-Control' => 'public, max-age=900',
+            'X-Robots-Tag' => 'noindex',
         ]);
     }
 
@@ -107,6 +108,7 @@ class AgentSurfaceController extends Controller
             'Content-Type' => 'application/x-ndjson; charset=UTF-8',
             'Content-Disposition' => 'inline; filename="aipolicytracker-'.$dataset.'.ndjson"',
             'Cache-Control' => 'public, max-age=900',
+            'X-Robots-Tag' => 'noindex',
             'Access-Control-Allow-Origin' => '*',
         ]);
     }
@@ -158,13 +160,20 @@ class AgentSurfaceController extends Controller
         ], 200, ['Cache-Control' => 'public, max-age=900', 'Access-Control-Allow-Origin' => '*'], JSON_UNESCAPED_SLASHES);
     }
 
-    private function markdown(string $body, string $slug): Response
+    /**
+     * The context file is the record page in another form, not a page of its
+     * own: it says so with a canonical link to the HTML and asks not to be
+     * indexed, so an index never lists the two as competing documents.
+     */
+    private function markdown(string $body, string $slug, string $canonical): Response
     {
         return response($body, 200, [
             'Content-Type' => 'text/markdown; charset=UTF-8',
             'Content-Disposition' => 'inline; filename="'.$slug.'.md"',
             'Cache-Control' => 'public, max-age=900',
             'Access-Control-Allow-Origin' => '*',
+            'X-Robots-Tag' => 'noindex',
+            'Link' => '<'.$canonical.'>; rel="canonical"',
         ]);
     }
 }

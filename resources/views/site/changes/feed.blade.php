@@ -11,8 +11,8 @@
 @foreach($changes as $c)
     <item>
         <title>{{ $c->jurisdiction->name }}: {{ $c->title }}</title>
-        <link>{{ route('changes.index') }}#{{ $c->slug }}</link>
-        <guid isPermaLink="false">{{ $c->slug }}</guid>
+        <link>{{ $c->url() }}</link>
+        <guid isPermaLink="true">{{ $c->url() }}</guid>
         <pubDate>{{ $c->occurred_on->copy()->startOfDay()->toRssString() }}</pubDate>
         <category>{{ $c->impact_level }}</category>
         <description>{{ $c->what_changed }}@if($c->practical_impact) Practical impact: {{ $c->practical_impact }}@endif Official source: {{ $c->official_source_url }}. {{ $c->verificationLabel() }}.</description>

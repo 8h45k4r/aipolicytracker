@@ -33,7 +33,7 @@
         </nav>
         <div class="mt-8 text-xs text-white/60">
             <p>{{ auth()->user()->name }}</p>
-            <p class="mt-1"><a href="{{ route('home') }}" class="text-white/80 no-underline hover:text-white">Public site</a> · <a href="{{ route('logout') }}" class="text-white/80 no-underline hover:text-white">Sign out</a></p>
+            <p class="mt-1"><a href="{{ route('home') }}" class="text-white/80 no-underline hover:text-white">Public site</a> · <form method="post" action="{{ route('logout') }}" class="inline">@csrf<button type="submit" class="text-white/80 no-underline hover:text-white bg-transparent border-0 p-0 cursor-pointer">Sign out</button></form></p>
         </div>
     </aside>
     <main class="bg-brand-paper px-4 sm:px-8 py-8 min-w-0 min-h-screen">

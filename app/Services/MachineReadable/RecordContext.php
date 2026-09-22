@@ -168,7 +168,7 @@ class RecordContext
 
         $lines[] = $this->section('What changed', $c->what_changed);
         $lines[] = $this->section('What it means in practice', $c->practical_impact);
-        $lines[] = $this->provenance($c, route('changes.year', $c->occurred_on->year).'#'.$c->slug);
+        $lines[] = $this->provenance($c, $c->url());
 
         return $this->join($lines);
     }

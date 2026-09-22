@@ -23,7 +23,13 @@ jobs:
           extensions: mbstring, intl, bcmath
           coverage: none
       - name: Update lock for requested packages
-        run: composer update ${{ inputs.packages }} --with-all-dependencies --no-install --no-scripts --no-interaction --no-progress
+        # The input is passed through the environment rather than expanded into
+        # the command line, so a value can never become shell syntax.
+        env:
+          PACKAGES: ${{ inputs.packages }}
+        run: |
+          # shellcheck disable=SC2086
+          composer update $PACKAGES --with-all-dependencies --no-install --no-scripts --no-interaction --no-progress
       - name: Validate
         run: composer validate --no-check-publish
       - uses: actions/upload-artifact@v4

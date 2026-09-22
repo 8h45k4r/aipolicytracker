@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SubmissionReceivedMail;
 use App\Models\ChangeEvent;
 use App\Models\ContributorSubmission;
+use App\Models\ExternalIncident;
+use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Rules\NotDisposableEmail;
 use App\Support\Seo;
+use App\Support\SubmissionFieldLabels;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class ContributeController extends Controller
@@ -70,11 +76,11 @@ class ContributeController extends Controller
             'proposed_value' => ['nullable', 'string', 'max:4000'],
             'summary' => ['required', 'string', 'min:10', 'max:300'],
             'details' => ['nullable', 'string', 'max:5000'],
-            'proposed_source_url' => ['nullable', 'url', 'max:2048'],
+            'proposed_source_url' => ['nullable', 'url:http,https', 'max:2048'],
             'submitter_name' => ['nullable', 'string', 'max:120'],
-            'submitter_email' => ['nullable', 'email', 'max:190', new \App\Rules\NotDisposableEmail],
+            'submitter_email' => ['nullable', 'email', 'max:190', new NotDisposableEmail],
             'submitter_affiliation' => ['nullable', 'string', 'max:190'],
-            'source_page' => ['nullable', 'url', 'max:2048'],
+            'source_page' => ['nullable', 'url:http,https', 'max:2048'],
         ]);
 
         // Record context is captured at submission time so a reviewer sees exactly what the
@@ -94,7 +100,7 @@ class ContributeController extends Controller
         $submission = ContributorSubmission::create($data + ['status' => 'pending_review', 'payload' => $payload ?: null]);
         foreach (config('aipolicytracker.admin_emails', []) as $admin) {
             try {
-                \Illuminate\Support\Facades\Mail::to($admin)->send(new \App\Mail\SubmissionReceivedMail($submission));
+                Mail::to($admin)->send(new SubmissionReceivedMail($submission));
             } catch (\Throwable $e) {
                 report($e);
             }
@@ -120,8 +126,8 @@ class ContributeController extends Controller
             'jurisdiction' => Jurisdiction::published()->where('slug', $slug)->first(),
             'obligation' => Obligation::published()->with('policyInstrument.jurisdiction')->where('slug', $slug)->first(),
             'change' => ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('slug', $slug)->first(),
-            'incident' => ctype_digit($slug) ? \App\Models\ExternalIncident::find((int) $slug) : null,
-            'risk' => \App\Models\ExternalRisk::find(str_replace('--', '#', $slug)),
+            'incident' => ctype_digit($slug) ? ExternalIncident::find((int) $slug) : null,
+            'risk' => ExternalRisk::find(str_replace('--', '#', $slug)),
             default => null,
         };
         if (! $record) {
@@ -131,7 +137,7 @@ class ContributeController extends Controller
         $fields = [];
         foreach (self::CORRECTABLE_FIELDS[$type] as $field) {
             $value = $record->{$field} ?? null;
-            $fields[$field] = ['label' => \App\Support\SubmissionFieldLabels::label($field), 'value' => self::stringify($value)];
+            $fields[$field] = ['label' => SubmissionFieldLabels::label($field), 'value' => self::stringify($value)];
         }
 
         [$title, $url, $jurisdiction] = match ($type) {

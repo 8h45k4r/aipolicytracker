@@ -119,12 +119,13 @@
             @endif
 
             <x-site.source-list :sources="$policy->sourceDocuments" class="mt-8" />
+            <x-site.cite :title="$name" :url="$policy->url()" :source-url="$policy->official_source_url" :source-title="$policy->source_title" :publisher="$policy->source_publisher" class="mt-8" />
 
             @if($policy->versions->isNotEmpty() || $policy->changeEvents->isNotEmpty())
             <section aria-labelledby="history-heading" class="mt-8">
                 <h2 id="history-heading" class="section-title">Change history</h2>
                 <ul class="mt-2 space-y-2 text-sm text-brand-body">
-                    @foreach($policy->changeEvents as $c)<li><time class="font-mono" datetime="{{ $c->occurred_on->toDateString() }}">{{ $c->occurred_on->format('j M Y') }}</time> — <a href="{{ route('changes.index') }}#{{ $c->slug }}" class="text-brand-navy hover:underline">{{ $c->title }}</a></li>@endforeach
+                    @foreach($policy->changeEvents as $c)<li><time class="font-mono" datetime="{{ $c->occurred_on->toDateString() }}">{{ $c->occurred_on->format('j M Y') }}</time> — <a href="{{ $c->url() }}" class="text-brand-navy hover:underline">{{ $c->title }}</a></li>@endforeach
                     @foreach($policy->versions as $v)<li><span class="font-mono">{{ $v->version_date?->format('j M Y') ?? '—' }}</span> — {{ $v->version_label }}@if($v->official_source_url) (<a href="{{ $v->official_source_url }}" rel="noopener" class="text-brand-blue">source</a>)@endif</li>@endforeach
                 </ul>
                 <p class="mt-2 text-xs text-brand-muted">Record version {{ $policy->content_version }}@if($policy->change_summary): {{ $policy->change_summary }}@endif. Full edit history is in the <a href="{{ config('aipolicytracker.github_url') }}" rel="noopener">GitHub repository</a>.</p>

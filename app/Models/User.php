@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Notifications\CustomVerifyEmailNotification;
+use App\Services\Billing\Entitlements;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -56,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'two_factor_secret' => 'encrypted',
             'two_factor_recovery_codes' => 'encrypted:array',
             'two_factor_confirmed_at' => 'datetime',
+            'two_factor_last_step' => 'integer',
         ];
     }
 
@@ -77,32 +81,32 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Whether this user may access the admin area (configured via ADMIN_EMAILS).
      */
-    public function resourceDownloads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function resourceDownloads(): HasMany
     {
         return $this->hasMany(ResourceDownload::class);
     }
 
-    public function applicabilityProfiles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function applicabilityProfiles(): HasMany
     {
         return $this->hasMany(ApplicabilityProfile::class)->orderBy('name');
     }
 
-    public function follows(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function follows(): HasMany
     {
         return $this->hasMany(Follow::class)->orderByDesc('id');
     }
 
-    public function alertDeliveries(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function alertDeliveries(): HasMany
     {
         return $this->hasMany(AlertDelivery::class);
     }
 
-    public function billingCustomer(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function billingCustomer(): HasOne
     {
         return $this->hasOne(BillingCustomer::class);
     }
 
-    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class)->orderByDesc('id');
     }
@@ -110,7 +114,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /** The subscription currently granting access, if any (decided by the Entitlements service). */
     public function activeSubscription(): ?Subscription
     {
-        return app(\App\Services\Billing\Entitlements::class)->activeSubscription($this);
+        return app(Entitlements::class)->activeSubscription($this);
     }
 
     /** Plan key from config/billing.php ("free" when no paid plan is active). */
@@ -122,7 +126,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /** Whether the user's plan grants a capability such as "alerts.daily". */
     public function entitled(string $capability): bool
     {
-        return app(\App\Services\Billing\Entitlements::class)->allows($this, $capability);
+        return app(Entitlements::class)->allows($this, $capability);
     }
 
     /** An admin who has scanned a secret and proved one code from it. */

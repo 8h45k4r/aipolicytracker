@@ -45,18 +45,30 @@ class Totp
      */
     public static function verify(string $secret, string $code, ?int $timestamp = null, int $window = 1): bool
     {
+        return self::matchingStep($secret, $code, $timestamp, $window) !== null;
+    }
+
+    /**
+     * The time step the code was generated for, or null when it matches none in
+     * the window. The step is what a caller records to refuse the same code a
+     * second time (RFC 6238 §5.2): a later step is a new code, an earlier or
+     * equal one is a replay.
+     */
+    public static function matchingStep(string $secret, string $code, ?int $timestamp = null, int $window = 1): ?int
+    {
         $code = preg_replace('/\s+/', '', $code) ?? '';
         if (! preg_match('/^\d{'.self::DIGITS.'}$/', $code)) {
-            return false;
+            return null;
         }
         $now = $timestamp ?? time();
         for ($i = -$window; $i <= $window; $i++) {
-            if (hash_equals(self::code($secret, $now + ($i * self::PERIOD)), $code)) {
-                return true;
+            $at = $now + ($i * self::PERIOD);
+            if (hash_equals(self::code($secret, $at), $code)) {
+                return intdiv($at, self::PERIOD);
             }
         }
 
-        return false;
+        return null;
     }
 
     /** The otpauth:// link an authenticator app opens directly on a phone. */

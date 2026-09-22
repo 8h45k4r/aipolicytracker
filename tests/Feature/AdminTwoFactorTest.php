@@ -188,4 +188,24 @@ class AdminTwoFactorTest extends TestCase
         $this->assertSame(1, AdminAuditLog::where('route_name', 'admin:two-factor-reset')->where('user_id', $admin->id)->count());
         $this->signIn($fresh)->get('/backend/dashboard')->assertRedirect(route('admin.two-factor.enrol'));
     }
+
+    public function test_an_authenticator_code_is_accepted_once_only(): void
+    {
+        $admin = $this->enrolled();
+        $code = Totp::code(self::SECRET);
+
+        $this->signIn($admin)->post(route('admin.two-factor.verify'), ['code' => $code])->assertRedirect();
+        $this->assertNotNull($admin->fresh()->two_factor_last_step);
+
+        // A fresh session, the same still-valid code: refused, because it was already spent.
+        Auth::logout();
+        $this->flushSession();
+        $this->signIn($admin->fresh())->post(route('admin.two-factor.verify'), ['code' => $code])->assertSessionHasErrors('code');
+        $this->get('/backend/dashboard')->assertRedirect(route('admin.two-factor.challenge'));
+
+        // The next step's code is a new code and works.
+        $next = Totp::code(self::SECRET, time() + Totp::PERIOD);
+        $this->post(route('admin.two-factor.verify'), ['code' => $next])->assertRedirect(url('/backend/dashboard'));
+        $this->get('/backend/dashboard')->assertOk();
+    }
 }

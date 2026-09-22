@@ -53,7 +53,8 @@ class TwoFactorController extends Controller
         $secret = $request->session()->get(self::PENDING_KEY);
         $data = $request->validate(['code' => ['required', 'string', 'max:12']]);
 
-        if (! $secret || ! Totp::verify($secret, $data['code'])) {
+        $step = $secret ? Totp::matchingStep($secret, $data['code']) : null;
+        if ($step === null) {
             return back()->withErrors(['code' => 'That code did not match. Check the clock on your phone and try the next code.']);
         }
 
@@ -62,6 +63,7 @@ class TwoFactorController extends Controller
             'two_factor_secret' => $secret,
             'two_factor_recovery_codes' => array_map(fn ($c) => Hash::make($c), $plain),
             'two_factor_confirmed_at' => now(),
+            'two_factor_last_step' => $step,
         ])->save();
         $request->session()->forget(self::PENDING_KEY);
         EnsureAdminSecondFactor::pass($request);
@@ -103,7 +105,7 @@ class TwoFactorController extends Controller
         $data = $request->validate(['code' => ['required', 'string', 'max:20']]);
         $code = trim($data['code']);
 
-        if (Totp::verify($user->two_factor_secret, $code) || $this->consumeRecoveryCode($user, $code)) {
+        if ($this->consumeAuthenticatorCode($user, $code) || $this->consumeRecoveryCode($user, $code)) {
             $request->session()->regenerate();
             EnsureAdminSecondFactor::pass($request);
 
@@ -122,6 +124,22 @@ class TwoFactorController extends Controller
         }
 
         return $codes;
+    }
+
+    /**
+     * An authenticator code matches at most once. The step of the last accepted
+     * code is kept on the account, and a code from that step or an earlier one
+     * is refused even though the clock window would still accept it.
+     */
+    private function consumeAuthenticatorCode($user, string $code): bool
+    {
+        $step = Totp::matchingStep($user->two_factor_secret, $code);
+        if ($step === null || ($user->two_factor_last_step !== null && $step <= (int) $user->two_factor_last_step)) {
+            return false;
+        }
+        $user->forceFill(['two_factor_last_step' => $step])->save();
+
+        return true;
     }
 
     /** A recovery code matches at most once: the hash is removed the moment it is used. */

@@ -4,7 +4,7 @@
 @forelse($changes as $c)
 <div style="padding:12px 0;border-top:1px solid #D8DEE8;">
 <p style="margin:0 0 4px;font-size:12px;color:#5D6B7E;"><span style="font-family:'Space Mono',monospace;color:#002147;">{{ $c->occurred_on->format('j M Y') }}</span> · {{ $c->jurisdiction?->name }} · {{ ucfirst($c->impact_level) }}</p>
-<p style="margin:0 0 6px;font-weight:600;color:#002147;"><a href="{{ route('changes.index') }}#{{ $c->slug }}" style="color:#002147;text-decoration:none;">{{ $c->title }}</a></p>
+<p style="margin:0 0 6px;font-weight:600;color:#002147;"><a href="{{ $c->url() }}" style="color:#002147;text-decoration:none;">{{ $c->title }}</a></p>
 <p style="margin:0 0 6px;">{{ $c->what_changed }}</p>
 @if($c->practical_impact)<p style="margin:0 0 6px;"><strong>Practical impact:</strong> {{ $c->practical_impact }}</p>@endif
 @if($c->official_source_url)<p style="margin:0;font-size:13px;"><a href="{{ $c->official_source_url }}" style="color:#006AAC;">Official source</a></p>@endif

@@ -3,10 +3,14 @@
 namespace Tests\Feature;
 
 use App\Mail\SubscriptionConfirmMail;
+use App\Mail\TestMail;
 use App\Mail\WeeklyDigestMail;
 use App\Models\AppSetting;
+use App\Models\ChangeEvent;
+use App\Models\ExternalIncident;
 use App\Models\Subscriber;
 use App\Models\User;
+use App\Providers\AppSettingsServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -56,17 +60,17 @@ class SubscriberAndSettingsTest extends TestCase
         Subscriber::create(['email' => 'b@example.org', 'token' => Subscriber::newToken(), 'topics' => ['all']]); // unconfirmed
         DB::table('change_events')->limit(1)->update(['occurred_on' => now()->toDateString()]);
         $this->artisan('external:import');
-        \App\Models\ExternalIncident::orderByDesc('incident_id')->limit(2)->update(['occurred_on' => now()->toDateString()]);
+        ExternalIncident::orderByDesc('incident_id')->limit(2)->update(['occurred_on' => now()->toDateString()]);
 
         $this->artisan('digest:send')->assertExitCode(0);
         Mail::assertSent(WeeklyDigestMail::class, 1);
         Mail::assertSent(WeeklyDigestMail::class, fn ($m) => $m->hasTo('a@example.org') && $m->incidentCount === 2 && str_contains($m->render(), 'AI incidents this week'));
 
         // Policy-level topics: a subscriber following one instrument only gets its changes.
-        $change = \App\Models\ChangeEvent::with('policyInstrument')->whereNotNull('policy_instrument_id')->first();
+        $change = ChangeEvent::with('policyInstrument')->whereNotNull('policy_instrument_id')->first();
         $follower = Subscriber::create(['email' => 'c@example.org', 'token' => Subscriber::newToken(), 'topics' => [$change->policyInstrument->slug], 'confirmed_at' => now()]);
         $this->assertTrue($follower->wants($change));
-        $other = \App\Models\ChangeEvent::where('id', '!=', $change->id)->where(fn ($q) => $q->whereNull('policy_instrument_id')->orWhere('policy_instrument_id', '!=', $change->policy_instrument_id))->where('jurisdiction_id', '!=', $change->jurisdiction_id)->first();
+        $other = ChangeEvent::where('id', '!=', $change->id)->where(fn ($q) => $q->whereNull('policy_instrument_id')->orWhere('policy_instrument_id', '!=', $change->policy_instrument_id))->where('jurisdiction_id', '!=', $change->jurisdiction_id)->first();
         $this->assertFalse($follower->wants($other));
 
         $this->postJson('/cron/digest')->assertStatus(401);
@@ -91,7 +95,7 @@ class SubscriberAndSettingsTest extends TestCase
         $this->actingAs($admin)->get('/backend/admin/settings')->assertOk()->assertDontSee('re_TESTKEY_1234567890')->assertSee('re_T');
 
         // Provider applies stored values on boot.
-        (new \App\Providers\AppSettingsServiceProvider($this->app))->boot();
+        (new AppSettingsServiceProvider($this->app))->boot();
         $this->assertSame('array', config('mail.default'));
         $this->assertSame('re_TESTKEY_1234567890', config('services.resend.key'));
         $this->assertSame('no-reply@example.org', config('mail.from.address'));
@@ -103,7 +107,7 @@ class SubscriberAndSettingsTest extends TestCase
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
         $admin = User::factory()->create(['email' => 'editor@example.test']);
         $this->actingAs($admin)->post('/backend/admin/settings/test-mail', ['to' => 'ops@example.org'])->assertRedirect();
-        Mail::assertSent(\App\Mail\TestMail::class, function ($m) {
+        Mail::assertSent(TestMail::class, function ($m) {
             $html = $m->render();
 
             return $m->hasTo('ops@example.org') && str_contains($html, 'Follow us on social') && str_contains($html, 'linkedin.com/company/aipolicytracker') && str_contains($html, 'brand/social/instagram.png');
@@ -123,5 +127,28 @@ class SubscriberAndSettingsTest extends TestCase
         foreach ($urls as $url) {
             $this->get($url)->assertOk();
         }
+    }
+
+    public function test_a_public_post_cannot_change_or_revive_someone_elses_subscription(): void
+    {
+        Mail::fake();
+        $active = Subscriber::create(['email' => 'reader@example.org', 'token' => Subscriber::newToken(), 'topics' => ['nepal'], 'confirmed_at' => now()]);
+
+        // A second form post for an active address changes nothing and sends nothing:
+        // anyone who knows the address could otherwise rewrite its topics.
+        $this->post('/subscribe', ['email' => 'reader@example.org', 'topics' => ['india']])->assertRedirect()->assertSessionHas('success', 'Check your inbox to confirm your subscription.');
+        $this->assertSame(['nepal'], $active->fresh()->topics);
+        $this->assertSame($active->token, $active->fresh()->token);
+        Mail::assertNothingSent();
+
+        // An address that opted out is only re-enrolled by the owner clicking a fresh link.
+        $active->update(['unsubscribed_at' => now()]);
+        $this->post('/subscribe', ['email' => 'reader@example.org', 'topics' => ['india']])->assertRedirect();
+        $revived = $active->fresh();
+        $this->assertNull($revived->confirmed_at, 'a re-subscription is not active until confirmed again');
+        $this->assertNull($revived->unsubscribed_at);
+        $this->assertNotSame($active->token, $revived->token, 'the old link in old emails no longer confirms anything');
+        $this->assertSame(0, Subscriber::active()->count());
+        Mail::assertSent(SubscriptionConfirmMail::class, fn ($m) => $m->hasTo('reader@example.org'));
     }
 }

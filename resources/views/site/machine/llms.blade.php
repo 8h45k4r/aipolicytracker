@@ -2,7 +2,7 @@
 
 > {{ config('aipolicytracker.positioning') }} {{ config('aipolicytracker.supporting') }}
 
-AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence platform. Every policy record links to a primary official source, shows its current status and a verification state, and is published as open data ({{ config('aipolicytracker.data_license') }}). Content is informational only and is not legal advice.
+Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence platform. Every policy record links to a primary official source, shows its current status and a verification state, and is published as open data ({{ config('aipolicytracker.data_license') }}). Content is informational only and is not legal advice.
 
 ## Content taxonomy
 
@@ -30,6 +30,7 @@ AIPolicyTracker is an open, source-backed AI policy and regulatory intelligence 
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
 - Guides: {{ route('guides.index') }}
 - About, maintainers and references: {{ route('about') }}
+- Contact (corrections, press, security): {{ config('aipolicytracker.contact_email') }}
 
 ## How far this data can be trusted
 
@@ -46,20 +47,20 @@ Read {{ route('open-data.health') }} before quoting any record as settled. It re
 Every published record is also served as one Markdown context file with a provenance block:
 
 - `/policies/{slug}.md` — e.g. {{ route('policies.context', 'eu-ai-act') }}
-- `/jurisdictions/{slug}.md`, `/obligations/{slug}.md`, `/changes/{slug}.md`
+- `/jurisdictions/{slug}.md`, `/obligations/{slug}.md`, `/changes/{slug}.md` (each change also has a page at `/changes/{slug}`)
 
 Whole-corpus exports, one self-contained row at a time: `/open-data/{dataset}.csv` and `/open-data/{dataset}.ndjson` for jurisdictions, policies, obligations, changes and deadlines. JSON Schemas resolve at `/schema/{name}.schema.json`. An assistant can call these through the Model Context Protocol server in the repository's `agent/` directory.
 
 ## Jurisdictions
 
 @foreach($jurisdictions as $j)
-- [AI regulation in {{ $j->name }}]({{ $j->url() }}): {{ \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', $j->regulatory_status_summary)), 200) }}
+- [AI regulation in {{ $j->name }}]({{ $j->url() }}): {{ \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', $j->regulatory_status_summary)), 200) }} Context file: {{ route('jurisdictions.context', $j->slug) }}
 @endforeach
 
 ## Key policy instruments
 
 @foreach($policies as $p)
-- [{{ $p->short_title ?: $p->title }}]({{ $p->url() }}) ({{ $p->jurisdiction->name }}, {{ $p->statusEnum()->label() }}): {{ \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', $p->summary_plain)), 200) }} Official source: {{ $p->official_source_url }}
+- [{{ $p->short_title ?: $p->title }}]({{ $p->url() }}) ({{ $p->jurisdiction->name }}, {{ $p->statusEnum()->label() }}): {{ \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', $p->summary_plain)), 200) }} Official source: {{ $p->official_source_url }} Context file: {{ route('policies.context', $p->slug) }}
 @endforeach
 
 ## Law-to-standard crosswalks

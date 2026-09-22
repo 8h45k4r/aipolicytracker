@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DownloadLinksMail;
 use App\Models\PolicyInstrument;
 use App\Models\ResourceDownload;
 use App\Models\Tool;
+use App\Support\Privacy;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -90,12 +93,12 @@ class FreeToolController extends Controller
         $user->save();
         $download = ResourceDownload::create([
             'user_id' => $user->id, 'resource_slug' => $slug, 'file_name' => $tool->activeFiles->first()->file_name, 'version' => $tool->version,
-            'terms_accepted_at' => now(), 'ip_hash' => hash('sha256', (string) $request->ip()), 'user_agent' => mb_substr((string) $request->userAgent(), 0, 255),
+            'terms_accepted_at' => now(), 'ip_hash' => Privacy::ipHash((string) $request->ip()), 'user_agent' => mb_substr((string) $request->userAgent(), 0, 255),
             'referrer' => mb_substr((string) $request->headers->get('referer'), 0, 255),
         ]);
 
         try {
-            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\DownloadLinksMail($download, $tool));
+            Mail::to($user->email)->send(new DownloadLinksMail($download, $tool));
         } catch (\Throwable $e) {
             report($e); // the ready page still shows the links
         }

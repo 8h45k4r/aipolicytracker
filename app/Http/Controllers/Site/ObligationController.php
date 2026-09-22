@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Obligation;
+use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\Seo;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class ObligationController extends Controller
         $filters = $catalog->filtersFromRequest($request);
         $obligations = $catalog->obligationQuery($filters)->paginate(25)->withQueryString();
         $options = $catalog->filterOptions();
-        $indexable = $catalog->isIndexableFilterSet($filters) && $obligations->currentPage() === 1;
+        // Same rule as the policy listing: every page of an indexable filter set is
+        // indexable and canonical to itself.
+        $indexable = $catalog->isIndexableFilterSet($filters);
 
         $title = 'AI compliance obligations explorer';
         $description = 'Search practical AI requirements such as risk management, data governance, transparency, human oversight, technical documentation, post-market monitoring and incident handling, with their legal sources and evidence examples.';
@@ -28,7 +31,11 @@ class ObligationController extends Controller
             }
         }
 
-        $seo = Seo::make($title, $description, $catalog->canonicalFor(route('obligations.index'), $filters), $indexable)
+        if ($obligations->currentPage() > 1) {
+            $title .= ' (page '.$obligations->currentPage().')';
+        }
+
+        $seo = Seo::make($title, $description, Seo::pagedUrl($catalog->canonicalFor(route('obligations.index'), $filters), $indexable ? $obligations->currentPage() : 1), $indexable)
             ->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')]])
             ->withPageType('CollectionPage', [
                 'name' => $title,
@@ -44,7 +51,7 @@ class ObligationController extends Controller
         $obligation->load(['policyInstrument.jurisdiction', 'section', 'terms', 'frameworkMappings', 'evidenceArtifacts', 'applicabilityRules', 'deadlines']);
         $policy = $obligation->policyInstrument;
         $similar = Obligation::published()->with('policyInstrument.jurisdiction')->where('category', $obligation->category)->where('id', '!=', $obligation->id)->orderByDesc('is_binding')->limit(8)->get();
-        $categoryName = \App\Models\TaxonomyTerm::where('taxonomy', 'obligation_category')->where('slug', $obligation->category)->value('name') ?? $obligation->category;
+        $categoryName = TaxonomyTerm::where('taxonomy', 'obligation_category')->where('slug', $obligation->category)->value('name') ?? $obligation->category;
 
         $seo = Seo::make(
             $obligation->title.' ('.($policy->short_title ?: $policy->title).')',
@@ -53,7 +60,10 @@ class ObligationController extends Controller
             filled($obligation->summary) && $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')], [$obligation->title, $obligation->url()]])
             ->withModified($obligation->updated_at)
+            ->withPublished($obligation->created_at)
             ->withCard('obligation', $obligation->slug, $obligation->updated_at)
+            ->withAlternate('text/markdown', route('obligations.context', $obligation->slug))
+            ->withPageProperties(Seo::provenance($obligation))
             ->withPageProperties([
                 'name' => $obligation->title,
                 'about' => ['@type' => 'DefinedTerm', 'name' => $categoryName, 'inDefinedTermSet' => route('obligations.index')],

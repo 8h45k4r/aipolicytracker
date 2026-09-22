@@ -1,27 +1,54 @@
 # aipolicytracker.org
-# Public content, CSS, JS and images are open to all crawlers, including AI crawlers.
+#
+# Public content, CSS, JS and images are open to every crawler, including the
+# crawlers that feed answer engines and AI assistants. The dataset is published
+# under CC BY 4.0 for exactly that reuse; /llms.txt is the guided entry point
+# and every record has a Markdown context file at <record URL>.md.
+#
+# Search and multi-filter result pages are served with a noindex tag rather
+# than blocked here: a blocked URL can still be indexed from a link elsewhere
+# because the crawler never sees the tag that says not to.
 User-agent: *
 Allow: /
 Disallow: /backend/
 Disallow: /login
 Disallow: /register
 Disallow: /profile
-Disallow: /bookmarks
 Disallow: /forgot-password
 Disallow: /reset-password
 Disallow: /verify-email
 Disallow: /confirm-password
-Disallow: /denied
-Disallow: /map
-Disallow: /dashboard/
-Disallow: /news/filtered
-Disallow: /news/show-advanced-info
-Disallow: /legacy/
-Disallow: /api/
-# Search and multi-filter result URLs are served with noindex; keep crawl budget on canonical pages.
-Disallow: /policies?*q=
-Disallow: /obligations?*q=
-Disallow: /changes?*q=
-Disallow: /compare?*j=
+Disallow: /following
+Disallow: /subscribe/confirm/
+Disallow: /subscribe/unsubscribe/
+Disallow: /guides/tools/*/download
+Disallow: /guides/tools/*/ready/
+Disallow: /guides/tools/*/file/
+
+# Answer-engine and assistant crawlers, named so a future change to this file
+# is a deliberate decision rather than an accident of the default. Each may
+# read the site on the same terms as anyone else.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: meta-externalagent
+User-agent: DuckAssistBot
+User-agent: Amazonbot
+Allow: /
+Disallow: /backend/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /following
 
 Sitemap: https://aipolicytracker.org/sitemap.xml

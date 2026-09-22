@@ -1,8 +1,17 @@
 <?php
 
+use App\Http\Middleware\CheckAdmin;
+use App\Http\Middleware\CountFunnelViews;
+use App\Http\Middleware\EnsureAdminSecondFactor;
+use App\Http\Middleware\EnsureSubscribed;
+use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\RecordAdminAction;
+use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Middleware\TrustProxies;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,20 +21,29 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // The app runs behind a CDN/reverse proxy in production (Cloudflare -> App Service).
-        $middleware->trustProxies(at: '*');
+        // The app runs behind a reverse proxy in production. Which proxies may
+        // speak for the visitor is a deployment fact, so it comes from the
+        // environment: a comma-separated list of addresses or CIDR ranges, or `*`
+        // for a host where the proxy already resolved the real address and
+        // rewrote X-Forwarded-For itself (deploy/nginx-aip.conf does exactly
+        // that). Trusting `*` while a proxy passes the visitor's own
+        // X-Forwarded-For through lets anyone pick the address every rate limit
+        // and audit row is keyed on.
+        // Read at request time by App\Http\Middleware\TrustProxies, because this
+        // file runs before .env and the configuration are loaded.
+        $middleware->replace(TrustProxies::class, App\Http\Middleware\TrustProxies::class);
 
         $middleware->web(append: [
-            \App\Http\Middleware\HandleInertiaRequests::class,
-            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
-            \App\Http\Middleware\SecurityHeaders::class,
-            \App\Http\Middleware\CountFunnelViews::class,
+            HandleInertiaRequests::class,
+            AddLinkHeadersForPreloadedAssets::class,
+            SecurityHeaders::class,
+            CountFunnelViews::class,
         ]);
         $middleware->alias([
-            'isAdmin' => \App\Http\Middleware\CheckAdmin::class,
-            'admin.2fa' => \App\Http\Middleware\EnsureAdminSecondFactor::class,
-            'admin.audit' => \App\Http\Middleware\RecordAdminAction::class,
-            'subscribed' => \App\Http\Middleware\EnsureSubscribed::class,
+            'isAdmin' => CheckAdmin::class,
+            'admin.2fa' => EnsureAdminSecondFactor::class,
+            'admin.audit' => RecordAdminAction::class,
+            'subscribed' => EnsureSubscribed::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

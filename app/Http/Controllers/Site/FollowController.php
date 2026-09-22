@@ -37,6 +37,18 @@ class FollowController extends Controller
         return view('site.account.following', compact('seo', 'follows', 'lastAlert', 'user', 'profiles'));
     }
 
+    /**
+     * A return target is only honoured when it is a path on this site. A value
+     * starting with `//` or `/\` is a protocol-relative URL and would send the
+     * reader to another host.
+     */
+    private static function localPath(mixed $value): ?string
+    {
+        $value = is_string($value) ? trim($value) : '';
+
+        return $value !== '' && str_starts_with($value, '/') && ! in_array(substr($value, 1, 1), ['/', '\\'], true) ? $value : null;
+    }
+
     /** Toggles a follow and returns to the record. */
     public function toggle(Request $request, string $type, string $slug): RedirectResponse
     {
@@ -52,7 +64,7 @@ class FollowController extends Controller
         if ($existing) {
             $existing->delete();
 
-            return redirect()->to($request->input('return') && str_starts_with((string) $request->input('return'), '/') ? $request->input('return') : $subject->url())->with('status', 'unfollowed');
+            return redirect()->to(self::localPath($request->input('return')) ?? $subject->url())->with('status', 'unfollowed');
         }
         Follow::create(['user_id' => $user->id, 'subject_type' => $type, 'subject_slug' => $slug]);
 

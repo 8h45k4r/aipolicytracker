@@ -137,7 +137,7 @@ class PolicySerializer
             'practical_impact' => $c->practical_impact,
             'impact_level' => $c->impact_level,
             'status_after' => $c->status_after,
-            'url' => route('changes.index').'#'.$c->slug,
+            'url' => $c->url(),
             ...$this->sourceQuality($c),
         ];
     }

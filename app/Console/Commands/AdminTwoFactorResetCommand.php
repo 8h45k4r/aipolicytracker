@@ -35,7 +35,7 @@ class AdminTwoFactorResetCommand extends Command
             return self::SUCCESS;
         }
 
-        $user->forceFill(['two_factor_secret' => null, 'two_factor_recovery_codes' => null, 'two_factor_confirmed_at' => null])->save();
+        $user->forceFill(['two_factor_secret' => null, 'two_factor_recovery_codes' => null, 'two_factor_confirmed_at' => null, 'two_factor_last_step' => null])->save();
         AdminAuditLog::create([
             'user_id' => $user->getKey(), 'user_email' => $user->email, 'method' => 'CLI',
             'route_name' => 'admin:two-factor-reset', 'path' => 'artisan admin:two-factor-reset', 'route_params' => null,

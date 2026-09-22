@@ -7,6 +7,7 @@ use App\Enums\PolicyStatus;
 use App\Models\Concerns\HasSourceQuality;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 class ChangeEvent extends Model
 {
@@ -28,6 +29,12 @@ class ChangeEvent extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /** The permanent address of this change: what a feed, a digest and a citation point at. */
+    public function url(): string
+    {
+        return route('changes.show', $this->slug);
     }
 
     public function jurisdiction(): BelongsTo
@@ -86,9 +93,9 @@ class ChangeEvent extends Model
     /**
      * Year => latest updated_at among published change events in that year.
      *
-     * @return \Illuminate\Support\Collection<string, mixed>
+     * @return Collection<string, mixed>
      */
-    public static function publishedYearsLastModified(): \Illuminate\Support\Collection
+    public static function publishedYearsLastModified(): Collection
     {
         return static::published()
             ->get(['occurred_on', 'updated_at'])

@@ -43,6 +43,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Trusted proxies
+    |--------------------------------------------------------------------------
+    |
+    | Proxies allowed to set X-Forwarded-* headers: a comma-separated list of
+    | addresses or CIDR ranges, or `*` for a host whose proxy already resolved
+    | the visitor and rewrote X-Forwarded-For itself (the shipped nginx files
+    | do). Every rate limit and hashed address is only as honest as this list.
+    |
+    */
+
+    'trusted_proxies' => env('TRUSTED_PROXIES', '*'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |

@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\PolicyInstrument;
+use App\Services\ExternalData\ExternalDataset;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class PolicyController extends Controller
@@ -33,7 +35,11 @@ class PolicyController extends Controller
             $title .= ' (page '.$policies->currentPage().')';
         }
 
-        $seo = Seo::make($title, $description, $catalog->canonicalFor(route('policies.index'), $filters).($policies->currentPage() > 1 && $indexable ? '?page='.$policies->currentPage() : ''), $indexable || ($policies->currentPage() > 1 && $catalog->isIndexableFilterSet($filters)))
+        // Every page of an indexable listing is indexable and canonical to itself:
+        // a later page is where the records past the first twenty are linked from,
+        // and a canonical pointing back at page one would tell a crawler those
+        // records are duplicates of ones it has already seen.
+        $seo = Seo::make($title, $description, Seo::pagedUrl($catalog->canonicalFor(route('policies.index'), $filters), $catalog->isIndexableFilterSet($filters) ? $policies->currentPage() : 1), $catalog->isIndexableFilterSet($filters))
             ->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')]])
             ->withPageType('CollectionPage', [
                 'name' => $title,
@@ -54,52 +60,70 @@ class PolicyController extends Controller
 
         $related = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $policy->related_policies ?? [])->get();
         $useCases = $policy->termsOf('use_case')->pluck('slug')->all();
-        $mit = app(\App\Services\ExternalData\ExternalDataset::class)->mitRisk();
-        $aiid = app(\App\Services\ExternalData\ExternalDataset::class)->aiid();
+        $mit = app(ExternalDataset::class)->mitRisk();
+        $aiid = app(ExternalDataset::class)->aiid();
         $risksAddressed = collect($mit['domains'] ?? [])->filter(fn ($d) => array_intersect($d['use_cases'] ?? [], $useCases) !== [])->map(fn ($d) => ['id' => $d['id'], 'name' => $d['name'], 'incidents' => $aiid['by_mit_domain'][$d['aiid_domain_label']] ?? 0])->values();
         $sameJurisdiction = PolicyInstrument::published()->where('jurisdiction_id', $policy->jurisdiction_id)->where('id', '!=', $policy->id)->orderBy('title')->limit(6)->get();
         $name = $policy->short_title ?: $policy->title;
 
+        // The long pattern only where it fits the result-page budget; a long
+        // instrument name gets a shorter suffix rather than a truncated one.
+        $title = Seo::fitTitle($name, [': requirements, deadlines and compliance actions', ': requirements and deadlines', ': AI policy record', '']);
+
+        // What the page is about. A binding instrument is the Legislation node
+        // emitted below, referenced by identifier so the page and the law are one
+        // graph. A strategy or guidance is a work, not a law, and is described as
+        // one: calling it Legislation would be the overclaim this project exists
+        // to avoid, in machine-readable form.
+        $about = $policy->is_binding
+            ? ['@id' => $policy->url().'#legislation']
+            : array_filter([
+                '@type' => 'CreativeWork',
+                'name' => $policy->title,
+                'genre' => $policy->typeEnum()->label(),
+                'url' => $policy->official_source_url,
+                'datePublished' => $policy->published_on?->toDateString(),
+                'publisher' => $policy->issuing_body ? ['@type' => 'Organization', 'name' => $policy->issuing_body] : null,
+                'spatialCoverage' => ['@type' => 'Place', 'name' => $policy->jurisdiction->name],
+            ]);
+
         $seo = Seo::make(
-            $name.': requirements, deadlines and compliance actions',
+            $title,
             'Source-backed guide to '.$name.' ('.$policy->jurisdiction->name.'): scope, status ('.$policy->statusEnum()->label().'), key dates, obligations, official sources and practical compliance actions.',
             $policy->url(),
             $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')], [$name, $policy->url()]])
             ->withModified($policy->updated_at)
+            ->withPublished($policy->created_at)
             ->withOgType('article')
             ->withCard('policy', $policy->slug, $policy->updated_at)
+            ->withAlternate('application/json', route('policies.json', $policy->slug))
+            ->withAlternate('text/markdown', route('policies.context', $policy->slug))
             // Merged into the page's own node rather than written as a second one, so
             // it carries the identifier, breadcrumb, language and publisher every page
             // node gets instead of a thinner hand-made copy.
             ->withPageProperties([
                 'name' => $name.': requirements, deadlines and compliance actions',
-                'about' => [
-                    '@type' => 'Legislation',
-                    'name' => $policy->title,
-                    'legislationJurisdiction' => $policy->jurisdiction->name,
-                    'legislationType' => $policy->typeEnum()->label(),
-                    'url' => $policy->official_source_url,
-                    'datePublished' => $policy->published_on?->toDateString(),
-                ],
+                'about' => $about,
                 'citation' => $policy->sourceDocuments->map(fn ($s) => ['@type' => 'CreativeWork', 'name' => $s->title, 'url' => $s->url, 'publisher' => $s->publisher])->values()->all(),
-            ])
+            ] + Seo::provenance($policy))
             // The record behind the page, with the files that actually serve it. This is
             // the claim worth making to an answer engine: not prose about a law, but a
             // structured record at a stable URL under a licence that permits reuse.
             ->withJsonLd(Seo::dataset(
                 $name,
-                $policy->summary_plain ? \Illuminate\Support\Str::limit(preg_replace('/\s+/', ' ', $policy->summary_plain), 300) : $name,
+                $policy->summary_plain ? Str::limit(preg_replace('/\s+/', ' ', $policy->summary_plain), 300) : $name,
                 $policy->url(),
                 ['application/json' => route('policies.json', $policy->slug), 'text/markdown' => route('policies.context', $policy->slug)],
                 $policy->updated_at,
                 $policy->source_reference ?: null,
+                ['isBasedOn' => $policy->official_source_url ?: null, 'spatialCoverage' => $policy->jurisdiction->name, 'sameAs' => config('aipolicytracker.github_url').'/blob/main/data/policies/'.$policy->jurisdiction->slug.'/'.$policy->slug.'.yaml'],
             ));
         // A binding instrument is described as Legislation as well as a page, so an answer
         // engine is told its jurisdiction, type, dates and — the part most often got wrong —
         // whether it is actually in force. Non-binding instruments get no such claim.
         if ($policy->is_binding) {
-            $seo->withJsonLd(Seo::legislation($policy));
+            $seo->withJsonLd(['@id' => $policy->url().'#legislation'] + Seo::legislation($policy));
         }
 
         if (! empty($policy->faq)) {
@@ -116,6 +140,12 @@ class PolicyController extends Controller
     {
         abort_unless($policy->published_at, 404);
 
-        return response()->json($serializer->policy($policy), 200, ['Cache-Control' => 'public, max-age=600'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        // The record page in another form, not a page of its own: canonical to the
+        // HTML and kept out of the index so the two never compete.
+        return response()->json($serializer->policy($policy), 200, [
+            'Cache-Control' => 'public, max-age=600',
+            'X-Robots-Tag' => 'noindex',
+            'Link' => '<'.$policy->url().'>; rel="canonical"',
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 }
