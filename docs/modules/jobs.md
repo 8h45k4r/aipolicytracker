@@ -8,9 +8,11 @@
 
 | Trigger | Path | Recorded as |
 |---|---|---|
-| Scheduler | `routes/console.php` → `JobRun::run($job, 'schedule')`. A server needs `* * * * * php artisan schedule:run`; the container runs `schedule:work` from `docker/entrypoint.sh`. | `schedule` |
+| Scheduler | `routes/console.php` → `JobRun::run($job, 'schedule')`. The container runs `schedule:work` from `docker/entrypoint.sh` unless started with `SCHEDULER=off`; a host that prefers cron runs `deploy/cron-install.sh`, which installs a single `* * * * * schedule:run` entry. | `schedule` |
 | Admin | `/backend/admin/jobs` → "Run now". Needs the `jobs.run` capability; jobs marked `confirm` go through `password.confirm`. | `admin`, with the user |
 | Cron endpoint | `POST /cron/{digest,alerts,external-sync}` with the cron token. | `cron` |
+
+**Exactly one scheduler may run for a deployment.** The container's `schedule:work` and a host crontab both driving the timetable means two digests to every subscriber and two alert mails to every Pro account. `cron-install.sh` refuses to install while the container is scheduling, and says how to turn one of them off. Earlier versions of that script installed three per-job entries that called artisan directly; those runs never reached the job log, so the admin page reported "never run" while the jobs were running. Re-running the script removes them.
 
 Every path writes a row to `job_runs`: job, trigger, user, start, finish, exit code and the first 20,000 characters of output. `JobRun::latest()` feeds the dashboard panel and the jobs table. A minute-by-minute `scheduler:tick` entry writes `scheduler.last_tick` to the cache, which is how the jobs page can tell an operator that cron is not wired up yet.
 

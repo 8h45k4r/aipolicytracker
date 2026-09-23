@@ -50,7 +50,15 @@ php artisan queue:work --tries=3 --sleep=3 &
 
 # The scheduler: digests, alerts, syncs and imports on their own timetable
 # (routes/console.php), so the container needs no external cron.
-php artisan schedule:work > /dev/null 2>&1 &
+#
+# Exactly one scheduler may run for a deployment. A host that drives the jobs
+# from its own crontab (deploy/cron-install.sh) must start the container with
+# SCHEDULER=off, or every job runs twice and every subscriber is mailed twice.
+if [ "${SCHEDULER:-work}" = "work" ]; then
+  php artisan schedule:work > /dev/null 2>&1 &
+else
+  echo "NOTE: SCHEDULER=${SCHEDULER}; this container is not scheduling jobs"
+fi
 
 # Serve the app. Replace with php-fpm + nginx if you need higher throughput.
 exec php artisan serve --host=0.0.0.0 --port="${PORT:-8080}"
