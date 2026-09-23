@@ -87,7 +87,9 @@ Useful commands: `php artisan policy:validate`, `php artisan policy:import`, `ph
 
 ## Deployment
 
-The application needs a PHP runtime and a PostgreSQL database; a CDN in front handles DNS, TLS and caching. `.github/workflows/deploy.yml` builds and deploys `main`; `azure/` and `Dockerfile` contain the runtime configuration. Operational details live in the `docs/` folder and the workflow files rather than here.
+The application needs a PHP runtime and a PostgreSQL database; a CDN in front handles DNS, TLS and caching. **Deploys are run by hand, not by a workflow**: pushing to `main` runs CI and nothing else. The runbook for the current host, which runs nginx in front of Docker containers, is [`deploy/README-docker.md`](deploy/README-docker.md); [`deploy/README.md`](deploy/README.md) covers a host with a native PHP-FPM instead. `deploy/deploy.sh` migrates, imports, caches config, routes and views, and swaps the release only if every step succeeded.
+
+Recurring work (digest, alerts, syncs, imports) runs on the timetable in `routes/console.php`. Exactly one scheduler may run for a deployment: the container starts `schedule:work` itself unless given `SCHEDULER=off`, in which case `deploy/cron-install.sh` puts a single `schedule:run` entry in the host crontab. Every run, from either, is recorded and shown on the admin *Jobs and schedule* page. See [`docs/modules/jobs.md`](docs/modules/jobs.md).
 
 ## Contributing
 
