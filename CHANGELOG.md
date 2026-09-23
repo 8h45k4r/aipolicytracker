@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- The host crontab and the container could both drive the recurring jobs, which would have sent every weekly digest and every daily alert twice. `deploy/cron-install.sh` now installs one `schedule:run` entry instead of three per-job ones, refuses to install at all while the container is scheduling, and removes the old entries when re-run; the container's scheduler can be turned off with `SCHEDULER=off`. The old per-job entries also called artisan directly, so their runs never reached the job log and the admin page reported "never run" while they were running.
+- The README said a workflow deploys `main`. There is no such workflow and there never was one in this repository: pushing to `main` runs CI, and a person runs the deploy. It now says so and points at the runbook that applies to the current host.
+
 ### Added
 - The maintainer is on the reviewer roster (`data/reviewers/bhaskar-bhatt.yaml`) with a declared interest in the related commercial platform. Nobody could mark a record verified before this: the data validator refuses a signature from a name that has not published a declaration, so the roster had to have somebody on it before the first verification could exist.
 - Bulk verification in the review queue. A reviewer who has just read a jurisdiction's instruments end to end selects them, makes the attestation once and records the lot; each record still gets its own dated, named decision that survives re-import and exports to `data/`. The one-at-a-time form was the right shape for a single careful pass and the wrong shape for a reviewing session.
