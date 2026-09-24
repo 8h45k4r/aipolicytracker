@@ -62,7 +62,14 @@ class JobRun extends Model
 
             return $run;
         }
-        @set_time_limit(280);
+        // Off the command line there is a request waiting: nginx and PHP-FPM give up
+        // around 300s, so the job stops itself first and records why. Under CLI there is
+        // no limit to begin with, and imposing one killed scheduled runs mid-import —
+        // external:import rebuilds thousands of incidents, reports and risks and takes
+        // longer than this on a cold cache.
+        if (PHP_SAPI !== 'cli') {
+            @set_time_limit(280);
+        }
         try {
             $code = Artisan::call($meta['command'], $meta['args']);
             $output = trim(Artisan::output());
