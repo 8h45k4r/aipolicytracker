@@ -4,6 +4,17 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Security
+- An account became owner if its email matched `ADMIN_EMAILS`, verified or not. Anyone who registered an owner address that had no account yet, or changed their own profile email to one, could enrol their own authenticator and hold every capability. Ownership now requires a verified address.
+- A session holding only an admin's password, stopped at the second-factor challenge, could still change the account's email or password or delete it, and so free an owner address to re-register. The profile and password routes now sit behind the second factor for admins; `POST /confirm-password` is throttled.
+- Suspending an account, resetting its second factor, or changing or resetting its password now ends its other sessions and remember-me cookies. They had been checked only at the next password sign-in.
+- A billing webhook that failed while being applied was acknowledged as a duplicate on the provider's retry and never applied, so a cancellation hit by a deadlock left Pro access in place. A retry of a failed event is now applied.
+- The subscribe form sends at most three confirmation emails per address per day, whatever the source IP. It could be used to mail any unconfirmed address thousands of times a day.
+- `/og/site/{slug}.png` drew and stored a fresh image for any made-up slug, so a loop of GETs filled the disk. Only `default` exists now.
+- Public CSV exports of third-party data (AI incidents, risks, open data) escape cells a spreadsheet would run as formulas.
+- Array query parameters (`page[]=`, `q[]=`, `jurisdictions[][]=`) no longer cause a 500 on the API, the risk browser or the applicability check, and a non-numeric `page` no longer creates a cache entry per variant.
+- The AIID and MIT sync commands fail on an HTTP error instead of saving the error page as a workbook.
+
 ### Fixed
 - The host crontab and the container could both drive the recurring jobs, which would have sent every weekly digest and every daily alert twice. `deploy/cron-install.sh` now installs one `schedule:run` entry instead of three per-job ones, refuses to install at all while the container is scheduling, and removes the old entries when re-run; the container's scheduler can be turned off with `SCHEDULER=off`. The old per-job entries also called artisan directly, so their runs never reached the job log and the admin page reported "never run" while they were running.
 - The README said a workflow deploys `main`. There is no such workflow and there never was one in this repository: pushing to `main` runs CI, and a person runs the deploy. It now says so and points at the runbook that applies to the current host.

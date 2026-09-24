@@ -77,7 +77,7 @@ class PublicApiController extends Controller
     {
         $filters = $this->catalog->filtersFromRequest($request);
         $perPage = min(max((int) $request->query('per_page', 25), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.policies.'.md5(json_encode($filters).$perPage.$request->query('page', 1));
+        $key = 'api.policies.'.md5(json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = $this->catalog->policyQuery($filters)->paginate($perPage)->withQueryString();
@@ -102,7 +102,7 @@ class PublicApiController extends Controller
     {
         $filters = $this->catalog->filtersFromRequest($request);
         $perPage = min(max((int) $request->query('per_page', 25), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.obligations.'.md5(json_encode($filters).$perPage.$request->query('page', 1));
+        $key = 'api.obligations.'.md5(json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = $this->catalog->obligationQuery($filters)->paginate($perPage)->withQueryString();
@@ -149,7 +149,7 @@ class PublicApiController extends Controller
     {
         $since = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $request->query('since')) ? $request->query('since') : null;
         $jurisdiction = preg_match('/^[a-z0-9-]+$/', (string) $request->query('jurisdiction')) ? $request->query('jurisdiction') : null;
-        $key = 'api.changes.'.md5($since.$jurisdiction.$request->query('page', 1));
+        $key = 'api.changes.'.md5($since.$jurisdiction.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($since, $jurisdiction) {
             $page = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
@@ -250,7 +250,7 @@ class PublicApiController extends Controller
     public function deadlines(Request $request): JsonResponse
     {
         $from = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $request->query('from')) ? $request->query('from') : null;
-        $key = 'api.deadlines.'.md5((string) $from.$request->query('page', 1));
+        $key = 'api.deadlines.'.md5((string) $from.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($from) {
             $page = Deadline::with(['policyInstrument.jurisdiction', 'obligation'])
@@ -288,7 +288,7 @@ class PublicApiController extends Controller
             'from' => preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $request->query('from')) ? $request->query('from') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.incidents.'.md5(json_encode($filters).$perPage.$request->query('page', 1));
+        $key = 'api.incidents.'.md5(json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = ExternalIncident::query()
@@ -337,7 +337,7 @@ class PublicApiController extends Controller
             'timing' => in_array($request->query('timing'), ExternalRisk::CAUSAL['timing'], true) ? $request->query('timing') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.risks.'.md5(json_encode($filters).$perPage.$request->query('page', 1));
+        $key = 'api.risks.'.md5(json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $query = ExternalRisk::query();

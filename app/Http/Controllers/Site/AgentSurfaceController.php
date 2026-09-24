@@ -13,6 +13,7 @@ use App\Services\MachineReadable\BulkExport;
 use App\Services\MachineReadable\RecordContext;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Verification\VerificationPolicy;
+use App\Support\Csv;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -87,13 +88,13 @@ class AgentSurfaceController extends Controller
             $handle = fopen('php://output', 'w');
             fputcsv($handle, $export->columns($dataset));
             $export->each($dataset, function (array $row) use ($handle) {
-                fputcsv($handle, array_map(fn ($v) => match (true) {
+                fputcsv($handle, array_map(fn ($v) => Csv::cell(match (true) {
                     is_bool($v) => $v ? 'true' : 'false',
                     // CSV has no nesting, so a list cell carries JSON rather than losing
                     // the links inside it.
                     is_array($v) => json_encode($v, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
                     default => $v,
-                }, $row));
+                }), $row));
             });
             fclose($handle);
         }, 'aipolicytracker-'.$dataset.'.csv', [

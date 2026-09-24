@@ -35,14 +35,17 @@ class ApplicabilityScreener
     public function normalise(array $input): array
     {
         $slugs = fn (string $taxonomy) => TaxonomyTerm::taxonomy($taxonomy)->pluck('slug')->all();
+        // Only flat lists of strings: `jurisdictions[][]=x` used to reach array_intersect
+        // as a nested array and end in a 500.
+        $list = fn (mixed $v) => array_values(array_unique(array_filter((array) $v, 'is_string')));
 
         return [
-            'jurisdictions' => array_values(array_intersect((array) ($input['jurisdictions'] ?? []), Jurisdiction::published()->pluck('slug')->all())),
+            'jurisdictions' => array_values(array_intersect($list($input['jurisdictions'] ?? []), Jurisdiction::published()->pluck('slug')->all())),
             'role' => in_array($input['role'] ?? null, $slugs('actor'), true) ? $input['role'] : null,
             'use_case' => in_array($input['use_case'] ?? null, $slugs('use_case'), true) ? $input['use_case'] : null,
             'sector' => in_array($input['sector'] ?? null, $slugs('sector'), true) ? $input['sector'] : null,
             'personal_data' => in_array($input['personal_data'] ?? null, ['yes', 'no', 'unsure'], true) ? $input['personal_data'] : null,
-            'domains' => array_values(array_intersect((array) ($input['domains'] ?? []), array_keys(self::DOMAINS))),
+            'domains' => array_values(array_intersect($list($input['domains'] ?? []), array_keys(self::DOMAINS))),
             'genai' => in_array($input['genai'] ?? null, ['yes', 'no', 'unsure'], true) ? $input['genai'] : null,
         ];
     }

@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -144,10 +146,15 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Ownership comes from the ADMIN_EMAILS environment list and from nowhere else, so it
      * cannot be granted, revoked or lost through the database or the admin UI.
+     *
+     * The address has to be verified. Matching on the string alone meant anyone who
+     * registered an owner address that had no account yet (a fresh deploy, a second owner
+     * who had not signed up, an owner who had moved address), or who changed their own
+     * profile email to one, became owner and could enrol their own authenticator.
      */
     public function isOwner(): bool
     {
-        return in_array(strtolower((string) $this->email), array_map('strtolower', config('aipolicytracker.admin_emails', [])), true);
+        return $this->hasVerifiedEmail() && in_array(strtolower((string) $this->email), array_map('strtolower', config('aipolicytracker.admin_emails', [])), true);
     }
 
     /** The granted role, or null for an account with no stored role. Owners need none. */
@@ -159,6 +166,26 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isSuspended(): bool
     {
         return $this->suspended_at !== null;
+    }
+
+    /**
+     * Sign this account out everywhere: every stored session row and every "remember me"
+     * cookie. Used when access is taken away (suspension, a second-factor reset), because
+     * those are otherwise checked only at the next password sign-in. A password change
+     * passes the current session id so the person making it stays signed in.
+     */
+    public function endAllSessions(?string $exceptSessionId = null): void
+    {
+        $this->setRememberToken(Str::random(60));
+        $this->save();
+
+        if (config('session.driver') === 'database') {
+            DB::connection(config('session.connection'))
+                ->table(config('session.table', 'sessions'))
+                ->where('user_id', $this->getKey())
+                ->when($exceptSessionId !== null, fn ($q) => $q->where('id', '!=', $exceptSessionId))
+                ->delete();
+        }
     }
 
     /**

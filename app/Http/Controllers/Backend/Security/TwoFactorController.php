@@ -50,6 +50,10 @@ class TwoFactorController extends Controller
     public function confirm(Request $request): RedirectResponse
     {
         $user = $request->user();
+        // Replacing a working authenticator goes through a reset, never through enrolment.
+        if ($user->hasTwoFactorEnabled()) {
+            return redirect()->route('admin.two-factor.challenge');
+        }
         $secret = $request->session()->get(self::PENDING_KEY);
         $data = $request->validate(['code' => ['required', 'string', 'max:12']]);
 
@@ -102,6 +106,9 @@ class TwoFactorController extends Controller
     public function verify(Request $request): RedirectResponse
     {
         $user = $request->user();
+        if (! $user->hasTwoFactorEnabled()) {
+            return redirect()->route('admin.two-factor.enrol');
+        }
         $data = $request->validate(['code' => ['required', 'string', 'max:20']]);
         $code = trim($data['code']);
 

@@ -26,7 +26,7 @@ class SyncMitRiskCommand extends Command
         $file = $this->option('file');
         if (! $file) {
             $file = storage_path('app/mit_ai_risk_repository.xlsx');
-            File::put($file, Http::timeout(120)->get(self::SHEET)->body());
+            File::put($file, Http::timeout(120)->get(self::SHEET)->throw()->body());
         }
         $reader = new XlsxReader($file);
         $tab = collect($reader->sheetNames())->first(fn ($n) => str_starts_with($n, 'Domain Taxonomy'));

@@ -114,9 +114,7 @@ class AdminController extends Controller
     private static function csvRow(array $cells): array
     {
         return array_map(function ($cell) {
-            $text = $cell instanceof \DateTimeInterface ? $cell->format('Y-m-d H:i:s') : $cell;
-
-            return is_string($text) && $text !== '' && strpbrk($text[0], "=+-@\t\r") !== false ? "'".$text : $text;
+            return \App\Support\Csv::cell($cell instanceof \DateTimeInterface ? $cell->format('Y-m-d H:i:s') : $cell);
         }, $cells);
     }
 
