@@ -10,14 +10,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    public function create(): \Illuminate\View\View
+    public function create(): View
     {
         // Server-rendered in the site theme; the legacy Inertia page required phone numbers.
         return view('auth.register');
@@ -26,7 +29,7 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -38,7 +41,7 @@ class RegisteredUserController extends Controller
             'marketing_consent' => 'nullable|boolean',
             // Required when the reader arrived to download a template: a template download
             // is a lead, and a lead without an organisation cannot be followed up.
-            'organization_name' => [\Illuminate\Validation\Rule::requiredIf(fn () => str_contains((string) session('url.intended'), '/guides/tools/')), 'nullable', 'string', 'max:255'],
+            'organization_name' => [Rule::requiredIf(fn () => str_contains((string) session('url.intended'), '/guides/tools/')), 'nullable', 'string', 'max:255'],
             'organization_email' => ['nullable', 'string', 'lowercase', 'email', 'max:255', new NotDisposableEmail],
             'password' => [
                 'required',

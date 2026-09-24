@@ -8,6 +8,7 @@ use App\Models\ApplicabilityProfile;
 use App\Models\Follow;
 use App\Models\User;
 use App\Services\Alerts\AlertBuilder;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -39,7 +40,7 @@ class SendAlertsCommand extends Command
                     continue;
                 }
                 $last = AlertDelivery::where('user_id', $user->id)->max('window_end');
-                $since = $last ? \Carbon\Carbon::parse($last)->max($now->copy()->subDays(7)) : $now->copy()->subDay();
+                $since = $last ? Carbon::parse($last)->max($now->copy()->subDays(7)) : $now->copy()->subDay();
                 $digest = $builder->build($user, $since, $now);
                 if ($digest['changes']->isEmpty() && ! $digest['milestone']) {
                     $empty++;

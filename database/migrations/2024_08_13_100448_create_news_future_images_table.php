@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Reserved for multiple images per news item; not yet used by the app.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

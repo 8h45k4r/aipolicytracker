@@ -9,6 +9,8 @@ use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Services\ExternalData\ExternalDataset;
 use App\Support\Seo;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class RiskController extends Controller
@@ -138,7 +140,7 @@ class RiskController extends Controller
 
     public static function narrative(array $aiid, array $mit): array
     {
-        return \Illuminate\Support\Facades\Cache::remember('risk-narrative-v1', 3600, function () use ($aiid, $mit) {
+        return Cache::remember('risk-narrative-v1', 3600, function () use ($aiid, $mit) {
             $now = now();
             $last12 = ExternalIncident::where('occurred_on', '>=', $now->copy()->subMonths(12)->toDateString())->count();
             $prev12 = ExternalIncident::whereBetween('occurred_on', [$now->copy()->subMonths(24)->toDateString(), $now->copy()->subMonths(12)->toDateString()])->count();
@@ -229,7 +231,7 @@ class RiskController extends Controller
         $latest = ExternalIncident::with('reports')->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(30)->get();
         $live = ['count' => ExternalIncident::count(), 'synced_at' => ExternalIncident::max('synced_at'), 'latest_id' => ExternalIncident::max('incident_id'), 'recent' => ExternalIncident::where('occurred_on', '>=', now()->subDays(30)->toDateString())->count()];
         $modified = $live['synced_at'] ?: ($aiid['snapshot_date'] ?? null);
-        $modified = $modified ? \Illuminate\Support\Carbon::parse($modified) : null;
+        $modified = $modified ? Carbon::parse($modified) : null;
         $seo = Seo::make(
             'AI incidents: latest records, yearly trend, risk domains, sectors and countries',
             'The latest AI incidents synced from the AI Incident Database, with incidents per year, by MIT risk domain, sector of deployment and country, and a profile page for every record.',

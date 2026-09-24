@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,14 +11,14 @@ class UserInfo extends Model
     use HasUuids, SoftDeletes;
 
     protected $fillable = [
-        'user_id', //required
+        'user_id', // required
         'phone_no', // required
         'organization_name',
         'organization_email',
-        'ip_address', //required
-        'user_agent',// required
-        'last_activity',// required
-        'terms_condition',//required
+        'ip_address', // required
+        'user_agent', // required
+        'last_activity', // required
+        'terms_condition', // required
         'status',
     ];
 
@@ -41,5 +40,4 @@ class UserInfo extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }

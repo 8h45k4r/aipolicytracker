@@ -5,6 +5,7 @@ namespace App\Rules;
 use App\Services\Security\EmailDomainPolicy;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Translation\PotentiallyTranslatedString;
 
 /**
  * Refuses an address nobody will be reading later.
@@ -21,7 +22,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 class NotDisposableEmail implements ValidationRule
 {
     /**
-     * @param  Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param  Closure(string, ?string=): PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

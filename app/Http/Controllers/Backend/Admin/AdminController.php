@@ -23,6 +23,7 @@ use App\Models\Subscriber;
 use App\Models\Tool;
 use App\Models\User;
 use App\Services\ExternalData\ExternalDataset;
+use App\Support\Csv;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -114,7 +115,7 @@ class AdminController extends Controller
     private static function csvRow(array $cells): array
     {
         return array_map(function ($cell) {
-            return \App\Support\Csv::cell($cell instanceof \DateTimeInterface ? $cell->format('Y-m-d H:i:s') : $cell);
+            return Csv::cell($cell instanceof \DateTimeInterface ? $cell->format('Y-m-d H:i:s') : $cell);
         }, $cells);
     }
 

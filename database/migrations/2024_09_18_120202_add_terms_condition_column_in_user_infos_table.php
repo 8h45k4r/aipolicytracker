@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Superseded: the column was folded into the create migration; kept empty for history.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -23,8 +24,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-    //     Schema::table('user_infos', function (Blueprint $table) {
-    //         $table->dropColumn("terms_condition");
-    //     });
-     }
+        //     Schema::table('user_infos', function (Blueprint $table) {
+        //         $table->dropColumn("terms_condition");
+        //     });
+    }
 };

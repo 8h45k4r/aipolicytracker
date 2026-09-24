@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Core policy entity; one row per AI policy/strategy instrument.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

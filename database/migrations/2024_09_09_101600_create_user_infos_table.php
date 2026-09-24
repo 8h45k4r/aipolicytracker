@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Registration profile data (organisation, phone) kept apart from the auth table.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

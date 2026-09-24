@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Services\Social\SocialCard;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Answers the one question that decides whether cards work on a given host:
@@ -49,7 +50,7 @@ class SocialDoctorCommand extends Command
         $this->info('Cards can be drawn. Sample written to the '.config('social.cache_disk').' disk at '.$path);
 
         if ($out = $this->option('out')) {
-            file_put_contents($out, \Illuminate\Support\Facades\Storage::disk(config('social.cache_disk'))->get($path));
+            file_put_contents($out, Storage::disk(config('social.cache_disk'))->get($path));
             $this->line('Copied to '.$out);
         }
 
