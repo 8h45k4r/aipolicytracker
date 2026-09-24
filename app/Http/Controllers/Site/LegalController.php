@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Support\Seo;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
 /**
@@ -54,12 +55,12 @@ class LegalController extends Controller
         ]);
     }
 
-    private function effective(): ?\Illuminate\Support\Carbon
+    private function effective(): ?Carbon
     {
         $raw = (string) config('legal.effective_from');
 
         try {
-            return $raw === '' ? null : \Illuminate\Support\Carbon::parse($raw);
+            return $raw === '' ? null : Carbon::parse($raw);
         } catch (\Throwable) {
             // A malformed date must not take the page down; the date line is
             // simply omitted, which is visible and self-correcting.

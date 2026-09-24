@@ -8,8 +8,12 @@ use App\Models\BillingCheckout;
 use App\Models\BillingEvent;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
+use App\Services\Billing\PlanCatalog;
+use App\Services\Billing\WebhookProcessor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use StandardWebhooks\Webhook;
@@ -281,7 +285,7 @@ class BillingTest extends TestCase
         $this->assertSame([2900, 'USD', 'Month'], [$monthly['price'], $monthly['currency'], $monthly['interval']]);
         $this->assertSame([29000, 'USD', 'Year'], [$yearly['price'], $yearly['currency'], $yearly['interval']]);
         $this->assertSame($monthly['product_id'], AppSetting::get('dodo_product_pro_monthly'));
-        $this->assertSame($yearly['product_id'], app(\App\Services\Billing\PlanCatalog::class)->plan('pro_yearly')['product_id']);
+        $this->assertSame($yearly['product_id'], app(PlanCatalog::class)->plan('pro_yearly')['product_id']);
 
         // The stored secret now verifies real webhooks and the stored ids resolve plans.
         $member = $this->user();
@@ -311,9 +315,9 @@ class BillingTest extends TestCase
         $this->assertSame('dodo_test_abcdefghijklmnop', AppSetting::get('dodo_api_key'));
         $this->assertNotSame('dodo_test_abcdefghijklmnop', AppSetting::find('dodo_api_key')->value, 'stored encrypted');
         $this->assertSame(1, (int) AppSetting::find('dodo_api_key')->secret);
-        $this->assertSame('live_mode', app(\App\Services\Billing\BillingConfig::class)->environment());
-        $this->assertSame('https://live.dodopayments.com', app(\App\Services\Billing\BillingConfig::class)->baseUrl());
-        $this->assertSame('pdt_live_month', app(\App\Services\Billing\PlanCatalog::class)->plan('pro_monthly')['product_id']);
+        $this->assertSame('live_mode', app(BillingConfig::class)->environment());
+        $this->assertSame('https://live.dodopayments.com', app(BillingConfig::class)->baseUrl());
+        $this->assertSame('pdt_live_month', app(PlanCatalog::class)->plan('pro_monthly')['product_id']);
         $this->actingAs($admin)->get('/backend/admin/settings')->assertOk()->assertDontSee('dodo_test_abcdefghijklmnop')->assertSee('dodo');
         $this->actingAs($admin)->post('/backend/admin/settings', ['dodo_environment' => 'staging'])->assertSessionHasErrors('dodo_environment');
 
@@ -337,15 +341,15 @@ class BillingTest extends TestCase
         // PostgreSQL job in CI is what makes it meaningful.
         $user = User::factory()->create();
         $payload = $this->subscriptionEvent('subscription.active', $user);
-        $processor = app(\App\Services\Billing\WebhookProcessor::class);
+        $processor = app(WebhookProcessor::class);
 
-        \Illuminate\Support\Facades\DB::beginTransaction();
+        DB::beginTransaction();
         try {
             $processor->handle($payload, 'msg_retry');
             $this->assertSame('duplicate', $processor->handle($payload, 'msg_retry'), 'a retry must be acknowledged, not 500');
             $this->assertSame(1, BillingEvent::where('event_id', 'msg_retry')->count(), 'and recorded once');
         } finally {
-            \Illuminate\Support\Facades\DB::rollBack();
+            DB::rollBack();
         }
     }
 }

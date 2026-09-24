@@ -3,23 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\ResourceDownload;
+use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): \Illuminate\View\View
+    public function edit(Request $request): View
     {
         $user = $request->user();
-        $seo = \App\Support\Seo::make('Your account', 'Profile, password, downloads and consent settings.', route('profile.edit'), false)->noindex()
+        $seo = Seo::make('Your account', 'Profile, password, downloads and consent settings.', route('profile.edit'), false)->noindex()
             ->withBreadcrumbs([['Home', route('home')], ['Your account', route('profile.edit')]]);
-        $downloads = \App\Models\ResourceDownload::with('tool')->where('user_id', $user->id)->orderByDesc('id')->limit(20)->get();
+        $downloads = ResourceDownload::with('tool')->where('user_id', $user->id)->orderByDesc('id')->limit(20)->get();
 
         $subscription = $user->activeSubscription();
         $billingEnabled = (bool) config('billing.enabled');

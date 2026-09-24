@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -30,6 +31,6 @@ class RegistrationTest extends TestCase
         $this->assertAuthenticated();
         // Registration lands on the intended page (or home) with a flash; verification is requested, not enforced.
         $response->assertRedirect(route('home', absolute: false));
-        $this->assertNotNull(\App\Models\User::where('email', 'test@example.com')->first()->terms_accepted_at);
+        $this->assertNotNull(User::where('email', 'test@example.com')->first()->terms_accepted_at);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\ExternalIncident;
+use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -259,13 +261,13 @@ class StructuredDataGraphTest extends TestCase
         // not indexed. A page nothing points a crawler at is a page nobody finds.
         // Two rows rather than the whole weekly import: the mechanism under test is
         // whether the sitemap enumerates the table, not how big the table is.
-        \App\Models\ExternalIncident::create([
+        ExternalIncident::create([
             'incident_id' => 4242, 'title' => 'Recruitment model rejected applicants by postcode',
             'description' => 'A screening model trained on historic hiring data rejected applicants from particular postcodes at a markedly higher rate.',
             'occurred_on' => '2026-03-04', 'year' => 2026, 'report_count' => 3,
             'snapshot_date' => '2026-09-07', 'mit_domain' => '1', 'mit_subdomain' => '1.1',
         ]);
-        \App\Models\ExternalRisk::create([
+        ExternalRisk::create([
             'ev_id' => '99.01.00', 'quick_ref' => 'Test2026', 'paper_title' => 'A framework used in this test',
             'level' => 'Risk Category', 'domain' => '1', 'subdomain' => '1.1',
             'description' => 'A risk entry that says something of its own, and so earns a listing.',
@@ -273,7 +275,7 @@ class StructuredDataGraphTest extends TestCase
         // The negative case: an "Additional evidence" row with no description of
         // its own, hanging under the entry above. A third of the real corpus looks
         // like this, and the sitemap used to offer every one of them.
-        \App\Models\ExternalRisk::create([
+        ExternalRisk::create([
             'ev_id' => '99.01.00.a', 'quick_ref' => 'Test2026', 'paper_title' => 'A framework used in this test',
             'level' => 'Additional evidence', 'domain' => '1', 'subdomain' => '1.1',
         ]);
@@ -282,7 +284,7 @@ class StructuredDataGraphTest extends TestCase
         $this->assertStringContainsString(route('sitemap.section', 'incidents'), $index);
         $this->assertStringContainsString(route('sitemap.section', 'risks'), $index);
 
-        foreach (['incidents' => \App\Models\ExternalIncident::class, 'risks' => \App\Models\ExternalRisk::class] as $section => $model) {
+        foreach (['incidents' => ExternalIncident::class, 'risks' => ExternalRisk::class] as $section => $model) {
             $xml = $this->get(route('sitemap.section', $section))->assertOk()
                 ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')->getContent();
 

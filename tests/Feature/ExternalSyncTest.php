@@ -2,12 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Console\Commands\SyncAiidApiCommand;
+use App\Http\Controllers\Site\RiskController;
 use App\Models\AppSetting;
 use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
+use App\Models\User;
 use App\Services\ExternalData\AiidApiClient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 /** Live sync from the AI Incident Database API: upsert, survival across re-import, pages and cron trigger. */
@@ -35,7 +40,7 @@ class ExternalSyncTest extends TestCase
 
     public function test_api_sync_upserts_incidents_with_details_and_survives_reimport(): void
     {
-        \Illuminate\Support\Facades\Storage::fake('local');
+        Storage::fake('local');
         $this->artisan('policy:import');
         $this->artisan('external:import')->assertExitCode(0);
         $existing = ExternalIncident::orderByDesc('incident_id')->first();
@@ -76,7 +81,7 @@ class ExternalSyncTest extends TestCase
         $this->assertTrue(ExternalIncidentReport::whereKey(900000 + $newId)->exists());
 
         // The local snapshot on the private disk restores live-synced rows into a rebuilt database without the API.
-        \Illuminate\Support\Facades\Storage::disk('local')->assertExists(\App\Console\Commands\SyncAiidApiCommand::LOCAL_INCIDENTS);
+        Storage::disk('local')->assertExists(SyncAiidApiCommand::LOCAL_INCIDENTS);
         ExternalIncidentReport::query()->delete();
         ExternalIncident::query()->delete();
         $this->artisan('external:import')->assertExitCode(0);
@@ -101,7 +106,7 @@ class ExternalSyncTest extends TestCase
         $this->postJson('/cron/external-sync')->assertStatus(401);
         AppSetting::put('cron_token', str_repeat('s', 32));
         $this->postJson('/cron/external-sync', [], ['Authorization' => 'Bearer '.str_repeat('s', 32)])->assertOk();
-        $run = \Illuminate\Support\Facades\Cache::get(\App\Console\Commands\SyncAiidApiCommand::LAST_RUN_KEY);
+        $run = Cache::get(SyncAiidApiCommand::LAST_RUN_KEY);
         $this->assertSame(0, $run['incidents']);
         $this->assertNull($run['error']);
     }
@@ -109,7 +114,7 @@ class ExternalSyncTest extends TestCase
     public function test_admin_external_page_shows_live_sync_status(): void
     {
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);
-        $admin = \App\Models\User::factory()->create(['email' => 'editor@example.test']);
+        $admin = User::factory()->create(['email' => 'editor@example.test']);
         $this->artisan('external:import');
         $this->actingAs($admin)->get('/backend/admin/external')->assertOk()->assertSee('Live API sync')->assertSee('Sync now from the AIID API');
         Http::fake([AiidApiClient::ENDPOINT => Http::response(['data' => ['incidents' => []]])]);
@@ -168,7 +173,7 @@ class ExternalSyncTest extends TestCase
                 'snapshot_date' => '2026-09-07', 'developers' => ['D'], 'deployers' => ['P'], 'harmed' => ['H'],
             ]);
             for ($n = 1; $n <= $reports; $n++) {
-                \App\Models\ExternalIncidentReport::create([
+                ExternalIncidentReport::create([
                     'incident_id' => $id, 'report_number' => ($id * 100) + $n, 'title' => 'Report '.$n,
                     'url' => 'https://news.example.com/'.$n, 'source_domain' => 'news.example.com',
                     'date_published' => '2026-03-0'.min($n, 9),
@@ -210,7 +215,7 @@ class ExternalSyncTest extends TestCase
             'snapshot_date' => '2026-09-07', 'developers' => ['D'], 'deployers' => ['P'], 'harmed' => ['H'],
         ]);
 
-        $profile = \App\Http\Controllers\Site\RiskController::causalProfile();
+        $profile = RiskController::causalProfile();
 
         $this->assertSame(2, $profile['classified'], 'uncoded records must not count as classified');
         $this->assertSame(3, $profile['total'], 'the corpus total must include uncoded records');

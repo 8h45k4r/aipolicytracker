@@ -2,11 +2,10 @@
 
 namespace App\Notifications;
 
+use Illuminate\Auth\Notifications\VerifyEmail as VerifyEmailNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Auth\Notifications\VerifyEmail as VerifyEmailNotification;
 
 class CustomVerifyEmailNotification extends VerifyEmailNotification
 {
@@ -39,7 +38,7 @@ class CustomVerifyEmailNotification extends VerifyEmailNotification
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
-        ->subject('Verify Email Notification')
+            ->subject('Verify Email Notification')
             ->view('emails.verify-email', [
                 'verificationUrl' => $verificationUrl,
                 'notifiable' => $notifiable,
