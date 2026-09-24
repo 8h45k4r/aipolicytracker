@@ -39,7 +39,7 @@ class SyncAiidCommand extends Command
             rsort($m[1]);
             $exportName = "AIID_Excel_Export-{$m[1][0]}.xlsx";
             $file = storage_path("app/{$exportName}");
-            File::put($file, Http::withUserAgent('aipolicytracker.org external-data sync')->timeout(120)->get(self::BUCKET.$exportName)->body());
+            File::put($file, Http::withUserAgent('aipolicytracker.org external-data sync')->timeout(120)->get(self::BUCKET.$exportName)->throw()->body());
         }
         preg_match('/(\d{4})(\d{2})(\d{2})/', $exportName, $d);
         $snapshotDate = $d ? "{$d[1]}-{$d[2]}-{$d[3]}" : now()->toDateString();

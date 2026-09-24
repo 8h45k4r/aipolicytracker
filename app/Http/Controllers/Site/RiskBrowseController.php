@@ -8,6 +8,7 @@ use App\Models\ExternalRisk;
 use App\Services\ExternalData\ExternalDataset;
 use App\Support\Seo;
 use Illuminate\Database\Eloquent\Builder;
+use App\Support\Csv;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -181,7 +182,7 @@ class RiskBrowseController extends Controller
     /** @return array{0: Builder, 1: array} */
     private function riskQuery(Request $request): array
     {
-        $f = ['q' => trim((string) $request->query('q')), 'domain' => $request->query('domain'), 'subdomain' => $request->query('subdomain'), 'entity' => $request->query('entity'), 'intent' => $request->query('intent'), 'timing' => $request->query('timing'), 'level' => $request->query('level'), 'paper' => $request->query('paper')];
+        $f = ['q' => trim((string) $this->param($request, 'q')), 'domain' => $this->param($request, 'domain'), 'subdomain' => $this->param($request, 'subdomain'), 'entity' => $this->param($request, 'entity'), 'intent' => $this->param($request, 'intent'), 'timing' => $this->param($request, 'timing'), 'level' => $this->param($request, 'level'), 'paper' => $this->param($request, 'paper')];
         $q = ExternalRisk::query();
         if ($f['domain'] !== null && $f['domain'] !== '' && ctype_digit((string) $f['domain'])) {
             $q->where('domain', (int) $f['domain']);
@@ -211,7 +212,7 @@ class RiskBrowseController extends Controller
     /** @return array{0: Builder, 1: array} */
     private function incidentQuery(Request $request): array
     {
-        $f = ['q' => trim((string) $request->query('q')), 'year' => $request->query('year'), 'domain' => $request->query('domain'), 'subdomain' => $request->query('subdomain'), 'country' => $request->query('country'), 'sector' => $request->query('sector'), 'harm' => $request->query('harm')];
+        $f = ['q' => trim((string) $this->param($request, 'q')), 'year' => $this->param($request, 'year'), 'domain' => $this->param($request, 'domain'), 'subdomain' => $this->param($request, 'subdomain'), 'country' => $this->param($request, 'country'), 'sector' => $this->param($request, 'sector'), 'harm' => $this->param($request, 'harm')];
         $q = ExternalIncident::query();
         if ($f['year'] && ctype_digit((string) $f['year'])) {
             $q->where('year', (int) $f['year']);
@@ -263,7 +264,7 @@ class RiskBrowseController extends Controller
                         $values[$c] = is_array($v) ? ($format === 'csv' ? implode('|', $v) : $v) : ($v instanceof \DateTimeInterface ? $v->format('Y-m-d') : $v);
                     }
                     if ($format === 'csv') {
-                        fputcsv($out, array_values($values));
+                        fputcsv($out, Csv::row($values));
                     } else {
                         fwrite($out, ($first ? '' : ',').json_encode($values, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
                         $first = false;
@@ -275,5 +276,13 @@ class RiskBrowseController extends Controller
             }
             fclose($out);
         }, $name, ['Content-Type' => $type.'; charset=UTF-8', 'X-Content-Type-Options' => 'nosniff']);
+    }
+
+    /** A filter value as a string, or null: an array such as `domain[]=x` is ignored rather than a 500. */
+    private function param(Request $request, string $key): ?string
+    {
+        $value = $request->query($key);
+
+        return is_string($value) && $value !== '' ? $value : null;
     }
 }

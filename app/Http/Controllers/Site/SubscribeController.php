@@ -12,6 +12,7 @@ use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\View\View;
 
 /**
@@ -59,6 +60,15 @@ class SubscribeController extends Controller
         if ($subscriber->exists && $subscriber->isActive()) {
             return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
+
+        // At most three confirmation emails per address per day, whoever asks. The
+        // per-IP throttle alone let anyone mail an unconfirmed address thousands of
+        // times a day and keep replacing its token so the owner could never confirm.
+        $key = 'subscribe-confirm:'.sha1(strtolower($data['email']));
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            return back()->with('success', 'Check your inbox to confirm your subscription.');
+        }
+        RateLimiter::hit($key, 86400);
 
         // An address that opted out, or one that never confirmed, starts over:
         // new topics, a new token, and a fresh confirmation the owner has to click.

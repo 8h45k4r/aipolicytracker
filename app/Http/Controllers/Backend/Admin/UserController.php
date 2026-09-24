@@ -97,6 +97,9 @@ class UserController extends Controller
             'suspended_at' => now(),
             'suspended_reason' => $data['reason'] ?? null,
         ])->save();
+        // Suspension is otherwise only checked at the next password sign-in, so an open
+        // session or a remember-me cookie would keep working on every non-admin route.
+        $user->endAllSessions();
 
         return back()->with('success', "{$user->email} is suspended and can no longer sign in.");
     }
@@ -122,7 +125,10 @@ class UserController extends Controller
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
+            'two_factor_last_step' => null,
         ])->save();
+        // Any live session could otherwise enrol an authenticator of its own choosing.
+        $user->endAllSessions();
 
         return back()->with('success', "{$user->email} will enrol a new authenticator at next sign-in.");
     }
