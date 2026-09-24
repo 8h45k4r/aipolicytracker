@@ -10,7 +10,7 @@ COPY . .
 RUN npm run build
 
 # ---- Stage 2: PHP runtime ----
-FROM php:8.3-cli-alpine
+FROM php:8.5-cli-alpine
 RUN apk add --no-cache postgresql-dev icu-dev libzip-dev oniguruma-dev \
     && docker-php-ext-install pdo_pgsql pdo_mysql intl bcmath mbstring zip pcntl opcache \
     && rm -rf /var/cache/apk/* \
