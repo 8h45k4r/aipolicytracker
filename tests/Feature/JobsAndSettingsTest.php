@@ -64,6 +64,26 @@ class JobsAndSettingsTest extends TestCase
         $this->asOwner()->get('/backend/admin/jobs')->assertOk()->assertSee('ok');
     }
 
+    /**
+     * The scheduler runs jobs in the same method the HTTP entry points use. A time
+     * limit belongs to the request, not to the job: external:import rebuilds
+     * thousands of rows and used to be killed part-way through a scheduled run,
+     * then recorded as a fatal. This asserts the limit is left alone under CLI,
+     * which is where the scheduler and `php artisan` live.
+     */
+    public function test_a_scheduled_run_does_not_impose_a_request_time_limit(): void
+    {
+        $this->assertSame('cli', PHP_SAPI, 'the suite must run under CLI for this to mean anything');
+        @set_time_limit(0); // CLI's own default: no limit
+        $before = ini_get('max_execution_time');
+
+        $run = JobRun::run('policy_validate', 'schedule');
+
+        $this->assertTrue($run->succeeded(), (string) $run->output);
+        $this->assertSame($before, ini_get('max_execution_time'), 'a scheduled run must not cap its own execution time');
+        $this->assertSame('0', (string) ini_get('max_execution_time'));
+    }
+
     public function test_a_job_that_sends_mail_is_only_reachable_behind_a_password_confirmation(): void
     {
         $owner = $this->owner();
