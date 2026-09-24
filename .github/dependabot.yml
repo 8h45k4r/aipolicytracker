@@ -1,0 +1,23 @@
+# Weekly dependency updates. Minor and patch versions are grouped so the queue
+# stays reviewable; majors arrive one at a time. Security updates are opened
+# as soon as an advisory is published, whatever this schedule says.
+version: 2
+updates:
+  - package-ecosystem: composer
+    directory: /
+    schedule: { interval: weekly }
+    groups:
+      composer-minor-patch: { update-types: [minor, patch] }
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly }
+    groups:
+      npm-minor-patch: { update-types: [minor, patch] }
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
+    groups:
+      actions: { patterns: ["*"] }
+  - package-ecosystem: docker
+    directory: /
+    schedule: { interval: weekly }

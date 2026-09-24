@@ -3,12 +3,15 @@
 namespace Tests\Feature;
 
 use App\Models\BillingEvent;
+use App\Models\JobRun;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use StandardWebhooks\Webhook;
 use Tests\TestCase;
 
@@ -154,5 +157,60 @@ class SecurityHardeningTest extends TestCase
         $this->getJson('/api/v1/policies?page[]=x')->assertOk();
         $this->get('/ai-risk/incidents/browse?q[]=x&domain[]=y')->assertOk();
         $this->get('/tools/applicability-check?jurisdictions[][]=x&domains[][]=y')->assertOk();
+    }
+
+    public function test_an_admin_cannot_rename_themselves_into_the_reviewer_roster(): void
+    {
+        $owner = User::factory()->create(['email' => 'owner@example.com', 'name' => 'Owner']);
+        $this->actingAs($owner)->patch('/profile', ['name' => 'Bhaskar Bhatt', 'email' => $owner->email])->assertSessionHasErrors('name');
+        $this->assertSame('Owner', $owner->fresh()->name);
+    }
+
+    public function test_heavy_public_routes_are_throttled(): void
+    {
+        foreach (['risk.incidents.export', 'risk.risks.export', 'open-data.download', 'open-data.csv', 'open-data.ndjson', 'llms.full', 'social.card'] as $name) {
+            $middleware = Route::getRoutes()->getByName($name)->gatherMiddleware();
+            $this->assertNotEmpty(array_filter($middleware, fn ($m) => str_starts_with($m, 'throttle:')), "{$name} has no throttle");
+        }
+    }
+
+    public function test_security_headers_reach_the_api_and_unmatched_routes(): void
+    {
+        foreach (['/api/v1/', '/definitely-not-a-page'] as $url) {
+            $response = $this->get($url);
+            $response->assertHeader('X-Content-Type-Options', 'nosniff');
+            $this->assertTrue($response->headers->has('Content-Security-Policy'), "no CSP on {$url}");
+        }
+    }
+
+    public function test_a_job_does_not_run_twice_at_once(): void
+    {
+        $lock = Cache::lock('job-run:digest', 60);
+        $this->assertTrue($lock->get());
+
+        $run = JobRun::run('digest', 'cron');
+
+        $this->assertSame(1, $run->exit_code);
+        $this->assertStringContainsString('already running', $run->output);
+        $lock->release();
+    }
+
+    public function test_a_forwarded_host_does_not_rewrite_generated_links(): void
+    {
+        config(['app.trusted_proxies' => '*']);
+        Route::get('/_probe/url', fn () => request()->url().'|'.request()->getScheme().'|'.request()->ip());
+
+        $body = $this->withServerVariables(['REMOTE_ADDR' => '10.0.0.1'])->withHeaders([
+            'X-Forwarded-Host' => 'evil.example', 'X-Forwarded-Port' => '1', 'X-Forwarded-Prefix' => '/x',
+            'X-Forwarded-Proto' => 'https', 'X-Forwarded-For' => '203.0.113.9',
+        ])->get('/_probe/url')->getContent();
+
+        [$url, $scheme, $ip] = explode('|', $body);
+        $this->assertStringNotContainsString('evil.example', $url);
+        $this->assertStringNotContainsString(':1', $url);
+        $this->assertStringNotContainsString('/x/', $url);
+        // The two headers that are still trusted still work.
+        $this->assertSame('https', $scheme);
+        $this->assertSame('203.0.113.9', $ip);
     }
 }

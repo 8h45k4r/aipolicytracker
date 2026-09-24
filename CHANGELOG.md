@@ -14,6 +14,22 @@ All notable changes to this project are documented here. The format follows [Kee
 - Public CSV exports of third-party data (AI incidents, risks, open data) escape cells a spreadsheet would run as formulas.
 - Array query parameters (`page[]=`, `q[]=`, `jurisdictions[][]=`) no longer cause a 500 on the API, the risk browser or the applicability check, and a non-numeric `page` no longer creates a cache entry per variant.
 - The AIID and MIT sync commands fail on an HTTP error instead of saving the error page as a workbook.
+- A proxy the app trusts could have its visitor's `X-Forwarded-Host`, `-Port` and `-Prefix` rewrite every URL the app generated, including pagination links cached in public API responses. Only `X-Forwarded-For` and `-Proto` are trusted now.
+- An admin cannot rename themselves on the profile page: the reviewer roster matches display names, so a rename could sign verifications as someone else.
+- Confirming a subscription or unsubscribing takes a button press. Opening the link no longer changes anything, so mail scanners that follow every URL cannot do it for the reader.
+- Security headers (CSP, `nosniff`, frame options) are sent on every response, including the API and 404 pages; `X-Powered-By` is removed.
+- Full-table exports, `llms-full.txt` and social cards are rate-limited. Jobs cannot overlap, whichever of the scheduler, `/cron/*` or the admin started them. The `past_due` grace period no longer restarts with each webhook. Future-dated records are not reachable by slug. Third-party report links are http(s) only. Flowbite is pinned by Subresource Integrity. The XLSX reader bounds column references.
+- Production defaults to secure, encrypted session cookies. The Docker image keeps `public/` read-only for the runtime user, sets `expose_php=Off`, has a health check, and builds assets on Node 22 (Node 20 is end of life).
+- GitHub Actions are pinned to commit SHAs, and the one workflow input is validated before use.
+
+### Added
+- `.github/workflows/security.yml`: secret scanning of the full history (Gitleaks), SAST (Semgrep), dependency audits (composer, npm, Trivy), IaC (Trivy, Checkov) and a container image scan on every pull request; ZAP DAST and an active API scan weekly. Dependabot for composer, npm, Actions and Docker. See `docs/reference/security-scanning.md` and the assessment in `docs/reference/vapt-2026-09-24.md`.
+- `data/LICENSE` (CC BY 4.0) and `GOVERNANCE.md`. The API list responses and the CSV and NDJSON exports state the data licence. NOTICE lists the data and third-party dataset licences, and no longer names libraries the project stopped using.
+
+### Changed
+- `composer lint` is enforced in CI; the codebase was formatted once with Pint.
+- Contributor docs: fork-first setup, `policy:import` after seeding, schema limits for new records, a worked data-only pull request, and `composer test` no longer times out. A policy record must cite at least one source.
+- The verification badge says what it is: a factual check against the official source, not a legal review.
 
 ### Fixed
 - The host crontab and the container could both drive the recurring jobs, which would have sent every weekly digest and every daily alert twice. `deploy/cron-install.sh` now installs one `schedule:run` entry instead of three per-job ones, refuses to install at all while the container is scheduling, and removes the old entries when re-run; the container's scheduler can be turned off with `SCHEDULER=off`. The old per-job entries also called artisan directly, so their runs never reached the job log and the admin page reported "never run" while they were running.

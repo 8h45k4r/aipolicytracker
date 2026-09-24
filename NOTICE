@@ -2,6 +2,15 @@ AI Policy Tracker
 Copyright 2024-2026 Bhaskar Bhatt and AI Policy Tracker contributors
 Built by Dignep Group Pvt. Ltd.
 
-This product includes software developed by third parties under their own
-licences (see composer.lock and package-lock.json). Notably: CKEditor 5
-(GPL-2.0-or-later) and amCharts (free licence with attribution).
+Software in this repository is licensed under the Apache License 2.0 (LICENSE).
+
+Policy data in data/ (jurisdictions, policies, obligations, controls, changes,
+taxonomies, reviewers) is licensed under Creative Commons Attribution 4.0
+International (CC BY 4.0); see data/LICENSE.
+
+Third-party datasets keep their own licences and are redistributed with attribution:
+  - data/external/aiid-*: AI Incident Database, Responsible AI Collaborative,
+    CC BY-SA 4.0. McGregor, S. (2021).
+  - data/external/mit-*: MIT AI Risk Repository, CC BY 4.0. Slattery, P. et al. (2025).
+
+Third-party software keeps its own licence; see composer.lock and package-lock.json.

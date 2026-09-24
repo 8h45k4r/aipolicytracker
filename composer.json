@@ -91,6 +91,7 @@
     },
     "config": {
         "optimize-autoloader": true,
+        "process-timeout": 0,
         "platform": {
             "php": "8.2"
         },

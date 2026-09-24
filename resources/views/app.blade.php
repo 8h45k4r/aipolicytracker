@@ -50,7 +50,10 @@
 <body class="Poppins" style="max-width: 1920px; margin-right: auto; margin-left: auto">
     @inertia
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    {{-- Pinned by hash: a changed file on the CDN is refused rather than run. --}}
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"
+        integrity="sha384-SwLKRRNiVJqs2wqB+G5yEJfYuFngJWupGEYFq2Z0dK6+9adS+jWPUVTQ/iCYRNu1"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

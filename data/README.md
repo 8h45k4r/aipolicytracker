@@ -10,7 +10,7 @@ data/
   jurisdictions/  one YAML file per jurisdiction
   policies/       one YAML file per policy instrument, grouped by jurisdiction
   controls/       one YAML file per organisational control (see docs/modules/controls.md)
-  changes/        dated change-log entries, one file per month
+  changes/        dated change-log entries, one file per year
   reviewers/      one YAML file per reviewer, with their declared interests
   email/          address-quality lists (not policy records; see docs/modules/accounts.md)
 ```
@@ -22,9 +22,17 @@ the policy records are: a rule that decides whether somebody can sign up should 
 and reviewable, not buried in code. It is not validated by `policy:validate`; it is covered
 by `EmailDomainPolicyTest`.
 
+## Licence
+
+The records here are CC BY 4.0 (`data/LICENSE`); `external/` keeps its upstream licences.
+The code is Apache-2.0. By contributing a record you license it under CC BY 4.0.
+
 ## Workflow
 
-1. Edit or add a YAML file. Copy an existing record as a template.
+1. Edit or add a YAML file. Copy an existing record as a template. The schema for each type is
+   in `schema/` (for policies, `schema/policy.schema.json`) and states every required field and
+   limit; for example `summary_plain` needs at least 80 characters and `scope_summary` at least 40.
+   Set `last_checked_at` to the date you opened the official source.
 2. Run `php artisan policy:validate` — schema, enum, URL, date and cross-reference checks.
 3. Run `php artisan policy:import` — idempotent upsert into the database (also runs on deploy).
 4. Open a pull request using the template; list every changed field with its official source URL.

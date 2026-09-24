@@ -55,7 +55,7 @@ class PolicyController extends Controller
 
     public function show(PolicyInstrument $policy): View
     {
-        abort_unless($policy->published_at, 404);
+        abort_unless($policy->published_at?->lte(now()), 404);
         $policy->load(['jurisdiction', 'terms', 'sections', 'obligations.terms', 'obligations.frameworkMappings', 'obligations.evidenceArtifacts', 'deadlines', 'versions', 'sourceDocuments', 'enforcementEvents', 'procurementRules', 'changeEvents', 'applicabilityRules']);
 
         $related = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $policy->related_policies ?? [])->get();
@@ -145,7 +145,7 @@ class PolicyController extends Controller
 
     public function json(PolicyInstrument $policy, PolicySerializer $serializer): JsonResponse
     {
-        abort_unless($policy->published_at, 404);
+        abort_unless($policy->published_at?->lte(now()), 404);
 
         // The record page in another form, not a page of its own: canonical to the
         // HTML and kept out of the index so the two never compete.

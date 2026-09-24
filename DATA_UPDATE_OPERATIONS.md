@@ -19,7 +19,7 @@ official source  →  data/*.yaml (PR)  →  policy:validate (CI)  →  review  
 | `php artisan policy:validate` | JSON Schema + cross-reference checks (unique slugs, taxonomy terms, jurisdiction and policy references, verified-requires-date-and-reviewer). |
 | `php artisan policy:import` | Idempotent upsert of all records; replaces child rows per policy; clears caches. `--skip-validation` only for local experiments. |
 | `php artisan policy:export --out=storage/app/exports` | Versioned JSON bundle. |
-| `php artisan migrate --seed` | Fresh database with reference data, admin user and the imported records. |
+| `php artisan migrate --seed` | Fresh database with the admin user and the tool library. Records are not seeded: run `php artisan policy:import` next. |
 
 ## 3. Verification cadence
 

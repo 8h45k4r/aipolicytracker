@@ -128,7 +128,12 @@ class WebhookProcessor
                 'current_period_end' => $this->parseDate($data['next_billing_date'] ?? null) ?? $sub->current_period_end,
                 'cancel_at_period_end' => (bool) ($data['cancel_at_next_billing_date'] ?? $sub->cancel_at_period_end ?? false),
                 'cancelled_at' => $this->parseDate($data['cancelled_at'] ?? null) ?? ($status === 'cancelled' ? ($sub->cancelled_at ?? $eventAt) : $sub->cancelled_at),
-                'on_hold_at' => $status === 'on_hold' ? ($existing?->status === 'on_hold' ? $sub->on_hold_at : $eventAt) : null,
+                // The grace clock starts when renewal first fails and does not restart while
+                // it stays failed: measuring past_due from the latest event let every new
+                // webhook extend access indefinitely.
+                'on_hold_at' => in_array($status, ['on_hold', 'past_due'], true)
+                    ? (in_array($existing?->status, ['on_hold', 'past_due'], true) ? ($sub->on_hold_at ?? $eventAt) : $eventAt)
+                    : null,
                 'expires_at' => $this->parseDate($data['expires_at'] ?? null) ?? ($status === 'expired' ? ($sub->expires_at ?? $eventAt) : $sub->expires_at),
                 'last_event_at' => $eventAt,
                 'last_event_type' => $type,
@@ -181,7 +186,7 @@ class WebhookProcessor
             }
         }
         if (! empty($customer['email'])) {
-            return User::whereRaw('LOWER(email) = ?', [strtolower((string) $customer['email'])])->first();
+            return User::whereRaw('LOWER(email) = ?', [strtolower((string) $customer['email'])])->whereNotNull('email_verified_at')->first();
         }
 
         return null;

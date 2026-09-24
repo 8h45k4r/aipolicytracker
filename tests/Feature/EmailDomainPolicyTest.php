@@ -76,10 +76,10 @@ class EmailDomainPolicyTest extends TestCase
 
     public function test_a_work_address_is_accepted(): void
     {
-        $verdict = $this->policy()->inspect('r.patel@stmarys-trust.nhs.uk');
+        $verdict = $this->policy()->inspect('j.doe@aip-fixture-trust.nhs.uk');
 
         $this->assertTrue($verdict->allowed);
-        $this->assertSame('stmarys-trust.nhs.uk', $verdict->domain);
+        $this->assertSame('aip-fixture-trust.nhs.uk', $verdict->domain);
         $this->assertNull($verdict->reason);
     }
 
@@ -212,12 +212,12 @@ class EmailDomainPolicyTest extends TestCase
     public function test_registration_accepts_a_work_address(): void
     {
         $this->post('/register', [
-            'name' => 'Test User', 'email' => 'r.patel@stmarys-trust.nhs.uk', 'password' => 'Password!123',
+            'name' => 'Test User', 'email' => 'j.doe@aip-fixture-trust.nhs.uk', 'password' => 'Password!123',
             'password_confirmation' => 'Password!123', 'terms_condition' => true,
         ])->assertSessionHasNoErrors()->assertRedirect();
 
         $this->assertAuthenticated();
-        $this->assertSame(1, User::where('email', 'r.patel@stmarys-trust.nhs.uk')->count());
+        $this->assertSame(1, User::where('email', 'j.doe@aip-fixture-trust.nhs.uk')->count());
     }
 
     public function test_the_refusal_says_what_to_do_instead(): void
@@ -237,7 +237,7 @@ class EmailDomainPolicyTest extends TestCase
         $this->post(route('subscribe.store'), ['email' => 'burner@guerrillamail.com'])->assertSessionHasErrors('email');
         $this->assertSame(0, Subscriber::count());
 
-        $this->post(route('subscribe.store'), ['email' => 'r.patel@stmarys-trust.nhs.uk'])->assertSessionHasNoErrors();
+        $this->post(route('subscribe.store'), ['email' => 'j.doe@aip-fixture-trust.nhs.uk'])->assertSessionHasNoErrors();
         $this->assertSame(1, Subscriber::count());
     }
 
@@ -267,8 +267,8 @@ class EmailDomainPolicyTest extends TestCase
         $this->assertSame('Ada Example', $user->fresh()->name);
 
         // And they can move to a real address.
-        $this->actingAs($user)->patch('/profile', ['name' => 'Ada Example', 'email' => 'ada@stmarys-trust.nhs.uk'])->assertSessionHasNoErrors();
-        $this->assertSame('ada@stmarys-trust.nhs.uk', $user->fresh()->email);
+        $this->actingAs($user)->patch('/profile', ['name' => 'Ada Example', 'email' => 'ada@aip-fixture-trust.nhs.uk'])->assertSessionHasNoErrors();
+        $this->assertSame('ada@aip-fixture-trust.nhs.uk', $user->fresh()->email);
     }
 
     public function test_an_existing_account_can_still_ask_for_a_password_reset(): void
@@ -289,7 +289,7 @@ class EmailDomainPolicyTest extends TestCase
             ->expectsOutputToContain('disposable_domain')
             ->assertExitCode(1);
 
-        $this->artisan('email:check', ['address' => ['r.patel@stmarys-trust.nhs.uk']])
+        $this->artisan('email:check', ['address' => ['j.doe@aip-fixture-trust.nhs.uk']])
             ->expectsOutputToContain('accepted')
             ->assertExitCode(0);
     }

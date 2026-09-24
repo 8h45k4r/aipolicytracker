@@ -100,7 +100,10 @@ class ContributeController extends Controller
         unset($data['field'], $data['current_value'], $data['proposed_value']);
 
         $submission = ContributorSubmission::create($data + ['status' => 'pending_review', 'payload' => $payload ?: null]);
-        foreach (config('aipolicytracker.admin_emails', []) as $admin) {
+        // Every submission is kept, but a flood does not become a flood of mail: past
+        // twenty an hour the review queue is the notification.
+        $recent = ContributorSubmission::where('created_at', '>=', now()->subHour())->count();
+        foreach ($recent <= 20 ? config('aipolicytracker.admin_emails', []) : [] as $admin) {
             try {
                 Mail::to($admin)->send(new SubmissionReceivedMail($submission));
             } catch (\Throwable $e) {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * One run of a platform job: what ran, who or what started it, how it ended.
@@ -52,6 +53,15 @@ class JobRun extends Model
             throw new \InvalidArgumentException("Unknown job {$job}");
         }
         $run = self::create(['job' => $job, 'trigger' => $trigger, 'user_id' => $userId, 'started_at' => now()]);
+        // One run of a job at a time, whoever starts it. The scheduler, /cron/* and the
+        // admin button are three doors to the same job, and two digests running together
+        // would each mail every subscriber before either recorded the send.
+        $lock = Cache::lock('job-run:'.$job, 900);
+        if (! $lock->get()) {
+            $run->update(['finished_at' => now(), 'exit_code' => 1, 'output' => 'Skipped: this job is already running.']);
+
+            return $run;
+        }
         @set_time_limit(280);
         try {
             $code = Artisan::call($meta['command'], $meta['args']);
@@ -60,6 +70,8 @@ class JobRun extends Model
             report($e);
             $code = 1;
             $output = get_class($e).': '.$e->getMessage();
+        } finally {
+            $lock->release();
         }
         $run->update(['finished_at' => now(), 'exit_code' => $code, 'output' => mb_substr($output, 0, 20000)]);
 
