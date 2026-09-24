@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Services\ExternalData\ExternalDataset;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExternalIncident extends Model
 {
@@ -17,7 +19,7 @@ class ExternalIncident extends Model
         return ['occurred_on' => 'date', 'snapshot_date' => 'date', 'modified_at' => 'datetime', 'synced_at' => 'datetime', 'deployers' => 'array', 'developers' => 'array', 'harmed' => 'array', 'sectors' => 'array', 'countries' => 'array', 'entities' => 'array', 'implicated_systems' => 'array', 'similar_incidents' => 'array'];
     }
 
-    public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function reports(): HasMany
     {
         return $this->hasMany(ExternalIncidentReport::class, 'incident_id', 'incident_id')->orderBy('date_published')->orderBy('report_number');
     }
@@ -168,7 +170,7 @@ class ExternalIncident extends Model
     /** Domain number (1-7) derived from the AIID label, via the MIT taxonomy file. */
     public static function domainLabels(): array
     {
-        $mit = app(\App\Services\ExternalData\ExternalDataset::class)->mitRisk();
+        $mit = app(ExternalDataset::class)->mitRisk();
 
         return collect($mit['domains'] ?? [])->mapWithKeys(fn ($d) => [(string) $d['id'] => $d['aiid_domain_label']])->all();
     }

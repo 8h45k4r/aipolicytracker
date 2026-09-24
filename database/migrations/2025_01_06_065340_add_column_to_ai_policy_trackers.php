@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Distinguish policies from strategies (gov_ai_index) for filtering.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -16,6 +17,7 @@ return new class extends Migration {
             $table->string('gov_ai_index')->default('policy');
         });
     }
+
     /**
      * Reverse the migrations.
      */

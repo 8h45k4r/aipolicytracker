@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Superseded: columns were folded into the create migration; kept empty for history.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

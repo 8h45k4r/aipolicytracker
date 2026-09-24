@@ -6,14 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: One image per news item, stored on the public disk.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('thumbnails', function (Blueprint $table) {
-            $table->uuid("id")->primary();
+            $table->uuid('id')->primary();
             $table->uuid('news_id');
             $table->string('type');
             $table->string('name');

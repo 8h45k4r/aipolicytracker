@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Users follow policies; drives update notifications.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

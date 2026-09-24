@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Lifecycle vocabulary shared by policies and news categories.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

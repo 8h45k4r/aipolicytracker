@@ -19,15 +19,95 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::create('countries', function (Blueprint $t) { $t->uuid('id')->primary(); $t->string('symbol'); $t->string('name'); $t->boolean('status')->nullable()->default(true); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('statuses', function (Blueprint $t) { $t->uuid('id')->primary(); $t->string('name'); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('ai_policy_trackers', function (Blueprint $t) { $t->uuid('id')->primary(); $t->uuid('country_id'); $t->uuid('status_id'); $t->string('ai_policy_name')->nullable(); $t->string('governing_body')->nullable(); $t->string('announcement_year')->nullable(); $t->string('whitepaper_document_link')->nullable(); $t->string('technology_partners')->nullable(); $t->string('governance_structure')->nullable(); $t->string('main_motivation')->nullable(); $t->longText('description')->nullable(); $t->string('gov_ai_index')->default('policy'); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('news', function (Blueprint $t) { $t->uuid('id')->primary(); $t->uuid('policy_tracker_id')->nullable(); $t->uuid('status_id')->nullable(); $t->string('title'); $t->longText('description')->nullable(); $t->date('upload_date'); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('thumbnails', function (Blueprint $t) { $t->uuid('id')->primary(); $t->uuid('news_id'); $t->string('type'); $t->string('name'); $t->string('path'); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('news_future_images', function (Blueprint $t) { $t->uuid('id')->primary(); $t->uuid('news_id'); $t->string('type'); $t->string('name'); $t->string('path'); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('a_i_policy_activity_logs', function (Blueprint $t) { $t->uuid('id')->primary(); $t->foreignId('user_id')->nullable()->index(); $t->uuid('ai_policy_tracker_id'); $t->text('activity_name'); $t->longText('description')->nullable(); $t->timestamps(); });
-        Schema::create('book_marks', function (Blueprint $t) { $t->uuid('id')->primary(); $t->unsignedBigInteger('user_id'); $t->uuid('ai_policy_tracker_id'); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('nav_bars', function (Blueprint $t) { $t->uuid('id')->primary(); $t->unsignedBigInteger('user_id'); $t->string('name'); $t->string('file_path'); $t->softDeletes(); $t->timestamps(); });
-        Schema::create('contributing_orgs', function (Blueprint $t) { $t->uuid('id')->primary(); $t->unsignedBigInteger('user_id'); $t->string('name'); $t->string('file_path'); $t->string('url')->nullable(); $t->softDeletes(); $t->timestamps(); });
+        Schema::create('countries', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->string('symbol');
+            $t->string('name');
+            $t->boolean('status')->nullable()->default(true);
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('statuses', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->string('name');
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('ai_policy_trackers', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->uuid('country_id');
+            $t->uuid('status_id');
+            $t->string('ai_policy_name')->nullable();
+            $t->string('governing_body')->nullable();
+            $t->string('announcement_year')->nullable();
+            $t->string('whitepaper_document_link')->nullable();
+            $t->string('technology_partners')->nullable();
+            $t->string('governance_structure')->nullable();
+            $t->string('main_motivation')->nullable();
+            $t->longText('description')->nullable();
+            $t->string('gov_ai_index')->default('policy');
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('news', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->uuid('policy_tracker_id')->nullable();
+            $t->uuid('status_id')->nullable();
+            $t->string('title');
+            $t->longText('description')->nullable();
+            $t->date('upload_date');
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('thumbnails', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->uuid('news_id');
+            $t->string('type');
+            $t->string('name');
+            $t->string('path');
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('news_future_images', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->uuid('news_id');
+            $t->string('type');
+            $t->string('name');
+            $t->string('path');
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('a_i_policy_activity_logs', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->foreignId('user_id')->nullable()->index();
+            $t->uuid('ai_policy_tracker_id');
+            $t->text('activity_name');
+            $t->longText('description')->nullable();
+            $t->timestamps();
+        });
+        Schema::create('book_marks', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->unsignedBigInteger('user_id');
+            $t->uuid('ai_policy_tracker_id');
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('nav_bars', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->unsignedBigInteger('user_id');
+            $t->string('name');
+            $t->string('file_path');
+            $t->softDeletes();
+            $t->timestamps();
+        });
+        Schema::create('contributing_orgs', function (Blueprint $t) {
+            $t->uuid('id')->primary();
+            $t->unsignedBigInteger('user_id');
+            $t->string('name');
+            $t->string('file_path');
+            $t->string('url')->nullable();
+            $t->softDeletes();
+            $t->timestamps();
+        });
     }
 };

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\ExternalIncident;
+use App\Models\ExternalIncidentReport;
 use App\Models\ExternalRisk;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -72,10 +73,10 @@ class ImportExternalDataCommand extends Command
                         'source_domain' => $r['source_domain'] ?: null, 'date_published' => $r['date_published'] ?: null, 'authors' => json_encode($r['authors'] ?? []), 'language' => $r['language'] ?: null,
                         'created_at' => now(), 'updated_at' => now(),
                     ], $chunk);
-                    \App\Models\ExternalIncidentReport::upsert($rows, ['report_number'], array_diff(array_keys($rows[0]), ['report_number', 'created_at']));
+                    ExternalIncidentReport::upsert($rows, ['report_number'], array_diff(array_keys($rows[0]), ['report_number', 'created_at']));
                     $ids = array_merge($ids, array_column($chunk, 'report_number'));
                 }
-                \App\Models\ExternalIncidentReport::whereNotIn('report_number', $ids)->whereNull('synced_at')->delete();
+                ExternalIncidentReport::whereNotIn('report_number', $ids)->whereNull('synced_at')->delete();
             }
             if ($risks) {
                 $ids = [];
@@ -101,7 +102,7 @@ class ImportExternalDataCommand extends Command
                 ExternalRisk::whereNotIn('ev_id', $ids)->delete();
             }
         });
-        $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks.', ExternalIncident::count(), \App\Models\ExternalIncidentReport::count(), ExternalRisk::count()));
+        $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks.', ExternalIncident::count(), ExternalIncidentReport::count(), ExternalRisk::count()));
 
         return self::SUCCESS;
     }

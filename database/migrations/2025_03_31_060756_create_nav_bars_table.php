@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Admin-uploaded site logo shared to every page.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

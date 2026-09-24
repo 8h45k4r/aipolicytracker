@@ -7,13 +7,14 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      */
-    public function create(): \Illuminate\View\View|RedirectResponse
+    public function create(): View|RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->intended(route('dashboard', absolute: false));

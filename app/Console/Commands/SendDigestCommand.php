@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\WeeklyDigestMail;
 use App\Models\ChangeEvent;
 use App\Models\Deadline;
+use App\Models\ExternalIncident;
 use App\Models\Subscriber;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
@@ -27,8 +28,8 @@ class SendDigestCommand extends Command
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->get();
         $deadlines = Deadline::with('policyInstrument.jurisdiction')->whereBetween('due_on', [now()->toDateString(), now()->addDays(60)->toDateString()])->orderBy('due_on')->limit(8)->get();
         $period = $since->format('j M').' – '.now()->format('j M Y');
-        $incidents = \App\Models\ExternalIncident::where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->limit(5)->get();
-        $incidentCount = \App\Models\ExternalIncident::where('occurred_on', '>=', $since->toDateString())->count();
+        $incidents = ExternalIncident::where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->limit(5)->get();
+        $incidentCount = ExternalIncident::where('occurred_on', '>=', $since->toDateString())->count();
 
         $sent = $skipped = 0;
         Subscriber::active()->orderBy('id')->chunk(200, function ($subscribers) use ($changes, $deadlines, $period, $since, $incidents, $incidentCount, &$sent, &$skipped) {

@@ -4,6 +4,7 @@ namespace App\Services\Billing;
 
 use App\Models\Subscription;
 use App\Models\User;
+use Carbon\Carbon;
 
 /**
  * Decides what a user may do from the local subscription mirror. Access is
@@ -23,7 +24,7 @@ class Entitlements
     /** Whether a subscription grants access right now. */
     public function covers(Subscription $s, ?\DateTimeInterface $now = null): bool
     {
-        $now = $now ? \Carbon\Carbon::instance($now) : now();
+        $now = $now ? Carbon::instance($now) : now();
         if ($s->plan_key === null || $this->catalog->plan($s->plan_key) === null) {
             return false;
         }

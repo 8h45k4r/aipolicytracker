@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Services\Completeness\CompletenessReport;
+use App\Services\Verification\VerificationPolicy;
 use Closure;
 use Tests\TestCase;
 
@@ -51,11 +53,11 @@ class ConfigIsCacheableTest extends TestCase
         // Guards the move itself: the rules and checks must still reach the services,
         // not silently become empty arrays that make every gate trivially pass.
         $this->assertNotEmpty(
-            app(\App\Services\Verification\VerificationPolicy::class)->rules(),
+            app(VerificationPolicy::class)->rules(),
             'the verification rules did not survive the move out of config/'
         );
         $this->assertNotEmpty(
-            app(\App\Services\Completeness\CompletenessReport::class)->checks(),
+            app(CompletenessReport::class)->checks(),
             'the completeness checks did not survive the move out of config/'
         );
 

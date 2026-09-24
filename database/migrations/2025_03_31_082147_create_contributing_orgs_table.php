@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 // Why: Logos and links of contributing organisations shown on the home page.
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */

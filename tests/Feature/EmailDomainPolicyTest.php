@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\ContributorSubmission;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Services\Security\EmailDomainPolicy;
@@ -245,11 +246,11 @@ class EmailDomainPolicyTest extends TestCase
         $submission = ['type' => 'correction', 'summary' => 'The applies-from date looks wrong on this record.'];
 
         $this->post(route('contribute.store'), $submission + ['submitter_email' => 'burner@mailinator.com'])->assertSessionHasErrors('submitter_email');
-        $this->assertSame(0, \App\Models\ContributorSubmission::count());
+        $this->assertSame(0, ContributorSubmission::count());
 
         // Leaving it blank is still fine: a correction is worth more than a lead.
         $this->post(route('contribute.store'), $submission)->assertSessionHasNoErrors();
-        $this->assertSame(1, \App\Models\ContributorSubmission::count());
+        $this->assertSame(1, ContributorSubmission::count());
     }
 
     public function test_changing_an_address_is_policed_but_an_account_already_on_a_refused_domain_is_not_locked_out(): void

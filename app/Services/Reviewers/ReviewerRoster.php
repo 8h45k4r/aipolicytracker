@@ -7,6 +7,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyDataRepository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
@@ -95,7 +96,7 @@ class ReviewerRoster
     {
         $counts = [];
         foreach (self::ATTRIBUTABLE as $class) {
-            /** @var class-string<\Illuminate\Database\Eloquent\Model> $class */
+            /** @var class-string<Model> $class */
             foreach ($class::published()->whereNotNull('reviewed_by')->where('review_status', 'verified')->pluck('reviewed_by') as $name) {
                 $counts[(string) $name] = ($counts[(string) $name] ?? 0) + 1;
             }
@@ -113,14 +114,14 @@ class ReviewerRoster
     {
         $published = 0;
         foreach (self::ALL_KINDS as $class) {
-            /** @var class-string<\Illuminate\Database\Eloquent\Model> $class */
+            /** @var class-string<Model> $class */
             $published += $class::published()->count();
         }
 
         $attributable = 0;
         $verified = 0;
         foreach (self::ATTRIBUTABLE as $class) {
-            /** @var class-string<\Illuminate\Database\Eloquent\Model> $class */
+            /** @var class-string<Model> $class */
             $attributable += $class::published()->count();
             $verified += $class::published()->where('review_status', 'verified')->whereNotNull('reviewed_by')->count();
         }
