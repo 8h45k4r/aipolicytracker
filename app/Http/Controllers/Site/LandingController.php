@@ -122,6 +122,7 @@ class LandingController extends Controller
 
     public function guide(string $slug): View
     {
+        abort_unless(preg_match('/^[a-z0-9-]{1,120}$/', $slug) === 1, 404);
         $page = config('content.guides.'.$slug);
         abort_unless($page, 404);
         $policies = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $page['policies'] ?? [])->get();

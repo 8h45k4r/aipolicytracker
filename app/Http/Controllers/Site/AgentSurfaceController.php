@@ -101,6 +101,7 @@ class AgentSurfaceController extends Controller
             'Content-Type' => 'text/csv; charset=UTF-8',
             'Cache-Control' => 'public, max-age=900',
             'X-Robots-Tag' => 'noindex',
+            'Link' => '<'.config('aipolicytracker.data_license_url').'>; rel="license"',
         ]);
     }
 
@@ -119,6 +120,7 @@ class AgentSurfaceController extends Controller
             'Cache-Control' => 'public, max-age=900',
             'X-Robots-Tag' => 'noindex',
             'Access-Control-Allow-Origin' => '*',
+            'Link' => '<'.config('aipolicytracker.data_license_url').'>; rel="license"',
         ]);
     }
 

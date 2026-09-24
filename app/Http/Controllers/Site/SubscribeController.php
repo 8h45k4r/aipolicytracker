@@ -64,7 +64,7 @@ class SubscribeController extends Controller
         // At most three confirmation emails per address per day, whoever asks. The
         // per-IP throttle alone let anyone mail an unconfirmed address thousands of
         // times a day and keep replacing its token so the owner could never confirm.
-        $key = 'subscribe-confirm:'.sha1(strtolower($data['email']));
+        $key = 'subscribe-confirm:'.hash('sha256', strtolower($data['email']));
         if (RateLimiter::tooManyAttempts($key, 3)) {
             return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
@@ -82,32 +82,50 @@ class SubscribeController extends Controller
         return back()->with('success', 'Check your inbox to confirm your subscription.');
     }
 
+    /*
+     * Opening a link never changes anything. Mail security scanners and link
+     * previewers follow every URL in a message, so a GET that confirmed or
+     * unsubscribed would complete the double opt-in without a human, or quietly
+     * unsubscribe a reader. The link shows a button; the button posts.
+     */
     public function confirm(string $token): View
     {
         $subscriber = Subscriber::where('token', $token)->firstOrFail();
-        if (! $subscriber->confirmed_at) {
+
+        return $this->confirmView($subscriber, pending: ! $subscriber->confirmed_at || $subscriber->unsubscribed_at);
+    }
+
+    public function confirmPost(string $token): View
+    {
+        $subscriber = Subscriber::where('token', $token)->firstOrFail();
+        if (! $subscriber->confirmed_at || $subscriber->unsubscribed_at) {
             $subscriber->update(['confirmed_at' => now(), 'unsubscribed_at' => null]);
         }
-        $seo = Seo::make('Subscription confirmed', 'Your weekly AI policy digest subscription is active.', route('subscribe.confirm', $token), false)->noindex();
 
-        return view('site.subscribe.confirmed', ['seo' => $seo, 'subscriber' => $subscriber]);
+        return $this->confirmView($subscriber, pending: false);
     }
 
     public function unsubscribe(string $token): View
     {
         $subscriber = Subscriber::where('token', $token)->firstOrFail();
-        $subscriber->update(['unsubscribed_at' => now()]);
-        $seo = Seo::make('Unsubscribed', 'You will no longer receive the AI policy digest.', route('subscribe.unsubscribe', $token), false)->noindex();
+        $seo = Seo::make('Unsubscribe', 'Stop receiving the AI policy digest.', route('subscribe.unsubscribe', $token), false)->noindex();
 
-        return view('site.subscribe.unsubscribed', ['seo' => $seo, 'subscriber' => $subscriber]);
+        return view('site.subscribe.unsubscribed', ['seo' => $seo, 'subscriber' => $subscriber, 'pending' => $subscriber->unsubscribed_at === null]);
     }
 
-    /** RFC 8058 one-click unsubscribe (List-Unsubscribe-Post). */
+    /** The button on the unsubscribe page, and RFC 8058 one-click unsubscribe (List-Unsubscribe-Post). */
     public function unsubscribePost(string $token): RedirectResponse
     {
         Subscriber::where('token', $token)->update(['unsubscribed_at' => now()]);
 
         return redirect()->route('subscribe.unsubscribe', $token);
+    }
+
+    private function confirmView(Subscriber $subscriber, bool $pending): View
+    {
+        $seo = Seo::make($pending ? 'Confirm your subscription' : 'Subscription confirmed', 'Your weekly AI policy digest subscription.', route('subscribe.confirm', $subscriber->token), false)->noindex();
+
+        return view('site.subscribe.confirmed', ['seo' => $seo, 'subscriber' => $subscriber, 'pending' => $pending]);
     }
 
     public static function topicOptions()

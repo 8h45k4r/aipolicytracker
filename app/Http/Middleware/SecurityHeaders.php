@@ -19,7 +19,11 @@ class SecurityHeaders
         $nonce = Vite::useCspNonce();
         $response = $next($request);
 
+        // PHP writes X-Powered-By itself, outside the response object; remove both.
         $response->headers->remove('X-Powered-By');
+        if (! headers_sent()) {
+            header_remove('X-Powered-By');
+        }
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');

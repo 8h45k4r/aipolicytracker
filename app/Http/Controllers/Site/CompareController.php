@@ -41,6 +41,7 @@ class CompareController extends Controller
 
     public function show(string $comparison, ComparisonBuilder $builder): View
     {
+        abort_unless(preg_match('/^[a-z0-9-]{1,120}$/', $comparison) === 1, 404);
         $config = config('content.comparisons.'.$comparison);
         abort_unless($config, 404);
         $jurisdictions = Jurisdiction::published()->whereIn('slug', $config['jurisdictions'])->get()->sortBy(fn ($j) => array_search($j->slug, $config['jurisdictions'], true))->values();

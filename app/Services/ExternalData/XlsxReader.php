@@ -72,6 +72,11 @@ class XlsxReader
                     $idx = $idx * 26 + (ord($ch) - 64);
                 }
                 $idx--;
+                // Excel stops at column XFD (16,384). A reference past it, or a malformed
+                // one, would otherwise make the padding loop below allocate without bound.
+                if ($idx < 0 || $idx >= 16384) {
+                    continue;
+                }
                 $type = (string) $c['t'];
                 if ($type === 'inlineStr') {
                     $c->registerXPathNamespace('m', $ns);

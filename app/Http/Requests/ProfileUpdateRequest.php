@@ -17,7 +17,15 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            // An admin's display name is what the reviewer roster matches and what a
+            // verification is signed with, so an admin cannot rename themselves into
+            // someone else's roster entry. Ordinary accounts rename freely.
+            'name' => ['required', 'string', 'max:255', function (string $attribute, mixed $value, \Closure $fail) {
+                $user = $this->user();
+                if ($user->isAdmin() && $value !== $user->name) {
+                    $fail('Admin display names are tied to the reviewer roster and cannot be changed here.');
+                }
+            }],
             // The address policy applies to a change, not to the address already on
             // the account: an existing reader is never locked out by a rule added later.
             'email' => array_filter([

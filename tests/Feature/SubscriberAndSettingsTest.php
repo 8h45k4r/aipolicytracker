@@ -36,10 +36,16 @@ class SubscriberAndSettingsTest extends TestCase
         $this->assertSame(['nepal'], $sub->topics);
         Mail::assertSent(SubscriptionConfirmMail::class, fn ($m) => $m->hasTo('reader@example.org'));
 
-        $this->get('/subscribe/confirm/'.$sub->token)->assertOk()->assertSee('You are subscribed');
+        // Opening the link (as a mail scanner would) changes nothing; the button does.
+        $this->get('/subscribe/confirm/'.$sub->token)->assertOk()->assertSee('Confirm subscription');
+        $this->assertNull($sub->fresh()->confirmed_at);
+        $this->post('/subscribe/confirm/'.$sub->token)->assertOk()->assertSee('You are subscribed');
         $this->assertNotNull($sub->fresh()->confirmed_at);
 
-        $this->get('/subscribe/unsubscribe/'.$sub->token)->assertOk()->assertSee('Unsubscribed');
+        $this->get('/subscribe/unsubscribe/'.$sub->token)->assertOk()->assertSee('Stop sending');
+        $this->assertNull($sub->fresh()->unsubscribed_at);
+        $this->post('/subscribe/unsubscribe/'.$sub->token)->assertRedirect('/subscribe/unsubscribe/'.$sub->token);
+        $this->get('/subscribe/unsubscribe/'.$sub->token)->assertOk()->assertSee('will not receive further digests');
         $this->assertNotNull($sub->fresh()->unsubscribed_at);
         $this->assertSame(0, Subscriber::active()->count());
     }

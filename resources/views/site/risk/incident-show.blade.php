@@ -63,7 +63,7 @@
                     @foreach($i->reports as $r)
                     <li class="py-3 flex flex-wrap gap-x-4 gap-y-1">
                         <time class="datestamp shrink-0" datetime="{{ $r->date_published?->toDateString() }}">{{ $r->date_published?->format('j M Y') ?? '—' }}</time>
-                        <div class="min-w-0 flex-1"><a href="{{ $r->url }}" rel="noopener nofollow" class="text-brand-navy" data-track="source_click">{{ $r->title }}</a><div class="meta">{{ $r->source_domain ?: '—' }}@if($r->authors) · {{ implode(', ', array_slice($r->authors, 0, 3)) }}@endif</div></div>
+                        <div class="min-w-0 flex-1">@if(preg_match('#^https?://#i', (string) $r->url))<a href="{{ $r->url }}" rel="noopener nofollow" class="text-brand-navy" data-track="source_click">{{ $r->title }}</a>@else<span class="text-brand-navy">{{ $r->title }}</span>@endif<div class="meta">{{ $r->source_domain ?: '—' }}@if($r->authors) · {{ implode(', ', array_slice($r->authors, 0, 3)) }}@endif</div></div>
                     </li>
                     @endforeach
                 </ol>

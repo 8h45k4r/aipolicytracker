@@ -82,13 +82,14 @@ Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', 
 // could not be shared, cited or returned as an answer on its own.
 Route::get('/changes/{change}', [ChangeController::class, 'show'])->where('change', '[a-z0-9][a-z0-9-]*')->name('changes.show');
 
+// Full-table exports and generated corpora are throttled: each request reads a whole table.
 Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
 Route::get('/ai-risk/incidents', [RiskController::class, 'incidents'])->name('risk.incidents');
 Route::get('/ai-risk/incidents/browse', [RiskBrowseController::class, 'incidentsBrowse'])->name('risk.incidents.browse');
-Route::get('/ai-risk/incidents/export.{format}', [RiskBrowseController::class, 'incidentsExport'])->where('format', 'csv|json')->name('risk.incidents.export');
+Route::get('/ai-risk/incidents/export.{format}', [RiskBrowseController::class, 'incidentsExport'])->where('format', 'csv|json')->middleware('throttle:30,1')->name('risk.incidents.export');
 Route::get('/ai-risk/incidents/{incident}', [RiskBrowseController::class, 'incidentShow'])->where('incident', '[0-9]+')->name('risk.incidents.show');
 Route::get('/ai-risk/risks', [RiskBrowseController::class, 'risks'])->name('risk.risks');
-Route::get('/ai-risk/risks/export.{format}', [RiskBrowseController::class, 'risksExport'])->where('format', 'csv|json')->name('risk.risks.export');
+Route::get('/ai-risk/risks/export.{format}', [RiskBrowseController::class, 'risksExport'])->where('format', 'csv|json')->middleware('throttle:30,1')->name('risk.risks.export');
 Route::get('/ai-risk/frameworks', [RiskBrowseController::class, 'frameworks'])->name('risk.frameworks');
 Route::get('/ai-risk/risks/{ev}', [RiskBrowseController::class, 'riskShow'])->where('ev', '(?!export\\.)[A-Za-z0-9_.-]+')->name('risk.risks.show');
 Route::get('/ai-risk/{domain}', [RiskController::class, 'domain'])->where('domain', '[1-7]')->name('risk.domain');
@@ -97,10 +98,10 @@ Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->whe
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
 
 Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
-Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->name('open-data.download');
+Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->middleware('throttle:30,1')->name('open-data.download');
 Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->name('open-data.health');
-Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->name('open-data.csv');
-Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->name('open-data.ndjson');
+Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.csv');
+Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.ndjson');
 Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z]+')->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
@@ -122,6 +123,7 @@ Route::get('/subscribe', [SubscribeController::class, 'show'])->name('subscribe.
 Route::get('/saved', [PageController::class, 'saved'])->name('saved');
 Route::post('/subscribe', [SubscribeController::class, 'store'])->middleware('throttle:10,1')->name('subscribe.store');
 Route::get('/subscribe/confirm/{token}', [SubscribeController::class, 'confirm'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.confirm');
+Route::post('/subscribe/confirm/{token}', [SubscribeController::class, 'confirmPost'])->where('token', '[A-Za-z0-9]{48}')->middleware('throttle:10,1')->name('subscribe.confirm.post');
 Route::get('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribe'])->where('token', '[A-Za-z0-9]{48}')->name('subscribe.unsubscribe');
 Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsubscribePost'])->where('token', '[A-Za-z0-9]{48}')->withoutMiddleware([ValidateCsrfToken::class])->name('subscribe.unsubscribe.post');
 Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.digest');
@@ -162,13 +164,14 @@ Route::get('/{landing}', [LandingController::class, 'landing'])
 // `v` query parameter is a version token from the record itself: it is what makes
 // a platform fetch a new card after a retitle, and it is ignored when rendering.
 Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
-    ->where(['kind' => 'policy|jurisdiction|obligation|site', 'slug' => '[a-z0-9-]+'])
+    ->where(['kind' => 'policy|jurisdiction|obligation|site', 'slug' => '[a-z0-9-]{1,160}'])
+    ->middleware('throttle:120,1')
     ->name('social.card');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|resources|incidents|risks')->name('sitemap.section');
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
-Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->name('llms.full');
+Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->middleware('throttle:30,1')->name('llms.full');
 Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');
 // RFC 9116: where a security researcher should write. Generated rather than a
 // static file so the mandatory Expires field can never fall into the past.

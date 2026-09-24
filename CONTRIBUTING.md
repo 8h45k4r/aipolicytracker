@@ -11,11 +11,18 @@ Thank you for helping build an open, source-backed view of AI policy. This guide
 
 ## Getting started
 
+Prerequisites: PHP 8.2 or newer with `pdo_sqlite`, Composer 2, Node 22+.
+
 ```bash
+# Fork on GitHub first, then clone your fork
+git clone https://github.com/<you>/aipolicytracker.git && cd aipolicytracker
+git remote add upstream https://github.com/8h45k4r/aipolicytracker.git
+
 composer install && npm install
 cp .env.example .env && php artisan key:generate
 touch database/database.sqlite && php artisan migrate --seed
-php artisan serve   # and, in another terminal, npm run dev
+php artisan policy:import   # builds the records from data/; the seeder does not
+php artisan serve           # and, in another terminal, npm run dev
 ```
 
 ## Branches and commits
@@ -34,15 +41,19 @@ Every change follows `docs/reference/engineering-standard.md`: inspect before co
 
 Every change carries its own enforcement: access control and per-user isolation, server-side validation, publication rules and auditability. Frontend, backend, database, API and documentation move together — a change that updates one and leaves another behind is incomplete.
 
-1. Follow existing conventions: Laravel controllers/requests/models on the backend, React function components with Inertia on the frontend, Tailwind for styling.
+1. Follow existing conventions: Laravel controllers/requests/models on the backend; the public site is server-rendered Blade, and the account and sign-in screens are React function components with Inertia; Tailwind for styling.
 2. Validate all request input in a Form Request or `$request->validate()`.
 3. Do not return exception messages or stack traces to the client.
 4. Add or update tests in `tests/Feature` for behaviour changes.
 5. Run the full check before pushing:
 
    ```bash
-   php artisan policy:validate && composer lint && composer test && npm run lint && npm run build
+   php artisan policy:validate && composer lint && composer test && npm run lint && npm test && npm run build
    ```
+
+   CI also runs the suite on PostgreSQL, checks the committed `public/build` manifest, and runs
+   the security scans in `.github/workflows/security.yml` (secrets, SAST, dependencies, IaC,
+   container image). `composer lint:fix` fixes formatting.
 
 ## Data contributions
 
@@ -51,6 +62,22 @@ Every change carries its own enforcement: access control and per-user isolation,
 3. In the pull request table, list each changed field, its source URL, and the date accessed.
 4. Mark the verification status honestly. Unverified changes are not merged into `main`.
 5. Summaries must be your own words. Do not paste text from paid databases, law-firm commentary, or standards bodies (e.g. ISO/IEC documents).
+
+### A data-only pull request
+
+A contributor who adds or corrects a record does not change code, so most gates are N/A.
+Keep every gate heading in the template (a CI check fails if one is missing) and fill it in
+like this:
+
+- **1. Engineering & QA/QC:** paste the output of `php artisan policy:validate` and
+  `php artisan policy:import`.
+- **2. UI/UX:** N/A (data only). **3. Documentation:** N/A, or the `CHANGELOG.md` line if the
+  record is new. **4. Compliance:** the sources table is filled in; wording is your own.
+  **5. Security:** N/A (no code).
+- **Accepted debt:** none.
+
+To preview a record you set `published: false`, set it to `true` locally, run
+`php artisan policy:import`, open `/policies/<slug>`, and set it back before committing.
 
 ## How changes get in (change request → review → merge)
 
@@ -73,7 +100,7 @@ Use the pull request template. Maintainers look for: linked issue, sources for d
 
 ## Licence of contributions
 
-By contributing you agree that your contributions are licensed under the Apache License 2.0 (see `LICENSE`).
+By contributing you agree that code contributions are licensed under the Apache License 2.0 (`LICENSE`) and contributions to `data/` under CC BY 4.0 (`data/LICENSE`).
 
 ## Reporting security issues
 

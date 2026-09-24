@@ -36,9 +36,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
-            SecurityHeaders::class,
             CountFunnelViews::class,
         ]);
+        // Global, not web-only: the API, unmatched-route 404s and every other response
+        // get the same headers. On the web group alone, JSON and error pages went out
+        // with no CSP and no nosniff.
+        $middleware->append(SecurityHeaders::class);
         $middleware->alias([
             'isAdmin' => CheckAdmin::class,
             'admin.2fa' => EnsureAdminSecondFactor::class,

@@ -64,7 +64,7 @@ The dataset is free and open (CC BY 4.0) for everyone. Pro (monthly or annual) p
 
 ## Local setup
 
-Prerequisites: PHP 8.2–8.3 with `pdo_sqlite`, Composer 2, Node 20+.
+Prerequisites: PHP 8.2 or newer with `pdo_sqlite` (production runs 8.3), Composer 2, Node 22+. To contribute, fork first and clone your fork; `CONTRIBUTING.md` has the steps.
 
 ```bash
 git clone https://github.com/8h45k4r/aipolicytracker.git

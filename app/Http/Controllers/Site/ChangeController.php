@@ -67,7 +67,7 @@ class ChangeController extends Controller
      */
     public function show(ChangeEvent $change): View
     {
-        abort_unless($change->published_at, 404);
+        abort_unless($change->published_at?->lte(now()), 404);
         $change->load(['jurisdiction', 'policyInstrument']);
         $related = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
             ->where('id', '!=', $change->id)
