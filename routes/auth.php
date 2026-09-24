@@ -55,9 +55,16 @@ Route::middleware('auth')->group(function () {
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('password.confirm');
 
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+    // Throttled: a hijacked session could otherwise guess the password without limit and
+    // unlock every password.confirm-gated admin action.
+    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store'])
+        ->middleware('throttle:5,1');
 
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+    // Behind admin.2fa for the same reason as the profile routes: a password-only admin
+    // session must not be able to take the account over.
+    Route::put('password', [PasswordController::class, 'update'])
+        ->middleware('admin.2fa')
+        ->name('password.update');
 
     // POST only: a sign-out reachable by GET can be triggered by any page that
     // embeds the URL as an image, which is a nuisance for an admin mid-task.

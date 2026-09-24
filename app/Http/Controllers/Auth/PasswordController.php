@@ -23,6 +23,8 @@ class PasswordController extends Controller
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
+        // A changed password should shut out whoever may have had the old one.
+        $request->user()->endAllSessions($request->session()->getId());
 
         return back()->with('status', 'password-updated');
     }

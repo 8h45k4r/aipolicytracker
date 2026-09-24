@@ -68,10 +68,17 @@ class WebhookProcessor
                 'received_at' => now(),
             ]));
         } catch (QueryException $e) {
-            if (BillingEvent::where('event_id', $eventId)->exists()) {
+            $event = BillingEvent::where('event_id', $eventId)->first();
+            if (! $event) {
+                throw $e;
+            }
+            // A retry of an event that failed while being applied is applied again.
+            // Acknowledging it as a duplicate would lose it for good: a cancellation
+            // that hit a deadlock would leave Pro access in place indefinitely.
+            if ($event->outcome !== self::OUTCOME_ERROR) {
                 return self::OUTCOME_DUPLICATE;
             }
-            throw $e;
+            $event->forceFill(['error' => null])->save();
         }
 
         try {

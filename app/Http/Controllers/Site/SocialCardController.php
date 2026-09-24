@@ -62,7 +62,9 @@ class SocialCardController extends Controller
             'policy' => $this->policy($slug),
             'jurisdiction' => $this->jurisdiction($slug),
             'obligation' => $this->obligation($slug),
-            'site' => $this->site($catalog),
+            // One site card exists. Accepting any slug here drew and stored a fresh PNG
+            // per made-up slug, which filled the disk from a loop of GETs.
+            'site' => $slug === 'default' ? $this->site($catalog) : null,
             default => null,
         };
     }
