@@ -85,7 +85,7 @@ class SyncAiidReportsCommand extends Command
             }
             $authors = str_starts_with((string) $r['authors'], '[') ? (json_decode($r['authors'], true) ?: []) : array_values(array_filter(array_map('trim', explode(',', (string) $r['authors']))));
             $reports[] = [
-                'report_number' => $n, 'incident_id' => $map[$n], 'title' => mb_substr((string) $r['title'], 0, 300), 'url' => mb_substr((string) $r['url'], 0, 2048),
+                'report_number' => $n, 'incident_id' => $map[$n], 'title' => mb_substr((string) $r['title'], 0, 300), 'url' => preg_match('#^https?://#i', (string) $r['url']) ? mb_substr((string) $r['url'], 0, 2048) : '',
                 'source_domain' => mb_substr((string) $r['source_domain'], 0, 190), 'date_published' => substr((string) $r['date_published'], 0, 10),
                 'authors' => array_slice(array_map(fn ($a) => mb_substr((string) $a, 0, 120), $authors), 0, 6), 'language' => mb_substr((string) $r['language'], 0, 8),
             ];

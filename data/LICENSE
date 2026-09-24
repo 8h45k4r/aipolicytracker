@@ -1,0 +1,21 @@
+SPDX-License-Identifier: CC-BY-4.0
+
+The AI Policy Tracker dataset in this directory is licensed under the Creative
+Commons Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+You may share and adapt it for any purpose, including commercially, provided you
+give appropriate credit, link to the licence and indicate if changes were made.
+Suggested attribution:
+
+    AI Policy Tracker (aipolicytracker.org), CC BY 4.0
+
+Exceptions: files under data/external/ are copies of third-party datasets and keep
+their upstream licences, stated in each file's `license` field:
+  - AI Incident Database (Responsible AI Collaborative): CC BY-SA 4.0
+  - MIT AI Risk Repository: CC BY 4.0
+
+The software that builds and serves this data is licensed separately under the
+Apache License 2.0 (../LICENSE). Records describe laws and official documents in
+original wording with references; they do not reproduce standards text or paid
+commentary. Nothing here is legal advice.

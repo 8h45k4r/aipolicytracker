@@ -13,10 +13,9 @@ jobs:
     name: PHP lint & tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: "8.2"
           extensions: mbstring, pdo, pdo_sqlite, sqlite3, bcmath, intl
@@ -48,11 +47,9 @@ jobs:
       - name: Run tests
         run: composer test
 
-      # Non-blocking until the codebase has been formatted once with
-      # `composer lint:fix`; then remove continue-on-error to enforce style.
+      # Blocking: the codebase is formatted, so a style regression fails the build.
       - name: Code style (Laravel Pint)
         run: composer lint
-        continue-on-error: true
 
   # Production runs PostgreSQL; the job above runs in-memory SQLite. The two
   # disagree in ways that reach production silently: an unmatched double-quoted
@@ -78,10 +75,9 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: "8.2"
           extensions: mbstring, pdo, pdo_pgsql, pgsql, bcmath, intl
@@ -126,12 +122,11 @@ jobs:
     name: JS lint & build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
 
       - name: Install dependencies

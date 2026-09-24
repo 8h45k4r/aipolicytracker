@@ -1,0 +1,196 @@
+name: Security
+
+# Six scans, run where each one pays for itself:
+#
+#   every pull request and push to main   secrets (Gitleaks), SAST (Semgrep), SCA (composer/npm audit, Trivy)
+#   same, when deploy files change        IaC (Trivy config, Checkov) and container image (Trivy)
+#   weekly and on demand                  DAST (ZAP baseline) and API (ZAP active scan of /openapi.json)
+#
+# Accepted findings are listed with their reason next to the rule that ignores
+# them (.gitleaks.toml, .zap/rules.tsv, SEMGREP_ACCEPTED below). Results are also
+# summarised in docs/reference/security-scanning.md.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  secrets:
+    name: Secrets (Gitleaks, full history)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Scan every commit
+        run: |
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.30.1 \
+            git /repo --config /repo/.gitleaks.toml --redact --exit-code 1
+
+  sast:
+    name: SAST (Semgrep)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    env:
+      # Triaged rules. Each is a false positive for this codebase:
+      #  - laravel-dangerous-model-construction: models use $guarded = [], but no
+      #    controller passes unfiltered request input to create/fill; every write
+      #    goes through validated() or an explicit array.
+      #  - laravel-cookie-null-domain: a null domain is a host-only cookie, which is
+      #    the stricter setting.
+      SEMGREP_ACCEPTED: "laravel-dangerous-model-construction laravel-cookie-null-domain"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Scan
+        run: |
+          docker run --rm -v "$PWD:/src" -w /src semgrep/semgrep:1.178.0 semgrep scan \
+            --config p/php --config p/security-audit --config p/secrets \
+            --config p/javascript --config p/github-actions --config p/dockerfile \
+            --exclude vendor --exclude node_modules --exclude public/build --exclude storage \
+            --metrics=off --json -o semgrep.json --sarif-output semgrep.sarif || true
+          test -s semgrep.json
+      - name: Fail on untriaged ERROR findings
+        run: |
+          python3 - <<'PY'
+          import json, os, sys
+          accepted = os.environ["SEMGREP_ACCEPTED"].split()
+          results = json.load(open("semgrep.json"))["results"]
+          blocking = [r for r in results
+                      if r["extra"]["severity"] == "ERROR"
+                      and not any(r["check_id"].endswith(a) or f".{a}." in r["check_id"] for a in accepted)]
+          for r in blocking:
+              print(f'::error file={r["path"]},line={r["start"]["line"]}::{r["check_id"]}: {r["extra"]["message"][:200]}')
+          print(f"{len(results)} findings, {len(blocking)} blocking")
+          sys.exit(1 if blocking else 0)
+          PY
+      - name: Upload to code scanning
+        if: always() && hashFiles('semgrep.sarif') != ''
+        uses: github/codeql-action/upload-sarif@3ea06614dafe36dec890db3446326e0d40ce53d4 # v3
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
+
+  sca:
+    name: Dependencies (composer audit, npm audit, Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: "8.3"
+          coverage: none
+      - name: composer audit
+        run: composer audit --locked --no-interaction
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22"
+      - name: npm audit
+        run: npm audit --audit-level=high
+      - name: Trivy (lockfiles, known CVEs with a fix)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: fs
+          scanners: vuln
+          skip-dirs: vendor,node_modules
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+
+  iac:
+    name: IaC (Trivy config, Checkov)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Trivy misconfiguration scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: config
+          skip-dirs: vendor,node_modules
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+      - name: Checkov (Dockerfile, GitHub Actions)
+        run: |
+          pip install --quiet checkov==3.3.19
+          # CKV_GHA_7: flags any workflow_dispatch input; composer-lock.yml
+          # validates its one input before use.
+          checkov -d . --framework dockerfile,github_actions --skip-path vendor --skip-path node_modules \
+            --skip-check CKV_GHA_7 --compact --quiet
+
+  container:
+    name: Container image (Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Build the production image
+        run: docker build -t aipolicytracker:scan .
+      - name: Trivy image scan (OS packages and PHP dependencies)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: aipolicytracker:scan
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+
+  dast:
+    name: DAST and API (ZAP)
+    # Active scanning takes a while; it runs weekly and on demand, not per PR.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: "8.3"
+          extensions: mbstring, intl, pdo_sqlite, gd
+          coverage: none
+      - name: Start the app in production mode on a throwaway database
+        env:
+          APP_ENV: production
+          APP_DEBUG: "false"
+          APP_URL: http://127.0.0.1:8080
+          DB_CONNECTION: sqlite
+          DB_DATABASE: /tmp/dast.sqlite
+          SESSION_DRIVER: file
+          SESSION_SECURE_COOKIE: "false"
+          CACHE_STORE: file
+          MAIL_MAILER: log
+          PHP_CLI_SERVER_WORKERS: "4"
+        run: |
+          composer install --no-interaction --no-progress --prefer-dist
+          cp .env.example .env && php artisan key:generate --force
+          touch /tmp/dast.sqlite
+          php artisan migrate --force && php artisan policy:import && php artisan external:import
+          nohup php artisan serve --host=0.0.0.0 --port=8080 > /tmp/serve.log 2>&1 &
+          for i in $(seq 1 30); do curl -fs http://127.0.0.1:8080/up >/dev/null && break; sleep 1; done
+          # The spec names the public https origin; point the scanner at this one.
+          curl -fs http://127.0.0.1:8080/openapi.json \
+            | jq '.servers = [{"url": "http://127.0.0.1:8080/api/v1"}]' > openapi-local.json
+      - name: ZAP baseline (passive, whole site)
+        uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
+        with:
+          target: http://127.0.0.1:8080
+          rules_file_name: .zap/rules.tsv
+          cmd_options: "-I -m 5"
+          allow_issue_writing: false
+          artifact_name: zap-baseline
+      - name: ZAP API scan (active, OpenAPI)
+        uses: zaproxy/action-api-scan@5158fe4d9d8fcc75ea204db81317cce7f9e5453d # v0.10.0
+        with:
+          target: openapi-local.json
+          format: openapi
+          rules_file_name: .zap/rules.tsv
+          cmd_options: "-I"
+          allow_issue_writing: false
+          artifact_name: zap-api

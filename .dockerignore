@@ -11,3 +11,8 @@ storage/framework/views/*
 .git
 .github
 database/*.sqlite*
+# Local agent worktrees, uploads and generated files never belong in an image.
+.claude
+storage/app/*
+!storage/app/public
+tests/**/*.sqlite

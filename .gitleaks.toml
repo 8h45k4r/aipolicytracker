@@ -1,0 +1,17 @@
+# Gitleaks configuration: the default ruleset, plus an allowlist for the
+# deliberately fake values the test suite uses. Each entry is a specific test
+# fixture, not a path, so a real secret committed under tests/ is still caught.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Test fixtures that are not secrets"
+regexes = [
+  # RFC 6238 TOTP test vector ("12345678901234567890", base32)
+  '''GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ''',
+  # Standard Webhooks secrets used only by the billing tests (base64 of words such as "testsecret")
+  '''whsec_dGVzdHNlY3JldHRlc3RzZWNyZXR0ZXN0c2VjcmV0''',
+  '''whsec_cHJvdmlzaW9uZWRzZWNyZXRwcm92aXNpb25lZA==''',
+  '''whsec_b3RoZXJzZWNyZXRvdGhlcnNlY3JldA==''',
+  '''re_TESTKEY_1234567890''',
+]

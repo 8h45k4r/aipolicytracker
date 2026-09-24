@@ -84,7 +84,7 @@
             </section>
             <section aria-labelledby="contact-heading">
                 <div class="rule-strong pt-3"><h2 id="contact-heading" class="section-title">Contact</h2></div>
-                <p class="mt-3 text-sm text-brand-body">@if($contacts)@foreach($contacts as $c)<a href="mailto:{{ $c }}">{{ $c }}</a>@if(!$loop->last), @endif @endforeach<br>@endif Issues and pull requests on GitHub. Security reports: see SECURITY.md in the repository.</p>
+                <p class="mt-3 text-sm text-brand-body">@if($contacts)@foreach($contacts as $c)<a href="mailto:{{ $c }}">{{ $c }}</a>@if(!$loop->last), @endif @endforeach<br>@endif Issues and pull requests on GitHub. Security reports: see <a href="{{ config('aipolicytracker.github_url') }}/blob/main/SECURITY.md" rel="noopener">SECURITY.md</a>. How the project is run: <a href="{{ config('aipolicytracker.github_url') }}/blob/main/GOVERNANCE.md" rel="noopener">governance</a>, <a href="{{ route('corrections') }}">corrections policy and log</a>, <a href="{{ config('aipolicytracker.github_url') }}/blob/main/CODE_OF_CONDUCT.md" rel="noopener">code of conduct</a>.</p>
             </section>
         </aside>
     </div>
