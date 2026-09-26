@@ -246,14 +246,34 @@ is none for earlier moves).
 **Dependency added:** `dompdf/dompdf` ^3.1 for the PDF export (also used by
 P8's register export).
 
-### P8 — Watches and the obligations register (`seo/p8-watches`)
-Extends `Follow` into watches. The new watch types are sector, use case,
-framework, change type and saved search. Channels: the email digest, a private
-RSS token, Slack, and a signed webhook with retries and a delivery log. Auth stays
-the existing email + password (see §1). Privacy covers a consent log,
-unsubscribe without login, and export/delete. `/api/v1/watches` gets CRUD. The
-applicability check exports XLSX, CSV, JSON and PDF, with state kept in the URL
-and nothing personal stored. The MCP server gets `build_obligations_register`.
+### P8 — Watchlist alerts and the obligations register (`seo/p8-alerts`) — done
+Follows become watches. Besides a policy, jurisdiction or obligation, an
+account can watch a sector, a use case, a framework (every instrument with
+duties mapped to it), a change type (every change at that impact level) or a
+saved search (the updates hub's filters: jurisdiction, impact, keyword).
+`WatchTypes` validates, labels and resolves each; `AlertBuilder` folds the
+resolved instruments and change filters into the same daily digest. Channels:
+the inbox (on unless turned off), a private RSS feed whose address is the
+key, a Slack incoming webhook, and a generic webhook that receives the JSON
+payload with `X-AIP-Signature` (HMAC-SHA256 of the body with a secret shown
+once), `X-AIP-Delivery` and `X-AIP-Event`; failures retry with backoff up to
+five attempts (`alerts:deliver`, hourly) and the log is on the alerts page.
+Every consent decision is a `consent_events` row; every alert email carries
+a signed unsubscribe link that works without signing in; `/account/export.
+json` returns everything held about the account (secrets excluded) and the
+existing account deletion removes it. `/api/v1/watches` is CRUD over a
+personal access token created on the account page (Sanctum was already a
+dependency; its migration is now published). The applicability check exports
+an obligations register as XLSX (dropdowns, README, answers sheet), CSV, JSON
+and PDF with the answers as the only state; API `GET /api/v1/applicability/
+register`; MCP `build_obligations_register`.
+**Adjusted:** authentication already exists (password, email verification),
+so no magic-link flow was added, as the brief allowed. Watches stay behind
+the existing `saved.server` entitlement, which every signed-in account holds
+while selling is off.
+**Not done:** email digests for a *different* address than the account's
+(the account address is already double-opted-in by verification); the
+weekly digest for guests remains the subscriber system.
 
 ### P9 — AI economic transition tracker (`seo/p9-transition`)
 Adds TransitionMeasure, TransitionIndicator, and DisplacementPolicyIndex (a

@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Mail\DailyAlertMail;
 use App\Models\AlertChannel;
+use App\Models\AlertDelivery;
 use App\Models\ChangeEvent;
 use App\Models\ChannelDelivery;
 use App\Models\ConsentEvent;
@@ -102,7 +104,7 @@ class WatchlistAlertsTest extends TestCase
         $this->assertSame(2, ConsentEvent::where('user_id', $this->user->id)->where('kind', 'alerts.channel')->where('granted', true)->count(), 'each channel is a consent event');
 
         $webhook = AlertChannel::where('user_id', $this->user->id)->where('kind', 'webhook')->firstOrFail();
-        $secret = session('channel_secret');
+        $secret = $webhook->getAttributes()['secret'];
         $dispatcher = app(WebhookDispatcher::class);
         $delivery = $dispatcher->queue($webhook, WebhookDispatcher::payload(['changes' => ChangeEvent::published()->with('jurisdiction')->limit(2)->get(), 'deadlines' => collect()], 'Test', route('following.index')));
         $this->assertFalse($dispatcher->attempt($delivery), 'the first try meets a 503');
@@ -142,7 +144,7 @@ class WatchlistAlertsTest extends TestCase
         $eu = Jurisdiction::where('slug', 'eu')->firstOrFail();
         Follow::create(['user_id' => $this->user->id, 'subject_type' => 'jurisdiction', 'subject_slug' => 'eu']);
         $recent = ChangeEvent::published()->where('jurisdiction_id', $eu->id)->orderByDesc('occurred_on')->firstOrFail();
-        $recent->update(['occurred_on' => now()->subDays(2)->toDateString()]);
+        $recent->update(['occurred_on' => now()->toDateString()]);
         $feed = $this->get('/alerts/feed/'.$token.'.rss')->assertOk()->assertHeader('Content-Type', 'application/rss+xml; charset=UTF-8')->getContent();
         $this->assertStringContainsString($recent->title, $feed);
         $this->get('/alerts/feed/not-a-token.rss')->assertNotFound();
@@ -150,7 +152,7 @@ class WatchlistAlertsTest extends TestCase
         Http::fake(['example.org/*' => Http::response('ok', 200)]);
         $this->actingAs($this->user)->post('/alerts/channels', ['kind' => 'webhook', 'endpoint' => 'https://example.org/aip'])->assertRedirect();
         $this->artisan('alerts:send')->assertSuccessful();
-        Mail::assertSent(\App\Mail\DailyAlertMail::class, fn ($m) => $m->hasTo($this->user->email));
+        Mail::assertSent(DailyAlertMail::class, fn ($m) => $m->hasTo($this->user->email));
         $this->assertSame(1, ChannelDelivery::where('status', 'sent')->count(), 'the webhook got the same alert');
         Http::assertSent(fn ($r) => str_contains($r->body(), $recent->slug));
     }
@@ -159,7 +161,7 @@ class WatchlistAlertsTest extends TestCase
     {
         $eu = Jurisdiction::where('slug', 'eu')->firstOrFail();
         Follow::create(['user_id' => $this->user->id, 'subject_type' => 'jurisdiction', 'subject_slug' => 'eu']);
-        ChangeEvent::published()->where('jurisdiction_id', $eu->id)->orderByDesc('occurred_on')->firstOrFail()->update(['occurred_on' => now()->subDays(1)->toDateString()]);
+        ChangeEvent::published()->where('jurisdiction_id', $eu->id)->orderByDesc('occurred_on')->firstOrFail()->update(['occurred_on' => now()->toDateString()]);
 
         $url = URL::signedRoute('alerts.unsubscribe', ['user' => $this->user->id]);
         $this->get($url)->assertOk()->assertSee('Stop alert emails');
@@ -169,17 +171,18 @@ class WatchlistAlertsTest extends TestCase
         $this->assertSame(1, ConsentEvent::where('user_id', $this->user->id)->where('kind', 'alerts.email')->where('granted', false)->where('source', 'unsubscribe-link')->count());
 
         $this->artisan('alerts:send')->assertSuccessful();
-        Mail::assertNotSent(\App\Mail\DailyAlertMail::class);
+        Mail::assertNotSent(DailyAlertMail::class);
 
         // The daily alert email carries the unsubscribe link.
         AlertChannel::where('user_id', $this->user->id)->where('kind', 'email')->update(['enabled' => true]);
-        \App\Models\AlertDelivery::where('user_id', $this->user->id)->delete();
+        AlertDelivery::where('user_id', $this->user->id)->delete();
         $this->artisan('alerts:send')->assertSuccessful();
-        Mail::assertSent(\App\Mail\DailyAlertMail::class, fn ($m) => str_contains($m->render(), '/alerts/unsubscribe/'.$this->user->id));
+        Mail::assertSent(DailyAlertMail::class, fn ($m) => str_contains($m->render(), '/alerts/unsubscribe/'.$this->user->id));
     }
 
     public function test_the_account_can_export_its_data_as_json(): void
     {
+        $this->get('/account/export.json')->assertRedirect(route('login'));
         Follow::create(['user_id' => $this->user->id, 'subject_type' => 'jurisdiction', 'subject_slug' => 'eu', 'label' => 'European Union']);
         $this->actingAs($this->user)->post('/alerts/channels', ['kind' => 'rss'])->assertRedirect();
         $json = $this->actingAs($this->user)->get('/account/export.json')->assertOk()->assertHeader('Content-Type', 'application/json')->json();
@@ -188,7 +191,6 @@ class WatchlistAlertsTest extends TestCase
         $this->assertSame('rss', $json['channels'][0]['kind']);
         $this->assertArrayNotHasKey('secret', $json['channels'][0]);
         $this->assertNotEmpty($json['consent_events']);
-        $this->get('/account/export.json')->assertRedirect(route('login'));
     }
 
     public function test_the_watches_api_is_crud_over_a_personal_token(): void

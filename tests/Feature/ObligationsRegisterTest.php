@@ -47,7 +47,14 @@ class ObligationsRegisterTest extends TestCase
         unlink($path);
 
         $csv = $this->get('/tools/applicability-check/register.csv?'.$q)->assertOk()->assertHeader('Content-Type', 'text/csv; charset=UTF-8')->getContent();
-        $this->assertSame($expected + 1, count(array_filter(explode("\n", trim($csv)))));
+        $fh = fopen('php://memory', 'r+');
+        fwrite($fh, $csv);
+        rewind($fh);
+        $records = 0;
+        while (fgetcsv($fh) !== false) {
+            $records++;
+        }
+        $this->assertSame($expected + 1, $records, 'a header and one record per duty; cells may span lines');
         $this->assertStringContainsString('Source reference', $csv);
 
         $json = $this->get('/tools/applicability-check/register.json?'.$q)->assertOk()->json();

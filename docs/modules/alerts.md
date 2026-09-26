@@ -10,6 +10,22 @@ Design rules:
 - **Nothing is invented.** Alerts contain only published `change_events` and `deadlines` rows with their official source links; the email says why it was sent and links to the management page.
 - **The browser reading list is unchanged.** "Save" (localStorage, no account) stays free; "Follow" is the server-side, account-bound counterpart.
 
+## Watches beyond a record (P8)
+
+A follow may also point at a **sector** or **use case** (every published instrument recorded against the term), a **framework** (every instrument with a duty mapped to it: `iso-42001`, `nist-ai-rmf`, …), a **change type** (`urgent`, `high`, `routine`: every change at that level) or a **saved search** (the updates hub's filters, stored in `follows.params`; the subject slug is a hash of them so one search is one watch). `App\Services\Alerts\WatchTypes` validates and labels each and resolves the set to instrument ids and change filters for `AlertBuilder`. The toggle route accepts `/follow/<type>/-` with the choice in a `slug` field, so the select-and-watch forms work without JavaScript.
+
+## Channels, deliveries and consent (P8)
+
+| Table | What |
+|-------|------|
+| `alert_channels` | One row per channel: `kind` (`email`, `rss`, `slack`, `webhook`), `endpoint`, `secret` (feed token or HMAC secret; hidden from serialisation), `enabled`, `confirmed_at`, `last_delivered_at`. No email row means the inbox is on. |
+| `channel_deliveries` | One row per attempt-tracked delivery to Slack or a webhook: payload, status (`pending`/`sent`/`failed`), attempts, response code, last error, next attempt. Backoff 15, 60, 240, 960 minutes; five attempts. `alerts:deliver` (hourly) retries what is due; `alerts:send` also runs it. |
+| `consent_events` | Every consent decision: kind (`alerts.email`, `alerts.channel`, `api.token`, …), granted, source (`account`, `unsubscribe-link`), detail. No IP, no agent. |
+
+Webhooks receive the same facts as the email as JSON, with `X-AIP-Signature: sha256=<hex HMAC-SHA256 of the raw body with the channel secret>`, `X-AIP-Delivery` (the delivery id) and `X-AIP-Event` (`alert.daily` or `alert.test`). Slack receives the same rows as text. The private feed (`/alerts/feed/<token>.rss`) is the account's watched changes of the last 30 days; the address is the key.
+
+Every alert email carries a signed unsubscribe link (`/alerts/unsubscribe/<user>`, GET confirms, POST acts) that needs no sign-in and writes a consent event. `/account/export.json` returns the account, watches, profiles, channels (no secrets), deliveries, consent events and downloads. `/api/v1/watches` (list, create, delete) works over a Sanctum personal access token created on the account page; creating a new one revokes the old.
+
 ## Applicability profiles (change-impact)
 
 A follow answers "did this record change". A profile answers "does this change affect the system I described", which is the capability Pro is sold on.
