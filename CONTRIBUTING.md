@@ -102,6 +102,8 @@ Releases follow [Semantic Versioning](https://semver.org/) and are cut from `mai
 2. Check the notes read as intended: `scripts/release/notes.sh X.Y.Z`.
 3. Commit, push to `main`, then tag and push the tag: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
 
+After deploying, run **Deployment check** from the Actions tab (`scripts/deploy-check.sh`, also runnable against a local copy): it reports every shipped feature as live or not live on the public site.
+
 Pushing the tag runs `.github/workflows/release.yml`, which publishes the GitHub release with that changelog section as its notes. A tag with no changelog section fails instead of publishing an empty release.
 
 ## Pull requests
