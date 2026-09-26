@@ -34,6 +34,49 @@ class CompletenessChecks
     {
         return [
 
+            // ---- Transition measures (P9) -----------------------------------------
+            // A draft is expected to be empty: the gap that matters is that it is a draft
+            // at all. The required checks apply only once a reviewer has taken it out of draft.
+            [
+                'id' => 'transition-draft',
+                'kind' => 'transition_measure',
+                'field' => 'review_status',
+                'label' => 'Read from the official source (still a draft)',
+                'why' => 'A draft was listed for research; nothing on it has been verified, so it is served with a notice and scores nothing.',
+                'severity' => 'expected',
+                'missing' => fn ($r) => $r->isDraft(),
+            ],
+            [
+                'id' => 'transition-source-url',
+                'kind' => 'transition_measure',
+                'field' => 'official_source_url',
+                'label' => 'Link to the official text',
+                'why' => 'A verified measure must point at the bill, law or programme it describes.',
+                'severity' => 'required',
+                'missing' => fn ($r) => blank($r->official_source_url),
+                'applies' => fn ($r) => ! $r->isDraft(),
+            ],
+            [
+                'id' => 'transition-summary',
+                'kind' => 'transition_measure',
+                'field' => 'summary',
+                'label' => 'A summary in plain language',
+                'why' => 'Without it the record is a title.',
+                'severity' => 'required',
+                'missing' => fn ($r) => blank($r->summary),
+                'applies' => fn ($r) => ! $r->isDraft(),
+            ],
+            [
+                'id' => 'transition-mechanism',
+                'kind' => 'transition_measure',
+                'field' => 'mechanism',
+                'label' => 'How the measure works',
+                'why' => 'Mechanism, funding and benefit are what a reader compares measures on.',
+                'severity' => 'expected',
+                'missing' => fn ($r) => blank($r->mechanism) || blank($r->funding),
+                'applies' => fn ($r) => ! $r->isDraft(),
+            ],
+
             // ---- Policy instruments ------------------------------------------------
             [
                 'id' => 'policy-source-url',

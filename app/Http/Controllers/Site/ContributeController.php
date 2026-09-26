@@ -12,6 +12,7 @@ use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TransitionMeasure;
 use App\Rules\NotDisposableEmail;
 use App\Support\PageTitle;
 use App\Support\Seo;
@@ -133,6 +134,7 @@ class ContributeController extends Controller
             'obligation' => Obligation::published()->with('policyInstrument.jurisdiction')->where('slug', $slug)->first(),
             'change' => ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('slug', $slug)->first(),
             'control' => Control::published()->where('slug', $slug)->first(),
+            'transition_measure' => TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')->where('slug', $slug)->first(),
             'incident' => ctype_digit($slug) ? ExternalIncident::find((int) $slug) : null,
             'risk' => ExternalRisk::find(str_replace('--', '#', $slug)),
             default => null,

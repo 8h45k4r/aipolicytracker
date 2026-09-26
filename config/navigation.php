@@ -24,6 +24,7 @@ return [
                         ['route' => 'calendar', 'label' => 'Deadline calendar', 'note' => 'Dated milestones, with a feed'],
                         ['route' => 'deadlines.engine', 'label' => 'Which date applies to you?', 'note' => 'Five questions, a personal timeline'],
                         ['route' => 'changes.index', 'label' => 'Change log', 'note' => 'What moved, and what it means'],
+                        ['route' => 'transition.index', 'label' => 'AI economic transition', 'note' => 'Dividends, basic income, AI taxes, layoff disclosure'],
                     ],
                 ],
                 [

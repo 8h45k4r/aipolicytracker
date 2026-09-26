@@ -14,6 +14,7 @@ use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
 use App\Models\Tool;
+use App\Models\TransitionMeasure;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Hubs\HubCatalog;
 use App\Services\PolicyData\FrameworkCrosswalk;
@@ -184,6 +185,13 @@ class SitemapController extends Controller
         $crosswalk = app(FrameworkCrosswalk::class);
         $pages[] = [route('frameworks.index'), 'weekly', '0.8'];
         $pages[] = [route('frameworks.compare'), 'weekly', '0.7'];
+        $pages[] = [route('transition.index'), 'weekly', '0.8'];
+        $pages[] = [route('transition.methodology'), 'monthly', '0.5'];
+        foreach (TransitionController::LANDINGS as $landing => $meta) {
+            if (TransitionMeasure::whereNotNull('published_at')->where('measure_type', $meta['type'])->where('review_status', 'verified')->count() >= TransitionController::MIN_INDEXABLE_LANDING) {
+                $pages[] = [route('transition.landing', $landing), 'weekly', '0.7'];
+            }
+        }
         $pages[] = [route('deadlines.engine'), 'monthly', '0.7'];
         foreach ($crosswalk->summary() as $framework) {
             if ($framework['obligations'] < FrameworkCrosswalk::MIN_INDEXABLE_OBLIGATIONS) {
