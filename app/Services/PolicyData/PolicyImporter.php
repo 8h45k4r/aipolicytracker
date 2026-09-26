@@ -156,6 +156,7 @@ class PolicyImporter
                 'jurisdiction_id' => $jurisdiction->id,
                 'title' => $record['title'],
                 'short_title' => $record['short_title'] ?? null,
+                'title_native' => $record['title_native'] ?? null,
                 'instrument_type' => $record['instrument_type'],
                 'status' => $record['status'],
                 'status_note' => $record['status_note'] ?? null,

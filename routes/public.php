@@ -17,6 +17,7 @@ use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FrameworkController;
 use App\Http\Controllers\Site\FreeToolController;
 use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\HubController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
 use App\Http\Controllers\Site\LegalController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\TemplateController;
 use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
+use App\Services\Hubs\HubCatalog;
 use App\Support\RiskTaxonomy;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
@@ -177,6 +179,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/guides/tools/{slug}/file/{download}/{file}', [FreeToolController::class, 'file'])->where(['slug' => '[a-z0-9-]+', 'file' => '[a-z0-9.-]+'])->middleware('signed')->name('tools.file');
 });
 Route::get('/guides/{slug}', [LandingController::class, 'guide'])->name('guides.show');
+// Country and regional hubs: /ai-regulation-<country> is the jurisdiction page at its
+// canonical address (the /jurisdictions/<slug> address redirects); /ai-regulation-<region>
+// is computed over the region. Registered before the editorial landings, which share the prefix.
+Route::get('/{hub}', [HubController::class, 'show'])->where('hub', HubCatalog::pattern())->name('hubs.show');
 Route::get('/{landing}', [LandingController::class, 'landing'])
     ->where('landing', 'eu-ai-act|ai-regulation-india|ai-policy-nepal|ai-governance-singapore|ai-regulation-australia|ai-regulation-uk|ai-regulation-usa|ai-governance-uae|ai-regulation-south-asia')
     ->name('landing');

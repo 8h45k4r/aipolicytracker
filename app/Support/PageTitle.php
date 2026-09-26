@@ -478,4 +478,21 @@ final class PageTitle
 
         return self::fit($name, [' ('.$formats.'): Free'.$tail.', Generated from Law', ' ('.$formats.'): Free'.$tail, ': Free '.$formats.$tail, ': Free'.$tail], self::MAX);
     }
+
+    /** "AI Regulation in Africa 2026: Country-by-Country Tracker" */
+    public static function regionHub(string $region, ?int $year = null): string
+    {
+        $year ??= (int) now()->format('Y');
+
+        return self::fit('AI Regulation in '.$region.' '.$year, [': Country-by-Country Tracker', ': Country by Country', ': Tracker']);
+    }
+
+    /** "<A> vs <B> AI Regulation: Side-by-Side Comparison" */
+    public static function comparePair(Jurisdiction $a, Jurisdiction $b): string
+    {
+        $x = self::clean($a->short_name ?: $a->name);
+        $y = self::clean($b->short_name ?: $b->name);
+
+        return self::fit($x.' vs '.$y.' AI Regulation', [': Side-by-Side Comparison', ': Compared', '']);
+    }
 }

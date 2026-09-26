@@ -9,6 +9,7 @@
     </div>
     <h3 class="mt-1.5 font-display text-lg font-semibold text-brand-navy leading-snug"><a href="{{ $policy->url() }}" class="text-brand-navy no-underline hover:underline">{{ $policy->short_title ?: $policy->title }}</a></h3>
     @if($policy->short_title && $policy->short_title !== $policy->title)<p class="text-xs text-brand-muted">{{ $policy->title }}</p>@endif
+    @if($policy->title_native)<p class="text-xs text-brand-muted">{{ $policy->title_native }}</p>@endif
     <p class="mt-2 text-sm text-brand-body line-clamp-3">{{ $policy->summary_plain }}</p>
     <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-brand-muted">
         @if($policy->applies_from)<span>Applies from {{ $policy->applies_from->format('j M Y') }}</span>@elseif($policy->in_force_on)<span>In force {{ $policy->in_force_on->format('j M Y') }}</span>@elseif($policy->adopted_on)<span>Adopted {{ $policy->adopted_on->format('j M Y') }}</span>@endif
