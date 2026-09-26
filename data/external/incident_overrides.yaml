@@ -1,0 +1,19 @@
+# Reviewer overrides for what this site adds to AI Incident Database records.
+#
+# Every incident is classified automatically (App\Services\ExternalData\
+# IncidentEnrichment): a harm domain from its MIT coding, the laws that address
+# that harm where it happened, a one-sentence policy angle from those facts, and
+# a sensitivity flag from a keyword list over the headline. An entry here wins
+# over the automatic value for that field and survives every re-import.
+#
+# Fields (all optional except incident_id):
+#   incident_id:          the AI Incident Database number
+#   sensitivity:          sensitive | standard
+#   harm_domain:          a risk domain slug, e.g. discrimination-toxicity
+#   related_policy_slugs: [policy-slug, ...]
+#   policy_angle:         one neutral sentence; never characterise the incident
+#                         beyond what the record itself says
+#   note:                 why (for the reviewer who comes after you)
+#
+# Keep entries sorted by incident_id.
+overrides: []

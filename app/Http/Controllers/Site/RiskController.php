@@ -91,7 +91,7 @@ class RiskController extends Controller
         $incidentsQuery = ExternalIncident::whereRaw('lower(mit_subdomain) = ?', [mb_strtolower(trim($meta['name']))]);
         $incidentCount = (clone $incidentsQuery)->count();
         $incidentYears = (clone $incidentsQuery)->selectRaw('year, COUNT(*) as n')->groupBy('year')->orderBy('year')->pluck('n', 'year');
-        $incidents = (clone $incidentsQuery)->orderByDesc('occurred_on')->limit(10)->get();
+        $incidents = (clone $incidentsQuery)->standard()->orderByDesc('occurred_on')->limit(10)->get();
         $policies = $d['use_cases'] ? PolicyInstrument::published()->with('jurisdiction')->withTerm('use_case', $d['use_cases'])->orderBy('title')->limit(12)->get() : collect();
 
         $seo = Seo::make(
@@ -236,7 +236,7 @@ class RiskController extends Controller
         $subIncidents = ExternalIncident::selectRaw('mit_subdomain, COUNT(*) as n')->where('mit_domain', $d['aiid_domain_label'])->whereNotNull('mit_subdomain')->groupBy('mit_subdomain')->pluck('n', 'mit_subdomain');
         $riskCount = ExternalRisk::where('domain', (int) $d['id'])->count();
         $topPapers = ExternalRisk::selectRaw('quick_ref, MAX(paper_title) as title, COUNT(*) as n')->where('domain', (int) $d['id'])->groupBy('quick_ref')->orderByDesc('n')->limit(8)->get();
-        $recent = ExternalIncident::where('mit_domain', $d['aiid_domain_label'])->orderByDesc('occurred_on')->limit(8)->get();
+        $recent = ExternalIncident::standard()->where('mit_domain', $d['aiid_domain_label'])->orderByDesc('occurred_on')->limit(8)->get();
 
         return view('site.risk.domain', ['seo' => $seo, 'mit' => $mit, 'domain' => $d, 'incidents' => $incidents, 'trend' => $trend, 'policies' => $policies, 'aiid' => $aiid, 'subRisks' => $subRisks, 'subIncidents' => $subIncidents, 'riskCount' => $riskCount, 'topPapers' => $topPapers, 'recent' => $recent]);
     }
@@ -245,7 +245,7 @@ class RiskController extends Controller
     {
         $aiid = $this->data->aiid();
         // Latest records come from the read-model table, which the live API sync keeps ahead of the weekly snapshot.
-        $latest = ExternalIncident::with('reports')->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(30)->get();
+        $latest = ExternalIncident::standard()->with('reports')->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(30)->get();
         $live = ['count' => ExternalIncident::count(), 'synced_at' => ExternalIncident::max('synced_at'), 'latest_id' => ExternalIncident::max('incident_id'), 'recent' => ExternalIncident::where('occurred_on', '>=', now()->subDays(30)->toDateString())->count()];
         $modified = $live['synced_at'] ?: ($aiid['snapshot_date'] ?? null);
         $modified = $modified ? Carbon::parse($modified) : null;

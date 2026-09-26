@@ -29,7 +29,7 @@ class SendDigestCommand extends Command
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->get();
         $deadlines = Deadline::with('policyInstrument.jurisdiction')->whereBetween('due_on', [now()->toDateString(), now()->addDays(60)->toDateString()])->orderBy('due_on')->limit(8)->get();
         $period = $since->format('j M').' – '.now()->format('j M Y');
-        $incidents = ExternalIncident::where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->limit(5)->get();
+        $incidents = ExternalIncident::standard()->where('occurred_on', '>=', $since->toDateString())->orderByDesc('occurred_on')->limit(5)->get();
         $incidentCount = ExternalIncident::where('occurred_on', '>=', $since->toDateString())->count();
 
         $sent = $skipped = 0;

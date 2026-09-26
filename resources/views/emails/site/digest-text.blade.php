@@ -21,6 +21,6 @@ Unsubscribe: {{ $unsubscribeUrl }}
 @if($incidents->isNotEmpty())
 
 AI incidents this week ({{ $incidentCount }} recorded):
-@foreach($incidents as $i)- {{ $i->occurred_on->format('Y-m-d') }} {{ $i->title }} {{ $i->url() }}
+@foreach($incidents as $i)- {{ $i->occurred_on->format('Y-m-d') }} {{ $i->displayTitle() }} {{ $i->url() }}
 @endforeach
 @endif

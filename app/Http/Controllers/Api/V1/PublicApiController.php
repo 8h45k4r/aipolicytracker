@@ -14,6 +14,8 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentEnrichment;
+use App\Services\ExternalData\IncidentSensitivity;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
@@ -289,7 +291,7 @@ class PublicApiController extends Controller
             'from' => preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $request->query('from')) ? $request->query('from') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.incidents.v2.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
+        $key = 'api.incidents.v3.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = ExternalIncident::query()
@@ -307,8 +309,8 @@ class PublicApiController extends Controller
                 'data' => $page->getCollection()->map(fn ($i) => [
                     'incident_id' => $i->incident_id,
                     'slug' => $i->slug,
-                    'title' => $i->title,
-                    'description' => $i->description,
+                    'title' => $i->displayTitle(),
+                    'description' => IncidentSensitivity::isSensitive($i) ? IncidentSensitivity::neutralDescription($i) : $i->description,
                     'occurred_on' => $i->occurred_on?->toDateString(),
                     'domain' => $i->mit_domain,
                     'subdomain' => $i->mit_subdomain,
@@ -321,6 +323,11 @@ class PublicApiController extends Controller
                     'developers' => $i->developers,
                     'harmed' => $i->harmed,
                     'report_count' => $i->report_count,
+                    // What this site adds: the policy angle.
+                    'harm_domain' => $i->harm_domain,
+                    'sensitivity' => $i->sensitivity ?? IncidentEnrichment::STANDARD,
+                    'policy_angle' => $i->policy_angle,
+                    'related_policies' => $i->relatedPolicies()->map(fn ($p) => ['slug' => $p->slug, 'title' => $p->short_title ?: $p->title, 'jurisdiction' => $p->jurisdiction?->slug, 'url' => $p->url()])->values()->all(),
                     'url' => $i->url(),
                 ])->all(),
                 'meta' => ['total' => $page->total(), 'current_page' => $page->currentPage(), 'last_page' => $page->lastPage(), 'filters' => $filters] + $this->attribution($this->external->aiid()),

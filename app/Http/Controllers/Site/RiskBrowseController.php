@@ -99,12 +99,13 @@ class RiskBrowseController extends Controller
         $domainId = array_search($i->mit_domain, $labels, true) ?: null;
         $subdomainCode = $this->subdomainCode($i->mit_subdomain);
 
-        $sameSubdomain = $i->mit_subdomain ? ExternalIncident::where('mit_subdomain', $i->mit_subdomain)->where('incident_id', '!=', $i->incident_id)->orderByDesc('occurred_on')->limit(6)->get() : collect();
+        $sameSubdomain = $i->mit_subdomain ? ExternalIncident::standard()->where('mit_subdomain', $i->mit_subdomain)->where('incident_id', '!=', $i->incident_id)->orderByDesc('occurred_on')->limit(6)->get() : collect();
         $deployer = $i->deployers[0] ?? null;
-        $sameDeployer = $deployer ? ExternalIncident::where('incident_id', '!=', $i->incident_id)->where('deployers', 'like', '%'.str_replace(['%', '_'], ['\\%', '\\_'], json_encode($deployer, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)).'%')->orderByDesc('occurred_on')->limit(6)->get() : collect();
+        $sameDeployer = $deployer ? ExternalIncident::standard()->where('incident_id', '!=', $i->incident_id)->where('deployers', 'like', '%'.str_replace(['%', '_'], ['\\%', '\\_'], json_encode($deployer, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)).'%')->orderByDesc('occurred_on')->limit(6)->get() : collect();
         $risks = $subdomainCode ? ExternalRisk::where('subdomain', $subdomainCode)->whereIn('level', ['Risk Category', 'Risk Sub-Category'])->orderBy('quick_ref')->limit(8)->get() : collect();
-        $related = ($ids = $i->similarIds()) ? ExternalIncident::whereIn('incident_id', $ids)->get()->sortBy(fn ($r) => array_search($r->incident_id, $ids, true))->values() : collect();
+        $related = ($ids = $i->similarIds()) ? ExternalIncident::standard()->whereIn('incident_id', $ids)->get()->sortBy(fn ($r) => array_search($r->incident_id, $ids, true))->values() : collect();
         $summary = $this->data->aiid();
+        $laws = $i->relatedPolicies();
 
         $sensitive = IncidentSensitivity::isSensitive($i);
         $heading = $sensitive ? IncidentSensitivity::neutralHeadline($i) : $i->title;
@@ -125,7 +126,7 @@ class RiskBrowseController extends Controller
                 'about' => array_values(array_filter([$i->mit_domain, $i->mit_subdomain])),
             ]);
 
-        return view('site.risk.incident-show', compact('i', 'heading', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
+        return view('site.risk.incident-show', compact('i', 'heading', 'laws', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
     }
 
     /** Single MIT risk entry with its paper siblings, other frameworks describing the same subdomain, and matching incidents. */
@@ -150,7 +151,7 @@ class RiskBrowseController extends Controller
         }
         $siblings = ExternalRisk::where('quick_ref', $r->quick_ref)->where('ev_id', '!=', $r->ev_id)->orderBy('ev_id')->limit(12)->get();
         $peers = $r->subdomain ? ExternalRisk::where('subdomain', $r->subdomain)->where('quick_ref', '!=', $r->quick_ref)->whereIn('level', ['Risk Category', 'Risk Sub-Category'])->orderBy('quick_ref')->limit(8)->get() : collect();
-        $incidents = $subdomainMeta ? ExternalIncident::whereRaw('lower(mit_subdomain) = ?', [mb_strtolower(trim($subdomainMeta['name']))])->orderByDesc('occurred_on')->limit(6)->get() : collect();
+        $incidents = $subdomainMeta ? ExternalIncident::standard()->whereRaw('lower(mit_subdomain) = ?', [mb_strtolower(trim($subdomainMeta['name']))])->orderByDesc('occurred_on')->limit(6)->get() : collect();
         $meta = $this->data->mitRisksMeta();
         $paper = collect($meta['papers'] ?? [])->firstWhere('quick_ref', $r->quick_ref);
 
@@ -195,7 +196,7 @@ class RiskBrowseController extends Controller
         [$query] = $this->incidentQuery($request);
         $aiid = $this->data->aiid();
         $name = 'aiid-incidents-'.now()->format('Ymd').'.'.$format;
-        $columns = ['incident_id', 'slug', 'occurred_on', 'title', 'description', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'sectors', 'countries', 'deployers', 'developers', 'harmed', 'report_count', 'url'];
+        $columns = ['incident_id', 'slug', 'occurred_on', 'title', 'description', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'sectors', 'countries', 'deployers', 'developers', 'harmed', 'report_count', 'harm_domain', 'policy_angle', 'related_policy_slugs', 'sensitivity', 'url'];
 
         return $this->stream($query->orderByDesc('occurred_on'), $columns, $format, $name, ['source' => $aiid['source'] ?? 'AI Incident Database', 'license' => $aiid['license'] ?? 'CC BY-SA 4.0', 'license_url' => $aiid['license_url'] ?? '', 'citation' => $aiid['citation'] ?? '', 'snapshot_date' => $aiid['snapshot_date'] ?? '']);
     }
@@ -282,7 +283,13 @@ class RiskBrowseController extends Controller
                     $values = [];
                     foreach ($columns as $c) {
                         // The page address is derived, not stored: it follows the slug.
-                        $v = $c === 'url' ? $row->url() : $row->{$c};
+                        // A sensitive record is exported under its neutral name, as it is shown.
+                        $v = match (true) {
+                            $c === 'url' => $row->url(),
+                            $c === 'title' && $row instanceof ExternalIncident => $row->displayTitle(),
+                            $c === 'description' && $row instanceof ExternalIncident && IncidentSensitivity::isSensitive($row) => IncidentSensitivity::neutralDescription($row),
+                            default => $row->{$c},
+                        };
                         $values[$c] = is_array($v) ? ($format === 'csv' ? implode('|', $v) : $v) : ($v instanceof \DateTimeInterface ? $v->format('Y-m-d') : $v);
                     }
                     if ($format === 'csv') {

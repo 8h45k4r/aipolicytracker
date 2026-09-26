@@ -33,7 +33,7 @@ class HomeController extends Controller
                 $catalog->stats()['last_updated'] ? Carbon::parse($catalog->stats()['last_updated']) : null,
             ));
 
-        return view('site.home', ['latestIncidents' => ExternalIncident::orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(4)->get(), 'incidentSnapshot' => ExternalIncident::max('synced_at') ?: ExternalIncident::max('snapshot_date'),
+        return view('site.home', ['latestIncidents' => ExternalIncident::standard()->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(4)->get(), 'incidentSnapshot' => ExternalIncident::max('synced_at') ?: ExternalIncident::max('snapshot_date'),
             'seo' => $seo,
             'options' => $catalog->filterOptions(),
             'changes' => $catalog->latestChanges(6),

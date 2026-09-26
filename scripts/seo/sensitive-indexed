@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Which sensitive incident pages a search engine still shows.
+#
+#   scripts/seo/sensitive-indexed                      # sitemap and noindex check only
+#   scripts/seo/sensitive-indexed Pages.csv            # plus: which appear in a Search Console export
+#   scripts/seo/sensitive-indexed Pages.csv --out=sensitive-indexed.csv
+#
+# Reads the local database, so run it where the data is imported (locally, or
+# inside the container: docker exec -i aip-app php artisan seo:sensitive-indexed /tmp/Pages.csv).
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+exec php artisan seo:sensitive-indexed "$@"
