@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\ChangeEvent;
-use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -211,7 +210,8 @@ class ReviewerRosterTest extends TestCase
         $empty = sys_get_temp_dir().'/roster-'.uniqid();
         mkdir($empty.'/reviewers', 0777, true);
         $this->app->bind(ReviewerRoster::class, fn () => new ReviewerRoster(new PolicyDataRepository($empty)));
-        foreach ([PolicyInstrument::class, Obligation::class, Jurisdiction::class, Control::class, ChangeEvent::class] as $model) {
+        // The attributable kinds only: an obligation's verification belongs to its instrument, and the table has no reviewed_by column.
+        foreach ([PolicyInstrument::class, Jurisdiction::class, ChangeEvent::class] as $model) {
             $model::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
         }
 
