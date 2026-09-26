@@ -27,6 +27,8 @@
             @else
                 @if(session('error'))<p class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
                 <section class="mb-6 card-flat p-4" aria-labelledby="r-watch">
+                    @php($exportQuery = array_filter($answers, fn ($v) => $v !== null && $v !== []))
+                    <div class="mt-3 flex flex-wrap gap-2" aria-label="Export the obligations register">@foreach(['xlsx' => 'XLSX', 'csv' => 'CSV', 'json' => 'JSON', 'pdf' => 'PDF'] as $fmt => $label)<a href="{{ route('tools.applicability.register', ['format' => $fmt] + $exportQuery) }}" class="btn-secondary !min-h-[36px] !py-1" data-track="register_export" data-track-label="{{ $fmt }}">Register {{ $label }}</a>@endforeach<span class="meta self-center">One row per screened duty, cited; nothing stored.</span></div>
                     <h2 id="r-watch" class="section-title !text-lg">Watch this screening</h2>
                     @if($savedProfile)
                         <p class="mt-1 text-sm text-brand-body">Saved as <strong>{{ $savedProfile->name }}</strong>. Changes in scope reach you in the daily alert. <a href="{{ route('following.index') }}">Manage profiles</a>.</p>

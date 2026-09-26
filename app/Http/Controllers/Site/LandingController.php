@@ -9,6 +9,7 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\Tool;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Templates\TemplateCatalog;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -67,7 +68,8 @@ class LandingController extends Controller
             'topic' => $multi('topic', config('resources.topics')),
             'access' => in_array($request->query('access'), ['read', 'download'], true) ? $request->query('access') : null,
         ];
-        $tools = Tool::published()->with('activeFiles')->orderBy('sort_order')->orderBy('title')->get()->map->card();
+        // A tool a generated template replaces is no longer listed; its address redirects to the template.
+        $tools = Tool::published()->with('activeFiles')->whereNotIn('slug', array_keys(TemplateCatalog::redirects()))->orderBy('sort_order')->orderBy('title')->get()->map->card();
         $items = Tool::guideCards()->concat($tools)->filter(function ($i) use ($filters) {
             if ($filters['type'] && $i['type'] !== $filters['type']) {
                 return false;

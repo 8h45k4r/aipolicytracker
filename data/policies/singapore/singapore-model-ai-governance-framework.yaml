@@ -146,10 +146,10 @@ source_publisher: "Personal Data Protection Commission Singapore and IMDA"
 source_document_date: 2020-01-21
 source_reference: null
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: high
 content_version: 1
 change_summary: Initial structured record.
-reviewed_by: null
+reviewed_by: AI Policy Tracker

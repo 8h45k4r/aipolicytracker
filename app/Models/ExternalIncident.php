@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentEnrichment;
+use App\Services\ExternalData\IncidentSensitivity;
+use App\Services\ExternalData\RecordSlugs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class ExternalIncident extends Model
 {
@@ -14,9 +18,21 @@ class ExternalIncident extends Model
 
     protected $guarded = [];
 
+    /**
+     * A record created one at a time (rather than by the importers' bulk
+     * upsert, which assigns addresses afterwards) gets its address here, so
+     * no record is ever published without one.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (self $record) {
+            $record->slug ??= RecordSlugs::forIncident($record);
+        });
+    }
+
     protected function casts(): array
     {
-        return ['occurred_on' => 'date', 'snapshot_date' => 'date', 'modified_at' => 'datetime', 'synced_at' => 'datetime', 'deployers' => 'array', 'developers' => 'array', 'harmed' => 'array', 'sectors' => 'array', 'countries' => 'array', 'entities' => 'array', 'implicated_systems' => 'array', 'similar_incidents' => 'array'];
+        return ['occurred_on' => 'date', 'snapshot_date' => 'date', 'modified_at' => 'datetime', 'synced_at' => 'datetime', 'deployers' => 'array', 'developers' => 'array', 'harmed' => 'array', 'sectors' => 'array', 'countries' => 'array', 'entities' => 'array', 'implicated_systems' => 'array', 'similar_incidents' => 'array', 'related_policy_slugs' => 'array'];
     }
 
     public function reports(): HasMany
@@ -24,9 +40,44 @@ class ExternalIncident extends Model
         return $this->hasMany(ExternalIncidentReport::class, 'incident_id', 'incident_id')->orderBy('date_published')->orderBy('report_number');
     }
 
+    /** The readable address; the numeric one it replaced redirects here. */
     public function url(): string
     {
-        return route('risk.incidents.show', $this->incident_id);
+        return route('risk.incidents.show', $this->slug ?? $this->incident_id);
+    }
+
+    /**
+     * Records that may be surfaced in a list that was not asked for: the
+     * homepage, "latest", "related", a digest. A record about sexual imagery
+     * keeps its page and is reachable by search on the browse tool, but is
+     * never offered unasked.
+     */
+    public function scopeStandard($query)
+    {
+        return $query->where(fn ($q) => $q->whereNull('sensitivity')->orWhere('sensitivity', '!=', IncidentEnrichment::SENSITIVE));
+    }
+
+    /** The headline to show: the database's, or a neutral one for a sensitive record. */
+    public function displayTitle(): string
+    {
+        return IncidentSensitivity::isSensitive($this) ? IncidentSensitivity::neutralHeadline($this) : (string) $this->title;
+    }
+
+    /**
+     * The recorded instruments that address this harm where it happened, in
+     * the order they were matched (binding first), or a reviewer's own list.
+     *
+     * @return Collection<int,PolicyInstrument>
+     */
+    public function relatedPolicies(): Collection
+    {
+        $slugs = $this->related_policy_slugs ?: [];
+        if ($slugs === []) {
+            return collect();
+        }
+        $rows = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $slugs)->get()->keyBy('slug');
+
+        return collect($slugs)->map(fn ($s) => $rows[$s] ?? null)->filter()->values();
     }
 
     /**
@@ -41,7 +92,7 @@ class ExternalIncident extends Model
      */
     public function isIndexable(): bool
     {
-        return filled($this->description);
+        return filled($this->description) && ! IncidentSensitivity::isSensitive($this);
     }
 
     /** AIID Discover view listing every report on this incident (the reports themselves stay on AIID). */

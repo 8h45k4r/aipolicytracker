@@ -20,6 +20,8 @@
     h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
     h1 { @apply text-balance; }
     a { @apply text-brand-blue underline-offset-[3px] decoration-brand-line hover:decoration-brand-blue; }
+    /* A link inside running text is told apart by more than its colour. */
+    p a:not(.btn):not(.chip):not(.no-underline), dd a:not(.no-underline), td a:not(.no-underline), blockquote a, .prose-policy a { @apply underline; }
     a.no-underline { text-decoration: none; }
     :focus-visible { @apply outline-none ring-2 ring-brand-cyan ring-offset-2 ring-offset-white rounded-sm; }
     summary { cursor: pointer; }
@@ -37,6 +39,8 @@
        only motion in the system, so it reads as "this is the button" without colour. */
     .btn-primary { @apply btn bg-brand-navy text-white shadow-sm hover:bg-brand-ink hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
     .btn-secondary { @apply btn border border-brand-navy/30 bg-white text-brand-navy hover:border-brand-navy hover:bg-brand-paper; }
+    /* Admin action bars: a button that waits for a selection says so. */
+    [data-bulk-needs]:disabled { @apply cursor-not-allowed opacity-50 hover:bg-white; }
     .btn-accent { @apply btn bg-brand-blue text-white shadow-sm hover:bg-brand-navy hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
 
     .chip { @apply inline-flex items-center gap-1 rounded-sm border border-brand-line bg-white px-2.5 py-1 text-xs font-medium text-brand-body no-underline hover:border-brand-navy hover:text-brand-navy min-h-[34px]; }

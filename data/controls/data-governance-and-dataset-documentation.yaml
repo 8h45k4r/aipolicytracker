@@ -24,6 +24,9 @@ framework_references:
   - { framework: mitre_atlas, reference: "AML.M0007 Sanitize Training Data", confidence_level: medium }
   - { framework: owasp_llm_top10, reference: "LLM04 Data and Model Poisoning", confidence_level: medium }
 related_controls: [training-data-provenance-and-copyright-register, technical-documentation-and-model-cards, privacy-and-data-protection-for-ai, accuracy-robustness-security-testing]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

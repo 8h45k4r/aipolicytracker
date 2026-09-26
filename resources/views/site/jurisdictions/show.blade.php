@@ -10,17 +10,49 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
+            @if(!empty($translation))
+            <p class="mb-4 rounded-sm border border-brand-line bg-brand-paper px-3 py-2 text-sm text-brand-body" lang="{{ $locale }}">{{ $translation['lead'] ?? '' }} <span class="meta">{{ $reviewedTranslation ? 'Revisado: '.$translation['reviewed_by'] : ($translation['translated_by'] ?? 'Draft').' · unreviewed translation' }} · <a href="{{ $englishUrl }}" hreflang="en">English</a></span></p>
+            @endif
+            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
             <section aria-labelledby="overview-heading"><h2 id="overview-heading" class="section-title">Overview</h2><p class="prose-policy mt-2">{{ $jurisdiction->overview }}</p></section>
             <section aria-labelledby="status-heading" class="mt-8"><h2 id="status-heading" class="section-title">What is the current regulatory status?</h2><p class="prose-policy mt-2">{{ $jurisdiction->regulatory_status_summary }}</p></section>
             @if($jurisdiction->binding_vs_guidance)<section aria-labelledby="binding-heading" class="mt-8"><h2 id="binding-heading" class="section-title">Binding rules versus guidance</h2><p class="prose-policy mt-2">{{ $jurisdiction->binding_vs_guidance }}</p></section>@endif
 
             <section aria-labelledby="policies-heading" class="mt-8">
                 <h2 id="policies-heading" class="section-title">Key policy instruments</h2>
-                <div class="mt-2 divide-y divide-brand-line border-y border-brand-line">
-                    @forelse($policies as $p)<x-site.policy-row :policy="$p" />@empty<div class="py-6"><x-site.empty title="No published instruments yet" /></div>@endforelse
+                <div class="mt-1">
+                    @forelse($policies as $p)<x-site.policy-row :policy="$p" />@empty<div class="py-6"><x-site.empty title="No published instrument yet" /></div>@endforelse
                 </div>
-                @if($policies->count() > 3)<a href="{{ route('policies.index', ['jurisdiction' => $jurisdiction->slug]) }}" class="mt-3 inline-block text-sm text-brand-blue hover:underline">Filter all {{ $jurisdiction->name }} policies</a>@endif
             </section>
+
+            @if($policies->isNotEmpty())
+            <section aria-labelledby="instruments-heading" class="mt-8">
+                <h2 id="instruments-heading" class="section-title">Instruments at a glance</h2>
+                <p class="mt-1 text-xs text-brand-muted">Native-language names are shown where the record carries one; a blank means the source is in English or the name is not yet recorded.</p>
+                <div class="table-wrap mt-3"><table><caption class="sr-only">AI policy instruments recorded for {{ $jurisdiction->name }}</caption>
+                    <thead><tr><th scope="col">Instrument</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Binding</th><th scope="col">Key date</th><th scope="col">Source</th></tr></thead>
+                    <tbody>@foreach($policies as $p)<tr>
+                        <th scope="row" class="font-medium"><a href="{{ $p->url() }}" class="text-brand-navy">{{ $p->short_title ?: $p->title }}</a>@if($p->title_native)<span class="block text-xs font-normal text-brand-muted">{{ $p->title_native }}</span>@endif</th>
+                        <td class="whitespace-nowrap">{{ $p->typeEnum()->label() }}</td>
+                        <td><x-site.status-badge :status="$p->statusEnum()" /></td>
+                        <td>{{ $p->is_binding ? 'Binding' : 'Voluntary' }}</td>
+                        <td class="whitespace-nowrap">@php($kd = $p->applies_from ?? $p->in_force_on ?? $p->adopted_on ?? $p->published_on)@if($kd)<time datetime="{{ $kd->toDateString() }}">{{ $kd->format('j M Y') }}</time>@else—@endif</td>
+                        <td>@if($p->official_source_url)<a href="{{ $p->official_source_url }}" rel="noopener" class="text-brand-blue">Official</a>@else<span class="text-brand-muted">Not linked</span>@endif</td>
+                    </tr>@endforeach</tbody></table></div>
+            </section>
+            @endif
+
+            @if(!empty($timeline))
+            <section aria-labelledby="timeline-heading" class="mt-8">
+                <h2 id="timeline-heading" class="section-title">Timeline</h2>
+                <p class="mt-1 text-xs text-brand-muted">Every dated event on the recorded instruments: publication, adoption, entry into force, application and deadlines. Future dates are marked.</p>
+                <ol class="mt-3 border-l-2 border-brand-line pl-4 space-y-2 text-sm">
+                    @foreach($timeline as $e)
+                    <li class="relative"><span class="absolute -left-[1.4rem] top-1.5 h-2.5 w-2.5 rounded-full {{ $e['future'] ? 'bg-brand-blue' : 'bg-brand-navy' }}" aria-hidden="true"></span><time datetime="{{ $e['date']->toDateString() }}" class="font-medium text-brand-navy">{{ $e['date']->format('j M Y') }}</time>@if($e['future']) <span class="badge-neutral">upcoming</span>@endif · <a href="{{ $e['policy']->url() }}" class="text-brand-body hover:underline">{{ $e['label'] }}</a></li>
+                    @endforeach
+                </ol>
+            </section>
+            @endif
 
             <section aria-labelledby="deadlines-heading" class="mt-8">
                 <h2 id="deadlines-heading" class="section-title">Upcoming deadlines</h2>
@@ -36,7 +68,9 @@
 
             <section aria-labelledby="changes-heading" class="mt-8">
                 <h2 id="changes-heading" class="section-title">Latest changes</h2>
+                <p class="mt-1 text-xs"><a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">RSS</a></p>
                 <div class="mt-1 divide-y divide-brand-line border-y border-brand-line">@forelse($changes as $c)<x-site.change-item :change="$c" compact />@empty<p class="py-4 text-sm text-brand-muted">No change events recorded yet.</p>@endforelse</div>
+                @if($changes->isNotEmpty())<p class="mt-3 text-xs text-brand-muted"><a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="hover:text-brand-navy">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="hover:text-brand-navy">Updates hub</a></p>@endif
             </section>
 
             @if($useCases->isNotEmpty() || $sectors->isNotEmpty() || $obligationCategories->isNotEmpty())
@@ -59,7 +93,7 @@
 
             <x-site.source-list :sources="collect($jurisdiction->official_sources ?? [])" title="Official government and regulator sources" class="mt-8" />
             <x-site.cite :title="'AI regulation in '.$jurisdiction->name" :url="$jurisdiction->url()" class="mt-8" />
-            <x-site.faq :items="$jurisdiction->faq ?? []" />
+            <x-site.faq :items="$seo->faqItems()" />
             <x-site.subscribe-form source="jurisdiction" :topic="$jurisdiction->slug" class="mt-10" />
             <x-site.disclaimer class="mt-8" />
         </div>

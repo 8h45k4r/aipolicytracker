@@ -25,6 +25,9 @@ framework_references:
   - { framework: nist_ai_rmf, reference: "MAP 5.1, 5.2; MEASURE 2.11", confidence_level: high }
   - { framework: oecd_ai_principles, reference: "Principle 1.2 Human-centred values and fairness", confidence_level: medium }
 related_controls: [ai-risk-assessment, privacy-and-data-protection-for-ai, human-oversight-and-override, ai-interaction-and-use-disclosure]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

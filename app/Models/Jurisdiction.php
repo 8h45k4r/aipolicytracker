@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasSourceQuality;
+use App\Services\Hubs\HubCatalog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -102,11 +103,33 @@ class Jurisdiction extends Model
     /** Name with a definite article where English requires one ("the United Kingdom"). */
     public function nameWithArticle(): string
     {
-        return preg_match('/^(United|European|Netherlands|Philippines)/', $this->name) ? 'the '.$this->name : $this->name;
+        $needsThe = '/^(United|European|Netherlands|Philippines|Council of Europe|African Union|Czech Republic|Dominican Republic|Central African Republic|Democratic Republic|Republic of|Gambia|Bahamas|Maldives|Marshall Islands|Solomon Islands|Comoros|Seychelles|Isle of Man|Cayman Islands|Holy See|Vatican|Organisation|Organization)\b/';
+
+        return preg_match($needsThe, $this->name) ? 'the '.$this->name : $this->name;
+    }
+
+    /** nameWithArticle() for the start of a sentence ("The United Kingdom"). */
+    public function nameWithArticleCapitalised(): string
+    {
+        return ucfirst($this->nameWithArticle());
+    }
+
+    /** The hub address for a country that has one (config/hubs.php), else null. */
+    public function hubSlug(): ?string
+    {
+        return HubCatalog::hubSlug($this->slug);
+    }
+
+    /** Whether the page at url() may be indexed: the hub guard for a hub country, the record guard otherwise. */
+    public function isPageIndexable(): bool
+    {
+        return $this->hubSlug() ? HubCatalog::isHubIndexable($this) : $this->isIndexable();
     }
 
     public function url(): string
     {
-        return route('jurisdictions.show', $this->slug);
+        $hub = $this->hubSlug();
+
+        return $hub ? route('hubs.show', $hub) : route('jurisdictions.show', $this->slug);
     }
 }

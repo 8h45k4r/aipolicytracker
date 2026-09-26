@@ -51,7 +51,7 @@
         <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Each domain links to the instruments whose recorded use cases address it, and to the obligations, deadlines and templates behind them. Click a domain for its subdomains, frameworks and incidents.</p>
         <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             @foreach($mit['domains'] ?? [] as $d)
-            <a href="{{ route('risk.domain', $d['id']) }}" class="card-flat p-4 no-underline hover:border-brand-navy">
+            <a href="{{ \App\Support\RiskTaxonomy::domainUrl($d['id']) }}" class="card-flat p-4 no-underline hover:border-brand-navy">
                 <p class="eyebrow">Domain {{ $d['id'] }}</p><p class="mt-1 font-semibold text-brand-navy">{{ $d['name'] }}</p>
                 <dl class="mt-2 grid grid-cols-3 gap-1 text-xs text-brand-muted"><div><dt>Incidents</dt><dd class="font-mono text-brand-navy">{{ isset($aiid['by_mit_domain'][$d['aiid_domain_label']]) ? number_format($aiid['by_mit_domain'][$d['aiid_domain_label']]) : '—' }}</dd></div><div><dt>Risk entries</dt><dd class="font-mono text-brand-navy">{{ isset($riskByDomain[$d['id']]) ? number_format($riskByDomain[$d['id']]) : '—' }}</dd></div><div><dt>Instruments</dt><dd class="font-mono text-brand-navy">{{ $narrative['domain_instruments'][$d['id']] ?: '—' }}</dd></div></dl>
             </a>

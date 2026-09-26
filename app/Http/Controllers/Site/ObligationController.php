@@ -5,7 +5,13 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Obligation;
 use App\Models\TaxonomyTerm;
+use App\Models\TemplateVersion;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Records\AnswerBox;
+use App\Services\Records\KeyFacts;
+use App\Services\Records\QuestionBank;
+use App\Services\Templates\TemplateCatalog;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -53,8 +59,12 @@ class ObligationController extends Controller
         $similar = Obligation::published()->with('policyInstrument.jurisdiction')->where('category', $obligation->category)->where('id', '!=', $obligation->id)->orderByDesc('is_binding')->limit(8)->get();
         $categoryName = TaxonomyTerm::where('taxonomy', 'obligation_category')->where('slug', $obligation->category)->value('name') ?? $obligation->category;
 
+        $answer = AnswerBox::obligation($obligation);
+        $facts = KeyFacts::obligation($obligation);
+        $templates = TemplateCatalog::forObligation($obligation)->map(fn ($m) => $m + ['version' => TemplateVersion::latestFor($m['slug'])])->values();
+
         $seo = Seo::make(
-            $obligation->title.' ('.($policy->short_title ?: $policy->title).')',
+            PageTitle::obligation($obligation),
             ($obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance').' under '.($policy->short_title ?: $policy->title).' in '.$policy->jurisdiction->name.': what it requires, who it applies to, evidence examples and framework mappings.',
             $obligation->url(),
             filled($obligation->summary) && $policy->isIndexable()
@@ -64,8 +74,10 @@ class ObligationController extends Controller
             ->withCard('obligation', $obligation->slug, $obligation->updated_at)
             ->withAlternate('text/markdown', route('obligations.context', $obligation->slug))
             ->withPageProperties(Seo::provenance($obligation))
-            ->withPageProperties([
+            ->withPageType('Article', [
+                'headline' => $obligation->title,
                 'name' => $obligation->title,
+                'description' => $answer,
                 'about' => ['@type' => 'DefinedTerm', 'name' => $categoryName, 'inDefinedTermSet' => route('obligations.index')],
                 'citation' => $obligation->official_source_url,
                 // An obligation is read out of an instrument; saying which one is the
@@ -80,6 +92,8 @@ class ObligationController extends Controller
                 $obligation->updated_at,
             ));
 
-        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName'));
+        $seo->withFaq(QuestionBank::obligation($obligation));
+
+        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName', 'answer', 'facts', 'templates'));
     }
 }

@@ -24,7 +24,8 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
-            <section aria-labelledby="overview-heading">
+            <x-site.answer-box :text="$answer" :facts="$facts" />
+            <section aria-labelledby="overview-heading" class="mt-8">
                 <h2 id="overview-heading" class="section-title">What is {{ $policy->definiteName() }}?</h2>
                 <div class="prose-policy mt-2"><p>{{ $policy->summary_plain }}</p></div>
                 @if($policy->status_note)<p class="mt-3 rounded-sm bg-brand-paper border border-brand-line px-3 py-2 text-sm text-brand-body"><span class="font-medium">Status note:</span> {{ $policy->status_note }}</p>@endif
@@ -128,11 +129,12 @@
                     @foreach($policy->changeEvents as $c)<li><time class="font-mono" datetime="{{ $c->occurred_on->toDateString() }}">{{ $c->occurred_on->format('j M Y') }}</time> — <a href="{{ $c->url() }}" class="text-brand-navy hover:underline">{{ $c->title }}</a></li>@endforeach
                     @foreach($policy->versions as $v)<li><span class="font-mono">{{ $v->version_date?->format('j M Y') ?? '—' }}</span> — {{ $v->version_label }}@if($v->official_source_url) (<a href="{{ $v->official_source_url }}" rel="noopener" class="text-brand-blue">source</a>)@endif</li>@endforeach
                 </ul>
+                @if($policy->changeEvents->isNotEmpty())<p class="mt-2 text-xs text-brand-muted"><a href="{{ route('updates.jurisdiction', $policy->jurisdiction->slug) }}" class="hover:text-brand-navy">All updates for {{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $policy->jurisdiction->slug) }}" class="hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="hover:text-brand-navy">Updates hub</a></p>@endif
                 <p class="mt-2 text-xs text-brand-muted">Record version {{ $policy->content_version }}@if($policy->change_summary): {{ $policy->change_summary }}@endif. Full edit history is in the <a href="{{ config('aipolicytracker.github_url') }}" rel="noopener">GitHub repository</a>.</p>
             </section>
             @endif
 
-            <x-site.faq :items="$policy->faq ?? []" />
+            <x-site.faq :items="$seo->faqItems()" />
             <x-site.disclaimer class="mt-8" />
         </div>
 
@@ -160,7 +162,7 @@
                 <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" class="flex-col [&>*]:w-full" />
                 <x-site.subscribe-form source="policy" :topic="$policy->slug" :topic-label="$name" class="!pt-3 text-sm" compact />
                 @if(isset($risksAddressed) && $risksAddressed->isNotEmpty())
-                <div class="text-sm"><p class="font-semibold text-brand-navy">AI risks this instrument addresses</p><ul class="mt-2 space-y-1.5">@foreach($risksAddressed as $d)<li><a href="{{ route('risk.domain', $d['id']) }}" class="text-brand-body hover:underline">{{ $d['name'] }}</a> <span class="text-xs text-brand-muted">({{ $d['incidents'] ? number_format($d['incidents']).' recorded incidents' : 'no incidents classified' }})</span></li>@endforeach</ul><p class="meta mt-1">Mapped through the instrument's recorded use cases.</p></div>
+                <div class="text-sm"><p class="font-semibold text-brand-navy">AI risks this instrument addresses</p><ul class="mt-2 space-y-1.5">@foreach($risksAddressed as $d)<li><a href="{{ \App\Support\RiskTaxonomy::domainUrl($d['id']) }}" class="text-brand-body hover:underline">{{ $d['name'] }}</a> <span class="text-xs text-brand-muted">({{ $d['incidents'] ? number_format($d['incidents']).' recorded incidents' : 'no incidents classified' }})</span></li>@endforeach</ul><p class="meta mt-1">Mapped through the instrument's recorded use cases.</p></div>
                 @endif
                 @if($related->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Related policies</p><ul class="mt-2 space-y-1.5">@foreach($related as $r)<li><a href="{{ $r->url() }}" class="text-brand-body hover:underline">{{ $r->short_title ?: $r->title }}</a> <span class="text-xs text-brand-muted">({{ $r->jurisdiction->short_name ?: $r->jurisdiction->name }})</span></li>@endforeach</ul></div>

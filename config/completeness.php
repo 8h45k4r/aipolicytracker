@@ -40,6 +40,7 @@ return [
         'policy' => ['label' => 'Policy instruments', 'plural' => 'instruments'],
         'obligation' => ['label' => 'Obligations', 'plural' => 'obligations'],
         'change' => ['label' => 'Change log entries', 'plural' => 'entries'],
+        'transition_measure' => ['label' => 'Transition measures', 'plural' => 'measures'],
         'jurisdiction' => ['label' => 'Jurisdiction profiles', 'plural' => 'profiles'],
     ],
 
@@ -49,6 +50,13 @@ return [
     | but never quietly regress. It holds the count measured over the whole corpus on
     | the day the policy was introduced and may only be lowered. Raising it is a
     | deliberate act argued for in the pull request.
+    |
+    | 2026-09-26, raised from 0 to 5. The five duties of Colorado SB 26-189 were
+    | recorded from secondary reporting, which names what each duty requires but
+    | not the section of the enrolled bill it sits in. Filling source_reference
+    | from anything but the bill would be inventing a legal citation, so the field
+    | stays empty, the gap shows on /gaps, and this number returns to 0 when a
+    | reviewer reads the bill and records the sections.
     */
-    'required_budget' => (int) env('COMPLETENESS_REQUIRED_BUDGET', 0),
+    'required_budget' => (int) env('COMPLETENESS_REQUIRED_BUDGET', 5),
 ];

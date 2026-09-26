@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Support\Seo;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -32,5 +33,32 @@ class ReviewersController extends Controller
             'reviewers' => $roster->published(),
             'standing' => $roster->standing(),
         ]);
+    }
+
+    public function person(string $slug, ReviewerRoster $roster): View
+    {
+        $reviewer = $roster->find($slug);
+        abort_unless($reviewer, 404);
+        $verified = $roster->verifiedRecords((string) $reviewer['name']);
+        $seo = Seo::make(
+            $reviewer['name'].': reviewer profile, declared interests and verified records',
+            Str::limit(($reviewer['bio'] ?? $reviewer['name'].' reviews AI policy records against official sources on this site.').' Declared interests and every record verified are listed.', 155),
+            route('reviewers.show', $slug)
+        )->withBreadcrumbs([['Home', route('home')], ['Reviewers', route('reviewers')], [$reviewer['name'], route('reviewers.show', $slug)]])
+            ->withPageType('ProfilePage', ['mainEntity' => ['@id' => route('reviewers.show', $slug).'#person']])
+            ->withJsonLd(array_filter([
+                '@type' => 'Person',
+                '@id' => route('reviewers.show', $slug).'#person',
+                'name' => $reviewer['name'],
+                'url' => route('reviewers.show', $slug),
+                'jobTitle' => ucfirst($reviewer['role'] ?? 'reviewer'),
+                'description' => $reviewer['bio'] ?? null,
+                'knowsAbout' => $reviewer['expertise'] ?? null,
+                'sameAs' => array_values(array_map(fn ($l) => $l['url'], $reviewer['links'] ?? [])) ?: null,
+                'affiliation' => array_values(array_map(fn ($a) => ['@type' => 'Organization', 'name' => $a['organisation']], $reviewer['affiliations'] ?? [])) ?: null,
+                'memberOf' => ['@id' => url('/').'#organization'],
+            ]));
+
+        return view('site.pages.reviewer', compact('seo', 'reviewer', 'verified'));
     }
 }

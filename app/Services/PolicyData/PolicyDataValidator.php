@@ -23,6 +23,7 @@ class PolicyDataValidator
     {
         $errors = [];
         $this->reviewerNames = $this->validateReviewers($errors);
+        $this->validateTransition($errors);
         $taxonomies = $this->repository->taxonomies();
         foreach ($this->schema->validate($taxonomies, 'taxonomy.schema.json') as $e) {
             $errors['taxonomies/terms.yaml'][] = $e;
@@ -223,6 +224,35 @@ class PolicyDataValidator
         }
         if (! empty($record['last_verified_at']) && $status !== 'verified') {
             $errors[$file][] = "{$path}: last_verified_at is set but review_status is not \"verified\"";
+        }
+    }
+
+    /** Transition measures and indicators: schema, unique slugs equal to file names, known jurisdictions. */
+    private function validateTransition(array &$errors): void
+    {
+        $jurisdictions = array_map(fn ($r) => $r['slug'] ?? null, $this->repository->jurisdictions());
+        $seen = [];
+        foreach ([['transitionMeasures', 'transition-measure.schema.json', true], ['transitionIndicators', 'transition-indicator.schema.json', false]] as [$method, $schema, $jurisdictionRequired]) {
+            foreach ($this->repository->{$method}() as $file => $record) {
+                foreach ($this->schema->validate($record, $schema) as $e) {
+                    $errors[$file][] = $e;
+                }
+                $slug = $record['slug'] ?? null;
+                if ($slug && pathinfo($file, PATHINFO_FILENAME) !== $slug) {
+                    $errors[$file][] = "$.slug: must equal the file name ({$slug})";
+                }
+                if ($slug && isset($seen[$slug])) {
+                    $errors[$file][] = "$.slug: duplicate slug \"{$slug}\" (also in {$seen[$slug]})";
+                }
+                $seen[$slug ?? $file] = $file;
+                $j = $record['jurisdiction'] ?? null;
+                if (($jurisdictionRequired || $j !== null) && ! in_array($j, $jurisdictions, true)) {
+                    $errors[$file][] = "$.jurisdiction: unknown jurisdiction slug \"{$j}\"";
+                }
+                if (($record['review_status'] ?? null) === 'verified' && empty($record['official_source_url'])) {
+                    $errors[$file][] = '$.review_status: a verified record must carry official_source_url';
+                }
+            }
         }
     }
 }

@@ -65,10 +65,10 @@ source_publisher: "Official Journal of the European Union"
 source_document_date: 2024-07-12
 source_reference: "OJ L, 2024/1689, 12.7.2024"
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: high
 content_version: 1
 change_summary: Initial structured record.
-reviewed_by: null
+reviewed_by: AI Policy Tracker

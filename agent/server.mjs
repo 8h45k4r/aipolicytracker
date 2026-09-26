@@ -45,6 +45,25 @@ async function get (path, { json = true } = {}) {
   }
 }
 
+async function post (path, body) {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
+  try {
+    const response = await fetch(BASE + path, {
+      method: 'POST',
+      signal: controller.signal,
+      headers: { accept: 'application/json', 'content-type': 'application/json', 'user-agent': 'aipolicytracker-agent/1.0' },
+      body: JSON.stringify(Object.fromEntries(Object.entries(body).filter(([, v]) => v !== undefined && v !== null))),
+    })
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText} for ${path}`)
+    }
+    return await response.json()
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 function query (params) {
   const search = new URLSearchParams()
   for (const [key, value] of Object.entries(params)) {
@@ -133,16 +152,113 @@ const TOOLS = [
   {
     name: 'recent_changes',
     description:
-      'The change log: dated entries recording what moved in AI policy, what it means in practice, and the official announcement behind it.',
+      'AI policy updates: dated entries recording what moved in AI policy, what it means in practice, and the official announcement behind it. Each carries a significance score (0-100, by a published rule) and the time it first appeared. The same records are arranged for people at /updates, with month, day and per-jurisdiction pages.',
     inputSchema: {
       type: 'object',
       properties: {
         jurisdiction: { type: 'string', description: 'Jurisdiction slug.' },
+        since: { type: 'string', description: 'Only changes that occurred on or after this date (YYYY-MM-DD).' },
         limit: { type: 'integer', description: 'Maximum entries to return (1-100, default 20).' },
       },
       additionalProperties: false,
     },
-    run: (args) => get('/api/v1/changes' + query({ jurisdiction: args.jurisdiction, per_page: limit(args.limit) })),
+    run: (args) => get('/api/v1/changes' + query({ jurisdiction: args.jurisdiction, since: args.since, per_page: limit(args.limit) })),
+  },
+  {
+    name: 'search_incidents',
+    description:
+      'AI incidents mirrored from the AI Incident Database, with what this site adds: the harm domain (MIT AI Risk Repository taxonomy), the recorded laws that address that harm where it happened, and a one-sentence policy angle. Records about sexual imagery carry sensitivity "sensitive" and a neutral title; do not repeat their headlines. Attribution to the AI Incident Database (CC BY-SA 4.0) is a licence condition on reuse.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        domain: { type: 'string', description: 'MIT risk domain number, 1-7.' },
+        country: { type: 'string', description: 'ISO-2 country code as the database records it, e.g. "US".' },
+        from: { type: 'string', description: 'Only incidents on or after this date (YYYY-MM-DD).' },
+        limit: { type: 'integer', description: 'Maximum records to return (1-100, default 20).' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/incidents' + query({ domain: args.domain, country: args.country, from: args.from, per_page: limit(args.limit) })),
+  },
+  {
+    name: 'get_applicable_deadlines',
+    description:
+      'Which recorded AI regulation dates apply to one organisation, and why: recorded deadlines filtered by the scope recorded on their instrument and duty (markets, role, system type, risk tier, sector, use case). A filter over the record, not a legal determination; each row says why it is shown and, where the date moved, the date first recorded.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        jurisdictions: { type: 'array', items: { type: 'string' }, description: 'Jurisdiction slugs, 1-8 (e.g. ["eu","uk"]).' },
+        role: { type: 'string', description: 'Actor slug: provider, deployer, importer, distributor, gpai_provider, public_authority, user.' },
+        system_types: { type: 'array', items: { type: 'string' }, description: 'AI system type slugs, e.g. general_purpose_ai_model, biometric_system.' },
+        risk: { type: 'string', description: 'Risk category slug: prohibited, high_risk, transparency_risk, systemic_risk, minimal_risk.' },
+        sectors: { type: 'array', items: { type: 'string' } },
+        use_cases: { type: 'array', items: { type: 'string' } },
+      },
+      required: ['jurisdictions'],
+      additionalProperties: false,
+    },
+    run: (args) => post('/api/v1/deadlines/applicable', { jurisdictions: args.jurisdictions, role: args.role, system_types: args.system_types, risk: args.risk, sectors: args.sectors, use_cases: args.use_cases }),
+  },
+  {
+    name: 'build_obligations_register',
+    description:
+      'The applicability check as an obligations register: one row per recorded duty whose recorded actors, use cases and sectors overlap the answers (markets, role, use case, sector, personal data, generative AI), each cited to its record with evidence, framework references and recorded controls. Returns the rows and links to the same register as XLSX, CSV and PDF. An educational screen over recorded scope, not a determination that any duty applies.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        jurisdictions: { type: 'array', items: { type: 'string' }, description: 'Jurisdiction slugs, e.g. ["eu","uk"].' },
+        role: { type: 'string', description: 'Actor slug: provider, deployer, importer, distributor, gpai_provider, public_authority, user.' },
+        use_case: { type: 'string', description: 'Use-case slug, e.g. hiring_and_hr, biometrics, generative_ai.' },
+        sector: { type: 'string', description: 'Sector slug, e.g. healthcare, financial_services.' },
+        personal_data: { type: 'string', description: 'yes, no or unsure.' },
+        genai: { type: 'string', description: 'yes, no or unsure.' },
+      },
+      required: ['jurisdictions'],
+      additionalProperties: false,
+    },
+    run: (args) => {
+      const params = new URLSearchParams()
+      for (const j of args.jurisdictions || []) params.append('jurisdictions[]', String(j))
+      for (const k of ['role', 'use_case', 'sector', 'personal_data', 'genai']) if (args[k]) params.set(k, String(args[k]))
+      return get('/api/v1/applicability/register?' + params.toString())
+    },
+  },
+  {
+    name: 'list_transition_measures',
+    description:
+      'AI economic transition measures: proposals, bills, pilots and laws responding to AI-driven economic change (AI dividends, basic income, AI taxes, sovereign wealth funds, layoff-disclosure duties, retraining, worker voice), with status, mechanism, funding, sponsors and sources. A draft record has every factual field null because no reviewer has read its official source yet; say so rather than filling the gap.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', description: 'ai_dividend, universal_basic_income, ai_tax, sovereign_wealth_fund, layoff_disclosure, retraining, worker_voice, transition_benefit or other.' },
+        status: { type: 'string', description: 'unverified, proposed, introduced, in_committee, passed_chamber, enacted, in_force, pilot, withdrawn or expired.' },
+        jurisdiction: { type: 'string', description: 'Jurisdiction slug.' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/transition/measures' + query({ type: args.type, status: args.status, jurisdiction: args.jurisdiction })),
+  },
+  {
+    name: 'get_displacement_index',
+    description:
+      'The displacement policy index: a quarterly 0-100 score per jurisdiction from its verified AI economic transition measures, as four published sub-scores (disclosure, safety net, transition funding, worker voice) computed by a versioned pure function. Each snapshot lists the inputs it was computed from; drafts count for nothing.',
+    inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+    run: () => get('/api/v1/transition/index'),
+  },
+  {
+    name: 'list_templates',
+    description:
+      'The templates library: free XLSX and DOCX files (AI system inventory, risk register, FRIA, policies, incident playbook, EU AI Act and ISO/IEC 42001 kits) generated from the recorded duties, controls and deadlines and rebuilt when the records change. Each entry gives the latest version, its dataset hash, what it covers and the download URLs. Filter by type, topic or framework.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', description: 'register, assessment, policy, procedure, checklist, crosswalk or kit.' },
+        topic: { type: 'string', description: 'inventory, risk, governance, transparency, incidents, vendors, oversight, workforce or evidence.' },
+        framework: { type: 'string', description: 'eu-ai-act, iso-42001, nist-ai-rmf or colorado-ai-act.' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/templates' + query({ type: args.type, topic: args.topic, framework: args.framework })),
   },
   {
     name: 'open_gaps',

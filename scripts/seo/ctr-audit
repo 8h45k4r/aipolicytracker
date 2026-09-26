@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+# Pages that rank on the first page of Google and are not being clicked.
+#
+#   scripts/seo/ctr-audit Pages.csv
+#   scripts/seo/ctr-audit Queries.csv --out=ctr-findings.csv
+#   scripts/seo/ctr-audit export.csv --min-impressions=50 --max-ctr=3
+#
+# Takes a Search Console export (Performance > Export > Download CSV). Lists
+# rows at position <=10 with >=100 impressions and CTR <2%, next to the title
+# this checkout serves now and a suggested rewrite. Reads the local database, so
+# run it where the site's data is imported (locally, or inside the container:
+# docker exec -i aip-app php artisan seo:ctr-audit /tmp/Pages.csv).
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+exec php artisan seo:ctr-audit "$@"

@@ -16,10 +16,14 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Home: {{ route('home') }}
 - Policy explorer: {{ route('policies.index') }}
 - Jurisdictions: {{ route('jurisdictions.index') }}
+- Country hubs (/ai-regulation-<country>: answer box, instrument table with native-language names, timeline, duties, regulators, deadlines, updates feed) and regional hubs: @foreach(\App\Services\Hubs\HubCatalog::regions() as $slug => $name){{ \App\Services\Hubs\HubCatalog::regionUrl($slug) }}@if(!$loop->last), @endif @endforeach
+- Compare any two jurisdictions (/compare/<a>-vs-<b>: side-by-side table, obligation overlap by category, what is left for one side if you comply with the other): {{ route('compare.index') }}
 - Obligations: {{ route('obligations.index') }}
 - Controls (one control, the duties it satisfies, the evidence it produces): {{ route('controls.index') }}
 - Compare: {{ route('compare.index') }}
-- Change log: {{ route('changes.index') }} (RSS: {{ route('changes.feed') }})
+- AI policy updates (latest changes with a computed summary, top stories by a published rule, month and day archives, one page and RSS feed per jurisdiction): {{ route('updates.index') }}
+- Change log: {{ route('changes.index') }} (RSS: {{ route('changes.feed') }}; Google News sitemap: {{ route('sitemap.news') }})
+- Weekly digest archive: {{ route('newsletter.index') }}
 - AI risk domains (MIT AI Risk Repository taxonomy with incident counts): {{ route('risk.index') }}
 - AI incidents summary (AI Incident Database, weekly): {{ route('risk.incidents') }}
 - Browse and export incidents: {{ route('risk.incidents.browse') }} (CSV: {{ route('risk.incidents.export', 'csv') }})
@@ -27,9 +31,16 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Frameworks behind the risk database: {{ route('risk.frameworks') }}
 - Law-to-standard crosswalks (which legal duties map to ISO/IEC 42001 and the NIST AI RMF): {{ route('frameworks.index') }}
 - Frameworks compared, with the reuse matrix by duty category: {{ route('frameworks.compare') }}
-- Applicability check (educational): {{ route('tools.applicability') }}
+- Applicability check (educational), with an obligations register export as XLSX, CSV, JSON or PDF (state in the URL; API: {{ route('api.v1.applicability.register') }}): {{ route('tools.applicability') }}
+- Which date applies to you (five questions, a personal timeline from recorded deadlines with the reason each applies, .ics and PDF; API POST /api/v1/deadlines/applicable): {{ route('deadlines.engine') }}
+- AI economic transition tracker (dividends, basic income, AI taxes, funds, layoff disclosure, retraining, worker voice; drafts are labelled and never scored; displacement policy index with published method): {{ route('transition.index') }} (index method: {{ route('transition.methodology') }}; API: {{ route('api.v1.transition.measures') }})
+- State of AI regulation (quarterly report computed from the records: jurisdictions by level of AI law, instruments, changes, deadlines, verification; past quarters frozen; CSV): {{ route('state-of.show') }}
+- Embeddable widgets (jurisdiction card, deadlines, map; framable only under /embed): {{ route('embed.index') }}
+- Reviewers, each with a profile page, declared interests and the records they verified: {{ route('reviewers') }}
+- Localised hubs (es, id, pt-BR) for selected countries: our summaries translated, the legal text and facts as recorded; unreviewed translations are noindex.
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
+- Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - Guides: {{ route('guides.index') }}
 - About, maintainers and references: {{ route('about') }}
 - Contact (corrections, press, security): {{ config('aipolicytracker.contact_email') }}

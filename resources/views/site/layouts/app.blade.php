@@ -6,18 +6,20 @@
 --}}
 @php($seo->faqItems() ?: $seo->withFaq(\App\Support\Faq::for(request()->route()?->getName() ?? '')))
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $seo->lang }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $seo->fullTitle() }}</title>
     <meta name="description" content="{{ $seo->description }}">
     <link rel="canonical" href="{{ $seo->canonical }}">
+    @foreach($seo->hreflang as $code => $href)<link rel="alternate" hreflang="{{ $code }}" href="{{ $href }}">
+    @endforeach
     @foreach($seo->alternates as $alt)<link rel="alternate" type="{{ $alt['type'] }}" href="{{ $alt['url'] }}">
     @endforeach<meta name="robots" content="{{ $seo->robots }}">
     <link rel="license" href="{{ config('aipolicytracker.data_license_url') }}">
     <meta property="og:site_name" content="{{ config('aipolicytracker.site_name') }}">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" content="{{ \App\Services\Localization\Translations::LOCALES[$seo->lang]['og'] ?? 'en_US' }}">
     <meta property="og:type" content="{{ $seo->ogType }}">
     <meta property="og:title" content="{{ $seo->title }}">
     <meta property="og:description" content="{{ $seo->description }}">
@@ -41,7 +43,6 @@
     @if(config('aipolicytracker.google_site_verification'))<meta name="google-site-verification" content="{{ config('aipolicytracker.google_site_verification') }}">@endif
     @if(config('aipolicytracker.bing_site_verification'))<meta name="msvalidate.01" content="{{ config('aipolicytracker.bing_site_verification') }}">@endif
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icon-192.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
@@ -144,10 +145,10 @@
     <div class="border-t border-white/10">
         <div class="container-site py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-white/55">
             <p>© {{ date('Y') }} AIPolicyTracker · Code Apache-2.0 · Data {{ config('aipolicytracker.data_license') }}
-                · <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
-                · <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
+                · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
+                · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
             </p>
-            <p>@foreach(config('aipolicytracker.maintainers', []) as $m)Maintained by <a class="text-white/70 hover:text-white no-underline" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/70 hover:text-white no-underline" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
+            <p>@foreach(config('aipolicytracker.maintainers', []) as $m)Maintained by <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
         </div>
     </div>
 </footer>

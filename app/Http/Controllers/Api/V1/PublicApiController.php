@@ -13,12 +13,27 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Models\TemplateVersion;
+use App\Models\TransitionIndicator;
+use App\Models\TransitionMeasure;
+use App\Services\Applicability\ApplicabilityScreener;
+use App\Services\Applicability\ObligationsRegister;
+use App\Services\Deadlines\DeadlineEngine;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentEnrichment;
+use App\Services\ExternalData\IncidentSensitivity;
+use App\Services\PolicyData\DeadlineCalendar;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
+use App\Services\Templates\Records;
+use App\Services\Templates\TemplateCatalog;
+use App\Services\Transition\DisplacementPolicyIndex;
+use App\Support\PageTitle;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -51,8 +66,15 @@ class PublicApiController extends Controller
                 'taxonomies' => route('api.v1.taxonomies'),
                 'frameworks' => route('api.v1.frameworks'),
                 'deadlines' => route('api.v1.deadlines'),
+                'deadlines_applicable' => route('api.v1.deadlines.applicable'),
+                'applicability_register' => route('api.v1.applicability.register'),
+                'watches' => route('api.v1.watches.index'),
                 'incidents' => route('api.v1.incidents'),
                 'risks' => route('api.v1.risks'),
+                'templates' => route('api.v1.templates'),
+                'transition_measures' => route('api.v1.transition.measures'),
+                'transition_indicators' => route('api.v1.transition.indicators'),
+                'transition_index' => route('api.v1.transition.index'),
             ],
             'disclaimer' => config('aipolicytracker.disclaimer'),
         ]);
@@ -288,7 +310,7 @@ class PublicApiController extends Controller
             'from' => preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $request->query('from')) ? $request->query('from') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.incidents.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
+        $key = 'api.incidents.v3.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = ExternalIncident::query()
@@ -305,8 +327,9 @@ class PublicApiController extends Controller
             return [
                 'data' => $page->getCollection()->map(fn ($i) => [
                     'incident_id' => $i->incident_id,
-                    'title' => $i->title,
-                    'description' => $i->description,
+                    'slug' => $i->slug,
+                    'title' => $i->displayTitle(),
+                    'description' => IncidentSensitivity::isSensitive($i) ? IncidentSensitivity::neutralDescription($i) : $i->description,
                     'occurred_on' => $i->occurred_on?->toDateString(),
                     'domain' => $i->mit_domain,
                     'subdomain' => $i->mit_subdomain,
@@ -319,6 +342,11 @@ class PublicApiController extends Controller
                     'developers' => $i->developers,
                     'harmed' => $i->harmed,
                     'report_count' => $i->report_count,
+                    // What this site adds: the policy angle.
+                    'harm_domain' => $i->harm_domain,
+                    'sensitivity' => $i->sensitivity ?? IncidentEnrichment::STANDARD,
+                    'policy_angle' => $i->policy_angle,
+                    'related_policies' => $i->relatedPolicies()->map(fn ($p) => ['slug' => $p->slug, 'title' => $p->short_title ?: $p->title, 'jurisdiction' => $p->jurisdiction?->slug, 'url' => $p->url()])->values()->all(),
                     'url' => $i->url(),
                 ])->all(),
                 'meta' => ['total' => $page->total(), 'current_page' => $page->currentPage(), 'last_page' => $page->lastPage(), 'filters' => $filters] + $this->attribution($this->external->aiid()),
@@ -337,7 +365,7 @@ class PublicApiController extends Controller
             'timing' => in_array($request->query('timing'), ExternalRisk::CAUSAL['timing'], true) ? $request->query('timing') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.risks.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
+        $key = 'api.risks.v2.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $query = ExternalRisk::query();
@@ -355,6 +383,7 @@ class PublicApiController extends Controller
             return [
                 'data' => $page->getCollection()->map(fn ($r) => [
                     'ev_id' => $r->ev_id,
+                    'slug' => $r->slug,
                     'risk_category' => $r->risk_category,
                     'risk_subcategory' => $r->risk_subcategory,
                     'description' => $r->description,
@@ -365,6 +394,7 @@ class PublicApiController extends Controller
                     'timing' => $r->timing,
                     'level' => $r->level,
                     'paper' => $r->quick_ref,
+                    'citation' => PageTitle::citation($r->quick_ref),
                     'paper_title' => $r->paper_title,
                     'url' => $r->url(),
                 ])->all(),
@@ -399,6 +429,192 @@ class PublicApiController extends Controller
                 'slug' => $obligation->policyInstrument->jurisdiction->slug,
                 'name' => $obligation->policyInstrument->jurisdiction->name,
             ],
+        ];
+    }
+
+    /** The templates library: what each template is, its latest version, and where the files are. */
+    public function templates(Request $request): JsonResponse
+    {
+        $filters = [
+            'type' => array_key_exists((string) $request->query('type'), config('templates.types')) ? $request->query('type') : null,
+            'topic' => array_key_exists((string) $request->query('topic'), config('templates.topics')) ? $request->query('topic') : null,
+            'framework' => array_key_exists((string) $request->query('framework'), config('templates.frameworks')) ? $request->query('framework') : null,
+        ];
+
+        return $this->cached('api.templates.v1.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
+            $latest = TemplateVersion::latestAll();
+            $items = TemplateCatalog::filter(TemplateCatalog::all(), $filters)->values();
+
+            return [
+                'data' => $items->map(fn ($m) => $this->templateRow($m, $latest[$m['slug']] ?? null))->all(),
+                'meta' => ['total' => $items->count(), 'filters' => $filters, 'types' => config('templates.types'), 'topics' => config('templates.topics'), 'frameworks' => config('templates.frameworks'), 'license' => 'CC BY 4.0', 'license_url' => 'https://creativecommons.org/licenses/by/4.0/', 'disclaimer' => config('templates.disclaimer')],
+            ];
+        });
+    }
+
+    public function template(string $slug): JsonResponse
+    {
+        $meta = TemplateCatalog::find($slug);
+        abort_unless($meta, 404);
+        $latest = TemplateVersion::latestFor($slug);
+
+        return $this->cached('api.template.v1.'.$slug.'.'.($latest?->id ?? 0), function () use ($meta, $latest, $slug) {
+            $covered = Records::obligations(TemplateCatalog::obligationFilter($meta));
+
+            return [
+                'data' => $this->templateRow($meta, $latest) + [
+                    'inside' => $meta['inside'] ?? [],
+                    'legal_basis' => array_values($meta['legal_basis'] ?? []),
+                    'caveat' => $meta['caveat'] ?? null,
+                    'covered_obligations' => $covered->map(fn ($o) => ['slug' => $o->slug, 'title' => $o->title, 'policy' => $o->policyInstrument->slug, 'source_reference' => $o->source_reference, 'url' => $o->url()])->values()->all(),
+                    'versions' => TemplateVersion::for($slug)->orderByDesc('version')->get()->map(fn ($v) => ['version' => $v->version, 'generated_at' => $v->generated_at->toAtomString(), 'dataset_version' => $v->dataset_version, 'changelog' => $v->changelog, 'stats' => $v->stats])->all(),
+                ],
+                'meta' => ['license' => 'CC BY 4.0', 'license_url' => 'https://creativecommons.org/licenses/by/4.0/', 'disclaimer' => config('templates.disclaimer')],
+            ];
+        });
+    }
+
+    /** Sends the caller to the file; the site route serves it, counts it and sets the headers. */
+    public function templateDownload(Request $request, string $slug): RedirectResponse
+    {
+        $meta = TemplateCatalog::find($slug);
+        abort_unless($meta, 404);
+        $format = (string) $request->query('format', $meta['formats'][0] ?? 'xlsx');
+        abort_unless(in_array($format, $meta['formats'] ?? [], true), 404);
+
+        return redirect()->to(route('templates.download', ['slug' => $slug, 'format' => $format]), 302);
+    }
+
+    private function templateRow(array $meta, ?TemplateVersion $version): array
+    {
+        return [
+            'slug' => $meta['slug'],
+            'title' => $meta['title'],
+            'type' => $meta['type'],
+            'formats' => array_values($meta['formats'] ?? []),
+            'topics' => array_values($meta['topics'] ?? []),
+            'frameworks' => array_values($meta['frameworks'] ?? []),
+            'short' => $meta['short'],
+            'covers' => $meta['covers'] ?? [],
+            'version' => $version?->version,
+            'dataset_version' => $version?->dataset_version,
+            'generated_at' => $version?->generated_at?->toAtomString(),
+            'citations' => $version?->stats['citations'] ?? null,
+            'downloads' => $version ? (int) TemplateVersion::for($meta['slug'])->sum('downloads') : 0,
+            'files' => $version ? array_map(fn ($f) => ['format' => $f['format'], 'filename' => $f['filename'], 'bytes' => $f['bytes'], 'url' => $version->downloadUrl($f['format'])], $version->files) : [],
+            'url' => TemplateCatalog::url($meta['slug']),
+        ];
+    }
+
+    /** The deadline engine's question, answered as JSON: which recorded dates apply, and why. */
+    public function applicableDeadlines(Request $request, DeadlineEngine $engine): JsonResponse
+    {
+        $request->validate(['jurisdictions' => ['required', 'array', 'min:1', 'max:8'], 'jurisdictions.*' => ['string', 'regex:/^[a-z0-9-]+$/'], 'role' => ['nullable', 'string'], 'risk' => ['nullable', 'string'], 'system_types' => ['nullable', 'array'], 'sectors' => ['nullable', 'array'], 'use_cases' => ['nullable', 'array']]);
+        $answers = $engine->normalise($request->all());
+        $rows = $engine->applicable($answers);
+        $query = array_filter($answers, fn ($v) => $v !== null && $v !== []);
+
+        return $this->respond([
+            'data' => $rows->map(fn ($r) => $this->deadlineRow($r['deadline']) + [
+                'why' => $r['why'],
+                'matched_on' => $r['level'],
+                'originally' => $r['revision'] ? ['due_on' => $r['revision']->from_due_on?->toDateString(), 'label' => $r['revision']->from_label, 'changed_at' => $r['revision']->changed_at->toAtomString()] : null,
+            ])->all(),
+            'meta' => ['total' => $rows->count(), 'answers' => $answers, 'ics_url' => route('deadlines.engine.ics', $query), 'page_url' => route('deadlines.engine', $query + ['step' => 5]), 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'disclaimer' => 'A filter over recorded dates by recorded scope; not a determination that any law applies.'],
+        ]);
+    }
+
+    public function applicableDeadlinesIcs(Request $request, DeadlineEngine $engine, DeadlineCalendar $calendar): Response
+    {
+        $answers = $engine->normalise($request->query());
+        abort_if($answers['jurisdictions'] === [], 404);
+        $events = $engine->applicable($answers)->map(fn ($r) => $r['deadline'])->filter(fn ($d) => $d->due_on && $d->date_precision === DeadlineCalendar::PUBLISHABLE_PRECISION && in_array($d->deadline_status, DeadlineCalendar::PUBLISHABLE_STATUS, true))->values();
+
+        return response($calendar->render($events, 'AI regulation dates that apply to you', 'Recorded dates filtered by your answers. Informational only; not legal advice.'), 200, ['Content-Type' => 'text/calendar; charset=UTF-8', 'Cache-Control' => 'private, no-store']);
+    }
+
+    private function deadlineRow(Deadline $d): array
+    {
+        return [
+            'title' => $d->title,
+            'due_on' => $d->due_on?->toDateString(),
+            'date_precision' => $d->date_precision,
+            'date_label' => $d->date_label,
+            'status' => $d->deadline_status,
+            'confidence' => $d->confidence_level,
+            'description' => $d->description,
+            'jurisdiction' => $d->policyInstrument->jurisdiction->slug,
+            'policy' => $d->policyInstrument->slug,
+            'obligation' => $d->obligation?->slug,
+            'source_reference' => $d->source_reference,
+            'official_source_url' => $d->official_source_url,
+        ];
+    }
+
+    /** The applicability check's obligations register as JSON, with links to the file formats. */
+    public function applicabilityRegister(Request $request, ApplicabilityScreener $screener, ObligationsRegister $register): JsonResponse
+    {
+        $answers = $screener->normalise($request->query());
+        if ($answers['jurisdictions'] === []) {
+            return response()->json(['message' => 'At least one published jurisdiction slug is required (jurisdictions[]=eu).'], 422);
+        }
+
+        return $this->respond($register->json($register->build($answers)));
+    }
+
+    /** AI economic transition measures; drafts carry review_status "draft" and empty facts, never guesses. */
+    public function transitionMeasures(Request $request): JsonResponse
+    {
+        $filters = [
+            'type' => array_key_exists((string) $request->query('type'), TransitionMeasure::TYPES) ? $request->query('type') : null,
+            'status' => array_key_exists((string) $request->query('status'), TransitionMeasure::STATUSES) ? $request->query('status') : null,
+            'jurisdiction' => preg_match('/^[a-z0-9-]+$/', (string) $request->query('jurisdiction')) ? $request->query('jurisdiction') : null,
+        ];
+
+        return $this->cached('api.transition.measures.v1.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
+            $rows = TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')
+                ->when($filters['type'], fn ($q, $t) => $q->where('measure_type', $t))
+                ->when($filters['status'], fn ($q, $t) => $q->where('status', $t))
+                ->when($filters['jurisdiction'], fn ($q, $j) => $q->whereHas('jurisdiction', fn ($w) => $w->where('slug', $j)))
+                ->orderBy('title')->get();
+
+            return ['data' => $rows->map(fn ($m) => $this->transitionRow($m))->all(), 'meta' => ['total' => $rows->count(), 'verified' => $rows->filter(fn ($m) => ! $m->isDraft())->count(), 'filters' => $filters, 'types' => TransitionMeasure::TYPES, 'statuses' => TransitionMeasure::STATUSES, 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'A draft has been listed for research and not yet read from an official source; its facts are null, not unknown-but-guessed.']];
+        });
+    }
+
+    public function transitionMeasure(string $slug): JsonResponse
+    {
+        $m = TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')->where('slug', $slug)->first();
+        abort_unless($m, 404);
+
+        return $this->respond(['data' => $this->transitionRow($m) + ['arguments_for' => $m->arguments_for ?? [], 'arguments_against' => $m->arguments_against ?? [], 'sources' => $m->sources ?? [], 'notes' => $m->notes], 'meta' => ['license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url')]]);
+    }
+
+    public function transitionIndicators(): JsonResponse
+    {
+        return $this->cached('api.transition.indicators.v1', function () {
+            $rows = TransitionIndicator::whereNotNull('published_at')->with('jurisdiction')->orderBy('title')->get();
+
+            return ['data' => $rows->map(fn ($i) => ['slug' => $i->slug, 'title' => $i->title, 'jurisdiction' => $i->jurisdiction?->slug, 'unit' => $i->unit, 'frequency' => $i->frequency, 'description' => $i->description, 'series' => $i->points(), 'review_status' => $i->review_status, 'confidence_level' => $i->confidence_level, 'official_source_url' => $i->official_source_url, 'last_verified_at' => $i->last_verified_at?->toAtomString()])->all(), 'meta' => ['total' => $rows->count(), 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url')]];
+        });
+    }
+
+    public function transitionIndex(): JsonResponse
+    {
+        $rows = DisplacementPolicyIndex::latest();
+
+        return $this->respond(['data' => $rows->map(fn ($s) => ['jurisdiction' => $s->jurisdiction->slug, 'jurisdiction_name' => $s->jurisdiction->name, 'quarter' => $s->quarter, 'version' => $s->version, 'score' => $s->score, 'subscores' => $s->subscores, 'inputs' => $s->inputs, 'computed_at' => $s->computed_at->toAtomString()])->values()->all(), 'meta' => DisplacementPolicyIndex::explain() + ['total' => $rows->count(), 'methodology_url' => route('transition.methodology'), 'license' => config('aipolicytracker.data_license')]]);
+    }
+
+    private function transitionRow(TransitionMeasure $m): array
+    {
+        return [
+            'slug' => $m->slug, 'title' => $m->title, 'jurisdiction' => $m->jurisdiction->slug, 'jurisdiction_name' => $m->jurisdiction->name,
+            'measure_type' => $m->measure_type, 'status' => $m->status, 'summary' => $m->summary, 'mechanism' => $m->mechanism, 'funding' => $m->funding,
+            'trigger' => $m->trigger, 'benefit' => $m->benefit, 'cost' => $m->cost, 'bill_number' => $m->bill_number, 'sponsors' => $m->sponsors ?? [],
+            'introduced_on' => $m->introduced_on?->toDateString(), 'enacted_on' => $m->enacted_on?->toDateString(), 'in_force_on' => $m->in_force_on?->toDateString(),
+            'official_source_url' => $m->official_source_url, 'source_publisher' => $m->source_publisher, 'source_tier' => $m->source_tier,
+            'review_status' => $m->review_status, 'confidence_level' => $m->confidence_level, 'last_verified_at' => $m->last_verified_at?->toAtomString(), 'draft' => $m->isDraft(), 'url' => $m->url(),
         ];
     }
 

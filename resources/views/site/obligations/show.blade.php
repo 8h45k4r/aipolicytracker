@@ -16,6 +16,7 @@
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
+            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
             <section aria-labelledby="req-heading"><h2 id="req-heading" class="section-title">What does it require?</h2><p class="prose-policy mt-2">{{ $obligation->summary }}</p></section>
             @if($obligation->practical_action)<section aria-labelledby="action-heading" class="mt-8"><h2 id="action-heading" class="section-title">Practical action</h2><p class="prose-policy mt-2">{{ $obligation->practical_action }}</p></section>@endif
             <section aria-labelledby="who-heading" class="mt-8">
@@ -46,6 +47,18 @@
                 </ul>
             </section>
             @endif
+            @if(isset($templates) && $templates->isNotEmpty())
+            <section aria-labelledby="templates-heading" class="mt-8">
+                <h2 id="templates-heading" class="section-title">Templates that cover this duty</h2>
+                <p class="mt-1 text-xs text-brand-muted">Generated from the records, free, no account: this duty is cited in each file with its source reference and a link back here.</p>
+                <ul class="mt-3 grid gap-3 sm:grid-cols-2 text-sm">
+                    @foreach($templates->take(4) as $t)
+                    <li class="card-flat p-3"><a href="{{ route('templates.show', $t['slug']) }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $t['title'] }}</a><p class="mt-0.5 text-xs text-brand-muted">{{ \App\Services\Templates\TemplateCatalog::typeLabel($t['type']) }} · {{ \App\Services\Templates\TemplateCatalog::formatList($t) }}@if($t['version']) · {{ $t['version']->label() }}@endif</p></li>
+                    @endforeach
+                </ul>
+                @if($templates->count() > 4)<p class="mt-2 text-sm"><a href="{{ route('templates.index') }}" class="text-brand-blue hover:underline">All {{ $templates->count() }} templates that cover it →</a></p>@endif
+            </section>
+            @endif
             @if($obligation->evidenceArtifacts->isNotEmpty())
             <section aria-labelledby="evidence-heading" class="mt-8"><h2 id="evidence-heading" class="section-title">What evidence would a reviewer expect?</h2>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Evidence examples</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Type</th><th scope="col">Notes</th></tr></thead><tbody>@foreach($obligation->evidenceArtifacts as $e)<tr><td class="font-medium text-brand-navy">{{ $e->title }}</td><td class="whitespace-nowrap">{{ str_replace('_', ' ', $e->artifact_type) }}</td><td>{{ $e->description }}</td></tr>@endforeach</tbody></table></div>
@@ -62,6 +75,7 @@
                 </tbody></table></div>
             </section>
             @endif
+            <x-site.faq :items="$seo->faqItems()" />
             <x-site.cite :title="$obligation->title.' ('.($policy->short_title ?: $policy->title).')'" :url="$obligation->url()" :source-url="$obligation->official_source_url" :source-title="$policy->source_title" :publisher="$policy->source_publisher" class="mt-8" />
             @if($similar->isNotEmpty())
             <section aria-labelledby="similar-heading" class="mt-8"><h2 id="similar-heading" class="section-title">Similar obligations in other instruments</h2><ul class="mt-2 space-y-2 text-sm">@foreach($similar as $s)<li><a href="{{ $s->url() }}" class="text-brand-navy hover:underline">{{ $s->title }}</a> <span class="text-xs text-brand-muted">— {{ $s->policyInstrument->short_title ?: $s->policyInstrument->title }}, {{ $s->policyInstrument->jurisdiction->name }}{{ $s->is_binding ? '' : ' (voluntary)' }}</span></li>@endforeach</ul></section>

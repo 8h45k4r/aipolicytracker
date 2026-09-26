@@ -6,8 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
+use App\Services\Hubs\HubCatalog;
+use App\Services\Localization\Translations;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Records\AnswerBox;
+use App\Services\Records\KeyFacts;
+use App\Services\Records\QuestionBank;
+use App\Support\PageTitle;
 use App\Support\Seo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class JurisdictionController extends Controller
@@ -33,11 +40,17 @@ class JurisdictionController extends Controller
         return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions'));
     }
 
-    public function show(Jurisdiction $jurisdiction, PolicyCatalog $catalog): View
+    public function show(Jurisdiction $jurisdiction, PolicyCatalog $catalog): View|RedirectResponse
     {
         abort_unless($jurisdiction->published_at, 404);
+        // A country with a hub has one address: the old one redirects to it.
+        if ($jurisdiction->hubSlug() && request()->route()?->getName() === 'jurisdictions.show') {
+            return redirect()->to($jurisdiction->url(), 301);
+        }
         $jurisdiction->load(['parent', 'children' => fn ($q) => $q->published()]);
-        $policies = $jurisdiction->policyInstruments()->published()->with('terms')->orderByDesc('featured')->orderByDesc('is_binding')->orderBy('title')->get();
+        $policies = $jurisdiction->policyInstruments()->published()->with(['terms', 'deadlines'])->orderByDesc('featured')->orderByDesc('is_binding')->orderBy('title')->get();
+        $timeline = HubCatalog::timeline($policies);
+        $region = HubCatalog::regionSlugFor($jurisdiction->region);
         $changes = ChangeEvent::published()->where('jurisdiction_id', $jurisdiction->id)->with('policyInstrument')->orderByDesc('occurred_on')->limit(8)->get();
         $deadlines = $catalog->upcomingDeadlines(8, $jurisdiction->id);
         $obligationCategories = Obligation::published()->whereIn('policy_instrument_id', $policies->pluck('id'))->selectRaw('category, COUNT(*) as n')->groupBy('category')->orderByDesc('n')->get();
@@ -53,12 +66,33 @@ class JurisdictionController extends Controller
             ->map(fn ($rows) => ['control' => $rows->first()['control'], 'satisfies' => $rows->where('satisfies', true)->count(), 'duties' => $rows->count()])
             ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
+        $answer = AnswerBox::jurisdiction($jurisdiction, $policies, $deadlines);
+        // A localised hub: our own summary in the reader's language, the facts as recorded.
+        $locale = (string) request()->attributes->get('locale', '');
+        $translation = $locale !== '' ? Translations::for($locale, 'hub:'.$jurisdiction->slug) : null;
+        abort_if($locale !== '' && ! $translation, 404);
+        $reviewedTranslation = Translations::isReviewed($translation);
+        $englishUrl = $jurisdiction->url();
+        $localUrl = $locale !== '' ? route('hubs.localized', ['locale' => $locale, 'hub' => $jurisdiction->hubSlug()]) : null;
+        if ($translation) {
+            $answer = $translation['answer'] ?? $answer;
+        }
+        $hreflang = [];
+        if ($jurisdiction->hubSlug()) {
+            $hreflang = ['en' => $englishUrl, 'x-default' => $englishUrl];
+            foreach (Translations::availableFor('hub:'.$jurisdiction->slug) as $alt) {
+                $hreflang[Translations::LOCALES[$alt['locale']]['hreflang']] = route('hubs.localized', ['locale' => $alt['locale'], 'hub' => $jurisdiction->hubSlug()]);
+            }
+        }
+        $facts = KeyFacts::jurisdiction($jurisdiction, $policies, $deadlines, (int) $obligationCategories->sum('n'));
+
         $seo = Seo::make(
-            'AI regulation in '.$jurisdiction->nameWithArticle().': laws, status and deadlines',
-            'AI regulation in '.$jurisdiction->nameWithArticle().': '.$this->firstSentence($jurisdiction->regulatory_status_summary).' Official sources, obligations and upcoming deadlines.',
-            $jurisdiction->url(),
-            $jurisdiction->isIndexable()
-        )->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], [$jurisdiction->name, $jurisdiction->url()]])
+            $translation['title'] ?? PageTitle::jurisdiction($jurisdiction),
+            $answer,
+            $reviewedTranslation ? $localUrl : $englishUrl,
+            $jurisdiction->isPageIndexable() && ($translation === null || $reviewedTranslation)
+        )->withLanguage($locale !== '' ? $locale : 'en')->withHreflang($hreflang)->withBreadcrumbs(array_values(array_filter([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], $region ? [$jurisdiction->region, HubCatalog::regionUrl($region)] : null, [$jurisdiction->name, $jurisdiction->url()]])))
+            ->withFeed(route('updates.jurisdiction.feed', $jurisdiction->slug))
             ->withModified($lastModified)
             ->withPublished($jurisdiction->created_at)
             ->withCard('jurisdiction', $jurisdiction->slug, $lastModified)
@@ -66,6 +100,7 @@ class JurisdictionController extends Controller
             ->withPageProperties(Seo::provenance($jurisdiction))
             ->withPageType('CollectionPage', [
                 'name' => 'AI regulation in '.$jurisdiction->nameWithArticle(),
+                'description' => $answer,
                 'about' => ['@type' => $jurisdiction->jurisdiction_type === 'supranational' ? 'AdministrativeArea' : ($jurisdiction->jurisdiction_type === 'state' ? 'State' : 'Country'), 'name' => $jurisdiction->name],
                 'mainEntity' => Seo::itemList($policies, fn ($p) => $p->title, fn ($p) => $p->url(), 'AI policy instruments recorded for '.$jurisdiction->name),
             ])
@@ -76,11 +111,9 @@ class JurisdictionController extends Controller
                 ['text/markdown' => route('jurisdictions.context', $jurisdiction->slug)],
                 $lastModified,
             ));
-        if (! empty($jurisdiction->faq)) {
-            $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($jurisdiction->faq)->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => trim($f['answer'])]])->values()->all()]);
-        }
+        $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl'));
     }
 
     private function firstSentence(?string $text): string

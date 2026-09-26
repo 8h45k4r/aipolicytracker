@@ -8,6 +8,7 @@ use App\Models\Control;
 use App\Models\ControlEvidence;
 use App\Models\ControlFrameworkReference;
 use App\Models\Deadline;
+use App\Models\DeadlineRevision;
 use App\Models\EnforcementEvent;
 use App\Models\EvidenceArtifact;
 use App\Models\FrameworkMapping;
@@ -20,6 +21,9 @@ use App\Models\ProcurementRule;
 use App\Models\RecordVerification;
 use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
+use App\Models\TransitionIndicator;
+use App\Models\TransitionMeasure;
+use App\Services\Transition\DisplacementPolicyIndex;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +54,7 @@ class PolicyImporter
             $this->importControls();
             $this->importPolicies();
             $this->importChanges();
+            $this->importTransition();
         });
 
         // Human verification decisions recorded in the admin outlive every re-import.
@@ -156,6 +161,7 @@ class PolicyImporter
                 'jurisdiction_id' => $jurisdiction->id,
                 'title' => $record['title'],
                 'short_title' => $record['short_title'] ?? null,
+                'title_native' => $record['title_native'] ?? null,
                 'instrument_type' => $record['instrument_type'],
                 'status' => $record['status'],
                 'status_note' => $record['status_note'] ?? null,
@@ -246,9 +252,12 @@ class PolicyImporter
                 ApplicabilityRule::create(['policy_instrument_id' => $policy->id, ...Arr::only($rule, ['description', 'actors', 'ai_system_types', 'sectors', 'risk_categories', 'use_cases', 'conditions', 'source_reference'])]);
             }
 
+            // Deadlines are replaced wholesale; what the previous rows said is kept
+            // long enough to record any date that moved (P7: "originally X, now Y").
+            $previous = $policy->deadlines()->get()->keyBy(fn ($d) => DeadlineRevision::keyFor($d->title));
             $policy->deadlines()->delete();
             foreach ($record['deadlines'] ?? [] as $i => $deadline) {
-                Deadline::create([
+                $created = Deadline::create([
                     'policy_instrument_id' => $policy->id,
                     'obligation_id' => isset($deadline['obligation'], $obligationsBySlug[$deadline['obligation']]) ? $obligationsBySlug[$deadline['obligation']]->id : null,
                     'sort_order' => $i,
@@ -256,6 +265,15 @@ class PolicyImporter
                     'confidence_level' => $deadline['confidence_level'] ?? $record['confidence_level'],
                     ...Arr::only($deadline, ['title', 'due_on', 'date_precision', 'date_label', 'description', 'source_reference', 'official_source_url']),
                 ]);
+                $was = $previous->get(DeadlineRevision::keyFor($created->title));
+                if ($was && ($was->due_on?->toDateString() !== $created->due_on?->toDateString() || $was->deadline_status !== $created->deadline_status)) {
+                    DeadlineRevision::create([
+                        'policy_instrument_id' => $policy->id, 'deadline_key' => DeadlineRevision::keyFor($created->title), 'title' => $created->title,
+                        'from_due_on' => $was->due_on, 'to_due_on' => $created->due_on, 'from_status' => $was->deadline_status, 'to_status' => $created->deadline_status,
+                        'from_label' => $was->date_label, 'to_label' => $created->date_label, 'changed_at' => now(), 'source' => 'import',
+                    ]);
+                    $this->stats['deadline_revisions'] = ($this->stats['deadline_revisions'] ?? 0) + 1;
+                }
             }
 
             $policy->enforcementEvents()->delete();
@@ -347,5 +365,55 @@ class PolicyImporter
     private function publishedAt(array $record): ?Carbon
     {
         return ($record['published'] ?? true) ? now() : null;
+    }
+
+    /** Transition measures and indicators, replaced from data/transition; then the index snapshot for the current quarter. */
+    private function importTransition(): void
+    {
+        $kept = [];
+        foreach ($this->repository->transitionMeasures() as $record) {
+            $jurisdiction = Jurisdiction::where('slug', $record['jurisdiction'])->firstOrFail();
+            $m = TransitionMeasure::updateOrCreate(['slug' => $record['slug']], [
+                'jurisdiction_id' => $jurisdiction->id,
+                'title' => $record['title'],
+                'measure_type' => $record['measure_type'],
+                'status' => $record['status'],
+                'sponsors' => array_values($record['sponsors'] ?? []),
+                'arguments_for' => array_values($record['arguments_for'] ?? []),
+                'arguments_against' => array_values($record['arguments_against'] ?? []),
+                'sources' => array_values($record['sources'] ?? []),
+                ...Arr::only($record, ['summary', 'mechanism', 'funding', 'trigger', 'benefit', 'cost', 'bill_number', 'introduced_on', 'enacted_on', 'in_force_on', 'notes']),
+                ...$this->sourceQuality($record + ['source_tier' => $record['source_tier'] ?? 4, 'review_status' => $record['review_status'] ?? 'draft', 'confidence_level' => $record['confidence_level'] ?? 'low']),
+                'published_at' => ($record['published'] ?? true) ? now() : null,
+            ]);
+            $kept[] = $m->id;
+            $this->stats['transition_measures'] = ($this->stats['transition_measures'] ?? 0) + 1;
+        }
+        TransitionMeasure::whereNotIn('id', $kept)->delete();
+        $keptIndicators = [];
+        foreach ($this->repository->transitionIndicators() as $record) {
+            $jurisdiction = ! empty($record['jurisdiction']) ? Jurisdiction::where('slug', $record['jurisdiction'])->first() : null;
+            $i = TransitionIndicator::updateOrCreate(['slug' => $record['slug']], [
+                'jurisdiction_id' => $jurisdiction?->id,
+                'title' => $record['title'],
+                'unit' => $record['unit'],
+                'description' => $record['description'] ?? null,
+                'frequency' => $record['frequency'] ?? 'irregular',
+                'series' => array_values($record['series'] ?? []),
+                'official_source_url' => $record['official_source_url'] ?? null,
+                'source_publisher' => $record['source_publisher'] ?? null,
+                'source_tier' => $record['source_tier'] ?? 4,
+                'last_checked_at' => $record['last_checked_at'] ?? null,
+                'last_verified_at' => $record['last_verified_at'] ?? null,
+                'review_status' => $record['review_status'] ?? 'draft',
+                'confidence_level' => $record['confidence_level'] ?? 'low',
+                'reviewed_by' => $record['reviewed_by'] ?? null,
+                'published_at' => ($record['published'] ?? true) ? now() : null,
+            ]);
+            $keptIndicators[] = $i->id;
+            $this->stats['transition_indicators'] = ($this->stats['transition_indicators'] ?? 0) + 1;
+        }
+        TransitionIndicator::whereNotIn('id', $keptIndicators)->delete();
+        DisplacementPolicyIndex::compute();
     }
 }

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aipolicytracker.org/schema/transition-measure.schema.json",
+  "title": "AI economic transition measure",
+  "description": "A proposal, bill, programme or law that responds to AI-driven economic change: a dividend, a basic income, an AI tax, a fund, a layoff-disclosure duty, retraining or worker-voice provisions. Every factual field is optional and null until a reviewer has read the official source; a record starts as a draft.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "title", "jurisdiction", "measure_type", "status", "review_status"],
+  "properties": {
+    "slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "title": { "type": "string", "minLength": 5 },
+    "jurisdiction": { "$ref": "common.schema.json#/$defs/slug" },
+    "measure_type": { "type": "string", "enum": ["ai_dividend", "universal_basic_income", "ai_tax", "sovereign_wealth_fund", "layoff_disclosure", "retraining", "worker_voice", "transition_benefit", "other"] },
+    "status": { "type": "string", "enum": ["unverified", "proposed", "introduced", "in_committee", "passed_chamber", "enacted", "in_force", "pilot", "withdrawn", "expired"] },
+    "summary": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "mechanism": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "funding": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "trigger": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "benefit": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "cost": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "bill_number": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "sponsors": { "type": "array", "items": { "type": "string", "minLength": 2 } },
+    "introduced_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "enacted_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "in_force_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "arguments_for": { "type": "array", "items": { "$ref": "#/$defs/attributedArgument" } },
+    "arguments_against": { "type": "array", "items": { "$ref": "#/$defs/attributedArgument" } },
+    "sources": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/sourceDocument" } },
+    "official_source_url": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "source_title": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "source_publisher": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "source_document_date": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "source_reference": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "source_tier": { "$ref": "common.schema.json#/$defs/sourceTier" },
+    "last_checked_at": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "last_verified_at": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "review_status": { "$ref": "common.schema.json#/$defs/reviewStatus" },
+    "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" },
+    "reviewed_by": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "notes": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "published": { "type": "boolean" }
+  },
+  "$defs": {
+    "attributedArgument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "attributed_to"],
+      "properties": {
+        "claim": { "type": "string", "minLength": 10 },
+        "attributed_to": { "type": "string", "minLength": 2 },
+        "source_url": { "$ref": "common.schema.json#/$defs/nullableString" }
+      }
+    }
+  }
+}

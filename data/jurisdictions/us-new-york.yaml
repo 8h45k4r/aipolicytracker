@@ -49,8 +49,10 @@ source_title: Automated Employment Decision Tools (Local Law 144 of 2021)
 source_publisher: NYC Department of Consumer and Worker Protection
 source_document_date: '2023-07-05'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: medium
 content_version: 1
 change_summary: >-

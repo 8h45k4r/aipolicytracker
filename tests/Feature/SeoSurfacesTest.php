@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\ChangeEvent;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\FrameworkCrosswalk;
+use App\Support\PageTitle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -62,16 +63,26 @@ class SeoSurfacesTest extends TestCase
         $this->assertSame('#002147', $manifest['theme_color']);
     }
 
-    public function test_titles_fit_a_result_page_without_a_truncation_mark(): void
+    /**
+     * Every policy <title> is at most sixty characters, brand included, and is
+     * cut only when the name, abbreviated where that loses nothing, cannot sit
+     * beside its jurisdiction in that space. A name that fits is never cut.
+     */
+    public function test_titles_fit_a_result_page_and_are_cut_only_when_they_must_be(): void
     {
-        foreach (PolicyInstrument::published()->get()->filter->isIndexable() as $policy) {
+        foreach (PolicyInstrument::published()->with('jurisdiction')->get()->filter->isIndexable() as $policy) {
             $html = $this->get($policy->url())->assertOk()->getContent();
             preg_match('#<title>(.*?)</title>#s', $html, $m);
-            $title = html_entity_decode($m[1]);
-            if (mb_strlen($policy->short_title ?: $policy->title) <= 70) {
-                $this->assertStringNotContainsString('…', $title, $policy->slug.' has a truncated title');
+            $title = html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5);
+            $this->assertLessThanOrEqual(PageTitle::MAX, mb_strlen($title), $policy->slug);
+            $this->assertFalse(PageTitle::leaksIdentifier($title), $policy->slug.': '.$title);
+
+            $name = PageTitle::compact($policy->short_title ?: $policy->title);
+            $place = $policy->jurisdiction?->short_name ?: $policy->jurisdiction?->name;
+            $needed = mb_strlen($name) + (str_contains($name, (string) $place) ? 0 : mb_strlen(" ({$place})"));
+            if ($needed <= PageTitle::MAX) {
+                $this->assertStringNotContainsString('…', $title, $policy->slug.' was cut although it fits');
             }
-            $this->assertLessThanOrEqual(70 + mb_strlen(' | AIPolicyTracker'), mb_strlen($title), $policy->slug);
         }
     }
 
@@ -83,8 +94,11 @@ class SeoSurfacesTest extends TestCase
         $page->assertSee($change->title)->assertSee('What changed?')->assertSee('Cite this record')->assertSee($change->official_source_url, false);
         $html = $page->getContent();
         $this->assertStringContainsString('<link rel="canonical" href="'.$change->url().'">', $html);
-        $this->assertStringContainsString('"@type":"Article"', $html);
-        $this->assertStringContainsString('"datePublished":"'.$change->occurred_on->format(DATE_ATOM).'"', $html);
+        $this->assertStringContainsString('"@type":"NewsArticle"', $html);
+        // A news article is dated by when it was published here; the event's own
+        // date is the dateline. The two are different questions.
+        $this->assertStringContainsString('"datePublished":"'.($change->first_published_at ?? $change->occurred_on)->format(DATE_ATOM).'"', $html);
+        $this->assertStringContainsString('"dateline":"'.$change->jurisdiction->name.', '.$change->occurred_on->format('j F Y').'"', $html);
         $this->assertStringContainsString('<link rel="alternate" type="text/markdown" href="'.route('changes.context', $change->slug).'">', $html);
 
         $this->get(route('changes.context', $change->slug))->assertOk()->assertHeader('Link', '<'.$change->url().'>; rel="canonical"');

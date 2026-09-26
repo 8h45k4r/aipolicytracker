@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Site\AgentSurfaceController;
+use App\Http\Controllers\Site\AlertChannelController;
 use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\AudienceController;
@@ -13,24 +14,36 @@ use App\Http\Controllers\Site\ControlController;
 use App\Http\Controllers\Site\CorrectionsController;
 use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
+use App\Http\Controllers\Site\DeadlineEngineController;
+use App\Http\Controllers\Site\EmbedController;
 use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FrameworkController;
 use App\Http\Controllers\Site\FreeToolController;
 use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\HubController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
 use App\Http\Controllers\Site\LegalController;
 use App\Http\Controllers\Site\MachineReadableController;
+use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
+use App\Http\Controllers\Site\RegisterExportController;
 use App\Http\Controllers\Site\ReviewersController;
 use App\Http\Controllers\Site\RiskBrowseController;
 use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\SocialCardController;
+use App\Http\Controllers\Site\StateOfController;
 use App\Http\Controllers\Site\SubscribeController;
+use App\Http\Controllers\Site\TemplateController;
+use App\Http\Controllers\Site\TransitionController;
+use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
+use App\Services\Hubs\HubCatalog;
+use App\Services\Localization\Translations;
+use App\Support\RiskTaxonomy;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
@@ -71,10 +84,25 @@ Route::get('/frameworks/compare', [FrameworkController::class, 'compare'])->name
 Route::get('/frameworks/{framework}', [FrameworkController::class, 'show'])->where('framework', '[a-z0-9-]+')->name('frameworks.show');
 Route::get('/frameworks/{framework}/{jurisdiction}', [FrameworkController::class, 'crosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('frameworks.crosswalk');
 
+// The updates hub: the change log arranged the way people search for it.
+// Month and day archives are dates, so a jurisdiction slug (which never starts
+// with a digit) cannot collide with them.
+Route::get('/updates', [UpdatesController::class, 'index'])->name('updates.index');
+Route::get('/updates/{month}', [UpdatesController::class, 'month'])->where('month', '20[0-9]{2}-(0[1-9]|1[0-2])')->name('updates.month');
+Route::get('/updates/{day}', [UpdatesController::class, 'day'])->where('day', '20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])')->name('updates.day');
+Route::get('/updates/{jurisdiction}/feed', [UpdatesController::class, 'jurisdictionFeed'])->where('jurisdiction', '[a-z][a-z0-9-]*')->name('updates.jurisdiction.feed');
+Route::get('/updates/{jurisdiction}', [UpdatesController::class, 'jurisdiction'])->where('jurisdiction', '[a-z][a-z0-9-]*')->name('updates.jurisdiction');
+Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+Route::get('/newsletter/{issue}', [NewsletterController::class, 'show'])->where('issue', '20[0-9]{2}-[0-9]{2}-[0-9]{2}')->name('newsletter.show');
+
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
 Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->name('changes.context');
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
+// The deadline engine: five plain-form steps, a personal timeline from recorded dates, .ics and PDF of the same rows.
+Route::get('/deadlines/which-date-applies', [DeadlineEngineController::class, 'show'])->name('deadlines.engine');
+Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->name('deadlines.engine.ics');
+Route::get('/deadlines/which-date-applies.pdf', [DeadlineEngineController::class, 'pdf'])->middleware('throttle:30,1')->name('deadlines.engine.pdf');
 Route::get('/calendar/ai-policy-deadlines.ics', [CalendarController::class, 'feed'])->name('calendar.feed');
 Route::get('/calendar/{jurisdiction}.ics', [CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->name('calendar.feed.jurisdiction');
 Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', '20[0-9]{2}')->name('changes.year');
@@ -87,13 +115,13 @@ Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
 Route::get('/ai-risk/incidents', [RiskController::class, 'incidents'])->name('risk.incidents');
 Route::get('/ai-risk/incidents/browse', [RiskBrowseController::class, 'incidentsBrowse'])->name('risk.incidents.browse');
 Route::get('/ai-risk/incidents/export.{format}', [RiskBrowseController::class, 'incidentsExport'])->where('format', 'csv|json')->middleware('throttle:30,1')->name('risk.incidents.export');
-Route::get('/ai-risk/incidents/{incident}', [RiskBrowseController::class, 'incidentShow'])->where('incident', '[0-9]+')->name('risk.incidents.show');
+Route::get('/ai-risk/incidents/{incident}', [RiskBrowseController::class, 'incidentShow'])->where('incident', '[a-z0-9][a-z0-9-]*')->name('risk.incidents.show');
 Route::get('/ai-risk/risks', [RiskBrowseController::class, 'risks'])->name('risk.risks');
 Route::get('/ai-risk/risks/export.{format}', [RiskBrowseController::class, 'risksExport'])->where('format', 'csv|json')->middleware('throttle:30,1')->name('risk.risks.export');
 Route::get('/ai-risk/frameworks', [RiskBrowseController::class, 'frameworks'])->name('risk.frameworks');
 Route::get('/ai-risk/risks/{ev}', [RiskBrowseController::class, 'riskShow'])->where('ev', '(?!export\\.)[A-Za-z0-9_.-]+')->name('risk.risks.show');
-Route::get('/ai-risk/{domain}', [RiskController::class, 'domain'])->where('domain', '[1-7]')->name('risk.domain');
-Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->where(['domain' => '[1-7]', 'sub' => '[1-7]\\.[0-9]{1,2}'])->name('risk.subdomain');
+Route::get('/ai-risk/{domain}', [RiskController::class, 'domain'])->where('domain', RiskTaxonomy::domainPattern())->name('risk.domain');
+Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->where(['domain' => RiskTaxonomy::domainPattern(), 'sub' => RiskTaxonomy::subdomainPattern()])->name('risk.subdomain');
 
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
 
@@ -102,13 +130,14 @@ Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'op
 Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->name('open-data.health');
 Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.csv');
 Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.ndjson');
-Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z]+')->name('schema.show');
+Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z-]+')->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
 Route::get('/coverage', [CoverageController::class, 'show'])->name('coverage');
 Route::get('/gaps', [CoverageController::class, 'gaps'])->name('gaps');
 Route::get('/corrections', [CorrectionsController::class, 'show'])->name('corrections');
 Route::get('/reviewers', [ReviewersController::class, 'show'])->name('reviewers');
+Route::get('/reviewers/{slug}', [ReviewersController::class, 'person'])->where('slug', '[a-z0-9-]+')->name('reviewers.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 // The sign-up form asks readers to accept these and the download gate records the
 // acceptance, so they have to be real pages rather than a configurable link that
@@ -139,10 +168,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/following', [FollowController::class, 'index'])->name('following.index');
     Route::post('/profiles', [ApplicabilityProfileController::class, 'store'])->middleware(['subscribed:saved.server', 'throttle:30,1'])->name('profiles.store');
     Route::delete('/profiles/{profile}', [ApplicabilityProfileController::class, 'destroy'])->whereNumber('profile')->name('profiles.destroy');
-    Route::post('/follow/{type}/{slug}', [FollowController::class, 'toggle'])->where(['type' => '[a-z]+', 'slug' => '[A-Za-z0-9._-]{1,160}'])->middleware(['subscribed:saved.server', 'throttle:60,1'])->name('follow.toggle');
+    Route::post('/alerts/channels', [AlertChannelController::class, 'store'])->middleware('throttle:20,1')->name('alerts.channels.store');
+    Route::post('/alerts/channels/email-off', [AlertChannelController::class, 'emailOff'])->name('alerts.channels.email-off');
+    Route::post('/alerts/channels/{channel}/toggle', [AlertChannelController::class, 'toggle'])->whereNumber('channel')->name('alerts.channels.toggle');
+    Route::post('/alerts/channels/{channel}/test', [AlertChannelController::class, 'test'])->whereNumber('channel')->middleware('throttle:10,1')->name('alerts.channels.test');
+    Route::delete('/alerts/channels/{channel}', [AlertChannelController::class, 'destroy'])->whereNumber('channel')->name('alerts.channels.destroy');
+    Route::get('/account/export.json', [AlertChannelController::class, 'export'])->name('account.export');
+    Route::post('/profile/api-token', [AlertChannelController::class, 'apiToken'])->middleware('throttle:10,1')->name('profile.api-token');
+    Route::post('/follow/{type}/{slug}', [FollowController::class, 'toggle'])->where(['type' => '[a-z_]+', 'slug' => '[A-Za-z0-9._-]{1,160}'])->middleware(['subscribed:saved.server', 'throttle:60,1'])->name('follow.toggle');
 });
+// Private feed by token, and the unsubscribe link from every alert email (signed; no sign-in).
+Route::get('/alerts/feed/{token}.rss', [AlertChannelController::class, 'feed'])->where('token', '[A-Za-z0-9]{48}')->name('alerts.feed');
+Route::match(['get', 'post'], '/alerts/unsubscribe/{user}', [AlertChannelController::class, 'unsubscribe'])->whereNumber('user')->middleware('signed')->name('alerts.unsubscribe');
+// The applicability check's obligations register as a file: the answers are the state.
+Route::get('/tools/applicability-check/register.{format}', [RegisterExportController::class, 'export'])->where('format', 'xlsx|csv|json|pdf')->middleware('throttle:30,1')->name('tools.applicability.register');
 Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.alerts');
 Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('throttle:120,1')->withoutMiddleware([ValidateCsrfToken::class])->name('billing.webhook');
+
+// The templates library: generated files, versioned, no account needed. The old free-tool
+// addresses under /guides/tools redirect here (FreeToolController).
+Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+Route::get('/templates/feed', [TemplateController::class, 'feed'])->name('templates.feed');
+Route::get('/templates/{slug}', [TemplateController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('templates.show');
+Route::get('/templates/{slug}/download', [TemplateController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1')->name('templates.download');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');
@@ -155,6 +203,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/guides/tools/{slug}/file/{download}/{file}', [FreeToolController::class, 'file'])->where(['slug' => '[a-z0-9-]+', 'file' => '[a-z0-9.-]+'])->middleware('signed')->name('tools.file');
 });
 Route::get('/guides/{slug}', [LandingController::class, 'guide'])->name('guides.show');
+// Country and regional hubs: /ai-regulation-<country> is the jurisdiction page at its
+// canonical address (the /jurisdictions/<slug> address redirects); /ai-regulation-<region>
+// is computed over the region. Registered before the editorial landings, which share the prefix.
+// The AI economic transition tracker: measures, indicators, the displacement policy index, and four
+// themed landings served before the editorial landings, which share the root.
+Route::get('/ai-economic-transition', [TransitionController::class, 'index'])->name('transition.index');
+Route::get('/ai-economic-transition/methodology', [TransitionController::class, 'methodology'])->name('transition.methodology');
+Route::get('/ai-economic-transition/measures/{measure}', [TransitionController::class, 'show'])->where('measure', '[a-z0-9-]+')->name('transition.show');
+Route::get('/{theme}', [TransitionController::class, 'landing'])->where('theme', implode('|', array_keys(TransitionController::LANDINGS)))->name('transition.landing');
+Route::get('/{hub}', [HubController::class, 'show'])->where('hub', HubCatalog::pattern())->name('hubs.show');
+Route::get('/{locale}/{hub}', [HubController::class, 'localized'])->where(['locale' => Translations::pattern(), 'hub' => HubCatalog::pattern()])->name('hubs.localized');
+// The quarterly report, and the embeddable widgets (the only pages other sites may frame).
+Route::get('/state-of-ai-regulation', [StateOfController::class, 'show'])->name('state-of.show');
+Route::get('/state-of-ai-regulation/{quarter}.csv', [StateOfController::class, 'csv'])->where('quarter', '20[0-9]{2}-Q[1-4]')->name('state-of.csv');
+Route::get('/state-of-ai-regulation/{quarter}', [StateOfController::class, 'show'])->where('quarter', '[A-Za-z0-9-]+')->name('state-of.quarter');
+Route::get('/embed', [EmbedController::class, 'index'])->name('embed.index');
+Route::get('/embed/jurisdiction/{slug}', [EmbedController::class, 'jurisdiction'])->where('slug', '[a-z0-9-]+')->name('embed.jurisdiction');
+Route::get('/embed/deadlines', [EmbedController::class, 'deadlines'])->name('embed.deadlines');
+Route::get('/embed/map', [EmbedController::class, 'map'])->name('embed.map');
 Route::get('/{landing}', [LandingController::class, 'landing'])
     ->where('landing', 'eu-ai-act|ai-regulation-india|ai-policy-nepal|ai-governance-singapore|ai-regulation-australia|ai-regulation-uk|ai-regulation-usa|ai-governance-uae|ai-regulation-south-asia')
     ->name('landing');
@@ -169,7 +236,9 @@ Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
     ->name('social.card');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|resources|incidents|risks')->name('sitemap.section');
+Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|updates|templates|resources|incidents|risks')->name('sitemap.section');
+// Google News: entries first published in the last two days, in the news namespace.
+Route::get('/sitemap-news.xml', [SitemapController::class, 'news'])->name('sitemap.news');
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
 Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->middleware('throttle:30,1')->name('llms.full');
 Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');

@@ -4,9 +4,11 @@ namespace App\Services\MachineReadable;
 
 use App\Models\ChangeEvent;
 use App\Models\Control;
+use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\Records\AnswerBox;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -57,6 +59,10 @@ class RecordContext
             ]),
         ];
 
+        // The answer first, as on the page: what the record is, in a paragraph
+        // composed from its checked fields.
+        $lines[] = $this->section('In brief', AnswerBox::policy($p));
+
         $lines[] = $this->section('Summary', $p->summary_plain);
         $lines[] = $this->section('Scope', $p->scope_summary);
         $lines[] = $this->section('Who it applies to', $p->who_it_applies_to);
@@ -104,6 +110,10 @@ class RecordContext
             ]),
         ];
 
+        $published = $j->policyInstruments()->published()->get();
+        $upcoming = Deadline::with('policyInstrument')->whereHas('policyInstrument', fn ($q) => $q->published()->where('jurisdiction_id', $j->id))->where('due_on', '>=', now()->toDateString())->orderBy('due_on')->limit(3)->get();
+        $lines[] = $this->section('In brief', AnswerBox::jurisdiction($j, $published, $upcoming));
+
         $lines[] = $this->section('Overview', $j->overview);
         $lines[] = $this->section('Regulatory status', $j->regulatory_status_summary);
         $lines[] = $this->section('What is binding and what is guidance', $j->binding_vs_guidance);
@@ -142,6 +152,10 @@ class RecordContext
                 'Provision' => $o->source_reference,
             ]),
         ];
+
+        // The answer first, as on the page: what the record is, in a paragraph
+        // composed from its checked fields.
+        $lines[] = $this->section('In brief', AnswerBox::obligation($o));
 
         $lines[] = $this->section('What the duty requires', $o->summary);
         $lines[] = $this->section('What an organisation does about it', $o->practical_action);

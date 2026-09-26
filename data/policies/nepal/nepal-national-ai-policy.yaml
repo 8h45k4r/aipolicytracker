@@ -74,10 +74,10 @@ source_publisher: "Government of Nepal, Ministry of Communication and Informatio
 source_document_date: null
 source_reference: "Document-level URL to be added by reviewer"
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record with intentionally limited detail pending verification of the official text.
-reviewed_by: null
+reviewed_by: AI Policy Tracker

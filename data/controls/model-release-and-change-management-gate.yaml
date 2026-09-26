@@ -23,6 +23,9 @@ framework_references:
   - { framework: nist_ai_rmf, reference: "MANAGE 1.1, 2.3; GOVERN 1.7", confidence_level: medium }
   - { framework: iso_27001, reference: "Annex A 8.32 Change management", confidence_level: medium }
 related_controls: [accuracy-robustness-security-testing, technical-documentation-and-model-cards, conformity-assessment-and-registration, ai-quality-management-system]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: medium
 published: true

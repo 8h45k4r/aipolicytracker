@@ -31,9 +31,12 @@ class JobRun extends Model
     public const JOBS = [
         'digest' => ['command' => 'digest:send', 'args' => [], 'label' => 'Weekly digest', 'what' => 'E-mails the week\'s changes to confirmed subscribers.', 'schedule' => 'Mondays 07:00 UTC', 'confirm' => true],
         'alerts' => ['command' => 'alerts:send', 'args' => [], 'label' => 'Daily alerts', 'what' => 'E-mails Pro accounts about changes and deadlines on records they follow.', 'schedule' => 'Daily 06:30 UTC', 'confirm' => true],
+        'alerts_deliver' => ['command' => 'alerts:deliver', 'args' => [], 'label' => 'Retry alert deliveries', 'what' => 'Retries Slack and webhook alert deliveries that failed, with backoff, up to five attempts.', 'schedule' => 'Hourly', 'confirm' => false],
         'aiid_sync' => ['command' => 'external:sync-aiid-api', 'args' => ['--max' => 300], 'label' => 'AI Incident Database sync', 'what' => 'Pulls incidents modified since the last sync, up to 300 per run.', 'schedule' => 'Daily 03:15 UTC', 'confirm' => false],
         'external_import' => ['command' => 'external:import', 'args' => [], 'label' => 'External data import', 'what' => 'Rebuilds incidents, reports and risk entries from the committed snapshots.', 'schedule' => 'Sundays 04:00 UTC', 'confirm' => true],
         'policy_import' => ['command' => 'policy:import', 'args' => [], 'label' => 'Policy import', 'what' => 'Validates data/ and rebuilds the policy, obligation and control read model.', 'schedule' => 'Daily 02:30 UTC', 'confirm' => true],
+        'templates_build' => ['command' => 'templates:build', 'args' => [], 'label' => 'Templates library build', 'what' => 'Rebuilds the generated XLSX/DOCX templates from the records; only a template whose content changed gets a new version.', 'schedule' => 'Daily 05:30 UTC', 'confirm' => false],
+        'report_freeze' => ['command' => 'report:freeze', 'args' => [], 'label' => 'Freeze last quarter\'s report', 'what' => 'Freezes the state-of-AI-regulation figures for the quarter that just closed, so the past report never changes.', 'schedule' => 'First day of each quarter, 01:00 UTC', 'confirm' => false],
         'policy_validate' => ['command' => 'policy:validate', 'args' => [], 'label' => 'Validate data', 'what' => 'Checks every record against its schema and cross-references. Changes nothing.', 'schedule' => 'On demand', 'confirm' => false],
         'freshness' => ['command' => 'policy:freshness', 'args' => [], 'label' => 'Freshness report', 'what' => 'Lists records past their re-check date. Changes nothing.', 'schedule' => 'On demand', 'confirm' => false],
         'coverage' => ['command' => 'policy:coverage', 'args' => ['--list' => 20], 'label' => 'Coverage report', 'what' => 'Lists required and expected gaps. Changes nothing.', 'schedule' => 'On demand', 'confirm' => false],
@@ -62,7 +65,14 @@ class JobRun extends Model
 
             return $run;
         }
-        @set_time_limit(280);
+        // Off the command line there is a request waiting: nginx and PHP-FPM give up
+        // around 300s, so the job stops itself first and records why. Under CLI there is
+        // no limit to begin with, and imposing one killed scheduled runs mid-import —
+        // external:import rebuilds thousands of incidents, reports and risks and takes
+        // longer than this on a cold cache.
+        if (PHP_SAPI !== 'cli') {
+            @set_time_limit(280);
+        }
         try {
             $code = Artisan::call($meta['command'], $meta['args']);
             $output = trim(Artisan::output());

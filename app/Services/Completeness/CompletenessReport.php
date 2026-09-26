@@ -6,6 +6,7 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TransitionMeasure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -27,6 +28,7 @@ class CompletenessReport
         'policy' => PolicyInstrument::class,
         'obligation' => Obligation::class,
         'change' => ChangeEvent::class,
+        'transition_measure' => TransitionMeasure::class,
         'jurisdiction' => Jurisdiction::class,
     ];
 

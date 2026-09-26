@@ -1,0 +1,178 @@
+slug: us-colorado-automated-decision-making-technology-act
+jurisdiction: us-colorado
+title: "Colorado Senate Bill 26-189: Automated Decision-Making Technology (replacement of the Colorado AI Act)"
+short_title: Colorado ADMT law (SB 26-189)
+instrument_type: act
+status: adopted
+status_note: >
+  Signed by the Governor on 14 May 2026 and, according to concordant secondary reporting, applies to consequential
+  decisions made on or after 1 January 2027. It repeals and re-enacts the framework of SB 24-205 (the Colorado AI
+  Act) with a narrower scope built around "automated decision-making technology". Recorded on 26 September 2026
+  from law-firm summaries; the enrolled bill on the Colorado General Assembly site has not yet been read by a
+  reviewer here, so every date and duty below is pending review.
+is_binding: true
+featured: true
+published: true
+issuing_body: Colorado General Assembly
+summary_plain: >
+  SB 26-189 replaces the Colorado AI Act's regulation of "high-risk" AI systems with duties that attach when
+  automated decision-making technology materially influences a consequential decision about a Colorado consumer
+  in areas such as employment, lending, housing, education, healthcare, insurance and government services. It
+  drops the earlier duty of reasonable care, the mandatory risk-management programme, impact assessments and
+  Attorney General notification, and substitutes advance notice to the consumer, disclosure after an adverse
+  outcome, meaningful human review, three-year record keeping and developer documentation obligations.
+scope_summary: >
+  Applies to developers and deployers of automated decision-making technology used to make, or to materially
+  influence, consequential decisions about Colorado residents. Exemptions and thresholds follow the enrolled
+  bill, which a reviewer must read; secondary reporting describes exemptions for certain regulated financial
+  institutions and federally approved systems. Enforcement is by the Colorado Attorney General.
+who_it_applies_to: Developers and deployers of automated decision-making technology that materially influences consequential decisions about Colorado residents.
+key_dates_summary: Signed 14 May 2026; applies to consequential decisions made on or after 1 January 2027 (pending review against the enrolled bill).
+penalties_summary: >
+  Enforcement by the Colorado Attorney General under the Colorado Consumer Protection Act, according to secondary
+  reporting, with no private right of action. Confirm the enforcement provisions against the enrolled bill.
+what_organizations_must_do: >
+  Inventory the automated tools that influence consequential decisions about Colorado residents; give consumers
+  notice before such a tool is used; when an outcome is adverse, tell the consumer that the technology was used,
+  the principal reasons, and how to seek meaningful human review; keep records of those decisions for three
+  years; and, as a developer, supply deployers with the documentation the statute lists.
+adopted_on: 2026-05-14
+published_on: 2026-05-14
+in_force_on: null
+applies_from: 2027-01-01
+date_notes: Effective date and the "consequential decisions made on or after" formulation come from secondary reporting on the enrolled bill; confirm on the Colorado General Assembly site.
+actors: [provider, deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [employment, financial_services, healthcare, education, public_services]
+risk_categories: [high_risk]
+use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+related_policies: [us-colorado-ai-act, us-nist-ai-rmf, eu-ai-act]
+related_frameworks: [nist_ai_rmf, iso_42001]
+versions:
+  - version_label: "Enrolled bill SB 26-189, signed 14 May 2026"
+    version_date: 2026-05-14
+    summary: Repeals and re-enacts the Colorado AI Act framework as an automated-decision-making-technology law; pending review against the enrolled text.
+    official_source_url: "https://leg.colorado.gov/bills/sb26-189"
+    source_reference: "SB 26-189"
+sections:
+  - { reference: "Advance notice", title: "Notice before use", summary: "Consumers are told before automated decision-making technology is used in a consequential decision." }
+  - { reference: "Adverse outcomes", title: "Disclosure after an adverse decision", summary: "Reasons, the role of the technology and a route to human review after an adverse consequential decision." }
+  - { reference: "Records", title: "Record keeping", summary: "Records of consequential decisions influenced by the technology are kept for three years." }
+  - { reference: "Developers", title: "Developer documentation", summary: "Developers supply deployers with the documentation the statute lists." }
+obligations:
+  - slug: us-colorado-admt-advance-notice
+    title: Notify consumers before automated decision-making technology influences a consequential decision
+    category: transparency
+    section: "Advance notice"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      Deployers must tell a consumer, before the decision is made, that automated decision-making technology will
+      be used to make or materially influence a consequential decision about them. The exact content and timing of
+      the notice follow the enrolled bill, which a reviewer must read.
+    practical_action: Add a plain-language notice to every consumer-facing flow in which an automated tool influences a consequential decision.
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Pre-decision notice that an automated tool will influence the decision.", confidence_level: high }
+    review_status: pending_review
+    confidence_level: medium
+  - slug: us-colorado-admt-adverse-decision-disclosure
+    title: Disclose the use of the technology and the principal reasons after an adverse consequential decision
+    category: transparency
+    section: "Adverse outcomes"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      After an adverse consequential decision, the deployer must tell the consumer that automated decision-making
+      technology was used, give the principal reasons for the decision, and explain how to obtain human review.
+    practical_action: Template an adverse-decision letter that names the tool, the main reasons and the human-review route.
+    controls:
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Adverse-decision reasons, the role of the tool and the review route.", confidence_level: high }
+    review_status: pending_review
+    confidence_level: medium
+  - slug: us-colorado-admt-human-review
+    title: Offer meaningful human review of an adverse consequential decision
+    category: human_oversight
+    section: "Adverse outcomes"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      A consumer who receives an adverse consequential decision may obtain meaningful review by a person with the
+      authority and information to change the outcome. Scope and timing follow the enrolled bill.
+    practical_action: Staff and document a human-review channel with authority to reverse decisions.
+    controls:
+      - { control: human-oversight-and-override, relationship: satisfies, note: "A reviewer with authority to change the outcome.", confidence_level: high }
+      - { control: decision-explanation-and-appeal-route, relationship: supports, note: "The request channel that leads to review.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: medium
+  - slug: us-colorado-admt-record-keeping
+    title: Keep records of consequential decisions influenced by the technology for three years
+    category: record_keeping
+    section: "Records"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      Deployers must retain records showing how automated decision-making technology was used in consequential
+      decisions, for three years, according to secondary reporting on the enrolled bill.
+    practical_action: Log each decision, the tool used, inputs relied on and the notices sent, with a three-year retention rule.
+    controls:
+      - { control: record-keeping-and-logging, relationship: satisfies, note: "Decision records retained for the statutory period.", confidence_level: high }
+    review_status: pending_review
+    confidence_level: medium
+  - slug: us-colorado-admt-developer-documentation
+    title: Developers must supply deployers with documentation of the technology
+    category: technical_documentation
+    section: "Developers"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [provider]
+    sectors: [employment, financial_services, healthcare, education, public_services]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
+    summary: >
+      Developers of automated decision-making technology must provide deployers with the documentation the statute
+      lists, so that deployers can meet their notice, disclosure and review duties.
+    practical_action: Publish a deployer-facing documentation pack for each tool sold into consequential-decision uses.
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Deployer-facing documentation of each tool.", confidence_level: high }
+      - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Contract terms that deliver the documentation to deployers.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: medium
+deadlines:
+  - { title: Signed into law, due_on: 2026-05-14, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Governor signed SB 26-189 (secondary reporting; confirm against the bill history)." }
+  - { title: "Applies to consequential decisions made on or after this date", due_on: 2027-01-01, date_precision: exact, deadline_status: scheduled, confidence_level: medium, description: "Effective date per secondary reporting on the enrolled bill; confirm on the Colorado General Assembly site.", obligation: us-colorado-admt-advance-notice }
+sources:
+  - { title: "SB26-189 Automated Decision-Making Technology", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb26-189", document_date: 2026-05-14, document_type: legislation, tier: 1 }
+faq:
+  - question: When does Colorado's SB 26-189 apply?
+    answer: >
+      To consequential decisions made on or after 1 January 2027, according to secondary reporting on the enrolled
+      bill signed on 14 May 2026. Confirm on the Colorado General Assembly site before relying on the date.
+  - question: What happened to the Colorado AI Act (SB 24-205)?
+    answer: >
+      SB 26-189 repealed and re-enacted it before its delayed 30 June 2026 effective date, replacing the duty of
+      care, impact assessments and risk-management programme with notice, disclosure, human-review, record-keeping
+      and developer-documentation duties.
+official_source_url: "https://leg.colorado.gov/bills/sb26-189"
+source_title: "SB26-189 Automated Decision-Making Technology"
+source_publisher: "Colorado General Assembly"
+source_document_date: 2026-05-14
+source_reference: "SB 26-189 (2026 regular session)"
+source_tier: 1
+last_checked_at: '2026-09-26'
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: New record from secondary reporting on the signed bill; pending review against the enrolled text.
+reviewed_by: null

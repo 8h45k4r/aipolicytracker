@@ -41,13 +41,7 @@
 </section>
 
 <div class="container-site py-12 grid gap-12 lg:grid-cols-12">
-    <section class="lg:col-span-8" aria-labelledby="changes-heading">
-        <div class="flex items-baseline justify-between rule-strong pt-3">
-            <h2 id="changes-heading" class="section-title">Latest policy changes</h2>
-            <a href="{{ route('changes.index') }}" class="text-sm">All changes and RSS</a>
-        </div>
-        @forelse($changes as $change)<x-site.change-item :change="$change" compact />@empty<x-site.empty title="No changes recorded yet" />@endforelse
-    </section>
+    <x-site.latest-updates class="lg:col-span-8" :changes="$changes" title="Latest AI policy updates" :limit="6" />
     <aside class="lg:col-span-4" aria-labelledby="deadlines-heading">
         <div class="rule-strong pt-3"><h2 id="deadlines-heading" class="section-title">Upcoming dates</h2></div>
         <ul class="mt-2 divide-y divide-brand-line">
@@ -62,7 +56,7 @@
         @if(!empty($latestIncidents) && $latestIncidents->isNotEmpty())
         <div class="rule-strong pt-3 mt-8 flex items-baseline justify-between"><h2 class="section-title">Latest AI incidents</h2><a href="{{ route('risk.incidents.browse') }}" class="text-sm">Browse all</a></div>
         <ul class="mt-2 divide-y divide-brand-line">
-            @foreach($latestIncidents as $i)<li class="py-3 text-sm"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><div class="mt-0.5"><a href="{{ $i->url() }}" class="text-brand-navy no-underline hover:underline font-medium">{{ $i->title }}</a></div><div class="meta mt-0.5">{{ $i->mit_domain ?: 'Unclassified' }}</div></li>@endforeach
+            @foreach($latestIncidents as $i)<li class="py-3 text-sm"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><div class="mt-0.5"><a href="{{ $i->url() }}" class="text-brand-navy no-underline hover:underline font-medium">{{ $i->displayTitle() }}</a></div><div class="meta mt-0.5">{{ $i->mit_domain ?: 'Unclassified' }}</div></li>@endforeach
         </ul>
         <p class="mt-2 meta">AI Incident Database, synced {{ $incidentSnapshot ? \Carbon\Carbon::parse($incidentSnapshot)->format('j M Y') : '—' }} · CC BY-SA 4.0</p>
         @endif

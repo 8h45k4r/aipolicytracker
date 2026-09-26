@@ -16,18 +16,25 @@ return [
                 [
                     'heading' => 'Explore',
                     'items' => [
+                        ['route' => 'updates.index', 'label' => 'AI policy updates', 'note' => 'What is new, by day, month and country'],
                         ['route' => 'policies.index', 'label' => 'Policy explorer', 'note' => 'Every recorded instrument, filterable'],
                         ['route' => 'obligations.index', 'label' => 'Obligations', 'note' => 'What the rules actually require'],
                         ['route' => 'controls.index', 'label' => 'Controls', 'note' => 'What you operate to meet them, and the evidence'],
                         ['route' => 'compare.index', 'label' => 'Compare jurisdictions', 'note' => 'Two to four side by side'],
                         ['route' => 'calendar', 'label' => 'Deadline calendar', 'note' => 'Dated milestones, with a feed'],
+                        ['route' => 'deadlines.engine', 'label' => 'Which date applies to you?', 'note' => 'Five questions, a personal timeline'],
                         ['route' => 'changes.index', 'label' => 'Change log', 'note' => 'What moved, and what it means'],
+                        ['route' => 'transition.index', 'label' => 'AI economic transition', 'note' => 'Dividends, basic income, AI taxes, layoff disclosure'],
+                        ['route' => 'state-of.show', 'label' => 'State of AI regulation', 'note' => 'The quarterly report, computed'],
                     ],
                 ],
                 [
                     'heading' => 'By jurisdiction',
                     'items' => [
                         ['route' => 'jurisdictions.index', 'label' => 'All jurisdictions', 'note' => 'Countries, regions and states'],
+                        ['route' => 'hubs.show', 'params' => ['ai-regulation-asia'], 'label' => 'Asia', 'note' => 'Regional hub, country by country'],
+                        ['route' => 'hubs.show', 'params' => ['ai-regulation-africa'], 'label' => 'Africa', 'note' => 'Regional hub'],
+                        ['route' => 'hubs.show', 'params' => ['ai-regulation-americas'], 'label' => 'Americas', 'note' => 'Regional hub'],
                         ['route' => 'landing', 'params' => ['eu-ai-act'], 'label' => 'EU AI Act'],
                         ['route' => 'landing', 'params' => ['ai-regulation-uk'], 'label' => 'United Kingdom'],
                         ['route' => 'landing', 'params' => ['ai-regulation-usa'], 'label' => 'United States'],
@@ -91,7 +98,8 @@ return [
                 [
                     'heading' => 'Guides',
                     'items' => [
-                        ['route' => 'guides.index', 'label' => 'All guides and templates'],
+                        ['route' => 'templates.index', 'label' => 'Templates library', 'note' => 'XLSX and DOCX generated from the records'],
+                        ['route' => 'guides.index', 'label' => 'All guides'],
                         ['route' => 'guides.show', 'params' => ['ai-startup-eu-ai-act-readiness'], 'label' => 'EU AI Act readiness for startups'],
                         ['route' => 'guides.show', 'params' => ['ai-governance-for-startups'], 'label' => 'AI governance for startups'],
                     ],

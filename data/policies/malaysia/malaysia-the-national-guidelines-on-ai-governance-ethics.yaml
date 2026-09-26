@@ -59,8 +59,10 @@ source_title: The National Guidelines on AI Governance & Ethics (AIGE)
 source_publisher: Malaysian Science, Technology Information Centre (MASTIC), MOSTI
 source_document_date: '2024-09-01'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1
 change_summary: >-

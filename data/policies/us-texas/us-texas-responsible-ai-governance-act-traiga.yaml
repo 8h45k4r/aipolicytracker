@@ -92,7 +92,10 @@ obligations:
     - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Point-of-interaction notice in plain language.", confidence_level: high }
     - { control: public-sector-ai-use-case-register, relationship: supports, note: "Register identifies the consumer-facing systems that need the notice.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-health-care-ai-disclosure
   title: Health-care providers must disclose the use of AI in patient services
@@ -124,7 +127,10 @@ obligations:
     - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Patient-facing disclosure before first service.", confidence_level: high }
     - { control: ai-system-inventory, relationship: supports, note: "Identifies clinical and administrative systems that use AI.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: us-texas-responsible-ai-governance-act-traiga-manipulation-prohibition
   title: Developers and deployers must not use AI to incite self-harm, harm to others or crime
@@ -157,7 +163,10 @@ obligations:
     - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens intent and design against the banned purposes.", confidence_level: high }
     - { control: genai-red-team-testing, relationship: supports, note: "Tests for harmful-incitement behaviour in generative systems.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-government-social-scoring-prohibition
   title: Governmental entities must not use AI for social scoring
@@ -189,7 +198,10 @@ obligations:
     - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens public-sector scoring tools against the ban.", confidence_level: high }
     - { control: public-sector-ai-use-case-register, relationship: supports, note: "Register is the population to be screened.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-government-biometric-identification-prohibition
   title: Governmental entities must not use AI for biometric identification from public data without consent where it infringes rights
@@ -222,7 +234,10 @@ obligations:
     - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens biometric projects against the ban.", confidence_level: high }
     - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Consent and lawful basis for biometric data.", confidence_level: high }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-unlawful-discrimination-prohibition
   title: Developers and deployers must not use AI with the intent to unlawfully discriminate against a protected class
@@ -254,7 +269,10 @@ obligations:
     - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens purpose against the discrimination ban.", confidence_level: high }
     - { control: accuracy-robustness-security-testing, relationship: supports, note: "Fairness testing evidence supports the absence of intent.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-sexual-content-and-csam-prohibition
   title: Developers and distributors must not build AI intended to produce child sexual abuse material or unlawful sexual deepfakes
@@ -287,7 +305,10 @@ obligations:
     - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens product intent against the ban.", confidence_level: high }
     - { control: genai-red-team-testing, relationship: supports, note: "Tests that safeguards block sexual content involving minors.", confidence_level: high }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 applicability_rules: []
 deadlines:
@@ -316,8 +337,10 @@ source_title: HB 149 (89R) history and enrolled text
 source_publisher: Texas Legislature Online
 source_document_date: '2025-06-22'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1
 change_summary: >-

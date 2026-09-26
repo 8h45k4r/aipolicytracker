@@ -20,7 +20,7 @@
 <section class="mt-8 card-flat p-5" aria-labelledby="history">
     <h2 id="history" class="section-title !text-lg">Recent runs</h2>
     @if($history->isEmpty())<p class="mt-3 text-sm text-brand-muted">No runs recorded yet.</p>@else
-    <table class="mt-3 w-full text-sm"><thead><tr class="text-left text-xs uppercase tracking-wide text-brand-muted"><th class="py-1">Started</th><th>Job</th><th>Trigger</th><th>Duration</th><th>Result</th></tr></thead>
+    <table class="mt-3 w-full text-sm"><caption class="sr-only">Recent runs</caption><thead><tr class="text-left text-xs uppercase tracking-wide text-brand-muted"><th scope="col" class="py-1">Started</th><th scope="col">Job</th><th scope="col">Trigger</th><th scope="col">Duration</th><th scope="col">Result</th></tr></thead>
     <tbody class="divide-y divide-brand-line">@foreach($history as $r)<tr><td class="py-2 font-mono whitespace-nowrap text-xs">{{ $r->started_at->format('j M Y H:i:s') }}</td><td>{{ $jobs[$r->job]['label'] ?? $r->job }}</td><td class="text-xs">{{ $r->trigger }}@if($r->user) · {{ $r->user->name }}@endif</td><td class="text-xs">{{ $r->finished_at ? $r->started_at->diffInSeconds($r->finished_at).'s' : '—' }}</td><td><span class="badge-neutral">{{ $r->finished_at === null ? 'running' : ($r->succeeded() ? 'ok' : 'exit '.$r->exit_code) }}</span></td></tr>@endforeach</tbody></table>
     @endif
 </section>

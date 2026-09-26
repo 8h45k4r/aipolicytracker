@@ -40,7 +40,7 @@
 <section class="mt-8 card-flat p-5" aria-labelledby="recent">
     <h2 id="recent" class="section-title !text-lg">Latest submissions</h2>
     @if($recentSubmissions->isEmpty())<p class="mt-3 text-sm text-brand-muted">No submissions yet.</p>@else
-    <table class="mt-3 w-full text-sm"><thead><tr class="text-left text-xs uppercase tracking-wide text-brand-muted"><th class="py-1">Date</th><th>Type</th><th>Summary</th><th>Status</th></tr></thead>
+    <table class="mt-3 w-full text-sm"><caption class="sr-only">Latest submissions</caption><thead><tr class="text-left text-xs uppercase tracking-wide text-brand-muted"><th scope="col" class="py-1">Date</th><th scope="col">Type</th><th scope="col">Summary</th><th scope="col">Status</th></tr></thead>
     <tbody class="divide-y divide-brand-line">@foreach($recentSubmissions as $s)<tr><td class="py-2 font-mono whitespace-nowrap">{{ $s->created_at->format('j M Y') }}</td><td>{{ \App\Models\ContributorSubmission::TYPES[$s->type] ?? $s->type }}</td><td><a href="{{ route('backend.admin.submissions', ['type' => $s->type]) }}">{{ \Illuminate\Support\Str::limit($s->summary, 90) }}</a></td><td><span class="badge-neutral">{{ $s->status }}</span></td></tr>@endforeach</tbody></table>
     @endif
 </section>

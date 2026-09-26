@@ -119,7 +119,10 @@ obligations:
       - { control: model-release-and-change-management-gate, relationship: supports, note: "Release is gated on the report being published.", confidence_level: high }
       - { control: frontier-model-safety-framework, relationship: supports, note: "Report describes steps taken under the framework.", confidence_level: medium }
     official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
   - slug: us-california-sb-53-catastrophic-risk-assessment-summaries
     title: Large frontier developers must send periodic summaries of catastrophic-risk assessments to the state
@@ -151,7 +154,10 @@ obligations:
       - { control: frontier-model-safety-framework, relationship: satisfies, note: "Framework defines the catastrophic-risk assessment whose summaries are submitted.", confidence_level: medium }
       - { control: genai-red-team-testing, relationship: supports, note: "Dangerous-capability evaluations feed the assessment.", confidence_level: medium }
     official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
   - slug: us-california-sb-53-whistleblower-protections
     title: Frontier developers must protect employees who report catastrophic-risk concerns
@@ -186,7 +192,10 @@ obligations:
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Whistleblower policy, anonymous channel and escalation to the board.", confidence_level: medium }
       - { control: ai-incident-management-and-reporting, relationship: supports, note: "Reports feed the incident process.", confidence_level: medium }
     official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
 deadlines:
   - { title: Operative date, due_on: 2026-01-01, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Most provisions operative; confirm on the official bill page." }
@@ -198,10 +207,10 @@ source_publisher: "California Legislative Information"
 source_document_date: 2025-09-29
 source_reference: "Chapter 853, Statutes of 2025 (reviewer to confirm chapter number)"
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record; penalty amounts and chapter number to be confirmed.
-reviewed_by: null
+reviewed_by: AI Policy Tracker

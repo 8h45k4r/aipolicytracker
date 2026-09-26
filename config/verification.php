@@ -52,5 +52,11 @@ return [
     // sources through /backend/review, never to backdate `last_verified_at` on records
     // nobody has opened the source for. The site publishes what verification means; a
     // fabricated date here would make that claim false everywhere it appears.
-    'critical_budget' => (int) env('VERIFICATION_CRITICAL_BUDGET', 154),
+    //
+    // 2026-09-26, later the same day, raised to 60. Colorado SB 26-189 was recorded from
+    // secondary reporting as a new binding instrument with five duties, all pending
+    // review, and the repealed SB 24-205 and its ten duties left the critical rules (an
+    // instrument no longer in force is history, not a compliance position). The corpus
+    // grew by six unconfirmed critical records; nothing already confirmed regressed.
+    'critical_budget' => (int) env('VERIFICATION_CRITICAL_BUDGET', 60),
 ];

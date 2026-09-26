@@ -24,6 +24,9 @@ framework_references:
   - { framework: nist_ai_rmf, reference: "MEASURE 2.4; MANAGE 4.1", confidence_level: medium }
   - { framework: mitre_atlas, reference: "AML.M0024 AI Telemetry Logging", confidence_level: medium }
 related_controls: [post-market-monitoring-and-drift-detection, ai-incident-management-and-reporting, human-oversight-and-override]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

@@ -56,6 +56,36 @@ class ToolController extends Controller
         return redirect()->route('backend.admin.tools.edit', $tool)->with('success', 'Tool saved.');
     }
 
+    /**
+     * One status for every ticked tool. Publishing keeps its rule: a tool with no
+     * active file is left as it is and named in the message, not published empty.
+     */
+    public function statusMany(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'ids' => ['required', 'array', 'min:1', 'max:500'], 'ids.*' => ['integer'],
+            'status' => ['required', 'in:'.implode(',', array_keys(Tool::STATUSES))],
+        ]);
+        $tools = Tool::whereIn('id', array_unique($data['ids']))->get();
+        $changed = 0;
+        $skipped = [];
+        foreach ($tools as $tool) {
+            if ($data['status'] === 'published' && ! $tool->files()->where('is_active', true)->exists()) {
+                $skipped[] = $tool->title;
+
+                continue;
+            }
+            $tool->update(['status' => $data['status'], 'updated_by' => $request->user()->id]);
+            $changed++;
+        }
+        $message = $changed.' '.Str::plural('tool', $changed).' set to '.Tool::STATUSES[$data['status']].'.';
+        if ($skipped !== []) {
+            $message .= ' Not published, no active file: '.implode(', ', $skipped).'.';
+        }
+
+        return redirect()->route('backend.admin.tools.index')->with($changed ? 'success' : 'error', $message);
+    }
+
     /** Archive rather than delete: download records keep their history. */
     public function destroy(Tool $tool): RedirectResponse
     {

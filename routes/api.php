@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\PublicApiController;
+use App\Http\Controllers\Api\V1\WatchApiController;
 use Illuminate\Support\Facades\Route;
 
 // Read-only public API. No authentication; rate limited; cached.
@@ -23,8 +24,25 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
     Route::get('/frameworks/{framework}/{jurisdiction}', [PublicApiController::class, 'frameworkCrosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('framework.crosswalk');
 
     Route::get('/deadlines', [PublicApiController::class, 'deadlines'])->name('deadlines');
+    Route::post('/deadlines/applicable', [PublicApiController::class, 'applicableDeadlines'])->name('deadlines.applicable');
+    Route::get('/deadlines/applicable.ics', [PublicApiController::class, 'applicableDeadlinesIcs'])->name('deadlines.applicable.ics');
 
     // Mirrored external datasets. Responses carry their source, licence and citation.
     Route::get('/incidents', [PublicApiController::class, 'incidents'])->name('incidents');
     Route::get('/risks', [PublicApiController::class, 'risks'])->name('risks');
+    Route::get('/applicability/register', [PublicApiController::class, 'applicabilityRegister'])->name('applicability.register');
+    Route::get('/transition/measures', [PublicApiController::class, 'transitionMeasures'])->name('transition.measures');
+    Route::get('/transition/measures/{slug}', [PublicApiController::class, 'transitionMeasure'])->where('slug', '[a-z0-9-]+')->name('transition.measure');
+    Route::get('/transition/indicators', [PublicApiController::class, 'transitionIndicators'])->name('transition.indicators');
+    Route::get('/transition/index', [PublicApiController::class, 'transitionIndex'])->name('transition.index');
+    Route::get('/templates', [PublicApiController::class, 'templates'])->name('templates');
+    Route::get('/templates/{slug}', [PublicApiController::class, 'template'])->where('slug', '[a-z0-9-]+')->name('template');
+    Route::get('/templates/{slug}/download', [PublicApiController::class, 'templateDownload'])->where('slug', '[a-z0-9-]+')->name('template.download');
+});
+
+// The account's watches, over a personal access token (created on the account page).
+Route::prefix('v1')->middleware(['auth:sanctum', 'throttle:120,1'])->name('api.v1.')->group(function () {
+    Route::get('/watches', [WatchApiController::class, 'index'])->name('watches.index');
+    Route::post('/watches', [WatchApiController::class, 'store'])->name('watches.store');
+    Route::delete('/watches/{id}', [WatchApiController::class, 'destroy'])->whereNumber('id')->name('watches.destroy');
 });

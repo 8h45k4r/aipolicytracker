@@ -6,6 +6,8 @@ use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
 use App\Services\ExternalData\AiidApiClient;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentEnrichment;
+use App\Services\ExternalData\RecordSlugs;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -129,6 +131,8 @@ class SyncAiidApiCommand extends Command
                     ExternalIncidentReport::upsert($rows, ['report_number'], array_diff(array_keys($rows[0]), ['report_number', 'created_at']));
                 }
             });
+            RecordSlugs::assignIncidents();
+            IncidentEnrichment::apply();
             Cache::forget('risk-narrative-v1');
         }
 

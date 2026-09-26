@@ -11,6 +11,12 @@ class PolicyDataRepository
 {
     public function __construct(private readonly string $baseDir) {}
 
+    /** The directory the records are read from: data/ in the repository, a copy under test. */
+    public function path(): string
+    {
+        return $this->baseDir;
+    }
+
     public static function default(): self
     {
         return new self(base_path('data'));
@@ -56,6 +62,18 @@ class PolicyDataRepository
     public function reviewers(): array
     {
         return $this->parseDirectory('reviewers');
+    }
+
+    /** @return array<string, array> relative path => transition measure record */
+    public function transitionMeasures(): array
+    {
+        return $this->parseDirectory('transition/measures');
+    }
+
+    /** @return array<string, array> relative path => transition indicator record */
+    public function transitionIndicators(): array
+    {
+        return $this->parseDirectory('transition/indicators');
     }
 
     /** @return array<string, array> relative path => file contents ({changes: [...]}) */

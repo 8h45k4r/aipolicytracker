@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Services\Reviewers\ReviewerRoster;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -43,6 +44,12 @@ class Seo
      */
     public array $alternates = [];
 
+    /** The page language, for <html lang> and og:locale. */
+    public string $lang = 'en';
+
+    /** hreflang => absolute URL, x-default included when set. */
+    public array $hreflang = [];
+
     /**
      * schema.org type for this page's own node. Controllers that describe a page
      * more precisely (a collection, an about page, an article) set it here instead
@@ -62,12 +69,13 @@ class Seo
 
     public static function make(string $title, string $description, string $canonical, bool $index = true): self
     {
-        // A result page shows about sixty characters and the site name is appended
-        // after this, so a record title should be chosen to fit: see fitTitle().
-        // The hard stop here is a last resort for a title nothing shortened.
+        // Every title is held to the budget here, so the rule holds on every page
+        // rather than on the pages someone remembered. Record pages choose a title
+        // that fits (PageTitle); this is the net under the ones that did not, and
+        // it cuts at a clause or a word, never through one.
         return new self(
-            self::trim($title, 70),
-            self::trim($description, 160),
+            PageTitle::fit($title),
+            PageTitle::description($description),
             $canonical,
             $index ? 'index,follow,max-image-preview:large' : 'noindex,follow',
         );
@@ -226,6 +234,21 @@ class Seo
     }
 
     /** Another representation of this page at a stable URL (JSON, Markdown, a feed). */
+    public function withLanguage(string $lang): self
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    /** @param  array<string,string>  $map  hreflang code => URL */
+    public function withHreflang(array $map): self
+    {
+        $this->hreflang = $map;
+
+        return $this;
+    }
+
     public function withAlternate(string $type, string $url): self
     {
         $this->alternates[] = ['type' => $type, 'url' => $url];
@@ -253,15 +276,9 @@ class Seo
      *
      * @param  list<string>  $suffixes  tried in order; the last should be ''
      */
-    public static function fitTitle(string $name, array $suffixes, int $max = 60): string
+    public static function fitTitle(string $name, array $suffixes, int $max = PageTitle::MAX): string
     {
-        foreach ($suffixes as $suffix) {
-            if (mb_strlen($name.$suffix) <= $max) {
-                return $name.$suffix;
-            }
-        }
-
-        return $name;
+        return PageTitle::fit($name, $suffixes, $max);
     }
 
     /**
@@ -277,7 +294,8 @@ class Seo
     {
         $props = ['author' => ['@id' => url('/').'#organization']];
         if (method_exists($record, 'isVerified') && $record->isVerified() && filled($record->reviewed_by ?? null)) {
-            $props['reviewedBy'] = ['@type' => 'Person', 'name' => (string) $record->reviewed_by, 'url' => route('reviewers')];
+            $slug = app(ReviewerRoster::class)->slugFor((string) $record->reviewed_by);
+            $props['reviewedBy'] = ['@type' => 'Person', 'name' => (string) $record->reviewed_by, 'url' => $slug ? route('reviewers.show', $slug) : route('reviewers')];
         }
 
         return $props;
@@ -290,11 +308,10 @@ class Seo
         return $this;
     }
 
+    /** The <title>: the brand is added only while the whole still fits (PageTitle::withBrand). */
     public function fullTitle(): string
     {
-        $site = config('aipolicytracker.site_name');
-
-        return str_ends_with($this->title, $site) ? $this->title : $this->title.' | '.$site;
+        return PageTitle::withBrand($this->title);
     }
 
     /**

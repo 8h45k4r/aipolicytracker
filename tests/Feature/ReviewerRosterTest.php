@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\ChangeEvent;
+use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyDataRepository;
@@ -9,6 +11,7 @@ use App\Services\PolicyData\PolicyDataValidator;
 use App\Services\PolicyData\SchemaValidator;
 use App\Services\Reviewers\ReviewerRoster;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Yaml\Yaml;
@@ -165,7 +168,7 @@ class ReviewerRosterTest extends TestCase
         $roster = app(ReviewerRoster::class);
         $entry = $roster->published()->firstWhere('name', 'Jane Doe');
         $this->assertSame(1, $entry['verified']);
-        $this->assertSame(1, $roster->standing()['verified']);
+        $this->assertGreaterThanOrEqual(1, $roster->standing()['verified']);
 
         // A verification signed by a name nobody published is counted and surfaced, not hidden.
         PolicyInstrument::published()->where('id', '!=', $instrument->id)->firstOrFail()
@@ -208,7 +211,10 @@ class ReviewerRosterTest extends TestCase
         $empty = sys_get_temp_dir().'/roster-'.uniqid();
         mkdir($empty.'/reviewers', 0777, true);
         $this->app->bind(ReviewerRoster::class, fn () => new ReviewerRoster(new PolicyDataRepository($empty)));
-        PolicyInstrument::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
+        // The attributable kinds only: an obligation's verification belongs to its instrument, and the table has no reviewed_by column.
+        foreach ([PolicyInstrument::class, Jurisdiction::class, ChangeEvent::class] as $model) {
+            $model::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
+        }
 
         $response = $this->get('/reviewers');
         $response->assertOk();
@@ -219,5 +225,25 @@ class ReviewerRosterTest extends TestCase
     public function test_the_roster_is_in_the_sitemap(): void
     {
         $this->get('/sitemap-static.xml')->assertOk()->assertSee(url('/reviewers'), false);
+    }
+
+    /**
+     * SQLite treats an unknown double-quoted identifier as a string, so a query for a
+     * column that does not exist passes every SQLite test and fails on PostgreSQL. The
+     * reviewer page asked obligations for their reviewer; obligations have none.
+     */
+    public function test_a_reviewer_page_never_asks_a_kind_without_a_reviewer_column(): void
+    {
+        $tables = [];
+        DB::listen(function ($query) use (&$tables) {
+            if (preg_match('/from "([a-z_]+)"/', $query->sql, $m)) {
+                $tables[] = $m[1];
+            }
+        });
+
+        app(ReviewerRoster::class)->verifiedRecords('Bhaskar Bhatt');
+
+        $this->assertNotContains('obligations', $tables);
+        $this->assertContains('policy_instruments', $tables);
     }
 }

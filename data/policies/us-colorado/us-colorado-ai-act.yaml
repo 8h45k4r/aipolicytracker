@@ -3,10 +3,13 @@ jurisdiction: us-colorado
 title: "Colorado Senate Bill 24-205: Consumer Protections for Artificial Intelligence (Colorado AI Act)"
 short_title: Colorado AI Act
 instrument_type: act
-status: adopted
+status: repealed
 status_note: >
-  Signed 17 May 2024. The effective date was moved from 1 February 2026 to 30 June 2026 by SB 25B-004, signed in
-  August 2025. A reviewer must confirm whether the 2026 legislative session amended the substance or date again.
+  Signed 17 May 2024; its effective date was moved from 1 February 2026 to 30 June 2026 by SB 25B-004 (August
+  2025). Before that date arrived, SB 26-189, signed on 14 May 2026, repealed and re-enacted the framework as a
+  narrower automated-decision-making-technology law that applies from 1 January 2027. This act therefore never
+  took effect; see the SB 26-189 record. Recorded on 26 September 2026 from secondary reporting, pending review
+  against the enrolled bill.
 is_binding: true
 featured: true
 published: true
@@ -24,7 +27,7 @@ scope_summary: >
   regulated financial institutions). Enforcement is exclusively by the Attorney General; there is no private right
   of action.
 who_it_applies_to: Developers and deployers of high-risk AI systems used to make consequential decisions about Colorado residents.
-key_dates_summary: Signed 17 May 2024; effective 30 June 2026 after the SB 25B-004 delay (subject to verification).
+key_dates_summary: Signed 17 May 2024; effective date delayed to 30 June 2026 by SB 25B-004; repealed and replaced by SB 26-189 on 14 May 2026 before taking effect (pending review).
 penalties_summary: >
   Violations are deceptive trade practices under the Colorado Consumer Protection Act, enforced by the Attorney
   General. A rebuttable presumption of reasonable care is available where the statute's requirements are met, and
@@ -39,14 +42,14 @@ what_organizations_must_do: >
 adopted_on: 2024-05-17
 published_on: 2024-05-17
 in_force_on: null
-applies_from: 2026-06-30
-date_notes: Effective date per SB 25B-004 (2025 special session); confirm against the current statute.
+applies_from: null
+date_notes: Repealed by SB 26-189 (signed 14 May 2026) before its delayed 30 June 2026 effective date; the duties below never applied. Confirm against the enrolled bill.
 actors: [provider, deployer]
 ai_system_types: [automated_decision_system, predictive_scoring]
 sectors: [employment, financial_services, healthcare, education, public_services]
 risk_categories: [high_risk]
 use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
-related_policies: [us-nist-ai-rmf, eu-ai-act]
+related_policies: [us-colorado-automated-decision-making-technology-act, us-nist-ai-rmf, eu-ai-act]
 related_frameworks: [nist_ai_rmf, iso_42001]
 obligations:
   - slug: us-colorado-deployer-risk-management-program
@@ -54,7 +57,7 @@ obligations:
     category: risk_management
     source_reference: "C.R.S. 6-1-1703(2)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [deployer]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit]
@@ -81,7 +84,7 @@ obligations:
     category: impact_assessment
     source_reference: "C.R.S. 6-1-1703(3)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [deployer]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, health]
@@ -108,7 +111,7 @@ obligations:
     category: transparency
     source_reference: "C.R.S. 6-1-1703(4)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [deployer]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit]
@@ -134,7 +137,7 @@ obligations:
     category: technical_documentation
     source_reference: "C.R.S. 6-1-1702"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [provider]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit]
@@ -161,7 +164,7 @@ obligations:
     category: risk_management
     source_reference: "C.R.S. 6-1-1702(1)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [provider]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
@@ -188,13 +191,16 @@ obligations:
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Disparate-impact testing across protected classes.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-developer-disclosure-to-attorney-general
     title: Developers must notify the Attorney General and deployers of discovered algorithmic discrimination
     category: incident_handling
     source_reference: "C.R.S. 6-1-1702(5)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [provider]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
@@ -221,13 +227,16 @@ obligations:
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Ongoing testing is one of the discovery routes the statute names.", confidence_level: medium }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-reasonable-care
     title: Deployers must use reasonable care to avoid algorithmic discrimination
     category: risk_management
     source_reference: "C.R.S. 6-1-1703(1)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [deployer]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
@@ -254,13 +263,16 @@ obligations:
       - { control: ai-risk-assessment, relationship: supports, note: "Discrimination risk identified for each consequential-decision use.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-public-statement
     title: Deployers must publish a statement about the high-risk AI systems they use
     category: transparency
     source_reference: "C.R.S. 6-1-1703(5)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [deployer]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
@@ -286,13 +298,16 @@ obligations:
       - { control: ai-system-inventory, relationship: supports, note: "Source of the list of deployed high-risk systems.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-disclosure-to-attorney-general
     title: Deployers must notify the Attorney General of discovered algorithmic discrimination
     category: incident_handling
     source_reference: "C.R.S. 6-1-1703(7)"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [deployer]
     sectors: [employment, financial_services, healthcare, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, health, education, public_services]
@@ -316,13 +331,16 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Discrimination discovery treated as a reportable incident with the statutory clock.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-consumer-ai-interaction-disclosure
     title: Deployers and developers must disclose to consumers that they are interacting with an AI system
     category: transparency
     source_reference: "C.R.S. 6-1-1704"
     is_binding: true
-    applies_from: 2026-06-30
+    applies_from: null
     actors: [deployer, provider]
     sectors: [cross_sector, consumer_retail, financial_services, healthcare]
     use_cases: [customer_service, generative_ai]
@@ -347,19 +365,25 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Point-of-interaction notice.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
 deadlines:
   - { title: Signed into law, due_on: 2024-05-17, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Governor signed SB 24-205." }
   - { title: Original effective date (superseded), due_on: 2026-02-01, date_precision: exact, deadline_status: superseded, confidence_level: high, description: "Replaced by SB 25B-004." }
-  - { title: Effective date after SB 25B-004 delay, due_on: 2026-06-30, date_precision: exact, deadline_status: scheduled, confidence_level: medium, description: "Reviewer must confirm no further delay was enacted in the 2026 session.", obligation: us-colorado-deployer-impact-assessment }
+  - { title: "Delayed effective date (never reached)", due_on: 2026-06-30, date_precision: exact, deadline_status: superseded, confidence_level: medium, description: "Set by SB 25B-004; overtaken by the repeal in SB 26-189 before it arrived." }
+  - { title: "Repealed and replaced by SB 26-189", due_on: 2026-05-14, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Governor signed SB 26-189, repealing and re-enacting the framework with effect from 1 January 2027 (secondary reporting; confirm against the enrolled bill).", official_source_url: "https://leg.colorado.gov/bills/sb26-189" }
 sources:
   - { title: "SB24-205 Consumer Protections for Artificial Intelligence", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb24-205", document_date: 2024-05-17, document_type: legislation, tier: 1 }
+  - { title: "SB26-189 Automated Decision-Making Technology (repeal and re-enactment)", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb26-189", document_date: 2026-05-14, document_type: legislation, tier: 1 }
   - { title: "SB25B-004 Artificial Intelligence Sunshine Act / effective-date delay", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb25b-004", document_date: 2025-08-28, document_type: legislation, tier: 1 }
 faq:
-  - question: When does the Colorado AI Act take effect?
+  - question: Did the Colorado AI Act (SB 24-205) ever take effect?
     answer: >
-      The effective date was delayed to 30 June 2026 by SB 25B-004 in the August 2025 special session. Confirm
-      the current date on the Colorado General Assembly site, because further amendments were debated in 2026.
+      No, according to secondary reporting. Its effective date had been delayed to 30 June 2026 by SB 25B-004, and
+      SB 26-189, signed on 14 May 2026, repealed and re-enacted the framework before that date. The replacement
+      law applies to consequential decisions from 1 January 2027. Confirm on the Colorado General Assembly site.
   - question: Does the Colorado AI Act allow consumers to sue?
     answer: No. Enforcement is exclusively by the Colorado Attorney General; there is no private right of action.
 official_source_url: "https://leg.colorado.gov/bills/sb24-205"
@@ -368,10 +392,10 @@ source_publisher: "Colorado General Assembly"
 source_document_date: 2024-05-17
 source_reference: "Colorado Revised Statutes 6-1-1701 to 6-1-1707"
 source_tier: 1
-last_checked_at: null
+last_checked_at: '2026-09-26'
 last_verified_at: null
 review_status: pending_review
 confidence_level: medium
-content_version: 1
-change_summary: Initial structured record reflecting the SB 25B-004 delay; 2026 amendments unverified.
+content_version: 2
+change_summary: Marked repealed; SB 26-189 (signed 14 May 2026) repealed and re-enacted the framework before the 30 June 2026 effective date. Recorded from secondary reporting, pending review against the enrolled bill.
 reviewed_by: null

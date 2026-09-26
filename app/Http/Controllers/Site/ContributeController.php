@@ -12,7 +12,9 @@ use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TransitionMeasure;
 use App\Rules\NotDisposableEmail;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use App\Support\SubmissionFieldLabels;
 use Illuminate\Http\RedirectResponse;
@@ -30,6 +32,7 @@ class ContributeController extends Controller
         'change' => ['title', 'occurred_on', 'what_changed', 'practical_impact', 'impact_level', 'status_after', 'official_source_url'],
         'control' => ['title', 'kind', 'purpose', 'description', 'owner_role', 'frequency'],
         'incident' => ['title', 'occurred_on', 'description', 'deployers', 'developers', 'harmed', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'countries'],
+        'transition_measure' => ['title', 'measure_type', 'status', 'summary', 'mechanism', 'funding', 'trigger', 'benefit', 'cost', 'bill_number', 'sponsors', 'introduced_on', 'enacted_on', 'in_force_on', 'official_source_url', 'review_status'],
         'risk' => ['risk_category', 'risk_subcategory', 'description', 'domain', 'subdomain', 'entity', 'intent', 'timing', 'paper_title'],
     ];
 
@@ -132,6 +135,7 @@ class ContributeController extends Controller
             'obligation' => Obligation::published()->with('policyInstrument.jurisdiction')->where('slug', $slug)->first(),
             'change' => ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('slug', $slug)->first(),
             'control' => Control::published()->where('slug', $slug)->first(),
+            'transition_measure' => TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')->where('slug', $slug)->first(),
             'incident' => ctype_digit($slug) ? ExternalIncident::find((int) $slug) : null,
             'risk' => ExternalRisk::find(str_replace('--', '#', $slug)),
             default => null,
@@ -153,8 +157,8 @@ class ContributeController extends Controller
             'obligation' => [$record->title, $record->url(), $record->policyInstrument?->jurisdiction?->name],
             'change' => [$record->title, $record->url(), $record->jurisdiction?->name],
             'control' => [$record->title, $record->url(), null],
-            'incident' => ['AI incident #'.$record->incident_id.': '.$record->title, $record->url(), 'AI Incident Database'],
-            'risk' => [($record->risk_subcategory ?: $record->risk_category ?: $record->ev_id).' ('.$record->quick_ref.')', $record->url(), 'MIT AI Risk Repository'],
+            'incident' => [PageTitle::incident($record), $record->url(), 'AI Incident Database'],
+            'risk' => [PageTitle::risk($record), $record->url(), 'MIT AI Risk Repository'],
         };
 
         return [

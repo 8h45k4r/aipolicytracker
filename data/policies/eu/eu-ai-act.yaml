@@ -5,9 +5,12 @@ short_title: EU AI Act
 instrument_type: regulation
 status: partially_applicable
 status_note: >
-  Dates below follow Article 113 of the adopted text. The European Commission proposed a "Digital Omnibus"
-  package in November 2025 that would adjust the application dates for some high-risk obligations; a reviewer
-  must confirm whether that proposal has been adopted and update the deadlines accordingly.
+  Dates below follow Article 113 as amended by Regulation (EU) 2026/1744 (the "Digital Omnibus on AI"), published
+  in the Official Journal on 24 July 2026 and in force from 27 July 2026: the Chapter III high-risk obligations
+  now apply from 2 December 2027 for stand-alone Annex III systems and from 2 August 2028 for AI embedded in
+  Annex I products, while general application and the Article 50 transparency duties kept 2 August 2026. Recorded
+  on 26 September 2026 from concordant secondary reporting; the amending regulation itself has not yet been read
+  against the Official Journal by a reviewer here, so these dates are pending review.
 is_binding: true
 featured: true
 published: true
@@ -17,7 +20,7 @@ summary_plain: >
   in the European Union. It bans a small set of practices considered unacceptable, imposes detailed requirements
   on "high-risk" AI systems used in areas such as employment, education, credit, essential services, law
   enforcement and safety-critical products, requires transparency for chatbots and synthetic content, and creates
-  separate duties for providers of general-purpose AI models. Obligations apply in phases between 2025 and 2027.
+  separate duties for providers of general-purpose AI models. Obligations apply in phases between 2025 and 2028.
 scope_summary: >
   Applies to providers placing AI systems or general-purpose AI models on the EU market or putting them into service,
   to deployers established in the EU, and to providers and deployers in third countries where the system's output is
@@ -31,9 +34,10 @@ who_it_applies_to: >
   fundamental-rights impact assessments.
 key_dates_summary: >
   Entry into force 1 August 2024. Prohibitions and AI literacy from 2 February 2025. General-purpose AI model
-  duties, governance and penalties from 2 August 2025. General application, including Annex III high-risk
-  systems and Article 50 transparency, from 2 August 2026. High-risk AI that is a safety component of Annex I
-  products from 2 August 2027. Adjustments proposed in the 2025 Digital Omnibus are not reflected until verified.
+  duties, governance and penalties from 2 August 2025. General application and Article 50 transparency from
+  2 August 2026. Two further Article 5 prohibitions from 2 December 2026. High-risk obligations for stand-alone
+  Annex III systems from 2 December 2027 and for AI embedded in Annex I products from 2 August 2028, as amended by
+  Regulation (EU) 2026/1744 (pending review against the Official Journal).
 penalties_summary: >
   Article 99 sets administrative fines of up to EUR 35 million or 7 % of worldwide annual turnover for prohibited
   practices, up to EUR 15 million or 3 % for most other obligations, and up to EUR 7.5 million or 1 % for supplying
@@ -52,12 +56,11 @@ published_on: 2024-07-12
 in_force_on: 2024-08-01
 applies_from: 2026-08-02
 date_notes: >
-  "applies_from" shows the general application date in Article 113 of the adopted text. Earlier and later dates
-  apply to specific chapters; see the deadlines table. NOT CURRENT: secondary reporting indicates that Article 113
-  was amended during 2026 and that the high-risk application dates moved, which would make the 2026-08-02 and
-  2027-08-02 entries below wrong. The amending act has not been read against the Official Journal by a reviewer
-  here, so no date has been changed: this record is marked needs_update and its confidence lowered rather than
-  restated from second-hand sources. Open the official source before relying on any date on this page.
+  "applies_from" shows the general application date in Article 113, which Regulation (EU) 2026/1744 left at
+  2 August 2026. The high-risk dates in the deadlines table and on the Chapter III obligations follow that amending
+  regulation (2 December 2027 for Annex III, 2 August 2028 for Annex I). They were recorded on 26 September 2026
+  from concordant secondary reporting, not from the Official Journal text, which is why the record is pending
+  review at medium confidence. Open the official source before relying on any date on this page.
 actors: [provider, deployer, importer, distributor, authorized_representative, public_authority, gpai_provider]
 ai_system_types: [general_purpose_ai_model, generative_ai, automated_decision_system, biometric_system, safety_component, conversational_agent, predictive_scoring]
 sectors: [cross_sector, employment, financial_services, healthcare, education, public_services, law_enforcement, critical_infrastructure, migration_border]
@@ -66,6 +69,11 @@ use_cases: [hiring_and_hr, biometrics, health, finance_and_credit, education, pu
 related_policies: [uk-ai-regulation-white-paper, us-nist-ai-rmf, singapore-model-ai-governance-framework, india-dpdp-act]
 related_frameworks: [iso_42001, nist_ai_rmf]
 versions:
+  - version_label: "As amended by Regulation (EU) 2026/1744, the Digital Omnibus on AI (OJ L, 24 July 2026)"
+    version_date: 2026-07-24
+    summary: Amends Article 113 application dates for high-risk obligations and adds two Article 5 prohibitions; in force 27 July 2026. Pending review against the Official Journal text.
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2026/1744/oj"
+    source_reference: "OJ L, 2026/1744"
   - version_label: "Adopted text (OJ L, 12 July 2024)"
     version_date: 2024-07-12
     summary: Final text as published in the Official Journal.
@@ -158,7 +166,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 9"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services, safety_critical]
@@ -190,7 +198,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 10"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, health, biometrics]
@@ -221,7 +229,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 11 and Annex IV"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, safety_critical]
@@ -251,7 +259,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 12; Article 26(6) for deployers"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer]
     sectors: [cross_sector]
     use_cases: [biometrics, finance_and_credit, public_services]
@@ -279,7 +287,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 13"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, education]
@@ -308,7 +316,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 14; Article 26(2) for deployers"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, public_services, biometrics]
@@ -338,7 +346,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 15"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, finance_and_credit, biometrics]
@@ -371,7 +379,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 17"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, hiring_and_hr, finance_and_credit]
@@ -402,7 +410,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Articles 43, 47, 48 and 49; Annex VIII"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer, public_authority]
     sectors: [cross_sector]
     use_cases: [biometrics, safety_critical, public_services]
@@ -432,7 +440,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, public_services]
     use_cases: [hiring_and_hr, public_services, finance_and_credit]
@@ -464,7 +472,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 27"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [public_services, financial_services]
     use_cases: [public_services, finance_and_credit]
@@ -587,7 +595,7 @@ obligations:
     section: "Article 72"
     source_reference: "Article 72"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, finance_and_credit, hiring_and_hr]
@@ -617,7 +625,7 @@ obligations:
     section: "Article 73"
     source_reference: "Article 73"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer]
     sectors: [cross_sector]
     use_cases: [safety_critical, health, biometrics]
@@ -648,7 +656,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Articles 23 and 24"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [importer, distributor]
     sectors: [cross_sector]
     use_cases: [safety_critical]
@@ -678,7 +686,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 16"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, biometrics, safety_critical]
@@ -704,7 +712,10 @@ obligations:
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Assigns each provider duty to a named owner with a reporting line.", confidence_level: medium }
       - { control: ai-quality-management-system, relationship: supports, note: "The QMS is where most Article 16 duties are operated.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-18-documentation-keeping
     title: Providers must keep high-risk AI documentation for ten years
@@ -712,7 +723,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 18"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector, financial_services]
     use_cases: [safety_critical, finance_and_credit]
@@ -738,7 +749,10 @@ obligations:
       - { control: record-keeping-and-logging, relationship: satisfies, note: "Retention classes and archive controls for the listed documents.", confidence_level: high }
       - { control: technical-documentation-and-model-cards, relationship: supports, note: "Produces the technical file that must be retained.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-19-provider-log-retention
     title: Providers must retain automatically generated logs under their control
@@ -746,7 +760,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 19"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector, financial_services]
     use_cases: [biometrics, finance_and_credit, safety_critical]
@@ -771,7 +785,10 @@ obligations:
     controls:
       - { control: record-keeping-and-logging, relationship: satisfies, note: "Retention of Article 12 logs for the required period.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-20-corrective-actions-and-information
     title: Providers must take corrective action and inform the supply chain about non-conforming high-risk AI
@@ -779,7 +796,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 20"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, hiring_and_hr, finance_and_credit]
@@ -807,7 +824,10 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Investigation, corrective action and notification of authorities and the supply chain.", confidence_level: high }
       - { control: model-release-and-change-management-gate, relationship: supports, note: "Withdrawal, disabling and re-release pass through the gate.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-21-cooperation-with-authorities
     title: Providers must supply conformity evidence and log access to authorities on request
@@ -815,7 +835,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 21"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, biometrics, public_services]
@@ -842,7 +862,10 @@ obligations:
       - { control: record-keeping-and-logging, relationship: supports, note: "Logs must be retrievable in a usable format.", confidence_level: high }
       - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Names the regulator liaison and escalation path.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-22-authorised-representative
     title: Non-EU providers must appoint an EU authorised representative for high-risk AI
@@ -850,7 +873,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 22"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, authorized_representative]
     sectors: [cross_sector]
     use_cases: [safety_critical, hiring_and_hr, biometrics]
@@ -877,7 +900,10 @@ obligations:
       - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The written mandate allocates the representative's tasks.", confidence_level: high }
       - { control: conformity-assessment-and-registration, relationship: supports, note: "Items the representative must verify.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-25-value-chain-becoming-provider
     title: Deployers, distributors and importers must assume provider duties when they rebrand or substantially modify high-risk AI
@@ -885,7 +911,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 25(1) and 25(2)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, distributor, importer, provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, safety_critical]
@@ -913,7 +939,10 @@ obligations:
       - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Contracts set out cooperation from the original provider.", confidence_level: high }
       - { control: ai-system-inventory, relationship: supports, note: "Inventory records the organisation's role for each system.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-25-4-written-agreements-with-component-suppliers
     title: Providers of high-risk AI must have written agreements with suppliers of components, tools and services
@@ -921,7 +950,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 25(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [generative_ai, safety_critical, finance_and_credit]
@@ -948,7 +977,10 @@ obligations:
       - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The written agreement itself.", confidence_level: high }
       - { control: third-party-ai-due-diligence, relationship: supports, note: "Identifies which suppliers fall within Article 25(4).", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-6-4-non-high-risk-assessment-documentation
     title: Providers must document and register a conclusion that an Annex III system is not high-risk
@@ -956,7 +988,7 @@ obligations:
     section: "Articles 6–7"
     source_reference: "Article 6(4); Article 49(2)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
@@ -983,7 +1015,10 @@ obligations:
       - { control: ai-system-inventory, relationship: satisfies, note: "Classification with recorded rationale per system.", confidence_level: medium }
       - { control: conformity-assessment-and-registration, relationship: supports, note: "Registration under Article 49(2).", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-4-deployer-input-data
     title: Deployers must ensure input data they control is relevant and representative
@@ -991,7 +1026,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, public_services]
@@ -1016,7 +1051,10 @@ obligations:
       - { control: data-governance-and-dataset-documentation, relationship: satisfies, note: "Applied to operational input data rather than training data.", confidence_level: medium }
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Detects input drift away from the intended population.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-5-deployer-monitoring-and-suspension
     title: Deployers must monitor high-risk AI, suspend use on risk and report serious incidents
@@ -1024,7 +1062,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(5)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, public_services, safety_critical]
@@ -1052,7 +1090,10 @@ obligations:
       - { control: post-market-monitoring-and-drift-detection, relationship: satisfies, note: "Deployer-side monitoring with feedback to the provider.", confidence_level: high }
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Suspension decision and notifications to provider and authority.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-7-worker-information
     title: Employers must inform workers and their representatives before using high-risk AI at work
@@ -1060,7 +1101,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(7)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [employment, cross_sector]
     use_cases: [hiring_and_hr]
@@ -1086,7 +1127,10 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Workforce-facing notice before go-live.", confidence_level: high }
       - { control: ai-impact-assessment, relationship: supports, note: "Identifies the affected worker groups to notify.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-8-public-authority-registration-before-use
     title: Public authorities must register their use of high-risk AI and must not use unregistered systems
@@ -1094,7 +1138,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(8); Article 49(3) and 49(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [public_authority, deployer]
     sectors: [public_services, law_enforcement, migration_border]
     use_cases: [public_services, law_enforcement, biometrics]
@@ -1120,7 +1164,10 @@ obligations:
       - { control: public-sector-ai-use-case-register, relationship: satisfies, note: "Registration of public-authority use with the required Annex VIII information.", confidence_level: high }
       - { control: third-party-ai-due-diligence, relationship: supports, note: "Verifies the provider's registration before purchase.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-9-dpia-using-provider-information
     title: Deployers must use the provider's transparency information in their data protection impact assessment
@@ -1128,7 +1175,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(9)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, biometrics, public_services]
@@ -1153,7 +1200,10 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "DPIA built on the provider's documentation.", confidence_level: high }
       - { control: ai-impact-assessment, relationship: supports, note: "Shared inputs with the fundamental rights impact assessment.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-10-post-remote-biometric-identification-authorisation
     title: Law-enforcement deployers must obtain authorisation for post-remote biometric identification and report annually
@@ -1161,7 +1211,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(10)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [law_enforcement]
     use_cases: [law_enforcement, biometrics]
@@ -1190,7 +1240,10 @@ obligations:
       - { control: record-keeping-and-logging, relationship: supports, note: "Per-use documentation and annual reporting data.", confidence_level: medium }
       - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Authorisation workflow ownership.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
   - slug: eu-ai-act-art-26-11-notice-to-affected-persons
     title: Deployers must tell natural persons that a high-risk AI system is used in decisions about them
@@ -1198,7 +1251,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(11)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
@@ -1223,7 +1276,10 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Notice to decision subjects at the point of the decision process.", confidence_level: high }
       - { control: decision-explanation-and-appeal-route, relationship: supports, note: "Notice links to the Article 86 explanation route.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-50-2-synthetic-content-marking
     title: Providers of generative AI must mark synthetic output as artificially generated in a machine-readable way
@@ -1231,7 +1287,7 @@ obligations:
     section: "Article 50"
     source_reference: "Article 50(2)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, gpai_provider]
     sectors: [media_information, cross_sector, consumer_retail]
     use_cases: [generative_ai, content_moderation]
@@ -1258,7 +1314,10 @@ obligations:
       - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "Machine-readable marking with robustness evidence.", confidence_level: high }
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Tests that the mark is robust and reliable.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-50-3-emotion-recognition-notice
     title: Deployers of emotion recognition or biometric categorisation must inform exposed persons
@@ -1266,7 +1325,7 @@ obligations:
     section: "Article 50"
     source_reference: "Article 50(3)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, consumer_retail, healthcare]
     use_cases: [biometrics, customer_service, health]
@@ -1294,7 +1353,10 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Lawful basis and safeguards for biometric data.", confidence_level: high }
       - { control: prohibited-use-screening-gate, relationship: supports, note: "Confirms the use is not banned by Article 5.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-50-4-deepfake-and-public-interest-text-disclosure
     title: Deployers must disclose deepfakes and AI-generated text published on matters of public interest
@@ -1302,7 +1364,7 @@ obligations:
     section: "Article 50"
     source_reference: "Article 50(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [media_information, cross_sector]
     use_cases: [generative_ai, content_moderation]
@@ -1330,7 +1392,10 @@ obligations:
       - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "User-facing labels on deepfakes and public-interest text.", confidence_level: high }
       - { control: human-oversight-and-override, relationship: supports, note: "Editorial control that lifts the text-disclosure duty.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-52-systemic-risk-notification
     title: Providers of GPAI models must notify the Commission within two weeks of meeting the systemic-risk threshold
@@ -1364,7 +1429,10 @@ obligations:
     controls:
       - { control: frontier-model-safety-framework, relationship: satisfies, note: "Compute tracking and threshold notification are part of the framework.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-53-gpai-technical-and-downstream-documentation
     title: Providers of GPAI models must maintain technical documentation and inform downstream providers
@@ -1400,7 +1468,10 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Model card and technical file structured to Annexes XI and XII.", confidence_level: high }
       - { control: model-release-and-change-management-gate, relationship: supports, note: "Release requires the documentation to be current.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-54-gpai-authorised-representative
     title: Non-EU providers of GPAI models must appoint an EU authorised representative
@@ -1436,7 +1507,10 @@ obligations:
       - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The mandate and its task list.", confidence_level: high }
       - { control: technical-documentation-and-model-cards, relationship: supports, note: "The documentation the representative holds.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-55-systemic-risk-incident-reporting
     title: Providers of systemic-risk GPAI models must track and report serious incidents to the AI Office
@@ -1470,7 +1544,10 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Model-level incident criteria, log and AI Office reporting.", confidence_level: high }
       - { control: frontier-model-safety-framework, relationship: supports, note: "Framework defines the incident types and escalation.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-55-systemic-risk-cybersecurity
     title: Providers of systemic-risk GPAI models must secure the model and its infrastructure
@@ -1505,7 +1582,10 @@ obligations:
       - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Security testing of the model and its serving infrastructure.", confidence_level: medium }
       - { control: frontier-model-safety-framework, relationship: supports, note: "Framework commits to the weight-security measures.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-86-right-to-explanation
     title: Deployers must explain individual decisions taken with high-risk AI on request
@@ -1513,7 +1593,7 @@ obligations:
     section: "Chapter IX — Remedies"
     source_reference: "Article 86"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
@@ -1540,14 +1620,19 @@ obligations:
       - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Request channel and explanation of the system's role and main decision elements.", confidence_level: high }
       - { control: record-keeping-and-logging, relationship: supports, note: "Logs supply the inputs cited in the explanation.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
 deadlines:
   - { title: Entry into force, due_on: 2024-08-01, date_precision: exact, description: "Twentieth day after publication in the Official Journal.", source_reference: "Article 113", deadline_status: passed, confidence_level: high }
   - { title: "Prohibited practices and AI literacy apply (Chapters I and II)", due_on: 2025-02-02, date_precision: exact, description: "Article 5 bans and Article 4 literacy duties apply.", source_reference: "Article 113(a)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-prohibited-practices }
   - { title: "General-purpose AI, governance, notified bodies and penalties apply", due_on: 2025-08-02, date_precision: exact, description: "Chapter V (GPAI models), Chapter III Section 4, Chapter VII, Chapter XII (except Article 101) and Article 78 apply.", source_reference: "Article 113(b)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-gpai-provider-obligations }
-  - { title: "General application, including Annex III high-risk systems and Article 50 transparency", due_on: 2026-08-02, date_precision: exact, description: "Default application date for the remainder of the Regulation, as set in the adopted text. Secondary reporting indicates Article 113 was amended during 2026 and that this date moved for Annex III high-risk systems; unconfirmed against the Official Journal, so the adopted-text date is shown with low confidence rather than replaced. Check the official source.", source_reference: "Article 113", deadline_status: scheduled, confidence_level: low, obligation: eu-ai-act-risk-management-system }
-  - { title: "High-risk AI as safety components of Annex I products", due_on: 2027-08-02, date_precision: exact, description: "Article 6(1) obligations for AI in products covered by Annex I harmonisation legislation. Secondary reporting indicates this date moved under a 2026 amendment to Article 113; unconfirmed against the Official Journal, so the adopted-text date is shown with low confidence rather than replaced. Check the official source.", source_reference: "Article 113(c)", deadline_status: scheduled, confidence_level: low }
+  - { title: "General application and Article 50 transparency duties", due_on: 2026-08-02, date_precision: exact, description: "Default application date for the remainder of the Regulation. Regulation (EU) 2026/1744 did not move this date or the Article 50 transparency duties, according to secondary reporting; confirm against the Official Journal.", source_reference: "Article 113, as amended by Regulation (EU) 2026/1744", deadline_status: passed, confidence_level: medium }
+  - { title: "Two further Article 5 prohibitions apply (non-consensual intimate imagery and child sexual abuse material generation)", due_on: 2026-12-02, date_precision: exact, description: "Added by Regulation (EU) 2026/1744. Recorded from secondary reporting; confirm the exact wording and date against the Official Journal.", source_reference: "Regulation (EU) 2026/1744 amending Articles 5 and 113", deadline_status: scheduled, confidence_level: medium }
+  - { title: "High-risk obligations apply to stand-alone Annex III systems (Chapter III, Sections 1 to 3)", due_on: 2027-12-02, date_precision: exact, description: "Deferred from 2 August 2026 by Regulation (EU) 2026/1744. Recorded from secondary reporting; confirm against the Official Journal.", source_reference: "Article 113 as amended by Regulation (EU) 2026/1744", deadline_status: scheduled, confidence_level: medium, obligation: eu-ai-act-risk-management-system }
+  - { title: "High-risk obligations apply to AI embedded in Annex I products", due_on: 2028-08-02, date_precision: exact, description: "Article 6(1) obligations for AI in products covered by Annex I harmonisation legislation, deferred from 2 August 2027 by Regulation (EU) 2026/1744. Recorded from secondary reporting; confirm against the Official Journal.", source_reference: "Article 113(c) as amended by Regulation (EU) 2026/1744", deadline_status: scheduled, confidence_level: medium }
   - { title: "General-purpose models placed on the market before 2 August 2025 must comply", due_on: 2027-08-02, date_precision: exact, description: "Transitional period for models already on the market.", source_reference: "Article 111(3)", deadline_status: scheduled, confidence_level: medium }
   - { title: "Large-scale IT systems listed in Annex X placed on the market before 2 August 2027", due_on: 2030-12-31, date_precision: exact, description: "Transitional period for certain EU large-scale IT systems in the area of freedom, security and justice.", source_reference: "Article 111(1)", deadline_status: scheduled, confidence_level: medium }
 procurement_rules:
@@ -1562,7 +1647,10 @@ procurement_rules:
     source_publisher: "Official Journal of the European Union"
     source_reference: "Articles 27 and 49(4)"
     confidence_level: high
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
 sources:
   - { title: "Regulation (EU) 2024/1689 (Artificial Intelligence Act) — consolidated ELI page", publisher: "Publications Office of the European Union", url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", document_date: 2024-07-12, document_type: legislation, tier: 1 }
   - { title: "AI Act policy page and implementation timeline", publisher: "European Commission, DG CONNECT", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", document_type: official, tier: 1 }
@@ -1597,10 +1685,10 @@ source_publisher: "Official Journal of the European Union"
 source_document_date: 2024-07-12
 source_reference: "OJ L, 2024/1689, 12.7.2024"
 source_tier: 1
-last_checked_at: null
+last_checked_at: '2026-09-26'
 last_verified_at: null
-review_status: needs_update
-confidence_level: low
-content_version: 1
-change_summary: Initial structured record from the adopted text; Digital Omnibus adjustments not yet reflected.
+review_status: pending_review
+confidence_level: medium
+content_version: 2
+change_summary: Application dates updated for Regulation (EU) 2026/1744 (Digital Omnibus on AI) from secondary reporting; Annex III high-risk duties to 2 December 2027, Annex I to 2 August 2028, two new prohibitions from 2 December 2026. Pending review against the Official Journal.
 reviewed_by: null

@@ -134,10 +134,10 @@ source_publisher: "Ministry of Electronics and Information Technology, Governmen
 source_document_date: 2023-08-11
 source_reference: "Act No. 22 of 2023"
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record; Rules commencement schedule to be confirmed.
-reviewed_by: null
+reviewed_by: AI Policy Tracker

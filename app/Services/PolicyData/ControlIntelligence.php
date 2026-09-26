@@ -9,6 +9,7 @@ use App\Models\ExternalRisk;
 use App\Models\Obligation;
 use App\Models\TaxonomyTerm;
 use App\Services\ExternalData\ExternalDataset;
+use App\Support\RiskTaxonomy;
 use Illuminate\Support\Collection;
 
 /**
@@ -62,7 +63,7 @@ class ControlIntelligence
                     'domain' => $sub['domain'],
                     'incidents' => $this->incidentCount($sub['name']),
                     'risks' => $this->riskCount($sub['id']),
-                    'url' => route('risk.subdomain', [$sub['domain_id'], $sub['id']]),
+                    'url' => RiskTaxonomy::subdomainUrl($sub['domain_id'], $sub['id']),
                 ];
             })->values();
     }

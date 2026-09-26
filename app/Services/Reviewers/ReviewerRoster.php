@@ -7,6 +7,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyDataRepository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -155,5 +156,39 @@ class ReviewerRoster
         }
 
         return Jurisdiction::whereIn('slug', $slugs)->orderBy('name')->pluck('name')->all();
+    }
+
+    /** The roster slug for a reviewer's name, or null when the name is not on the published roster. */
+    public function slugFor(string $name): ?string
+    {
+        static $map = null;
+        $map ??= collect($this->repository->reviewers())->filter(fn ($r) => (bool) ($r['published'] ?? true))->mapWithKeys(fn ($r) => [mb_strtolower(trim((string) ($r['name'] ?? ''))) => (string) ($r['slug'] ?? '')])->all();
+
+        return ($map[mb_strtolower(trim($name))] ?? null) ?: null;
+    }
+
+    public function find(string $slug): ?array
+    {
+        return $this->published()->first(fn ($r) => ($r['slug'] ?? null) === $slug);
+    }
+
+    /**
+     * The records a named reviewer has confirmed, newest first. Only the attributable
+     * kinds are asked: obligations have no reviewer column, and asking them for one is
+     * a query PostgreSQL refuses, which is what took every reviewer page down.
+     *
+     * @return Collection<int, array{title:string, url:string, kind:string, verified_at:?Carbon}>
+     */
+    public function verifiedRecords(string $name, int $limit = 100): Collection
+    {
+        $out = collect();
+        foreach (self::ATTRIBUTABLE as $kind => $model) {
+            $q = $model::query()->where('review_status', 'verified')->where('reviewed_by', $name)->whereNotNull('published_at')->orderByDesc('last_verified_at')->limit($limit);
+            foreach ($q->get() as $r) {
+                $out->push(['title' => $r->title ?? $r->name ?? $r->slug, 'url' => $r->url(), 'kind' => str_replace('_', ' ', $kind), 'verified_at' => $r->last_verified_at]);
+            }
+        }
+
+        return $out->sortByDesc(fn ($r) => $r['verified_at']?->timestamp ?? 0)->values();
     }
 }

@@ -24,6 +24,9 @@ framework_references:
   - { framework: nist_ai_rmf, reference: "MANAGE 4.1, 4.3; GOVERN 4.3, 6.2", confidence_level: high }
   - { framework: iso_27001, reference: "Annex A 5.24 to 5.28 Information security incident management", confidence_level: medium }
 related_controls: [post-market-monitoring-and-drift-detection, record-keeping-and-logging, genai-red-team-testing, privacy-and-data-protection-for-ai]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

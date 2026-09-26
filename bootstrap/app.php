@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AssignRequestId;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CountFunnelViews;
 use App\Http\Middleware\EnsureAdminSecondFactor;
@@ -12,6 +13,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Middleware\TrustProxies;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -32,6 +35,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Read at request time by App\Http\Middleware\TrustProxies, because this
         // file runs before .env and the configuration are loaded.
         $middleware->replace(TrustProxies::class, App\Http\Middleware\TrustProxies::class);
+        // First in the stack, so the id is on every log line the request writes.
+        $middleware->prepend(AssignRequestId::class);
 
         $middleware->web(append: [
             HandleInertiaRequests::class,
@@ -50,5 +55,12 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // The handler builds the error response outside the middleware stack, so the
+        // header is set here as well: the reference the page shows is the one on the
+        // wire and the one in the log.
+        $exceptions->respond(function (Response $response, Throwable $e, Request $request) {
+            $response->headers->set(AssignRequestId::HEADER, AssignRequestId::assign($request));
+
+            return $response;
+        });
     })->create();

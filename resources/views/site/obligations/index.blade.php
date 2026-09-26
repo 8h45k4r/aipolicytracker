@@ -1,9 +1,10 @@
 @extends('site.layouts.app')
 @section('content')
 <x-site.listing-shell :seo="$seo" :filters="$filters" :options="$options" :paginator="$obligations" mode="obligations"
-    heading="{{ !empty($filters['category']) && ($c = $options['categories']->firstWhere('slug', $filters['category'])) ? $c->name.': AI obligations' : 'AI compliance obligations' }}"
+    :heading="!empty($filters['category']) && ($c = $options['categories']->firstWhere('slug', $filters['category'])) ? $c->name.': AI obligations' : 'AI compliance obligations'"
     intro="Practical requirements extracted from policy instruments, with the source article, the actors they bind, evidence examples and original framework mappings. Legal requirements are marked; everything else is voluntary guidance.">
-    @forelse($obligations as $o)
+    <h2 class="sr-only">Results</h2>
+            @forelse($obligations as $o)
     <article class="py-4">
         <div class="flex flex-wrap items-center gap-2 text-xs text-brand-muted">
             <span class="badge {{ $o->is_binding ? 'bg-brand-navy text-white ring-brand-navy' : 'bg-brand-paper text-brand-body ring-brand-line' }}">{{ $o->is_binding ? 'Legal requirement' : 'Voluntary guidance' }}</span>

@@ -7,6 +7,10 @@ use App\Models\PolicyInstrument;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
+use App\Services\Records\AnswerBox;
+use App\Services\Records\KeyFacts;
+use App\Services\Records\QuestionBank;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -73,9 +77,9 @@ class PolicyController extends Controller
             ->map(fn ($rows) => ['control' => $rows->first()['control'], 'satisfies' => $rows->where('satisfies', true)->count(), 'duties' => $rows->count()])
             ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
-        // The long pattern only where it fits the result-page budget; a long
-        // instrument name gets a shorter suffix rather than a truncated one.
-        $title = Seo::fitTitle($name, [': requirements, deadlines and compliance actions', ': requirements and deadlines', ': AI policy record', '']);
+        // "<Short title> (<Jurisdiction>, <Year>): Status, Duties & Dates", with
+        // shorter forms where a long name would not fit (PageTitle::policy).
+        $title = PageTitle::policy($policy);
 
         // What the page is about. A binding instrument is the Legislation node
         // emitted below, referenced by identifier so the page and the law are one
@@ -94,9 +98,14 @@ class PolicyController extends Controller
                 'spatialCoverage' => ['@type' => 'Place', 'name' => $policy->jurisdiction->name],
             ]);
 
+        // The answer first: composed from the record's checked fields, so the
+        // page opens with what the record is, and the description says the same.
+        $answer = AnswerBox::policy($policy);
+        $facts = KeyFacts::policy($policy);
+
         $seo = Seo::make(
             $title,
-            'Source-backed guide to '.$name.' ('.$policy->jurisdiction->name.'): scope, status ('.$policy->statusEnum()->label().'), key dates, obligations, official sources and practical compliance actions.',
+            $answer,
             $policy->url(),
             $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')], [$name, $policy->url()]])
@@ -109,8 +118,10 @@ class PolicyController extends Controller
             // Merged into the page's own node rather than written as a second one, so
             // it carries the identifier, breadcrumb, language and publisher every page
             // node gets instead of a thinner hand-made copy.
-            ->withPageProperties([
+            ->withPageType('Article', [
+                'headline' => $name.': requirements, deadlines and compliance actions',
                 'name' => $name.': requirements, deadlines and compliance actions',
+                'description' => $answer,
                 'about' => $about,
                 'citation' => $policy->sourceDocuments->map(fn ($s) => ['@type' => 'CreativeWork', 'name' => $s->title, 'url' => $s->url, 'publisher' => $s->publisher])->values()->all(),
             ] + Seo::provenance($policy))
@@ -133,14 +144,11 @@ class PolicyController extends Controller
             $seo->withJsonLd(['@id' => $policy->url().'#legislation'] + Seo::legislation($policy));
         }
 
-        if (! empty($policy->faq)) {
-            $seo->withJsonLd([
-                '@type' => 'FAQPage',
-                'mainEntity' => collect($policy->faq)->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => trim($f['answer'])]])->values()->all(),
-            ]);
-        }
+        // Hand-written questions on the record first, then the bank's, each
+        // rendered only when the record can answer it.
+        $seo->withFaq(QuestionBank::policy($policy));
 
-        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls'));
+        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls', 'answer', 'facts'));
     }
 
     public function json(PolicyInstrument $policy, PolicySerializer $serializer): JsonResponse

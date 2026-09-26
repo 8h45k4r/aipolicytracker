@@ -431,13 +431,74 @@
     }
 })();
 
-// Admin review queue: one checkbox that ticks every row currently shown, so a
-// reviewer who has just read a whole set can record it in one action. Nothing
-// here decides anything; the attestation and the submit are still the reviewer's.
-document.querySelectorAll('[data-bulk-all]').forEach(function (master) {
-    master.addEventListener('change', function () {
-        document.querySelectorAll('[data-bulk-item]').forEach(function (box) {
-            if (box.offsetParent !== null) { box.checked = master.checked; }
+// Admin tables: selection, counts and confirmations.
+//
+// A bulk form sits beside its table (a form cannot contain another form, and each
+// row keeps its own publish form), so the rows point at it with form="<id>". Everything
+// here is keyed on that id: the header checkbox ticks the rows of its own table only,
+// the bar shows how many are ticked, buttons that need a selection wait for one, and
+// shift-click ticks a range. Nothing here decides anything; the attestation and the
+// submit are still the reviewer's.
+(function () {
+    function items(id) {
+        return Array.prototype.slice.call(document.querySelectorAll('[data-bulk-item][form="' + id + '"]'));
+    }
+    function selected(id) {
+        return items(id).filter(function (box) { return box.checked; }).length;
+    }
+    function paint(id) {
+        var all = items(id), n = selected(id);
+        var scope = document.querySelector('[data-bulk-scope="' + id + '"]');
+        var whole = !!(scope && scope.checked);
+        document.querySelectorAll('[data-bulk-all="' + id + '"]').forEach(function (master) {
+            master.checked = all.length > 0 && n === all.length;
+            master.indeterminate = n > 0 && n < all.length;
         });
+        document.querySelectorAll('[data-bulk-count="' + id + '"]').forEach(function (el) {
+            el.textContent = whole ? el.getAttribute('data-bulk-count-all') : (n + ' selected');
+        });
+        document.querySelectorAll('[data-bulk-needs="' + id + '"]').forEach(function (btn) {
+            btn.disabled = !(whole || n > 0);
+        });
+    }
+
+    var forms = {};
+    document.querySelectorAll('[data-bulk-item]').forEach(function (box) {
+        var id = box.getAttribute('form');
+        if (!id || forms[id]) { return; }
+        forms[id] = true;
+        var last = null;
+        items(id).forEach(function (item) {
+            item.addEventListener('click', function (event) {
+                if (event.shiftKey && last && last !== item) {
+                    var list = items(id), a = list.indexOf(last), b = list.indexOf(item);
+                    list.slice(Math.min(a, b), Math.max(a, b) + 1).forEach(function (other) { other.checked = item.checked; });
+                }
+                last = item;
+            });
+            item.addEventListener('change', function () { paint(id); });
+        });
+        document.querySelectorAll('[data-bulk-all="' + id + '"]').forEach(function (master) {
+            master.addEventListener('change', function () {
+                items(id).forEach(function (item) { item.checked = master.checked; });
+                paint(id);
+            });
+        });
+        var scope = document.querySelector('[data-bulk-scope="' + id + '"]');
+        if (scope) { scope.addEventListener('change', function () { paint(id); }); }
+        paint(id);
     });
-});
+
+    // Confirmations. The CSP allows no inline handlers, so onsubmit="return confirm()"
+    // never ran and a delete went through on the first click. A form or the button
+    // that submits it carries data-confirm instead; {n} is the number of ticked rows.
+    document.addEventListener('submit', function (event) {
+        var form = event.target;
+        var source = (event.submitter && event.submitter.getAttribute('data-confirm')) ? event.submitter : form;
+        var message = source.getAttribute('data-confirm');
+        if (!message) { return; }
+        var scope = document.querySelector('[data-bulk-scope="' + form.id + '"]');
+        var n = (scope && scope.checked) ? (scope.getAttribute('data-bulk-scope-count') || 'all matching') : selected(form.id);
+        if (!window.confirm(message.replace('{n}', n))) { event.preventDefault(); }
+    });
+})();

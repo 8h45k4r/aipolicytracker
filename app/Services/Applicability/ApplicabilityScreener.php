@@ -19,6 +19,9 @@ use Illuminate\Support\Collection;
  */
 class ApplicabilityScreener
 {
+    /** Statuses whose obligations no longer bind anyone. */
+    public const NOT_IN_FORCE = ['repealed', 'superseded', 'archived'];
+
     /** Sensitive decision domains offered by the questionnaire. */
     public const DOMAINS = [
         'hiring_and_hr' => 'Employment, recruitment or worker management',
@@ -56,7 +59,9 @@ class ApplicabilityScreener
     public function screen(array $a): array
     {
         $jurisdictionIds = Jurisdiction::whereIn('slug', $a['jurisdictions'])->pluck('id');
-        $policies = PolicyInstrument::published()->with(['jurisdiction', 'terms'])->whereIn('jurisdiction_id', $jurisdictionIds)->get();
+        // A repealed, superseded or archived instrument stays published as a record, but its
+        // duties are not anyone's to meet: Colorado's SB 24-205 was repealed before it applied.
+        $policies = PolicyInstrument::published()->with(['jurisdiction', 'terms'])->whereIn('jurisdiction_id', $jurisdictionIds)->whereNotIn('status', self::NOT_IN_FORCE)->get();
         $wantedUseCases = $this->useCases($a);
 
         $scored = $policies->map(function (PolicyInstrument $p) use ($a, $wantedUseCases) {

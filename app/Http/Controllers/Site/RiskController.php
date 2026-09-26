@@ -8,7 +8,10 @@ use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Services\ExternalData\ExternalDataset;
+use App\Support\PageTitle;
+use App\Support\RiskTaxonomy;
 use App\Support\Seo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
@@ -60,10 +63,19 @@ class RiskController extends Controller
     }
 
     /** Subdomain profile: definition, causal breakdowns, frameworks, risk entries and incidents for one MIT subdomain (e.g. 2.1). */
-    public function subdomain(string $domain, string $sub): View
+    public function subdomain(string $domain, string $sub): View|RedirectResponse
     {
-        $d = $this->data->mitDomain($domain);
+        $domainId = RiskTaxonomy::domainId($domain);
+        $code = $domainId ? RiskTaxonomy::subdomainCode($domainId, $sub) : null;
+        abort_unless($domainId && $code, 404);
+        // The numbered address ("/ai-risk/1/1.2") was the original; it now
+        // redirects to the named one, which is the only one published.
+        if ($domain !== RiskTaxonomy::domainSlug($domainId) || $sub !== RiskTaxonomy::subdomainSlug($code)) {
+            return redirect()->to(RiskTaxonomy::subdomainUrl($domainId, $code), 301);
+        }
+        $d = $this->data->mitDomain($domainId);
         abort_unless($d, 404);
+        $sub = $code;
         $meta = collect($d['subdomains'] ?? [])->firstWhere('id', $sub);
         abort_unless($meta, 404);
         $mit = $this->data->mitRisk();
@@ -79,14 +91,14 @@ class RiskController extends Controller
         $incidentsQuery = ExternalIncident::whereRaw('lower(mit_subdomain) = ?', [mb_strtolower(trim($meta['name']))]);
         $incidentCount = (clone $incidentsQuery)->count();
         $incidentYears = (clone $incidentsQuery)->selectRaw('year, COUNT(*) as n')->groupBy('year')->orderBy('year')->pluck('n', 'year');
-        $incidents = (clone $incidentsQuery)->orderByDesc('occurred_on')->limit(10)->get();
+        $incidents = (clone $incidentsQuery)->standard()->orderByDesc('occurred_on')->limit(10)->get();
         $policies = $d['use_cases'] ? PolicyInstrument::published()->with('jurisdiction')->withTerm('use_case', $d['use_cases'])->orderBy('title')->limit(12)->get() : collect();
 
         $seo = Seo::make(
-            "AI risk {$sub}: {$meta['name']}",
+            PageTitle::fit($meta['name'], [': AI Risk, Incidents & Laws', ': AI Risk']),
             mb_substr(($meta['description'] ?: $meta['name']).' '.number_format($riskCount).' risk entries and '.number_format($incidentCount).' recorded incidents.', 0, 155),
-            route('risk.subdomain', [$d['id'], $sub])
-        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], [$d['name'], route('risk.domain', $d['id'])], [$sub, route('risk.subdomain', [$d['id'], $sub])]])
+            RiskTaxonomy::subdomainUrl($d['id'], $sub)
+        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], [$d['name'], RiskTaxonomy::domainUrl($d['id'])], [$sub, RiskTaxonomy::subdomainUrl($d['id'], $sub)]])
             ->withJsonLd(['@type' => 'DefinedTerm', 'name' => $meta['name'], 'description' => $meta['description'] ?? null, 'identifier' => $sub, 'inDefinedTermSet' => 'https://airisk.mit.edu/', 'license' => $mit['license_url'] ?? null]);
 
         return view('site.risk.subdomain', compact('seo', 'mit', 'd', 'meta', 'sub', 'riskCount', 'breakdown', 'byLevel', 'papers', 'risks', 'incidentCount', 'incidentYears', 'incidents', 'policies'));
@@ -190,17 +202,22 @@ class RiskController extends Controller
             $cells = [];
             foreach ($d['subdomains'] ?? [] as $sd) {
                 $value = $measure === 'incidents' ? (int) ($incBySub[mb_strtolower(trim($sd['name']))] ?? 0) : (int) ($riskBySub[$sd['id']] ?? 0);
-                $cells[] = ['label' => $sd['id'].' '.$sd['name'], 'short' => $sd['id'], 'url' => route('risk.subdomain', [$d['id'], $sd['id']]), 'value' => $value];
+                $cells[] = ['label' => $sd['id'].' '.$sd['name'], 'short' => $sd['id'], 'url' => RiskTaxonomy::subdomainUrl($d['id'], $sd['id']), 'value' => $value];
             }
-            $rows[] = ['label' => $d['id'].'. '.$d['name'], 'url' => route('risk.domain', $d['id']), 'total' => array_sum(array_column($cells, 'value')), 'cells' => $cells];
+            $rows[] = ['label' => $d['id'].'. '.$d['name'], 'url' => RiskTaxonomy::domainUrl($d['id']), 'total' => array_sum(array_column($cells, 'value')), 'cells' => $cells];
         }
 
         return $rows;
     }
 
-    public function domain(string $domain): View
+    public function domain(string $domain): View|RedirectResponse
     {
-        $d = $this->data->mitDomain($domain);
+        $domainId = RiskTaxonomy::domainId($domain);
+        abort_unless($domainId, 404);
+        if ($domain !== RiskTaxonomy::domainSlug($domainId)) {
+            return redirect()->to(RiskTaxonomy::domainUrl($domainId), 301);
+        }
+        $d = $this->data->mitDomain($domainId);
         abort_unless($d, 404);
         $aiid = $this->data->aiid();
         $mit = $this->data->mitRisk();
@@ -209,17 +226,17 @@ class RiskController extends Controller
         $policies = $d['use_cases'] ? PolicyInstrument::published()->with('jurisdiction')->withTerm('use_case', $d['use_cases'])->orderBy('title')->limit(24)->get() : collect();
 
         $seo = Seo::make(
-            "AI risk domain {$d['id']}: {$d['name']}",
+            PageTitle::fit(str_replace(' & ', ' and ', $d['name']).' AI Risks', [': Incidents, Taxonomy & Laws', ': Incidents & Laws']),
             mb_substr(trim(($d['description'] ?: 'Subdomains, incident frequency and related AI policies for the MIT AI Risk Repository domain "'.$d['name'].'".')), 0, 155),
-            route('risk.domain', $d['id'])
-        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], [$d['name'], route('risk.domain', $d['id'])]])
-            ->withJsonLd(['@type' => 'DefinedTermSet', 'name' => $d['name'], 'url' => route('risk.domain', $d['id']), 'isBasedOn' => $mit['source_url'] ?? null, 'license' => $mit['license_url'] ?? null]);
+            RiskTaxonomy::domainUrl($d['id'])
+        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], [$d['name'], RiskTaxonomy::domainUrl($d['id'])]])
+            ->withJsonLd(['@type' => 'DefinedTermSet', 'name' => $d['name'], 'url' => RiskTaxonomy::domainUrl($d['id']), 'isBasedOn' => $mit['source_url'] ?? null, 'license' => $mit['license_url'] ?? null]);
 
         $subRisks = ExternalRisk::selectRaw('subdomain, COUNT(*) as n')->where('domain', (int) $d['id'])->whereNotNull('subdomain')->groupBy('subdomain')->pluck('n', 'subdomain');
         $subIncidents = ExternalIncident::selectRaw('mit_subdomain, COUNT(*) as n')->where('mit_domain', $d['aiid_domain_label'])->whereNotNull('mit_subdomain')->groupBy('mit_subdomain')->pluck('n', 'mit_subdomain');
         $riskCount = ExternalRisk::where('domain', (int) $d['id'])->count();
         $topPapers = ExternalRisk::selectRaw('quick_ref, MAX(paper_title) as title, COUNT(*) as n')->where('domain', (int) $d['id'])->groupBy('quick_ref')->orderByDesc('n')->limit(8)->get();
-        $recent = ExternalIncident::where('mit_domain', $d['aiid_domain_label'])->orderByDesc('occurred_on')->limit(8)->get();
+        $recent = ExternalIncident::standard()->where('mit_domain', $d['aiid_domain_label'])->orderByDesc('occurred_on')->limit(8)->get();
 
         return view('site.risk.domain', ['seo' => $seo, 'mit' => $mit, 'domain' => $d, 'incidents' => $incidents, 'trend' => $trend, 'policies' => $policies, 'aiid' => $aiid, 'subRisks' => $subRisks, 'subIncidents' => $subIncidents, 'riskCount' => $riskCount, 'topPapers' => $topPapers, 'recent' => $recent]);
     }
@@ -228,7 +245,7 @@ class RiskController extends Controller
     {
         $aiid = $this->data->aiid();
         // Latest records come from the read-model table, which the live API sync keeps ahead of the weekly snapshot.
-        $latest = ExternalIncident::with('reports')->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(30)->get();
+        $latest = ExternalIncident::standard()->with('reports')->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(30)->get();
         $live = ['count' => ExternalIncident::count(), 'synced_at' => ExternalIncident::max('synced_at'), 'latest_id' => ExternalIncident::max('incident_id'), 'recent' => ExternalIncident::where('occurred_on', '>=', now()->subDays(30)->toDateString())->count()];
         $modified = $live['synced_at'] ?: ($aiid['snapshot_date'] ?? null);
         $modified = $modified ? Carbon::parse($modified) : null;

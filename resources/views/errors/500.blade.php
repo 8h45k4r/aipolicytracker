@@ -5,5 +5,5 @@
     'title' => 'Something broke on our side',
     'body' => 'This is a fault in the site, not in anything you did. It has been logged. Nothing you were reading was changed or lost.',
     'detail' => 'The policy records themselves are published as open data, so if you need this information right now you can read it without the website: the JSON API at /api/v1, the full dataset at /open-data, or any record as a plain file at /policies/{slug}.md.',
-    'reference' => request()->header('X-Request-Id') ?: substr(sha1((string) microtime(true)), 0, 8),
+    'reference' => \App\Http\Middleware\AssignRequestId::assign(request()),
 ])

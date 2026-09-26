@@ -44,6 +44,8 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
             Route::get('/downloads/export', 'downloadsExport')->name('downloads.export');
         });
         Route::middleware('can:subscribers.manage')->group(function () {
+            Route::post('/subscribers/resend-many', 'subscribersResendMany')->name('subscribers.resend.many');
+            Route::post('/subscribers/delete-many', 'subscribersDeleteMany')->name('subscribers.delete.many');
             Route::post('/subscribers/{subscriber}/resend', 'subscriberResend')->name('subscribers.resend');
             Route::delete('/subscribers/{subscriber}', 'subscriberDelete')->name('subscribers.delete');
         });
@@ -91,6 +93,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
+        Route::post('/status-many', 'statusMany')->name('status.many');
         Route::get('/{tool}/edit', 'edit')->name('edit');
         Route::put('/{tool}', 'update')->name('update');
         Route::delete('/{tool}', 'destroy')->middleware('password.confirm')->name('destroy');
@@ -109,8 +112,11 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('back
     Route::middleware('can:submissions.decide')->group(function () {
         Route::get('/', [ReviewController::class, 'index'])->name('index');
         Route::post('/submissions/{submission}/decide', [ReviewController::class, 'decide'])->name('decide');
+        Route::post('/submissions/decide-many', [ReviewController::class, 'decideMany'])->name('decide.many');
     });
+    // {type} is any key of App\Services\Review\ReviewableTypes; the controller answers 404 to the rest.
     Route::post('/publish/{type}/{slug}', [ReviewController::class, 'publish'])->middleware('can:records.publish')->name('publish');
+    Route::post('/publish-many/{type}', [ReviewController::class, 'publishMany'])->middleware('can:records.publish')->name('publish.many');
     Route::post('/verify/{type}/{slug}', [ReviewController::class, 'verify'])->middleware('can:records.verify')->name('verify');
-    Route::post('/verify-many/{type}', [ReviewController::class, 'verifyMany'])->where('type', 'policy|jurisdiction|control')->middleware('can:records.verify')->name('verify.many');
+    Route::post('/verify-many/{type}', [ReviewController::class, 'verifyMany'])->middleware('can:records.verify')->name('verify.many');
 });

@@ -5,15 +5,23 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Control;
+use App\Models\DigestIssue;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Models\TemplateVersion;
 use App\Models\Tool;
+use App\Models\TransitionMeasure;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\Hubs\HubCatalog;
 use App\Services\PolicyData\FrameworkCrosswalk;
+use App\Services\Report\StateOfAiRegulation;
+use App\Services\Reviewers\ReviewerRoster;
+use App\Services\Templates\TemplateCatalog;
+use App\Support\RiskTaxonomy;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 
@@ -32,6 +40,8 @@ class SitemapController extends Controller
             'obligations' => Obligation::published()->max('updated_at'),
             'controls' => Control::published()->max('updated_at'),
             'changes' => ChangeEvent::published()->max('updated_at'),
+            'updates' => ChangeEvent::published()->max('updated_at'),
+            'templates' => TemplateVersion::max('generated_at'),
             'resources' => PolicyInstrument::published()->max('updated_at'),
             // The research corpus: roughly 1,700 incident pages and 2,500 risk
             // entries that were reachable, indexable and in no sitemap at all,
@@ -41,6 +51,11 @@ class SitemapController extends Controller
             'risks' => ExternalRisk::query()->max('updated_at'),
         ];
         $entries = collect($sections)->map(fn ($mod, $key) => ['loc' => route('sitemap.section', $key), 'lastmod' => $mod ? Carbon::parse($mod)->toAtomString() : null]);
+        // The news sitemap is listed only while it has something in it: an empty
+        // one is a promise of news to a crawler that will find none.
+        if (($news = $this->newsItems())->isNotEmpty()) {
+            $entries->put('news', ['loc' => route('sitemap.news'), 'lastmod' => $news->max('first_published_at')?->toAtomString()]);
+        }
 
         return $this->xml(view('site.sitemap.index', compact('entries'))->render());
     }
@@ -54,6 +69,8 @@ class SitemapController extends Controller
             'obligations' => $this->obligationUrls(),
             'controls' => $this->controlUrls(),
             'changes' => $this->changeUrls(),
+            'updates' => $this->updatesUrls(),
+            'templates' => $this->templateUrls(),
             'resources' => $this->resourceUrls(),
             'incidents' => $this->incidentUrls(),
             'risks' => $this->riskUrls(),
@@ -75,7 +92,7 @@ class SitemapController extends Controller
             ->withPublishedInstrument()
             ->orderBy('slug')
             ->lazy(500)
-            ->filter->isIndexable()
+            ->filter->isPageIndexable()
             ->map(fn ($j) => ['loc' => $j->url(), 'lastmod' => $j->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])
             ->values();
     }
@@ -156,12 +173,12 @@ class SitemapController extends Controller
         $pages = [
             [route('home'), 'daily', '1.0'], [route('policies.index'), 'daily', '0.9'], [route('jurisdictions.index'), 'weekly', '0.9'],
             [route('obligations.index'), 'weekly', '0.8'], [route('compare.index'), 'monthly', '0.7'], [route('changes.index'), 'daily', '0.9'],
-            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [route('risk.domain', 1), 'monthly', '0.6'], [route('risk.domain', 2), 'monthly', '0.6'], [route('risk.domain', 3), 'monthly', '0.6'], [route('risk.domain', 4), 'monthly', '0.6'], [route('risk.domain', 5), 'monthly', '0.6'], [route('risk.domain', 6), 'monthly', '0.6'], [route('risk.domain', 7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
+            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(1), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(2), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(3), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(4), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(5), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(6), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
             [route('about'), 'monthly', '0.5'], [route('privacy'), 'yearly', '0.3'], [route('terms'), 'yearly', '0.3'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
         foreach (app(ExternalDataset::class)->mitRisk()['domains'] ?? [] as $d) {
             foreach ($d['subdomains'] ?? [] as $sd) {
-                $pages[] = [route('risk.subdomain', [$d['id'], $sd['id']]), 'monthly', '0.6'];
+                $pages[] = [RiskTaxonomy::subdomainUrl($d['id'], $sd['id']), 'monthly', '0.6'];
             }
         }
         // Framework crosswalks. Only the pages that pass the same indexability threshold
@@ -170,6 +187,22 @@ class SitemapController extends Controller
         $crosswalk = app(FrameworkCrosswalk::class);
         $pages[] = [route('frameworks.index'), 'weekly', '0.8'];
         $pages[] = [route('frameworks.compare'), 'weekly', '0.7'];
+        $pages[] = [route('transition.index'), 'weekly', '0.8'];
+        $pages[] = [route('state-of.show'), 'weekly', '0.8'];
+        foreach (StateOfAiRegulation::frozenQuarters() as $q) {
+            $pages[] = [route('state-of.quarter', $q), 'yearly', '0.5'];
+        }
+        $pages[] = [route('embed.index'), 'monthly', '0.4'];
+        foreach (app(ReviewerRoster::class)->published() as $r) {
+            $pages[] = [route('reviewers.show', $r['slug']), 'monthly', '0.4'];
+        }
+        $pages[] = [route('transition.methodology'), 'monthly', '0.5'];
+        foreach (TransitionController::LANDINGS as $landing => $meta) {
+            if (TransitionMeasure::whereNotNull('published_at')->where('measure_type', $meta['type'])->where('review_status', 'verified')->count() >= TransitionController::MIN_INDEXABLE_LANDING) {
+                $pages[] = [route('transition.landing', $landing), 'weekly', '0.7'];
+            }
+        }
+        $pages[] = [route('deadlines.engine'), 'monthly', '0.7'];
         foreach ($crosswalk->summary() as $framework) {
             if ($framework['obligations'] < FrameworkCrosswalk::MIN_INDEXABLE_OBLIGATIONS) {
                 continue;
@@ -181,7 +214,7 @@ class SitemapController extends Controller
                 }
             }
         }
-        foreach (Tool::published()->orderBy('sort_order')->pluck('slug') as $slug) {
+        foreach (Tool::published()->whereNotIn('slug', array_keys(TemplateCatalog::redirects()))->orderBy('sort_order')->pluck('slug') as $slug) {
             $pages[] = [route('tools.show', $slug), 'monthly', '0.8'];
         }
         // Guides are listed once, in the resources sitemap.
@@ -225,6 +258,77 @@ class SitemapController extends Controller
         )->values();
     }
 
+    /**
+     * Google News sitemap: change entries first published in the last 48 hours.
+     * The event itself must also be recent. On a database built from scratch,
+     * every row is "first published" at build time, and without the second test
+     * a 2017 entry would be offered as today's news.
+     */
+    public function news(): Response
+    {
+        return $this->xml(view('site.sitemap.news', ['changes' => $this->newsItems()])->render());
+    }
+
+    private function newsItems()
+    {
+        return ChangeEvent::published()->with('jurisdiction')
+            ->whereNotNull('official_source_url')->whereNotNull('what_changed')
+            ->where('first_published_at', '>=', now()->subHours(48))
+            ->where('occurred_on', '>=', now()->subDays(14)->toDateString())
+            ->orderByDesc('first_published_at')->limit(1000)->get();
+    }
+
+    /**
+     * The updates hub and its archives, each listed only when it is indexable:
+     * the pages apply the same threshold to themselves.
+     */
+    private function templateUrls()
+    {
+        $latest = TemplateVersion::latestAll();
+        $newest = collect($latest)->max('generated_at');
+        $urls = collect([['loc' => route('templates.index'), 'lastmod' => $newest?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.8']]);
+        foreach (TemplateCatalog::all()->keys() as $slug) {
+            $urls->push(['loc' => route('templates.show', $slug), 'lastmod' => isset($latest[$slug]) ? $latest[$slug]->generated_at->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.7']);
+        }
+
+        return $urls;
+    }
+
+    private function updatesUrls()
+    {
+        $latest = ChangeEvent::published()->max('updated_at');
+        $urls = collect([['loc' => route('updates.index'), 'lastmod' => $latest ? Carbon::parse($latest)->toAtomString() : null, 'changefreq' => 'daily', 'priority' => '0.9']]);
+
+        foreach (ChangeEvent::publishedMonths() as $month => $m) {
+            if ($m['count'] >= UpdatesController::MIN_INDEXABLE) {
+                $urls->push(['loc' => route('updates.month', $month), 'lastmod' => $m['modified'] ? Carbon::parse($m['modified'])->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6']);
+            }
+        }
+        $days = ChangeEvent::published()->get(['occurred_on', 'updated_at'])->groupBy(fn ($e) => substr((string) $e->occurred_on, 0, 10));
+        foreach ($days as $day => $group) {
+            if ($group->count() >= UpdatesController::MIN_INDEXABLE_DAY) {
+                $urls->push(['loc' => route('updates.day', $day), 'lastmod' => Carbon::parse($group->max('updated_at'))->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5']);
+            }
+        }
+        $counts = ChangeEvent::published()->selectRaw('jurisdiction_id, count(*) as n, max(updated_at) as m')->groupBy('jurisdiction_id')->get()->keyBy('jurisdiction_id');
+        foreach (Jurisdiction::published()->withPublishedInstrument()->whereIn('id', $counts->keys())->orderBy('slug')->get() as $j) {
+            $row = $counts[$j->id];
+            if ($j->isIndexable() && $row->n >= UpdatesController::MIN_INDEXABLE) {
+                $urls->push(['loc' => route('updates.jurisdiction', $j->slug), 'lastmod' => Carbon::parse($row->m)->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.6']);
+            }
+        }
+        foreach (DigestIssue::orderByDesc('sent_on')->get() as $issue) {
+            if ($issue->isIndexable()) {
+                $urls->push(['loc' => $issue->url(), 'lastmod' => $issue->updated_at?->toAtomString(), 'changefreq' => 'yearly', 'priority' => '0.4']);
+            }
+        }
+        if (DigestIssue::query()->exists()) {
+            $urls->push(['loc' => route('newsletter.index'), 'lastmod' => DigestIssue::max('updated_at') ? Carbon::parse(DigestIssue::max('updated_at'))->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.5']);
+        }
+
+        return $urls->values();
+    }
+
     private function resourceUrls()
     {
         $mod = PolicyInstrument::published()->max('updated_at');
@@ -246,6 +350,20 @@ class SitemapController extends Controller
         }
         foreach (array_keys(config('content.comparisons')) as $slug) {
             $urls->push(['loc' => route('compare.show', $slug), 'lastmod' => $lastmod, 'changefreq' => 'monthly', 'priority' => '0.7']);
+        }
+        // Regional hubs and the listed comparison pairs, each under its own thin guard.
+        $byRegion = Jurisdiction::published()->whereIn('jurisdiction_type', ['country', 'supranational'])->withPublishedInstrument()->get()->groupBy('region');
+        foreach (HubCatalog::regions() as $regionSlug => $regionName) {
+            if (($byRegion[$regionName] ?? collect())->filter->isPageIndexable()->count() >= (int) config('hubs.min_region_countries', 3)) {
+                $urls->push(['loc' => HubCatalog::regionUrl($regionSlug), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.8']);
+            }
+        }
+        $indexableSlugs = $byRegion->flatten()->filter->isPageIndexable()->pluck('slug')->all();
+        foreach (HubCatalog::indexablePairs() as $pair) {
+            [$a, $b] = HubCatalog::parsePair($pair);
+            if (in_array($a, $indexableSlugs, true) && in_array($b, $indexableSlugs, true) && ! HubCatalog::curatedFor($a, $b)) {
+                $urls->push(['loc' => route('compare.show', $pair), 'lastmod' => $lastmod, 'changefreq' => 'monthly', 'priority' => '0.6']);
+            }
         }
 
         return $urls;
