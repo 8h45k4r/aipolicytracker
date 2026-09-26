@@ -1,1 +1,0 @@
-import{s as e,t}from"./app-E9pJIpiJ.js";e();var n=t();function r({className:e=``,children:t=``,...r}){return(0,n.jsx)(`div`,{children:(0,n.jsx)(`button`,{...r,className:`ms-4 px-5 py-1 rounded-md text-white font-bold bg-blue-600 hover:bg-blue-500 `+e,children:t})})}export{r as t};
