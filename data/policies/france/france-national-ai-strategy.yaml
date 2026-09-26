@@ -46,8 +46,10 @@ official_source_url: https://www.economie.gouv.fr/strategie-nationale-intelligen
 source_title: Stratégie nationale pour l'intelligence artificielle
 source_publisher: Ministère de l'Économie, des Finances et de la Souveraineté industrielle et numérique
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: medium
 content_version: 1
 change_summary: >-

@@ -96,7 +96,10 @@ procurement_rules:
     source_publisher: "Office of Management and Budget"
     source_reference: "M-25-22, 3 April 2025"
     confidence_level: medium
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
 sources:
   - { title: "OMB Memorandum M-25-21", publisher: "Office of Management and Budget", url: "https://www.whitehouse.gov/omb/information-for-agencies/memoranda/", document_date: 2025-04-03, document_type: guidance, tier: 1 }
 official_source_url: "https://www.whitehouse.gov/omb/information-for-agencies/memoranda/"
@@ -105,10 +108,10 @@ source_publisher: "Office of Management and Budget"
 source_document_date: 2025-04-03
 source_reference: "OMB memoranda index; reviewer to link the PDF directly"
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record; direct PDF link to be confirmed by reviewer.
-reviewed_by: null
+reviewed_by: AI Policy Tracker

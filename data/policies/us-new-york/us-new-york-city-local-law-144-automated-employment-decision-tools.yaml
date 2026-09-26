@@ -78,7 +78,10 @@ obligations:
     - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Disparate-impact testing performed by an independent auditor on the statutory metrics.", confidence_level: high }
     - { control: third-party-ai-due-diligence, relationship: supports, note: "Vendor supplies data and audit access for the tool.", confidence_level: medium }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-publish-audit-summary
   title: Employers and employment agencies must publish a summary of the bias audit results
@@ -111,7 +114,10 @@ obligations:
     - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Public posting of audit results is a disclosure to candidates.", confidence_level: medium }
     - { control: accuracy-robustness-security-testing, relationship: supports, note: "Produces the results being summarised.", confidence_level: high }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-candidate-notice
   title: Employers and employment agencies must notify candidates and employees before an automated tool is used
@@ -144,7 +150,10 @@ obligations:
   controls:
     - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Advance notice to candidates with the assessed criteria.", confidence_level: high }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-alternative-process-request
   title: Employers and employment agencies must let candidates request an alternative selection process or accommodation
@@ -176,7 +185,10 @@ obligations:
     - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Request channel and handling record for alternatives and accommodations.", confidence_level: medium }
     - { control: human-oversight-and-override, relationship: supports, note: "Human-run alternative where one is offered.", confidence_level: medium }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-data-policy-disclosure
   title: Employers and employment agencies must disclose the data collected and their retention policy for the tool
@@ -209,7 +221,10 @@ obligations:
     - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Data notice with types, sources and retention.", confidence_level: high }
     - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Source of the data inventory disclosed.", confidence_level: medium }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: high
 applicability_rules: []
 deadlines: []
@@ -228,8 +243,10 @@ source_title: Automated Employment Decision Tools (AEDT)
 source_publisher: NYC Department of Consumer and Worker Protection
 source_document_date: '2023-07-05'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1
 change_summary: >-

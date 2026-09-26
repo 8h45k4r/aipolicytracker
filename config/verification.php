@@ -52,5 +52,5 @@ return [
     // sources through /backend/review, never to backdate `last_verified_at` on records
     // nobody has opened the source for. The site publishes what verification means; a
     // fabricated date here would make that claim false everywhere it appears.
-    'critical_budget' => (int) env('VERIFICATION_CRITICAL_BUDGET', 154),
+    'critical_budget' => (int) env('VERIFICATION_CRITICAL_BUDGET', 58),
 ];

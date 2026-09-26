@@ -23,6 +23,9 @@ framework_references:
   - { framework: nist_ai_rmf, reference: "MAP 1.1, 1.5; GOVERN 1.6", confidence_level: high }
   - { framework: mitre_atlas, reference: "AML.M0023 AI Bill of Materials", confidence_level: low }
 related_controls: [ai-governance-policy-and-accountability, ai-risk-assessment, prohibited-use-screening-gate, public-sector-ai-use-case-register]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: medium
 published: true

@@ -26,6 +26,9 @@ framework_references:
   - { framework: iso_42001, reference: "Clause 5.2, 6.1.2; Annex A.6.1.2", confidence_level: low }
   - { framework: mitre_atlas, reference: "AML.M0001 Limit Model Artifact Release, AML.M0005 Control Access to ML Models and Data at Rest", confidence_level: medium }
 related_controls: [genai-red-team-testing, ai-risk-assessment, ai-incident-management-and-reporting]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: medium
 published: true

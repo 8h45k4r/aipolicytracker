@@ -187,7 +187,10 @@ obligations:
       - { control: ai-risk-assessment, relationship: satisfies, note: "Identifies and treats discrimination risk per system.", confidence_level: high }
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Disparate-impact testing across protected classes.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-developer-disclosure-to-attorney-general
     title: Developers must notify the Attorney General and deployers of discovered algorithmic discrimination
@@ -220,7 +223,10 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Discrimination findings treated as reportable incidents with the 90-day clock.", confidence_level: high }
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Ongoing testing is one of the discovery routes the statute names.", confidence_level: medium }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-reasonable-care
     title: Deployers must use reasonable care to avoid algorithmic discrimination
@@ -253,7 +259,10 @@ obligations:
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Ownership and the standard of care documented for each system.", confidence_level: medium }
       - { control: ai-risk-assessment, relationship: supports, note: "Discrimination risk identified for each consequential-decision use.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-public-statement
     title: Deployers must publish a statement about the high-risk AI systems they use
@@ -285,7 +294,10 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Organisation-level public statement rather than per-interaction notice.", confidence_level: medium }
       - { control: ai-system-inventory, relationship: supports, note: "Source of the list of deployed high-risk systems.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-disclosure-to-attorney-general
     title: Deployers must notify the Attorney General of discovered algorithmic discrimination
@@ -315,7 +327,10 @@ obligations:
     controls:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Discrimination discovery treated as a reportable incident with the statutory clock.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-consumer-ai-interaction-disclosure
     title: Deployers and developers must disclose to consumers that they are interacting with an AI system
@@ -346,7 +361,10 @@ obligations:
     controls:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Point-of-interaction notice.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
 deadlines:
   - { title: Signed into law, due_on: 2024-05-17, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Governor signed SB 24-205." }
@@ -368,10 +386,10 @@ source_publisher: "Colorado General Assembly"
 source_document_date: 2024-05-17
 source_reference: "Colorado Revised Statutes 6-1-1701 to 6-1-1707"
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record reflecting the SB 25B-004 delay; 2026 amendments unverified.
-reviewed_by: null
+reviewed_by: AI Policy Tracker

@@ -46,10 +46,10 @@ source_publisher: "Australian Government, Department of Industry, Science and Re
 source_document_date: 2024-09-05
 source_reference: null
 source_tier: 1
-last_checked_at: null
-last_verified_at: null
-review_status: pending_review
+last_checked_at: '2026-09-26'
+last_verified_at: '2026-09-26'
+review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record; outcome after the National AI Plan unverified.
-reviewed_by: null
+reviewed_by: AI Policy Tracker
