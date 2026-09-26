@@ -73,7 +73,8 @@ class DeadlineCalendarTest extends TestCase
 
     public function test_each_event_carries_the_record_status_and_the_no_advice_line(): void
     {
-        $this->deadline();
+        $deadline = $this->deadline();
+        $deadline->policyInstrument->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
         $body = str_replace(["\r\n ", "\r\n"], ['', "\n"], $this->get('/calendar/ai-policy-deadlines.ics')->assertOk()->getContent());
 
         $this->assertStringContainsString('Record status: pending review', $body, 'the reader is told the record is not yet verified');
