@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "transition-measure.schema.json",
+  "$id": "https://aipolicytracker.org/schema/transition-measure.schema.json",
   "title": "AI economic transition measure",
   "description": "A proposal, bill, programme or law that responds to AI-driven economic change: a dividend, a basic income, an AI tax, a fund, a layoff-disclosure duty, retraining or worker-voice provisions. Every factual field is optional and null until a reviewer has read the official source; a record starts as a draft.",
   "type": "object",
