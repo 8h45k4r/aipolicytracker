@@ -12,6 +12,10 @@ jobs:
   backend:
     name: PHP lint & tests
     runs-on: ubuntu-latest
+    # The SQLite run takes about 11 minutes. Without a cap a stuck job runs to
+    # GitHub's 6-hour default, and GitHub serves no log for a job that is still
+    # in progress, so the failure is invisible for as long as it lasts.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Set up PHP
@@ -72,6 +76,12 @@ jobs:
   backend-postgres:
     name: PHP tests (PostgreSQL)
     runs-on: ubuntu-latest
+    # This job has never once completed: it was in progress on every one of the
+    # last eight commits, including ones that predate the change that found this,
+    # and was still running after five hours. Because GitHub withholds the log
+    # until a job ends, nothing could be read from it. The cap makes it report.
+    # See debt #49 for the measured cause and the fix that removes it.
+    timeout-minutes: 45
     services:
       postgres:
         image: postgres:16
@@ -133,6 +143,7 @@ jobs:
   frontend:
     name: JS lint & build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Set up Node
