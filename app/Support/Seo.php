@@ -62,12 +62,13 @@ class Seo
 
     public static function make(string $title, string $description, string $canonical, bool $index = true): self
     {
-        // A result page shows about sixty characters and the site name is appended
-        // after this, so a record title should be chosen to fit: see fitTitle().
-        // The hard stop here is a last resort for a title nothing shortened.
+        // Every title is held to the budget here, so the rule holds on every page
+        // rather than on the pages someone remembered. Record pages choose a title
+        // that fits (PageTitle); this is the net under the ones that did not, and
+        // it cuts at a clause or a word, never through one.
         return new self(
-            self::trim($title, 70),
-            self::trim($description, 160),
+            PageTitle::fit($title),
+            PageTitle::description($description),
             $canonical,
             $index ? 'index,follow,max-image-preview:large' : 'noindex,follow',
         );
@@ -253,15 +254,9 @@ class Seo
      *
      * @param  list<string>  $suffixes  tried in order; the last should be ''
      */
-    public static function fitTitle(string $name, array $suffixes, int $max = 60): string
+    public static function fitTitle(string $name, array $suffixes, int $max = PageTitle::MAX): string
     {
-        foreach ($suffixes as $suffix) {
-            if (mb_strlen($name.$suffix) <= $max) {
-                return $name.$suffix;
-            }
-        }
-
-        return $name;
+        return PageTitle::fit($name, $suffixes, $max);
     }
 
     /**
@@ -290,11 +285,10 @@ class Seo
         return $this;
     }
 
+    /** The <title>: the brand is added only while the whole still fits (PageTitle::withBrand). */
     public function fullTitle(): string
     {
-        $site = config('aipolicytracker.site_name');
-
-        return str_ends_with($this->title, $site) ? $this->title : $this->title.' | '.$site;
+        return PageTitle::withBrand($this->title);
     }
 
     /**

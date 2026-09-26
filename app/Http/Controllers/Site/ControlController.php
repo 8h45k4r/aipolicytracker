@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Control;
 use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\ControlIntelligence;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -75,7 +76,7 @@ class ControlController extends Controller
         $evidenceTypes = TaxonomyTerm::where('taxonomy', 'evidence_type')->get()->keyBy('slug');
 
         $seo = Seo::make(
-            Seo::fitTitle($control->title, [': the AI duties it satisfies and the evidence it needs', ': duties, evidence and clauses', '']),
+            PageTitle::control($control),
             Str::limit(trim(preg_replace('/\s+/', ' ', $control->purpose)).' Serves '.$duties->count().' recorded '.Str::plural('duty', $duties->count()).' across '.$byJurisdiction->count().' '.Str::plural('jurisdiction', $byJurisdiction->count()).'.', 158),
             $control->url(),
             $control->isIndexable()
