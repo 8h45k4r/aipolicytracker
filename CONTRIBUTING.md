@@ -94,6 +94,16 @@ Editing existing content follows the same flow: change the YAML record in `data/
 
 Every change to `main`, including one-line fixes, must pass the five gates in `docs/reference/change-gates.md`, in order: Engineering & QA/QC, UI/UX, Documentation, Compliance, Security (VAPT). Record the outcome of each gate in the pull request description with evidence (command output, query counts). Mark a gate that does not apply as N/A with a reason; never leave it blank. Accepted debt goes in `docs/reference/technical-debt.md` with an owner. A new module without `docs/modules/<module>.md` does not merge.
 
+## Releases
+
+Releases follow [Semantic Versioning](https://semver.org/) and are cut from `main` when CI is green on the commit to be tagged.
+
+1. In `CHANGELOG.md`, rename `## [Unreleased]` to `## [X.Y.Z] - YYYY-MM-DD`, add a fresh `## [Unreleased]` above it, and update the two links at the end of the file.
+2. Check the notes read as intended: `scripts/release/notes.sh X.Y.Z`.
+3. Commit, push to `main`, then tag and push the tag: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
+
+Pushing the tag runs `.github/workflows/release.yml`, which publishes the GitHub release with that changelog section as its notes. A tag with no changelog section fails instead of publishing an empty release.
+
 ## Pull requests
 
 Use the pull request template. Maintainers look for: linked issue, sources for data, passing CI, screenshots for UI changes, and no secrets or personal data in the diff.

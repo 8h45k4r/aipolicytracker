@@ -4,6 +4,33 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-26
+
+First tagged release. It covers everything built since the project moved to structured, source-backed records, and closes the ten-phase search-and-growth roadmap (`docs/plans/roadmap.md`). The entries after this summary are the detailed history, newest first.
+
+### Added
+- Titles and addresses: one title generator with a 60-character budget, no internal identifiers in titles, headings or slugs, descriptive slugs with 301s from every old address, and a crawl of every sitemap URL in CI (`php artisan seo:audit`).
+- An AI policy updates hub with significance levels, a Google News sitemap, an RSS feed per jurisdiction and a newsletter archive.
+- Answer-first record pages: a short answer, a key-facts table and questions and answers on every policy page.
+- Incident pages with brand-safety rules, harm domains and the policy angle of each incident.
+- A templates library: 18 XLSX and DOCX templates generated from the records, versioned, previewed and free to download (`/templates`).
+- Country hubs, regional hubs and comparison pairs (`/ai-regulation-*`, `/compare/*`).
+- A deadline engine that works out which dates apply, with .ics and PDF exports (`/deadlines/which-date-applies`).
+- Watches with email and webhook channels, recorded consent, one-click unsubscribe, a watches API and an obligations register export in XLSX, CSV, JSON and PDF.
+- An AI economic transition tracker and a displacement policy index (`/ai-economic-transition`).
+- A quarterly State of AI Regulation report, embeddable widgets, a page per reviewer and localised hubs in Spanish, Indonesian and Brazilian Portuguese.
+- An admin review queue that acts on a selection for every record kind (policies, jurisdictions, controls, change log entries, transition measures): verify, publish or unpublish the ticked rows or everything a filter matches, with one attestation. Submissions, subscribers and tools take bulk actions too.
+- A request ID on every response, shown on the error page and written with every log line, so a reported error can be found.
+
+### Changed
+- The EU AI Act record follows Regulation (EU) 2026/1744: high-risk duties apply from 2 December 2027 for Annex III systems and 2 August 2028 for Annex I products. Colorado's SB 24-205 is marked repealed and SB 26-189 has its own record. Both are pending review against the official texts.
+
+### Fixed
+- Reviewer pages answered 500 on PostgreSQL because they queried a column obligations do not have.
+- Confirmation prompts on destructive admin actions never ran under the Content-Security-Policy; they do now.
+- Verification decisions for controls, change log entries and transition measures are written back to `data/`, not only those for policies and jurisdictions.
+
+
 ### Security
 - An account became owner if its email matched `ADMIN_EMAILS`, verified or not. Anyone who registered an owner address that had no account yet, or changed their own profile email to one, could enrol their own authenticator and hold every capability. Ownership now requires a verified address.
 - A session holding only an admin's password, stopped at the second-factor challenge, could still change the account's email or password or delete it, and so free an owner address to re-register. The profile and password routes now sit behind the second factor for admins; `POST /confirm-password` is throttled.
@@ -394,3 +421,6 @@ First public open-source release.
 - `/clear-cache` and `/storage-link` web routes.
 - Hard-coded personal e-mail addresses, contributor lists, and external document links.
 - Duplicate/dead files (copied templates, unused Vue components, duplicate profile pages, unused images) and unused npm packages.
+
+[Unreleased]: https://github.com/8h45k4r/aipolicytracker/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/8h45k4r/aipolicytracker/releases/tag/v1.0.0
