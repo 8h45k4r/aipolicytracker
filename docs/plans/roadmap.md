@@ -115,7 +115,7 @@ phase is adjusted; each adjustment says why.
 Each phase lists what is built, what the brief asked for that I am changing, and
 what needs you.
 
-### P1 — Titles and the identifier leak (branch `seo/p1-titles`)
+### P1 — Titles and the identifier leak (branch `seo/p1-titles`) — done
 - `App\Support\PageTitle`: one generator with per-entity patterns. The brand
   suffix is added only when it fits; tails fall back in order; the result is never
   truncated mid-word.
