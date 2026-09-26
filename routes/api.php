@@ -23,6 +23,8 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
     Route::get('/frameworks/{framework}/{jurisdiction}', [PublicApiController::class, 'frameworkCrosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('framework.crosswalk');
 
     Route::get('/deadlines', [PublicApiController::class, 'deadlines'])->name('deadlines');
+    Route::post('/deadlines/applicable', [PublicApiController::class, 'applicableDeadlines'])->name('deadlines.applicable');
+    Route::get('/deadlines/applicable.ics', [PublicApiController::class, 'applicableDeadlinesIcs'])->name('deadlines.applicable.ics');
 
     // Mirrored external datasets. Responses carry their source, licence and citation.
     Route::get('/incidents', [PublicApiController::class, 'incidents'])->name('incidents');

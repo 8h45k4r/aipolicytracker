@@ -45,6 +45,25 @@ async function get (path, { json = true } = {}) {
   }
 }
 
+async function post (path, body) {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
+  try {
+    const response = await fetch(BASE + path, {
+      method: 'POST',
+      signal: controller.signal,
+      headers: { accept: 'application/json', 'content-type': 'application/json', 'user-agent': 'aipolicytracker-agent/1.0' },
+      body: JSON.stringify(Object.fromEntries(Object.entries(body).filter(([, v]) => v !== undefined && v !== null))),
+    })
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText} for ${path}`)
+    }
+    return await response.json()
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 function query (params) {
   const search = new URLSearchParams()
   for (const [key, value] of Object.entries(params)) {
@@ -160,6 +179,25 @@ const TOOLS = [
       additionalProperties: false,
     },
     run: (args) => get('/api/v1/incidents' + query({ domain: args.domain, country: args.country, from: args.from, per_page: limit(args.limit) })),
+  },
+  {
+    name: 'get_applicable_deadlines',
+    description:
+      'Which recorded AI regulation dates apply to one organisation, and why: recorded deadlines filtered by the scope recorded on their instrument and duty (markets, role, system type, risk tier, sector, use case). A filter over the record, not a legal determination; each row says why it is shown and, where the date moved, the date first recorded.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        jurisdictions: { type: 'array', items: { type: 'string' }, description: 'Jurisdiction slugs, 1-8 (e.g. ["eu","uk"]).' },
+        role: { type: 'string', description: 'Actor slug: provider, deployer, importer, distributor, gpai_provider, public_authority, user.' },
+        system_types: { type: 'array', items: { type: 'string' }, description: 'AI system type slugs, e.g. general_purpose_ai_model, biometric_system.' },
+        risk: { type: 'string', description: 'Risk category slug: prohibited, high_risk, transparency_risk, systemic_risk, minimal_risk.' },
+        sectors: { type: 'array', items: { type: 'string' } },
+        use_cases: { type: 'array', items: { type: 'string' } },
+      },
+      required: ['jurisdictions'],
+      additionalProperties: false,
+    },
+    run: (args) => post('/api/v1/deadlines/applicable', { jurisdictions: args.jurisdictions, role: args.role, system_types: args.system_types, risk: args.risk, sectors: args.sectors, use_cases: args.use_cases }),
   },
   {
     name: 'list_templates',
