@@ -40,6 +40,7 @@ return [
         'policy' => ['label' => 'Policy instruments', 'plural' => 'instruments'],
         'obligation' => ['label' => 'Obligations', 'plural' => 'obligations'],
         'change' => ['label' => 'Change log entries', 'plural' => 'entries'],
+        'transition_measure' => ['label' => 'Transition measures', 'plural' => 'measures'],
         'jurisdiction' => ['label' => 'Jurisdiction profiles', 'plural' => 'profiles'],
     ],
 

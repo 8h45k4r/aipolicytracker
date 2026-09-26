@@ -33,6 +33,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Frameworks compared, with the reuse matrix by duty category: {{ route('frameworks.compare') }}
 - Applicability check (educational), with an obligations register export as XLSX, CSV, JSON or PDF (state in the URL; API: {{ route('api.v1.applicability.register') }}): {{ route('tools.applicability') }}
 - Which date applies to you (five questions, a personal timeline from recorded deadlines with the reason each applies, .ics and PDF; API POST /api/v1/deadlines/applicable): {{ route('deadlines.engine') }}
+- AI economic transition tracker (dividends, basic income, AI taxes, funds, layoff disclosure, retraining, worker voice; drafts are labelled and never scored; displacement policy index with published method): {{ route('transition.index') }} (index method: {{ route('transition.methodology') }}; API: {{ route('api.v1.transition.measures') }})
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
 - Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})

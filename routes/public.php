@@ -36,6 +36,7 @@ use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\SocialCardController;
 use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\TemplateController;
+use App\Http\Controllers\Site\TransitionController;
 use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
 use App\Services\Hubs\HubCatalog;
@@ -126,7 +127,7 @@ Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'op
 Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->name('open-data.health');
 Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.csv');
 Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.ndjson');
-Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z]+')->name('schema.show');
+Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z-]+')->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
 Route::get('/coverage', [CoverageController::class, 'show'])->name('coverage');
@@ -201,6 +202,12 @@ Route::get('/guides/{slug}', [LandingController::class, 'guide'])->name('guides.
 // Country and regional hubs: /ai-regulation-<country> is the jurisdiction page at its
 // canonical address (the /jurisdictions/<slug> address redirects); /ai-regulation-<region>
 // is computed over the region. Registered before the editorial landings, which share the prefix.
+// The AI economic transition tracker: measures, indicators, the displacement policy index, and four
+// themed landings served before the editorial landings, which share the root.
+Route::get('/ai-economic-transition', [TransitionController::class, 'index'])->name('transition.index');
+Route::get('/ai-economic-transition/methodology', [TransitionController::class, 'methodology'])->name('transition.methodology');
+Route::get('/ai-economic-transition/measures/{measure}', [TransitionController::class, 'show'])->where('measure', '[a-z0-9-]+')->name('transition.show');
+Route::get('/{theme}', [TransitionController::class, 'landing'])->where('theme', implode('|', array_keys(TransitionController::LANDINGS)))->name('transition.landing');
 Route::get('/{hub}', [HubController::class, 'show'])->where('hub', HubCatalog::pattern())->name('hubs.show');
 Route::get('/{landing}', [LandingController::class, 'landing'])
     ->where('landing', 'eu-ai-act|ai-regulation-india|ai-policy-nepal|ai-governance-singapore|ai-regulation-australia|ai-regulation-uk|ai-regulation-usa|ai-governance-uae|ai-regulation-south-asia')
