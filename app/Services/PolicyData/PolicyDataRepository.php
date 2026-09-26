@@ -11,6 +11,12 @@ class PolicyDataRepository
 {
     public function __construct(private readonly string $baseDir) {}
 
+    /** The directory the records are read from: data/ in the repository, a copy under test. */
+    public function path(): string
+    {
+        return $this->baseDir;
+    }
+
     public static function default(): self
     {
         return new self(base_path('data'));
