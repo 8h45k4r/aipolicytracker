@@ -11,7 +11,7 @@
 
     <ol class="mt-6 flex flex-wrap gap-2 text-xs" aria-label="Steps">
         @foreach($stepTitles as $i => $t)
-        <li class="chip !min-h-0 !py-1 {{ $i + 1 === $step ? 'ring-2 ring-brand-navy' : ($i + 1 < $step ? 'opacity-80' : 'opacity-50') }}"@if($i + 1 === $step) aria-current="step"@endif>{{ $i + 1 }}. {{ $t }}</li>
+        <li class="chip !min-h-0 !py-1 {{ $i + 1 === $step ? 'ring-2 ring-brand-navy font-semibold' : ($i + 1 < $step ? '' : 'border-dashed') }}"@if($i + 1 === $step) aria-current="step"@endif>{{ $i + 1 }}. {{ $t }}</li>
         @endforeach
     </ol>
 

@@ -20,6 +20,8 @@
     h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
     h1 { @apply text-balance; }
     a { @apply text-brand-blue underline-offset-[3px] decoration-brand-line hover:decoration-brand-blue; }
+    /* A link inside running text is told apart by more than its colour. */
+    p a:not(.btn):not(.chip):not(.no-underline), dd a:not(.no-underline), td a:not(.no-underline), blockquote a, .prose-policy a { @apply underline; }
     a.no-underline { text-decoration: none; }
     :focus-visible { @apply outline-none ring-2 ring-brand-cyan ring-offset-2 ring-offset-white rounded-sm; }
     summary { cursor: pointer; }
