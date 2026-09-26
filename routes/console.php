@@ -25,6 +25,7 @@ $timetable = [
     'digest' => fn ($e) => $e->weeklyOn(1, '07:00'),
     'external_import' => fn ($e) => $e->weeklyOn(0, '04:00'),
     'templates_build' => fn ($e) => $e->dailyAt('05:30'),
+    'report_freeze' => fn ($e) => $e->quarterlyOn(1, '01:00'),
     'email_domains' => fn ($e) => $e->weeklyOn(3, '05:00'),
 ];
 
