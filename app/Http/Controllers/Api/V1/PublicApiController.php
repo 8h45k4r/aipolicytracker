@@ -14,9 +14,11 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
+use App\Services\Deadlines\DeadlineEngine;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\ExternalData\IncidentEnrichment;
 use App\Services\ExternalData\IncidentSensitivity;
+use App\Services\PolicyData\DeadlineCalendar;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
@@ -26,6 +28,7 @@ use App\Support\PageTitle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -58,6 +61,7 @@ class PublicApiController extends Controller
                 'taxonomies' => route('api.v1.taxonomies'),
                 'frameworks' => route('api.v1.frameworks'),
                 'deadlines' => route('api.v1.deadlines'),
+                'deadlines_applicable' => route('api.v1.deadlines.applicable'),
                 'incidents' => route('api.v1.incidents'),
                 'risks' => route('api.v1.risks'),
                 'templates' => route('api.v1.templates'),
@@ -489,6 +493,51 @@ class PublicApiController extends Controller
             'downloads' => $version ? (int) TemplateVersion::for($meta['slug'])->sum('downloads') : 0,
             'files' => $version ? array_map(fn ($f) => ['format' => $f['format'], 'filename' => $f['filename'], 'bytes' => $f['bytes'], 'url' => $version->downloadUrl($f['format'])], $version->files) : [],
             'url' => TemplateCatalog::url($meta['slug']),
+        ];
+    }
+
+    /** The deadline engine's question, answered as JSON: which recorded dates apply, and why. */
+    public function applicableDeadlines(Request $request, DeadlineEngine $engine): JsonResponse
+    {
+        $request->validate(['jurisdictions' => ['required', 'array', 'min:1', 'max:8'], 'jurisdictions.*' => ['string', 'regex:/^[a-z0-9-]+$/'], 'role' => ['nullable', 'string'], 'risk' => ['nullable', 'string'], 'system_types' => ['nullable', 'array'], 'sectors' => ['nullable', 'array'], 'use_cases' => ['nullable', 'array']]);
+        $answers = $engine->normalise($request->all());
+        $rows = $engine->applicable($answers);
+        $query = array_filter($answers, fn ($v) => $v !== null && $v !== []);
+
+        return $this->respond([
+            'data' => $rows->map(fn ($r) => $this->deadlineRow($r['deadline']) + [
+                'why' => $r['why'],
+                'matched_on' => $r['level'],
+                'originally' => $r['revision'] ? ['due_on' => $r['revision']->from_due_on?->toDateString(), 'label' => $r['revision']->from_label, 'changed_at' => $r['revision']->changed_at->toAtomString()] : null,
+            ])->all(),
+            'meta' => ['total' => $rows->count(), 'answers' => $answers, 'ics_url' => route('deadlines.engine.ics', $query), 'page_url' => route('deadlines.engine', $query + ['step' => 5]), 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'disclaimer' => 'A filter over recorded dates by recorded scope; not a determination that any law applies.'],
+        ]);
+    }
+
+    public function applicableDeadlinesIcs(Request $request, DeadlineEngine $engine, DeadlineCalendar $calendar): Response
+    {
+        $answers = $engine->normalise($request->query());
+        abort_if($answers['jurisdictions'] === [], 404);
+        $events = $engine->applicable($answers)->map(fn ($r) => $r['deadline'])->filter(fn ($d) => $d->due_on && $d->date_precision === DeadlineCalendar::PUBLISHABLE_PRECISION && in_array($d->deadline_status, DeadlineCalendar::PUBLISHABLE_STATUS, true))->values();
+
+        return response($calendar->render($events, 'AI regulation dates that apply to you', 'Recorded dates filtered by your answers. Informational only; not legal advice.'), 200, ['Content-Type' => 'text/calendar; charset=UTF-8', 'Cache-Control' => 'private, no-store']);
+    }
+
+    private function deadlineRow(Deadline $d): array
+    {
+        return [
+            'title' => $d->title,
+            'due_on' => $d->due_on?->toDateString(),
+            'date_precision' => $d->date_precision,
+            'date_label' => $d->date_label,
+            'status' => $d->deadline_status,
+            'confidence' => $d->confidence_level,
+            'description' => $d->description,
+            'jurisdiction' => $d->policyInstrument->jurisdiction->slug,
+            'policy' => $d->policyInstrument->slug,
+            'obligation' => $d->obligation?->slug,
+            'source_reference' => $d->source_reference,
+            'official_source_url' => $d->official_source_url,
         ];
     }
 
