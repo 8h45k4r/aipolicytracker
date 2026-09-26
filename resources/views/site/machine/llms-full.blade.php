@@ -17,6 +17,7 @@ Generated {{ now()->toDateString() }}. Licence: {{ config('aipolicytracker.data_
 
 @foreach($policies as $p)
 ### {{ $p->title }}
+- In brief: {{ \App\Services\Records\AnswerBox::policy($p) }}
 - URL: {{ $p->url() }} (JSON: {{ route('policies.json', $p->slug) }})
 - Jurisdiction: {{ $p->jurisdiction->name }}; type: {{ $p->instrument_type }}; status: {{ $p->status }}; binding: {{ $p->is_binding ? 'yes' : 'no' }}
 - Dates: adopted {{ $p->adopted_on?->toDateString() ?? 'n/a' }}; in force {{ $p->in_force_on?->toDateString() ?? 'n/a' }}; applies from {{ $p->applies_from?->toDateString() ?? 'n/a' }}

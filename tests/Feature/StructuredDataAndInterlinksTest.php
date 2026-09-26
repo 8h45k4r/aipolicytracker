@@ -93,7 +93,7 @@ class StructuredDataAndInterlinksTest extends TestCase
 
         $schemas = $this->schemas($guidance->url());
         $this->assertNull($this->ofType($schemas, 'Legislation'));
-        $this->assertNotNull($this->ofType($schemas, 'WebPage'), 'it is still described as a page');
+        $this->assertNotNull($this->ofType($schemas, 'Article'), 'it is still described as a page: an article about the instrument, not the instrument as law');
     }
 
     public function test_a_guide_with_ordered_steps_is_described_as_a_how_to(): void

@@ -102,7 +102,9 @@ class Jurisdiction extends Model
     /** Name with a definite article where English requires one ("the United Kingdom"). */
     public function nameWithArticle(): string
     {
-        return preg_match('/^(United|European|Netherlands|Philippines)/', $this->name) ? 'the '.$this->name : $this->name;
+        $needsThe = '/^(United|European|Netherlands|Philippines|Council of Europe|African Union|Czech Republic|Dominican Republic|Central African Republic|Democratic Republic|Republic of|Gambia|Bahamas|Maldives|Marshall Islands|Solomon Islands|Comoros|Seychelles|Isle of Man|Cayman Islands|Holy See|Vatican|Organisation|Organization)\b/';
+
+        return preg_match($needsThe, $this->name) ? 'the '.$this->name : $this->name;
     }
 
     public function url(): string

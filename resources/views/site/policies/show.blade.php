@@ -24,7 +24,8 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
-            <section aria-labelledby="overview-heading">
+            <x-site.answer-box :text="$answer" :facts="$facts" />
+            <section aria-labelledby="overview-heading" class="mt-8">
                 <h2 id="overview-heading" class="section-title">What is {{ $policy->definiteName() }}?</h2>
                 <div class="prose-policy mt-2"><p>{{ $policy->summary_plain }}</p></div>
                 @if($policy->status_note)<p class="mt-3 rounded-sm bg-brand-paper border border-brand-line px-3 py-2 text-sm text-brand-body"><span class="font-medium">Status note:</span> {{ $policy->status_note }}</p>@endif
@@ -133,7 +134,7 @@
             </section>
             @endif
 
-            <x-site.faq :items="$policy->faq ?? []" />
+            <x-site.faq :items="$seo->faqItems()" />
             <x-site.disclaimer class="mt-8" />
         </div>
 

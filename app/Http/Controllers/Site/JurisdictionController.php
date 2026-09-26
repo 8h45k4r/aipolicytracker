@@ -7,6 +7,9 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Records\AnswerBox;
+use App\Services\Records\KeyFacts;
+use App\Services\Records\QuestionBank;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\View\View;
@@ -54,9 +57,12 @@ class JurisdictionController extends Controller
             ->map(fn ($rows) => ['control' => $rows->first()['control'], 'satisfies' => $rows->where('satisfies', true)->count(), 'duties' => $rows->count()])
             ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
+        $answer = AnswerBox::jurisdiction($jurisdiction, $policies, $deadlines);
+        $facts = KeyFacts::jurisdiction($jurisdiction, $policies, $deadlines, (int) $obligationCategories->sum('n'));
+
         $seo = Seo::make(
             PageTitle::jurisdiction($jurisdiction),
-            'AI regulation in '.$jurisdiction->nameWithArticle().': '.$this->firstSentence($jurisdiction->regulatory_status_summary).' Official sources, obligations and upcoming deadlines.',
+            $answer,
             $jurisdiction->url(),
             $jurisdiction->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], [$jurisdiction->name, $jurisdiction->url()]])
@@ -67,6 +73,7 @@ class JurisdictionController extends Controller
             ->withPageProperties(Seo::provenance($jurisdiction))
             ->withPageType('CollectionPage', [
                 'name' => 'AI regulation in '.$jurisdiction->nameWithArticle(),
+                'description' => $answer,
                 'about' => ['@type' => $jurisdiction->jurisdiction_type === 'supranational' ? 'AdministrativeArea' : ($jurisdiction->jurisdiction_type === 'state' ? 'State' : 'Country'), 'name' => $jurisdiction->name],
                 'mainEntity' => Seo::itemList($policies, fn ($p) => $p->title, fn ($p) => $p->url(), 'AI policy instruments recorded for '.$jurisdiction->name),
             ])
@@ -77,11 +84,9 @@ class JurisdictionController extends Controller
                 ['text/markdown' => route('jurisdictions.context', $jurisdiction->slug)],
                 $lastModified,
             ));
-        if (! empty($jurisdiction->faq)) {
-            $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($jurisdiction->faq)->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => trim($f['answer'])]])->values()->all()]);
-        }
+        $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts'));
     }
 
     private function firstSentence(?string $text): string
