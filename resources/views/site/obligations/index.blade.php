@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 @section('content')
 <x-site.listing-shell :seo="$seo" :filters="$filters" :options="$options" :paginator="$obligations" mode="obligations"
-    heading="{{ !empty($filters['category']) && ($c = $options['categories']->firstWhere('slug', $filters['category'])) ? $c->name.': AI obligations' : 'AI compliance obligations' }}"
+    :heading="!empty($filters['category']) && ($c = $options['categories']->firstWhere('slug', $filters['category'])) ? $c->name.': AI obligations' : 'AI compliance obligations'"
     intro="Practical requirements extracted from policy instruments, with the source article, the actors they bind, evidence examples and original framework mappings. Legal requirements are marked; everything else is voluntary guidance.">
     @forelse($obligations as $o)
     <article class="py-4">

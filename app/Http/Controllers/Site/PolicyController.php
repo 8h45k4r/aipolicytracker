@@ -7,6 +7,7 @@ use App\Models\PolicyInstrument;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -73,9 +74,9 @@ class PolicyController extends Controller
             ->map(fn ($rows) => ['control' => $rows->first()['control'], 'satisfies' => $rows->where('satisfies', true)->count(), 'duties' => $rows->count()])
             ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
-        // The long pattern only where it fits the result-page budget; a long
-        // instrument name gets a shorter suffix rather than a truncated one.
-        $title = Seo::fitTitle($name, [': requirements, deadlines and compliance actions', ': requirements and deadlines', ': AI policy record', '']);
+        // "<Short title> (<Jurisdiction>, <Year>): Status, Duties & Dates", with
+        // shorter forms where a long name would not fit (PageTitle::policy).
+        $title = PageTitle::policy($policy);
 
         // What the page is about. A binding instrument is the Legislation node
         // emitted below, referenced by identifier so the page and the law are one

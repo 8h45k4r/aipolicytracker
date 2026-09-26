@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -77,7 +78,7 @@ class ChangeController extends Controller
         $instrument = $change->policyInstrument;
 
         $seo = Seo::make(
-            Seo::fitTitle($change->title, [' ('.$name.', '.$change->occurred_on->format('M Y').')', ' ('.$change->occurred_on->format('M Y').')', '']),
+            PageTitle::change($change),
             Str::limit(trim(preg_replace('/\s+/', ' ', $change->what_changed)), 155),
             $change->url(),
             filled($change->what_changed) && filled($change->official_source_url)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Obligation;
 use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -54,7 +55,7 @@ class ObligationController extends Controller
         $categoryName = TaxonomyTerm::where('taxonomy', 'obligation_category')->where('slug', $obligation->category)->value('name') ?? $obligation->category;
 
         $seo = Seo::make(
-            $obligation->title.' ('.($policy->short_title ?: $policy->title).')',
+            PageTitle::obligation($obligation),
             ($obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance').' under '.($policy->short_title ?: $policy->title).' in '.$policy->jurisdiction->name.': what it requires, who it applies to, evidence examples and framework mappings.',
             $obligation->url(),
             filled($obligation->summary) && $policy->isIndexable()

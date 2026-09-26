@@ -7,6 +7,7 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\View\View;
 
@@ -54,7 +55,7 @@ class JurisdictionController extends Controller
             ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
         $seo = Seo::make(
-            'AI regulation in '.$jurisdiction->nameWithArticle().': laws, status and deadlines',
+            PageTitle::jurisdiction($jurisdiction),
             'AI regulation in '.$jurisdiction->nameWithArticle().': '.$this->firstSentence($jurisdiction->regulatory_status_summary).' Official sources, obligations and upcoming deadlines.',
             $jurisdiction->url(),
             $jurisdiction->isIndexable()
