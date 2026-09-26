@@ -10,6 +10,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Services\Applicability\ApplicabilityScreener;
 use App\Services\ExternalData\ExternalDataset;
 use Illuminate\Support\Collection;
 
@@ -27,7 +28,7 @@ final class Records
     public static function obligations(array $filter = []): Collection
     {
         $q = Obligation::published()->with(['policyInstrument.jurisdiction', 'terms', 'evidenceArtifacts', 'frameworkMappings', 'applicabilityRules'])
-            ->whereHas('policyInstrument', fn ($p) => $p->published());
+            ->whereHas('policyInstrument', fn ($p) => $p->published()->whereNotIn('status', ApplicabilityScreener::NOT_IN_FORCE));
         if (! empty($filter['categories'])) {
             $q->whereIn('category', $filter['categories']);
         }
@@ -129,7 +130,7 @@ final class Records
     public static function deadlineRows(?array $policySlugs = null): array
     {
         return Deadline::with('policyInstrument.jurisdiction')
-            ->whereHas('policyInstrument', fn ($p) => $p->published()->when($policySlugs, fn ($q) => $q->whereIn('slug', $policySlugs)))
+            ->whereHas('policyInstrument', fn ($p) => $p->published()->whereNotIn('status', ApplicabilityScreener::NOT_IN_FORCE)->when($policySlugs, fn ($q) => $q->whereIn('slug', $policySlugs)))
             ->orderBy('due_on')->get()
             ->map(fn (Deadline $d) => [
                 'date' => $d->due_on?->toDateString(),
@@ -162,7 +163,7 @@ final class Records
     /** @return Collection<int,PolicyInstrument> */
     public static function bindingInstruments(): Collection
     {
-        return PolicyInstrument::published()->where('is_binding', true)->whereNotNull('official_source_url')->with(['jurisdiction', 'terms', 'deadlines'])->get()
+        return PolicyInstrument::published()->where('is_binding', true)->whereNotIn('status', ApplicabilityScreener::NOT_IN_FORCE)->whereNotNull('official_source_url')->with(['jurisdiction', 'terms', 'deadlines'])->get()
             ->sortBy(fn ($p) => [$p->jurisdiction->name, $p->title])->values();
     }
 

@@ -37,6 +37,8 @@
     .btn { @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2.5 text-sm font-medium min-h-[44px] transition-colors no-underline; }
     .btn-primary { @apply btn bg-brand-navy text-white hover:bg-brand-ink; }
     .btn-secondary { @apply btn border border-brand-navy/30 bg-white text-brand-navy hover:border-brand-navy hover:bg-brand-paper; }
+    /* Admin action bars: a button that waits for a selection says so. */
+    [data-bulk-needs]:disabled { @apply cursor-not-allowed opacity-50 hover:bg-white; }
     .btn-accent { @apply btn bg-brand-blue text-white hover:bg-brand-navy; }
 
     .chip { @apply inline-flex items-center gap-1 rounded-sm border border-brand-line bg-white px-2.5 py-1 text-xs font-medium text-brand-body no-underline hover:border-brand-navy hover:text-brand-navy min-h-[34px]; }

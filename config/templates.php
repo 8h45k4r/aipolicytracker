@@ -30,7 +30,7 @@ return [
 
     'types' => ['register' => 'Register', 'assessment' => 'Assessment', 'policy' => 'Policy', 'procedure' => 'Procedure', 'checklist' => 'Checklist', 'crosswalk' => 'Crosswalk', 'kit' => 'Kit'],
 
-    'frameworks' => ['eu-ai-act' => 'EU AI Act', 'iso-42001' => 'ISO/IEC 42001', 'nist-ai-rmf' => 'NIST AI RMF', 'colorado-ai-act' => 'Colorado AI Act'],
+    'frameworks' => ['eu-ai-act' => 'EU AI Act', 'iso-42001' => 'ISO/IEC 42001', 'nist-ai-rmf' => 'NIST AI RMF', 'colorado-ai-act' => 'Colorado ADMT law (SB 26-189)'],
 
     'topics' => ['inventory' => 'Inventory', 'risk' => 'Risk', 'governance' => 'Governance', 'transparency' => 'Transparency', 'incidents' => 'Incidents', 'vendors' => 'Vendors', 'oversight' => 'Human oversight', 'workforce' => 'Workforce', 'evidence' => 'Evidence'],
 
@@ -43,7 +43,7 @@ return [
             'short' => 'One row per AI system: purpose, role under the law, jurisdictions, risk tier, data, owner and review dates, with the recorded duties for each role on a reference sheet.',
             'inside' => ['Inventory sheet with dropdowns for lifecycle stage, legal role, jurisdiction and EU AI Act tier', 'Automatic next-review date and overdue flag', 'Reference sheet: every recorded duty by legal role, with its source reference and record link', 'Reference sheet: jurisdictions with binding AI law'],
             'covers' => ['categories' => ['governance_accountability', 'technical_documentation', 'record_keeping']],
-            'legal_basis' => ['eu-ai-act', 'us-colorado-ai-act', 'iso-42001'],
+            'legal_basis' => ['eu-ai-act', 'us-colorado-automated-decision-making-technology-act', 'iso-42001'],
             'replaces' => 'ai-system-inventory-template',
         ],
 
@@ -87,7 +87,7 @@ return [
             'short' => 'A general impact assessment for any AI system: purpose, affected people, harms by risk domain, mitigations and the decision, with the impact-assessment duties recorded across jurisdictions as the checklist.',
             'inside' => ['Document: purpose, scope, affected groups, harm analysis by MIT risk domain, mitigations, residual risk, decision and sign-off', 'Duties sheet: every recorded impact-assessment duty, by jurisdiction and instrument', 'Harm areas sheet: the 24 MIT subdomains as prompts'],
             'covers' => ['categories' => ['impact_assessment', 'risk_management']],
-            'legal_basis' => ['us-colorado-ai-act', 'eu-ai-act', 'us-nist-ai-rmf'],
+            'legal_basis' => ['us-colorado-automated-decision-making-technology-act', 'eu-ai-act', 'us-nist-ai-rmf'],
             'replaces' => 'ai-impact-assessment-template',
         ],
 
@@ -131,7 +131,7 @@ return [
             'short' => 'A procedure for the humans who oversee an AI system: what they must be able to do, when they intervene, how an override is recorded, drawn from every recorded oversight duty.',
             'inside' => ['Document: roles, competence, the oversight measures each recorded duty requires, intervention and override, escalation', 'Override log sheet: date, system, decision overridden, reason, reviewer'],
             'covers' => ['categories' => ['human_oversight']],
-            'legal_basis' => ['eu-ai-act', 'us-colorado-ai-act'],
+            'legal_basis' => ['eu-ai-act', 'us-colorado-automated-decision-making-technology-act'],
         ],
 
         'ai-incident-response-playbook' => [
@@ -192,8 +192,8 @@ return [
             'topics' => ['transparency', 'evidence'], 'frameworks' => ['colorado-ai-act'],
             'short' => 'The notices the Colorado AI Act requires of developers and deployers of high-risk AI: consumer notice, adverse-decision explanation, developer disclosure, Attorney General notification, each built from the recorded duty.',
             'inside' => ['Document: a notice template for each notification duty on record, citing its section', 'Checklist sheet: each duty, applies-from date, owner, status', 'A dated caveat where the record says the statute may have been amended'],
-            'covers' => ['policies' => ['us-colorado-ai-act']],
-            'legal_basis' => ['us-colorado-ai-act'],
+            'covers' => ['policies' => ['us-colorado-automated-decision-making-technology-act']],
+            'legal_basis' => ['us-colorado-automated-decision-making-technology-act'],
             'caveat' => 'colorado',
         ],
 
@@ -226,7 +226,7 @@ return [
             'short' => 'Every binding AI instrument on record, by jurisdiction, with status, application date, who it binds and the use cases it covers, as a matrix to mark which apply to you.',
             'inside' => ['Matrix sheet: jurisdiction, instrument, status, applies from, binding, actors, use cases, applies-to-us dropdown, owner', 'Deadlines sheet: every dated milestone on those instruments', 'Record links throughout'],
             'covers' => ['categories' => ['governance_accountability']],
-            'legal_basis' => ['eu-ai-act', 'us-colorado-ai-act'],
+            'legal_basis' => ['eu-ai-act', 'us-colorado-automated-decision-making-technology-act'],
             'replaces' => 'global-ai-regulatory-applicability-matrix',
         ],
     ],
