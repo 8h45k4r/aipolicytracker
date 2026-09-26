@@ -47,6 +47,18 @@
                 </ul>
             </section>
             @endif
+            @if(isset($templates) && $templates->isNotEmpty())
+            <section aria-labelledby="templates-heading" class="mt-8">
+                <h2 id="templates-heading" class="section-title">Templates that cover this duty</h2>
+                <p class="mt-1 text-xs text-brand-muted">Generated from the records, free, no account: this duty is cited in each file with its source reference and a link back here.</p>
+                <ul class="mt-3 grid gap-3 sm:grid-cols-2 text-sm">
+                    @foreach($templates->take(4) as $t)
+                    <li class="card-flat p-3"><a href="{{ route('templates.show', $t['slug']) }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $t['title'] }}</a><p class="mt-0.5 text-xs text-brand-muted">{{ \App\Services\Templates\TemplateCatalog::typeLabel($t['type']) }} · {{ \App\Services\Templates\TemplateCatalog::formatList($t) }}@if($t['version']) · {{ $t['version']->label() }}@endif</p></li>
+                    @endforeach
+                </ul>
+                @if($templates->count() > 4)<p class="mt-2 text-sm"><a href="{{ route('templates.index') }}" class="text-brand-blue hover:underline">All {{ $templates->count() }} templates that cover it →</a></p>@endif
+            </section>
+            @endif
             @if($obligation->evidenceArtifacts->isNotEmpty())
             <section aria-labelledby="evidence-heading" class="mt-8"><h2 id="evidence-heading" class="section-title">What evidence would a reviewer expect?</h2>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Evidence examples</caption><thead><tr><th scope="col">Evidence</th><th scope="col">Type</th><th scope="col">Notes</th></tr></thead><tbody>@foreach($obligation->evidenceArtifacts as $e)<tr><td class="font-medium text-brand-navy">{{ $e->title }}</td><td class="whitespace-nowrap">{{ str_replace('_', ' ', $e->artifact_type) }}</td><td>{{ $e->description }}</td></tr>@endforeach</tbody></table></div>

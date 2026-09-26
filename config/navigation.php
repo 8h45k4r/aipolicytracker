@@ -92,7 +92,8 @@ return [
                 [
                     'heading' => 'Guides',
                     'items' => [
-                        ['route' => 'guides.index', 'label' => 'All guides and templates'],
+                        ['route' => 'templates.index', 'label' => 'Templates library', 'note' => 'XLSX and DOCX generated from the records'],
+                        ['route' => 'guides.index', 'label' => 'All guides'],
                         ['route' => 'guides.show', 'params' => ['ai-startup-eu-ai-act-readiness'], 'label' => 'EU AI Act readiness for startups'],
                         ['route' => 'guides.show', 'params' => ['ai-governance-for-startups'], 'label' => 'AI governance for startups'],
                     ],

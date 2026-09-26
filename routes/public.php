@@ -31,6 +31,7 @@ use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\SocialCardController;
 use App\Http\Controllers\Site\SubscribeController;
+use App\Http\Controllers\Site\TemplateController;
 use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
 use App\Support\RiskTaxonomy;
@@ -158,6 +159,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.alerts');
 Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('throttle:120,1')->withoutMiddleware([ValidateCsrfToken::class])->name('billing.webhook');
 
+// The templates library: generated files, versioned, no account needed. The old free-tool
+// addresses under /guides/tools redirect here (FreeToolController).
+Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+Route::get('/templates/feed', [TemplateController::class, 'feed'])->name('templates.feed');
+Route::get('/templates/{slug}', [TemplateController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('templates.show');
+Route::get('/templates/{slug}/download', [TemplateController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1')->name('templates.download');
+
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');
 // Free tools: public preview, sign-in gate on Download, signed file delivery for the owner.
@@ -183,7 +191,7 @@ Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
     ->name('social.card');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|updates|resources|incidents|risks')->name('sitemap.section');
+Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|updates|templates|resources|incidents|risks')->name('sitemap.section');
 // Google News: entries first published in the last two days, in the news namespace.
 Route::get('/sitemap-news.xml', [SitemapController::class, 'news'])->name('sitemap.news');
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');

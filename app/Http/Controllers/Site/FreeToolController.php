@@ -7,6 +7,7 @@ use App\Mail\DownloadLinksMail;
 use App\Models\PolicyInstrument;
 use App\Models\ResourceDownload;
 use App\Models\Tool;
+use App\Services\Templates\TemplateCatalog;
 use App\Support\Privacy;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -27,8 +28,11 @@ class FreeToolController extends Controller
         return Tool::published()->with('activeFiles')->where('slug', $slug)->firstOrFail();
     }
 
-    public function show(string $slug): View
+    public function show(string $slug): View|RedirectResponse
     {
+        if ($to = TemplateCatalog::redirectFor($slug)) {
+            return redirect()->to(route('templates.show', $to), 301);
+        }
         $tool = $this->tool($slug);
         $guides = collect(config('content.guides'))->only($tool->related_guides ?? [])->map(fn ($g, $s) => ['slug' => $s, 'h1' => $g['h1']])->values();
         $policies = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $tool->related_policies ?? [])->get();
@@ -53,6 +57,9 @@ class FreeToolController extends Controller
     /** Gate for signed-out visitors: remember where to come back to, then offer sign-up or sign-in. */
     public function gate(string $slug): View|RedirectResponse
     {
+        if ($to = TemplateCatalog::redirectFor($slug)) {
+            return redirect()->to(route('templates.show', $to).'#download', 301);
+        }
         $tool = $this->tool($slug);
         if (auth()->check()) {
             return redirect()->to($tool->url().'#download');

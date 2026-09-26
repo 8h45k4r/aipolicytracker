@@ -42,6 +42,14 @@
     </section>
     @endif
 
+    @unless($filtered)
+    <section class="mt-10 card-flat p-5" aria-labelledby="templates-heading">
+        <div class="flex flex-wrap items-baseline justify-between gap-2"><h2 id="templates-heading" class="section-title">Templates generated from the law on record</h2><span class="meta">{{ \App\Services\Templates\TemplateCatalog::all()->count() }} templates</span></div>
+        <p class="mt-2 max-w-[64ch] text-sm text-brand-body">Inventory, risk register, FRIA, policies, incident playbook, EU AI Act and ISO/IEC 42001 kits: XLSX and DOCX files built from the recorded duties, rebuilt when the records change, downloadable without an account.</p>
+        <p class="mt-3"><a href="{{ route('templates.index') }}" class="btn-primary">Browse the templates library</a></p>
+    </section>
+    @endunless
+
     @if($tools->isNotEmpty())
     <section class="mt-10" aria-labelledby="tools-heading">
         <div class="rule-strong pt-3 flex items-baseline justify-between"><h2 id="tools-heading" class="section-title">Free tools and templates</h2><span class="meta">{{ $tools->count() }}</span></div>

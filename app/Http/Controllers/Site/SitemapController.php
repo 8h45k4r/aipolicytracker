@@ -12,9 +12,11 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Models\TemplateVersion;
 use App\Models\Tool;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\PolicyData\FrameworkCrosswalk;
+use App\Services\Templates\TemplateCatalog;
 use App\Support\RiskTaxonomy;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -35,6 +37,7 @@ class SitemapController extends Controller
             'controls' => Control::published()->max('updated_at'),
             'changes' => ChangeEvent::published()->max('updated_at'),
             'updates' => ChangeEvent::published()->max('updated_at'),
+            'templates' => TemplateVersion::max('generated_at'),
             'resources' => PolicyInstrument::published()->max('updated_at'),
             // The research corpus: roughly 1,700 incident pages and 2,500 risk
             // entries that were reachable, indexable and in no sitemap at all,
@@ -63,6 +66,7 @@ class SitemapController extends Controller
             'controls' => $this->controlUrls(),
             'changes' => $this->changeUrls(),
             'updates' => $this->updatesUrls(),
+            'templates' => $this->templateUrls(),
             'resources' => $this->resourceUrls(),
             'incidents' => $this->incidentUrls(),
             'risks' => $this->riskUrls(),
@@ -190,7 +194,7 @@ class SitemapController extends Controller
                 }
             }
         }
-        foreach (Tool::published()->orderBy('sort_order')->pluck('slug') as $slug) {
+        foreach (Tool::published()->whereNotIn('slug', array_keys(TemplateCatalog::redirects()))->orderBy('sort_order')->pluck('slug') as $slug) {
             $pages[] = [route('tools.show', $slug), 'monthly', '0.8'];
         }
         // Guides are listed once, in the resources sitemap.
@@ -258,6 +262,18 @@ class SitemapController extends Controller
      * The updates hub and its archives, each listed only when it is indexable:
      * the pages apply the same threshold to themselves.
      */
+    private function templateUrls()
+    {
+        $latest = TemplateVersion::latestAll();
+        $newest = collect($latest)->max('generated_at');
+        $urls = collect([['loc' => route('templates.index'), 'lastmod' => $newest?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.8']]);
+        foreach (TemplateCatalog::all()->keys() as $slug) {
+            $urls->push(['loc' => route('templates.show', $slug), 'lastmod' => isset($latest[$slug]) ? $latest[$slug]->generated_at->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.7']);
+        }
+
+        return $urls;
+    }
+
     private function updatesUrls()
     {
         $latest = ChangeEvent::published()->max('updated_at');

@@ -32,6 +32,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Applicability check (educational): {{ route('tools.applicability') }}
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
+- Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - Guides: {{ route('guides.index') }}
 - About, maintainers and references: {{ route('about') }}
 - Contact (corrections, press, security): {{ config('aipolicytracker.contact_email') }}
