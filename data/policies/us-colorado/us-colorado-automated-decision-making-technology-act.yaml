@@ -74,6 +74,8 @@ obligations:
       be used to make or materially influence a consequential decision about them. The exact content and timing of
       the notice follow the enrolled bill, which a reviewer must read.
     practical_action: Add a plain-language notice to every consumer-facing flow in which an automated tool influences a consequential decision.
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Pre-decision notice that an automated tool will influence the decision.", confidence_level: high }
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-adverse-decision-disclosure
@@ -89,6 +91,8 @@ obligations:
       After an adverse consequential decision, the deployer must tell the consumer that automated decision-making
       technology was used, give the principal reasons for the decision, and explain how to obtain human review.
     practical_action: Template an adverse-decision letter that names the tool, the main reasons and the human-review route.
+    controls:
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Adverse-decision reasons, the role of the tool and the review route.", confidence_level: high }
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-human-review
@@ -104,6 +108,9 @@ obligations:
       A consumer who receives an adverse consequential decision may obtain meaningful review by a person with the
       authority and information to change the outcome. Scope and timing follow the enrolled bill.
     practical_action: Staff and document a human-review channel with authority to reverse decisions.
+    controls:
+      - { control: human-oversight-and-override, relationship: satisfies, note: "A reviewer with authority to change the outcome.", confidence_level: high }
+      - { control: decision-explanation-and-appeal-route, relationship: supports, note: "The request channel that leads to review.", confidence_level: medium }
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-record-keeping
@@ -119,6 +126,8 @@ obligations:
       Deployers must retain records showing how automated decision-making technology was used in consequential
       decisions, for three years, according to secondary reporting on the enrolled bill.
     practical_action: Log each decision, the tool used, inputs relied on and the notices sent, with a three-year retention rule.
+    controls:
+      - { control: record-keeping-and-logging, relationship: satisfies, note: "Decision records retained for the statutory period.", confidence_level: high }
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-developer-documentation
@@ -134,6 +143,9 @@ obligations:
       Developers of automated decision-making technology must provide deployers with the documentation the statute
       lists, so that deployers can meet their notice, disclosure and review duties.
     practical_action: Publish a deployer-facing documentation pack for each tool sold into consequential-decision uses.
+    controls:
+      - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Deployer-facing documentation of each tool.", confidence_level: high }
+      - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Contract terms that deliver the documentation to deployers.", confidence_level: medium }
     review_status: pending_review
     confidence_level: medium
 deadlines:
