@@ -8,6 +8,7 @@ use App\Models\Control;
 use App\Models\ControlEvidence;
 use App\Models\ControlFrameworkReference;
 use App\Models\Deadline;
+use App\Models\DeadlineRevision;
 use App\Models\EnforcementEvent;
 use App\Models\EvidenceArtifact;
 use App\Models\FrameworkMapping;
@@ -247,9 +248,12 @@ class PolicyImporter
                 ApplicabilityRule::create(['policy_instrument_id' => $policy->id, ...Arr::only($rule, ['description', 'actors', 'ai_system_types', 'sectors', 'risk_categories', 'use_cases', 'conditions', 'source_reference'])]);
             }
 
+            // Deadlines are replaced wholesale; what the previous rows said is kept
+            // long enough to record any date that moved (P7: "originally X, now Y").
+            $previous = $policy->deadlines()->get()->keyBy(fn ($d) => DeadlineRevision::keyFor($d->title));
             $policy->deadlines()->delete();
             foreach ($record['deadlines'] ?? [] as $i => $deadline) {
-                Deadline::create([
+                $created = Deadline::create([
                     'policy_instrument_id' => $policy->id,
                     'obligation_id' => isset($deadline['obligation'], $obligationsBySlug[$deadline['obligation']]) ? $obligationsBySlug[$deadline['obligation']]->id : null,
                     'sort_order' => $i,
@@ -257,6 +261,15 @@ class PolicyImporter
                     'confidence_level' => $deadline['confidence_level'] ?? $record['confidence_level'],
                     ...Arr::only($deadline, ['title', 'due_on', 'date_precision', 'date_label', 'description', 'source_reference', 'official_source_url']),
                 ]);
+                $was = $previous->get(DeadlineRevision::keyFor($created->title));
+                if ($was && ($was->due_on?->toDateString() !== $created->due_on?->toDateString() || $was->deadline_status !== $created->deadline_status)) {
+                    DeadlineRevision::create([
+                        'policy_instrument_id' => $policy->id, 'deadline_key' => DeadlineRevision::keyFor($created->title), 'title' => $created->title,
+                        'from_due_on' => $was->due_on, 'to_due_on' => $created->due_on, 'from_status' => $was->deadline_status, 'to_status' => $created->deadline_status,
+                        'from_label' => $was->date_label, 'to_label' => $created->date_label, 'changed_at' => now(), 'source' => 'import',
+                    ]);
+                    $this->stats['deadline_revisions'] = ($this->stats['deadline_revisions'] ?? 0) + 1;
+                }
             }
 
             $policy->enforcementEvents()->delete();
