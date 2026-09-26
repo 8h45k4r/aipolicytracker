@@ -41,6 +41,8 @@ Most MCP clients take a command and its environment. For example:
 | `search_incidents` | AI incidents (AI Incident Database) with what this site adds: harm domain, the recorded laws that address that harm where it happened, a one-sentence policy angle, and a sensitivity flag. |
 | `build_obligations_register` | The applicability check as an obligations register: screened duties with citations, evidence, framework references and controls, plus XLSX/CSV/PDF links. |
 | `get_applicable_deadlines` | Which recorded dates apply to one organisation (markets, role, system, risk tier, sector, use case), why each is shown, and the original date where one moved. |
+| `list_transition_measures` | AI economic transition measures (dividends, basic income, AI taxes, funds, layoff disclosure, retraining, worker voice); drafts say so. |
+| `get_displacement_index` | The displacement policy index per jurisdiction, with sub-scores, inputs and version. |
 | `list_templates` | The templates library: free XLSX/DOCX files generated from the records, with the latest version, dataset hash, coverage and download URLs. |
 | `open_gaps` | What the corpus is missing, so an assistant can say where the data is thin. |
 

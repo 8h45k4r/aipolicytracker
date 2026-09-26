@@ -275,15 +275,35 @@ while selling is off.
 (the account address is already double-opted-in by verification); the
 weekly digest for guests remains the subscriber system.
 
-### P9 — AI economic transition tracker (`seo/p9-transition`)
-Adds TransitionMeasure, TransitionIndicator, and DisplacementPolicyIndex (a
-versioned pure function). The hub, detail pages, 4 landing pages, a methodology
-page, the API and MCP tools are added.
-**Seed data is drafts only** (finding 6): each proposal gets a record whose sponsor,
-bill number, date and amounts are `null` until read from the official source. The
-landing pages stay noindexed until the thin guard passes. The index publishes
-nothing until it has verified inputs, because a score computed from unverified
-drafts would be the first number on this site that isn't sourced.
+### P9 — AI economic transition tracker (`seo/p9-transition`) — done, as drafts
+Two new record types under `data/transition/` with their own JSON Schemas
+(`transition-measure`, `transition-indicator`), validated by `policy:validate`
+and imported by `policy:import` like every other record. `TransitionMeasure`
+carries type, status, mechanism, funding, trigger, benefit, cost, bill number,
+sponsors, dates, attributed arguments for and against, sources and the full
+trust model; `TransitionIndicator` is a cited time series (an empty series is
+a definition awaiting data). `DisplacementPolicyIndex` is a versioned pure
+function (v1.0): four 0–25 dimensions (disclosure, safety net, transition
+funding, worker voice), each the strongest verified measure by published
+status weight; drafts, unverified records and measures dated after the
+quarter count for nothing, and a jurisdiction with nothing verified gets no
+snapshot rather than a zero. Pages: `/ai-economic-transition` (filters,
+computed answer box, timeline, accessible bar charts with a data table,
+attributed for-and-against, Dataset and FAQ JSON-LD), measure detail pages,
+`/ubi`, `/ai-dividend`, `/ai-tax`, `/ai-layoff-disclosure-laws` (indexed
+only with three verified measures each) and the index methodology page. API
+`/api/v1/transition/{measures,measures/{slug},indicators,index}`; MCP
+`list_transition_measures`, `get_displacement_index`; `/gaps` lists the
+drafts under a new "Transition measures" kind; the correction form accepts
+them; llms.txt and the sitemap carry the hub.
+**Seeded as drafts, deliberately:** the five proposals the brief names (AI
+dividend, AI sovereign wealth fund, AI excise tax bill, New York WARN AI
+disclosure, UBI proposals) are in the data with *every factual field null*
+and `review_status: draft`, because official sources cannot be reached from
+the build environment and the ground rules forbid inventing sponsors, dates
+or amounts. Each draft page says exactly that, is noindex, and scores nothing.
+The first reviewer to read the official texts fills them in; the pages,
+landings, charts and index switch on by themselves.
 
 ### P10 — Authority and trust (`seo/p10-authority`)
 - `/state-of-ai-regulation`: a quarterly frozen snapshot with methodology, CSV
