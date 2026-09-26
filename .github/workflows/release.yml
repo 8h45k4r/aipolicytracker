@@ -1,0 +1,38 @@
+# Publishes a GitHub release when a version tag is pushed.
+#
+# The notes are the tag's section of CHANGELOG.md, so the changelog stays the one
+# place a release is described. Tag only a commit whose CI is green:
+#
+#   git tag -a v1.2.3 -m "v1.2.3" && git push origin v1.2.3
+#
+# See "Releases" in CONTRIBUTING.md.
+name: Release
+
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+"]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Publish the release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      # The tag name reaches the shell through the environment, never interpolated
+      # into the script, and the trigger's pattern already limits it to vX.Y.Z.
+      - name: Release notes from CHANGELOG.md
+        env:
+          TAG: ${{ github.ref_name }}
+        run: scripts/release/notes.sh "${TAG#v}" > "$RUNNER_TEMP/notes.md"
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"
