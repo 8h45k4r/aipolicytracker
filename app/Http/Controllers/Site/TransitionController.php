@@ -39,19 +39,22 @@ class TransitionController extends Controller
         ];
         $all = TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')->orderByDesc('last_verified_at')->orderBy('title')->get();
         $measures = $all->filter(fn ($m) => (! $filters['type'] || $m->measure_type === $filters['type']) && (! $filters['status'] || $m->status === $filters['status']) && (! $filters['jurisdiction'] || $m->jurisdiction->slug === $filters['jurisdiction']))->values();
-        $verified = $measures->filter(fn ($m) => ! $m->isDraft());
+        // Three states, named honestly: verified by a named reviewer, recorded from a cited
+        // source but awaiting that review, or an empty draft. Only the first is "verified".
+        $recorded = $measures->filter(fn ($m) => ! $m->isDraft());
+        $verified = $recorded->filter(fn ($m) => $m->review_status === 'verified');
         $indicators = TransitionIndicator::whereNotNull('published_at')->with('jurisdiction')->orderBy('title')->get();
         $index = DisplacementPolicyIndex::latest();
         $byType = $measures->groupBy('measure_type')->map->count()->mapWithKeys(fn ($n, $t) => [TransitionMeasure::TYPES[$t] ?? $t => $n])->all();
         $byStatus = $measures->groupBy('status')->map->count()->mapWithKeys(fn ($n, $s) => [TransitionMeasure::STATUSES[$s] ?? $s => $n])->all();
-        $timeline = $verified->flatMap(fn ($m) => collect(['introduced_on' => 'introduced', 'enacted_on' => 'enacted', 'in_force_on' => 'in force'])->filter(fn ($l, $f) => $m->{$f})->map(fn ($l, $f) => ['date' => $m->{$f}, 'label' => $m->title.' '.$l, 'measure' => $m]))->sortBy(fn ($e) => $e['date']->timestamp)->values();
-        $arguments = ['for' => $verified->flatMap(fn ($m) => collect($m->arguments_for ?? [])->map(fn ($a) => $a + ['measure' => $m]))->values(), 'against' => $verified->flatMap(fn ($m) => collect($m->arguments_against ?? [])->map(fn ($a) => $a + ['measure' => $m]))->values()];
+        $timeline = $recorded->flatMap(fn ($m) => collect(['introduced_on' => 'introduced', 'enacted_on' => 'enacted', 'in_force_on' => 'in force'])->filter(fn ($l, $f) => $m->{$f})->map(fn ($l, $f) => ['date' => $m->{$f}, 'label' => $m->title.' '.$l, 'measure' => $m]))->sortBy(fn ($e) => $e['date']->timestamp)->values();
+        $arguments = ['for' => $recorded->flatMap(fn ($m) => collect($m->arguments_for ?? [])->map(fn ($a) => $a + ['measure' => $m]))->values(), 'against' => $recorded->flatMap(fn ($m) => collect($m->arguments_against ?? [])->map(fn ($a) => $a + ['measure' => $m]))->values()];
         $jurisdictions = $all->pluck('jurisdiction')->unique('id')->sortBy('name')->values();
 
         $answer = sprintf(
-            '%d %s recorded%s, %d verified against an official source and %d still in draft. Types recorded: %s. The displacement policy index scores %d %s this quarter from verified measures only; a draft counts for nothing until a reviewer has read the source.',
+            '%d %s recorded%s: %d verified against an official source by a named reviewer, %d recorded from a cited source and awaiting that review, and %d still in draft. Types recorded: %s. The displacement policy index scores %d %s this quarter from verified measures only; a pending or draft record counts for nothing until a reviewer has read the source.',
             $measures->count(), Str::plural('measure', $measures->count()), $page ? ' for '.mb_strtolower($page['h1']) : ' across '.$jurisdictions->count().' '.Str::plural('jurisdiction', $jurisdictions->count()),
-            $verified->count(), $measures->count() - $verified->count(),
+            $verified->count(), $recorded->count() - $verified->count(), $measures->count() - $recorded->count(),
             $byType === [] ? 'none yet' : collect($byType)->map(fn ($n, $t) => mb_strtolower($t).' ('.$n.')')->join(', '),
             $index->count(), Str::plural('jurisdiction', $index->count())
         );

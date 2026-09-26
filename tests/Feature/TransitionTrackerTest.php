@@ -26,18 +26,29 @@ class TransitionTrackerTest extends TestCase
         $this->artisan('policy:import');
     }
 
-    public function test_seeded_measures_import_as_drafts_with_nothing_invented(): void
+    public function test_seeded_measures_import_unverified_with_nothing_invented(): void
     {
         $this->assertGreaterThanOrEqual(5, TransitionMeasure::count());
         foreach (TransitionMeasure::all() as $m) {
-            $this->assertTrue($m->isDraft(), $m->slug.' starts as a draft');
-            $this->assertNull($m->summary);
-            $this->assertNull($m->bill_number);
-            $this->assertSame([], $m->sponsors);
-            $this->assertNull($m->introduced_on);
-            $this->assertNull($m->official_source_url);
-            $this->assertFalse($m->isIndexable());
+            // Nothing ships verified: a record is either an empty draft or, once recorded
+            // from a cited source, pending a named reviewer's confirmation.
+            $this->assertNotSame('verified', $m->review_status, $m->slug.' is not verified');
+            $this->assertNull($m->last_verified_at, $m->slug);
+            $this->assertNull($m->reviewed_by, $m->slug);
+            if ($m->isDraft()) {
+                $this->assertNull($m->summary, $m->slug.' draft has no summary');
+                $this->assertNull($m->bill_number, $m->slug);
+                $this->assertSame([], $m->sponsors, $m->slug);
+                $this->assertNull($m->introduced_on, $m->slug);
+                $this->assertNull($m->official_source_url, $m->slug);
+                $this->assertFalse($m->isIndexable(), $m->slug);
+            } else {
+                $this->assertSame('pending_review', $m->review_status, $m->slug);
+                $this->assertNotNull($m->official_source_url, $m->slug.' cites its official source');
+                $this->assertNotNull($m->bill_number, $m->slug);
+            }
         }
+        $this->assertGreaterThanOrEqual(3, TransitionMeasure::all()->filter(fn ($m) => $m->isDraft())->count(), 'the unresearched measures stay drafts');
         $this->artisan('policy:validate')->assertSuccessful();
     }
 
@@ -45,7 +56,7 @@ class TransitionTrackerTest extends TestCase
     {
         $hub = $this->get('/ai-economic-transition')->assertOk()->getContent();
         $this->assertSame(1, preg_match_all('#<h1\b#', $hub));
-        $this->assertMatchesRegularExpression('/\d+ measures recorded across \d+ jurisdictions, 0 verified against an official source and \d+ still in draft/', $hub);
+        $this->assertMatchesRegularExpression('/\d+ measures recorded across \d+ jurisdictions: 0 verified against an official source by a named reviewer, \d+ recorded from a cited source and awaiting that review, and \d+ still in draft/', $hub);
         $this->assertStringContainsString('"@type":"Dataset"', $hub);
         $this->assertStringContainsString('"@type":"FAQPage"', $hub);
         $this->assertStringContainsString('name="robots" content="index', $hub);
@@ -58,12 +69,17 @@ class TransitionTrackerTest extends TestCase
             $this->assertStringContainsString('name="robots" content="noindex', $html, $landing.' is thin until three verified measures exist');
         }
 
-        $m = TransitionMeasure::where('slug', 'us-ai-excise-tax-bill')->firstOrFail();
+        $m = TransitionMeasure::where('slug', 'universal-basic-income-ai-proposals')->firstOrFail();
+        $this->assertTrue($m->isDraft());
         $page = $this->get($m->url())->assertOk()->getContent();
         $this->assertStringContainsString('name="robots" content="noindex', $page);
         $this->assertStringContainsString('Draft: not verified', $page);
         $this->assertStringContainsString('Nothing about it has yet been read from an official source', $page);
         $this->assertStringNotContainsString('Bill number</dt>', $page, 'an empty field is not shown as a fact');
+        // A measure recorded from a cited source is a page worth indexing, but it says it is awaiting review.
+        $recorded = TransitionMeasure::where('slug', 'us-ai-excise-tax-bill')->firstOrFail();
+        $this->assertSame('pending_review', $recorded->review_status);
+        $this->get($recorded->url())->assertOk()->assertSee('H.R. 10044')->assertSee('name="robots" content="index', false)->assertDontSee('Draft: not verified');
         $this->get('/ai-economic-transition/methodology')->assertOk()->assertSee('Four dimensions, 25 points each');
         $this->get('/ai-economic-transition/measures/nope')->assertNotFound();
     }
@@ -98,7 +114,8 @@ class TransitionTrackerTest extends TestCase
         $measures = $this->getJson('/api/v1/transition/measures')->assertOk()->json();
         $this->assertMatchesOpenApi('/transition/measures', $measures);
         $this->assertGreaterThanOrEqual(5, count($measures['data']));
-        $this->assertSame('draft', $measures['data'][0]['review_status']);
+        $this->assertNotSame('verified', $measures['data'][0]['review_status']);
+        $this->assertContains('draft', array_column($measures['data'], 'review_status'));
         $one = $this->getJson('/api/v1/transition/measures/us-ai-excise-tax-bill')->assertOk()->json();
         $this->assertMatchesOpenApi('/transition/measures/{slug}', $one);
         $this->getJson('/api/v1/transition/measures/nope')->assertNotFound();
