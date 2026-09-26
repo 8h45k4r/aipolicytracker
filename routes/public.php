@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Site\AgentSurfaceController;
+use App\Http\Controllers\Site\AlertChannelController;
 use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\AudienceController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
+use App\Http\Controllers\Site\RegisterExportController;
 use App\Http\Controllers\Site\ReviewersController;
 use App\Http\Controllers\Site\RiskBrowseController;
 use App\Http\Controllers\Site\RiskController;
@@ -161,8 +163,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/following', [FollowController::class, 'index'])->name('following.index');
     Route::post('/profiles', [ApplicabilityProfileController::class, 'store'])->middleware(['subscribed:saved.server', 'throttle:30,1'])->name('profiles.store');
     Route::delete('/profiles/{profile}', [ApplicabilityProfileController::class, 'destroy'])->whereNumber('profile')->name('profiles.destroy');
-    Route::post('/follow/{type}/{slug}', [FollowController::class, 'toggle'])->where(['type' => '[a-z]+', 'slug' => '[A-Za-z0-9._-]{1,160}'])->middleware(['subscribed:saved.server', 'throttle:60,1'])->name('follow.toggle');
+    Route::post('/alerts/channels', [AlertChannelController::class, 'store'])->middleware('throttle:20,1')->name('alerts.channels.store');
+    Route::post('/alerts/channels/email-off', [AlertChannelController::class, 'emailOff'])->name('alerts.channels.email-off');
+    Route::post('/alerts/channels/{channel}/toggle', [AlertChannelController::class, 'toggle'])->whereNumber('channel')->name('alerts.channels.toggle');
+    Route::post('/alerts/channels/{channel}/test', [AlertChannelController::class, 'test'])->whereNumber('channel')->middleware('throttle:10,1')->name('alerts.channels.test');
+    Route::delete('/alerts/channels/{channel}', [AlertChannelController::class, 'destroy'])->whereNumber('channel')->name('alerts.channels.destroy');
+    Route::get('/account/export.json', [AlertChannelController::class, 'export'])->name('account.export');
+    Route::post('/profile/api-token', [AlertChannelController::class, 'apiToken'])->middleware('throttle:10,1')->name('profile.api-token');
+    Route::post('/follow/{type}/{slug}', [FollowController::class, 'toggle'])->where(['type' => '[a-z_]+', 'slug' => '[A-Za-z0-9._-]{1,160}'])->middleware(['subscribed:saved.server', 'throttle:60,1'])->name('follow.toggle');
 });
+// Private feed by token, and the unsubscribe link from every alert email (signed; no sign-in).
+Route::get('/alerts/feed/{token}.rss', [AlertChannelController::class, 'feed'])->where('token', '[A-Za-z0-9]{48}')->name('alerts.feed');
+Route::match(['get', 'post'], '/alerts/unsubscribe/{user}', [AlertChannelController::class, 'unsubscribe'])->whereNumber('user')->middleware('signed')->name('alerts.unsubscribe');
+// The applicability check's obligations register as a file: the answers are the state.
+Route::get('/tools/applicability-check/register.{format}', [RegisterExportController::class, 'export'])->where('format', 'xlsx|csv|json|pdf')->middleware('throttle:30,1')->name('tools.applicability.register');
 Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.alerts');
 Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('throttle:120,1')->withoutMiddleware([ValidateCsrfToken::class])->name('billing.webhook');
 

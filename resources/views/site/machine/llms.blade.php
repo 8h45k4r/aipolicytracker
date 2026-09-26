@@ -31,7 +31,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Frameworks behind the risk database: {{ route('risk.frameworks') }}
 - Law-to-standard crosswalks (which legal duties map to ISO/IEC 42001 and the NIST AI RMF): {{ route('frameworks.index') }}
 - Frameworks compared, with the reuse matrix by duty category: {{ route('frameworks.compare') }}
-- Applicability check (educational): {{ route('tools.applicability') }}
+- Applicability check (educational), with an obligations register export as XLSX, CSV, JSON or PDF (state in the URL; API: {{ route('api.v1.applicability.register') }}): {{ route('tools.applicability') }}
 - Which date applies to you (five questions, a personal timeline from recorded deadlines with the reason each applies, .ics and PDF; API POST /api/v1/deadlines/applicable): {{ route('deadlines.engine') }}
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})

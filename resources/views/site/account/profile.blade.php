@@ -38,7 +38,10 @@
                 <div class="flex justify-between gap-2"><dt class="text-brand-muted">Policy-update emails</dt><dd>{{ $user->marketing_consent_at ? 'opted in '.$user->marketing_consent_at->format('j M Y') : 'not opted in' }}</dd></div>
             </dl>
             @if(!$user->email_verified_at)<form method="post" action="{{ route('verification.send') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">Resend verification email</button></form>@endif
-            <p class="mt-3 meta">Weekly digest subscriptions are managed from the <a href="{{ route('subscribe.show') }}">subscribe page</a> and the unsubscribe link in every email.</p>
+            <p class="mt-3 meta">Weekly digest subscriptions are managed from the <a href="{{ route('subscribe.show') }}">subscribe page</a> and the unsubscribe link in every email. Daily alert channels are on the <a href="{{ route('following.index') }}">alerts page</a>.</p>
+            <p class="mt-2 meta"><a href="{{ route('account.export') }}">Export everything we hold about you (JSON)</a> · deleting the account below removes it all.</p>
+            @if(session('api_token'))<p class="mt-3 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-xs text-state-good" role="status">API token (shown once): <code class="break-all">{{ session('api_token') }}</code></p>@endif
+            <form method="post" action="{{ route('profile.api-token') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">{{ $user->tokens()->exists() ? 'Replace API token' : 'Create API token' }}</button> <span class="meta">for <code>/api/v1/watches</code></span></form>
         </section>
     </div>
     <div class="mt-6 grid gap-6 md:grid-cols-2">

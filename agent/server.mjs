@@ -200,6 +200,30 @@ const TOOLS = [
     run: (args) => post('/api/v1/deadlines/applicable', { jurisdictions: args.jurisdictions, role: args.role, system_types: args.system_types, risk: args.risk, sectors: args.sectors, use_cases: args.use_cases }),
   },
   {
+    name: 'build_obligations_register',
+    description:
+      'The applicability check as an obligations register: one row per recorded duty whose recorded actors, use cases and sectors overlap the answers (markets, role, use case, sector, personal data, generative AI), each cited to its record with evidence, framework references and recorded controls. Returns the rows and links to the same register as XLSX, CSV and PDF. An educational screen over recorded scope, not a determination that any duty applies.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        jurisdictions: { type: 'array', items: { type: 'string' }, description: 'Jurisdiction slugs, e.g. ["eu","uk"].' },
+        role: { type: 'string', description: 'Actor slug: provider, deployer, importer, distributor, gpai_provider, public_authority, user.' },
+        use_case: { type: 'string', description: 'Use-case slug, e.g. hiring_and_hr, biometrics, generative_ai.' },
+        sector: { type: 'string', description: 'Sector slug, e.g. healthcare, financial_services.' },
+        personal_data: { type: 'string', description: 'yes, no or unsure.' },
+        genai: { type: 'string', description: 'yes, no or unsure.' },
+      },
+      required: ['jurisdictions'],
+      additionalProperties: false,
+    },
+    run: (args) => {
+      const params = new URLSearchParams()
+      for (const j of args.jurisdictions || []) params.append('jurisdictions[]', String(j))
+      for (const k of ['role', 'use_case', 'sector', 'personal_data', 'genai']) if (args[k]) params.set(k, String(args[k]))
+      return get('/api/v1/applicability/register?' + params.toString())
+    },
+  },
+  {
     name: 'list_templates',
     description:
       'The templates library: free XLSX and DOCX files (AI system inventory, risk register, FRIA, policies, incident playbook, EU AI Act and ISO/IEC 42001 kits) generated from the recorded duties, controls and deadlines and rebuilt when the records change. Each entry gives the latest version, its dataset hash, what it covers and the download URLs. Filter by type, topic or framework.',

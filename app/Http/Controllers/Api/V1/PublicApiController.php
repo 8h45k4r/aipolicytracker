@@ -14,6 +14,8 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
+use App\Services\Applicability\ApplicabilityScreener;
+use App\Services\Applicability\ObligationsRegister;
 use App\Services\Deadlines\DeadlineEngine;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\ExternalData\IncidentEnrichment;
@@ -62,6 +64,8 @@ class PublicApiController extends Controller
                 'frameworks' => route('api.v1.frameworks'),
                 'deadlines' => route('api.v1.deadlines'),
                 'deadlines_applicable' => route('api.v1.deadlines.applicable'),
+                'applicability_register' => route('api.v1.applicability.register'),
+                'watches' => route('api.v1.watches.index'),
                 'incidents' => route('api.v1.incidents'),
                 'risks' => route('api.v1.risks'),
                 'templates' => route('api.v1.templates'),
@@ -539,6 +543,17 @@ class PublicApiController extends Controller
             'source_reference' => $d->source_reference,
             'official_source_url' => $d->official_source_url,
         ];
+    }
+
+    /** The applicability check's obligations register as JSON, with links to the file formats. */
+    public function applicabilityRegister(Request $request, ApplicabilityScreener $screener, ObligationsRegister $register): JsonResponse
+    {
+        $answers = $screener->normalise($request->query());
+        if ($answers['jurisdictions'] === []) {
+            return response()->json(['message' => 'At least one published jurisdiction slug is required (jurisdictions[]=eu).'], 422);
+        }
+
+        return $this->respond($register->json($register->build($answers)));
     }
 
     /**

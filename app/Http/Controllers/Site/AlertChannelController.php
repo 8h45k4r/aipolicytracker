@@ -110,9 +110,30 @@ class AlertChannelController extends Controller
             'channels' => AlertChannel::where('user_id', $user->id)->get()->map(fn ($c) => ['kind' => $c->kind, 'endpoint' => $c->endpoint, 'enabled' => $c->enabled, 'created_at' => $c->created_at?->toAtomString(), 'last_delivered_at' => $c->last_delivered_at?->toAtomString()])->all(),
             'alert_deliveries' => $user->alertDeliveries()->get()->map(fn ($d) => ['sent_on' => $d->sent_on?->toDateString(), 'changes' => $d->changes_count, 'deadlines' => $d->deadlines_count])->all(),
             'consent_events' => ConsentEvent::where('user_id', $user->id)->orderBy('id')->get()->map(fn ($e) => ['kind' => $e->kind, 'granted' => $e->granted, 'source' => $e->source, 'detail' => $e->detail, 'at' => $e->created_at?->toAtomString()])->all(),
-            'downloads' => $user->downloads()->get()->map(fn ($d) => ['tool' => $d->resource_slug, 'version' => $d->version, 'at' => $d->created_at?->toAtomString()])->all(),
+            'downloads' => $user->resourceDownloads()->get()->map(fn ($d) => ['tool' => $d->resource_slug, 'version' => $d->version, 'at' => $d->created_at?->toAtomString()])->all(),
         ];
 
         return response(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 200, ['Content-Type' => 'application/json', 'Content-Disposition' => 'attachment; filename="aipolicytracker-account.json"', 'Cache-Control' => 'private, no-store']);
+    }
+
+    /** Turns the inbox off from the alerts page (no email channel row exists until the first change). */
+    public function emailOff(Request $request): RedirectResponse
+    {
+        $channel = AlertChannel::firstOrCreate(['user_id' => $request->user()->id, 'kind' => 'email'], ['enabled' => true, 'confirmed_at' => $request->user()->email_verified_at]);
+        $channel->update(['enabled' => false]);
+        ConsentEvent::record($request->user(), 'alerts.email', false, 'account');
+
+        return redirect()->route('following.index')->with('status', 'channel-disabled');
+    }
+
+    /** A personal access token for /api/v1/watches, shown once. Creating a new one revokes the old. */
+    public function apiToken(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $user->tokens()->where('name', 'watches')->delete();
+        $token = $user->createToken('watches', ['watches'])->plainTextToken;
+        ConsentEvent::record($user, 'api.token', true, 'account', 'watches');
+
+        return redirect()->route('profile.edit')->with('api_token', $token);
     }
 }

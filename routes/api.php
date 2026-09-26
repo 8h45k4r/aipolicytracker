@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\PublicApiController;
+use App\Http\Controllers\Api\V1\WatchApiController;
 use Illuminate\Support\Facades\Route;
 
 // Read-only public API. No authentication; rate limited; cached.
@@ -29,7 +30,15 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
     // Mirrored external datasets. Responses carry their source, licence and citation.
     Route::get('/incidents', [PublicApiController::class, 'incidents'])->name('incidents');
     Route::get('/risks', [PublicApiController::class, 'risks'])->name('risks');
+    Route::get('/applicability/register', [PublicApiController::class, 'applicabilityRegister'])->name('applicability.register');
     Route::get('/templates', [PublicApiController::class, 'templates'])->name('templates');
     Route::get('/templates/{slug}', [PublicApiController::class, 'template'])->where('slug', '[a-z0-9-]+')->name('template');
     Route::get('/templates/{slug}/download', [PublicApiController::class, 'templateDownload'])->where('slug', '[a-z0-9-]+')->name('template.download');
+});
+
+// The account's watches, over a personal access token (created on the account page).
+Route::prefix('v1')->middleware(['auth:sanctum', 'throttle:120,1'])->name('api.v1.')->group(function () {
+    Route::get('/watches', [WatchApiController::class, 'index'])->name('watches.index');
+    Route::post('/watches', [WatchApiController::class, 'store'])->name('watches.store');
+    Route::delete('/watches/{id}', [WatchApiController::class, 'destroy'])->whereNumber('id')->name('watches.destroy');
 });
