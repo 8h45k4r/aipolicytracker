@@ -29,6 +29,7 @@
     "require": {
         "php": "^8.2",
         "dodopayments/client": "^6.25",
+        "dompdf/dompdf": "^3.1",
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
