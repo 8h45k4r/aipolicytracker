@@ -29,6 +29,9 @@ return [
                     'heading' => 'By jurisdiction',
                     'items' => [
                         ['route' => 'jurisdictions.index', 'label' => 'All jurisdictions', 'note' => 'Countries, regions and states'],
+                        ['route' => 'hubs.show', 'params' => ['ai-regulation-asia'], 'label' => 'Asia', 'note' => 'Regional hub, country by country'],
+                        ['route' => 'hubs.show', 'params' => ['ai-regulation-africa'], 'label' => 'Africa', 'note' => 'Regional hub'],
+                        ['route' => 'hubs.show', 'params' => ['ai-regulation-americas'], 'label' => 'Americas', 'note' => 'Regional hub'],
                         ['route' => 'landing', 'params' => ['eu-ai-act'], 'label' => 'EU AI Act'],
                         ['route' => 'landing', 'params' => ['ai-regulation-uk'], 'label' => 'United Kingdom'],
                         ['route' => 'landing', 'params' => ['ai-regulation-usa'], 'label' => 'United States'],

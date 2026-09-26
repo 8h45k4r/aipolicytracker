@@ -197,15 +197,32 @@ visible note that SB 26-189 is not yet recorded; the classifier's Tiers sheet is
 read from the dated milestones on the EU AI Act record and the page shows the
 record's own date caveat.
 
-### P6 — Country hubs and compare pages (`seo/p6-hubs`)
-A data-driven `/ai-regulation-<country>` for the 20 countries listed. Every one
-already has a `/jurisdictions/<slug>` page; the hub URL becomes the canonical, and
-the old page 301s so there is no duplicate. The thin guard indexes a hub only
-with ≥2 sourced instruments or a verified strategy, so several of the 20 will
-launch noindexed until data is added. Regional hubs follow. Compare becomes
-config-driven `/compare/<a>-vs-<b>`, with one canonical order per pair, an
-overlap matrix and a "what's left for B" list. The 4 existing curated
-comparisons keep their URLs, with 301s where the order changes.
+### P6 — Country hubs and compare pages (`seo/p6-hubs`) — done
+`/ai-regulation-<country>` for the 20 countries is the jurisdiction page at
+its canonical address (`Jurisdiction::url()` resolves to it, every listing
+follows, `/jurisdictions/<slug>` 301s). Every jurisdiction page gains an
+instruments table with the native-language name where the record carries one
+(new optional `title_native` field in the policy schema; unknown stays null
+and the page says so), a dated timeline (publication, adoption, entry into
+force, application, deadlines), a link to its updates page and RSS feed, and a
+breadcrumb to its regional hub. Regional hubs `/ai-regulation-<africa|asia|
+europe|americas|oceania>` are computed from `jurisdictions.region`: answer
+box from counts, country table, binding instruments, latest changes,
+deadlines, FAQ, CollectionPage; indexed with ≥3 indexable countries.
+Compare: `/compare/<a>-vs-<b>` for any two published jurisdictions, canonical
+order alphabetical by slug (the other order 301s; a pair a curated comparison
+covers 301s to it), side-by-side table, obligation overlap by category, and
+"if you comply with A, what is left for B" (B's binding duties in categories
+A does not bind, then shared ones to check). Only the pairs in
+`config/hubs.php` are indexed and listed; the curated four keep their URLs
+and gain the same sections.
+**Thin guard, as specified:** 14 of the 20 hubs launch indexable; Ghana, Sri
+Lanka, Pakistan, South Korea, Nigeria and Kenya have one sourced instrument
+each and are served noindex until a second sourced instrument or a verified
+strategy is recorded. Those six were indexable at `/jurisdictions/<slug>`
+before, so this is a deliberate loss of six thin pages, not an accident.
+**Not done:** native-language names for existing records: the field exists
+and renders, but no reviewer has entered any yet.
 
 ### P7 — Deadline engine (`seo/p7-deadlines`)
 `/deadlines/which-date-applies` is a 5-step form that works without JS and

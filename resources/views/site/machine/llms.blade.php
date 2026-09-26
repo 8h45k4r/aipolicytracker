@@ -16,6 +16,8 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Home: {{ route('home') }}
 - Policy explorer: {{ route('policies.index') }}
 - Jurisdictions: {{ route('jurisdictions.index') }}
+- Country hubs (/ai-regulation-<country>: answer box, instrument table with native-language names, timeline, duties, regulators, deadlines, updates feed) and regional hubs: @foreach(\App\Services\Hubs\HubCatalog::regions() as $slug => $name){{ \App\Services\Hubs\HubCatalog::regionUrl($slug) }}@if(!$loop->last), @endif @endforeach
+- Compare any two jurisdictions (/compare/<a>-vs-<b>: side-by-side table, obligation overlap by category, what is left for one side if you comply with the other): {{ route('compare.index') }}
 - Obligations: {{ route('obligations.index') }}
 - Controls (one control, the duties it satisfies, the evidence it produces): {{ route('controls.index') }}
 - Compare: {{ route('compare.index') }}

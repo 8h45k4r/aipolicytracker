@@ -15,6 +15,7 @@ use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
 use App\Models\Tool;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\Hubs\HubCatalog;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\RiskTaxonomy;
@@ -88,7 +89,7 @@ class SitemapController extends Controller
             ->withPublishedInstrument()
             ->orderBy('slug')
             ->lazy(500)
-            ->filter->isIndexable()
+            ->filter->isPageIndexable()
             ->map(fn ($j) => ['loc' => $j->url(), 'lastmod' => $j->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])
             ->values();
     }
@@ -330,6 +331,20 @@ class SitemapController extends Controller
         }
         foreach (array_keys(config('content.comparisons')) as $slug) {
             $urls->push(['loc' => route('compare.show', $slug), 'lastmod' => $lastmod, 'changefreq' => 'monthly', 'priority' => '0.7']);
+        }
+        // Regional hubs and the listed comparison pairs, each under its own thin guard.
+        $byRegion = Jurisdiction::published()->whereIn('jurisdiction_type', ['country', 'supranational'])->withPublishedInstrument()->get()->groupBy('region');
+        foreach (HubCatalog::regions() as $regionSlug => $regionName) {
+            if (($byRegion[$regionName] ?? collect())->filter->isPageIndexable()->count() >= (int) config('hubs.min_region_countries', 3)) {
+                $urls->push(['loc' => HubCatalog::regionUrl($regionSlug), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.8']);
+            }
+        }
+        $indexableSlugs = $byRegion->flatten()->filter->isPageIndexable()->pluck('slug')->all();
+        foreach (HubCatalog::indexablePairs() as $pair) {
+            [$a, $b] = HubCatalog::parsePair($pair);
+            if (in_array($a, $indexableSlugs, true) && in_array($b, $indexableSlugs, true) && ! HubCatalog::curatedFor($a, $b)) {
+                $urls->push(['loc' => route('compare.show', $pair), 'lastmod' => $lastmod, 'changefreq' => 'monthly', 'priority' => '0.6']);
+            }
         }
 
         return $urls;
