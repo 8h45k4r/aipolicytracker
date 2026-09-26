@@ -59,6 +59,8 @@ return [
         'contact' => ['name' => config('aipolicytracker.site_name'), 'email' => config('aipolicytracker.contact_email'), 'url' => route('about')],
     ],
     'servers' => [['url' => $base]],
+    // Public by default: an operation that needs a token says so itself.
+    'security' => [],
     'paths' => [
         '/' => ['get' => ['summary' => 'API root and endpoint index', 'operationId' => 'root', 'responses' => ['200' => ['description' => 'Endpoint index']]]],
         '/jurisdictions' => ['get' => ['summary' => 'List published jurisdictions', 'operationId' => 'listJurisdictions', 'responses' => ['200' => ['description' => 'Jurisdictions', 'content' => ['application/json' => ['schema' => ['type' => 'object', 'properties' => ['data' => ['type' => 'array', 'items' => ['$ref' => '#/components/schemas/Jurisdiction']]]]]]]]]],

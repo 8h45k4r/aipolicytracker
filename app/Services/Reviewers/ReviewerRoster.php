@@ -164,7 +164,7 @@ class ReviewerRoster
         static $map = null;
         $map ??= collect($this->repository->reviewers())->filter(fn ($r) => (bool) ($r['published'] ?? true))->mapWithKeys(fn ($r) => [mb_strtolower(trim((string) ($r['name'] ?? ''))) => (string) ($r['slug'] ?? '')])->all();
 
-        return $map[mb_strtolower(trim($name))] ?: null;
+        return ($map[mb_strtolower(trim($name))] ?? null) ?: null;
     }
 
     public function find(string $slug): ?array
