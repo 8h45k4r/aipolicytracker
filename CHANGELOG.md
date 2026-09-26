@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- `PHP tests (PostgreSQL)` had never once reported. It was in progress on every one of the last eight commits, including several that predate this branch, and the oldest had been running for five hours; GitHub would have killed it at the six-hour default. Because GitHub serves no log for a job that is still in progress, nothing could be read from it while it ran, so the failure was both slow and invisible — and the divergence the job exists to catch (debt #15's `/reviewers` 500, the retried-webhook 500) has therefore never actually been guarded in CI. Every job in `ci.yml` now carries a `timeout-minutes`, so a stuck run fails inside the hour and publishes its log. The measured suspect for the underlying slowness is recorded as debt #49.
+
 ## [1.0.0] - 2026-09-26
 
 First tagged release. It covers everything built since the project moved to structured, source-backed records, and closes the ten-phase search-and-growth roadmap (`docs/plans/roadmap.md`). The entries after this summary are the detailed history, newest first.
