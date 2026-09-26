@@ -1,0 +1,4 @@
+<h1>Where AI is regulated, {{ str_replace('-Q', ' Q', $quarter) }}</h1>
+<p class="meta">{{ $totals['jurisdictions_with_binding_law'] }} jurisdictions with binding AI law on record ({{ $totals['jurisdictions_with_binding_in_force'] }} in force), {{ $totals['jurisdictions_with_records'] }} with records. Dark: in force · blue: binding · grey: strategy, guidance or existing law.</p>
+@foreach($tiles as $region => $group)<p class="meta" style="margin-top:8px"><strong>{{ $region }}</strong> · {{ $group->count() }}</p><div class="tiles">@foreach($group as $t)<a class="tile {{ $t['level'] }}" href="{{ $t['url'] }}" target="_top" title="{{ $t['name'] }}: {{ $t['level'] === 'in_force' ? 'binding AI law in force' : ($t['level'] === 'binding' ? 'binding AI law recorded' : 'strategy, guidance or existing law') }}">{{ $t['short'] }}</a>@endforeach</div>@endforeach
+<p><a href="{{ route('state-of.show') }}" target="_top">Full report →</a></p>
