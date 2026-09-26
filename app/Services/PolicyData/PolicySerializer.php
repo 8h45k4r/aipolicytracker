@@ -172,6 +172,8 @@ class PolicySerializer
             'practical_impact' => $c->practical_impact,
             'impact_level' => $c->impact_level,
             'status_after' => $c->status_after,
+            'significance' => $c->significance(),
+            'first_published_at' => $c->first_published_at?->toAtomString(),
             'url' => $c->url(),
             ...$this->sourceQuality($c),
         ];
