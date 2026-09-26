@@ -19,7 +19,7 @@
 
 <section class="mt-10" aria-labelledby="rec-heading">
     <h2 id="rec-heading" class="section-title !text-lg">Imported records</h2>
-    <p class="mt-1 meta max-w-3xl">Unverified and low-confidence first. Decisions survive re-imports @if($pendingExport); <strong>{{ $pendingExport }}</strong> not yet written back to data/ (run <code>php artisan policy:export-verifications</code> and open a pull request)@endif.</p>
+    <p class="mt-1 meta max-w-3xl">Unverified and low-confidence first. Decisions survive re-imports{{ '' }}@if($pendingExport); <strong>{{ $pendingExport }}</strong> not yet written back to data/ (run <code>php artisan policy:export-verifications</code> and open a pull request)@endif.</p>
 
     {{-- One kind at a time: each tab is its own queue with its own counts. --}}
     <nav class="mt-3 flex flex-wrap gap-2 text-sm" aria-label="Record kinds">
@@ -35,7 +35,7 @@
         <label class="text-sm"><span class="block meta">Published</span><select name="published" class="input mt-1 !min-h-0 !py-1.5 !w-auto"><option value="">Any</option><option value="yes" @selected($filters['published'] === 'yes')>yes</option><option value="no" @selected($filters['published'] === 'no')>no ({{ $unpublished }})</option></select></label>
         <button class="btn-secondary !min-h-0 !py-1.5">Filter</button>
         @if($filters['q'] !== '' || $filters['review'] || $filters['published'])<a href="{{ route('backend.review.index', ['type' => $type, 'status' => $status]) }}#rec-heading" class="btn-secondary !min-h-0 !py-1.5">Clear</a>@endif
-        <span class="meta ml-auto">{{ $matching }} {{ \Illuminate\Support\Str::plural('record', $matching) }} match@if($records->hasPages()), {{ $records->count() }} on this page@endif</span>
+        <span class="meta ml-auto">{{ $matching }} {{ \Illuminate\Support\Str::plural('record', $matching) }} match{{ $records->hasPages() ? ', '.$records->count().' on this page' : '' }}</span>
     </form>
 
     @if($rows->isEmpty())
