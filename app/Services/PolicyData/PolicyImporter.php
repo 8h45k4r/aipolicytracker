@@ -21,6 +21,9 @@ use App\Models\ProcurementRule;
 use App\Models\RecordVerification;
 use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
+use App\Models\TransitionIndicator;
+use App\Models\TransitionMeasure;
+use App\Services\Transition\DisplacementPolicyIndex;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +54,7 @@ class PolicyImporter
             $this->importControls();
             $this->importPolicies();
             $this->importChanges();
+            $this->importTransition();
         });
 
         // Human verification decisions recorded in the admin outlive every re-import.
@@ -361,5 +365,55 @@ class PolicyImporter
     private function publishedAt(array $record): ?Carbon
     {
         return ($record['published'] ?? true) ? now() : null;
+    }
+
+    /** Transition measures and indicators, replaced from data/transition; then the index snapshot for the current quarter. */
+    private function importTransition(): void
+    {
+        $kept = [];
+        foreach ($this->repository->transitionMeasures() as $record) {
+            $jurisdiction = Jurisdiction::where('slug', $record['jurisdiction'])->firstOrFail();
+            $m = TransitionMeasure::updateOrCreate(['slug' => $record['slug']], [
+                'jurisdiction_id' => $jurisdiction->id,
+                'title' => $record['title'],
+                'measure_type' => $record['measure_type'],
+                'status' => $record['status'],
+                'sponsors' => array_values($record['sponsors'] ?? []),
+                'arguments_for' => array_values($record['arguments_for'] ?? []),
+                'arguments_against' => array_values($record['arguments_against'] ?? []),
+                'sources' => array_values($record['sources'] ?? []),
+                ...Arr::only($record, ['summary', 'mechanism', 'funding', 'trigger', 'benefit', 'cost', 'bill_number', 'introduced_on', 'enacted_on', 'in_force_on', 'notes']),
+                ...$this->sourceQuality($record + ['source_tier' => $record['source_tier'] ?? 4, 'review_status' => $record['review_status'] ?? 'draft', 'confidence_level' => $record['confidence_level'] ?? 'low']),
+                'published_at' => ($record['published'] ?? true) ? now() : null,
+            ]);
+            $kept[] = $m->id;
+            $this->stats['transition_measures'] = ($this->stats['transition_measures'] ?? 0) + 1;
+        }
+        TransitionMeasure::whereNotIn('id', $kept)->delete();
+        $keptIndicators = [];
+        foreach ($this->repository->transitionIndicators() as $record) {
+            $jurisdiction = ! empty($record['jurisdiction']) ? Jurisdiction::where('slug', $record['jurisdiction'])->first() : null;
+            $i = TransitionIndicator::updateOrCreate(['slug' => $record['slug']], [
+                'jurisdiction_id' => $jurisdiction?->id,
+                'title' => $record['title'],
+                'unit' => $record['unit'],
+                'description' => $record['description'] ?? null,
+                'frequency' => $record['frequency'] ?? 'irregular',
+                'series' => array_values($record['series'] ?? []),
+                'official_source_url' => $record['official_source_url'] ?? null,
+                'source_publisher' => $record['source_publisher'] ?? null,
+                'source_tier' => $record['source_tier'] ?? 4,
+                'last_checked_at' => $record['last_checked_at'] ?? null,
+                'last_verified_at' => $record['last_verified_at'] ?? null,
+                'review_status' => $record['review_status'] ?? 'draft',
+                'confidence_level' => $record['confidence_level'] ?? 'low',
+                'reviewed_by' => $record['reviewed_by'] ?? null,
+                'published_at' => ($record['published'] ?? true) ? now() : null,
+            ]);
+            $keptIndicators[] = $i->id;
+            $this->stats['transition_indicators'] = ($this->stats['transition_indicators'] ?? 0) + 1;
+        }
+        TransitionIndicator::whereNotIn('id', $keptIndicators)->delete();
+        DisplacementPolicyIndex::compute();
     }
 }

@@ -58,6 +58,18 @@ class PolicyDataRepository
         return $this->parseDirectory('reviewers');
     }
 
+    /** @return array<string, array> relative path => transition measure record */
+    public function transitionMeasures(): array
+    {
+        return $this->parseDirectory('transition/measures');
+    }
+
+    /** @return array<string, array> relative path => transition indicator record */
+    public function transitionIndicators(): array
+    {
+        return $this->parseDirectory('transition/indicators');
+    }
+
     /** @return array<string, array> relative path => file contents ({changes: [...]}) */
     public function changeFiles(): array
     {
