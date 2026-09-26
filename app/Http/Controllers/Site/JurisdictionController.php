@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
+use App\Services\Hubs\HubCatalog;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Support\PageTitle;
 use App\Support\Seo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class JurisdictionController extends Controller
@@ -37,11 +39,17 @@ class JurisdictionController extends Controller
         return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions'));
     }
 
-    public function show(Jurisdiction $jurisdiction, PolicyCatalog $catalog): View
+    public function show(Jurisdiction $jurisdiction, PolicyCatalog $catalog): View|RedirectResponse
     {
         abort_unless($jurisdiction->published_at, 404);
+        // A country with a hub has one address: the old one redirects to it.
+        if ($jurisdiction->hubSlug() && request()->route()?->getName() === 'jurisdictions.show') {
+            return redirect()->to($jurisdiction->url(), 301);
+        }
         $jurisdiction->load(['parent', 'children' => fn ($q) => $q->published()]);
-        $policies = $jurisdiction->policyInstruments()->published()->with('terms')->orderByDesc('featured')->orderByDesc('is_binding')->orderBy('title')->get();
+        $policies = $jurisdiction->policyInstruments()->published()->with(['terms', 'deadlines'])->orderByDesc('featured')->orderByDesc('is_binding')->orderBy('title')->get();
+        $timeline = HubCatalog::timeline($policies);
+        $region = HubCatalog::regionSlugFor($jurisdiction->region);
         $changes = ChangeEvent::published()->where('jurisdiction_id', $jurisdiction->id)->with('policyInstrument')->orderByDesc('occurred_on')->limit(8)->get();
         $deadlines = $catalog->upcomingDeadlines(8, $jurisdiction->id);
         $obligationCategories = Obligation::published()->whereIn('policy_instrument_id', $policies->pluck('id'))->selectRaw('category, COUNT(*) as n')->groupBy('category')->orderByDesc('n')->get();
@@ -64,8 +72,9 @@ class JurisdictionController extends Controller
             PageTitle::jurisdiction($jurisdiction),
             $answer,
             $jurisdiction->url(),
-            $jurisdiction->isIndexable()
-        )->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], [$jurisdiction->name, $jurisdiction->url()]])
+            $jurisdiction->isPageIndexable()
+        )->withBreadcrumbs(array_values(array_filter([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], $region ? [$jurisdiction->region, HubCatalog::regionUrl($region)] : null, [$jurisdiction->name, $jurisdiction->url()]])))
+            ->withFeed(route('updates.jurisdiction.feed', $jurisdiction->slug))
             ->withModified($lastModified)
             ->withPublished($jurisdiction->created_at)
             ->withCard('jurisdiction', $jurisdiction->slug, $lastModified)
@@ -86,7 +95,7 @@ class JurisdictionController extends Controller
             ));
         $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region'));
     }
 
     private function firstSentence(?string $text): string

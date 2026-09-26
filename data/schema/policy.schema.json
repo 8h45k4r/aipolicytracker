@@ -22,6 +22,10 @@
     "short_title": {
       "$ref": "common.schema.json#/$defs/nullableString"
     },
+    "title_native": {
+      "description": "The instrument's name in its own language, as the official source writes it. Leave null when the source is in English or the name is not recorded.",
+      "$ref": "common.schema.json#/$defs/nullableString"
+    },
     "instrument_type": {
       "$ref": "common.schema.json#/$defs/instrumentType"
     },
