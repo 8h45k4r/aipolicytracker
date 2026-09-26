@@ -15,9 +15,11 @@ use App\Models\RecordVerification;
 use App\Models\ResourceDownload;
 use App\Models\Tool;
 use App\Models\User;
+use App\Services\ExternalData\IncidentSensitivity;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyImporter;
 use App\Services\Social\SocialCard;
+use App\Support\RiskTaxonomy;
 use Database\Seeders\ToolSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -376,7 +378,7 @@ class PublicSiteTest extends TestCase
     public function test_home_persona_paths_and_policy_risk_crosswalk_render(): void
     {
         $this->get('/')->assertOk()->assertSee('Start from who you are')->assertSee('Compliance or CISO')->assertSee(route('tools.applicability'))->assertSee(route('controls.index'))->assertSee(route('audiences.show', 'deployers'));
-        $this->get('/policies/eu-ai-act')->assertOk()->assertSee('AI risks this instrument addresses')->assertSee(route('risk.domain', 1));
+        $this->get('/policies/eu-ai-act')->assertOk()->assertSee('AI risks this instrument addresses')->assertSee(RiskTaxonomy::domainUrl(1));
     }
 
     public function test_review_queue_is_admin_only_and_can_publish(): void
@@ -454,7 +456,10 @@ class PublicSiteTest extends TestCase
     public function test_ai_risk_and_incident_pages_render_with_attribution(): void
     {
         $this->get('/ai-risk')->assertOk()->assertSee('Discrimination')->assertSee('CC BY 4.0')->assertSee('incidentdatabase.ai');
-        $this->get('/ai-risk/1')->assertOk()->assertSee('Unfair discrimination')->assertSee('MIT AI Risk Navigator');
+        // Domains are addressed by name; the taxonomy's numbers redirect.
+        $this->get('/ai-risk/1')->assertStatus(301)->assertRedirect(RiskTaxonomy::domainUrl(1));
+        $this->get(RiskTaxonomy::domainUrl(1))->assertOk()->assertSee('Unfair discrimination')->assertSee('MIT AI Risk Navigator');
+        $this->assertSame(url('/ai-risk/discrimination-toxicity'), RiskTaxonomy::domainUrl(1));
         $this->get('/ai-risk/9')->assertNotFound();
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('CC BY-SA 4.0')->assertSee('Incidents per year')->assertSee('https://incidentdatabase.ai/cite/');
         $this->get('/sitemap-static.xml')->assertSee(url('/ai-risk'))->assertSee(url('/ai-risk/incidents'));
@@ -484,19 +489,23 @@ class PublicSiteTest extends TestCase
         $this->assertSame(ExternalRisk::count(), count(json_decode(file_get_contents(base_path('data/external/mit_risks.json')), true)['risks']));
 
         $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
-        $this->get('/ai-risk/1')->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents')->assertSee(route('risk.subdomain', [1, '1.1']));
-        $this->get('/ai-risk')->assertOk()->assertSee('Harm is rising, and its shape is changing')->assertSee('Where harm is recorded versus where rules exist')->assertSee('Most frequently named deployers')->assertSee('policy milestones')->assertSee('What to do with this, depending on who you are')->assertSee('Explore: domains and subdomains')->assertSee('data-chart-export="png"', false)->assertSee('data-tip=', false)->assertSee('top quarter')->assertSee(route('risk.subdomain', [2, '2.1']));
-        $this->get('/ai-risk/2/2.1')->assertOk()->assertSee('Compromise of privacy')->assertSee('Causal entity (risk entries)')->assertSee('Frameworks covering this subdomain')->assertSee('Recent incidents');
+        $this->get(RiskTaxonomy::domainUrl(1))->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents')->assertSee(RiskTaxonomy::subdomainUrl(1, '1.1'));
+        $this->get('/ai-risk')->assertOk()->assertSee('Harm is rising, and its shape is changing')->assertSee('Where harm is recorded versus where rules exist')->assertSee('Most frequently named deployers')->assertSee('policy milestones')->assertSee('What to do with this, depending on who you are')->assertSee('Explore: domains and subdomains')->assertSee('data-chart-export="png"', false)->assertSee('data-tip=', false)->assertSee('top quarter')->assertSee(RiskTaxonomy::subdomainUrl(2, '2.1'));
+        $this->get('/ai-risk/2/2.1')->assertStatus(301)->assertRedirect(RiskTaxonomy::subdomainUrl(2, '2.1'));
+        $this->get(RiskTaxonomy::subdomainUrl(2, '2.1'))->assertOk()->assertSee('Compromise of privacy')->assertSee('Causal entity (risk entries)')->assertSee('Frameworks covering this subdomain')->assertSee('Recent incidents');
         $this->get('/ai-risk/2/9.9')->assertNotFound();
-        $this->get('/sitemap-static.xml')->assertOk()->assertSee(route('risk.subdomain', [2, '2.1']));
+        $this->get('/sitemap-static.xml')->assertOk()->assertSee(RiskTaxonomy::subdomainUrl(2, '2.1'))->assertDontSee(url('/ai-risk/2/2.1'));
         $this->get('/ai-risk/risks?domain=2&entity=Human')->assertOk()->assertSee('Privacy')->assertSee('noindex', false);
         $this->get('/ai-risk/risks?q=zzzz-no-such-term')->assertOk()->assertSee('No risks match');
         $this->get('/ai-risk/frameworks')->assertOk()->assertSee('Risk entries');
         $this->get('/ai-risk/incidents/browse?year=2024')->assertOk()->assertSee('incidentdatabase.ai/cite/');
-        $incident = ExternalIncident::whereNotNull('mit_subdomain')->where('mit_subdomain', '!=', '')->orderByDesc('report_count')->first();
-        $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertOk()->assertSee($incident->title)->assertSee('news report')->assertSee('Classification (MIT AI Risk Repository taxonomy)')->assertSee('data-save="incident:'.$incident->incident_id.'"', false)->assertSee('News reports (');
+        $incident = ExternalIncident::whereNotNull('mit_subdomain')->where('mit_subdomain', '!=', '')->orderByDesc('report_count')->get()->first(fn ($i) => ! IncidentSensitivity::isSensitive($i));
+        // Incidents are addressed by a readable slug; the number redirects to it.
+        $this->assertNotNull($incident->slug);
+        $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertStatus(301)->assertRedirect($incident->url());
+        $this->get($incident->url())->assertOk()->assertSee($incident->title)->assertSee('news report')->assertSee('Classification (MIT AI Risk Repository taxonomy)')->assertSee('data-save="incident:'.$incident->slug.'"', false)->assertSee('News reports (');
         $this->get('/ai-risk/incidents/999999999')->assertNotFound();
-        $this->get('/ai-risk/incidents/'.$incident->incident_id)->assertSee(route('contribute', ['type' => 'correction', 'subject_type' => 'incident', 'subject_slug' => $incident->incident_id]));
+        $this->get($incident->url())->assertSee(route('contribute', ['type' => 'correction', 'subject_type' => 'incident', 'subject_slug' => $incident->incident_id]));
         $this->get('/contribute?type=correction&subject_type=incident&subject_slug='.$incident->incident_id)->assertOk()->assertSee('Record you are correcting')->assertSee('incidentdatabase.ai/cite/'.$incident->incident_id);
         $risk = ExternalRisk::where('level', 'Risk Sub-Category')->whereNotNull('subdomain')->first();
         $this->get($risk->url())->assertOk()->assertSee($risk->risk_subcategory ?: $risk->risk_category)->assertSee('Real-world incidents in this subdomain')->assertSee($risk->quick_ref);
@@ -506,7 +515,8 @@ class PublicSiteTest extends TestCase
         }
         $csv = $this->get('/ai-risk/incidents/export.csv?year=2024')->assertOk()->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
         $this->assertStringContainsString('CC BY-SA 4.0', $csv->streamedContent());
-        $this->assertStringContainsString('incident_id,occurred_on,title', $csv->streamedContent());
+        $this->assertStringContainsString('incident_id,slug,occurred_on,title', $csv->streamedContent());
+        $this->assertStringContainsString(',url', $csv->streamedContent());
         $json = $this->get('/ai-risk/risks/export.json?domain=3')->assertOk()->assertHeader('Content-Type', 'application/json; charset=UTF-8');
         $this->assertStringContainsString('"attribution"', $json->streamedContent());
         $this->get('/ai-risk/risks/export.xml')->assertNotFound();

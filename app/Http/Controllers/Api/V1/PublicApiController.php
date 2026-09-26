@@ -17,6 +17,7 @@ use App\Services\ExternalData\ExternalDataset;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
+use App\Support\PageTitle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -288,7 +289,7 @@ class PublicApiController extends Controller
             'from' => preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $request->query('from')) ? $request->query('from') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.incidents.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
+        $key = 'api.incidents.v2.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = ExternalIncident::query()
@@ -305,6 +306,7 @@ class PublicApiController extends Controller
             return [
                 'data' => $page->getCollection()->map(fn ($i) => [
                     'incident_id' => $i->incident_id,
+                    'slug' => $i->slug,
                     'title' => $i->title,
                     'description' => $i->description,
                     'occurred_on' => $i->occurred_on?->toDateString(),
@@ -337,7 +339,7 @@ class PublicApiController extends Controller
             'timing' => in_array($request->query('timing'), ExternalRisk::CAUSAL['timing'], true) ? $request->query('timing') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
-        $key = 'api.risks.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
+        $key = 'api.risks.v2.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $query = ExternalRisk::query();
@@ -355,6 +357,7 @@ class PublicApiController extends Controller
             return [
                 'data' => $page->getCollection()->map(fn ($r) => [
                     'ev_id' => $r->ev_id,
+                    'slug' => $r->slug,
                     'risk_category' => $r->risk_category,
                     'risk_subcategory' => $r->risk_subcategory,
                     'description' => $r->description,
@@ -365,6 +368,7 @@ class PublicApiController extends Controller
                     'timing' => $r->timing,
                     'level' => $r->level,
                     'paper' => $r->quick_ref,
+                    'citation' => PageTitle::citation($r->quick_ref),
                     'paper_title' => $r->paper_title,
                     'url' => $r->url(),
                 ])->all(),

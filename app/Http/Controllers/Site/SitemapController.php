@@ -14,6 +14,7 @@ use App\Models\TaxonomyTerm;
 use App\Models\Tool;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\PolicyData\FrameworkCrosswalk;
+use App\Support\RiskTaxonomy;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 
@@ -156,12 +157,12 @@ class SitemapController extends Controller
         $pages = [
             [route('home'), 'daily', '1.0'], [route('policies.index'), 'daily', '0.9'], [route('jurisdictions.index'), 'weekly', '0.9'],
             [route('obligations.index'), 'weekly', '0.8'], [route('compare.index'), 'monthly', '0.7'], [route('changes.index'), 'daily', '0.9'],
-            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [route('risk.domain', 1), 'monthly', '0.6'], [route('risk.domain', 2), 'monthly', '0.6'], [route('risk.domain', 3), 'monthly', '0.6'], [route('risk.domain', 4), 'monthly', '0.6'], [route('risk.domain', 5), 'monthly', '0.6'], [route('risk.domain', 6), 'monthly', '0.6'], [route('risk.domain', 7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
+            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(1), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(2), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(3), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(4), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(5), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(6), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
             [route('about'), 'monthly', '0.5'], [route('privacy'), 'yearly', '0.3'], [route('terms'), 'yearly', '0.3'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
         foreach (app(ExternalDataset::class)->mitRisk()['domains'] ?? [] as $d) {
             foreach ($d['subdomains'] ?? [] as $sd) {
-                $pages[] = [route('risk.subdomain', [$d['id'], $sd['id']]), 'monthly', '0.6'];
+                $pages[] = [RiskTaxonomy::subdomainUrl($d['id'], $sd['id']), 'monthly', '0.6'];
             }
         }
         // Framework crosswalks. Only the pages that pass the same indexability threshold

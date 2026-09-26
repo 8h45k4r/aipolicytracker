@@ -3,8 +3,8 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
-        <p class="eyebrow">AI incident #{{ $i->incident_id }} · <time datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j F Y') }}</time></p>
-        <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $i->title }}</h1>
+        <p class="eyebrow">AI incident · <time datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j F Y') }}</time></p>
+        <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $heading }}</h1>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             @if($i->reports->isNotEmpty())<a href="#reports-heading" class="text-brand-body hover:underline">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</a>@else<span class="meta">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</span>@endif
             <span class="meta">@if($i->synced_at)Synced from source <time datetime="{{ $i->synced_at->toIso8601String() }}">{{ $i->synced_at->diffForHumans() }}</time>@if($i->modified_at) · record last edited {{ $i->modified_at->format('j M Y') }}@endif @else Snapshot {{ $i->snapshot_date?->format('j M Y') ?? '—' }}@endif</span>
@@ -20,7 +20,7 @@
                 <dd class="mt-0.5">
                     @if($i->mit_domain)
                         @if($domainId)
-                            <a href="{{ route('risk.domain', $domainId) }}" class="text-brand-navy hover:underline">{{ $i->mit_domain }}</a>
+                            <a href="{{ \App\Support\RiskTaxonomy::domainUrl($domainId) }}" class="text-brand-navy hover:underline">{{ $i->mit_domain }}</a>
                         @else
                             {{ $i->mit_domain }}
                         @endif
@@ -84,7 +84,7 @@
             <section aria-labelledby="class-heading" class="mt-8">
                 <h2 id="class-heading" class="section-title">Classification (MIT AI Risk Repository taxonomy)</h2>
                 <dl class="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2 text-sm">
-                    <div><dt class="text-brand-muted">Risk domain</dt><dd class="mt-0.5">@if($i->mit_domain)<a href="{{ $domainId ? route('risk.domain', $domainId) : route('risk.incidents.browse', ['domain' => $i->mit_domain]) }}" class="font-medium text-brand-navy">{{ $i->mit_domain }}</a>@else —@endif</dd></div>
+                    <div><dt class="text-brand-muted">Risk domain</dt><dd class="mt-0.5">@if($i->mit_domain)<a href="{{ $domainId ? \App\Support\RiskTaxonomy::domainUrl($domainId) : route('risk.incidents.browse', ['domain' => $i->mit_domain]) }}" class="font-medium text-brand-navy">{{ $i->mit_domain }}</a>@else —@endif</dd></div>
                     <div><dt class="text-brand-muted">Risk subdomain</dt><dd class="mt-0.5">@if($i->mit_subdomain)<a href="{{ route('risk.incidents.browse', ['subdomain' => $i->mit_subdomain]) }}" class="font-medium text-brand-navy">{{ $subdomainCode ? $subdomainCode.' ' : '' }}{{ $i->mit_subdomain }}</a>@else —@endif</dd></div>
                     <div><dt class="text-brand-muted">Causal entity</dt><dd class="mt-0.5">{{ $i->entity ?: '—' }}</dd></div>
                     <div><dt class="text-brand-muted">Intent</dt><dd class="mt-0.5">{{ $i->intent ?: '—' }}</dd></div>
@@ -139,12 +139,12 @@
                     </dl>
                 </div>
                 <div class="flex flex-col gap-2 text-sm">
-                    <x-site.save-button type="incident" :slug="(string) $i->incident_id" :title="'#'.$i->incident_id.' '.$i->title" :url="$i->url()" meta="AI incident" />
+                    <x-site.save-button type="incident" :slug="$i->slug ?? (string) $i->incident_id" :title="$heading" :url="$i->url()" meta="AI incident" />
                     <a href="{{ route('risk.incidents.export', ['format' => 'json', 'year' => $i->year]) }}" class="btn-secondary">Export {{ $i->year }} incidents (JSON)</a>
                     <a href="{{ route('contribute', ['type' => 'correction', 'subject_type' => 'incident', 'subject_slug' => $i->incident_id]) }}" class="btn-secondary" data-track="correction_click">Report a correction</a>
                     <button type="button" class="btn-secondary" data-copy-link>Copy link</button>
                 </div>
-                @if($domainId)<div class="text-sm"><p class="font-semibold text-brand-navy">Related policy context</p><p class="mt-1 text-brand-body">See which AI policies address this risk domain on the <a href="{{ route('risk.domain', $domainId) }}">domain page</a>.</p></div>@endif
+                @if($domainId)<div class="text-sm"><p class="font-semibold text-brand-navy">Related policy context</p><p class="mt-1 text-brand-body">See which AI policies address this risk domain on the <a href="{{ \App\Support\RiskTaxonomy::domainUrl($domainId) }}">domain page</a>.</p></div>@endif
             </div>
         </aside>
     </div>

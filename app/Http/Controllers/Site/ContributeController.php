@@ -13,6 +13,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Rules\NotDisposableEmail;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use App\Support\SubmissionFieldLabels;
 use Illuminate\Http\RedirectResponse;
@@ -153,8 +154,8 @@ class ContributeController extends Controller
             'obligation' => [$record->title, $record->url(), $record->policyInstrument?->jurisdiction?->name],
             'change' => [$record->title, $record->url(), $record->jurisdiction?->name],
             'control' => [$record->title, $record->url(), null],
-            'incident' => ['AI incident #'.$record->incident_id.': '.$record->title, $record->url(), 'AI Incident Database'],
-            'risk' => [($record->risk_subcategory ?: $record->risk_category ?: $record->ev_id).' ('.$record->quick_ref.')', $record->url(), 'MIT AI Risk Repository'],
+            'incident' => [PageTitle::incident($record), $record->url(), 'AI Incident Database'],
+            'risk' => [PageTitle::risk($record), $record->url(), 'MIT AI Risk Repository'],
         };
 
         return [

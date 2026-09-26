@@ -31,6 +31,7 @@ use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\SocialCardController;
 use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\VerificationController;
+use App\Support\RiskTaxonomy;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
@@ -87,13 +88,13 @@ Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
 Route::get('/ai-risk/incidents', [RiskController::class, 'incidents'])->name('risk.incidents');
 Route::get('/ai-risk/incidents/browse', [RiskBrowseController::class, 'incidentsBrowse'])->name('risk.incidents.browse');
 Route::get('/ai-risk/incidents/export.{format}', [RiskBrowseController::class, 'incidentsExport'])->where('format', 'csv|json')->middleware('throttle:30,1')->name('risk.incidents.export');
-Route::get('/ai-risk/incidents/{incident}', [RiskBrowseController::class, 'incidentShow'])->where('incident', '[0-9]+')->name('risk.incidents.show');
+Route::get('/ai-risk/incidents/{incident}', [RiskBrowseController::class, 'incidentShow'])->where('incident', '[a-z0-9][a-z0-9-]*')->name('risk.incidents.show');
 Route::get('/ai-risk/risks', [RiskBrowseController::class, 'risks'])->name('risk.risks');
 Route::get('/ai-risk/risks/export.{format}', [RiskBrowseController::class, 'risksExport'])->where('format', 'csv|json')->middleware('throttle:30,1')->name('risk.risks.export');
 Route::get('/ai-risk/frameworks', [RiskBrowseController::class, 'frameworks'])->name('risk.frameworks');
 Route::get('/ai-risk/risks/{ev}', [RiskBrowseController::class, 'riskShow'])->where('ev', '(?!export\\.)[A-Za-z0-9_.-]+')->name('risk.risks.show');
-Route::get('/ai-risk/{domain}', [RiskController::class, 'domain'])->where('domain', '[1-7]')->name('risk.domain');
-Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->where(['domain' => '[1-7]', 'sub' => '[1-7]\\.[0-9]{1,2}'])->name('risk.subdomain');
+Route::get('/ai-risk/{domain}', [RiskController::class, 'domain'])->where('domain', RiskTaxonomy::domainPattern())->name('risk.domain');
+Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->where(['domain' => RiskTaxonomy::domainPattern(), 'sub' => RiskTaxonomy::subdomainPattern()])->name('risk.subdomain');
 
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
 

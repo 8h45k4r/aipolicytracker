@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
 use App\Models\ExternalRisk;
+use App\Services\ExternalData\RecordSlugs;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -102,7 +103,9 @@ class ImportExternalDataCommand extends Command
                 ExternalRisk::whereNotIn('ev_id', $ids)->delete();
             }
         });
-        $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks.', ExternalIncident::count(), ExternalIncidentReport::count(), ExternalRisk::count()));
+        // New records get a readable address; existing ones keep theirs.
+        $slugged = RecordSlugs::assignIncidents() + RecordSlugs::assignRisks();
+        $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks (%d new addresses).', ExternalIncident::count(), ExternalIncidentReport::count(), ExternalRisk::count(), $slugged));
 
         return self::SUCCESS;
     }

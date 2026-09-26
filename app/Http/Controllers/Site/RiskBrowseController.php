@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentSensitivity;
 use App\Support\Csv;
+use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -47,7 +50,7 @@ class RiskBrowseController extends Controller
         [$query] = $this->riskQuery($request);
         $mit = $this->data->mitRisk();
         $name = 'mit-ai-risks-'.now()->format('Ymd').'.'.$format;
-        $columns = ['ev_id', 'quick_ref', 'paper_title', 'level', 'risk_category', 'risk_subcategory', 'description', 'entity', 'intent', 'timing', 'domain', 'subdomain'];
+        $columns = ['ev_id', 'slug', 'quick_ref', 'paper_title', 'level', 'risk_category', 'risk_subcategory', 'description', 'entity', 'intent', 'timing', 'domain', 'subdomain', 'url'];
 
         return $this->stream($query->orderBy('ev_id'), $columns, $format, $name, ['source' => $mit['source'] ?? 'MIT AI Risk Repository', 'license' => $mit['license'] ?? 'CC BY 4.0', 'license_url' => $mit['license_url'] ?? '', 'citation' => $mit['citation'] ?? '']);
     }
@@ -82,9 +85,16 @@ class RiskBrowseController extends Controller
     }
 
     /** Single-incident profile: every stored field, related incidents and the MIT risk entries that describe the same failure mode. */
-    public function incidentShow(int $incident): View
+    public function incidentShow(string $incident): View|RedirectResponse
     {
-        $i = ExternalIncident::with('reports')->findOrFail($incident);
+        // The number was the address until the record had a readable one; it
+        // still resolves, permanently redirected, so no published link breaks.
+        $i = ctype_digit($incident)
+            ? ExternalIncident::with('reports')->findOrFail((int) $incident)
+            : ExternalIncident::with('reports')->where('slug', $incident)->firstOrFail();
+        if (ctype_digit($incident) && $i->slug !== null) {
+            return redirect()->to($i->url(), 301);
+        }
         $labels = ExternalIncident::domainLabels();
         $domainId = array_search($i->mit_domain, $labels, true) ?: null;
         $subdomainCode = $this->subdomainCode($i->mit_subdomain);
@@ -96,15 +106,17 @@ class RiskBrowseController extends Controller
         $related = ($ids = $i->similarIds()) ? ExternalIncident::whereIn('incident_id', $ids)->get()->sortBy(fn ($r) => array_search($r->incident_id, $ids, true))->values() : collect();
         $summary = $this->data->aiid();
 
-        $seo = Seo::make(
-            'AI incident #'.$i->incident_id.': '.$i->title,
-            mb_substr(($i->description ?: $i->title).' Dated '.$i->occurred_on->format('j F Y').'; '.$i->report_count.' reports on the AI Incident Database.', 0, 155),
-            route('risk.incidents.show', $i->incident_id),
-            $i->isIndexable()
-        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Incidents', route('risk.incidents.browse')], ['#'.$i->incident_id, route('risk.incidents.show', $i->incident_id)]])
+        $sensitive = IncidentSensitivity::isSensitive($i);
+        $heading = $sensitive ? IncidentSensitivity::neutralHeadline($i) : $i->title;
+        $description = $sensitive
+            ? IncidentSensitivity::neutralDescription($i)
+            : ($i->description ?: $i->title).' Dated '.$i->occurred_on->format('j F Y').'; '.$i->report_count.' reports on the AI Incident Database.';
+
+        $seo = Seo::make(PageTitle::incident($i), $description, $i->url(), $i->isIndexable())
+            ->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Incidents', route('risk.incidents.browse')], [PageTitle::shorten($heading, 48), $i->url()]])
             ->withModified($i->modified_at ?? $i->snapshot_date)
             ->withPageType('Article', [
-                'headline' => 'AI incident #'.$i->incident_id.': '.$i->title,
+                'headline' => PageTitle::shorten($heading, 110),
                 'datePublished' => $i->occurred_on->toDateString(),
                 // This record is the AI Incident Database's, under its own licence,
                 // which is not the licence the rest of this site publishes under.
@@ -113,13 +125,21 @@ class RiskBrowseController extends Controller
                 'about' => array_values(array_filter([$i->mit_domain, $i->mit_subdomain])),
             ]);
 
-        return view('site.risk.incident-show', compact('i', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
+        return view('site.risk.incident-show', compact('i', 'heading', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
     }
 
     /** Single MIT risk entry with its paper siblings, other frameworks describing the same subdomain, and matching incidents. */
-    public function riskShow(string $ev): View
+    public function riskShow(string $ev): View|RedirectResponse
     {
-        $r = ExternalRisk::findOrFail(str_replace('--', '#', $ev));
+        $r = ExternalRisk::where('slug', $ev)->first();
+        if (! $r) {
+            // The repository's evidence code was the address until the entry had
+            // a readable one ("05.17.00"); it still resolves, as a redirect.
+            $r = ExternalRisk::findOrFail(str_replace('--', '#', $ev));
+            if ($r->slug !== null) {
+                return redirect()->to($r->url(), 301);
+            }
+        }
         $labels = ExternalIncident::domainLabels();
         $domain = $r->domain ? $this->data->mitDomain((string) $r->domain) : null;
         $subdomainMeta = null;
@@ -134,12 +154,13 @@ class RiskBrowseController extends Controller
         $meta = $this->data->mitRisksMeta();
         $paper = collect($meta['papers'] ?? [])->firstWhere('quick_ref', $r->quick_ref);
 
+        $name = $r->risk_subcategory ?: $r->risk_category ?: 'Risk entry';
         $seo = Seo::make(
-            ($r->risk_subcategory ?: $r->risk_category ?: 'Risk entry').' ('.$r->quick_ref.')',
-            mb_substr(($r->description ?: 'Risk entry from '.$r->paper_title).' Coded as '.implode(', ', array_filter([$r->entity, $r->intent, $r->timing])).' in the MIT AI Risk Repository.', 0, 155),
-            route('risk.risks.show', $ev),
+            PageTitle::risk($r),
+            ($r->description ?: 'Risk entry from '.$r->paper_title).' Coded as '.implode(', ', array_filter([$r->entity, $r->intent, $r->timing])).' in the MIT AI Risk Repository.',
+            $r->url(),
             $r->isIndexable()
-        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Risk entries', route('risk.risks')], [$r->ev_id, route('risk.risks.show', $ev)]])
+        )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Risk entries', route('risk.risks')], [PageTitle::shorten($name, 48), $r->url()]])
             // The sitemap has always published updated_at as this page's lastmod
             // while the page itself stated no dateModified at all. Two answers to
             // one question is worse than either, so the page now gives the same one.
@@ -174,7 +195,7 @@ class RiskBrowseController extends Controller
         [$query] = $this->incidentQuery($request);
         $aiid = $this->data->aiid();
         $name = 'aiid-incidents-'.now()->format('Ymd').'.'.$format;
-        $columns = ['incident_id', 'occurred_on', 'title', 'description', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'sectors', 'countries', 'deployers', 'developers', 'harmed', 'report_count'];
+        $columns = ['incident_id', 'slug', 'occurred_on', 'title', 'description', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'sectors', 'countries', 'deployers', 'developers', 'harmed', 'report_count', 'url'];
 
         return $this->stream($query->orderByDesc('occurred_on'), $columns, $format, $name, ['source' => $aiid['source'] ?? 'AI Incident Database', 'license' => $aiid['license'] ?? 'CC BY-SA 4.0', 'license_url' => $aiid['license_url'] ?? '', 'citation' => $aiid['citation'] ?? '', 'snapshot_date' => $aiid['snapshot_date'] ?? '']);
     }
@@ -260,7 +281,8 @@ class RiskBrowseController extends Controller
                 foreach ($rows as $row) {
                     $values = [];
                     foreach ($columns as $c) {
-                        $v = $row->{$c};
+                        // The page address is derived, not stored: it follows the slug.
+                        $v = $c === 'url' ? $row->url() : $row->{$c};
                         $values[$c] = is_array($v) ? ($format === 'csv' ? implode('|', $v) : $v) : ($v instanceof \DateTimeInterface ? $v->format('Y-m-d') : $v);
                     }
                     if ($format === 'csv') {

@@ -39,7 +39,7 @@
                 <p class="mt-1 meta">From <a href="{{ route('risk.risks', ['paper' => $r->quick_ref]) }}">{{ $r->paper_title }}</a> ({{ $r->quick_ref }})</p>
             </div>
             <div class="lg:col-span-3 flex flex-wrap gap-1.5 content-start">
-                @if($r->domain)<a class="chip !min-h-0 !py-0.5" href="{{ route('risk.domain', $r->domain) }}">Domain {{ $r->domain }}</a>@endif
+                @if($r->domain)<a class="chip !min-h-0 !py-0.5" href="{{ \App\Support\RiskTaxonomy::domainUrl($r->domain) }}">Domain {{ $r->domain }}</a>@endif
                 @if($r->subdomain)<a class="chip !min-h-0 !py-0.5" href="{{ route('risk.risks', ['subdomain' => $r->subdomain]) }}">{{ $r->subdomain }}</a>@endif
                 @foreach(['entity', 'intent', 'timing'] as $k)@if($r->{$k})<a class="chip !min-h-0 !py-0.5" href="{{ route('risk.risks', [$k => $r->{$k}]) }}">{{ $r->{$k} }}</a>@endif @endforeach
             </div>
