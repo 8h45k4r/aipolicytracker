@@ -23,6 +23,7 @@ $timetable = [
     'alerts' => fn ($e) => $e->dailyAt('06:30'),
     'digest' => fn ($e) => $e->weeklyOn(1, '07:00'),
     'external_import' => fn ($e) => $e->weeklyOn(0, '04:00'),
+    'templates_build' => fn ($e) => $e->dailyAt('05:30'),
     'email_domains' => fn ($e) => $e->weeklyOn(3, '05:00'),
 ];
 
