@@ -39,6 +39,7 @@ Most MCP clients take a command and its environment. For example:
 | `list_obligations` | Duties recorded against instruments, with the provision each comes from. |
 | `recent_changes` | AI policy updates: the dated change log, each entry with a significance score by a published rule and the time it first appeared. |
 | `search_incidents` | AI incidents (AI Incident Database) with what this site adds: harm domain, the recorded laws that address that harm where it happened, a one-sentence policy angle, and a sensitivity flag. |
+| `list_templates` | The templates library: free XLSX/DOCX files generated from the records, with the latest version, dataset hash, coverage and download URLs. |
 | `open_gaps` | What the corpus is missing, so an assistant can say where the data is thin. |
 
 `corpus_health` is listed first on purpose, and the server's `initialize` instructions tell the

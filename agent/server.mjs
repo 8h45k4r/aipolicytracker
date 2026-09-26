@@ -162,6 +162,21 @@ const TOOLS = [
     run: (args) => get('/api/v1/incidents' + query({ domain: args.domain, country: args.country, from: args.from, per_page: limit(args.limit) })),
   },
   {
+    name: 'list_templates',
+    description:
+      'The templates library: free XLSX and DOCX files (AI system inventory, risk register, FRIA, policies, incident playbook, EU AI Act and ISO/IEC 42001 kits) generated from the recorded duties, controls and deadlines and rebuilt when the records change. Each entry gives the latest version, its dataset hash, what it covers and the download URLs. Filter by type, topic or framework.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', description: 'register, assessment, policy, procedure, checklist, crosswalk or kit.' },
+        topic: { type: 'string', description: 'inventory, risk, governance, transparency, incidents, vendors, oversight, workforce or evidence.' },
+        framework: { type: 'string', description: 'eu-ai-act, iso-42001, nist-ai-rmf or colorado-ai-act.' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/templates' + query({ type: args.type, topic: args.topic, framework: args.framework })),
+  },
+  {
     name: 'open_gaps',
     description:
       'What the corpus is missing: published records that lack a source link, a summary, a provision reference or another field a checkable record needs. Use it to tell a user where the data is thin before they rely on it.',

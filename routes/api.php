@@ -27,4 +27,7 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
     // Mirrored external datasets. Responses carry their source, licence and citation.
     Route::get('/incidents', [PublicApiController::class, 'incidents'])->name('incidents');
     Route::get('/risks', [PublicApiController::class, 'risks'])->name('risks');
+    Route::get('/templates', [PublicApiController::class, 'templates'])->name('templates');
+    Route::get('/templates/{slug}', [PublicApiController::class, 'template'])->where('slug', '[a-z0-9-]+')->name('template');
+    Route::get('/templates/{slug}/download', [PublicApiController::class, 'templateDownload'])->where('slug', '[a-z0-9-]+')->name('template.download');
 });
