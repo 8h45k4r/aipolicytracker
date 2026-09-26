@@ -78,11 +78,13 @@ class CompletenessPolicyTest extends TestCase
 
     public function test_the_check_fails_when_required_gaps_exceed_the_budget(): void
     {
-        config(['completeness.required_budget' => 0]);
+        // Measured from the shipped data, so the test holds whatever gaps the corpus carries today.
+        $baseline = app(CompletenessReport::class)->report()['required_gaps'];
+        config(['completeness.required_budget' => $baseline]);
         PolicyInstrument::published()->firstOrFail()->forceFill(['official_source_url' => null])->save();
         $this->artisan('policy:coverage')->assertExitCode(1);
 
-        config(['completeness.required_budget' => 1]);
+        config(['completeness.required_budget' => $baseline + 1]);
         $this->artisan('policy:coverage')->assertExitCode(0);
     }
 
