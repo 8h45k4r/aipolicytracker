@@ -4,6 +4,7 @@ namespace App\Services\Applicability;
 
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
+use App\Services\Templates\DatasetVersion;
 use App\Services\Templates\Records;
 use App\Services\Templates\Workbook;
 use Dompdf\Dompdf;
@@ -65,7 +66,7 @@ final class ObligationsRegister
             'frameworks' => [],
             'version' => 'built '.now()->format('Y-m-d H:i').' UTC',
             'generated_at' => now()->format('Y-m-d'),
-            'dataset_version' => \App\Services\Templates\DatasetVersion::current(),
+            'dataset_version' => DatasetVersion::current(),
             'url' => route('tools.applicability', array_filter($register['answers'], fn ($v) => $v !== null && $v !== [])),
             'licence' => config('templates.licence'),
             'disclaimer' => 'An educational screen over recorded scope, not a determination that any duty applies to you. '.config('templates.disclaimer'),

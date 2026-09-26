@@ -1,5 +1,8 @@
 @props(['source' => 'site', 'topic' => null, 'topicLabel' => null, 'compact' => false])
-<form method="post" action="{{ route('subscribe.store') }}" {{ $attributes->merge(['class' => 'rule-strong pt-3']) }} aria-label="Subscribe to the weekly AI policy digest">
+{{-- Standalone on a page, the form is a tinted panel so the one block that asks the
+     reader for something separates from the reference material around it. Inline in a
+     record's sidebar (compact), it keeps the section rule the neighbouring blocks use. --}}
+<form method="post" action="{{ route('subscribe.store') }}" {{ $attributes->merge(['class' => $compact ? 'rule-strong pt-3' : 'panel-tinted']) }} aria-label="Subscribe to the weekly AI policy digest">
     @csrf
     <input type="hidden" name="source" value="{{ $source }}">
     @if($topic)<input type="hidden" name="topics[]" value="{{ $topic }}">@endif

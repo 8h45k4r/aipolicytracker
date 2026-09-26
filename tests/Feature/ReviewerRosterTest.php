@@ -226,6 +226,7 @@ class ReviewerRosterTest extends TestCase
     {
         $this->get('/sitemap-static.xml')->assertOk()->assertSee(url('/reviewers'), false);
     }
+
     /**
      * SQLite treats an unknown double-quoted identifier as a string, so a query for a
      * column that does not exist passes every SQLite test and fails on PostgreSQL. The

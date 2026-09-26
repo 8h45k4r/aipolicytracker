@@ -1,6 +1,8 @@
 @extends('site.layouts.app')
 @section('content')
-<section class="border-b border-brand-line">
+{{-- The masthead sits on a tinted wash that fades into the white page, so the hero
+     reads as the front of a publication rather than as the first block of a list. --}}
+<section class="border-b border-brand-line bg-gradient-to-b from-brand-paper to-white">
     <div class="container-site py-12 sm:py-16 grid gap-10 lg:grid-cols-12 lg:items-end">
         <div class="lg:col-span-8">
             <p class="eyebrow">AI governance intelligence</p>
