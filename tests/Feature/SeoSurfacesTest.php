@@ -94,8 +94,11 @@ class SeoSurfacesTest extends TestCase
         $page->assertSee($change->title)->assertSee('What changed?')->assertSee('Cite this record')->assertSee($change->official_source_url, false);
         $html = $page->getContent();
         $this->assertStringContainsString('<link rel="canonical" href="'.$change->url().'">', $html);
-        $this->assertStringContainsString('"@type":"Article"', $html);
-        $this->assertStringContainsString('"datePublished":"'.$change->occurred_on->format(DATE_ATOM).'"', $html);
+        $this->assertStringContainsString('"@type":"NewsArticle"', $html);
+        // A news article is dated by when it was published here; the event's own
+        // date is the dateline. The two are different questions.
+        $this->assertStringContainsString('"datePublished":"'.($change->first_published_at ?? $change->occurred_on)->format(DATE_ATOM).'"', $html);
+        $this->assertStringContainsString('"dateline":"'.$change->jurisdiction->name.', '.$change->occurred_on->format('j F Y').'"', $html);
         $this->assertStringContainsString('<link rel="alternate" type="text/markdown" href="'.route('changes.context', $change->slug).'">', $html);
 
         $this->get(route('changes.context', $change->slug))->assertOk()->assertHeader('Link', '<'.$change->url().'>; rel="canonical"');

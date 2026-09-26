@@ -133,16 +133,17 @@ const TOOLS = [
   {
     name: 'recent_changes',
     description:
-      'The change log: dated entries recording what moved in AI policy, what it means in practice, and the official announcement behind it.',
+      'AI policy updates: dated entries recording what moved in AI policy, what it means in practice, and the official announcement behind it. Each carries a significance score (0-100, by a published rule) and the time it first appeared. The same records are arranged for people at /updates, with month, day and per-jurisdiction pages.',
     inputSchema: {
       type: 'object',
       properties: {
         jurisdiction: { type: 'string', description: 'Jurisdiction slug.' },
+        since: { type: 'string', description: 'Only changes that occurred on or after this date (YYYY-MM-DD).' },
         limit: { type: 'integer', description: 'Maximum entries to return (1-100, default 20).' },
       },
       additionalProperties: false,
     },
-    run: (args) => get('/api/v1/changes' + query({ jurisdiction: args.jurisdiction, per_page: limit(args.limit) })),
+    run: (args) => get('/api/v1/changes' + query({ jurisdiction: args.jurisdiction, since: args.since, per_page: limit(args.limit) })),
   },
   {
     name: 'open_gaps',
