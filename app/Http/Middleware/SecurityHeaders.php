@@ -25,11 +25,15 @@ class SecurityHeaders
             header_remove('X-Powered-By');
         }
         $response->headers->set('X-Content-Type-Options', 'nosniff');
-        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
+        // Widgets under /embed/ exist to be framed by other sites; nothing else is.
+        $embed = $request->is('embed/*');
+        if (! $embed) {
+            $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
+        }
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
         $response->headers->set('Cross-Origin-Opener-Policy', 'same-origin');
-        $response->headers->set('Content-Security-Policy', self::policy($nonce));
+        $response->headers->set('Content-Security-Policy', self::policy($nonce, $embed));
 
         // Server-rendered pages must always reflect the latest import; only endpoints
         // that set their own Cache-Control (API, exports, feeds, sitemaps) are cached.
@@ -47,7 +51,7 @@ class SecurityHeaders
         return $response;
     }
 
-    public static function policy(string $nonce): string
+    public static function policy(string $nonce, bool $embed = false): string
     {
         $dev = app()->environment('local') ? ' http://localhost:5173 ws://localhost:5173' : '';
 
@@ -58,7 +62,7 @@ class SecurityHeaders
             "font-src 'self' data: https://fonts.bunny.net https://cdnjs.cloudflare.com",
             "img-src 'self' data: https:",
             "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://cloudflareinsights.com".$dev,
-            "frame-ancestors 'self'",
+            $embed ? 'frame-ancestors *' : "frame-ancestors 'self'",
             "base-uri 'self'",
             "form-action 'self'",
             "object-src 'none'",
