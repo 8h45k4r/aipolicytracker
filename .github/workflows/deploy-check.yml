@@ -1,0 +1,22 @@
+# Which features on main is the live site serving? Run it from the Actions tab after
+# a deploy; the job summary lists every feature as live or not live, with the commit
+# that introduced it. The checks are in scripts/deploy-check.sh, which runs the same
+# way against a local copy of main (every row passes there).
+name: Deployment check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check the live site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Probe one marker per shipped feature
+        env:
+          SITE: ${{ vars.SITE_URL || 'https://aipolicytracker.org' }}
+        run: scripts/deploy-check.sh "$SITE"
