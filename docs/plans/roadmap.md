@@ -224,13 +224,27 @@ before, so this is a deliberate loss of six thin pages, not an accident.
 **Not done:** native-language names for existing records: the field exists
 and renders, but no reviewer has entered any yet.
 
-### P7 — Deadline engine (`seo/p7-deadlines`)
-`/deadlines/which-date-applies` is a 5-step form that works without JS and
-computes a timeline only from deadline data. It shows "originally X → now Y"
-from change history, and exports `.ics` and PDF. The API gets
-`POST /deadlines/applicable`, and the MCP server gets `get_applicable_deadlines`.
-**Depends on finding 6:** until the Omnibus dates are confirmed, the engine shows
-the recorded dates with the "may be superseded" flag the data already carries.
+### P7 — Deadline engine (`seo/p7-deadlines`) — done
+`/deadlines/which-date-applies`: five plain-form steps (markets, role, kind
+of system and risk tier, sector and use case, timeline) that work without
+JavaScript, the answers travelling in the query string. The timeline is
+computed only from the deadlines on record: a deadline is kept when its
+instrument, or the duty it belongs to, names the answer or names no narrower
+scope, and the obligation's applicability rules agree; the reason each date
+is shown is printed beside it. "Originally X, now Y" comes from a new
+`deadline_revisions` table the importer writes when a re-import finds a
+deadline's date or status changed (deadlines are replaced wholesale on
+import, so revisions are keyed by instrument and title). Exports: `.ics` of
+the same rows through the existing calendar renderer, and a PDF (dompdf,
+pure PHP, no remote assets). API `POST /api/v1/deadlines/applicable` and
+`GET /api/v1/deadlines/applicable.ics`; MCP `get_applicable_deadlines`.
+The empty form is the indexable page; answered states are noindex.
+**Honest limit:** the record holds 29 deadlines on 14 instruments, 6 of them
+future and scheduled, so most answers produce a short timeline; the engine
+grows with the data, and revision history starts from this release (there
+is none for earlier moves).
+**Dependency added:** `dompdf/dompdf` ^3.1 for the PDF export (also used by
+P8's register export).
 
 ### P8 — Watches and the obligations register (`seo/p8-watches`)
 Extends `Follow` into watches. The new watch types are sector, use case,
