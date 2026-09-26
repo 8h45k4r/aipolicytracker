@@ -29,6 +29,14 @@
     @elseif($selected->isNotEmpty())
         <div class="mt-6"><x-site.empty title="Select at least two jurisdictions">Choose two to four jurisdictions above to build a comparison table.</x-site.empty></div>
     @endif
+    @if(isset($pairs) && $pairs->isNotEmpty())
+    <section class="mt-10" aria-labelledby="pairs-heading">
+        <h2 id="pairs-heading" class="section-title">Country pairs</h2>
+        <p class="mt-1 text-xs text-brand-muted">Side-by-side table, obligation overlap by category, and what is left for one side if you already comply with the other. Computed from the records.</p>
+        <ul class="mt-3 flex flex-wrap gap-2 text-sm">@foreach($pairs as $p)<li><a href="{{ route('compare.show', $p['slug']) }}" class="chip">{{ $p['a'] }} vs {{ $p['b'] }}</a></li>@endforeach</ul>
+    </section>
+    @endif
+
     <section class="mt-10" aria-labelledby="curated-heading">
         <h2 id="curated-heading" class="section-title">Curated comparisons</h2>
         <ul class="mt-3 grid gap-3 sm:grid-cols-2 text-sm">@foreach($curated as $c)<li class="card-flat p-4"><a href="{{ route('compare.show', $c['slug']) }}" class="font-semibold text-brand-navy hover:underline">{{ $c['title'] }}</a><p class="mt-1 text-brand-body">{{ $c['intro'] }}</p></li>@endforeach</ul>

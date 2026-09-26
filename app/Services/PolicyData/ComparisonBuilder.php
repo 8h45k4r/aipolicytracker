@@ -4,6 +4,7 @@ namespace App\Services\PolicyData;
 
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
+use App\Models\TaxonomyTerm;
 use Illuminate\Support\Collection;
 
 /**
@@ -72,6 +73,55 @@ class ComparisonBuilder
         return [
             'text' => $binding.' binding, '.($obligations->count() - $binding).' voluntary',
             'links' => $obligations->sortByDesc('is_binding')->take(6)->map(fn ($o) => ['name' => $o->title.($o->is_binding ? '' : ' (voluntary)'), 'url' => $o->url()])->values()->all(),
+        ];
+    }
+
+    /**
+     * The obligation overlap between two jurisdictions, by category: how many
+     * binding and voluntary duties each records, and which side has what.
+     *
+     * @return list<array{category:string, name:string, a:array{binding:int,voluntary:int}, b:array{binding:int,voluntary:int}, both:bool}>
+     */
+    public function overlap(Jurisdiction $a, Jurisdiction $b): array
+    {
+        $names = TaxonomyTerm::where('taxonomy', 'obligation_category')->pluck('name', 'slug')->all();
+        $count = fn (Jurisdiction $j) => Obligation::published()
+            ->whereHas('policyInstrument', fn ($p) => $p->published()->where('jurisdiction_id', $j->id))
+            ->selectRaw('category, is_binding, COUNT(*) as n')->groupBy('category', 'is_binding')->get()
+            ->groupBy('category')->map(fn ($rows) => ['binding' => (int) $rows->where('is_binding', true)->sum('n'), 'voluntary' => (int) $rows->where('is_binding', false)->sum('n')]);
+        $ca = $count($a);
+        $cb = $count($b);
+        $rows = [];
+        foreach ($ca->keys()->merge($cb->keys())->unique() as $category) {
+            $x = $ca[$category] ?? ['binding' => 0, 'voluntary' => 0];
+            $y = $cb[$category] ?? ['binding' => 0, 'voluntary' => 0];
+            $rows[] = ['category' => $category, 'name' => $names[$category] ?? ucfirst(str_replace('_', ' ', $category)), 'a' => $x, 'b' => $y, 'both' => ($x['binding'] + $x['voluntary']) > 0 && ($y['binding'] + $y['voluntary']) > 0];
+        }
+        usort($rows, fn ($p, $q) => [$q['both'], $q['a']['binding'] + $q['b']['binding'], $p['name']] <=> [$p['both'], $p['a']['binding'] + $p['b']['binding'], $q['name']]);
+
+        return $rows;
+    }
+
+    /**
+     * "If you comply with A, what is left for B": B's binding duties in
+     * categories where A records no binding duty, then B's binding duties in
+     * shared categories, which need checking against A's provisions rather
+     * than redoing from scratch.
+     *
+     * @return array{new:Collection<int,Obligation>, shared:Collection<int,Obligation>}
+     */
+    public function whatsLeft(Jurisdiction $a, Jurisdiction $b): array
+    {
+        $aBinding = Obligation::published()->where('is_binding', true)
+            ->whereHas('policyInstrument', fn ($p) => $p->published()->where('jurisdiction_id', $a->id))
+            ->pluck('category')->unique()->all();
+        $bBinding = Obligation::published()->where('is_binding', true)->with('policyInstrument')
+            ->whereHas('policyInstrument', fn ($p) => $p->published()->where('jurisdiction_id', $b->id))
+            ->orderBy('category')->orderBy('title')->get();
+
+        return [
+            'new' => $bBinding->filter(fn ($o) => ! in_array($o->category, $aBinding, true))->values(),
+            'shared' => $bBinding->filter(fn ($o) => in_array($o->category, $aBinding, true))->values(),
         ];
     }
 }
