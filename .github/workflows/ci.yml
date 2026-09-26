@@ -47,6 +47,18 @@ jobs:
       - name: Run tests
         run: composer test
 
+      # Every page the sitemap publishes, rendered in process and checked: a title
+      # of at most sixty characters with no internal identifier in it, one H1, a
+      # description within budget, a canonical, and nothing noindexed in the
+      # sitemap. The rules are enforced here rather than remembered.
+      - name: Page rules across the sitemap (seo:audit)
+        run: |
+          touch database/database.sqlite
+          php artisan migrate --force --no-interaction
+          php artisan policy:import
+          php artisan external:import
+          php artisan seo:audit --fail-on-violation
+
       # Blocking: the codebase is formatted, so a style regression fails the build.
       - name: Code style (Laravel Pint)
         run: composer lint
