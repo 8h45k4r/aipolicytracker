@@ -25,6 +25,9 @@ framework_references:
   - { framework: owasp_llm_top10, reference: "LLM01 Prompt Injection, LLM02 Sensitive Information Disclosure, LLM05 Improper Output Handling, LLM06 Excessive Agency, LLM07 System Prompt Leakage", confidence_level: high }
   - { framework: mitre_atlas, reference: "AML.M0020 Generative AI Guardrails, AML.M0022 Generative AI Model Alignment", confidence_level: medium }
 related_controls: [accuracy-robustness-security-testing, frontier-model-safety-framework, ai-incident-management-and-reporting]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

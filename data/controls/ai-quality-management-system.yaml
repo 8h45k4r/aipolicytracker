@@ -22,6 +22,9 @@ framework_references:
   - { framework: iso_42001, reference: "Clause 4 to 10", note: "The management-system structure as a whole; certification is optional.", confidence_level: high }
   - { framework: nist_ai_rmf, reference: "GOVERN 1.4, 1.5, 1.7", confidence_level: medium }
 related_controls: [ai-governance-policy-and-accountability, technical-documentation-and-model-cards, model-release-and-change-management-gate, conformity-assessment-and-registration]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

@@ -43,8 +43,10 @@ source_title: National Strategy for Data & AI
 source_publisher: Saudi Data and Artificial Intelligence Authority
 source_document_date: '2020-07-17'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: medium
 content_version: 1
 change_summary: >-

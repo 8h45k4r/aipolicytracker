@@ -1,0 +1,26 @@
+slug: ai-policy-tracker
+name: AI Policy Tracker
+role: editor
+published: true
+joined_on: 2026-09-26
+bio: >-
+  The platform's editorial desk. A record signed "AI Policy Tracker" was confirmed
+  against the official source linked on the record by the maintainer, working under
+  the desk's name; when a named individual reviewer later signs the same record, their
+  name replaces the desk's.
+expertise:
+- AI regulation and policy
+- Source verification
+interests:
+- declaration: >-
+    This is the platform's own editorial desk, not an independent reviewer. The desk is
+    run by the maintainer, who has declared an association with a commercial
+    AI-governance compliance platform on their own roster entry.
+  mitigation: >-
+    Every record signed by the desk links the official source it was checked against,
+    so any reader can repeat the check; individual reviewer sign-offs replace the
+    desk's record by record.
+  declared_on: 2026-09-26
+links:
+- label: Methodology
+  url: https://aipolicytracker.org/methodology

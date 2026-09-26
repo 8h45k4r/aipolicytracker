@@ -40,8 +40,10 @@ official_source_url: https://www.stjornarradid.is/en/ministries/ministry-of-high
 source_title: 'Government of Iceland: artificial intelligence policy and action plan'
 source_publisher: Government of Iceland
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: low
 content_version: 1
 change_summary: >-

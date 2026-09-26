@@ -68,8 +68,10 @@ source_title: Draft South Africa National Artificial Intelligence (AI) Policy
 source_publisher: Government Gazette No. 54477, Notice 3880 of 2026 (DCDT)
 source_document_date: '2026-04-10'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1
 change_summary: >-

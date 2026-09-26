@@ -53,8 +53,10 @@ source_title: The Bletchley Declaration by Countries Attending the AI Safety Sum
 source_publisher: UK Government (GOV.UK)
 source_document_date: '2023-11-01'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1
 change_summary: >-

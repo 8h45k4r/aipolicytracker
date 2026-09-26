@@ -16,7 +16,10 @@ changes:
     source_publisher: "The White House"
     source_document_date: 2025-01-23
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1
   - slug: 2025-02-02-eu-ai-act-prohibitions-apply
@@ -37,7 +40,10 @@ changes:
     source_publisher: "Official Journal of the European Union"
     source_document_date: 2024-07-12
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1
   - slug: 2025-04-03-us-omb-ai-memoranda
@@ -57,7 +63,10 @@ changes:
     source_publisher: "Office of Management and Budget"
     source_document_date: 2025-04-03
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-07-10-eu-gpai-code-of-practice
@@ -77,7 +86,10 @@ changes:
     source_publisher: "European Commission"
     source_document_date: 2025-07-10
     source_tier: 2
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1
   - slug: 2025-07-23-us-ai-action-plan
@@ -97,7 +109,10 @@ changes:
     source_publisher: "The White House"
     source_document_date: 2025-07-23
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-08-02-eu-gpai-obligations-apply
@@ -117,7 +132,10 @@ changes:
     source_publisher: "Official Journal of the European Union"
     source_document_date: 2024-07-12
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1
   - slug: 2025-08-nepal-national-ai-policy-approved
@@ -137,7 +155,10 @@ changes:
     source_publisher: "Government of Nepal"
     source_document_date: null
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
     change_summary: Month-level date; reviewer to confirm.
@@ -158,7 +179,10 @@ changes:
     source_publisher: "Colorado General Assembly"
     source_document_date: 2025-08-28
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-09-29-california-sb-53-signed
@@ -178,7 +202,10 @@ changes:
     source_publisher: "California Legislative Information"
     source_document_date: 2025-09-29
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-11-05-india-ai-governance-guidelines
@@ -198,7 +225,10 @@ changes:
     source_publisher: "Ministry of Electronics and Information Technology"
     source_document_date: 2025-11-05
     source_tier: 2
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: low
     content_version: 1
   - slug: 2025-11-13-india-dpdp-rules-notified
@@ -218,7 +248,10 @@ changes:
     source_publisher: "Ministry of Electronics and Information Technology"
     source_document_date: 2025-11-13
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-11-19-eu-digital-omnibus-proposal
@@ -239,7 +272,10 @@ changes:
     source_publisher: "European Commission"
     source_document_date: 2025-11-19
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
     change_summary: Reviewer to link the proposal document and confirm adoption status.
@@ -261,7 +297,10 @@ changes:
     source_publisher: "Department of Industry, Science and Resources"
     source_document_date: 2025-12-02
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: low
     content_version: 1
     change_summary: Date and document link to be confirmed by reviewer.
@@ -283,9 +322,10 @@ changes:
     source_publisher: Information & eGovernment Authority, Kingdom of Bahrain
     source_document_date: '2025-05-20'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -310,9 +350,10 @@ changes:
     source_publisher: Information & eGovernment Authority, Kingdom of Bahrain
     source_document_date: '2025-07-27'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -333,9 +374,10 @@ changes:
     source_publisher: GovTech Agency, Royal Government of Bhutan
     source_document_date: '2025-10-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -357,9 +399,10 @@ changes:
     source_publisher: Senado Federal
     source_document_date: '2025-03-17'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -384,9 +427,10 @@ changes:
     source_publisher: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación
     source_document_date: '2025-04-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -410,9 +454,10 @@ changes:
     source_publisher: Senado de la República de Chile
     source_document_date: '2025-10-24'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -434,9 +479,10 @@ changes:
     source_publisher: Cyberspace Administration of China
     source_document_date: '2025-03-14'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -458,9 +504,10 @@ changes:
     source_publisher: Cyberspace Administration of China
     source_document_date: '2025-09-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -483,9 +530,10 @@ changes:
     source_publisher: Central People's Government of the PRC (gov.cn)
     source_document_date: '2025-08-26'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -507,9 +555,10 @@ changes:
       Ministerio de Tecnologías de la Información y las Comunicaciones (normograma) – DNP document
     source_document_date: '2025-02-14'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -531,9 +580,10 @@ changes:
     source_publisher: Ministry of Communications and Information Technology, Egypt
     source_document_date: '2025-01-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -555,9 +605,10 @@ changes:
     source_publisher: European Commission, Shaping Europe's digital future
     source_document_date: '2025-10-08'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -580,9 +631,10 @@ changes:
     source_publisher: Ministry of Communication, Digital Technology and Innovations, Ghana
     source_document_date: '2025-05-02'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -603,9 +655,10 @@ changes:
     source_publisher: Press Information Bureau, Government of India (Cabinet decision)
     source_document_date: '2025-11-05'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -629,9 +682,10 @@ changes:
     source_publisher: Japanese Law Translation Database (Ministry of Justice)
     source_document_date: '2025-06-04'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -657,9 +711,10 @@ changes:
     source_publisher: Japanese Law Translation Database (Ministry of Justice)
     source_document_date: '2025-09-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -680,9 +735,10 @@ changes:
     source_publisher: Cabinet Office, Government of Japan
     source_document_date: '2025-12-23'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -704,9 +760,10 @@ changes:
     source_publisher: Ministry of Information, Communications and the Digital Economy
     source_document_date: '2025-01-14'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -727,9 +784,10 @@ changes:
     source_publisher: Ministry of Information, Communications and the Digital Economy
     source_document_date: '2025-03-27'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -753,9 +811,10 @@ changes:
     source_publisher: Sistema de Información Legislativa, Secretaría de Gobernación
     source_document_date: '2025-04-30'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -776,9 +835,10 @@ changes:
     source_publisher: Ministry of Information Technology and Telecommunication, Government of Pakistan
     source_document_date: '2025-08-14'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -799,9 +859,10 @@ changes:
     source_publisher: Diario Oficial El Peruano
     source_document_date: '2025-09-09'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -822,9 +883,10 @@ changes:
     source_publisher: Diario Oficial El Peruano
     source_document_date: '2025-09-09'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -847,9 +909,10 @@ changes:
     source_publisher: Department of Trade and Industry, Philippines
     source_document_date: '2025-04-30'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -871,9 +934,10 @@ changes:
     source_publisher: Department of Science and Technology, Philippines
     source_document_date: '2025-04-30'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -894,9 +958,10 @@ changes:
     source_publisher: Saudi Data and Artificial Intelligence Authority
     source_document_date: '2025-05-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -920,9 +985,10 @@ changes:
     source_publisher: Korea Ministry of Government Legislation, National Law Information Center
     source_document_date: '2025-01-21'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -944,9 +1010,10 @@ changes:
     source_publisher: Electronic Transactions Development Agency (ETDA), Thailand
     source_document_date: '2025-06-11'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -968,9 +1035,10 @@ changes:
     source_publisher: GOV.UK (Department for Science, Innovation and Technology)
     source_document_date: '2025-01-13'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -992,9 +1060,10 @@ changes:
     source_publisher: GOV.UK (Government Digital Service)
     source_document_date: '2025-02-10'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -1016,9 +1085,10 @@ changes:
     source_publisher: The White House
     source_document_date: '2025-01-23'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -1039,9 +1109,10 @@ changes:
     source_publisher: The White House
     source_document_date: '2025-07-23'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -1065,9 +1136,10 @@ changes:
     source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
     source_document_date: '2025-12-10'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -1088,9 +1160,10 @@ changes:
     source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
     source_document_date: '2025-12-10'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -1110,7 +1183,10 @@ changes:
     source_publisher: "Swiss Federal Council"
     source_document_date: 2025-02-12
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1
   - slug: 2025-03-11-spain-ai-governance-bill
@@ -1129,7 +1205,10 @@ changes:
     source_publisher: "Ministerio para la Transformación Digital y de la Función Pública"
     source_document_date: 2025-03-11
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-06-22-texas-traiga-signed
@@ -1148,7 +1227,10 @@ changes:
     source_publisher: "Texas Legislature Online"
     source_document_date: 2025-06-22
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1
   - slug: 2025-07-08-new-zealand-ai-strategy
@@ -1167,7 +1249,10 @@ changes:
     source_publisher: "MBIE"
     source_document_date: 2025-07-08
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-09-25-italy-ai-law-published
@@ -1186,7 +1271,10 @@ changes:
     source_publisher: "Gazzetta Ufficiale"
     source_document_date: 2025-09-25
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1
   - slug: 2025-11-17-kazakhstan-ai-law-signed
@@ -1205,7 +1293,10 @@ changes:
     source_publisher: "Government of Kazakhstan"
     source_document_date: 2025-11-17
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: medium
     content_version: 1
   - slug: 2025-12-19-new-york-raise-act-signed
@@ -1224,6 +1315,9 @@ changes:
     source_publisher: "New York State Senate"
     source_document_date: 2025-12-19
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: low
     content_version: 1

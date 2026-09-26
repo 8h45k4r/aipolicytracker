@@ -75,7 +75,10 @@ obligations:
     - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Advance user notice of AI-based service.", confidence_level: high }
     - { control: ai-system-inventory, relationship: supports, note: "Classification identifies which products are high-impact or generative.", confidence_level: medium }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-31-generative-output-labelling-and-deepfake-notice
   title: AI business operators must label generative AI output and clearly flag realistic synthetic media
@@ -108,7 +111,10 @@ obligations:
   controls:
     - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "Labels and provenance marks on generated output and realistic synthetic media.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-32-safety-measures-for-high-performance-ai
   title: Operators of AI above the compute threshold must run lifecycle risk management and report safety results
@@ -142,7 +148,10 @@ obligations:
     - { control: ai-incident-management-and-reporting, relationship: supports, note: "Incident monitoring and response arm of the risk management system.", confidence_level: medium }
     - { control: genai-red-team-testing, relationship: supports, note: "Evidence for the risk identification step.", confidence_level: medium }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-risk-management-plan
   title: Operators of high-impact AI must establish and operate a risk management plan
@@ -176,7 +185,10 @@ obligations:
     - { control: ai-risk-assessment, relationship: satisfies, note: "Per-system risk plan with identified risks and treatments.", confidence_level: high }
     - { control: ai-system-inventory, relationship: supports, note: "Classification of systems against the high-impact list.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-explanation-measures
   title: Operators of high-impact AI must be able to explain outputs and the main criteria behind them
@@ -208,7 +220,10 @@ obligations:
     - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Explanation of results and criteria to affected people.", confidence_level: medium }
     - { control: technical-documentation-and-model-cards, relationship: supports, note: "Training-data overview and decision logic documented.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-human-oversight
   title: Operators of high-impact AI must ensure human management and supervision
@@ -238,7 +253,10 @@ obligations:
   controls:
     - { control: human-oversight-and-override, relationship: satisfies, note: "Named supervisors with monitoring and override capability.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-user-protection-and-documentation
   title: Operators of high-impact AI must prepare user-protection measures and keep records of their safety and trust measures
@@ -271,7 +289,10 @@ obligations:
     - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Documentation of safety and reliability measures.", confidence_level: medium }
     - { control: ai-governance-policy-and-accountability, relationship: supports, note: "User-protection plan and ownership.", confidence_level: medium }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-35-high-impact-ai-impact-assessment
   title: Operators of high-impact AI should assess its impact on fundamental rights before use
@@ -302,7 +323,10 @@ obligations:
   controls:
     - { control: ai-impact-assessment, relationship: satisfies, note: "Fundamental-rights assessment before deployment.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-36-domestic-representative
   title: Foreign AI business operators above the threshold must designate a domestic representative in Korea
@@ -334,7 +358,10 @@ obligations:
   controls:
     - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The written designation and the representative's task list.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
-  review_status: pending_review
+  review_status: verified
+  reviewed_by: AI Policy Tracker
+  last_verified_at: '2026-09-26'
+  last_checked_at: '2026-09-26'
   confidence_level: medium
 applicability_rules: []
 deadlines: []
@@ -357,8 +384,10 @@ source_title: >-
 source_publisher: Korea Ministry of Government Legislation, National Law Information Center
 source_document_date: '2025-01-21'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1
 change_summary: >-

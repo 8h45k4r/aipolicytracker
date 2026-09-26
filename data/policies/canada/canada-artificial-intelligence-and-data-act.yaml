@@ -61,8 +61,10 @@ source_title: >-
 source_publisher: Parliament of Canada (LEGISinfo)
 source_document_date: '2022-06-16'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: medium
 content_version: 1
 change_summary: >-
