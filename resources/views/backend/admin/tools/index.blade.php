@@ -21,13 +21,20 @@
     <p class="mt-2 meta">The initial library is seeded from <code>config/resources.php</code> once; edits made here are never overwritten by deploys.</p>
 </details>
 @if($tools->isEmpty())<div class="mt-6"><x-site.empty title="No tools yet">Create a tool, then upload its files.</x-site.empty></div>@else
-<div class="table-wrap mt-6"><table><thead><tr><th>Order</th><th>Title</th><th>Type</th><th>Status</th><th>Version</th><th>Files</th><th>Downloads</th><th>Updated</th><th></th></tr></thead><tbody>
+<form method="post" action="{{ route('backend.admin.tools.status.many') }}" id="bulk-tools" class="mt-6 flex flex-wrap items-center gap-2 rounded-sm border border-brand-line bg-white p-3 text-sm">@csrf
+    <span class="font-medium text-brand-navy">Set the status of the selection</span>
+    <span class="badge-neutral" data-bulk-count="bulk-tools">0 selected</span>
+    <label class="ml-auto flex items-center gap-2 text-xs"><span class="meta">Status</span><select name="status" class="input !min-h-0 !py-1 !w-auto" aria-label="Status for the selection">@foreach(\App\Models\Tool::STATUSES as $k => $label)<option value="{{ $k }}">{{ $label }}</option>@endforeach</select></label>
+    <button type="submit" class="btn-primary !min-h-0 !py-1" data-bulk-needs="bulk-tools" data-confirm="Change the status of {n} tools? Publishing skips any tool without an active file.">Apply to selected</button>
+</form>
+<div class="table-wrap mt-3"><table><caption class="sr-only">Tools in the library</caption><thead><tr><th scope="col" class="w-8"><input type="checkbox" data-bulk-all="bulk-tools" aria-label="Select every tool shown"></th><th scope="col">Order</th><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Version</th><th scope="col">Files</th><th scope="col">Downloads</th><th scope="col">Updated</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody>
 @foreach($tools as $t)
 <tr>
+    <td><input type="checkbox" name="ids[]" value="{{ $t->id }}" form="bulk-tools" data-bulk-item aria-label="Select {{ $t->title }}"></td>
     <td class="font-mono">{{ $t->sort_order }}</td>
     <td><a href="{{ route('backend.admin.tools.edit', $t) }}" class="font-medium text-brand-navy">{{ $t->title }}</a><div class="meta font-mono">{{ $t->slug }}</div></td>
     <td>{{ \App\Models\Tool::TYPES[$t->type] ?? $t->type }}</td>
-    <td><span class="badge {{ $t->status === 'published' ? 'bg-state-goodbg text-state-good ring-state-good/30' : 'badge-neutral' }}">{{ \App\Models\Tool::STATUSES[$t->status] ?? $t->status }}</span>@if($t->featured) <span class="badge-neutral">Featured</span>@endif</td>
+    <td><x-backend.badge :status="$t->status">{{ \App\Models\Tool::STATUSES[$t->status] ?? $t->status }}</x-backend.badge>@if($t->featured) <span class="badge-neutral">Featured</span>@endif @if($t->status !== 'published' && ! $t->files_count)<div class="meta text-state-warn">no file yet</div>@endif</td>
     <td class="font-mono">{{ $t->version }}</td>
     <td class="font-mono">{{ $t->files_count ?: '—' }}</td>
     <td class="font-mono">{{ $t->downloads_count ?: '—' }}</td>

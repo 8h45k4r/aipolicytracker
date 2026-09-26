@@ -210,6 +210,32 @@ class AdminController extends Controller
         return back()->with('success', 'Subscriber removed.');
     }
 
+    /** Re-sends the confirmation to every ticked address that is still waiting for one. */
+    public function subscribersResendMany(Request $request): RedirectResponse
+    {
+        $ids = $this->ids($request);
+        $waiting = Subscriber::whereIn('id', $ids)->whereNull('confirmed_at')->whereNull('unsubscribed_at')->get();
+        foreach ($waiting as $subscriber) {
+            Mail::to($subscriber->email)->send(new SubscriptionConfirmMail($subscriber));
+        }
+        $skipped = count($ids) - $waiting->count();
+
+        return back()->with('success', 'Confirmation re-sent to '.$waiting->count().' '.Str::plural('address', $waiting->count()).'.'.($skipped ? ' '.$skipped.' already confirmed or unsubscribed, not sent.' : ''));
+    }
+
+    public function subscribersDeleteMany(Request $request): RedirectResponse
+    {
+        $n = Subscriber::whereIn('id', $this->ids($request))->delete();
+
+        return back()->with('success', $n.' '.Str::plural('subscriber', $n).' removed.');
+    }
+
+    /** @return list<int> */
+    private function ids(Request $request): array
+    {
+        return array_values(array_unique($request->validate(['ids' => ['required', 'array', 'min:1', 'max:1000'], 'ids.*' => ['integer']])['ids']));
+    }
+
     public function external(ExternalDataset $external): View
     {
         $live = [
@@ -254,23 +280,47 @@ class AdminController extends Controller
         return redirect()->route('backend.admin.jobs')->with($run->succeeded() ? 'success' : 'error', $meta['label'].($run->succeeded() ? ' finished' : ' failed').($run->output ? ': '.Str::limit($run->output, 300) : '.'));
     }
 
+    /**
+     * The environment variable each setting overrides. Shown beside the field so the
+     * owner can tell a value the host set from one stored here.
+     */
+    private const ENV_NAMES = [
+        'mail_mailer' => 'MAIL_MAILER', 'resend_key' => 'RESEND_KEY', 'mail_from_address' => 'MAIL_FROM_ADDRESS', 'mail_from_name' => 'MAIL_FROM_NAME', 'cron_token' => 'CRON_TOKEN',
+        'billing_enabled' => 'BILLING_ENABLED', 'dodo_environment' => 'DODO_PAYMENTS_ENVIRONMENT', 'dodo_api_key' => 'DODO_PAYMENTS_API_KEY', 'dodo_webhook_secret' => 'DODO_PAYMENTS_WEBHOOK_KEY',
+        'dodo_product_pro_monthly' => 'DODO_PRODUCT_PRO_MONTHLY', 'dodo_product_pro_yearly' => 'DODO_PRODUCT_PRO_YEARLY',
+        'contact_email' => 'CONTACT_EMAIL', 'google_analytics_id' => 'GOOGLE_ANALYTICS_ID', 'cloudflare_analytics_token' => 'CLOUDFLARE_ANALYTICS_TOKEN',
+        'analytics_require_consent' => 'ANALYTICS_REQUIRE_CONSENT', 'social_cards_enabled' => 'SOCIAL_CARDS_ENABLED', 'email_domain_enforcement' => 'EMAIL_DOMAIN_ENFORCEMENT',
+        'google_site_verification' => 'GOOGLE_SITE_VERIFICATION', 'bing_site_verification' => 'BING_SITE_VERIFICATION', 'x_handle' => 'SITE_X_HANDLE', 'newsletter_url' => 'SITE_NEWSLETTER_URL',
+    ];
+
     public function settings(): View
     {
+        // With the configuration cached (every production release), .env is never read,
+        // so env() answers null for everything and the page used to imply nothing was
+        // set on the host. Say so instead of guessing.
+        $envReadable = ! app()->configurationIsCached();
         $values = [];
         foreach (AppSetting::KEYS as $key => $meta) {
             $current = AppSetting::get($key);
-            $values[$key] = ['meta' => $meta, 'set' => $current !== null && $current !== '', 'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''), 'env' => match ($key) {
-                'mail_mailer' => env('MAIL_MAILER'), 'resend_key' => env('RESEND_KEY') ? 'set in environment' : null, 'mail_from_address' => env('MAIL_FROM_ADDRESS'), 'mail_from_name' => env('MAIL_FROM_NAME'), 'cron_token' => env('CRON_TOKEN') ? 'set in environment' : null,
-                'billing_enabled' => env('BILLING_ENABLED') !== null ? (filter_var(env('BILLING_ENABLED'), FILTER_VALIDATE_BOOL) ? 'on' : 'off') : null, 'dodo_environment' => env('DODO_PAYMENTS_ENVIRONMENT'), 'dodo_api_key' => env('DODO_PAYMENTS_API_KEY') ? 'set in environment' : null, 'dodo_webhook_secret' => env('DODO_PAYMENTS_WEBHOOK_KEY') ? 'set in environment' : null,
-                'dodo_product_pro_monthly' => env('DODO_PRODUCT_PRO_MONTHLY'), 'dodo_product_pro_yearly' => env('DODO_PRODUCT_PRO_YEARLY'),
-                'contact_email' => env('CONTACT_EMAIL'), 'google_analytics_id' => env('GOOGLE_ANALYTICS_ID'), 'cloudflare_analytics_token' => env('CLOUDFLARE_ANALYTICS_TOKEN') ? 'set in environment' : null,
-                'analytics_require_consent' => env('ANALYTICS_REQUIRE_CONSENT'), 'social_cards_enabled' => env('SOCIAL_CARDS_ENABLED'), 'email_domain_enforcement' => env('EMAIL_DOMAIN_ENFORCEMENT'),
-                'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'), 'bing_site_verification' => env('BING_SITE_VERIFICATION'), 'x_handle' => env('SITE_X_HANDLE'), 'stale_after_days' => null, 'newsletter_url' => env('SITE_NEWSLETTER_URL'),
-                default => null,
-            }];
+            $values[$key] = ['meta' => $meta, 'set' => $current !== null && $current !== '', 'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''), 'env' => $envReadable ? $this->envHint($key, (bool) $meta['secret']) : null];
         }
 
-        return view('backend.admin.settings', ['values' => $values, 'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')]]);
+        return view('backend.admin.settings', ['values' => $values, 'envReadable' => $envReadable, 'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')]]);
+    }
+
+    private function envHint(string $key, bool $secret): ?string
+    {
+        $name = self::ENV_NAMES[$key] ?? null;
+        $value = $name ? env($name) : null;
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        return match (true) {
+            $secret => 'set in environment',
+            in_array($key, ['billing_enabled', 'analytics_require_consent', 'social_cards_enabled', 'email_domain_enforcement'], true) => filter_var($value, FILTER_VALIDATE_BOOL) ? 'on' : 'off',
+            default => (string) $value,
+        };
     }
 
     public function settingsSave(Request $request): RedirectResponse

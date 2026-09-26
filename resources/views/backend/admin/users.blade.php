@@ -121,16 +121,16 @@
                             {{-- The reason is optional but collected here rather than nowhere, so
                                  suspended_reason has a source and "why is this account stopped"
                                  has an answer six months later. --}}
-                            <form method="post" action="{{ route('backend.admin.users.suspend', $u) }}" class="inline-flex items-center gap-1" onsubmit="return confirm('Suspend {{ $u->email }}? They will not be able to sign in.')">
+                            <form method="post" action="{{ route('backend.admin.users.suspend', $u) }}" class="inline-flex items-center gap-1" data-confirm="Suspend {{ $u->email }}? They will not be able to sign in.">
                                 @csrf
                                 <input type="text" name="reason" maxlength="255" placeholder="reason (optional)" class="w-36 rounded-sm border-brand-line text-xs" aria-label="Reason for suspending {{ $u->email }}">
                                 <button class="btn-secondary !min-h-0 !py-1 !px-2 text-xs">Suspend</button>
                             </form>
                         @endif
                         @if($u->hasTwoFactorEnabled())
-                            <form method="post" action="{{ route('backend.admin.users.two-factor.reset', $u) }}" class="inline" onsubmit="return confirm('Clear the authenticator for {{ $u->email }}? They will enrol again at next sign-in.')">@csrf<button class="btn-secondary !min-h-0 !py-1 !px-2 text-xs">Reset factor</button></form>
+                            <form method="post" action="{{ route('backend.admin.users.two-factor.reset', $u) }}" class="inline" data-confirm="Clear the authenticator for {{ $u->email }}? They will enrol again at next sign-in.">@csrf<button class="btn-secondary !min-h-0 !py-1 !px-2 text-xs">Reset factor</button></form>
                         @endif
-                        <form method="post" action="{{ route('backend.admin.users.destroy', $u) }}" class="inline" onsubmit="return confirm('Delete {{ $u->email }} permanently? This cannot be undone.')">@csrf @method('DELETE')<button class="btn-secondary !min-h-0 !py-1 !px-2 text-xs text-state-bad">Delete</button></form>
+                        <form method="post" action="{{ route('backend.admin.users.destroy', $u) }}" class="inline" data-confirm="Delete {{ $u->email }} permanently? This cannot be undone.">@csrf @method('DELETE')<button class="btn-secondary !min-h-0 !py-1 !px-2 text-xs text-state-bad">Delete</button></form>
                     @endif
                 </td>
             </tr>
