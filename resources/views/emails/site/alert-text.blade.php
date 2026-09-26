@@ -22,4 +22,5 @@ Application dates in the next {{ \App\Services\Alerts\AlertBuilder::DEADLINE_HOR
 @endif
 
 You receive this because your Pro account follows these records. Manage what you follow: {{ $manageUrl }}
+Stop these emails (no sign-in needed): {{ \Illuminate\Support\Facades\URL::signedRoute('alerts.unsubscribe', ['user' => $user->id]) }}
 Informational only, not legal advice.

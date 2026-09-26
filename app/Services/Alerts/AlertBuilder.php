@@ -52,21 +52,41 @@ class AlertBuilder
             $jurisdictionIds = array_merge($jurisdictionIds, $watched['jurisdiction_ids']);
             $instrumentIds = array_merge($instrumentIds, $watched['instrument_ids']);
         }
+        $extended = WatchTypes::scope($follows);
+        $instrumentIds = array_merge($instrumentIds, $extended['instrument_ids']);
         $jurisdictionIds = array_values(array_unique($jurisdictionIds));
         $instrumentIds = array_values(array_unique($instrumentIds));
-        if ($jurisdictionIds === [] && $instrumentIds === [] && $obligationIds === []) {
+        if ($jurisdictionIds === [] && $instrumentIds === [] && $obligationIds === [] && $extended['impact_levels'] === [] && $extended['searches'] === []) {
             return $empty;
         }
 
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
             ->whereDate('occurred_on', '>', $since->toDateString())->whereDate('occurred_on', '<=', $until->toDateString())
-            ->where(function ($q) use ($jurisdictionIds, $instrumentIds) {
+            ->where(function ($q) use ($jurisdictionIds, $instrumentIds, $extended) {
                 $q->whereRaw('1 = 0');
                 if ($jurisdictionIds !== []) {
                     $q->orWhereIn('jurisdiction_id', $jurisdictionIds);
                 }
                 if ($instrumentIds !== []) {
                     $q->orWhereIn('policy_instrument_id', $instrumentIds);
+                }
+                if ($extended['impact_levels'] !== []) {
+                    $q->orWhereIn('impact_level', $extended['impact_levels']);
+                }
+                // A saved search is the updates hub's filters: jurisdiction, impact, keyword.
+                foreach ($extended['searches'] as $search) {
+                    $q->orWhere(function ($w) use ($search) {
+                        if (! empty($search['jurisdiction'])) {
+                            $w->whereHas('jurisdiction', fn ($j) => $j->where('slug', $search['jurisdiction']));
+                        }
+                        if (! empty($search['impact'])) {
+                            $w->where('impact_level', $search['impact']);
+                        }
+                        if (! empty($search['q'])) {
+                            $term = '%'.str_replace(['%', '_'], ['\\%', '\\_'], mb_strtolower($search['q'])).'%';
+                            $w->where(fn ($t) => $t->whereRaw('lower(title) like ?', [$term])->orWhereRaw('lower(what_changed) like ?', [$term]));
+                        }
+                    });
                 }
             })->orderByDesc('occurred_on')->orderByDesc('id')->get();
 

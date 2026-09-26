@@ -19,5 +19,5 @@
 <p style="margin:0 0 6px;"><span style="font-family:'Space Mono',monospace;color:#002147;">{{ $d->displayDate() }}</span> · <a href="{{ $d->policyInstrument->url() }}" style="color:#006AAC;">{{ $d->title }}</a> <span style="color:#5D6B7E;">({{ $d->policyInstrument->jurisdiction->name }})</span></p>
 @endforeach
 @endif
-<p style="margin:20px 0 0;font-size:13px;color:#5D6B7E;">Relevance is screening against the profile you saved, not legal advice: open the official source and confirm before acting. You receive this because your Pro account follows these records or saved a matching profile. <a href="{{ $manageUrl }}" style="color:#006AAC;">Manage what you follow</a> · <a href="{{ route('changes.index') }}" style="color:#006AAC;">Full change log</a></p>
+<p style="margin:20px 0 0;font-size:13px;color:#5D6B7E;">Relevance is screening against the profile you saved, not legal advice: open the official source and confirm before acting. You receive this because your Pro account follows these records or saved a matching profile. <a href="{{ $manageUrl }}" style="color:#006AAC;">Manage what you follow</a> · <a href="{{ route('changes.index') }}" style="color:#006AAC;">Full change log</a> · <a href="{{ \Illuminate\Support\Facades\URL::signedRoute('alerts.unsubscribe', ['user' => $user->id]) }}" style="color:#006AAC;">Stop these emails</a></p>
 @endcomponent
