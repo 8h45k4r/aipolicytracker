@@ -9,6 +9,7 @@ use App\Services\PolicyData\PolicyDataValidator;
 use App\Services\PolicyData\SchemaValidator;
 use App\Services\Reviewers\ReviewerRoster;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Yaml\Yaml;
@@ -219,5 +220,24 @@ class ReviewerRosterTest extends TestCase
     public function test_the_roster_is_in_the_sitemap(): void
     {
         $this->get('/sitemap-static.xml')->assertOk()->assertSee(url('/reviewers'), false);
+    }
+    /**
+     * SQLite treats an unknown double-quoted identifier as a string, so a query for a
+     * column that does not exist passes every SQLite test and fails on PostgreSQL. The
+     * reviewer page asked obligations for their reviewer; obligations have none.
+     */
+    public function test_a_reviewer_page_never_asks_a_kind_without_a_reviewer_column(): void
+    {
+        $tables = [];
+        DB::listen(function ($query) use (&$tables) {
+            if (preg_match('/from "([a-z_]+)"/', $query->sql, $m)) {
+                $tables[] = $m[1];
+            }
+        });
+
+        app(ReviewerRoster::class)->verifiedRecords('Bhaskar Bhatt');
+
+        $this->assertNotContains('obligations', $tables);
+        $this->assertContains('policy_instruments', $tables);
     }
 }
