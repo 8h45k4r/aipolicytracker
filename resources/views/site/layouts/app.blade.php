@@ -6,18 +6,20 @@
 --}}
 @php($seo->faqItems() ?: $seo->withFaq(\App\Support\Faq::for(request()->route()?->getName() ?? '')))
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $seo->lang }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $seo->fullTitle() }}</title>
     <meta name="description" content="{{ $seo->description }}">
     <link rel="canonical" href="{{ $seo->canonical }}">
+    @foreach($seo->hreflang as $code => $href)<link rel="alternate" hreflang="{{ $code }}" href="{{ $href }}">
+    @endforeach
     @foreach($seo->alternates as $alt)<link rel="alternate" type="{{ $alt['type'] }}" href="{{ $alt['url'] }}">
     @endforeach<meta name="robots" content="{{ $seo->robots }}">
     <link rel="license" href="{{ config('aipolicytracker.data_license_url') }}">
     <meta property="og:site_name" content="{{ config('aipolicytracker.site_name') }}">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" content="{{ \App\Services\Localization\Translations::LOCALES[$seo->lang]['og'] ?? 'en_US' }}">
     <meta property="og:type" content="{{ $seo->ogType }}">
     <meta property="og:title" content="{{ $seo->title }}">
     <meta property="og:description" content="{{ $seo->description }}">

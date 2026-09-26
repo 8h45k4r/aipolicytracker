@@ -7,6 +7,7 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Services\Hubs\HubCatalog;
+use App\Services\Localization\Translations;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
@@ -66,14 +67,31 @@ class JurisdictionController extends Controller
             ->sortByDesc(fn ($r) => [$r['satisfies'], $r['duties']])->values();
 
         $answer = AnswerBox::jurisdiction($jurisdiction, $policies, $deadlines);
+        // A localised hub: our own summary in the reader's language, the facts as recorded.
+        $locale = (string) request()->attributes->get('locale', '');
+        $translation = $locale !== '' ? Translations::for($locale, 'hub:'.$jurisdiction->slug) : null;
+        abort_if($locale !== '' && ! $translation, 404);
+        $reviewedTranslation = Translations::isReviewed($translation);
+        $englishUrl = $jurisdiction->url();
+        $localUrl = $locale !== '' ? route('hubs.localized', ['locale' => $locale, 'hub' => $jurisdiction->hubSlug()]) : null;
+        if ($translation) {
+            $answer = $translation['answer'] ?? $answer;
+        }
+        $hreflang = [];
+        if ($jurisdiction->hubSlug()) {
+            $hreflang = ['en' => $englishUrl, 'x-default' => $englishUrl];
+            foreach (Translations::availableFor('hub:'.$jurisdiction->slug) as $alt) {
+                $hreflang[Translations::LOCALES[$alt['locale']]['hreflang']] = route('hubs.localized', ['locale' => $alt['locale'], 'hub' => $jurisdiction->hubSlug()]);
+            }
+        }
         $facts = KeyFacts::jurisdiction($jurisdiction, $policies, $deadlines, (int) $obligationCategories->sum('n'));
 
         $seo = Seo::make(
-            PageTitle::jurisdiction($jurisdiction),
+            $translation['title'] ?? PageTitle::jurisdiction($jurisdiction),
             $answer,
-            $jurisdiction->url(),
-            $jurisdiction->isPageIndexable()
-        )->withBreadcrumbs(array_values(array_filter([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], $region ? [$jurisdiction->region, HubCatalog::regionUrl($region)] : null, [$jurisdiction->name, $jurisdiction->url()]])))
+            $reviewedTranslation ? $localUrl : $englishUrl,
+            $jurisdiction->isPageIndexable() && ($translation === null || $reviewedTranslation)
+        )->withLanguage($locale !== '' ? $locale : 'en')->withHreflang($hreflang)->withBreadcrumbs(array_values(array_filter([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], $region ? [$jurisdiction->region, HubCatalog::regionUrl($region)] : null, [$jurisdiction->name, $jurisdiction->url()]])))
             ->withFeed(route('updates.jurisdiction.feed', $jurisdiction->slug))
             ->withModified($lastModified)
             ->withPublished($jurisdiction->created_at)
@@ -95,7 +113,7 @@ class JurisdictionController extends Controller
             ));
         $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl'));
     }
 
     private function firstSentence(?string $text): string

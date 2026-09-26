@@ -8,6 +8,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\Hubs\HubCatalog;
+use App\Services\Localization\Translations;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\PageTitle;
 use App\Support\Seo;
@@ -73,5 +74,15 @@ class HubController extends Controller
             ->withFaq($faq);
 
         return view('site.hubs.region', compact('seo', 'hub', 'regionName', 'members', 'withInstruments', 'withBinding', 'binding', 'duties', 'changes', 'deadlines', 'answer', 'policyIds', 'indexableMembers'));
+    }
+
+    /** /<locale>/ai-regulation-<country>: the same page with our summaries in that language. */
+    public function localized(string $locale, string $hub, PolicyCatalog $catalog, JurisdictionController $jurisdictions): View|RedirectResponse
+    {
+        abort_unless(Translations::isLocale($locale) && HubCatalog::countryFor($hub), 404);
+        request()->attributes->set('locale', $locale);
+        app()->setLocale($locale === 'pt-BR' ? 'pt_BR' : $locale);
+
+        return $this->show($hub, $catalog, $jurisdictions);
     }
 }
