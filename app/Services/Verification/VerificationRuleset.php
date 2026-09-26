@@ -6,6 +6,7 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\Applicability\ApplicabilityScreener;
 
 /**
  * How old a fact may be before it must be checked again, per record type.
@@ -44,7 +45,7 @@ class VerificationRuleset
                 'track' => 'binding',
                 'days' => 180,
                 'critical' => true,
-                'applies' => fn ($record) => $record instanceof PolicyInstrument && $record->is_binding,
+                'applies' => fn ($record) => $record instanceof PolicyInstrument && $record->is_binding && ! in_array($record->status, ApplicabilityScreener::NOT_IN_FORCE, true),
             ],
             [
                 'id' => 'obligations',
@@ -52,6 +53,16 @@ class VerificationRuleset
                 'track' => 'duties',
                 'days' => 180,
                 'critical' => true,
+                'applies' => fn ($record) => $record instanceof Obligation && ! in_array($record->policyInstrument?->status, ApplicabilityScreener::NOT_IN_FORCE, true),
+            ],
+            // A repealed, superseded or archived instrument and its duties are history, not
+            // anyone's compliance position: worth re-reading once a year, never critical.
+            [
+                'id' => 'obligations-historical',
+                'label' => 'Obligations of instruments no longer in force',
+                'track' => 'log',
+                'days' => 365,
+                'critical' => false,
                 'applies' => fn ($record) => $record instanceof Obligation,
             ],
             [
