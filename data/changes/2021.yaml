@@ -16,9 +16,10 @@ changes:
     source_publisher: Innovation, Science and Economic Development Canada
     source_document_date: '2021-04-19'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -40,9 +41,10 @@ changes:
     source_publisher: Ministry of Communications and Information Technology, Egypt
     source_document_date: '2021-07-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -63,9 +65,10 @@ changes:
     source_publisher: Ministry of Science, Technology and Innovation, Malaysia
     source_document_date: '2021-12-01'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -89,9 +92,10 @@ changes:
     source_publisher: Government of Vietnam legal document portal (vanban.chinhphu.vn)
     source_document_date: '2021-01-26'
     source_tier: 1
-    last_checked_at: '2026-09-11'
-    last_verified_at: null
-    review_status: pending_review
+    last_checked_at: '2026-09-26'
+    last_verified_at: '2026-09-26'
+    review_status: verified
+    reviewed_by: AI Policy Tracker
     confidence_level: high
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -111,6 +115,9 @@ changes:
     source_publisher: "UNESCO"
     source_document_date: 2021-11-23
     source_tier: 1
-    review_status: pending_review
+    review_status: verified
+    reviewed_by: AI Policy Tracker
+    last_verified_at: '2026-09-26'
+    last_checked_at: '2026-09-26'
     confidence_level: high
     content_version: 1

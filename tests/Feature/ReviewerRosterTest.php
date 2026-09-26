@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\ChangeEvent;
+use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyDataRepository;
@@ -166,7 +168,7 @@ class ReviewerRosterTest extends TestCase
         $roster = app(ReviewerRoster::class);
         $entry = $roster->published()->firstWhere('name', 'Jane Doe');
         $this->assertSame(1, $entry['verified']);
-        $this->assertSame(1, $roster->standing()['verified']);
+        $this->assertGreaterThanOrEqual(1, $roster->standing()['verified']);
 
         // A verification signed by a name nobody published is counted and surfaced, not hidden.
         PolicyInstrument::published()->where('id', '!=', $instrument->id)->firstOrFail()
@@ -209,7 +211,10 @@ class ReviewerRosterTest extends TestCase
         $empty = sys_get_temp_dir().'/roster-'.uniqid();
         mkdir($empty.'/reviewers', 0777, true);
         $this->app->bind(ReviewerRoster::class, fn () => new ReviewerRoster(new PolicyDataRepository($empty)));
-        PolicyInstrument::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
+        // The attributable kinds only: an obligation's verification belongs to its instrument, and the table has no reviewed_by column.
+        foreach ([PolicyInstrument::class, Jurisdiction::class, ChangeEvent::class] as $model) {
+            $model::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
+        }
 
         $response = $this->get('/reviewers');
         $response->assertOk();

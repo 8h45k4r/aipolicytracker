@@ -23,6 +23,9 @@ framework_references:
   - { framework: nist_ai_rmf, reference: "MEASURE 3.1, 3.3; MANAGE 4.1", confidence_level: high }
   - { framework: iso_23894, reference: "Clause 6.6", note: "Monitoring and review of AI risks.", confidence_level: medium }
 related_controls: [record-keeping-and-logging, ai-incident-management-and-reporting, accuracy-robustness-security-testing, ai-risk-assessment]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

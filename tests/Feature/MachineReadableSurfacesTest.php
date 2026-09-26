@@ -8,6 +8,7 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\Completeness\CompletenessReport;
 use App\Services\MachineReadable\BulkExport;
+use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Verification\VerificationPolicy;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -159,7 +160,7 @@ class MachineReadableSurfacesTest extends TestCase
         $this->assertSame($verification['never'], $health['freshness']['never_verified']);
         $this->assertSame($completeness['required_gaps'], $health['completeness']['required_gaps']);
         $this->assertSame($completeness['records'], $health['records_published']);
-        $this->assertSame(0, $health['review']['verified_by_a_named_reviewer']);
+        $this->assertSame(app(ReviewerRoster::class)->standing()['verified'], $health['review']['verified_by_a_named_reviewer']);
         $this->assertStringContainsString('not legal advice', $health['notice']);
     }
 

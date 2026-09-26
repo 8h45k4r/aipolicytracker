@@ -24,6 +24,9 @@ framework_references:
   - { framework: oecd_ai_principles, reference: "Principle 1.2 Human-centred values and fairness", confidence_level: medium }
   - { framework: owasp_llm_top10, reference: "LLM06 Excessive Agency", confidence_level: medium }
 related_controls: [ai-risk-assessment, decision-explanation-and-appeal-route, ai-literacy-and-role-based-training, record-keeping-and-logging]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

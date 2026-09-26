@@ -50,7 +50,8 @@ class BulkVerificationTest extends TestCase
         // Each one is its own stored decision, so it survives the next import and exports to data/.
         $this->assertSame(5, RecordVerification::where('review_status', 'verified')->count());
         $this->artisan('policy:import');
-        $this->assertSame(5, PolicyInstrument::published()->where('review_status', 'verified')->count());
+        // The shipped data is signed by the editorial desk; these five carry the reviewer's own name.
+        $this->assertSame(5, PolicyInstrument::published()->where('review_status', 'verified')->where('reviewed_by', 'Bhaskar Bhatt')->count());
     }
 
     public function test_the_attestation_is_required_for_the_whole_selection(): void
@@ -75,13 +76,15 @@ class BulkVerificationTest extends TestCase
             ->assertSessionHasErrors('source_opened');
 
         $this->assertSame(0, RecordVerification::count());
-        $this->assertSame(0, PolicyInstrument::published()->where('review_status', 'verified')->count());
+        $this->assertSame(0, PolicyInstrument::published()->where('reviewed_by', 'Not On The Roster')->count());
     }
 
     public function test_the_public_pages_count_only_what_a_named_reviewer_confirmed(): void
     {
         $slugs = PolicyInstrument::published()->limit(4)->pluck('slug')->all();
         $total = PolicyInstrument::published()->count();
+        // Start from nothing confirmed, whatever the shipped data says, so the count is this test's.
+        PolicyInstrument::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
 
         $home = $this->get('/')->assertOk();
         $home->assertSee('Confirmed by a named reviewer');

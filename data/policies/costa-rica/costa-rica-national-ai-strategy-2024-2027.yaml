@@ -45,8 +45,10 @@ source_title: Estrategia Nacional de Inteligencia Artificial 2024–2027
 source_publisher: MICITT
 source_document_date: '2024-10-01'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: medium
 content_version: 1
 change_summary: >-

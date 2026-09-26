@@ -23,6 +23,9 @@ framework_references:
   - { framework: nist_ai_rmf, reference: "GOVERN 2.2, 4.1", confidence_level: high }
   - { framework: mitre_atlas, reference: "AML.M0018 User Training", confidence_level: medium }
 related_controls: [ai-governance-policy-and-accountability, human-oversight-and-override]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

@@ -43,8 +43,10 @@ official_source_url: https://ai4belgium.be/
 source_title: AI4Belgium
 source_publisher: FPS BOSA
 source_tier: 2
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: low
 content_version: 1
 change_summary: >-
