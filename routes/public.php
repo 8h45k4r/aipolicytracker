@@ -15,6 +15,7 @@ use App\Http\Controllers\Site\CorrectionsController;
 use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
 use App\Http\Controllers\Site\DeadlineEngineController;
+use App\Http\Controllers\Site\EmbedController;
 use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FrameworkController;
 use App\Http\Controllers\Site\FreeToolController;
@@ -34,12 +35,14 @@ use App\Http\Controllers\Site\RiskBrowseController;
 use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\SocialCardController;
+use App\Http\Controllers\Site\StateOfController;
 use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\TemplateController;
 use App\Http\Controllers\Site\TransitionController;
 use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
 use App\Services\Hubs\HubCatalog;
+use App\Services\Localization\Translations;
 use App\Support\RiskTaxonomy;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
@@ -134,6 +137,7 @@ Route::get('/coverage', [CoverageController::class, 'show'])->name('coverage');
 Route::get('/gaps', [CoverageController::class, 'gaps'])->name('gaps');
 Route::get('/corrections', [CorrectionsController::class, 'show'])->name('corrections');
 Route::get('/reviewers', [ReviewersController::class, 'show'])->name('reviewers');
+Route::get('/reviewers/{slug}', [ReviewersController::class, 'person'])->where('slug', '[a-z0-9-]+')->name('reviewers.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 // The sign-up form asks readers to accept these and the download gate records the
 // acceptance, so they have to be real pages rather than a configurable link that
@@ -209,6 +213,15 @@ Route::get('/ai-economic-transition/methodology', [TransitionController::class, 
 Route::get('/ai-economic-transition/measures/{measure}', [TransitionController::class, 'show'])->where('measure', '[a-z0-9-]+')->name('transition.show');
 Route::get('/{theme}', [TransitionController::class, 'landing'])->where('theme', implode('|', array_keys(TransitionController::LANDINGS)))->name('transition.landing');
 Route::get('/{hub}', [HubController::class, 'show'])->where('hub', HubCatalog::pattern())->name('hubs.show');
+Route::get('/{locale}/{hub}', [HubController::class, 'localized'])->where(['locale' => Translations::pattern(), 'hub' => HubCatalog::pattern()])->name('hubs.localized');
+// The quarterly report, and the embeddable widgets (the only pages other sites may frame).
+Route::get('/state-of-ai-regulation', [StateOfController::class, 'show'])->name('state-of.show');
+Route::get('/state-of-ai-regulation/{quarter}.csv', [StateOfController::class, 'csv'])->where('quarter', '20[0-9]{2}-Q[1-4]')->name('state-of.csv');
+Route::get('/state-of-ai-regulation/{quarter}', [StateOfController::class, 'show'])->where('quarter', '[A-Za-z0-9-]+')->name('state-of.quarter');
+Route::get('/embed', [EmbedController::class, 'index'])->name('embed.index');
+Route::get('/embed/jurisdiction/{slug}', [EmbedController::class, 'jurisdiction'])->where('slug', '[a-z0-9-]+')->name('embed.jurisdiction');
+Route::get('/embed/deadlines', [EmbedController::class, 'deadlines'])->name('embed.deadlines');
+Route::get('/embed/map', [EmbedController::class, 'map'])->name('embed.map');
 Route::get('/{landing}', [LandingController::class, 'landing'])
     ->where('landing', 'eu-ai-act|ai-regulation-india|ai-policy-nepal|ai-governance-singapore|ai-regulation-australia|ai-regulation-uk|ai-regulation-usa|ai-governance-uae|ai-regulation-south-asia')
     ->name('landing');
