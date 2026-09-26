@@ -32,6 +32,7 @@ class ContributeController extends Controller
         'change' => ['title', 'occurred_on', 'what_changed', 'practical_impact', 'impact_level', 'status_after', 'official_source_url'],
         'control' => ['title', 'kind', 'purpose', 'description', 'owner_role', 'frequency'],
         'incident' => ['title', 'occurred_on', 'description', 'deployers', 'developers', 'harmed', 'mit_domain', 'mit_subdomain', 'entity', 'intent', 'timing', 'harm_level', 'countries'],
+        'transition_measure' => ['title', 'measure_type', 'status', 'summary', 'mechanism', 'funding', 'trigger', 'benefit', 'cost', 'bill_number', 'sponsors', 'introduced_on', 'enacted_on', 'in_force_on', 'official_source_url', 'review_status'],
         'risk' => ['risk_category', 'risk_subcategory', 'description', 'domain', 'subdomain', 'entity', 'intent', 'timing', 'paper_title'],
     ];
 
