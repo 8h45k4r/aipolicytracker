@@ -22,6 +22,7 @@ return [
                         ['route' => 'controls.index', 'label' => 'Controls', 'note' => 'What you operate to meet them, and the evidence'],
                         ['route' => 'compare.index', 'label' => 'Compare jurisdictions', 'note' => 'Two to four side by side'],
                         ['route' => 'calendar', 'label' => 'Deadline calendar', 'note' => 'Dated milestones, with a feed'],
+                        ['route' => 'deadlines.engine', 'label' => 'Which date applies to you?', 'note' => 'Five questions, a personal timeline'],
                         ['route' => 'changes.index', 'label' => 'Change log', 'note' => 'What moved, and what it means'],
                     ],
                 ],
