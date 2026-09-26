@@ -75,6 +75,9 @@ php artisan migrate --force || fail "migrations failed — nothing was swapped, 
 # is still in the database and the site keeps serving it.
 php artisan policy:import   || log "WARNING: policy:import failed; serving previous data"
 php artisan external:import || log "WARNING: external:import failed; serving previous external data"
+# The templates library is generated from the records above; a template whose
+# content did not change is skipped, so this is cheap when nothing moved.
+php artisan templates:build || log "WARNING: templates:build failed; serving previous template versions"
 
 php artisan config:cache || fail "config:cache failed — a config file is probably not serializable"
 php artisan route:cache  || fail "route:cache failed"
