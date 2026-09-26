@@ -10,6 +10,7 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
+            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
             <section aria-labelledby="overview-heading"><h2 id="overview-heading" class="section-title">Overview</h2><p class="prose-policy mt-2">{{ $jurisdiction->overview }}</p></section>
             <section aria-labelledby="status-heading" class="mt-8"><h2 id="status-heading" class="section-title">What is the current regulatory status?</h2><p class="prose-policy mt-2">{{ $jurisdiction->regulatory_status_summary }}</p></section>
             @if($jurisdiction->binding_vs_guidance)<section aria-labelledby="binding-heading" class="mt-8"><h2 id="binding-heading" class="section-title">Binding rules versus guidance</h2><p class="prose-policy mt-2">{{ $jurisdiction->binding_vs_guidance }}</p></section>@endif
@@ -60,7 +61,7 @@
 
             <x-site.source-list :sources="collect($jurisdiction->official_sources ?? [])" title="Official government and regulator sources" class="mt-8" />
             <x-site.cite :title="'AI regulation in '.$jurisdiction->name" :url="$jurisdiction->url()" class="mt-8" />
-            <x-site.faq :items="$jurisdiction->faq ?? []" />
+            <x-site.faq :items="$seo->faqItems()" />
             <x-site.subscribe-form source="jurisdiction" :topic="$jurisdiction->slug" class="mt-10" />
             <x-site.disclaimer class="mt-8" />
         </div>
