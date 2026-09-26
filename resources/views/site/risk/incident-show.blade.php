@@ -55,6 +55,20 @@
                     </div>
                 @endif
             </section>
+            <section aria-labelledby="law-heading" class="mt-8">
+                <h2 id="law-heading" class="section-title">Laws that address this harm</h2>
+                @if($i->policy_angle)<p class="mt-2 text-sm text-brand-body"><span class="font-medium text-brand-navy">Policy angle:</span> {{ $i->policy_angle }}</p>@endif
+                @if($laws->isNotEmpty())
+                <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
+                    @foreach($laws as $p)
+                    <li class="py-3"><a href="{{ $p->url() }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $p->short_title ?: $p->title }}</a> <span class="block meta">{{ $p->jurisdiction->name }} · {{ $p->statusEnum()->label() }} · {{ $p->is_binding ? 'binding' : 'guidance' }}</span></li>
+                    @endforeach
+                </ul>
+                @else
+                <p class="mt-2 text-sm text-brand-muted">No recorded instrument yet addresses this use case where it happened. See the <a href="{{ route('gaps') }}">open queue</a>.</p>
+                @endif
+                <p class="mt-2 text-xs text-brand-muted">Matched from the record's risk domain and country to the instruments recorded here. A reviewer can correct the match in the repository (<code>data/external/incident_overrides.yaml</code>).</p>
+            </section>
             @if($i->reports->isNotEmpty())
             <section aria-labelledby="reports-heading" class="mt-8">
                 <h2 id="reports-heading" class="section-title">News reports ({{ $i->reports->count() }})</h2>

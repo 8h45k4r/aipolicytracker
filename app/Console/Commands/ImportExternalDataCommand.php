@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
 use App\Models\ExternalRisk;
+use App\Services\ExternalData\IncidentEnrichment;
 use App\Services\ExternalData\RecordSlugs;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -105,7 +106,10 @@ class ImportExternalDataCommand extends Command
         });
         // New records get a readable address; existing ones keep theirs.
         $slugged = RecordSlugs::assignIncidents() + RecordSlugs::assignRisks();
-        $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks (%d new addresses).', ExternalIncident::count(), ExternalIncidentReport::count(), ExternalRisk::count(), $slugged));
+        // What this site adds to a record: harm domain, related laws, policy
+        // angle, sensitivity. Fills only what is empty; overrides always win.
+        $enriched = IncidentEnrichment::apply();
+        $this->info(sprintf('External data imported: %d incidents, %d reports, %d risks (%d new addresses, %d enriched).', ExternalIncident::count(), ExternalIncidentReport::count(), ExternalRisk::count(), $slugged, $enriched));
 
         return self::SUCCESS;
     }

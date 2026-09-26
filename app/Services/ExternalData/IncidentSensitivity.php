@@ -42,7 +42,18 @@ final class IncidentSensitivity
      */
     private const MODERATION_ERROR = '/\b(misidentif\w*|mislabel\w*|mistook|mistaken(?:ly)?|erroneous(?:ly)?|wrongful(?:ly)?|flagged|censorship|banned|removal|detect(?:ion|ing)|moderation)\b/iu';
 
+    /** What the record is marked as, or, before it has been marked, what the words say. */
     public static function isSensitive(ExternalIncident $incident): bool
+    {
+        if ($incident->sensitivity !== null) {
+            return $incident->sensitivity === IncidentEnrichment::SENSITIVE;
+        }
+
+        return self::classify($incident);
+    }
+
+    /** The keyword classification alone, before any reviewer override. */
+    public static function classify(ExternalIncident $incident): bool
     {
         $title = (string) $incident->title;
         if (preg_match(self::MODERATION_ERROR, $title)) {

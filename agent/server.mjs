@@ -146,6 +146,22 @@ const TOOLS = [
     run: (args) => get('/api/v1/changes' + query({ jurisdiction: args.jurisdiction, since: args.since, per_page: limit(args.limit) })),
   },
   {
+    name: 'search_incidents',
+    description:
+      'AI incidents mirrored from the AI Incident Database, with what this site adds: the harm domain (MIT AI Risk Repository taxonomy), the recorded laws that address that harm where it happened, and a one-sentence policy angle. Records about sexual imagery carry sensitivity "sensitive" and a neutral title; do not repeat their headlines. Attribution to the AI Incident Database (CC BY-SA 4.0) is a licence condition on reuse.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        domain: { type: 'string', description: 'MIT risk domain number, 1-7.' },
+        country: { type: 'string', description: 'ISO-2 country code as the database records it, e.g. "US".' },
+        from: { type: 'string', description: 'Only incidents on or after this date (YYYY-MM-DD).' },
+        limit: { type: 'integer', description: 'Maximum records to return (1-100, default 20).' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/incidents' + query({ domain: args.domain, country: args.country, from: args.from, per_page: limit(args.limit) })),
+  },
+  {
     name: 'open_gaps',
     description:
       'What the corpus is missing: published records that lack a source link, a summary, a provision reference or another field a checkable record needs. Use it to tell a user where the data is thin before they rely on it.',

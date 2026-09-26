@@ -6,6 +6,7 @@ use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
 use App\Services\ExternalData\AiidApiClient;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentEnrichment;
 use App\Services\ExternalData\RecordSlugs;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -131,6 +132,7 @@ class SyncAiidApiCommand extends Command
                 }
             });
             RecordSlugs::assignIncidents();
+            IncidentEnrichment::apply();
             Cache::forget('risk-narrative-v1');
         }
 
