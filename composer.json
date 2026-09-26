@@ -33,6 +33,8 @@
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "phpoffice/phpspreadsheet": "^5.9",
+        "phpoffice/phpword": "^1.3",
         "resend/resend-php": "^0.15 || ^1.0",
         "symfony/yaml": "^7.1",
         "tightenco/ziggy": "^2.0"
