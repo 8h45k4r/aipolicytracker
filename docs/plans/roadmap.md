@@ -305,23 +305,35 @@ or amounts. Each draft page says exactly that, is noindex, and scores nothing.
 The first reviewer to read the official texts fills them in; the pages,
 landings, charts and index switch on by themselves.
 
-### P10 — Authority and trust (`seo/p10-authority`)
-- `/state-of-ai-regulation`: a quarterly frozen snapshot with methodology, CSV
-  and Dataset JSON-LD. The map comes with an accessible list alternative.
-- Embeddable widgets (<30KB), an `/embed` configurator, and `frame-ancestors`
-  opened only on `/embed/*`.
-- Reviewer pages (Person); "Reviewed by" on verified records.
-- `/newsletter/<date>`: the digest archive. This overlaps P2, so it's built there
-  and linked here.
-- Localisation (id, es, pt-BR): summaries only, with hreflang and x-default, and
-  indexed only once reviewed.
-**Needs you:** reviewers, and translators or reviewers for the three languages.
+### P10 — Authority and trust (`seo/p10-authority`) — done
+`/state-of-ai-regulation`: a quarterly report computed from the records
+(jurisdictions by level of AI law, instruments by type and status, changes
+in the quarter, deadlines next quarter, verification coverage), with a tile
+map grouped by region and the same facts as a table, a methodology section,
+a CSV, Report and Dataset JSON-LD. `report:freeze` (first day of each
+quarter, and on demand) stores a quarter's figures as a snapshot so a past
+report reads the same later; `/state-of-ai-regulation/<quarter>` serves it.
+Embeddable widgets at `/embed/jurisdiction/<slug>`, `/embed/deadlines` and
+`/embed/map`: server-rendered, no script, a followed attribution link,
+`frame-ancestors *` and no `X-Frame-Options` only under `/embed/` (the rest
+of the site stays unframable); `/embed` is the configurator; `public/embed.js`
+(about 1 KB) is optional and only sizes the frame. Reviewer pages at
+`/reviewers/<slug>` with Person schema, declared interests and the records
+each verified; "Reviewed by" on a verified record now links to the reviewer's
+page; Organization schema was already site-wide. Localisation: `data/
+translations/<locale>/*.yaml` (es, id, pt-BR) holds our own summaries only,
+served at `/<locale>/ai-regulation-<country>` with `<html lang>`, hreflang
+both ways and x-default on English; an entry is noindex with the English
+page canonical until `reviewed_by` and `reviewed_on` are set. The newsletter
+archive was delivered in P2.
+**Seeded, unreviewed:** three hubs carry machine-assisted first drafts
+(Japan and Brazil in Spanish, Brazil in Portuguese, Indonesia in Indonesian)
+of the answer-box text only, marked unreviewed, so the mechanism is live and
+nothing translated is indexed until a reviewer signs it.
+**Not done:** the localisation of top *records* (policies) beyond hubs, and
+a true geographic world map: the "map" is a region-grouped tile map, which
+needs no geometry, reads with a screen reader and degrades to a table.
 
-### Final QA
-Full crawl (`seo:audit` plus link, redirect-chain and orphan checks), Lighthouse
-on 10 URLs, OpenAPI validation, contract tests, and a check that MCP, llms.txt and
-the exports all carry every new entity. The results and your manual steps go in
-`docs/launch/<date>.md`.
 
 ## 5. What needs you, collected
 

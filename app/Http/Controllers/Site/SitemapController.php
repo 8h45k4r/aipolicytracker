@@ -18,6 +18,8 @@ use App\Models\TransitionMeasure;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Hubs\HubCatalog;
 use App\Services\PolicyData\FrameworkCrosswalk;
+use App\Services\Report\StateOfAiRegulation;
+use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\RiskTaxonomy;
 use Illuminate\Http\Response;
@@ -186,6 +188,14 @@ class SitemapController extends Controller
         $pages[] = [route('frameworks.index'), 'weekly', '0.8'];
         $pages[] = [route('frameworks.compare'), 'weekly', '0.7'];
         $pages[] = [route('transition.index'), 'weekly', '0.8'];
+        $pages[] = [route('state-of.show'), 'weekly', '0.8'];
+        foreach (StateOfAiRegulation::frozenQuarters() as $q) {
+            $pages[] = [route('state-of.quarter', $q), 'yearly', '0.5'];
+        }
+        $pages[] = [route('embed.index'), 'monthly', '0.4'];
+        foreach (app(ReviewerRoster::class)->published() as $r) {
+            $pages[] = [route('reviewers.show', $r['slug']), 'monthly', '0.4'];
+        }
         $pages[] = [route('transition.methodology'), 'monthly', '0.5'];
         foreach (TransitionController::LANDINGS as $landing => $meta) {
             if (TransitionMeasure::whereNotNull('published_at')->where('measure_type', $meta['type'])->where('review_status', 'verified')->count() >= TransitionController::MIN_INDEXABLE_LANDING) {

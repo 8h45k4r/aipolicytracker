@@ -34,6 +34,10 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Applicability check (educational), with an obligations register export as XLSX, CSV, JSON or PDF (state in the URL; API: {{ route('api.v1.applicability.register') }}): {{ route('tools.applicability') }}
 - Which date applies to you (five questions, a personal timeline from recorded deadlines with the reason each applies, .ics and PDF; API POST /api/v1/deadlines/applicable): {{ route('deadlines.engine') }}
 - AI economic transition tracker (dividends, basic income, AI taxes, funds, layoff disclosure, retraining, worker voice; drafts are labelled and never scored; displacement policy index with published method): {{ route('transition.index') }} (index method: {{ route('transition.methodology') }}; API: {{ route('api.v1.transition.measures') }})
+- State of AI regulation (quarterly report computed from the records: jurisdictions by level of AI law, instruments, changes, deadlines, verification; past quarters frozen; CSV): {{ route('state-of.show') }}
+- Embeddable widgets (jurisdiction card, deadlines, map; framable only under /embed): {{ route('embed.index') }}
+- Reviewers, each with a profile page, declared interests and the records they verified: {{ route('reviewers') }}
+- Localised hubs (es, id, pt-BR) for selected countries: our summaries translated, the legal text and facts as recorded; unreviewed translations are noindex.
 - Methodology: {{ route('methodology') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
 - Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
