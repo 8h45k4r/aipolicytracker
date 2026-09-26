@@ -460,4 +460,22 @@ final class PageTitle
 
         return mb_strlen($first) <= 22 ? $first : null;
     }
+
+    /** "AI Governance Templates: Free XLSX & DOCX Built from Law" */
+    public static function templatesHub(): string
+    {
+        return self::fit('AI Governance Templates', [': Free XLSX & DOCX Built from Law', ': Free XLSX & DOCX', ': Free Downloads']);
+    }
+
+    /** "<Template title> (XLSX & DOCX): Free, Versioned Template" */
+    public static function template(array $meta): string
+    {
+        $formats = implode(' & ', array_map('strtoupper', $meta['formats'] ?? []));
+        $name = self::clean($meta['title']);
+        $type = ucfirst(config('templates.types')[$meta['type']] ?? 'Template');
+        // The catalogue title may already name the type ("... Register"); do not say it twice.
+        $tail = str_ends_with(mb_strtolower($name), mb_strtolower($type)) ? '' : ' '.$type;
+
+        return self::fit($name, [' ('.$formats.'): Free'.$tail.', Generated from Law', ' ('.$formats.'): Free'.$tail, ': Free '.$formats.$tail, ': Free'.$tail], self::MAX);
+    }
 }
