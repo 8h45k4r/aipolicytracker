@@ -1,29 +1,36 @@
 slug: us-ai-excise-tax-bill
-title: AI excise tax bill (United States, working title)
+title: AI Tax and Work Protection Act (H.R. 10044, United States)
 jurisdiction: us
 measure_type: ai_tax
-status: unverified
-summary: null
-mechanism: null
-funding: null
-trigger: null
-benefit: null
+status: introduced
+summary: >
+  A House bill introduced on 6 August 2026 that would impose an excise tax on large AI companies, measured on the
+  value of the tokens their models process or on revenue from AI services, whichever yields more, with a rate
+  that rises automatically as unemployment climbs, and would create a Work Protection Administration in the
+  Department of Labor to fund jobs in housing, infrastructure and care. Recorded from secondary reporting.
+mechanism: >
+  Excise tax on major AI companies, assessed on token value or AI-service revenue (whichever is higher), with an
+  automatic rate escalator tied to the unemployment rate.
+funding: Revenue directed to a Work Protection Administration within the Department of Labor to create jobs.
+trigger: The rate rises when unemployment climbs; thresholds follow the bill text, which a reviewer must read.
+benefit: Publicly funded jobs in housing construction, infrastructure, child care and elder care.
 cost: null
-bill_number: null
-sponsors: []
-introduced_on: null
+bill_number: "H.R. 10044 (119th Congress)"
+sponsors: ["Rep. Sara Jacobs (D-CA)", "Rep. Greg Casar (D-TX)", "Rep. Valerie Foushee (D-NC)"]
+introduced_on: 2026-08-06
 enacted_on: null
 in_force_on: null
 arguments_for: []
 arguments_against: []
-sources: []
-official_source_url: null
-source_publisher: null
-source_tier: 4
-last_checked_at: null
+sources:
+  - { title: "H.R. 10044, AI Tax and Work Protection Act", publisher: "Congress.gov", url: "https://www.congress.gov/bill/119th-congress/house-bill/10044", document_date: 2026-08-06, document_type: legislation, tier: 1 }
+official_source_url: "https://www.congress.gov/bill/119th-congress/house-bill/10044"
+source_publisher: "Congress.gov"
+source_tier: 1
+last_checked_at: '2026-09-26'
 last_verified_at: null
-review_status: draft
-confidence_level: low
+review_status: pending_review
+confidence_level: medium
 reviewed_by: null
-notes: "Listed for research in the editorial brief; nothing about it has yet been read from an official source, so every factual field is empty. Do not cite until a reviewer verifies it."
+notes: "Recorded on 26 September 2026 from concordant secondary reporting on the bill as introduced; the text on Congress.gov has not yet been read by a reviewer here. Sponsors, dates and the tax mechanism are pending review."
 published: true

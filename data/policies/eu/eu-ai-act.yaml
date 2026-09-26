@@ -5,9 +5,12 @@ short_title: EU AI Act
 instrument_type: regulation
 status: partially_applicable
 status_note: >
-  Dates below follow Article 113 of the adopted text. The European Commission proposed a "Digital Omnibus"
-  package in November 2025 that would adjust the application dates for some high-risk obligations; a reviewer
-  must confirm whether that proposal has been adopted and update the deadlines accordingly.
+  Dates below follow Article 113 as amended by Regulation (EU) 2026/1744 (the "Digital Omnibus on AI"), published
+  in the Official Journal on 24 July 2026 and in force from 27 July 2026: the Chapter III high-risk obligations
+  now apply from 2 December 2027 for stand-alone Annex III systems and from 2 August 2028 for AI embedded in
+  Annex I products, while general application and the Article 50 transparency duties kept 2 August 2026. Recorded
+  on 26 September 2026 from concordant secondary reporting; the amending regulation itself has not yet been read
+  against the Official Journal by a reviewer here, so these dates are pending review.
 is_binding: true
 featured: true
 published: true
@@ -17,7 +20,7 @@ summary_plain: >
   in the European Union. It bans a small set of practices considered unacceptable, imposes detailed requirements
   on "high-risk" AI systems used in areas such as employment, education, credit, essential services, law
   enforcement and safety-critical products, requires transparency for chatbots and synthetic content, and creates
-  separate duties for providers of general-purpose AI models. Obligations apply in phases between 2025 and 2027.
+  separate duties for providers of general-purpose AI models. Obligations apply in phases between 2025 and 2028.
 scope_summary: >
   Applies to providers placing AI systems or general-purpose AI models on the EU market or putting them into service,
   to deployers established in the EU, and to providers and deployers in third countries where the system's output is
@@ -31,9 +34,10 @@ who_it_applies_to: >
   fundamental-rights impact assessments.
 key_dates_summary: >
   Entry into force 1 August 2024. Prohibitions and AI literacy from 2 February 2025. General-purpose AI model
-  duties, governance and penalties from 2 August 2025. General application, including Annex III high-risk
-  systems and Article 50 transparency, from 2 August 2026. High-risk AI that is a safety component of Annex I
-  products from 2 August 2027. Adjustments proposed in the 2025 Digital Omnibus are not reflected until verified.
+  duties, governance and penalties from 2 August 2025. General application and Article 50 transparency from
+  2 August 2026. Two further Article 5 prohibitions from 2 December 2026. High-risk obligations for stand-alone
+  Annex III systems from 2 December 2027 and for AI embedded in Annex I products from 2 August 2028, as amended by
+  Regulation (EU) 2026/1744 (pending review against the Official Journal).
 penalties_summary: >
   Article 99 sets administrative fines of up to EUR 35 million or 7 % of worldwide annual turnover for prohibited
   practices, up to EUR 15 million or 3 % for most other obligations, and up to EUR 7.5 million or 1 % for supplying
@@ -52,12 +56,11 @@ published_on: 2024-07-12
 in_force_on: 2024-08-01
 applies_from: 2026-08-02
 date_notes: >
-  "applies_from" shows the general application date in Article 113 of the adopted text. Earlier and later dates
-  apply to specific chapters; see the deadlines table. NOT CURRENT: secondary reporting indicates that Article 113
-  was amended during 2026 and that the high-risk application dates moved, which would make the 2026-08-02 and
-  2027-08-02 entries below wrong. The amending act has not been read against the Official Journal by a reviewer
-  here, so no date has been changed: this record is marked needs_update and its confidence lowered rather than
-  restated from second-hand sources. Open the official source before relying on any date on this page.
+  "applies_from" shows the general application date in Article 113, which Regulation (EU) 2026/1744 left at
+  2 August 2026. The high-risk dates in the deadlines table and on the Chapter III obligations follow that amending
+  regulation (2 December 2027 for Annex III, 2 August 2028 for Annex I). They were recorded on 26 September 2026
+  from concordant secondary reporting, not from the Official Journal text, which is why the record is pending
+  review at medium confidence. Open the official source before relying on any date on this page.
 actors: [provider, deployer, importer, distributor, authorized_representative, public_authority, gpai_provider]
 ai_system_types: [general_purpose_ai_model, generative_ai, automated_decision_system, biometric_system, safety_component, conversational_agent, predictive_scoring]
 sectors: [cross_sector, employment, financial_services, healthcare, education, public_services, law_enforcement, critical_infrastructure, migration_border]
@@ -66,6 +69,11 @@ use_cases: [hiring_and_hr, biometrics, health, finance_and_credit, education, pu
 related_policies: [uk-ai-regulation-white-paper, us-nist-ai-rmf, singapore-model-ai-governance-framework, india-dpdp-act]
 related_frameworks: [iso_42001, nist_ai_rmf]
 versions:
+  - version_label: "As amended by Regulation (EU) 2026/1744, the Digital Omnibus on AI (OJ L, 24 July 2026)"
+    version_date: 2026-07-24
+    summary: Amends Article 113 application dates for high-risk obligations and adds two Article 5 prohibitions; in force 27 July 2026. Pending review against the Official Journal text.
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2026/1744/oj"
+    source_reference: "OJ L, 2026/1744"
   - version_label: "Adopted text (OJ L, 12 July 2024)"
     version_date: 2024-07-12
     summary: Final text as published in the Official Journal.
@@ -158,7 +166,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 9"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services, safety_critical]
@@ -190,7 +198,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 10"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, health, biometrics]
@@ -221,7 +229,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 11 and Annex IV"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, safety_critical]
@@ -251,7 +259,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 12; Article 26(6) for deployers"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer]
     sectors: [cross_sector]
     use_cases: [biometrics, finance_and_credit, public_services]
@@ -279,7 +287,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 13"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, education]
@@ -308,7 +316,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 14; Article 26(2) for deployers"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, public_services, biometrics]
@@ -338,7 +346,7 @@ obligations:
     section: "Articles 8–15"
     source_reference: "Article 15"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, finance_and_credit, biometrics]
@@ -371,7 +379,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 17"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, hiring_and_hr, finance_and_credit]
@@ -402,7 +410,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Articles 43, 47, 48 and 49; Annex VIII"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer, public_authority]
     sectors: [cross_sector]
     use_cases: [biometrics, safety_critical, public_services]
@@ -432,7 +440,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, public_services]
     use_cases: [hiring_and_hr, public_services, finance_and_credit]
@@ -464,7 +472,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 27"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [public_services, financial_services]
     use_cases: [public_services, finance_and_credit]
@@ -587,7 +595,7 @@ obligations:
     section: "Article 72"
     source_reference: "Article 72"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, finance_and_credit, hiring_and_hr]
@@ -617,7 +625,7 @@ obligations:
     section: "Article 73"
     source_reference: "Article 73"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, deployer]
     sectors: [cross_sector]
     use_cases: [safety_critical, health, biometrics]
@@ -648,7 +656,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Articles 23 and 24"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [importer, distributor]
     sectors: [cross_sector]
     use_cases: [safety_critical]
@@ -678,7 +686,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 16"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, biometrics, safety_critical]
@@ -712,7 +720,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 18"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector, financial_services]
     use_cases: [safety_critical, finance_and_credit]
@@ -746,7 +754,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 19"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector, financial_services]
     use_cases: [biometrics, finance_and_credit, safety_critical]
@@ -779,7 +787,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 20"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, hiring_and_hr, finance_and_credit]
@@ -815,7 +823,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 21"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [safety_critical, biometrics, public_services]
@@ -850,7 +858,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 22"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, authorized_representative]
     sectors: [cross_sector]
     use_cases: [safety_critical, hiring_and_hr, biometrics]
@@ -885,7 +893,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 25(1) and 25(2)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, distributor, importer, provider]
     sectors: [cross_sector]
     use_cases: [hiring_and_hr, finance_and_credit, safety_critical]
@@ -921,7 +929,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 25(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector]
     use_cases: [generative_ai, safety_critical, finance_and_credit]
@@ -956,7 +964,7 @@ obligations:
     section: "Articles 6–7"
     source_reference: "Article 6(4); Article 49(2)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
@@ -991,7 +999,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, public_services]
@@ -1024,7 +1032,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(5)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, public_services, safety_critical]
@@ -1060,7 +1068,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(7)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [employment, cross_sector]
     use_cases: [hiring_and_hr]
@@ -1094,7 +1102,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(8); Article 49(3) and 49(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [public_authority, deployer]
     sectors: [public_services, law_enforcement, migration_border]
     use_cases: [public_services, law_enforcement, biometrics]
@@ -1128,7 +1136,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(9)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, biometrics, public_services]
@@ -1161,7 +1169,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(10)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [law_enforcement]
     use_cases: [law_enforcement, biometrics]
@@ -1198,7 +1206,7 @@ obligations:
     section: "Articles 16–27"
     source_reference: "Article 26(11)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
@@ -1231,7 +1239,7 @@ obligations:
     section: "Article 50"
     source_reference: "Article 50(2)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [provider, gpai_provider]
     sectors: [media_information, cross_sector, consumer_retail]
     use_cases: [generative_ai, content_moderation]
@@ -1266,7 +1274,7 @@ obligations:
     section: "Article 50"
     source_reference: "Article 50(3)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, consumer_retail, healthcare]
     use_cases: [biometrics, customer_service, health]
@@ -1302,7 +1310,7 @@ obligations:
     section: "Article 50"
     source_reference: "Article 50(4)"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [media_information, cross_sector]
     use_cases: [generative_ai, content_moderation]
@@ -1513,7 +1521,7 @@ obligations:
     section: "Chapter IX — Remedies"
     source_reference: "Article 86"
     is_binding: true
-    applies_from: 2026-08-02
+    applies_from: 2027-12-02
     actors: [deployer, public_authority]
     sectors: [cross_sector, employment, financial_services, education, public_services]
     use_cases: [hiring_and_hr, finance_and_credit, education, public_services]
@@ -1546,8 +1554,10 @@ deadlines:
   - { title: Entry into force, due_on: 2024-08-01, date_precision: exact, description: "Twentieth day after publication in the Official Journal.", source_reference: "Article 113", deadline_status: passed, confidence_level: high }
   - { title: "Prohibited practices and AI literacy apply (Chapters I and II)", due_on: 2025-02-02, date_precision: exact, description: "Article 5 bans and Article 4 literacy duties apply.", source_reference: "Article 113(a)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-prohibited-practices }
   - { title: "General-purpose AI, governance, notified bodies and penalties apply", due_on: 2025-08-02, date_precision: exact, description: "Chapter V (GPAI models), Chapter III Section 4, Chapter VII, Chapter XII (except Article 101) and Article 78 apply.", source_reference: "Article 113(b)", deadline_status: passed, confidence_level: high, obligation: eu-ai-act-gpai-provider-obligations }
-  - { title: "General application, including Annex III high-risk systems and Article 50 transparency", due_on: 2026-08-02, date_precision: exact, description: "Default application date for the remainder of the Regulation, as set in the adopted text. Secondary reporting indicates Article 113 was amended during 2026 and that this date moved for Annex III high-risk systems; unconfirmed against the Official Journal, so the adopted-text date is shown with low confidence rather than replaced. Check the official source.", source_reference: "Article 113", deadline_status: scheduled, confidence_level: low, obligation: eu-ai-act-risk-management-system }
-  - { title: "High-risk AI as safety components of Annex I products", due_on: 2027-08-02, date_precision: exact, description: "Article 6(1) obligations for AI in products covered by Annex I harmonisation legislation. Secondary reporting indicates this date moved under a 2026 amendment to Article 113; unconfirmed against the Official Journal, so the adopted-text date is shown with low confidence rather than replaced. Check the official source.", source_reference: "Article 113(c)", deadline_status: scheduled, confidence_level: low }
+  - { title: "General application and Article 50 transparency duties", due_on: 2026-08-02, date_precision: exact, description: "Default application date for the remainder of the Regulation. Regulation (EU) 2026/1744 did not move this date or the Article 50 transparency duties, according to secondary reporting; confirm against the Official Journal.", source_reference: "Article 113, as amended by Regulation (EU) 2026/1744", deadline_status: passed, confidence_level: medium }
+  - { title: "Two further Article 5 prohibitions apply (non-consensual intimate imagery and child sexual abuse material generation)", due_on: 2026-12-02, date_precision: exact, description: "Added by Regulation (EU) 2026/1744. Recorded from secondary reporting; confirm the exact wording and date against the Official Journal.", source_reference: "Regulation (EU) 2026/1744 amending Articles 5 and 113", deadline_status: scheduled, confidence_level: medium }
+  - { title: "High-risk obligations apply to stand-alone Annex III systems (Chapter III, Sections 1 to 3)", due_on: 2027-12-02, date_precision: exact, description: "Deferred from 2 August 2026 by Regulation (EU) 2026/1744. Recorded from secondary reporting; confirm against the Official Journal.", source_reference: "Article 113 as amended by Regulation (EU) 2026/1744", deadline_status: scheduled, confidence_level: medium, obligation: eu-ai-act-risk-management-system }
+  - { title: "High-risk obligations apply to AI embedded in Annex I products", due_on: 2028-08-02, date_precision: exact, description: "Article 6(1) obligations for AI in products covered by Annex I harmonisation legislation, deferred from 2 August 2027 by Regulation (EU) 2026/1744. Recorded from secondary reporting; confirm against the Official Journal.", source_reference: "Article 113(c) as amended by Regulation (EU) 2026/1744", deadline_status: scheduled, confidence_level: medium }
   - { title: "General-purpose models placed on the market before 2 August 2025 must comply", due_on: 2027-08-02, date_precision: exact, description: "Transitional period for models already on the market.", source_reference: "Article 111(3)", deadline_status: scheduled, confidence_level: medium }
   - { title: "Large-scale IT systems listed in Annex X placed on the market before 2 August 2027", due_on: 2030-12-31, date_precision: exact, description: "Transitional period for certain EU large-scale IT systems in the area of freedom, security and justice.", source_reference: "Article 111(1)", deadline_status: scheduled, confidence_level: medium }
 procurement_rules:
@@ -1597,10 +1607,10 @@ source_publisher: "Official Journal of the European Union"
 source_document_date: 2024-07-12
 source_reference: "OJ L, 2024/1689, 12.7.2024"
 source_tier: 1
-last_checked_at: null
+last_checked_at: '2026-09-26'
 last_verified_at: null
-review_status: needs_update
-confidence_level: low
-content_version: 1
-change_summary: Initial structured record from the adopted text; Digital Omnibus adjustments not yet reflected.
+review_status: pending_review
+confidence_level: medium
+content_version: 2
+change_summary: Application dates updated for Regulation (EU) 2026/1744 (Digital Omnibus on AI) from secondary reporting; Annex III high-risk duties to 2 December 2027, Annex I to 2 August 2028, two new prohibitions from 2 December 2026. Pending review against the Official Journal.
 reviewed_by: null
