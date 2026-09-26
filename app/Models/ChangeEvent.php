@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ImpactLevel;
 use App\Enums\PolicyStatus;
 use App\Models\Concerns\HasSourceQuality;
+use App\Services\Changes\Significance;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
@@ -19,6 +20,7 @@ class ChangeEvent extends Model
     {
         return [
             'occurred_on' => 'date',
+            'first_published_at' => 'datetime',
             'source_document_date' => 'date',
             'last_checked_at' => 'datetime',
             'last_verified_at' => 'datetime',
@@ -26,9 +28,27 @@ class ChangeEvent extends Model
         ];
     }
 
+    /**
+     * When this entry first appeared on the site. Set once, here, and never by
+     * the importer (which rewrites published_at on every run), so a news feed
+     * can say when a story was published rather than when the data was loaded.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (self $change) {
+            $change->first_published_at ??= now();
+        });
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /** How much this change matters, 0–100, by the published rule (Significance). */
+    public function significance(): int
+    {
+        return Significance::forChange($this);
     }
 
     /** The permanent address of this change: what a feed, a digest and a citation point at. */
@@ -88,6 +108,21 @@ class ChangeEvent extends Model
             ->sortDesc()
             ->values()
             ->all();
+    }
+
+    /**
+     * "YYYY-MM" => ['count' => n, 'modified' => latest updated_at], newest first,
+     * for the month archive. Computed in PHP for the same reason as the years.
+     *
+     * @return Collection<string, array{count:int, modified:mixed}>
+     */
+    public static function publishedMonths(): Collection
+    {
+        return static::published()
+            ->get(['occurred_on', 'updated_at'])
+            ->groupBy(fn ($e) => substr((string) $e->occurred_on, 0, 7))
+            ->map(fn ($group) => ['count' => $group->count(), 'modified' => $group->max('updated_at')])
+            ->sortKeysDesc();
     }
 
     /**

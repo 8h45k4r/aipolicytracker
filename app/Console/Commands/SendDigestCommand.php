@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\WeeklyDigestMail;
 use App\Models\ChangeEvent;
 use App\Models\Deadline;
+use App\Models\DigestIssue;
 use App\Models\ExternalIncident;
 use App\Models\Subscriber;
 use Illuminate\Console\Command;
@@ -52,6 +53,19 @@ class SendDigestCommand extends Command
                 $sent++;
             }
         });
+        // The issue as sent, kept for the archive at /newsletter. Recorded even
+        // when nobody was mailed this week: the issue is what was published, and
+        // the archive should not have holes where the list was small.
+        if (! $this->option('dry-run') && ($changes->isNotEmpty() || $deadlines->isNotEmpty())) {
+            DigestIssue::forDay(now()->toDateString())->fill([
+                'period_start' => $since->toDateString(),
+                'period_end' => now()->toDateString(),
+                'change_ids' => $changes->pluck('id')->all(),
+                'deadline_ids' => $deadlines->pluck('id')->all(),
+                'incident_count' => $incidentCount,
+                'recipients' => $sent,
+            ])->save();
+        }
         $this->info("Digest: {$sent} sent, {$skipped} skipped, {$changes->count()} changes in window ({$period}).");
 
         return self::SUCCESS;

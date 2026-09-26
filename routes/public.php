@@ -21,6 +21,7 @@ use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
 use App\Http\Controllers\Site\LegalController;
 use App\Http\Controllers\Site\MachineReadableController;
+use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\Site\RiskController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\SocialCardController;
 use App\Http\Controllers\Site\SubscribeController;
+use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
 use App\Support\RiskTaxonomy;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
@@ -71,6 +73,17 @@ Route::get('/frameworks', [FrameworkController::class, 'index'])->name('framewor
 Route::get('/frameworks/compare', [FrameworkController::class, 'compare'])->name('frameworks.compare');
 Route::get('/frameworks/{framework}', [FrameworkController::class, 'show'])->where('framework', '[a-z0-9-]+')->name('frameworks.show');
 Route::get('/frameworks/{framework}/{jurisdiction}', [FrameworkController::class, 'crosswalk'])->where(['framework' => '[a-z0-9-]+', 'jurisdiction' => '[a-z0-9-]+'])->name('frameworks.crosswalk');
+
+// The updates hub: the change log arranged the way people search for it.
+// Month and day archives are dates, so a jurisdiction slug (which never starts
+// with a digit) cannot collide with them.
+Route::get('/updates', [UpdatesController::class, 'index'])->name('updates.index');
+Route::get('/updates/{month}', [UpdatesController::class, 'month'])->where('month', '20[0-9]{2}-(0[1-9]|1[0-2])')->name('updates.month');
+Route::get('/updates/{day}', [UpdatesController::class, 'day'])->where('day', '20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])')->name('updates.day');
+Route::get('/updates/{jurisdiction}/feed', [UpdatesController::class, 'jurisdictionFeed'])->where('jurisdiction', '[a-z][a-z0-9-]*')->name('updates.jurisdiction.feed');
+Route::get('/updates/{jurisdiction}', [UpdatesController::class, 'jurisdiction'])->where('jurisdiction', '[a-z][a-z0-9-]*')->name('updates.jurisdiction');
+Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+Route::get('/newsletter/{issue}', [NewsletterController::class, 'show'])->where('issue', '20[0-9]{2}-[0-9]{2}-[0-9]{2}')->name('newsletter.show');
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
@@ -170,7 +183,9 @@ Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
     ->name('social.card');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|resources|incidents|risks')->name('sitemap.section');
+Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|updates|resources|incidents|risks')->name('sitemap.section');
+// Google News: entries first published in the last two days, in the news namespace.
+Route::get('/sitemap-news.xml', [SitemapController::class, 'news'])->name('sitemap.news');
 Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
 Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->middleware('throttle:30,1')->name('llms.full');
 Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');

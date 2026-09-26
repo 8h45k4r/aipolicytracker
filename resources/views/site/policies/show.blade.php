@@ -128,6 +128,7 @@
                     @foreach($policy->changeEvents as $c)<li><time class="font-mono" datetime="{{ $c->occurred_on->toDateString() }}">{{ $c->occurred_on->format('j M Y') }}</time> — <a href="{{ $c->url() }}" class="text-brand-navy hover:underline">{{ $c->title }}</a></li>@endforeach
                     @foreach($policy->versions as $v)<li><span class="font-mono">{{ $v->version_date?->format('j M Y') ?? '—' }}</span> — {{ $v->version_label }}@if($v->official_source_url) (<a href="{{ $v->official_source_url }}" rel="noopener" class="text-brand-blue">source</a>)@endif</li>@endforeach
                 </ul>
+                @if($policy->changeEvents->isNotEmpty())<p class="mt-2 text-xs text-brand-muted"><a href="{{ route('updates.jurisdiction', $policy->jurisdiction->slug) }}" class="hover:text-brand-navy">All updates for {{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $policy->jurisdiction->slug) }}" class="hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="hover:text-brand-navy">Updates hub</a></p>@endif
                 <p class="mt-2 text-xs text-brand-muted">Record version {{ $policy->content_version }}@if($policy->change_summary): {{ $policy->change_summary }}@endif. Full edit history is in the <a href="{{ config('aipolicytracker.github_url') }}" rel="noopener">GitHub repository</a>.</p>
             </section>
             @endif
