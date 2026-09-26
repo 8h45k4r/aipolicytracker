@@ -39,11 +39,21 @@ class SeoAuditCommand extends Command
         $limit = (int) $this->option('limit');
 
         $pages = [];
+        // A page can sit in two sitemaps (a change published this week is in the change
+        // log and in the news sitemap); it is one page, inspected once, under the first
+        // section that lists it, or the second listing reads as a duplicate title.
+        $seen = [];
         foreach ($sections as $section => $sitemapPath) {
             if ($only !== [] && ! in_array($section, $only, true)) {
                 continue;
             }
-            $urls = $this->locs($this->fetch($kernel, $sitemapPath)['body']);
+            $urls = array_values(array_filter($this->locs($this->fetch($kernel, $sitemapPath)['body']), function (string $url) use (&$seen) {
+                if (isset($seen[$url])) {
+                    return false;
+                }
+
+                return $seen[$url] = true;
+            }));
             if ($limit > 0) {
                 $urls = array_slice($urls, 0, $limit);
             }
