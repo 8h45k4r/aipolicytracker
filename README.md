@@ -20,7 +20,8 @@ Live site: [aipolicytracker.org](https://aipolicytracker.org) · Open data: [/op
 | Follow dated, source-linked changes (RSS and weekly email) | [/changes](https://aipolicytracker.org/changes) |
 | Explore recorded AI incidents and the MIT AI Risk Repository, with profiles, charts and exports | [/ai-risk](https://aipolicytracker.org/ai-risk) |
 | Screen whether a rule applies to you (educational, not advice) | [/tools/applicability-check](https://aipolicytracker.org/tools/applicability-check) |
-| Read practical guides and download free templates, checklists and registers | [/guides](https://aipolicytracker.org/guides) |
+| Download AI governance templates generated from the records (inventory, risk register, FRIA, policies, incident playbook, EU AI Act and ISO/IEC 42001 kits), versioned when the law changes, no account needed | [/templates](https://aipolicytracker.org/templates) |
+| Read practical guides by role, sector and framework | [/guides](https://aipolicytracker.org/guides) |
 | Reuse the dataset (CC BY 4.0) through JSON, CSV, an OpenAPI description and `llms.txt` | [/open-data](https://aipolicytracker.org/open-data) |
 | Read the corpus as structured data: every page publishes schema.org JSON-LD, and a binding instrument states whether it is actually in force | any page's `<head>`, [docs](docs/reference/machine-readable-surfaces.md) |
 | Report a correction with the record and field prefilled | "Report a correction" on any record |
@@ -43,11 +44,9 @@ data/
 
 Every record carries an official source URL, publisher, document date, source tier, `last_checked_at`, `last_verified_at`, review status, confidence level and a content version. `policy:validate` checks schema and cross-references in CI; `policy:import` rebuilds the database from these files on every deploy. External datasets (AI Incident Database, MIT AI Risk Repository) are refreshed weekly through a pull request. See `data/README.md`, `/methodology` and `docs/modules/`.
 
-## Free tools
+## Templates library
 
-![Free tools flow](docs/diagrams/free-tools-flow.svg)
-
-Guides are free to read. Templates, checklists and registers can be previewed field by field; downloading needs a free account and an explicit licence acceptance, and files are delivered through short-lived personal links. See `docs/modules/guides-and-downloads.md`.
+Every template is generated from the read model (obligations, controls, deadlines, framework mappings, the MIT AI Risk Repository taxonomy) by `php artisan templates:build`, which runs daily and on every deploy. Nothing in a file is written by hand: `config/templates.php` says what each template is and which duties it covers; `App\Services\Templates` turns the records into sheets and pages. Each XLSX has a README sheet (version, dataset hash, date, disclaimer, CC BY 4.0), dropdowns, formulas, conditional formatting and frozen headers; each DOCX has heading styles, marked placeholders and citations that link to the records. A template whose content changed gets the next version, a changelog, a change event and a line in the weekly digest for subscribers of the `templates` topic. Downloads are free and need no account. Guides remain free to read at `/guides`.
 
 ## Plans
 

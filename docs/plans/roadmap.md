@@ -132,7 +132,7 @@ what needs you.
 - Tests: no title matches the identifier pattern; every title is ≤60. This runs over
   every record in the corpus through the generator, plus HTTP tests per page type.
 
-### P2 — AI policy updates hub (`seo/p2-updates`)
+### P2 — AI policy updates hub (`seo/p2-updates`) — done
 `/updates`, `/updates/<yyyy-mm>`, `/updates/<yyyy-mm-dd>` (only with items),
 `/updates/<jurisdiction>`. The answer box is computed from counts, and the page
 shows a "Last updated" time and filters. A significance score (a pure function,
@@ -144,7 +144,7 @@ each other rather than duplicating. A month or jurisdiction page below the
 content threshold is noindexed.
 **Needs you:** changes logged weekly (see finding 5), and Google Publisher Center.
 
-### P3 — Answer-first record pages (`seo/p3-answers`)
+### P3 — Answer-first record pages (`seo/p3-answers`) — done
 The answer box (40–60 words, composed only from structured fields) goes on
 policy, obligation and jurisdiction pages, with a key-facts table and a FAQ from
 a question bank. A question renders only when its answer is non-null. A "Cite
@@ -152,7 +152,7 @@ this record" box is added. JSON-LD uses Legislation, Article, Dataset, and Perso
 (for verified records only). The answer box also leads in the `.md` files and
 `llms.txt`.
 
-### P4 — Incident brand safety (`seo/p4-incidents`)
+### P4 — Incident brand safety (`seo/p4-incidents`) — done
 New fields: `policy_angle`, `related_policy_slugs`, `harm_domain`, and
 `sensitivity`. Sensitivity is auto-classified from a keyword list, with a manual
 override kept in `data/` so it survives the weekly re-import. Sensitive pages get
@@ -163,18 +163,39 @@ from here).
 **Brought forward:** P1 already gives every incident a neutral title, so no
 sexualised wording survives into a title while P4 waits.
 
-### P5 — Templates library (`seo/p5-templates`)
-16 generated XLSX/DOCX templates built from the read model, each with a README
-sheet (version, dataset hash, date, disclaimer, CC BY) and a source citation on
-every obligation row. Downloads are ungated. When the data changes, templates
-regenerate with a version bump, a changelog, a change event and optional weekly
-double-opt-in emails. `/templates` hub and detail pages; the API and the MCP
-`list_templates` tool are added.
-**Adjusted:** built on the existing free-tools system (finding 3), with
-`/guides/tools/*` redirecting.
-**Honest limit:** template 15 (Colorado SB 26-189 notices) and the Omnibus dates
-in template 3 depend on facts not yet in the data (finding 6). Each ships
-correct but incomplete, and names the gap, until a reviewer adds the source.
+### P5 — Templates library (`seo/p5-templates`) — done
+18 generated XLSX/DOCX templates (the 16 asked for plus two the free-tools
+catalogue already promised: the technical-documentation kit and the global
+applicability matrix), built from the read model by `templates:build` (daily,
+05:30 UTC, and on every deploy). Each file has a README sheet or page with
+version, dataset hash, date, disclaimer and CC BY notice; every duty row cites
+its source reference and links to its record. XLSX: dropdowns from a hidden
+Lists sheet, formulas copied down, conditional formatting, frozen headers,
+autofilter. DOCX: real heading styles, `[PLACEHOLDER: …]` marks in colour,
+citations as hyperlinks. A definition's content (sheets and blocks, as data) is
+hashed: an unchanged template is skipped, a changed one gets the next version,
+a changelog computed from the difference, a routine change event
+(`template-<slug>-v<n>`, jurisdiction `international`, first-party source) and
+a line in the weekly digest for subscribers of the new `templates` topic.
+Downloads need no account. `/templates` hub (filters, CollectionPage, FAQ),
+`/templates/{slug}` (preview from the stored version, "What's inside", legal
+basis, covered duties, version history, FAQ, DigitalDocument), `/templates/
+{slug}/download?format=`, `/templates/feed`. Obligation pages list the
+templates that cover them. API `/templates`, `/templates/{slug}`,
+`/templates/{slug}/download`; MCP `list_templates`; llms.txt; sitemap section.
+**Adjusted:** built on the existing free-tools system (finding 3): the ten
+static tools are replaced and `/guides/tools/{old}` (and `/download`) 301 to the
+template; the tools no longer list on `/guides` or in the sitemap. The first
+build of a template is publication, not a change, so it emits no event.
+**Dependencies added:** `phpoffice/phpspreadsheet` ^5.9 (every 4.x and ≤5.8
+release carries open advisories; the site never reads a spreadsheet, only
+writes them, but the clean version costs nothing) and `phpoffice/phpword` ^1.3.
+**Honest limit:** template 15 (Colorado notices) and the dates in template 3
+depend on facts not yet in the data (finding 6). Both ship from the record as
+it stands and say so on the page and in the file: the Colorado kit carries a
+visible note that SB 26-189 is not yet recorded; the classifier's Tiers sheet is
+read from the dated milestones on the EU AI Act record and the page shows the
+record's own date caveat.
 
 ### P6 — Country hubs and compare pages (`seo/p6-hubs`)
 A data-driven `/ai-regulation-<country>` for the 20 countries listed. Every one
