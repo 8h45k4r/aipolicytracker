@@ -172,11 +172,17 @@ class ReviewerRoster
         return $this->published()->first(fn ($r) => ($r['slug'] ?? null) === $slug);
     }
 
-    /** @return Collection<int, array{title:string, url:string, kind:string, verified_at:?Carbon}> */
+    /**
+     * The records a named reviewer has confirmed, newest first. Only the attributable
+     * kinds are asked: obligations have no reviewer column, and asking them for one is
+     * a query PostgreSQL refuses, which is what took every reviewer page down.
+     *
+     * @return Collection<int, array{title:string, url:string, kind:string, verified_at:?Carbon}>
+     */
     public function verifiedRecords(string $name, int $limit = 100): Collection
     {
         $out = collect();
-        foreach (self::ALL_KINDS as $kind => $model) {
+        foreach (self::ATTRIBUTABLE as $kind => $model) {
             $q = $model::query()->where('review_status', 'verified')->where('reviewed_by', $name)->whereNotNull('published_at')->orderByDesc('last_verified_at')->limit($limit);
             foreach ($q->get() as $r) {
                 $out->push(['title' => $r->title ?? $r->name ?? $r->slug, 'url' => $r->url(), 'kind' => str_replace('_', ' ', $kind), 'verified_at' => $r->last_verified_at]);
