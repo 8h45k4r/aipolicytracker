@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\ResourceDownload;
+use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -18,13 +19,29 @@ class DownloadLeadCaptureTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const TOOL = '/guides/tools/ai-system-inventory-template/download';
+    private const TOOL = '/guides/tools/'.self::SLUG.'/download';
+
+    /**
+     * The seeded free tools are all replaced by generated templates and
+     * their addresses redirect there, so the gated flow is exercised on a
+     * tool of its own, cloned from a seeded one with its files.
+     */
+    private const SLUG = 'lead-capture-test-tool';
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->seed();
         Mail::fake();
+        $source = Tool::where('slug', 'ai-system-inventory-template')->with('files')->firstOrFail();
+        $tool = $source->replicate();
+        $tool->slug = self::SLUG;
+        $tool->save();
+        foreach ($source->files as $file) {
+            $copy = $file->replicate();
+            $copy->tool_id = $tool->id;
+            $copy->save();
+        }
     }
 
     public function test_a_download_is_refused_until_an_organisation_is_given(): void
@@ -55,7 +72,7 @@ class DownloadLeadCaptureTest extends TestCase
     {
         $user = User::factory()->create(['name' => 'Grace Example', 'organization_name' => 'Example Agency']);
 
-        $html = $this->actingAs($user)->get('/guides/tools/ai-system-inventory-template')->getContent();
+        $html = $this->actingAs($user)->get('/guides/tools/'.self::SLUG)->getContent();
 
         $this->assertStringContainsString('value="Grace Example"', $html);
         $this->assertStringContainsString('value="Example Agency"', $html);
@@ -78,7 +95,7 @@ class DownloadLeadCaptureTest extends TestCase
         auth()->logout();
 
         // Sign-up that began at a template's download gate: organisation is required.
-        $this->get('/guides/tools/ai-system-inventory-template/download')->assertSessionHas('url.intended');
+        $this->get(self::TOOL)->assertSessionHas('url.intended');
         $this->get('/register')->assertOk()->assertDontSee('Organisation <span class="text-brand-muted font-normal">(optional)</span>', false);
         $this->post('/register', ['email' => 'second@example.com'] + $payload)->assertSessionHasErrors('organization_name');
         $this->assertGuest();
@@ -104,7 +121,7 @@ class DownloadLeadCaptureTest extends TestCase
         $this->assertSame(['downloaded_at', 'tool', 'version', 'file', 'name', 'email', 'organization', 'signup_source', 'marketing_consent', 'referrer'], str_getcsv($lines[0]));
         $this->assertCount(2, $lines, 'one header and one download');
         $row = str_getcsv($lines[1]);
-        $this->assertSame('ai-system-inventory-template', $row[1]);
+        $this->assertSame(self::SLUG, $row[1]);
         $this->assertSame('Ada Example', $row[4]);
         $this->assertSame('ada@example.com', $row[5]);
         $this->assertSame('Example Health Ltd', $row[6]);
