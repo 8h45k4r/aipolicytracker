@@ -60,5 +60,7 @@ else
   echo "NOTE: SCHEDULER=${SCHEDULER}; this container is not scheduling jobs"
 fi
 
-# Serve the app. Replace with php-fpm + nginx if you need higher throughput.
-exec php artisan serve --host=0.0.0.0 --port="${PORT:-8080}"
+# Serve the app. --no-reload is what makes PHP_CLI_SERVER_WORKERS count:
+# without it artisan watches .env and starts a single worker, so production
+# answered one request at a time. Replace with php-fpm + nginx for more.
+exec php artisan serve --host=0.0.0.0 --port="${PORT:-8080}" --no-reload
