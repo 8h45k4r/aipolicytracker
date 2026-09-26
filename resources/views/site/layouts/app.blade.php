@@ -43,7 +43,6 @@
     @if(config('aipolicytracker.google_site_verification'))<meta name="google-site-verification" content="{{ config('aipolicytracker.google_site_verification') }}">@endif
     @if(config('aipolicytracker.bing_site_verification'))<meta name="msvalidate.01" content="{{ config('aipolicytracker.bing_site_verification') }}">@endif
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icon-192.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
@@ -146,11 +145,11 @@
     <div class="border-t border-white/10">
         <div class="container-site py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-white/55">
             <p>© {{ date('Y') }} AIPolicyTracker · Code Apache-2.0 · Data {{ config('aipolicytracker.data_license') }}
-                · <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
-                · <a class="text-white/70 hover:text-white no-underline" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
+                · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
+                · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
             </p>
-            <p>Built by <a class="text-white/70 hover:text-white no-underline" href="https://certifyi.ai" rel="noopener">Dignep Group Pvt. Ltd.</a> · Powering AI governance for regulated industries
-                @foreach(config('aipolicytracker.maintainers', []) as $m)<br>Maintained by <a class="text-white/70 hover:text-white no-underline" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/70 hover:text-white no-underline" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
+            <p>Built by <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="https://certifyi.ai" rel="noopener">Dignep Group Pvt. Ltd.</a> · Powering AI governance for regulated industries
+                @foreach(config('aipolicytracker.maintainers', []) as $m)<br>Maintained by <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
         </div>
     </div>
 </footer>
