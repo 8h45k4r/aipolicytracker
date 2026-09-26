@@ -31,6 +31,7 @@ class JobRun extends Model
     public const JOBS = [
         'digest' => ['command' => 'digest:send', 'args' => [], 'label' => 'Weekly digest', 'what' => 'E-mails the week\'s changes to confirmed subscribers.', 'schedule' => 'Mondays 07:00 UTC', 'confirm' => true],
         'alerts' => ['command' => 'alerts:send', 'args' => [], 'label' => 'Daily alerts', 'what' => 'E-mails Pro accounts about changes and deadlines on records they follow.', 'schedule' => 'Daily 06:30 UTC', 'confirm' => true],
+        'alerts_deliver' => ['command' => 'alerts:deliver', 'args' => [], 'label' => 'Retry alert deliveries', 'what' => 'Retries Slack and webhook alert deliveries that failed, with backoff, up to five attempts.', 'schedule' => 'Hourly', 'confirm' => false],
         'aiid_sync' => ['command' => 'external:sync-aiid-api', 'args' => ['--max' => 300], 'label' => 'AI Incident Database sync', 'what' => 'Pulls incidents modified since the last sync, up to 300 per run.', 'schedule' => 'Daily 03:15 UTC', 'confirm' => false],
         'external_import' => ['command' => 'external:import', 'args' => [], 'label' => 'External data import', 'what' => 'Rebuilds incidents, reports and risk entries from the committed snapshots.', 'schedule' => 'Sundays 04:00 UTC', 'confirm' => true],
         'policy_import' => ['command' => 'policy:import', 'args' => [], 'label' => 'Policy import', 'what' => 'Validates data/ and rebuilds the policy, obligation and control read model.', 'schedule' => 'Daily 02:30 UTC', 'confirm' => true],

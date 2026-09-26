@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+use App\Services\Alerts\WatchTypes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /** A user follows a policy, jurisdiction or obligation; daily alerts are built from these rows. */
 class Follow extends Model
 {
+    /** Record types; WatchTypes::all() adds sector, use case, framework, change type and saved search. */
     public const TYPES = ['policy', 'jurisdiction', 'obligation'];
 
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return ['params' => 'array'];
+    }
 
     public function user(): BelongsTo
     {
@@ -30,8 +37,6 @@ class Follow extends Model
 
     public static function typeLabel(string $type): string
     {
-        return match ($type) {
-            'policy' => 'Policy', 'jurisdiction' => 'Jurisdiction', 'obligation' => 'Obligation', default => ucfirst($type)
-        };
+        return WatchTypes::typeLabel($type);
     }
 }
