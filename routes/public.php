@@ -13,6 +13,7 @@ use App\Http\Controllers\Site\ControlController;
 use App\Http\Controllers\Site\CorrectionsController;
 use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
+use App\Http\Controllers\Site\DeadlineEngineController;
 use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FrameworkController;
 use App\Http\Controllers\Site\FreeToolController;
@@ -92,6 +93,10 @@ Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index'
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
 Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->name('changes.context');
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
+// The deadline engine: five plain-form steps, a personal timeline from recorded dates, .ics and PDF of the same rows.
+Route::get('/deadlines/which-date-applies', [DeadlineEngineController::class, 'show'])->name('deadlines.engine');
+Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->name('deadlines.engine.ics');
+Route::get('/deadlines/which-date-applies.pdf', [DeadlineEngineController::class, 'pdf'])->middleware('throttle:30,1')->name('deadlines.engine.pdf');
 Route::get('/calendar/ai-policy-deadlines.ics', [CalendarController::class, 'feed'])->name('calendar.feed');
 Route::get('/calendar/{jurisdiction}.ics', [CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->name('calendar.feed.jurisdiction');
 Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', '20[0-9]{2}')->name('changes.year');

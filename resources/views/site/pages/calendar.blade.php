@@ -9,7 +9,7 @@
     <div class="mt-6 card-flat p-5">
         <p class="label">Subscription address</p>
         <p class="mt-1 font-mono text-sm break-all text-brand-navy">{{ route('calendar.feed') }}</p>
-        <p class="mt-3 flex flex-wrap gap-2"><a href="{{ route('calendar.feed') }}" class="btn-primary" data-track="calendar_subscribe">Download or subscribe</a><a href="{{ route('changes.index') }}" class="btn-secondary">See the change log</a></p>
+        <p class="mt-3 flex flex-wrap gap-2"><a href="{{ route('calendar.feed') }}" class="btn-primary" data-track="calendar_subscribe">Download or subscribe</a><a href="{{ route('deadlines.engine') }}" class="btn-secondary" data-track="deadline_engine_click">Which date applies to you?</a><a href="{{ route('changes.index') }}" class="btn-secondary">See the change log</a></p>
         <p class="mt-3 meta">In Google Calendar choose "Other calendars", then "From URL". In Outlook choose "Add calendar", then "Subscribe from web". In Apple Calendar choose "File", then "New Calendar Subscription".</p>
     </div>
 

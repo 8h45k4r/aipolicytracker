@@ -495,4 +495,10 @@ final class PageTitle
 
         return self::fit($x.' vs '.$y.' AI Regulation', [': Side-by-Side Comparison', ': Compared', '']);
     }
+
+    /** "Which AI Regulation Date Applies to You? Personal Timeline" */
+    public static function deadlineEngine(): string
+    {
+        return self::fit('Which AI Regulation Date Applies to You?', [' Personal Timeline', ' Timeline Tool', '']);
+    }
 }
