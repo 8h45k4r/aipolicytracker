@@ -13,14 +13,18 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Models\TemplateVersion;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\ExternalData\IncidentEnrichment;
 use App\Services\ExternalData\IncidentSensitivity;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
+use App\Services\Templates\Records;
+use App\Services\Templates\TemplateCatalog;
 use App\Support\PageTitle;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -56,6 +60,7 @@ class PublicApiController extends Controller
                 'deadlines' => route('api.v1.deadlines'),
                 'incidents' => route('api.v1.incidents'),
                 'risks' => route('api.v1.risks'),
+                'templates' => route('api.v1.templates'),
             ],
             'disclaimer' => config('aipolicytracker.disclaimer'),
         ]);
@@ -410,6 +415,80 @@ class PublicApiController extends Controller
                 'slug' => $obligation->policyInstrument->jurisdiction->slug,
                 'name' => $obligation->policyInstrument->jurisdiction->name,
             ],
+        ];
+    }
+
+    /** The templates library: what each template is, its latest version, and where the files are. */
+    public function templates(Request $request): JsonResponse
+    {
+        $filters = [
+            'type' => array_key_exists((string) $request->query('type'), config('templates.types')) ? $request->query('type') : null,
+            'topic' => array_key_exists((string) $request->query('topic'), config('templates.topics')) ? $request->query('topic') : null,
+            'framework' => array_key_exists((string) $request->query('framework'), config('templates.frameworks')) ? $request->query('framework') : null,
+        ];
+
+        return $this->cached('api.templates.v1.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
+            $latest = TemplateVersion::latestAll();
+            $items = TemplateCatalog::filter(TemplateCatalog::all(), $filters)->values();
+
+            return [
+                'data' => $items->map(fn ($m) => $this->templateRow($m, $latest[$m['slug']] ?? null))->all(),
+                'meta' => ['total' => $items->count(), 'filters' => $filters, 'types' => config('templates.types'), 'topics' => config('templates.topics'), 'frameworks' => config('templates.frameworks'), 'license' => 'CC BY 4.0', 'license_url' => 'https://creativecommons.org/licenses/by/4.0/', 'disclaimer' => config('templates.disclaimer')],
+            ];
+        });
+    }
+
+    public function template(string $slug): JsonResponse
+    {
+        $meta = TemplateCatalog::find($slug);
+        abort_unless($meta, 404);
+        $latest = TemplateVersion::latestFor($slug);
+
+        return $this->cached('api.template.v1.'.$slug.'.'.($latest?->id ?? 0), function () use ($meta, $latest, $slug) {
+            $covered = Records::obligations(TemplateCatalog::obligationFilter($meta));
+
+            return [
+                'data' => $this->templateRow($meta, $latest) + [
+                    'inside' => $meta['inside'] ?? [],
+                    'legal_basis' => array_values($meta['legal_basis'] ?? []),
+                    'caveat' => $meta['caveat'] ?? null,
+                    'covered_obligations' => $covered->map(fn ($o) => ['slug' => $o->slug, 'title' => $o->title, 'policy' => $o->policyInstrument->slug, 'source_reference' => $o->source_reference, 'url' => $o->url()])->values()->all(),
+                    'versions' => TemplateVersion::for($slug)->orderByDesc('version')->get()->map(fn ($v) => ['version' => $v->version, 'generated_at' => $v->generated_at->toAtomString(), 'dataset_version' => $v->dataset_version, 'changelog' => $v->changelog, 'stats' => $v->stats])->all(),
+                ],
+                'meta' => ['license' => 'CC BY 4.0', 'license_url' => 'https://creativecommons.org/licenses/by/4.0/', 'disclaimer' => config('templates.disclaimer')],
+            ];
+        });
+    }
+
+    /** Sends the caller to the file; the site route serves it, counts it and sets the headers. */
+    public function templateDownload(Request $request, string $slug): RedirectResponse
+    {
+        $meta = TemplateCatalog::find($slug);
+        abort_unless($meta, 404);
+        $format = (string) $request->query('format', $meta['formats'][0] ?? 'xlsx');
+        abort_unless(in_array($format, $meta['formats'] ?? [], true), 404);
+
+        return redirect()->to(route('templates.download', ['slug' => $slug, 'format' => $format]), 302);
+    }
+
+    private function templateRow(array $meta, ?TemplateVersion $version): array
+    {
+        return [
+            'slug' => $meta['slug'],
+            'title' => $meta['title'],
+            'type' => $meta['type'],
+            'formats' => array_values($meta['formats'] ?? []),
+            'topics' => array_values($meta['topics'] ?? []),
+            'frameworks' => array_values($meta['frameworks'] ?? []),
+            'short' => $meta['short'],
+            'covers' => $meta['covers'] ?? [],
+            'version' => $version?->version,
+            'dataset_version' => $version?->dataset_version,
+            'generated_at' => $version?->generated_at?->toAtomString(),
+            'citations' => $version?->stats['citations'] ?? null,
+            'downloads' => $version ? (int) TemplateVersion::for($meta['slug'])->sum('downloads') : 0,
+            'files' => $version ? array_map(fn ($f) => ['format' => $f['format'], 'filename' => $f['filename'], 'bytes' => $f['bytes'], 'url' => $version->downloadUrl($f['format'])], $version->files) : [],
+            'url' => TemplateCatalog::url($meta['slug']),
         ];
     }
 

@@ -91,7 +91,7 @@ test('it lists every tool with a schema, health first', async () => {
   }
   assert.deepEqual(
     tools.map((t) => t.name).sort(),
-    ['corpus_health', 'get_jurisdiction', 'get_policy', 'list_obligations', 'open_gaps', 'recent_changes', 'search_incidents', 'search_policies']
+    ['corpus_health', 'get_jurisdiction', 'get_policy', 'list_obligations', 'list_templates', 'open_gaps', 'recent_changes', 'search_incidents', 'search_policies']
   )
 })
 
