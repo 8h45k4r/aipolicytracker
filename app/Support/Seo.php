@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Services\Reviewers\ReviewerRoster;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -42,6 +43,12 @@ class Seo
      * @var list<array{type: string, url: string}>
      */
     public array $alternates = [];
+
+    /** The page language, for <html lang> and og:locale. */
+    public string $lang = 'en';
+
+    /** hreflang => absolute URL, x-default included when set. */
+    public array $hreflang = [];
 
     /**
      * schema.org type for this page's own node. Controllers that describe a page
@@ -227,6 +234,21 @@ class Seo
     }
 
     /** Another representation of this page at a stable URL (JSON, Markdown, a feed). */
+    public function withLanguage(string $lang): self
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    /** @param  array<string,string>  $map  hreflang code => URL */
+    public function withHreflang(array $map): self
+    {
+        $this->hreflang = $map;
+
+        return $this;
+    }
+
     public function withAlternate(string $type, string $url): self
     {
         $this->alternates[] = ['type' => $type, 'url' => $url];
@@ -272,7 +294,8 @@ class Seo
     {
         $props = ['author' => ['@id' => url('/').'#organization']];
         if (method_exists($record, 'isVerified') && $record->isVerified() && filled($record->reviewed_by ?? null)) {
-            $props['reviewedBy'] = ['@type' => 'Person', 'name' => (string) $record->reviewed_by, 'url' => route('reviewers')];
+            $slug = app(ReviewerRoster::class)->slugFor((string) $record->reviewed_by);
+            $props['reviewedBy'] = ['@type' => 'Person', 'name' => (string) $record->reviewed_by, 'url' => $slug ? route('reviewers.show', $slug) : route('reviewers')];
         }
 
         return $props;
