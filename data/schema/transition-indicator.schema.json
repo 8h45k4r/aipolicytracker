@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "transition-indicator.schema.json",
+  "$id": "https://aipolicytracker.org/schema/transition-indicator.schema.json",
   "title": "AI economic transition indicator",
   "description": "A time series about AI-driven economic change (announced AI-attributed layoffs, retraining enrolments, fund balances), each point cited. A series with no points is a definition awaiting data.",
   "type": "object",
