@@ -11,8 +11,7 @@
 <tr><td align="center" style="padding:32px 28px 8px;">
 <a href="{{ url('/') }}" style="text-decoration:none;"><img src="{{ url('/brand/logo-on-light.png') }}" alt="{{ config('aipolicytracker.site_name') }}" width="180" style="display:block;width:180px;max-width:100%;height:auto;margin:0 auto;"></a>
 <p style="margin:16px 0 2px;font-size:16px;font-weight:700;color:#002147;">{{ config('aipolicytracker.tagline') }}</p>
-<p style="margin:0 0 6px;font-size:14px;color:#5D6B7E;">{{ config('aipolicytracker.positioning') }}</p>
-<p style="margin:0;font-size:13px;font-weight:700;color:#1E2A3B;">{{ config('aipolicytracker.organization.name') }}</p>
+<p style="margin:0;font-size:14px;color:#5D6B7E;">{{ config('aipolicytracker.positioning') }}</p>
 </td></tr>
 <tr><td style="padding:24px 36px 8px;font-size:15px;line-height:1.6;">
 {!! $slot !!}

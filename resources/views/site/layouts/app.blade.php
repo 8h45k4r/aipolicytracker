@@ -148,8 +148,7 @@
                 · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
                 · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
             </p>
-            <p>Built by <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="https://certifyi.ai" rel="noopener">Dignep Group Pvt. Ltd.</a> · Powering AI governance for regulated industries
-                @foreach(config('aipolicytracker.maintainers', []) as $m)<br>Maintained by <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
+            <p>@foreach(config('aipolicytracker.maintainers', []) as $m)Maintained by <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
         </div>
     </div>
 </footer>

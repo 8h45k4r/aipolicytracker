@@ -37,10 +37,6 @@ Every change to `main` must pass the five role gates below, in order. Each gate 
 - The evidence chain is never weakened (sources, verification dates, activity logs are not removed or made optional).
 - Secrets are stored as digests or in the host secret store, never in plaintext.
 
-## Accepted debt
-
-Debt accepted during a gate goes in `docs/reference/technical-debt.md` with an owner. Undocumented debt does not exist and will be found by an auditor instead of by us.
-
 ## 5. Security (VAPT)
 
 Runs after gate 4 on every change that touches routes, middleware, authentication, file delivery, forms or dependencies, and in full before each production release.
@@ -49,3 +45,7 @@ Runs after gate 4 on every change that touches routes, middleware, authenticatio
 - Dependencies: `npm audit --omit=dev` and `composer audit` report no high or critical issues, or each is recorded as accepted debt with an owner.
 - Secrets: repository scan for key material; secrets only in the host's secret store or encrypted settings.
 - Findings are written to `docs/reference/vapt-<date>.md` with severity, evidence and fix; anything not fixed in the same PR goes to `docs/reference/technical-debt.md`.
+
+## Accepted debt
+
+Debt accepted during a gate goes in `docs/reference/technical-debt.md` with an owner. Undocumented debt does not exist and will be found by an auditor instead of by us.

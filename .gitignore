@@ -61,3 +61,8 @@ Homestead.yaml
 CLAUDE.md
 AGENTS.md
 .claude/
+
+# Scratch copies of the tree taken while reworking a module. They are whole
+# duplicates of the project, so a stray `git add .` would commit a second copy
+# of everything; name them here rather than rely on remembering.
+/aipt-rewrite/
