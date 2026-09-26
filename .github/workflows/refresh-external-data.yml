@@ -39,8 +39,8 @@ jobs:
           branch: data/external-refresh
           title: "Weekly refresh of external datasets (AIID, MIT AI Risk Repository)"
           commit-message: "Refresh external datasets (AIID summary, MIT risk taxonomy)"
-          author: "Bhaskar Bhatt <8h45k4r@gmail.com>"
-          committer: "Bhaskar Bhatt <8h45k4r@gmail.com>"
+          author: "Bhaskar Bhatt <bhaskar@aipolicytracker.org>"
+          committer: "Bhaskar Bhatt <bhaskar@aipolicytracker.org>"
           body: |
             Automated weekly refresh of `data/external/`.
 

@@ -32,10 +32,12 @@
     .prose-policy { @apply text-[15.5px] leading-7 text-brand-body max-w-[68ch]; }
     .prose-policy p + p { @apply mt-3; }
 
-    .btn { @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2.5 text-sm font-medium min-h-[44px] transition-colors no-underline; }
-    .btn-primary { @apply btn bg-brand-navy text-white hover:bg-brand-ink; }
+    .btn { @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2.5 text-sm font-medium min-h-[44px] no-underline transition-[background-color,border-color,color,box-shadow,transform] duration-150; }
+    /* The primary action lifts by one pixel on hover and settles on press. It is the
+       only motion in the system, so it reads as "this is the button" without colour. */
+    .btn-primary { @apply btn bg-brand-navy text-white shadow-sm hover:bg-brand-ink hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
     .btn-secondary { @apply btn border border-brand-navy/30 bg-white text-brand-navy hover:border-brand-navy hover:bg-brand-paper; }
-    .btn-accent { @apply btn bg-brand-blue text-white hover:bg-brand-navy; }
+    .btn-accent { @apply btn bg-brand-blue text-white shadow-sm hover:bg-brand-navy hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
 
     .chip { @apply inline-flex items-center gap-1 rounded-sm border border-brand-line bg-white px-2.5 py-1 text-xs font-medium text-brand-body no-underline hover:border-brand-navy hover:text-brand-navy min-h-[34px]; }
     .chip-active { @apply border-brand-navy bg-brand-navy text-white hover:text-white; }
@@ -50,7 +52,11 @@
     .card-link { @apply card-flat transition-colors hover:border-brand-navy focus-within:border-brand-navy; }
 
     /* A figure with its label. One definition, so counts look the same on every page. */
-    .stat { @apply card-flat p-4 min-w-0; }
+    .stat { @apply card-flat p-4 min-w-0 relative overflow-hidden; }
+    /* A 2px brand rule along the top edge, revealed on hover. Keeps the resting state
+       as quiet as the rest of the page while giving a linked figure something to do. */
+    .stat::before { content: ""; @apply absolute inset-x-0 top-0 h-0.5 bg-brand-cyan opacity-0 transition-opacity duration-150; }
+    .stat:hover::before, .stat:focus-within::before { @apply opacity-100; }
     .stat-label { @apply block text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-muted; }
     .stat-value { @apply mt-1 block font-mono text-3xl leading-none tabular-nums text-brand-navy; }
     .stat-note { @apply mt-1.5 block text-xs text-brand-muted; }
@@ -58,10 +64,30 @@
     /* The law → duty → control → evidence strip. Steps join with a rule on wide
        screens and stack with a left rule on narrow ones, so the sequence reads in
        both directions. */
-    .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-sm overflow-hidden sm:grid-cols-5; }
-    .chain-step { @apply bg-white; }
-    .chain-link { @apply block h-full p-4 no-underline hover:bg-brand-paper transition-colors relative; }
-    .chain-step + .chain-step .chain-link::before { content: "→"; @apply absolute -left-2.5 top-5 hidden sm:block text-brand-muted text-sm bg-white px-0.5 rounded-sm; }
+    /* The step counter numbers each tile. On narrow screens the joining arrows are
+       hidden, so without a number the strip reads as five unrelated tiles rather than
+       a sequence; `pt-9` on the link reserves the row the number sits in. */
+    .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-sm overflow-hidden sm:grid-cols-5; counter-reset: chain-step; }
+    .chain-step { @apply bg-white; counter-increment: chain-step; }
+    .chain-link { @apply block h-full p-4 pt-9 no-underline hover:bg-brand-paper transition-colors relative; }
+    .chain-step + .chain-step .chain-link::before { content: "→"; @apply absolute -left-2.5 top-10 hidden sm:block text-brand-muted text-sm bg-white px-0.5 rounded-sm; }
+    .chain-link::after {
+        content: counter(chain-step);
+        @apply absolute left-4 top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-paper font-mono text-[11px] font-semibold tabular-nums text-brand-muted ring-1 ring-brand-line transition-colors;
+    }
+    .chain-link:hover::after { @apply bg-brand-navy text-white ring-brand-navy; }
+
+    /* Empty state. A mark, the reason, then the way out — in that order, centred and
+       narrow so a filtered list that finds nothing does not read as a broken table. */
+    .empty-state { @apply rounded-sm border border-dashed border-brand-line bg-brand-paper/40 px-6 py-10 text-center; }
+    .empty-mark { @apply mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-muted ring-1 ring-brand-line; }
+    .empty-title { @apply font-display font-semibold text-brand-navy; }
+    .empty-body { @apply mx-auto mt-1 max-w-[44ch] text-sm leading-6 text-brand-muted; }
+
+    /* A tinted panel for a block that asks the reader for something (subscribe, follow)
+       so it separates from the reference material around it. */
+    .panel-tinted { @apply rounded-sm border border-brand-line bg-brand-paper p-5; }
+
     .rule { @apply border-t border-brand-line; }
     .chart-bar, .chart-dot { transition: opacity .15s ease; cursor: pointer; }
     .chart-bar:hover, .chart-dot:hover { opacity: .75; }

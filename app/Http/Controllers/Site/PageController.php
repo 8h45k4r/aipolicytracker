@@ -84,7 +84,7 @@ class PageController extends Controller
             ['question' => 'Is the data free to reuse?', 'answer' => 'Yes. The policy dataset is published under CC BY 4.0 and the code under Apache-2.0. Third-party datasets shown on the site (MIT AI Risk Repository, AI Incident Database) keep their own licences, which are stated on each page.'],
             ['question' => 'Is this legal advice?', 'answer' => 'No. The site is informational. Confirm every date and obligation in the linked official source and consult qualified counsel before acting.'],
             ['question' => 'How are records verified?', 'answer' => 'Records are created from official sources with a source URL and access date, then reviewed by a human who opens the source, confirms the fields and sets the verification date. Unverified records are labelled as source-linked rather than verified.'],
-            ['question' => 'Who maintains it?', 'answer' => 'AIPolicyTracker is founded and maintained by Bhaskar Bhatt and built by Dignep Group Pvt. Ltd. Contributions are welcome through GitHub.'],
+            ['question' => 'Who maintains it?', 'answer' => 'AIPolicyTracker is founded and maintained by Bhaskar Bhatt, with a named reviewer behind every verified record and contributions welcome through GitHub.'],
         ];
         $seo = Seo::make(
             'About AIPolicyTracker: open, source-backed AI policy intelligence',
