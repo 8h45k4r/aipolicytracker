@@ -221,54 +221,62 @@ class PublicSiteTest extends TestCase
 
     public function test_guides_page_filters_and_free_tools_gate_downloads_behind_a_free_account(): void
     {
-        $this->get('/guides')->assertOk()->assertSee('Free tools and templates')->assertSee('AI System Inventory Template')->assertSee('EU AI Act readiness for AI startups')->assertSee('index,follow');
-        $this->get('/guides?type=template')->assertOk()->assertSee('AI System Inventory Template')->assertDontSee('EU AI Act Readiness Checklist')->assertSee('noindex,follow');
-        $this->get('/guides?framework=eu-ai-act&topic=incident')->assertOk()->assertSee('AI Incident Response Checklist')->assertDontSee('AI Risk Register Template');
+        // Every seeded free tool is replaced by a generated template (P5) and its address
+        // redirects there, so the gated flow is exercised on a tool of its own, cloned from
+        // a seeded one with its files.
+        $slug = 'guide-flow-test-tool';
+        $source = Tool::where('slug', 'ai-system-inventory-template')->with('files')->firstOrFail();
+        $tool = $source->replicate();
+        $tool->forceFill(['slug' => $slug, 'title' => 'Guide Flow Test Template', 'topics' => ['incident'], 'frameworks' => ['eu-ai-act', 'nist-ai-rmf']])->save();
+        foreach ($source->files as $file) {
+            $copy = $file->replicate();
+            $copy->tool_id = $tool->id;
+            $copy->save();
+        }
+
+        $this->get('/guides')->assertOk()->assertSee('Free tools and templates')->assertSee('Guide Flow Test Template')->assertSee('EU AI Act readiness for AI startups')->assertSee('Browse the templates library')->assertSee('index,follow');
+        $this->get('/guides?type=template')->assertOk()->assertSee('Guide Flow Test Template')->assertDontSee('EU AI Act Readiness Checklist')->assertSee('noindex,follow');
+        $this->get('/guides?framework=eu-ai-act&topic=incident')->assertOk()->assertSee('Guide Flow Test Template')->assertDontSee('AI Risk Register Template');
         $this->get('/guides?q=zzzz-nothing')->assertOk()->assertSee('No guides or tools match');
 
-        $this->get('/guides/tools/ai-system-inventory-template')->assertOk()->assertSee('Preview: fields in the template')->assertSee('System ID')->assertSee('Create a free account to download')->assertSee(route('tools.gate', 'ai-system-inventory-template'));
+        $this->get('/guides/tools/ai-system-inventory-template')->assertStatus(301)->assertRedirect(route('templates.show', 'ai-system-inventory'));
+        $this->get('/guides/tools/'.$slug)->assertOk()->assertSee('Preview: fields in the template')->assertSee('System ID')->assertSee('Create a free account to download')->assertSee(route('tools.gate', $slug));
         $this->get('/guides/tools/does-not-exist')->assertNotFound();
         $this->assertSame(0, PageView::where('path', '/guides/tools/does-not-exist')->count(), '404s are not counted');
-        $this->get('/guides/tools/eu-ai-act-readiness-checklist')->assertOk()->assertSee('DOCX');
-        $this->assertSame(10, Tool::published()->count());
-        $this->get('/guides/tools/global-ai-regulatory-applicability-matrix')->assertOk()->assertSee('Supervisor')->assertSee('Formats: XLSX, CSV, Markdown, DOCX');
-        $this->get('/guides/tools/ai-vendor-due-diligence-questionnaire')->assertOk()->assertSee('Evidence to request');
-        $this->get('/guides/tools/ai-system-inventory-template/download')->assertOk()->assertSee('Continue with email')->assertSessionHas('url.intended');
-        $this->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1])->assertRedirect(route('login'));
+        $this->assertSame(11, Tool::published()->count());
+        $this->get('/guides/tools/'.$slug.'/download')->assertOk()->assertSee('Continue with email')->assertSessionHas('url.intended');
+        $this->post('/guides/tools/'.$slug.'/download', ['terms' => 1])->assertRedirect(route('login'));
         $this->get('/register')->assertOk()->assertSee('Create free account')->assertSee('name="marketing_consent"', false);
 
         $user = User::factory()->create();
-        $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', [])->assertSessionHasErrors('terms');
+        $this->actingAs($user)->post('/guides/tools/'.$slug.'/download', [])->assertSessionHasErrors('terms');
         $this->assertSame(0, ResourceDownload::count());
         Mail::fake();
-        $response = $this->actingAs($user)->post('/guides/tools/ai-system-inventory-template/download', ['terms' => 1, 'updates' => 1, 'name' => $user->name, 'organization_name' => 'Example Ltd']);
+        $response = $this->actingAs($user)->post('/guides/tools/'.$slug.'/download', ['terms' => 1, 'updates' => 1, 'name' => $user->name, 'organization_name' => 'Example Ltd']);
         Mail::assertSent(DownloadLinksMail::class, fn ($m) => $m->hasTo($user->email) && str_contains($m->render(), 'Download XLSX'));
-        $this->assertSame(1, PageView::where('path', '/guides/tools/ai-system-inventory-template')->sum('views'), 'tool page view counted once');
+        $this->assertSame(1, PageView::where('path', '/guides/tools/'.$slug)->sum('views'), 'tool page view counted once');
         $download = ResourceDownload::first();
-        $response->assertRedirect(route('tools.ready', ['ai-system-inventory-template', $download]));
+        $response->assertRedirect(route('tools.ready', [$slug, $download]));
         $this->assertNotNull($user->fresh()->terms_accepted_at);
         $this->assertNotNull($user->fresh()->marketing_consent_at);
-        $ready = $this->actingAs($user)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertOk()->assertSee('Your download is ready')->assertSee('Download XLSX');
+        $ready = $this->actingAs($user)->get(route('tools.ready', [$slug, $download]))->assertOk()->assertSee('Your download is ready')->assertSee('Download XLSX');
         preg_match('/href="([^"]*\/file\/[^"]*\.csv[^"]*)"/', $ready->getContent(), $m);
         $this->assertNotEmpty($m, 'signed CSV link present');
         $this->actingAs($user)->get(html_entity_decode($m[1]))->assertOk()->assertHeader('Content-Disposition', 'attachment; filename=ai-system-inventory-template.csv');
         $this->assertNotNull($download->fresh()->downloaded_at);
-        $this->actingAs($user)->get(route('tools.file', ['slug' => 'ai-system-inventory-template', 'download' => $download, 'file' => 'ai-system-inventory-template.csv']))->assertStatus(403); // unsigned
-        // A seeded file missing from the disk (clean deploy) is served from the bundled copy and restored; the seeder also restores it.
-        Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
-        $this->actingAs($user)->get(html_entity_decode($m[1]))->assertOk()->assertHeader('Content-Disposition', 'attachment; filename=ai-system-inventory-template.csv');
-        Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
+        $this->actingAs($user)->get(route('tools.file', ['slug' => $slug, 'download' => $download, 'file' => 'ai-system-inventory-template.csv']))->assertStatus(403); // unsigned
+        // A seeded file missing from the disk (clean deploy) is restored by the seeder from the bundled copy.
         Storage::disk('local')->delete('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
         $this->seed(ToolSeeder::class);
         Storage::disk('local')->assertExists('tools/ai-system-inventory-template/ai-system-inventory-template.csv');
         $other = User::factory()->create();
-        $this->actingAs($other)->get(route('tools.ready', ['ai-system-inventory-template', $download]))->assertNotFound();
+        $this->actingAs($other)->get(route('tools.ready', [$slug, $download]))->assertNotFound();
         $this->get('/ai-risk/incidents')->assertOk()->assertSee('min-w-0', false);
         // Multi-select filters and the archived state.
-        $this->get('/guides?framework[]=eu-ai-act&framework[]=nist-ai-rmf&topic[]=incident')->assertOk()->assertSee('AI Incident Response Checklist')->assertSee('noindex,follow')->assertSee('data-multi-select', false)->assertSee('2 selected')->assertDontSee('multiple size=', false);
-        Tool::where('slug', 'ai-system-inventory-template')->update(['status' => 'archived']);
-        $this->get('/guides/tools/ai-system-inventory-template')->assertNotFound();
-        $this->get('/guides')->assertOk()->assertDontSee('AI System Inventory Template');
+        $this->get('/guides?framework[]=eu-ai-act&framework[]=nist-ai-rmf&topic[]=incident')->assertOk()->assertSee('Guide Flow Test Template')->assertSee('noindex,follow')->assertSee('data-multi-select', false)->assertSee('2 selected')->assertDontSee('multiple size=', false);
+        Tool::where('slug', $slug)->update(['status' => 'archived']);
+        $this->get('/guides/tools/'.$slug)->assertNotFound();
+        $this->get('/guides')->assertOk()->assertDontSee('Guide Flow Test Template');
     }
 
     public function test_admin_can_create_edit_upload_and_archive_tools(): void
