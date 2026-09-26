@@ -439,3 +439,116 @@ changes:
     review_status: pending_review
     confidence_level: high
     content_version: 1
+  - slug: 2026-05-14-colorado-sb26-189-repeals-and-replaces-ai-act
+    jurisdiction: us-colorado
+    policy: us-colorado-automated-decision-making-technology-act
+    occurred_on: 2026-05-14
+    title: Colorado repeals and replaces its AI Act with SB 26-189, effective 1 January 2027
+    what_changed: >
+      The Governor signed SB 26-189, which repeals and re-enacts the Colorado AI Act (SB 24-205) before its delayed
+      30 June 2026 effective date. The replacement law narrows the scope to automated decision-making technology
+      that materially influences consequential decisions, drops the duty of care, impact assessments, the
+      risk-management programme and Attorney General notification, and adds advance notice, adverse-decision
+      disclosure, meaningful human review, three-year record keeping and developer documentation duties. Recorded
+      from secondary reporting; confirm against the enrolled bill.
+    practical_impact: Stop building to the SB 24-205 impact-assessment and risk-programme requirements; plan notice, adverse-decision disclosure, human review, record keeping and developer documentation for consequential decisions from 1 January 2027.
+    impact_level: urgent
+    status_after: adopted
+    published: true
+    official_source_url: "https://leg.colorado.gov/bills/sb26-189"
+    source_title: "SB26-189 Automated Decision-Making Technology"
+    source_publisher: "Colorado General Assembly"
+    source_document_date: 2026-05-14
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-06-18-us-american-ai-sovereign-wealth-fund-act-introduced
+    jurisdiction: us
+    policy: null
+    occurred_on: 2026-06-18
+    title: Senator Sanders introduces the American A.I. Sovereign Wealth Fund Act (S. 4825)
+    what_changed: >
+      S. 4825 would levy a one-time tax, payable in equity, on AI companies with more than USD 200 million in
+      annual sales, placing the shares in a public fund managed by an independent commission and paying dividends
+      to residents. Introduced and referred; no committee action recorded. Recorded from secondary reporting and
+      the sponsor's press release; confirm on Congress.gov.
+    practical_impact: No obligations; a proposal to watch in the economic-transition tracker.
+    impact_level: routine
+    status_after: proposed
+    published: true
+    official_source_url: "https://www.congress.gov/bill/119th-congress/senate-bill/4825"
+    source_title: "S. 4825, American A.I. Sovereign Wealth Fund Act"
+    source_publisher: "Congress.gov"
+    source_document_date: 2026-06-18
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-07-27-eu-digital-omnibus-on-ai-in-force-high-risk-dates-move
+    jurisdiction: eu
+    policy: eu-ai-act
+    occurred_on: 2026-07-27
+    title: EU Digital Omnibus on AI enters into force, moving high-risk AI Act duties to December 2027 and August 2028
+    what_changed: >
+      Regulation (EU) 2026/1744, published in the Official Journal on 24 July 2026, entered into force on 27 July
+      2026. It amends Article 113 of the AI Act so that the Chapter III high-risk obligations apply from
+      2 December 2027 for stand-alone Annex III systems and from 2 August 2028 for AI embedded in Annex I
+      products, adds two Article 5 prohibitions applying from 2 December 2026, and leaves the 2 August 2026
+      general application and Article 50 transparency dates in place. Recorded from concordant secondary
+      reporting; confirm against the Official Journal text.
+    practical_impact: Re-plan high-risk conformity work to the December 2027 and August 2028 dates; transparency duties under Article 50 still applied from 2 August 2026.
+    impact_level: urgent
+    status_after: partially_applicable
+    published: true
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2026/1744/oj"
+    source_title: "Regulation (EU) 2026/1744 (Digital Omnibus on AI)"
+    source_publisher: "Official Journal of the European Union"
+    source_document_date: 2026-07-24
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-08-02-eu-ai-act-general-application-and-article-50-transparency-begin
+    jurisdiction: eu
+    policy: eu-ai-act
+    occurred_on: 2026-08-02
+    title: EU AI Act general application begins; Article 50 transparency duties now apply
+    what_changed: >
+      The general application date in Article 113 arrived. Chatbot disclosure, synthetic-content marking and
+      deepfake labelling under Article 50 now apply; the high-risk obligations do not, having been deferred by
+      Regulation (EU) 2026/1744. Recorded from secondary reporting; confirm against the Official Journal text.
+    practical_impact: Label AI interactions and synthetic content now; high-risk conformity work runs to the deferred dates.
+    impact_level: high
+    status_after: partially_applicable
+    published: true
+    official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    source_title: "Regulation (EU) 2024/1689, Article 113 as amended"
+    source_publisher: "Official Journal of the European Union"
+    source_document_date: 2026-07-24
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-08-06-us-house-ai-tax-and-work-protection-act-introduced
+    jurisdiction: us
+    policy: null
+    occurred_on: 2026-08-06
+    title: House members introduce the AI Tax and Work Protection Act (H.R. 10044), an excise tax on AI tokens
+    what_changed: >
+      H.R. 10044 would tax large AI companies on the value of the tokens their models process or on AI-service
+      revenue, whichever is higher, with a rate that rises automatically as unemployment climbs, and would create a
+      Work Protection Administration in the Department of Labor to fund jobs. Introduced by Representatives Sara
+      Jacobs, Greg Casar and Valerie Foushee. Recorded from secondary reporting; confirm on Congress.gov.
+    practical_impact: No obligations; a proposal to watch in the economic-transition tracker.
+    impact_level: routine
+    status_after: proposed
+    published: true
+    official_source_url: "https://www.congress.gov/bill/119th-congress/house-bill/10044"
+    source_title: "H.R. 10044, AI Tax and Work Protection Act"
+    source_publisher: "Congress.gov"
+    source_document_date: 2026-08-06
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1

@@ -1,29 +1,36 @@
 slug: us-ai-sovereign-wealth-fund-proposal
-title: AI sovereign wealth fund proposal (United States, working title)
+title: American A.I. Sovereign Wealth Fund Act (S. 4825, United States)
 jurisdiction: us
 measure_type: sovereign_wealth_fund
-status: unverified
-summary: null
-mechanism: null
-funding: null
+status: introduced
+summary: >
+  A Senate bill introduced by Senator Bernie Sanders on 18 June 2026 that would levy a one-time tax, payable in
+  equity, on AI companies with more than USD 200 million in annual sales, placing the shares in a public trust
+  estimated by the sponsor at about USD 7 trillion, managed by an independent commission and paying dividends to
+  residents (about USD 1,000 per person a year in the sponsor's estimate) while funding education, health care and
+  housing. Recorded from secondary reporting.
+mechanism: One-time tax on AI companies above a USD 200 million annual-sales threshold, paid in stock into a public fund.
+funding: The fund's shareholdings and their returns.
 trigger: null
-benefit: null
-cost: null
-bill_number: null
-sponsors: []
-introduced_on: null
+benefit: Annual dividends to residents and funding for education, health care and housing, per the sponsor's description.
+cost: Sponsor's estimate of the fund's size is about USD 7 trillion; no official cost estimate recorded.
+bill_number: "S. 4825 (119th Congress)"
+sponsors: ["Sen. Bernie Sanders (I-VT)"]
+introduced_on: 2026-06-18
 enacted_on: null
 in_force_on: null
 arguments_for: []
 arguments_against: []
-sources: []
-official_source_url: null
-source_publisher: null
-source_tier: 4
-last_checked_at: null
+sources:
+  - { title: "S. 4825, American A.I. Sovereign Wealth Fund Act", publisher: "Congress.gov", url: "https://www.congress.gov/bill/119th-congress/senate-bill/4825", document_date: 2026-06-18, document_type: legislation, tier: 1 }
+  - { title: "Sanders introduces legislation to create $7 trillion AI sovereign wealth fund", publisher: "Office of Senator Bernie Sanders", url: "https://www.sanders.senate.gov/press-releases/news-sanders-introduces-legislation-to-create-7-trillion-ai-sovereign-wealth-fund/", document_date: 2026-06-18, document_type: press_release, tier: 2 }
+official_source_url: "https://www.congress.gov/bill/119th-congress/senate-bill/4825"
+source_publisher: "Congress.gov"
+source_tier: 1
+last_checked_at: '2026-09-26'
 last_verified_at: null
-review_status: draft
-confidence_level: low
+review_status: pending_review
+confidence_level: medium
 reviewed_by: null
-notes: "Listed for research in the editorial brief; nothing about it has yet been read from an official source, so every factual field is empty. Do not cite until a reviewer verifies it."
+notes: "Recorded on 26 September 2026 from concordant secondary reporting and the sponsor's press release; the bill text on Congress.gov has not yet been read by a reviewer here. Figures are the sponsor's estimates."
 published: true
