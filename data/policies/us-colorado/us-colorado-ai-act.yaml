@@ -191,6 +191,9 @@ obligations:
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Disparate-impact testing across protected classes.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-developer-disclosure-to-attorney-general
     title: Developers must notify the Attorney General and deployers of discovered algorithmic discrimination
@@ -224,6 +227,9 @@ obligations:
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Ongoing testing is one of the discovery routes the statute names.", confidence_level: medium }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-reasonable-care
     title: Deployers must use reasonable care to avoid algorithmic discrimination
@@ -257,6 +263,9 @@ obligations:
       - { control: ai-risk-assessment, relationship: supports, note: "Discrimination risk identified for each consequential-decision use.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-public-statement
     title: Deployers must publish a statement about the high-risk AI systems they use
@@ -289,6 +298,9 @@ obligations:
       - { control: ai-system-inventory, relationship: supports, note: "Source of the list of deployed high-risk systems.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-disclosure-to-attorney-general
     title: Deployers must notify the Attorney General of discovered algorithmic discrimination
@@ -319,6 +331,9 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Discrimination discovery treated as a reportable incident with the statutory clock.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-consumer-ai-interaction-disclosure
     title: Deployers and developers must disclose to consumers that they are interacting with an AI system
@@ -350,6 +365,9 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Point-of-interaction notice.", confidence_level: high }
     official_source_url: "https://leg.colorado.gov/bills/sb24-205"
     review_status: pending_review
+    reviewed_by: null
+    last_verified_at: null
+    last_checked_at: '2026-09-26'
     confidence_level: high
 deadlines:
   - { title: Signed into law, due_on: 2024-05-17, date_precision: exact, deadline_status: passed, confidence_level: high, description: "Governor signed SB 24-205." }

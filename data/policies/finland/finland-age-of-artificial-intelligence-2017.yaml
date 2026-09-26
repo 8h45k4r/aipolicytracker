@@ -52,8 +52,10 @@ source_title: Finland's Age of Artificial Intelligence
 source_publisher: Ministry of Economic Affairs and Employment
 source_document_date: '2017-10-23'
 source_tier: 1
-last_checked_at: '2026-09-11'
-review_status: pending_review
+last_checked_at: '2026-09-26'
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
 confidence_level: medium
 content_version: 1
 change_summary: >-

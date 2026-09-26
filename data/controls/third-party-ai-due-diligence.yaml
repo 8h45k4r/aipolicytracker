@@ -25,6 +25,9 @@ framework_references:
   - { framework: iso_27001, reference: "Annex A 5.19 to 5.22 Supplier relationships", confidence_level: medium }
   - { framework: owasp_llm_top10, reference: "LLM03 Supply Chain", confidence_level: high }
 related_controls: [contractual-allocation-of-ai-duties, ai-system-inventory, conformity-assessment-and-registration]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

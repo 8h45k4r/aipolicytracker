@@ -56,6 +56,8 @@ class CountryHubsTest extends TestCase
     {
         $ghana = Jurisdiction::where('slug', 'ghana')->firstOrFail();
         $this->assertSame(1, PolicyInstrument::published()->where('jurisdiction_id', $ghana->id)->whereNotNull('official_source_url')->count(), 'the fixture: one sourced instrument');
+        // The shipped data signs that instrument as verified; take it back to pending to exercise the guard's first branch.
+        PolicyInstrument::published()->where('jurisdiction_id', $ghana->id)->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
         $this->assertFalse($ghana->isPageIndexable());
         $this->assertStringContainsString('name="robots" content="noindex', $this->get('/ai-regulation-ghana')->assertOk()->getContent());
         $this->assertStringNotContainsString(route('hubs.show', 'ai-regulation-ghana'), $this->get('/sitemap-jurisdictions.xml')->getContent());

@@ -22,6 +22,9 @@ framework_references:
   - { framework: iso_42001, reference: "Annex A.10.2, A.10.3, A.10.4", confidence_level: high }
   - { framework: nist_ai_rmf, reference: "GOVERN 6.1; MANAGE 3.1", confidence_level: medium }
 related_controls: [third-party-ai-due-diligence, technical-documentation-and-model-cards, ai-system-inventory]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: medium
 published: true

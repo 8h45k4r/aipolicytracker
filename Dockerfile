@@ -11,8 +11,12 @@ RUN npm run build
 
 # ---- Stage 2: PHP runtime ----
 FROM php:8.3-cli-alpine
+# gd: phpoffice/phpspreadsheet and phpword require it, and the social-card
+# renderer draws with it (FreeType for the TrueType text, JPEG for photos).
 RUN apk add --no-cache postgresql-dev icu-dev libzip-dev oniguruma-dev \
-    && docker-php-ext-install pdo_pgsql pdo_mysql intl bcmath mbstring zip pcntl opcache \
+        libpng-dev libjpeg-turbo-dev freetype-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_pgsql pdo_mysql intl bcmath mbstring zip pcntl opcache gd \
     && rm -rf /var/cache/apk/* \
     && printf 'expose_php=Off\n' > /usr/local/etc/php/conf.d/zz-hardening.ini
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

@@ -26,6 +26,9 @@ framework_references:
   - { framework: mitre_atlas, reference: "AML.M0008 Validate ML Model, AML.M0003 Model Hardening, AML.M0015 Adversarial Input Detection", confidence_level: medium }
   - { framework: owasp_llm_top10, reference: "LLM04 Data and Model Poisoning", confidence_level: medium }
 related_controls: [ai-risk-assessment, genai-red-team-testing, post-market-monitoring-and-drift-detection, model-release-and-change-management-gate]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: high
 published: true

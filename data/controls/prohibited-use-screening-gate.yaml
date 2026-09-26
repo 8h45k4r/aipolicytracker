@@ -21,6 +21,9 @@ framework_references:
   - { framework: iso_42001, reference: "Clause 6.1.4; Annex A.5.2, A.9.3", confidence_level: medium }
   - { framework: nist_ai_rmf, reference: "GOVERN 1.1; MAP 1.1", confidence_level: medium }
 related_controls: [ai-system-inventory, ai-impact-assessment, ai-governance-policy-and-accountability]
-review_status: pending_review
+review_status: verified
+reviewed_by: AI Policy Tracker
+last_verified_at: '2026-09-26'
+last_checked_at: '2026-09-26'
 confidence_level: medium
 published: true
