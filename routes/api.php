@@ -31,6 +31,10 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
     Route::get('/incidents', [PublicApiController::class, 'incidents'])->name('incidents');
     Route::get('/risks', [PublicApiController::class, 'risks'])->name('risks');
     Route::get('/applicability/register', [PublicApiController::class, 'applicabilityRegister'])->name('applicability.register');
+    Route::get('/transition/measures', [PublicApiController::class, 'transitionMeasures'])->name('transition.measures');
+    Route::get('/transition/measures/{slug}', [PublicApiController::class, 'transitionMeasure'])->where('slug', '[a-z0-9-]+')->name('transition.measure');
+    Route::get('/transition/indicators', [PublicApiController::class, 'transitionIndicators'])->name('transition.indicators');
+    Route::get('/transition/index', [PublicApiController::class, 'transitionIndex'])->name('transition.index');
     Route::get('/templates', [PublicApiController::class, 'templates'])->name('templates');
     Route::get('/templates/{slug}', [PublicApiController::class, 'template'])->where('slug', '[a-z0-9-]+')->name('template');
     Route::get('/templates/{slug}/download', [PublicApiController::class, 'templateDownload'])->where('slug', '[a-z0-9-]+')->name('template.download');

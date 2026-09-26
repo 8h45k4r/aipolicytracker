@@ -14,6 +14,8 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
+use App\Models\TransitionIndicator;
+use App\Models\TransitionMeasure;
 use App\Services\Applicability\ApplicabilityScreener;
 use App\Services\Applicability\ObligationsRegister;
 use App\Services\Deadlines\DeadlineEngine;
@@ -26,6 +28,7 @@ use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
 use App\Services\Templates\Records;
 use App\Services\Templates\TemplateCatalog;
+use App\Services\Transition\DisplacementPolicyIndex;
 use App\Support\PageTitle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -69,6 +72,9 @@ class PublicApiController extends Controller
                 'incidents' => route('api.v1.incidents'),
                 'risks' => route('api.v1.risks'),
                 'templates' => route('api.v1.templates'),
+                'transition_measures' => route('api.v1.transition.measures'),
+                'transition_indicators' => route('api.v1.transition.indicators'),
+                'transition_index' => route('api.v1.transition.index'),
             ],
             'disclaimer' => config('aipolicytracker.disclaimer'),
         ]);
@@ -554,6 +560,62 @@ class PublicApiController extends Controller
         }
 
         return $this->respond($register->json($register->build($answers)));
+    }
+
+    /** AI economic transition measures; drafts carry review_status "draft" and empty facts, never guesses. */
+    public function transitionMeasures(Request $request): JsonResponse
+    {
+        $filters = [
+            'type' => array_key_exists((string) $request->query('type'), TransitionMeasure::TYPES) ? $request->query('type') : null,
+            'status' => array_key_exists((string) $request->query('status'), TransitionMeasure::STATUSES) ? $request->query('status') : null,
+            'jurisdiction' => preg_match('/^[a-z0-9-]+$/', (string) $request->query('jurisdiction')) ? $request->query('jurisdiction') : null,
+        ];
+
+        return $this->cached('api.transition.measures.v1.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
+            $rows = TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')
+                ->when($filters['type'], fn ($q, $t) => $q->where('measure_type', $t))
+                ->when($filters['status'], fn ($q, $t) => $q->where('status', $t))
+                ->when($filters['jurisdiction'], fn ($q, $j) => $q->whereHas('jurisdiction', fn ($w) => $w->where('slug', $j)))
+                ->orderBy('title')->get();
+
+            return ['data' => $rows->map(fn ($m) => $this->transitionRow($m))->all(), 'meta' => ['total' => $rows->count(), 'verified' => $rows->filter(fn ($m) => ! $m->isDraft())->count(), 'filters' => $filters, 'types' => TransitionMeasure::TYPES, 'statuses' => TransitionMeasure::STATUSES, 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'A draft has been listed for research and not yet read from an official source; its facts are null, not unknown-but-guessed.']];
+        });
+    }
+
+    public function transitionMeasure(string $slug): JsonResponse
+    {
+        $m = TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')->where('slug', $slug)->first();
+        abort_unless($m, 404);
+
+        return $this->respond(['data' => $this->transitionRow($m) + ['arguments_for' => $m->arguments_for ?? [], 'arguments_against' => $m->arguments_against ?? [], 'sources' => $m->sources ?? [], 'notes' => $m->notes], 'meta' => ['license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url')]]);
+    }
+
+    public function transitionIndicators(): JsonResponse
+    {
+        return $this->cached('api.transition.indicators.v1', function () {
+            $rows = TransitionIndicator::whereNotNull('published_at')->with('jurisdiction')->orderBy('title')->get();
+
+            return ['data' => $rows->map(fn ($i) => ['slug' => $i->slug, 'title' => $i->title, 'jurisdiction' => $i->jurisdiction?->slug, 'unit' => $i->unit, 'frequency' => $i->frequency, 'description' => $i->description, 'series' => $i->points(), 'review_status' => $i->review_status, 'confidence_level' => $i->confidence_level, 'official_source_url' => $i->official_source_url, 'last_verified_at' => $i->last_verified_at?->toAtomString()])->all(), 'meta' => ['total' => $rows->count(), 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url')]];
+        });
+    }
+
+    public function transitionIndex(): JsonResponse
+    {
+        $rows = DisplacementPolicyIndex::latest();
+
+        return $this->respond(['data' => $rows->map(fn ($s) => ['jurisdiction' => $s->jurisdiction->slug, 'jurisdiction_name' => $s->jurisdiction->name, 'quarter' => $s->quarter, 'version' => $s->version, 'score' => $s->score, 'subscores' => $s->subscores, 'inputs' => $s->inputs, 'computed_at' => $s->computed_at->toAtomString()])->values()->all(), 'meta' => DisplacementPolicyIndex::explain() + ['total' => $rows->count(), 'methodology_url' => route('transition.methodology'), 'license' => config('aipolicytracker.data_license')]]);
+    }
+
+    private function transitionRow(TransitionMeasure $m): array
+    {
+        return [
+            'slug' => $m->slug, 'title' => $m->title, 'jurisdiction' => $m->jurisdiction->slug, 'jurisdiction_name' => $m->jurisdiction->name,
+            'measure_type' => $m->measure_type, 'status' => $m->status, 'summary' => $m->summary, 'mechanism' => $m->mechanism, 'funding' => $m->funding,
+            'trigger' => $m->trigger, 'benefit' => $m->benefit, 'cost' => $m->cost, 'bill_number' => $m->bill_number, 'sponsors' => $m->sponsors ?? [],
+            'introduced_on' => $m->introduced_on?->toDateString(), 'enacted_on' => $m->enacted_on?->toDateString(), 'in_force_on' => $m->in_force_on?->toDateString(),
+            'official_source_url' => $m->official_source_url, 'source_publisher' => $m->source_publisher, 'source_tier' => $m->source_tier,
+            'review_status' => $m->review_status, 'confidence_level' => $m->confidence_level, 'last_verified_at' => $m->last_verified_at?->toAtomString(), 'draft' => $m->isDraft(), 'url' => $m->url(),
+        ];
     }
 
     /**

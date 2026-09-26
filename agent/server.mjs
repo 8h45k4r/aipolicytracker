@@ -224,6 +224,28 @@ const TOOLS = [
     },
   },
   {
+    name: 'list_transition_measures',
+    description:
+      'AI economic transition measures: proposals, bills, pilots and laws responding to AI-driven economic change (AI dividends, basic income, AI taxes, sovereign wealth funds, layoff-disclosure duties, retraining, worker voice), with status, mechanism, funding, sponsors and sources. A draft record has every factual field null because no reviewer has read its official source yet; say so rather than filling the gap.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', description: 'ai_dividend, universal_basic_income, ai_tax, sovereign_wealth_fund, layoff_disclosure, retraining, worker_voice, transition_benefit or other.' },
+        status: { type: 'string', description: 'unverified, proposed, introduced, in_committee, passed_chamber, enacted, in_force, pilot, withdrawn or expired.' },
+        jurisdiction: { type: 'string', description: 'Jurisdiction slug.' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/transition/measures' + query({ type: args.type, status: args.status, jurisdiction: args.jurisdiction })),
+  },
+  {
+    name: 'get_displacement_index',
+    description:
+      'The displacement policy index: a quarterly 0-100 score per jurisdiction from its verified AI economic transition measures, as four published sub-scores (disclosure, safety net, transition funding, worker voice) computed by a versioned pure function. Each snapshot lists the inputs it was computed from; drafts count for nothing.',
+    inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+    run: () => get('/api/v1/transition/index'),
+  },
+  {
     name: 'list_templates',
     description:
       'The templates library: free XLSX and DOCX files (AI system inventory, risk register, FRIA, policies, incident playbook, EU AI Act and ISO/IEC 42001 kits) generated from the recorded duties, controls and deadlines and rebuilt when the records change. Each entry gives the latest version, its dataset hash, what it covers and the download URLs. Filter by type, topic or framework.',
