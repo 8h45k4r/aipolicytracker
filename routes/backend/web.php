@@ -109,8 +109,11 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('back
     Route::middleware('can:submissions.decide')->group(function () {
         Route::get('/', [ReviewController::class, 'index'])->name('index');
         Route::post('/submissions/{submission}/decide', [ReviewController::class, 'decide'])->name('decide');
+        Route::post('/submissions/decide-many', [ReviewController::class, 'decideMany'])->name('decide.many');
     });
+    // {type} is any key of App\Services\Review\ReviewableTypes; the controller answers 404 to the rest.
     Route::post('/publish/{type}/{slug}', [ReviewController::class, 'publish'])->middleware('can:records.publish')->name('publish');
+    Route::post('/publish-many/{type}', [ReviewController::class, 'publishMany'])->middleware('can:records.publish')->name('publish.many');
     Route::post('/verify/{type}/{slug}', [ReviewController::class, 'verify'])->middleware('can:records.verify')->name('verify');
-    Route::post('/verify-many/{type}', [ReviewController::class, 'verifyMany'])->where('type', 'policy|jurisdiction|control')->middleware('can:records.verify')->name('verify.many');
+    Route::post('/verify-many/{type}', [ReviewController::class, 'verifyMany'])->middleware('can:records.verify')->name('verify.many');
 });

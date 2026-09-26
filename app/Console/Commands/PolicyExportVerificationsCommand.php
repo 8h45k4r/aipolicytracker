@@ -3,13 +3,14 @@
 namespace App\Console\Commands;
 
 use App\Models\RecordVerification;
+use App\Services\Review\ReviewableTypes;
+use App\Services\Review\YamlRecordPatch;
 use Illuminate\Console\Command;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Writes admin verification decisions back into the YAML records under data/ so the
- * repository stays the source of truth. Only the review fields change; formatting of
- * the rest of the file is preserved by line-level replacement.
+ * repository stays the source of truth. Only the review fields change; the rest of
+ * each file is preserved line for line.
  */
 class PolicyExportVerificationsCommand extends Command
 {
@@ -22,15 +23,12 @@ class PolicyExportVerificationsCommand extends Command
         $query = $this->option('all') ? RecordVerification::query() : RecordVerification::where('exported', false);
         $written = 0;
         foreach ($query->cursor() as $v) {
-            $file = $v->record_type === 'policy'
-                ? collect(glob(base_path('data/policies/*/'.$v->record_slug.'.yaml')))->first()
-                : base_path('data/jurisdictions/'.$v->record_slug.'.yaml');
-            if (! $file || ! is_file($file)) {
+            $file = ReviewableTypes::has($v->record_type) ? ReviewableTypes::file($v->record_type, $v->record_slug) : null;
+            if (! $file) {
                 $this->warn("No file for {$v->record_type} {$v->record_slug}");
 
                 continue;
             }
-            $lines = file($file, FILE_IGNORE_NEW_LINES);
             $set = [
                 'review_status' => $v->review_status,
                 'confidence_level' => $v->confidence_level,
@@ -38,21 +36,11 @@ class PolicyExportVerificationsCommand extends Command
                 'reviewed_by' => $v->reviewed_by,
                 'last_checked_at' => now()->toDateString(),
             ];
-            $done = [];
-            foreach ($lines as $i => $line) {
-                foreach ($set as $key => $value) {
-                    if (preg_match('/^'.$key.':/', $line)) {
-                        $lines[$i] = $key.': '.($value === null ? 'null' : Yaml::dump($value));
-                        $done[$key] = true;
-                    }
-                }
+            if (! YamlRecordPatch::apply($file, $set, ReviewableTypes::isListFile($v->record_type) ? $v->record_slug : null)) {
+                $this->warn("No entry {$v->record_slug} in ".str_replace(base_path().'/', '', $file));
+
+                continue;
             }
-            foreach ($set as $key => $value) {
-                if (! isset($done[$key])) {
-                    $lines[] = $key.': '.($value === null ? 'null' : Yaml::dump($value));
-                }
-            }
-            file_put_contents($file, implode("\n", $lines)."\n");
             $v->update(['exported' => true]);
             $written++;
             $this->line('updated '.str_replace(base_path().'/', '', $file));
