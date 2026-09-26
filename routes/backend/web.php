@@ -44,6 +44,8 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
             Route::get('/downloads/export', 'downloadsExport')->name('downloads.export');
         });
         Route::middleware('can:subscribers.manage')->group(function () {
+            Route::post('/subscribers/resend-many', 'subscribersResendMany')->name('subscribers.resend.many');
+            Route::post('/subscribers/delete-many', 'subscribersDeleteMany')->name('subscribers.delete.many');
             Route::post('/subscribers/{subscriber}/resend', 'subscriberResend')->name('subscribers.resend');
             Route::delete('/subscribers/{subscriber}', 'subscriberDelete')->name('subscribers.delete');
         });
@@ -91,6 +93,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
+        Route::post('/status-many', 'statusMany')->name('status.many');
         Route::get('/{tool}/edit', 'edit')->name('edit');
         Route::put('/{tool}', 'update')->name('update');
         Route::delete('/{tool}', 'destroy')->middleware('password.confirm')->name('destroy');

@@ -2,6 +2,7 @@
 @section('content')
 <h1 class="font-display text-2xl font-semibold text-brand-navy">Settings and API keys</h1>
 <p class="mt-1 meta">Values saved here override the environment. Secrets are encrypted with the application key before they are stored and are never shown again in full.</p>
+@unless($envReadable)<p class="mt-2 rounded-sm border border-brand-line bg-white px-3 py-2 text-sm text-brand-body">The configuration is cached on this host, so the environment file is not read at request time and its values cannot be shown beside each field. The effective configuration below is what the site is using.</p>@endunless
 <section class="mt-6 card-flat p-5"><h2 class="section-title !text-lg">Effective configuration</h2>
     <dl class="mt-3 text-sm divide-y divide-brand-line">
         <div class="py-2 flex justify-between"><dt class="text-brand-muted">Mail transport</dt><dd class="font-mono">{{ $effective['mailer'] }}</dd></div>

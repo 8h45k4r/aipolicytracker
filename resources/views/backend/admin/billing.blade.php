@@ -33,7 +33,7 @@
     <h2 class="section-title !text-lg">Subscriptions</h2>
     <p class="mt-2 text-sm">@foreach(\App\Models\Subscription::STATUSES as $s)<a href="{{ route('backend.admin.billing.index', ['status' => $s]) }}" class="mr-3 {{ $status === $s ? 'font-semibold' : '' }}">{{ $s }} ({{ $byStatus[$s] ?? 0 }})</a>@endforeach <a href="{{ route('backend.admin.billing.index') }}" class="{{ $status ? '' : 'font-semibold' }}">all</a> · checkouts: @foreach($checkouts as $s => $n){{ $s }} {{ $n }}@if(!$loop->last), @endif @endforeach</p>
     <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
-        <thead><tr class="text-left text-brand-muted"><th class="py-1 pr-3">User</th><th class="py-1 pr-3">Plan</th><th class="py-1 pr-3">Status</th><th class="py-1 pr-3">Period end</th><th class="py-1 pr-3">Last event</th><th class="py-1">Provider id</th></tr></thead>
+        <caption class="sr-only">Subscriptions</caption><thead><tr class="text-left text-brand-muted"><th scope="col" class="py-1 pr-3">User</th><th scope="col" class="py-1 pr-3">Plan</th><th scope="col" class="py-1 pr-3">Status</th><th scope="col" class="py-1 pr-3">Period end</th><th scope="col" class="py-1 pr-3">Last event</th><th scope="col" class="py-1">Provider id</th></tr></thead>
         <tbody class="divide-y divide-brand-line">
         @forelse($subscriptions as $s)
         <tr><td class="py-1.5 pr-3">{{ $s->user?->email ?? '—' }}</td><td class="py-1.5 pr-3">{{ $s->planName() }}</td><td class="py-1.5 pr-3">{{ $s->status }}@if($s->cancel_at_period_end) (cancels at period end)@endif</td><td class="py-1.5 pr-3">{{ $s->current_period_end?->format('j M Y') ?? '—' }}</td><td class="py-1.5 pr-3">{{ $s->last_event_type }} · {{ $s->last_event_at?->format('j M Y H:i') }}</td><td class="py-1.5 font-mono text-xs">{{ $s->provider_subscription_id }}</td></tr>
@@ -47,7 +47,7 @@
     <h2 class="section-title !text-lg">Recent checkout attempts</h2>
     <p class="mt-1 meta">created → returned (customer came back) → completed (webhook applied). An abandoned attempt keeps the provider's answer so a refused session can be diagnosed here.</p>
     <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
-        <thead><tr class="text-left text-brand-muted"><th class="py-1 pr-3">When</th><th class="py-1 pr-3">User</th><th class="py-1 pr-3">Plan</th><th class="py-1 pr-3">Status</th><th class="py-1">Provider response</th></tr></thead>
+        <caption class="sr-only">Recent checkout attempts</caption><thead><tr class="text-left text-brand-muted"><th scope="col" class="py-1 pr-3">When</th><th scope="col" class="py-1 pr-3">User</th><th scope="col" class="py-1 pr-3">Plan</th><th scope="col" class="py-1 pr-3">Status</th><th scope="col" class="py-1">Provider response</th></tr></thead>
         <tbody class="divide-y divide-brand-line">
         @forelse($recentCheckouts as $c)
         <tr><td class="py-1.5 pr-3 whitespace-nowrap">{{ $c->created_at?->format('j M Y H:i') }}</td><td class="py-1.5 pr-3">{{ $c->user?->email ?? '—' }}</td><td class="py-1.5 pr-3">{{ $c->plan_key }}</td><td class="py-1.5 pr-3 {{ $c->status === 'abandoned' ? 'text-state-bad' : '' }}">{{ $c->status }}</td><td class="py-1.5 text-xs font-mono whitespace-pre-wrap break-all text-brand-muted">{{ $c->error ? \Illuminate\Support\Str::limit($c->error, 600) : '—' }}</td></tr>
@@ -59,7 +59,7 @@
 <section class="mt-6 card-flat p-5">
     <h2 class="section-title !text-lg">Received webhooks</h2>
     <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
-        <thead><tr class="text-left text-brand-muted"><th class="py-1 pr-3">Received</th><th class="py-1 pr-3">Type</th><th class="py-1 pr-3">Subscription</th><th class="py-1 pr-3">Outcome</th><th class="py-1">Error</th></tr></thead>
+        <caption class="sr-only">Received webhooks</caption><thead><tr class="text-left text-brand-muted"><th scope="col" class="py-1 pr-3">Received</th><th scope="col" class="py-1 pr-3">Type</th><th scope="col" class="py-1 pr-3">Subscription</th><th scope="col" class="py-1 pr-3">Outcome</th><th scope="col" class="py-1">Error</th></tr></thead>
         <tbody class="divide-y divide-brand-line">
         @forelse($events as $e)
         <tr><td class="py-1.5 pr-3 whitespace-nowrap">{{ $e->received_at?->format('j M Y H:i:s') }}</td><td class="py-1.5 pr-3">{{ $e->event_type }}</td><td class="py-1.5 pr-3 font-mono text-xs">{{ $e->provider_subscription_id ?? '—' }}</td><td class="py-1.5 pr-3 {{ $e->outcome === 'error' ? 'text-state-bad' : '' }}">{{ $e->outcome ?? 'pending' }}</td><td class="py-1.5 text-xs text-brand-muted">{{ \Illuminate\Support\Str::limit($e->error, 120) }}</td></tr>

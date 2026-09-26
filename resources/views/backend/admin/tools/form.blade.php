@@ -5,7 +5,7 @@
 <div class="flex flex-wrap items-start justify-between gap-3">
     <div><h1 class="font-display text-2xl font-semibold text-brand-navy">{{ $tool->exists ? $tool->title : 'New tool' }}</h1><p class="mt-1 meta"><a href="{{ route('backend.admin.tools.index') }}">Tool library</a>@if($tool->exists) · <span class="font-mono">{{ $tool->slug }}</span> · {{ \App\Models\Tool::STATUSES[$tool->status] }}@if($tool->status === 'published') · <a href="{{ $tool->url() }}" target="_blank" rel="noopener">View public page</a>@endif @endif</p></div>
     @if($tool->exists && $tool->status !== 'archived')
-    <form method="post" action="{{ route('backend.admin.tools.destroy', $tool) }}" onsubmit="return confirm('Archive this tool? It will be hidden from /guides and can no longer be downloaded. Download records are kept.');">@csrf @method('DELETE')<button type="submit" class="btn-secondary">Archive</button></form>
+    <form method="post" action="{{ route('backend.admin.tools.destroy', $tool) }}" data-confirm="Archive this tool? It will be hidden from /guides and can no longer be downloaded. Download records are kept.">@csrf @method('DELETE')<button type="submit" class="btn-secondary">Archive</button></form>
     @endif
 </div>
 <div class="mt-6 grid gap-8 lg:grid-cols-3">
@@ -45,7 +45,7 @@
                 <div class="mt-1.5 flex flex-wrap gap-1.5">
                     <a href="{{ route('backend.admin.tools.files.download', [$tool, $f]) }}" class="btn-secondary !min-h-0 !py-1">Download</a>
                     <form method="post" action="{{ route('backend.admin.tools.files.toggle', [$tool, $f]) }}">@csrf<button type="submit" class="btn-secondary !min-h-0 !py-1">{{ $f->is_active ? 'Deactivate' : 'Activate' }}</button></form>
-                    <form method="post" action="{{ route('backend.admin.tools.files.destroy', [$tool, $f]) }}" onsubmit="return confirm('Remove this file permanently?');">@csrf @method('DELETE')<button type="submit" class="btn-secondary !min-h-0 !py-1">Remove</button></form>
+                    <form method="post" action="{{ route('backend.admin.tools.files.destroy', [$tool, $f]) }}" data-confirm="Remove this file permanently?">@csrf @method('DELETE')<button type="submit" class="btn-secondary !min-h-0 !py-1">Remove</button></form>
                 </div>
             </li>
             @empty<li class="py-2 text-brand-muted">No files yet.</li>@endforelse

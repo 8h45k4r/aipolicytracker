@@ -32,8 +32,10 @@ class UserController extends Controller
         $query = User::query()->with('adminRoleGrantedBy')->orderByDesc('created_at');
 
         if ($filters['q'] !== '') {
-            $term = '%'.$filters['q'].'%';
-            $query->where(fn ($q) => $q->where('email', 'like', $term)->orWhere('name', 'like', $term)->orWhere('organization_name', 'like', $term));
+            // LOWER on both sides: PostgreSQL's LIKE is case-sensitive, and "bhaskar"
+            // has to find Bhaskar on the host as it does in development.
+            $term = '%'.mb_strtolower($filters['q']).'%';
+            $query->where(fn ($q) => $q->whereRaw('LOWER(email) LIKE ?', [$term])->orWhereRaw('LOWER(name) LIKE ?', [$term])->orWhereRaw('LOWER(organization_name) LIKE ?', [$term]));
         }
 
         match ($filters['role']) {
