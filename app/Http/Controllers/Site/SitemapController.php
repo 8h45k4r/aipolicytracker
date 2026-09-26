@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Control;
+use App\Models\DigestIssue;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
@@ -33,6 +34,7 @@ class SitemapController extends Controller
             'obligations' => Obligation::published()->max('updated_at'),
             'controls' => Control::published()->max('updated_at'),
             'changes' => ChangeEvent::published()->max('updated_at'),
+            'updates' => ChangeEvent::published()->max('updated_at'),
             'resources' => PolicyInstrument::published()->max('updated_at'),
             // The research corpus: roughly 1,700 incident pages and 2,500 risk
             // entries that were reachable, indexable and in no sitemap at all,
@@ -42,6 +44,11 @@ class SitemapController extends Controller
             'risks' => ExternalRisk::query()->max('updated_at'),
         ];
         $entries = collect($sections)->map(fn ($mod, $key) => ['loc' => route('sitemap.section', $key), 'lastmod' => $mod ? Carbon::parse($mod)->toAtomString() : null]);
+        // The news sitemap is listed only while it has something in it: an empty
+        // one is a promise of news to a crawler that will find none.
+        if (($news = $this->newsItems())->isNotEmpty()) {
+            $entries->put('news', ['loc' => route('sitemap.news'), 'lastmod' => $news->max('first_published_at')?->toAtomString()]);
+        }
 
         return $this->xml(view('site.sitemap.index', compact('entries'))->render());
     }
@@ -55,6 +62,7 @@ class SitemapController extends Controller
             'obligations' => $this->obligationUrls(),
             'controls' => $this->controlUrls(),
             'changes' => $this->changeUrls(),
+            'updates' => $this->updatesUrls(),
             'resources' => $this->resourceUrls(),
             'incidents' => $this->incidentUrls(),
             'risks' => $this->riskUrls(),
@@ -224,6 +232,65 @@ class SitemapController extends Controller
             ChangeEvent::published()->whereNotNull('official_source_url')->whereNotNull('what_changed')->orderByDesc('occurred_on')->lazy(500)
                 ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $c->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5'])
         )->values();
+    }
+
+    /**
+     * Google News sitemap: change entries first published in the last 48 hours.
+     * The event itself must also be recent. On a database built from scratch,
+     * every row is "first published" at build time, and without the second test
+     * a 2017 entry would be offered as today's news.
+     */
+    public function news(): Response
+    {
+        return $this->xml(view('site.sitemap.news', ['changes' => $this->newsItems()])->render());
+    }
+
+    private function newsItems()
+    {
+        return ChangeEvent::published()->with('jurisdiction')
+            ->whereNotNull('official_source_url')->whereNotNull('what_changed')
+            ->where('first_published_at', '>=', now()->subHours(48))
+            ->where('occurred_on', '>=', now()->subDays(14)->toDateString())
+            ->orderByDesc('first_published_at')->limit(1000)->get();
+    }
+
+    /**
+     * The updates hub and its archives, each listed only when it is indexable:
+     * the pages apply the same threshold to themselves.
+     */
+    private function updatesUrls()
+    {
+        $latest = ChangeEvent::published()->max('updated_at');
+        $urls = collect([['loc' => route('updates.index'), 'lastmod' => $latest ? Carbon::parse($latest)->toAtomString() : null, 'changefreq' => 'daily', 'priority' => '0.9']]);
+
+        foreach (ChangeEvent::publishedMonths() as $month => $m) {
+            if ($m['count'] >= UpdatesController::MIN_INDEXABLE) {
+                $urls->push(['loc' => route('updates.month', $month), 'lastmod' => $m['modified'] ? Carbon::parse($m['modified'])->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6']);
+            }
+        }
+        $days = ChangeEvent::published()->get(['occurred_on', 'updated_at'])->groupBy(fn ($e) => substr((string) $e->occurred_on, 0, 10));
+        foreach ($days as $day => $group) {
+            if ($group->count() >= UpdatesController::MIN_INDEXABLE_DAY) {
+                $urls->push(['loc' => route('updates.day', $day), 'lastmod' => Carbon::parse($group->max('updated_at'))->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5']);
+            }
+        }
+        $counts = ChangeEvent::published()->selectRaw('jurisdiction_id, count(*) as n, max(updated_at) as m')->groupBy('jurisdiction_id')->get()->keyBy('jurisdiction_id');
+        foreach (Jurisdiction::published()->withPublishedInstrument()->whereIn('id', $counts->keys())->orderBy('slug')->get() as $j) {
+            $row = $counts[$j->id];
+            if ($j->isIndexable() && $row->n >= UpdatesController::MIN_INDEXABLE) {
+                $urls->push(['loc' => route('updates.jurisdiction', $j->slug), 'lastmod' => Carbon::parse($row->m)->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.6']);
+            }
+        }
+        foreach (DigestIssue::orderByDesc('sent_on')->get() as $issue) {
+            if ($issue->isIndexable()) {
+                $urls->push(['loc' => $issue->url(), 'lastmod' => $issue->updated_at?->toAtomString(), 'changefreq' => 'yearly', 'priority' => '0.4']);
+            }
+        }
+        if (DigestIssue::query()->exists()) {
+            $urls->push(['loc' => route('newsletter.index'), 'lastmod' => DigestIssue::max('updated_at') ? Carbon::parse(DigestIssue::max('updated_at'))->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.5']);
+        }
+
+        return $urls->values();
     }
 
     private function resourceUrls()

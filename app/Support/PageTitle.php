@@ -279,6 +279,36 @@ final class PageTitle
         return self::shortenWords($title, self::MAX);
     }
 
+    /** "AI Policy Updates Today: <Month Year> Global Tracker" */
+    public static function updatesHub(\DateTimeInterface $now): string
+    {
+        return self::fit('AI Policy Updates Today', [': '.$now->format('F Y').' Global Tracker', ': '.$now->format('M Y').' Tracker']);
+    }
+
+    /** "AI Policy Updates, <Month Year>: What Changed" */
+    public static function updatesMonth(\DateTimeInterface $month): string
+    {
+        return self::fit('AI Policy Updates, '.$month->format('F Y'), [': What Changed & Took Effect', ': What Changed']);
+    }
+
+    public static function updatesDay(\DateTimeInterface $day): string
+    {
+        return self::fit('AI Policy Updates, '.$day->format('j F Y'), [': What Changed']);
+    }
+
+    /** "<Country> AI Policy Updates <Year>: Latest Changes" */
+    public static function updatesJurisdiction(Jurisdiction $jurisdiction, \DateTimeInterface $now): string
+    {
+        $name = self::clean($jurisdiction->short_name ?: $jurisdiction->name);
+
+        return self::fit($name.' AI Policy Updates '.$now->format('Y'), [': Latest Changes & Dates', ': Latest Changes']);
+    }
+
+    public static function newsletterIssue(\DateTimeInterface $sentOn): string
+    {
+        return self::fit('AI Policy Digest, '.$sentOn->format('j F Y'), [': Weekly Newsletter']);
+    }
+
     public static function control(Control $control): string
     {
         return self::fit($control->title, [': AI Duties, Evidence & Clauses', ': AI Governance Control']);

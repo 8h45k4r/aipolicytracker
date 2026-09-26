@@ -19,7 +19,9 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Obligations: {{ route('obligations.index') }}
 - Controls (one control, the duties it satisfies, the evidence it produces): {{ route('controls.index') }}
 - Compare: {{ route('compare.index') }}
-- Change log: {{ route('changes.index') }} (RSS: {{ route('changes.feed') }})
+- AI policy updates (latest changes with a computed summary, top stories by a published rule, month and day archives, one page and RSS feed per jurisdiction): {{ route('updates.index') }}
+- Change log: {{ route('changes.index') }} (RSS: {{ route('changes.feed') }}; Google News sitemap: {{ route('sitemap.news') }})
+- Weekly digest archive: {{ route('newsletter.index') }}
 - AI risk domains (MIT AI Risk Repository taxonomy with incident counts): {{ route('risk.index') }}
 - AI incidents summary (AI Incident Database, weekly): {{ route('risk.incidents') }}
 - Browse and export incidents: {{ route('risk.incidents.browse') }} (CSV: {{ route('risk.incidents.export', 'csv') }})

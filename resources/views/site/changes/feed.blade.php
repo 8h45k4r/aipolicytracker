@@ -2,12 +2,12 @@
 
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-    <title>AIPolicyTracker: AI policy changes</title>
-    <link>{{ route('changes.index') }}</link>
-    <description>Dated, source-backed AI policy changes across jurisdictions. Informational only; not legal advice.</description>
+    <title>{{ $title ?? 'AIPolicyTracker: AI policy changes' }}</title>
+    <link>{{ $link ?? route('changes.index') }}</link>
+    <description>{{ $description ?? 'Dated, source-backed AI policy changes across jurisdictions. Informational only; not legal advice.' }}</description>
     <language>en</language>
     <lastBuildDate>{{ now()->toRssString() }}</lastBuildDate>
-    <atom:link href="{{ route('changes.feed') }}" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ $self ?? route('changes.feed') }}" rel="self" type="application/rss+xml" />
 @foreach($changes as $c)
     <item>
         <title>{{ $c->jurisdiction->name }}: {{ $c->title }}</title>

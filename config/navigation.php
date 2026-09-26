@@ -16,6 +16,7 @@ return [
                 [
                     'heading' => 'Explore',
                     'items' => [
+                        ['route' => 'updates.index', 'label' => 'AI policy updates', 'note' => 'What is new, by day, month and country'],
                         ['route' => 'policies.index', 'label' => 'Policy explorer', 'note' => 'Every recorded instrument, filterable'],
                         ['route' => 'obligations.index', 'label' => 'Obligations', 'note' => 'What the rules actually require'],
                         ['route' => 'controls.index', 'label' => 'Controls', 'note' => 'What you operate to meet them, and the evidence'],

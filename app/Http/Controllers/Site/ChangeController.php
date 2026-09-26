@@ -84,13 +84,17 @@ class ChangeController extends Controller
             filled($change->what_changed) && filled($change->official_source_url)
         )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], [(string) $change->occurred_on->year, route('changes.year', $change->occurred_on->year)], [$change->title, $change->url()]])
             ->withModified($change->updated_at)
-            ->withPublished($change->occurred_on)
+            // Published when the entry first appeared here, not when the event
+            // happened: a news reader asks the first question. The event date is
+            // stated in the body and in the dateline below.
+            ->withPublished($change->first_published_at ?? $change->occurred_on)
             ->withOgType('article')
             ->withFeed(route('changes.feed'))
             ->withAlternate('text/markdown', route('changes.context', $change->slug))
-            ->withPageType('Article', array_filter([
-                'headline' => $change->title,
-                'articleSection' => 'AI policy change log',
+            ->withPageType('NewsArticle', array_filter([
+                'headline' => PageTitle::shorten($change->title, 110),
+                'dateline' => trim(($name ?? '').', '.$change->occurred_on->format('j F Y'), ', '),
+                'articleSection' => 'AI policy updates',
                 'isBasedOn' => $change->official_source_url ?: null,
                 'about' => array_values(array_filter([
                     $instrument ? ['@type' => $instrument->is_binding ? 'Legislation' : 'CreativeWork', 'name' => $instrument->short_title ?: $instrument->title, 'url' => $instrument->url()] : null,
