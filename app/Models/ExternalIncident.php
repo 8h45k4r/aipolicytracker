@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentSensitivity;
+use App\Services\ExternalData\RecordSlugs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -14,6 +16,18 @@ class ExternalIncident extends Model
 
     protected $guarded = [];
 
+    /**
+     * A record created one at a time (rather than by the importers' bulk
+     * upsert, which assigns addresses afterwards) gets its address here, so
+     * no record is ever published without one.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (self $record) {
+            $record->slug ??= RecordSlugs::forIncident($record);
+        });
+    }
+
     protected function casts(): array
     {
         return ['occurred_on' => 'date', 'snapshot_date' => 'date', 'modified_at' => 'datetime', 'synced_at' => 'datetime', 'deployers' => 'array', 'developers' => 'array', 'harmed' => 'array', 'sectors' => 'array', 'countries' => 'array', 'entities' => 'array', 'implicated_systems' => 'array', 'similar_incidents' => 'array'];
@@ -24,9 +38,10 @@ class ExternalIncident extends Model
         return $this->hasMany(ExternalIncidentReport::class, 'incident_id', 'incident_id')->orderBy('date_published')->orderBy('report_number');
     }
 
+    /** The readable address; the numeric one it replaced redirects here. */
     public function url(): string
     {
-        return route('risk.incidents.show', $this->incident_id);
+        return route('risk.incidents.show', $this->slug ?? $this->incident_id);
     }
 
     /**
@@ -41,7 +56,7 @@ class ExternalIncident extends Model
      */
     public function isIndexable(): bool
     {
-        return filled($this->description);
+        return filled($this->description) && ! IncidentSensitivity::isSensitive($this);
     }
 
     /** AIID Discover view listing every report on this incident (the reports themselves stay on AIID). */

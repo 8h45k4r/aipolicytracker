@@ -66,12 +66,12 @@ class ExternalSyncTest extends TestCase
         $this->assertSame('Existing Incident Updated Title', $updated->title);
         $this->assertSame($existing->mit_domain, $updated->mit_domain, 'snapshot classification kept when the API has none');
 
-        $this->get('/ai-risk/incidents')->assertOk()->assertSee('Synced Warehouse Robot Incident')->assertSee('Synced from the AI Incident Database API')->assertSee(route('risk.incidents.show', $newId))->assertSee('https://incidentdatabase.ai/cite/');
-        $this->get('/ai-risk/incidents/'.$newId)->assertOk()->assertSee("Editor's notes", false)->assertSee('dates are approximate')->assertSee('AI systems implicated')->assertSee('Related incidents')->assertSee('Synced from source');
+        $this->get('/ai-risk/incidents')->assertOk()->assertSee('Synced Warehouse Robot Incident')->assertSee('Synced from the AI Incident Database API')->assertSee(ExternalIncident::find($newId)->url())->assertSee('https://incidentdatabase.ai/cite/');
+        $this->get(ExternalIncident::find($newId)->url())->assertOk()->assertSee("Editor's notes", false)->assertSee('dates are approximate')->assertSee('AI systems implicated')->assertSee('Related incidents')->assertSee('Synced from source');
         // The source is credited once, at the foot of the page, instead of on every
         // entity and every catalogued report. These two assertions are the contract:
         // the per-entity link-out is gone, and the licence credit is not.
-        $this->get('/ai-risk/incidents/'.$newId)->assertOk()->assertDontSee('entities/acme-robotics')->assertSee('CC BY-SA 4.0');
+        $this->get(ExternalIncident::find($newId)->url())->assertOk()->assertDontSee('entities/acme-robotics')->assertSee('CC BY-SA 4.0');
         $this->get('/')->assertOk()->assertSee('Synced Warehouse Robot Incident');
 
         // Re-importing the weekly snapshot must not delete or downgrade rows the live sync added or refreshed.
@@ -89,7 +89,7 @@ class ExternalSyncTest extends TestCase
         $this->assertSame('acme-robotics', $restored->entities['deployers'][0]['id']);
         $this->assertSame('Existing Incident Updated Title', ExternalIncident::findOrFail($existing->incident_id)->title);
         $this->assertCount(1, $restored->reports);
-        $this->get('/ai-risk/incidents/'.$newId)->assertOk()->assertSee('AI systems implicated');
+        $this->get(ExternalIncident::find($newId)->url())->assertOk()->assertSee('AI systems implicated');
     }
 
     public function test_api_failure_is_reported_and_cron_trigger_requires_token(): void
@@ -100,7 +100,7 @@ class ExternalSyncTest extends TestCase
         $this->artisan('external:sync-aiid-api', ['--since' => '2026-09-01'])->assertExitCode(1);
         // API down: the stored rows keep serving the pages.
         $this->assertGreaterThan(1000, ExternalIncident::count());
-        $this->get('/ai-risk/incidents')->assertOk()->assertSee('Latest recorded incidents')->assertSee(route('risk.incidents.show', ExternalIncident::max('incident_id')));
+        $this->get('/ai-risk/incidents')->assertOk()->assertSee('Latest recorded incidents')->assertSee(ExternalIncident::find(ExternalIncident::max('incident_id'))->url());
         $this->get('/ai-risk/incidents/browse')->assertOk();
 
         $this->postJson('/cron/external-sync')->assertStatus(401);

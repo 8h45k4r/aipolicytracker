@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ExternalData\RecordSlugs;
 use Illuminate\Database\Eloquent\Model;
 
 class ExternalRisk extends Model
@@ -18,10 +19,25 @@ class ExternalRisk extends Model
 
     public const CAUSAL = ['entity' => ['Human', 'AI', 'Other', 'Not coded'], 'intent' => ['Intentional', 'Unintentional', 'Other', 'Not coded'], 'timing' => ['Pre-deployment', 'Post-deployment', 'Other', 'Not coded']];
 
-    /** Profile URL; "#n" de-duplication suffixes are written as "--n" so the id is URL-safe. */
+    /**
+     * A record created one at a time (rather than by the importers' bulk
+     * upsert, which assigns addresses afterwards) gets its address here, so
+     * no record is ever published without one.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (self $record) {
+            $record->slug ??= RecordSlugs::forRisk($record);
+        });
+    }
+
+    /**
+     * The readable address. The repository's evidence code it replaced
+     * ("05.17.00", with "#n" suffixes written "--n") still resolves, as a redirect.
+     */
     public function url(): string
     {
-        return route('risk.risks.show', str_replace('#', '--', $this->ev_id));
+        return route('risk.risks.show', $this->slug ?? str_replace('#', '--', $this->ev_id));
     }
 
     /**

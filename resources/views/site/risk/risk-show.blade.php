@@ -21,7 +21,7 @@
             <section aria-labelledby="coding-heading" class="mt-8">
                 <h2 id="coding-heading" class="section-title">Classification</h2>
                 <dl class="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2 text-sm">
-                    <div><dt class="text-brand-muted">Domain</dt><dd class="mt-0.5">@if($domain)<a href="{{ route('risk.domain', $domain['id']) }}" class="font-medium text-brand-navy">{{ $domain['id'] }}. {{ $domain['name'] }}</a>@else —@endif</dd></div>
+                    <div><dt class="text-brand-muted">Domain</dt><dd class="mt-0.5">@if($domain)<a href="{{ \App\Support\RiskTaxonomy::domainUrl($domain['id']) }}" class="font-medium text-brand-navy">{{ $domain['id'] }}. {{ $domain['name'] }}</a>@else —@endif</dd></div>
                     <div><dt class="text-brand-muted">Subdomain</dt><dd class="mt-0.5">@if($subdomainMeta)<a href="{{ route('risk.risks', ['subdomain' => $r->subdomain]) }}" class="font-medium text-brand-navy">{{ $subdomainMeta['id'] }} {{ $subdomainMeta['name'] }}</a>@elseif($r->subdomain){{ $r->subdomain }}@else —@endif</dd></div>
                     @foreach(['entity' => 'Causal entity', 'intent' => 'Intent', 'timing' => 'Timing'] as $k => $label)
                     <div><dt class="text-brand-muted">{{ $label }}</dt><dd class="mt-0.5">@if($r->{$k})<a href="{{ route('risk.risks', [$k => $r->{$k}]) }}">{{ $r->{$k} }}</a>@else —@endif</dd></div>
@@ -64,9 +64,9 @@
                     </dl>
                 </div>
                 <div class="flex flex-col gap-2 text-sm">
-                    <x-site.save-button type="risk" :slug="$ev" :title="($r->risk_subcategory ?: $r->risk_category ?: $r->ev_id)" :url="$r->url()" :meta="$r->quick_ref" />
+                    <x-site.save-button type="risk" :slug="$ev" :title="($r->risk_subcategory ?: $r->risk_category ?: 'Risk entry')" :url="$r->url()" :meta="\App\Support\PageTitle::citation($r->quick_ref)" />
                     <a href="{{ route('risk.risks.export', ['format' => 'json', 'paper' => $r->quick_ref]) }}" class="btn-secondary">Export this paper's entries (JSON)</a>
-                    <a href="{{ route('contribute', ['type' => 'correction', 'subject_type' => 'risk', 'subject_slug' => $ev]) }}" class="btn-secondary" data-track="correction_click">Report a correction</a>
+                    <a href="{{ route('contribute', ['type' => 'correction', 'subject_type' => 'risk', 'subject_slug' => str_replace('#', '--', $r->ev_id)]) }}" class="btn-secondary" data-track="correction_click">Report a correction</a>
                     <button type="button" class="btn-secondary" data-copy-link>Copy link</button>
                 </div>
             </div>
