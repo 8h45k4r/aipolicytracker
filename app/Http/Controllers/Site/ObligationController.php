@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Obligation;
 use App\Models\TaxonomyTerm;
+use App\Models\TemplateVersion;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
+use App\Services\Templates\TemplateCatalog;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
@@ -59,6 +61,7 @@ class ObligationController extends Controller
 
         $answer = AnswerBox::obligation($obligation);
         $facts = KeyFacts::obligation($obligation);
+        $templates = TemplateCatalog::forObligation($obligation)->map(fn ($m) => $m + ['version' => TemplateVersion::latestFor($m['slug'])])->values();
 
         $seo = Seo::make(
             PageTitle::obligation($obligation),
@@ -91,6 +94,6 @@ class ObligationController extends Controller
 
         $seo->withFaq(QuestionBank::obligation($obligation));
 
-        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName', 'answer', 'facts'));
+        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName', 'answer', 'facts', 'templates'));
     }
 }
