@@ -6,6 +6,7 @@ use App\Models\ChangeEvent;
 use App\Models\Obligation;
 use App\Models\Subscriber;
 use App\Models\TemplateVersion;
+use App\Services\Applicability\ApplicabilityScreener;
 use App\Services\Templates\TemplateBuilder;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\PageTitle;
@@ -81,7 +82,8 @@ class TemplatesLibraryTest extends TestCase
         $refCol = array_search('Source reference', $header, true);
         $urlCol = array_search('Record', $header, true);
         $this->assertNotFalse($urlCol);
-        $expected = Obligation::published()->whereIn('category', ['risk_management', 'safety_testing'])->count();
+        // Duties of a repealed instrument are history, not rows in a working register.
+        $expected = Obligation::published()->whereIn('category', ['risk_management', 'safety_testing'])->whereHas('policyInstrument', fn ($p) => $p->whereNotIn('status', ApplicabilityScreener::NOT_IN_FORCE))->count();
         $this->assertSame($expected, $duties->getHighestDataRow() - 1, 'one row per covered duty');
         foreach ($duties->rangeToArray('A2:'.$duties->getHighestDataColumn().$duties->getHighestDataRow()) as $r) {
             $this->assertStringStartsWith(url('/obligations/'), (string) $r[$urlCol], 'every duty row links to its record');
