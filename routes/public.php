@@ -185,11 +185,12 @@ Route::get('/tools/applicability-check/register.{format}', [RegisterExportContro
 Route::post('/cron/alerts', [CronController::class, 'alerts'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.alerts');
 Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('throttle:120,1')->withoutMiddleware([ValidateCsrfToken::class])->name('billing.webhook');
 
-// The templates library: generated files, versioned, no account needed. The old free-tool
+// The templates library: generated files, versioned, requested by work email (link sent by mail). The old free-tool
 // addresses under /guides/tools redirect here (FreeToolController).
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
 Route::get('/templates/feed', [TemplateController::class, 'feed'])->name('templates.feed');
 Route::get('/templates/{slug}', [TemplateController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('templates.show');
+Route::post('/templates/{slug}/request', [TemplateController::class, 'requestDownload'])->where('slug', '[a-z0-9-]+')->middleware('throttle:10,1')->name('templates.request');
 Route::get('/templates/{slug}/download', [TemplateController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1')->name('templates.download');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.

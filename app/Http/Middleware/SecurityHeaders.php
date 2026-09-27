@@ -57,11 +57,13 @@ class SecurityHeaders
 
         return implode('; ', [
             "default-src 'self'",
-            "script-src 'self' 'nonce-{$nonce}' https://www.googletagmanager.com https://static.cloudflareinsights.com https://cdn.jsdelivr.net/npm/flowbite@2.4.1/".$dev,
+            "script-src 'self' 'nonce-{$nonce}' https://www.googletagmanager.com https://static.cloudflareinsights.com https://cdn.jsdelivr.net/npm/flowbite@2.4.1/ https://challenges.cloudflare.com".$dev,
             "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://cdnjs.cloudflare.com".$dev,
             "font-src 'self' data: https://fonts.bunny.net https://cdnjs.cloudflare.com",
             "img-src 'self' data: https:",
-            "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://cloudflareinsights.com".$dev,
+            "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://cloudflareinsights.com https://challenges.cloudflare.com".$dev,
+            // Turnstile renders its challenge in an iframe; nothing else may be framed in.
+            'frame-src https://challenges.cloudflare.com',
             $embed ? 'frame-ancestors *' : "frame-ancestors 'self'",
             "base-uri 'self'",
             "form-action 'self'",

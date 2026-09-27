@@ -67,8 +67,13 @@ class TemplateVersion extends Model
         return route('templates.show', $this->slug);
     }
 
+    /**
+     * Where a reader gets the file: the request form on the template page. The file
+     * itself is served only from the signed link emailed to a work address
+     * (TemplateDownloadRequest::downloadUrl).
+     */
     public function downloadUrl(string $format): string
     {
-        return route('templates.download', ['slug' => $this->slug, 'format' => $format]);
+        return route('templates.show', $this->slug).'#download';
     }
 }

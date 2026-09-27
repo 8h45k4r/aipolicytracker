@@ -6,6 +6,7 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\Subscriber;
+use App\Models\TemplateDownloadRequest;
 use App\Models\TemplateVersion;
 use App\Services\Applicability\ApplicabilityScreener;
 use App\Services\Templates\TemplateBuilder;
@@ -172,13 +173,19 @@ class TemplatesLibraryTest extends TestCase
         $this->assertStringNotContainsString('Create a free account', $page);
         $this->assertGreaterThanOrEqual(5, preg_match_all('#href="'.preg_quote(url('/obligations/'), '#').'#', $page), 'the page links the duties it covers');
 
-        $this->get('/templates/ai-system-inventory/download?format=xlsx')->assertOk()
+        // The file is not public: an unsigned link goes back to the request form on the page.
+        $this->get('/templates/ai-system-inventory/download?format=xlsx')->assertRedirect(route('templates.show', 'ai-system-inventory').'#download');
+        $this->assertStringContainsString('Work email', $page);
+        $this->assertStringContainsString(route('templates.request', 'ai-system-inventory'), $page);
+        $request = TemplateDownloadRequest::create(['template_slug' => 'ai-system-inventory', 'name' => 'A Reader', 'email' => 'reader@example.org', 'company' => 'Example Org', 'terms_accepted_at' => now()]);
+        $this->get($request->downloadUrl('xlsx'))->assertOk()
             ->assertHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
             ->assertHeader('X-Robots-Tag', 'noindex')
             ->assertDownload('ai-system-inventory-v1.xlsx');
-        $this->get('/templates/ai-system-inventory/download?format=docx')->assertOk()->assertDownload('ai-system-inventory-v1.docx');
-        $this->get('/templates/ai-system-inventory/download?format=pdf')->assertNotFound();
+        $this->get($request->downloadUrl('docx'))->assertOk()->assertDownload('ai-system-inventory-v1.docx');
+        $this->get($request->downloadUrl('pdf'))->assertNotFound();
         $this->assertSame(2, (int) TemplateVersion::for('ai-system-inventory')->sum('downloads'));
+        $this->assertSame(2, $request->fresh()->downloads);
         $this->get('/templates/not-a-template')->assertNotFound();
     }
 
@@ -208,7 +215,9 @@ class TemplatesLibraryTest extends TestCase
         $this->assertStringContainsString(route('sitemap.section', 'templates'), $this->get('/sitemap.xml')->assertOk()->getContent());
         $sitemap = $this->get('/sitemap-templates.xml')->assertOk()->getContent();
         $this->assertSame(TemplateCatalog::all()->count() + 1, substr_count($sitemap, '<loc>'));
-        $this->assertStringContainsString('<enclosure url="'.route('templates.download', ['slug' => 'ai-risk-register', 'format' => 'xlsx']), $this->get('/templates/feed')->assertOk()->assertHeader('Content-Type', 'application/rss+xml; charset=UTF-8')->getContent());
+        $feed = $this->get('/templates/feed')->assertOk()->assertHeader('Content-Type', 'application/rss+xml; charset=UTF-8')->getContent();
+        $this->assertStringContainsString('<link>'.route('templates.show', 'ai-risk-register').'</link>', $feed);
+        $this->assertStringNotContainsString('<enclosure', $feed, 'files are requested, not linked');
         $this->assertStringContainsString(route('templates.index'), $this->get('/llms.txt')->assertOk()->getContent());
 
         $list = $this->getJson('/api/v1/templates')->assertOk()->json();
@@ -216,14 +225,14 @@ class TemplatesLibraryTest extends TestCase
         $this->assertCount(TemplateCatalog::all()->count(), $list['data']);
         $row = collect($list['data'])->firstWhere('slug', 'ai-risk-register');
         $this->assertSame(1, $row['version']);
-        $this->assertSame(route('templates.download', ['slug' => 'ai-risk-register', 'format' => 'xlsx']), $row['files'][0]['url']);
+        $this->assertSame(route('templates.show', 'ai-risk-register').'#download', $row['files'][0]['url']);
         $this->assertCount(count(TemplateCatalog::filter(TemplateCatalog::all(), ['type' => 'register'])), $this->getJson('/api/v1/templates?type=register')->assertOk()->json('data'));
 
         $one = $this->getJson('/api/v1/templates/ai-risk-register')->assertOk()->json();
         $this->assertMatchesOpenApi('/templates/{slug}', $one);
         $this->assertNotEmpty($one['data']['covered_obligations']);
         $this->assertCount(1, $one['data']['versions']);
-        $this->getJson('/api/v1/templates/ai-risk-register/download?format=xlsx')->assertRedirect(route('templates.download', ['slug' => 'ai-risk-register', 'format' => 'xlsx']));
+        $this->getJson('/api/v1/templates/ai-risk-register/download?format=xlsx')->assertRedirect(route('templates.show', 'ai-risk-register').'#download');
         $this->getJson('/api/v1/templates/ai-risk-register/download?format=docx')->assertNotFound();
         $this->getJson('/api/v1/templates/nope')->assertNotFound();
     }
