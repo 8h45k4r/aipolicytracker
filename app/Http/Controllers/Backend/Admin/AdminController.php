@@ -249,7 +249,11 @@ class AdminController extends Controller
     /** Runs one incremental pull from the AI Incident Database API (same command as the cron trigger). */
     public function externalSync(): RedirectResponse
     {
-        @set_time_limit(280);
+        // A web request's cap. On the command line (PHPUnit included) set_time_limit
+        // bounds the whole process, so it is left alone there (debt #48).
+        if (PHP_SAPI !== 'cli') {
+            @set_time_limit(280);
+        }
         $code = Artisan::call('external:sync-aiid-api', ['--max' => 300]);
         $out = trim(Artisan::output());
 
