@@ -76,12 +76,19 @@ jobs:
   backend-postgres:
     name: PHP tests (PostgreSQL)
     runs-on: ubuntu-latest
-    # This job has never once completed: it was in progress on every one of the
+    # This job had never once completed: it was in progress on every one of the
     # last eight commits, including ones that predate the change that found this,
     # and was still running after five hours. Because GitHub withholds the log
     # until a job ends, nothing could be read from it. The cap makes it report.
-    # See debt #49 for the measured cause and the fix that removes it.
-    timeout-minutes: 45
+    #
+    # Sized with room to spare, because the run is both long and variable: one
+    # runner reached the end of the alphabet in 23 minutes and another was still
+    # at the letter P at 45, with PostgreSQL logging a steady stream of cancelled
+    # autovacuum tasks while it worked. The churn behind that is debt #49 — 208 of
+    # the tests rebuild the whole corpus and roll it back, leaving dead rows faster
+    # than autovacuum can reclaim them. The cap exists to bound a hang, not to
+    # enforce a runtime, so it is set above the slow case rather than the fast one.
+    timeout-minutes: 90
     services:
       postgres:
         image: postgres:16
