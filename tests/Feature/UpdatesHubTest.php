@@ -103,9 +103,10 @@ class UpdatesHubTest extends TestCase
 
     public function test_the_news_sitemap_lists_only_what_was_first_published_in_the_last_two_days_about_recent_events(): void
     {
-        // Every entry on a fresh database was "first published" now; none of
-        // them happened this fortnight, so nothing is news and the index must
-        // not point at an empty news sitemap.
+        // Seeded entries were first published long ago, so none of them is news
+        // (the dataset has recent events, which would otherwise depend on the
+        // calendar) and the index must not point at an empty news sitemap.
+        ChangeEvent::query()->update(['first_published_at' => now()->subDays(30)]);
         $this->assertSame(0, substr_count($this->get('/sitemap-news.xml')->assertOk()->getContent(), '<url>'));
         $this->assertStringNotContainsString('sitemap-news', $this->get('/sitemap.xml')->getContent());
 
