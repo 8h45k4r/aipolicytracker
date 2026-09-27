@@ -27,7 +27,7 @@ framework_references:
   - { framework: owasp_llm_top10, reference: "LLM04 Data and Model Poisoning", confidence_level: medium }
 related_controls: [ai-risk-assessment, genai-red-team-testing, post-market-monitoring-and-drift-detection, model-release-and-change-management-gate]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: high

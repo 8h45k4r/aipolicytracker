@@ -97,7 +97,7 @@ procurement_rules:
     source_reference: "M-25-22, 3 April 2025"
     confidence_level: medium
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
 sources:
@@ -114,4 +114,4 @@ review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record; direct PDF link to be confirmed by reviewer.
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt

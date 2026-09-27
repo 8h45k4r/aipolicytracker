@@ -21,7 +21,7 @@ changes:
     last_checked_at: '2026-09-26'
     last_verified_at: '2026-09-26'
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     confidence_level: medium
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
@@ -42,7 +42,7 @@ changes:
     source_document_date: 2019-05-22
     source_tier: 1
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
