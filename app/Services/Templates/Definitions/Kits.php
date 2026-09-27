@@ -118,50 +118,47 @@ final class Kits
 
             'colorado-ai-act-notices' => new class($slug, $meta) extends Definition
             {
+                private const ACT = 'us-colorado-automated-decision-making-technology-act';
+
                 public function sheets(): array
                 {
-                    $duties = Records::obligations(['policies' => ['us-colorado-ai-act']]);
+                    $duties = Records::obligations(['policies' => [self::ACT]]);
                     $rows = $duties->map(fn ($o) => ['duty' => $o->title, 'reference' => $o->source_reference, 'actors' => $o->termsOf('actor')->pluck('name')->implode(', '), 'applies_from' => $o->applies_from?->toDateString(), 'owner' => null, 'status' => null, 'evidence' => null, 'url' => $o->url()])->all();
 
                     return [
                         ['name' => 'Checklist', 'columns' => [self::col('duty', 'Duty', 60), self::col('reference', 'Section', 20), self::col('actors', 'Who it binds', 22), self::col('applies_from', 'Applies from', 13, 'date'), self::col('owner', 'Owner', 18), self::select('status', 'Status', ['Not started', 'In progress', 'Done', 'Not applicable'], 14), self::col('evidence', 'Evidence', 40, 'url'), self::col('url', 'Record', 44, 'url')], 'rows' => $rows],
-                        $this->deadlinesSheet(['us-colorado-ai-act'], 'Dates'),
+                        $this->deadlinesSheet([self::ACT], 'Dates'),
                     ];
                 }
 
                 public function blocks(): array
                 {
-                    $act = Records::policy('us-colorado-ai-act');
-                    $duties = Records::obligations(['policies' => ['us-colorado-ai-act']]);
-                    $noticeDuties = $duties->filter(fn ($o) => preg_match('/notif|notice|disclos|explain|statement/i', $o->title.' '.$o->summary))->values();
+                    $act = Records::policy(self::ACT);
+                    $duties = Records::obligations(['policies' => [self::ACT]]);
                     $blocks = [
-                        $this->heading('The notices the Colorado AI Act requires'),
-                        $this->p('The Act places duties on developers and deployers of high-risk AI systems to tell consumers, each other and the Attorney General certain things. Each notification duty on record is below with a notice text to adapt; the checklist sheet tracks them all.'),
-                        $act ? $this->note('The record\'s status: '.$act->statusEnum()->label().($act->applies_from ? ', applying from '.$act->applies_from->format('j F Y') : '').'.'.($act->status_note ? ' The record notes: '.$act->status_note : '')) : $this->note('The Colorado record is not published in this dataset.'),
-                        $this->note('The 2026 legislative session\'s changes to the statute (SB 26-189) are not yet recorded in this dataset. Until a reviewer adds them, the duties and dates below are those of SB 24-205 as amended by SB 25B-004, and every notice must be checked against the enacted text before use.'),
+                        $this->heading('The notices Colorado\'s SB 26-189 requires'),
+                        $this->p('SB 26-189 attaches duties when automated decision-making technology makes, or materially influences, a consequential decision about a Colorado consumer. Each recorded duty is below with a notice or procedure text to adapt; the checklist sheet tracks them all.'),
+                        $act ? $this->note('The record\'s status: '.$act->statusEnum()->label().($act->applies_from ? ', applying from '.$act->applies_from->format('j F Y') : '').'.'.($act->status_note ? ' The record notes: '.$act->status_note : '')) : $this->note('The SB 26-189 record is not published in this dataset.'),
+                        $this->note('SB 24-205, the earlier Colorado AI Act, was repealed and replaced by SB 26-189 before it took effect. Its risk-management programme, impact assessment and Attorney General notice duties do not apply; do not use notices written for it.'),
                     ];
-                    $templates = [
-                        'consumer' => ['match' => ['consumer', 'notify consumers'], 'title' => 'Consumer notice of use of a high-risk AI system', 'text' => '[PLACEHOLDER: organisation] uses an artificial intelligence system to [PLACEHOLDER: make, or be a substantial factor in, a decision about you concerning …]. The purpose of the system is [PLACEHOLDER]. [PLACEHOLDER: how to contact us; your right to opt out of profiling where the law provides one].'],
-                        'adverse' => ['match' => ['adverse', 'explain', 'consequential'], 'title' => 'Explanation of an adverse consequential decision', 'text' => 'We made a decision that was adverse to you: [PLACEHOLDER: decision]. An AI system was a substantial factor. The principal reasons were [PLACEHOLDER]; the system considered [PLACEHOLDER: the type and source of data]. You may correct any personal data we used and appeal for human review: [PLACEHOLDER: how].'],
-                        'developer' => ['match' => ['developer', 'document', 'disclose known'], 'title' => 'Developer disclosure to deployers', 'text' => 'This statement describes [PLACEHOLDER: system]: its intended uses [PLACEHOLDER], known or reasonably foreseeable risks of algorithmic discrimination [PLACEHOLDER], the data used to train it [PLACEHOLDER], its limitations [PLACEHOLDER], and the measures taken to mitigate discrimination [PLACEHOLDER].'],
-                        'ag' => ['match' => ['attorney general'], 'title' => 'Notice to the Attorney General', 'text' => 'On [PLACEHOLDER: date] [PLACEHOLDER: organisation] discovered that [PLACEHOLDER: system] has caused or is reasonably likely to have caused algorithmic discrimination: [PLACEHOLDER: description]. Measures taken: [PLACEHOLDER].'],
+                    $texts = [
+                        'advance-notice' => ['Advance notice to the consumer', '[PLACEHOLDER: organisation] uses automated decision-making technology to help decide [PLACEHOLDER: the decision, for example your application for …]. The technology [PLACEHOLDER: what it does and the main information it uses]. A person [PLACEHOLDER: reviews / can review] the outcome. Questions: [PLACEHOLDER: contact].'],
+                        'adverse-decision-disclosure' => ['Disclosure after an adverse decision', 'We have decided [PLACEHOLDER: the decision]. Automated decision-making technology materially influenced this decision. The principal reasons were [PLACEHOLDER]. You may ask for this decision to be reviewed by a person who can change it: [PLACEHOLDER: how and by when].'],
+                        'human-review' => ['Human review procedure', 'A request for review is handled by [PLACEHOLDER: role], who has the authority and the information to change the outcome, within [PLACEHOLDER: days]. The reviewer records the request, the information considered and the result, and tells the consumer the outcome in writing.'],
+                        'record-keeping' => ['Record-keeping procedure', 'For each consequential decision the technology influenced, [PLACEHOLDER: team] keeps the decision, the tool and version used, the principal inputs, the notices sent and any review, for three years from the decision, in [PLACEHOLDER: system].'],
+                        'developer-documentation' => ['Developer documentation for deployers', 'This statement describes [PLACEHOLDER: technology]: its intended uses [PLACEHOLDER], the kinds of consequential decision it is designed to support [PLACEHOLDER], its known limitations [PLACEHOLDER], the data it uses [PLACEHOLDER], and what a deployer needs to give notices, explain adverse decisions and offer human review [PLACEHOLDER].'],
                     ];
-                    foreach ($noticeDuties as $o) {
+                    foreach ($duties as $o) {
                         $blocks[] = $this->heading($o->title, 2);
                         $blocks[] = $this->p(trim((string) $o->summary));
-                        foreach ($templates as $t) {
-                            foreach ($t['match'] as $needle) {
-                                if (stripos($o->title.' '.$o->summary, $needle) !== false) {
-                                    $blocks[] = $this->heading($t['title'], 3);
-                                    $blocks[] = $this->p($t['text']);
-                                    break 2;
-                                }
+                        foreach ($texts as $key => [$title, $text]) {
+                            if (str_ends_with($o->slug, $key)) {
+                                $blocks[] = $this->heading($title, 3);
+                                $blocks[] = $this->p($text);
                             }
                         }
                         $blocks[] = ['type' => 'cite', 'text' => Records::dutyLine($o), 'url' => $o->url()];
                     }
-                    $blocks[] = $this->heading('Every recorded duty under the Act');
-                    array_push($blocks, ...$this->dutySections($duties, 'Whether this applies to you, and how it is met'));
 
                     return $blocks;
                 }

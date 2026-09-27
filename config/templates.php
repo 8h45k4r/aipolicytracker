@@ -195,14 +195,14 @@ return [
         ],
 
         'colorado-ai-act-notices' => [
-            'title' => 'Colorado AI Act Notices',
+            'title' => 'Colorado ADMT Law (SB 26-189) Notices',
             'type' => 'kit', 'formats' => ['docx', 'xlsx'],
             'topics' => ['transparency', 'evidence'], 'frameworks' => ['colorado-ai-act'],
-            'short' => 'The notices the Colorado AI Act requires of developers and deployers of high-risk AI: consumer notice, adverse-decision explanation, developer disclosure, Attorney General notification, each built from the recorded duty.',
-            'inside' => ['Document: a notice template for each notification duty on record, citing its section', 'Checklist sheet: each duty, applies-from date, owner, status', 'A dated caveat where the record says the statute may have been amended'],
+            'short' => 'The notices Colorado\'s SB 26-189 requires when automated decision-making technology influences a consequential decision: advance notice, adverse-decision disclosure, human review, record keeping and developer documentation, built from the recorded duties.',
+            'inside' => ['Document: a notice or procedure for each recorded duty, citing its record', 'Checklist sheet: each duty, applies-from date, owner, status', 'A dated caveat carrying the record\'s review status, and a note on the repealed SB 24-205'],
             'covers' => ['policies' => ['us-colorado-automated-decision-making-technology-act']],
             'legal_basis' => ['us-colorado-automated-decision-making-technology-act'],
-            'caveat' => 'colorado',
+            'caveat' => 'dates',
         ],
 
         'ai-workforce-impact-assessment' => [
@@ -236,6 +236,86 @@ return [
             'covers' => ['categories' => ['governance_accountability']],
             'legal_basis' => ['eu-ai-act', 'us-colorado-automated-decision-making-technology-act'],
             'replaces' => 'global-ai-regulatory-applicability-matrix',
+        ],
+
+        'ai-model-card' => [
+            'title' => 'AI Model Card',
+            'type' => 'kit', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['transparency', 'evidence'], 'frameworks' => ['eu-ai-act', 'iso-42001', 'nist-ai-rmf'],
+            'short' => 'A model or system card: intended use, out-of-scope uses, data, evaluation results by group, risks, oversight and monitoring, with the documentation and transparency duties it helps evidence.',
+            'inside' => ['Document: twenty questions in seven sections, each with space for the answer', 'Workbook: the same card as a fill-in sheet with evidence links', 'Documentation duties sheet: every recorded technical-documentation, transparency and record-keeping duty'],
+            'covers' => ['categories' => ['technical_documentation', 'transparency', 'record_keeping']],
+            'legal_basis' => ['eu-ai-act', 'us-nist-ai-rmf'],
+        ],
+
+        'ai-data-governance-register' => [
+            'title' => 'AI Data Governance Register',
+            'type' => 'register', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'evidence'], 'frameworks' => ['eu-ai-act', 'iso-42001'],
+            'short' => 'One row per dataset that trains, tests or feeds an AI system: provenance, personal data, lawful basis or licence, bias checks and retention, with a procedure and the data duties on record.',
+            'inside' => ['Datasets register with dropdowns for use, personal data and bias checks', 'Procedure document: acceptance criteria, quality and bias checks, retention', 'Data duties sheet: data governance, privacy and copyright duties on record'],
+            'covers' => ['categories' => ['data_governance', 'privacy_data_protection', 'copyright_training_data']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'ai-audit-evidence-tracker' => [
+            'title' => 'AI Audit Evidence Tracker',
+            'type' => 'register', 'formats' => ['xlsx'],
+            'topics' => ['evidence', 'governance'], 'frameworks' => ['iso-42001', 'nist-ai-rmf', 'eu-ai-act'],
+            'short' => 'Every piece of evidence the recorded controls expect, one row each, with owner, status, location and review date, so an audit or certification starts from a complete list.',
+            'inside' => ['Evidence tracker: control, evidence expected, kind, owner, status, location, last reviewed', 'Status colouring for missing and available evidence', 'Controls sheet: every control on record with its duties and framework references'],
+            'covers' => ['frameworks' => ['iso-42001', 'nist-ai-rmf']],
+            'legal_basis' => ['iso-42001', 'us-nist-ai-rmf'],
+        ],
+
+        'ai-literacy-training-plan' => [
+            'title' => 'AI Literacy and Training Plan',
+            'type' => 'procedure', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['workforce', 'governance'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'A role-based AI literacy plan: who needs which level of training, in what format, by when, with a coverage formula and the literacy and oversight duties on record.',
+            'inside' => ['Training matrix with five starter roles, levels, formats and a coverage formula', 'Plan document: objectives, curriculum, records', 'Literacy duties sheet: AI literacy and human-oversight duties'],
+            'covers' => ['categories' => ['ai_literacy', 'human_oversight']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'ai-post-market-monitoring-plan' => [
+            'title' => 'AI Post-Market Monitoring Plan',
+            'type' => 'procedure', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['risk', 'incidents', 'evidence'], 'frameworks' => ['eu-ai-act', 'iso-42001'],
+            'short' => 'How a deployed AI system is watched after release: metrics, thresholds, frequency, owners and escalation to incident response, with the monitoring and incident duties on record.',
+            'inside' => ['Monitoring metrics sheet with six starter metrics and alert colouring', 'Plan document: systems covered, data collected, review and escalation', 'Monitoring duties sheet: post-market monitoring and incident duties'],
+            'covers' => ['categories' => ['post_market_monitoring', 'incident_handling']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'ai-contract-clauses' => [
+            'title' => 'AI Contract Clause Library',
+            'type' => 'policy', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['vendors', 'governance'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'Nine contract clauses for buying or supplying AI: documentation, data use, testing, incidents, changes, oversight, audit and the allocation of regulatory roles, each tied to the duty it allocates.',
+            'inside' => ['Document: nine clauses with placeholders for counsel', 'Vendor duties sheet: the duties a supplier contract should allocate', 'Each clause cites the recorded duty behind it'],
+            'covers' => ['categories' => ['vendor_governance']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'ai-red-team-test-plan' => [
+            'title' => 'AI Red-Team and Evaluation Test Plan',
+            'type' => 'assessment', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['risk', 'evidence'], 'frameworks' => ['eu-ai-act', 'nist-ai-rmf'],
+            'short' => 'A test plan and case log for adversarial and evaluation testing: accuracy, robustness, prompt injection, bias, harmful content, privacy leakage and misuse, with severity and retest tracking.',
+            'inside' => ['Test cases sheet with area, scenario, expected and observed behaviour, outcome and severity', 'Plan document: scope, independence, method, exit criteria', 'Testing duties sheet: safety-testing and robustness duties on record'],
+            'covers' => ['categories' => ['safety_testing', 'accuracy_robustness_security']],
+            'legal_basis' => ['eu-ai-act', 'us-nist-ai-rmf'],
+        ],
+
+        'ai-board-reporting-pack' => [
+            'title' => 'AI Governance Board Reporting Pack',
+            'type' => 'kit', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'risk'], 'frameworks' => ['iso-42001', 'nist-ai-rmf'],
+            'short' => 'A quarterly board report on AI: a dashboard of eight measures, the regulatory deadlines ahead from the records, and a report outline ending in the decisions the board is asked to take.',
+            'inside' => ['Dashboard sheet: eight measures with quarter-on-quarter trend', 'Upcoming deadlines sheet built from the recorded dates', 'Report document: summary, AI in use, risks and incidents, regulatory outlook, decisions'],
+            'covers' => ['categories' => ['governance_accountability']],
+            'legal_basis' => ['eu-ai-act', 'iso-42001'],
         ],
     ],
 ];
