@@ -97,8 +97,37 @@ final class TemplateBuilder
                 $each($slug, $out[$slug]);
             }
         }
+        $this->retitleChanges();
 
         return $out;
+    }
+
+    /**
+     * The change-log title for a new version. The version leads, because page titles
+     * are cut to 60 characters and a version at the end was the part that got cut:
+     * v2 and v3 of the same template then shared one title.
+     */
+    public static function changeTitle(string $templateTitle, int $version): string
+    {
+        return 'Template v'.$version.' released: '.$templateTitle;
+    }
+
+    /** Brings entries recorded under an older title format up to the current one. */
+    public function retitleChanges(): void
+    {
+        ChangeEvent::where('slug', 'like', self::CHANGE_SLUG_PREFIX.'%')->get()->each(function (ChangeEvent $change) {
+            if (! preg_match('/^'.preg_quote(self::CHANGE_SLUG_PREFIX, '/').'(.+)-v(\d+)$/', $change->slug, $m)) {
+                return;
+            }
+            $meta = TemplateCatalog::find($m[1]);
+            if ($meta === null) {
+                return;
+            }
+            $title = self::changeTitle($meta['title'], (int) $m[2]);
+            if ($change->title !== $title) {
+                $change->forceFill(['title' => $title])->save();
+            }
+        });
     }
 
     public function filesPresent(TemplateVersion $version): bool
@@ -208,7 +237,7 @@ final class TemplateBuilder
             'jurisdiction_id' => $jurisdiction->id,
             'policy_instrument_id' => null,
             'occurred_on' => $version->generated_at->toDateString(),
-            'title' => 'Template updated: '.$meta['title'].' '.$version->label(),
+            'title' => self::changeTitle($meta['title'], $version->version),
             'what_changed' => $version->changelog,
             'practical_impact' => 'Organisations using the '.$version->label().' file should download the new version; the README page in each file states which dataset it was built from.',
             'impact_level' => 'routine',

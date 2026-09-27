@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\ChangeEvent;
+use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\Subscriber;
 use App\Models\TemplateVersion;
@@ -238,5 +239,21 @@ class TemplatesLibraryTest extends TestCase
         $ss = IOFactory::load(Storage::disk(TemplateBuilder::DISK)->path($v->file('xlsx')['path']));
         $this->assertStringContainsString('A duty renamed for the test', json_encode($ss->getSheetByName('Oversight duties')->toArray()));
         $ss->disconnectWorksheets();
+    }
+
+    public function test_successive_versions_of_one_template_have_distinct_page_titles(): void
+    {
+        $slug = 'ai-risk-register';
+        $jurisdiction = Jurisdiction::where('slug', 'international')->firstOrFail();
+        foreach ([2, 3] as $v) {
+            // The format used before the fix: the version last, where the title budget cut it off.
+            ChangeEvent::create(['slug' => 'template-'.$slug.'-v'.$v, 'jurisdiction_id' => $jurisdiction->id, 'occurred_on' => now()->toDateString(), 'title' => 'Template updated: '.TemplateCatalog::find($slug)['title'].' v'.$v, 'what_changed' => 'Rebuilt.', 'impact_level' => 'routine', 'published_at' => now()]);
+        }
+
+        app(TemplateBuilder::class)->retitleChanges();
+
+        $titles = collect([2, 3])->map(fn ($v) => preg_match('#<title>(.*?)</title>#', $this->get('/changes/template-'.$slug.'-v'.$v)->assertOk()->getContent(), $m) ? $m[1] : null);
+        $this->assertCount(2, $titles->filter()->unique(), 'v2 and v3 must not share a page title: '.$titles->implode(' | '));
+        $this->assertStringContainsString('v3', $titles[1]);
     }
 }
