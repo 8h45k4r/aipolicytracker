@@ -579,3 +579,94 @@ changes:
     review_status: pending_review
     confidence_level: medium
     content_version: 1
+  - slug: 2026-09-09-california-sb-813-ab-1405-ai-audit-framework
+    jurisdiction: us-california
+    policy: null
+    occurred_on: 2026-09-09
+    title: California enacts an AI audit framework with SB 813 and AB 1405
+    what_changed: >
+      The Governor signed SB 813, under which the Government Operations Agency sets criteria by 1 January 2028
+      for designating qualified AI auditors as independent verification organisations, and AB 1405, which
+      creates an online AI Auditor Registry by 1 January 2029, after which a covered AI audit may be offered only
+      by a registered auditor meeting independence and integrity standards. Recorded from secondary reporting;
+      confirm against the enrolled bills.
+    practical_impact: Organisations that commission AI audits for California compliance should plan to use auditors that register under AB 1405 once the registry opens.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/"
+    source_title: "Governor Newsom signs first-in-the-nation AI safeguards to protect Californians"
+    source_publisher: "Office of the Governor of California"
+    source_document_date: 2026-09-09
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-09-10-california-companion-chatbot-child-safety-laws
+    jurisdiction: us-california
+    policy: null
+    occurred_on: 2026-09-10
+    title: California signs child-safety laws covering companion chatbots and social media
+    what_changed: >
+      The Governor signed a package of child-safety bills that, among other things, require risk assessments
+      before new companion-chatbot rollouts, add penalties for harm to children and restrict toys that include a
+      companion chatbot. According to the announcement and secondary reporting, most provisions take effect on
+      1 January 2027 and the companion-chatbot safeguards on 1 July 2027. Recorded from secondary reporting;
+      confirm each bill against its enrolled text.
+    practical_impact: Providers of companion chatbots available to minors in California should plan risk assessments and safeguards for the 2027 dates.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.gov.ca.gov/2026/09/10/governor-newsom-signs-the-strongest-child-safety-chatbot-and-social-media-laws-in-the-nation/"
+    source_title: "Governor Newsom signs the strongest child safety chatbot and social media laws in the nation"
+    source_publisher: "Office of the Governor of California"
+    source_document_date: 2026-09-10
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-09-16-california-sb-1050-synthetic-performer-ad-disclosure
+    jurisdiction: us-california
+    policy: null
+    occurred_on: 2026-09-16
+    title: California SB 1050 requires disclosure of AI synthetic performers in advertising
+    what_changed: >
+      SB 1050 makes it unlawful to create or publish an advertisement that prominently includes a synthetic
+      performer (a human-like digital voice, figure or representation created at least partly with generative AI
+      and not depicting an identifiable person) without a clear and conspicuous disclosure. It takes effect on
+      1 January 2027. Recorded from secondary reporting; confirm against the chaptered text.
+    practical_impact: Advertisers and agencies should add a clear disclosure to any California advertisement that features an AI-generated performer from 1 January 2027.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB1050"
+    source_title: "SB-1050 False advertising: synthetic performers"
+    source_publisher: "California Legislative Information"
+    source_document_date: 2026-09-16
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-09-18-california-executive-order-ai-oversight-kill-switch
+    jurisdiction: us-california
+    policy: null
+    occurred_on: 2026-09-18
+    title: California executive order directs work on AI oversight, including a frontier-model kill switch
+    what_changed: >
+      The Governor issued an executive order asking a working group to recommend, within about two months,
+      measures to strengthen California's AI safety and security laws, including whether developers of frontier
+      models should maintain a shutdown capability and whether independent third parties should prepare safety
+      plans. It creates no new obligations itself. Recorded from secondary reporting; confirm the order's number
+      and text on the Governor's site.
+    practical_impact: No obligations yet; frontier-model developers should watch for the working group's recommendations.
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: "https://www.gov.ca.gov/2026/09/18/governor-newsom-issues-executive-order-to-accelerate-independent-oversight-and-advance-the-creation-of-an-ai-kill-switch/"
+    source_title: "Governor Newsom issues executive order to accelerate independent oversight and advance the creation of an AI kill switch"
+    source_publisher: "Office of the Governor of California"
+    source_document_date: 2026-09-18
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
