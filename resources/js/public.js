@@ -502,3 +502,20 @@
         if (!window.confirm(message.replace('{n}', n))) { event.preventDefault(); }
     });
 })();
+
+// World map: load amCharts only when a page has one, and only once it is near the
+// viewport, so no other page pays for the library.
+(function () {
+    var maps = document.querySelectorAll('[data-world-map]');
+    if (!maps.length) { return; }
+    var load = function (el) {
+        import('./world-map.js').then(function (m) { m.mount(el); });
+    };
+    if (!('IntersectionObserver' in window)) { maps.forEach(load); return; }
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.isIntersecting) { io.unobserve(e.target); load(e.target); }
+        });
+    }, { rootMargin: '200px' });
+    maps.forEach(function (el) { io.observe(el); });
+})();

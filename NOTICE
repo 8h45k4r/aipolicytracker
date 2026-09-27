@@ -14,3 +14,6 @@ Third-party datasets keep their own licences and are redistributed with attribut
   - data/external/mit-*: MIT AI Risk Repository, CC BY 4.0. Slattery, P. et al. (2025).
 
 Third-party software keeps its own licence; see composer.lock and package-lock.json.
+The world map uses amCharts 5 (@amcharts/amcharts5 and @amcharts/amcharts5-geodata)
+under the amCharts free licence, which requires the amCharts attribution shown on
+the map; a commercial amCharts licence removes that requirement.
