@@ -11,7 +11,7 @@ Thank you for helping build an open, source-backed view of AI policy. This guide
 
 ## Getting started
 
-Prerequisites: PHP 8.2 or newer with `pdo_sqlite`, Composer 2, Node 22+.
+Prerequisites: PHP 8.2 or newer with `pdo_sqlite`, Composer 2, Node 26 (the version in `.nvmrc`).
 
 ```bash
 # Fork on GitHub first, then clone your fork

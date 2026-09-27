@@ -2,7 +2,7 @@
 # Works on any container host (Fly.io, Render, Railway, a VPS with Docker).
 
 # ---- Stage 1: build front-end assets ----
-FROM node:22-alpine AS assets
+FROM node:26-alpine AS assets
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
