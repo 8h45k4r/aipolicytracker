@@ -30,6 +30,8 @@
         "vite": "^8.3.0"
     },
     "dependencies": {
+        "@amcharts/amcharts5": "^5.20.8",
+        "@amcharts/amcharts5-geodata": "^5.1.6",
         "flowbite": "^2.5.1",
         "flowbite-react": "^0.10.1"
     },

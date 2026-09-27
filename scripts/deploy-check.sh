@@ -83,6 +83,9 @@ check "Request ID on every response"                  "53b5f25" "/up"           
 check "EU AI Act follows the Digital Omnibus dates"   "d84f223" "/policies/eu-ai-act"                     contains "2 December 2027"
 check "Colorado SB 26-189 record"                     "d84f223" "/policies/us-colorado-automated-decision-making-technology-act" status=200
 check "H.R. 10044 recorded in the transition tracker" "d84f223" "/ai-economic-transition/measures/us-ai-excise-tax-bill" contains "10044"
+check "amCharts world map on the jurisdictions page"    "map"     "/jurisdictions"                          contains 'data-world-map="world-map-data"'
+check "Template downloads need a work email"           "gate"    "/templates/ai-risk-register"             contains "Work email"
+check "Eight new templates"                            "templates" "/templates/ai-board-reporting-pack"    status=200
 check "Public-repository cleanup (footer credit)"    "c67f183" "/"                                       absent ">Dignep Group Pvt. Ltd.</a>"
 
 {
