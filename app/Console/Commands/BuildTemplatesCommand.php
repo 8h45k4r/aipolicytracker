@@ -34,6 +34,7 @@ class BuildTemplatesCommand extends Command
             $changed += $result['changed'] ? 1 : 0;
             $this->line(sprintf('%-46s %-4s %-10s %5.1fs  %s', $slug, $v->label(), $result['changed'] ? 'built' : 'unchanged', microtime(true) - $started, $result['changed'] ? $v->changelog : ''));
         }
+        $builder->retitleChanges();
         $this->info(sprintf('%d template(s) checked, %d built.', count($slugs), $changed));
 
         return self::SUCCESS;
