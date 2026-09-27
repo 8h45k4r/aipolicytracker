@@ -26,6 +26,17 @@
         @if($topPages->isNotEmpty())<p class="mt-3 text-xs font-semibold uppercase tracking-wide text-brand-muted">Most viewed</p><ul class="mt-1 text-xs divide-y divide-brand-line">@foreach($topPages as $path => $n)<li class="py-1 flex justify-between gap-2"><span class="font-mono truncate">{{ $path }}</span><span class="font-mono">{{ $n }}</span></li>@endforeach</ul>@endif
     </section>
 </div>
+<section class="mt-8" aria-labelledby="treq">
+    <div class="flex flex-wrap items-baseline justify-between gap-3"><h2 id="treq" class="section-title !text-lg">Template requests</h2><a href="{{ route('backend.admin.downloads.export', ['rows' => 'template-requests']) }}" class="btn-secondary !min-h-0 !py-1.5">Export CSV</a></div>
+    <p class="mt-1 meta">Requests made with the form on each template page: work email, company, the date the links were emailed and whether they were used. {{ number_format($templateStats['total']) }} in total, {{ number_format($templateStats['last_30d']) }} in the last 30 days, {{ number_format($templateStats['downloaded']) }} downloaded, {{ number_format($templateStats['opted_in']) }} asked for version updates.</p>
+    @unless($templateStats['turnstile'])<p class="mt-2 rounded-sm border border-state-warn/30 bg-state-warnbg px-3 py-2 text-sm text-state-warn">Cloudflare Turnstile is not configured, so the form is protected by the honeypot, the email checks and rate limits only. Set <code>TURNSTILE_SITE_KEY</code> and <code>TURNSTILE_SECRET_KEY</code> in the environment.</p>@endunless
+    @if($templateRequests->isEmpty())<div class="mt-3"><x-site.empty title="No template requests yet">They appear here as soon as someone requests a template.</x-site.empty></div>@else
+    <div class="table-wrap mt-3 bg-white"><table><caption class="sr-only">Template requests</caption><thead><tr><th scope="col">Requested</th><th scope="col">Template</th><th scope="col">Name</th><th scope="col">Work email</th><th scope="col">Company</th><th scope="col">Title · country</th><th scope="col">Updates</th><th scope="col">Downloads</th></tr></thead><tbody>
+    @foreach($templateRequests as $r)<tr><td class="whitespace-nowrap font-mono text-xs">{{ $r->created_at?->format('Y-m-d H:i') }}</td><td><a href="{{ route('templates.show', $r->template_slug) }}">{{ $r->template()['title'] ?? $r->template_slug }}</a></td><td>{{ $r->name }}</td><td><a href="mailto:{{ $r->email }}" class="font-mono text-xs">{{ $r->email }}</a></td><td>{{ $r->company }}</td><td class="text-xs">{{ $r->job_title ?: '—' }}@if($r->country) · {{ $r->country }}@endif</td><td>@if($r->marketing_consent_at)<x-backend.badge status="yes">yes</x-backend.badge>@else<span class="meta">—</span>@endif</td><td class="font-mono text-right">{{ $r->downloads ?: '—' }}</td></tr>@endforeach
+    </tbody></table></div>
+    <nav class="mt-3" aria-label="Template requests pagination">{{ $templateRequests->links() }}</nav>
+    @endif
+</section>
 <section class="mt-8" aria-labelledby="recent"><h2 id="recent" class="section-title !text-lg">Download activity</h2>
     @if($recent->isEmpty())<p class="mt-2 text-sm text-brand-muted">No downloads recorded.</p>@else
     <div class="table-wrap mt-3"><table><caption class="sr-only">Download activity</caption><thead><tr><th scope="col">When</th><th scope="col">User</th><th scope="col">Resource</th><th scope="col">File</th><th scope="col">Version</th><th scope="col">Served</th><th scope="col">Referrer</th></tr></thead><tbody>

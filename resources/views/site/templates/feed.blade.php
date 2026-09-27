@@ -18,9 +18,6 @@
         <pubDate>{{ $v->generated_at->toRssString() }}</pubDate>
         <category>{{ $meta['type'] }}</category>
         <description>{{ $v->changelog }} Built from dataset {{ $v->dataset_version }}. Formats: {{ implode(', ', array_map('strtoupper', $v->formats())) }}.</description>
-@foreach($v->files as $f)
-        <enclosure url="{{ $v->downloadUrl($f['format']) }}" length="{{ $f['bytes'] }}" type="{{ $f['format'] === 'xlsx' ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }}" />
-@endforeach
     </item>
 @endforeach
 </channel>

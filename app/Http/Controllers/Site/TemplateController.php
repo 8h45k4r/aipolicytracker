@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TemplateDownloadMail;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TemplateDownloadRequest;
 use App\Models\TemplateVersion;
+use App\Rules\NotDisposableEmail;
+use App\Rules\WorkEmail;
+use App\Services\Security\Turnstile;
 use App\Services\Templates\Records;
 use App\Services\Templates\TemplateBuilder;
 use App\Services\Templates\TemplateCatalog;
@@ -16,6 +21,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -23,7 +30,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 /**
  * The templates library: a hub, one page per template with a preview built
  * from the stored version (never from the definition at request time), the
- * file downloads (no account, no form), and a feed of versions.
+ * file downloads (requested with a work email; the signed links arrive by mail), and a feed of versions.
  */
 class TemplateController extends Controller
 {
@@ -45,11 +52,11 @@ class TemplateController extends Controller
         $lastBuilt = collect($latest)->max('generated_at');
         $all = TemplateCatalog::all();
         $summary = sprintf(
-            '%d free AI governance templates in %s, generated from the %s recorded duties, %s controls and %s instruments on this site and rebuilt when the records change. Every row that cites a duty links to its record; each file carries its version, dataset hash, date and licence on a README page. No account is needed.',
+            '%d free AI governance templates in %s, generated from the %s recorded duties, %s controls and %s instruments on this site and rebuilt when the records change. Every row that cites a duty links to its record; each file carries its version, dataset hash, date and licence on a README page. Request any template with your work email and the files arrive by email.',
             $all->count(), 'XLSX and DOCX', number_format($counts['duties']), number_format($counts['controls']), number_format($counts['instruments'])
         );
         $faq = [
-            ['Are the templates free?', 'Yes. Every template downloads without an account or a form, under '.config('templates.licence')],
+            ['Are the templates free?', 'Yes. There is no charge and no account: enter your name, company and work email on the template page and the download links arrive by email, valid for '.TemplateDownloadRequest::LINK_DAYS.' days. The files are licensed '.config('templates.licence')],
             ['Where does the content come from?', 'From the records on this site: obligations, controls, deadlines, framework mappings and the MIT AI Risk Repository taxonomy. Nothing in a file is written by hand; the catalogue says what each template is, and the builder turns the records into sheets and pages.'],
             ['What happens when a law changes?', 'The library is rebuilt daily. A template whose content changed gets the next version number, a changelog on its page, an entry in the updates hub and in the templates feed, and a line in the weekly digest for subscribers who chose the templates topic.'],
             ['Does completing a template make us compliant?', 'No. A template is an informational resource, not legal advice. It helps produce the evidence a regulator, customer or auditor asks for; whether a duty applies, and whether it is met, is a judgement the template cannot make.'],
@@ -81,7 +88,7 @@ class TemplateController extends Controller
         $related = TemplateCatalog::all()->except($slug)->filter(fn ($m) => array_intersect($m['topics'] ?? [], $meta['topics'] ?? []) !== [])->take(4);
 
         $faq = array_values(array_filter([
-            ['Is the '.$meta['title'].' free?', 'Yes. Download the '.$formats.' without an account, under '.config('templates.licence')],
+            ['Is the '.$meta['title'].' free?', 'Yes. Request the '.$formats.' with your work email on this page; the download links arrive by email, valid for '.TemplateDownloadRequest::LINK_DAYS.' days. No account and no charge. Licensed '.config('templates.licence')],
             ['What is it generated from?', sprintf('Version %s was built on %s from dataset %s: %s recorded duties are cited in it%s. Every row that cites a duty links to the record, and the record links to the official source.', $version->label(), $version->generated_at->format('j F Y'), $version->dataset_version, number_format($version->stats['citations'] ?? 0), $covered->isNotEmpty() ? ', drawn from '.$covered->pluck('policyInstrument.short_title')->unique()->count().' instruments' : '')],
             ['How will I know when it changes?', 'The library is rebuilt daily. When a change to the records reaches this template it gets the next version, a changelog in the version history below, an entry in the AI policy updates hub and the templates feed, and a line in the weekly digest for subscribers of the templates topic.'],
             $caveat ? ['Are the dates in it current?', $caveat] : null,
@@ -105,7 +112,7 @@ class TemplateController extends Controller
                 'license' => 'https://creativecommons.org/licenses/by/4.0/',
                 'author' => ['@id' => url('/').'#organization'],
                 'hasDigitalDocumentPermission' => [['@type' => 'DigitalDocumentPermission', 'permissionType' => 'ReadPermission', 'grantee' => ['@type' => 'Audience', 'audienceType' => 'public']]],
-                'associatedMedia' => array_map(fn ($f) => ['@type' => 'MediaObject', 'name' => $f['filename'], 'contentUrl' => $version->downloadUrl($f['format']), 'encodingFormat' => $this->mime($f['format']), 'contentSize' => $f['bytes'].' B'], $version->files),
+                'associatedMedia' => array_map(fn ($f) => ['@type' => 'MediaObject', 'name' => $f['filename'], 'encodingFormat' => $this->mime($f['format']), 'contentSize' => $f['bytes'].' B'], $version->files),
                 'about' => $basis->map(fn ($b) => ['@type' => $b['type'] === 'policy' ? 'Legislation' : 'CreativeWork', 'name' => $b['title'], 'url' => $b['url']])->values()->all() ?: null,
             ]))
             ->withFaq(array_map(fn ($q) => ['question' => $q[0], 'answer' => $q[1]], $faq));
@@ -113,10 +120,78 @@ class TemplateController extends Controller
         return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq'));
     }
 
+    /**
+     * The request form on a template page. The files go to the address given, as
+     * signed links, so the address has to be a working one: a work mailbox (not a
+     * consumer one), not a throwaway domain, and with a mail route. Turnstile keeps
+     * the form from being scripted.
+     */
+    public function requestDownload(Request $request, string $slug, Turnstile $turnstile): RedirectResponse
+    {
+        $meta = TemplateCatalog::find($slug);
+        abort_unless($meta, 404);
+
+        // A filled honeypot is a bot. Answer as if it worked, and do nothing.
+        if (filled($request->input('website'))) {
+            return redirect()->to(route('templates.show', $slug).'#download')->with('template_requested', true);
+        }
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'min:2', 'max:120'],
+            'email' => ['required', 'string', 'email:rfc', 'max:190', new NotDisposableEmail, new WorkEmail],
+            'company' => ['required', 'string', 'min:2', 'max:160'],
+            'job_title' => ['nullable', 'string', 'max:120'],
+            'country' => ['nullable', 'string', 'max:80'],
+            'terms' => ['accepted'],
+            'updates' => ['nullable', 'boolean'],
+        ], [
+            'terms.accepted' => 'Please accept the terms of use to receive the template.',
+        ]);
+
+        if (! $turnstile->passes($request->input('cf-turnstile-response'), $request->ip())) {
+            return back()->withInput()->withErrors(['captcha' => 'The security check did not pass. Please try again.'])->withFragment('download');
+        }
+
+        $email = strtolower(trim($data['email']));
+        $key = 'template-request:'.sha1($email);
+        if (RateLimiter::tooManyAttempts($key, (int) config('templates.gate.per_email_per_day', 10))) {
+            return back()->withInput()->withErrors(['email' => 'Too many requests for this address today. Please use the links already sent, or try again tomorrow.'])->withFragment('download');
+        }
+        RateLimiter::hit($key, 86400);
+
+        $version = TemplateVersion::latestFor($slug) ?? app(TemplateBuilder::class)->build($slug)['version'];
+        $downloadRequest = TemplateDownloadRequest::create([
+            'template_slug' => $slug,
+            'name' => trim($data['name']),
+            'email' => $email,
+            'company' => trim($data['company']),
+            'job_title' => $data['job_title'] ?? null,
+            'country' => $data['country'] ?? null,
+            'terms_accepted_at' => now(),
+            'marketing_consent_at' => ! empty($data['updates']) ? now() : null,
+            'ip_hash' => hash('sha256', (string) $request->ip().config('app.key')),
+            'referrer' => mb_substr((string) $request->headers->get('referer'), 0, 512) ?: null,
+        ]);
+        Mail::to($email)->send(new TemplateDownloadMail($downloadRequest, $version));
+        $downloadRequest->forceFill(['emailed_at' => now()])->save();
+
+        return redirect()->to(route('templates.show', $slug).'#download')->with('template_requested', $email);
+    }
+
+    /**
+     * Serves a file from a signed, expiring link sent by email. A link without a valid
+     * signature goes back to the template page, where the form is.
+     */
     public function download(Request $request, string $slug): BinaryFileResponse|RedirectResponse
     {
         $meta = TemplateCatalog::find($slug);
         abort_unless($meta, 404);
+        if (! $request->hasValidSignature()) {
+            return redirect()->to(route('templates.show', $slug).'#download');
+        }
+        $downloadRequest = TemplateDownloadRequest::where('id', (int) $request->query('request'))->where('template_slug', $slug)->first();
+        abort_unless($downloadRequest, 404);
+
         $version = TemplateVersion::latestFor($slug) ?? app(TemplateBuilder::class)->build($slug)['version'];
         $format = (string) $request->query('format', $version->formats()[0] ?? 'xlsx');
         $file = $version->file($format);
@@ -129,11 +204,12 @@ class TemplateController extends Controller
             abort_unless($file && $disk->exists($file['path']), 404);
         }
         TemplateVersion::whereKey($version->id)->increment('downloads');
+        $downloadRequest->forceFill(['downloads' => $downloadRequest->downloads + 1, 'first_downloaded_at' => $downloadRequest->first_downloaded_at ?? now()])->save();
 
         return response()->download($disk->path($file['path']), $file['filename'], [
             'Content-Type' => $this->mime($format),
             'X-Robots-Tag' => 'noindex',
-            'Cache-Control' => 'public, max-age=3600',
+            'Cache-Control' => 'private, no-store',
         ]);
     }
 

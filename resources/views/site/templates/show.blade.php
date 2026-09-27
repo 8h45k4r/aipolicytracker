@@ -5,13 +5,11 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
-        <div class="flex flex-wrap gap-1.5"><span class="badge bg-brand-navy text-white ring-brand-navy">{{ $catalog::typeLabel($meta['type']) }}</span><span class="badge bg-state-goodbg text-state-good ring-state-good/30">Free · no account</span>@foreach(($meta['frameworks'] ?? []) as $f)<span class="badge-neutral">{{ $catalog::frameworkLabel($f) }}</span>@endforeach</div>
+        <div class="flex flex-wrap gap-1.5"><span class="badge bg-brand-navy text-white ring-brand-navy">{{ $catalog::typeLabel($meta['type']) }}</span><span class="badge bg-state-goodbg text-state-good ring-state-good/30">Free · sent to your work email</span>@foreach(($meta['frameworks'] ?? []) as $f)<span class="badge-neutral">{{ $catalog::frameworkLabel($f) }}</span>@endforeach</div>
         <h1 class="mt-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $meta['title'] }}</h1>
         <p class="mt-3 max-w-[64ch] text-brand-body leading-7">{{ $meta['short'] }}</p>
-        <div id="download" class="mt-4 flex flex-wrap gap-2">
-            @foreach($version->files as $f)
-            <a href="{{ $version->downloadUrl($f['format']) }}" class="btn-primary" data-track="template_download" data-track-label="{{ $meta['slug'] }}:{{ $f['format'] }}" download>Download {{ strtoupper($f['format']) }} <span class="font-normal opacity-80">({{ number_format($f['bytes'] / 1024) }} KB)</span></a>
-            @endforeach
+        <div class="mt-4 flex flex-wrap gap-2">
+            <a href="#download" class="btn-primary" data-track="template_request_open" data-track-label="{{ $meta['slug'] }}">Get the {{ $formats }} files</a>
             <a href="#preview" class="btn-secondary">Preview</a>
         </div>
         <p class="mt-2 meta">Formats: {{ $formats }} · Version {{ $version->label() }} · Built <time datetime="{{ $version->generated_at->toAtomString() }}">{{ $version->generated_at->format('j M Y') }}</time> from dataset <code>{{ $version->dataset_version }}</code> · {{ config('templates.licence') }}</p>
@@ -88,7 +86,7 @@
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Downloads</dt><dd>{{ number_format($versions->sum('downloads')) }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Licence</dt><dd>CC BY 4.0</dd></div>
                     </dl>
-                    <div class="mt-3 flex flex-col gap-2">@foreach($version->files as $f)<a href="{{ $version->downloadUrl($f['format']) }}" class="btn-primary" data-track="template_download" data-track-label="{{ $meta['slug'] }}:{{ $f['format'] }}" download>Download {{ strtoupper($f['format']) }}</a>@endforeach</div>
+                    @include('site.templates._request-form', ['slug' => $meta['slug'], 'formats' => $formats])
                 </div>
                 @if($related->isNotEmpty())
                 <section aria-labelledby="related-heading"><h2 id="related-heading" class="section-title">Related templates</h2>

@@ -26,6 +26,14 @@ return [
 
     'disclaimer' => 'This template is generated from the records on aipolicytracker.org. It is an informational resource, not legal advice, and completing it does not make an organisation compliant with any law or standard. Every row that cites a duty links to the record it came from; check the official source before relying on it.',
 
+    // Downloads are requested through a form (name, work email, company, Turnstile)
+    // and delivered as signed links by email. `require_work_email` refuses consumer
+    // mailboxes; throwaway domains are refused regardless (App\Rules\NotDisposableEmail).
+    'gate' => [
+        'require_work_email' => (bool) env('TEMPLATE_REQUIRE_WORK_EMAIL', true),
+        'per_email_per_day' => (int) env('TEMPLATE_REQUESTS_PER_EMAIL_PER_DAY', 10),
+    ],
+
     'licence' => 'CC BY 4.0. You may use, adapt and share this template, including commercially, with attribution to aipolicytracker.org.',
 
     'types' => ['register' => 'Register', 'assessment' => 'Assessment', 'policy' => 'Policy', 'procedure' => 'Procedure', 'checklist' => 'Checklist', 'crosswalk' => 'Crosswalk', 'kit' => 'Kit'],

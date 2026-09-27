@@ -24,6 +24,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Cloudflare Turnstile on the template download form. Both keys come from the
+    // Cloudflare dashboard (Turnstile → Add site). Unset, the check is skipped.
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY'),
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    ],
+
     'resend' => [
         'key' => env('RESEND_KEY'),
     ],
