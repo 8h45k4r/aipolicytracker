@@ -33,7 +33,9 @@ class SocialCard
 
         // Keyed by what goes into it, so a retitled record gets a new file and no
         // cache needs to be cleared by hand on deploy.
-        $path = trim((string) config('social.cache_path'), '/').'/'.$key.'-'.substr(hash('sha256', serialize($content).'|v1'), 0, 16).'.png';
+        // The design version is part of the key too. Keyed by content alone, a redesigned
+        // card kept serving the old drawing for every record whose text had not changed.
+        $path = trim((string) config('social.cache_path'), '/').'/'.$key.'-'.substr(hash('sha256', serialize($content).'|'.self::designVersion()), 0, 16).'.png';
         $disk = Storage::disk(config('social.cache_disk'));
 
         if ($disk->exists($path)) {
@@ -47,6 +49,18 @@ class SocialCard
         $disk->put($path, $png);
 
         return $path;
+    }
+
+    /**
+     * A token that changes whenever the drawing code changes. It goes into the cache
+     * key and into every card URL, so a new design is both drawn afresh here and
+     * fetched afresh by the platforms, which re-read a preview only when its URL moves.
+     */
+    public static function designVersion(): string
+    {
+        static $version = null;
+
+        return $version ??= substr((string) hash_file('crc32b', __FILE__), 0, 8);
     }
 
     /** Whether a usable font was found on this host. */

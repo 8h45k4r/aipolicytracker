@@ -1,0 +1,5 @@
+# One identity per person in `git log`, `git shortlog` and `git blame`. Commits made
+# before the move to the project domain carry the old personal address; history is
+# not rewritten, so this maps it to the current one wherever git reads authorship.
+Bhaskar Bhatt <bhaskar@aipolicytracker.org> Bhaskar Bhatt <8h45k4r@gmail.com>
+Bhaskar Bhatt <bhaskar@aipolicytracker.org> <8h45k4r@gmail.com>
