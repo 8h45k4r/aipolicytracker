@@ -25,7 +25,7 @@ framework_references:
   - { framework: mitre_atlas, reference: "AML.M0025 Maintain AI Dataset Provenance", confidence_level: medium }
 related_controls: [data-governance-and-dataset-documentation, technical-documentation-and-model-cards, privacy-and-data-protection-for-ai]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: medium

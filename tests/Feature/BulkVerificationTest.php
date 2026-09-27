@@ -50,8 +50,8 @@ class BulkVerificationTest extends TestCase
         // Each one is its own stored decision, so it survives the next import and exports to data/.
         $this->assertSame(5, RecordVerification::where('review_status', 'verified')->count());
         $this->artisan('policy:import');
-        // The shipped data is signed by the editorial desk; these five carry the reviewer's own name.
-        $this->assertSame(5, PolicyInstrument::published()->where('review_status', 'verified')->where('reviewed_by', 'Bhaskar Bhatt')->count());
+        // Each of the five still carries the reviewer's name and today's date after the re-import.
+        $this->assertSame(5, PolicyInstrument::published()->whereIn('slug', $slugs)->where('review_status', 'verified')->where('reviewed_by', 'Bhaskar Bhatt')->whereDate('last_verified_at', now()->toDateString())->count());
     }
 
     public function test_the_attestation_is_required_for_the_whole_selection(): void

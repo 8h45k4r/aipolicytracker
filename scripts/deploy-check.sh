@@ -77,7 +77,7 @@ check "P10 · embed script"                            "P10"     "/embed.js"    
 check "P10 · localised hub (Spanish)"                 "P10"     "/es/ai-regulation-japan"                 status=200
 check "P10 · llms.txt lists the new surfaces"         "P10"     "/llms.txt"                               contains "/templates"
 # ---- after the roadmap ----------------------------------------------------------------
-check "Editorial desk on the reviewer roster"         "7f7f933" "/reviewers/ai-policy-tracker"            status=200
+check "Records signed by Bhaskar Bhatt"               "re-sign" "/reviewers/bhaskar-bhatt"                contains "/policies/"
 check "Reviewer pages no longer 500"                  "8e02fc1" "/reviewers/bhaskar-bhatt"                status=200
 check "Request ID on every response"                  "53b5f25" "/up"                                     header "x-request-id"
 check "EU AI Act follows the Digital Omnibus dates"   "d84f223" "/policies/eu-ai-act"                     contains "2 December 2027"

@@ -25,7 +25,7 @@ framework_references:
   - { framework: owasp_llm_top10, reference: "LLM04 Data and Model Poisoning", confidence_level: medium }
 related_controls: [training-data-provenance-and-copyright-register, technical-documentation-and-model-cards, privacy-and-data-protection-for-ai, accuracy-robustness-security-testing]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: high

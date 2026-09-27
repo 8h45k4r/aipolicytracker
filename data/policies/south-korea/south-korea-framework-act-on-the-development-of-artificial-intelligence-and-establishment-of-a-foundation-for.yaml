@@ -76,7 +76,7 @@ obligations:
     - { control: ai-system-inventory, relationship: supports, note: "Classification identifies which products are high-impact or generative.", confidence_level: medium }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -112,7 +112,7 @@ obligations:
     - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "Labels and provenance marks on generated output and realistic synthetic media.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -149,7 +149,7 @@ obligations:
     - { control: genai-red-team-testing, relationship: supports, note: "Evidence for the risk identification step.", confidence_level: medium }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -186,7 +186,7 @@ obligations:
     - { control: ai-system-inventory, relationship: supports, note: "Classification of systems against the high-impact list.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -221,7 +221,7 @@ obligations:
     - { control: technical-documentation-and-model-cards, relationship: supports, note: "Training-data overview and decision logic documented.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -254,7 +254,7 @@ obligations:
     - { control: human-oversight-and-override, relationship: satisfies, note: "Named supervisors with monitoring and override capability.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -290,7 +290,7 @@ obligations:
     - { control: ai-governance-policy-and-accountability, relationship: supports, note: "User-protection plan and ownership.", confidence_level: medium }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -324,7 +324,7 @@ obligations:
     - { control: ai-impact-assessment, relationship: satisfies, note: "Fundamental-rights assessment before deployment.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -359,7 +359,7 @@ obligations:
     - { control: contractual-allocation-of-ai-duties, relationship: satisfies, note: "The written designation and the representative's task list.", confidence_level: high }
   official_source_url: https://www.law.go.kr/lsInfoP.do?lsiSeq=268543
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -386,7 +386,7 @@ source_document_date: '2025-01-21'
 source_tier: 1
 last_checked_at: '2026-09-26'
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1

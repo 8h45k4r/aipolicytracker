@@ -79,7 +79,7 @@ obligations:
     - { control: third-party-ai-due-diligence, relationship: supports, note: "Vendor supplies data and audit access for the tool.", confidence_level: medium }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -115,7 +115,7 @@ obligations:
     - { control: accuracy-robustness-security-testing, relationship: supports, note: "Produces the results being summarised.", confidence_level: high }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -151,7 +151,7 @@ obligations:
     - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Advance notice to candidates with the assessed criteria.", confidence_level: high }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -186,7 +186,7 @@ obligations:
     - { control: human-oversight-and-override, relationship: supports, note: "Human-run alternative where one is offered.", confidence_level: medium }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -222,7 +222,7 @@ obligations:
     - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Source of the data inventory disclosed.", confidence_level: medium }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -245,7 +245,7 @@ source_document_date: '2023-07-05'
 source_tier: 1
 last_checked_at: '2026-09-26'
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1

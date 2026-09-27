@@ -23,6 +23,10 @@ interests:
     About page and here.
   declared_on: 2026-09-22
 links:
+- label: Email
+  url: mailto:bhaskar@aipolicytracker.org
+- label: Editorial desk
+  url: mailto:info@aipolicytracker.org
 - label: Public profile
   url: https://bhaskar.com.np/
 - label: GitHub

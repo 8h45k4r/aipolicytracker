@@ -713,7 +713,7 @@ obligations:
       - { control: ai-quality-management-system, relationship: supports, note: "The QMS is where most Article 16 duties are operated.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -750,7 +750,7 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: supports, note: "Produces the technical file that must be retained.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -786,7 +786,7 @@ obligations:
       - { control: record-keeping-and-logging, relationship: satisfies, note: "Retention of Article 12 logs for the required period.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -825,7 +825,7 @@ obligations:
       - { control: model-release-and-change-management-gate, relationship: supports, note: "Withdrawal, disabling and re-release pass through the gate.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -863,7 +863,7 @@ obligations:
       - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Names the regulator liaison and escalation path.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -901,7 +901,7 @@ obligations:
       - { control: conformity-assessment-and-registration, relationship: supports, note: "Items the representative must verify.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -940,7 +940,7 @@ obligations:
       - { control: ai-system-inventory, relationship: supports, note: "Inventory records the organisation's role for each system.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -978,7 +978,7 @@ obligations:
       - { control: third-party-ai-due-diligence, relationship: supports, note: "Identifies which suppliers fall within Article 25(4).", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1016,7 +1016,7 @@ obligations:
       - { control: conformity-assessment-and-registration, relationship: supports, note: "Registration under Article 49(2).", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1052,7 +1052,7 @@ obligations:
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Detects input drift away from the intended population.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1091,7 +1091,7 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Suspension decision and notifications to provider and authority.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1128,7 +1128,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: supports, note: "Identifies the affected worker groups to notify.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1165,7 +1165,7 @@ obligations:
       - { control: third-party-ai-due-diligence, relationship: supports, note: "Verifies the provider's registration before purchase.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1201,7 +1201,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: supports, note: "Shared inputs with the fundamental rights impact assessment.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1241,7 +1241,7 @@ obligations:
       - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Authorisation workflow ownership.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: medium
@@ -1277,7 +1277,7 @@ obligations:
       - { control: decision-explanation-and-appeal-route, relationship: supports, note: "Notice links to the Article 86 explanation route.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1315,7 +1315,7 @@ obligations:
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Tests that the mark is robust and reliable.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1354,7 +1354,7 @@ obligations:
       - { control: prohibited-use-screening-gate, relationship: supports, note: "Confirms the use is not banned by Article 5.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1393,7 +1393,7 @@ obligations:
       - { control: human-oversight-and-override, relationship: supports, note: "Editorial control that lifts the text-disclosure duty.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1430,7 +1430,7 @@ obligations:
       - { control: frontier-model-safety-framework, relationship: satisfies, note: "Compute tracking and threshold notification are part of the framework.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1469,7 +1469,7 @@ obligations:
       - { control: model-release-and-change-management-gate, relationship: supports, note: "Release requires the documentation to be current.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1508,7 +1508,7 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: supports, note: "The documentation the representative holds.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1545,7 +1545,7 @@ obligations:
       - { control: frontier-model-safety-framework, relationship: supports, note: "Framework defines the incident types and escalation.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1583,7 +1583,7 @@ obligations:
       - { control: frontier-model-safety-framework, relationship: supports, note: "Framework commits to the weight-security measures.", confidence_level: high }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1621,7 +1621,7 @@ obligations:
       - { control: record-keeping-and-logging, relationship: supports, note: "Logs supply the inputs cited in the explanation.", confidence_level: medium }
     official_source_url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: high
@@ -1648,7 +1648,7 @@ procurement_rules:
     source_reference: "Articles 27 and 49(4)"
     confidence_level: high
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
 sources:
