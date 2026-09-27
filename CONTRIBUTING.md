@@ -100,7 +100,7 @@ Releases follow [Semantic Versioning](https://semver.org/) and are cut from `mai
 
 1. In `CHANGELOG.md`, rename `## [Unreleased]` to `## [X.Y.Z] - YYYY-MM-DD`, add a fresh `## [Unreleased]` above it, and update the two links at the end of the file.
 2. Check the notes read as intended: `scripts/release/notes.sh X.Y.Z`.
-3. Commit, push to `main`, then tag and push the tag: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
+3. Commit and push to `main`. Then either push a tag (`git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`) or run **Release** from the Actions tab on `main`, which tags the newest changelog version on that commit.
 
 After deploying, run **Deployment check** from the Actions tab (`scripts/deploy-check.sh`, also runnable against a local copy): it reports every shipped feature as live or not live on the public site.
 
