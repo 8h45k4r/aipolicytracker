@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
-## [1.0.0] - 2026-09-26
+## [1.0.0] - 2026-09-27
 
 First tagged release. It covers everything built since the project moved to structured, source-backed records, and closes the ten-phase search-and-growth roadmap (`docs/plans/roadmap.md`). The entries after this summary are the detailed history, newest first.
 
@@ -21,14 +21,22 @@ First tagged release. It covers everything built since the project moved to stru
 - A quarterly State of AI Regulation report, embeddable widgets, a page per reviewer and localised hubs in Spanish, Indonesian and Brazilian Portuguese.
 - An admin review queue that acts on a selection for every record kind (policies, jurisdictions, controls, change log entries, transition measures): verify, publish or unpublish the ticked rows or everything a filter matches, with one attestation. Submissions, subscribers and tools take bulk actions too.
 - A request ID on every response, shown on the error page and written with every log line, so a reported error can be found.
+- Eight more AI governance templates, 26 in all: AI Model Card, AI Data Governance Register, AI Audit Evidence Tracker, AI Literacy and Training Plan, AI Post-Market Monitoring Plan, AI Contract Clause Library, AI Red-Team and Evaluation Test Plan, and AI Governance Board Reporting Pack.
+- Template downloads are requested with a work email: name, company, work address (consumer and throwaway mailboxes refused), terms consent and Cloudflare Turnstile. The files arrive as links signed for seven days; requests are listed and exported in the admin.
+- An interactive world map of AI regulation (amCharts 5) on `/jurisdictions` and the State of AI Regulation report, loaded only where it appears.
+- A Deployment check workflow that reports which shipped features the live site is serving, and a Release workflow that runs from a version tag or from the Actions tab.
 
 ### Changed
+- Verified records are signed by Bhaskar Bhatt, the accountable reviewer, rather than the editorial desk. Records still pending review are unchanged.
+- The Colorado kit is rebuilt on SB 26-189; four September 2026 California changes are recorded (SB 813 and AB 1405, the companion-chatbot package, SB 1050, the AI oversight executive order), pending review.
 - The EU AI Act record follows Regulation (EU) 2026/1744: high-risk duties apply from 2 December 2027 for Annex III systems and 2 August 2028 for Annex I products. Colorado's SB 24-205 is marked repealed and SB 26-189 has its own record. Both are pending review against the official texts.
 
 ### Fixed
 - Reviewer pages answered 500 on PostgreSQL because they queried a column obligations do not have.
 - Confirmation prompts on destructive admin actions never ran under the Content-Security-Policy; they do now.
 - Verification decisions for controls, change log entries and transition measures are written back to `data/`, not only those for policies and jurisdictions.
+- A redesigned social preview card was never redrawn or re-fetched for an unchanged record; the design version is now part of each card's cache key and URL.
+- Successive versions of a template shared one change-log title because the version fell outside the 60-character title budget; the version now leads the title.
 
 
 ### Security
