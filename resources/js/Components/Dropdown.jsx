@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext, use } from 'react';
 import { Link } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
@@ -12,14 +12,14 @@ const Dropdown = ({ children }) => {
     };
 
     return (
-        <DropDownContext.Provider value={{ open, setOpen, toggleOpen }}>
+        <DropDownContext value={{ open, setOpen, toggleOpen }}>
             <div className="relative">{children}</div>
-        </DropDownContext.Provider>
+        </DropDownContext>
     );
 };
 
 const Trigger = ({ children }) => {
-    const { open, setOpen, toggleOpen } = useContext(DropDownContext);
+    const { open, setOpen, toggleOpen } = use(DropDownContext);
 
     return (
         <>
@@ -31,7 +31,7 @@ const Trigger = ({ children }) => {
 };
 
 const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white', children }) => {
-    const { open, setOpen } = useContext(DropDownContext);
+    const { open, setOpen } = use(DropDownContext);
 
     let alignmentClasses = 'origin-top';
 

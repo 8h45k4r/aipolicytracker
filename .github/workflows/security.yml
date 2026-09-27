@@ -95,7 +95,7 @@ jobs:
         run: composer audit --locked --no-interaction
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: "22"
+          node-version-file: ".nvmrc"
       - name: npm audit
         run: npm audit --audit-level=high
       - name: Trivy (lockfiles, known CVEs with a fix)

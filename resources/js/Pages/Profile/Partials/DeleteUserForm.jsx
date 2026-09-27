@@ -9,7 +9,7 @@ import { useForm } from '@inertiajs/react';
 
 export default function DeleteUserForm({ className = '' }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
-    const passwordInput = useRef();
+    const passwordInputRef = useRef();
 
     const {
         data,
@@ -32,7 +32,7 @@ export default function DeleteUserForm({ className = '' }) {
         destroy(route('profile.destroy'), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
-            onError: () => passwordInput.current.focus(),
+            onError: () => passwordInputRef.current.focus(),
             onFinish: () => reset(),
         });
     };
@@ -74,7 +74,7 @@ export default function DeleteUserForm({ className = '' }) {
                             id="password"
                             type="password"
                             name="password"
-                            ref={passwordInput}
+                            ref={passwordInputRef}
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             className="mt-1 block w-3/4"

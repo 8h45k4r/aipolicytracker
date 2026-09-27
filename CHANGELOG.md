@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Major front-end and tooling upgrades: React 19, Inertia 3 (`@inertiajs/react` 3 and `inertiajs/inertia-laravel` 3), ESLint 10 and Node 26. Node is pinned in `.nvmrc` and `package.json` `engines`; CI, the security workflow and the Docker build stage read it.
+- ESLint's React rules come from `@eslint-react/eslint-plugin`, because `eslint-plugin-react` has no ESLint 10 release. The legacy React components were updated for React 19: `ref` as a prop instead of `forwardRef`, `use()` and `<Context>` for the dropdown, and a window-width store instead of setting state inside an effect.
+- `config/inertia.php` points Inertia at `resources/js/Pages` and turns SSR off. No route renders an Inertia page any more (sign-in, registration and the profile are Blade), so the React pages are legacy and could be removed.
+- npm 11 blocks package install scripts by default; `@parcel/watcher`'s build-from-source fallback is denied in `allowScripts` because its prebuilt binary is used.
+
 ## [1.0.0] - 2026-09-27
 
 First tagged release. It covers everything built since the project moved to structured, source-backed records, and closes the ten-phase search-and-growth roadmap (`docs/plans/roadmap.md`). The entries after this summary are the detailed history, newest first.

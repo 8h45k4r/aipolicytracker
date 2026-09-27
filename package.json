@@ -10,23 +10,24 @@
         "test": "node --test agent/*.test.mjs"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.5",
+        "@eslint-react/eslint-plugin": "^5.20.8",
+        "@eslint/js": "^10.0.1",
         "@headlessui/react": "^2.2.10",
-        "@inertiajs/react": "^1.0.0",
+        "@inertiajs/react": "^3.7.1",
         "@tailwindcss/forms": "^0.5.11",
         "@vitejs/plugin-react": "^6.1.1",
         "autoprefixer": "^10.6.1",
         "axios": "^1.7.5",
-        "eslint": "^9.39.5",
-        "eslint-plugin-react": "^7.37.5",
-        "eslint-plugin-react-hooks": "^5.2.0",
-        "globals": "^15.15.0",
+        "eslint": "^10.11.0",
+        "eslint-plugin-react-hooks": "^7.1.1",
+        "globals": "^17.12.0",
         "laravel-vite-plugin": "^3.2.0",
         "postcss": "^8.5.28",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0",
         "sass": "^1.105.0",
         "tailwindcss": "^3.2.1",
+        "typescript": "^6.0.3",
         "vite": "^8.3.0"
     },
     "dependencies": {
@@ -38,6 +39,9 @@
     "name": "aipolicytracker",
     "version": "1.0.0",
     "license": "Apache-2.0",
+    "engines": {
+        "node": ">=26"
+    },
     "homepage": "https://aipolicytracker.org",
     "author": "Bhaskar Bhatt <bhaskar@aipolicytracker.org> (https://bhaskar.com.np/)",
     "repository": {
@@ -47,5 +51,8 @@
     "bugs": {
         "url": "https://github.com/8h45k4r/aipolicytracker/issues",
         "email": "bhaskar@aipolicytracker.org"
+    },
+    "allowScripts": {
+        "@parcel/watcher": false
     }
 }

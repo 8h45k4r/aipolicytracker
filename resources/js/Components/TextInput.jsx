@@ -1,14 +1,15 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
-export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, ...props }, ref) {
-    const localRef = useRef();
-    const input = ref ? ref : localRef;
+// React 19 passes ref as an ordinary prop, so forwardRef is no longer needed.
+export default function TextInput({ type = 'text', className = '', isFocused = false, ref, ...props }) {
+    const localRef = useRef(null);
+    const inputRef = ref ?? localRef;
 
     useEffect(() => {
         if (isFocused) {
-            input.current.focus();
+            inputRef.current?.focus();
         }
-    }, []);
+    }, [isFocused, inputRef]);
 
     return (
         <input
@@ -17,7 +18,7 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
             className={
                 `border-gray-300 w-full focus:border-indigo-500 rounded-md shadow-sm ${className} focus:ring-blue-900`
                 }
-            ref={input}
+            ref={inputRef}
         />
     );
-});
+}

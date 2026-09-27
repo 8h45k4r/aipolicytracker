@@ -19,7 +19,7 @@ Track regulations. Map obligations. Operationalise controls. Prove compliance. S
 
 ## Quick start
 
-Prerequisites: PHP 8.2 or newer with `pdo_sqlite` (production runs 8.3), Composer 2, Node 22+. To contribute, fork first and clone your fork; `CONTRIBUTING.md` has the steps.
+Prerequisites: PHP 8.2 or newer with `pdo_sqlite` (production runs 8.3), Composer 2, Node 26 (the version in `.nvmrc`). To contribute, fork first and clone your fork; `CONTRIBUTING.md` has the steps.
 
 ```bash
 git clone https://github.com/8h45k4r/aipolicytracker.git
