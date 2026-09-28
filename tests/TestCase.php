@@ -44,7 +44,14 @@ abstract class TestCase extends BaseTestCase
     {
         if (! $this->statisticsGathered && DB::connection()->getDriverName() === 'pgsql') {
             $this->statisticsGathered = true;
-            DB::statement('ANALYZE');
+            // Named tables, not a bare ANALYZE. A bare one walks all sixty-odd
+            // tables and takes its lock on each, which cancels any autovacuum then
+            // running; done once per test that is a steady stream of cancelled
+            // vacuums, and the dead rows the corpus import leaves behind stop being
+            // reclaimed. These are the tables the import fills and the public pages
+            // read, which is where the planner's blindness actually costs anything.
+            DB::statement('ANALYZE jurisdictions, policy_instruments, obligations, '
+                .'taxonomy_terms, taxonomy_assignments, change_events, controls, deadlines');
         }
 
         return parent::call($method, $uri, $parameters, $cookies, $files, $server, $content);
