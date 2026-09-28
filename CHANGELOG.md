@@ -7,7 +7,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Fixed
 - `PHP tests (PostgreSQL)` had never once reported. It was in progress on every one of the last eight commits, including several that predate this branch, and the oldest had been running for five hours; GitHub would have killed it at the six-hour default. Because GitHub serves no log for a job that is still in progress, nothing could be read from it while it ran, so the failure was both slow and invisible — and the divergence the job exists to catch (debt #15's `/reviewers` 500, the retried-webhook 500) has therefore never actually been guarded in CI. Every job in every workflow — all seventeen, across `ci.yml`, `codeql.yml`, `composer-lock.yml`, `deploy-check.yml`, `gates.yml`, `refresh-external-data.yml`, `release.yml`, `security.yml`, `uptime-self-heal.yml` and `validate-data.yml` — now carries a `timeout-minutes`, so a stuck run fails inside the hour and publishes its log. The deployment check needed one for the same reason: thirty probes against a live origin that accepts a connection and then stalls will hold a job open well past the time the probes themselves should take. The cause was then found and fixed. PostgreSQL plans a query from the statistics `ANALYZE` collects, and `ANALYZE` counts only committed rows; `RefreshDatabase` seeds inside a transaction that is rolled back and never committed, so on a fresh database the planner was told every table was empty and chose the plan that suits no rows and ruins thousands. A `count(*)` over 117 obligations took 18 seconds, and a listing re-runs that count once per facet, so a single page never finished rendering — which is why the job ran for hours while the SQLite job passed in eleven minutes. `Tests\TestCase` now runs one `ANALYZE` per test, on the first request, on PostgreSQL only; it costs the SQLite job nothing. `tests/Feature/Site/PublicSiteTest.php` went from hanging for ever at its eleventh test to `OK (27 tests, 474 assertions)` in 2m43s. See debt #49.
 
-## [1.0.0] - 2026-09-26
+## [1.0.0] - 2026-09-27
 
 First tagged release. It covers everything built since the project moved to structured, source-backed records, and closes the ten-phase search-and-growth roadmap (`docs/plans/roadmap.md`). The entries after this summary are the detailed history, newest first.
 
@@ -24,14 +24,22 @@ First tagged release. It covers everything built since the project moved to stru
 - A quarterly State of AI Regulation report, embeddable widgets, a page per reviewer and localised hubs in Spanish, Indonesian and Brazilian Portuguese.
 - An admin review queue that acts on a selection for every record kind (policies, jurisdictions, controls, change log entries, transition measures): verify, publish or unpublish the ticked rows or everything a filter matches, with one attestation. Submissions, subscribers and tools take bulk actions too.
 - A request ID on every response, shown on the error page and written with every log line, so a reported error can be found.
+- Eight more AI governance templates, 26 in all: AI Model Card, AI Data Governance Register, AI Audit Evidence Tracker, AI Literacy and Training Plan, AI Post-Market Monitoring Plan, AI Contract Clause Library, AI Red-Team and Evaluation Test Plan, and AI Governance Board Reporting Pack.
+- Template downloads are requested with a work email: name, company, work address (consumer and throwaway mailboxes refused), terms consent and Cloudflare Turnstile. The files arrive as links signed for seven days; requests are listed and exported in the admin.
+- An interactive world map of AI regulation (amCharts 5) on `/jurisdictions` and the State of AI Regulation report, loaded only where it appears.
+- A Deployment check workflow that reports which shipped features the live site is serving, and a Release workflow that runs from a version tag or from the Actions tab.
 
 ### Changed
+- Verified records are signed by Bhaskar Bhatt, the accountable reviewer, rather than the editorial desk. Records still pending review are unchanged.
+- The Colorado kit is rebuilt on SB 26-189; four September 2026 California changes are recorded (SB 813 and AB 1405, the companion-chatbot package, SB 1050, the AI oversight executive order), pending review.
 - The EU AI Act record follows Regulation (EU) 2026/1744: high-risk duties apply from 2 December 2027 for Annex III systems and 2 August 2028 for Annex I products. Colorado's SB 24-205 is marked repealed and SB 26-189 has its own record. Both are pending review against the official texts.
 
 ### Fixed
 - Reviewer pages answered 500 on PostgreSQL because they queried a column obligations do not have.
 - Confirmation prompts on destructive admin actions never ran under the Content-Security-Policy; they do now.
 - Verification decisions for controls, change log entries and transition measures are written back to `data/`, not only those for policies and jurisdictions.
+- A redesigned social preview card was never redrawn or re-fetched for an unchanged record; the design version is now part of each card's cache key and URL.
+- Successive versions of a template shared one change-log title because the version fell outside the 60-character title budget; the version now leads the title.
 
 
 ### Security

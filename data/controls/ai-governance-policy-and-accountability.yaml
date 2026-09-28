@@ -26,7 +26,7 @@ framework_references:
   - { framework: oecd_ai_principles, reference: "Principle 1.5 Accountability", confidence_level: medium }
 related_controls: [ai-system-inventory, ai-risk-assessment, ai-literacy-and-role-based-training, ai-quality-management-system]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: medium

@@ -25,7 +25,7 @@ framework_references:
   - { framework: owasp_llm_top10, reference: "LLM06 Excessive Agency", confidence_level: medium }
 related_controls: [ai-risk-assessment, decision-explanation-and-appeal-route, ai-literacy-and-role-based-training, record-keeping-and-logging]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: high

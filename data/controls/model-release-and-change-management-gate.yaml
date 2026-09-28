@@ -24,7 +24,7 @@ framework_references:
   - { framework: iso_27001, reference: "Annex A 8.32 Change management", confidence_level: medium }
 related_controls: [accuracy-robustness-security-testing, technical-documentation-and-model-cards, conformity-assessment-and-registration, ai-quality-management-system]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: medium

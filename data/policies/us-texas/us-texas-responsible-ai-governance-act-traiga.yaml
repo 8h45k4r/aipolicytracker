@@ -93,7 +93,7 @@ obligations:
     - { control: public-sector-ai-use-case-register, relationship: supports, note: "Register identifies the consumer-facing systems that need the notice.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -128,7 +128,7 @@ obligations:
     - { control: ai-system-inventory, relationship: supports, note: "Identifies clinical and administrative systems that use AI.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: medium
@@ -164,7 +164,7 @@ obligations:
     - { control: genai-red-team-testing, relationship: supports, note: "Tests for harmful-incitement behaviour in generative systems.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -199,7 +199,7 @@ obligations:
     - { control: public-sector-ai-use-case-register, relationship: supports, note: "Register is the population to be screened.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -235,7 +235,7 @@ obligations:
     - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Consent and lawful basis for biometric data.", confidence_level: high }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -270,7 +270,7 @@ obligations:
     - { control: accuracy-robustness-security-testing, relationship: supports, note: "Fairness testing evidence supports the absence of intent.", confidence_level: medium }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -306,7 +306,7 @@ obligations:
     - { control: genai-red-team-testing, relationship: supports, note: "Tests that safeguards block sexual content involving minors.", confidence_level: high }
   official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149
   review_status: verified
-  reviewed_by: AI Policy Tracker
+  reviewed_by: Bhaskar Bhatt
   last_verified_at: '2026-09-26'
   last_checked_at: '2026-09-26'
   confidence_level: high
@@ -339,7 +339,7 @@ source_document_date: '2025-06-22'
 source_tier: 1
 last_checked_at: '2026-09-26'
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
 content_version: 1

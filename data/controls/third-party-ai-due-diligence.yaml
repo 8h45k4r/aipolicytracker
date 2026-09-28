@@ -26,7 +26,7 @@ framework_references:
   - { framework: owasp_llm_top10, reference: "LLM03 Supply Chain", confidence_level: high }
 related_controls: [contractual-allocation-of-ai-duties, ai-system-inventory, conformity-assessment-and-registration]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: high

@@ -24,6 +24,7 @@
             <section aria-labelledby="map-heading">
                 <h2 id="map-heading" class="section-title">Where AI is regulated</h2>
                 <p class="mt-1 text-xs text-brand-muted">A tile per jurisdiction with at least one record, grouped by region and shaded by the strongest instrument on record. The list below the tiles carries the same facts.</p>
+                <x-site.world-map class="mt-3" title="Where AI is regulated today" />
                 <div class="mt-3 flex flex-wrap gap-3 text-xs" aria-hidden="true">@foreach($levels as $key => [$name, $cls])<span class="inline-flex items-center gap-1.5"><span class="inline-block h-3 w-3 rounded-sm {{ $cls }}"></span>{{ $name }}</span>@endforeach</div>
                 @foreach(collect($report['tiles'])->groupBy('region')->sortKeys() as $region => $tiles)
                 <h3 class="mt-4 text-sm font-semibold text-brand-navy">{{ $region }} <span class="font-normal text-brand-muted">· {{ $tiles->count() }}</span>@if(\App\Services\Report\StateOfAiRegulation::regionHubUrl($region)) · <a href="{{ \App\Services\Report\StateOfAiRegulation::regionHubUrl($region) }}" class="font-normal text-brand-blue">regional hub</a>@endif</h3>

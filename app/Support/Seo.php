@@ -6,6 +6,7 @@ use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Services\Reviewers\ReviewerRoster;
+use App\Services\Social\SocialCard;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -113,7 +114,7 @@ class Seo
     public function withCard(string $kind, string $slug, ?\DateTimeInterface $version = null): self
     {
         $this->ogImage = route('social.card', ['kind' => $kind, 'slug' => $slug])
-            .'?v='.substr(hash('crc32b', ($version?->format('U') ?? '0').$slug), 0, 8);
+            .'?v='.substr(hash('crc32b', ($version?->format('U') ?? '0').$slug.SocialCard::designVersion()), 0, 8);
 
         return $this;
     }
@@ -149,7 +150,7 @@ class Seo
             return Cache::remember('seo.corpus-version', 3600, function () {
                 $stamp = PolicyInstrument::query()->published()->max('updated_at');
 
-                return substr(hash('crc32b', (string) $stamp), 0, 8);
+                return substr(hash('crc32b', (string) $stamp.SocialCard::designVersion()), 0, 8);
             });
         } catch (\Throwable) {
             return '0';

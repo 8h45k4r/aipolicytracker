@@ -474,7 +474,7 @@ class PublicApiController extends Controller
         });
     }
 
-    /** Sends the caller to the file; the site route serves it, counts it and sets the headers. */
+    /** Sends the caller to the template's request form; files are delivered by email to a work address. */
     public function templateDownload(Request $request, string $slug): RedirectResponse
     {
         $meta = TemplateCatalog::find($slug);
@@ -482,7 +482,7 @@ class PublicApiController extends Controller
         $format = (string) $request->query('format', $meta['formats'][0] ?? 'xlsx');
         abort_unless(in_array($format, $meta['formats'] ?? [], true), 404);
 
-        return redirect()->to(route('templates.download', ['slug' => $slug, 'format' => $format]), 302);
+        return redirect()->to(route('templates.show', $slug).'#download', 302);
     }
 
     private function templateRow(array $meta, ?TemplateVersion $version): array

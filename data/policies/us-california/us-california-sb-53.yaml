@@ -120,7 +120,7 @@ obligations:
       - { control: frontier-model-safety-framework, relationship: supports, note: "Report describes steps taken under the framework.", confidence_level: medium }
     official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: medium
@@ -155,7 +155,7 @@ obligations:
       - { control: genai-red-team-testing, relationship: supports, note: "Dangerous-capability evaluations feed the assessment.", confidence_level: medium }
     official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: medium
@@ -193,7 +193,7 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: supports, note: "Reports feed the incident process.", confidence_level: medium }
     official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
     review_status: verified
-    reviewed_by: AI Policy Tracker
+    reviewed_by: Bhaskar Bhatt
     last_verified_at: '2026-09-26'
     last_checked_at: '2026-09-26'
     confidence_level: medium
@@ -213,4 +213,4 @@ review_status: verified
 confidence_level: medium
 content_version: 1
 change_summary: Initial structured record; penalty amounts and chapter number to be confirmed.
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt

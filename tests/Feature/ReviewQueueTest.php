@@ -54,11 +54,13 @@ class ReviewQueueTest extends TestCase
     public function test_every_reviewable_kind_can_be_verified_in_bulk(): void
     {
         $this->actingAs($this->owner());
+        $picked = [];
         foreach (ReviewableTypes::keys() as $type) {
             $model = ReviewableTypes::model($type);
             $model::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
             $slugs = $model::query()->limit(2)->pluck('slug')->all();
             $this->assertNotEmpty($slugs, $type);
+            $picked[$type] = $slugs;
 
             $this->post('/backend/review/verify-many/'.$type, ['slugs' => $slugs, 'review_status' => 'verified', 'confidence_level' => 'high', 'source_opened' => 1])
                 ->assertRedirect()->assertSessionHas('success');
@@ -74,7 +76,7 @@ class ReviewQueueTest extends TestCase
         // The decisions outlive a re-import for every kind, not only policies.
         $this->artisan('policy:import');
         foreach (ReviewableTypes::keys() as $type) {
-            $this->assertSame(2, ReviewableTypes::model($type)::where('reviewed_by', 'Bhaskar Bhatt')->where('review_status', 'verified')->count(), $type);
+            $this->assertSame(2, ReviewableTypes::model($type)::whereIn('slug', $picked[$type])->where('reviewed_by', 'Bhaskar Bhatt')->where('review_status', 'verified')->whereDate('last_verified_at', now()->toDateString())->count(), $type);
         }
     }
 

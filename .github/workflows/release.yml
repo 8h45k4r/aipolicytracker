@@ -1,16 +1,20 @@
-# Publishes a GitHub release when a version tag is pushed.
+# Publishes a GitHub release.
 #
-# The notes are the tag's section of CHANGELOG.md, so the changelog stays the one
-# place a release is described. Tag only a commit whose CI is green:
+# Two ways in, same result:
+#   - push a vX.Y.Z tag:   git tag -a v1.2.3 -m "v1.2.3" && git push origin v1.2.3
+#   - run it from the Actions tab ("Release" → Run workflow) on main: it releases
+#     the newest version in CHANGELOG.md, creating the tag on that commit, and does
+#     nothing if that version is already released.
 #
-#   git tag -a v1.2.3 -m "v1.2.3" && git push origin v1.2.3
-#
+# The notes are the version's section of CHANGELOG.md, so the changelog stays the
+# one place a release is described. Release only a commit whose CI is green.
 # See "Releases" in CONTRIBUTING.md.
 name: Release
 
 on:
   push:
     tags: ["v[0-9]+.[0-9]+.[0-9]+"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -25,15 +29,35 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      # The tag name reaches the shell through the environment, never interpolated
-      # into the script, and the trigger's pattern already limits it to vX.Y.Z.
+      # Which version: the pushed tag, or the newest versioned heading in the changelog.
+      # Either way it reaches the shell through the environment, never interpolated.
+      - name: Resolve the version
+        id: version
+        env:
+          EVENT: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [ "$EVENT" = "push" ]; then
+            tag="$REF_NAME"
+          else
+            tag="v$(grep -m1 -oE '^## \[[0-9]+\.[0-9]+\.[0-9]+\]' CHANGELOG.md | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
+          fi
+          [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::no version found ($tag)"; exit 1; }
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
       - name: Release notes from CHANGELOG.md
         env:
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ steps.version.outputs.tag }}
         run: scripts/release/notes.sh "${TAG#v}" > "$RUNNER_TEMP/notes.md"
 
       - name: Publish
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
-        run: gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"
+          TAG: ${{ steps.version.outputs.tag }}
+          SHA: ${{ github.sha }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "$TAG is already released; nothing to do."
+            exit 0
+          fi
+          gh release create "$TAG" --target "$SHA" --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"

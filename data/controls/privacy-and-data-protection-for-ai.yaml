@@ -28,7 +28,7 @@ framework_references:
   - { framework: owasp_llm_top10, reference: "LLM02 Sensitive Information Disclosure", confidence_level: medium }
 related_controls: [ai-impact-assessment, data-governance-and-dataset-documentation, ai-interaction-and-use-disclosure, ai-incident-management-and-reporting]
 review_status: verified
-reviewed_by: AI Policy Tracker
+reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 last_checked_at: '2026-09-26'
 confidence_level: high

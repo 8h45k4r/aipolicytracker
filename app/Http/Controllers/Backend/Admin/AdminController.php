@@ -20,9 +20,11 @@ use App\Models\PageView;
 use App\Models\PolicyInstrument;
 use App\Models\ResourceDownload;
 use App\Models\Subscriber;
+use App\Models\TemplateDownloadRequest;
 use App\Models\Tool;
 use App\Models\User;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\Security\Turnstile;
 use App\Support\Csv;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -93,7 +95,16 @@ class AdminController extends Controller
         $recent = ResourceDownload::with(['user', 'tool'])->orderByDesc('id')->paginate(25, ['*'], 'downloads')->withQueryString();
         $users = User::withCount('resourceDownloads')->orderByDesc('id')->paginate(25, ['*'], 'users')->withQueryString();
 
-        return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users', 'funnel', 'topPages'));
+        $templateRequests = TemplateDownloadRequest::orderByDesc('id')->paginate(25, ['*'], 'requests')->withQueryString();
+        $templateStats = [
+            'total' => TemplateDownloadRequest::count(),
+            'last_30d' => TemplateDownloadRequest::where('created_at', '>=', $now->copy()->subDays(30))->count(),
+            'downloaded' => TemplateDownloadRequest::whereNotNull('first_downloaded_at')->count(),
+            'opted_in' => TemplateDownloadRequest::whereNotNull('marketing_consent_at')->count(),
+            'turnstile' => app(Turnstile::class)->configured(),
+        ];
+
+        return view('backend.admin.downloads', compact('metrics', 'byResource', 'bySource', 'recent', 'users', 'funnel', 'topPages', 'templateRequests', 'templateStats'));
     }
 
     /** Who did what in the admin: every state-changing request, newest first. */
@@ -121,6 +132,20 @@ class AdminController extends Controller
 
     public function downloadsExport(Request $request): StreamedResponse
     {
+        // One row per template request made through the form on a template page.
+        if ($request->query('rows') === 'template-requests') {
+            return response()->streamDownload(function () {
+                $out = fopen('php://output', 'w');
+                fputcsv($out, ['requested_at', 'template', 'name', 'email', 'company', 'job_title', 'country', 'updates_opt_in', 'emailed_at', 'first_downloaded_at', 'downloads']);
+                TemplateDownloadRequest::orderByDesc('id')->chunk(500, function ($rows) use ($out) {
+                    foreach ($rows as $r) {
+                        fputcsv($out, self::csvRow([$r->created_at?->toDateTimeString(), $r->template_slug, $r->name, $r->email, $r->company, $r->job_title, $r->country, $r->marketing_consent_at?->toDateString(), $r->emailed_at?->toDateTimeString(), $r->first_downloaded_at?->toDateTimeString(), $r->downloads]));
+                    }
+                });
+                fclose($out);
+            }, 'template-requests-'.now()->toDateString().'.csv', ['Content-Type' => 'text/csv; charset=UTF-8']);
+        }
+
         // One row per download, for following up leads: who took which template, when,
         // and the organisation they gave at the time.
         if ($request->query('rows') === 'downloads') {
@@ -249,7 +274,11 @@ class AdminController extends Controller
     /** Runs one incremental pull from the AI Incident Database API (same command as the cron trigger). */
     public function externalSync(): RedirectResponse
     {
-        @set_time_limit(280);
+        // A web request's cap. On the command line (PHPUnit included) set_time_limit
+        // bounds the whole process, so it is left alone there (debt #48).
+        if (PHP_SAPI !== 'cli') {
+            @set_time_limit(280);
+        }
         $code = Artisan::call('external:sync-aiid-api', ['--max' => 300]);
         $out = trim(Artisan::output());
 
