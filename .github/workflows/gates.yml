@@ -13,6 +13,7 @@ permissions:
 jobs:
   gates:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Check the pull request description
         env:

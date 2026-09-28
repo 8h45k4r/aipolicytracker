@@ -87,9 +87,19 @@ class TitlesAndAddressesTest extends TestCase
         }
 
         // An address, once published, does not move when the data is imported again.
-        $before = ExternalIncident::pluck('slug', 'incident_id')->all() + ExternalRisk::pluck('slug', 'ev_id')->all();
+        // Compared by key, because the claim is about which address each record has
+        // and not about the order the rows come back in: neither pluck() here is
+        // ordered, and an unordered select may return rows in any order at all. On
+        // SQLite it happens to be insertion order, so assertSame() on the raw arrays
+        // passed; on PostgreSQL the same data came back in a different order and the
+        // assertion failed while every one of the 4,163 addresses was identical.
+        $addresses = fn () => ExternalIncident::orderBy('incident_id')->pluck('slug', 'incident_id')->all()
+            + ExternalRisk::orderBy('ev_id')->pluck('slug', 'ev_id')->all();
+        $before = $addresses();
         $this->artisan('external:import')->assertExitCode(0);
-        $after = ExternalIncident::pluck('slug', 'incident_id')->all() + ExternalRisk::pluck('slug', 'ev_id')->all();
+        $after = $addresses();
+        ksort($before);
+        ksort($after);
         $this->assertSame($before, $after);
     }
 

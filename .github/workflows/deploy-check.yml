@@ -14,6 +14,11 @@ jobs:
   check:
     name: Check the live site
     runs-on: ubuntu-latest
+    # Thirty probes against a live site, each allowed its own connect and read
+    # timeout, so an origin that accepts connections and then stalls holds the job
+    # open far longer than the probes themselves should take. Capped for the same
+    # reason every job in ci.yml is: a run that cannot end cannot report.
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Probe one marker per shipped feature
