@@ -7,8 +7,8 @@ import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
 export default function UpdatePasswordForm({ className = '' }) {
-    const passwordInput = useRef();
-    const currentPasswordInput = useRef();
+    const passwordInputRef = useRef();
+    const currentPasswordInputRef = useRef();
 
     const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
         current_password: '',
@@ -25,12 +25,12 @@ export default function UpdatePasswordForm({ className = '' }) {
             onError: (errors) => {
                 if (errors.password) {
                     reset('password', 'password_confirmation');
-                    passwordInput.current.focus();
+                    passwordInputRef.current.focus();
                 }
 
                 if (errors.current_password) {
                     reset('current_password');
-                    currentPasswordInput.current.focus();
+                    currentPasswordInputRef.current.focus();
                 }
             },
         });
@@ -52,7 +52,7 @@ export default function UpdatePasswordForm({ className = '' }) {
 
                     <TextInput
                         id="current_password"
-                        ref={currentPasswordInput}
+                        ref={currentPasswordInputRef}
                         value={data.current_password}
                         onChange={(e) => setData('current_password', e.target.value)}
                         type="password"
@@ -68,7 +68,7 @@ export default function UpdatePasswordForm({ className = '' }) {
 
                     <TextInput
                         id="password"
-                        ref={passwordInput}
+                        ref={passwordInputRef}
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
                         type="password"
