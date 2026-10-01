@@ -2,6 +2,7 @@
 
 namespace App\Services\Templates;
 
+use App\Models\ChangeEvent;
 use App\Models\Control;
 use App\Models\ControlFrameworkReference;
 use App\Models\Deadline;
@@ -37,6 +38,10 @@ final class Records
         }
         if (! empty($filter['actors'])) {
             $q->whereHas('terms', fn ($t) => $t->where('taxonomy', 'actor')->whereIn('slug', $filter['actors']));
+        }
+        // Duties a named control serves (satisfies or supports), as recorded on the control.
+        if (! empty($filter['controls'])) {
+            $q->whereHas('controls', fn ($c) => $c->whereIn('slug', $filter['controls']));
         }
 
         return $q->get()->sortBy(fn ($o) => [$o->policyInstrument->jurisdiction->name, $o->policyInstrument->title, $o->sort_order ?? 0, $o->title])->values();
@@ -161,6 +166,32 @@ final class Records
     }
 
     /** @return Collection<int,PolicyInstrument> */
+    /**
+     * Published change events from the last N months, newest first, excluding the site's
+     * own template-version notices.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function changeRows(int $months = 12): array
+    {
+        return ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
+            ->where('occurred_on', '>=', now()->subMonths($months)->startOfDay())
+            ->where('slug', 'not like', 'template-%')
+            ->orderByDesc('occurred_on')->get()
+            ->map(fn (ChangeEvent $c) => [
+                'date' => $c->occurred_on->toDateString(),
+                'jurisdiction' => $c->jurisdiction?->name,
+                'title' => $c->title,
+                'instrument' => $c->policyInstrument ? ($c->policyInstrument->short_title ?: $c->policyInstrument->title) : null,
+                'impact' => $c->impactEnum()->label(),
+                'what' => trim((string) $c->what_changed),
+                'practical' => trim((string) $c->practical_impact),
+                'verified' => $c->review_status === 'verified' ? 'Verified' : 'Not yet verified',
+                'relevance' => null, 'owner' => null, 'action' => null,
+                'url' => $c->url(),
+            ])->all();
+    }
+
     public static function bindingInstruments(): Collection
     {
         return PolicyInstrument::published()->where('is_binding', true)->whereNotIn('status', ApplicabilityScreener::NOT_IN_FORCE)->whereNotNull('official_source_url')->with(['jurisdiction', 'terms', 'deadlines'])->get()

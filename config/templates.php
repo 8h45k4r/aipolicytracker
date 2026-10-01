@@ -317,5 +317,105 @@ return [
             'covers' => ['categories' => ['governance_accountability']],
             'legal_basis' => ['eu-ai-act', 'iso-42001'],
         ],
+
+        'high-risk-deployer-compliance-pack' => [
+            'title' => 'EU AI Act High-Risk Deployer Compliance Pack',
+            'type' => 'checklist', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['oversight', 'transparency', 'governance'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'For organisations using a high-risk AI system: every recorded EU AI Act deployer duty as a per-system checklist, a log of notices to workers and affected people, notice templates and the dates that apply.',
+            'inside' => ['Checklist sheet: one row per deployer duty with status, owner and evidence, to copy per system', 'Notices log for workers, affected persons and users', 'Document: worker and affected-person notice templates and a section per duty', 'Deployer duties and EU AI Act deadlines sheets'],
+            'covers' => ['policies' => ['eu-ai-act'], 'categories' => ['human_oversight', 'transparency']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'ai-use-case-intake-triage' => [
+            'title' => 'AI Use-Case Intake and Triage Form',
+            'type' => 'procedure', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['inventory', 'risk', 'governance'], 'frameworks' => ['eu-ai-act', 'iso-42001', 'nist-ai-rmf'],
+            'short' => 'Register and screen every proposed AI use before work starts: an intake register, a screen against every prohibited practice on record, and routing to standard, enhanced or transparency review.',
+            'inside' => ['Intake register with routing and a flag for a failed screen', 'Prohibited-use screen: every prohibited practice on record, one question each', 'Procedure document with the routing table', 'Risk and impact-assessment duties sheet'],
+            'covers' => ['categories' => ['prohibited_practice', 'risk_management']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'gpai-model-provider-compliance-kit' => [
+            'title' => 'General-Purpose AI Model Provider Compliance Kit',
+            'type' => 'kit', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['transparency', 'risk', 'evidence'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'For providers of general-purpose AI models: every recorded GPAI provider duty as a checklist, the information pack for downstream providers, a training-content summary worksheet and the systemic-risk sections.',
+            'inside' => ['Provider checklist: every recorded duty of GPAI model providers, with status and evidence', 'Downstream information sheet: ten items downstream providers need', 'Training content summary worksheet', 'Document: copyright policy, systemic-risk assessment and incident sections'],
+            'covers' => ['categories' => ['copyright_training_data', 'technical_documentation', 'safety_testing']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'eu-ai-act-conformity-assessment-and-qms' => [
+            'title' => 'EU AI Act Conformity Assessment and QMS Workbook',
+            'type' => 'kit', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'evidence'], 'frameworks' => ['eu-ai-act', 'iso-42001'],
+            'short' => 'For providers of high-risk AI systems: each recorded requirement mapped to the evidence that meets it, the thirteen quality management elements, a re-assessment trigger log and a draft declaration of conformity.',
+            'inside' => ['Requirement-to-evidence map across nine requirement areas', 'Quality management system elements with owner and approval date', 'Re-assessment trigger log', 'Document: assessment route, standards applied and the declaration of conformity outline'],
+            'covers' => ['categories' => ['conformity_assessment', 'quality_management']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'ai-dpia-supplement' => [
+            'title' => 'AI Supplement to a Data Protection Impact Assessment',
+            'type' => 'assessment', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['risk', 'governance'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'Fifteen AI-specific questions to add to a DPIA (inferences, training on personal data, accuracy across groups, automated decisions, model attacks, suppliers), with the privacy and impact-assessment duties on record.',
+            'inside' => ['Fifteen questions in nine areas, each with answer, risk rating and mitigation', 'Document version with a section per area', 'Privacy and impact-assessment duties sheet'],
+            'covers' => ['categories' => ['privacy_data_protection', 'impact_assessment']],
+            'legal_basis' => ['eu-ai-act', 'uk-ico-ai-data-protection-guidance'],
+        ],
+
+        'adverse-decision-explanation-and-appeal-kit' => [
+            'title' => 'AI Decision Explanation and Appeal Kit',
+            'type' => 'kit', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['transparency', 'oversight'], 'frameworks' => ['eu-ai-act', 'colorado-ai-act'],
+            'short' => 'When AI makes or supports a decision about a person: an adverse decision notice, an explanation reply, a human review procedure and a request log that counts days to answer, with every duty on record that asks for them.',
+            'inside' => ['Notice and explanation letter templates', 'Human review procedure', 'Request log with days-taken formula', 'Explanation and appeal duties across every jurisdiction on record'],
+            'covers' => ['categories' => ['transparency', 'human_oversight']],
+            'legal_basis' => ['eu-ai-act', 'us-colorado-automated-decision-making-technology-act'],
+        ],
+
+        'employment-ai-bias-audit-kit' => [
+            'title' => 'Employment AI Bias Audit Kit',
+            'type' => 'kit', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['workforce', 'risk', 'transparency'], 'frameworks' => ['colorado-ai-act'],
+            'short' => 'For hiring and HR tools: a selection-rate and impact-ratio calculator, an audit and notice tracker, a candidate notice template and the employment AI duties on record for New York City, Illinois and Colorado.',
+            'inside' => ['Impact-ratio calculator with formulas and a four-fifths highlight', 'Audit and candidate notice tracker per tool', 'Document: candidate notice and published audit summary templates', 'Employment AI duties sheet'],
+            'covers' => ['policies' => ['us-new-york-city-local-law-144-automated-employment-decision-tools', 'us-illinois-hb-3773-ai-in-employment']],
+            'legal_basis' => ['us-new-york-city-local-law-144-automated-employment-decision-tools', 'us-illinois-hb-3773-ai-in-employment', 'us-colorado-automated-decision-making-technology-act'],
+        ],
+
+        'ai-substantial-modification-change-log' => [
+            'title' => 'AI Change Log and Substantial Modification Test',
+            'type' => 'register', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'evidence'], 'frameworks' => ['eu-ai-act', 'iso-42001'],
+            'short' => 'Every release of an AI system after it is in use, with a built-in test that flags a possible substantial modification, the decision and its approver, and the duties a change gate serves.',
+            'inside' => ['Change log with a formula flag for possible substantial modification', 'Procedure document: what counts as a release, the test, approval', 'Change-related duties sheet'],
+            'covers' => ['categories' => ['conformity_assessment', 'post_market_monitoring']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
+
+        'frontier-ai-safety-framework' => [
+            'title' => 'Frontier AI Safety Framework and Transparency Report',
+            'type' => 'kit', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['risk', 'incidents', 'transparency'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'For developers of the most capable models: an outline of a published safety framework and a model transparency report, a capability-threshold sheet, a safety incident log and the frontier-model duties on record.',
+            'inside' => ['Risk thresholds sheet for four catastrophic-risk areas', 'Critical safety incident log', 'Document: framework, transparency report and whistleblower sections', 'Frontier model duties across jurisdictions'],
+            'covers' => ['categories' => ['safety_testing', 'incident_handling']],
+            'legal_basis' => ['us-california-sb-53', 'eu-ai-act'],
+        ],
+
+        'ai-regulatory-horizon-scan' => [
+            'title' => 'AI Regulatory Horizon Scan',
+            'type' => 'register', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'risk'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'Twelve months of recorded AI policy changes with columns to rate relevance and assign actions, every upcoming deadline, and a quarterly briefing outline. Rebuilt whenever a change is recorded.',
+            'inside' => ['Every change recorded in the last twelve months, with what changed and what it means in practice', 'Relevance, owner and action columns', 'Upcoming deadlines sheet', 'Document: quarterly briefing with the last three months of changes'],
+            'covers' => ['categories' => ['governance_accountability']],
+            'legal_basis' => ['eu-ai-act'],
+        ],
     ],
 ];

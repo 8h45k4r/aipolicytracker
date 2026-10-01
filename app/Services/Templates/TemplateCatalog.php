@@ -4,6 +4,7 @@ namespace App\Services\Templates;
 
 use App\Models\Obligation;
 use App\Services\Templates\Definitions\Assessments;
+use App\Services\Templates\Definitions\Compliance;
 use App\Services\Templates\Definitions\Kits;
 use App\Services\Templates\Definitions\PoliciesProcedures;
 use App\Services\Templates\Definitions\Programme;
@@ -41,7 +42,8 @@ final class TemplateCatalog
             ?? Assessments::make($slug, $meta)
             ?? PoliciesProcedures::make($slug, $meta)
             ?? Kits::make($slug, $meta)
-            ?? Programme::make($slug, $meta);
+            ?? Programme::make($slug, $meta)
+            ?? Compliance::make($slug, $meta);
     }
 
     public static function url(string $slug): string
