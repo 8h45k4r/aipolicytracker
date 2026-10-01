@@ -28,9 +28,9 @@ class EmailDomainsRefreshCommand extends Command
 
     public function handle(EmailDomainPolicy $policy): int
     {
-        $source = (string) $this->option('source');
+        $source = (string) ($this->option('source') ?: config('email.overlay_source'));
         if ($source === '' || ! filter_var($source, FILTER_VALIDATE_URL) || ! str_starts_with($source, 'https://')) {
-            $this->error('Pass --source with an https:// URL of a plain-text list. No default is assumed: you choose the source and accept its licence.');
+            $this->error('No source. Pass --source, or set EMAIL_DISPOSABLE_SOURCE, to the https:// URL of a plain-text list whose licence you have read. No default is assumed.');
 
             return self::FAILURE;
         }

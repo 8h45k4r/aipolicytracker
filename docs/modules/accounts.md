@@ -169,7 +169,7 @@ Matching is by suffix on label boundaries, so `mailinator.com` covers `team.mail
 | Need | Command or setting |
 |------|--------------------|
 | Explain a refusal | `php artisan email:check someone@example-domain.tld` — prints the domain, verdict, reason and the exact list entry that decided. |
-| Block a new service without a deploy | Add a line to the overlay file named by `email.overlay` (`storage/app/email/disposable-domains.txt`), or run `php artisan email:domains-refresh --source=https://…` with a list whose licence you have read. The overlay is untracked, so the project never redistributes a third-party list. |
+| Block a new service without a deploy | Add a line to the overlay file named by `email.overlay` (`storage/app/email/disposable-domains.txt`), or run `php artisan email:domains-refresh --source=https://…` with a list whose licence you have read. Set `EMAIL_DISPOSABLE_SOURCE` to that URL and the scheduler refreshes the overlay every Wednesday; unset, the weekly job is skipped, not failed. The overlay is untracked, so the project never redistributes a third-party list. |
 | Stop enforcing entirely | `EMAIL_DOMAIN_ENFORCEMENT=false`. |
 | Skip the DNS lookup | `EMAIL_CHECK_DELIVERABILITY=false` — leaves the curated lists working. |
 

@@ -7,7 +7,9 @@ use App\Models\AppSetting;
 use App\Models\JobRun;
 use App\Models\User;
 use App\Providers\AppSettingsServiceProvider;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -49,6 +51,31 @@ class JobsAndSettingsTest extends TestCase
             $page->assertSee($job['label'])->assertSee($job['command']);
         }
         $page->assertSee('Mondays 07:00 UTC')->assertSee('Recent runs');
+    }
+
+    public function test_the_domain_refresh_job_says_what_it_needs_and_is_not_scheduled_without_it(): void
+    {
+        // It ran every Wednesday with no source and failed every Wednesday. The
+        // scheduler now skips it until a source is set; the button still runs it
+        // and the failure names the variable, so an operator knows what to do.
+        config(['email.overlay_source' => null]);
+        $this->asOwner()->post('/backend/admin/jobs/email_domains')->assertRedirect(route('backend.admin.jobs'));
+        $run = JobRun::where('job', 'email_domains')->latest('id')->firstOrFail();
+        $this->assertFalse($run->succeeded());
+        $this->assertStringContainsString('EMAIL_DISPOSABLE_SOURCE', (string) $run->output);
+
+        $event = collect(app(Schedule::class)->events())
+            ->first(fn ($e) => $e->description === JobRun::JOBS['email_domains']['label']);
+        $this->assertNotNull($event, 'the job is on the timetable');
+        $this->assertFalse($event->filtersPass(app()), 'with no source the scheduler must skip it, not fail it');
+
+        config(['email.overlay_source' => 'https://lists.example.test/disposable.txt']);
+        $this->assertTrue($event->filtersPass(app()));
+        Http::fake(['lists.example.test/*' => Http::response("# list\nmailinator.com\n10minutemail.com\nnot a domain\n")]);
+        $this->asOwner()->post('/backend/admin/jobs/email_domains')->assertRedirect(route('backend.admin.jobs'));
+        $run = JobRun::where('job', 'email_domains')->latest('id')->firstOrFail();
+        $this->assertTrue($run->succeeded(), (string) $run->output);
+        $this->assertStringContainsString('Fetched 2 domains', (string) $run->output);
     }
 
     public function test_a_job_runs_from_the_browser_and_records_how_it_ended(): void
