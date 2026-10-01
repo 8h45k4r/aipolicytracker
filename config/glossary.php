@@ -38,7 +38,7 @@ return [
         ],
         'systemic-risk' => [
             'term' => 'Systemic risk (general-purpose AI)',
-            'definition' => 'Under the EU AI Act, a general-purpose AI model has systemic risk when it has high-impact capabilities, which is presumed when the cumulative compute used to train it exceeds 10^25 floating-point operations, or when the Commission designates it. Such models carry extra duties: model evaluation including adversarial testing, assessing and mitigating systemic risks, reporting serious incidents, and cybersecurity protection.',
+            'definition' => 'Under the EU AI Act, a general-purpose AI model has systemic risk when it has high-impact capabilities, which is presumed when the cumulative compute used to train it exceeds 10²⁵ floating-point operations, or when the Commission designates it. Such models carry extra duties: model evaluation including adversarial testing, assessing and mitigating systemic risks, reporting serious incidents, and cybersecurity protection.',
             'source' => $euAiAct,
             'see' => [['Frontier model safety framework control', 'controls.show', 'frontier-model-safety-framework'], ['Red-team testing control', 'controls.show', 'genai-red-team-testing']],
         ],

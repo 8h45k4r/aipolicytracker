@@ -202,7 +202,7 @@
         @foreach($roles as $role)
         <div class="card-flat bg-white p-4">
             <p class="font-semibold text-brand-navy">{{ $role->label() }}</p>
-            <p class="mt-1 text-sm text-brand-body">{{ $role->description() }}</p>
+            <p class="mt-1 text-sm text-brand-body">@if(app(\App\Services\Admin\RolePermissions::class)->isEdited($role))<span class="badge-neutral mr-1">Edited</span> The default was: {{ lcfirst($role->description()) }} The list below is what it can do now.@else{{ $role->description() }}@endif</p>
             <ul class="mt-2 space-y-1 text-xs text-brand-muted list-disc pl-4">
                 @foreach($role->capabilities() as $capability)<li>{{ $capability->label() }}</li>@endforeach
             </ul>

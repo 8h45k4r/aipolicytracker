@@ -33,7 +33,7 @@
                     <tr><th scope="rowgroup" colspan="{{ 2 + count($roles) }}" class="bg-brand-paper text-xs uppercase tracking-wide text-brand-muted">{{ $group }}</th></tr>
                     @foreach($groups[$group] as $c)
                         <tr>
-                            <th scope="row" class="font-normal">{{ $c->label() }}</th>
+                            <th scope="row" class="!bg-white !text-sm !font-normal !normal-case !tracking-normal !text-brand-body">{{ $c->label() }}</th>
                             <td class="text-center"><span class="text-state-good" aria-label="Owner: always">✓</span></td>
                             @foreach($roles as $role)
                                 @php($on = in_array($c, $current[$role->value], true))
@@ -67,12 +67,12 @@
         @foreach($roles as $role)
             <div class="card-flat bg-white p-4 text-sm">
                 <p class="font-semibold text-brand-navy">{{ $role->label() }}</p>
-                <p class="mt-1 text-brand-body">{{ $role->description() }}</p>
+                <p class="mt-1 text-brand-body">@if($edited[$role->value])<span class="font-medium">Default:</span> @endif{{ $role->description() }}</p>
                 @if($edited[$role->value])
                     <p class="mt-2 meta">Edited {{ $edited[$role->value]->updated_at?->format('j M Y') }}@if($edited[$role->value]->updatedBy) by {{ $edited[$role->value]->updatedBy->email }}@endif.</p>
                     <form method="post" action="{{ route('backend.admin.users.permissions.reset') }}" class="mt-2" data-confirm="Put {{ $role->label() }} back to its default permissions?">@csrf<input type="hidden" name="role" value="{{ $role->value }}"><button class="btn-secondary !min-h-0 !py-1 text-xs">Reset to defaults</button></form>
                 @else
-                    <p class="mt-2 meta">Using its defaults (the description above).</p>
+                    <p class="mt-2 meta">Using its defaults.</p>
                 @endif
             </div>
         @endforeach
