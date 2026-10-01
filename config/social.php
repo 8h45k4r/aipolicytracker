@@ -28,7 +28,7 @@ return [
     /*
      | Drawing text needs a TrueType font, and the brand faces are served from a
      | font CDN rather than vendored here. These are the faces Debian-based PHP
-     | images normally carry, tried in order.
+     | images and Alpine's font-dejavu package carry, tried in order.
      |
      | If none of them exists the card is not drawn at all and the static image is
      | served instead, so a host without fonts behaves exactly as the site did
@@ -42,6 +42,7 @@ return [
             '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf',
             '/usr/share/fonts/truetype/freefont/FreeSansBold.ttf',
             '/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf',
+            '/usr/share/fonts/TTF/DejaVuSans-Bold.ttf',
         ])),
         'regular' => array_values(array_filter([
             env('SOCIAL_FONT_REGULAR'),
@@ -49,6 +50,7 @@ return [
             '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf',
             '/usr/share/fonts/truetype/freefont/FreeSans.ttf',
             '/usr/share/fonts/dejavu/DejaVuSans.ttf',
+            '/usr/share/fonts/TTF/DejaVuSans.ttf',
         ])),
     ],
 
