@@ -26,6 +26,7 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
+            <x-site.answer-box :text="$answer" class="mb-8" />
             @if($control->description)
             <section aria-labelledby="how-heading"><h2 id="how-heading" class="section-title">How is it implemented?</h2><p class="prose-policy mt-2">{{ $control->description }}</p></section>
             @endif

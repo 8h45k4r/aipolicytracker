@@ -39,6 +39,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Reviewers, each with a profile page, declared interests and the records they verified: {{ route('reviewers') }}
 - Localised hubs (es, id, pt-BR) for selected countries: our summaries translated, the legal text and facts as recorded; unreviewed translations are noindex.
 - Methodology: {{ route('methodology') }}
+- Glossary (plain-language definitions with a stable anchor each, e.g. {{ route('glossary') }}#deployer, and the source they come from): {{ route('glossary') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
 - Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - Guides: {{ route('guides.index') }}
@@ -94,6 +95,20 @@ Generated cuts of the corpus: every recorded duty naming the audience, the contr
 
 @foreach(config('content.audiences') as $slug => $page)
 - [{{ $page['h1'] }}]({{ route('audiences.show', $slug) }})
+@endforeach
+
+## Templates
+
+Each template is generated from the records above: its rows cite the duties, controls and deadlines they come from, and a new version is published when those records change. The files are free; the page asks for a work email and sends the download link there.
+
+@foreach(\App\Services\Templates\TemplateCatalog::all() as $slug => $t)
+- [{{ $t['title'] }}]({{ \App\Services\Templates\TemplateCatalog::url($slug) }}) ({{ strtoupper(implode(', ', $t['formats'] ?? ['xlsx'])) }}): {{ $t['short'] ?? '' }}
+@endforeach
+
+## Curated comparisons
+
+@foreach(config('content.comparisons', []) as $slug => $page)
+- [{{ $page['h1'] ?? $page['title'] ?? $slug }}]({{ route('compare.show', $slug) }})
 @endforeach
 
 ## Editorial landing pages

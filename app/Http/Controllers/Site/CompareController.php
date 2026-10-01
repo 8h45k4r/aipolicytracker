@@ -10,6 +10,7 @@ use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -60,14 +61,18 @@ class CompareController extends Controller
         $overlap = $builder->overlap($a, $b);
         $left = $builder->whatsLeft($a, $b);
 
+        // A curated page without hand-written questions gets the computed ones a generated
+        // pair carries: these are the highest-intent comparisons, and they were the only
+        // ones with no answers at all.
+        $faq = ! empty($config['faq']) ? $config['faq'] : $this->pairFaq($a, $b, $left);
+
         $seo = Seo::make($config['title'], $config['description'], route('compare.show', $comparison))
             ->withBreadcrumbs([['Home', route('home')], ['Compare', route('compare.index')], [$config['short'], route('compare.show', $comparison)]])
             ->withModified($lastModified)
             ->withPageType('CollectionPage', ['name' => $config['title']]);
-        if (! empty($config['faq'])) {
-            $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($config['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
+        if ($faq !== []) {
+            $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($faq)->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }
-        $faq = $config['faq'] ?? [];
 
         return view('site.compare.show', compact('seo', 'config', 'jurisdictions', 'rows', 'comparison', 'overlap', 'left', 'a', 'b', 'faq'));
     }
@@ -109,11 +114,7 @@ class CompareController extends Controller
             $b->nameWithArticle(), $cb['instruments'], $cb['binding'], $shared, Str::plural('category', $shared),
             $left['new']->count(), $b->nameWithArticle(), $a->nameWithArticle()
         );
-        $faq = [
-            ['question' => 'Which has stricter AI rules, '.$a->nameWithArticle().' or '.$b->nameWithArticle().'?', 'answer' => ($ca['binding'] === 0 && $cb['binding'] === 0) ? 'Neither records an AI-specific binding instrument; both govern AI through strategies, guidance and existing law. The side-by-side table shows what each relies on.' : sprintf('%s records %d binding AI %s and %s records %d. Strictness also depends on scope and enforcement, which the table sets out row by row with links to each record.', $a->nameWithArticleCapitalised(), $ca['binding'], Str::plural('instrument', $ca['binding']), $b->nameWithArticle(), $cb['binding'])],
-            ['question' => 'If we comply with '.$a->nameWithArticle().', what is left for '.$b->nameWithArticle().'?', 'answer' => $left['new']->isEmpty() ? sprintf('No binding duty recorded for %s falls outside the categories %s already binds; the remaining work is checking %d shared duties against their own provisions.', $b->nameWithArticle(), $a->nameWithArticle(), $left['shared']->count()) : sprintf('%d binding %s in categories %s does not bind (%s), plus %d shared duties to check against their own provisions.', $left['new']->count(), Str::plural('duty', $left['new']->count()), $a->nameWithArticle(), $left['new']->pluck('category')->unique()->map(fn ($c) => str_replace('_', ' ', $c))->take(4)->join(', '), $left['shared']->count())],
-            ['question' => 'Where does this comparison come from?', 'answer' => 'From the published records for both jurisdictions: instruments, obligations, deadlines and official sources. Nothing on this page is written by hand; when a record changes, the comparison changes with it.'],
-        ];
+        $faq = $this->pairFaq($a, $b, $left);
 
         $seo = Seo::make(PageTitle::comparePair($a, $b), PageTitle::description($intro), route('compare.show', $canonical), $indexable)
             ->withBreadcrumbs([['Home', route('home')], ['Compare', route('compare.index')], [($a->short_name ?: $a->name).' vs '.($b->short_name ?: $b->name), route('compare.show', $canonical)]])
@@ -124,5 +125,24 @@ class CompareController extends Controller
         $comparison = $canonical;
 
         return view('site.compare.show', compact('seo', 'config', 'jurisdictions', 'rows', 'comparison', 'overlap', 'left', 'a', 'b', 'faq'));
+    }
+
+    /**
+     * Questions answered from the two jurisdictions' records alone.
+     *
+     * @param  array{new: Collection, shared: Collection}  $left
+     * @return list<array{question:string, answer:string}>
+     */
+    private function pairFaq(Jurisdiction $a, Jurisdiction $b, array $left): array
+    {
+        $counts = fn (Jurisdiction $j) => ['instruments' => $j->policyInstruments()->published()->count(), 'binding' => $j->policyInstruments()->published()->where('is_binding', true)->count()];
+        $ca = $counts($a);
+        $cb = $counts($b);
+
+        return [
+            ['question' => 'Which has stricter AI rules, '.$a->nameWithArticle().' or '.$b->nameWithArticle().'?', 'answer' => ($ca['binding'] === 0 && $cb['binding'] === 0) ? 'Neither records an AI-specific binding instrument; both govern AI through strategies, guidance and existing law. The side-by-side table shows what each relies on.' : sprintf('%s records %d binding AI %s and %s records %d. Strictness also depends on scope and enforcement, which the table sets out row by row with links to each record.', $a->nameWithArticleCapitalised(), $ca['binding'], Str::plural('instrument', $ca['binding']), $b->nameWithArticle(), $cb['binding'])],
+            ['question' => 'If we comply with '.$a->nameWithArticle().', what is left for '.$b->nameWithArticle().'?', 'answer' => $left['new']->isEmpty() ? sprintf('No binding duty recorded for %s falls outside the categories %s already binds; the remaining work is checking %d shared duties against their own provisions.', $b->nameWithArticle(), $a->nameWithArticle(), $left['shared']->count()) : sprintf('%d binding %s in categories %s does not bind (%s), plus %d shared duties to check against their own provisions.', $left['new']->count(), Str::plural('duty', $left['new']->count()), $a->nameWithArticle(), $left['new']->pluck('category')->unique()->map(fn ($c) => str_replace('_', ' ', $c))->take(4)->join(', '), $left['shared']->count())],
+            ['question' => 'Where does this comparison come from?', 'answer' => 'From the published records for both jurisdictions: instruments, obligations, deadlines and official sources. When a record changes, the comparison changes with it.'],
+        ];
     }
 }

@@ -6,6 +6,7 @@ use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyDataValidator;
 use App\Services\PolicyData\PolicyImporter;
 use App\Services\PolicyData\SchemaValidator;
+use App\Services\Seo\IndexNow;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 
@@ -15,7 +16,7 @@ class PolicyImportCommand extends Command
 
     protected $description = 'Validate and import the data/ policy records into the database (idempotent upsert)';
 
-    public function handle(): int
+    public function handle(IndexNow $indexNow): int
     {
         $repository = $this->option('path') ? new PolicyDataRepository($this->option('path')) : PolicyDataRepository::default();
 
@@ -28,6 +29,8 @@ class PolicyImportCommand extends Command
             }
         }
 
+        // A second of slack: updated_at is stored to the second.
+        $started = now()->subSecond();
         $stats = (new PolicyImporter($repository))->run();
         Cache::flush();
 
@@ -35,6 +38,14 @@ class PolicyImportCommand extends Command
             'Imported %d jurisdictions, %d policies, %d obligations, %d change events, %d taxonomy terms.',
             $stats['jurisdictions'], $stats['policies'], $stats['obligations'], $stats['changes'], $stats['terms']
         ));
+
+        // Only the pages whose records changed in this import, and only when a key is set.
+        if ($indexNow->enabled()) {
+            $urls = $indexNow->changedSince($started);
+            if ($urls !== []) {
+                $this->info('IndexNow: submitted '.$indexNow->submit($urls).' changed URLs.');
+            }
+        }
 
         return self::SUCCESS;
     }

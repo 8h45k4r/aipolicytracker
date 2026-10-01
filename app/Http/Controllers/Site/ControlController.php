@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Control;
 use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\ControlIntelligence;
+use App\Services\Records\AnswerBox;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
@@ -105,6 +106,8 @@ class ControlController extends Controller
                 ['question' => 'What evidence shows this control is operating?', 'answer' => $control->evidence->map(fn ($e) => $e->title)->join(', ', ' and ').'. Owner: '.$control->owner_role.'. Frequency: '.strtolower($control->frequencyLabel()).'.'],
             ])));
 
-        return view('site.controls.show', compact('seo', 'control', 'duties', 'byJurisdiction', 'risks', 'related', 'evidenceTypes'));
+        $answer = AnswerBox::control($control, $duties);
+
+        return view('site.controls.show', compact('seo', 'control', 'duties', 'byJurisdiction', 'risks', 'related', 'evidenceTypes', 'answer'));
     }
 }
