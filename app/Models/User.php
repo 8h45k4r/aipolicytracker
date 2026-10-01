@@ -69,6 +69,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'admin_role_granted_at' => 'datetime',
             'suspended_at' => 'datetime',
             'two_factor_last_step' => 'integer',
+            'last_login_at' => 'datetime',
+            'invited_at' => 'datetime',
         ];
     }
 
@@ -221,6 +223,29 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->admin_role !== null => $this->admin_role->label(),
             default => 'None',
         };
+    }
+
+    /** Who sent this account's invitation, if it was invited from the admin. */
+    public function invitedBy(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'invited_by');
+    }
+
+    /** Invited from the admin and has not yet set a password through the invitation. */
+    public function invitationPending(): bool
+    {
+        return $this->invited_at !== null && $this->email_verified_at === null;
+    }
+
+    /**
+     * Everything this account may do in the admin, for display. Owners hold every
+     * capability; a suspended account holds none.
+     *
+     * @return list<AdminCapability>
+     */
+    public function effectiveCapabilities(): array
+    {
+        return array_values(array_filter(AdminCapability::cases(), fn (AdminCapability $c) => $this->hasCapability($c)));
     }
 
     /** Who granted this account's role, for the "who let them in" question. */

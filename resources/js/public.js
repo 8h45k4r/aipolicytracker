@@ -519,3 +519,19 @@
     }, { rootMargin: '200px' });
     maps.forEach(function (el) { io.observe(el); });
 })();
+
+// A link that points at a collapsed <details> panel (the admin "Invite a user" button)
+// opens it and moves focus inside, instead of jumping to a closed box.
+(function () {
+    document.addEventListener('click', function (event) {
+        var link = event.target.closest('[data-open-details]');
+        if (!link) { return; }
+        var panel = document.getElementById(link.getAttribute('data-open-details'));
+        if (!panel || panel.tagName !== 'DETAILS') { return; }
+        event.preventDefault();
+        panel.open = true;
+        panel.scrollIntoView({ block: 'start' });
+        var first = panel.querySelector('input, select, textarea');
+        if (first) { first.focus(); }
+    });
+})();

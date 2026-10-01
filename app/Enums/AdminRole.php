@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Services\Admin\RolePermissions;
+
 /**
  * The fixed set of administrative roles.
  *
@@ -36,8 +38,24 @@ enum AdminRole: string
         };
     }
 
-    /** @return list<AdminCapability> */
+    /**
+     * What the role may do now: its defaults, or an owner's edit of them
+     * (Backend → Users and roles → Role permissions).
+     *
+     * @return list<AdminCapability>
+     */
     public function capabilities(): array
+    {
+        return app(RolePermissions::class)->for($this);
+    }
+
+    /**
+     * What the role may do when nobody has edited it. Never includes an owner-only
+     * capability; RolePermissions enforces the same for an edited role.
+     *
+     * @return list<AdminCapability>
+     */
+    public function defaultCapabilities(): array
     {
         return match ($this) {
             self::Editor => [
@@ -66,7 +84,7 @@ enum AdminRole: string
 
     public function has(AdminCapability $capability): bool
     {
-        return in_array($capability, $this->capabilities(), true);
+        return app(RolePermissions::class)->allows($this, $capability);
     }
 
     /** @return list<string> */
