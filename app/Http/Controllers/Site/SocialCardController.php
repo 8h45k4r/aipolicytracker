@@ -144,7 +144,7 @@ class SocialCardController extends Controller
             'eyebrow' => 'AI governance intelligence',
             'title' => 'From regulation to evidence.',
             'meta' => $parts === [] ? config('aipolicytracker.supporting') : implode(' · ', $parts),
-            'footer' => 'Open data, CC BY 4.0 · AI policy, verified at the source',
+            'footer' => 'Open data, CC BY 4.0 · verified at the source',
         ];
     }
 
