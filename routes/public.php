@@ -139,6 +139,7 @@ Route::get('/corrections', [CorrectionsController::class, 'show'])->name('correc
 Route::get('/reviewers', [ReviewersController::class, 'show'])->name('reviewers');
 Route::get('/reviewers/{slug}', [ReviewersController::class, 'person'])->where('slug', '[a-z0-9-]+')->name('reviewers.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/team', [PageController::class, 'team'])->name('team');
 // The sign-up form asks readers to accept these and the download gate records the
 // acceptance, so they have to be real pages rather than a configurable link that
 // fell back to /about when unset.

@@ -69,3 +69,7 @@ intended order of work: publish the declaration, then sign the record.
 | Roster joined to activity | `app/Services/Reviewers/ReviewerRoster.php` |
 | `/reviewers` | `app/Http/Controllers/Site/ReviewersController.php` |
 | Tests | `tests/Feature/ReviewerRosterTest.php` |
+
+## The People page is not the roster
+
+`/team` lists the maintainer, research contributors and advisors with their own bios and links. It is a credit, not a permission: a person listed there may not mark a record verified unless they also have a published entry here with a declaration of interest, and the page says so.

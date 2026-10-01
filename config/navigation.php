@@ -150,6 +150,7 @@ return [
                         ['route' => 'methodology', 'label' => 'Methodology', 'note' => 'How a record is built'],
                         ['route' => 'verification', 'label' => 'Verification policy', 'note' => 'How old a fact may be'],
                         ['route' => 'reviewers', 'label' => 'Reviewers', 'note' => 'Who checks what, and their interests'],
+                        ['route' => 'team', 'label' => 'People', 'note' => 'Maintainer, contributors and advisors'],
                     ],
                 ],
                 [

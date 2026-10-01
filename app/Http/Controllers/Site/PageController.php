@@ -97,6 +97,42 @@ class PageController extends Controller
         return view('site.pages.about', ['seo' => $seo, 'maintainers' => config('aipolicytracker.maintainers'), 'contacts' => config('aipolicytracker.contact_emails'), 'organization' => config('aipolicytracker.organization'), 'references' => config('aipolicytracker.references'), 'faq' => $faq]);
     }
 
+    /**
+     * Who maintains, researches for and advises the project. The list lives in
+     * config/team.php; each person is also published as schema.org Person so a
+     * search engine or assistant can tell the maintainer from a contributor.
+     */
+    public function team(): View
+    {
+        $team = config('team');
+        $organization = config('aipolicytracker.organization');
+        $seo = Seo::make(
+            'People behind AIPolicyTracker: maintainer, research contributors and advisors',
+            'Who maintains AIPolicyTracker, the independent researchers who contribute to it, and how affiliations are listed: for identification, never as endorsement.',
+            route('team')
+        )->withBreadcrumbs([['Home', route('home')], ['About', route('about')], ['People', route('team')]])
+            ->withPageType('AboutPage', ['name' => 'People behind AIPolicyTracker', 'mainEntity' => ['@id' => url('/').'#organization']]);
+
+        foreach (['core', 'contributors', 'advisors'] as $group) {
+            foreach ($team[$group] as $person) {
+                $id = ! empty($person['reviewer']) ? route('reviewers.show', $person['reviewer']).'#person' : route('team').'#'.$person['slug'];
+                $seo->withJsonLd(array_filter([
+                    '@type' => 'Person',
+                    '@id' => $id,
+                    'name' => $person['name'],
+                    'url' => route('team').'#'.$person['slug'],
+                    'jobTitle' => $person['role'] ?? ('Advisor, '.($person['specialism'] ?? '')),
+                    'description' => $person['bio'] ?? $person['scope'] ?? null,
+                    'image' => ! empty($person['photo']) ? asset('images/team/'.$person['photo']) : null,
+                    'sameAs' => array_values(array_map(fn ($l) => $l['url'], $person['links'] ?? [])) ?: null,
+                    'memberOf' => $group === 'core' ? ['@id' => url('/').'#organization'] : null,
+                ]));
+            }
+        }
+
+        return view('site.pages.team', compact('seo', 'team', 'organization'));
+    }
+
     private function releases(): array
     {
         return [
