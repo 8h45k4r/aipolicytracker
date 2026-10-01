@@ -4,12 +4,12 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-3">People</p>
     <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[22ch]">People behind AIPolicyTracker</h1>
-    <p class="mt-4 max-w-[64ch] text-lg leading-8 text-brand-body">AIPolicyTracker is an open, source-backed AI policy and governance research platform. The work is maintained by a core team and strengthened by independent researchers, domain experts and community contributors worldwide.</p>
+    <p class="mt-4 max-w-[64ch] text-lg leading-8 text-brand-body">AIPolicyTracker is an open, source-backed AI policy and governance research platform. The work is maintained independently and strengthened by independent researchers, domain experts and community contributors worldwide.</p>
 
     <div class="mt-10 grid gap-10 lg:grid-cols-12">
         <div class="lg:col-span-8 space-y-10">
             <section aria-labelledby="core-heading">
-                <div class="rule-strong pt-3"><h2 id="core-heading" class="section-title">Core team</h2></div>
+                <div class="rule-strong pt-3"><h2 id="core-heading" class="section-title">Maintainer</h2></div>
                 <ul class="mt-4 grid gap-4">
                     @foreach($team['core'] as $person)
                     @include('site.pages._person', ['person' => $person])
