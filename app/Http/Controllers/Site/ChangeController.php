@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Records\AnswerBox;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
@@ -102,7 +103,17 @@ class ChangeController extends Controller
                 ])),
             ]) + Seo::provenance($change));
 
-        return view('site.changes.show', compact('seo', 'change', 'related', 'instrument'));
+        $answer = AnswerBox::change($change);
+        $facts = array_values(array_filter([
+            ['label' => 'Date', 'value' => $change->occurred_on->format('j F Y')],
+            $change->jurisdiction ? ['label' => 'Jurisdiction', 'value' => $change->jurisdiction->name, 'href' => $change->jurisdiction->url()] : null,
+            $instrument ? ['label' => 'Instrument', 'value' => $instrument->short_title ?: $instrument->title, 'href' => $instrument->url()] : null,
+            ['label' => 'Impact', 'value' => $change->impactEnum()->label()],
+            $change->statusAfterEnum() ? ['label' => 'Status afterwards', 'value' => $change->statusAfterEnum()->label()] : null,
+            $change->official_source_url ? ['label' => 'Official source', 'value' => $change->source_publisher ?: parse_url($change->official_source_url, PHP_URL_HOST), 'href' => $change->official_source_url] : null,
+        ]));
+
+        return view('site.changes.show', compact('seo', 'change', 'related', 'instrument', 'answer', 'facts'));
     }
 
     public function year(int $year): View

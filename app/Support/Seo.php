@@ -300,6 +300,11 @@ class Seo
         if (method_exists($record, 'isVerified') && $record->isVerified() && filled($record->reviewed_by ?? null)) {
             $slug = app(ReviewerRoster::class)->slugFor((string) $record->reviewed_by);
             $props['reviewedBy'] = ['@type' => 'Person', 'name' => (string) $record->reviewed_by, 'url' => $slug ? route('reviewers.show', $slug) : route('reviewers')];
+            // When that person last confirmed it against the source: the freshness date that
+            // means something, as opposed to when the row was last written.
+            if (($record->last_verified_at ?? null) instanceof \DateTimeInterface) {
+                $props['lastReviewed'] = $record->last_verified_at->format('Y-m-d');
+            }
         }
 
         return $props;
@@ -432,6 +437,12 @@ class Seo
             'parentOrganization' => ['@type' => 'Organization', 'name' => config('aipolicytracker.organization.name'), 'url' => config('aipolicytracker.organization.url')],
             'founder' => collect(config('aipolicytracker.maintainers', []))->map(fn ($m) => ['@type' => 'Person', 'name' => $m['name'], 'url' => $m['url'], 'sameAs' => $m['same_as'] ?? []])->values()->all(),
             'description' => config('aipolicytracker.positioning'),
+            // The pages that say how the corpus is made and corrected. Answer engines weigh a
+            // source's stated editorial policy when choosing what to cite.
+            'publishingPrinciples' => route('methodology'),
+            'correctionsPolicy' => route('corrections'),
+            'actionableFeedbackPolicy' => route('contribute'),
+            'ownershipFundingInfo' => route('about'),
         ];
         // A named mailbox is what lets a search engine attach the entity to a real
         // contact and lets an answer engine tell a reader who to write to about a

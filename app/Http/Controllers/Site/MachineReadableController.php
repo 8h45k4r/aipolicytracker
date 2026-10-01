@@ -9,6 +9,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\FrameworkCrosswalk;
+use App\Services\Seo\IndexNow;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -85,6 +86,19 @@ class MachineReadableController extends Controller
      * year out from each request, because a static file with a fixed date goes
      * stale and a stale security.txt is treated as absent.
      */
+    /**
+     * The IndexNow key file: the search engine fetches /{key}.txt and checks it holds the
+     * key, which proves the submission came from whoever controls this host. Any other
+     * name is a 404, so this route cannot be used to probe for files.
+     */
+    public function indexNowKey(string $key): Response
+    {
+        $configured = (string) config('services.indexnow.key');
+        abort_unless(IndexNow::validKey($configured) && hash_equals($configured, $key), 404);
+
+        return response($configured, 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'X-Robots-Tag' => 'noindex']);
+    }
+
     public function securityTxt(): Response
     {
         $lines = [

@@ -16,18 +16,22 @@ Disallow: /register
 Disallow: /profile
 Disallow: /forgot-password
 Disallow: /reset-password
+Disallow: /invitation/
 Disallow: /verify-email
 Disallow: /confirm-password
 Disallow: /following
 Disallow: /subscribe/confirm/
 Disallow: /subscribe/unsubscribe/
+Disallow: /templates/*/download
 Disallow: /guides/tools/*/download
 Disallow: /guides/tools/*/ready/
 Disallow: /guides/tools/*/file/
 
 # Answer-engine and assistant crawlers, named so a future change to this file
 # is a deliberate decision rather than an accident of the default. Each may
-# read the site on the same terms as anyone else.
+# read the site on the same terms as anyone else. A crawler obeys only the most
+# specific group that names it, so this group repeats every rule above: keep
+# the two lists identical.
 User-agent: GPTBot
 User-agent: OAI-SearchBot
 User-agent: ChatGPT-User
@@ -49,6 +53,17 @@ Disallow: /backend/
 Disallow: /login
 Disallow: /register
 Disallow: /profile
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /invitation/
+Disallow: /verify-email
+Disallow: /confirm-password
 Disallow: /following
+Disallow: /subscribe/confirm/
+Disallow: /subscribe/unsubscribe/
+Disallow: /templates/*/download
+Disallow: /guides/tools/*/download
+Disallow: /guides/tools/*/ready/
+Disallow: /guides/tools/*/file/
 
 Sitemap: https://aipolicytracker.org/sitemap.xml

@@ -31,6 +31,15 @@ return [
         'secret_key' => env('TURNSTILE_SECRET_KEY'),
     ],
 
+    // IndexNow tells Bing (and through it Copilot and ChatGPT search), Yandex, Naver and
+    // Seznam which URLs changed, instead of waiting for a recrawl. The key is any 8 to 128
+    // letters, digits or dashes (`openssl rand -hex 16`); it is served at /{key}.txt so
+    // the search engine can check the submission came from this host. Unset, nothing is sent.
+    'indexnow' => [
+        'key' => env('INDEXNOW_KEY'),
+        'endpoint' => env('INDEXNOW_ENDPOINT', 'https://api.indexnow.org/indexnow'),
+    ],
+
     'resend' => [
         'key' => env('RESEND_KEY'),
     ],

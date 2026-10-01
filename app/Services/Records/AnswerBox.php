@@ -2,6 +2,8 @@
 
 namespace App\Services\Records;
 
+use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
@@ -103,6 +105,89 @@ final class AnswerBox
         ];
 
         return self::compose($sentences, $jurisdiction->overview);
+    }
+
+    /** A dated development: when, where, what it concerns, what changed, what it means. */
+    public static function change(ChangeEvent $change): string
+    {
+        $instrument = $change->policyInstrument;
+        // The "international" record holds the site's own notices (template versions), which
+        // happened nowhere in particular.
+        $place = $change->jurisdiction && $change->jurisdiction->slug !== 'international' ? $change->jurisdiction->nameWithArticle() : null;
+        $about = $instrument ? $instrument->definiteName() : null;
+        $statusAfter = $change->statusAfterEnum();
+
+        $sentences = [
+            // The title as written: lower-casing its first letter breaks proper nouns.
+            rtrim(self::clean($change->title), '.').'.',
+            'Recorded'.($place ? ' for '.$place : '').' on '.$change->occurred_on->format('j F Y').'.',
+            $about ? 'It concerns '.$about.'.' : null,
+            self::firstSentence($change->what_changed),
+            $statusAfter ? 'Afterwards the instrument is recorded as '.mb_strtolower($statusAfter->label()).'.' : null,
+            self::firstSentence($change->practical_impact, 'In practice: '),
+            self::CLOSING,
+        ];
+
+        return self::compose($sentences, $change->what_changed);
+    }
+
+    /**
+     * A control: what it is, who runs it, and which duties rely on it.
+     *
+     * @param  Collection<int,Obligation>  $duties  published duties, with pivot.relationship
+     */
+    public static function control(Control $control, Collection $duties): string
+    {
+        $jurisdictions = $duties->map(fn ($o) => $o->policyInstrument?->jurisdiction_id)->filter()->unique()->count();
+        $satisfies = $duties->where('pivot.relationship', 'satisfies')->count();
+        $evidence = $control->relationLoaded('evidence') ? $control->evidence->count() : $control->evidence()->count();
+        $cadence = self::cadence($control->frequency);
+        $owner = filled($control->owner_role) ? ', owned by '.self::role((string) $control->owner_role) : '';
+
+        // The duty count leads the purpose: it is what makes this control's answer
+        // different from a definition, and the purpose is usually the longer sentence.
+        $sentences = [
+            self::clean($control->title).' is '.self::indefinite(mb_strtolower($control->kindLabel())).$owner.($cadence ? ' and '.$cadence : '').'.',
+            $duties->isNotEmpty() ? "{$duties->count()} recorded ".($duties->count() === 1 ? 'duty' : 'duties').' in '.$jurisdictions.' '.($jurisdictions === 1 ? 'jurisdiction rely' : 'jurisdictions rely').' on it'.($satisfies ? ", and it satisfies {$satisfies} of them outright" : '').'.' : null,
+            self::firstSentence($control->purpose),
+            $evidence ? "It produces {$evidence} kinds of evidence an auditor can ask for." : null,
+            self::firstSentence($control->description),
+            self::CLOSING,
+        ];
+
+        return self::compose($sentences, $control->purpose);
+    }
+
+    /** "Quality or testing lead" → "the quality or testing lead"; "CISO" → "the CISO". */
+    private static function role(string $role): string
+    {
+        $r = trim($role);
+        if (preg_match('/^(the|a|an)\s/i', $r)) {
+            return $r;
+        }
+        // Lower the first letter of an ordinary word, not of an acronym.
+        $first = mb_substr($r, 0, 1);
+        $second = mb_substr($r, 1, 1);
+
+        return 'the '.($second !== '' && mb_strtolower($second) === $second ? mb_strtolower($first).mb_substr($r, 1) : $r);
+    }
+
+    private static function cadence(?string $frequency): ?string
+    {
+        return match ($frequency) {
+            'once' => 'set up once, then maintained',
+            'per_system' => 'carried out for each AI system',
+            'on_material_change' => 'run at launch and on every material change',
+            'continuous' => 'run continuously',
+            'quarterly' => 'run every quarter',
+            'annual' => 'run every year',
+            default => null,
+        };
+    }
+
+    private static function indefinite(string $noun): string
+    {
+        return (preg_match('/^[aeiou]/i', $noun) ? 'an ' : 'a ').$noun;
     }
 
     /** "Ministry of Digital Affairs" → "the Ministry of Digital Affairs"; "NIST" stays "NIST". */

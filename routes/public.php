@@ -19,6 +19,7 @@ use App\Http\Controllers\Site\EmbedController;
 use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FrameworkController;
 use App\Http\Controllers\Site\FreeToolController;
+use App\Http\Controllers\Site\GlossaryController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\HubController;
 use App\Http\Controllers\Site\JurisdictionController;
@@ -132,6 +133,7 @@ Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCs
 Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.ndjson');
 Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z-]+')->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
+Route::get('/glossary', [GlossaryController::class, 'index'])->name('glossary');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
 Route::get('/coverage', [CoverageController::class, 'show'])->name('coverage');
 Route::get('/gaps', [CoverageController::class, 'gaps'])->name('gaps');
@@ -255,3 +257,7 @@ Route::redirect('/dashboard', '/', 301);
 // Pre-2026 record URLs still crawled by search engines (Search Console lists them as 5xx/404).
 Route::get('/news/{any}', fn () => redirect('/changes', 301))->where('any', '.*');
 Route::get('/aipolicytracker/{any?}', fn () => redirect('/policies', 301))->where('any', '.*');
+
+// IndexNow key file (config services.indexnow.key). Last, so every named .txt route
+// above (robots, llms, llms-full) is matched first; any other name is a 404.
+Route::get('/{key}.txt', [MachineReadableController::class, 'indexNowKey'])->where('key', '[A-Za-z0-9-]{8,128}')->name('indexnow.key');

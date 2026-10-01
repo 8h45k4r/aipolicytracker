@@ -21,6 +21,7 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
+            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
             <section aria-labelledby="what-heading"><h2 id="what-heading" class="section-title">What changed?</h2><p class="prose-policy mt-2">{{ $change->what_changed }}</p></section>
             @if($change->practical_impact)<section aria-labelledby="impact-heading" class="mt-8"><h2 id="impact-heading" class="section-title">What does it mean in practice?</h2><p class="prose-policy mt-2">{{ $change->practical_impact }}</p></section>@endif
             @if($change->official_source_url)

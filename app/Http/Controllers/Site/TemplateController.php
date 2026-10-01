@@ -109,9 +109,12 @@ class TemplateController extends Controller
                 'datePublished' => $first?->generated_at->toDateString(),
                 'encodingFormat' => array_map(fn ($f) => $this->mime($f['format']), $version->files),
                 'isAccessibleForFree' => true,
+                // Free, but the files are emailed on request rather than linked: said here
+                // so the markup does not promise an open download the page does not offer.
+                'conditionsOfAccess' => 'Free. Request the files on this page with a work email address; a download link valid for '.TemplateDownloadRequest::LINK_DAYS.' days is emailed.',
+                'offers' => ['@type' => 'Offer', 'price' => 0, 'priceCurrency' => 'USD', 'availability' => 'https://schema.org/InStock', 'url' => TemplateCatalog::url($slug).'#download'],
                 'license' => 'https://creativecommons.org/licenses/by/4.0/',
                 'author' => ['@id' => url('/').'#organization'],
-                'hasDigitalDocumentPermission' => [['@type' => 'DigitalDocumentPermission', 'permissionType' => 'ReadPermission', 'grantee' => ['@type' => 'Audience', 'audienceType' => 'public']]],
                 'associatedMedia' => array_map(fn ($f) => ['@type' => 'MediaObject', 'name' => $f['filename'], 'encodingFormat' => $this->mime($f['format']), 'contentSize' => $f['bytes'].' B'], $version->files),
                 'about' => $basis->map(fn ($b) => ['@type' => $b['type'] === 'policy' ? 'Legislation' : 'CreativeWork', 'name' => $b['title'], 'url' => $b['url']])->values()->all() ?: null,
             ]))

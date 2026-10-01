@@ -24,6 +24,7 @@ use App\Models\TaxonomyTerm;
 use App\Models\TransitionIndicator;
 use App\Models\TransitionMeasure;
 use App\Services\Transition\DisplacementPolicyIndex;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -100,7 +101,7 @@ class PolicyImporter
                 'confidence_level' => $record['confidence_level'] ?? 'medium',
                 'last_verified_at' => $record['last_verified_at'] ?? null,
                 'reviewed_by' => $record['reviewed_by'] ?? null,
-                'published_at' => ($record['published'] ?? true) ? now() : null,
+                'published_at' => $this->publishedAt($record, Control::class),
             ]);
             $control->evidence()->delete();
             foreach ($record['evidence'] ?? [] as $i => $evidence) {
@@ -139,7 +140,7 @@ class PolicyImporter
                 'faq' => $record['faq'] ?? [],
                 'related_jurisdictions' => $record['related_jurisdictions'] ?? [],
                 'featured' => (bool) ($record['featured'] ?? false),
-                'published_at' => $this->publishedAt($record),
+                'published_at' => $this->publishedAt($record, Jurisdiction::class),
                 ...$this->sourceQuality($record),
             ]);
             $this->stats['jurisdictions']++;
@@ -147,7 +148,10 @@ class PolicyImporter
         foreach ($records as $record) {
             if (! empty($record['parent'])) {
                 $parent = Jurisdiction::where('slug', $record['parent'])->first();
-                Jurisdiction::where('slug', $record['slug'])->update(['parent_jurisdiction_id' => $parent?->id]);
+                $child = Jurisdiction::where('slug', $record['slug'])->first();
+                // Saved only when it differs: an Eloquent update() stamps updated_at even when
+                // nothing changed, which moved these pages' modified date on every import.
+                $child?->forceFill(['parent_jurisdiction_id' => $parent?->id])->save();
             }
         }
     }
@@ -182,7 +186,7 @@ class PolicyImporter
                 'related_policies' => $record['related_policies'] ?? [],
                 'related_frameworks' => $record['related_frameworks'] ?? [],
                 'featured' => (bool) ($record['featured'] ?? false),
-                'published_at' => $this->publishedAt($record),
+                'published_at' => $this->publishedAt($record, PolicyInstrument::class),
                 ...$this->sourceQuality($record),
             ]);
 
@@ -193,11 +197,16 @@ class PolicyImporter
                 PolicyVersion::create(['policy_instrument_id' => $policy->id, 'sort_order' => $i, ...Arr::only($version, ['version_label', 'version_date', 'summary', 'official_source_url', 'source_reference'])]);
             }
 
-            $policy->sections()->delete();
+            // Updated in place by reference, not deleted and recreated: obligations point at
+            // their section by id, and a new id on every import changed every obligation.
             $sections = [];
             foreach ($record['sections'] ?? [] as $i => $section) {
-                $sections[$section['reference']] = PolicySection::create(['policy_instrument_id' => $policy->id, 'sort_order' => $i, ...Arr::only($section, ['reference', 'title', 'summary', 'official_source_url'])]);
+                $sections[$section['reference']] = PolicySection::updateOrCreate(
+                    ['policy_instrument_id' => $policy->id, 'reference' => $section['reference']],
+                    ['sort_order' => $i, ...Arr::only($section, ['title', 'summary', 'official_source_url'])],
+                );
             }
+            $policy->sections()->whereNotIn('id', array_map(fn ($section) => $section->id, array_values($sections)))->delete();
 
             // Obligations are keyed by slug so their public URLs stay stable.
             $keptObligationIds = [];
@@ -322,7 +331,7 @@ class PolicyImporter
                     'practical_impact' => $change['practical_impact'] ?? null,
                     'impact_level' => $change['impact_level'],
                     'status_after' => $change['status_after'] ?? null,
-                    'published_at' => $this->publishedAt($change),
+                    'published_at' => $this->publishedAt($change, ChangeEvent::class),
                     ...$this->sourceQuality($change),
                 ]);
                 $this->stats['changes']++;
@@ -362,9 +371,22 @@ class PolicyImporter
         ];
     }
 
-    private function publishedAt(array $record): ?Carbon
+    /**
+     * When a published record was first published: kept from the row already in the
+     * database, so a re-import of unchanged data leaves the row unchanged. It used to be
+     * now() on every import, which made every row "dirty" and moved every updated_at
+     * (page dateModified, sitemap lastmod) to the time of the last deploy.
+     *
+     * @param  class-string<Model>  $model
+     */
+    private function publishedAt(array $record, string $model): ?Carbon
     {
-        return ($record['published'] ?? true) ? now() : null;
+        if (! ($record['published'] ?? true)) {
+            return null;
+        }
+        $current = $model::where('slug', $record['slug'])->value('published_at');
+
+        return $current ? Carbon::parse($current) : now();
     }
 
     /** Transition measures and indicators, replaced from data/transition; then the index snapshot for the current quarter. */
@@ -384,7 +406,7 @@ class PolicyImporter
                 'sources' => array_values($record['sources'] ?? []),
                 ...Arr::only($record, ['summary', 'mechanism', 'funding', 'trigger', 'benefit', 'cost', 'bill_number', 'introduced_on', 'enacted_on', 'in_force_on', 'notes']),
                 ...$this->sourceQuality($record + ['source_tier' => $record['source_tier'] ?? 4, 'review_status' => $record['review_status'] ?? 'draft', 'confidence_level' => $record['confidence_level'] ?? 'low']),
-                'published_at' => ($record['published'] ?? true) ? now() : null,
+                'published_at' => $this->publishedAt($record, TransitionMeasure::class),
             ]);
             $kept[] = $m->id;
             $this->stats['transition_measures'] = ($this->stats['transition_measures'] ?? 0) + 1;
@@ -408,7 +430,7 @@ class PolicyImporter
                 'review_status' => $record['review_status'] ?? 'draft',
                 'confidence_level' => $record['confidence_level'] ?? 'low',
                 'reviewed_by' => $record['reviewed_by'] ?? null,
-                'published_at' => ($record['published'] ?? true) ? now() : null,
+                'published_at' => $this->publishedAt($record, TransitionIndicator::class),
             ]);
             $keptIndicators[] = $i->id;
             $this->stats['transition_indicators'] = ($this->stats['transition_indicators'] ?? 0) + 1;
