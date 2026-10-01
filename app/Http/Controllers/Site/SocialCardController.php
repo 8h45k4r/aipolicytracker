@@ -65,6 +65,8 @@ class SocialCardController extends Controller
             // One site card exists. Accepting any slug here drew and stored a fresh PNG
             // per made-up slug, which filled the disk from a loop of GETs.
             'site' => $slug === 'default' ? $this->site($catalog) : null,
+            // Static pages that deserve their own card, named one by one for the same reason.
+            'page' => $slug === 'team' ? $this->team() : null,
             default => null,
         };
     }
@@ -143,6 +145,26 @@ class SocialCardController extends Controller
             'title' => 'From regulation to evidence.',
             'meta' => $parts === [] ? config('aipolicytracker.supporting') : implode(' · ', $parts),
             'footer' => 'Open data, CC BY 4.0 · AI policy, verified at the source',
+        ];
+    }
+
+    /** The People page: who is listed, counted from the same config the page reads. */
+    private function team(): array
+    {
+        $team = config('team');
+        $contributors = count($team['contributors'] ?? []);
+        $advisors = count($team['advisors'] ?? []);
+        $parts = array_filter([
+            'Maintainer',
+            $contributors > 0 ? $contributors.' research '.Str::plural('contributor', $contributors) : null,
+            $advisors > 0 ? $advisors.' independent '.Str::plural('advisor', $advisors) : null,
+        ]);
+
+        return [
+            'eyebrow' => 'People',
+            'title' => 'People behind AIPolicyTracker',
+            'meta' => implode(' · ', $parts),
+            'footer' => 'Maintained independently · not legal advice',
         ];
     }
 

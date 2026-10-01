@@ -233,7 +233,7 @@ Route::get('/{landing}', [LandingController::class, 'landing'])
 // `v` query parameter is a version token from the record itself: it is what makes
 // a platform fetch a new card after a retitle, and it is ignored when rendering.
 Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
-    ->where(['kind' => 'policy|jurisdiction|obligation|site', 'slug' => '[a-z0-9-]{1,160}'])
+    ->where(['kind' => 'policy|jurisdiction|obligation|site|page', 'slug' => '[a-z0-9-]{1,160}'])
     ->middleware('throttle:120,1')
     ->name('social.card');
 

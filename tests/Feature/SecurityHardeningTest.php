@@ -150,6 +150,7 @@ class SecurityHardeningTest extends TestCase
     public function test_only_the_default_site_card_exists(): void
     {
         $this->get('/og/site/anything-else.png')->assertNotFound();
+        $this->get('/og/page/anything-else.png')->assertNotFound();
     }
 
     public function test_array_query_parameters_are_not_a_500(): void

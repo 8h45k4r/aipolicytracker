@@ -109,12 +109,15 @@ class Seo
      * The version token is part of the URL on purpose. Platforms cache a preview
      * against its URL and re-fetch only when that changes, so a card whose URL is
      * fixed keeps showing yesterday's title forever. Anything that moves when the
-     * record moves works; the record's own update time is the obvious one.
+     * record moves works; the record's own update time is the obvious one. A page
+     * drawn from configuration rather than a record passes a hash of that
+     * configuration instead.
      */
-    public function withCard(string $kind, string $slug, ?\DateTimeInterface $version = null): self
+    public function withCard(string $kind, string $slug, \DateTimeInterface|string|null $version = null): self
     {
+        $token = $version instanceof \DateTimeInterface ? $version->format('U') : ($version ?? '0');
         $this->ogImage = route('social.card', ['kind' => $kind, 'slug' => $slug])
-            .'?v='.substr(hash('crc32b', ($version?->format('U') ?? '0').$slug.SocialCard::designVersion()), 0, 8);
+            .'?v='.substr(hash('crc32b', $token.$slug.SocialCard::designVersion()), 0, 8);
 
         return $this;
     }
