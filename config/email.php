@@ -57,6 +57,12 @@ return [
     // redistributes a third-party list under an unexamined licence.
     'overlay' => storage_path('app/email/disposable-domains.txt'),
 
+    // Where the weekly refresh fetches the overlay from: an https:// URL of a
+    // plain-text list, one domain per line, whose licence the operator has read.
+    // No default on purpose. Unset, the scheduler skips the job rather than
+    // failing it every Wednesday, and the admin button says what is missing.
+    'overlay_source' => env('EMAIL_DISPOSABLE_SOURCE'),
+
     // Reserved by RFC 2606 and RFC 6761 for documentation and testing. No real
     // person is reachable at one, so they are refused wherever the policy runs.
     'reserved' => [

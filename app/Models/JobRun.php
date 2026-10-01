@@ -40,7 +40,7 @@ class JobRun extends Model
         'policy_validate' => ['command' => 'policy:validate', 'args' => [], 'label' => 'Validate data', 'what' => 'Checks every record against its schema and cross-references. Changes nothing.', 'schedule' => 'On demand', 'confirm' => false],
         'freshness' => ['command' => 'policy:freshness', 'args' => [], 'label' => 'Freshness report', 'what' => 'Lists records past their re-check date. Changes nothing.', 'schedule' => 'On demand', 'confirm' => false],
         'coverage' => ['command' => 'policy:coverage', 'args' => ['--list' => 20], 'label' => 'Coverage report', 'what' => 'Lists required and expected gaps. Changes nothing.', 'schedule' => 'On demand', 'confirm' => false],
-        'email_domains' => ['command' => 'email:domains-refresh', 'args' => [], 'label' => 'Throwaway-domain list refresh', 'what' => 'Refreshes the overlay of disposable mail domains.', 'schedule' => 'Wednesdays 05:00 UTC', 'confirm' => false],
+        'email_domains' => ['command' => 'email:domains-refresh', 'args' => [], 'label' => 'Throwaway-domain list refresh', 'what' => 'Refreshes the overlay of disposable mail domains from the list named by EMAIL_DISPOSABLE_SOURCE. Unset, the scheduler skips it.', 'schedule' => 'Wednesdays 05:00 UTC, when a source is set', 'confirm' => false],
     ];
 
     public function user(): BelongsTo
