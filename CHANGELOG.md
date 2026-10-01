@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Automatic deploys. Each commit that reaches `main` is deployed by the *Deploy* workflow once CI's finishing jobs and the Security workflow are green for it, over an SSH key whose only permitted command is the deploy script, which refuses any commit not on `main`, waits for the new container, probes the site and rolls back to the previous commit if it does not come up. The same script runs by hand. Setup is four repository secrets and one `install` on the host (`deploy/README-docker.md`, *Automatic deploys*).
 - A People page at `/team`: the maintainer, the research contributors who have joined (Kailash Bohara, Joyce Loksee Ho) and a place for independent advisors, each with a portrait, a bio in their own words and the links they chose. Affiliations are stated as identification, not endorsement, and the page says who may verify a record and who may not. Linked from the About page, the footer, the sitemap and llms.txt; every person is published as schema.org Person.
 
 
