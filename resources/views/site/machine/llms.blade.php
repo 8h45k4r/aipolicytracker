@@ -43,6 +43,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - Guides: {{ route('guides.index') }}
 - About, maintainers and references: {{ route('about') }}
+- People: maintainer, research contributors and advisors, with the independence note: {{ route('team') }}
 - Contact (corrections, press, security): {{ config('aipolicytracker.contact_email') }}
 
 ## How far this data can be trusted

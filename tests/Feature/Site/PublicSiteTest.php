@@ -91,7 +91,7 @@ class PublicSiteTest extends TestCase
             '/compare', '/compare?j[]=eu&j[]=uk', '/compare/eu-vs-india-ai-regulation',
             '/changes', '/changes/2025', '/tools/applicability-check',
             '/tools/applicability-check?jurisdictions[]=eu&role=provider&use_case=hiring_and_hr&personal_data=yes&genai=yes',
-            '/open-data', '/methodology', '/about', '/contribute', '/guides', '/guides/iso-42001-vs-eu-ai-act',
+            '/open-data', '/methodology', '/about', '/team', '/contribute', '/guides', '/guides/iso-42001-vs-eu-ai-act',
             '/eu-ai-act', '/ai-regulation-india', '/ai-policy-nepal', '/ai-governance-singapore', '/ai-regulation-australia',
             '/ai-regulation-uk', '/ai-regulation-usa', '/ai-governance-uae', '/ai-regulation-south-asia',
         ] as $path) {

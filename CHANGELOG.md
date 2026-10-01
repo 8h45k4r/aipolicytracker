@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- A People page at `/team`: the maintainer, the research contributors who have joined (Kailash Bohara, Joyce Loksee Ho) and a place for independent advisors, each with a portrait, a bio in their own words and the links they chose. Affiliations are stated as identification, not endorsement, and the page says who may verify a record and who may not. Linked from the About page, the footer, the sitemap and llms.txt; every person is published as schema.org Person.
+
+
 ### Changed
 - Major front-end and tooling upgrades: React 19, Inertia 3 (`@inertiajs/react` 3 and `inertiajs/inertia-laravel` 3), ESLint 10 and Node 26. Node is pinned in `.nvmrc` and `package.json` `engines`; CI, the security workflow and the Docker build stage read it.
 - ESLint's React rules come from `@eslint-react/eslint-plugin`, because `eslint-plugin-react` has no ESLint 10 release. The legacy React components were updated for React 19: `ref` as a prop instead of `forwardRef`, `use()` and `<Context>` for the dropdown, and a window-width store instead of setting state inside an effect.

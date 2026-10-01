@@ -95,6 +95,7 @@ class MachineReadableController extends Controller
             'Canonical: '.route('security.txt'),
             'Policy: '.config('aipolicytracker.github_url').'/blob/main/SECURITY.md',
             'Acknowledgments: '.route('about'),
+            'People (maintainer, contributors, advisors): '.route('team'),
         ];
 
         return response(implode("\n", $lines)."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'public, max-age=86400']);
