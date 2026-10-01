@@ -37,6 +37,21 @@ services:
         limits:
           memory: 256M
 
+  # Runs once per `up`, as root, and only fixes ownership of the storage volume.
+  # The volume outlives the image. It was created when the app ran as root, and
+  # when the image moved to www-data every write to it failed: the nightly AIID
+  # sync went red for want of a snapshot file, and "Run now" was a 500. The app
+  # itself never gets root, so this is the one place that can put it right.
+  storage-init:
+    image: aip-app:latest
+    container_name: aip-storage-init
+    user: root
+    entrypoint: ["sh", "-c", "chown -R www-data:www-data /var/www/html/storage/app && echo 'storage: owned by www-data'"]
+    volumes:
+      - aip-storage:/var/www/html/storage/app
+    restart: "no"
+    networks: [aip]
+
   app:
     build:
       context: ..
@@ -47,6 +62,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      storage-init:
+        condition: service_completed_successfully
     env_file: .env
     environment:
       APP_ENV: production

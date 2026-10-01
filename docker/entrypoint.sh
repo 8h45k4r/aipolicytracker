@@ -10,6 +10,14 @@ cd /var/www/html
 # answered, and they take seconds.
 php artisan migrate --force
 
+# The storage volume outlives the image and can carry ownership from an older
+# one. A job that cannot write there fails in the middle of the night with a
+# message only the job log sees, so say so here, where `docker logs` looks.
+mkdir -p storage/app/external storage/app/social-cards 2>/dev/null || true
+for d in storage/app storage/app/external storage/framework/views storage/logs bootstrap/cache; do
+  [ -w "$d" ] || echo "WARNING: $d is not writable by $(id -un); jobs that write there will fail. Fix: docker compose up -d (the storage-init service chowns the volume)."
+done
+
 # Caches qualify: without them every request compiles views and reparses config.
 php artisan storage:link >/dev/null 2>&1 || true
 php artisan config:cache

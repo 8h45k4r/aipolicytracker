@@ -218,6 +218,18 @@ cd deploy && docker compose up -d --build
 A rollback does not undo a migration. If a release migrated destructively, the
 database needs restoring separately.
 
+## If a job says "Permission denied"
+
+The `aip-storage` volume keeps the files the app writes (uploads, synced
+snapshots, drawn cards) across image rebuilds, and keeps their ownership too.
+The image runs as `www-data`; a volume created under an older image that ran
+as root is unwritable to it, which showed up as the nightly AI Incident
+Database sync failing on its snapshot file and "Run now" answering 500. Every
+`docker compose up -d` now runs `storage-init` first, a one-shot container
+that chowns the volume to `www-data` and exits, so a deploy repairs this on
+its own. The app's own log says `WARNING: ... is not writable` at boot if it
+ever recurs.
+
 ## Logs
 
 ```bash
