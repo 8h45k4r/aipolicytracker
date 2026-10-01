@@ -26,7 +26,7 @@ phase is adjusted; each adjustment says why.
 | Scheduler | `routes/console.php` drives jobs through `JobRun`, with an admin log at `/backend/admin/jobs` |
 | Tests | PHPUnit 11: 338 tests (unit + feature). `node --test` for the MCP server. |
 | Lint | Pint (PHP), ESLint (JS). There is no TypeScript; `npm run typecheck` is a no-op message by design. |
-| Deploy | Docker Compose on a VPS behind host nginx and Cloudflare (`deploy/README-docker.md`). No deploy workflow: a person runs it. |
+| Deploy | Docker Compose on a VPS behind host nginx and Cloudflare (`deploy/README-docker.md`). The *Deploy* workflow deploys each green commit of `main` over a forced-command SSH key; the same script runs by hand. |
 | Analytics | **None on the public site.** GA4 (`gtag`) is loaded only in the Inertia shell (`resources/views/app.blade.php`). Search Console is the only measurement of public pages. |
 
 ## 2. Findings that change the plan
@@ -347,7 +347,7 @@ needs no geometry, reads with a screen reader and degrades to a table.
 4. A decision on **Pro gating** for the new alert channels (P8).
 5. **Search Console**: sitemap resubmission after P1 and P2, and a CSV export for the CTR
    audit. **Google Publisher Center** for News (after P2).
-6. Deploying each phase. There is no deploy workflow.
+6. Deploying each phase: automatic once CI and Security are green on `main` (`.github/workflows/deploy.yml`), by hand otherwise.
 
 ## FINAL QA — done
 

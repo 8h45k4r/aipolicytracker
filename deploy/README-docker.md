@@ -165,6 +165,49 @@ cd deploy && docker compose up -d --build
 The old container keeps serving until the new one is built and healthy. Assets
 are built inside the image, so the host still needs no Node.
 
+## Automatic deploys
+
+Every commit that reaches `main` is deployed by `.github/workflows/deploy.yml`
+once two things are green for it: the CI jobs that can finish (`PHP lint &
+tests`, `JS lint & build`) and the Security workflow, which is where the
+production image is built and scanned. The workflow then runs one command over
+SSH, waits for the new container to answer, probes a few pages, and checks the
+public site with `scripts/deploy-check.sh`. If the container never comes up,
+the host puts the previous commit back and the run goes red. It can also be
+started from the Actions tab (*Deploy → Run workflow*) for a specific commit.
+
+The key the workflow holds can do exactly one thing. Its forced command is a
+copy of `deploy/remote-deploy.sh` kept outside the checkout, and that script
+accepts one argument, a commit sha, and refuses any sha that is not on
+`origin/main`. A migration is applied by the new container on start and is
+not undone by the rollback; see *Rolling back*.
+
+One-time setup, from the machine you administer the host from:
+
+```bash
+# 1. A key used for nothing else. No passphrase: the workflow has nobody to type one.
+ssh-keygen -t ed25519 -N "" -C "aip-deploy" -f ~/.ssh/aip_deploy
+
+# 2. On the host: install the script outside the checkout and bind the key to it.
+ssh aip 'install -m 0755 /opt/aip/repo/deploy/remote-deploy.sh /usr/local/sbin/aip-deploy'
+ssh aip "printf 'command=\"/usr/local/sbin/aip-deploy\",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty %s\n' \"$(cat ~/.ssh/aip_deploy.pub)\" >> /root/.ssh/authorized_keys"
+
+# 3. Prove the binding: the key may deploy and nothing else.
+ssh -i ~/.ssh/aip_deploy root@202.58.120.67 "$(git rev-parse origin/main)"   # deploys
+ssh -i ~/.ssh/aip_deploy root@202.58.120.67 hostname                          # refused by the script
+
+# 4. Hand the workflow what it needs. Nothing here is written into the repository.
+gh secret set DEPLOY_HOST --body 202.58.120.67
+gh secret set DEPLOY_USER --body root
+gh secret set DEPLOY_SSH_KEY < ~/.ssh/aip_deploy
+gh secret set DEPLOY_KNOWN_HOSTS --body "$(ssh-keyscan -t ed25519 202.58.120.67 2>/dev/null)"
+```
+
+When `deploy/remote-deploy.sh` changes, repeat step 2's `install` line: the
+workflow cannot update the copy the key is bound to, by design. To stop
+automatic deploys, remove the key's line from `authorized_keys`; the workflow
+then fails at the SSH step and nothing else changes.
+
 ## Rolling back
 
 ```bash

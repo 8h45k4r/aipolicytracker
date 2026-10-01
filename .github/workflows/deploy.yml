@@ -1,0 +1,146 @@
+name: Deploy
+
+# Deploys a commit of main to the production host once the checks that can
+# finish have passed: the SQLite test job and the JS build from CI, and the
+# whole Security workflow for the same commit, which is the run that builds
+# the production image. The PostgreSQL test job is not waited for while it
+# cannot complete (debt #49); when it can, add it to REQUIRED_CI_JOBS.
+#
+# The host side is deploy/remote-deploy.sh, installed on the server as the
+# forced command of a dedicated SSH key, so the key can deploy and do nothing
+# else. The four secrets and the one-time server setup are in
+# deploy/README-docker.md under "Automatic deploys".
+#
+# Anyone who can push to main can therefore change what production runs.
+# That was already true of the application code; branch protection on main
+# is what keeps it to reviewed, green commits.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "Commit on main to deploy (default: the current head of main)"
+        required: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  REQUIRED_CI_JOBS: "PHP lint & tests|JS lint & build"
+  SITE: ${{ vars.SITE_URL || 'https://aipolicytracker.org' }}
+
+jobs:
+  deploy:
+    name: Deploy to production
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: production
+      url: https://aipolicytracker.org
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Resolve the commit and its CI run
+        id: target
+        env:
+          EVENT: ${{ github.event_name }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          INPUT_SHA: ${{ inputs.sha }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" = "workflow_run" ]; then
+            sha="$RUN_SHA"; run="$RUN_ID"
+          else
+            sha="${INPUT_SHA:-$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq .commit.sha)}"
+            gh api "repos/$GITHUB_REPOSITORY/compare/main...$sha" --jq .status | grep -qE '^(identical|behind)$' \
+              || { echo "::error::$sha is not on main"; exit 1; }
+            run="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$sha&per_page=1" --jq '.workflow_runs[0].id // empty')"
+            [ -n "$run" ] || { echo "::error::no CI run found for $sha"; exit 1; }
+          fi
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+          echo "Deploying $sha (CI run $run)"
+
+      - name: Require the CI jobs that can finish
+        env:
+          RUN: ${{ steps.target.outputs.run }}
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN/jobs" --paginate \
+            --jq '.jobs[] | "\(.name)\t\(.conclusion // "running")"' > jobs.tsv
+          cat jobs.tsv
+          fail=0
+          IFS='|' read -ra required <<< "$REQUIRED_CI_JOBS"
+          for name in "${required[@]}"; do
+            result="$(awk -F'\t' -v n="$name" '$1==n {print $2}' jobs.tsv)"
+            [ "$result" = "success" ] || { echo "::error::CI job \"$name\" is ${result:-missing}, not success"; fail=1; }
+          done
+          exit $fail
+
+      - name: Require a green Security run for the same commit
+        env:
+          SHA: ${{ steps.target.outputs.sha }}
+        run: |
+          set -euo pipefail
+          # Security starts with the same push and usually finishes in four
+          # minutes; the container build inside it is the gate that matters.
+          for i in $(seq 1 60); do
+            state="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/security.yml/runs?head_sha=$SHA&per_page=1" \
+              --jq '.workflow_runs[0] | "\(.status) \(.conclusion)"' 2>/dev/null || echo "none")"
+            case "$state" in
+              "completed success") echo "Security: success"; exit 0 ;;
+              "completed "*)       echo "::error::Security workflow for $SHA ended with: ${state#completed }"; exit 1 ;;
+              none|" ")            [ "$i" -lt 6 ] || { echo "::error::no Security run found for $SHA"; exit 1; } ;;
+            esac
+            sleep 20
+          done
+          echo "::error::Security workflow for $SHA did not finish in 20 minutes"; exit 1
+
+      - name: Check the deploy secrets are configured
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          missing=""
+          [ -n "$HOST" ]  || missing="$missing DEPLOY_HOST"
+          [ -n "$USER" ]  || missing="$missing DEPLOY_USER"
+          [ -n "$KEY" ]   || missing="$missing DEPLOY_SSH_KEY"
+          [ -n "$KNOWN" ] || missing="$missing DEPLOY_KNOWN_HOSTS"
+          [ -z "$missing" ] || { echo "::error::missing repository secrets:$missing (see deploy/README-docker.md, Automatic deploys)"; exit 1; }
+
+      - name: Deploy over SSH
+        env:
+          SHA: ${{ steps.target.outputs.sha }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
+          # The key's forced command on the host is the deploy script; the sha
+          # is the only argument it accepts, and it refuses anything not on main.
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 \
+              -i ~/.ssh/deploy_key "$USER@$HOST" "$SHA"
+
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ steps.target.outputs.sha }}
+
+      - name: Verify the live site serves what shipped
+        run: scripts/deploy-check.sh "$SITE"
