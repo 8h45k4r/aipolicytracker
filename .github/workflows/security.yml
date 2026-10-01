@@ -140,6 +140,16 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Build the production image
         run: docker build -t aipolicytracker:scan .
+      - name: Share cards can be drawn in this image (social:doctor)
+        # The image went to production once without a font: every card silently
+        # fell back to the static picture, and nothing was red. The doctor exits
+        # non-zero when no face resolves, so here it is as a gate.
+        run: |
+          docker run --rm --entrypoint php \
+            -e APP_KEY="base64:$(head -c 32 /dev/zero | base64)" \
+            -e DB_CONNECTION=sqlite -e DB_DATABASE=:memory: \
+            -e CACHE_STORE=array -e SESSION_DRIVER=array -e QUEUE_CONNECTION=sync \
+            aipolicytracker:scan artisan social:doctor
       - name: Trivy image scan (OS packages and PHP dependencies)
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:

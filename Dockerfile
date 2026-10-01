@@ -13,8 +13,12 @@ RUN npm run build
 FROM php:8.3-cli-alpine
 # gd: phpoffice/phpspreadsheet and phpword require it, and the social-card
 # renderer draws with it (FreeType for the TrueType text, JPEG for photos).
+# font-dejavu: the face the renderer draws with. Without a TrueType font on
+# the host no card is drawn and every share falls back to the static image,
+# which is what production did until this line. The Security workflow runs
+# social:doctor inside the built image so that cannot happen quietly again.
 RUN apk add --no-cache postgresql-dev icu-dev libzip-dev oniguruma-dev \
-        libpng-dev libjpeg-turbo-dev freetype-dev \
+        libpng-dev libjpeg-turbo-dev freetype-dev font-dejavu \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_pgsql pdo_mysql intl bcmath mbstring zip pcntl opcache gd \
     && rm -rf /var/cache/apk/* \

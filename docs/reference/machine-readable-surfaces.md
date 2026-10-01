@@ -120,9 +120,12 @@ only job is to move.
 **Fonts are the one external dependency.** The brand faces are served from a font CDN rather than
 vendored, so cards are drawn with whichever system face resolves first, DejaVu by default. If none
 resolves, nothing is drawn and the static image is served, so a host without fonts behaves exactly
-as the site did before rather than serving a broken preview. `php artisan social:doctor` reports
-which face resolved on a given host and writes a sample to look at; `--out=` copies it somewhere
-readable. `SOCIAL_CARDS_ENABLED=false` turns the whole thing off.
+as the site did before rather than serving a broken preview. That fallback is quiet by design and
+it was the production state for a while: the Alpine image carried no font. The Dockerfile now
+installs `font-dejavu`, and the Security workflow runs `social:doctor` inside the built image so a
+fontless image fails the build. `php artisan social:doctor` reports which face resolved on a given
+host and writes a sample to look at; `--out=` copies it somewhere readable.
+`SOCIAL_CARDS_ENABLED=false` turns the whole thing off.
 
 **Caching.** Rendered cards are keyed by their content and kept on disk, so a retitled record
 produces a new file rather than needing a cache cleared. They are disposable: deleting them costs
