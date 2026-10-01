@@ -4,12 +4,15 @@ namespace App\Providers;
 
 use App\Enums\AdminCapability;
 use App\Models\User;
+use App\Services\Admin\RolePermissions;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\DodoGateway;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\Security\EmailDomainPolicy;
 use App\Services\Security\MailDomainResolver;
 use App\Services\Security\SystemMailDomainResolver;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -31,6 +34,9 @@ class AppServiceProvider extends ServiceProvider
         // address policy can decide the answer instead of asking the network.
         $this->app->bind(MailDomainResolver::class, SystemMailDomainResolver::class);
         $this->app->singleton(EmailDomainPolicy::class);
+        // Role permissions are read once per request (or queued job), then reused by every
+        // gate check; scoped so an edit is never served stale to the next request.
+        $this->app->scoped(RolePermissions::class);
     }
 
     /**
@@ -57,5 +63,15 @@ class AppServiceProvider extends ServiceProvider
         foreach (AdminCapability::cases() as $capability) {
             Gate::define($capability->value, fn (User $user) => $user->hasCapability($capability));
         }
+
+        // When an account last signed in, for access reviews. Written without touching
+        // updated_at, so "last changed" on the account still means a change to it.
+        Event::listen(Login::class, function (Login $event) {
+            if ($event->user instanceof User) {
+                $now = now();
+                User::whereKey($event->user->getKey())->toBase()->update(['last_login_at' => $now]);
+                $event->user->setAttribute('last_login_at', $now)->syncOriginalAttribute('last_login_at');
+            }
+        });
     }
 }

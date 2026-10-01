@@ -30,6 +30,22 @@ enum AdminCapability: string
     case ViewAudit = 'audit.view';
     case ViewAudience = 'audience.view';
 
+    /** Held by owners alone: no role, default or edited, can be given one of these. */
+    public function ownerOnly(): bool
+    {
+        return in_array($this, [self::ManageSettings, self::ManageBilling, self::ManageUsers], true);
+    }
+
+    /** The group the permission matrix lists it under. */
+    public function group(): string
+    {
+        return match (true) {
+            $this->ownerOnly() => 'Owner only',
+            in_array($this, [self::ViewDashboard, self::ViewAudit, self::ViewAudience], true) => 'Reading',
+            default => 'Editorial work',
+        };
+    }
+
     public function label(): string
     {
         return match ($this) {

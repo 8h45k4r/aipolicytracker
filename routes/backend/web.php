@@ -74,6 +74,19 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
     // owner or on the signed-in account, so this page cannot be used to seize or lose control.
     Route::middleware('can:users.manage')->prefix('backend/admin/users')->as('backend.admin.users.')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/export', 'export')->name('export');
+        Route::post('/invite', 'invite')->middleware('throttle:20,1')->name('invite');
+        Route::post('/bulk', 'bulk')->name('bulk');
+        Route::post('/bulk-delete', 'bulkDelete')->middleware('password.confirm')->name('bulk.delete');
+        // What each role may do. Changing it changes every holder at once, so it needs a
+        // recently confirmed password, like the other owner-level settings.
+        Route::get('/permissions', 'permissions')->name('permissions');
+        Route::post('/permissions', 'updatePermissions')->middleware('password.confirm')->name('permissions.update');
+        Route::post('/permissions/reset', 'resetPermissions')->middleware('password.confirm')->name('permissions.reset');
+        Route::get('/{user}', 'show')->name('show');
+        Route::post('/{user}/invitation', 'resendInvitation')->middleware('throttle:10,1')->name('invitation');
+        Route::post('/{user}/password-reset', 'sendPasswordReset')->middleware('throttle:10,1')->name('password-reset');
+        Route::post('/{user}/verification', 'resendVerification')->middleware('throttle:10,1')->name('verification');
         Route::post('/{user}/role', 'updateRole')->name('role');
         Route::post('/{user}/suspend', 'suspend')->name('suspend');
         Route::post('/{user}/restore', 'restore')->name('restore');

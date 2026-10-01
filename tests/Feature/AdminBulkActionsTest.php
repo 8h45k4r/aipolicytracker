@@ -83,8 +83,10 @@ class AdminBulkActionsTest extends TestCase
     {
         $other = User::factory()->create(['email' => 'other@example.test', 'name' => 'Other']);
 
-        $html = $this->actingAs($this->owner)->get('/backend/admin/users')->assertOk()->getContent();
+        $html = $this->actingAs($this->owner)->get('/backend/admin/users/'.$other->id)->assertOk()->getContent();
         $this->assertStringContainsString('data-confirm="Delete other@example.test permanently?', $html);
+        $html = $this->get('/backend/admin/users')->assertOk()->getContent();
+        $this->assertStringContainsString('data-confirm="Delete {n} accounts permanently?', $html);
         // Inline handlers never ran under the page's Content-Security-Policy, so none may remain.
         $this->assertStringNotContainsString('onsubmit=', $html);
         $this->get('/backend/admin/settings')->assertOk();
