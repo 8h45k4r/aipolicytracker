@@ -6,7 +6,7 @@ use App\Enums\AdminCapability;
 use App\Enums\AdminRole;
 use App\Models\AdminRolePermission;
 use App\Models\User;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\QueryException;
 
 /**
  * What each role may do: its defaults from AdminRole, or an owner's edit of them.
@@ -91,11 +91,13 @@ final class RolePermissions
             return $this->edited;
         }
         // Before the migration has run (a fresh deploy mid-migrate), the defaults apply.
-        if (! Schema::hasTable('admin_role_permissions')) {
+        try {
+            $rows = AdminRolePermission::all();
+        } catch (QueryException) {
             return $this->edited = [];
         }
         $out = [];
-        foreach (AdminRolePermission::all() as $row) {
+        foreach ($rows as $row) {
             if (AdminRole::tryFrom($row->role) === null) {
                 continue;
             }

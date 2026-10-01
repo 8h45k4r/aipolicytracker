@@ -97,7 +97,9 @@
     .chart-bar:hover, .chart-dot:hover { opacity: .75; }
     .rule-strong { @apply border-t-2 border-brand-navy; }
 
-    .table-wrap { @apply overflow-x-auto border-y border-brand-line -mx-4 sm:mx-0; }
+    /* relative: visually hidden text in a wide table (sr-only headers, notes) is absolutely
+       positioned, and would escape the scroll box and widen the page without it. */
+    .table-wrap { @apply relative overflow-x-auto border-y border-brand-line -mx-4 sm:mx-0; }
     .table-wrap table { @apply min-w-full text-sm; }
     .table-wrap th { @apply bg-brand-paper text-left text-xs font-semibold uppercase tracking-wide text-brand-muted px-3 py-2 align-top; }
     .table-wrap td { @apply px-3 py-2.5 align-top border-t border-brand-line; }

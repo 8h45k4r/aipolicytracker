@@ -5,6 +5,18 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- User management: a page per account (capabilities and where they come from, sign-in, invitation and role history, changes made to and by it), invitations by email with a role and a week-long set-password link, bulk role, suspend, restore, verification and delete, last sign-in, access-review filters (admins without a second factor, dormant admins, pending invitations), sorting and CSV export.
+- Editable role permissions: owners edit the role × capability matrix, with defaults in code, a reset per role and password confirmation. Settings, billing and user management can never be given to a role.
+- A glossary (`/glossary`) of 22 sourced AI governance terms plus the defined vocabulary, one anchor and one `DefinedTerm` per term.
+- IndexNow: changed pages are submitted after each import when `INDEXNOW_KEY` is set; `php artisan seo:indexnow` submits by hand.
+- Answer boxes on control and change pages; computed questions on curated comparisons; every template and curated comparison in `llms.txt`; transition measures in the sitemap; `lastReviewed` on verified records; editorial-policy properties on the Organization.
+- Ten templates: high-risk deployer pack, use-case intake and triage, GPAI provider kit, conformity assessment and QMS, DPIA supplement, decision explanation and appeal, employment bias audit, change log and substantial modification test, frontier safety framework, regulatory horizon scan (36 in all).
+
+### Fixed
+- Re-importing unchanged data no longer moves every record's modified date (and with it `dateModified`, sitemap `lastmod` and IndexNow submissions) to the deploy time.
+- `robots.txt` gives the named answer-engine crawlers the same disallow rules as everyone else.
+
+### Added
 - Automatic deploys. Each commit that reaches `main` is deployed by the *Deploy* workflow once CI's finishing jobs and the Security workflow are green for it, over an SSH key whose only permitted command is the deploy script, which refuses any commit not on `main`, waits for the new container, probes the site and rolls back to the previous commit if it does not come up. The same script runs by hand. Setup is four repository secrets and one `install` on the host (`deploy/README-docker.md`, *Automatic deploys*).
 - A People page at `/team`: the maintainer, the research contributors who have joined (Kailash Bohara, Joyce Loksee Ho) and a place for independent advisors, each with a portrait, a bio in their own words and the links they chose. Affiliations are stated as identification, not endorsement, and the page says who may verify a record and who may not. Linked from the About page, the footer, the sitemap and llms.txt; every person is published as schema.org Person.
 - The People page has its own share card, so a link to it previews as "People behind AIPolicyTracker" with who is listed, instead of the site card's headline. The card's URL moves when the list changes, which is what makes a platform fetch the new one.
