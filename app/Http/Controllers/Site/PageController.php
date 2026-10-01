@@ -111,7 +111,9 @@ class PageController extends Controller
             'Who maintains AIPolicyTracker, the independent researchers who contribute to it, and how affiliations are listed: for identification, never as endorsement.',
             route('team')
         )->withBreadcrumbs([['Home', route('home')], ['About', route('about')], ['People', route('team')]])
-            ->withPageType('AboutPage', ['name' => 'People behind AIPolicyTracker', 'mainEntity' => ['@id' => url('/').'#organization']]);
+            ->withPageType('AboutPage', ['name' => 'People behind AIPolicyTracker', 'mainEntity' => ['@id' => url('/').'#organization']])
+            // The card names who is listed, so its URL must move when the list does.
+            ->withCard('page', 'team', hash('crc32b', json_encode($team)));
 
         foreach (['core', 'contributors', 'advisors'] as $group) {
             foreach ($team[$group] as $person) {

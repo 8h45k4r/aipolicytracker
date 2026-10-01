@@ -63,6 +63,19 @@ class SocialCardTest extends TestCase
         }
     }
 
+    public function test_the_people_page_has_its_own_card_and_its_url_moves_with_the_list(): void
+    {
+        // The site card says "Track AI policy" under a link whose title says "People
+        // behind AIPolicyTracker"; a reader who shared the page saw the mismatch.
+        $before = $this->cardUrlOn(route('team'));
+        $this->assertStringStartsWith(route('social.card', ['kind' => 'page', 'slug' => 'team']), $before);
+
+        config()->set('team.advisors', [['slug' => 'a-n-other', 'name' => 'A. N. Other', 'specialism' => 'Procurement', 'scope' => 'Public-sector procurement clauses.']]);
+        $after = $this->cardUrlOn(route('team'));
+
+        $this->assertNotSame($before, $after, 'the card URL must move when the people listed change');
+    }
+
     public function test_the_card_url_changes_when_the_record_does(): void
     {
         // This is the whole mechanism. Platforms cache a preview against its URL;
@@ -121,6 +134,7 @@ class SocialCardTest extends TestCase
             ['jurisdiction', Jurisdiction::published()->firstOrFail()->slug],
             ['obligation', Obligation::published()->firstOrFail()->slug],
             ['site', 'default'],
+            ['page', 'team'],
         ];
 
         foreach ($cases as [$kind, $slug]) {
