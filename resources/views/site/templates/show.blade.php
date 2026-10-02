@@ -7,7 +7,6 @@
     <header class="mt-3">
         <div class="flex flex-wrap gap-1.5"><span class="badge bg-brand-navy text-white ring-brand-navy">{{ $catalog::typeLabel($meta['type']) }}</span><span class="badge bg-state-goodbg text-state-good ring-state-good/30">Free · sent to your work email</span>@foreach(($meta['frameworks'] ?? []) as $f)<span class="badge-neutral">{{ $catalog::frameworkLabel($f) }}</span>@endforeach</div>
         <h1 class="mt-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $meta['title'] }}</h1>
-        <p class="mt-3 max-w-[64ch] text-brand-body leading-7">{{ $meta['short'] }}</p>
         <div class="mt-4 flex flex-wrap gap-2">
             <a href="#download" class="btn-primary" data-track="template_request_open" data-track-label="{{ $meta['slug'] }}">Get the {{ $formats }} files</a>
             <a href="#preview" class="btn-secondary">Preview</a>
@@ -17,6 +16,8 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
+            {{-- Answer first: composed from the catalogue entry, the version and the duties it cites. --}}
+            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
             <section aria-labelledby="inside-heading">
                 <h2 id="inside-heading" class="section-title">What's inside</h2>
                 <ul class="mt-2 list-disc space-y-1.5 pl-5 text-sm text-brand-body">@foreach($meta['inside'] as $line)<li>{{ $line }}</li>@endforeach</ul>
@@ -41,6 +42,16 @@
                     <ol class="mt-2 space-y-0.5 text-sm text-brand-body">@foreach($preview['outline'] as $h)<li class="{{ $h['level'] === 1 ? 'font-medium' : ($h['level'] === 2 ? 'pl-4' : 'pl-8 text-brand-muted') }}">{{ $h['text'] }}</li>@endforeach</ol>
                 </div>
                 @endif
+            </section>
+
+            {{-- The same steps are emitted as HowTo; markup never describes steps a reader cannot see. --}}
+            <section class="mt-8" aria-labelledby="howto-heading">
+                <h2 id="howto-heading" class="section-title">How to use it</h2>
+                <ol class="mt-3 space-y-3">
+                    @foreach($steps as $i => $step)
+                    <li class="flex gap-3 text-sm"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-paper font-mono text-xs font-semibold text-brand-navy ring-1 ring-brand-line">{{ $i + 1 }}</span><span><span class="font-medium text-brand-navy">{{ $step['title'] }}.</span> <span class="text-brand-body">{{ $step['body'] }}</span></span></li>
+                    @endforeach
+                </ol>
             </section>
 
             @if($covered->isNotEmpty())

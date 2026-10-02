@@ -144,7 +144,14 @@ class LandingController extends Controller
             ->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')], [$page['h1'], route('guides.show', $slug)]])
             ->withModified($lastModified)
             ->withOgType('article')
-            ->withPageType('Article', ['headline' => $page['h1'], 'author' => ['@id' => url('/').'#organization']]);
+            ->withPageType('Article', array_filter([
+                'headline' => $page['h1'],
+                'author' => ['@id' => url('/').'#organization'],
+                // The laws the guide is about, as the records name them.
+                'about' => $policies->map(fn ($p) => ['@type' => $p->is_binding ? 'Legislation' : 'CreativeWork', 'name' => $p->short_title ?: $p->title, 'url' => $p->url()])->values()->all() ?: null,
+            ]));
+        // The templates built on the laws this guide covers: the guide explains, the files help do.
+        $templates = $policies->flatMap(fn ($p) => TemplateCatalog::forPolicy($p->slug)->values())->unique('slug')->take(5)->values();
         if (! empty($page['steps'])) {
             $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('guides.show', $slug), $page['steps']));
         }
@@ -152,6 +159,6 @@ class LandingController extends Controller
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($page['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }
 
-        return view('site.guides.show', compact('seo', 'page', 'slug', 'policies', 'obligations', 'frameworkObligations'));
+        return view('site.guides.show', compact('seo', 'page', 'slug', 'policies', 'obligations', 'frameworkObligations', 'templates'));
     }
 }

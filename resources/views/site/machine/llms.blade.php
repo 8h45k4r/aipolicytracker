@@ -43,6 +43,10 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
 - Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - Guides: {{ route('guides.index') }}
+@foreach(config('content.guides') as $gslug => $g)
+  - [{{ $g['h1'] }}]({{ route('guides.show', $gslug) }})
+@endforeach
+- Templates by framework and type: @foreach(\App\Services\Templates\TemplateCatalog::facets() as $f){{ $f['label'] }} {{ $f['url'] }}@if(!$loop->last), @endif @endforeach
 - About, maintainers and references: {{ route('about') }}
 - People: maintainer, research contributors and advisors, with the independence note: {{ route('team') }}
 - Contact (corrections, press, security): {{ config('aipolicytracker.contact_email') }}

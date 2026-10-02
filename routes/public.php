@@ -192,6 +192,9 @@ Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('thro
 // addresses under /guides/tools redirect here (FreeToolController).
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
 Route::get('/templates/feed', [TemplateController::class, 'feed'])->name('templates.feed');
+// One landing page per framework or type ("EU AI Act templates"); only those with enough
+// templates exist (TemplateCatalog::facets), the rest 404.
+Route::get('/templates/{facet}/{key}', [TemplateController::class, 'facet'])->whereIn('facet', ['framework', 'type'])->where('key', '[a-z0-9-]+')->name('templates.facet');
 Route::get('/templates/{slug}', [TemplateController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('templates.show');
 Route::post('/templates/{slug}/request', [TemplateController::class, 'requestDownload'])->where('slug', '[a-z0-9-]+')->middleware('throttle:10,1')->name('templates.request');
 Route::get('/templates/{slug}/download', [TemplateController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1')->name('templates.download');

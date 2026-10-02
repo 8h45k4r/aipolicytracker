@@ -8,8 +8,10 @@ use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TemplateVersion;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\Seo\IndexNow;
+use App\Services\Templates\TemplateCatalog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -37,7 +39,10 @@ class MachineReadableController extends Controller
         $changes = ChangeEvent::published()->with('jurisdiction')->orderByDesc('occurred_on')->limit(100)->get();
         $controls = Control::published()->with(['evidence', 'obligations'])->orderBy('title')->get();
 
-        return $this->text(view('site.machine.llms-full', compact('jurisdictions', 'policies', 'obligations', 'changes', 'controls'))->render());
+        $templates = TemplateCatalog::all();
+        $templateVersions = TemplateVersion::latestAll();
+
+        return $this->text(view('site.machine.llms-full', compact('jurisdictions', 'policies', 'obligations', 'changes', 'controls', 'templates', 'templateVersions'))->render());
     }
 
     /**

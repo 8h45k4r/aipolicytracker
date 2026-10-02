@@ -155,7 +155,9 @@ class TemplatesLibraryTest extends TestCase
         foreach (TemplateCatalog::all()->keys() as $slug) {
             $this->assertStringContainsString(route('templates.show', $slug), $hub, "the hub links every template ({$slug})");
         }
-        $this->assertStringContainsString('name="robots" content="noindex', $this->get('/templates?type=register')->assertOk()->getContent(), 'filtered views are not indexed');
+        // One framework or type has its own indexable landing page; combinations stay noindex.
+        $this->get('/templates?type=register')->assertStatus(301)->assertRedirect(route('templates.facet', ['type', 'register']));
+        $this->assertStringContainsString('name="robots" content="noindex', $this->get('/templates?type=register&topic=risk')->assertOk()->getContent(), 'filtered views are not indexed');
 
         $page = $this->get('/templates/ai-system-inventory')->assertOk()->getContent();
         $head = substr($page, 0, strpos($page, '</head>'));
@@ -214,7 +216,7 @@ class TemplatesLibraryTest extends TestCase
         app(TemplateBuilder::class)->build('ai-risk-register');
         $this->assertStringContainsString(route('sitemap.section', 'templates'), $this->get('/sitemap.xml')->assertOk()->getContent());
         $sitemap = $this->get('/sitemap-templates.xml')->assertOk()->getContent();
-        $this->assertSame(TemplateCatalog::all()->count() + 1, substr_count($sitemap, '<loc>'));
+        $this->assertSame(TemplateCatalog::all()->count() + 1 + count(TemplateCatalog::facets()), substr_count($sitemap, '<loc>'), 'hub, every template and every landing page');
         $feed = $this->get('/templates/feed')->assertOk()->assertHeader('Content-Type', 'application/rss+xml; charset=UTF-8')->getContent();
         $this->assertStringContainsString('<link>'.route('templates.show', 'ai-risk-register').'</link>', $feed);
         $this->assertStringNotContainsString('<enclosure', $feed, 'files are requested, not linked');

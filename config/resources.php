@@ -16,6 +16,14 @@ return [
         'ai-governance-for-startups' => ['frameworks' => ['nist-ai-rmf', 'iso-42001'], 'topics' => ['governance', 'risk'], 'featured' => true],
         'iso-42001-vs-eu-ai-act' => ['frameworks' => ['iso-42001', 'eu-ai-act'], 'topics' => ['governance', 'evidence'], 'featured' => true],
         'nist-ai-rmf-vs-eu-ai-act' => ['frameworks' => ['nist-ai-rmf', 'eu-ai-act'], 'topics' => ['governance', 'risk'], 'featured' => true],
+        'eu-ai-act-digital-omnibus-new-deadlines' => ['frameworks' => ['eu-ai-act'], 'topics' => ['governance', 'risk'], 'featured' => true],
+        'colorado-ai-act-repeal-sb-26-189' => ['frameworks' => ['colorado-ai-act'], 'topics' => ['governance', 'oversight'], 'featured' => true],
+        'us-state-ai-laws-2026' => ['frameworks' => ['colorado-ai-act'], 'topics' => ['governance'], 'featured' => true],
+        'ai-hiring-compliance-laws' => ['frameworks' => ['eu-ai-act', 'colorado-ai-act'], 'topics' => ['workforce', 'risk'], 'featured' => true],
+        'california-ai-laws-2026' => ['frameworks' => [], 'topics' => ['governance', 'transparency'], 'featured' => false],
+        'ai-content-labelling-disclosure-laws' => ['frameworks' => ['eu-ai-act'], 'topics' => ['transparency'], 'featured' => true],
+        'frontier-ai-laws-sb-53-raise-act' => ['frameworks' => ['eu-ai-act'], 'topics' => ['risk', 'incidents'], 'featured' => false],
+        'south-korea-ai-basic-act-compliance' => ['frameworks' => [], 'topics' => ['governance', 'transparency'], 'featured' => false],
     ],
 
     'tools' => [

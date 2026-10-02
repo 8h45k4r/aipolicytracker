@@ -467,16 +467,26 @@ final class PageTitle
         return self::fit('AI Governance Templates', [': Free XLSX & DOCX Built from Law', ': Free XLSX & DOCX', ': Free Downloads']);
     }
 
-    /** "<Template title> (XLSX & DOCX): Free, Versioned Template" */
+    /**
+     * "<Template> Template (Free XLSX & DOCX)". People search for "<thing> template", so
+     * the word is in every title unless the name already ends in what it is (a kit, a
+     * pack, a template). A trailing parenthetical in the catalogue title ("(MIT AI Risk
+     * Repository taxonomy)") is dropped before fitting: it is detail for the page, not
+     * the query.
+     */
     public static function template(array $meta): string
     {
         $formats = implode(' & ', array_map('strtoupper', $meta['formats'] ?? []));
-        $name = self::clean($meta['title']);
-        $type = ucfirst(config('templates.types')[$meta['type']] ?? 'Template');
-        // The catalogue title may already name the type ("... Register"); do not say it twice.
-        $tail = str_ends_with(mb_strtolower($name), mb_strtolower($type)) ? '' : ' '.$type;
+        $name = self::clean($meta['seo_name'] ?? preg_replace('/\s*\([^)]*\)$/', '', $meta['title']));
+        $noun = preg_match('/\b(template|templates|kit|pack)$/i', $name) ? '' : ' Template';
 
-        return self::fit($name, [' ('.$formats.'): Free'.$tail.', Generated from Law', ' ('.$formats.'): Free'.$tail, ': Free '.$formats.$tail, ': Free'.$tail], self::MAX);
+        return self::fit($name.$noun, [' (Free '.$formats.')', ': Free '.$formats, ' (Free)', ''], self::MAX);
+    }
+
+    /** "EU AI Act Templates: 30 Free XLSX & DOCX Downloads" */
+    public static function templateFacet(string $label, int $count): string
+    {
+        return self::fit($label.' Templates', [': '.$count.' Free XLSX & DOCX Downloads', ': '.$count.' Free XLSX & DOCX', ' ('.$count.' Free)', '']);
     }
 
     /** "AI Regulation in Africa 2026: Country-by-Country Tracker" */
