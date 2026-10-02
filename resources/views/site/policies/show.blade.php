@@ -20,6 +20,7 @@
             <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy">JSON record</a>
             <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Context file</a>
         </div>
+        <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" class="mt-4" />
     </header>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
@@ -148,26 +149,14 @@
                     @if($controls->count() > 7)<p class="mt-2 text-xs"><a href="{{ route('controls.index') }}">All {{ $controls->count() }} controls &rarr;</a></p>@endif
                 </div>
                 @endif
-                <div class="card-flat p-4 text-sm">
-                    <p class="font-semibold text-brand-navy">At a glance</p>
-                    <dl class="mt-2 space-y-1.5 text-brand-body">
-                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Issuing body</dt><dd class="text-right">{{ $policy->issuing_body }}</dd></div>
-                        @if($policy->adopted_on)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Adopted</dt><dd>{{ $policy->adopted_on->format('j M Y') }}</dd></div>@endif
-                        @if($policy->in_force_on)<div class="flex justify-between gap-2"><dt class="text-brand-muted">In force</dt><dd>{{ $policy->in_force_on->format('j M Y') }}</dd></div>@endif
-                        @if($policy->applies_from)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Applies from</dt><dd>{{ $policy->applies_from->format('j M Y') }}</dd></div>@endif
-                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Review status</dt><dd>{{ $policy->reviewStatusEnum()->label() }}</dd></div>
-                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Source tier</dt><dd>{{ $policy->source_tier }}</dd></div>
-                    </dl>
-                </div>
-                <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" class="flex-col [&>*]:w-full" />
                 <x-site.subscribe-form source="policy" :topic="$policy->slug" :topic-label="$name" class="!pt-3 text-sm" compact />
                 @if(isset($risksAddressed) && $risksAddressed->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">AI risks this instrument addresses</p><ul class="mt-2 space-y-1.5">@foreach($risksAddressed as $d)<li><a href="{{ \App\Support\RiskTaxonomy::domainUrl($d['id']) }}" class="text-brand-body hover:underline">{{ $d['name'] }}</a> <span class="text-xs text-brand-muted">({{ $d['incidents'] ? number_format($d['incidents']).' recorded incidents' : 'no incidents classified' }})</span></li>@endforeach</ul><p class="meta mt-1">Mapped through the instrument's recorded use cases.</p></div>
                 @endif
-                @if($related->isNotEmpty())
                 @if($templates->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Templates built on this law</p><ul class="mt-2 space-y-1.5">@foreach($templates as $t)<li><a href="{{ \App\Services\Templates\TemplateCatalog::url($t['slug']) }}" class="text-brand-body hover:underline">{{ $t['title'] }}</a> <span class="text-xs text-brand-muted">({{ \App\Services\Templates\TemplateCatalog::formatList($t) }})</span></li>@endforeach</ul></div>
                 @endif
+                @if($related->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Related policies</p><ul class="mt-2 space-y-1.5">@foreach($related as $r)<li><a href="{{ $r->url() }}" class="text-brand-body hover:underline">{{ $r->short_title ?: $r->title }}</a> <span class="text-xs text-brand-muted">({{ $r->jurisdiction->short_name ?: $r->jurisdiction->name }})</span></li>@endforeach</ul></div>
                 @endif
                 @if($sameJurisdiction->isNotEmpty())

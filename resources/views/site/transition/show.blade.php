@@ -40,7 +40,7 @@
             @if($index)<div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Displacement policy index</p><p class="mt-1">{{ $measure->jurisdiction->name }}: <span class="font-mono">{{ $index->score }}/100</span> ({{ $index->quarter }}, v{{ $index->version }})</p><p class="mt-1 text-xs"><a href="{{ route('transition.methodology') }}" class="text-brand-blue">How it is computed</a></p></div>@endif
             @if($related->isNotEmpty())<section aria-labelledby="rel-heading"><h2 id="rel-heading" class="section-title">Related measures</h2><ul class="mt-2 space-y-1.5 text-sm">@foreach($related as $r)<li><a href="{{ $r->url() }}" class="text-brand-navy hover:underline">{{ $r->title }}</a> <span class="meta">{{ $r->typeLabel() }} · {{ $r->jurisdiction->name }}</span></li>@endforeach</ul></section>@endif
             <p class="text-sm"><a href="{{ route('transition.index') }}" class="text-brand-blue">All measures →</a> · <a href="{{ $measure->jurisdiction->url() }}" class="text-brand-blue">AI regulation in {{ $measure->jurisdiction->nameWithArticle() }}</a></p>
-            <x-site.correction-cta subject-type="transition_measure" :subject-slug="$measure->slug" :save-title="$measure->title" :save-url="$measure->url()" save-meta="Transition measure" class="flex-col [&>*]:w-full" />
+            <x-site.correction-cta subject-type="transition_measure" :subject-slug="$measure->slug" :save-title="$measure->title" :save-url="$measure->url()" save-meta="Transition measure" />
         </aside>
     </div>
 </div>
