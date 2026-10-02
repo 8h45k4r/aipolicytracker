@@ -101,12 +101,12 @@
 <footer class="mt-20 bg-brand-ink text-white/80">
     <div class="container-site py-12 grid gap-10 md:grid-cols-12 text-sm">
         <div class="md:col-span-4">
-            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" loading="lazy" decoding="async">
+            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" decoding="async">
             <p class="mt-4 max-w-sm text-white/80">{{ config('aipolicytracker.positioning') }}</p>
             <p class="mt-4 max-w-sm text-xs leading-5 text-white/60">{{ config('aipolicytracker.disclaimer') }}</p>
             <ul class="mt-5 flex items-center gap-3" aria-label="Follow AIPolicyTracker">
                 @foreach(config('aipolicytracker.social', []) as $social)
-                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-white/20 hover:ring-white/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-sm" loading="lazy"></a></li>
+                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-white/20 hover:ring-white/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-sm"></a></li>
                 @endforeach
             </ul>
         </div>
