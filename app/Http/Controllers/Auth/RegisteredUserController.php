@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Rules\NotDisposableEmail;
+use App\Services\Security\Turnstile;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,8 +32,11 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Turnstile $turnstile): RedirectResponse
     {
+        if ($turnstile->rejects($request)) {
+            return back()->withInput($request->except('password', 'password_confirmation'))->withErrors(['turnstile' => 'The automated check did not complete. Please wait a moment and try again.']);
+        }
 
         $validate = $request->validate([
             'name' => 'required|string|max:255',

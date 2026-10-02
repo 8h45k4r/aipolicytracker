@@ -39,6 +39,8 @@ class AppSettingsServiceProvider extends ServiceProvider
             'cloudflare_analytics_token' => 'aipolicytracker.cloudflare_analytics_token',
             'google_site_verification' => 'aipolicytracker.google_site_verification',
             'bing_site_verification' => 'aipolicytracker.bing_site_verification',
+            'turnstile_site_key' => 'services.turnstile.site_key',
+            'turnstile_secret_key' => 'services.turnstile.secret_key',
         ];
         foreach ($map as $key => $configKey) {
             $value = AppSetting::get($key);
