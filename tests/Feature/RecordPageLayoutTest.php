@@ -49,6 +49,16 @@ class RecordPageLayoutTest extends TestCase
         }
     }
 
+    public function test_a_page_shows_its_questions_once(): void
+    {
+        $this->artisan('templates:build');
+        foreach (['/templates', '/policies/eu-ai-act', '/glossary', '/methodology', route('guides.show', 'iso-42001-vs-eu-ai-act')] as $url) {
+            $html = $this->get($url)->assertOk()->getContent();
+            $this->assertLessThanOrEqual(1, substr_count($html, 'id="faq-heading"'), "{$url} prints its FAQ more than once");
+        }
+        $this->assertSame(1, substr_count($this->get('/templates')->getContent(), 'id="faq-heading"'));
+    }
+
     private function between(string $html, string $from, string $to): string
     {
         $start = strpos($html, $from);
