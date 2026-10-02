@@ -15,6 +15,6 @@
     <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-brand-muted">
         @if($change->policyInstrument)<a href="{{ $change->policyInstrument->url() }}" class="hover:text-brand-navy">{{ $change->policyInstrument->short_title ?: $change->policyInstrument->title }}</a>@endif
         @if($change->official_source_url)<a href="{{ $change->official_source_url }}" rel="noopener nofollow" class="text-brand-blue hover:underline" data-track="source_click">{{ $change->source_title ?: 'Official source' }}</a>@endif
-        <x-site.verified :record="$change" />
+        <x-site.verified :record="$change" compact />
     </div>
 </article>
