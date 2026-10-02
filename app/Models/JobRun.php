@@ -88,6 +88,21 @@ class JobRun extends Model
         return $run;
     }
 
+    /**
+     * Whether the scheduler runs this job at all. On-demand jobs never run on a schedule,
+     * and the throwaway-domain refresh only runs once an operator has named a list
+     * (routes/console.php), so an old failure of it is not a live problem.
+     */
+    public static function isScheduled(string $job): bool
+    {
+        $meta = self::JOBS[$job] ?? null;
+        if ($meta === null || $meta['schedule'] === 'On demand') {
+            return false;
+        }
+
+        return $job !== 'email_domains' || filled(config('email.overlay_source'));
+    }
+
     /** The latest run of every catalogued job, keyed by job. @return array<string, self|null> */
     public static function latest(): array
     {

@@ -23,6 +23,7 @@ use App\Models\Subscriber;
 use App\Models\TemplateDownloadRequest;
 use App\Models\Tool;
 use App\Models\User;
+use App\Services\Admin\Attention;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Security\Turnstile;
 use App\Support\Csv;
@@ -37,7 +38,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
-    public function dashboard(ExternalDataset $external): View
+    public function dashboard(Request $request, ExternalDataset $external, Attention $attentionService, Turnstile $turnstileService): View
     {
         $stats = [
             'jurisdictions' => Jurisdiction::published()->count(),
@@ -57,8 +58,10 @@ class AdminController extends Controller
         $aiid = $external->aiid();
         $stats['controls'] = Control::published()->count();
         $jobs = JobRun::latest();
+        $attention = $attentionService->items($request->user(), $jobs);
+        $turnstile = $turnstileService->configured();
 
-        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs'));
+        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs', 'attention', 'turnstile'));
     }
 
     /** Guides & downloads: registered users, download activity and the most requested free tools. */
