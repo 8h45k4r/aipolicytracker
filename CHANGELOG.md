@@ -5,6 +5,25 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Site-wide search at `/search` (noindex): jurisdictions, laws, obligations, controls, templates, guides, glossary terms and changes, grouped, title matches first. A search field in the header on wide screens, an icon below that, a labelled Search button beside Menu on phones, and a search field at the top of the mobile menu. The site's `SearchAction` points at it.
+- A hub page per navigation group (`/explore/{group}`) listing every page in that group under its section heading.
+- Dark mode following the system setting (`prefers-color-scheme`), with charts, the world map, the paginator and heat maps given dark palettes; the admin is unchanged.
+- Cloudflare Turnstile keys can be set in Admin → Settings → Bot protection, with a button that checks the secret with Cloudflare; the check also runs on the contribute, subscribe and sign-up forms.
+- Five templates (South Korea AI Basic Act checklist, Texas TRAIGA checklist, US state AI law matrix, public-sector AI use-case inventory, synthetic content labelling plan; 41 in all), landing pages per framework and per document type, and eight guides grounded in the records.
+
+### Changed
+- Menus show five to seven entries per group, then a link to the group's hub, instead of 60 links in six panels. Jurisdictions is its own group; Frameworks moved under Guides.
+- Record pages: Save and Follow are the two buttons; Copy link, Share, Report a correction and How we verify are text links. On a policy page the actions sit in the header and the sidebar's *At a glance* card, which repeated the key facts table's dates, is gone.
+- Listings: active filters are named chips above the results (one per value, each removing only itself, with *Clear all*), the result line reads "12 of 187 instruments match", and every filter option shows how many results it would give with the other filters as they are.
+- Lists show one compact verification mark (a check, *Verified* and the date); the full line and the reviewer are in the tooltip and on the record page.
+- On phones the law-to-evidence strip on the home page is one line per step and the hero is shorter, so the latest updates start about one and a half screens down.
+- Template pages open with an answer and a how-to, and carry `ItemPage` with a `DigitalDocument` main entity.
+
+### Fixed
+- Pages whose view placed its own FAQ (templates, policies, guides, landing and hub pages and others) printed the questions twice, because the layout printed them as well. The layout now adds them only when the view has not.
+- EU AI Act: Article 50(2), 50(3) and 50(4) apply from 2 August 2026, as the record states; an earlier batch had moved them with the high-risk duties.
+- A policy page's *Templates built on this law* block no longer disappears when the policy has no related policies.
+
 - User management: a page per account (capabilities and where they come from, sign-in, invitation and role history, changes made to and by it), invitations by email with a role and a week-long set-password link, bulk role, suspend, restore, verification and delete, last sign-in, access-review filters (admins without a second factor, dormant admins, pending invitations), sorting and CSV export.
 - Editable role permissions: owners edit the role × capability matrix, with defaults in code, a reset per role and password confirmation. Settings, billing and user management can never be given to a role.
 - A glossary (`/glossary`) of 22 sourced AI governance terms plus the defined vocabulary, one anchor and one `DefinedTerm` per term.

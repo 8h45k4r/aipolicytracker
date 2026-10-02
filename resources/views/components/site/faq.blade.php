@@ -1,5 +1,7 @@
 @props(['items', 'title' => 'Frequently asked questions'])
 @if(!empty($items))
+{{-- Marks the request so the layout does not print the same questions a second time. --}}
+@php(request()->attributes->set('faq.rendered', true))
 <section aria-labelledby="faq-heading" class="mt-10">
     <h2 id="faq-heading" class="section-title">{{ $title }}</h2>
     <dl class="mt-3 divide-y divide-brand-line border-y border-brand-line">

@@ -102,9 +102,9 @@
 
 <main id="main" class="flex-1" tabindex="-1">
     @yield('content')
-    @if($seo->faqItems())
-        {{-- Rendered here rather than per view, so every page that declares questions shows
-             them in the same place and the markup always matches what a visitor can read. --}}
+    @if($seo->faqItems() && ! request()->attributes->get('faq.rendered'))
+        {{-- Rendered here unless the view already placed them, so every page that declares questions shows
+             them, once, and the markup always matches what a visitor can read. --}}
         <div class="container-site pb-14"><x-site.faq :items="$seo->faqItems()" /></div>
     @endif
 </main>
