@@ -51,6 +51,27 @@
         </div>
     </div>
     @endforeach
+    <h2 class="section-title !text-lg pt-2" id="turnstile">Bot protection (Cloudflare Turnstile)</h2>
+    <p class="text-sm text-brand-body">
+        Turnstile adds an invisible human check to the template download, contribute, subscribe and sign-up forms.
+        Create a widget in the Cloudflare dashboard (Turnstile → Add widget, mode <strong>Managed</strong>, hostname <code class="font-mono text-xs">{{ parse_url(config('app.url'), PHP_URL_HOST) }}</code>), then paste both keys here.
+        @switch($turnstile->source())
+            @case('settings')<span class="text-state-good">Active, using the keys saved here.</span>@break
+            @case('environment')<span class="text-state-good">Active, using TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY from the environment.</span>@break
+            @default<span class="text-state-warn">Not configured: the forms rely on the honeypot, the email checks and rate limits only.</span>
+        @endswitch
+    </p>
+    @foreach(['turnstile_site_key', 'turnstile_secret_key'] as $key)
+    @php($v = $values[$key])
+    <div class="grid gap-1 sm:grid-cols-12 sm:gap-4 items-start">
+        <label for="f-{{ $key }}" class="label sm:col-span-3 sm:pt-2">{{ $v['meta']['label'] }}</label>
+        <div class="sm:col-span-9">
+            <input id="f-{{ $key }}" name="{{ $key }}" type="{{ $v['meta']['secret'] ? 'password' : 'text' }}" class="input font-mono" autocomplete="off" spellcheck="false" placeholder="{{ $v['meta']['secret'] ? ($v['set'] ? 'Stored: '.$v['display'] : 'Not set') : ($v['display'] ?: 'Not set') }}">
+            <p class="meta mt-1">{{ $v['meta']['hint'] }}@if($v['env']) · environment: {{ $v['env'] }}@endif @if($v['set'])<label class="ml-2"><input type="checkbox" name="clear[]" value="{{ $key }}"> clear stored value</label>@endif</p>
+        </div>
+    </div>
+    @endforeach
+    @if($turnstile->configured())<div><button type="submit" form="turnstile-check" class="btn-secondary !min-h-0 !py-1.5 text-sm">Check the keys with Cloudflare</button></div>@endif
     <h2 class="section-title !text-lg pt-2">Site and features</h2>
     <p class="text-sm text-brand-body">Each value overrides the environment variable of the same meaning; an empty field keeps the environment value. Switches take effect on the next request.</p>
     @foreach(['contact_email', 'x_handle', 'newsletter_url', 'google_analytics_id', 'cloudflare_analytics_token', 'analytics_require_consent', 'social_cards_enabled', 'email_domain_enforcement', 'stale_after_days', 'google_site_verification', 'bing_site_verification'] as $key)
@@ -69,6 +90,7 @@
     @endforeach
     <div class="flex gap-2"><button type="submit" class="btn-primary">Save settings</button></div>
 </form>
+<form method="post" action="{{ route('backend.admin.settings.turnstile') }}" id="turnstile-check" class="hidden">@csrf</form>
 <form method="post" action="{{ route('backend.admin.settings.test') }}" class="mt-6 card-flat p-5 flex flex-wrap items-end gap-3">@csrf
     <div class="flex-1 min-w-[240px]"><label for="test-to" class="label">Send a test message to</label><input id="test-to" name="to" type="email" class="input" value="{{ auth()->user()->email }}"></div>
     <button type="submit" class="btn-secondary">Send test</button>

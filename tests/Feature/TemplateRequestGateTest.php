@@ -79,7 +79,7 @@ class TemplateRequestGateTest extends TestCase
 
         $this->post('/templates/ai-risk-register/request', $this->form(['cf-turnstile-response' => 'good']))->assertSessionHasNoErrors();
         $this->assertSame(1, TemplateDownloadRequest::count());
-        $this->assertStringContainsString('class="cf-turnstile"', $this->get('/templates/ai-risk-register')->getContent());
+        $this->assertStringContainsString('data-turnstile-slot data-sitekey="site"', $this->get('/templates/ai-risk-register')->getContent());
     }
 
     public function test_a_honeypot_submission_looks_accepted_and_does_nothing(): void
