@@ -1,5 +1,7 @@
 {{-- Shared filter form for policies and obligations. $mode = 'policies' | 'obligations' --}}
 @php($action = $mode === 'policies' ? route('policies.index') : route('obligations.index'))
+{{-- Each option carries how many results it would give with the other filters as they are. --}}
+@php($n = fn (string $facet, $value) => isset($facets[$facet]) ? ' ('.number_format($facets[$facet][(string) $value] ?? 0).')' : '')
 <form action="{{ $action }}" method="get" data-autosubmit class="space-y-4" aria-label="Filters">
     <div>
         <label for="f-q" class="label">Keyword</label>
@@ -9,47 +11,47 @@
         <label for="f-jurisdiction" class="label">Jurisdiction</label>
         <select id="f-jurisdiction" name="jurisdiction" class="input">
             <option value="">All</option>
-            @foreach($options['jurisdictions'] as $j)<option value="{{ $j->slug }}" @selected(($filters['jurisdiction'] ?? '') === $j->slug)>{{ $j->name }}</option>@endforeach
+            @foreach($options['jurisdictions'] as $j)<option value="{{ $j->slug }}" @selected(($filters['jurisdiction'] ?? '') === $j->slug)>{{ $j->name }}{{ $n('jurisdiction', $j->slug) }}</option>@endforeach
         </select>
     </div>
     @if($mode === 'policies')
     <div>
         <label for="f-region" class="label">Region</label>
-        <select id="f-region" name="region" class="input"><option value="">All</option>@foreach($options['regions'] as $r)<option value="{{ $r }}" @selected(($filters['region'] ?? '') === $r)>{{ $r }}</option>@endforeach</select>
+        <select id="f-region" name="region" class="input"><option value="">All</option>@foreach($options['regions'] as $r)<option value="{{ $r }}" @selected(($filters['region'] ?? '') === $r)>{{ $r }}{{ $n('region', $r) }}</option>@endforeach</select>
     </div>
     <div>
         <label for="f-status" class="label">Status</label>
-        <select id="f-status" name="status" class="input"><option value="">All</option>@foreach($options['statuses'] as $s)<option value="{{ $s->value }}" @selected(($filters['status'] ?? '') === $s->value)>{{ $s->label() }}</option>@endforeach</select>
+        <select id="f-status" name="status" class="input"><option value="">All</option>@foreach($options['statuses'] as $s)<option value="{{ $s->value }}" @selected(($filters['status'] ?? '') === $s->value)>{{ $s->label() }}{{ $n('status', $s->value) }}</option>@endforeach</select>
     </div>
     <div>
         <label for="f-type" class="label">Instrument type</label>
-        <select id="f-type" name="type" class="input"><option value="">All</option>@foreach($options['types'] as $t)<option value="{{ $t->value }}" @selected(($filters['type'] ?? '') === $t->value)>{{ $t->label() }}</option>@endforeach</select>
+        <select id="f-type" name="type" class="input"><option value="">All</option>@foreach($options['types'] as $t)<option value="{{ $t->value }}" @selected(($filters['type'] ?? '') === $t->value)>{{ $t->label() }}{{ $n('type', $t->value) }}</option>@endforeach</select>
     </div>
     <div>
         <label for="f-risk" class="label">Risk category</label>
-        <select id="f-risk" name="risk" class="input"><option value="">All</option>@foreach($options['risks'] as $t)<option value="{{ $t->slug }}" @selected(($filters['risk'] ?? '') === $t->slug)>{{ $t->name }}</option>@endforeach</select>
+        <select id="f-risk" name="risk" class="input"><option value="">All</option>@foreach($options['risks'] as $t)<option value="{{ $t->slug }}" @selected(($filters['risk'] ?? '') === $t->slug)>{{ $t->name }}{{ $n('risk', $t->slug) }}</option>@endforeach</select>
     </div>
     @else
     <div>
         <label for="f-category" class="label">Obligation category</label>
-        <select id="f-category" name="category" class="input"><option value="">All</option>@foreach($options['categories'] as $t)<option value="{{ $t->slug }}" @selected(($filters['category'] ?? '') === $t->slug)>{{ $t->name }}</option>@endforeach</select>
+        <select id="f-category" name="category" class="input"><option value="">All</option>@foreach($options['categories'] as $t)<option value="{{ $t->slug }}" @selected(($filters['category'] ?? '') === $t->slug)>{{ $t->name }}{{ $n('category', $t->slug) }}</option>@endforeach</select>
     </div>
     @endif
     <div>
         <label for="f-sector" class="label">Sector</label>
-        <select id="f-sector" name="sector" class="input"><option value="">All</option>@foreach($options['sectors'] as $t)<option value="{{ $t->slug }}" @selected(($filters['sector'] ?? '') === $t->slug)>{{ $t->name }}</option>@endforeach</select>
+        <select id="f-sector" name="sector" class="input"><option value="">All</option>@foreach($options['sectors'] as $t)<option value="{{ $t->slug }}" @selected(($filters['sector'] ?? '') === $t->slug)>{{ $t->name }}{{ $n('sector', $t->slug) }}</option>@endforeach</select>
     </div>
     <div>
         <label for="f-use-case" class="label">AI use case</label>
-        <select id="f-use-case" name="use_case" class="input"><option value="">All</option>@foreach($options['use_cases'] as $t)<option value="{{ $t->slug }}" @selected(($filters['use_case'] ?? '') === $t->slug)>{{ $t->name }}</option>@endforeach</select>
+        <select id="f-use-case" name="use_case" class="input"><option value="">All</option>@foreach($options['use_cases'] as $t)<option value="{{ $t->slug }}" @selected(($filters['use_case'] ?? '') === $t->slug)>{{ $t->name }}{{ $n('use_case', $t->slug) }}</option>@endforeach</select>
     </div>
     <div>
         <label for="f-actor" class="label">Actor</label>
-        <select id="f-actor" name="actor" class="input"><option value="">All</option>@foreach($options['actors'] as $t)<option value="{{ $t->slug }}" @selected(($filters['actor'] ?? '') === $t->slug)>{{ $t->name }}</option>@endforeach</select>
+        <select id="f-actor" name="actor" class="input"><option value="">All</option>@foreach($options['actors'] as $t)<option value="{{ $t->slug }}" @selected(($filters['actor'] ?? '') === $t->slug)>{{ $t->name }}{{ $n('actor', $t->slug) }}</option>@endforeach</select>
     </div>
     <div>
         <label for="f-binding" class="label">Binding</label>
-        <select id="f-binding" name="binding" class="input"><option value="">Legal and voluntary</option><option value="yes" @selected(($filters['binding'] ?? '') === 'yes')>Legal requirements only</option><option value="no" @selected(($filters['binding'] ?? '') === 'no')>Voluntary guidance only</option></select>
+        <select id="f-binding" name="binding" class="input"><option value="">Legal and voluntary</option><option value="yes" @selected(($filters['binding'] ?? '') === 'yes')>Legal requirements only{{ $n('binding', 'yes') }}</option><option value="no" @selected(($filters['binding'] ?? '') === 'no')>Voluntary guidance only{{ $n('binding', 'no') }}</option></select>
     </div>
     @if($mode === 'policies')
     <div class="grid grid-cols-2 gap-2">

@@ -48,7 +48,11 @@ class ObligationController extends Controller
                 'mainEntity' => Seo::itemList($obligations->getCollection(), fn ($o) => $o->title, fn ($o) => $o->url(), 'AI obligations'),
             ]);
 
-        return view('site.obligations.index', compact('seo', 'obligations', 'filters', 'options'));
+        $facets = $catalog->facetCounts($filters, 'obligations');
+        $chips = $catalog->activeFilters($filters, $options, $request);
+        $total = $chips === [] ? $obligations->total() : $catalog->obligationQuery([])->count();
+
+        return view('site.obligations.index', compact('seo', 'obligations', 'filters', 'options', 'facets', 'chips', 'total'));
     }
 
     public function show(Obligation $obligation): View
