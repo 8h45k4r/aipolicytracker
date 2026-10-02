@@ -10,7 +10,8 @@
  tailwind.config.js.
 */
 /*
- Dark mode follows the reader's system setting. Every colour is a variable of RGB
+ Dark mode follows the reader's system setting, except on pages that pin the light
+ scheme with <html data-scheme="light"> (the admin). Every colour is a variable of RGB
  channels (tailwind.config.js); the light values are the fallbacks there, and only
  this block changes them. The palette inverts: surfaces go dark, navy text and
  navy buttons go light, so white text on a navy button stays legible. The footer
@@ -25,7 +26,7 @@
     --c-heat: 0 33 71;
 }
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-scheme="light"]) {
         color-scheme: dark;
         --c-white: 13 20 32;
         --c-navy: 228 236 246;
@@ -59,8 +60,8 @@
         html { scroll-behavior: auto; }
         *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
-    html { @apply overflow-x-hidden; }
-    body { @apply bg-white text-brand-body antialiased font-sans overflow-x-hidden; font-feature-settings: "kern", "liga", "calt"; }
+    html { overflow-x: clip; }
+    body { @apply bg-white text-brand-body antialiased font-sans; overflow-x: clip; font-feature-settings: "kern", "liga", "calt"; }
     h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
     h1 { @apply text-balance; }
     a { @apply text-brand-blue underline-offset-[3px] decoration-brand-line hover:decoration-brand-blue; }
@@ -179,26 +180,26 @@
 /* Inline SVG charts carry the light palette as attributes; in dark mode the brand
    hues are remapped so bars, axes and labels stay visible on the dark surface. */
 @media (prefers-color-scheme: dark) {
-    svg [fill="#002147" i] { fill: rgb(var(--c-navy)); }
-    svg [stroke="#002147" i] { stroke: rgb(var(--c-navy)); }
-    svg [fill="#5D6B7E" i] { fill: rgb(var(--c-muted)); }
-    svg [stroke="#D8DEE8" i] { stroke: rgb(var(--c-line)); }
-    svg [fill="#D8DEE8" i] { fill: rgb(var(--c-line)); }
-    svg [fill="#006AAC" i] { fill: rgb(var(--c-blue)); }
-    svg [fill="#0B6B4F" i] { fill: rgb(var(--c-good)); }
-    svg [fill="#9B1C2E" i] { fill: rgb(var(--c-bad)); }
-    svg [fill="#7A4B00" i] { fill: rgb(var(--c-warn)); }
-    svg [fill="#ffffff" i], svg [fill="#fff" i], svg [fill="white" i] { fill: rgb(var(--c-white)); }
+    :root:not([data-scheme="light"]) svg [fill="#002147" i] { fill: rgb(var(--c-navy)); }
+    :root:not([data-scheme="light"]) svg [stroke="#002147" i] { stroke: rgb(var(--c-navy)); }
+    :root:not([data-scheme="light"]) svg [fill="#5D6B7E" i] { fill: rgb(var(--c-muted)); }
+    :root:not([data-scheme="light"]) svg [stroke="#D8DEE8" i] { stroke: rgb(var(--c-line)); }
+    :root:not([data-scheme="light"]) svg [fill="#D8DEE8" i] { fill: rgb(var(--c-line)); }
+    :root:not([data-scheme="light"]) svg [fill="#006AAC" i] { fill: rgb(var(--c-blue)); }
+    :root:not([data-scheme="light"]) svg [fill="#0B6B4F" i] { fill: rgb(var(--c-good)); }
+    :root:not([data-scheme="light"]) svg [fill="#9B1C2E" i] { fill: rgb(var(--c-bad)); }
+    :root:not([data-scheme="light"]) svg [fill="#7A4B00" i] { fill: rgb(var(--c-warn)); }
+    :root:not([data-scheme="light"]) svg [fill="#ffffff" i], :root:not([data-scheme="light"]) svg [fill="#fff" i], :root:not([data-scheme="light"]) svg [fill="white" i] { fill: rgb(var(--c-white)); }
     /* The world map legend: the same inverted scale as world-map.js. */
-    .map-swatch-in_force { background: #e4ecf6 !important; }
-    .map-swatch-binding { background: #78baf0 !important; }
-    .map-swatch-guidance { background: #34618a !important; }
-    .map-swatch-none { background: #1f2a3b !important; box-shadow: inset 0 0 0 1px rgb(var(--c-line)); }
+    :root:not([data-scheme="light"]) .map-swatch-in_force { background: #e4ecf6 !important; }
+    :root:not([data-scheme="light"]) .map-swatch-binding { background: #78baf0 !important; }
+    :root:not([data-scheme="light"]) .map-swatch-guidance { background: #34618a !important; }
+    :root:not([data-scheme="light"]) .map-swatch-none { background: #1f2a3b !important; box-shadow: inset 0 0 0 1px rgb(var(--c-line)); }
     /* Laravel's default paginator is styled with grey utilities; give it the page's tokens. */
-    nav[role="navigation"] .text-gray-700, nav[role="navigation"] .text-gray-800 { color: rgb(var(--c-body)); }
-    nav[role="navigation"] .text-gray-500, nav[role="navigation"] .text-gray-400 { color: rgb(var(--c-muted)); }
-    nav[role="navigation"] .border-gray-300 { border-color: rgb(var(--c-line)); }
-    nav[role="navigation"] .bg-gray-100, nav[role="navigation"] .hover\:bg-gray-100:hover { background-color: rgb(var(--c-paper)); }
-    .heat-mid, .heat-hi { color: rgb(var(--c-navy)); }
-    nav[role="navigation"] .bg-gray-200 { background-color: rgb(var(--c-navy)); color: rgb(var(--c-white)); border-color: rgb(var(--c-navy)); }
+    :root:not([data-scheme="light"]) nav[role="navigation"] .text-gray-700, :root:not([data-scheme="light"]) nav[role="navigation"] .text-gray-800 { color: rgb(var(--c-body)); }
+    :root:not([data-scheme="light"]) nav[role="navigation"] .text-gray-500, :root:not([data-scheme="light"]) nav[role="navigation"] .text-gray-400 { color: rgb(var(--c-muted)); }
+    :root:not([data-scheme="light"]) nav[role="navigation"] .border-gray-300 { border-color: rgb(var(--c-line)); }
+    :root:not([data-scheme="light"]) nav[role="navigation"] .bg-gray-100, :root:not([data-scheme="light"]) nav[role="navigation"] .hover\:bg-gray-100:hover { background-color: rgb(var(--c-paper)); }
+    :root:not([data-scheme="light"]) .heat-mid, :root:not([data-scheme="light"]) .heat-hi { color: rgb(var(--c-navy)); }
+    :root:not([data-scheme="light"]) nav[role="navigation"] .bg-gray-200 { background-color: rgb(var(--c-navy)); color: rgb(var(--c-white)); border-color: rgb(var(--c-navy)); }
 }

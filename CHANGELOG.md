@@ -12,6 +12,8 @@ All notable changes to this project are documented here. The format follows [Kee
 - Five templates (South Korea AI Basic Act checklist, Texas TRAIGA checklist, US state AI law matrix, public-sector AI use-case inventory, synthetic content labelling plan; 41 in all), landing pages per framework and per document type, and eight guides grounded in the records.
 
 ### Changed
+- Admin: the sidebar stays in view while the page scrolls, is grouped (Overview, Content, Audience, Operations, Administration, Your account), has a *Go to* filter (press `/`) and collapses behind a Menu button on phones. The dashboard opens with *Needs attention*: failed jobs, email not sending, admins without a second factor, submissions waiting, stale records, bot protection off, jobs that never ran and unconfirmed subscribers, most serious first and only for accounts that can act on them. Four key figures, system health and the latest submissions follow. The admin stays light when the system is dark.
+- The throwaway-domain refresh is shown as off, not failed, while no list source is set, so an old failure of it no longer reads as a live problem.
 - Menus show five to seven entries per group, then a link to the group's hub, instead of 60 links in six panels. Jurisdictions is its own group; Frameworks moved under Guides.
 - Record pages: Save and Follow are the two buttons; Copy link, Share, Report a correction and How we verify are text links. On a policy page the actions sit in the header and the sidebar's *At a glance* card, which repeated the key facts table's dates, is gone.
 - Listings: active filters are named chips above the results (one per value, each removing only itself, with *Clear all*), the result line reads "12 of 187 instruments match", and every filter option shows how many results it would give with the other filters as they are.
@@ -20,6 +22,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Template pages open with an answer and a how-to, and carry `ItemPage` with a `DigitalDocument` main entity.
 
 ### Fixed
+- Sticky elements (the admin sidebar, record-page sidebars) did not stick, because `overflow-x: hidden` on the page made the body its own scroll container; it is `clip` now.
 - Pages whose view placed its own FAQ (templates, policies, guides, landing and hub pages and others) printed the questions twice, because the layout printed them as well. The layout now adds them only when the view has not.
 - EU AI Act: Article 50(2), 50(3) and 50(4) apply from 2 August 2026, as the record states; an earlier batch had moved them with the high-risk duties.
 - A policy page's *Templates built on this law* block no longer disappears when the policy has no related policies.
