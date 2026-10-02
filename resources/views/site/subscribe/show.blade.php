@@ -11,7 +11,7 @@
             <form method="post" action="{{ route('subscribe.store') }}" class="mt-8 card-flat p-4 sm:p-6 space-y-5" aria-label="Subscribe to the weekly digest">
                 @csrf
                 <input type="hidden" name="source" value="subscribe-page">
-                <input type="text" name="website" value="" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+                <div class="hidden" aria-hidden="true"><label for="sub-website-page">Website</label><input id="sub-website-page" type="text" name="website" value="" tabindex="-1" autocomplete="off"></div>
                 @if(session('success'))<p class="rounded-sm border border-state-good/30 bg-state-goodbg p-3 text-sm text-state-good" role="status">{{ session('success') }}</p>@endif
                 @if($errors->any())<div class="rounded-sm border border-state-bad/30 bg-state-badbg p-3 text-sm text-state-bad" role="alert"><ul class="list-disc pl-5">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
                 <div>

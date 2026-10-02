@@ -106,7 +106,7 @@ class PublicSiteTest extends TestCase
             ->assertSee('EU AI Act: requirements, deadlines and compliance actions')
             ->assertSee('https://eur-lex.europa.eu/eli/reg/2024/1689/oj')
             ->assertSee('Source-linked')
-            ->assertSee('Informational only, not legal advice')
+            ->assertSee('Disclaimer: informational only, not legal advice')
             ->assertSee('<link rel="canonical" href="'.url('/policies/eu-ai-act').'"', false)
             ->assertSee('"@type":"BreadcrumbList"', false);
         // The verification state is asserted against the record rather than a literal. Pinning
@@ -385,7 +385,7 @@ class PublicSiteTest extends TestCase
 
     public function test_home_persona_paths_and_policy_risk_crosswalk_render(): void
     {
-        $this->get('/')->assertOk()->assertSee('Start from who you are')->assertSee('Compliance or CISO')->assertSee(route('tools.applicability'))->assertSee(route('controls.index'))->assertSee(route('audiences.show', 'deployers'));
+        $this->get('/')->assertOk()->assertSee('Where should you start?')->assertSee('Compliance or CISO')->assertSee(route('tools.applicability'))->assertSee(route('controls.index'))->assertSee(route('audiences.show', 'deployers'));
         $this->get('/policies/eu-ai-act')->assertOk()->assertSee('AI risks this instrument addresses')->assertSee(RiskTaxonomy::domainUrl(1));
     }
 

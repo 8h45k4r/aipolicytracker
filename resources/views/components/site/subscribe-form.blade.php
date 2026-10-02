@@ -6,7 +6,7 @@
     @csrf
     <input type="hidden" name="source" value="{{ $source }}">
     @if($topic)<input type="hidden" name="topics[]" value="{{ $topic }}">@endif
-    <input type="text" name="website" value="" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+    <div class="hidden" aria-hidden="true"><label for="sub-website-{{ $source }}">Website</label><input id="sub-website-{{ $source }}" type="text" name="website" value="" tabindex="-1" autocomplete="off"></div>
     <p class="eyebrow">{{ $topic ? 'Follow by email' : 'Weekly digest' }}</p>
     <p class="mt-1 text-sm text-brand-body">{{ $topic ? 'Get every dated, source-linked change to '.($topicLabel ?: 'this jurisdiction').' in a weekly email.' : 'Dated, source-linked AI policy changes and upcoming application dates, once a week. No marketing.' }}</p>
     @if(session('success'))<p class="mt-2 text-sm text-state-good" role="status">{{ session('success') }}</p>@endif
