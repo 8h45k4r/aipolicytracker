@@ -7,7 +7,7 @@
         <div class="lg:col-span-8">
             <p class="eyebrow">AI governance intelligence</p>
             <h1 class="mt-3 font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] font-semibold text-brand-navy max-w-[18ch]">From regulation to evidence.</h1>
-            <p class="mt-5 max-w-[60ch] text-lg leading-8 text-brand-body">Track AI regulations and obligations, connect them to governance controls, risks and evidence, with every claim traceable to its source.</p>
+            <p class="mt-5 max-w-[60ch] text-lg leading-8 text-brand-body">Track AI regulations and obligations. Connect them to governance controls, risks and evidence. Every claim links to its source.</p>
             <p class="mt-2 max-w-[60ch] text-sm text-brand-muted"><span class="font-medium text-brand-navy">AI policy, verified at the source.</span> Every record links its official text and states when a person last checked it.</p>
             <form action="{{ route('policies.index') }}" method="get" role="search" class="mt-8 max-w-2xl" data-track="home_search">
                 <label for="home-q" class="sr-only">Search AI policies</label>
@@ -41,9 +41,10 @@
 </section>
 
 <div class="container-site py-12 grid gap-12 lg:grid-cols-12">
-    <x-site.latest-updates class="lg:col-span-8" :changes="$changes" title="Latest AI policy updates" :limit="6" />
+    <x-site.latest-updates class="lg:col-span-8" :changes="$changes" title="Latest AI policy updates" :limit="6" intro="The six most recent dated changes to AI laws and guidance, each linked to the record it changed and to its official source." />
     <aside class="lg:col-span-4" aria-labelledby="deadlines-heading">
-        <div class="rule-strong pt-3"><h2 id="deadlines-heading" class="section-title">Upcoming dates</h2></div>
+        <div class="rule-strong pt-3"><h2 id="deadlines-heading" class="section-title">Which dates are coming up?</h2></div>
+        <p class="mt-2 text-sm text-brand-body">The next application and compliance dates on record, each with the instrument it belongs to.</p>
         <ul class="mt-2 divide-y divide-brand-line">
             @forelse($deadlines as $d)
             <li class="py-3 text-sm">
@@ -55,6 +56,7 @@
         </ul>
         @if(!empty($latestIncidents) && $latestIncidents->isNotEmpty())
         <div class="rule-strong pt-3 mt-8 flex items-baseline justify-between"><h2 class="section-title">Latest AI incidents</h2><a href="{{ route('risk.incidents.browse') }}" class="text-sm">Browse all</a></div>
+        <p class="mt-2 text-sm text-brand-body">The most recent incidents from the AI Incident Database, which this site syncs every day.</p>
         <ul class="mt-2 divide-y divide-brand-line">
             @foreach($latestIncidents as $i)<li class="py-3 text-sm"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><div class="mt-0.5"><a href="{{ $i->url() }}" class="text-brand-navy no-underline hover:underline font-medium">{{ $i->displayTitle() }}</a></div><div class="meta mt-0.5">{{ $i->mit_domain ?: 'Unclassified' }}</div></li>@endforeach
         </ul>
@@ -66,18 +68,18 @@
 
 <section class="container-site py-8" aria-labelledby="audience-heading">
     <div class="flex items-baseline justify-between rule-strong pt-3">
-        <h2 id="audience-heading" class="section-title">Start from who you are</h2>
+        <h2 id="audience-heading" class="section-title">Where should you start?</h2>
         <a href="{{ route('audiences.index') }}" class="text-sm">All roles, sectors and use cases</a>
     </div>
-    <p class="mt-2 max-w-[64ch] text-sm text-brand-body">Every recorded duty that names your situation, the controls that meet them and the evidence a reviewer would expect. Generated from the records, so it moves when they do.</p>
+    <p class="mt-2 max-w-[64ch] text-sm text-brand-body">Start from your role, sector or use case. Each page lists every recorded duty that names your situation, the controls that meet them and the evidence a reviewer would expect. It is generated from the records, so it moves when they do.</p>
     <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         @foreach(collect($audiences)->sortByDesc('duties')->take(8) as $a)
-        <li><a href="{{ route('audiences.show', $a['slug']) }}" class="card-link block p-4 no-underline h-full"><p class="eyebrow !text-brand-muted">{{ ['actor' => 'Role', 'sector' => 'Sector', 'use_case' => 'Use case'][$a['taxonomy']] ?? '' }}</p><p class="mt-1 font-semibold text-brand-navy leading-snug">{{ $a['h1'] }}</p><p class="mt-2 font-mono text-xs tabular-nums text-brand-muted">{{ $a['duties'] }} recorded {{ \Illuminate\Support\Str::plural('duty', $a['duties']) }}</p></a></li>
+        <li class="card-link p-4 h-full"><p class="eyebrow !text-brand-muted">{{ ['actor' => 'Role', 'sector' => 'Sector', 'use_case' => 'Use case'][$a['taxonomy']] ?? '' }}</p><p class="mt-1 font-semibold leading-snug"><a href="{{ route('audiences.show', $a['slug']) }}" class="text-brand-navy no-underline hover:underline">{{ $a['h1'] }}</a></p><p class="mt-2 font-mono text-xs tabular-nums text-brand-muted">{{ $a['duties'] }} recorded {{ \Illuminate\Support\Str::plural('duty', $a['duties']) }}</p></li>
         @endforeach
     </ul>
     <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5 text-sm">
         @foreach([['Compliance or CISO', 'Which controls meet which duties, and the evidence to keep.', route('controls.index')], ['Researcher', 'Incidents, risk taxonomy and exports with citation.', route('risk.index')], ['Policymaker', 'Compare jurisdictions and track dated changes.', route('compare.index')], ['Civil society or journalist', 'Who is harmed, who deploys, where rules are missing.', route('risk.index').'#gap-heading'], ['Founder or product lead', 'Screen applicability, then a 90-day readiness path.', route('tools.applicability')]] as [$who, $what, $href])
-        <a href="{{ $href }}" class="card-link p-4 no-underline"><p class="font-semibold text-brand-navy">{{ $who }}</p><p class="mt-1 text-brand-body">{{ $what }}</p></a>
+        <div class="card-link p-4"><p class="font-semibold"><a href="{{ $href }}" class="text-brand-navy no-underline hover:underline">{{ $who }}</a></p><p class="mt-1 text-brand-body">{{ $what }}</p></div>
         @endforeach
     </div>
 </section>
@@ -86,6 +88,7 @@
         <h2 id="jurisdictions-heading" class="section-title">Jurisdictions</h2>
         <a href="{{ route('jurisdictions.index') }}" class="text-sm">All jurisdictions</a>
     </div>
+    <p class="mt-2 max-w-[64ch] text-sm text-brand-body">The jurisdictions the editors feature, each with its region, the number of instruments on record and a summary of where its AI rules stand.</p>
     <ul class="mt-2 divide-y divide-brand-line">
         @foreach($jurisdictions as $j)
         <li class="grid gap-1 py-3 sm:grid-cols-12 sm:gap-6 text-sm">
@@ -98,13 +101,15 @@
 
 <section class="container-site py-10" aria-labelledby="featured-heading">
     <div class="rule-strong pt-3"><h2 id="featured-heading" class="section-title">Key instruments</h2></div>
+    <p class="mt-2 max-w-[64ch] text-sm text-brand-body">The instruments the editors feature, each with its status, whether it binds, when a person last checked it and a link to its official text.</p>
     <div class="mt-2 divide-y divide-brand-line border-b border-brand-line">
         @foreach($featuredPolicies as $p)<x-site.policy-row :policy="$p" />@endforeach
     </div>
 </section>
 
 <section class="container-site py-4" aria-labelledby="tools-heading">
-    <div class="rule-strong pt-3"><h2 id="tools-heading" class="section-title">Tools</h2></div>
+    <div class="rule-strong pt-3"><h2 id="tools-heading" class="section-title">What can you do with the records?</h2></div>
+    <p class="mt-2 max-w-[64ch] text-sm text-brand-body">Four tools built on the same records: map controls to duties, screen which rules may apply to you, compare jurisdictions side by side, and take the data away.</p>
     <ul class="mt-2 grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-brand-line border-b border-brand-line text-sm">
         <li class="py-4 sm:pr-6"><a href="{{ route('controls.index') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Controls and evidence</a><p class="mt-1 text-brand-body">One control, every duty it serves, and the evidence that shows it is operating.</p></li>
         <li class="py-4 sm:px-6"><a href="{{ route('tools.applicability') }}" class="font-display text-lg text-brand-navy no-underline hover:underline">Applicability check</a><p class="mt-1 text-brand-body">Educational screening of which policies and obligations may be relevant. Not legal advice.</p></li>

@@ -26,7 +26,7 @@ return [
     'positioning' => 'AIPolicyTracker is AI governance intelligence, from regulation to evidence.',
     'supporting' => 'Track regulations. Map obligations. Operationalise controls. Prove compliance. Every claim traceable to its official source.',
     'trust_statement' => 'AI policy, verified at the source: every important policy claim links to a primary official source, shows its current status and displays a last-verified date.',
-    'disclaimer' => 'Informational only. Nothing on this site is legal advice. Check the linked official sources and consult qualified counsel before acting.',
+    'disclaimer' => 'Disclaimer: this site is informational only and not legal advice. Check the linked official sources and consult a qualified lawyer before acting.',
     'default_og_image' => env('SITE_OG_IMAGE', '/og-default.png'),
     // Dimensions of the default social card. Declared in the markup so Slack, LinkedIn
     // and X reserve the right box before the file loads; only emitted for the default
