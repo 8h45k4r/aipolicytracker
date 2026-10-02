@@ -34,6 +34,21 @@ class RecordPageLayoutTest extends TestCase
         $this->assertDoesNotMatchRegularExpression('#class="btn-secondary"[^>]*>(Copy link|Report a correction|How we verify)#', $html, 'secondary actions are text links, not buttons');
     }
 
+    public function test_pages_declare_both_colour_schemes_and_swap_the_logo_in_dark_mode(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<meta name="color-scheme" content="light dark">', $html);
+        $this->assertStringContainsString('<source srcset="'.asset('brand/logo-on-dark.svg').'" media="(prefers-color-scheme: dark)">', $html);
+        $this->assertStringContainsString('class="mt-20 bg-brand-footer text-snow/80"', $html, 'the footer uses tokens that stay dark in both schemes');
+
+        $css = file_get_contents(resource_path('css/public.css'));
+        $this->assertStringContainsString('@media (prefers-color-scheme: dark)', $css);
+        foreach (['white', 'navy', 'paper', 'line', 'muted', 'body'] as $token) {
+            $this->assertSame(2, preg_match_all('/--c-'.$token.': [\d ]+;/', $css), "--c-{$token} has a light and a dark value");
+        }
+    }
+
     private function between(string $html, string $from, string $to): string
     {
         $start = strpos($html, $from);

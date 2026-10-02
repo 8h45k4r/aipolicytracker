@@ -9,6 +9,50 @@
  chrome, and generous measure. Colours come only from the brand tokens in
  tailwind.config.js.
 */
+/*
+ Dark mode follows the reader's system setting. Every colour is a variable of RGB
+ channels (tailwind.config.js); the light values are the fallbacks there, and only
+ this block changes them. The palette inverts: surfaces go dark, navy text and
+ navy buttons go light, so white text on a navy button stays legible. The footer
+ has its own token and stays a dark band in both schemes.
+*/
+:root {
+    color-scheme: light;
+    --c-white: 255 255 255; --c-navy: 0 33 71; --c-ink: 0 20 43; --c-blue: 0 106 172; --c-cyan: 0 156 224; --c-sky: 0 153 220;
+    --c-paper: 245 247 250; --c-line: 216 222 232; --c-muted: 93 107 126; --c-body: 30 42 59; --c-footer: 0 20 43;
+    --c-good: 11 107 79; --c-goodbg: 231 244 239; --c-info: 0 106 172; --c-infobg: 230 242 250; --c-warn: 122 75 0; --c-warnbg: 255 243 220;
+    --c-bad: 155 28 46; --c-badbg: 252 233 236; --c-neutral: 93 107 126; --c-neutralbg: 245 247 250;
+    --c-heat: 0 33 71;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --c-white: 13 20 32;
+        --c-navy: 228 236 246;
+        --c-ink: 245 248 252;
+        --c-blue: 120 186 240;
+        --c-cyan: 72 196 248;
+        --c-sky: 72 190 240;
+        --c-paper: 21 30 45;
+        --c-line: 47 60 80;
+        --c-muted: 152 166 186;
+        --c-body: 208 217 229;
+        --c-footer: 6 11 19;
+        --c-good: 94 214 162;
+        --c-goodbg: 13 46 36;
+        --c-info: 120 186 240;
+        --c-infobg: 15 37 60;
+        --c-warn: 245 196 92;
+        --c-warnbg: 52 38 10;
+        --c-bad: 248 132 150;
+        --c-badbg: 58 18 27;
+        --c-neutral: 152 166 186;
+        --c-neutralbg: 21 30 45;
+        /* Heat-map shade: a mid blue whose darkest step still carries light text. */
+        --c-heat: 37 99 178;
+    }
+}
+
 @layer base {
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     @media (prefers-reduced-motion: reduce) {
@@ -26,7 +70,7 @@
     :focus-visible { @apply outline-none ring-2 ring-brand-cyan ring-offset-2 ring-offset-white rounded-sm; }
     summary { cursor: pointer; }
     summary::-webkit-details-marker { display: none; }
-    ::selection { background: rgb(0 156 224 / 0.22); }
+    ::selection { background: rgb(var(--c-cyan, 0 156 224) / 0.22); }
 }
 
 @layer components {
@@ -50,7 +94,7 @@
     .badge-neutral { @apply badge bg-brand-paper text-brand-muted ring-brand-line; }
 
     .label { @apply block text-sm font-medium text-brand-navy mb-1; }
-    .input { @apply block w-full rounded-sm border-brand-line text-sm shadow-none focus:border-brand-navy focus:ring-brand-cyan min-h-[44px]; }
+    .input { @apply block w-full rounded-sm border-brand-line bg-white text-brand-body placeholder:text-brand-muted text-sm shadow-none focus:border-brand-navy focus:ring-brand-cyan min-h-[44px]; }
 
     .card-flat { @apply rounded-sm border border-brand-line bg-white; }
     .card-link { @apply card-flat transition-colors hover:border-brand-navy focus-within:border-brand-navy; }
@@ -71,6 +115,10 @@
     /* The step counter numbers each tile. On narrow screens the joining arrows are
        hidden, so without a number the strip reads as five unrelated tiles rather than
        a sequence; `pt-9` on the link reserves the row the number sits in. */
+    /* Heat-map cells: in light mode the text turns white once the shade is dark enough;
+       in dark mode the shade stays dark enough for light text throughout. */
+    .heat { color: rgb(var(--c-body)); }
+    .heat-hi { color: rgb(var(--c-white)); }
     .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-sm overflow-hidden sm:grid-cols-5; counter-reset: chain-step; }
     .chain-step { @apply bg-white; counter-increment: chain-step; }
     /* Phones: one line per step (number, label, count), so the strip takes about a fifth of a screen rather than two. */
@@ -126,4 +174,31 @@
     [data-nav-group][open] > summary svg { @apply rotate-180; }
     /* The last groups sit near the right edge, so their panels open leftwards. */
     [data-nav-group]:nth-last-child(-n+2) > .nav-panel { @apply left-auto right-0; }
+}
+
+/* Inline SVG charts carry the light palette as attributes; in dark mode the brand
+   hues are remapped so bars, axes and labels stay visible on the dark surface. */
+@media (prefers-color-scheme: dark) {
+    svg [fill="#002147" i] { fill: rgb(var(--c-navy)); }
+    svg [stroke="#002147" i] { stroke: rgb(var(--c-navy)); }
+    svg [fill="#5D6B7E" i] { fill: rgb(var(--c-muted)); }
+    svg [stroke="#D8DEE8" i] { stroke: rgb(var(--c-line)); }
+    svg [fill="#D8DEE8" i] { fill: rgb(var(--c-line)); }
+    svg [fill="#006AAC" i] { fill: rgb(var(--c-blue)); }
+    svg [fill="#0B6B4F" i] { fill: rgb(var(--c-good)); }
+    svg [fill="#9B1C2E" i] { fill: rgb(var(--c-bad)); }
+    svg [fill="#7A4B00" i] { fill: rgb(var(--c-warn)); }
+    svg [fill="#ffffff" i], svg [fill="#fff" i], svg [fill="white" i] { fill: rgb(var(--c-white)); }
+    /* The world map legend: the same inverted scale as world-map.js. */
+    .map-swatch-in_force { background: #e4ecf6 !important; }
+    .map-swatch-binding { background: #78baf0 !important; }
+    .map-swatch-guidance { background: #34618a !important; }
+    .map-swatch-none { background: #1f2a3b !important; box-shadow: inset 0 0 0 1px rgb(var(--c-line)); }
+    /* Laravel's default paginator is styled with grey utilities; give it the page's tokens. */
+    nav[role="navigation"] .text-gray-700, nav[role="navigation"] .text-gray-800 { color: rgb(var(--c-body)); }
+    nav[role="navigation"] .text-gray-500, nav[role="navigation"] .text-gray-400 { color: rgb(var(--c-muted)); }
+    nav[role="navigation"] .border-gray-300 { border-color: rgb(var(--c-line)); }
+    nav[role="navigation"] .bg-gray-100, nav[role="navigation"] .hover\:bg-gray-100:hover { background-color: rgb(var(--c-paper)); }
+    .heat-mid, .heat-hi { color: rgb(var(--c-navy)); }
+    nav[role="navigation"] .bg-gray-200 { background-color: rgb(var(--c-navy)); color: rgb(var(--c-white)); border-color: rgb(var(--c-navy)); }
 }
