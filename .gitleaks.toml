@@ -14,4 +14,6 @@ regexes = [
   '''whsec_cHJvdmlzaW9uZWRzZWNyZXRwcm92aXNpb25lZA==''',
   '''whsec_b3RoZXJzZWNyZXRvdGhlcnNlY3JldA==''',
   '''re_TESTKEY_1234567890''',
+  # The IndexNow key the answer-engine tests configure: the sixteen hex digits in order, served back as /<key>.txt
+  '''^0123456789abcdef$''',
 ]
