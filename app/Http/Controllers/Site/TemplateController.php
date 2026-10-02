@@ -68,6 +68,7 @@ class TemplateController extends Controller
         $frameworkLinks = $facets->where('facet', 'framework')->map(fn ($f) => $f['label'].' ('.$f['count'].')')->join(', ', ' and ');
         $faq = [
             ['Which template do I need for the EU AI Act?', 'Start with the AI system inventory and the EU AI Act role and risk classifier: they tell you which systems are in scope and in what role. Providers of high-risk systems then need the conformity assessment and QMS workbook and the technical documentation template; deployers the high-risk deployer pack and the FRIA; anyone with a chatbot or generated content the Article 50 transparency kit. Templates by framework: '.$frameworkLinks.'.'],
+            ...$this->contentsQuestions($lastBuilt),
             ['Are the templates free?', 'Yes. There is no charge and no account: enter your name, company and work email on the template page and the download links arrive by email, valid for '.TemplateDownloadRequest::LINK_DAYS.' days. The files are licensed '.config('templates.licence')],
             ['Where does the content come from?', 'From the records on this site: obligations, controls, deadlines, framework mappings and the MIT AI Risk Repository taxonomy. Nothing in a file is written by hand; the catalogue says what each template is, and the builder turns the records into sheets and pages.'],
             ['What happens when a law changes?', 'The library is rebuilt daily. A template whose content changed gets the next version number, a changelog on its page, an entry in the updates hub and in the templates feed, and a line in the weekly digest for subscribers who chose the templates topic.'],
@@ -206,6 +207,62 @@ class TemplateController extends Controller
      *
      * @return list<array{title:string, body:string}>
      */
+    /**
+     * The questions people search for about these documents ("what should an AI risk
+     * register include?"), answered from the templates themselves: their sections and
+     * columns, so an answer changes when a template does. Cached per library build.
+     *
+     * @return list<array{0:string,1:string}>
+     */
+    private function contentsQuestions(mixed $lastBuilt): array
+    {
+        $questions = [
+            'acceptable-use-policy' => 'What should an AI acceptable use policy include?',
+            'ai-risk-register' => 'What should an AI risk register include?',
+            'ai-impact-assessment' => 'What goes into an AI impact assessment?',
+            'ai-system-inventory' => 'What should an AI system inventory record?',
+        ];
+
+        return Cache::remember('templates.contents-faq.'.md5((string) $lastBuilt), now()->addDay(), function () use ($questions) {
+            $out = [];
+            foreach ($questions as $slug => $question) {
+                $definition = TemplateCatalog::definition($slug);
+                $meta = TemplateCatalog::find($slug);
+                if (! $definition || ! $meta) {
+                    continue;
+                }
+                $sections = collect($definition->blocks())->where('type', 'h1')->pluck('text')
+                    ->reject(fn ($t) => str_starts_with($t, 'Duties this') || str_starts_with($t, 'Duties that'))
+                    ->map(fn ($t) => $this->lowerFirst(preg_replace('/^\d+\.\s*/', '', $t)))->values();
+                $sheets = collect($definition->sheets());
+                $columns = collect($sheets->first()['columns'] ?? [])->pluck('label')->take(10)->map(fn ($l) => $this->lowerFirst($l));
+                $duties = collect($definition->blocks())->where('type', 'h2')->count();
+
+                $parts = [];
+                if ($sections->isNotEmpty()) {
+                    $parts[] = 'Our '.$meta['title'].' template has '.$sections->count().' sections: '.$sections->join(', ', ' and ').'.';
+                }
+                if ($columns->isNotEmpty()) {
+                    $parts[] = ($sections->isEmpty() ? 'Our '.$meta['title'].' template records' : 'Its '.$sheets->first()['name'].' sheet records').' '.$columns->join(', ', ' and ').'.';
+                }
+                if ($duties > 0) {
+                    $parts[] = 'It cites the '.$duties.' recorded duties it helps meet, each with its source reference.';
+                }
+                if ($parts !== []) {
+                    $out[] = [$question, implode(' ', $parts).' It is free on '.TemplateCatalog::url($slug).'.'];
+                }
+            }
+
+            return $out;
+        });
+    }
+
+    /** "Risk domain (MIT)" becomes "risk domain (MIT)"; "EU AI Act tier" and "ID" stay as written. */
+    private function lowerFirst(string $text): string
+    {
+        return preg_match('/^\p{Lu}\p{Ll}/u', $text) ? mb_strtolower(mb_substr($text, 0, 1)).mb_substr($text, 1) : $text;
+    }
+
     private function howToSteps(array $meta, TemplateVersion $version): array
     {
         $sheets = collect($version->preview['sheets'] ?? []);

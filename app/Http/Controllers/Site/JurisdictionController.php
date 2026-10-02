@@ -12,6 +12,7 @@ use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
+use App\Support\Faq;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -23,6 +24,8 @@ class JurisdictionController extends Controller
     {
         $jurisdictions = Jurisdiction::published()
             ->withCount(['policyInstruments as policies_count' => fn ($q) => $q->published()])
+            ->withCount(['policyInstruments as binding_in_force_count' => fn ($q) => $q->published()->where('is_binding', true)->whereIn('status', ['in_force', 'partially_applicable'])])
+            ->withCount(['policyInstruments as strategy_count' => fn ($q) => $q->published()->where('instrument_type', 'strategy')])
             ->with('parent')
             ->orderBy('region')->orderBy('name')->get();
         $byRegion = $jurisdictions->groupBy('region');
@@ -36,6 +39,19 @@ class JurisdictionController extends Controller
                 'name' => 'AI regulation by country and region',
                 'mainEntity' => Seo::itemList($jurisdictions, fn ($j) => $j->name, fn ($j) => $j->url(), 'Jurisdictions with recorded AI policy'),
             ]);
+
+        // The question people search for, answered from the records, ahead of the page's own.
+        $withLaw = $jurisdictions->filter(fn ($j) => $j->binding_in_force_count > 0 && in_array($j->jurisdiction_type, ['country', 'supranational'], true));
+        $strategies = $jurisdictions->filter(fn ($j) => $j->strategy_count > 0)->count();
+        $computed = $withLaw->isEmpty() ? [] : [[
+            'question' => 'Which countries have AI laws?',
+            'answer' => $withLaw->count().' countries and supranational bodies have a binding AI instrument in force on record: '
+                .$withLaw->sortByDesc(fn ($j) => ($j->jurisdiction_type === 'supranational' ? 1000 : 0) + $j->binding_in_force_count)->take(12)->pluck('name')->implode(', ')
+                .($withLaw->count() > 12 ? ' and '.($withLaw->count() - 12).' more' : '')
+                .'. A binding instrument here means an act, regulation, rule or order with legal force, which is not always an AI-specific act. '
+                .$strategies.' jurisdictions have a national AI strategy or plan on record. Most still regulate AI through strategies, guidance or existing law rather than an AI act.',
+        ]];
+        $seo->withFaq(array_merge($computed, Faq::for('jurisdictions.index')));
 
         return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions'));
     }
