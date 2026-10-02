@@ -1,7 +1,7 @@
 <div class="table-wrap table-sticky mt-4">
     <table>
         <caption class="sr-only">Comparison of {{ $jurisdictions->pluck('name')->implode(', ') }}</caption>
-        <thead><tr><th scope="col" class="min-w-[10rem]">Category</th>@foreach($jurisdictions as $j)<th scope="col" class="min-w-[16rem]"><a href="{{ $j->url() }}" class="text-brand-navy hover:underline">{{ $j->name }}</a><div class="text-xs font-normal text-brand-muted"><x-site.verified :record="$j" /></div></th>@endforeach</tr></thead>
+        <thead><tr><th scope="col" class="min-w-[10rem]">Category</th>@foreach($jurisdictions as $j)<th scope="col" class="min-w-[16rem]"><a href="{{ $j->url() }}" class="text-brand-navy hover:underline">{{ $j->name }}</a><div class="text-xs font-normal text-brand-muted"><x-site.verified :record="$j" compact /></div></th>@endforeach</tr></thead>
         <tbody>
         @foreach($rows as $key => $row)
         <tr>

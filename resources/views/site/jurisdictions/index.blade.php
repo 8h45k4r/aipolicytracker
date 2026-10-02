@@ -20,7 +20,7 @@
                     <td class="whitespace-nowrap">{{ ucfirst($j->jurisdiction_type) }}</td>
                     <td class="min-w-[18rem]">{{ \Illuminate\Support\Str::limit($j->regulatory_status_summary, 180) }}</td>
                     <td class="whitespace-nowrap">{{ $j->policies_count }}</td>
-                    <td class="whitespace-nowrap"><x-site.verified :record="$j" /></td>
+                    <td class="whitespace-nowrap"><x-site.verified :record="$j" compact /></td>
                 </tr>
                 @endforeach
                 </tbody>
