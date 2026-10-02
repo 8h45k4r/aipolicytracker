@@ -68,12 +68,21 @@
 
 <header class="border-b border-brand-line bg-white">
     <div class="container-site">
-        <div class="flex items-center justify-between gap-6">
+        <div class="flex items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="flex items-center py-3 no-underline shrink-0" aria-label="AIPolicyTracker home">
-                <img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" decoding="async">
+                <img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" decoding="async">
             </a>
             <x-site.nav />
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 lg:gap-1.5 xl:gap-2">
+                <form action="{{ route('search') }}" method="get" role="search" class="hidden xl:block" data-track="header_search_submit">
+                    <label for="header-q" class="sr-only">Search the site</label>
+                    <div class="relative">
+                        <svg class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-muted" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                        <input id="header-q" name="q" type="search" value="{{ request()->routeIs('search') ? request('q') : '' }}" class="input !min-h-[38px] w-44 !pl-8" placeholder="Search the site" autocomplete="off">
+                    </div>
+                </form>
+                <a href="{{ route('search') }}" class="sm:hidden btn-primary !min-h-[38px] !py-1.5 gap-1.5" data-track="header_search_click"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Search</a>
+                <a href="{{ route('search') }}" class="hidden sm:inline-flex xl:hidden btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click" aria-label="Search"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
                 <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
                 <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
                 <details class="relative lg:hidden">
@@ -101,7 +110,7 @@
 <footer class="mt-20 bg-brand-ink text-white/80">
     <div class="container-site py-12 grid gap-10 md:grid-cols-12 text-sm">
         <div class="md:col-span-4">
-            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" loading="lazy" decoding="async">
+            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" loading="lazy" decoding="async">
             <p class="mt-4 max-w-sm text-white/80">{{ config('aipolicytracker.positioning') }}</p>
             <p class="mt-4 max-w-sm text-xs leading-5 text-white/60">{{ config('aipolicytracker.disclaimer') }}</p>
             <ul class="mt-5 flex items-center gap-3" aria-label="Follow AIPolicyTracker">

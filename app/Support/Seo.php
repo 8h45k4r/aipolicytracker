@@ -627,7 +627,7 @@ class Seo
             'publisher' => ['@id' => url('/').'#organization'],
             'potentialAction' => [
                 '@type' => 'SearchAction',
-                'target' => ['@type' => 'EntryPoint', 'urlTemplate' => route('policies.index').'?q={search_term_string}'],
+                'target' => ['@type' => 'EntryPoint', 'urlTemplate' => route('search').'?q={search_term_string}'],
                 'query-input' => 'required name=search_term_string',
             ],
         ];
