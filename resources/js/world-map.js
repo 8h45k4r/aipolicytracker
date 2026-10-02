@@ -4,8 +4,14 @@ import * as am5 from '@amcharts/amcharts5';
 import * as am5map from '@amcharts/amcharts5/map';
 import am5geodata_worldLow from '@amcharts/amcharts5-geodata/worldLow';
 
-// Brand colours, one per level; the legend swatches use the same values (public.css).
-const COLOURS = { in_force: 0x002147, binding: 0x006aac, guidance: 0x8fb8d8, none: 0xe3e8ee };
+// Brand colours, one per level; the legend swatches use the same values (WorldMap::COLOURS,
+// and their dark-mode overrides in public.css). In dark mode the scale inverts, so the
+// strongest level is still the one that stands out most from the page.
+const DARK = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+const COLOURS = DARK
+    ? { in_force: 0xe4ecf6, binding: 0x78baf0, guidance: 0x34618a, none: 0x1f2a3b }
+    : { in_force: 0x002147, binding: 0x006aac, guidance: 0x8fb8d8, none: 0xe3e8ee };
+const BORDER = DARK ? 0x0d1420 : 0xffffff;
 
 export function mount(el) {
     const source = document.getElementById(el.dataset.worldMap);
@@ -23,7 +29,7 @@ export function mount(el) {
         geoJSON: am5geodata_worldLow, exclude: ['AQ'], valueField: 'value', calculateAggregates: false,
     }));
     series.mapPolygons.template.setAll({
-        tooltipText: '{name}', interactive: true, stroke: am5.color(0xffffff), strokeWidth: 0.5, fill: am5.color(COLOURS.none),
+        tooltipText: '{name}', interactive: true, stroke: am5.color(BORDER), strokeWidth: 0.5, fill: am5.color(COLOURS.none),
     });
     series.mapPolygons.template.states.create('hover', { fillOpacity: 0.8 });
 

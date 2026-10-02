@@ -47,7 +47,9 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icon-192.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
-    <meta name="theme-color" content="#002147">
+    <meta name="theme-color" content="#002147" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d1420" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
     {{-- Font files are fetched in anonymous CORS mode, so the early connection
          has to be opened the same way or the browser opens a second one. --}}
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
@@ -70,7 +72,7 @@
     <div class="container-site">
         <div class="flex items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="flex items-center py-3 no-underline shrink-0" aria-label="AIPolicyTracker home">
-                <img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" decoding="async">
+                <picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" decoding="async"></picture>
             </a>
             <x-site.nav />
             <div class="flex items-center gap-2 lg:gap-1.5 xl:gap-2">
@@ -107,57 +109,57 @@
     @endif
 </main>
 
-<footer class="mt-20 bg-brand-ink text-white/80">
+<footer class="mt-20 bg-brand-footer text-snow/80">
     <div class="container-site py-12 grid gap-10 md:grid-cols-12 text-sm">
         <div class="md:col-span-4">
-            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" loading="lazy" decoding="async">
-            <p class="mt-4 max-w-sm text-white/80">{{ config('aipolicytracker.positioning') }}</p>
-            <p class="mt-4 max-w-sm text-xs leading-5 text-white/60">{{ config('aipolicytracker.disclaimer') }}</p>
+            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" loading="lazy" decoding="async">
+            <p class="mt-4 max-w-sm text-snow/80">{{ config('aipolicytracker.positioning') }}</p>
+            <p class="mt-4 max-w-sm text-xs leading-5 text-snow/60">{{ config('aipolicytracker.disclaimer') }}</p>
             <ul class="mt-5 flex items-center gap-3" aria-label="Follow AIPolicyTracker">
                 @foreach(config('aipolicytracker.social', []) as $social)
-                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-white/20 hover:ring-white/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-sm" loading="lazy"></a></li>
+                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-snow/20 hover:ring-snow/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-sm" loading="lazy"></a></li>
                 @endforeach
             </ul>
         </div>
         <div class="md:col-span-2">
             <p class="eyebrow !text-brand-cyan">Explore</p>
             <ul class="mt-3 space-y-2">
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('policies.index') }}">Policies</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('obligations.index') }}">Obligations</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('controls.index') }}">Controls</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('audiences.index') }}">By role and sector</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('compare.index') }}">Compare</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('frameworks.index') }}">Frameworks</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('changes.feed') }}">RSS</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('calendar') }}">Calendar</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.index') }}">AI risk</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('risk.incidents') }}">Incidents</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('guides.index') }}">Guides</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('subscribe.show') }}">Weekly digest</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('saved') }}">Saved</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('policies.index') }}">Policies</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('obligations.index') }}">Obligations</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('controls.index') }}">Controls</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('audiences.index') }}">By role and sector</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('compare.index') }}">Compare</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('frameworks.index') }}">Frameworks</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('changes.feed') }}">RSS</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('calendar') }}">Calendar</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('risk.index') }}">AI risk</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('risk.incidents') }}">Incidents</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('guides.index') }}">Guides</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('subscribe.show') }}">Weekly digest</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('saved') }}">Saved</a></li>
             </ul>
         </div>
         <div class="md:col-span-2">
             <p class="eyebrow !text-brand-cyan">Project</p>
             <ul class="mt-3 space-y-2">
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('methodology') }}">Methodology</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('verification') }}">Verification</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('glossary') }}">Glossary</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('coverage') }}">Coverage</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('gaps') }}">Open queue</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('reviewers') }}">Reviewers</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('about') }}">About</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ route('contribute') }}">Contribute</a> <span class="text-white/40">·</span> <a class="text-white/85 hover:text-white no-underline" href="{{ route('corrections') }}">Corrections log</a></li>
-                <li><a class="text-white/85 hover:text-white no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
-                @if(config('aipolicytracker.contact_email'))<li><a class="text-white/85 hover:text-white no-underline" href="mailto:{{ config('aipolicytracker.contact_email') }}" data-track="contact_click">{{ config('aipolicytracker.contact_email') }}</a></li>@endif
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('methodology') }}">Methodology</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('verification') }}">Verification</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('glossary') }}">Glossary</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('coverage') }}">Coverage</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('gaps') }}">Open queue</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('reviewers') }}">Reviewers</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('about') }}">About</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('contribute') }}">Contribute</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('corrections') }}">Corrections log</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
+                @if(config('aipolicytracker.contact_email'))<li><a class="text-snow/85 hover:text-snow no-underline" href="mailto:{{ config('aipolicytracker.contact_email') }}" data-track="contact_click">{{ config('aipolicytracker.contact_email') }}</a></li>@endif
             </ul>
         </div>
         <div class="md:col-span-4">
             <p class="eyebrow !text-brand-cyan">From policy to practice</p>
-            <p class="mt-3 text-white/80">AIPolicyTracker is AI governance intelligence, from regulation to evidence. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" class="text-white underline decoration-white/40 hover:decoration-white" data-track="certifyi_click">Certifyi</a> is a separate platform for teams that need to turn obligations into owned tasks, evidence and audit trails.</p>
+            <p class="mt-3 text-snow/80">AIPolicyTracker is AI governance intelligence, from regulation to evidence. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" class="text-snow underline decoration-snow/40 hover:decoration-snow" data-track="certifyi_click">Certifyi</a> is a separate platform for teams that need to turn obligations into owned tasks, evidence and audit trails.</p>
         </div>
     </div>
-    <div class="border-t border-white/10">
-        <div class="container-site py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-white/55">
+    <div class="border-t border-snow/10">
+        <div class="container-site py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-snow/55">
             <p>© {{ date('Y') }} AIPolicyTracker · Code Apache-2.0 · Data {{ config('aipolicytracker.data_license') }}
-                · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
-                · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
+                · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
+                · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
             </p>
-            <p>@foreach(config('aipolicytracker.maintainers', []) as $m)Maintained by <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-white/85 hover:text-white underline decoration-white/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
+            <p>@foreach(config('aipolicytracker.maintainers', []) as $m)Maintained by <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
         </div>
     </div>
 </footer>
