@@ -535,3 +535,56 @@
         if (first) { first.focus(); }
     });
 })();
+
+// Cloudflare Turnstile, loaded on first use. A form carrying [data-turnstile-slot] fetches
+// the script the first time it is focused or touched, renders the widget into the slot,
+// and, if it is submitted before the check has finished, waits for the token (up to
+// eight seconds) instead of sending a form the server will refuse.
+(function () {
+    var slots = document.querySelectorAll('[data-turnstile-slot]');
+    if (!slots.length) { return; }
+    var loading = null;
+    var load = function () {
+        if (loading) { return loading; }
+        loading = new Promise(function (resolve, reject) {
+            var s = document.createElement('script');
+            s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+            s.async = true;
+            s.onload = function () { resolve(window.turnstile); };
+            s.onerror = reject;
+            document.head.appendChild(s);
+        });
+        return loading;
+    };
+    var render = function (slot) {
+        if (slot.getAttribute('data-rendered')) { return Promise.resolve(); }
+        slot.setAttribute('data-rendered', '1');
+        return load().then(function (ts) {
+            ts.render(slot, { sitekey: slot.getAttribute('data-sitekey'), size: 'flexible' });
+        });
+    };
+    var tokenOf = function (form) {
+        var input = form.querySelector('[name="cf-turnstile-response"]');
+        return input ? input.value : '';
+    };
+    slots.forEach(function (slot) {
+        var form = slot.closest('form');
+        if (!form) { return; }
+        var start = function () { render(slot); };
+        form.addEventListener('focusin', start, { once: true });
+        form.addEventListener('pointerdown', start, { once: true });
+        form.addEventListener('submit', function (event) {
+            if (tokenOf(form) || form.getAttribute('data-turnstile-waited')) { return; }
+            event.preventDefault();
+            form.setAttribute('data-turnstile-waited', '1');
+            var started = Date.now();
+            render(slot).then(function () {
+                var wait = function () {
+                    if (tokenOf(form) || Date.now() - started > 8000) { form.requestSubmit ? form.requestSubmit() : form.submit(); return; }
+                    setTimeout(wait, 250);
+                };
+                wait();
+            }, function () { form.submit(); });
+        });
+    });
+})();

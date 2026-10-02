@@ -38,6 +38,7 @@
                 <div><label for="password_confirmation" class="label">Confirm password</label><input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" class="input"></div>
                 <label class="flex items-start gap-2 text-sm text-brand-body"><input type="checkbox" name="terms_condition" value="1" required class="mt-1 rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy"><span>I accept the <a href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}" target="_blank" rel="noopener">terms</a> and <a href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}" target="_blank" rel="noopener">privacy policy</a>, and understand that AIPolicyTracker provides informational resources, not legal advice.</span></label>
                 <label class="flex items-start gap-2 text-sm text-brand-body"><input type="checkbox" name="marketing_consent" value="1" class="mt-1 rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy" @checked(old('marketing_consent'))><span>Email me guides and updates when related AI policy requirements change (optional).</span></label>
+                <x-site.turnstile />
                 <button type="submit" class="btn-primary w-full">Create free account</button>
             </form>
             <p class="mt-6 text-xs text-brand-muted">Already have an account? <a href="{{ route('login') }}">Sign in</a> · <a href="{{ route('home') }}">Back to the site</a></p>

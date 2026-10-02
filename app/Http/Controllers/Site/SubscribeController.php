@@ -8,6 +8,7 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Subscriber;
 use App\Rules\NotDisposableEmail;
+use App\Services\Security\Turnstile;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,10 +38,14 @@ class SubscribeController extends Controller
         return view('site.subscribe.show', ['seo' => $seo, 'jurisdictions' => $jurisdictions, 'selected' => $selected, 'recent' => $recent, 'subscriberCount' => Subscriber::active()->count()]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Turnstile $turnstile): RedirectResponse
     {
         if ($request->filled('website')) { // honeypot
             return back()->with('success', 'Check your inbox to confirm your subscription.');
+        }
+        // Reported under "email" because that is the error every subscribe form shows.
+        if ($turnstile->rejects($request)) {
+            return back()->withInput()->withErrors(['email' => 'The automated check did not complete. Please wait a moment and subscribe again.']);
         }
         $data = $request->validate([
             'email' => ['required', 'email:rfc', 'max:190', new NotDisposableEmail],

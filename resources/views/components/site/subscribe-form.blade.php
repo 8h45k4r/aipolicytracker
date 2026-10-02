@@ -16,5 +16,6 @@
         <input id="sub-email-{{ $source }}" type="email" name="email" required class="input flex-1" placeholder="you@example.org" autocomplete="email">
         <button type="submit" class="btn-primary">{{ $topic ? 'Follow' : 'Subscribe' }}</button>
     </div>
+    <x-site.turnstile class="mt-3" />
     <p class="mt-2 meta">Double opt-in; one-click unsubscribe in every email. <a href="{{ route('subscribe.show') }}">Choose jurisdictions</a></p>
 </form>

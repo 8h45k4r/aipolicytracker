@@ -40,6 +40,7 @@
                     </div>
                 </fieldset>
                 <p class="text-xs text-brand-muted">We store your address, chosen topics and timestamps, nothing else. Confirmation and unsubscribe links are unique to you.</p>
+                <x-site.turnstile />
                 <button type="submit" class="btn-primary">Subscribe</button>
             </form>
         </div>

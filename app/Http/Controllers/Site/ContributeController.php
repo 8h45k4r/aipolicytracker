@@ -14,6 +14,7 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TransitionMeasure;
 use App\Rules\NotDisposableEmail;
+use App\Services\Security\Turnstile;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use App\Support\SubmissionFieldLabels;
@@ -65,11 +66,14 @@ class ContributeController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Turnstile $turnstile): RedirectResponse
     {
         // Honeypot: bots fill the hidden "website" field.
         if ($request->filled('website')) {
             return redirect()->route('contribute')->with('success', 'Thank you. Your submission is pending review.');
+        }
+        if ($turnstile->rejects($request)) {
+            return back()->withInput()->withErrors(['turnstile' => 'The automated check did not complete. Please wait a moment and submit again.']);
         }
 
         $data = $request->validate([

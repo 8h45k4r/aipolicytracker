@@ -1,6 +1,5 @@
 {{-- The template request form. The files are not linked from the page: they go to the
      work address given, as signed links valid for a week (TemplateDownloadRequest). --}}
-@php($turnstile = app(\App\Services\Security\Turnstile::class))
 <div id="download" class="mt-3 scroll-mt-24">
 @if(session('template_requested'))
     <div class="rounded-sm border border-state-good/30 bg-state-goodbg p-3 text-sm text-brand-body" role="status">
@@ -23,10 +22,7 @@
         <div class="hidden" aria-hidden="true"><label for="tr-website">Website</label><input id="tr-website" name="website" tabindex="-1" autocomplete="off"></div>
         <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="terms" value="1" required @checked(old('terms')) class="mt-0.5"> <span>I accept the <a href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">terms of use</a> and the <a href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">privacy notice</a>.</span></label>
         <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="updates" value="1" @checked(old('updates')) class="mt-0.5"> <span>Email me when this template gets a new version (optional).</span></label>
-        @if($turnstile->configured())
-        <div class="cf-turnstile" data-sitekey="{{ $turnstile->siteKey() }}" data-size="flexible"></div>
-        @push('after-body')<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="{{ Illuminate\Support\Facades\Vite::cspNonce() }}"></script>@endpush
-        @endif
+        <x-site.turnstile />
         <button type="submit" class="btn-primary w-full" data-track="template_request" data-track-label="{{ $slug }}">Email me the download links</button>
         <p class="meta">Free, no account. Used to send the files and, if you ask, version updates; never sold or shared.</p>
     </form>

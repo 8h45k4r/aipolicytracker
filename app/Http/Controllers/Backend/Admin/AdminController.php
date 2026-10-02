@@ -316,6 +316,7 @@ class AdminController extends Controller
     private const ENV_NAMES = [
         'mail_mailer' => 'MAIL_MAILER', 'resend_key' => 'RESEND_KEY', 'mail_from_address' => 'MAIL_FROM_ADDRESS', 'mail_from_name' => 'MAIL_FROM_NAME', 'cron_token' => 'CRON_TOKEN',
         'billing_enabled' => 'BILLING_ENABLED', 'dodo_environment' => 'DODO_PAYMENTS_ENVIRONMENT', 'dodo_api_key' => 'DODO_PAYMENTS_API_KEY', 'dodo_webhook_secret' => 'DODO_PAYMENTS_WEBHOOK_KEY',
+        'turnstile_site_key' => 'TURNSTILE_SITE_KEY', 'turnstile_secret_key' => 'TURNSTILE_SECRET_KEY',
         'dodo_product_pro_monthly' => 'DODO_PRODUCT_PRO_MONTHLY', 'dodo_product_pro_yearly' => 'DODO_PRODUCT_PRO_YEARLY',
         'contact_email' => 'CONTACT_EMAIL', 'google_analytics_id' => 'GOOGLE_ANALYTICS_ID', 'cloudflare_analytics_token' => 'CLOUDFLARE_ANALYTICS_TOKEN',
         'analytics_require_consent' => 'ANALYTICS_REQUIRE_CONSENT', 'social_cards_enabled' => 'SOCIAL_CARDS_ENABLED', 'email_domain_enforcement' => 'EMAIL_DOMAIN_ENFORCEMENT',
@@ -334,7 +335,7 @@ class AdminController extends Controller
             $values[$key] = ['meta' => $meta, 'set' => $current !== null && $current !== '', 'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''), 'env' => $envReadable ? $this->envHint($key, (bool) $meta['secret']) : null];
         }
 
-        return view('backend.admin.settings', ['values' => $values, 'envReadable' => $envReadable, 'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')]]);
+        return view('backend.admin.settings', ['values' => $values, 'envReadable' => $envReadable, 'turnstile' => app(Turnstile::class), 'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')]]);
     }
 
     private function envHint(string $key, bool $secret): ?string
@@ -376,6 +377,9 @@ class AdminController extends Controller
             'bing_site_verification' => ['nullable', 'string', 'max:128', 'regex:/^[A-Za-z0-9]+$/'],
             'x_handle' => ['nullable', 'string', 'max:32', 'regex:/^@[A-Za-z0-9_]{1,15}$/'],
             'stale_after_days' => ['nullable', 'integer', 'min:30', 'max:730'],
+            // Cloudflare keys look like 0x4AAAAAAA…; the test keys start 1x/2x/3x.
+            'turnstile_site_key' => ['nullable', 'string', 'max:120', 'regex:/^[0-9A-Za-z_-]{10,120}$/'],
+            'turnstile_secret_key' => ['nullable', 'string', 'max:120', 'regex:/^[0-9A-Za-z_-]{10,120}$/'],
             'newsletter_url' => ['nullable', 'url:https', 'max:512'],
             'clear' => ['nullable', 'array'],
             'clear.*' => ['in:'.implode(',', array_keys(AppSetting::KEYS))],
@@ -392,6 +396,13 @@ class AdminController extends Controller
         }
 
         return back()->with('success', 'Settings saved. Secrets are stored encrypted and only shown masked.');
+    }
+
+    public function settingsTurnstileCheck(Turnstile $turnstile): RedirectResponse
+    {
+        $result = $turnstile->checkSecret();
+
+        return back()->with($result['ok'] ? 'success' : 'error', 'Turnstile: '.$result['message']);
     }
 
     public function settingsTestMail(Request $request): RedirectResponse

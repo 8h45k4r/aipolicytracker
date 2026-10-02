@@ -65,6 +65,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
             Route::get('/settings', 'settings')->name('settings');
             Route::post('/settings', 'settingsSave')->middleware('password.confirm')->name('settings.save');
             Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
+            Route::post('/settings/turnstile-check', 'settingsTurnstileCheck')->middleware('throttle:10,1')->name('settings.turnstile');
         });
         Route::middleware('can:audit.view')->group(function () {
             Route::get('/audit', 'audit')->name('audit');

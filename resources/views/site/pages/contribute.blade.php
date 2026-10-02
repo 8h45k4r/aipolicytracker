@@ -52,6 +52,7 @@
         <div class="hidden" aria-hidden="true"><label for="s-website">Website</label><input id="s-website" name="website" tabindex="-1" autocomplete="off"></div>
         <input type="hidden" name="source_page" value="{{ $subject['url'] ?? url()->previous() }}">
         <p class="text-xs text-brand-muted">By submitting you agree that your contribution may be published under {{ config('aipolicytracker.data_license') }} once reviewed. Do not include personal data about third parties.</p>
+        <x-site.turnstile />
         <button type="submit" class="btn-primary">Submit for review</button>
     </form>
 </div>
