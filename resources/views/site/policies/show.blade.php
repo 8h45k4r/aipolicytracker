@@ -89,7 +89,7 @@
                             @if($o->practical_action)<p><span class="font-medium text-brand-navy">Practical action:</span> {{ $o->practical_action }}</p>@endif
                             @if($o->evidenceArtifacts->isNotEmpty())<p><span class="font-medium text-brand-navy">Evidence examples:</span> {{ $o->evidenceArtifacts->pluck('title')->implode('; ') }}</p>@endif
                             @if($o->frameworkMappings->isNotEmpty())<p><span class="font-medium text-brand-navy">Framework mapping (original, editorial):</span> @foreach($o->frameworkMappings as $m)@if(!$loop->first); @endif<a href="{{ route('frameworks.show', config('frameworks.'.$m->framework.'.slug', $m->framework)) }}" class="text-brand-navy hover:underline">{{ $m->frameworkName() }}</a> {{ $m->reference }}@endforeach</p>@endif
-                            <p class="flex flex-wrap gap-3 text-xs"><a href="{{ $o->url() }}" class="text-brand-blue hover:underline">Obligation page</a>@if($o->applies_from)<span class="text-brand-muted">Applies from {{ $o->applies_from->format('j M Y') }}</span>@endif<x-site.verified :record="$o" /></p>
+                            <p class="flex flex-wrap gap-3 text-xs"><a href="{{ $o->url() }}" class="text-brand-blue hover:underline">Obligation page</a>@if($o->applies_from)<span class="text-brand-muted">Applies from {{ $o->applies_from->format('j M Y') }}</span>@endif<x-site.verified :record="$o" compact /></p>
                         </div>
                     </details>
                     @endforeach

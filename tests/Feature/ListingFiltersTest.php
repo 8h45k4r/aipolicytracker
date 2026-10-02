@@ -48,4 +48,17 @@ class ListingFiltersTest extends TestCase
         $category = Obligation::published()->whereHas('policyInstrument.jurisdiction', fn ($j) => $j->where('slug', 'eu'))->selectRaw('category, COUNT(*) as n')->groupBy('category')->orderByDesc('n')->first();
         $this->assertMatchesRegularExpression('#<option value="'.$category->category.'"[^>]*>[^<]+ \('.$category->n.'\)</option>#', $html);
     }
+
+    public function test_lists_carry_a_compact_verification_mark_with_the_full_line_on_hover(): void
+    {
+        $verified = PolicyInstrument::published()->where('review_status', 'verified')->whereNotNull('last_verified_at')->whereNotNull('reviewed_by')->firstOrFail();
+        $html = $this->get(route('policies.index', ['jurisdiction' => $verified->jurisdiction->slug]))->assertOk()->getContent();
+
+        $this->assertStringNotContainsString('Verified against the official source '.$verified->last_verified_at->format('j M Y').' · reviewed by', strip_tags($html), 'the long line is for the record page');
+        $this->assertMatchesRegularExpression('#title="Verified against the official source '.preg_quote($verified->last_verified_at->format('j M Y'), '#').' · reviewed by '.preg_quote(e($verified->reviewed_by), '#').'\.[^"]*" data-verified-mark>\s*<svg#', $html);
+        $this->assertStringContainsString('Verified <time datetime="'.$verified->last_verified_at->toDateString().'">', $html);
+
+        // The record page keeps the full line and the reviewer link.
+        $this->get($verified->url())->assertOk()->assertSee('reviewed by <a href="'.route('reviewers').'"', false);
+    }
 }
