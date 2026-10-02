@@ -1663,17 +1663,32 @@ faq:
       AI models placed on the EU market or used in the EU. It bans a few practices, imposes detailed requirements
       on high-risk systems, adds transparency duties for chatbots and synthetic content, and regulates
       general-purpose models.
-  - question: When do the EU AI Act requirements apply?
+  - question: When does the EU AI Act apply?
     answer: >
-      In phases under Article 113: prohibitions and AI literacy from 2 February 2025, general-purpose AI and
-      governance rules from 2 August 2025, general application from 2 August 2026, and Annex I product-embedded
-      high-risk AI from 2 August 2027. The 2025 Digital Omnibus proposal may change some high-risk dates; check
-      the official sources.
+      In phases. It entered into force on 1 August 2024. Prohibitions and AI literacy apply from 2 February 2025;
+      general-purpose AI model duties, governance and penalties from 2 August 2025; general application and the
+      Article 50 transparency duties from 2 August 2026; two further Article 5 prohibitions from 2 December 2026;
+      high-risk obligations for stand-alone Annex III systems from 2 December 2027 and for AI embedded in Annex I
+      products from 2 August 2028. The 2026 and later dates follow the amendment by Regulation (EU) 2026/1744,
+      which is pending review against the Official Journal.
   - question: Who does the EU AI Act apply to?
     answer: >
       Providers, deployers, importers, distributors and authorised representatives of AI systems, product
       manufacturers, and providers of general-purpose AI models, including organisations outside the EU whose
       systems or outputs are used in the EU.
+  - question: Does the EU AI Act apply to companies outside the EU?
+    answer: >
+      Yes, in two ways set by Article 2. Providers placing AI systems or general-purpose AI models on the EU market
+      or putting them into service are covered wherever they are established, and providers and deployers in third
+      countries are covered where the output of their system is used in the EU. A non-EU provider of a
+      general-purpose AI model must appoint an authorised representative in the EU.
+  - question: What is a high-risk AI system under the EU AI Act?
+    answer: >
+      An AI system that is a safety component of, or is itself, a product covered by the EU product-safety laws
+      listed in Annex I and needing third-party conformity assessment, or one used in an area listed in Annex III,
+      such as biometrics, critical infrastructure, education, employment, access to essential services, law
+      enforcement, migration and the administration of justice. A provider may document that an Annex III system
+      is not high-risk when it does not pose a significant risk of harm.
   - question: What are the penalties under the EU AI Act?
     answer: >
       Up to EUR 35 million or 7 % of worldwide annual turnover for prohibited practices, up to EUR 15 million or
@@ -1689,6 +1704,6 @@ last_checked_at: '2026-09-26'
 last_verified_at: null
 review_status: pending_review
 confidence_level: medium
-content_version: 2
+content_version: 3
 change_summary: Application dates updated for Regulation (EU) 2026/1744 (Digital Omnibus on AI) from secondary reporting; Annex III high-risk duties to 2 December 2027, Annex I to 2 August 2028, two new prohibitions from 2 December 2026. Pending review against the Official Journal.
 reviewed_by: null

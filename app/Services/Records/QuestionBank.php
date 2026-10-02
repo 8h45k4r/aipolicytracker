@@ -37,6 +37,7 @@ final class QuestionBank
             ["When does {$name} apply?", self::text($p->key_dates_summary) ?? ($p->applies_from ? "{$Name} applies from ".$p->applies_from->format('j F Y').'.' : null)],
             ["What must organisations do under {$name}?", self::text($p->what_organizations_must_do)],
             ["What are the penalties under {$name}?", self::text($p->penalties_summary)],
+            ["What does {$name} prohibit?", self::prohibitions($p)],
             ["Where is the official text of {$name}?", $p->official_source_url ? 'The official text is published by '.($p->source_publisher ?: $p->issuing_body ?: 'the issuing authority').' at '.$p->official_source_url.($p->source_title ? " ({$p->source_title})" : '').'. This record links to it and is checked against it.' : null],
         ]);
     }
@@ -89,7 +90,75 @@ final class QuestionBank
             ["Is there a national AI strategy in {$name}?", $strategies->isNotEmpty() ? 'Yes: '.$strategies->map(fn ($p) => ($p->short_title ?: $p->title).($p->adopted_on ? ' ('.$p->adopted_on->format('Y').')' : ''))->take(3)->implode('; ').'.' : null],
             ["What AI compliance deadlines are coming up in {$name}?", $deadlines->isNotEmpty() ? $deadlines->take(4)->map(fn ($d) => $d->due_on->format('j F Y').': '.trim($d->title))->implode('; ').'.' : null],
             ["What is binding and what is only guidance in {$name}?", self::text($j->binding_vs_guidance)],
+            ["Is there a federal AI law in {$name}?", self::federalLaw($j, $binding)],
+            ['Which '.self::unitPlural($j)." in {$name} have AI laws?", self::subNationalLaws($j)],
         ]);
+    }
+
+    /** The practices the instrument bans, from its prohibited-practice obligations. */
+    private static function prohibitions(PolicyInstrument $p): ?string
+    {
+        $bans = $p->obligations()->published()->where('category', 'prohibited_practice')->orderBy('id')->get();
+        if ($bans->isEmpty()) {
+            return null;
+        }
+        if ($bans->count() === 1) {
+            return self::text($bans->first()->summary);
+        }
+
+        return 'It records '.$bans->count().' prohibitions: '.$bans->map(fn ($o) => rtrim(trim($o->title), '.'))->implode('; ').'. Each is set out, with its source reference, in the obligations on this page.';
+    }
+
+    /**
+     * For a country with states or provinces on record: whether a federal (national)
+     * instrument binds, by its recorded type, so an executive order is not presented as
+     * a statute.
+     */
+    private static function federalLaw(Jurisdiction $j, Collection $binding): ?string
+    {
+        if ($j->jurisdiction_type !== 'country' || ! $j->children()->exists()) {
+            return null;
+        }
+        $Name = ucfirst($j->nameWithArticle());
+        $statutes = $binding->filter(fn ($p) => in_array($p->instrument_type, ['act', 'regulation', 'rules', 'directive'], true));
+        $list = fn (Collection $c) => $c->map(fn ($p) => ($p->short_title ?: $p->title).' ('.mb_strtolower($p->typeEnum()->label()).')')->take(4)->implode('; ');
+
+        if ($statutes->isNotEmpty()) {
+            return 'Yes. Binding national AI legislation is recorded: '.$list($statutes).'.';
+        }
+        if ($binding->isNotEmpty()) {
+            return "No federal AI statute is recorded for {$j->nameWithArticle()}. The binding national instruments on record are of other kinds: ".$list($binding).'. Most binding AI rules recorded here come from individual '.self::unitPlural($j).'.';
+        }
+
+        return "No binding national AI instrument is recorded for {$j->nameWithArticle()}; the rules on record come from individual ".self::unitPlural($j).'.';
+    }
+
+    /** The states or provinces with a binding AI instrument on record, adopted or in force. */
+    private static function subNationalLaws(Jurisdiction $j): ?string
+    {
+        $children = $j->children()->published()->with(['policyInstruments' => fn ($q) => $q->published()->where('is_binding', true)->whereIn('status', ['in_force', 'partially_applicable', 'adopted'])])->orderBy('name')->get();
+        if ($children->isEmpty()) {
+            return null;
+        }
+        $with = $children->filter(fn ($c) => $c->policyInstruments->isNotEmpty());
+        if ($with->isEmpty()) {
+            return 'None of the '.$children->count().' '.self::unitPlural($j).' recorded here has a binding AI instrument adopted or in force yet.';
+        }
+
+        return $with->count().' of the '.$children->count().' '.self::unitPlural($j).' recorded here have a binding AI instrument adopted or in force: '
+            .$with->map(fn ($c) => preg_replace('/\s*\(.*\)$/', '', $c->name).' ('.$c->policyInstruments->map(fn ($p) => $p->short_title ?: $p->title)->take(2)->implode(', ').')')->implode('; ')
+            .'. Coverage of '.self::unitPlural($j).' is still growing; the coverage page lists what is missing.';
+    }
+
+    private static function unitPlural(Jurisdiction $j): string
+    {
+        $type = $j->children()->value('jurisdiction_type');
+
+        return match ($type) {
+            'state' => 'states',
+            'province' => 'provinces',
+            default => 'sub-national jurisdictions',
+        };
     }
 
     private static function inForceAnswer(PolicyInstrument $p, string $label): string

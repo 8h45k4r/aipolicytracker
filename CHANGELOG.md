@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Answers to the questions people search for in this niche, on the page they land on and in FAQPage markup, all from the records: which countries have AI laws (jurisdictions directory), whether the EU AI Act applies outside the EU and what a high-risk system is, what any law with prohibited-practice duties prohibits, whether a country with states has a federal AI law and which of its states have one, and what an acceptable use policy, risk register, impact assessment and system inventory should contain (from the templates themselves). Mapping and sources in `docs/reference/search-questions-2026-10.md`.
 - Site-wide search at `/search` (noindex): jurisdictions, laws, obligations, controls, templates, guides, glossary terms and changes, grouped, title matches first. A search field in the header on wide screens, an icon below that, a labelled Search button beside Menu on phones, and a search field at the top of the mobile menu. The site's `SearchAction` points at it.
 - A hub page per navigation group (`/explore/{group}`) listing every page in that group under its section heading.
 - Dark mode following the system setting (`prefers-color-scheme`), with charts, the world map, the paginator and heat maps given dark palettes; the admin is unchanged.
@@ -22,6 +23,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Template pages open with an answer and a how-to, and carry `ItemPage` with a `DigitalDocument` main entity.
 
 ### Fixed
+- The EU AI Act record's own question on dates gave the pre-Omnibus timetable beside the generated, current one; it now matches the record's key dates. The US record named Colorado SB 24-205 as binding, though the Colorado record shows it repealed by SB 26-189 before taking effect.
 - Sticky elements (the admin sidebar, record-page sidebars) did not stick, because `overflow-x: hidden` on the page made the body its own scroll container; it is `clip` now.
 - Pages whose view placed its own FAQ (templates, policies, guides, landing and hub pages and others) printed the questions twice, because the layout printed them as well. The layout now adds them only when the view has not.
 - EU AI Act: Article 50(2), 50(3) and 50(4) apply from 2 August 2026, as the record states; an earlier batch had moved them with the high-risk duties.

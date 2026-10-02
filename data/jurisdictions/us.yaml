@@ -20,7 +20,7 @@ regulatory_status_summary: >
   a growing number of binding statutes with 2025–2026 effective dates. A reviewer must confirm the status of
   federal efforts to pre-empt or discourage state AI laws announced in late 2025.
 binding_vs_guidance: >
-  Binding on the private sector: state statutes (for example Colorado SB 24-205, California SB 53, Texas HB 149),
+  Binding on the private sector: state statutes (for example Colorado SB 26-189, California SB 53, Texas HB 149),
   sector laws (FCRA, ECOA, Title VII, HIPAA, FTC Act Section 5) as applied to AI. Binding on federal agencies:
   OMB memoranda M-25-21 and M-25-22. Voluntary: NIST AI RMF and its Generative AI Profile.
 current_priorities: >
@@ -47,11 +47,6 @@ faq:
       No comprehensive federal AI statute exists. Federal policy is set by executive orders, OMB memoranda binding
       on agencies, and enforcement of existing laws. Binding AI-specific rules for businesses come mainly from
       state legislation.
-  - question: Which US states have AI laws?
-    answer: >
-      Colorado (SB 24-205, algorithmic discrimination), California (including SB 53 on frontier-model transparency
-      and privacy-agency rules on automated decision-making), Texas (HB 149), Utah and others. Effective dates
-      and scope differ, and several have been amended; check each record's official source.
 related_jurisdictions: [eu, uk, us-colorado, us-california]
 official_source_url: "https://www.ai.gov/"
 source_title: "AI.gov — United States federal AI policy hub"
@@ -63,6 +58,6 @@ last_checked_at: '2026-09-26'
 last_verified_at: '2026-09-26'
 review_status: verified
 confidence_level: medium
-content_version: 1
+content_version: 2
 change_summary: Initial structured record.
 reviewed_by: Bhaskar Bhatt
