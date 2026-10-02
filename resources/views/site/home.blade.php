@@ -3,7 +3,7 @@
 {{-- The masthead sits on a tinted wash that fades into the white page, so the hero
      reads as the front of a publication rather than as the first block of a list. --}}
 <section class="border-b border-brand-line bg-gradient-to-b from-brand-paper to-white">
-    <div class="container-site py-12 sm:py-16 grid gap-10 lg:grid-cols-12 lg:items-end">
+    <div class="container-site py-8 sm:py-16 grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end">
         <div class="lg:col-span-8">
             <p class="eyebrow">AI governance intelligence</p>
             <h1 class="mt-3 font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] font-semibold text-brand-navy max-w-[18ch]">From regulation to evidence.</h1>
@@ -17,7 +17,7 @@
                 </div>
             </form>
             <div class="mt-4 flex flex-wrap gap-2" aria-label="Quick filters">
-                @foreach($jurisdictions->take(8) as $j)<a class="chip" href="{{ route('policies.index', ['jurisdiction' => $j->slug]) }}" data-track="quick_filter" data-track-label="jurisdiction:{{ $j->slug }}">{{ $j->short_name ?: $j->name }}</a>@endforeach
+                @foreach($jurisdictions->take(8) as $j)<a class="chip {{ $loop->index >= 4 ? 'hidden sm:inline-flex' : '' }}" href="{{ route('policies.index', ['jurisdiction' => $j->slug]) }}" data-track="quick_filter" data-track-label="jurisdiction:{{ $j->slug }}">{{ $j->short_name ?: $j->name }}</a>@endforeach
                 <a class="chip" href="{{ route('policies.index', ['status' => 'in_force']) }}" data-track="quick_filter">In force</a>
                 <a class="chip" href="{{ route('policies.index', ['binding' => 'yes']) }}" data-track="quick_filter">Binding only</a>
                 <a class="chip" href="{{ route('policies.index', ['use_case' => 'generative_ai']) }}" data-track="quick_filter">Generative AI</a>
@@ -35,7 +35,7 @@
             <p class="mt-3 meta"><a href="{{ route('methodology') }}">How records are verified</a> · <a href="{{ route('coverage') }}">What is still missing</a></p>
         </aside>
     </div>
-    <div class="container-site pb-10">
+    <div class="container-site pb-8 sm:pb-10">
         <x-site.chain :stats="$stats" />
     </div>
 </section>
