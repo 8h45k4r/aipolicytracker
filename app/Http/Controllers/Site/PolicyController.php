@@ -55,7 +55,11 @@ class PolicyController extends Controller
                 'isBasedOn' => route('open-data.download'),
             ]);
 
-        return view('site.policies.index', compact('seo', 'policies', 'filters', 'options'));
+        $facets = $catalog->facetCounts($filters, 'policies');
+        $chips = $catalog->activeFilters($filters, $options, $request);
+        $total = $chips === [] ? $policies->total() : $catalog->policyQuery([])->count();
+
+        return view('site.policies.index', compact('seo', 'policies', 'filters', 'options', 'facets', 'chips', 'total'));
     }
 
     public function show(PolicyInstrument $policy): View
