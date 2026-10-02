@@ -588,3 +588,42 @@
         });
     });
 })();
+
+// Admin navigation: the Menu button on small screens, a "Go to" filter over the entries,
+// and "/" to focus it from anywhere that is not a form field.
+(function () {
+    var nav = document.querySelector('[data-admin-nav]');
+    if (!nav) { return; }
+    var button = document.querySelector('[data-admin-menu]');
+    if (button) {
+        button.addEventListener('click', function () {
+            var open = button.getAttribute('aria-expanded') !== 'true';
+            button.setAttribute('aria-expanded', open ? 'true' : 'false');
+            nav.classList.toggle('hidden', !open);
+            nav.classList.toggle('flex', open);
+        });
+    }
+    var filter = nav.querySelector('[data-admin-nav-filter]');
+    if (!filter) { return; }
+    var links = Array.prototype.slice.call(nav.querySelectorAll('[data-admin-nav-link]'));
+    filter.addEventListener('input', function () {
+        var q = filter.value.trim().toLowerCase();
+        links.forEach(function (a) { a.hidden = q !== '' && a.textContent.toLowerCase().indexOf(q) === -1; });
+        nav.querySelectorAll('[data-admin-nav-group]').forEach(function (g) {
+            g.hidden = !g.querySelector('[data-admin-nav-link]:not([hidden])');
+        });
+    });
+    filter.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter') { return; }
+        var first = links.filter(function (a) { return !a.hidden; })[0];
+        if (first) { e.preventDefault(); location.href = first.href; }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) { return; }
+        var t = e.target;
+        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) { return; }
+        e.preventDefault();
+        if (button && nav.classList.contains('hidden')) { button.click(); }
+        filter.focus();
+    });
+})();
