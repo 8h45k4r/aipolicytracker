@@ -43,6 +43,15 @@ One control serves many duties. Each line names the control, its kind, the numbe
 - [{{ $c->title }}]({{ $c->url() }}) — {{ $c->kindLabel() }}; serves {{ $c->obligations->count() }} {{ \Illuminate\Support\Str::plural('duty', $c->obligations->count()) }}; evidence: {{ $c->evidence->pluck('title')->join(', ') }}
 @endforeach
 
+## Templates ({{ $templates->count() }})
+
+Free XLSX and DOCX files generated from the records above and rebuilt when they change; each page has a preview, the duties it cites and a form that emails the download links. API: {{ route('api.v1.templates') }}
+
+@foreach($templates as $slug => $t)
+@php($v = $templateVersions[$slug] ?? null)
+- [{{ $t['title'] }}]({{ \App\Services\Templates\TemplateCatalog::url($slug) }}) — {{ \App\Services\Templates\TemplateCatalog::typeLabel($t['type']) }}, {{ \App\Services\Templates\TemplateCatalog::formatList($t) }}@if($v); {{ $v->label() }} built {{ $v->generated_at->toDateString() }}; cites {{ $v->stats['citations'] ?? 0 }} recorded duties @endif; frameworks: {{ implode(', ', array_map(fn ($f) => \App\Services\Templates\TemplateCatalog::frameworkLabel($f), $t['frameworks'] ?? [])) }}. {{ $t['short'] }}
+@endforeach
+
 ## Recent change events ({{ $changes->count() }})
 
 @foreach($changes as $c)

@@ -10,6 +10,7 @@ use App\Services\PolicyData\PolicySerializer;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
+use App\Services\Templates\TemplateCatalog;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
@@ -148,7 +149,11 @@ class PolicyController extends Controller
         // rendered only when the record can answer it.
         $seo->withFaq(QuestionBank::policy($policy));
 
-        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls', 'answer', 'facts'));
+        // Templates built on this law, so the page that answers "what does it require" also
+        // offers the files that help meet it.
+        $templates = TemplateCatalog::forPolicy($policy->slug)->take(6);
+
+        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls', 'answer', 'facts', 'templates'));
     }
 
     public function json(PolicyInstrument $policy, PolicySerializer $serializer): JsonResponse

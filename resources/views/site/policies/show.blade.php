@@ -165,6 +165,9 @@
                 <div class="text-sm"><p class="font-semibold text-brand-navy">AI risks this instrument addresses</p><ul class="mt-2 space-y-1.5">@foreach($risksAddressed as $d)<li><a href="{{ \App\Support\RiskTaxonomy::domainUrl($d['id']) }}" class="text-brand-body hover:underline">{{ $d['name'] }}</a> <span class="text-xs text-brand-muted">({{ $d['incidents'] ? number_format($d['incidents']).' recorded incidents' : 'no incidents classified' }})</span></li>@endforeach</ul><p class="meta mt-1">Mapped through the instrument's recorded use cases.</p></div>
                 @endif
                 @if($related->isNotEmpty())
+                @if($templates->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Templates built on this law</p><ul class="mt-2 space-y-1.5">@foreach($templates as $t)<li><a href="{{ \App\Services\Templates\TemplateCatalog::url($t['slug']) }}" class="text-brand-body hover:underline">{{ $t['title'] }}</a> <span class="text-xs text-brand-muted">({{ \App\Services\Templates\TemplateCatalog::formatList($t) }})</span></li>@endforeach</ul></div>
+                @endif
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Related policies</p><ul class="mt-2 space-y-1.5">@foreach($related as $r)<li><a href="{{ $r->url() }}" class="text-brand-body hover:underline">{{ $r->short_title ?: $r->title }}</a> <span class="text-xs text-brand-muted">({{ $r->jurisdiction->short_name ?: $r->jurisdiction->name }})</span></li>@endforeach</ul></div>
                 @endif
                 @if($sameJurisdiction->isNotEmpty())

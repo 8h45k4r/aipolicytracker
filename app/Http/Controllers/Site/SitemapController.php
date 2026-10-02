@@ -294,6 +294,11 @@ class SitemapController extends Controller
         foreach (TemplateCatalog::all()->keys() as $slug) {
             $urls->push(['loc' => route('templates.show', $slug), 'lastmod' => isset($latest[$slug]) ? $latest[$slug]->generated_at->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.7']);
         }
+        // Landing pages per framework and type, dated by the newest template they list.
+        foreach (TemplateCatalog::facets() as $f) {
+            $mod = TemplateCatalog::filter(TemplateCatalog::all(), [$f['facet'] => $f['key']])->keys()->map(fn ($slug) => $latest[$slug]->generated_at ?? null)->filter()->max();
+            $urls->push(['loc' => $f['url'], 'lastmod' => $mod?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.7']);
+        }
 
         return $urls;
     }

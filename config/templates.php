@@ -80,6 +80,7 @@ return [
 
         'fundamental-rights-impact-assessment' => [
             'title' => 'Fundamental Rights Impact Assessment (FRIA)',
+            'seo_name' => 'Fundamental Rights Impact Assessment (FRIA)',
             'type' => 'assessment', 'formats' => ['docx', 'xlsx'],
             'topics' => ['risk', 'oversight', 'evidence'], 'frameworks' => ['eu-ai-act'],
             'short' => 'The assessment Article 27 of the EU AI Act requires of deployers of high-risk AI: one section per element the article names, with placeholders, plus a register to track completed assessments.',
@@ -176,6 +177,7 @@ return [
 
         'iso-42001-gap-assessment' => [
             'title' => 'ISO/IEC 42001 Gap Assessment and Statement of Applicability',
+            'seo_name' => 'ISO 42001 Gap Assessment and SoA',
             'type' => 'assessment', 'formats' => ['xlsx'],
             'topics' => ['governance', 'evidence'], 'frameworks' => ['iso-42001'],
             'short' => 'Every ISO/IEC 42001 clause and control the records map to, with the legal duties behind each, applicability, implementation status and evidence, in the form a Statement of Applicability takes.',
@@ -360,6 +362,7 @@ return [
 
         'ai-dpia-supplement' => [
             'title' => 'AI Supplement to a Data Protection Impact Assessment',
+            'seo_name' => 'AI DPIA Supplement',
             'type' => 'assessment', 'formats' => ['docx', 'xlsx'],
             'topics' => ['risk', 'governance'], 'frameworks' => ['eu-ai-act'],
             'short' => 'Fifteen AI-specific questions to add to a DPIA (inferences, training on personal data, accuracy across groups, automated decisions, model attacks, suppliers), with the privacy and impact-assessment duties on record.',
@@ -400,6 +403,7 @@ return [
 
         'frontier-ai-safety-framework' => [
             'title' => 'Frontier AI Safety Framework and Transparency Report',
+            'seo_name' => 'Frontier AI Safety Framework',
             'type' => 'kit', 'formats' => ['docx', 'xlsx'],
             'topics' => ['risk', 'incidents', 'transparency'], 'frameworks' => ['eu-ai-act'],
             'short' => 'For developers of the most capable models: an outline of a published safety framework and a model transparency report, a capability-threshold sheet, a safety incident log and the frontier-model duties on record.',
@@ -416,6 +420,55 @@ return [
             'inside' => ['Every change recorded in the last twelve months, with what changed and what it means in practice', 'Relevance, owner and action columns', 'Upcoming deadlines sheet', 'Document: quarterly briefing with the last three months of changes'],
             'covers' => ['categories' => ['governance_accountability']],
             'legal_basis' => ['eu-ai-act'],
+        ],
+        'south-korea-ai-basic-act-checklist' => [
+            'title' => 'South Korea AI Basic Act Compliance Checklist',
+            'type' => 'checklist', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'transparency', 'risk'], 'frameworks' => [],
+            'short' => 'Every recorded duty of the Korean Framework Act as a checklist per product: advance notice and labelling of generative and high-impact AI, compute-threshold safety measures, high-impact duties and the domestic representative.',
+            'inside' => ['Checklist sheet: each recorded duty with its article, review status, owner and evidence', 'Systems-in-scope sheet deciding which duty groups apply per product', 'Document: scope and a section per duty'],
+            'covers' => ['policies' => ['south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for']],
+            'legal_basis' => ['south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for'],
+        ],
+
+        'texas-traiga-compliance-checklist' => [
+            'title' => 'Texas TRAIGA Compliance Checklist',
+            'type' => 'checklist', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'transparency'], 'frameworks' => [],
+            'short' => 'The Texas Responsible AI Governance Act duty by duty: the prohibitions on manipulation, unlawful discrimination and sexual-content misuse, and the AI disclosure duties for government agencies and health-care providers.',
+            'inside' => ['Checklist sheet: each recorded TRAIGA duty with its section, owner and evidence', 'Disclosure log for government and health-care settings', 'Document: intended-use statement and a section per duty'],
+            'covers' => ['policies' => ['us-texas-responsible-ai-governance-act-traiga']],
+            'legal_basis' => ['us-texas-responsible-ai-governance-act-traiga'],
+        ],
+
+        'us-state-ai-law-matrix' => [
+            'title' => 'US State AI Law Applicability Matrix',
+            'type' => 'register', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['governance', 'inventory'], 'frameworks' => ['colorado-ai-act'],
+            'short' => 'Every US federal and state AI instrument on record in one sheet, with status, legal force, application date, recorded duties and verification state, plus columns to decide which apply to you.',
+            'inside' => ['Matrix of every US instrument on record with status and date', 'Recorded duties sheet for those instruments', 'US deadlines sheet', 'Document: overview table and a section for your position'],
+            'covers' => ['policies' => ['us-texas-responsible-ai-governance-act-traiga', 'us-colorado-automated-decision-making-technology-act', 'us-california-sb-53']],
+            'legal_basis' => ['us-colorado-automated-decision-making-technology-act', 'us-texas-responsible-ai-governance-act-traiga', 'us-california-sb-53'],
+        ],
+
+        'public-sector-ai-use-case-inventory' => [
+            'title' => 'Public-Sector AI Use-Case Inventory',
+            'type' => 'register', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['inventory', 'governance'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'For government agencies: an AI use-case inventory in the shape public-sector rules ask for, flagging rights- and safety-affecting uses, with a procedure and every recorded duty that names public authorities.',
+            'inside' => ['Use-case inventory with stage, rights-and-safety flag, vendor, data, assessment and accountable official', 'Public-sector duties sheet across jurisdictions', 'Document: definitions, classification and publication procedure'],
+            'covers' => ['categories' => ['public_sector_use']],
+            'legal_basis' => ['us-omb-m-25-21', 'eu-ai-act'],
+        ],
+
+        'synthetic-content-labelling-plan' => [
+            'title' => 'Synthetic Content Labelling and Provenance Plan',
+            'type' => 'procedure', 'formats' => ['xlsx', 'docx'],
+            'topics' => ['transparency'], 'frameworks' => ['eu-ai-act'],
+            'short' => 'One labelling design for AI-generated text, images, audio and video: per-feature visible labels and machine-readable marks, with every recorded duty to label, mark or disclose synthetic content.',
+            'inside' => ['Labelling plan per product feature: visible label, machine-readable marking, standard, markets and detection tests', 'Labelling duties sheet across jurisdictions', 'Document: design principles, exceptions and a section per duty'],
+            'covers' => ['categories' => ['transparency']],
+            'legal_basis' => ['eu-ai-act', 'china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content'],
         ],
     ],
 ];

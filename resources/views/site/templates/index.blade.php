@@ -8,7 +8,7 @@
     <div class="mt-2 flex flex-wrap items-end justify-between gap-3">
         <div>
             <p class="eyebrow">Templates</p>
-            <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI governance templates, generated from the law on record</h1>
+            <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $items->count() === \App\Services\Templates\TemplateCatalog::all()->count() ? $items->count().' free ' : 'Free ' }}AI governance templates, generated from the law on record</h1>
         </div>
         <div class="flex gap-2"><a href="{{ route('templates.feed') }}" class="btn-secondary" data-track="rss_click">RSS of versions</a><a href="#subscribe" class="btn-primary" data-track="newsletter_click">Get update alerts</a></div>
     </div>
@@ -25,6 +25,12 @@
         </dl>
         @if($lastBuilt)<p class="mt-3 text-xs text-brand-muted">Last built <time datetime="{{ $lastBuilt->toAtomString() }}">{{ $lastBuilt->format('j M Y, H:i') }} UTC</time> · {{ config('templates.licence') }}</p>@endif
     </section>
+
+    {{-- The landing pages, as plain links: the way a reader (or a crawler) reaches "EU AI Act templates". --}}
+    <nav class="mt-5 flex flex-wrap items-center gap-2 text-sm" aria-label="Templates by framework and type">
+        <span class="meta mr-1">Browse:</span>
+        @foreach($facets as $f)<a href="{{ $f['url'] }}" class="chip">{{ $f['label'] }} <span class="text-brand-muted">{{ $f['count'] }}</span></a>@endforeach
+    </nav>
 
     <form method="get" action="{{ route('templates.index') }}" class="mt-5 grid gap-3 sm:grid-cols-4" data-autosubmit aria-label="Filter templates">
         <div><label for="t-type" class="label">Type</label><select id="t-type" name="type" class="input"><option value="">All types</option>@foreach($types as $k => $label)<option value="{{ $k }}" @selected($filters['type'] === $k)>{{ $label }}</option>@endforeach</select></div>

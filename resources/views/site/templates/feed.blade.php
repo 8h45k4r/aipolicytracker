@@ -6,7 +6,7 @@
     <link>{{ route('templates.index') }}</link>
     <description>New versions of the AI governance templates generated from the records on aipolicytracker.org, with what changed. CC BY 4.0. Informational only; not legal advice.</description>
     <language>en</language>
-    <lastBuildDate>{{ now()->toRssString() }}</lastBuildDate>
+    <lastBuildDate>{{ ($versions->max('generated_at') ?? now())->toRssString() }}</lastBuildDate>
     <atom:link href="{{ route('templates.feed') }}" rel="self" type="application/rss+xml" />
 @foreach($versions as $v)
 @php($meta = \App\Services\Templates\TemplateCatalog::find($v->slug))
