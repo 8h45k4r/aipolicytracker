@@ -42,6 +42,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 
 ### Changed
+- Home page, after an answer-engine audit: every section opens with a sentence that says what the list under it is; three section headings are the questions readers ask; the audience and role cards link from their title rather than the whole card, so a fifth less of the page is link text; the meta description is shorter; the footer's small SVG icons load eagerly; the subscribe form's honeypot field has a label; the hero copy is in shorter sentences; and the page's data is cached for five minutes.
+- A source link is marked `nofollow` only when it leaves the site. A change whose official source is one of our own pages (a template release) carried the mark too, which told crawlers not to follow a link into the site.
+- The disclaimer names what it is and whom to consult: "Disclaimer: … consult a qualified lawyer", in the footer and in the per-page notice.
+- FAQ questions are headings (`h3`) rather than definition terms, so an answer engine reads each as a section.
 - Major front-end and tooling upgrades: React 19, Inertia 3 (`@inertiajs/react` 3 and `inertiajs/inertia-laravel` 3), ESLint 10 and Node 26. Node is pinned in `.nvmrc` and `package.json` `engines`; CI, the security workflow and the Docker build stage read it.
 - ESLint's React rules come from `@eslint-react/eslint-plugin`, because `eslint-plugin-react` has no ESLint 10 release. The legacy React components were updated for React 19: `ref` as a prop instead of `forwardRef`, `use()` and `<Context>` for the dropdown, and a window-width store instead of setting state inside an effect.
 - `config/inertia.php` points Inertia at `resources/js/Pages` and turns SSR off. No route renders an Inertia page any more (sign-in, registration and the profile are Blade), so the React pages are legacy and could be removed.
