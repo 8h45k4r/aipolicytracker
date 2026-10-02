@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Shared read queries and filter handling for the public site and API.
@@ -198,6 +199,90 @@ class PolicyCatalog
         }
 
         return $base;
+    }
+
+    /** Which filters each listing offers, with the taxonomy behind each term filter. */
+    private const FACETS = [
+        'policies' => ['jurisdiction' => null, 'region' => null, 'status' => null, 'type' => null, 'risk' => 'risk_category', 'sector' => 'sector', 'use_case' => 'use_case', 'actor' => 'actor', 'binding' => null],
+        'obligations' => ['jurisdiction' => null, 'category' => null, 'sector' => 'sector', 'use_case' => 'use_case', 'actor' => 'actor', 'binding' => null],
+    ];
+
+    /**
+     * For each filter, how many results each of its values would give alongside the
+     * other filters already chosen (the filter itself left out, so its own options do
+     * not all collapse to the one picked). Keyed facet => value => count.
+     *
+     * @return array<string, array<string, int>>
+     */
+    public function facetCounts(array $filters, string $mode): array
+    {
+        $policies = $mode === 'policies';
+        $model = $policies ? new PolicyInstrument : new Obligation;
+        $table = $model->getTable();
+        $out = [];
+
+        foreach (self::FACETS[$mode] as $facet => $taxonomy) {
+            $others = array_diff_key($filters, [$facet => true, 'sort' => true]);
+            $query = ($policies ? $this->policyQuery($others) : $this->obligationQuery($others))->reorder()->setEagerLoads([]);
+            $ids = $query->pluck($table.'.id');
+
+            $out[$facet] = match (true) {
+                $taxonomy !== null => DB::table('taxonomy_assignments')->join('taxonomy_terms', 'taxonomy_terms.id', '=', 'taxonomy_assignments.taxonomy_term_id')
+                    ->where('assignable_type', $model->getMorphClass())->whereIn('assignable_id', $ids)->where('taxonomy_terms.taxonomy', $taxonomy)
+                    ->groupBy('taxonomy_terms.slug')->selectRaw('taxonomy_terms.slug as k, COUNT(DISTINCT assignable_id) as n')->pluck('n', 'k'),
+                $facet === 'jurisdiction' || $facet === 'region' => $policies
+                    ? DB::table($table)->join('jurisdictions', 'jurisdictions.id', '=', $table.'.jurisdiction_id')->whereIn($table.'.id', $ids)
+                        ->groupBy('jurisdictions.'.($facet === 'region' ? 'region' : 'slug'))->selectRaw('jurisdictions.'.($facet === 'region' ? 'region' : 'slug').' as k, COUNT(*) as n')->pluck('n', 'k')
+                    : DB::table($table)->join('policy_instruments', 'policy_instruments.id', '=', $table.'.policy_instrument_id')->join('jurisdictions', 'jurisdictions.id', '=', 'policy_instruments.jurisdiction_id')
+                        ->whereIn($table.'.id', $ids)->groupBy('jurisdictions.slug')->selectRaw('jurisdictions.slug as k, COUNT(*) as n')->pluck('n', 'k'),
+                $facet === 'binding' => DB::table($table)->whereIn('id', $ids)->groupBy('is_binding')->selectRaw('is_binding as k, COUNT(*) as n')->pluck('n', 'k')
+                    ->mapWithKeys(fn ($n, $k) => [((bool) $k) ? 'yes' : 'no' => $n]),
+                default => DB::table($table)->whereIn('id', $ids)->groupBy(['status' => 'status', 'type' => 'instrument_type', 'category' => 'category'][$facet])
+                    ->selectRaw(['status' => 'status', 'type' => 'instrument_type', 'category' => 'category'][$facet].' as k, COUNT(*) as n')->pluck('n', 'k'),
+            };
+            $out[$facet] = collect($out[$facet])->map(fn ($n) => (int) $n)->all();
+        }
+
+        return $out;
+    }
+
+    /**
+     * The filters in force, one entry per chosen value, each with a human label and the
+     * URL that removes just that value. Keyword and dates are included; sort is not a filter.
+     *
+     * @return list<array{key:string, label:string, value:string, remove:string}>
+     */
+    public function activeFilters(array $filters, array $options, Request $request): array
+    {
+        $names = [
+            'jurisdiction' => $options['jurisdictions']->pluck('name', 'slug'),
+            'status' => collect(PolicyStatus::cases())->mapWithKeys(fn ($c) => [$c->value => $c->label()]),
+            'type' => collect(InstrumentType::cases())->mapWithKeys(fn ($c) => [$c->value => $c->label()]),
+            'risk' => $options['risks']->pluck('name', 'slug'),
+            'sector' => $options['sectors']->pluck('name', 'slug'),
+            'use_case' => $options['use_cases']->pluck('name', 'slug'),
+            'actor' => $options['actors']->pluck('name', 'slug'),
+            'category' => $options['categories']->pluck('name', 'slug'),
+            'binding' => collect(['yes' => 'Legal requirements only', 'no' => 'Voluntary guidance only']),
+        ];
+        $labels = ['q' => 'Keyword', 'jurisdiction' => 'Jurisdiction', 'region' => 'Region', 'status' => 'Status', 'type' => 'Type', 'risk' => 'Risk', 'sector' => 'Sector',
+            'use_case' => 'Use case', 'actor' => 'Actor', 'category' => 'Category', 'binding' => 'Binding', 'from' => 'Effective from', 'to' => 'Effective to'];
+
+        $chips = [];
+        foreach (array_diff_key($filters, ['sort' => true]) as $key => $value) {
+            $values = in_array($key, ['q', 'from', 'to', 'region'], true) ? [$value] : $this->list($value);
+            foreach ($values as $v) {
+                $rest = implode(',', array_diff($values, [$v]));
+                $chips[] = [
+                    'key' => $key,
+                    'label' => $labels[$key] ?? ucfirst(str_replace('_', ' ', $key)),
+                    'value' => $key === 'q' ? '“'.$v.'”' : (string) (($names[$key] ?? collect())->get($v) ?? $v),
+                    'remove' => $request->fullUrlWithQuery([$key => $rest === '' ? null : $rest, 'page' => null]),
+                ];
+            }
+        }
+
+        return $chips;
     }
 
     private function list(string $value): array

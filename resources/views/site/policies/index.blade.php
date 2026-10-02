@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<x-site.listing-shell :seo="$seo" :filters="$filters" :options="$options" :paginator="$policies" mode="policies"
+<x-site.listing-shell :seo="$seo" :filters="$filters" :options="$options" :paginator="$policies" mode="policies" :facets="$facets" :chips="$chips" :total="$total"
     :heading="!empty($filters['jurisdiction']) && !str_contains($filters['jurisdiction'], ',') && ($j = $options['jurisdictions']->firstWhere('slug', $filters['jurisdiction'])) ? 'AI policies in '.$j->name : 'AI policy explorer'"
     intro="Search and filter source-backed AI laws, regulations, standards, guidance and consultations. Each record shows its status, key dates, verification state and official source.">
     @forelse($policies as $policy)
