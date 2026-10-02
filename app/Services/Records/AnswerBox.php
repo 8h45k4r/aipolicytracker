@@ -8,6 +8,8 @@ use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TemplateVersion;
+use App\Services\Templates\TemplateCatalog;
 use Illuminate\Support\Collection;
 
 /**
@@ -105,6 +107,38 @@ final class AnswerBox
         ];
 
         return self::compose($sentences, $jurisdiction->overview);
+    }
+
+    /**
+     * A template: what it is, what it is built from, which version, and the terms.
+     *
+     * @param  Collection<int,Obligation>  $covered
+     * @param  list<string>  $audience
+     */
+    public static function template(array $meta, TemplateVersion $version, Collection $covered, array $audience): string
+    {
+        $type = mb_strtolower(TemplateCatalog::typeLabel($meta['type']));
+        $frameworks = array_map(fn ($f) => TemplateCatalog::frameworkLabel($f), $meta['frameworks'] ?? []);
+        $instruments = $covered->pluck('policy_instrument_id')->unique()->count();
+        $citations = (int) ($version->stats['citations'] ?? 0);
+
+        $sentences = [
+            'The '.self::clean($meta['title']).' is a free '.TemplateCatalog::formatList($meta).' '.$type.($frameworks ? ' for '.self::joinList($frameworks) : '').'.',
+            self::firstSentence($meta['short']),
+            $citations > 0 ? "Version {$version->label()}, built {$version->generated_at->format('j F Y')}, cites {$citations} recorded ".($citations === 1 ? 'duty' : 'duties').($instruments > 0 ? ' from '.$instruments.' '.($instruments === 1 ? 'instrument' : 'instruments') : '').', each linked to its official source.' : "Version {$version->label()} was built {$version->generated_at->format('j F Y')}.",
+            $audience ? 'It is written for '.self::joinList(array_map('mb_strtolower', $audience)).'.' : null,
+            'It is licensed CC BY 4.0 and is not legal advice.',
+        ];
+
+        return self::compose($sentences, $meta['short']);
+    }
+
+    /** "a, b and c" */
+    private static function joinList(array $items): string
+    {
+        $items = array_values($items);
+
+        return count($items) > 1 ? implode(', ', array_slice($items, 0, -1)).' and '.end($items) : ($items[0] ?? '');
     }
 
     /** A dated development: when, where, what it concerns, what changed, what it means. */

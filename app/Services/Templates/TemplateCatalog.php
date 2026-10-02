@@ -5,6 +5,7 @@ namespace App\Services\Templates;
 use App\Models\Obligation;
 use App\Services\Templates\Definitions\Assessments;
 use App\Services\Templates\Definitions\Compliance;
+use App\Services\Templates\Definitions\Jurisdictional;
 use App\Services\Templates\Definitions\Kits;
 use App\Services\Templates\Definitions\PoliciesProcedures;
 use App\Services\Templates\Definitions\Programme;
@@ -43,7 +44,8 @@ final class TemplateCatalog
             ?? PoliciesProcedures::make($slug, $meta)
             ?? Kits::make($slug, $meta)
             ?? Programme::make($slug, $meta)
-            ?? Compliance::make($slug, $meta);
+            ?? Compliance::make($slug, $meta)
+            ?? Jurisdictional::make($slug, $meta);
     }
 
     public static function url(string $slug): string
@@ -126,5 +128,91 @@ final class TemplateCatalog
         $f = array_map('strtoupper', $meta['formats'] ?? []);
 
         return count($f) > 1 ? implode(' and ', $f) : ($f[0] ?? '');
+    }
+
+    /** A landing page needs at least this many templates to be worth indexing on its own. */
+    public const MIN_FACET = 3;
+
+    /** The facets that get their own landing page: /templates/framework/eu-ai-act, /templates/type/register. */
+    public const FACETS = ['framework' => 'frameworks', 'type' => 'types'];
+
+    /**
+     * Every indexable landing page, with its label and count, for routes, the sitemap and
+     * the hub's links. Thin ones (fewer than MIN_FACET templates) are left out.
+     *
+     * @return list<array{facet:string, key:string, label:string, count:int, url:string}>
+     */
+    public static function facets(): array
+    {
+        $out = [];
+        foreach (self::FACETS as $facet => $configKey) {
+            foreach (array_keys(config("templates.{$configKey}", [])) as $key) {
+                $count = self::filter(self::all(), [$facet => $key])->count();
+                if ($count >= self::MIN_FACET) {
+                    $out[] = ['facet' => $facet, 'key' => $key, 'label' => self::facetLabel($facet, $key), 'count' => $count, 'url' => route('templates.facet', [$facet, $key])];
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    public static function facet(string $facet, string $key): ?array
+    {
+        return collect(self::facets())->first(fn ($f) => $f['facet'] === $facet && $f['key'] === $key);
+    }
+
+    /** "EU AI Act" for a framework; "Register" becomes "AI governance register" for a type. */
+    public static function facetLabel(string $facet, string $key): string
+    {
+        return $facet === 'framework' ? self::frameworkLabel($key) : 'AI Governance '.self::typeLabel($key);
+    }
+
+    /**
+     * Who the template is for, read from the duties it cites: the actor roles named on
+     * them, most frequent first. Nothing is inferred beyond what the records say.
+     *
+     * @param  Collection<int, Obligation>  $covered
+     * @return list<string>
+     */
+    public static function audience(Collection $covered, int $limit = 3): array
+    {
+        return $covered->flatMap(fn (Obligation $o) => $o->relationLoaded('terms') ? $o->terms->where('taxonomy', 'actor')->pluck('name') : collect())
+            ->countBy()->sortDesc()->keys()->take($limit)->values()->all();
+    }
+
+    /**
+     * Templates most like this one: a shared framework counts most, then a shared duty
+     * category, then a shared topic, then the same type. Ranked, so every template gets
+     * neighbours, rather than the first few in catalogue order collecting all the links.
+     */
+    public static function related(string $slug, int $limit = 6): Collection
+    {
+        $meta = self::find($slug);
+        $score = fn (array $m) => 3 * count(array_intersect($m['frameworks'] ?? [], $meta['frameworks'] ?? []))
+            + 4 * count(array_intersect($m['covers']['categories'] ?? [], $meta['covers']['categories'] ?? []))
+            + 2 * count(array_intersect($m['topics'] ?? [], $meta['topics'] ?? []))
+            + ($m['type'] === $meta['type'] ? 1 : 0);
+
+        $ranked = self::all()->except($slug)->map(fn ($m) => $m + ['score' => $score($m)])
+            ->filter(fn ($m) => $m['score'] > 0)->sortByDesc('score')->take($limit - 1);
+        // Plus the next template in the library, so every template is linked from at least
+        // one other page however its neighbours score.
+        $keys = self::all()->keys()->values();
+        $next = $keys[($keys->search($slug) + 1) % $keys->count()];
+        if (! $ranked->has($next) && $next !== $slug) {
+            $ranked->put($next, self::find($next) + ['score' => 0]);
+        }
+
+        return $ranked;
+    }
+
+    /** Templates whose content rests on a policy, for that policy's page. */
+    public static function forPolicy(string $policySlug): Collection
+    {
+        // Templates built for this law first (it is in their scope), then those that only
+        // cite it among others.
+        return self::all()->filter(fn ($m) => in_array($policySlug, $m['legal_basis'] ?? [], true) || in_array($policySlug, $m['covers']['policies'] ?? [], true))
+            ->sortByDesc(fn ($m) => (in_array($policySlug, $m['covers']['policies'] ?? [], true) ? 2 : 0) + (count($m['legal_basis'] ?? []) === 1 ? 1 : 0));
     }
 }

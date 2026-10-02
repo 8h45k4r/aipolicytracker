@@ -108,7 +108,9 @@ class AnswerEngineSurfacesTest extends TestCase
         $this->artisan('templates:build');
         $slug = TemplateCatalog::all()->keys()->first();
         $html = $this->get(TemplateCatalog::url($slug))->assertOk()->getContent();
-        $doc = collect($this->jsonLd($html))->firstWhere('@type', 'DigitalDocument');
+        $page = collect($this->jsonLd($html))->firstWhere('@type', 'ItemPage');
+        $doc = $page['mainEntity'];
+        $this->assertSame('DigitalDocument', $doc['@type']);
 
         $this->assertStringContainsString('work email', $doc['conditionsOfAccess']);
         $this->assertSame(0, $doc['offers']['price']);

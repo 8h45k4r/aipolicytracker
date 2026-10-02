@@ -6,6 +6,8 @@ use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TemplateVersion;
+use App\Services\Templates\TemplateCatalog;
 use Illuminate\Support\Collection;
 
 /**
@@ -111,5 +113,27 @@ final class KeyFacts
     private static function clean(string $text): string
     {
         return trim(preg_replace('/\s+/u', ' ', $text));
+    }
+
+    /**
+     * @param  Collection<int,Obligation>  $covered
+     * @param  list<string>  $audience
+     * @return list<Fact>
+     */
+    public static function template(array $meta, TemplateVersion $version, Collection $covered, array $audience): array
+    {
+        $catalog = TemplateCatalog::class;
+        $rows = array_sum($version->stats['sheets'] ?? []);
+        $frameworks = $meta['frameworks'] ?? [];
+
+        return array_values(array_filter([
+            ['label' => 'Format', 'value' => $catalog::formatList($meta).' · '.$catalog::typeLabel($meta['type'])],
+            ['label' => 'Version', 'value' => $version->label().', built '.$version->generated_at->format('j M Y')],
+            $covered->isNotEmpty() ? ['label' => 'Duties cited', 'value' => $covered->count().' from '.$covered->pluck('policy_instrument_id')->unique()->count().' instruments', 'href' => '#covers-heading'] : null,
+            $rows > 0 ? ['label' => 'Rows from the records', 'value' => number_format($rows)] : null,
+            $frameworks ? ['label' => 'Frameworks', 'value' => implode(', ', array_map(fn ($f) => $catalog::frameworkLabel($f), $frameworks)), 'href' => $catalog::facet('framework', $frameworks[0]) ? route('templates.facet', ['framework', $frameworks[0]]) : null] : null,
+            $audience ? ['label' => 'Written for', 'value' => implode(', ', $audience)] : null,
+            ['label' => 'Price and licence', 'value' => 'Free · CC BY 4.0'],
+        ]));
     }
 }
