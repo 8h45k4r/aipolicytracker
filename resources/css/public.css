@@ -73,11 +73,14 @@
        a sequence; `pt-9` on the link reserves the row the number sits in. */
     .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-sm overflow-hidden sm:grid-cols-5; counter-reset: chain-step; }
     .chain-step { @apply bg-white; counter-increment: chain-step; }
-    .chain-link { @apply block h-full p-4 pt-9 no-underline hover:bg-brand-paper transition-colors relative; }
+    /* Phones: one line per step (number, label, count), so the strip takes about a fifth of a screen rather than two. */
+    .chain-link { @apply flex items-center gap-3 py-2.5 pl-11 pr-4 sm:block h-full sm:p-4 sm:pt-9 no-underline hover:bg-brand-paper transition-colors relative; }
+    .chain-link .stat-value { @apply order-last ml-auto mt-0 text-xl sm:order-none sm:ml-0 sm:mt-1 sm:text-3xl; }
+    .chain-link .stat-note { @apply hidden sm:block; }
     .chain-step + .chain-step .chain-link::before { content: "→"; @apply absolute -left-2.5 top-10 hidden sm:block text-brand-muted text-sm bg-white px-0.5 rounded-sm; }
     .chain-link::after {
         content: counter(chain-step);
-        @apply absolute left-4 top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-paper font-mono text-[11px] font-semibold tabular-nums text-brand-muted ring-1 ring-brand-line transition-colors;
+        @apply absolute left-4 top-1/2 -translate-y-1/2 sm:translate-y-0 sm:top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-paper font-mono text-[11px] font-semibold tabular-nums text-brand-muted ring-1 ring-brand-line transition-colors;
     }
     .chain-link:hover::after { @apply bg-brand-navy text-white ring-brand-navy; }
 
@@ -113,7 +116,7 @@
     .datestamp { @apply font-mono text-xs text-brand-navy tabular-nums; }
     .skeleton { @apply animate-pulse rounded-sm bg-brand-paper; }
 
-    .nav-link { @apply inline-flex items-center border-b-2 border-transparent px-2.5 py-5 text-sm font-medium text-brand-body no-underline hover:text-brand-navy hover:border-brand-line; }
+    .nav-link { @apply inline-flex items-center whitespace-nowrap border-b-2 border-transparent px-1.5 xl:px-2.5 py-5 text-sm font-medium text-brand-body no-underline hover:text-brand-navy hover:border-brand-line; }
     .nav-link-active { @apply border-brand-navy text-brand-navy; }
 
     /* Dropdown panel for a primary-nav group. The group is a <details>, so this is only
