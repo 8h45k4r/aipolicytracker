@@ -52,7 +52,7 @@
                     </dl>
                     <p class="mt-3 text-xs"><a href="{{ route('changes.year', $change->occurred_on->year) }}">All changes in {{ $change->occurred_on->year }}</a> · <a href="{{ route('changes.feed') }}">RSS</a></p>
                 </div>
-                <x-site.correction-cta subject-type="change" :subject-slug="$change->slug" :save-title="$change->title" :save-url="$change->url()" :save-meta="$change->jurisdiction?->name" class="flex-col [&>*]:w-full" />
+                <x-site.correction-cta subject-type="change" :subject-slug="$change->slug" :save-title="$change->title" :save-url="$change->url()" :save-meta="$change->jurisdiction?->name" />
             </div>
         </aside>
     </div>
