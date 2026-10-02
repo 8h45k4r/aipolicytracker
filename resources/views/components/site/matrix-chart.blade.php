@@ -10,7 +10,7 @@
             @foreach($cols as $c)
             @php($v = (int) ($cells[$r][$c] ?? 0))
             @php($a = $v ? 0.12 + 0.75 * ($v / $max) : 0)
-            <td class="text-center font-mono tabular-nums" style="background: rgba(0,33,71,{{ number_format($a, 2) }}); color: {{ $a > 0.5 ? '#ffffff' : '#1E2A3B' }};">{{ $v ?: '—' }}</td>
+            <td class="text-center font-mono tabular-nums heat {{ $a > 0.6 ? 'heat-hi' : ($a > 0.35 ? 'heat-mid' : '') }}" style="background: rgb(var(--c-heat, 0 33 71) / {{ number_format($a, 2) }});">{{ $v ?: '—' }}</td>
             @endforeach
         </tr>
         @endforeach
