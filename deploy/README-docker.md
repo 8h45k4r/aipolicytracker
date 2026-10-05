@@ -218,6 +218,20 @@ cd deploy && docker compose up -d --build
 A rollback does not undo a migration. If a release migrated destructively, the
 database needs restoring separately.
 
+## The host cannot reach GitHub on port 22
+
+The repository is private, so the checkout on the host fetches with a read-only
+deploy key (`/root/.ssh/github_deploy_ed25519`, registered under Settings →
+Deploy keys). This host blocks outbound port 22, so `/root/.ssh/config.github`
+routes `github.com` to `ssh.github.com` on port 443, which GitHub serves for
+exactly this case; `/root/.ssh/config` includes it. If a deploy ends in
+`could not read Username` or `connect to host github.com port 22: Connection
+timed out`, that file is missing or the key is not on the repository:
+
+```
+ssh -o BatchMode=yes -T git@github.com     # expect: Hi 8h45k4r/aipolicytracker! ...
+```
+
 ## If a job says "Permission denied"
 
 The `aip-storage` volume keeps the files the app writes (uploads, synced
