@@ -96,11 +96,11 @@ class IncidentBrandSafetyTest extends TestCase
         $this->assertStringContainsString('noindex', $head);
         $this->assertStringNotContainsStringIgnoringCase('nude', $head);
         $this->assertStringNotContainsStringIgnoringCase('singer', $html, 'the page body does not repeat the headline either');
-        $this->assertStringContainsString('Laws that address this harm', $html);
+        $this->assertStringContainsString('Laws on record for this risk area', $html);
         $this->assertStringContainsString('"@type":"Article"', $head);
 
         $standardHtml = $this->get($standard->fresh()->url())->assertOk()->getContent();
-        $this->assertStringContainsString('Laws that address this harm', $standardHtml);
+        $this->assertStringContainsString('Laws on record for this risk area', $standardHtml);
         $this->assertStringContainsString('Policy angle', $standardHtml);
         $this->assertStringContainsString('index,follow', $standardHtml);
 

@@ -12,6 +12,9 @@ use Illuminate\Support\Collection;
 
 class ExternalIncident extends Model
 {
+    /** Policy statuses that no longer bind or guide anyone, so never shown as a law for an incident. */
+    public const LAPSED_STATUSES = ['repealed', 'archived', 'superseded'];
+
     protected $primaryKey = 'incident_id';
 
     public $incrementing = false;
@@ -64,7 +67,7 @@ class ExternalIncident extends Model
     }
 
     /**
-     * The recorded instruments that address this harm where it happened, in
+     * The recorded instruments still in effect for this risk area where it happened, in
      * the order they were matched (binding first), or a reviewer's own list.
      *
      * @return Collection<int,PolicyInstrument>
@@ -75,7 +78,9 @@ class ExternalIncident extends Model
         if ($slugs === []) {
             return collect();
         }
-        $rows = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $slugs)->get()->keyBy('slug');
+        // Filtered again here, not only when the list is matched: an instrument
+        // repealed since the last enrichment run drops out at once.
+        $rows = PolicyInstrument::published()->with('jurisdiction')->whereIn('slug', $slugs)->whereNotIn('status', self::LAPSED_STATUSES)->get()->keyBy('slug');
 
         return collect($slugs)->map(fn ($s) => $rows[$s] ?? null)->filter()->values();
     }

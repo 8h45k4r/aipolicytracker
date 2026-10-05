@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Services\Glossary\GlossaryTerms;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Social\SocialCard;
 
@@ -428,6 +429,7 @@ class Seo
             '@type' => 'Organization',
             '@id' => url('/').'#organization',
             'name' => config('aipolicytracker.site_name'),
+            'alternateName' => self::alternateNames(),
             'url' => url('/'),
             // A raster with declared dimensions: the guidance for a publisher logo
             // asks for an image at least 112px on each side, and an SVG carries no
@@ -486,6 +488,20 @@ class Seo
      *
      * @return array{regions: list<string>, subjects: list<string>}
      */
+    /**
+     * The other names people use for the site. The brand is written as one word,
+     * but people search for "AI policy tracker" and the logo spells it out; naming
+     * all three lets a search or answer engine resolve them to one entity.
+     *
+     * @return list<string>
+     */
+    private static function alternateNames(): array
+    {
+        $name = (string) config('aipolicytracker.site_name');
+
+        return array_values(array_diff(array_unique(['AI Policy Tracker', 'Artificial Intelligence Policy Tracker', parse_url((string) config('app.url'), PHP_URL_HOST) ?: 'aipolicytracker.org']), [$name]));
+    }
+
     private static function coverage(): array
     {
         // Deliberately no static memo. A static would outlive the request in a
@@ -498,16 +514,19 @@ class Seo
                     ->whereNotNull('region')->distinct()->orderBy('region')->pluck('region')
                     ->filter()->values()->all();
 
-                // The named topics the site is about, then whatever the taxonomy
-                // adds on top of them, capped so the node stays a description
-                // rather than a keyword dump.
-                $subjects = ['AI regulation', 'AI governance', 'AI compliance', 'AI policy', 'algorithmic accountability'];
-                $terms = TaxonomyTerm::query()->orderBy('name')->pluck('name')
+                // The named topics the site is about, then the concepts the glossary
+                // defines and the duty categories the records file obligations under,
+                // capped so the node stays a description rather than a keyword dump.
+                // Evidence types and sectors are left out: "Access or activity log"
+                // is a thing the site lists, not a subject it knows about.
+                $subjects = ['AI regulation', 'AI governance', 'AI compliance', 'AI policy', 'AI law', 'algorithmic accountability'];
+                $concepts = array_column(GlossaryTerms::all(), 'short');
+                $categories = TaxonomyTerm::query()->where('taxonomy', 'obligation_category')->orderBy('sort_order')->orderBy('name')->pluck('name')
                     ->map(fn ($t) => trim((string) $t))->filter()->values()->all();
 
                 return [
                     'regions' => $regions,
-                    'subjects' => array_values(array_slice(array_unique(array_merge($subjects, $terms)), 0, 40)),
+                    'subjects' => array_values(array_slice(array_unique(array_merge($subjects, $concepts, $categories)), 0, 40)),
                 ];
             });
         } catch (\Throwable) {
@@ -622,6 +641,7 @@ class Seo
             '@type' => 'WebSite',
             '@id' => url('/').'#website',
             'name' => config('aipolicytracker.site_name'),
+            'alternateName' => self::alternateNames(),
             'url' => url('/'),
             'publisher' => ['@id' => url('/').'#organization'],
             'potentialAction' => [

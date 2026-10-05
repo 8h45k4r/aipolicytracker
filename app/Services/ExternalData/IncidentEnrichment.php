@@ -107,9 +107,10 @@ final class IncidentEnrichment
     }
 
     /**
-     * The laws that address this harm where it happened: published instruments
-     * in the countries the record names, covering one of the use cases the
-     * incident's risk domain concerns, binding first. When the record names no
+     * The laws on record for this risk area where it happened: published
+     * instruments still in effect in the countries the record names, covering
+     * one of the use cases the incident's risk subdomain (or domain) concerns,
+     * binding first. When the record names no
      * country, or its country has nothing on the use case, the binding
      * instruments covering that use case anywhere, so the page always points
      * somewhere real.
@@ -120,7 +121,8 @@ final class IncidentEnrichment
     {
         $useCases = self::useCasesFor($incident);
         $jurisdictions = self::jurisdictionsFor($incident);
-        $base = fn () => PolicyInstrument::published()->with('jurisdiction')->whereNotNull('official_source_url');
+        // A repealed, archived or superseded instrument addresses nothing any more.
+        $base = fn () => PolicyInstrument::published()->with('jurisdiction')->whereNotNull('official_source_url')->whereNotIn('status', ExternalIncident::LAPSED_STATUSES);
 
         $local = collect();
         if ($jurisdictions !== [] && $useCases !== []) {
@@ -155,17 +157,31 @@ final class IncidentEnrichment
             ->map(fn ($slug) => Jurisdiction::published()->where('slug', $slug)->first()?->nameWithArticle())->filter()->values();
         $n = count($relatedSlugs);
         $where = $places->isNotEmpty() ? ' in '.$places->take(2)->implode(' and ') : '';
-        $laws = $n === 0 ? 'no recorded instrument yet addresses this use case'.$where : ($n === 1 ? 'one recorded instrument addresses this use case'.$where : "{$n} recorded instruments address this use case".$where);
+        $laws = $n === 0 ? 'no instrument on record yet covers this risk area'.$where : ($n === 1 ? 'one instrument on record covers this risk area'.$where : "{$n} instruments on record cover this risk area".$where);
 
         return 'Classified under '.$domain.($sub !== '' ? " ({$sub})" : '').' in the MIT AI Risk Repository taxonomy; '.$laws.'.';
     }
 
-    /** @return list<string> */
+    /**
+     * The use cases an incident's risk falls under: its subdomain's, where the
+     * subdomain names its own (exposure to toxic content is a content-moderation
+     * question, not a hiring one, though both sit in the same domain), else its
+     * domain's. An empty list on a subdomain means no use case fits.
+     *
+     * @return list<string>
+     */
     private static function useCasesFor(ExternalIncident $incident): array
     {
         $label = mb_strtolower(trim((string) $incident->mit_domain));
+        $sub = mb_strtolower(trim((string) $incident->mit_subdomain));
         foreach (app(ExternalDataset::class)->mitRisk()['domains'] ?? [] as $d) {
             if (mb_strtolower($d['aiid_domain_label'] ?? '') === $label || mb_strtolower($d['name'] ?? '') === $label) {
+                foreach ($d['subdomains'] ?? [] as $sd) {
+                    if ($sub !== '' && mb_strtolower($sd['name'] ?? '') === $sub && array_key_exists('use_cases', $sd)) {
+                        return array_values($sd['use_cases']);
+                    }
+                }
+
                 return array_values($d['use_cases'] ?? []);
             }
         }

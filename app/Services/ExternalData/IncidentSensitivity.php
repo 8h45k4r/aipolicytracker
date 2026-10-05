@@ -82,7 +82,7 @@ final class IncidentSensitivity
         $when = $incident->occurred_on?->format('j F Y');
 
         return 'An AI Incident Database record involving sexual content'.($when ? ", dated {$when}" : '')
-            .'. Risk classification, related incidents and the laws that address this harm.';
+            .'. Risk classification, related incidents and the laws on record for this risk area.';
     }
 
     /**

@@ -16,6 +16,7 @@ use App\Models\TemplateVersion;
 use App\Models\Tool;
 use App\Models\TransitionMeasure;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\Glossary\GlossaryTerms;
 use App\Services\Hubs\HubCatalog;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\Report\StateOfAiRegulation;
@@ -153,8 +154,8 @@ class SitemapController extends Controller
      * Filtered on the same isIndexable() the page itself uses, because a sitemap
      * that lists a noindex page and a page that refuses the listing are two
      * halves of one contradiction, and an index resolves it by trusting neither.
-     * This drops roughly a third of the 2,500 entries: the ones with no
-     * description, which is all the page would have had.
+     * This drops more than half of the 2,500 entries: the ones with no
+     * description, or one too short to be a page of its own.
      */
     private function riskUrls()
     {
@@ -191,6 +192,9 @@ class SitemapController extends Controller
         $pages[] = [route('state-of.show'), 'weekly', '0.8'];
         foreach (StateOfAiRegulation::frozenQuarters() as $q) {
             $pages[] = [route('state-of.quarter', $q), 'yearly', '0.5'];
+        }
+        foreach (array_keys(GlossaryTerms::all()) as $term) {
+            $pages[] = [GlossaryTerms::url($term), 'monthly', '0.6'];
         }
         $pages[] = [route('embed.index'), 'monthly', '0.4'];
         foreach (app(ReviewerRoster::class)->published() as $r) {

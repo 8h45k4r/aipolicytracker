@@ -4,7 +4,7 @@
 @php($levels = ['in_force' => ['Binding AI law in force', 'bg-brand-navy text-white'], 'binding' => ['Binding AI law recorded', 'bg-brand-blue text-white'], 'guidance' => ['Strategy, guidance or existing law', 'bg-brand-paper text-brand-body']])
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
-    <p class="eyebrow mt-2">Quarterly report{{ $report['frozen'] ? ' · frozen '.\Carbon\Carbon::parse($report['frozen_at'])->format('j M Y') : ' · live' }}</p>
+    <p class="eyebrow mt-2">Quarterly report · AI regulation statistics{{ $report['frozen'] ? ' · frozen '.\Carbon\Carbon::parse($report['frozen_at'])->format('j M Y') : ' · live' }}</p>
     <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">The state of AI regulation, {{ $label }}</h1>
 
     <section class="mt-5 card-flat p-5" aria-labelledby="summary-heading">
