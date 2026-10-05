@@ -7,7 +7,6 @@ use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Social\SocialCard;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Per-page metadata passed from controllers to the public layout.
@@ -150,7 +149,7 @@ class Seo
     private static function corpusVersion(): string
     {
         try {
-            return Cache::remember('seo.corpus-version', 3600, function () {
+            return ContentCache::remember('seo.corpus-version', 3600, function () {
                 $stamp = PolicyInstrument::query()->published()->max('updated_at');
 
                 return substr(hash('crc32b', (string) $stamp.SocialCard::designVersion()), 0, 8);
@@ -494,7 +493,7 @@ class Seo
         // an answer computed against data that has since changed. The cache is the
         // memo, and it is scoped to the application instance that owns it.
         try {
-            return Cache::remember('seo.coverage', 86400, function () {
+            return ContentCache::remember('seo.coverage', 86400, function () {
                 $regions = Jurisdiction::query()->published()
                     ->whereNotNull('region')->distinct()->orderBy('region')->pluck('region')
                     ->filter()->values()->all();

@@ -70,12 +70,16 @@ class AiidApiClient
     private function query(string $query): array
     {
         $response = $this->http()->post(self::ENDPOINT, ['query' => $query]);
+        $json = $response->json();
+        $message = (string) ($json['errors'][0]['message'] ?? '');
+        if ($response->status() === 401 || str_contains(mb_strtolower($message), 'log in')) {
+            throw new AiidLoginRequired('The AIID API requires a signed-in account for this query'.($message !== '' ? ': '.mb_substr($message, 0, 160) : '.'));
+        }
         if (! $response->ok()) {
             throw new RuntimeException('AIID API responded '.$response->status().': '.mb_substr($response->body(), 0, 200));
         }
-        $json = $response->json();
-        if (! empty($json['errors'])) {
-            throw new RuntimeException('AIID API error: '.($json['errors'][0]['message'] ?? 'unknown'));
+        if ($message !== '') {
+            throw new RuntimeException('AIID API error: '.$message);
         }
 
         return $json['data'] ?? [];
@@ -83,11 +87,19 @@ class AiidApiClient
 
     private function http(): PendingRequest
     {
-        return Http::timeout($this->timeout)->retry(2, 2000, throw: false)->withHeaders([
+        // Credentials are optional and only sent when configured: an API token AIID issues
+        // (AIID_API_TOKEN, sent as a bearer token) or the session cookie of an AIID account
+        // (AIID_API_COOKIE). Without either, incident queries answer "log in" and the sync
+        // stands down; the weekly backup still updates the data.
+        $headers = array_filter([
             'Origin' => self::ORIGIN,
             'Referer' => self::ORIGIN.'/',
             'Accept' => 'application/json',
             'User-Agent' => 'Mozilla/5.0 (compatible; aipolicytracker.org sync; +https://aipolicytracker.org/open-data)',
-        ])->acceptJson();
+            'Authorization' => filled(config('services.aiid.api_token')) ? 'Bearer '.config('services.aiid.api_token') : null,
+            'Cookie' => filled(config('services.aiid.api_cookie')) ? (string) config('services.aiid.api_cookie') : null,
+        ]);
+
+        return Http::timeout($this->timeout)->retry(2, 2000, throw: false)->withHeaders($headers)->acceptJson();
     }
 }

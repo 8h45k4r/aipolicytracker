@@ -5,7 +5,7 @@ namespace App\Services\Hubs;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Services\Applicability\ApplicabilityScreener;
-use Illuminate\Support\Facades\Cache;
+use App\Support\ContentCache;
 
 /**
  * The data behind the world map: one entry per country, keyed by its ISO 3166-1
@@ -34,7 +34,7 @@ final class WorldMap
     /** @return list<array{id: string, name: string, level: string, label: string, via: ?string, instruments: int, url: string}> */
     public static function countries(): array
     {
-        return Cache::remember('hubs.world-map', 900, function () {
+        return ContentCache::remember('hubs.world-map', 900, function () {
             $levels = self::levels();
             $eu = Jurisdiction::published()->where('slug', 'eu')->first();
             $euLevel = $eu ? ($levels[$eu->id]['level'] ?? 'none') : 'none';

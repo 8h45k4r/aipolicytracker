@@ -34,7 +34,7 @@ class AdminAuditLogTest extends TestCase
         $this->assertSame('admin@example.com', $row->user_email);
         $this->assertSame('POST', $row->method);
         $this->assertSame('backend.review.decide', $row->route_name);
-        $this->assertSame(['submission' => $submission->id], $row->route_params, 'a bound model is reduced to its key');
+        $this->assertSame(['submission' => $submission->id, 'decision' => 'rejected'], $row->route_params, 'a bound model is reduced to its key, and the decision taken is kept; typed notes are not');
         $this->assertSame(302, $row->status);
         $this->assertNotNull($row->ip_hash);
         $this->assertNotSame('127.0.0.1', $row->ip_hash, 'the address is hashed, not stored');
@@ -58,10 +58,11 @@ class AdminAuditLogTest extends TestCase
         $this->actingAs($admin)->post(route('backend.review.publish', ['type' => 'nonsense', 'slug' => 'eu-ai-act']))->assertNotFound();
         $this->assertSame(404, AdminAuditLog::sole()->status, 'a thrown request is recorded, not lost');
 
-        // Fails validation: recorded as the redirect the browser actually receives.
+        // Fails validation: the browser gets a redirect, but the log records it as refused (422),
+        // so the audit page's "failed" filter finds it.
         $submission = ContributorSubmission::create(['type' => 'correction', 'summary' => 'A test submission.', 'status' => 'pending_review']);
         $this->actingAs($admin)->post(route('backend.review.decide', $submission), ['decision' => 'not-a-decision'])->assertSessionHasErrors('decision');
-        $this->assertSame(302, AdminAuditLog::where('route_name', 'backend.review.decide')->sole()->status);
+        $this->assertSame(422, AdminAuditLog::where('route_name', 'backend.review.decide')->sole()->status);
         $this->assertSame('pending_review', $submission->fresh()->status, 'and nothing changed');
     }
 

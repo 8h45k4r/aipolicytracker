@@ -12,6 +12,7 @@ use App\Models\ResourceDownload;
 use App\Models\User;
 use App\Rules\NotDisposableEmail;
 use App\Services\Admin\RolePermissions;
+use App\Support\Csv;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class UserController extends Controller
             'sorts' => self::SORTS,
             'counts' => [
                 'total' => User::count(),
-                'owners' => $owners === [] ? 0 : User::whereIn('email', $owners)->count(),
+                'owners' => User::owners()->count(),
                 'granted' => User::whereNotNull('admin_role')->count(),
                 'no_factor' => User::whereNotNull('admin_role')->whereNull('two_factor_confirmed_at')->whereNull('suspended_at')->count(),
                 'invited' => User::whereNotNull('invited_at')->whereNull('email_verified_at')->count(),
@@ -67,9 +68,8 @@ class UserController extends Controller
         // Rows about this account (a role change, a suspension) carry its id as the {user}
         // route parameter; rows by it carry its user_id. The two are shown separately.
         $about = AdminAuditLog::with('user')->where('route_name', 'like', 'backend.admin.users.%')
-            ->get(['id', 'user_id', 'user_email', 'route_name', 'route_params', 'status', 'created_at'])
-            ->filter(fn (AdminAuditLog $row) => (int) ($row->route_params['user'] ?? 0) === $user->getKey())
-            ->sortByDesc('created_at')->take(25)->values();
+            ->where(fn ($q) => $q->where('route_params->user', $user->getKey())->orWhere('route_params->user', (string) $user->getKey()))
+            ->latest('created_at')->limit(25)->get();
 
         return view('backend.admin.user', [
             'user' => $user,
@@ -97,12 +97,12 @@ class UserController extends Controller
             fputcsv($out, ['name', 'email', 'organisation', 'role', 'second_factor', 'status', 'email_verified_at', 'invited_at', 'last_login_at', 'created_at']);
             $query->chunk(500, function ($users) use ($out) {
                 foreach ($users as $u) {
-                    fputcsv($out, [
-                        self::csvSafe($u->name), $u->email, self::csvSafe($u->organization_name), $u->adminRoleLabel(),
+                    fputcsv($out, Csv::row([
+                        $u->name, $u->email, $u->organization_name, $u->adminRoleLabel(),
                         $u->hasTwoFactorEnabled() ? 'enrolled' : 'none', $this->statusLabel($u),
                         $u->email_verified_at?->toIso8601String(), $u->invited_at?->toIso8601String(),
                         $u->last_login_at?->toIso8601String(), $u->created_at?->toIso8601String(),
-                    ]);
+                    ]));
                 }
             });
             fclose($out);
@@ -373,7 +373,8 @@ class UserController extends Controller
         $email = $user->email;
         $user->delete();
 
-        return back()->with('success', "Deleted {$email}.");
+        // Not back(): the only Delete button is on this account's own page, which no longer exists.
+        return redirect()->route('backend.admin.users.index')->with('success', "Deleted {$email}.");
     }
 
     /** Set or clear a role, recording who granted it. Returns whether anything changed. */
@@ -413,7 +414,6 @@ class UserController extends Controller
 
     private function filteredQuery(array $filters): Builder
     {
-        $owners = config('aipolicytracker.admin_emails', []);
         $query = User::query();
 
         if ($filters['q'] !== '') {
@@ -425,11 +425,11 @@ class UserController extends Controller
 
         match ($filters['role']) {
             // Owners are matched by address because that is where ownership is defined.
-            'owner' => $owners === [] ? $query->whereRaw('1 = 0') : $query->whereIn('email', $owners),
-            'none' => $query->whereNull('admin_role')->when($owners !== [], fn ($q) => $q->whereNotIn('email', $owners)),
+            'owner' => $query->owners(),
+            'none' => $query->whereNull('admin_role')->whereNotIn('id', User::owners()->select('id')),
             // Grouped, because the owner clause is an OR: ungrouped it escapes the search
             // above and "bob" with this filter returns every owner regardless of name.
-            'any' => $query->where(fn ($q) => $q->whereNotNull('admin_role')->when($owners !== [], fn ($inner) => $inner->orWhereIn('email', $owners))),
+            'any' => $query->where(fn ($q) => $q->whereNotNull('admin_role')->orWhereIn('id', User::owners()->select('id'))),
             default => in_array($filters['role'], AdminRole::values(), true) ? $query->where('admin_role', $filters['role']) : $query,
         };
 
@@ -461,12 +461,6 @@ class UserController extends Controller
             ! $u->email_verified_at => 'unverified',
             default => 'active',
         };
-    }
-
-    /** A spreadsheet treats a leading = + - @ as a formula; a name is not one. */
-    private static function csvSafe(?string $value): ?string
-    {
-        return $value !== null && $value !== '' && in_array($value[0], ['=', '+', '-', '@', "\t", "\r"], true) ? "'".$value : $value;
     }
 
     /**

@@ -95,8 +95,8 @@ class Control extends Model
         $like = '%'.str_replace(['%', '_'], ['\\%', '\\_'], mb_strtolower($term)).'%';
 
         return $query->where(function ($q) use ($like) {
-            $q->whereRaw('LOWER(controls.title) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(controls.purpose) LIKE ?', [$like]);
+            $q->whereRaw('LOWER(controls.title) LIKE ? ESCAPE ?', [$like, '\\'])
+                ->orWhereRaw('LOWER(controls.purpose) LIKE ? ESCAPE ?', [$like, '\\']);
         });
     }
 }

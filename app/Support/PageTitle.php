@@ -10,7 +10,6 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\ExternalData\IncidentSensitivity;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Every page title on this site, and the rules they are held to, in one place.
@@ -340,7 +339,7 @@ final class PageTitle
     {
         $key = 'page-title:incident-collisions:'.ExternalIncident::count().':'.ExternalIncident::max('updated_at');
 
-        return Cache::remember($key, 86400, function () {
+        return ContentCache::remember($key, 86400, function () {
             $groups = ExternalIncident::query()->get()->filter->isIndexable()->groupBy(fn ($i) => self::incidentHeadline($i))->filter(fn ($g) => $g->count() > 1);
             $out = [];
             foreach ($groups as $group) {

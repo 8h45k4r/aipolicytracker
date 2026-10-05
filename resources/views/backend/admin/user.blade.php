@@ -92,7 +92,7 @@
 <div class="mt-8 grid gap-6 lg:grid-cols-2">
     <section aria-labelledby="about-heading">
         <h2 id="about-heading" class="font-display text-lg font-semibold text-brand-navy">Changes to this account</h2>
-        <p class="mt-1 meta">Role, suspension and second-factor changes made on this account's own page or row. Bulk actions are logged once, on the audit page.</p>
+        <p class="mt-1 meta">Role, suspension and second-factor changes made on this account's own page or row. Bulk actions are logged once on the audit page, with the ids of the accounts they changed.</p>
         @if($about->isEmpty())<p class="mt-3 text-sm text-brand-muted">None recorded.</p>@else
         <div class="table-wrap mt-3 bg-white"><table><caption class="sr-only">Admin actions on this account</caption>
             <thead><tr><th scope="col">When</th><th scope="col">By</th><th scope="col">Action</th><th scope="col">Result</th></tr></thead>
@@ -100,7 +100,7 @@
         </table></div>@endif
     </section>
     <section aria-labelledby="by-heading">
-        <h2 id="by-heading" class="font-display text-lg font-semibold text-brand-navy">Actions by this account</h2>
+        <div class="flex flex-wrap items-baseline justify-between gap-2"><h2 id="by-heading" class="font-display text-lg font-semibold text-brand-navy">Actions by this account</h2>@can('audit.view')<a href="{{ route('backend.admin.audit', ['user' => $user->email]) }}" class="text-sm">Everything in the audit log</a>@endcan</div>
         <p class="mt-1 meta">The last 25 changes this account made in the admin.@can('audit.view') <a href="{{ route('backend.admin.audit') }}">Full audit log</a>.@endcan</p>
         @if($actions->isEmpty())<p class="mt-3 text-sm text-brand-muted">None recorded.</p>@else
         <div class="table-wrap mt-3 bg-white"><table><caption class="sr-only">Admin actions by this account</caption>

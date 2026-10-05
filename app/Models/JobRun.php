@@ -28,6 +28,12 @@ class JobRun extends Model
      *
      * @var array<string, array{command: string, args: array<string, mixed>, label: string, what: string, schedule: string, confirm: bool}>
      */
+    /**
+     * Exit code of a run that did not start because the same job was already running
+     * (EX_TEMPFAIL). It is not a failure: the overlapping run records the outcome.
+     */
+    public const SKIPPED = 75;
+
     public const JOBS = [
         'digest' => ['command' => 'digest:send', 'args' => [], 'label' => 'Weekly digest', 'what' => 'E-mails the week\'s changes to confirmed subscribers.', 'schedule' => 'Mondays 07:00 UTC', 'confirm' => true],
         'alerts' => ['command' => 'alerts:send', 'args' => [], 'label' => 'Daily alerts', 'what' => 'E-mails Pro accounts about changes and deadlines on records they follow.', 'schedule' => 'Daily 06:30 UTC', 'confirm' => true],
@@ -61,7 +67,7 @@ class JobRun extends Model
         // would each mail every subscriber before either recorded the send.
         $lock = Cache::lock('job-run:'.$job, 900);
         if (! $lock->get()) {
-            $run->update(['finished_at' => now(), 'exit_code' => 1, 'output' => 'Skipped: this job is already running.']);
+            $run->update(['finished_at' => now(), 'exit_code' => self::SKIPPED, 'output' => 'Skipped: this job is already running.']);
 
             return $run;
         }
@@ -108,10 +114,16 @@ class JobRun extends Model
     {
         $out = [];
         foreach (array_keys(self::JOBS) as $job) {
-            $out[$job] = self::where('job', $job)->orderByDesc('started_at')->first();
+            // A skipped run did nothing; the run it deferred to is the one that says how the job went.
+            $out[$job] = self::where('job', $job)->where(fn ($q) => $q->whereNull('exit_code')->orWhere('exit_code', '!=', self::SKIPPED))->orderByDesc('started_at')->first();
         }
 
         return $out;
+    }
+
+    public function skipped(): bool
+    {
+        return $this->exit_code === self::SKIPPED;
     }
 
     public function succeeded(): bool

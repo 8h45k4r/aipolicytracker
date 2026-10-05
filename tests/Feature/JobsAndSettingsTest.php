@@ -50,7 +50,7 @@ class JobsAndSettingsTest extends TestCase
         foreach (JobRun::JOBS as $job) {
             $page->assertSee($job['label'])->assertSee($job['command']);
         }
-        $page->assertSee('Mondays 07:00 UTC')->assertSee('Recent runs');
+        $page->assertSee('Mondays 07:00 UTC')->assertSee('Run history');
     }
 
     public function test_the_domain_refresh_job_says_what_it_needs_and_is_not_scheduled_without_it(): void

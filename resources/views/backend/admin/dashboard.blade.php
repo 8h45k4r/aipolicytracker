@@ -39,29 +39,27 @@
     @endif
 </section>
 
-<dl class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-    <div class="card-flat p-4">
-        <dt class="meta">Instruments verified</dt>
-        <dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $stats['policies_verified'] }}<span class="text-base text-brand-muted"> / {{ $stats['policies'] }}</span></dd>
-        <dd class="mt-2 h-1.5 overflow-hidden rounded-full bg-brand-line" aria-hidden="true"><span class="block h-full rounded-full bg-state-good" style="width: {{ $verifiedPct }}%"></span></dd>
-        <dd class="mt-1.5 text-xs text-brand-muted">{{ $verifiedPct }}% · {{ $stale ?: 'none' }} unverified or past 180 days</dd>
+{{-- Every figure opens the rows behind it, for the roles that may see them. --}}
+<section class="mt-6" aria-labelledby="overview-h">
+    <h2 id="overview-h" class="text-sm font-semibold uppercase tracking-wide text-brand-muted">Records</h2>
+    <div class="mt-2 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <x-backend.stat label="Instruments verified" :value="$stats['policies_verified'].' / '.$stats['policies']" :hint="$verifiedPct.'% · '.($stale ?: 'none').' never verified or stale'" :href="auth()->user()->can('submissions.decide') ? route('backend.review.index', ['type' => 'policy', 'review' => 'stale']) : null" />
+        <x-backend.stat label="Obligations and controls" :value="$stats['obligations'].' · '.$stats['controls']" :hint="'across '.$stats['jurisdictions'].' jurisdictions'" :href="route('obligations.index')" />
+        <x-backend.stat label="Changes recorded, 30 days" :value="number_format($stats['changes_30d'])" :trend="$trends['changes'] ?? null" :href="route('updates.index')" hint="The public updates hub" />
+        <x-backend.stat label="Jurisdictions" :value="number_format($stats['jurisdictions'])" :href="route('jurisdictions.index')" hint="Published, public directory" />
     </div>
-    <div class="card-flat p-4">
-        <dt class="meta">Obligations and controls</dt>
-        <dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $stats['obligations'] }}<span class="text-base text-brand-muted"> · {{ $stats['controls'] }}</span></dd>
-        <dd class="mt-1.5 text-xs text-brand-muted">across {{ $stats['jurisdictions'] }} jurisdictions · {{ $stats['changes_30d'] }} changes in 30 days</dd>
+    @if(auth()->user()->can('submissions.decide') || auth()->user()->can('audience.view'))
+    <h2 class="mt-6 text-sm font-semibold uppercase tracking-wide text-brand-muted">Audience and contributions</h2>
+    <div class="mt-2 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        @can('submissions.decide')<x-backend.stat label="Submissions waiting" :value="number_format($stats['submissions_pending'])" :trend="$trends['submissions'] ?? null" :tone="$stats['submissions_pending'] ? 'text-state-warn' : null" :href="route('backend.admin.submissions', ['status' => 'pending_review'])" hint="Received in 30 days on the line" />@endcan
+        @can('audience.view')
+        <x-backend.stat label="Active subscribers" :value="number_format($stats['subscribers_active'])" :trend="$trends['subscribers'] ?? null" :href="route('backend.admin.subscribers')" :hint="$stats['subscribers_unconfirmed'].' awaiting confirmation'" />
+        <x-backend.stat label="Template requests, 30 days" :value="number_format($stats['requests_30d'])" :trend="$trends['requests'] ?? null" :href="route('backend.admin.downloads', ['view' => 'requests', 'from' => now()->subDays(29)->toDateString()])" />
+        <x-backend.stat label="Tool downloads, 30 days" :value="number_format($stats['downloads_30d'])" :href="route('backend.admin.downloads', ['view' => 'downloads', 'from' => now()->subDays(29)->toDateString()])" :hint="$stats['users'].' registered users'" />
+        @endcan
     </div>
-    <div class="card-flat p-4">
-        <dt class="meta">Active subscribers</dt>
-        <dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $stats['subscribers_active'] }}</dd>
-        <dd class="mt-1.5 text-xs text-brand-muted">{{ $stats['subscribers_unconfirmed'] }} awaiting confirmation · <a href="{{ route('backend.admin.subscribers') }}">Open</a></dd>
-    </div>
-    <div class="card-flat p-4">
-        <dt class="meta">Template downloads, 30 days</dt>
-        <dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $stats['downloads_30d'] }}</dd>
-        <dd class="mt-1.5 text-xs text-brand-muted">{{ $stats['users'] }} registered users · <a href="{{ route('backend.admin.downloads') }}">Open</a></dd>
-    </div>
-</dl>
+    @endif
+</section>
 
 <div class="mt-6 grid gap-6 lg:grid-cols-2">
     <section class="card-flat p-5" aria-labelledby="health">
@@ -96,7 +94,7 @@
         @if($recentSubmissions->isEmpty())<p class="mt-3 text-sm text-brand-muted">No submissions yet. Readers' corrections and sources will appear here.</p>@else
         <ul class="mt-3 divide-y divide-brand-line text-sm">
             @foreach($recentSubmissions as $s)
-            <li class="py-2"><a href="{{ route('backend.admin.submissions', ['type' => $s->type]) }}" class="font-medium">{{ \Illuminate\Support\Str::limit($s->summary, 80) }}</a><span class="block text-xs text-brand-muted">{{ $s->created_at->format('j M Y') }} · {{ \App\Models\ContributorSubmission::TYPES[$s->type] ?? $s->type }} · {{ str_replace('_', ' ', $s->status) }}</span></li>
+            <li class="py-2">@can('submissions.decide')<a href="{{ route('backend.admin.submissions', ['q' => \Illuminate\Support\Str::limit($s->summary, 60, '')]) }}" class="font-medium">{{ \Illuminate\Support\Str::limit($s->summary, 80) }}</a>@else<span class="font-medium text-brand-navy">{{ \Illuminate\Support\Str::limit($s->summary, 80) }}</span>@endcan<span class="block text-xs text-brand-muted">{{ $s->created_at->format('j M Y') }} · {{ \App\Models\ContributorSubmission::TYPES[$s->type] ?? $s->type }} · {{ str_replace('_', ' ', $s->status) }}</span></li>
             @endforeach
         </ul>
         @endif

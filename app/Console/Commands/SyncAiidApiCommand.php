@@ -5,9 +5,11 @@ namespace App\Console\Commands;
 use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
 use App\Services\ExternalData\AiidApiClient;
+use App\Services\ExternalData\AiidLoginRequired;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\ExternalData\IncidentEnrichment;
 use App\Services\ExternalData\RecordSlugs;
+use App\Support\ContentCache;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -65,6 +67,14 @@ class SyncAiidApiCommand extends Command
             } while (count($page) === self::PAGE && count($incidents) < $max);
             $this->newLine();
             $classifications = $incidents ? $api->classifications(array_keys($incidents)) : [];
+        } catch (AiidLoginRequired $e) {
+            // Not an outage and nothing this server can fix by retrying: say so once per run,
+            // record it for the admin, and leave the job green so it does not raise a daily alarm.
+            $this->warn($e->getMessage());
+            $this->line('The live sync is paused. Incidents still update weekly from the public AIID backup (external:sync-aiid). Set AIID_API_TOKEN or AIID_API_COOKIE to resume it.');
+            $this->recordRun(0, 0, self::LOGIN_REQUIRED);
+
+            return self::SUCCESS;
         } catch (Throwable $e) {
             $this->error('AIID API unavailable: '.$e->getMessage());
             $this->recordRun(0, 0, $e->getMessage());
@@ -133,7 +143,7 @@ class SyncAiidApiCommand extends Command
             });
             RecordSlugs::assignIncidents();
             IncidentEnrichment::apply();
-            Cache::forget('risk-narrative-v1');
+            Cache::forget(ContentCache::key('risk-narrative-v1'));
         }
 
         if (! $this->option('no-db')) {
@@ -238,6 +248,9 @@ class SyncAiidApiCommand extends Command
         File::put($repPath, json_encode($rfile, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n");
         $this->line(basename(dirname($incPath)).'/'.basename($incPath).' updated: '.count($all).' incidents, '.count($reports).' reports.');
     }
+
+    /** Recorded as the run's error when the API asked for a signed-in account. */
+    public const LOGIN_REQUIRED = 'login required: the AIID API now needs a signed-in account for incident queries';
 
     private function recordRun(int $incidents, int $reports, ?string $error = null, ?int $latest = null): void
     {

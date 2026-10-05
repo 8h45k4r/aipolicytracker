@@ -117,7 +117,8 @@ class DownloadLeadCaptureTest extends TestCase
             ->assertHeader('Content-Type', 'text/csv; charset=UTF-8')
             ->streamedContent();
 
-        $lines = array_values(array_filter(explode("\n", trim($csv))));
+        $this->assertStringStartsWith("\xEF\xBB\xBF", $csv, 'a byte-order mark, so a spreadsheet reads accented names as UTF-8');
+        $lines = array_values(array_filter(explode("\n", trim(substr($csv, 3)))));
         $this->assertSame(['downloaded_at', 'tool', 'version', 'file', 'name', 'email', 'organization', 'signup_source', 'marketing_consent', 'referrer'], str_getcsv($lines[0]));
         $this->assertCount(2, $lines, 'one header and one download');
         $row = str_getcsv($lines[1]);

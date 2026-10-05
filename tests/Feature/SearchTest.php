@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\PolicyInstrument;
 use App\Services\Templates\TemplateCatalog;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -46,7 +47,8 @@ class SearchTest extends TestCase
     {
         $this->get(route('search'))->assertOk()->assertSee('autofocus', false)->assertDontSee('Nothing found');
         $this->get(route('search', ['q' => 'zzqqxx']))->assertOk()->assertSee('Nothing found for');
-        $this->get(route('search', ['q' => '%']))->assertOk()->assertSee('Nothing found for');
+        $this->get(route('search', ['q' => 'zz%_qq']))->assertOk()->assertSee('Nothing found for');
+        $this->assertSame(0, PolicyInstrument::search('_')->count(), 'an underscore is a character, not a wildcard');
     }
 
     public function test_the_site_search_action_points_at_the_search_page(): void

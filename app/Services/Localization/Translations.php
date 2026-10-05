@@ -2,7 +2,7 @@
 
 namespace App\Services\Localization;
 
-use Illuminate\Support\Facades\Cache;
+use App\Support\ContentCache;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -33,7 +33,7 @@ final class Translations
     /** @return array<string, array> record key (e.g. "hub:japan") => translation */
     public static function all(string $locale): array
     {
-        return Cache::remember('translations.'.$locale, 300, function () use ($locale) {
+        return ContentCache::remember('translations.'.$locale, 300, function () use ($locale) {
             $dir = base_path('data/translations/'.$locale);
             $out = [];
             foreach (is_dir($dir) ? glob($dir.'/*.yaml') : [] as $file) {

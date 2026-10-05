@@ -8,12 +8,12 @@ use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Services\ExternalData\ExternalDataset;
+use App\Support\ContentCache;
 use App\Support\PageTitle;
 use App\Support\RiskTaxonomy;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class RiskController extends Controller
@@ -152,7 +152,7 @@ class RiskController extends Controller
 
     public static function narrative(array $aiid, array $mit): array
     {
-        return Cache::remember('risk-narrative-v1', 3600, function () use ($aiid, $mit) {
+        return ContentCache::remember('risk-narrative-v1', 3600, function () use ($aiid, $mit) {
             $now = now();
             $last12 = ExternalIncident::where('occurred_on', '>=', $now->copy()->subMonths(12)->toDateString())->count();
             $prev12 = ExternalIncident::whereBetween('occurred_on', [$now->copy()->subMonths(24)->toDateString(), $now->copy()->subMonths(12)->toDateString()])->count();

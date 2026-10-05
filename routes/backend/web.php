@@ -34,6 +34,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         });
         Route::middleware('can:submissions.decide')->group(function () {
             Route::get('/submissions', 'submissions')->name('submissions');
+            Route::get('/submissions/export', 'submissionsExport')->name('submissions.export');
         });
         // Reading the audience is separated from acting on it: an analyst may see the list,
         // only an editor may resend to or delete from it.
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         // mail or rewrite data ask for the password first.
         Route::middleware('can:jobs.run')->group(function () {
             Route::get('/jobs', 'jobs')->name('jobs');
+            Route::get('/jobs/export', 'jobsExport')->name('jobs.export');
             Route::post('/jobs/{job}', 'runJob')->where('job', '[a-z_]+')->name('jobs.run');
             Route::post('/jobs/{job}/confirmed', 'runJob')->where('job', '[a-z_]+')->middleware('password.confirm')->name('jobs.run.confirmed');
         });
@@ -62,13 +64,16 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         });
         // Owner only: these change how the platform runs.
         Route::middleware('can:settings.manage')->group(function () {
-            Route::get('/settings', 'settings')->name('settings');
+            // Confirmed before the page opens rather than on save: a POST bounced to the
+            // password prompt comes back to an empty form, and typed API keys were lost.
+            Route::get('/settings', 'settings')->middleware('password.confirm')->name('settings');
             Route::post('/settings', 'settingsSave')->middleware('password.confirm')->name('settings.save');
             Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
             Route::post('/settings/turnstile-check', 'settingsTurnstileCheck')->middleware('throttle:10,1')->name('settings.turnstile');
         });
         Route::middleware('can:audit.view')->group(function () {
             Route::get('/audit', 'audit')->name('audit');
+            Route::get('/audit/export', 'auditExport')->name('audit.export');
         });
     });
     // Accounts and roles. Owner only, and the controller additionally refuses to act on an
@@ -81,7 +86,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         Route::post('/bulk-delete', 'bulkDelete')->middleware('password.confirm')->name('bulk.delete');
         // What each role may do. Changing it changes every holder at once, so it needs a
         // recently confirmed password, like the other owner-level settings.
-        Route::get('/permissions', 'permissions')->name('permissions');
+        Route::get('/permissions', 'permissions')->middleware('password.confirm')->name('permissions');
         Route::post('/permissions', 'updatePermissions')->middleware('password.confirm')->name('permissions.update');
         Route::post('/permissions/reset', 'resetPermissions')->middleware('password.confirm')->name('permissions.reset');
         Route::get('/{user}', 'show')->name('show');
@@ -98,6 +103,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
     // Billing: subscriptions, received webhooks and provider configuration check.
     Route::middleware('can:billing.manage')->prefix('backend/admin/billing')->as('backend.admin.billing.')->controller(BillingController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/export', 'export')->name('export');
         Route::post('/check', 'check')->name('check');
         Route::post('/provision', 'provision')->middleware('password.confirm')->name('provision');
         Route::post('/probe', 'probe')->name('probe');
@@ -125,6 +131,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('back
     // that it is accurate.
     Route::middleware('can:submissions.decide')->group(function () {
         Route::get('/', [ReviewController::class, 'index'])->name('index');
+        Route::get('/export', [ReviewController::class, 'export'])->name('export');
         Route::post('/submissions/{submission}/decide', [ReviewController::class, 'decide'])->name('decide');
         Route::post('/submissions/decide-many', [ReviewController::class, 'decideMany'])->name('decide.many');
     });

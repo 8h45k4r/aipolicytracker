@@ -9,10 +9,10 @@ use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\OpenDataExporter;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Support\ContentCache;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -48,7 +48,7 @@ class PageController extends Controller
 
     public function openDataDownload(OpenDataExporter $exporter): JsonResponse
     {
-        $bundle = Cache::remember('open-data.bundle', 900, fn () => $exporter->bundle());
+        $bundle = ContentCache::remember('open-data.bundle', 900, fn () => $exporter->bundle());
 
         return response()->json($bundle, 200, ['Cache-Control' => 'public, max-age=900', 'Content-Disposition' => 'inline; filename="aipolicytracker-latest.json"'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }

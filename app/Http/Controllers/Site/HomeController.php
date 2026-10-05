@@ -7,9 +7,9 @@ use App\Models\ExternalIncident;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Support\ContentCache;
 use App\Support\Seo;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -36,7 +36,7 @@ class HomeController extends Controller
         // The page is the same for every anonymous reader and its queries are the
         // slowest part of answering it. Five minutes, the same horizon as the
         // catalogue's own figures; every job run flushes the cache sooner.
-        $data = Cache::remember('home.data', 300, fn () => [
+        $data = ContentCache::remember('home.data', 300, fn () => [
             'latestIncidents' => ExternalIncident::standard()->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(4)->get(),
             'incidentSnapshot' => ExternalIncident::max('synced_at') ?: ExternalIncident::max('snapshot_date'),
             'options' => $catalog->filterOptions(),

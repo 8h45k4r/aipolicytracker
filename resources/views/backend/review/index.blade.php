@@ -31,11 +31,12 @@
     <form method="get" action="{{ route('backend.review.index') }}" class="mt-3 flex flex-wrap items-end gap-2 text-sm" data-autosubmit>
         <input type="hidden" name="type" value="{{ $type }}"><input type="hidden" name="status" value="{{ $status }}">
         <label class="text-sm"><span class="block meta">Search</span><input type="search" name="q" value="{{ $filters['q'] }}" placeholder="title or slug" class="input mt-1 !min-h-0 !py-1.5 w-56"></label>
-        <label class="text-sm"><span class="block meta">Review status</span><select name="review" class="input mt-1 !min-h-0 !py-1.5 !w-auto"><option value="">Any</option>@foreach($reviewFilters as $r)<option value="{{ $r }}" @selected($filters['review'] === $r)>{{ str_replace('_', ' ', $r) }} ({{ $byReview[$r] ?? 0 }})</option>@endforeach</select></label>
+        <label class="text-sm"><span class="block meta">Review status</span><select name="review" class="input mt-1 !min-h-0 !py-1.5 !w-auto"><option value="">Any</option>@foreach($reviewFilters as $r)<option value="{{ $r }}" @selected($filters['review'] === $r)>{{ $r === 'stale' ? 'never verified or stale' : str_replace('_', ' ', $r) }} ({{ $byReview[$r] ?? 0 }})</option>@endforeach</select></label>
         <label class="text-sm"><span class="block meta">Published</span><select name="published" class="input mt-1 !min-h-0 !py-1.5 !w-auto"><option value="">Any</option><option value="yes" @selected($filters['published'] === 'yes')>yes</option><option value="no" @selected($filters['published'] === 'no')>no ({{ $unpublished }})</option></select></label>
         <button class="btn-secondary !min-h-0 !py-1.5">Filter</button>
         @if($filters['q'] !== '' || $filters['review'] || $filters['published'])<a href="{{ route('backend.review.index', ['type' => $type, 'status' => $status]) }}#rec-heading" class="btn-secondary !min-h-0 !py-1.5">Clear</a>@endif
         <span class="meta ml-auto">{{ $matching }} {{ \Illuminate\Support\Str::plural('record', $matching) }} match{{ $records->hasPages() ? ', '.$records->count().' on this page' : '' }}</span>
+        <a href="{{ route('backend.review.export', ['type' => $type] + array_filter($filters)) }}" class="btn-secondary !min-h-0 !py-1.5 text-sm" data-track="admin_export">Export CSV</a>
     </form>
 
     @if($rows->isEmpty())

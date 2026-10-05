@@ -10,9 +10,10 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Writes one audit row for every state-changing admin request.
+ * Writes one audit row for every state-changing admin request, and for every CSV
+ * export (personal data leaving the system).
  *
- * Reads are not logged: they are numerous and reveal nothing that the audit is
+ * Other reads are not logged: they are numerous and reveal nothing that the audit is
  * for. Request bodies are never stored, because they carry passwords, codes and
  * API keys; route parameters are enough to say which record was acted on. The
  * row is written after the response so a failed request is recorded with its
@@ -50,14 +51,14 @@ class RecordAdminAction
             throw $e;
         }
 
-        $this->record($request, $response->getStatusCode());
+        $this->record($request, $this->outcome($request, $response->getStatusCode()));
 
         return $response;
     }
 
     private function record(Request $request, int $status): void
     {
-        if (! in_array($request->method(), self::LOGGED_METHODS, true) || ! $request->user()) {
+        if (! $request->user() || ! ($this->changes($request) || $this->exports($request))) {
             return;
         }
         try {
@@ -78,12 +79,65 @@ class RecordAdminAction
         }
     }
 
-    /** Route parameters reduced to identifiers: a bound model becomes its key, never its attributes. */
+    private function changes(Request $request): bool
+    {
+        return in_array($request->method(), self::LOGGED_METHODS, true);
+    }
+
+    /** A CSV export of personal data is a read, but one the audit must show: who took which list. */
+    private function exports(Request $request): bool
+    {
+        return $request->isMethod('GET') && str_ends_with((string) $request->route()?->getName(), '.export');
+    }
+
+    /**
+     * A refused form comes back as a 302 like a successful one. It is recorded as 422 when
+     * the request flashed validation errors and 400 when it flashed an error message, so
+     * the log's "failed" filter finds it. Only keys flashed by this request count, not
+     * ones left over from the page before.
+     */
+    private function outcome(Request $request, int $status): int
+    {
+        if ($status < 300 || $status >= 400 || ! $request->hasSession()) {
+            return $status;
+        }
+        $new = (array) $request->session()->get('_flash.new', []);
+
+        return in_array('errors', $new, true) ? 422 : (in_array('error', $new, true) ? 400 : $status);
+    }
+
+    /** Fields of a bulk form that say what was done, never what was typed. */
+    private const ACTION_FIELDS = ['action', 'decision', 'role', 'status', 'scope', 'state'];
+
+    /**
+     * Route parameters reduced to identifiers (a bound model becomes its key, never its
+     * attributes), plus the ids and the action of a bulk request, which has no route
+     * parameter to say which records it changed, and the filters of an export.
+     */
     private function scalarParams(Request $request): ?array
     {
         $out = [];
         foreach ($request->route()?->parameters() ?? [] as $name => $value) {
             $out[$name] = $value instanceof Model ? $value->getKey() : (is_scalar($value) ? $value : null);
+        }
+        $ids = $request->input('ids');
+        if (is_array($ids) && $ids !== []) {
+            $ids = array_values(array_filter($ids, fn ($id) => is_scalar($id) && preg_match('/^[\w.-]{1,64}$/', (string) $id)));
+            $out['ids'] = implode(',', array_slice($ids, 0, 200)).(count($ids) > 200 ? ' (+'.(count($ids) - 200).')' : '');
+        }
+        if ($this->changes($request)) {
+            foreach (self::ACTION_FIELDS as $field) {
+                $value = $request->input($field);
+                if (is_string($value) && preg_match('/^[\w.-]{1,40}$/', $value)) {
+                    $out[$field] = $value;
+                }
+            }
+        }
+        if ($this->exports($request)) {
+            $filters = collect($request->query())->except(['page'])->filter(fn ($v) => is_scalar($v) && $v !== '')->map(fn ($v) => mb_substr((string) $v, 0, 60));
+            if ($filters->isNotEmpty()) {
+                $out['filters'] = $filters->map(fn ($v, $k) => $k.'='.$v)->implode('&');
+            }
         }
 
         return $out === [] ? null : $out;

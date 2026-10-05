@@ -11,6 +11,7 @@
             <div class="py-2 flex justify-between"><dt class="text-brand-muted">Licence</dt><dd>{{ $aiid['license'] ?? '—' }}</dd></div>
         </dl>
         <h3 class="mt-4 text-sm font-semibold text-brand-navy">Live API sync</h3>
+        @if(($live['last_run']['error'] ?? null) === \App\Console\Commands\SyncAiidApiCommand::LOGIN_REQUIRED)<p class="mt-2 rounded-md border border-state-warn/30 bg-state-warnbg px-3 py-2 text-sm text-state-warn">Paused: the AIID API now asks for a signed-in account before it answers incident queries. Incidents still update weekly from the public AIID backup. To resume the daily sync, set <code>AIID_API_TOKEN</code> (or <code>AIID_API_COOKIE</code>, the session cookie of an AIID account) in the environment.</p>@endif
         <dl class="mt-1 text-sm divide-y divide-brand-line">
             <div class="py-2 flex justify-between"><dt class="text-brand-muted">Rows (synced from API / total)</dt><dd class="font-mono">{{ number_format($live['synced_rows']) }} / {{ number_format($live['rows']) }}</dd></div>
             <div class="py-2 flex justify-between"><dt class="text-brand-muted">Latest incident id</dt><dd class="font-mono">{{ $live['latest_id'] ?? '—' }}</dd></div>
