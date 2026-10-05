@@ -191,7 +191,8 @@ class SecurityHardeningTest extends TestCase
 
         $run = JobRun::run('digest', 'cron');
 
-        $this->assertSame(1, $run->exit_code);
+        $this->assertSame(JobRun::SKIPPED, $run->exit_code, 'recorded as skipped, not as a failure of the job');
+        $this->assertTrue($run->skipped());
         $this->assertStringContainsString('already running', $run->output);
         $lock->release();
     }

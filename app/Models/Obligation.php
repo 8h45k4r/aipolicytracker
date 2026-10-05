@@ -81,8 +81,8 @@ class Obligation extends Model
         $like = '%'.str_replace(['%', '_'], ['\\%', '\\_'], mb_strtolower($term)).'%';
 
         return $query->where(function ($q) use ($like) {
-            $q->whereRaw('LOWER(obligations.title) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(obligations.summary) LIKE ?', [$like]);
+            $q->whereRaw('LOWER(obligations.title) LIKE ? ESCAPE ?', [$like, '\\'])
+                ->orWhereRaw('LOWER(obligations.summary) LIKE ? ESCAPE ?', [$like, '\\']);
         });
     }
 }

@@ -29,12 +29,12 @@ use App\Services\PolicyData\PolicySerializer;
 use App\Services\Templates\Records;
 use App\Services\Templates\TemplateCatalog;
 use App\Services\Transition\DisplacementPolicyIndex;
+use App\Support\ContentCache;
 use App\Support\PageTitle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Read-only public API (v1). Responses are cached and carry public cache headers.
@@ -637,7 +637,7 @@ class PublicApiController extends Controller
 
     private function cached(string $key, \Closure $callback): JsonResponse
     {
-        return $this->respond(Cache::remember($key, 600, $callback));
+        return $this->respond(ContentCache::remember($key, 600, $callback));
     }
 
     private function respond(array $payload): JsonResponse

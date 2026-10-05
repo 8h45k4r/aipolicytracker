@@ -2,12 +2,15 @@
 
 namespace App\Services\Admin;
 
+use App\Console\Commands\SyncAiidApiCommand;
+use App\Http\Controllers\Backend\Review\ReviewController;
 use App\Models\ContributorSubmission;
 use App\Models\JobRun;
 use App\Models\PolicyInstrument;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Services\Security\Turnstile;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * What needs someone's attention now, for the top of the admin dashboard: each item says
@@ -50,9 +53,10 @@ final class Attention
             $add('submissions.decide', 'warning', $pending.' '.($pending === 1 ? 'submission is' : 'submissions are').' waiting for review', 'Corrections and sources sent by readers.', 'Review', route('backend.admin.submissions', ['status' => 'pending_review']));
         }
 
-        $stale = PolicyInstrument::published()->where(fn ($q) => $q->whereNull('last_verified_at')->orWhere('last_verified_at', '<', now()->subDays(180)))->count();
+        $days = ReviewController::staleAfter();
+        $stale = PolicyInstrument::published()->where(fn ($q) => $q->whereNull('last_verified_at')->orWhere('last_verified_at', '<', now()->subDays($days)))->count();
         if ($stale > 0) {
-            $add('submissions.decide', 'warning', $stale.' '.($stale === 1 ? 'instrument is' : 'instruments are').' unverified or past 180 days', 'Re-check each against its official source and record the review.', 'Open review queue', route('backend.review.index'));
+            $add('records.verify', 'warning', $stale.' '.($stale === 1 ? 'instrument is' : 'instruments are').' unverified or past '.$days.' days', 'Re-check each against its official source and record the review.', 'Show them', route('backend.review.index', ['type' => 'policy', 'review' => 'stale']));
         }
 
         if (! $this->turnstile->configured()) {
@@ -66,7 +70,12 @@ final class Attention
 
         $unconfirmed = Subscriber::whereNull('confirmed_at')->whereNull('unsubscribed_at')->where('created_at', '<', now()->subDays(7))->count();
         if ($unconfirmed > 0) {
-            $add('audience.view', 'info', $unconfirmed.' '.($unconfirmed === 1 ? 'subscriber has' : 'subscribers have').' not confirmed in a week', 'Resend the confirmation or remove them.', 'Open subscribers', route('backend.admin.subscribers', ['state' => 'unconfirmed']));
+            $add('subscribers.manage', 'info', $unconfirmed.' '.($unconfirmed === 1 ? 'subscriber has' : 'subscribers have').' not confirmed in a week', 'Resend the confirmation or remove them.', 'Open subscribers', route('backend.admin.subscribers', ['state' => 'unconfirmed', 'to' => now()->subDays(7)->toDateString()]));
+        }
+
+        $aiid = Cache::get(SyncAiidApiCommand::LAST_RUN_KEY);
+        if (($aiid['error'] ?? null) === SyncAiidApiCommand::LOGIN_REQUIRED) {
+            $add('external.sync', 'info', 'The AI Incident Database live sync is paused', 'Its API now asks for a signed-in account. Incidents still update weekly from the public backup; set AIID_API_TOKEN or AIID_API_COOKIE to resume the daily sync.', 'Open external data', route('backend.admin.external'));
         }
 
         usort($items, fn ($a, $b) => self::SEVERITY[$a['severity']] <=> self::SEVERITY[$b['severity']]);

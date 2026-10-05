@@ -12,10 +12,10 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Support\ContentCache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -29,7 +29,7 @@ class PolicyCatalog
 
     public function filterOptions(): array
     {
-        return Cache::remember('catalog.filter_options', 600, function () {
+        return ContentCache::remember('catalog.filter_options', 600, function () {
             $terms = TaxonomyTerm::orderBy('sort_order')->orderBy('name')->get()->groupBy('taxonomy');
 
             return [
@@ -158,7 +158,7 @@ class PolicyCatalog
 
     public function stats(): array
     {
-        return Cache::remember('catalog.stats', 600, fn () => [
+        return ContentCache::remember('catalog.stats', 600, fn () => [
             'jurisdictions' => Jurisdiction::published()->count(),
             'policies' => PolicyInstrument::published()->count(),
             'obligations' => Obligation::published()->count(),

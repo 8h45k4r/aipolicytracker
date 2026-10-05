@@ -65,14 +65,14 @@ class SearchController extends Controller
     /** Rows whose title matches come before rows that match only in the body. */
     private function titleFirst(string $column): string
     {
-        return "CASE WHEN LOWER({$column}) LIKE ? THEN 0 ELSE 1 END";
+        return "CASE WHEN LOWER({$column}) LIKE ? ESCAPE '\\' THEN 0 ELSE 1 END";
     }
 
     private function jurisdictions(string $q): Collection
     {
         $like = $this->like($q);
 
-        return Jurisdiction::published()->where(fn ($w) => $w->whereRaw('LOWER(name) LIKE ?', [$like])->orWhereRaw('LOWER(short_name) LIKE ?', [$like])->orWhereRaw('LOWER(iso_code) = ?', [mb_strtolower($q)]))
+        return Jurisdiction::published()->where(fn ($w) => $w->whereRaw('LOWER(name) LIKE ? ESCAPE ?', [$like, '\\'])->orWhereRaw('LOWER(short_name) LIKE ? ESCAPE ?', [$like, '\\'])->orWhereRaw('LOWER(iso_code) = ?', [mb_strtolower($q)]))
             ->orderBy('name')->limit(self::PER_GROUP)->get()
             ->map(fn ($j) => ['title' => $j->name, 'url' => $j->url(), 'meta' => $j->region]);
     }

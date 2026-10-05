@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Support\ContentCache;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,7 @@ class SocialClearCommand extends Command
         $dir = trim((string) config('social.cache_path'), '/');
         $files = $disk->allFiles($dir);
         $disk->delete($files);
-        Cache::forget('seo.corpus-version');
+        Cache::forget(ContentCache::key('seo.corpus-version'));
         $this->info(count($files).' cached card(s) deleted; they are redrawn on the next request.');
 
         return self::SUCCESS;

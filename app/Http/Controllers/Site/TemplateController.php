@@ -16,13 +16,13 @@ use App\Services\Security\Turnstile;
 use App\Services\Templates\Records;
 use App\Services\Templates\TemplateBuilder;
 use App\Services\Templates\TemplateCatalog;
+use App\Support\ContentCache;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
@@ -53,7 +53,7 @@ class TemplateController extends Controller
         }
         $latest = TemplateVersion::latestAll();
         $items = TemplateCatalog::filter(TemplateCatalog::all(), $filters)->map(fn ($m) => $m + ['version' => $latest[$m['slug']] ?? null])->values();
-        $counts = Cache::remember('templates.index.counts', 600, fn () => [
+        $counts = ContentCache::remember('templates.index.counts', 600, fn () => [
             'duties' => Obligation::published()->count(),
             'instruments' => PolicyInstrument::published()->count(),
             'controls' => Records::controls()->count(),
@@ -128,7 +128,7 @@ class TemplateController extends Controller
         abort_unless($meta, 404);
         $version = TemplateVersion::latestFor($slug) ?? app(TemplateBuilder::class)->build($slug)['version'];
         $versions = TemplateVersion::for($slug)->orderByDesc('version')->get();
-        $covered = Cache::remember("templates.covered.{$slug}.{$version->id}", 600, fn () => Records::obligations(TemplateCatalog::obligationFilter($meta)));
+        $covered = ContentCache::remember("templates.covered.{$slug}.{$version->id}", 600, fn () => Records::obligations(TemplateCatalog::obligationFilter($meta)));
         $basis = $this->legalBasis($meta);
         $caveat = $this->caveat($meta);
         $formats = TemplateCatalog::formatList($meta);
@@ -223,7 +223,7 @@ class TemplateController extends Controller
             'ai-system-inventory' => 'What should an AI system inventory record?',
         ];
 
-        return Cache::remember('templates.contents-faq.'.md5((string) $lastBuilt), now()->addDay(), function () use ($questions) {
+        return ContentCache::remember('templates.contents-faq.'.md5((string) $lastBuilt), now()->addDay(), function () use ($questions) {
             $out = [];
             foreach ($questions as $slug => $question) {
                 $definition = TemplateCatalog::definition($slug);

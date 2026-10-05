@@ -9,14 +9,16 @@ use App\Models\RecordVerification;
 use App\Models\ReviewerDecision;
 use App\Services\Review\ReviewableTypes;
 use App\Services\Reviewers\ReviewerRoster;
+use App\Support\Admin\CsvStream;
+use App\Support\ContentCache;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Admin-only review queue and publishing controls. Data edits themselves happen
@@ -36,7 +38,8 @@ class ReviewController extends Controller
     /** The most records one bulk action may touch; larger than any single kind today. */
     private const BULK_LIMIT = 1000;
 
-    private const REVIEW_FILTERS = ['verified', 'pending_review', 'needs_update', 'draft'];
+    /** 'stale' is not a stored status: never verified, or verified longer ago than the stale threshold in settings. */
+    private const REVIEW_FILTERS = ['stale', 'verified', 'pending_review', 'needs_update', 'draft'];
 
     public function index(Request $request): View
     {
@@ -51,6 +54,7 @@ class ReviewController extends Controller
 
         $model = ReviewableTypes::model($type);
         $byReview = $model::selectRaw('review_status, COUNT(*) as n')->groupBy('review_status')->pluck('n', 'review_status');
+        $byReview['stale'] = $model::where(fn ($q) => $q->whereNull('last_verified_at')->orWhere('last_verified_at', '<', now()->subDays(self::staleAfter())))->count();
         $tabs = collect(ReviewableTypes::TYPES)->map(function (array $meta, string $key) {
             $class = $meta['model'];
 
@@ -64,6 +68,19 @@ class ReviewController extends Controller
             'pendingExport' => RecordVerification::where('exported', false)->count(),
             'reviewStatuses' => ReviewableTypes::REVIEW_STATUSES, 'confidenceLevels' => ReviewableTypes::CONFIDENCE_LEVELS, 'reviewFilters' => self::REVIEW_FILTERS,
         ]);
+    }
+
+    /** The records the current tab and filters show, as CSV, for working through offline. */
+    public function export(Request $request): StreamedResponse
+    {
+        $type = ReviewableTypes::has($request->query('type')) ? (string) $request->query('type') : 'policy';
+        $title = ReviewableTypes::titleColumn($type);
+        $staleAfter = self::staleAfter();
+
+        return CsvStream::from($this->filtered($type, $this->filters($request)), 'review-'.$type,
+            ['slug', 'title', 'review_status', 'confidence', 'last_verified_at', 'reviewed_by', 'stale', 'published', 'source'],
+            fn (Model $m) => [$m->slug, $m->{$title}, $m->review_status, $m->confidence_level ?? null, $m->last_verified_at, $m->reviewed_by ?? null,
+                ! $m->last_verified_at || $m->last_verified_at->lt(now()->subDays($staleAfter)), $m->published_at !== null, $m->official_source_url ?? null]);
     }
 
     public function decide(Request $request, ContributorSubmission $submission): RedirectResponse
@@ -116,7 +133,7 @@ class ReviewController extends Controller
             $this->record($type, $model, $data, $request->user());
             $recorded++;
         }
-        Cache::flush();
+        ContentCache::flush();
 
         return back()->with('success', $recorded.' '.ReviewableTypes::label($type, $recorded !== 1).' marked '.str_replace('_', ' ', $data['review_status']).' ('.$data['confidence_level'].') by '.$request->user()->name.'. Run `php artisan policy:export-verifications` and open a pull request to write it into data/.');
     }
@@ -141,7 +158,7 @@ class ReviewController extends Controller
         }
 
         $this->record($type, $model, $data, $request->user());
-        Cache::flush();
+        ContentCache::flush();
 
         return back()->with('success', ucfirst($type).' '.$slug.' marked '.$data['review_status'].' ('.$data['confidence_level'].'). Run `php artisan policy:export-verifications` and open a pull request to write it into data/.');
     }
@@ -151,7 +168,7 @@ class ReviewController extends Controller
         $model = $this->reviewable($type, $slug);
         $publish = $request->boolean('publish');
         $this->setPublished($type, $model, $publish);
-        Cache::flush();
+        ContentCache::flush();
 
         return back()->with('success', ($publish ? 'Published ' : 'Unpublished ').$model->slug.'. Remember to mirror the change in data/ (published: '.($publish ? 'true' : 'false').').');
     }
@@ -172,7 +189,7 @@ class ReviewController extends Controller
             $this->setPublished($type, $model, $publish);
             $n++;
         }
-        Cache::flush();
+        ContentCache::flush();
 
         return back()->with('success', ($publish ? 'Published ' : 'Unpublished ').$n.' '.ReviewableTypes::label($type, $n !== 1).'. Remember to mirror the change in data/ (published: '.($publish ? 'true' : 'false').').');
     }
@@ -180,6 +197,12 @@ class ReviewController extends Controller
     // ---- selection and filters -------------------------------------------------
 
     /** @return array{q: string, review: ?string, published: ?string} */
+    /** Days after which a verification is stale: the setting, never the hard-coded default alone. */
+    public static function staleAfter(): int
+    {
+        return max(1, (int) config('aipolicytracker.stale_after_days', 180));
+    }
+
     private function filters(Request $request): array
     {
         $review = $request->input('review');
@@ -203,7 +226,9 @@ class ReviewController extends Controller
             $term = '%'.mb_strtolower($filters['q']).'%';
             $query->where(fn (Builder $q) => $q->whereRaw("LOWER({$title}) LIKE ?", [$term])->orWhereRaw('LOWER(slug) LIKE ?', [$term]));
         }
-        if ($filters['review']) {
+        if ($filters['review'] === 'stale') {
+            $query->where(fn (Builder $q) => $q->whereNull('last_verified_at')->orWhere('last_verified_at', '<', now()->subDays(self::staleAfter())));
+        } elseif ($filters['review']) {
             $query->where('review_status', $filters['review']);
         }
         if ($filters['published'] === 'yes') {
@@ -244,7 +269,7 @@ class ReviewController extends Controller
     /** One display row, the same shape for every kind so the table is one template. */
     private function row(string $type, Model $m): array
     {
-        $staleAfter = (int) config('aipolicytracker.stale_after_days', 180);
+        $staleAfter = self::staleAfter();
         $context = match ($type) {
             'policy' => $m->jurisdiction?->name ?? '—',
             'jurisdiction' => $m->region ?: '—',
@@ -285,11 +310,19 @@ class ReviewController extends Controller
 
     private function setPublished(string $type, Model $model, bool $publish): void
     {
-        $model->forceFill(['published_at' => $publish ? now() : null])->save();
-        // An instrument's duties are published with it: a hidden instrument with visible
-        // obligations would point readers at a record that is not there.
+        $was = $model->published_at;
+        // Publishing an already-published record keeps the date it first went public.
+        $model->forceFill(['published_at' => $publish ? ($was ?? now()) : null])->save();
+        // An instrument's duties follow it: unpublishing hides them all, because a hidden
+        // instrument with visible obligations would point readers at a record that is not
+        // there. Publishing brings back only what went down with it (a policy that was
+        // hidden), so an obligation left unpublished on purpose under a live policy stays so.
         if ($type === 'policy') {
-            $model->obligations()->update(['published_at' => $publish ? now() : null]);
+            if (! $publish) {
+                $model->obligations()->update(['published_at' => null]);
+            } elseif ($was === null) {
+                $model->obligations()->whereNull('published_at')->update(['published_at' => now()]);
+            }
         }
     }
 

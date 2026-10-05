@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tool;
 use App\Models\ToolFile;
+use App\Support\Admin\ListFilters;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,10 +20,13 @@ class ToolController extends Controller
     public function index(Request $request): View
     {
         $status = in_array($request->query('status'), array_keys(Tool::STATUSES), true) ? $request->query('status') : null;
-        $tools = Tool::withCount(['files', 'downloads'])->when($status, fn ($q) => $q->where('status', $status))->orderBy('sort_order')->orderBy('title')->get();
+        $filters = ListFilters::from($request, ['order' => 'sort_order', 'title' => 'title', 'downloads' => 'downloads_count', 'updated' => 'updated_on'], 'asc');
+        $query = Tool::withCount(['files', 'downloads'])->when($status, fn ($q) => $q->where('status', $status));
+        $filters->search($query, ['title', 'slug', 'short']);
+        $tools = $filters->order($query)->get();
         $counts = Tool::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
 
-        return view('backend.admin.tools.index', compact('tools', 'status', 'counts'));
+        return view('backend.admin.tools.index', compact('tools', 'status', 'counts', 'filters'));
     }
 
     public function create(): View
@@ -33,6 +37,11 @@ class ToolController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
+        // A new tool has no files yet, and a published tool without one is a dead download
+        // button; update() refuses the same thing.
+        if ($data['status'] === 'published') {
+            return back()->withInput()->withErrors(['status' => 'Save the tool as a draft and upload at least one file before publishing.']);
+        }
         $tool = Tool::create($data + ['updated_by' => $request->user()->id]);
 
         return redirect()->route('backend.admin.tools.edit', $tool)->with('success', 'Tool created as '.$tool->status.'. Upload at least one file before publishing.');
