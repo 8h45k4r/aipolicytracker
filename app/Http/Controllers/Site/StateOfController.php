@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\PolicyInstrument;
 use App\Services\Report\StateOfAiRegulation;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -38,13 +40,18 @@ class StateOfController extends Controller
         );
         $faq = [
             ['question' => 'How many countries have AI laws in '.$label.'?', 'answer' => sprintf('%d of the %d jurisdictions covered have at least one binding AI-specific instrument on record, and %d have one in force. The rest govern AI through strategies, guidance and existing law. Every count is computed from the records and links to them.', $t['jurisdictions_with_binding_law'], $t['jurisdictions_covered'], $t['jurisdictions_with_binding_in_force'])],
+            ['question' => 'How many AI laws are there?', 'answer' => sprintf('%s of the %s AI policy instruments on record in %s are binding (acts, regulations, binding rules and the like), in %d jurisdictions; the rest are strategies, guidance, standards and proposals. Together the records set out %s dated, sourced duties.', number_format($t['binding_instruments']), number_format($t['instruments']), $label, $t['jurisdictions_with_binding_law'], number_format($t['obligations']))],
             ['question' => 'What changed this quarter?', 'answer' => sprintf('%d dated, source-linked changes were recorded between %s and %s; the top entries are listed on the page and every one links to its record and official source.', $t['changes_in_quarter'], $report['period']['start'], $report['period']['end'])],
             ['question' => 'Is a past quarter\'s report frozen?', 'answer' => 'Yes. When a quarter closes its figures are frozen as a snapshot (version '.StateOfAiRegulation::VERSION.') so the report reads the same later, even as records are added or corrected. The current quarter is computed live and says so.'],
             ['question' => 'How is "verified" defined?', 'answer' => 'A record a named reviewer has checked against the official source, with the date of that check on the record. Sourced means the record links an official source; verified means someone confirmed it matches.'],
         ];
-        $title = 'State of AI Regulation '.$label.': Countries, Laws & Changes';
+        if ($isCurrent) {
+            $strategies = PolicyInstrument::published()->where('instrument_type', 'strategy')->distinct()->count('jurisdiction_id');
+            array_splice($faq, 2, 0, [['question' => 'How many countries have a national AI strategy?', 'answer' => sprintf('%d jurisdictions have a national AI strategy on record. A strategy states aims and plans and binds no one by itself; %d jurisdictions also have binding AI-specific law on record.', $strategies, $t['jurisdictions_with_binding_law'])]]);
+        }
+        $title = 'State of AI Regulation '.$label;
         $url = $isCurrent ? route('state-of.show') : route('state-of.quarter', $quarter);
-        $seo = Seo::make(PageTitle::fit($title, [': Countries, Laws & Changes', '']), PageTitle::description($answer), $url, $isCurrent || $report['frozen'])
+        $seo = Seo::make(PageTitle::fit($title, [': Statistics, Laws & Changes', ': Countries, Laws & Changes', '']), PageTitle::description(sprintf('AI regulation statistics, %s: %d jurisdictions with binding AI law (%d in force), %s instruments, %s duties, %d %s next quarter.', $label, $t['jurisdictions_with_binding_law'], $t['jurisdictions_with_binding_in_force'], number_format($t['instruments']), number_format($t['obligations']), $t['deadlines_next_quarter'], Str::plural('deadline', $t['deadlines_next_quarter']))), $url, $isCurrent || $report['frozen'])
             ->withBreadcrumbs(array_values(array_filter([['Home', route('home')], ['State of AI regulation', route('state-of.show')], $isCurrent ? null : [$label, $url]])))
             ->withModified($report['frozen'] ? Carbon::parse($report['frozen_at']) : now())
             ->withPageType('Report', ['headline' => 'The state of AI regulation, '.$label, 'reportNumber' => $quarter, 'author' => ['@id' => url('/').'#organization']])

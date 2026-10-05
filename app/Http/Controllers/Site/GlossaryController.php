@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\TaxonomyTerm;
+use App\Services\Glossary\GlossaryTerms;
+use App\Support\PageTitle;
 use App\Support\Seo;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 /**
@@ -37,6 +38,7 @@ class GlossaryController extends Controller
                 'term' => $t->name,
                 'definition' => $t->description,
                 'source' => null,
+                'page' => null,
                 'see' => $filter ? [['Obligations that apply to this', route('obligations.index', [$filter => $t->slug])]] : [],
             ])->values()->all();
             if ($terms !== []) {
@@ -65,7 +67,7 @@ class GlossaryController extends Controller
                     'name' => $t['term'],
                     'termCode' => $t['id'],
                     'description' => $t['definition'],
-                    'url' => route('glossary').'#'.$t['id'],
+                    'url' => $t['page'] ?? route('glossary').'#'.$t['id'],
                     'inDefinedTermSet' => $setId,
                     'subjectOf' => $t['source'] ? ['@type' => 'CreativeWork', 'name' => $t['source'][0], 'url' => $t['source'][1]] : null,
                 ]))->values()->all(),
@@ -79,22 +81,55 @@ class GlossaryController extends Controller
         return str_replace('_', '-', $taxonomy === 'actor' ? $slug : $taxonomy.'-'.$slug);
     }
 
-    /** @return list<array{id:string, term:string, definition:string, source:?array, see:list<array{0:string,1:string}>}> */
+    /** @return list<array{id:string, term:string, definition:string, source:?array, see:list<array{0:string,1:string}>, page:?string}> */
     private function curated(): array
     {
-        $out = [];
-        foreach (config('glossary.terms', []) as $id => $t) {
-            $see = [];
-            foreach ($t['see'] ?? [] as [$label, $name, $params]) {
-                // A link to a record that is not published (or a route that does not exist)
-                // is left out rather than shipped as a 404.
-                if (Route::has($name)) {
-                    $see[] = [$label, route($name, $params)];
-                }
-            }
-            $out[] = ['id' => $id, 'term' => $t['term'], 'definition' => $t['definition'], 'source' => $t['source'] ?? null, 'see' => $see];
+        return collect(GlossaryTerms::all())->map(fn ($t) => [
+            'id' => $t['id'], 'term' => $t['term'], 'definition' => $t['definition'], 'source' => $t['source'], 'see' => $t['see'], 'page' => GlossaryTerms::url($t['id']),
+        ])->values()->all();
+    }
+
+    /**
+     * /glossary/{term}: one curated term on its own page, answering "what is X":
+     * the definition first, where it comes from, the laws and duties on record
+     * that use it, and the terms it is bound up with.
+     */
+    public function show(string $term): View
+    {
+        $t = GlossaryTerms::find($term);
+        abort_unless($t, 404);
+        $policies = GlossaryTerms::policiesUsing($t);
+        $obligations = GlossaryTerms::obligationsUsing($t);
+        $related = GlossaryTerms::related($t);
+        $url = GlossaryTerms::url($t['id']);
+        $setId = route('glossary').'#terms';
+
+        $faq = [['question' => 'What does "'.$t['short'].'" mean?', 'answer' => $t['definition']]];
+        if ($t['source']) {
+            $faq[] = ['question' => 'Where does the term '.$t['short'].' come from?', 'answer' => 'This explanation follows '.$t['source'][0].'. It is a plain-language paraphrase for orientation; the source has the binding wording.'];
+        }
+        if ($policies->isNotEmpty()) {
+            $faq[] = ['question' => 'Which laws and policies use the term '.$t['short'].'?', 'answer' => 'Among the records on this site: '.$policies->take(5)->map(fn ($p) => ($p->short_title ?: $p->title).' ('.($p->jurisdiction?->short_name ?: $p->jurisdiction?->name).')')->join('; ', ' and ').'.'];
         }
 
-        return $out;
+        $seo = Seo::make(
+            PageTitle::fit($t['short'], [': Definition & Where It Applies', ': Definition and Meaning', ': Definition', '']),
+            PageTitle::description($t['short'].': '.$t['definition']),
+            $url,
+        )->withBreadcrumbs([['Home', route('home')], ['Glossary', route('glossary')], [$t['short'], $url]])
+            ->withPageType('WebPage', ['name' => $t['term'], 'mainEntity' => ['@id' => $url.'#term']])
+            ->withJsonLd(array_filter([
+                '@type' => 'DefinedTerm',
+                '@id' => $url.'#term',
+                'name' => $t['term'],
+                'termCode' => $t['id'],
+                'description' => $t['definition'],
+                'url' => $url,
+                'inDefinedTermSet' => ['@type' => 'DefinedTermSet', '@id' => $setId, 'name' => 'AI governance glossary', 'url' => route('glossary')],
+                'subjectOf' => $t['source'] ? ['@type' => 'CreativeWork', 'name' => $t['source'][0], 'url' => $t['source'][1]] : null,
+            ]))
+            ->withFaq($faq);
+
+        return view('site.pages.glossary-term', compact('seo', 't', 'policies', 'obligations', 'related'));
     }
 }

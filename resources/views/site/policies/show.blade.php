@@ -98,7 +98,7 @@
             @endif
 
             @if($policy->penalties_summary)
-            <section aria-labelledby="penalties-heading" class="mt-8"><h2 id="penalties-heading" class="section-title">Penalties</h2><p class="prose-policy mt-2">{{ $policy->penalties_summary }}</p></section>
+            <section aria-labelledby="penalties-heading" class="mt-8"><h2 id="penalties-heading" class="section-title">What are the penalties?</h2><p class="prose-policy mt-2">{{ $policy->penalties_summary }}</p></section>
             @endif
 
             @if($policy->sections->isNotEmpty())
@@ -164,6 +164,10 @@
                 @endif
                 @if(!empty($policy->related_frameworks))
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Framework crosswalks</p><ul class="mt-2 space-y-1.5">@if(in_array('iso_42001', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'iso-42001-vs-eu-ai-act') }}" class="text-brand-body hover:underline">ISO/IEC 42001 vs EU AI Act</a></li>@endif @if(in_array('nist_ai_rmf', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'nist-ai-rmf-vs-eu-ai-act') }}" class="text-brand-body hover:underline">NIST AI RMF vs EU AI Act</a></li>@endif</ul></div>
+                @endif
+                @php($glossary = \App\Services\Glossary\GlossaryTerms::foundIn(implode(' ', [$policy->summary_plain, $policy->scope_summary, $policy->who_it_applies_to, $policy->what_organizations_must_do, $policy->obligations->pluck('title')->join(' ')])))
+                @if($glossary)
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Terms explained</p><ul class="mt-2 space-y-1.5">@foreach($glossary as $g)<li><a href="{{ \App\Services\Glossary\GlossaryTerms::url($g['id']) }}" class="text-brand-body hover:underline">{{ $g['term'] }}</a></li>@endforeach</ul></div>
                 @endif
                 <x-site.assessments kind="policy" :key="$policy->slug" />
                 <x-site.certifyi-cta label="Export these obligations to a compliance workflow" />

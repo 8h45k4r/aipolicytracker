@@ -270,7 +270,14 @@ class StructuredDataGraphTest extends TestCase
         ExternalRisk::create([
             'ev_id' => '99.01.00', 'quick_ref' => 'Test2026', 'paper_title' => 'A framework used in this test',
             'level' => 'Risk Category', 'domain' => '1', 'subdomain' => '1.1',
-            'description' => 'A risk entry that says something of its own, and so earns a listing.',
+            'description' => 'A risk entry that says something of its own, at enough length to be a page in its own right: what the harm is, how it arises, who it falls on, and why the framework that names it thinks it matters.',
+        ]);
+        // Also negative: a description, but a dozen words on a page every entry in the
+        // subdomain shares otherwise, so it is served noindex and left out.
+        ExternalRisk::create([
+            'ev_id' => '99.02.00', 'quick_ref' => 'Test2026', 'paper_title' => 'A framework used in this test',
+            'level' => 'Risk Category', 'domain' => '1', 'subdomain' => '1.1',
+            'description' => 'Too short to stand alone as a page.',
         ]);
         // The negative case: an "Additional evidence" row with no description of
         // its own, hanging under the entry above. A third of the real corpus looks

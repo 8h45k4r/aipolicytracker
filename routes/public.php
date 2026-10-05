@@ -138,6 +138,7 @@ Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'expor
 Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z-]+')->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
 Route::get('/glossary', [GlossaryController::class, 'index'])->name('glossary');
+Route::get('/glossary/{term}', [GlossaryController::class, 'show'])->where('term', '[a-z0-9-]+')->name('glossary.show');
 Route::get('/search', [SearchController::class, 'index'])->middleware('throttle:60,1')->name('search');
 Route::get('/explore/{group}', [ExploreController::class, 'show'])->whereIn('group', array_keys(config('navigation.primary')))->name('explore');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExternalRisk extends Model
 {
+    /** Words of its own a risk entry's description needs before the page is offered to search engines. */
+    public const MIN_INDEXABLE_WORDS = 25;
+
     protected $primaryKey = 'ev_id';
 
     public $incrementing = false;
@@ -52,13 +55,20 @@ class ExternalRisk extends Model
      * .b and .c under 01.01.00), so indexing them offers an engine three near-
      * empty variants of a page it already has.
      *
+     * A description of a dozen words is not much more: the page around it is the
+     * same classification and lists every entry in the subdomain carries, so an
+     * entry is offered to search engines only with at least MIN_INDEXABLE_WORDS
+     * words of its own. That keeps about two thirds of the indexable entries and
+     * drops the near-identical ones.
+     *
      * Failing this is not a reason to hide the page from people. It is served
      * noindex,follow: reachable, linked, crawled onward to the parent, and not
      * offered as a result in its own right.
      */
     public function isIndexable(): bool
     {
-        return filled($this->description) && $this->level !== 'Additional evidence';
+        return filled($this->description) && $this->level !== 'Additional evidence'
+            && str_word_count((string) $this->description) >= self::MIN_INDEXABLE_WORDS;
     }
 
     public function navigatorUrl(): string

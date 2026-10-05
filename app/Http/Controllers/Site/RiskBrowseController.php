@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Services\ExternalData\ExternalDataset;
+use App\Services\ExternalData\IncidentEnrichment;
 use App\Services\ExternalData\IncidentSensitivity;
 use App\Support\Csv;
 use App\Support\PageTitle;
@@ -106,6 +107,9 @@ class RiskBrowseController extends Controller
         $related = ($ids = $i->similarIds()) ? ExternalIncident::standard()->whereIn('incident_id', $ids)->get()->sortBy(fn ($r) => array_search($r->incident_id, $ids, true))->values() : collect();
         $summary = $this->data->aiid();
         $laws = $i->relatedPolicies();
+        // The angle names how many laws are listed, so it is worked out from the list
+        // as shown; a reviewer's own wording in the overrides file still wins.
+        $angle = IncidentEnrichment::overrides()[(int) $i->incident_id]['policy_angle'] ?? IncidentEnrichment::policyAngle($i, $i->harm_domain, $laws->pluck('slug')->all());
 
         $sensitive = IncidentSensitivity::isSensitive($i);
         $heading = $sensitive ? IncidentSensitivity::neutralHeadline($i) : $i->title;
@@ -126,7 +130,7 @@ class RiskBrowseController extends Controller
                 'about' => array_values(array_filter([$i->mit_domain, $i->mit_subdomain])),
             ]);
 
-        return view('site.risk.incident-show', compact('i', 'heading', 'laws', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
+        return view('site.risk.incident-show', compact('i', 'heading', 'laws', 'angle', 'domainId', 'subdomainCode', 'sameSubdomain', 'sameDeployer', 'risks', 'related', 'summary', 'seo', 'deployer'));
     }
 
     /** Single MIT risk entry with its paper siblings, other frameworks describing the same subdomain, and matching incidents. */

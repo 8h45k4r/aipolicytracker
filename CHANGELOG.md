@@ -5,6 +5,8 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- A page per glossary term (`/glossary/{term}`, 22 terms): the definition first, its source, the laws and duties on record that use it and related terms, with `DefinedTerm` and FAQ markup. Policy pages link the terms they use. Review: `docs/reference/seo-aeo-review-2026-10-05.md`.
+- An `ai_referral` analytics event for visits from answer engines and AI assistants (ChatGPT, Perplexity, Claude, Gemini, Copilot and others), under the existing consent.
 - Free self-assessments at `/self-assessments`: 30 short questionnaires (EU AI Act, risk classification, FRIA, ISO/IEC 42001, NIST AI RMF, US state laws, AI security, governance, privacy and fairness), filterable by type and region. Record, framework, template, audience and guide pages show at most two that fit, in place of the related-product note rather than beside it. They run on Certifyi, a related product; a score is a self-check, not an audit.
 - `/ai-policy-examples`: national AI policies and strategies on record (108 from 100 jurisdictions), by region and newest first, with a pointer to the company AI policy template.
 - A home-page FAQ (what an AI policy tracker is, whether it is free, the map of AI regulations around the world, coverage, the free AI policy template, how current it is) in FAQPage markup.
@@ -17,6 +19,10 @@ All notable changes to this project are documented here. The format follows [Kee
 - Five templates (South Korea AI Basic Act checklist, Texas TRAIGA checklist, US state AI law matrix, public-sector AI use-case inventory, synthetic content labelling plan; 41 in all), landing pages per framework and per document type, and eight guides grounded in the records.
 
 ### Changed
+- Incident pages list "Laws on record for this risk area": matched by risk subdomain where the domain misleads, never a repealed, archived or superseded law, and with a note that a listed law covers the area rather than applying to the incident. Run `php artisan incidents:enrich --refresh` once after deploying to rematch stored lists.
+- MIT AI Risk Repository entries are offered to search engines only with a description of at least 25 words (1,063 of 1,617); the rest stay reachable and `noindex,follow`.
+- The quarterly report's title and description answer "AI regulation statistics", with answers to how many AI laws there are and how many countries have a national AI strategy. Obligation pages lead their description with the duty's own summary (54 shared one).
+- Structured data names the site's other names (`alternateName`), and `knowsAbout` lists subjects rather than evidence-type labels.
 - Dependencies: laravel/tinker 3.0.2 (constraint ^3.0), dodopayments/client 6.27.0, and the Symfony polyfills at 1.43.0. GitHub Actions pins moved to actions/checkout 7.0.1, actions/setup-node 7.0.0 and the current CodeQL action across every workflow. Both are the open Dependabot updates, applied and verified here with the full test suite while the pipeline cannot run.
 - Titles and headings use the terms people search for: *AI Policy Tracker: Free Global AI Law and Policy Tracker* (home), *AI policy map* and *AI regulations around the world* (jurisdictions), *{Country} AI Policy & Regulation {year}* (jurisdiction pages), *AI Policy Template* (acceptable use policy), *AI Policy Training* (AI literacy plan), the Nepali year 2082 on the Nepal page and *AI policy* on the India page; template type pages read *AI …*.
 - The organisation is named Certifyi AI in the site's structured data, NOTICE, governance and reviewer declaration, and is the default legal entity name (`LEGAL_ENTITY_NAME` overrides it).

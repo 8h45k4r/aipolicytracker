@@ -16,7 +16,7 @@
             <dl class="mt-3 divide-y divide-brand-line border-y border-brand-line">
                 @foreach($g['terms'] as $t)
                     <div class="py-4 scroll-mt-24" id="{{ $t['id'] }}">
-                        <dt class="font-semibold text-brand-navy"><dfn class="not-italic">{{ $t['term'] }}</dfn> <a href="#{{ $t['id'] }}" class="ml-1 text-xs font-normal text-brand-muted no-underline" aria-label="Link to {{ $t['term'] }}">#</a></dt>
+                        <dt class="font-semibold text-brand-navy"><dfn class="not-italic">@if($t['page'] ?? null)<a href="{{ $t['page'] }}" class="text-brand-navy">{{ $t['term'] }}</a>@else{{ $t['term'] }}@endif</dfn> <a href="#{{ $t['id'] }}" class="ml-1 text-xs font-normal text-brand-muted no-underline" aria-label="Link to {{ $t['term'] }}">#</a></dt>
                         <dd class="mt-1 text-sm text-brand-body">
                             <p>{{ $t['definition'] }}</p>
                             @if($t['source'] || $t['see'])

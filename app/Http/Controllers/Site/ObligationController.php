@@ -69,7 +69,11 @@ class ObligationController extends Controller
 
         $seo = Seo::make(
             PageTitle::obligation($obligation),
-            ($obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance').' under '.($policy->short_title ?: $policy->title).' in '.$policy->jurisdiction->name.': what it requires, who it applies to, evidence examples and framework mappings.',
+            // The duty's own summary leads, so no two duties share a description; the
+            // instrument and place follow while there is room.
+            filled($obligation->summary)
+                ? PageTitle::description(trim($obligation->summary).' '.($obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance').' under '.($policy->short_title ?: $policy->title).' ('.$policy->jurisdiction->name.').')
+                : ($obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance').' under '.($policy->short_title ?: $policy->title).' in '.$policy->jurisdiction->name.': what it requires, who it applies to, evidence examples and framework mappings.',
             $obligation->url(),
             filled($obligation->summary) && $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')], [$obligation->title, $obligation->url()]])

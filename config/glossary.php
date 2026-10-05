@@ -16,7 +16,9 @@
 | categories) is added to the page from the database, so a term defined there
 | is not repeated here.
 |
-| 'see' entries are [label, route name, route parameters].
+| 'see' entries are [label, route name, route parameters]. Each term also has a page
+| at /glossary/{key}; 'match' lists extra phrases that count as the records using the
+| term (the term without its parenthetical, and its abbreviation, always count).
 |
 */
 
@@ -44,12 +46,14 @@ return [
         ],
         'high-risk-ai-system' => [
             'term' => 'High-risk AI system',
+            'match' => ['high-risk AI'],
             'definition' => 'In the EU AI Act, an AI system that is a safety component of (or is itself) a product covered by the EU product-safety laws listed in Annex I and needing third-party conformity assessment, or one used in an area listed in Annex III, such as biometrics, critical infrastructure, education, employment, access to essential services, law enforcement, migration and the administration of justice. A provider may document that an Annex III system is not high-risk when it does not pose a significant risk of harm.',
             'source' => $euAiAct,
             'see' => [['Risk management duties', 'obligations.index', ['category' => 'risk_management']], ['EU AI Act role and risk classifier', 'templates.show', 'eu-ai-act-role-risk-classifier']],
         ],
         'prohibited-ai-practices' => [
             'term' => 'Prohibited AI practices',
+            'match' => ['prohibited practice', 'prohibited AI practice'],
             'definition' => 'Uses of AI the EU AI Act bans outright, including manipulative or deceptive techniques that cause significant harm, exploiting vulnerabilities, social scoring, predicting crime from profiling alone, untargeted scraping of facial images, emotion recognition in workplaces and schools (with narrow exceptions), biometric categorisation by sensitive traits, and most real-time remote biometric identification by police in public spaces.',
             'source' => $euAiAct,
             'see' => [['Prohibited practice duties', 'obligations.index', ['category' => 'prohibited_practice']], ['Prohibited-use screening control', 'controls.show', 'prohibited-use-screening-gate']],
@@ -114,35 +118,41 @@ return [
         ],
         'deep-fake' => [
             'term' => 'Deep fake',
+            'match' => ['deepfake', 'deep-fake'],
             'definition' => 'AI-generated or AI-manipulated image, audio or video content that resembles existing people, objects, places or events and would falsely appear authentic. The EU AI Act requires deployers to disclose that such content is artificial, with lighter rules for evidently artistic or satirical work.',
             'source' => $euAiAct,
             'see' => [['Transparency duties', 'obligations.index', ['category' => 'transparency']], ['Synthetic content labelling control', 'controls.show', 'synthetic-content-labelling-and-provenance']],
         ],
         'regulatory-sandbox' => [
             'term' => 'AI regulatory sandbox',
+            'match' => ['regulatory sandbox'],
             'definition' => 'A controlled framework run by a competent authority in which providers can develop, train, validate and test innovative AI systems for a limited time under regulatory supervision. The EU AI Act requires each member state to set up at least one.',
             'source' => $euAiAct,
         ],
         'ai-management-system' => [
             'term' => 'AI management system (ISO/IEC 42001)',
+            'match' => ['ISO 42001', 'ISO/IEC 42001'],
             'definition' => 'The policies, objectives and processes an organisation puts in place to develop, provide or use AI systems responsibly, structured like other ISO management systems (plan, do, check, act). ISO/IEC 42001 sets the requirements for one and can be certified by an accredited body.',
             'source' => ['ISO/IEC 42001:2023', 'https://www.iso.org/standard/81230.html'],
             'see' => [['ISO/IEC 42001 record', 'policies.show', 'iso-iec-42001-2023-ai-management-system'], ['ISO 42001 gap assessment', 'templates.show', 'iso-42001-gap-assessment']],
         ],
         'ai-rmf' => [
             'term' => 'NIST AI Risk Management Framework (AI RMF)',
+            'match' => ['NIST AI RMF', 'AI Risk Management Framework'],
             'definition' => 'A voluntary framework from the US National Institute of Standards and Technology for managing the risks of AI systems, organised in four functions: Govern (culture and accountability), Map (context and risks), Measure (analysis and tracking) and Manage (prioritising and acting on risks).',
             'source' => ['NIST AI 100-1', 'https://www.nist.gov/itl/ai-risk-management-framework'],
             'see' => [['NIST AI RMF record', 'policies.show', 'us-nist-ai-rmf'], ['NIST, EU and ISO crosswalk', 'templates.show', 'nist-eu-iso-crosswalk']],
         ],
         'bias-audit' => [
             'term' => 'Bias audit (automated employment decision tools)',
+            'match' => ['bias audit', 'automated employment decision tool'],
             'definition' => 'Under New York City Local Law 144, an impartial evaluation by an independent auditor of an automated employment decision tool, reporting selection or scoring rates and impact ratios by sex and race or ethnicity. Employers must have one done within a year before using the tool, publish a summary, and notify candidates.',
             'source' => ['NYC Department of Consumer and Worker Protection', 'https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page'],
             'see' => [['Local Law 144 record', 'policies.show', 'us-new-york-city-local-law-144-automated-employment-decision-tools']],
         ],
         'red-teaming' => [
             'term' => 'Red teaming (AI)',
+            'match' => ['red-teaming', 'red team', 'red-team'],
             'definition' => 'Structured adversarial testing in which testers try to make an AI system fail: produce harmful output, leak data, ignore its instructions or be misused. It is one of the evaluations expected of the most capable general-purpose models and a common control for generative AI.',
             'source' => $euAiAct,
             'see' => [['Red-team testing control', 'controls.show', 'genai-red-team-testing'], ['AI red team test plan', 'templates.show', 'ai-red-team-test-plan']],

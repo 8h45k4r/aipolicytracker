@@ -56,8 +56,8 @@
                 @endif
             </section>
             <section aria-labelledby="law-heading" class="mt-8">
-                <h2 id="law-heading" class="section-title">Laws that address this harm</h2>
-                @if($i->policy_angle)<p class="mt-2 text-sm text-brand-body"><span class="font-medium text-brand-navy">Policy angle:</span> {{ $i->policy_angle }}</p>@endif
+                <h2 id="law-heading" class="section-title">Laws on record for this risk area</h2>
+                @if($angle)<p class="mt-2 text-sm text-brand-body"><span class="font-medium text-brand-navy">Policy angle:</span> {{ $angle }}</p>@endif
                 @if($laws->isNotEmpty())
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
                     @foreach($laws as $p)
@@ -65,9 +65,9 @@
                     @endforeach
                 </ul>
                 @else
-                <p class="mt-2 text-sm text-brand-muted">No recorded instrument yet addresses this use case where it happened. See the <a href="{{ route('gaps') }}">open queue</a>.</p>
+                <p class="mt-2 text-sm text-brand-muted">No instrument on record yet covers this risk area where it happened. See the <a href="{{ route('gaps') }}">open queue</a>.</p>
                 @endif
-                <p class="mt-2 text-xs text-brand-muted">Matched from the record's risk domain and country to the instruments recorded here. A reviewer can correct the match in the repository (<code>data/external/incident_overrides.yaml</code>).</p>
+                <p class="mt-2 text-xs text-brand-muted">Matched from the record's risk category and country to the instruments in effect recorded here: a law listed covers the area, which is not a finding that it applies to this incident. A reviewer can correct the match in the repository (<code>data/external/incident_overrides.yaml</code>).</p>
             </section>
             @if($i->reports->isNotEmpty())
             <section aria-labelledby="reports-heading" class="mt-8">
