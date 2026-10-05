@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Admin: every list filters, sorts and exports what it shows (audit log, submissions, subscribers, template requests, tool downloads, users, job runs, tools, subscriptions, review queue), and the dashboard's figures carry 30-day trend lines and open the rows behind them. Guides and downloads is split into an overview and three filterable views. The admin reads in Poppins. Findings and dispositions: `docs/reference/admin-review-2026-10-05.md`.
 - Answers to the questions people search for in this niche, on the page they land on and in FAQPage markup, all from the records: which countries have AI laws (jurisdictions directory), whether the EU AI Act applies outside the EU and what a high-risk system is, what any law with prohibited-practice duties prohibits, whether a country with states has a federal AI law and which of its states have one, and what an acceptable use policy, risk register, impact assessment and system inventory should contain (from the templates themselves). Mapping and sources in `docs/reference/search-questions-2026-10.md`.
 - Site-wide search at `/search` (noindex): jurisdictions, laws, obligations, controls, templates, guides, glossary terms and changes, grouped, title matches first. A search field in the header on wide screens, an icon below that, a labelled Search button beside Menu on phones, and a search field at the top of the mobile menu. The site's `SearchAction` points at it.
 - A hub page per navigation group (`/explore/{group}`) listing every page in that group under its section heading.
@@ -23,6 +24,11 @@ All notable changes to this project are documented here. The format follows [Kee
 - Template pages open with an answer and a how-to, and carry `ItemPage` with a `DigitalDocument` main entity.
 
 ### Fixed
+- The AI Incident Database API began answering incident queries with "log in to the database" (401). The daily live sync now recognises that, pauses with a clear note on the dashboard and the External data page instead of failing every day, and resumes when `AIID_API_TOKEN` or `AIID_API_COOKIE` is set; incidents keep updating weekly from the public AIID backup.
+- Record changes, job runs and imports no longer flush the whole cache store, which reset the sign-in, two-factor and invitation rate limits and the scheduler heartbeat; content caches move to a new generation instead.
+- Admin exports keep every row in the list's order (they dropped and repeated rows under a date sort), the subscriber export follows the on-screen filter, and exports and bulk actions are recorded in the audit log with what they touched. Refused forms are logged as failures.
+- Deleting a user no longer lands on a 404; publishing keeps a record's first published date and leaves deliberately hidden obligations hidden; a job run skipped because the job was already running no longer reads as a failure; settings and permissions no longer lose what was typed when the password is re-confirmed.
+- Search treats `%` and `_` as characters on SQLite (an underscore matched every record).
 - The EU AI Act record's own question on dates gave the pre-Omnibus timetable beside the generated, current one; it now matches the record's key dates. The US record named Colorado SB 24-205 as binding, though the Colorado record shows it repealed by SB 26-189 before taking effect.
 - Sticky elements (the admin sidebar, record-page sidebars) did not stick, because `overflow-x: hidden` on the page made the body its own scroll container; it is `clip` now.
 - Pages whose view placed its own FAQ (templates, policies, guides, landing and hub pages and others) printed the questions twice, because the layout printed them as well. The layout now adds them only when the view has not.

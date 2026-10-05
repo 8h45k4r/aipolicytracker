@@ -66,7 +66,7 @@ class AdminDashboardTest extends TestCase
     {
         $html = $this->actingAs($this->owner())->get(route('backend.admin.users.index'))->assertOk()->getContent();
 
-        $this->assertStringContainsString('<html lang="en" data-scheme="light">', $html, 'the admin stays light when the system is dark');
+        $this->assertStringContainsString('<html lang="en" data-scheme="light" data-admin>', $html, 'the admin stays light when the system is dark');
         $this->assertStringContainsString('lg:sticky lg:top-0 lg:h-screen', $html);
         foreach (['Overview', 'Content', 'Audience', 'Operations', 'Administration'] as $group) {
             $this->assertStringContainsString('>'.$group.'</p>', $html);

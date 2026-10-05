@@ -86,8 +86,8 @@ class ChangeEvent extends Model
         $like = '%'.str_replace(['%', '_'], ['\\%', '\\_'], mb_strtolower($term)).'%';
 
         return $query->where(function ($q) use ($like) {
-            $q->whereRaw('LOWER(change_events.title) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(change_events.what_changed) LIKE ?', [$like]);
+            $q->whereRaw('LOWER(change_events.title) LIKE ? ESCAPE ?', [$like, '\\'])
+                ->orWhereRaw('LOWER(change_events.what_changed) LIKE ? ESCAPE ?', [$like, '\\']);
         });
     }
 

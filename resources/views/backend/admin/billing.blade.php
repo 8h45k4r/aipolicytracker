@@ -31,14 +31,17 @@
 </section>
 <section class="mt-6 card-flat p-5">
     <h2 class="section-title !text-lg">Subscriptions</h2>
-    <p class="mt-2 text-sm">@foreach(\App\Models\Subscription::STATUSES as $s)<a href="{{ route('backend.admin.billing.index', ['status' => $s]) }}" class="mr-3 {{ $status === $s ? 'font-semibold' : '' }}">{{ $s }} ({{ $byStatus[$s] ?? 0 }})</a>@endforeach <a href="{{ route('backend.admin.billing.index') }}" class="{{ $status ? '' : 'font-semibold' }}">all</a> · checkouts: @foreach($checkouts as $s => $n){{ $s }} {{ $n }}@if(!$loop->last), @endif @endforeach</p>
+    <p class="mt-2 text-sm">@foreach(\App\Models\Subscription::STATUSES as $s)<a href="{{ request()->fullUrlWithQuery(['status' => $s, 'subs' => null]) }}" class="mr-3 {{ $status === $s ? 'font-semibold' : '' }}">{{ $s }} ({{ $byStatus[$s] ?? 0 }})</a>@endforeach <a href="{{ route('backend.admin.billing.index') }}" class="{{ $status ? '' : 'font-semibold' }}">all</a> · checkouts: @foreach($checkouts as $s => $n){{ $s }} {{ $n }}@if(!$loop->last), @endif @endforeach</p>
+    <x-backend.filters :action="route('backend.admin.billing.index')" :filters="$filters" :export="route('backend.admin.billing.export')" placeholder="Email, name, plan or provider id" :total="$subscriptions->total()" noun="subscription">
+        @if($status)<input type="hidden" name="status" value="{{ $status }}">@endif
+    </x-backend.filters>
     <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
         <caption class="sr-only">Subscriptions</caption><thead><tr class="text-left text-brand-muted"><th scope="col" class="py-1 pr-3">User</th><th scope="col" class="py-1 pr-3">Plan</th><th scope="col" class="py-1 pr-3">Status</th><th scope="col" class="py-1 pr-3">Period end</th><th scope="col" class="py-1 pr-3">Last event</th><th scope="col" class="py-1">Provider id</th></tr></thead>
         <tbody class="divide-y divide-brand-line">
         @forelse($subscriptions as $s)
-        <tr><td class="py-1.5 pr-3">{{ $s->user?->email ?? '—' }}</td><td class="py-1.5 pr-3">{{ $s->planName() }}</td><td class="py-1.5 pr-3">{{ $s->status }}@if($s->cancel_at_period_end) (cancels at period end)@endif</td><td class="py-1.5 pr-3">{{ $s->current_period_end?->format('j M Y') ?? '—' }}</td><td class="py-1.5 pr-3">{{ $s->last_event_type }} · {{ $s->last_event_at?->format('j M Y H:i') }}</td><td class="py-1.5 font-mono text-xs">{{ $s->provider_subscription_id }}</td></tr>
+        <tr><td class="py-1.5 pr-3">@if($s->user && auth()->user()->can('users.manage'))<a href="{{ route('backend.admin.users.show', $s->user) }}">{{ $s->user->email }}</a>@else{{ $s->user?->email ?? '—' }}@endif</td><td class="py-1.5 pr-3">{{ $s->planName() }}</td><td class="py-1.5 pr-3">{{ $s->status }}@if($s->cancel_at_period_end) (cancels at period end)@endif</td><td class="py-1.5 pr-3">{{ $s->current_period_end?->format('j M Y') ?? '—' }}</td><td class="py-1.5 pr-3">{{ $s->last_event_type }} · {{ $s->last_event_at?->format('j M Y H:i') }}</td><td class="py-1.5 font-mono text-xs">{{ $s->provider_subscription_id }}</td></tr>
         @empty
-        <tr><td colspan="6" class="py-3 text-brand-muted">No subscriptions yet.</td></tr>
+        <tr><td colspan="6" class="py-3 text-brand-muted">{{ $status || $filters->active() ? 'No subscriptions match these filters.' : 'No subscriptions yet.' }}</td></tr>
         @endforelse
         </tbody></table></div>
     <div class="mt-3">{{ $subscriptions->links() }}</div>

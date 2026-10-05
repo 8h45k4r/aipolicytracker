@@ -254,6 +254,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(self::class, 'admin_role_granted_by');
     }
 
+    /**
+     * Owner accounts, matched as isOwner() matches them: the configured addresses,
+     * case-insensitively, and only once the address is verified.
+     */
+    public function scopeOwners($query)
+    {
+        $emails = array_values(array_map('strtolower', config('aipolicytracker.admin_emails', [])));
+
+        return $emails === [] ? $query->whereRaw('1 = 0')
+            : $query->whereNotNull('email_verified_at')->whereIn(DB::raw('LOWER(email)'), $emails);
+    }
+
     /** Query scope excluding every account with administrative access. */
     public function scopeNonAdmin($query)
     {

@@ -1,0 +1,37 @@
+/*
+ Admin only, loaded after public.css on backend pages. The admin reads in Poppins, a
+ workmanlike UI face, while the public site keeps Space Grotesk; numbers and codes stay
+ in the mono face. Colours come from the same tokens as the public site.
+*/
+html[data-admin],
+html[data-admin] body,
+html[data-admin] .font-sans,
+html[data-admin] .font-display,
+html[data-admin] h1, html[data-admin] h2, html[data-admin] h3,
+html[data-admin] button, html[data-admin] input, html[data-admin] select, html[data-admin] textarea {
+    font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+html[data-admin] body { font-size: 14px; letter-spacing: 0; }
+html[data-admin] h1, html[data-admin] h2, html[data-admin] h3 { letter-spacing: -0.01em; }
+
+/* The filter bar above every list. */
+.adm-toolbar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem; margin-top: 1.25rem; padding: 0.875rem 1rem; background: rgb(var(--c-white)); border: 1px solid rgb(var(--c-line)); border-radius: 6px; }
+.adm-label { display: block; margin-bottom: 0.25rem; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(var(--c-muted)); }
+
+/* Data tables: a sticky header, hover rows, numbers aligned. */
+html[data-admin] .table-wrap { background: rgb(var(--c-white)); border: 1px solid rgb(var(--c-line)); border-radius: 6px; margin-left: 0; margin-right: 0; }
+html[data-admin] .table-wrap table { width: 100%; }
+html[data-admin] .table-wrap thead th { position: sticky; top: 0; z-index: 1; background: rgb(var(--c-paper)); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(var(--c-muted)); }
+html[data-admin] .table-wrap tbody tr:hover { background: rgb(var(--c-paper) / 0.6); }
+
+/* Cards and figures. */
+html[data-admin] .card-flat { border-radius: 6px; }
+.adm-stat { transition: border-color 0.15s, box-shadow 0.15s; }
+a.adm-stat:hover { box-shadow: 0 1px 6px rgb(0 33 71 / 0.08); }
+
+/* Tabs across the top of a page with several views. */
+.adm-tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid rgb(var(--c-line)); margin-top: 1.25rem; overflow-x: auto; }
+.adm-tabs a { padding: 0.5rem 0.875rem; font-size: 0.875rem; font-weight: 500; color: rgb(var(--c-muted)); text-decoration: none; border-bottom: 2px solid transparent; white-space: nowrap; }
+.adm-tabs a:hover { color: rgb(var(--c-navy)); }
+.adm-tabs a[aria-current="page"] { color: rgb(var(--c-navy)); border-bottom-color: rgb(var(--c-navy)); }
+.adm-tabs .adm-count { margin-left: 0.375rem; padding: 0 0.375rem; border-radius: 999px; background: rgb(var(--c-paper)); font-size: 11px; }

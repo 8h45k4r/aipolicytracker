@@ -51,4 +51,12 @@ return [
         ],
     ],
 
+    // AI Incident Database live API. Since October 2026 incident queries need a signed-in
+    // account; set one of these if AIID gives you access, otherwise the daily sync stands
+    // down and the weekly public backup (external:sync-aiid) keeps incidents current.
+    'aiid' => [
+        'api_token' => env('AIID_API_TOKEN'),
+        'api_cookie' => env('AIID_API_COOKIE'),
+    ],
+
 ];

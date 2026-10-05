@@ -111,6 +111,23 @@ class ExternalSyncTest extends TestCase
         $this->assertNull($run['error']);
     }
 
+    public function test_an_api_that_asks_for_a_login_pauses_the_sync_without_failing_it(): void
+    {
+        // What AIID answered from October 2026: 401 with a GraphQL error asking to log in.
+        Http::fake([AiidApiClient::ENDPOINT => Http::response(['errors' => [['message' => 'To mitigate a very high load of bot traffic, this functionality requires that you log in to the database.', 'path' => ['incidents']]]], 401)]);
+
+        $this->artisan('external:sync-aiid-api', ['--since' => '2026-10-01'])
+            ->expectsOutputToContain('weekly from the public AIID backup')
+            ->assertExitCode(0);
+        $this->assertSame(SyncAiidApiCommand::LOGIN_REQUIRED, Cache::get(SyncAiidApiCommand::LAST_RUN_KEY)['error']);
+
+        // Credentials, when set, are sent.
+        config(['services.aiid.api_token' => 'tok_123']);
+        Http::fake([AiidApiClient::ENDPOINT => Http::response(['data' => ['incidents' => []]])]);
+        $this->artisan('external:sync-aiid-api', ['--since' => '2026-10-01'])->assertExitCode(0);
+        Http::assertSent(fn ($request) => $request->hasHeader('Authorization', 'Bearer tok_123'));
+    }
+
     public function test_admin_external_page_shows_live_sync_status(): void
     {
         config(['aipolicytracker.admin_emails' => ['editor@example.test']]);

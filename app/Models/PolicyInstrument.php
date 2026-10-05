@@ -135,10 +135,10 @@ class PolicyInstrument extends Model
         $like = '%'.str_replace(['%', '_'], ['\\%', '\\_'], mb_strtolower($term)).'%';
 
         return $query->where(function ($q) use ($like) {
-            $q->whereRaw('LOWER(policy_instruments.title) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(policy_instruments.short_title) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(policy_instruments.summary_plain) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(policy_instruments.issuing_body) LIKE ?', [$like]);
+            $q->whereRaw('LOWER(policy_instruments.title) LIKE ? ESCAPE ?', [$like, '\\'])
+                ->orWhereRaw('LOWER(policy_instruments.short_title) LIKE ? ESCAPE ?', [$like, '\\'])
+                ->orWhereRaw('LOWER(policy_instruments.summary_plain) LIKE ? ESCAPE ?', [$like, '\\'])
+                ->orWhereRaw('LOWER(policy_instruments.issuing_body) LIKE ? ESCAPE ?', [$like, '\\']);
         });
     }
 }

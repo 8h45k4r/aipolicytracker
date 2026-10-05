@@ -10,21 +10,22 @@ use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\PlanCatalog;
 use App\Services\Billing\Provisioner;
+use App\Support\Admin\CsvStream;
+use App\Support\Admin\ListFilters;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /** Admin view of subscriptions, received webhooks and the provider configuration. */
 class BillingController extends Controller
 {
     public function index(Request $request, BillingConfig $config, PlanCatalog $catalog): View
     {
-        $status = $request->query('status');
-        $q = Subscription::with('user')->orderByDesc('id');
-        if ($status && in_array($status, Subscription::STATUSES, true)) {
-            $q->where('status', $status);
-        }
-        $subscriptions = $q->paginate(25, ['*'], 'subs')->withQueryString();
+        $status = in_array($request->query('status'), Subscription::STATUSES, true) ? (string) $request->query('status') : null;
+        $filters = ListFilters::from($request, self::SORTS);
+        $subscriptions = $this->subscriptionQuery($request, $filters)->with('user')->paginate(25, ['*'], 'subs')->withQueryString();
         $byStatus = Subscription::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
         $events = BillingEvent::orderByDesc('id')->paginate(25, ['*'], 'events')->withQueryString();
         $checkouts = BillingCheckout::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
@@ -41,7 +42,29 @@ class BillingController extends Controller
         $check = session('billing_check');
         $probe = session('probe');
 
-        return view('backend.admin.billing', compact('subscriptions', 'byStatus', 'events', 'checkouts', 'recentCheckouts', 'setup', 'status', 'check', 'probe'));
+        return view('backend.admin.billing', compact('subscriptions', 'byStatus', 'events', 'checkouts', 'recentCheckouts', 'setup', 'status', 'check', 'probe', 'filters'));
+    }
+
+    private const SORTS = ['created' => 'id', 'period_end' => 'current_period_end', 'plan' => 'plan_key', 'status' => 'status'];
+
+    /** Every subscription matching the filters, as CSV: the account, plan and dates, no payment details. */
+    public function export(Request $request): StreamedResponse
+    {
+        return CsvStream::from($this->subscriptionQuery($request, ListFilters::from($request, self::SORTS))->with('user'), 'subscriptions',
+            ['email', 'plan', 'status', 'cancel_at_period_end', 'current_period_end', 'cancelled_at', 'last_event', 'last_event_at', 'provider_subscription_id', 'created_at'],
+            fn (Subscription $s) => [$s->user?->email, $s->planName(), $s->status, $s->cancel_at_period_end, $s->current_period_end, $s->cancelled_at, $s->last_event_type, $s->last_event_at, $s->provider_subscription_id, $s->created_at]);
+    }
+
+    private function subscriptionQuery(Request $request, ListFilters $filters): Builder
+    {
+        $status = in_array($request->query('status'), Subscription::STATUSES, true) ? (string) $request->query('status') : null;
+        $query = Subscription::query()->when($status, fn ($q) => $q->where('status', $status));
+        if ($filters->q !== '') {
+            $query->where(fn ($w) => $filters->search($w, ['provider_subscription_id', 'plan_key'])->orWhereHas('user', fn ($u) => $filters->search($u, ['email', 'name'])));
+        }
+        $filters->dateRange($query, 'created_at');
+
+        return $filters->order($query);
     }
 
     /**

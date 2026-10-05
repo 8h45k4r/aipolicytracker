@@ -1,13 +1,16 @@
 @extends('backend.layouts.app', ['title' => 'Tool library'])
 @section('content')
-<div class="flex flex-wrap items-start justify-between gap-3">
-    <div><h1 class="font-display text-2xl font-semibold text-brand-navy">Tool library</h1><p class="mt-1 meta">Templates, checklists, registers and plans shown on <a href="{{ route('guides.index') }}">/guides</a>. Only published tools with at least one active file are listed publicly.</p></div>
-    <div class="flex gap-2"><a href="{{ route('backend.admin.tools.create') }}" class="btn-primary">New tool</a><a href="{{ route('backend.admin.downloads') }}" class="btn-secondary">Download activity</a></div>
-</div>
-<div class="mt-4 flex flex-wrap gap-2 text-sm">
-    <a class="chip {{ !$status ? 'chip-active' : '' }}" href="{{ route('backend.admin.tools.index') }}">All ({{ $counts->sum() }})</a>
-    @foreach(\App\Models\Tool::STATUSES as $k => $label)<a class="chip {{ $status === $k ? 'chip-active' : '' }}" href="{{ route('backend.admin.tools.index', ['status' => $k]) }}">{{ $label }} ({{ $counts[$k] ?? 0 }})</a>@endforeach
-</div>
+<x-backend.page-header title="Tool library">
+    <x-slot:description>Templates, checklists, registers and plans shown on <a href="{{ route('guides.index') }}">/guides</a>. Only published tools with at least one active file are listed publicly.</x-slot:description>
+    <x-slot:actions><a href="{{ route('backend.admin.tools.create') }}" class="btn-primary !min-h-[38px] !py-1.5">New tool</a>@can('audience.view')<a href="{{ route('backend.admin.downloads', ['view' => 'downloads']) }}" class="btn-secondary !min-h-[38px] !py-1.5">Download activity</a>@endcan</x-slot:actions>
+</x-backend.page-header>
+<nav class="adm-tabs" aria-label="Status">
+    <a href="{{ request()->fullUrlWithQuery(['status' => null]) }}" @if(! $status) aria-current="page" @endif>All<span class="adm-count">{{ $counts->sum() }}</span></a>
+    @foreach(\App\Models\Tool::STATUSES as $k => $label)<a href="{{ request()->fullUrlWithQuery(['status' => $k]) }}" @if($status === $k) aria-current="page" @endif>{{ $label }}<span class="adm-count">{{ $counts[$k] ?? 0 }}</span></a>@endforeach
+</nav>
+<x-backend.filters :action="route('backend.admin.tools.index')" :filters="$filters" placeholder="Title, slug or description" :dates="false" :total="$tools->count()" noun="tool">
+    @if($status)<input type="hidden" name="status" value="{{ $status }}">@endif
+</x-backend.filters>
 <details class="mt-4 card-flat p-4 text-sm" @if($tools->isEmpty()) open @endif>
     <summary class="cursor-pointer font-semibold text-brand-navy">How to add a tool and upload its files</summary>
     <ol class="mt-3 list-decimal space-y-1.5 pl-5 text-brand-body">
@@ -20,14 +23,14 @@
     </ol>
     <p class="mt-2 meta">The initial library is seeded from <code>config/resources.php</code> once; edits made here are never overwritten by deploys.</p>
 </details>
-@if($tools->isEmpty())<div class="mt-6"><x-site.empty title="No tools yet">Create a tool, then upload its files.</x-site.empty></div>@else
+@if($tools->isEmpty())<div class="mt-6">@if($status || $filters->active())<x-site.empty title="No tools match" :reset="route('backend.admin.tools.index')">Change the status or the search to see more tools.</x-site.empty>@else<x-site.empty title="No tools yet">Create a tool, then upload its files.</x-site.empty>@endif</div>@else
 <form method="post" action="{{ route('backend.admin.tools.status.many') }}" id="bulk-tools" class="mt-6 flex flex-wrap items-center gap-2 rounded-sm border border-brand-line bg-white p-3 text-sm">@csrf
     <span class="font-medium text-brand-navy">Set the status of the selection</span>
     <span class="badge-neutral" data-bulk-count="bulk-tools">0 selected</span>
     <label class="ml-auto flex items-center gap-2 text-xs"><span class="meta">Status</span><select name="status" class="input !min-h-0 !py-1 !w-auto" aria-label="Status for the selection">@foreach(\App\Models\Tool::STATUSES as $k => $label)<option value="{{ $k }}">{{ $label }}</option>@endforeach</select></label>
     <button type="submit" class="btn-primary !min-h-0 !py-1" data-bulk-needs="bulk-tools" data-confirm="Change the status of {n} tools? Publishing skips any tool without an active file.">Apply to selected</button>
 </form>
-<div class="table-wrap mt-3"><table><caption class="sr-only">Tools in the library</caption><thead><tr><th scope="col" class="w-8"><input type="checkbox" data-bulk-all="bulk-tools" aria-label="Select every tool shown"></th><th scope="col">Order</th><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Version</th><th scope="col">Files</th><th scope="col">Downloads</th><th scope="col">Updated</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody>
+<div class="table-wrap mt-3"><table><caption class="sr-only">Tools in the library</caption><thead><tr><th scope="col" class="w-8"><input type="checkbox" data-bulk-all="bulk-tools" aria-label="Select every tool shown"></th><x-backend.sort-th key="order" label="Order" :filters="$filters" /><x-backend.sort-th key="title" label="Title" :filters="$filters" /><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Version</th><th scope="col">Files</th><x-backend.sort-th key="downloads" label="Downloads" :filters="$filters" /><x-backend.sort-th key="updated" label="Updated" :filters="$filters" /><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody>
 @foreach($tools as $t)
 <tr>
     <td><input type="checkbox" name="ids[]" value="{{ $t->id }}" form="bulk-tools" data-bulk-item aria-label="Select {{ $t->title }}"></td>
@@ -37,7 +40,7 @@
     <td><x-backend.badge :status="$t->status">{{ \App\Models\Tool::STATUSES[$t->status] ?? $t->status }}</x-backend.badge>@if($t->featured) <span class="badge-neutral">Featured</span>@endif @if($t->status !== 'published' && ! $t->files_count)<div class="meta text-state-warn">no file yet</div>@endif</td>
     <td class="font-mono">{{ $t->version }}</td>
     <td class="font-mono">{{ $t->files_count ?: '—' }}</td>
-    <td class="font-mono">{{ $t->downloads_count ?: '—' }}</td>
+    <td class="font-mono">@if($t->downloads_count && auth()->user()->can('audience.view'))<a href="{{ route('backend.admin.downloads', ['view' => 'downloads', 'resource' => $t->slug]) }}" title="Who downloaded it">{{ $t->downloads_count }}</a>@else{{ $t->downloads_count ?: '—' }}@endif</td>
     <td class="whitespace-nowrap">{{ $t->updated_on?->format('Y-m-d') ?? '—' }}</td>
     <td class="whitespace-nowrap"><a href="{{ route('backend.admin.tools.edit', $t) }}" class="btn-secondary !min-h-0 !py-1">Edit</a> @if($t->status === 'published')<a href="{{ $t->url() }}" class="btn-secondary !min-h-0 !py-1" target="_blank" rel="noopener">View</a>@endif</td>
 </tr>

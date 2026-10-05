@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-scheme="light">
+<html lang="en" data-scheme="light" data-admin>
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow">
     <title>{{ $title ?? 'Admin' }} | AIPolicyTracker admin</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
-    @vite(['resources/css/public.css', 'resources/js/public.js'])
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
+    @vite(['resources/css/public.css', 'resources/css/admin.css', 'resources/js/public.js'])
 </head>
 <body class="min-h-screen bg-brand-paper">
 <div class="lg:grid lg:grid-cols-[248px_1fr] min-h-screen">
