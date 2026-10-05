@@ -110,7 +110,7 @@ class TemplateController extends Controller
             ['Where should I start?', 'With '.$items->take(2)->pluck('title')->join(' and ').'. '.($facet === 'framework' ? 'They establish which systems and duties are in scope; the other templates then cover individual duties.' : 'They are the most widely used of this type.')],
             ['Do they make us compliant?', 'No. They are informational resources, not legal advice. They help you produce the evidence a regulator, customer or auditor asks for; whether a duty applies is a judgement they cannot make.'],
         ];
-        $title = PageTitle::templateFacet($label, $items->count());
+        $title = PageTitle::templateFacet($facet === 'type' && ! str_starts_with($label, 'AI ') ? 'AI '.$label : $label, $items->count());
         $seo = Seo::make($title, PageTitle::description($intro), $landing['url'])
             ->withBreadcrumbs([['Home', route('home')], ['Templates', route('templates.index')], [$label.' templates', $landing['url']]])
             ->withModified($items->pluck('version')->filter()->max('generated_at'))

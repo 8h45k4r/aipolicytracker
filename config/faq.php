@@ -13,6 +13,18 @@
 // silently; "every jurisdiction recorded here" does not, and the page itself already shows
 // the live figure.
 return [
+    // The questions behind the searches that lead here: "ai policy tracker", "global AI law
+    // and policy tracker", "ai policy tracker free", "ai policy map", "ai regulations around
+    // the world", "ai policy template".
+    'home' => [
+        ['question' => 'What is an AI policy tracker?', 'answer' => 'A record of the laws, regulations, national AI policies, strategies and guidance that governments and standards bodies issue about artificial intelligence, kept current as they change. This one also breaks each law into the duties it creates, the deadlines that apply and the controls that meet them, and links every record to its official source.'],
+        ['question' => 'Is this global AI law and policy tracker free?', 'answer' => 'Yes. Every page is free to read without an account, the records are open data under :license, the REST API needs no key, and the templates are free to download. Following a record for daily alerts needs a free account.'],
+        ['question' => 'Is there a map of AI regulations around the world?', 'answer' => 'Yes. The jurisdictions directory opens with a world map shaded by the strongest AI instrument on record in each country (binding law in force, binding law adopted, or strategy and guidance), and every country links to its page with laws, status and dates.'],
+        ['question' => 'Which countries and regions does it cover?', 'answer' => 'Every country with an AI-related record, the European Union and other supranational bodies, and US states and other sub-national jurisdictions with their own rules. A jurisdiction with no AI-specific law is recorded as such rather than left out.'],
+        ['question' => 'Is there a free AI policy template?', 'answer' => 'Yes. The templates library has a company AI policy (an acceptable use policy) and an AI governance policy with a RACI, alongside an AI system inventory, risk register, impact assessments and EU AI Act kits, each generated from the recorded duties and free to download.'],
+        ['question' => 'How current is the information?', 'answer' => 'Each record shows when its source was published and when it was last checked against it. Changes are logged on the updates page as they are recorded, and a record not re-checked within the verification window is marked stale rather than presented as current.'],
+    ],
+
     'policies.index' => [
         ['question' => 'What counts as an AI policy instrument here?', 'answer' => 'Anything a government or standards body has actually issued: acts, regulations, executive orders, rules, national strategies, frameworks, guidance, codes of practice, voluntary standards and open consultations. Each record states which of those it is, whether it binds anyone, and links the official source it was read from.'],
         ['question' => 'Are these records legally verified?', 'answer' => 'A record is marked verified only after a named reviewer has opened its official source and confirmed each field. Anything that has not been through that carries "pending review" on the record itself, and the data-health document reports the current totals. Nothing here is legal advice.'],

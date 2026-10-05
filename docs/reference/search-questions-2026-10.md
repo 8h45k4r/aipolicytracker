@@ -19,6 +19,21 @@ Every answer on the site comes from the records (or from the templates built fro
 
 Fixed along the way: the EU record's hand-written dates answer still gave the pre-Omnibus timetable beside the generated one; the US record listed Colorado SB 24-205 as binding and named it in a hand-written states answer, though the Colorado record shows it repealed by SB 26-189 before taking effect.
 
+## Search suggestions mapped to pages (2026-10-05)
+
+From Google's autocomplete and related searches for *ai policy tracker*. Brand searches for other trackers (IAPP, Similarweb, HSF, OECD, Paragon, "AI policy labs/network") are not targeted by name; the generic intent behind them is.
+
+| Suggestion | Page | What changed |
+|---|---|---|
+| ai policy tracker, ai policy tracker free, global ai law and policy tracker, artificial intelligence tracker, global ai policy | `/` | title, description and eyebrow; home FAQ in FAQPage markup |
+| ai policy map, ai regulations around the world | `/jurisdictions` | title, description and H1 |
+| ai policy examples | `/ai-policy-examples` (new) | national AI policies and strategies from the records, by region |
+| ai policy template, ai policy tracker template | `/templates/acceptable-use-policy` | `seo_title` *AI Policy Template: Acceptable Use Policy* |
+| ai policy training | `/templates/ai-literacy-training-plan` | `seo_title` *AI Policy Training and AI Literacy Plan Template* |
+| ai policy nepal, ai policy 2082 | Nepal landing page | title and H1 carry the Nepali year 2082 |
+| ai policy in india, ai policy south africa | jurisdiction pages | titles read *{Country} AI Policy & Regulation {year}*; India landing says *AI policy* |
+| ai policy transparency | AI transparency self-assessment, EU AI Act page | covered by the existing transparency obligations |
+
 ## Sources consulted
 
 - [hellowarrant.com: EU AI Act compliance in 2026](https://hellowarrant.com/blog/eu-ai-act-compliance-in-2026-what-tech-companies-need-to-do-now)

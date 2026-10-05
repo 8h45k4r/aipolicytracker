@@ -31,12 +31,12 @@ class JurisdictionController extends Controller
         $byRegion = $jurisdictions->groupBy('region');
 
         $seo = Seo::make(
-            'AI regulation by country and region',
-            'Directory of jurisdictions with source-backed AI laws, strategies and guidance: current regulatory status, binding rules versus guidance, deadlines and official sources.',
+            'AI Regulations Around the World: Map of AI Laws by Country',
+            'AI policy map of the world: AI laws, national AI policies and guidance by country and region, with each one\'s status, binding rules versus guidance, deadlines and official sources.',
             route('jurisdictions.index')
         )->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')]])
             ->withPageType('CollectionPage', [
-                'name' => 'AI regulation by country and region',
+                'name' => 'AI regulations around the world',
                 'mainEntity' => Seo::itemList($jurisdictions, fn ($j) => $j->name, fn ($j) => $j->url(), 'Jurisdictions with recorded AI policy'),
             ]);
 

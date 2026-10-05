@@ -97,7 +97,7 @@ return [
 
     // Organisation behind the project (shown on the About page and in structured data).
     'organization' => [
-        'name' => 'Dignep Group Pvt. Ltd.',
+        'name' => 'Certifyi AI',
         'url' => 'https://certifyi.ai',
         'tagline' => 'Powering AI governance for regulated industries',
     ],

@@ -118,6 +118,7 @@
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Sub-national jurisdictions</p><ul class="mt-2 space-y-1.5">@foreach($jurisdiction->children as $c)<li><a href="{{ $c->url() }}" class="text-brand-body hover:underline">{{ $c->name }}</a></li>@endforeach</ul></div>
                 @endif
                 <x-site.correction-cta subject-type="jurisdiction" :subject-slug="$jurisdiction->slug" :save-title="$jurisdiction->name" :save-url="$jurisdiction->url()" save-meta="Jurisdiction" />
+                <x-site.assessments kind="jurisdiction" :key="$jurisdiction->slug" />
                 <x-site.certifyi-cta />
             </div>
         </aside>

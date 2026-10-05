@@ -34,6 +34,7 @@ return [
                         ['route' => 'deadlines.engine', 'label' => 'Which date applies to you?', 'note' => 'Five questions, a personal timeline', 'menu' => true],
                         ['route' => 'changes.index', 'label' => 'Change log', 'note' => 'What moved, and what it means'],
                         ['route' => 'state-of.show', 'label' => 'State of AI regulation', 'note' => 'The quarterly report, computed'],
+                        ['route' => 'ai-policy-examples', 'label' => 'AI policy examples', 'note' => 'National AI policies, by region'],
                         ['route' => 'transition.index', 'label' => 'AI economic transition', 'note' => 'Dividends, basic income, AI taxes, layoff disclosure'],
                     ],
                 ],
@@ -82,6 +83,7 @@ return [
                         ['route' => 'guides.show', 'params' => ['ai-startup-eu-ai-act-readiness'], 'label' => 'EU AI Act readiness for startups'],
                         ['route' => 'guides.show', 'params' => ['ai-governance-for-startups'], 'label' => 'AI governance for startups'],
                         ['route' => 'tools.applicability', 'label' => 'Applicability check', 'note' => 'Which duties may reach you', 'menu' => true],
+                        ['route' => 'assessments.index', 'label' => 'Self-assessments', 'note' => 'Score yourself against a law or framework', 'menu' => true],
                     ],
                 ],
                 [

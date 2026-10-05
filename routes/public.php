@@ -4,6 +4,7 @@ use App\Http\Controllers\Site\AgentSurfaceController;
 use App\Http\Controllers\Site\AlertChannelController;
 use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
+use App\Http\Controllers\Site\AssessmentController;
 use App\Http\Controllers\Site\AudienceController;
 use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\CalendarController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
+use App\Http\Controllers\Site\PolicyExamplesController;
 use App\Http\Controllers\Site\RegisterExportController;
 use App\Http\Controllers\Site\ReviewersController;
 use App\Http\Controllers\Site\RiskBrowseController;
@@ -194,6 +196,8 @@ Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('thro
 
 // The templates library: generated files, versioned, requested by work email (link sent by mail). The old free-tool
 // addresses under /guides/tools redirect here (FreeToolController).
+Route::get('/self-assessments', [AssessmentController::class, 'index'])->name('assessments.index');
+Route::get('/ai-policy-examples', [PolicyExamplesController::class, 'index'])->name('ai-policy-examples');
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
 Route::get('/templates/feed', [TemplateController::class, 'feed'])->name('templates.feed');
 // One landing page per framework or type ("EU AI Act templates"); only those with enough

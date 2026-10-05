@@ -33,8 +33,8 @@ Anyone can report an error from the "Report a correction" link on any record or 
 
 ## Conflicts of interest
 
-The maintainer is associated with Dignep Group Pvt. Ltd., which operates Certifyi, a separate
-commercial compliance platform. The records on this site name no vendor or product, every
+The maintainer is associated with Certifyi AI, a separate commercial compliance
+platform. The records on this site name no vendor or product, every
 verification is made against the official source that the record links, and every reviewer
 publishes their interests in `data/reviewers/`. Certifyi has no access to this project's
 systems or data beyond what the public API and open data offer to anyone.
