@@ -20,6 +20,8 @@
         "axios": "^1.7.5",
         "eslint": "^10.11.0",
         "eslint-plugin-react-hooks": "^7.1.1",
+        "flowbite": "^2.5.1",
+        "flowbite-react": "^0.10.2",
         "globals": "^17.12.0",
         "laravel-vite-plugin": "^3.2.0",
         "postcss": "^8.5.28",
@@ -32,9 +34,7 @@
     },
     "dependencies": {
         "@amcharts/amcharts5": "^5.20.8",
-        "@amcharts/amcharts5-geodata": "^5.1.6",
-        "flowbite": "^2.5.1",
-        "flowbite-react": "^0.10.2"
+        "@amcharts/amcharts5-geodata": "^5.1.6"
     },
     "name": "aipolicytracker",
     "version": "1.0.0",
