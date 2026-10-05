@@ -7,7 +7,7 @@ runs when, what makes it fail, and where accepted findings are recorded.
 |-------|------|------|----------------------|
 | Every PR and push to `main` | Secrets, full history | Gitleaks | Any secret not allowlisted by value in `.gitleaks.toml`. |
 | Every PR and push to `main` | SAST | Semgrep (registry packs: php, security-audit, secrets, javascript, github-actions, dockerfile) | An ERROR-severity finding whose rule is not in `SEMGREP_ACCEPTED`. All findings go to *Security → Code scanning*. |
-| Every PR and push to `main` | SCA | `composer audit`, `npm audit --audit-level=high`, Trivy fs | Any advisory against `composer.lock`; a high or critical npm advisory; a fixable HIGH/CRITICAL CVE. |
+| Every PR and push to `main` | SCA | `composer audit`, `npm audit --audit-level=high --omit=dev`, Trivy fs | Any advisory against `composer.lock`; a high or critical npm advisory in a package that ships (build tools such as Tailwind 3's glob chain are dev dependencies and audited by hand, see below); a fixable HIGH/CRITICAL CVE. |
 | Every PR and push to `main` | IaC | Trivy config, Checkov | A HIGH/CRITICAL misconfiguration in the Dockerfile or workflows. |
 | Every PR and push to `main` | Container | Trivy on the built image | A fixable HIGH/CRITICAL CVE in the image's OS packages or PHP dependencies. |
 | Weekly (Monday 03:17 UTC) and on demand | DAST | ZAP baseline against the app started in production mode | A rule marked FAIL in `.zap/rules.tsv`. |
@@ -30,6 +30,8 @@ docker run --rm -v "$PWD:/src" -w /src semgrep/semgrep:1.178.0 semgrep scan --co
 composer audit && npm audit
 docker run --rm -v "$PWD:/src" aquasec/trivy:latest fs --scanners vuln,misconfig /src
 ```
+
+**Accepted, build-time only.** `braces` (GHSA-vfj7-8cjw-p6xm, stack exhaustion on deeply nested glob patterns) is reached only through Tailwind 3 → chokidar/micromatch, which run at build time over this repository's own file globs; nothing in `node_modules` is in the image or the served bundle. No fixed `braces` exists; the chain goes when Tailwind moves to 4. The CI step therefore audits with `--omit=dev`; a plain `npm audit` still lists it.
 
 For DAST, start the app (`php artisan serve`) and run
 `docker run --rm --network host zaproxy/zap-stable zap-baseline.py -t http://127.0.0.1:8000`.
