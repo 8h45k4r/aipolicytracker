@@ -102,6 +102,8 @@ return [
 
         'acceptable-use-policy' => [
             'title' => 'AI Acceptable Use Policy',
+            // "AI policy template" is what people search for a company AI policy.
+            'seo_title' => 'AI Policy Template: Acceptable Use Policy',
             'type' => 'policy', 'formats' => ['docx'],
             'topics' => ['governance', 'transparency'], 'frameworks' => ['eu-ai-act', 'iso-42001'],
             'short' => 'A policy for staff use of AI tools: permitted and prohibited uses, data handling, disclosure and reporting, with the prohibited practices drawn from the law.',
@@ -272,6 +274,8 @@ return [
 
         'ai-literacy-training-plan' => [
             'title' => 'AI Literacy and Training Plan',
+            // "AI policy training" is searched for staff training on AI use.
+            'seo_title' => 'AI Policy Training and AI Literacy Plan Template',
             'type' => 'procedure', 'formats' => ['xlsx', 'docx'],
             'topics' => ['workforce', 'governance'], 'frameworks' => ['eu-ai-act'],
             'short' => 'A role-based AI literacy plan: who needs which level of training, in what format, by when, with a coverage formula and the literacy and oversight duties on record.',

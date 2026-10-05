@@ -5,7 +5,7 @@
 <section class="border-b border-brand-line bg-gradient-to-b from-brand-paper to-white">
     <div class="container-site py-8 sm:py-16 grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end">
         <div class="lg:col-span-8">
-            <p class="eyebrow">AI governance intelligence</p>
+            <p class="eyebrow">Free global AI law and policy tracker</p>
             <h1 class="mt-3 font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] font-semibold text-brand-navy max-w-[18ch]">From regulation to evidence.</h1>
             <p class="mt-5 max-w-[60ch] text-lg leading-8 text-brand-body">Track AI regulations and obligations. Connect them to governance controls, risks and evidence. Every claim links to its source.</p>
             <p class="mt-2 max-w-[60ch] text-sm text-brand-muted"><span class="font-medium text-brand-navy">AI policy, verified at the source.</span> Every record links its official text and states when a person last checked it.</p>

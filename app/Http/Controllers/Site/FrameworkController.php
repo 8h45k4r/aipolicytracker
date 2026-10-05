@@ -95,7 +95,7 @@ class FrameworkController extends Controller
         $counters = $this->intelligence->frameworkCounters($key);
         $references = $this->intelligence->controlsByReference($key);
 
-        return view('site.frameworks.show', compact('seo', 'data', 'meta', 'counters', 'references'));
+        return view('site.frameworks.show', compact('seo', 'data', 'meta', 'counters', 'references', 'key'));
     }
 
     public function crosswalk(string $framework, string $jurisdiction): View

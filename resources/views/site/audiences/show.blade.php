@@ -78,6 +78,7 @@
             </div>
             <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Instruments recorded</p><ul class="mt-2 space-y-1.5">@foreach($instruments as $p)<li><a href="{{ $p->url() }}" class="text-brand-navy hover:underline">{{ $p->short_title ?: $p->title }}</a> <span class="text-xs text-brand-muted">{{ $p->jurisdiction->name }}</span></li>@endforeach</ul></div>
             @if($deadlines->isNotEmpty())<div class="text-sm"><p class="font-semibold text-brand-navy">Upcoming dates</p><ul class="mt-2 space-y-2">@foreach($deadlines as $d)<li><time class="font-mono text-xs text-brand-muted" datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time><div><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->title }}</a></div></li>@endforeach</ul></div>@endif
+            <x-site.assessments kind="audience" :key="$audience" />
             <x-site.certifyi-cta />
         </div></aside>
     </div>

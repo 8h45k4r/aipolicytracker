@@ -58,7 +58,7 @@ class TitlesAndAddressesTest extends TestCase
         $eu = PolicyInstrument::with('jurisdiction')->where('slug', 'eu-ai-act')->firstOrFail();
         $this->assertSame('EU AI Act (2024): Status, Duties & Dates', PageTitle::policy($eu));
         $brazil = Jurisdiction::where('slug', 'brazil')->firstOrFail();
-        $this->assertSame('Brazil AI Regulation 2026: Laws, Strategy & Deadlines', PageTitle::jurisdiction($brazil, 2026));
+        $this->assertSame('Brazil AI Policy & Regulation 2026: Laws & Deadlines', PageTitle::jurisdiction($brazil, 2026));
         // The country is the last thing a policy title gives up.
         foreach (PolicyInstrument::published()->with('jurisdiction')->get() as $p) {
             $place = $p->jurisdiction?->short_name ?: $p->jurisdiction?->name;

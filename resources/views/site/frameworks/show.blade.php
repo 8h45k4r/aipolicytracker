@@ -87,6 +87,7 @@
                     <p class="mt-1 text-brand-body">This platform records clause numbers only. The text of the standard is published by {{ $meta['publisher'] }}.</p>
                     <a href="{{ $meta['url'] }}" rel="noopener nofollow" class="mt-2 inline-block text-brand-blue hover:underline break-all" data-track="source_click">{{ $meta['publisher'] }} &rarr;</a>
                 </div>
+                <x-site.assessments kind="framework" :key="$key" />
                 <x-site.certifyi-cta label="Track these clauses as controls" />
             </div>
         </aside>

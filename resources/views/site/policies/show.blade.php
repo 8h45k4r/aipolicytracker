@@ -165,6 +165,7 @@
                 @if(!empty($policy->related_frameworks))
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Framework crosswalks</p><ul class="mt-2 space-y-1.5">@if(in_array('iso_42001', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'iso-42001-vs-eu-ai-act') }}" class="text-brand-body hover:underline">ISO/IEC 42001 vs EU AI Act</a></li>@endif @if(in_array('nist_ai_rmf', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'nist-ai-rmf-vs-eu-ai-act') }}" class="text-brand-body hover:underline">NIST AI RMF vs EU AI Act</a></li>@endif</ul></div>
                 @endif
+                <x-site.assessments kind="policy" :key="$policy->slug" />
                 <x-site.certifyi-cta label="Export these obligations to a compliance workflow" />
             </div>
         </aside>

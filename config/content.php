@@ -206,8 +206,8 @@ return [
             ],
         ],
         'ai-regulation-india' => [
-            'h1' => 'AI regulation in India',
-            'title' => 'AI regulation in India: DPDP Act, IT Rules and governance guidelines',
+            'h1' => 'AI policy and regulation in India',
+            'title' => 'AI Policy in India: DPDP Act, IT Rules and AI Guidelines',
             'description' => 'How AI is governed in India today: the Digital Personal Data Protection Act 2023 and 2025 Rules, IT Act and intermediary rules, IndiaAI Mission and the 2025 AI Governance Guidelines, with official sources.',
             'jurisdictions' => ['india'],
             'policy' => 'india-dpdp-act',
@@ -222,8 +222,8 @@ return [
             ],
         ],
         'ai-policy-nepal' => [
-            'h1' => 'AI policy in Nepal',
-            'title' => 'AI policy in Nepal: National AI Policy, privacy law and what applies',
+            'h1' => 'AI policy in Nepal: the National AI Policy 2082',
+            'title' => 'AI Policy Nepal 2082: National AI Policy and Privacy Law',
             'description' => 'Nepal\'s AI governance landscape: the 2025 National AI Policy, the 2024 AI concept paper, the Individual Privacy Act 2075 and digital governance rules, with source certainty clearly marked.',
             'jurisdictions' => ['nepal'],
             'policy' => 'nepal-national-ai-policy',

@@ -28,6 +28,7 @@
             @if($policies->isNotEmpty())<div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Policies in this guide</p><ul class="mt-2 space-y-1.5">@foreach($policies as $p)<li><a href="{{ $p->url() }}" class="text-brand-navy hover:underline">{{ $p->short_title ?: $p->title }}</a> <span class="text-xs text-brand-muted">({{ $p->jurisdiction->short_name ?: $p->jurisdiction->name }})</span></li>@endforeach</ul></div>@endif
             @if($templates->isNotEmpty())<div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Templates for this</p><ul class="mt-2 space-y-1.5">@foreach($templates as $t)<li><a href="{{ \App\Services\Templates\TemplateCatalog::url($t['slug']) }}" class="text-brand-navy hover:underline">{{ $t['title'] }}</a> <span class="text-xs text-brand-muted">({{ \App\Services\Templates\TemplateCatalog::formatList($t) }})</span></li>@endforeach</ul></div>@endif
             <div class="text-sm"><p class="font-semibold text-brand-navy">More guides</p><ul class="mt-2 space-y-1.5">@foreach(config('content.guides') as $s => $g)@if($s !== $slug)<li><a href="{{ route('guides.show', $s) }}" class="text-brand-navy hover:underline">{{ $g['h1'] }}</a></li>@endif @endforeach</ul></div>
+            <x-site.assessments kind="guide" :key="$slug" />
             <x-site.certifyi-cta />
         </div></aside>
     </div>

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
-    <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI regulation by country and region</h1>
+    <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI regulations around the world</h1>
     <p class="mt-2 max-w-3xl text-brand-body">Each jurisdiction page answers the same questions: what is binding, what is guidance, what applies when, and where the official sources are. Coverage grows only as records are source-backed and reviewed.</p>
     <form action="{{ route('policies.index') }}" method="get" class="mt-4 max-w-md flex gap-2" role="search"><label for="j-q" class="sr-only">Search policies</label><input id="j-q" name="q" type="search" class="input" placeholder="Search policies across jurisdictions"><button class="btn-primary" type="submit">Search</button></form>
     <x-site.world-map class="mt-6" title="AI regulation around the world" />

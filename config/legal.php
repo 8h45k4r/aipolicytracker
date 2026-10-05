@@ -21,7 +21,7 @@ return [
 
     // The entity that operates the site and controls the personal data.
     'controller' => [
-        'name' => env('LEGAL_ENTITY_NAME', 'Dignep Group Pvt. Ltd.'),
+        'name' => env('LEGAL_ENTITY_NAME', 'Certifyi AI'),
         'url' => env('LEGAL_ENTITY_URL', 'https://certifyi.ai'),
         // Registered address, shown in full on the privacy page when set.
         'address' => env('LEGAL_ENTITY_ADDRESS'),

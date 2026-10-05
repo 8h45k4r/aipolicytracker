@@ -38,6 +38,7 @@
             <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Jurisdiction pages</p><ul class="mt-2 space-y-1.5">@foreach($jurisdictions as $j)<li><a href="{{ $j->url() }}" class="text-brand-navy hover:underline">AI regulation in {{ $j->nameWithArticle() }}</a></li>@endforeach</ul></div>
             @if($deadlines->isNotEmpty())<div class="text-sm"><p class="font-semibold text-brand-navy">Upcoming dates</p><ul class="mt-2 space-y-2">@foreach($deadlines as $d)<li><time class="font-mono text-xs text-brand-muted" datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time><div><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->title }}</a></div></li>@endforeach</ul></div>@endif
             <div class="text-sm"><p class="font-semibold text-brand-navy">Tools</p><ul class="mt-2 space-y-1.5"><li><a href="{{ route('tools.applicability', ['jurisdictions' => $jurisdictions->pluck('slug')->all()]) }}" class="text-brand-navy hover:underline" rel="nofollow">Applicability check</a></li><li><a href="{{ route('compare.index') }}" class="text-brand-navy hover:underline">Compare jurisdictions</a></li><li><a href="{{ route('guides.index') }}" class="text-brand-navy hover:underline">Guides</a></li></ul></div>
+            <x-site.assessments kind="jurisdiction" :key="$page['jurisdictions'][0] ?? ''" />
             <x-site.certifyi-cta />
         </div></aside>
     </div>

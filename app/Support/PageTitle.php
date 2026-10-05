@@ -226,6 +226,13 @@ final class PageTitle
         $year ??= (int) now()->format('Y');
         $name = self::clean($jurisdiction->short_name ?: $jurisdiction->name);
 
+        // "AI policy <country>" and "AI regulation <country>" are both searched; the title
+        // carries both while it fits, and falls back to the regulation form when it does not.
+        $policy = self::fit($name.' AI Policy & Regulation '.$year, [': Laws & Deadlines', ''], self::MAX);
+        if (mb_strlen($policy) <= self::MAX && ! str_ends_with($policy, '…')) {
+            return $policy;
+        }
+
         return self::fit($name.' AI Regulation '.$year, [': Laws, Strategy & Deadlines', ': Laws & Deadlines']);
     }
 
@@ -476,6 +483,9 @@ final class PageTitle
     public static function template(array $meta): string
     {
         $formats = implode(' & ', array_map('strtoupper', $meta['formats'] ?? []));
+        if (! empty($meta['seo_title'])) {
+            return self::fit(self::clean($meta['seo_title']), [' (Free '.$formats.')', ' (Free)', ''], self::MAX);
+        }
         $name = self::clean($meta['seo_name'] ?? preg_replace('/\s*\([^)]*\)$/', '', $meta['title']));
         $noun = preg_match('/\b(template|templates|kit|pack)$/i', $name) ? '' : ' Template';
 
