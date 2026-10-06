@@ -53,6 +53,14 @@ class JobsAndSettingsTest extends TestCase
         $page->assertSee('Mondays 07:00 UTC')->assertSee('Run history');
     }
 
+    public function test_the_incident_link_refresh_runs_on_demand_with_refresh(): void
+    {
+        $this->assertFalse(JobRun::isScheduled('incidents_enrich'));
+        $this->assertSame(['--refresh' => true], JobRun::JOBS['incidents_enrich']['args']);
+        $run = JobRun::run('incidents_enrich', 'admin');
+        $this->assertSame(0, $run->exit_code);
+    }
+
     public function test_the_domain_refresh_job_says_what_it_needs_and_is_not_scheduled_without_it(): void
     {
         // It ran every Wednesday with no source and failed every Wednesday. The
