@@ -30,19 +30,19 @@
     <label class="ml-auto flex items-center gap-2 text-xs"><span class="meta">Status</span><select name="status" class="input !min-h-0 !py-1 !w-auto" aria-label="Status for the selection">@foreach(\App\Models\Tool::STATUSES as $k => $label)<option value="{{ $k }}">{{ $label }}</option>@endforeach</select></label>
     <button type="submit" class="btn-primary !min-h-0 !py-1" data-bulk-needs="bulk-tools" data-confirm="Change the status of {n} tools? Publishing skips any tool without an active file.">Apply to selected</button>
 </form>
-<div class="table-wrap mt-3"><table><caption class="sr-only">Tools in the library</caption><thead><tr><th scope="col" class="w-8"><input type="checkbox" data-bulk-all="bulk-tools" aria-label="Select every tool shown"></th><x-backend.sort-th key="order" label="Order" :filters="$filters" /><x-backend.sort-th key="title" label="Title" :filters="$filters" /><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Version</th><th scope="col">Files</th><x-backend.sort-th key="downloads" label="Downloads" :filters="$filters" /><x-backend.sort-th key="updated" label="Updated" :filters="$filters" /><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody>
+<div class="table-wrap mt-3"><table><caption class="sr-only">Tools in the library</caption><thead><tr><th scope="col" class="w-8"><input type="checkbox" data-bulk-all="bulk-tools" aria-label="Select every tool shown"></th><x-backend.sort-th key="order" label="Order" :filters="$filters" /><x-backend.sort-th key="title" label="Title" :filters="$filters" /><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Version</th><th scope="col">Files</th><x-backend.sort-th key="downloads" label="Downloads" :filters="$filters" /><x-backend.sort-th key="updated" label="Updated" :filters="$filters" /><th scope="col" class="sticky right-0"><span class="sr-only">Actions</span></th></tr></thead><tbody>
 @foreach($tools as $t)
 <tr>
     <td><input type="checkbox" name="ids[]" value="{{ $t->id }}" form="bulk-tools" data-bulk-item aria-label="Select {{ $t->title }}"></td>
     <td class="font-mono">{{ $t->sort_order }}</td>
-    <td><a href="{{ route('backend.admin.tools.edit', $t) }}" class="font-medium text-brand-navy">{{ $t->title }}</a><div class="meta font-mono">{{ $t->slug }}</div></td>
+    <td class="min-w-[12rem] max-w-[16rem]"><a href="{{ route('backend.admin.tools.edit', $t) }}" class="font-medium text-brand-navy">{{ $t->title }}</a><div class="meta font-mono truncate" title="{{ $t->slug }}">{{ $t->slug }}</div></td>
     <td>{{ \App\Models\Tool::TYPES[$t->type] ?? $t->type }}</td>
     <td><x-backend.badge :status="$t->status">{{ \App\Models\Tool::STATUSES[$t->status] ?? $t->status }}</x-backend.badge>@if($t->featured) <span class="badge-neutral">Featured</span>@endif @if($t->status !== 'published' && ! $t->files_count)<div class="meta text-state-warn">no file yet</div>@endif</td>
     <td class="font-mono">{{ $t->version }}</td>
     <td class="font-mono">{{ $t->files_count ?: '—' }}</td>
     <td class="font-mono">@if($t->downloads_count && auth()->user()->can('audience.view'))<a href="{{ route('backend.admin.downloads', ['view' => 'downloads', 'resource' => $t->slug]) }}" title="Who downloaded it">{{ $t->downloads_count }}</a>@else{{ $t->downloads_count ?: '—' }}@endif</td>
     <td class="whitespace-nowrap">{{ $t->updated_on?->format('Y-m-d') ?? '—' }}</td>
-    <td class="whitespace-nowrap"><a href="{{ route('backend.admin.tools.edit', $t) }}" class="btn-secondary !min-h-0 !py-1">Edit</a> @if($t->status === 'published')<a href="{{ $t->url() }}" class="btn-secondary !min-h-0 !py-1" target="_blank" rel="noopener">View</a>@endif</td>
+    <td class="sticky right-0 whitespace-nowrap bg-white text-right"><a href="{{ route('backend.admin.tools.edit', $t) }}" class="btn-secondary !min-h-0 !py-1">Edit</a> @if($t->status === 'published')<a href="{{ $t->url() }}" class="btn-secondary !min-h-0 !py-1" target="_blank" rel="noopener">View</a>@endif</td>
 </tr>
 @endforeach
 </tbody></table></div>
