@@ -6,6 +6,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Added
 - A page per glossary term (`/glossary/{term}`, 22 terms): the definition first, its source, the laws and duties on record that use it and related terms, with `DefinedTerm` and FAQ markup. Policy pages link the terms they use. Review: `docs/reference/seo-aeo-review-2026-10-05.md`.
+- "Recompute incident links" on Admin → Jobs and schedule: runs `incidents:enrich --refresh` from the browser, so stored law lists can be rematched after the rules change without shell access to the host.
 - An `ai_referral` analytics event for visits from answer engines and AI assistants (ChatGPT, Perplexity, Claude, Gemini, Copilot and others), under the existing consent.
 - Free self-assessments at `/self-assessments`: 30 short questionnaires (EU AI Act, risk classification, FRIA, ISO/IEC 42001, NIST AI RMF, US state laws, AI security, governance, privacy and fairness), filterable by type and region. Record, framework, template, audience and guide pages show at most two that fit, in place of the related-product note rather than beside it. They run on Certifyi, a related product; a score is a self-check, not an audit.
 - `/ai-policy-examples`: national AI policies and strategies on record (108 from 100 jurisdictions), by region and newest first, with a pointer to the company AI policy template.
