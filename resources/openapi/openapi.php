@@ -42,7 +42,7 @@ $filterParams = [
     ['name' => 'risk', 'in' => 'query', 'schema' => ['type' => 'string']],
     ['name' => 'actor', 'in' => 'query', 'schema' => ['type' => 'string']],
     ['name' => 'binding', 'in' => 'query', 'schema' => ['type' => 'string', 'enum' => ['yes', 'no']]],
-    ['name' => 'sort', 'in' => 'query', 'schema' => ['type' => 'string', 'enum' => ['updated', 'effective', 'relevance', 'jurisdiction']]],
+    ['name' => 'sort', 'in' => 'query', 'schema' => ['type' => 'string', 'enum' => ['binding', 'updated', 'effective', 'relevance', 'jurisdiction']]],
     ['name' => 'page', 'in' => 'query', 'schema' => ['type' => 'integer']],
     ['name' => 'per_page', 'in' => 'query', 'schema' => ['type' => 'integer', 'maximum' => 100]],
 ];
