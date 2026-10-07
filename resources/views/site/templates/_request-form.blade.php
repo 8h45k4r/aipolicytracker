@@ -24,6 +24,6 @@
         <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="updates" value="1" @checked(old('updates')) class="mt-0.5"> <span>Email me when this template gets a new version (optional).</span></label>
         <x-site.turnstile />
         <button type="submit" class="btn-primary w-full" data-track="template_request" data-track-label="{{ $slug }}">Email me the download links</button>
-        <p class="meta">Free, no account. Used to send the files and, if you ask, version updates; never sold or shared.</p>
+        <p class="meta">{{ \App\Models\TemplateDownloadRequest::accessLabel() }}. Your address is used to send the files and, if you ask, version updates; never sold or shared.</p>
     </form>
 </div>
