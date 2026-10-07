@@ -192,6 +192,42 @@ class RiskController extends Controller
         });
     }
 
+    /**
+     * Within this many percent of the previous 12 months, the count is reported as
+     * flat: a swing of a few incidents is not a direction.
+     */
+    public const TREND_FLAT_WITHIN = 5;
+
+    /**
+     * The direction of recorded incidents over the last 12 months against the 12
+     * before, from the same figure the "Last 12 months" tile shows, so a heading
+     * can never say "rising" above a tile that says −24%.
+     *
+     * @return 'rising'|'falling'|'flat'|'unknown'
+     */
+    public static function trend(int|float|null $growth): string
+    {
+        return match (true) {
+            $growth === null => 'unknown',
+            $growth >= self::TREND_FLAT_WITHIN => 'rising',
+            $growth <= -self::TREND_FLAT_WITHIN => 'falling',
+            default => 'flat',
+        };
+    }
+
+    /** The first story heading on /ai-risk, stated from the data's direction. */
+    public static function trendHeading(int|float|null $growth): string
+    {
+        $pct = $growth === null ? null : abs((int) $growth);
+
+        return match (self::trend($growth)) {
+            'rising' => "Recorded incidents are rising: up {$pct}% on the previous 12 months",
+            'falling' => "Recorded incidents are falling: down {$pct}% on the previous 12 months",
+            'flat' => 'Recorded incidents are flat: within '.self::TREND_FLAT_WITHIN.'% of the previous 12 months',
+            default => 'Recorded incidents over time',
+        };
+    }
+
     /** Rows for the domain → subdomain treemap: cells sized by risk entries (or incidents). */
     public static function treemapRows(array $mit, string $measure = 'risks'): array
     {
