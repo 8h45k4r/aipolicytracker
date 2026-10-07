@@ -252,6 +252,35 @@ class TemplatesLibraryTest extends TestCase
         $ss->disconnectWorksheets();
     }
 
+    public function test_every_surface_states_access_the_way_the_request_gate_enforces_it(): void
+    {
+        app(TemplateBuilder::class)->build('ai-system-inventory');
+        $label = e(TemplateDownloadRequest::accessLabel());
+        $this->assertSame('Free · no account · links emailed to your work address', TemplateDownloadRequest::accessLabel(), 'the gate requires a work address by default');
+
+        $page = $this->get('/templates/ai-system-inventory')->assertOk()->getContent();
+        $this->assertSame(2, substr_count($page, $label), 'the badge and the form say the same thing');
+        $this->assertStringNotContainsString('sent to your work email', $page);
+        $this->assertStringContainsString($label, $this->get('/templates')->assertOk()->getContent());
+
+        // The line follows the gate's setting rather than restating it.
+        config(['templates.gate.require_work_email' => false]);
+        $this->assertStringContainsString(e(TemplateDownloadRequest::accessLabel()), $this->get('/templates/ai-system-inventory')->getContent());
+        $this->assertStringContainsString('emailed to your email address', TemplateDownloadRequest::accessLabel());
+    }
+
+    public function test_the_download_counter_is_hidden_until_it_means_something(): void
+    {
+        app(TemplateBuilder::class)->build('ai-system-inventory');
+        $version = TemplateVersion::latestFor('ai-system-inventory');
+
+        $version->forceFill(['downloads' => TemplateDownloadRequest::DOWNLOADS_SHOWN_FROM - 1])->save();
+        $this->assertDoesNotMatchRegularExpression('#<dt[^>]*>Downloads</dt>#', $this->get('/templates/ai-system-inventory')->getContent());
+
+        $version->forceFill(['downloads' => TemplateDownloadRequest::DOWNLOADS_SHOWN_FROM])->save();
+        $this->assertMatchesRegularExpression('#<dt[^>]*>Downloads</dt><dd>'.TemplateDownloadRequest::DOWNLOADS_SHOWN_FROM.'</dd>#', $this->get('/templates/ai-system-inventory')->getContent());
+    }
+
     public function test_successive_versions_of_one_template_have_distinct_page_titles(): void
     {
         $slug = 'ai-risk-register';

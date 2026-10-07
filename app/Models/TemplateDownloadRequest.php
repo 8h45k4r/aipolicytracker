@@ -12,6 +12,23 @@ class TemplateDownloadRequest extends Model
     /** How long the emailed links work. */
     public const LINK_DAYS = 7;
 
+    /**
+     * Below this a download count says more about the page being new than about
+     * the template, so it is not shown.
+     */
+    public const DOWNLOADS_SHOWN_FROM = 25;
+
+    /**
+     * How access works, in one line, for every surface that states it: free and no
+     * account, with the links mailed to the address given. Whether that must be a
+     * work address follows the same setting the WorkEmail rule reads, so the line
+     * cannot promise more or less than TemplateController::requestDownload enforces.
+     */
+    public static function accessLabel(): string
+    {
+        return 'Free · no account · links emailed to your '.(config('templates.gate.require_work_email', true) ? 'work address' : 'email address');
+    }
+
     protected $guarded = [];
 
     protected function casts(): array

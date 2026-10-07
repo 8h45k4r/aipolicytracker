@@ -42,7 +42,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Glossary (plain-language definitions with a stable anchor each, e.g. {{ route('glossary') }}#deployer, and the source they come from): {{ route('glossary') }}
 - Glossary term pages (one per defined term: the definition, its source, and the laws and duties on record that use it), e.g. {{ route('glossary.show', 'high-risk-ai-system') }}, {{ route('glossary.show', 'ai-literacy') }}, {{ route('glossary.show', 'fundamental-rights-impact-assessment') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }})
-- Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
+- Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account, download links emailed to a work address; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - AI policy examples (national AI policies and strategies on record, by region, newest first): {{ route('ai-policy-examples') }}
 - Free AI self-assessments ({{ \App\Services\Assessments\AssessmentCatalog::all()->count() }} questionnaires on Certifyi, a related product: EU AI Act readiness, risk classification, FRIA, ISO/IEC 42001, NIST AI RMF, US state AI laws, LLM security, AI governance; score by domain, no account): {{ route('assessments.index') }}
 - Guides: {{ route('guides.index') }}
