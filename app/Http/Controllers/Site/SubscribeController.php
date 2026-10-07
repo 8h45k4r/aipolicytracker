@@ -7,6 +7,7 @@ use App\Mail\SubscriptionConfirmMail;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Subscriber;
+use App\Models\User;
 use App\Rules\NotDisposableEmail;
 use App\Services\Security\Turnstile;
 use App\Support\Seo;
@@ -121,7 +122,12 @@ class SubscribeController extends Controller
     /** The button on the unsubscribe page, and RFC 8058 one-click unsubscribe (List-Unsubscribe-Post). */
     public function unsubscribePost(string $token): RedirectResponse
     {
-        Subscriber::where('token', $token)->update(['unsubscribed_at' => now()]);
+        $subscriber = Subscriber::where('token', $token)->first();
+        if ($subscriber) {
+            $subscriber->update(['unsubscribed_at' => now()]);
+            // An account on the same address must not show the digest as on.
+            User::whereRaw('LOWER(email) = ?', [strtolower($subscriber->email)])->update(['marketing_consent_at' => null]);
+        }
 
         return redirect()->route('subscribe.unsubscribe', $token);
     }

@@ -56,7 +56,9 @@ class SendAlertsCommand extends Command
                     if (AlertChannel::where('user_id', $user->id)->where('kind', 'email')->value('enabled') ?? true) {
                         Mail::to($user->email)->send(new DailyAlertMail($user, $digest['changes'], $digest['deadlines'], $since, $now, $digest['reasons']));
                     }
-                    $channels = AlertChannel::where('user_id', $user->id)->whereIn('kind', ['slack', 'webhook'])->where('enabled', true)->get();
+                    $channels = $user->entitled('alerts.channels')
+                        ? AlertChannel::where('user_id', $user->id)->whereIn('kind', ['slack', 'webhook'])->where('enabled', true)->get()
+                        : collect();
                     if ($channels->isNotEmpty()) {
                         $payload = WebhookDispatcher::payload($digest, 'AI policy alert: '.$digest['changes']->count().' '.Str::plural('change', $digest['changes']->count()).', '.$digest['deadlines']->count().' upcoming '.Str::plural('date', $digest['deadlines']->count()), route('following.index'));
                         foreach ($channels as $channel) {

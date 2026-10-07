@@ -16,12 +16,17 @@
             @elseif($subscription->status === 'cancelled') · ends {{ $subscription->current_period_end?->format('j M Y') }}
             @elseif(in_array($subscription->status, ['on_hold', 'past_due'])) · <span class="text-state-bad">payment failed, update your card to keep access</span>
             @endif</p>
-
+        @if($subscription->revoked_at)<p class="mt-2 text-sm text-state-bad">Pro access ended on {{ $subscription->revoked_at->format('j M Y') }} because the payment was {{ $subscription->revoked_reason === 'chargeback' ? 'reversed by your bank' : 'refunded' }}.</p>@endif
+        @if($billingEnabled)<form method="post" action="{{ route('billing.portal') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">Manage billing</button></form>@endif
         <p class="mt-2 meta">Invoices, payment method and cancellation are handled by our payment provider. Cancelling keeps Pro until the end of the paid period.</p>
         <p class="mt-3 text-sm"><a href="{{ route('following.index') }}">Records you follow ({{ $user->follows()->count() }})</a> · daily alerts go to {{ $user->email }} when something changes.</p>
         @else
-        <p class="mt-2 text-sm text-brand-body"><strong>Free</strong> · every record, weekly digest, applicability check and open data.</p>
-        <p class="mt-2 text-sm text-brand-body">Pro adds a "Follow" button on every policy, jurisdiction and obligation and emails you the day one changes.</p>
+        <p class="mt-2 text-sm text-brand-body"><strong>Free</strong> · every record, weekly digest, applicability check and open data@if($billingEnabled), and up to {{ $user->watchLimit() }} watches with a daily alert@endif.</p>
+        <p class="mt-3 text-sm"><a href="{{ route('following.index') }}">What you watch ({{ $user->follows()->count() }}@if($billingEnabled) of {{ $user->watchLimit() }}@endif)</a></p>
+        @if($billingEnabled)
+        <p class="mt-2 text-sm text-brand-body">Pro adds up to 500 watches, alerts to Slack, a webhook or RSS, and saved applicability profiles that name the system a change may affect.</p>
+        <p class="mt-3 text-sm"><a href="{{ route('pricing') }}" class="btn-secondary" data-track="profile_pricing_click">See Pro plans</a></p>
+        @endif
         @endif
     </section>
     <div class="mt-6 grid gap-6 md:grid-cols-2">
@@ -35,7 +40,7 @@
             <dl class="mt-3 text-sm space-y-1.5 text-brand-body">
                 <div class="flex justify-between gap-2"><dt class="text-brand-muted">Email verified</dt><dd>{{ $user->email_verified_at ? $user->email_verified_at->format('j M Y') : '—' }}</dd></div>
                 <div class="flex justify-between gap-2"><dt class="text-brand-muted">Terms accepted</dt><dd>{{ $user->terms_accepted_at?->format('j M Y') ?? '—' }}</dd></div>
-                <div class="flex justify-between gap-2"><dt class="text-brand-muted">Policy-update emails</dt><dd>{{ $user->marketing_consent_at ? 'opted in '.$user->marketing_consent_at->format('j M Y') : 'not opted in' }}</dd></div>
+                <div class="flex justify-between gap-2"><dt class="text-brand-muted">Weekly digest</dt><dd>@if($digestActive)receiving · <a href="{{ route('subscribe.show') }}">change topics</a>@elseif($user->marketing_consent_at && !$user->email_verified_at)starts once you verify your address@else not receiving @endif</dd></div>
             </dl>
             @if(!$user->email_verified_at)<form method="post" action="{{ route('verification.send') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">Resend verification email</button></form>@endif
             <p class="mt-3 meta">Weekly digest subscriptions are managed from the <a href="{{ route('subscribe.show') }}">subscribe page</a> and the unsubscribe link in every email. Daily alert channels are on the <a href="{{ route('following.index') }}">alerts page</a>.</p>
@@ -50,7 +55,7 @@
             <div><label for="name" class="label">Name</label><input id="name" name="name" class="input" required value="{{ old('name', $user->name) }}">@error('name')<p class="mt-1 text-xs text-state-bad">{{ $message }}</p>@enderror</div>
             <div><label for="email" class="label">Email address</label><input id="email" type="email" name="email" class="input" required value="{{ old('email', $user->email) }}">@error('email')<p class="mt-1 text-xs text-state-bad">{{ $message }}</p>@enderror<p class="mt-1 meta">Changing the address requires a new verification.</p></div>
             <div><label for="organization_name" class="label">Organisation <span class="meta font-normal">(optional)</span></label><input id="organization_name" name="organization_name" class="input" value="{{ old('organization_name', $user->organization_name) }}"></div>
-            <label class="flex items-start gap-2 text-sm text-brand-body"><input type="checkbox" name="marketing_consent" value="1" @checked($user->marketing_consent_at) class="mt-1 rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy"><span>Email me guides and updates when related AI policy requirements change.</span></label>
+            <label class="flex items-start gap-2 text-sm text-brand-body"><input type="checkbox" name="marketing_consent" value="1" @checked($digestActive || ($user->marketing_consent_at && !$user->email_verified_at)) class="mt-1 rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy"><span>Send me the weekly digest of AI policy changes, with official sources. Unsubscribe from any issue.</span></label>
             <button type="submit" class="btn-primary">Save profile</button>
         </form>
         <form method="post" action="{{ route('password.update') }}" class="card-flat p-5 space-y-3" aria-labelledby="pw-h">@csrf @method('PUT')

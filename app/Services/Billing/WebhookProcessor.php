@@ -6,6 +6,7 @@ use App\Mail\SubscriptionPaymentFailedMail;
 use App\Models\BillingCheckout;
 use App\Models\BillingCustomer;
 use App\Models\BillingEvent;
+use App\Models\BillingPayment;
 use App\Models\Subscription;
 use App\Models\User;
 use Carbon\Carbon;
@@ -32,6 +33,12 @@ class WebhookProcessor
     public const OUTCOME_DUPLICATE = 'duplicate';
 
     public const OUTCOME_ERROR = 'error';
+
+    /** Events that mean the customer has paid again, which lifts a refund or chargeback revocation. */
+    private const RESTORING_EVENTS = ['subscription.active', 'subscription.renewed'];
+
+    /** Dispute outcomes after which the money is gone for good. */
+    private const DISPUTE_LOSSES = ['dispute.lost', 'dispute.accepted'];
 
     public function __construct(private PlanCatalog $catalog) {}
 
@@ -82,9 +89,13 @@ class WebhookProcessor
         }
 
         try {
-            $outcome = str_starts_with($type, 'subscription.') && ! empty($data['subscription_id'])
-                ? $this->applySubscription($type, $data, $eventAt)
-                : self::OUTCOME_IGNORED;
+            $outcome = match (true) {
+                str_starts_with($type, 'subscription.') && ! empty($data['subscription_id']) => $this->applySubscription($type, $data, $eventAt),
+                $type === 'payment.succeeded' && ! empty($data['payment_id']) => $this->recordPayment($data, $eventAt),
+                $type === 'refund.succeeded' && ! empty($data['payment_id']) => $this->applyRefund($data, $eventAt),
+                str_starts_with($type, 'dispute.') && ! empty($data['payment_id']) => $this->applyDispute($type, $data, $eventAt),
+                default => self::OUTCOME_IGNORED,
+            };
             $event->forceFill(['processed_at' => now(), 'outcome' => $outcome])->save();
 
             return $outcome;
@@ -137,6 +148,9 @@ class WebhookProcessor
                 'expires_at' => $this->parseDate($data['expires_at'] ?? null) ?? ($status === 'expired' ? ($sub->expires_at ?? $eventAt) : $sub->expires_at),
                 'last_event_at' => $eventAt,
                 'last_event_type' => $type,
+                // A renewal after a refund or chargeback is a new payment, so it restores access.
+                ...(in_array($type, self::RESTORING_EVENTS, true) && $sub->revoked_at && $sub->revoked_at->lt($eventAt)
+                    ? ['revoked_at' => null, 'revoked_reason' => null] : []),
                 'metadata' => $metadata ?: $sub->metadata,
             ]);
             $sub->save();
@@ -149,6 +163,102 @@ class WebhookProcessor
             }
 
             return self::OUTCOME_APPLIED;
+        });
+    }
+
+    /** Keeps the payment and the subscription it paid for, so a later refund or dispute can be traced. */
+    private function recordPayment(array $data, Carbon $eventAt): string
+    {
+        $payment = BillingPayment::firstOrNew(['provider_payment_id' => (string) $data['payment_id']]);
+        $payment->fill([
+            'provider' => 'dodo',
+            'provider_subscription_id' => $data['subscription_id'] ?? $payment->provider_subscription_id,
+            'total_amount' => isset($data['total_amount']) && is_numeric($data['total_amount']) ? (int) $data['total_amount'] : $payment->total_amount,
+            'currency' => $data['currency'] ?? $payment->currency,
+            'paid_at' => $this->parseDate($data['created_at'] ?? null) ?? $payment->paid_at ?? $eventAt,
+        ]);
+        $payment->status ??= 'succeeded';
+        $payment->save();
+
+        return self::OUTCOME_APPLIED;
+    }
+
+    /**
+     * A full refund revokes the access that payment bought; a partial refund is
+     * recorded only, since it is a goodwill credit rather than a reversal.
+     */
+    private function applyRefund(array $data, Carbon $eventAt): string
+    {
+        $payment = BillingPayment::where('provider_payment_id', (string) $data['payment_id'])->first();
+        if (! $payment) {
+            Log::warning('billing.webhook.refund_unknown_payment', ['payment_id' => $data['payment_id']]);
+
+            return self::OUTCOME_IGNORED;
+        }
+
+        $refunded = $payment->refunded_amount + (isset($data['amount']) && is_numeric($data['amount']) ? (int) $data['amount'] : 0);
+        $full = ! ($data['is_partial'] ?? false) || ($payment->total_amount !== null && $refunded >= $payment->total_amount);
+        $payment->update(['refunded_amount' => $refunded, 'status' => $full ? 'refunded' : 'partially_refunded']);
+
+        if ($full) {
+            $this->revokeFor($payment, 'refund', $eventAt);
+        }
+
+        return self::OUTCOME_APPLIED;
+    }
+
+    /** An open dispute is recorded; a lost or accepted one revokes access, as the payment was reversed. */
+    private function applyDispute(string $type, array $data, Carbon $eventAt): string
+    {
+        $payment = BillingPayment::where('provider_payment_id', (string) $data['payment_id'])->first();
+        if (! $payment) {
+            Log::warning('billing.webhook.dispute_unknown_payment', ['payment_id' => $data['payment_id'], 'type' => $type]);
+
+            return self::OUTCOME_IGNORED;
+        }
+
+        $lost = in_array($type, self::DISPUTE_LOSSES, true);
+        $payment->update([
+            'dispute_status' => (string) ($data['dispute_status'] ?? str_replace('.', '_', $type)),
+            'status' => match (true) {
+                $lost => 'dispute_lost',
+                $type === 'dispute.won' => 'dispute_won',
+                $type === 'dispute.opened', $type === 'dispute.challenged' => 'disputed',
+                default => $payment->status,
+            },
+        ]);
+
+        if ($lost) {
+            $this->revokeFor($payment, 'chargeback', $eventAt);
+        }
+
+        return self::OUTCOME_APPLIED;
+    }
+
+    /**
+     * Revokes the subscription a reversed payment paid for, but only when that was
+     * its latest payment: refunding last month's charge after this month's renewal
+     * went through must not take away the period the customer has paid for.
+     */
+    private function revokeFor(BillingPayment $payment, string $reason, Carbon $eventAt): void
+    {
+        if (! $payment->provider_subscription_id) {
+            return;
+        }
+        $newer = BillingPayment::where('provider_subscription_id', $payment->provider_subscription_id)
+            ->whereKeyNot($payment->id)
+            ->whereIn('status', ['succeeded', 'partially_refunded', 'dispute_won'])
+            ->where('paid_at', '>', $payment->paid_at)
+            ->exists();
+        if ($newer) {
+            return;
+        }
+
+        DB::transaction(function () use ($payment, $reason, $eventAt) {
+            $sub = Subscription::where('provider_subscription_id', $payment->provider_subscription_id)->lockForUpdate()->first();
+            if ($sub && ! $sub->revoked_at) {
+                $sub->forceFill(['revoked_at' => $eventAt, 'revoked_reason' => $reason])->save();
+            }
         });
     }
 

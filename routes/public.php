@@ -6,6 +6,7 @@ use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\AssessmentController;
 use App\Http\Controllers\Site\AudienceController;
+use App\Http\Controllers\Site\BillingController;
 use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\CalendarController;
 use App\Http\Controllers\Site\ChangeController;
@@ -149,6 +150,7 @@ Route::get('/reviewers', [ReviewersController::class, 'show'])->name('reviewers'
 Route::get('/reviewers/{slug}', [ReviewersController::class, 'person'])->where('slug', '[a-z0-9-]+')->name('reviewers.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/team', [PageController::class, 'team'])->name('team');
+Route::get('/funding', [PageController::class, 'funding'])->name('funding');
 // The sign-up form asks readers to accept these and the download gate records the
 // acceptance, so they have to be real pages rather than a configurable link that
 // fell back to /about when unset.
@@ -168,15 +170,18 @@ Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsu
 Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.digest');
 Route::post('/cron/external-sync', [CronController::class, 'externalSync'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.external-sync');
 
-// Selling is retired: there is no pricing page, checkout or portal. The
-// webhook stays mounted and signature-authenticated so that events for any
-// subscription created before this change are still recorded rather than
-// silently dropped. See debt #41.
-Route::middleware(['auth', 'verified'])->group(function () {});
-// Follows and daily alerts (Pro): the toggle needs the saved.server entitlement; the list page needs an account.
+// Billing: pricing is public (noindex while checkout is off); checkout and portal need a verified account
+// and return 404 while it is off; the webhook is signature-authenticated.
+Route::get('/pricing', [BillingController::class, 'pricing'])->name('pricing');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/billing/checkout/{plan}', [BillingController::class, 'checkout'])->where('plan', '[a-z0-9_]+')->middleware('throttle:10,1')->name('billing.checkout');
+    Route::get('/billing/return/{checkout}', [BillingController::class, 'returned'])->where('checkout', '[0-9]+')->name('billing.return');
+    Route::post('/billing/portal', [BillingController::class, 'portal'])->middleware('throttle:10,1')->name('billing.portal');
+});
+// Follows and daily alerts: the toggle needs saved.server and room under watches.max; profiles and channels are Pro.
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/following', [FollowController::class, 'index'])->name('following.index');
-    Route::post('/profiles', [ApplicabilityProfileController::class, 'store'])->middleware(['subscribed:saved.server', 'throttle:30,1'])->name('profiles.store');
+    Route::post('/profiles', [ApplicabilityProfileController::class, 'store'])->middleware(['subscribed:profiles.saved', 'throttle:30,1'])->name('profiles.store');
     Route::delete('/profiles/{profile}', [ApplicabilityProfileController::class, 'destroy'])->whereNumber('profile')->name('profiles.destroy');
     Route::post('/alerts/channels', [AlertChannelController::class, 'store'])->middleware('throttle:20,1')->name('alerts.channels.store');
     Route::post('/alerts/channels/email-off', [AlertChannelController::class, 'emailOff'])->name('alerts.channels.email-off');

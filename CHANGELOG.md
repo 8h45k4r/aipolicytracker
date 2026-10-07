@@ -5,6 +5,18 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Pro can be sold again, behind the existing Checkout switch: `/pricing`, checkout, the return page and the customer portal are back. While Checkout is off nothing changes on the public site. When it is on, Free keeps three watches with the daily email and Pro adds up to 500 watches, Slack, webhook and RSS alerts, and saved applicability profiles. Accounts over the free limit keep every watch; alerts read the oldest three.
+- Refunds and chargebacks end Pro access: payments are recorded, and a full refund or a lost dispute of the latest payment revokes the subscription it paid for, without rewriting the provider's status. Admin → Billing and the account page say why.
+- `/funding`: how the project is paid for, every funder above $1,000 a year (none yet), and the rules that keep funders, subscribers and the related product out of what the records say. `Organization.ownershipFundingInfo` points to it; the footer links it.
+- Header "Sign in" or "Account", and account links in the mobile menu.
+- Strategy note `docs/strategy/credibility-revenue-roadmap-2026-10.md`, a Search Console analysis in `docs/reference/search-console-2026-10.md`, and a draft NLnet Restack application in `docs/funding/`.
+
+### Fixed
+- Ticking "send me the digest" at sign-up or on the account page now subscribes the address to the weekly digest once it is verified (it used to record consent and send nothing); unticking it, or unsubscribing from any issue, turns it off in both places.
+
+### Removed
+- The "Turn obligations into … with Certifyi" banner on eleven page types and the promotional footer sentence. The related product is now named only where the free self-assessments run on it, and in the disclosures on About, Funding and the reviewer roster.
+- The GitHub Sponsor button no longer points at certifyi.ai; it points at `/funding`.
 - A page per glossary term (`/glossary/{term}`, 22 terms): the definition first, its source, the laws and duties on record that use it and related terms, with `DefinedTerm` and FAQ markup. Policy pages link the terms they use. Review: `docs/reference/seo-aeo-review-2026-10-05.md`.
 - "Recompute incident links" on Admin → Jobs and schedule: runs `incidents:enrich --refresh` from the browser, so stored law lists can be rematched after the rules change without shell access to the host.
 - An `ai_referral` analytics event for visits from answer engines and AI assistants (ChatGPT, Perplexity, Claude, Gemini, Copilot and others), under the existing consent.

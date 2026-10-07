@@ -43,7 +43,12 @@
                             <button type="submit" class="btn-primary" data-track="profile_save">Save and alert me</button>
                         </form>
                     @else
-                        <p class="mt-1 text-sm text-brand-body">Sign in to save this screening and get a daily alert when a change may affect it, naming the system and linking the official source. It is free.</p>
+                        @auth
+                        <p class="mt-1 text-sm text-brand-body">Pro accounts can save this screening and get a daily alert when a change may affect it, naming the system and linking the official source.</p>
+                        <p class="mt-3"><a href="{{ route('pricing') }}" class="btn-secondary" data-track="profile_upsell">See Pro plans</a></p>
+                        @else
+                        <p class="mt-1 text-sm text-brand-body">Sign in to save this screening and get a daily alert when a change may affect it, naming the system and linking the official source.</p>
+                        @endauth
                     @endif
                     <p class="mt-2 meta">Screening is relevance, not a legal determination. Nothing about your systems is published.</p>
                 </section>
@@ -75,7 +80,6 @@
                 <section aria-labelledby="r-questions" class="mt-8"><h2 id="r-questions" class="section-title">Questions to investigate</h2><ol class="mt-2 list-decimal pl-5 space-y-1.5 text-sm text-brand-body">@foreach($result['questions'] as $q)<li>{{ $q }}</li>@endforeach</ol></section>
                 <section aria-labelledby="r-checklist" class="mt-8"><h2 id="r-checklist" class="section-title">Starter action checklist</h2><ul class="mt-2 space-y-1.5 text-sm text-brand-body">@foreach($result['checklist'] as $c)<li class="flex gap-2"><span aria-hidden="true" class="mt-1 inline-block h-4 w-4 rounded border border-brand-line"></span>{{ $c }}</li>@endforeach</ul>
                     <div class="mt-4 flex flex-wrap gap-2"><button type="button" class="btn-secondary" data-copy-link>Copy link to these results</button><a href="{{ route('compare.index', ['j' => implode(',', $answers['jurisdictions'])]) }}" class="btn-secondary" rel="nofollow">Compare selected jurisdictions</a></div>
-                    <x-site.certifyi-cta class="mt-4" label="Turn this checklist into tracked workflows" />
                 </section>
             @endif
         </div>

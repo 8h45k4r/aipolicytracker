@@ -140,6 +140,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return app(Entitlements::class)->allows($this, $capability);
     }
 
+    /** How many watches the plan allows; the oldest that many are the ones alerted on. */
+    public function watchLimit(): int
+    {
+        $value = app(Entitlements::class)->value($this, 'watches.max');
+
+        return is_numeric($value) ? max(0, (int) $value) : 0;
+    }
+
     /** An admin who has scanned a secret and proved one code from it. */
     public function hasTwoFactorEnabled(): bool
     {

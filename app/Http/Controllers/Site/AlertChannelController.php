@@ -28,6 +28,9 @@ class AlertChannelController extends Controller
             'kind' => ['required', 'in:rss,slack,webhook'],
             'endpoint' => ['required_if:kind,slack,webhook', 'nullable', 'url:https', 'max:2000'],
         ]);
+        if (! $user->entitled('alerts.channels')) {
+            return redirect()->route('pricing')->with('error', 'Alerts to Slack, a webhook or an RSS feed are part of Pro.');
+        }
         abort_if(AlertChannel::where('user_id', $user->id)->count() >= AlertChannel::MAX_PER_USER, 422, 'Channel limit reached');
         if ($data['kind'] === 'slack' && ! str_starts_with((string) $data['endpoint'], 'https://hooks.slack.com/')) {
             return back()->withErrors(['endpoint' => 'A Slack incoming webhook starts with https://hooks.slack.com/.'])->withInput();
@@ -75,7 +78,7 @@ class AlertChannelController extends Controller
     public function feed(string $token, AlertBuilder $builder): Response
     {
         $channel = AlertChannel::where('kind', 'rss')->where('secret', $token)->where('enabled', true)->first();
-        abort_unless($channel, 404);
+        abort_unless($channel && $channel->user?->entitled('alerts.channels'), 404);
         $digest = $builder->build($channel->user, now()->subDays(30), now());
         $changes = $digest['changes'];
         $body = view('site.changes.feed', ['changes' => $changes, 'title' => 'AIPolicyTracker: your watched changes', 'link' => route('following.index'), 'description' => 'Changes to the records, jurisdictions, sectors, frameworks and searches this account watches, last 30 days. Private feed; do not share the address.', 'self' => route('alerts.feed', $token)])->render();

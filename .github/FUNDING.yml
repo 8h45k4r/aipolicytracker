@@ -1,1 +1,4 @@
-custom: ["https://certifyi.ai"]
+# The "Sponsor" button on the repository. Add `github: 8h45k4r` once the
+# GitHub Sponsors profile is approved; until then it points at the funding and
+# independence page, which says how to support the project.
+custom: ["https://aipolicytracker.org/funding"]

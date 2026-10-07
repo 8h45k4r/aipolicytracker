@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class EnsureSubscribed
 {
+    private const MESSAGES = [
+        'profiles.saved' => 'Saving an applicability profile for change-impact alerts is part of Pro.',
+        'alerts.channels' => 'Alerts to Slack, a webhook or an RSS feed are part of Pro.',
+    ];
+
     public function handle(Request $request, Closure $next, ?string $capability = null): Response
     {
         $user = $request->user();
@@ -25,11 +30,7 @@ class EnsureSubscribed
                 return response()->json(['message' => 'This feature requires a Pro plan.'], 402);
             }
 
-            // Selling is retired, so there is no page to send anyone to and no
-            // plan to buy. With billing disabled every signed-in account already
-            // holds these capabilities, so reaching this line means the feature is
-            // genuinely unavailable rather than merely unpaid.
-            return redirect()->route('home')->with('error', 'That feature is not available on this account.');
+            return redirect()->route('pricing')->with('error', self::MESSAGES[$capability] ?? 'This feature is part of Pro.');
         }
 
         return $next($request);

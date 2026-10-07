@@ -67,7 +67,7 @@ class SelfAssessmentsTest extends TestCase
     public function test_record_pages_offer_the_assessments_that_fit_them(): void
     {
         $html = $this->get(route('policies.show', 'eu-ai-act'))->assertOk()->assertSee('EU AI Act Readiness Assessment')->assertSee('All '.AssessmentCatalog::all()->count().' self-assessments')->getContent();
-        $this->assertStringNotContainsString('data-track="certifyi_click"', $this->main($html), 'one mention of a related product per page, not two');
+        $this->assertStringNotContainsString('data-track="certifyi_click"', $html, 'the related product is named only where the self-assessments run on it, never promoted');
         $this->assertSame(2, substr_count($html, 'data-track="assessment_click"'), 'two, not a wall of links');
         $this->get(route('frameworks.show', 'iso-42001'))->assertOk()->assertSee('ISO/IEC 42001 Readiness Assessment');
         $this->get(route('audiences.show', 'hr-and-recruitment'))->assertOk()->assertSee('AI in Hiring &amp; Employment Bias Assessment', false);

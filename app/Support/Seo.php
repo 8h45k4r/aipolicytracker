@@ -443,7 +443,7 @@ class Seo
             'publishingPrinciples' => route('methodology'),
             'correctionsPolicy' => route('corrections'),
             'actionableFeedbackPolicy' => route('contribute'),
-            'ownershipFundingInfo' => route('about'),
+            'ownershipFundingInfo' => route('funding'),
         ];
         // A named mailbox is what lets a search engine attach the entity to a real
         // contact and lets an answer engine tell a reader who to write to about a

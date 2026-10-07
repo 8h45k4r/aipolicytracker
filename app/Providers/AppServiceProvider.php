@@ -11,7 +11,9 @@ use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\Security\EmailDomainPolicy;
 use App\Services\Security\MailDomainResolver;
 use App\Services\Security\SystemMailDomainResolver;
+use App\Services\Subscribers\AccountDigest;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
@@ -63,6 +65,13 @@ class AppServiceProvider extends ServiceProvider
         foreach (AdminCapability::cases() as $capability) {
             Gate::define($capability->value, fn (User $user) => $user->hasCapability($capability));
         }
+
+        // A choice made at sign-up to receive the digest takes effect once the address is proven.
+        Event::listen(Verified::class, function (Verified $event) {
+            if ($event->user instanceof User) {
+                app(AccountDigest::class)->afterVerification($event->user);
+            }
+        });
 
         // When an account last signed in, for access reviews. Written without touching
         // updated_at, so "last changed" on the account still means a change to it.
