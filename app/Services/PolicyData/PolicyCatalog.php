@@ -23,7 +23,15 @@ use Illuminate\Support\Facades\DB;
  */
 class PolicyCatalog
 {
-    public const SORTS = ['updated' => 'Recently updated', 'effective' => 'Effective date', 'relevance' => 'Relevance', 'jurisdiction' => 'Jurisdiction'];
+    public const SORTS = ['binding' => 'Binding first, then title', 'updated' => 'Recently updated', 'effective' => 'Effective date', 'relevance' => 'Relevance', 'jurisdiction' => 'Jurisdiction'];
+
+    /**
+     * The explorer's default order. "Recently updated" opened the page on whichever
+     * records an import last touched (a run of Indonesian strategies), which says
+     * nothing about what matters; binding law first, then by title, does. The API
+     * keeps "updated" as its default so existing clients see no change.
+     */
+    public const SITE_DEFAULT_SORT = 'binding';
 
     public const FILTER_KEYS = ['q', 'jurisdiction', 'region', 'status', 'type', 'sector', 'use_case', 'risk', 'actor', 'from', 'to', 'sort', 'category', 'binding'];
 
@@ -64,7 +72,7 @@ class PolicyCatalog
         return $f;
     }
 
-    public function policyQuery(array $filters): Builder
+    public function policyQuery(array $filters, string $defaultSort = 'updated'): Builder
     {
         $q = PolicyInstrument::query()->published()->with(['jurisdiction', 'terms']);
 
@@ -99,7 +107,9 @@ class PolicyCatalog
             $q->where(fn ($w) => $w->where('applies_from', '<=', $filters['to'])->orWhere('in_force_on', '<=', $filters['to']));
         }
 
-        match ($filters['sort'] ?? 'updated') {
+        $sort = $filters['sort'] ?? $defaultSort;
+        match (array_key_exists($sort, self::SORTS) ? $sort : $defaultSort) {
+            'binding' => $q->orderByDesc('is_binding')->orderBy('policy_instruments.title'),
             'effective' => $q->orderByRaw('COALESCE(applies_from, in_force_on, adopted_on) DESC'),
             'jurisdiction' => $q->join('jurisdictions as jsort', 'jsort.id', '=', 'policy_instruments.jurisdiction_id')->orderBy('jsort.name')->orderBy('policy_instruments.title')->select('policy_instruments.*'),
             'relevance' => $q->orderByDesc('featured')->orderByDesc('is_binding')->orderByDesc('updated_at'),

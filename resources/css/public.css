@@ -65,8 +65,10 @@
     h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
     h1 { @apply text-balance; }
     a { @apply text-brand-blue underline-offset-[3px] decoration-brand-line hover:decoration-brand-blue; }
-    /* A link inside running text is told apart by more than its colour. */
-    p a:not(.btn):not(.chip):not(.no-underline), dd a:not(.no-underline), td a:not(.no-underline), blockquote a, .prose-policy a { @apply underline; }
+    /* A link inside running text is told apart by more than its colour (WCAG 1.4.1).
+       Buttons, chips and navigation are excluded by class; everything else that sits
+       in a block of body copy is underlined, with an underline visible against the text. */
+    :is(p, dd, td, blockquote, figcaption, small, label, .meta, .prose-policy, [role="status"], [role="alert"]) a:not(.btn):not([class*="btn-"]):not(.chip):not(.nav-link):not(.no-underline) { @apply underline; text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
     a.no-underline { text-decoration: none; }
     :focus-visible { @apply outline-none ring-2 ring-brand-cyan ring-offset-2 ring-offset-white rounded-sm; }
     summary { cursor: pointer; }
@@ -119,6 +121,7 @@
     /* Heat-map cells: in light mode the text turns white once the shade is dark enough;
        in dark mode the shade stays dark enough for light text throughout. */
     .heat { color: rgb(var(--c-body)); }
+    .heat-mid { color: rgb(var(--c-ink)); }
     .heat-hi { color: rgb(var(--c-white)); }
     .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-sm overflow-hidden sm:grid-cols-5; counter-reset: chain-step; }
     .chain-step { @apply bg-white; counter-increment: chain-step; }

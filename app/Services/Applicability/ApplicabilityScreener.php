@@ -6,6 +6,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
 
 /**
@@ -117,6 +118,33 @@ class ApplicabilityScreener
         return [
             'jurisdiction_ids' => Jurisdiction::published()->whereIn('slug', $a['jurisdictions'])->pluck('id')->all(),
             'instrument_ids' => $result['policies']->filter(fn ($row) => $row['score'] > 0)->pluck('policy.id')->all(),
+        ];
+    }
+
+    /**
+     * A headline over the screened duties, computed from the same rows the
+     * register exports. A duty's date is its own `applies_from`, else its
+     * instrument's `applies_from`, else the instrument's `in_force_on`; a duty
+     * with none of those recorded counts as undated rather than as in force.
+     *
+     * @param  Collection<int, Obligation>  $obligations
+     * @return array{total:int, in_force:int, undated:int, next_date:?CarbonInterface, next_title:?string}
+     */
+    public function summarise(Collection $obligations): array
+    {
+        $today = now()->startOfDay();
+        $dated = $obligations->map(fn (Obligation $o) => [
+            'title' => $o->title,
+            'date' => $o->applies_from ?? $o->policyInstrument?->applies_from ?? $o->policyInstrument?->in_force_on,
+        ]);
+        $next = $dated->filter(fn ($r) => $r['date'] && $r['date']->gt($today))->sortBy(fn ($r) => $r['date']->timestamp)->first();
+
+        return [
+            'total' => $obligations->count(),
+            'in_force' => $dated->filter(fn ($r) => $r['date'] && $r['date']->lte($today))->count(),
+            'undated' => $dated->filter(fn ($r) => ! $r['date'])->count(),
+            'next_date' => $next['date'] ?? null,
+            'next_title' => $next['title'] ?? null,
         ];
     }
 

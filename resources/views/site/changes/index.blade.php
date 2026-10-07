@@ -21,7 +21,7 @@
         <section class="lg:col-span-2 min-w-0" aria-labelledby="all-heading">
             <h2 id="all-heading" class="section-title">All changes <span class="text-sm font-normal text-brand-muted">({{ $changes->total() }})</span></h2>
             <div class="mt-1 divide-y divide-brand-line border-y border-brand-line">@forelse($changes as $c)<x-site.change-item :change="$c" />@empty<div class="py-6"><x-site.empty :reset="route('changes.index')" /></div>@endforelse</div>
-            <nav class="mt-6" aria-label="Pagination">{{ $changes->links() }}</nav>
+            <div class="mt-6">{{ $changes->links() }}</div>
         </section>
         <aside aria-labelledby="urgent-heading">
             <h2 id="urgent-heading" class="section-title">Urgent and high-impact</h2>

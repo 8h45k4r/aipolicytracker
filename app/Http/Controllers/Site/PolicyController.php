@@ -23,7 +23,7 @@ class PolicyController extends Controller
     public function index(Request $request, PolicyCatalog $catalog): View
     {
         $filters = $catalog->filtersFromRequest($request);
-        $policies = $catalog->policyQuery($filters)->paginate(20)->withQueryString();
+        $policies = $catalog->policyQuery($filters, PolicyCatalog::SITE_DEFAULT_SORT)->paginate(20)->withQueryString();
         $options = $catalog->filterOptions();
 
         $indexable = $catalog->isIndexableFilterSet($filters) && $policies->currentPage() === 1;

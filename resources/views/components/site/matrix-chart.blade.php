@@ -10,7 +10,10 @@
             @foreach($cols as $c)
             @php($v = (int) ($cells[$r][$c] ?? 0))
             @php($a = $v ? 0.12 + 0.75 * ($v / $max) : 0)
-            <td class="text-center font-mono tabular-nums heat {{ $a > 0.6 ? 'heat-hi' : ($a > 0.35 ? 'heat-mid' : '') }}" style="background: rgb(var(--c-heat, 0 33 71) / {{ number_format($a, 2) }});">{{ $v ?: '—' }}</td>
+            {{-- Between about 0.55 and 0.62 neither dark nor light text reaches 4.5:1 on the
+                 light-mode shade, so a cell past 0.55 is pushed to 0.64, where light text does. --}}
+            @php($a = $a > 0.55 ? max($a, 0.64) : $a)
+            <td class="text-center font-mono tabular-nums heat {{ $a > 0.55 ? 'heat-hi' : ($a > 0.35 ? 'heat-mid' : '') }}" style="background: rgb(var(--c-heat, 0 33 71) / {{ number_format($a, 2) }});">{{ $v ?: '—' }}</td>
             @endforeach
         </tr>
         @endforeach
