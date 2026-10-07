@@ -6,13 +6,21 @@
     <form action="{{ route('search') }}" method="get" role="search" class="mt-4 max-w-2xl">
         <label for="search-page-q" class="sr-only">Search the site</label>
         <div class="flex gap-2">
-            <input id="search-page-q" name="q" type="search" value="{{ $q }}" class="input flex-1" placeholder="A law, a duty, a country, a template…" autocomplete="off" @if($q === '') autofocus @endif>
+            <input id="search-page-q" name="q" type="search" value="{{ $q }}" class="input flex-1" placeholder="A law, a duty, a country, a template…" autocomplete="off" data-suggest="{{ route('search.suggest') }}" @if($q === '') autofocus @endif>
             <button type="submit" class="btn-primary">Search</button>
         </div>
     </form>
 
     @if($q !== '')
         <p class="mt-4 text-sm text-brand-muted" role="status">{{ $total ? number_format($total).' '.\Illuminate\Support\Str::plural('result', $total).' for' : 'Nothing found for' }} <span class="font-medium text-brand-navy">“{{ $q }}”</span>.@unless($total) Try a shorter word, a country name or a law's short title.@endunless</p>
+        @if($top)
+        <section aria-labelledby="top-match" class="mt-6 max-w-3xl rounded-md border border-brand-line bg-brand-paper p-4 sm:p-5">
+            <h2 id="top-match" class="eyebrow">Top match</h2>
+            <p class="mt-2"><a href="{{ $top['url'] }}" class="text-lg font-semibold text-brand-navy">{{ $top['title'] }}</a></p>
+            <p class="mt-0.5 text-xs text-brand-muted">{{ $top['type'] }}@if($top['meta']) · {{ $top['meta'] }}@endif</p>
+            @if($top['summary'])<p class="mt-2 text-sm text-brand-body">{{ \Illuminate\Support\Str::limit($top['summary'], 260) }}</p>@endif
+        </section>
+        @endif
         <div class="mt-6 grid gap-8 lg:grid-cols-2">
             @foreach($groups as $g)
             <section aria-labelledby="g-{{ $loop->index }}">
