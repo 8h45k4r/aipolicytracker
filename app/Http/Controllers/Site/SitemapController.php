@@ -18,6 +18,7 @@ use App\Models\TransitionMeasure;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Glossary\GlossaryTerms;
 use App\Services\Hubs\HubCatalog;
+use App\Services\Implementation\Trackers;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\Report\StateOfAiRegulation;
 use App\Services\Reviewers\ReviewerRoster;
@@ -208,6 +209,19 @@ class SitemapController extends Controller
         foreach (TransitionController::LANDINGS as $landing => $meta) {
             if (TransitionMeasure::whereNotNull('published_at')->where('measure_type', $meta['type'])->where('review_status', 'verified')->count() >= TransitionController::MIN_INDEXABLE_LANDING) {
                 $pages[] = [route('transition.landing', $landing), 'weekly', '0.7'];
+            }
+        }
+        // The enforcement, implementation and standards trackers: listed only once they pass
+        // the threshold their own robots tag applies.
+        if (Trackers::enforcementIndexable()) {
+            $pages[] = [route('enforcement.index'), 'weekly', '0.8'];
+        }
+        if (Trackers::standardsIndexable()) {
+            $pages[] = [route('standards.index'), 'weekly', '0.7'];
+        }
+        foreach (Trackers::instrumentsWithMeasures() as $instrument) {
+            if (Trackers::implementationIndexable($instrument)) {
+                $pages[] = [route('policies.implementation', $instrument->slug), 'weekly', '0.7'];
             }
         }
         $pages[] = [route('deadlines.engine'), 'monthly', '0.7'];

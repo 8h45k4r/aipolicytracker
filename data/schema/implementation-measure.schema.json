@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aipolicytracker.org/schema/implementation-measure.schema.json",
+  "title": "Implementation measure",
+  "description": "Something an instrument depends on to work in practice: a delegated or implementing act, Commission guidelines, a code of practice, a template, an AI Board output, a standardisation request, a harmonised standard, or an international standard work item. Standards are recorded as metadata only (reference, body, stage, dates and a link); never standard text. Every factual field is optional and null until read from the official source. The status is what the record declares; \"overdue\" is never written here, it is derived from due_on and today's date.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "title", "kind", "status", "review_status"],
+  "properties": {
+    "slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "title": { "type": "string", "minLength": 5 },
+    "instrument": {
+      "anyOf": [{ "$ref": "common.schema.json#/$defs/slug" }, { "type": "null" }],
+      "description": "Slug of the policy record the measure implements (e.g. eu-ai-act). Null for a standard that implements no recorded instrument."
+    },
+    "related_policy": {
+      "anyOf": [{ "$ref": "common.schema.json#/$defs/slug" }, { "type": "null" }],
+      "description": "Slug of a policy record that describes the same document (e.g. the ISO/IEC 42001 record)."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["delegated_act", "implementing_act", "guidelines", "code_of_practice", "template", "ai_board_output", "standardisation_request", "harmonised_standard", "iso_work_item"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["unverified", "planned", "consultation", "draft", "adopted", "published"],
+      "description": "Declared status. \"unverified\" marks a draft record whose status has not been read from a source. \"overdue\" is derived, not declared."
+    },
+    "legal_basis": {
+      "$ref": "common.schema.json#/$defs/nullableString",
+      "description": "The provision(s) of the instrument that call for or concern the measure, as the source states them."
+    },
+    "summary": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "due_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "adopted_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "published_on": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "published_on_precision": {
+      "type": "string",
+      "enum": ["exact", "month", "year"],
+      "description": "How much of published_on the source states. With \"year\" the date must be 1 January of that year and is shown as the year only."
+    },
+    "body": {
+      "anyOf": [{ "type": "string", "enum": ["cen_cenelec_jtc_21", "iso_iec_jtc_1_sc_42", "european_commission", "ai_office", "ai_board"] }, { "type": "null" }],
+      "description": "Who produces the measure. For standards: CEN-CENELEC JTC 21 or ISO/IEC JTC 1/SC 42."
+    },
+    "reference": {
+      "$ref": "common.schema.json#/$defs/nullableString",
+      "description": "Document reference, e.g. \"ISO/IEC 42001:2023\" or a CELEX number."
+    },
+    "stage": {
+      "$ref": "common.schema.json#/$defs/nullableString",
+      "description": "Standards work-item stage as the standards body publishes it."
+    },
+    "oj_citation_expected_on": {
+      "$ref": "common.schema.json#/$defs/nullableDate",
+      "description": "Harmonised standards only: when citation in the Official Journal is expected, from an official source."
+    },
+    "oj_citation_on": {
+      "$ref": "common.schema.json#/$defs/nullableDate",
+      "description": "Harmonised standards only: when the reference was cited in the Official Journal."
+    },
+    "official_source_url": { "anyOf": [{ "$ref": "common.schema.json#/$defs/url" }, { "type": "null" }] },
+    "source_title": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "source_publisher": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "source_document_date": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "source_reference": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "source_tier": { "$ref": "common.schema.json#/$defs/sourceTier" },
+    "last_checked_at": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "last_verified_at": { "$ref": "common.schema.json#/$defs/nullableDate" },
+    "review_status": { "$ref": "common.schema.json#/$defs/reviewStatus" },
+    "confidence_level": { "$ref": "common.schema.json#/$defs/confidenceLevel" },
+    "content_version": { "type": "integer", "minimum": 1 },
+    "change_summary": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "reviewed_by": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "notes": { "$ref": "common.schema.json#/$defs/nullableString" },
+    "published": { "type": "boolean" }
+  }
+}

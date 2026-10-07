@@ -86,6 +86,12 @@ class PolicyInstrument extends Model
         return $this->hasMany(EnforcementEvent::class);
     }
 
+    /** Guidelines, codes of practice, acts and standards this instrument depends on (data/implementation). */
+    public function implementationMeasures(): HasMany
+    {
+        return $this->hasMany(ImplementationMeasure::class);
+    }
+
     public function procurementRules(): HasMany
     {
         return $this->hasMany(ProcurementRule::class);

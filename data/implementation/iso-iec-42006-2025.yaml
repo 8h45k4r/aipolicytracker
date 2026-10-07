@@ -1,0 +1,34 @@
+slug: iso-iec-42006-2025
+title: "ISO/IEC 42006:2025 — requirements for bodies certifying AI management systems"
+instrument: null
+related_policy: iso-iec-42001-2023-ai-management-system
+kind: iso_work_item
+status: published
+legal_basis: null
+summary: >
+  Requirements for the bodies that audit and certify organisations against ISO/IEC 42001. Metadata only: the
+  standard's text is sold by ISO and is not reproduced here.
+due_on: null
+adopted_on: null
+published_on: 2025-01-01
+published_on_precision: year
+body: null
+reference: "ISO/IEC 42006:2025"
+stage: null
+oj_citation_expected_on: null
+oj_citation_on: null
+official_source_url: "https://www.iso.org/standard/42006"
+source_title: "ISO/IEC 42006:2025"
+source_publisher: "International Organization for Standardization"
+source_document_date: null
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: "First recorded from docs/strategy/ai-governance-intelligence.md, which cites the ISO page. Publication year only; not yet read against the ISO page for this record."
+reviewed_by: null
+notes: "A reviewer should confirm the exact publication date, the committee and the stage code from the ISO page."
+published: true

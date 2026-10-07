@@ -246,6 +246,38 @@ const TOOLS = [
     run: () => get('/api/v1/transition/index'),
   },
   {
+    name: 'list_enforcement_actions',
+    description:
+      'Enforcement actions under recorded AI and data laws: fines, orders, warnings, settlements, court decisions and annulments, each with regulator, respondent, legal basis, amount and currency as published, outcome, appeal status, official source and review status. Recorded only from the regulator or court publication; a null amount means none was published. An empty list means none is recorded yet, not that none exists.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        jurisdiction: { type: 'string', description: 'Jurisdiction slug where the action was taken.' },
+        kind: { type: 'string', description: 'fine, order, warning, settlement, court_decision or annulment.' },
+        year: { type: 'integer', description: 'Calendar year the action was taken.' },
+        policy: { type: 'string', description: 'Slug of the instrument the action was taken under, e.g. eu-ai-act.' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/enforcement' + query({ jurisdiction: args.jurisdiction, kind: args.kind, year: args.year, policy: args.policy })),
+  },
+  {
+    name: 'list_implementation_measures',
+    description:
+      'What an instrument still depends on to work, and the standards behind it: delegated and implementing acts, Commission guidelines, codes of practice, templates, AI Board outputs, standardisation requests, harmonised standards (CEN-CENELEC JTC 21) and ISO/IEC standards (SC 42), with legal basis, due, adoption and publication dates. "status" is derived: overdue when the due date has passed with nothing adopted. Standards are metadata only. Drafts have every factual field null; say so rather than filling the gap.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        instrument: { type: 'string', description: 'Policy slug, e.g. eu-ai-act.' },
+        kind: { type: 'string', description: 'delegated_act, implementing_act, guidelines, code_of_practice, template, ai_board_output, standardisation_request, harmonised_standard or iso_work_item.' },
+        status: { type: 'string', description: 'unverified, planned, consultation, draft, adopted, published or overdue.' },
+        standards: { type: 'boolean', description: 'Only standards and standardisation requests.' },
+      },
+      additionalProperties: false,
+    },
+    run: (args) => get('/api/v1/implementation-measures' + query({ instrument: args.instrument, kind: args.kind, status: args.status, standards: args.standards ? 1 : undefined })),
+  },
+  {
     name: 'list_templates',
     description:
       'The templates library: free XLSX and DOCX files (AI system inventory, risk register, FRIA, policies, incident playbook, EU AI Act and ISO/IEC 42001 kits) generated from the recorded duties, controls and deadlines and rebuilt when the records change. Each entry gives the latest version, its dataset hash, what it covers and the download URLs. Filter by type, topic or framework.',
