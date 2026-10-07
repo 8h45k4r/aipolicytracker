@@ -60,7 +60,7 @@
     </div>
     <div>
         <label for="f-sort" class="label">Sort</label>
-        <select id="f-sort" name="sort" class="input">@foreach(\App\Services\PolicyData\PolicyCatalog::SORTS as $k => $v)<option value="{{ $k }}" @selected(($filters['sort'] ?? 'updated') === $k)>{{ $v }}</option>@endforeach</select>
+        <select id="f-sort" name="sort" class="input">@foreach(\App\Services\PolicyData\PolicyCatalog::SORTS as $k => $v)<option value="{{ $k }}" @selected(($filters['sort'] ?? \App\Services\PolicyData\PolicyCatalog::SITE_DEFAULT_SORT) === $k)>{{ $v }}</option>@endforeach</select>
     </div>
     @endif
     <div class="flex gap-2">

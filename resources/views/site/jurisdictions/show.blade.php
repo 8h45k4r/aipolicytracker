@@ -79,7 +79,7 @@
                 <dl class="mt-3 grid gap-4 sm:grid-cols-3 text-sm">
                     <div><dt class="text-brand-muted">Use cases</dt><dd class="mt-1 flex flex-wrap gap-1.5">@foreach($useCases as $t)<a class="chip !min-h-0 !py-1" href="{{ route('policies.index', ['jurisdiction' => $jurisdiction->slug, 'use_case' => $t->slug]) }}">{{ $t->name }}</a>@endforeach</dd></div>
                     <div><dt class="text-brand-muted">Sectors</dt><dd class="mt-1 flex flex-wrap gap-1.5">@foreach($sectors as $t)<a class="chip !min-h-0 !py-1" href="{{ route('policies.index', ['jurisdiction' => $jurisdiction->slug, 'sector' => $t->slug]) }}">{{ $t->name }}</a>@endforeach</dd></div>
-                    <div><dt class="text-brand-muted">Obligation areas</dt><dd class="mt-1 flex flex-wrap gap-1.5">@foreach($obligationCategories as $c)<a class="chip !min-h-0 !py-1" href="{{ route('obligations.index', ['jurisdiction' => $jurisdiction->slug, 'category' => $c->category]) }}">{{ str_replace('_', ' ', $c->category) }} ({{ $c->n }})</a>@endforeach</dd></div>
+                    <div><dt class="text-brand-muted">Obligation areas</dt><dd class="mt-1 flex flex-wrap gap-1.5">@foreach($obligationCategories as $c)<a class="chip !min-h-0 !py-1" href="{{ route('obligations.index', ['jurisdiction' => $jurisdiction->slug, 'category' => $c->category]) }}">{{ $c->label }} ({{ $c->n }})</a>@endforeach</dd></div>
                 </dl>
             </section>
             @endif

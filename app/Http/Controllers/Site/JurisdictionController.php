@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
+use App\Models\TaxonomyTerm;
 use App\Services\Hubs\HubCatalog;
 use App\Services\Localization\Translations;
 use App\Services\PolicyData\PolicyCatalog;
@@ -70,6 +71,9 @@ class JurisdictionController extends Controller
         $changes = ChangeEvent::published()->where('jurisdiction_id', $jurisdiction->id)->with('policyInstrument')->orderByDesc('occurred_on')->limit(8)->get();
         $deadlines = $catalog->upcomingDeadlines(8, $jurisdiction->id);
         $obligationCategories = Obligation::published()->whereIn('policy_instrument_id', $policies->pluck('id'))->selectRaw('category, COUNT(*) as n')->groupBy('category')->orderByDesc('n')->get();
+        // Shown by the taxonomy's display name, not the raw key ("accuracy_robustness_security").
+        $categoryNames = TaxonomyTerm::where('taxonomy', 'obligation_category')->pluck('name', 'slug');
+        $obligationCategories->each(fn ($c) => $c->setAttribute('label', $categoryNames[$c->category] ?? str_replace('_', ' ', $c->category)));
         $useCases = $policies->flatMap(fn ($p) => $p->terms->where('taxonomy', 'use_case'))->unique('slug')->sortBy('name')->values();
         $sectors = $policies->flatMap(fn ($p) => $p->terms->where('taxonomy', 'sector'))->unique('slug')->sortBy('name')->values();
         $related = Jurisdiction::published()->whereIn('slug', $jurisdiction->related_jurisdictions ?? [])->orderBy('name')->get();
