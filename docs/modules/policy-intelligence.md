@@ -86,6 +86,7 @@ Every record type that makes a factual claim carries the shared source-quality c
 | content_version | integer | no | '1' |  |
 | change_summary | text | yes |  |  |
 | reviewed_by | varchar | yes |  |  |
+| second_review | text | yes |  | JSON; independent second check by a different roster reviewer (`App\\Services\\Verification\\SecondReview`) |
 | published_at | datetime | yes |  | Null = not shown publicly (site, API, sitemaps) |
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |

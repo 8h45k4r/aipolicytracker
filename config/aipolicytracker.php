@@ -54,6 +54,11 @@ return [
     'data_license_url' => 'https://creativecommons.org/licenses/by/4.0/',
     'data_schema_version' => '1.0.0',
     'citation' => 'AIPolicyTracker (year). "Record title". https://aipolicytracker.org/... (accessed date). Data licensed CC BY 4.0.',
+    // The dataset's Zenodo concept DOI (resolves to the newest archived release), for
+    // example 10.5281/zenodo.1234567. Left unset, nothing DOI-related is rendered
+    // anywhere: no placeholder, no empty field. Set it only after Zenodo has minted it;
+    // see docs/reference/releases.md. A bare DOI or a https://doi.org/ URL is accepted.
+    'dataset_doi' => env('DATASET_DOI'),
     'stale_after_days' => 180,
 
     // ---------------------------------------------------------------------

@@ -576,6 +576,89 @@
       "items": {
         "$ref": "common.schema.json#/$defs/faqItem"
       }
+    },
+    "second_review": {
+      "description": "An independent second check of a verified record by a different reviewer on the published roster (see docs/reference/verification-policy.md, Independent checks). `coded` is what the second reviewer recorded from the official source before seeing the first reviewer's values; each disputed field records the first reviewer's value and how the disagreement was resolved. policy:validate checks the reviewer, the field names and that `agreed` matches `fields_disputed`.",
+      "type": "object",
+      "properties": {
+        "reviewed_by": {
+          "type": "string",
+          "minLength": 2
+        },
+        "reviewed_on": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "sample": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-Q[1-4]$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coded": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "$ref": "common.schema.json#/$defs/policyStatus"
+            },
+            "is_binding": {
+              "type": "boolean"
+            },
+            "review_status": {
+              "$ref": "common.schema.json#/$defs/reviewStatus"
+            }
+          },
+          "required": [
+            "status",
+            "is_binding",
+            "review_status"
+          ]
+        },
+        "agreed": {
+          "type": "boolean"
+        },
+        "fields_disputed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string",
+                "enum": [
+                  "status",
+                  "is_binding",
+                  "review_status",
+                  "dates",
+                  "actors",
+                  "obligations",
+                  "penalties",
+                  "official_source"
+                ]
+              },
+              "note": {
+                "$ref": "common.schema.json#/$defs/nullableString"
+              },
+              "resolution": {
+                "$ref": "common.schema.json#/$defs/nullableString"
+              }
+            },
+            "required": [
+              "field"
+            ]
+          }
+        }
+      },
+      "required": [
+        "reviewed_by",
+        "reviewed_on",
+        "coded",
+        "agreed",
+        "fields_disputed"
+      ]
     }
   },
   "required": [

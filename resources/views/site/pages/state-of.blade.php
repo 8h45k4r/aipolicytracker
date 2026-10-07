@@ -59,6 +59,7 @@
                     <li>A quarter's figures are frozen as a snapshot when it closes (version {{ $report['version'] }}); a frozen report never changes, even when records are corrected afterwards. The current quarter is live and says so at the top.</li>
                     <li>Coverage is what this site has recorded, not what exists: a jurisdiction with no record is absent from the tiles, and the <a href="{{ route('gaps') }}">open gaps</a> page lists what is missing.</li>
                     <li>Verified means a named reviewer confirmed the record against its official source on a stated date; see the <a href="{{ route('verification') }}">verification</a> and <a href="{{ route('methodology') }}">methodology</a> pages.</li>
+                    <li>Errors readers reported, and what was decided about each, refusals included, are published in the <a href="{{ route('corrections') }}">corrections log</a>. A correction made after a quarter is frozen changes the live records, not the frozen figures.</li>
                 </ul>
             </section>
             <x-site.faq :items="$seo->faqItems()" />

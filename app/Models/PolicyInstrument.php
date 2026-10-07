@@ -25,6 +25,7 @@ class PolicyInstrument extends Model
             'faq' => 'array',
             'related_policies' => 'array',
             'related_frameworks' => 'array',
+            'second_review' => 'array',
             'adopted_on' => 'date',
             'published_on' => 'date',
             'in_force_on' => 'date',
@@ -34,6 +35,33 @@ class PolicyInstrument extends Model
             'last_verified_at' => 'datetime',
             'published_at' => 'datetime',
         ];
+    }
+
+    /**
+     * The independent second check, when a different published reviewer has recorded
+     * one (see App\Services\Verification\SecondReview), or null.
+     *
+     * @return array{reviewed_by: string, reviewed_on: string, agreed: bool, fields_disputed: list<array>, coded: array, sample?: ?string}|null
+     */
+    public function secondReview(): ?array
+    {
+        $review = $this->second_review;
+        if (! is_array($review) || empty($review['reviewed_by'])) {
+            return null;
+        }
+        // The data check enforces independence; this guards a record whose first
+        // reviewer was later replaced in the admin queue by the second reviewer.
+        if ($this->reviewed_by !== null && mb_strtolower(trim((string) $this->reviewed_by)) === mb_strtolower(trim((string) $review['reviewed_by']))) {
+            return null;
+        }
+
+        return $review;
+    }
+
+    /** True when a verified record also carries an independent second check. */
+    public function isDoubleChecked(): bool
+    {
+        return $this->secondReview() !== null && $this->review_status === 'verified';
     }
 
     public function getRouteKeyName(): string
