@@ -52,7 +52,15 @@ class SeoSurfacesTest extends TestCase
         $this->assertStringContainsString('<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">', $html);
         $this->assertStringContainsString('rel="apple-touch-icon"', $html);
         $this->assertStringContainsString('rel="manifest"', $html);
-        $this->assertStringContainsString('<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>', $html);
+        // Fonts are self-hosted: no third-party stylesheet sits in front of the first
+        // paint, and every face the stylesheet declares is a file in the repository.
+        $this->assertStringNotContainsString('fonts.bunny.net', $html);
+        $css = file_get_contents(resource_path('css/public.css'));
+        preg_match_all("#@font-face \{ font-family: '([^']+)';[^}]*font-display: swap;[^}]*url\('\.\./fonts/([^']+)'\)#", $css, $faces, PREG_SET_ORDER);
+        $this->assertSame(['Space Grotesk', 'Space Mono'], array_values(array_unique(array_column($faces, 1))));
+        foreach ($faces as [, , $file]) {
+            $this->assertFileExists(resource_path('fonts/'.$file));
+        }
         $this->assertStringContainsString('"logo":{"@type":"ImageObject"', $html);
 
         foreach (['favicon.ico', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'site.webmanifest'] as $file) {

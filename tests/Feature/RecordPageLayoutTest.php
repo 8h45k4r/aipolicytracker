@@ -42,6 +42,15 @@ class RecordPageLayoutTest extends TestCase
         $this->assertStringContainsString('<source srcset="'.asset('brand/logo-on-dark.svg').'" media="(prefers-color-scheme: dark)">', $html);
         $this->assertStringContainsString('class="mt-20 bg-brand-footer text-snow/80"', $html, 'the footer uses tokens that stay dark in both schemes');
 
+        // The logo is read aloud as the words it shows, and stays light enough to load on
+        // every page: it was two 95 KB files of one-unit colour stripes before.
+        $this->assertStringContainsString('alt="Artificial Intelligence Policy Tracker"', $html);
+        foreach (['logo-on-light.svg', 'logo-on-dark.svg'] as $logo) {
+            $svg = file_get_contents(public_path('brand/'.$logo));
+            $this->assertLessThan(40_000, strlen($svg), "{$logo} is too heavy for an image on every page");
+            $this->assertStringContainsString('viewBox="0 0 696 213"', $svg, "{$logo} must keep its viewBox to scale");
+        }
+
         $css = file_get_contents(resource_path('css/public.css'));
         $this->assertStringContainsString('@media (prefers-color-scheme: dark)', $css);
         foreach (['white', 'navy', 'paper', 'line', 'muted', 'body'] as $token) {

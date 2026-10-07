@@ -8,6 +8,7 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\ContentCache;
+use App\Support\Faq;
 use App\Support\Seo;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
@@ -18,9 +19,12 @@ class HomeController extends Controller
     {
         $seo = Seo::make(
             'AI Policy Tracker: Free Global AI Law and Policy Tracker',
-            'Free AI policy tracker: AI laws, regulations and national AI policies around the world, on a map, with obligations, deadlines, templates and every official source.',
+            'Free AI regulation and legislation tracker: AI laws, regulations and national AI policies worldwide, on a map, with duties, deadlines and official sources.',
             route('home')
         );
+        // Attached here rather than by the layout, because the page renders its questions
+        // itself (as disclosure widgets) and the view runs before the layout does.
+        $seo->withFaq(Faq::for('home'));
         // Organization and WebSite are now emitted on every page by the layout, so
         // the homepage no longer adds its own copies. What it adds instead is the
         // corpus itself: the thing a reader or an answer engine arrives here for.

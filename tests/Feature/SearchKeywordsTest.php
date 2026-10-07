@@ -49,6 +49,26 @@ class SearchKeywordsTest extends TestCase
             $this->assertStringContainsString($q, $html);
         }
         $this->assertStringContainsString('"@type":"FAQPage"', $html);
+
+        // The questions are disclosure widgets on the page, printed once, and each one
+        // the FAQPage block carries is one a reader can open.
+        $this->assertSame(1, substr_count($html, 'Frequently asked questions'));
+        preg_match('#<section[^>]*aria-labelledby="faq-heading">(.*?)</section>#s', $html, $faq);
+        preg_match_all('#<summary[^>]*>(.*?)</summary>#s', $faq[1], $visible);
+        preg_match('#"@type":"FAQPage".*?"mainEntity":(\[.*?\])\}#s', $html, $schema);
+        $this->assertSame(array_column(json_decode($schema[1], true), 'name'), array_map(fn ($q) => html_entity_decode($q, ENT_QUOTES), $visible[1]));
+    }
+
+    public function test_the_home_page_says_it_is_an_ai_regulation_and_legislation_tracker(): void
+    {
+        $html = $this->get('/')->assertOk()->getContent();
+
+        preg_match('#<h1[^>]*>(.*?)</h1>#s', $html, $h1);
+        $this->assertStringContainsString('AI regulation and legislation tracker', strip_tags($h1[1]));
+        $this->assertMatchesRegularExpression('#<meta name="description" content="[^"]*AI regulation and legislation tracker#', $html);
+        // One search box in the hero; the header's copy is hidden on this page only.
+        $this->assertSame(1, substr_count($html, 'id="home-q"'));
+        $this->assertStringContainsString('body:has(#home-q) header form[role="search"] { display: none; }', file_get_contents(resource_path('css/public.css')));
     }
 
     public function test_ai_policy_examples_come_from_the_records(): void
