@@ -2,16 +2,22 @@
 
 namespace App\Services\PolicyData;
 
+use App\Services\Verification\SecondReview;
+
 /**
  * Validates every record in data/ against its JSON Schema, then runs the
  * cross-record checks the schema cannot express (unique slugs, taxonomy slugs,
  * jurisdiction references, verified records must carry a verification date and
- * name a reviewer who has published a declaration of interest).
+ * name a reviewer who has published a declaration of interest; a second review
+ * must be by a different published reviewer).
  */
 class PolicyDataValidator
 {
     /** Names of published reviewers, collected before the records are walked. @var list<string> */
     private array $reviewerNames = [];
+
+    /** Published reviewer name => roster slug, for the independence check on second reviews. @var array<string, string> */
+    private array $reviewerSlugs = [];
 
     public function __construct(
         private readonly PolicyDataRepository $repository,
@@ -109,6 +115,9 @@ class PolicyDataValidator
                 }
             }
             $this->checkVerification($record, $file, '$', $errors);
+            foreach (SecondReview::errors($record, $this->reviewerSlugs) as $e) {
+                $errors[$file][] = $e;
+            }
             foreach ($record['obligations'] ?? [] as $i => $obligation) {
                 $oslug = $obligation['slug'] ?? '';
                 if (isset($obligationSlugs[$oslug])) {
@@ -188,6 +197,7 @@ class PolicyDataValidator
     {
         $names = [];
         $slugs = [];
+        $this->reviewerSlugs = [];
         foreach ($this->repository->reviewers() as $file => $record) {
             foreach ($this->schema->validate($record, 'reviewer.schema.json') as $e) {
                 $errors[$file][] = $e;
@@ -201,6 +211,7 @@ class PolicyDataValidator
             }
             if (($record['published'] ?? true) && isset($record['name'])) {
                 $names[] = (string) $record['name'];
+                $this->reviewerSlugs[(string) $record['name']] = (string) ($slug ?? '');
             }
         }
 

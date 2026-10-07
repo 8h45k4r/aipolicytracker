@@ -10,7 +10,9 @@ use App\Models\TaxonomyTerm;
 use App\Services\Billing\BillingConfig;
 use App\Services\PolicyData\OpenDataExporter;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Verification\IndependentChecks;
 use App\Support\ContentCache;
+use App\Support\DatasetCitation;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Carbon;
@@ -29,6 +31,7 @@ class PageController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['Open data', route('open-data')]])
             ->withJsonLd([
                 '@type' => 'Dataset',
+                '@id' => route('open-data').'#dataset',
                 'name' => 'AIPolicyTracker open AI policy dataset',
                 'description' => 'Structured, source-backed records of AI laws, regulations, standards, guidance, obligations, the controls that meet them, deadlines and change events across jurisdictions.',
                 'url' => route('open-data'),
@@ -42,6 +45,8 @@ class PageController extends Controller
                     ['@type' => 'DataDownload', 'encodingFormat' => 'application/json', 'contentUrl' => route('open-data.download')],
                     ['@type' => 'DataDownload', 'encodingFormat' => 'application/json', 'contentUrl' => url('/api/v1/policies')],
                 ],
+                // The Zenodo concept DOI, only once one has been minted (DATASET_DOI).
+                ...DatasetCitation::jsonLdIdentifier(),
             ]);
 
         return view('site.pages.open-data', ['seo' => $seo, 'stats' => $stats, 'lastUpdated' => $lastUpdated, 'taxonomies' => TaxonomyTerm::TAXONOMIES, 'schemaFiles' => array_map('basename', glob(base_path('data/schema/*.json')) ?: []), 'releases' => $this->releases()]);
@@ -54,7 +59,7 @@ class PageController extends Controller
         return response()->json($bundle, 200, ['Cache-Control' => 'public, max-age=900', 'Content-Disposition' => 'inline; filename="aipolicytracker-latest.json"'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
-    public function methodology(): View
+    public function methodology(IndependentChecks $independentChecks): View
     {
         $seo = Seo::make(
             'Methodology: how AIPolicyTracker verifies AI policy data',
@@ -62,7 +67,7 @@ class PageController extends Controller
             route('methodology')
         )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')]]);
 
-        return view('site.pages.methodology', ['seo' => $seo, 'statuses' => PolicyStatus::cases(), 'reviewStatuses' => ReviewStatus::cases(), 'tiers' => SourceDocument::TIERS, 'taxonomies' => TaxonomyTerm::TAXONOMIES]);
+        return view('site.pages.methodology', ['seo' => $seo, 'statuses' => PolicyStatus::cases(), 'reviewStatuses' => ReviewStatus::cases(), 'tiers' => SourceDocument::TIERS, 'taxonomies' => TaxonomyTerm::TAXONOMIES, 'checks' => $independentChecks->summary()]);
     }
 
     /** Per-browser reading list; the list itself lives in localStorage and is rendered client-side. */

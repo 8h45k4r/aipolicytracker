@@ -1,0 +1,39 @@
+{
+    "upload_type": "dataset",
+    "title": "AIPolicyTracker: a source-backed dataset of AI laws, policies, obligations and deadlines",
+    "description": "<p>Structured, source-backed records of AI laws, regulations, strategies, standards and guidance across jurisdictions, with the obligations they impose, their deadlines, dated change events and the organisational controls that meet them. Every record links its official source and carries its review status, confidence level, last-verified date and the named reviewer who confirmed it.</p><p>Each version is a tagged release of the repository, cut on the day a quarter's report is frozen. The records are in <code>data/</code> as YAML, with JSON Schema in <code>data/schema/</code>. The data is licensed CC BY 4.0; the application source code in the same archive is licensed Apache-2.0.</p><p>Live site, API and documentation: <a href=\"https://aipolicytracker.org\">https://aipolicytracker.org</a>.</p>",
+    "creators": [
+        {
+            "name": "Bhatt, Bhaskar"
+        }
+    ],
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "keywords": [
+        "AI regulation",
+        "AI policy",
+        "AI governance",
+        "AI law",
+        "EU AI Act",
+        "regulatory compliance",
+        "obligations",
+        "open data"
+    ],
+    "related_identifiers": [
+        {
+            "identifier": "https://aipolicytracker.org",
+            "relation": "isSupplementTo",
+            "scheme": "url"
+        },
+        {
+            "identifier": "https://aipolicytracker.org/methodology",
+            "relation": "isDocumentedBy",
+            "scheme": "url"
+        },
+        {
+            "identifier": "https://github.com/8h45k4r/aipolicytracker",
+            "relation": "isSupplementTo",
+            "scheme": "url"
+        }
+    ]
+}

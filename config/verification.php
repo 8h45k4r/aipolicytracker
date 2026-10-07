@@ -59,4 +59,14 @@ return [
     // instrument no longer in force is history, not a compliance position). The corpus
     // grew by six unconfirmed critical records; nothing already confirmed regressed.
     'critical_budget' => (int) env('VERIFICATION_CRITICAL_BUDGET', 60),
+
+    // Independent second checks (docs/reference/verification-policy.md). Each quarter a
+    // reproducible random sample of verified policy records (`verification:sample`) is
+    // re-checked by a second reviewer. Agreement per field is published on /methodology
+    // only once at least `min_sample` records carry a second check; below that, a kappa
+    // is noise and the page says so instead of printing it.
+    'independent_checks' => [
+        'sample_percent' => 20,
+        'min_sample' => 20,
+    ],
 ];

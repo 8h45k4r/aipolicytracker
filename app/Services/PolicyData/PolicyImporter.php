@@ -186,6 +186,8 @@ class PolicyImporter
                 'related_policies' => $record['related_policies'] ?? [],
                 'related_frameworks' => $record['related_frameworks'] ?? [],
                 'featured' => (bool) ($record['featured'] ?? false),
+                // An independent second check, when one has been recorded (see SecondReview).
+                'second_review' => $record['second_review'] ?? null,
                 'published_at' => $this->publishedAt($record, PolicyInstrument::class),
                 ...$this->sourceQuality($record),
             ]);
