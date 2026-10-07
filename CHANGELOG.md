@@ -5,13 +5,31 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Enforcement tracker at `/enforcement` (fines, orders, warnings, settlements, court decisions, annulments), EU AI Act implementation tracker at `/policies/eu-ai-act/implementation`, and AI standards tracker at `/ai-standards` (CEN-CENELEC JTC 21 and ISO/IEC SC 42, metadata only). Each has an API endpoint, CSV and NDJSON exports and an MCP tool. They stay noindex until five entries are recorded; the enforcement tracker starts empty because an action is recorded only from the regulator's or court's own publication.
+- Search suggests results as you type (`/search/suggest`), lists the record you name first and shows a top match.
+- Record pages have an "On this page" list, one-line collapsible obligations and "Open official source" as the main action.
+- One verification badge (Verified, Pending review, Source-linked) with a legend on every record type.
+- Citable releases: `CITATION.cff` and `.zenodo.json`. When `DATASET_DOI` is set, the DOI appears in the dataset markup, on `/open-data` and in "Cite this record", which now includes BibTeX.
+- Independent second checks: a second published reviewer can record `second_review` on a policy record, and the validator enforces independence. `/methodology` publishes per-field agreement and Cohen's kappa once 20 records are double-checked; `verification:sample` draws each quarter's 20% sample.
+- The applicability check opens its results with a summary (duties that may apply, already in force, next date).
 - Pro can be sold again, behind the existing Checkout switch: `/pricing`, checkout, the return page and the customer portal are back. While Checkout is off nothing changes on the public site. When it is on, Free keeps three watches with the daily email and Pro adds up to 500 watches, Slack, webhook and RSS alerts, and saved applicability profiles. Accounts over the free limit keep every watch; alerts read the oldest three.
 - Refunds and chargebacks end Pro access: payments are recorded, and a full refund or a lost dispute of the latest payment revokes the subscription it paid for, without rewriting the provider's status. Admin → Billing and the account page say why.
 - `/funding`: how the project is paid for, every funder above $1,000 a year (none yet), and the rules that keep funders, subscribers and the related product out of what the records say. `Organization.ownershipFundingInfo` points to it; the footer links it.
 - Header "Sign in" or "Account", and account links in the mobile menu.
 - Strategy note `docs/strategy/credibility-revenue-roadmap-2026-10.md`, a Search Console analysis in `docs/reference/search-console-2026-10.md`, and a draft NLnet Restack application in `docs/funding/`.
 
+### Changed
+- Seven duplicate landing pages now 301 to the page for their subject: `/eu-ai-act` → `/policies/eu-ai-act`; `/ai-regulation-{usa,india,uk,australia}` and `/ai-governance-singapore` → the jurisdiction page; `/ai-policy-nepal` → `/ai-regulation-nepal`. Search Console showed them splitting the same queries with almost no clicks.
+- Home: a "where to start" strip by reader sits under the search, the lower sections are compact lists and the FAQ folds; the page is about 37% shorter. It now calls itself an AI regulation and legislation tracker.
+- Fonts are self-hosted instead of loaded from fonts.bunny.net; the logo files are 62% smaller and their alt text matches the wordmark; the jurisdictions map script loads only when the map is on screen.
+- The policy explorer opens on binding law first. Obligation categories show their names. The updates hub summarises 90 days and labels top stories Urgent, High or Routine.
+- Jurisdiction pickers start with fixed quick picks (EU, US, UK, China, India, Japan, Brazil, Canada, Singapore, South Korea), with regions collapsed and larger tap targets.
+- Template pages state access the same way everywhere and hide download counts below 25.
+- `/ai-risk` has a factual heading, and its trend heading follows the 12-month figure.
+
 ### Fixed
+- The EU AI Act summary separates entry into force (1 August 2024) from first application (2 February 2025).
+- Accessibility: links in body text are underlined, heat-map text contrast fixed, paginator ARIA fixed, heading order on listings, unique attribution landmarks, and chart data tables no longer cause sideways scrolling on phones.
 - Ticking "send me the digest" at sign-up or on the account page now subscribes the address to the weekly digest once it is verified (it used to record consent and send nothing); unticking it, or unsubscribing from any issue, turns it off in both places.
 
 ### Removed
