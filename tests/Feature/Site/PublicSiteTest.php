@@ -104,7 +104,6 @@ class PublicSiteTest extends TestCase
         $response->assertOk()
             ->assertSee('EU AI Act: requirements, deadlines and compliance actions')
             ->assertSee('https://eur-lex.europa.eu/eli/reg/2024/1689/oj')
-            ->assertSee('Source-linked')
             ->assertSee('Disclaimer: informational only, not legal advice')
             ->assertSee('<link rel="canonical" href="'.url('/policies/eu-ai-act').'"', false)
             ->assertSee('"@type":"BreadcrumbList"', false);
@@ -117,6 +116,9 @@ class PublicSiteTest extends TestCase
             ->assertJsonPath('slug', 'eu-ai-act')
             ->assertJsonPath('source.review_status', $policy->review_status);
         $this->assertContains($policy->review_status, ['draft', 'pending_review', 'verified', 'needs_update']);
+        // The page badge shows the same state, by name.
+        $response->assertSee('data-verification-state="'.$policy->verificationState().'"', false)
+            ->assertSee(['verified' => 'Verified against the official source', 'pending_review' => 'Pending review', 'source_linked' => 'Source-linked'][$policy->verificationState()]);
     }
 
     public function test_titles_are_unique_across_key_pages(): void

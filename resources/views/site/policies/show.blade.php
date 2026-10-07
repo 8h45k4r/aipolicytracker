@@ -2,6 +2,22 @@
 @section('content')
 @php($name = $policy->short_title ?: $policy->title)
 @php($status = $policy->statusEnum())
+@php($faqItems = $seo->faqItems())
+{{-- "On this page", built from the same conditions that render each section below. --}}
+@php($toc = array_filter([
+    'answer-heading' => 'In brief',
+    'overview-heading' => 'What it is',
+    'scope-heading' => 'Who it applies to',
+    'dates-heading' => 'Key dates',
+    'obligations-heading' => ($policy->what_organizations_must_do || $policy->obligations->isNotEmpty()) ? 'Obligations'.($policy->obligations->isNotEmpty() ? ' ('.$policy->obligations->count().')' : '') : null,
+    'penalties-heading' => $policy->penalties_summary ? 'Penalties' : null,
+    'sections-heading' => $policy->sections->isNotEmpty() ? 'Key sections and articles' : null,
+    'public-heading' => ($policy->procurementRules->isNotEmpty() || $policy->enforcementEvents->isNotEmpty()) ? 'Public sector and enforcement' : null,
+    'sources-heading' => 'Official sources',
+    'cite-heading' => 'How to cite',
+    'history-heading' => ($policy->versions->isNotEmpty() || $policy->changeEvents->isNotEmpty()) ? 'Change history' : null,
+    'faq-heading' => ! empty($faqItems) ? 'Questions' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -15,14 +31,14 @@
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $name }}: requirements, deadlines and compliance actions</h1>
         @if($policy->short_title && $policy->short_title !== $policy->title)<p class="mt-1 text-sm text-brand-muted">{{ $policy->title }}</p>@endif
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <a href="{{ route('verification') }}" class="no-underline" title="How current this record has to be, and how many are past that date"><x-site.verified :record="$policy" class="!text-sm" /></a>
-            @if($policy->official_source_url)<a href="{{ $policy->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
+            <x-site.verified :record="$policy" class="!text-sm" legend />
             <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy">JSON record</a>
             <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Context file</a>
         </div>
-        <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" class="mt-4" />
+        <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" :source-url="$policy->official_source_url" class="mt-4" />
     </header>
 
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             <x-site.answer-box :text="$answer" :facts="$facts" />
@@ -76,20 +92,24 @@
             <section aria-labelledby="obligations-heading" class="mt-8">
                 <h2 id="obligations-heading" class="section-title">What must organisations do?</h2>
                 @if($policy->what_organizations_must_do)<p class="prose-policy mt-2">{{ $policy->what_organizations_must_do }}</p>@endif
-                <div class="mt-4 space-y-2">
+                @if($policy->obligations->isNotEmpty())<p class="mt-3 text-xs text-brand-muted">Each duty is one line: open it for the summary, practical action and evidence, or go to its own page.</p>@endif
+                <div class="mt-3 space-y-2">
                     @foreach($policy->obligations as $o)
-                    <details class="card-flat group" @if($loop->first) open @endif>
-                        <summary class="flex flex-wrap items-center gap-2 p-4 text-sm font-medium text-brand-navy list-none min-h-[44px]">
+                    {{-- Collapsed to one line (legal force, duty, who it binds, when it applies); the full record is inside and on its own page. --}}
+                    @php($actors = $o->termsOf('actor')->pluck('name'))
+                    <details class="card-flat group" id="obligation-{{ $o->slug }}" data-obligation-row>
+                        <summary class="flex min-h-[44px] cursor-pointer list-none flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2.5 text-sm">
                             <span class="badge {{ $o->is_binding ? 'bg-brand-navy text-white ring-brand-navy' : 'bg-brand-paper text-brand-body ring-brand-line' }}">{{ $o->is_binding ? 'Legal requirement' : 'Voluntary' }}</span>
-                            <span class="flex-1">{{ $o->title }}</span>
-                            <span class="text-xs text-brand-muted">{{ $o->source_reference }}</span>
+                            <span class="min-w-0 flex-1 font-medium text-brand-navy">{{ $o->title }}</span>
+                            <span class="text-xs text-brand-muted">@if($actors->isNotEmpty())<span data-obligation-actor>{{ $actors->take(2)->implode(', ') }}{{ $actors->count() > 2 ? ' +'.($actors->count() - 2) : '' }}</span>@endif @if($o->applies_from)<span class="whitespace-nowrap">· from <time datetime="{{ $o->applies_from->toDateString() }}">{{ $o->applies_from->format('j M Y') }}</time></span>@endif</span>
+                            <span aria-hidden="true" class="text-brand-muted transition-transform group-open:rotate-90">&rsaquo;</span>
                         </summary>
-                        <div class="px-4 pb-4 text-sm text-brand-body space-y-3">
+                        <div class="space-y-3 border-t border-brand-line px-4 py-3 text-sm text-brand-body">
                             <p>{{ $o->summary }}</p>
                             @if($o->practical_action)<p><span class="font-medium text-brand-navy">Practical action:</span> {{ $o->practical_action }}</p>@endif
                             @if($o->evidenceArtifacts->isNotEmpty())<p><span class="font-medium text-brand-navy">Evidence examples:</span> {{ $o->evidenceArtifacts->pluck('title')->implode('; ') }}</p>@endif
                             @if($o->frameworkMappings->isNotEmpty())<p><span class="font-medium text-brand-navy">Framework mapping (original, editorial):</span> @foreach($o->frameworkMappings as $m)@if(!$loop->first); @endif<a href="{{ route('frameworks.show', config('frameworks.'.$m->framework.'.slug', $m->framework)) }}" class="text-brand-navy hover:underline">{{ $m->frameworkName() }}</a> {{ $m->reference }}@endforeach</p>@endif
-                            <p class="flex flex-wrap gap-3 text-xs"><a href="{{ $o->url() }}" class="text-brand-blue hover:underline">Obligation page</a>@if($o->applies_from)<span class="text-brand-muted">Applies from {{ $o->applies_from->format('j M Y') }}</span>@endif<x-site.verified :record="$o" compact /></p>
+                            <p class="flex flex-wrap items-center gap-3 text-xs"><a href="{{ $o->url() }}" class="font-medium text-brand-blue hover:underline">Open the obligation page &rarr;</a>@if($o->source_reference)<span class="text-brand-muted">{{ $o->source_reference }}</span>@endif<x-site.verified :record="$o" compact /></p>
                         </div>
                     </details>
                     @endforeach
@@ -135,12 +155,14 @@
             </section>
             @endif
 
-            <x-site.faq :items="$seo->faqItems()" />
+            <x-site.faq :items="$faqItems" />
             <x-site.disclaimer class="mt-8" />
         </div>
 
         <aside class="lg:col-span-1 space-y-6">
-            <div class="lg:sticky lg:top-4 space-y-6">
+            {{-- Kept in view while the main column scrolls; the rest of the sidebar is taller than a screen, so it scrolls normally. --}}
+            <x-site.toc :items="$toc" class="lg:sticky lg:top-4 lg:z-10 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto bg-white py-1" />
+            <div class="space-y-6">
                 @if($controls->isNotEmpty())
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Controls that meet its duties</p>

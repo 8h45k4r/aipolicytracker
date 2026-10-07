@@ -13,7 +13,7 @@
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $change->title }}</h1>
         @if($instrument)<p class="mt-1 text-sm text-brand-muted">Concerns <a href="{{ $instrument->url() }}" class="font-medium text-brand-body">{{ $instrument->short_title ?: $instrument->title }}</a></p>@endif
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <a href="{{ route('verification') }}" class="no-underline" title="How current this record has to be, and how many are past that date"><x-site.verified :record="$change" class="!text-sm" /></a>
+            <x-site.verified :record="$change" class="!text-sm" legend />
             @if($change->official_source_url)<a href="{{ $change->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
             <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-muted hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Context file</a>
         </div>

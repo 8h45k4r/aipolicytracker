@@ -53,7 +53,12 @@ class AnswerFirstRecordsTest extends TestCase
         $eu = PolicyInstrument::with('jurisdiction')->where('slug', 'eu-ai-act')->firstOrFail();
         $a = AnswerBox::policy($eu);
         $this->assertStringStartsWith('The EU AI Act is a binding regulation of the European Union', $a);
-        $this->assertStringContainsString('has applied in part since 1 August 2024', $a);
+        // 1 August 2024 is entry into force (in_force_on); nothing applied until the first
+        // obligations did, and the answer takes that date from the record's obligations.
+        $this->assertStringNotContainsString('applied in part since 1 August 2024', $a);
+        $first = $eu->firstApplicationDate();
+        $this->assertSame('2025-02-02', $first->toDateString(), 'the earliest applies_from among the recorded obligations');
+        $this->assertStringContainsString('has been in force since 1 August 2024; its first obligations applied from 2 February 2025.', $a);
         $this->assertStringContainsString('44 obligations are recorded', $a);
 
         $this->assertSame('the Ministry of Digital Affairs', AnswerBox::withArticle('Ministry of Digital Affairs'));
@@ -132,6 +137,7 @@ class AnswerFirstRecordsTest extends TestCase
         }
         $this->assertSame('1 August 2024', $facts->firstWhere('label', 'In force')['value']);
         $this->assertSame('2 August 2026', $facts->firstWhere('label', 'Applies from')['value']);
+        $this->assertSame('2 February 2025', $facts->firstWhere('label', 'Applies from (first)')['value'], 'the first application date is its own fact');
         // A fact the record does not carry is left out, not shown as a dash.
         $bare = PolicyInstrument::published()->whereNull('in_force_on')->with('jurisdiction')->firstOrFail();
         $this->assertNull(collect(KeyFacts::policy($bare))->firstWhere('label', 'In force'), $bare->slug);
