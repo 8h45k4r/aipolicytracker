@@ -50,10 +50,8 @@
     <meta name="theme-color" content="#002147" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0d1420" media="(prefers-color-scheme: dark)">
     <meta name="color-scheme" content="light dark">
-    {{-- Font files are fetched in anonymous CORS mode, so the early connection
-         has to be opened the same way or the browser opens a second one. --}}
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-    <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
+    {{-- Fonts are self-hosted: the @font-face rules are in public.css and the files
+         are built with it, so no third-party stylesheet blocks the first paint. --}}
     {{-- The shared Organization and WebSite nodes are emitted on every page, not
          only the homepage, so the `@id` references on a record page resolve when
          that page is fetched on its own — which is how an answer engine reads it. --}}
@@ -71,8 +69,8 @@
 <header class="border-b border-brand-line bg-white">
     <div class="container-site">
         <div class="flex items-center justify-between gap-4">
-            <a href="{{ route('home') }}" class="flex items-center py-3 no-underline shrink-0" aria-label="AIPolicyTracker home">
-                <picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" decoding="async"></picture>
+            <a href="{{ route('home') }}" class="flex items-center py-3 no-underline shrink-0" aria-label="Artificial Intelligence Policy Tracker, home">
+                <picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="Artificial Intelligence Policy Tracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" decoding="async"></picture>
             </a>
             <x-site.nav />
             <div class="flex items-center gap-2 lg:gap-1.5 xl:gap-2">
@@ -113,7 +111,7 @@
 <footer class="mt-20 bg-brand-footer text-snow/80">
     <div class="container-site py-12 grid gap-10 md:grid-cols-12 text-sm">
         <div class="md:col-span-4">
-            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" width="163" height="50" class="h-10 w-auto" decoding="async">
+            <img src="{{ asset('brand/logo-on-dark.svg') }}" alt="Artificial Intelligence Policy Tracker" width="163" height="50" class="h-10 w-auto" loading="lazy" decoding="async">
             <p class="mt-4 max-w-sm text-snow/80">{{ config('aipolicytracker.positioning') }}</p>
             <p class="mt-4 max-w-sm text-xs leading-5 text-snow/60">{{ config('aipolicytracker.disclaimer') }}</p>
             <ul class="mt-5 flex items-center gap-3" aria-label="Follow AIPolicyTracker">
