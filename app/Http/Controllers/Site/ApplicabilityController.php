@@ -32,6 +32,7 @@ class ApplicabilityController extends Controller
         $answers = $screener->normalise($request->query());
         $submitted = $request->has('jurisdictions') && $answers['jurisdictions'] !== [];
         $result = $submitted ? $screener->screen($answers) : null;
+        $summary = $result ? $screener->summarise($result['obligations']) : null;
         $user = $request->user();
         $canSave = (bool) $user?->entitled('saved.server');
         $savedProfile = $submitted && $user ? ApplicabilityProfile::where('user_id', $user->id)->get()->first(fn ($p) => $p->matchesAnswers($answers)) : null;
@@ -44,6 +45,6 @@ class ApplicabilityController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['Tools', route('tools.applicability')], ['Applicability check', route('tools.applicability')]])
             ->withJsonLd(['@type' => 'WebApplication', 'name' => 'AI regulation applicability check', 'url' => route('tools.applicability'), 'applicationCategory' => 'BusinessApplication', 'operatingSystem' => 'Web', 'offers' => ['@type' => 'Offer', 'price' => '0', 'priceCurrency' => 'USD'], 'isPartOf' => ['@id' => url('/').'#website']]);
 
-        return view('site.tools.applicability', compact('seo', 'jurisdictions', 'actors', 'useCases', 'sectors', 'answers', 'submitted', 'result', 'canSave', 'savedProfile', 'user') + ['domains' => ApplicabilityScreener::DOMAINS]);
+        return view('site.tools.applicability', compact('seo', 'jurisdictions', 'actors', 'useCases', 'sectors', 'answers', 'submitted', 'result', 'summary', 'canSave', 'savedProfile', 'user') + ['domains' => ApplicabilityScreener::DOMAINS]);
     }
 }

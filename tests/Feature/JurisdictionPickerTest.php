@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Jurisdiction;
+use App\Services\Applicability\ApplicabilityScreener;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -114,6 +115,69 @@ class JurisdictionPickerTest extends TestCase
         $result->assertOk();
         $this->assertMatchesRegularExpression('/value="'.preg_quote($eu->slug, '/').'"[^>]*checked/', $result->getContent());
         $result->assertSee('Likely relevant policies');
+    }
+
+    public function test_quick_picks_are_a_pinned_set_that_includes_the_eu_and_start_hidden(): void
+    {
+        $html = $this->get('/compare')->assertOk()->getContent();
+
+        // Ranking by instrument count dropped the EU; the pinned set never does.
+        $this->assertStringContainsString('data-picker-quick-pick="eu"', $html);
+        foreach (['us', 'uk', 'china', 'india', 'japan', 'brazil', 'canada', 'singapore', 'south-korea'] as $slug) {
+            if (Jurisdiction::published()->where('slug', $slug)->exists()) {
+                $this->assertStringContainsString('data-picker-quick-pick="'.$slug.'"', $html, "{$slug} is a quick pick");
+            }
+        }
+        // Buttons do nothing without script, so the row is revealed by it.
+        $this->assertMatchesRegularExpression('/data-picker-quick hidden/', $html);
+        // Every applicability-style picker carries the same quick picks.
+        $this->assertStringContainsString('data-picker-quick-pick="eu"', $this->get('/tools/applicability-check')->getContent());
+    }
+
+    public function test_region_groups_start_collapsed_unless_they_hold_a_selection(): void
+    {
+        $html = $this->get('/tools/applicability-check')->assertOk()->getContent();
+        $this->assertGreaterThan(1, substr_count($html, '<details data-picker-group'));
+        $this->assertSame(0, preg_match_all('/<details data-picker-group\s+open/', $html), 'no region opens by default');
+
+        $eu = Jurisdiction::published()->where('slug', 'eu')->firstOrFail();
+        $selected = $this->get('/tools/applicability-check?'.http_build_query(['jurisdictions' => ['eu']]))->assertOk()->getContent();
+        $this->assertSame(1, preg_match_all('/<details data-picker-group\s+open/', $selected), 'only the region holding the selection opens');
+        $this->assertMatchesRegularExpression('/<details data-picker-group\s+open\s*>\s*<summary[^>]*>\s*<span>'.preg_quote($eu->region ?: 'Other', '/').' /', $selected);
+    }
+
+    public function test_picker_tap_targets_are_at_least_24_pixels(): void
+    {
+        $html = $this->get('/compare?'.http_build_query(['j' => ['eu']]))->assertOk()->getContent();
+
+        $this->assertStringNotContainsString('chip !min-h-0', $html, 'chips keep a minimum height');
+        $this->assertStringContainsString('chip !min-h-[32px]', $html);
+        $this->assertMatchesRegularExpression('/type="checkbox" name="j\[\]"[^>]*class="h-5 w-5/', $html, 'checkboxes are 20px inside a 36px label');
+    }
+
+    public function test_applicability_results_open_with_a_summary_computed_from_the_screened_duties(): void
+    {
+        $page = $this->get('/tools/applicability-check')->assertOk()->getContent();
+        $this->assertStringContainsString('action="'.route('tools.applicability').'#results"', $page, 'a submission lands on the results');
+        $this->assertStringContainsString('id="results"', $page);
+
+        $answers = ['jurisdictions' => ['eu']];
+        $html = $this->get('/tools/applicability-check?'.http_build_query($answers))->assertOk()->getContent();
+
+        $screener = app(ApplicabilityScreener::class);
+        $obligations = $screener->screen($screener->normalise($answers))['obligations'];
+        $summary = $screener->summarise($obligations);
+        $this->assertGreaterThan(0, $summary['total']);
+
+        // The counts are the screened rows', recomputed here independently.
+        $today = now()->startOfDay();
+        $dates = $obligations->map(fn ($o) => $o->applies_from ?? $o->policyInstrument->applies_from ?? $o->policyInstrument->in_force_on);
+        $this->assertSame($dates->filter(fn ($d) => $d && $d->lte($today))->count(), $summary['in_force']);
+        $this->assertSame($dates->filter(fn ($d) => $d && $d->gt($today))->min()?->toDateString(), $summary['next_date']?->toDateString());
+
+        $this->assertMatchesRegularExpression('/'.$summary['total'].' dut(y|ies) may apply\s+· '.$summary['in_force'].' already in force\s+· next date:/', $html);
+        // The headline comes before the register exports.
+        $this->assertLessThan(strpos($html, 'Register XLSX'), strpos($html, 'data-applicability-summary'));
     }
 
     public function test_the_applicability_picker_still_demands_at_least_one_jurisdiction(): void
