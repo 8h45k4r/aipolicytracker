@@ -548,23 +548,31 @@ class Seo
      */
     public static function dataset(string $name, string $description, string $url, array $distributions, ?\DateTimeInterface $modified = null, ?string $identifier = null, array $extra = []): array
     {
+        // The corpus DOI, when one has been minted. The corpus itself (the home page's
+        // Dataset) carries it as its identifier; every narrower Dataset is declared part
+        // of the DOI'd corpus instead, because the DOI does not identify a record.
+        $isCorpus = rtrim($url, '/') === rtrim(url('/'), '/');
+        $doi = $isCorpus ? DatasetCitation::jsonLdIdentifier() : [];
+        $corpus = $isCorpus ? null : DatasetCitation::corpusNode();
+        $website = ['@id' => url('/').'#website'];
+
         return array_filter([
             '@type' => 'Dataset',
             'name' => $name,
             'description' => $description,
             'url' => $url,
-            'identifier' => $identifier,
+            'identifier' => $doi['identifier'] ?? $identifier,
             // What the record was built from and where it applies. `isBasedOn` is
             // the official text; `spatialCoverage` is the jurisdiction. Both are
             // the questions an answer engine asks before it cites a record.
             'isBasedOn' => $extra['isBasedOn'] ?? null,
             'spatialCoverage' => isset($extra['spatialCoverage']) ? ['@type' => 'Place', 'name' => $extra['spatialCoverage']] : null,
-            'sameAs' => $extra['sameAs'] ?? null,
+            'sameAs' => $doi['sameAs'] ?? $extra['sameAs'] ?? null,
             'license' => config('aipolicytracker.data_license_url'),
             'isAccessibleForFree' => true,
             'creator' => ['@id' => url('/').'#organization'],
             'publisher' => ['@id' => url('/').'#organization'],
-            'isPartOf' => ['@id' => url('/').'#website'],
+            'isPartOf' => $corpus ? [$website, $corpus] : $website,
             'dateModified' => $modified?->format(DATE_ATOM),
             'distribution' => array_values(array_map(
                 fn ($type, $href) => ['@type' => 'DataDownload', 'encodingFormat' => $type, 'contentUrl' => $href],

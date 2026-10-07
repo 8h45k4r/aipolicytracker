@@ -41,6 +41,10 @@ The code is Apache-2.0. By contributing a record you license it under CC BY 4.0.
    with a declaration of interest: `policy:validate` rejects a `reviewed_by` that is not on the
    roster (see `docs/reference/reviewer-roster.md`). Reviewers can also do this in Admin → Review queue; run
    `php artisan policy:export-verifications` to write those decisions back into these files.
+6. Each quarter a sample of verified policy records gets an independent second check
+   (`php artisan verification:sample`): a different published reviewer records `second_review`
+   on the policy file. The fields and rules are in `docs/reference/verification-policy.md`
+   (Independent checks); `policy:validate` enforces them.
 
 ## Source-of-truth hierarchy (`source_tier`)
 
