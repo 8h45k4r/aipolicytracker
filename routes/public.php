@@ -17,6 +17,7 @@ use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
 use App\Http\Controllers\Site\DeadlineEngineController;
 use App\Http\Controllers\Site\EmbedController;
+use App\Http\Controllers\Site\EnforcementController;
 use App\Http\Controllers\Site\ExploreController;
 use App\Http\Controllers\Site\FollowController;
 use App\Http\Controllers\Site\FrameworkController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Site\FreeToolController;
 use App\Http\Controllers\Site\GlossaryController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\HubController;
+use App\Http\Controllers\Site\ImplementationController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
 use App\Http\Controllers\Site\LegalController;
@@ -59,6 +61,12 @@ Route::get('/policies', [PolicyController::class, 'index'])->name('policies.inde
 Route::get('/policies/{policy}.json', [PolicyController::class, 'json'])->name('policies.json');
 Route::get('/policies/{policy}.md', [AgentSurfaceController::class, 'policy'])->where('policy', '[a-z0-9-]+')->name('policies.context');
 Route::get('/policies/{policy}', [PolicyController::class, 'show'])->name('policies.show');
+// What an instrument depends on to work: guidelines, codes of practice, delegated and implementing acts,
+// templates. 404 for an instrument with none recorded.
+Route::get('/policies/{policy}/implementation', [ImplementationController::class, 'policy'])->where('policy', '[a-z0-9-]+')->name('policies.implementation');
+// Enforcement actions across every instrument, and the AI standards tracker (metadata only).
+Route::get('/enforcement', [EnforcementController::class, 'index'])->name('enforcement.index');
+Route::get('/ai-standards', [ImplementationController::class, 'standards'])->name('standards.index');
 
 Route::get('/jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
 Route::get('/jurisdictions/{jurisdiction}.md', [AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->name('jurisdictions.context');

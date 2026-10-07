@@ -76,6 +76,12 @@ class PolicyDataRepository
         return $this->parseDirectory('transition/indicators');
     }
 
+    /** @return array<string, array> relative path => implementation measure record */
+    public function implementationMeasures(): array
+    {
+        return $this->parseDirectory('implementation');
+    }
+
     /** @return array<string, array> relative path => file contents ({changes: [...]}) */
     public function changeFiles(): array
     {

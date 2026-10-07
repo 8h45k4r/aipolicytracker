@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Control;
 use App\Models\Deadline;
+use App\Models\EnforcementEvent;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Models\FrameworkMapping;
+use App\Models\ImplementationMeasure;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -22,6 +24,8 @@ use App\Services\Deadlines\DeadlineEngine;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\ExternalData\IncidentEnrichment;
 use App\Services\ExternalData\IncidentSensitivity;
+use App\Services\Implementation\ImplementationStatus;
+use App\Services\Implementation\Trackers;
 use App\Services\PolicyData\DeadlineCalendar;
 use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\PolicyData\PolicyCatalog;
@@ -75,6 +79,8 @@ class PublicApiController extends Controller
                 'transition_measures' => route('api.v1.transition.measures'),
                 'transition_indicators' => route('api.v1.transition.indicators'),
                 'transition_index' => route('api.v1.transition.index'),
+                'enforcement' => route('api.v1.enforcement'),
+                'implementation_measures' => route('api.v1.implementation'),
             ],
             'disclaimer' => config('aipolicytracker.disclaimer'),
         ]);
@@ -604,6 +610,42 @@ class PublicApiController extends Controller
         $rows = DisplacementPolicyIndex::latest();
 
         return $this->respond(['data' => $rows->map(fn ($s) => ['jurisdiction' => $s->jurisdiction->slug, 'jurisdiction_name' => $s->jurisdiction->name, 'quarter' => $s->quarter, 'version' => $s->version, 'score' => $s->score, 'subscores' => $s->subscores, 'inputs' => $s->inputs, 'computed_at' => $s->computed_at->toAtomString()])->values()->all(), 'meta' => DisplacementPolicyIndex::explain() + ['total' => $rows->count(), 'methodology_url' => route('transition.methodology'), 'license' => config('aipolicytracker.data_license')]]);
+    }
+
+    /** Enforcement actions across every recorded instrument. Fields the official source does not state are null. */
+    public function enforcement(Request $request): JsonResponse
+    {
+        $filters = [
+            'jurisdiction' => preg_match('/^[a-z0-9-]{1,120}$/', (string) $request->query('jurisdiction')) ? $request->query('jurisdiction') : null,
+            'kind' => array_key_exists((string) $request->query('kind'), EnforcementEvent::KINDS) ? $request->query('kind') : null,
+            'year' => preg_match('/^(19|20)\d{2}$/', (string) $request->query('year')) ? (int) $request->query('year') : null,
+            'policy' => preg_match('/^[a-z0-9-]{1,120}$/', (string) $request->query('policy')) ? $request->query('policy') : null,
+        ];
+
+        return $this->cached('api.enforcement.v1.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
+            $rows = Trackers::enforcementQuery($filters)->get();
+
+            return ['data' => $rows->map(fn ($e) => Trackers::enforcementRow($e))->values()->all(), 'meta' => ['total' => $rows->count(), 'filters' => $filters, 'kinds' => EnforcementEvent::KINDS, 'appeal_statuses' => EnforcementEvent::APPEAL_STATUSES, 'page_url' => route('enforcement.index'), 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'An action is recorded only from the regulator\'s or court\'s own publication. A null amount means none was published, not zero.']];
+        });
+    }
+
+    /** Implementation measures and standards. "status" is derived (overdue when the due date has passed with nothing adopted); "declared_status" is what the record says. */
+    public function implementationMeasures(Request $request): JsonResponse
+    {
+        $filters = [
+            'instrument' => preg_match('/^[a-z0-9-]{1,120}$/', (string) $request->query('instrument')) ? $request->query('instrument') : null,
+            'kind' => array_key_exists((string) $request->query('kind'), ImplementationMeasure::KINDS) ? $request->query('kind') : null,
+            'status' => array_key_exists((string) $request->query('status'), ImplementationStatus::LABELS) ? $request->query('status') : null,
+            'body' => array_key_exists((string) $request->query('body'), ImplementationMeasure::BODIES) ? $request->query('body') : null,
+            'standards' => $request->boolean('standards'),
+        ];
+
+        // The derived status depends on today, so the cache key does too.
+        return $this->cached('api.implementation.v1.'.now()->toDateString().'.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
+            $rows = Trackers::measures($filters);
+
+            return ['data' => $rows->map(fn ($m) => Trackers::measureRow($m))->values()->all(), 'meta' => ['total' => $rows->count(), 'recorded' => $rows->reject->isDraft()->count(), 'filters' => $filters, 'kinds' => ImplementationMeasure::KINDS, 'statuses' => ImplementationStatus::LABELS, 'bodies' => ImplementationMeasure::BODIES, 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'A draft has been listed for research and not yet read from an official source; its facts are null. Standards are metadata only.']];
+        });
     }
 
     private function transitionRow(TransitionMeasure $m): array

@@ -91,7 +91,7 @@ test('it lists every tool with a schema, health first', async () => {
   }
   assert.deepEqual(
     tools.map((t) => t.name).sort(),
-    ['build_obligations_register', 'corpus_health', 'get_applicable_deadlines', 'get_displacement_index', 'get_jurisdiction', 'get_policy', 'list_obligations', 'list_templates', 'list_transition_measures', 'open_gaps', 'recent_changes', 'search_incidents', 'search_policies']
+    ['build_obligations_register', 'corpus_health', 'get_applicable_deadlines', 'get_displacement_index', 'get_jurisdiction', 'get_policy', 'list_enforcement_actions', 'list_implementation_measures', 'list_obligations', 'list_templates', 'list_transition_measures', 'open_gaps', 'recent_changes', 'search_incidents', 'search_policies']
   )
 })
 
@@ -119,6 +119,17 @@ test('the result limit is clamped rather than passed through', async () => {
     { jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'search_policies', arguments: { limit: 100000 } } },
   ])
   assert.ok(requested.some((url) => url.includes('per_page=100')), `expected a clamped per_page, saw ${requested.join(' ')}`)
+})
+
+test('the enforcement and implementation tools call their endpoints with the filters given', async () => {
+  await converse([
+    { jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'list_enforcement_actions', arguments: { kind: 'fine', year: 2026, jurisdiction: 'eu' } } },
+    { jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'list_implementation_measures', arguments: { instrument: 'eu-ai-act', status: 'overdue' } } },
+    { jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'list_implementation_measures', arguments: { standards: true } } },
+  ])
+  assert.ok(requested.includes('/api/v1/enforcement?jurisdiction=eu&kind=fine&year=2026'), `saw ${requested.join(' ')}`)
+  assert.ok(requested.includes('/api/v1/implementation-measures?instrument=eu-ai-act&status=overdue'), `saw ${requested.join(' ')}`)
+  assert.ok(requested.includes('/api/v1/implementation-measures?standards=1'), `saw ${requested.join(' ')}`)
 })
 
 test('an unknown tool and an upstream failure are reported to the model, not thrown', async () => {

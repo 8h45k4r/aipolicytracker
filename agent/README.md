@@ -43,6 +43,8 @@ Most MCP clients take a command and its environment. For example:
 | `get_applicable_deadlines` | Which recorded dates apply to one organisation (markets, role, system, risk tier, sector, use case), why each is shown, and the original date where one moved. |
 | `list_transition_measures` | AI economic transition measures (dividends, basic income, AI taxes, funds, layoff disclosure, retraining, worker voice); drafts say so. |
 | `get_displacement_index` | The displacement policy index per jurisdiction, with sub-scores, inputs and version. |
+| `list_enforcement_actions` | Enforcement actions (fines, orders, warnings, settlements, court decisions, annulments) with regulator, respondent, legal basis, amount as published, outcome and appeal status. |
+| `list_implementation_measures` | What an instrument still depends on (guidelines, codes of practice, acts, templates) and the standards behind it, with due and actual dates; "overdue" is derived; standards are metadata only. |
 | `list_templates` | The templates library: free XLSX/DOCX files generated from the records, with the latest version, dataset hash, coverage and download URLs. |
 | `open_gaps` | What the corpus is missing, so an assistant can say where the data is thin. |
 

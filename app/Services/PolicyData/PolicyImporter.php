@@ -12,6 +12,7 @@ use App\Models\DeadlineRevision;
 use App\Models\EnforcementEvent;
 use App\Models\EvidenceArtifact;
 use App\Models\FrameworkMapping;
+use App\Models\ImplementationMeasure;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -56,6 +57,7 @@ class PolicyImporter
             $this->importPolicies();
             $this->importChanges();
             $this->importTransition();
+            $this->importImplementation();
         });
 
         // Human verification decisions recorded in the admin outlive every re-import.
@@ -287,7 +289,15 @@ class PolicyImporter
 
             $policy->enforcementEvents()->delete();
             foreach ($record['enforcement_events'] ?? [] as $event) {
-                EnforcementEvent::create(['jurisdiction_id' => $jurisdiction->id, 'policy_instrument_id' => $policy->id, 'published_at' => $policy->published_at, ...Arr::only($event, ['title', 'occurred_on', 'authority', 'summary', 'outcome', 'official_source_url', 'source_title', 'source_publisher', 'source_reference', 'confidence_level', 'review_status'])]);
+                // A national authority acting under a regional instrument is filed where it acted.
+                $eventJurisdiction = ! empty($event['jurisdiction']) ? Jurisdiction::where('slug', $event['jurisdiction'])->value('id') : null;
+                $regulator = $event['regulator'] ?? $event['authority'] ?? null;
+                EnforcementEvent::create([
+                    'jurisdiction_id' => $eventJurisdiction ?? $jurisdiction->id, 'policy_instrument_id' => $policy->id, 'published_at' => $policy->published_at,
+                    'slug' => EnforcementEvent::slugFor($policy->slug, $event), 'regulator' => $regulator, 'authority' => $regulator,
+                    ...Arr::only($event, ['title', 'occurred_on', 'kind', 'respondent', 'amount', 'currency', 'legal_basis', 'appeal_status', 'summary', 'outcome', 'official_source_url', 'source_title', 'source_publisher', 'source_reference', 'confidence_level', 'review_status', 'last_checked_at', 'last_verified_at', 'reviewed_by']),
+                ]);
+                $this->stats['enforcement_events'] = ($this->stats['enforcement_events'] ?? 0) + 1;
             }
 
             $policy->procurementRules()->delete();
@@ -437,5 +447,28 @@ class PolicyImporter
         }
         TransitionIndicator::whereNotIn('id', $keptIndicators)->delete();
         DisplacementPolicyIndex::compute();
+    }
+
+    /** Implementation measures, replaced from data/implementation. Instrument links resolve by slug. */
+    private function importImplementation(): void
+    {
+        $kept = [];
+        $policyId = fn (?string $slug) => $slug ? PolicyInstrument::where('slug', $slug)->value('id') : null;
+        foreach ($this->repository->implementationMeasures() as $record) {
+            $m = ImplementationMeasure::updateOrCreate(['slug' => $record['slug']], [
+                'policy_instrument_id' => $policyId($record['instrument'] ?? null),
+                'related_policy_instrument_id' => $policyId($record['related_policy'] ?? null),
+                'title' => $record['title'],
+                'kind' => $record['kind'],
+                'status' => $record['status'],
+                'published_on_precision' => $record['published_on_precision'] ?? 'exact',
+                ...array_merge(array_fill_keys(['legal_basis', 'summary', 'due_on', 'adopted_on', 'published_on', 'body', 'reference', 'stage', 'oj_citation_expected_on', 'oj_citation_on', 'notes'], null), Arr::only($record, ['legal_basis', 'summary', 'due_on', 'adopted_on', 'published_on', 'body', 'reference', 'stage', 'oj_citation_expected_on', 'oj_citation_on', 'notes'])),
+                ...$this->sourceQuality($record + ['source_tier' => $record['source_tier'] ?? 4, 'review_status' => $record['review_status'] ?? 'draft', 'confidence_level' => $record['confidence_level'] ?? 'low']),
+                'published_at' => $this->publishedAt($record, ImplementationMeasure::class),
+            ]);
+            $kept[] = $m->id;
+            $this->stats['implementation_measures'] = ($this->stats['implementation_measures'] ?? 0) + 1;
+        }
+        ImplementationMeasure::whereNotIn('id', $kept)->delete();
     }
 }

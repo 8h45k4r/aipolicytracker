@@ -11,6 +11,8 @@ data/
   policies/       one YAML file per policy instrument, grouped by jurisdiction
   controls/       one YAML file per organisational control (see docs/modules/controls.md)
   changes/        dated change-log entries, one file per year
+  implementation/ one YAML file per implementation measure or standard (guidelines, codes of practice,
+                  delegated and implementing acts, templates, harmonised and ISO/IEC standards)
   reviewers/      one YAML file per reviewer, with their declared interests
   email/          address-quality lists (not policy records; see docs/modules/accounts.md)
 ```
@@ -64,6 +66,19 @@ to `unavailable` rather than guessing.
 
 Records with `published: false` (or missing `published`) are imported but not shown publicly
 or included in sitemaps/API responses. Maintainers can also unpublish from the admin review area.
+
+## Enforcement events and implementation measures
+
+Enforcement actions go inside the instrument's file under `enforcement_events` (kind, regulator,
+respondent, date, amount and currency, legal basis, outcome, appeal status, source). Record one only
+from the regulator's or court's own publication; leave the amount out when none was published.
+
+`implementation/` holds what an instrument depends on to work, and standards. `status` is what the
+source says (`planned`, `consultation`, `draft`, `adopted`, `published`); never write `overdue`,
+which the site derives from `due_on` and today's date. A measure nobody has read yet is a draft:
+`status: unverified`, `review_status: draft`, every factual field null. Standards are metadata only
+(reference, body, stage, dates, link): never standard text. A date known only to the year is written
+as 1 January with `published_on_precision: year`.
 
 ## What not to add
 
