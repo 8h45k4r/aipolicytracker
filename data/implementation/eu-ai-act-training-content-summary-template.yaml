@@ -1,0 +1,32 @@
+slug: eu-ai-act-training-content-summary-template
+title: "Template for the public summary of training content of general-purpose AI models, working title"
+instrument: eu-ai-act
+related_policy: null
+kind: template
+status: unverified
+legal_basis: null
+summary: null
+due_on: null
+adopted_on: null
+published_on: null
+published_on_precision: exact
+body: null
+reference: null
+stage: null
+oj_citation_expected_on: null
+oj_citation_on: null
+official_source_url: null
+source_title: null
+source_publisher: null
+source_document_date: null
+source_reference: null
+source_tier: 4
+last_checked_at: null
+last_verified_at: null
+review_status: draft
+confidence_level: unavailable
+content_version: 1
+change_summary: null
+reviewed_by: null
+notes: "The eu-ai-act record says providers publish the training-content summary using the Commission's template; nothing about the template itself (date, reference, status) has yet been read from an official source, so those fields are empty. Do not cite until a reviewer fills it."
+published: true

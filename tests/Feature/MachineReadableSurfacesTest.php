@@ -114,7 +114,9 @@ class MachineReadableSurfacesTest extends TestCase
             $ndjson->assertOk();
             $ndjson->assertHeader('Content-Type', 'application/x-ndjson; charset=UTF-8');
             $lines = array_values(array_filter(explode("\n", trim($ndjson->streamedContent()))));
-            $this->assertNotEmpty($lines, "{$dataset} exported no rows");
+            if (! in_array($dataset, BulkExport::MAY_BE_EMPTY, true)) {
+                $this->assertNotEmpty($lines, "{$dataset} exported no rows");
+            }
             foreach (array_slice($lines, 0, 5) as $line) {
                 $this->assertIsArray(json_decode($line, true), 'every line is a complete JSON object on its own');
             }
@@ -129,7 +131,7 @@ class MachineReadableSurfacesTest extends TestCase
     {
         // A row that travels on its own without these invites somebody to treat an
         // unverified summary as a fact.
-        foreach (['policies', 'obligations', 'changes', 'jurisdictions'] as $dataset) {
+        foreach (['policies', 'obligations', 'changes', 'jurisdictions', 'enforcement', 'implementation'] as $dataset) {
             $columns = app(BulkExport::class)->columns($dataset);
             foreach (['official_source_url', 'review_status', 'confidence_level', 'last_verified_at'] as $required) {
                 $this->assertContains($required, $columns, "{$dataset} rows must carry {$required}");

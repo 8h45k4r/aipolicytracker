@@ -5,9 +5,12 @@ namespace App\Services\MachineReadable;
 use App\Models\ChangeEvent;
 use App\Models\Control;
 use App\Models\Deadline;
+use App\Models\EnforcementEvent;
+use App\Models\ImplementationMeasure;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\Implementation\Trackers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,7 +37,12 @@ class BulkExport
         'changes' => ['label' => 'Change log entries', 'model' => ChangeEvent::class, 'with' => ['jurisdiction', 'policyInstrument']],
         'deadlines' => ['label' => 'Dated deadlines', 'model' => Deadline::class, 'with' => ['policyInstrument.jurisdiction']],
         'controls' => ['label' => 'Controls', 'model' => Control::class, 'with' => ['evidence', 'frameworkReferences', 'obligations']],
+        'enforcement' => ['label' => 'Enforcement actions', 'model' => EnforcementEvent::class, 'with' => ['jurisdiction', 'policyInstrument']],
+        'implementation' => ['label' => 'Implementation measures and standards', 'model' => ImplementationMeasure::class, 'with' => ['policyInstrument', 'relatedPolicy']],
     ];
+
+    /** Datasets that may legitimately have no rows yet (an empty tracker is a fact, not a fault). */
+    public const MAY_BE_EMPTY = ['enforcement'];
 
     public function exists(string $dataset): bool
     {
@@ -68,6 +76,10 @@ class BulkExport
         $query = $dataset === 'deadlines'
             ? $class::query()->whereHas('policyInstrument', fn ($q) => $q->published())
             : $class::query()->published();
+        // An enforcement event is public only while its instrument is.
+        if ($dataset === 'enforcement') {
+            $query->whereHas('policyInstrument', fn ($q) => $q->published());
+        }
 
         return $query->with($meta['with'])->orderBy('id');
     }
@@ -176,6 +188,8 @@ class BulkExport
                 'confidence_level' => $r->confidence_level,
                 'url' => $r->policyInstrument?->url(),
             ],
+            $r instanceof EnforcementEvent => array_map(fn ($v) => is_string($v) ? $this->text($v) : $v, Trackers::enforcementRow($r)),
+            $r instanceof ImplementationMeasure => array_map(fn ($v) => is_string($v) ? $this->text($v) : $v, Trackers::measureRow($r)),
             default => [],
         };
     }

@@ -1,0 +1,35 @@
+slug: eu-ai-act-gpai-code-of-practice
+title: General-Purpose AI Code of Practice
+instrument: eu-ai-act
+related_policy: null
+kind: code_of_practice
+status: published
+legal_basis: "Chapter V (Articles 51–56), general-purpose AI models"
+summary: >
+  A voluntary code for providers of general-purpose AI models, with chapters on transparency, copyright, and
+  safety and security for models with systemic risk. A provider that signs it can rely on it to show compliance
+  with Articles 53 and 55.
+due_on: null
+adopted_on: null
+published_on: 2025-07-10
+published_on_precision: exact
+body: null
+reference: null
+stage: null
+oj_citation_expected_on: null
+oj_citation_on: null
+official_source_url: "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai"
+source_title: "General-Purpose AI Code of Practice"
+source_publisher: "European Commission, AI Office"
+source_document_date: 2025-07-10
+source_reference: null
+source_tier: 2
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: "First recorded from facts already in this repository: the eu-ai-act record's source list and the 2025-07-10 change log entry. Not yet re-read against the Commission page for this record."
+reviewed_by: null
+notes: "A reviewer should confirm the publication date against the Commission page and add the due date the Act sets for codes of practice, from the Official Journal text."
+published: true

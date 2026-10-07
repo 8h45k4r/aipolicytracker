@@ -2,6 +2,7 @@
 
 namespace App\Services\PolicyData;
 
+use App\Models\EnforcementEvent;
 use App\Services\Verification\SecondReview;
 
 /**
@@ -92,6 +93,7 @@ class PolicyDataValidator
 
         $policySlugs = [];
         $obligationSlugs = [];
+        $enforcementSlugs = [];
         $policies = $this->repository->policies();
         foreach ($policies as $file => $record) {
             foreach ($this->schema->validate($record, 'policy.schema.json') as $e) {
@@ -146,7 +148,9 @@ class PolicyDataValidator
                     $errors[$file][] = "$.deadlines[{$i}]: due_on is required unless date_precision is \"tbd\"";
                 }
             }
+            $this->checkEnforcementEvents($record, $file, $jurisdictionSlugs, $enforcementSlugs, $errors);
         }
+        $this->validateImplementation($policySlugs, $errors);
 
         // related_policies must resolve.
         foreach ($policies as $file => $record) {
@@ -264,6 +268,92 @@ class PolicyDataValidator
                     $errors[$file][] = '$.review_status: a verified record must carry official_source_url';
                 }
             }
+        }
+    }
+
+    /**
+     * Enforcement events inside a policy record: unique slugs (recorded or derived), a
+     * known jurisdiction override, an amount only with its currency, and the same
+     * verification rule as every other record.
+     *
+     * @param  array<string, string>  $jurisdictionSlugs
+     * @param  array<string, string>  $seen  slug => file, shared across policies
+     */
+    private function checkEnforcementEvents(array $record, string $file, array $jurisdictionSlugs, array &$seen, array &$errors): void
+    {
+        foreach ($record['enforcement_events'] ?? [] as $i => $event) {
+            if (! is_array($event)) {
+                continue;
+            }
+            $slug = EnforcementEvent::slugFor((string) ($record['slug'] ?? ''), $event);
+            if (isset($seen[$slug])) {
+                $errors[$file][] = "$.enforcement_events[{$i}]: duplicate event slug \"{$slug}\" (also in {$seen[$slug]})";
+            }
+            $seen[$slug] = $file;
+            if (! empty($event['jurisdiction']) && ! isset($jurisdictionSlugs[$event['jurisdiction']])) {
+                $errors[$file][] = "$.enforcement_events[{$i}].jurisdiction: unknown jurisdiction \"{$event['jurisdiction']}\"";
+            }
+            if (isset($event['amount']) && $event['amount'] !== null && empty($event['currency'])) {
+                $errors[$file][] = "$.enforcement_events[{$i}]: an amount needs its currency";
+            }
+            $this->checkVerification($event, $file, "$.enforcement_events[{$i}]", $errors);
+        }
+    }
+
+    /**
+     * Implementation measures (data/implementation): schema, slug equals the file name and
+     * is unique, instrument and related_policy resolve, a year-precision date is 1 January,
+     * a declared adopted or published status carries its date unless the record is a draft,
+     * OJ citation dates only on harmonised standards, verified records cite their source.
+     *
+     * @param  array<string, string>  $policySlugs
+     */
+    private function validateImplementation(array $policySlugs, array &$errors): void
+    {
+        $seen = [];
+        foreach ($this->repository->implementationMeasures() as $file => $record) {
+            foreach ($this->schema->validate($record, 'implementation-measure.schema.json') as $e) {
+                $errors[$file][] = $e;
+            }
+            $slug = $record['slug'] ?? null;
+            if ($slug && pathinfo($file, PATHINFO_FILENAME) !== $slug) {
+                $errors[$file][] = "$.slug: must equal the file name ({$slug})";
+            }
+            if ($slug && isset($seen[$slug])) {
+                $errors[$file][] = "$.slug: duplicate slug \"{$slug}\" (also in {$seen[$slug]})";
+            }
+            $seen[$slug ?? $file] = $file;
+            foreach (['instrument', 'related_policy'] as $field) {
+                if (! empty($record[$field]) && ! isset($policySlugs[$record[$field]])) {
+                    $errors[$file][] = "$.{$field}: unknown policy slug \"{$record[$field]}\"";
+                }
+            }
+            if (! in_array($record['kind'] ?? null, ['harmonised_standard', 'iso_work_item', 'standardisation_request'], true) && empty($record['instrument'])) {
+                $errors[$file][] = '$.instrument: a measure that is not a standard must name the instrument it implements';
+            }
+            if (($record['published_on_precision'] ?? 'exact') === 'year' && ! empty($record['published_on']) && ! str_ends_with((string) $record['published_on'], '-01-01')) {
+                $errors[$file][] = '$.published_on: with published_on_precision "year" the date must be 1 January of that year';
+            }
+            if (($record['published_on_precision'] ?? 'exact') === 'month' && ! empty($record['published_on']) && ! str_ends_with((string) $record['published_on'], '-01')) {
+                $errors[$file][] = '$.published_on: with published_on_precision "month" the date must be the first of that month';
+            }
+            $draft = ($record['review_status'] ?? null) === 'draft';
+            if (! $draft && ($record['status'] ?? null) === 'published' && empty($record['published_on'])) {
+                $errors[$file][] = '$.published_on: a measure declared "published" needs its publication date';
+            }
+            if (! $draft && ($record['status'] ?? null) === 'adopted' && empty($record['adopted_on'])) {
+                $errors[$file][] = '$.adopted_on: a measure declared "adopted" needs its adoption date';
+            }
+            if (! $draft && empty($record['official_source_url'])) {
+                $errors[$file][] = '$.official_source_url: only a draft (review_status "draft") may omit its official source';
+            }
+            if (($record['kind'] ?? null) !== 'harmonised_standard' && (! empty($record['oj_citation_expected_on']) || ! empty($record['oj_citation_on']))) {
+                $errors[$file][] = '$.oj_citation_on: only a harmonised standard is cited in the Official Journal';
+            }
+            if (($record['review_status'] ?? null) === 'verified' && empty($record['official_source_url'])) {
+                $errors[$file][] = '$.review_status: a verified record must carry official_source_url';
+            }
+            $this->checkVerification($record, $file, '$', $errors);
         }
     }
 }

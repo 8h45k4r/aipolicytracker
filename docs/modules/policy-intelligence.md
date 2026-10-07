@@ -215,9 +215,17 @@ Every record type that makes a factual claim carries the shared source-quality c
 | policy_instrument_id | integer | yes |  | FK → policy_instruments.id (nullable, set null) |
 | title | varchar | no |  |  |
 | occurred_on | date | yes |  |  |
-| authority | varchar | yes |  |  |
+| authority | varchar | yes |  | Older name for `regulator`; the importer writes both |
 | summary | text | yes |  |  |
 | outcome | text | yes |  |  |
+| slug | varchar(160) | yes |  | Indexed. Recorded, or derived from policy, date and title (`EnforcementEvent::slugFor`); unique across events (validator) |
+| kind | varchar(24) | yes |  | Indexed. `fine`, `order`, `warning`, `settlement`, `court_decision`, `annulment` (`EnforcementEvent::KINDS`) |
+| regulator | varchar | yes |  | The authority or court that acted |
+| respondent | varchar | yes |  | The organisation acted against; never a private individual |
+| amount | decimal(20,2) | yes |  | As published; null when none was published (never estimated) |
+| currency | varchar(3) | yes |  | ISO 4217; required when `amount` is set (validator) |
+| legal_basis | varchar | yes |  | Provision(s) relied on, as the source states them |
+| appeal_status | varchar(24) | yes |  | `not_appealed`, `appeal_pending`, `upheld_on_appeal`, `overturned_on_appeal`, `unknown` |
 | official_source_url | varchar | yes |  |  |
 | source_title | varchar | yes |  |  |
 | source_publisher | varchar | yes |  |  |
@@ -234,6 +242,41 @@ Every record type that makes a factual claim carries the shared source-quality c
 | published_at | datetime | yes |  | Null = not shown publicly (site, API, sitemaps) |
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |
+
+Events are recorded inside the instrument's YAML (`enforcement_events`); an optional `jurisdiction` files an event where the authority acted (a national authority under an EU regulation). An event is public while its instrument is. Listed across instruments at `/enforcement` (`EnforcementController`), `GET /api/v1/enforcement`, `/open-data/enforcement.{csv,ndjson}` and the MCP tool `list_enforcement_actions`.
+
+## Schema: `implementation_measures`
+
+Record type for the implementation and standards trackers, imported from `data/implementation/*.yaml` (schema `data/schema/implementation-measure.schema.json`). Migration `2026_10_07_100000_extend_enforcement_events_and_create_implementation_measures`.
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | integer | no |  |  |
+| slug | varchar | no |  | Unique; equals the file name |
+| policy_instrument_id | integer | yes |  | FK → policy_instruments.id (nullable, set null). YAML `instrument`; required unless the kind is a standard |
+| related_policy_instrument_id | integer | yes |  | FK → policy_instruments.id (nullable, set null). YAML `related_policy` (e.g. the ISO/IEC 42001 record) |
+| kind | varchar(32) | no |  | `delegated_act`, `implementing_act`, `guidelines`, `code_of_practice`, `template`, `ai_board_output`, `standardisation_request`, `harmonised_standard`, `iso_work_item` |
+| title | varchar | no |  |  |
+| status | varchar(24) | no |  | Declared: `unverified`, `planned`, `consultation`, `draft`, `adopted`, `published`. `overdue` is never stored: `ImplementationStatus::derive` computes it at read time |
+| legal_basis | varchar | yes |  | Provision(s) that call for or concern the measure |
+| summary | text | yes |  | Own words; null on drafts |
+| due_on | date | yes |  | Date the instrument sets |
+| adopted_on | date | yes |  |  |
+| published_on | date | yes |  |  |
+| published_on_precision | varchar(8) | no | 'exact' | `exact`, `month`, `year` (a year-only date is 1 January and shown as the year) |
+| body | varchar(32) | yes |  | `cen_cenelec_jtc_21`, `iso_iec_jtc_1_sc_42`, `european_commission`, `ai_office`, `ai_board` |
+| reference | varchar | yes |  | e.g. `ISO/IEC 42001:2023` |
+| stage | varchar | yes |  | Standards stage as the body publishes it |
+| oj_citation_expected_on | date | yes |  | Harmonised standards only (validator) |
+| oj_citation_on | date | yes |  | Harmonised standards only (validator) |
+| notes | text | yes |  |  |
+| official_source_url … reviewed_by |  |  |  | The source-quality columns, as on every record; `source_tier` defaults to 4, `review_status` to `draft`, `confidence_level` to `low` |
+| published_at | datetime | yes |  | Null = not shown publicly |
+| created_at, updated_at | datetime | yes |  |  |
+
+Pages: `/policies/{policy}/implementation` (non-standard measures of one instrument; 404 when it has none) and `/ai-standards` (standards). API `GET /api/v1/implementation-measures` (filters `instrument`, `kind`, `status` (derived), `body`, `standards`); exports `/open-data/implementation.{csv,ndjson}`; MCP `list_implementation_measures`. The include point for an instrument page is `<x-site.implementation-link :policy="$policy" />`, which renders nothing when the instrument has no measure.
+
+Thin-content rule (`App\Services\Implementation\Trackers`): `/enforcement`, `/ai-standards` and each implementation page are `noindex` and left out of the sitemap until they hold 5 recorded (published, non-draft) entries; filtered views are always `noindex`.
 
 ## Schema: `procurement_rules`
 
@@ -399,7 +442,7 @@ Routes (`routes/backend/web.php`, all behind `auth`, `isAdmin`, `admin.2fa`, `ad
 
 - **Outbound:** `reviewer_decisions.reviewer_user_id` → `users` ([accounts.md](accounts.md)). All other foreign keys are internal to this module (listed in the field tables above); `taxonomy_assignments` is a polymorphic pivot to `policy_instruments` and `obligations`.
 - **Inbound:** none from legacy modules. The legacy [policies](policies.md) module (`ai_policy_trackers`) is independent and still powers the `/map` dashboard; records are not yet cross-linked (see debt).
-- **Files:** `data/jurisdictions/*.yaml`, `data/policies/**/*.yaml`, `data/changes/*.yaml`, `data/taxonomies/terms.yaml`, `data/schema/*.json`.
+- **Files:** `data/jurisdictions/*.yaml`, `data/policies/**/*.yaml`, `data/implementation/*.yaml`, `data/changes/*.yaml`, `data/taxonomies/terms.yaml`, `data/schema/*.json`.
 
 ## Routes
 

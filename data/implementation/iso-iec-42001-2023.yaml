@@ -1,0 +1,34 @@
+slug: iso-iec-42001-2023
+title: "ISO/IEC 42001:2023 — AI management system"
+instrument: null
+related_policy: iso-iec-42001-2023-ai-management-system
+kind: iso_work_item
+status: published
+legal_basis: null
+summary: >
+  The certifiable management-system standard for organisations that develop, provide or use AI. Metadata only:
+  the standard's text is sold by ISO and is not reproduced here.
+due_on: null
+adopted_on: null
+published_on: 2023-12-18
+published_on_precision: exact
+body: iso_iec_jtc_1_sc_42
+reference: "ISO/IEC 42001:2023"
+stage: null
+oj_citation_expected_on: null
+oj_citation_on: null
+official_source_url: "https://www.iso.org/standard/42001"
+source_title: "ISO/IEC 42001:2023"
+source_publisher: "International Organization for Standardization"
+source_document_date: 2023-12-18
+source_reference: null
+source_tier: 1
+last_checked_at: null
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: "First recorded from the repository's iso-iec-42001-2023-ai-management-system record and its 2023-12-18 change log entry. Not yet re-read against the ISO page for this record."
+reviewed_by: null
+notes: "A reviewer should add the ISO stage code from the ISO page."
+published: true
