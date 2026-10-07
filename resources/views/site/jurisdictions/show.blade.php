@@ -5,7 +5,7 @@
     <header class="mt-3">
         <p class="eyebrow">{{ ucfirst($jurisdiction->jurisdiction_type) }}@if($jurisdiction->parent) · <a href="{{ $jurisdiction->parent->url() }}">{{ $jurisdiction->parent->name }}</a>@endif · {{ $jurisdiction->region }}</p>
         <h1 class="mt-1 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">AI regulation in {{ $jurisdiction->nameWithArticle() }}</h1>
-        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><a href="{{ route('verification') }}" class="no-underline" title="How current this record has to be, and how many are past that date"><x-site.verified :record="$jurisdiction" class="!text-sm" /></a><a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-muted hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Context file</a><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$jurisdiction" class="!text-sm" legend /><a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-muted hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Context file</a><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
     </header>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
