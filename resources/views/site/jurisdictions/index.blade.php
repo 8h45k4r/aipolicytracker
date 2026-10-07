@@ -5,7 +5,10 @@
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI regulations around the world</h1>
     <p class="mt-2 max-w-3xl text-brand-body">Each jurisdiction page answers the same questions: what is binding, what is guidance, what applies when, and where the official sources are. Coverage grows only as records are source-backed and reviewed.</p>
     <form action="{{ route('policies.index') }}" method="get" class="mt-4 max-w-md flex gap-2" role="search"><label for="j-q" class="sr-only">Search policies</label><input id="j-q" name="q" type="search" class="input" placeholder="Search policies across jurisdictions"><button class="btn-primary" type="submit">Search</button></form>
-    <x-site.world-map class="mt-6" title="AI regulation around the world" />
+    {{-- On a phone the list comes first and the map last: the tables answer the page's
+         question in text, and the map script is fetched only if a reader scrolls to it. --}}
+    <div class="flex flex-col">
+    <x-site.world-map class="order-last mt-8 sm:order-none sm:mt-6" title="AI regulation around the world" />
     @foreach($byRegion as $region => $items)
     <section class="mt-8" aria-labelledby="region-{{ \Illuminate\Support\Str::slug($region) }}">
         <h2 id="region-{{ \Illuminate\Support\Str::slug($region) }}" class="section-title">{{ $region }}</h2>
@@ -28,6 +31,7 @@
         </div>
     </section>
     @endforeach
+    </div>
     <p class="mt-8 text-sm text-brand-muted">Missing a jurisdiction? <a href="{{ route('contribute', ['type' => 'new_policy']) }}">Propose one with an official source</a>.</p>
 </div>
 @endsection

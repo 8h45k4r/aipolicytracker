@@ -515,21 +515,36 @@
     });
 })();
 
-// World map: load amCharts only when a page has one, and only once it is near the
-// viewport, so no other page pays for the library.
+// World map: amCharts and its geodata are over half a megabyte, so they load only on
+// a page that has a map, and there only once the map itself is on screen or a reader
+// reaches for it (pointer or touch on the figure). Observation starts after the page
+// has loaded, so the library never competes with the text for the first paint. The
+// legend and the tables carry the same facts without it.
 (function () {
     var maps = document.querySelectorAll('[data-world-map]');
     if (!maps.length) { return; }
+    var mounted = [];
     var load = function (el) {
+        if (mounted.indexOf(el) !== -1) { return; }
+        mounted.push(el);
         import('./world-map.js').then(function (m) { m.mount(el); });
     };
-    if (!('IntersectionObserver' in window)) { maps.forEach(load); return; }
-    var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-            if (e.isIntersecting) { io.unobserve(e.target); load(e.target); }
+    var start = function () {
+        maps.forEach(function (el) {
+            var figure = el.closest('figure') || el;
+            ['pointerenter', 'touchstart'].forEach(function (type) {
+                figure.addEventListener(type, function () { load(el); }, { once: true, passive: true });
+            });
         });
-    }, { rootMargin: '200px' });
-    maps.forEach(function (el) { io.observe(el); });
+        if (!('IntersectionObserver' in window)) { maps.forEach(load); return; }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { io.unobserve(e.target); load(e.target); }
+            });
+        }, { threshold: 0.15 });
+        maps.forEach(function (el) { io.observe(el); });
+    };
+    if (document.readyState === 'complete') { start(); } else { window.addEventListener('load', start, { once: true }); }
 })();
 
 // A link that points at a collapsed <details> panel (the admin "Invite a user" button)
