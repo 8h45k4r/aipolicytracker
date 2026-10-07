@@ -178,9 +178,9 @@ class TitlesAndAddressesTest extends TestCase
         $queries = array_column(array_slice($rows, 1), 1);
         $this->assertSame(['eu ai act', 'infocomm2023'], $queries);
         $this->assertStringContainsString('identifier query', $rows[2][8]);
-        // Matched to a page that targets the query squarely (the landing page or
-        // the record), not to a comparison that merely mentions it.
-        $this->assertContains($rows[1][0], [url('/eu-ai-act'), url('/policies/eu-ai-act')]);
+        // Matched to the page that targets the query squarely (the record), not to a
+        // comparison that merely mentions it, nor to the retired /eu-ai-act landing.
+        $this->assertSame(url('/policies/eu-ai-act'), $rows[1][0]);
     }
 
     public function test_the_api_gives_each_record_its_address_and_matches_its_published_contract(): void

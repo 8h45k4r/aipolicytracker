@@ -245,9 +245,14 @@ Route::get('/embed', [EmbedController::class, 'index'])->name('embed.index');
 Route::get('/embed/jurisdiction/{slug}', [EmbedController::class, 'jurisdiction'])->where('slug', '[a-z0-9-]+')->name('embed.jurisdiction');
 Route::get('/embed/deadlines', [EmbedController::class, 'deadlines'])->name('embed.deadlines');
 Route::get('/embed/map', [EmbedController::class, 'map'])->name('embed.map');
+// The editorial landings that remain, and the retired ones, which answer 301 to the record
+// page that now carries their subject (config content.retired_landings).
 Route::get('/{landing}', [LandingController::class, 'landing'])
-    ->where('landing', 'eu-ai-act|ai-regulation-india|ai-policy-nepal|ai-governance-singapore|ai-regulation-australia|ai-regulation-uk|ai-regulation-usa|ai-governance-uae|ai-regulation-south-asia')
+    ->where('landing', implode('|', array_map('preg_quote', array_keys(config('content.landings')))))
     ->name('landing');
+Route::get('/{retired}', [LandingController::class, 'retired'])
+    ->where('retired', implode('|', array_map('preg_quote', array_keys(config('content.retired_landings')))))
+    ->name('landing.retired');
 
 // Machine-readable assets.
 // The image a platform shows when a page is shared, drawn from the record. The
