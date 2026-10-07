@@ -37,7 +37,9 @@ The maintainer is associated with Certifyi AI, a separate commercial compliance
 platform. The records on this site name no vendor or product, every
 verification is made against the official source that the record links, and every reviewer
 publishes their interests in `data/reviewers/`. Certifyi has no access to this project's
-systems or data beyond what the public API and open data offer to anyone.
+systems or data beyond what the public API and open data offer to anyone. How the project is
+paid for, and the rules that keep money away from the records, are on the site's
+[funding page](https://aipolicytracker.org/funding).
 
 ## Licences
 
