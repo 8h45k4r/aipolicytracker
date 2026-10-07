@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
-use App\Services\Changes\Significance;
 use App\Services\Changes\UpdatesSummary;
 use App\Support\PageTitle;
 use App\Support\Seo;
@@ -37,16 +36,25 @@ class UpdatesController extends Controller
     /** A day page is shorter by nature; two entries make it a page about that day. */
     public const MIN_INDEXABLE_DAY = 2;
 
+    /**
+     * Summary windows the hub offers, in days. Thirty days left the answer box with
+     * two or three entries most months, so the hub opens on ninety; ?window=30 keeps
+     * the shorter view one link away.
+     */
+    public const WINDOWS = [90, 30];
+
     public function index(Request $request): View
     {
         $filters = $this->filters($request);
         $page = $this->query($filters)->orderByDesc('occurred_on')->orderByDesc('id')->paginate(30)->withQueryString();
-        $window = $this->query([])->where('occurred_on', '>=', now()->subDays(30)->toDateString())->get();
-        // A quiet month should not leave the answer box empty when there is a
+        $days = in_array((int) $request->query('window'), self::WINDOWS, true) ? (int) $request->query('window') : self::WINDOWS[0];
+        $window = $this->query([])->where('occurred_on', '>=', now()->subDays($days)->toDateString())->get();
+        // A quiet quarter should not leave the answer box empty when there is a
         // recent story to tell: fall back to the latest entries on record.
         $summaryFrom = $window->isNotEmpty() ? $window : $this->query([])->orderByDesc('occurred_on')->limit(10)->get();
-        $summary = UpdatesSummary::for($summaryFrom, $window->isNotEmpty() ? 'the last 30 days' : 'the most recent entries');
-        $indexable = $filters === [] && $page->currentPage() === 1;
+        $summary = UpdatesSummary::for($summaryFrom, $window->isNotEmpty() ? "the last {$days} days" : 'the most recent entries');
+        // The default window is the indexable page; ?window=30 is a view of it.
+        $indexable = $filters === [] && $page->currentPage() === 1 && ! $request->has('window');
 
         $seo = Seo::make(
             PageTitle::updatesHub(now()),
@@ -62,9 +70,14 @@ class UpdatesController extends Controller
             ])
             ->withFaq($this->faq($summary));
 
+        if ($request->has('window')) {
+            $seo->noindex();
+        }
+
         return view('site.updates.page', $this->shared($seo, $page, $summary, $filters) + [
             'heading' => 'AI policy updates',
             'context' => 'hub',
+            'windowDays' => $window->isNotEmpty() ? $days : null,
             'feedUrl' => route('changes.feed'),
         ]);
     }
@@ -208,7 +221,6 @@ class UpdatesController extends Controller
             'filters' => $filters,
             'months' => ChangeEvent::publishedMonths(),
             'jurisdictions' => Jurisdiction::published()->orderBy('name')->get(['slug', 'name']),
-            'scoreOf' => fn (ChangeEvent $c) => Significance::forChange($c),
         ];
     }
 
@@ -225,7 +237,7 @@ class UpdatesController extends Controller
             $items[] = ['question' => 'When was this page last updated?', 'answer' => 'The most recent change on record occurred on '.$summary['latest_on']->format('j F Y').'. The page is generated from the records, so it changes the moment a new entry is logged; the "Last updated" time above is the last edit to any record shown.'];
         }
         $items[] = ['question' => 'Where do these updates come from?', 'answer' => 'Every entry is written from an official source — a journal, a regulator, a legislature — and links to it. Nothing here is a press summary of a press summary. Entries record what changed, the status after the change and what it means in practice.'];
-        $items[] = ['question' => 'How is "top story" decided?', 'answer' => 'By a published rule, not an editor\'s mood: impact level, whether the instrument is binding, whether it entered into force, whether a named reviewer confirmed the record, and how recent it is, added up and shown as a score out of 100.'];
+        $items[] = ['question' => 'How is "top story" decided?', 'answer' => 'By a published rule, not an editor\'s mood: impact level, whether the instrument is binding, whether it entered into force, whether a named reviewer confirmed the record, and how recent it is, added up into a score that orders the list. Each story shows its recorded impact level: urgent, high or routine.'];
         $items[] = ['question' => 'Can I follow updates for one country?', 'answer' => 'Yes. Every jurisdiction with recorded changes has its own updates page and RSS feed, and the weekly digest can be limited to the jurisdictions you choose.'];
 
         return $items;

@@ -50,6 +50,38 @@ class UpdatesHubTest extends TestCase
         $this->get('/updates?jurisdiction=eu&impact=high')->assertOk()->assertSee('noindex', false);
     }
 
+    public function test_the_hub_summarises_ninety_days_by_default_and_keeps_thirty_one_link_away(): void
+    {
+        $jurisdiction = Jurisdiction::where('slug', 'eu')->firstOrFail();
+        // One change 60 days ago: inside the default window, outside the short one.
+        ChangeEvent::create(['slug' => 'window-probe', 'jurisdiction_id' => $jurisdiction->id, 'occurred_on' => now()->subDays(60)->toDateString(), 'title' => 'Window probe', 'what_changed' => 'Probe.', 'impact_level' => 'high', 'published_at' => now()]);
+        $in90 = ChangeEvent::published()->where('occurred_on', '>=', now()->subDays(90)->toDateString())->count();
+        $in30 = ChangeEvent::published()->where('occurred_on', '>=', now()->subDays(30)->toDateString())->count();
+
+        $html = $this->get('/updates')->assertOk()->getContent();
+        $this->assertMatchesRegularExpression('/The last 90 days: '.$in90.' AI policy changes? recorded/', $html);
+        $this->assertStringContainsString('data-updates-window="90"', $html);
+        $this->assertStringContainsString('href="'.e(route('updates.index', ['window' => 30])).'"', $html);
+        $this->assertStringContainsString('index,follow', $html);
+
+        $short = $this->get('/updates?window=30')->assertOk()->getContent();
+        if ($in30 > 0) {
+            $this->assertMatchesRegularExpression('/The last 30 days: '.$in30.' AI policy changes? recorded/', $short);
+        }
+        $this->assertStringContainsString('noindex', $short, 'the shorter view is not a second indexable hub');
+    }
+
+    public function test_top_stories_show_impact_labels_not_raw_scores(): void
+    {
+        $html = $this->get('/updates')->assertOk()->getContent();
+        $top = substr($html, strpos($html, 'id="top-heading"'));
+        $top = substr($top, 0, strpos($top, '</section>'));
+
+        $this->assertMatchesRegularExpression('#data-impact="(urgent|high|routine)">(Urgent|High|Routine)</span>#', $top);
+        $this->assertStringNotContainsString('Significance', $top);
+        $this->assertDoesNotMatchRegularExpression('#font-mono[^>]*>\d{1,3}</span>#', $top, 'no bare 0-100 score');
+    }
+
     public function test_month_day_and_jurisdiction_archives_exist_only_with_items_and_index_only_above_the_threshold(): void
     {
         $months = ChangeEvent::publishedMonths();
