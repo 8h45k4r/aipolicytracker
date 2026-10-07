@@ -6,6 +6,7 @@ use App\Enums\InstrumentType;
 use App\Enums\PolicyStatus;
 use App\Models\Concerns\HasSourceQuality;
 use App\Models\Concerns\HasTaxonomyTerms;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -147,6 +148,22 @@ class PolicyInstrument extends Model
         $name = $this->short_title ?: $this->title;
 
         return preg_match('/^(EU|UK|US|UAE|NIST|ICO|OMB|PDPC|Colorado|California|Australian|Singapore|Nepal|India)\b/', $name) ? 'the '.$name : $name;
+    }
+
+    /**
+     * The date its first duties applied: the earliest `applies_from` among the
+     * instrument and its published obligations. It is distinct from entry into
+     * force (`in_force_on`), which for staged laws such as the EU AI Act comes
+     * months before anything applies, and from the instrument's own
+     * `applies_from`, which records the general application date.
+     */
+    public function firstApplicationDate(): ?CarbonInterface
+    {
+        $obligations = $this->relationLoaded('obligations')
+            ? $this->obligations->filter(fn ($o) => $o->published_at !== null)->pluck('applies_from')
+            : $this->obligations()->published()->whereNotNull('applies_from')->pluck('applies_from');
+
+        return $obligations->push($this->applies_from)->filter()->sort()->first();
     }
 
     public function url(): string

@@ -1,8 +1,10 @@
-@props(['subjectType', 'subjectSlug', 'saveTitle' => null, 'saveUrl' => null, 'saveMeta' => null])
-{{-- Record actions: Save and Follow are the two buttons; sharing, corrections and the method are text links under them. --}}
+@props(['subjectType', 'subjectSlug', 'saveTitle' => null, 'saveUrl' => null, 'saveMeta' => null, 'sourceUrl' => null])
+{{-- Record actions. With a source URL, "Open official source" is the primary button and Save and Follow
+     are secondary; without one, Save is primary. Sharing, corrections and the method are text links under them. --}}
 <div {{ $attributes->merge(['class' => 'text-sm']) }} data-record-actions>
     <div class="flex flex-wrap gap-2">
-        @if($saveTitle)<x-site.save-button :type="$subjectType" :slug="$subjectSlug" :title="$saveTitle" :url="$saveUrl" :meta="$saveMeta" primary class="min-w-[6rem]" />@endif
+        @if($sourceUrl)<a href="{{ $sourceUrl }}" rel="noopener" class="btn-primary" data-track="source_click" data-primary-source>Open official source</a>@endif
+        @if($saveTitle)<x-site.save-button :type="$subjectType" :slug="$subjectSlug" :title="$saveTitle" :url="$saveUrl" :meta="$saveMeta" :primary="! $sourceUrl" class="min-w-[6rem]" />@endif
         @if(in_array($subjectType, \App\Models\Follow::TYPES, true))<x-site.follow-button :type="$subjectType" :slug="$subjectSlug" />@endif
     </div>
     <p class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">

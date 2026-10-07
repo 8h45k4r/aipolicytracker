@@ -26,17 +26,34 @@ trait HasSourceQuality
         return $this->reviewStatusEnum() === ReviewStatus::Verified && $this->last_verified_at !== null;
     }
 
+    /**
+     * One of three public states, the same everywhere a record's review standing
+     * is shown (x-site.verified, key facts, machine-readable text):
+     *  - verified: a named reviewer opened the official source and confirmed it;
+     *  - pending_review: linked to the source and waiting in the review queue;
+     *  - source_linked: linked to the source, not confirmed by a reviewer and not
+     *    queued (draft, needs update, or verified without a date).
+     */
+    public function verificationState(): string
+    {
+        if ($this->isVerified()) {
+            return 'verified';
+        }
+
+        return (string) $this->review_status === ReviewStatus::PendingReview->value ? 'pending_review' : 'source_linked';
+    }
+
     /** Human-readable verification line shown next to factual content. */
     public function verificationLabel(): string
     {
         if ($this->isVerified()) {
             return 'Verified against the official source '.$this->last_verified_at->format('j M Y');
         }
-        if (! empty($this->last_checked_at)) {
-            return 'Source-linked · checked '.$this->last_checked_at->format('j M Y');
-        }
+        $checked = ! empty($this->last_checked_at) ? ', checked '.$this->last_checked_at->format('j M Y') : '';
 
-        return 'Source-linked';
+        return $this->verificationState() === 'pending_review'
+            ? 'Pending review · source-linked'.$checked
+            : 'Source-linked'.($checked ? ' ·'.substr($checked, 1) : '');
     }
 
     /** Records are considered stale when not verified in the last 180 days. */

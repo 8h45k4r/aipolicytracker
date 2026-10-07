@@ -24,6 +24,10 @@ final class KeyFacts
     public static function policy(PolicyInstrument $p): array
     {
         $obligations = $p->relationLoaded('obligations') ? $p->obligations->count() : $p->obligations()->published()->count();
+        // The first duties of a staged instrument apply before its general application
+        // date; shown only when the record's obligations put it earlier.
+        $first = $p->firstApplicationDate();
+        $first = $first && (! $p->applies_from || $first->lt($p->applies_from)) ? $first : null;
 
         return self::rows([
             ['Jurisdiction', $p->jurisdiction?->name, $p->jurisdiction?->url()],
@@ -34,6 +38,7 @@ final class KeyFacts
             ['Adopted', $p->adopted_on?->format('j F Y')],
             ['Published', $p->published_on?->format('j F Y')],
             ['In force', $p->in_force_on?->format('j F Y')],
+            ['Applies from (first)', $first?->format('j F Y')],
             ['Applies from', $p->applies_from?->format('j F Y')],
             ['Obligations recorded', $obligations > 0 ? (string) $obligations : null, $obligations > 0 ? $p->url().'#obligations-heading' : null],
             ['Source reference', $p->source_reference],
