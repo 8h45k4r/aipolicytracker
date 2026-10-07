@@ -130,6 +130,7 @@
             </section>
             @endif
 
+            <x-site.implementation-link :policy="$policy" />
             @if($policy->procurementRules->isNotEmpty() || $policy->enforcementEvents->isNotEmpty())
             <section aria-labelledby="public-heading" class="mt-8">
                 <h2 id="public-heading" class="section-title">Public-sector rules and enforcement</h2>

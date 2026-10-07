@@ -483,20 +483,96 @@
       "items": {
         "type": "object",
         "properties": {
+          "slug": {
+            "$ref": "common.schema.json#/$defs/slug",
+            "description": "Stable identifier, unique across all events. Generated from the policy, date and title when omitted."
+          },
           "title": {
             "type": "string"
           },
           "occurred_on": {
             "$ref": "common.schema.json#/$defs/nullableDate"
           },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "fine",
+              "order",
+              "warning",
+              "settlement",
+              "court_decision",
+              "annulment"
+            ]
+          },
+          "jurisdiction": {
+            "$ref": "common.schema.json#/$defs/slug",
+            "description": "Where the action was taken, when it differs from the instrument's jurisdiction (for example a national authority acting under an EU regulation)."
+          },
+          "regulator": {
+            "$ref": "common.schema.json#/$defs/nullableString",
+            "description": "The authority or court that acted."
+          },
+          "respondent": {
+            "$ref": "common.schema.json#/$defs/nullableString",
+            "description": "The organisation acted against, as named in the official source. Never a private individual."
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Amount of a fine or settlement as published; null when none was published."
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "ISO 4217 code; required when amount is set."
+          },
+          "legal_basis": {
+            "$ref": "common.schema.json#/$defs/nullableString",
+            "description": "The provision(s) relied on, as the source states them."
+          },
           "authority": {
-            "type": "string"
+            "type": "string",
+            "description": "Older name for regulator, still accepted."
           },
           "summary": {
             "type": "string"
           },
           "outcome": {
             "type": "string"
+          },
+          "appeal_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "not_appealed",
+                  "appeal_pending",
+                  "upheld_on_appeal",
+                  "overturned_on_appeal",
+                  "unknown"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source_reference": {
+            "$ref": "common.schema.json#/$defs/nullableString"
           },
           "official_source_url": {
             "$ref": "common.schema.json#/$defs/url"
@@ -520,7 +596,8 @@
           "source_title",
           "source_publisher"
         ]
-      }
+      },
+      "description": "Enforcement actions taken under this instrument: fines, orders, warnings, settlements, court decisions and annulments. Every factual field beyond the title and source is optional; leave a field out (or null) when the official source does not state it rather than estimating it. 'authority' is the older name for 'regulator' and is still accepted."
     },
     "procurement_rules": {
       "type": "array",
