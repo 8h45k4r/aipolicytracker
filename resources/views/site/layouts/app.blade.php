@@ -80,7 +80,7 @@
                     <label for="header-q" class="sr-only">Search the site</label>
                     <div class="relative">
                         <svg class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-muted" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                        <input id="header-q" name="q" type="search" value="{{ request()->routeIs('search') ? request('q') : '' }}" class="input !min-h-[38px] w-44 !pl-8" placeholder="Search the site" autocomplete="off">
+                        <input id="header-q" name="q" type="search" value="{{ request()->routeIs('search') ? request('q') : '' }}" class="input !min-h-[38px] w-44 !pl-8" placeholder="Search the site" autocomplete="off" data-suggest="{{ route('search.suggest') }}">
                     </div>
                 </form>
                 <a href="{{ route('search') }}" class="sm:hidden btn-primary !min-h-[38px] !py-1.5 gap-1.5" data-track="header_search_click"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Search</a>

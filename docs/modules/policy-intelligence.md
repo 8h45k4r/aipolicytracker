@@ -403,6 +403,7 @@ Routes (`routes/backend/web.php`, all behind `auth`, `isAdmin`, `admin.2fa`, `ad
 ## Routes
 
 Public (Blade, server-rendered): `home`, `policies.index|show|json`, `jurisdictions.index|show`, `obligations.index|show`, `compare.index|show`, `changes.index|year|feed`, `tools.applicability`, `open-data`, `open-data.download`, `methodology`, `about`, `contribute`, `contribute.store`, `guides.index|show`, `landing`, `sitemap.index|section`, `llms`, `llms.full`, `openapi`.
+Search (public, throttled, never indexed): `search` (grouped results with a top match) and `search.suggest` (JSON typeahead, up to 8 `{title, type, url}`, `Cache-Control: public, max-age=600`). Laws are ordered by `App\Services\Search\PolicyRanker`: how well the query names the record (exact short title, title, slug, bracketed name or jurisdiction plus short title; then the query as whole words in a name; every word at a word start; matching published duties; text), then legal force (in force, adopted, guidance, proposed, then repealed, superseded and archived), binding force, number of matching duties, most recent date, and title.
 API (read-only, throttled, cached): `api.v1.root|jurisdictions|jurisdiction|policies|policy|obligations|obligation|changes|taxonomies`.
 Admin (auth + `isAdmin`): `backend.review.index|decide|publish`.
 

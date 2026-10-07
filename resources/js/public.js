@@ -639,3 +639,133 @@
         filter.focus();
     });
 })();
+
+// Search suggestions under the search boxes, as an ARIA combobox with a listbox popup.
+// Without this script the forms still submit to the search page. Arrow keys move through
+// the suggestions, Enter opens the highlighted one (or submits the form when none is
+// highlighted), Escape closes the list.
+(function () {
+    var inputs = Array.prototype.slice.call(document.querySelectorAll('input[data-suggest], #home-q'));
+    if (!inputs.length || !window.fetch) { return; }
+    var withUrl = document.querySelector('input[data-suggest]');
+    var defaultUrl = (withUrl && withUrl.getAttribute('data-suggest')) || '/search/suggest';
+
+    inputs.forEach(function (input, n) {
+        var url = input.getAttribute('data-suggest') || defaultUrl;
+        var id = (input.id || 'search-' + n) + '-suggest';
+        var host = input.parentNode;
+        var list = document.createElement('ul');
+        var status = document.createElement('span');
+        var items = [];
+        var active = -1;
+        var cache = {};
+        var timer = null;
+        var pending = null;
+
+        list.id = id;
+        list.hidden = true;
+        list.setAttribute('role', 'listbox');
+        list.setAttribute('aria-label', 'Search suggestions');
+        list.className = 'absolute left-0 top-full z-50 mt-1 w-full min-w-[18rem] max-h-96 overflow-auto rounded-md border border-brand-line bg-white py-1 text-sm shadow-lg';
+        status.className = 'sr-only';
+        status.setAttribute('role', 'status');
+        if (getComputedStyle(host).position === 'static') { host.classList.add('relative'); }
+        host.appendChild(list);
+        host.appendChild(status);
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-autocomplete', 'list');
+        input.setAttribute('aria-expanded', 'false');
+        input.setAttribute('aria-controls', id);
+
+        function close() {
+            list.hidden = true;
+            active = -1;
+            input.setAttribute('aria-expanded', 'false');
+            input.removeAttribute('aria-activedescendant');
+        }
+        function highlight(i) {
+            var options = list.children;
+            if (active >= 0 && options[active]) {
+                options[active].setAttribute('aria-selected', 'false');
+                options[active].classList.remove('bg-brand-paper');
+            }
+            active = i;
+            if (i < 0 || !options[i]) { input.removeAttribute('aria-activedescendant'); return; }
+            options[i].setAttribute('aria-selected', 'true');
+            options[i].classList.add('bg-brand-paper');
+            input.setAttribute('aria-activedescendant', options[i].id);
+            options[i].scrollIntoView({ block: 'nearest' });
+        }
+        function render(data) {
+            items = (data && data.items) || [];
+            list.textContent = '';
+            active = -1;
+            input.removeAttribute('aria-activedescendant');
+            if (!items.length || document.activeElement !== input) {
+                close();
+                status.textContent = items.length ? '' : 'No suggestions';
+                return;
+            }
+            items.forEach(function (item, i) {
+                var li = document.createElement('li');
+                var title = document.createElement('span');
+                var type = document.createElement('span');
+                li.id = id + '-' + i;
+                li.setAttribute('role', 'option');
+                li.setAttribute('aria-selected', 'false');
+                li.className = 'cursor-pointer px-3 py-2 hover:bg-brand-paper';
+                title.className = 'block font-medium text-brand-navy';
+                title.textContent = item.title;
+                type.className = 'block text-xs text-brand-muted';
+                type.textContent = item.type;
+                li.appendChild(title);
+                li.appendChild(type);
+                // mousedown keeps focus in the input, so the list is still there for the click.
+                li.addEventListener('mousedown', function (e) { e.preventDefault(); });
+                li.addEventListener('click', function () { location.href = item.url; });
+                list.appendChild(li);
+            });
+            list.hidden = false;
+            input.setAttribute('aria-expanded', 'true');
+            status.textContent = items.length + (items.length === 1 ? ' suggestion' : ' suggestions') + ', use the arrow keys to choose';
+        }
+        function load(q) {
+            if (cache[q]) { render(cache[q]); return; }
+            if (pending) { pending.abort(); }
+            pending = window.AbortController ? new AbortController() : null;
+            fetch(url + (url.indexOf('?') === -1 ? '?' : '&') + 'q=' + encodeURIComponent(q), {
+                headers: { Accept: 'application/json' },
+                signal: pending ? pending.signal : undefined,
+            })
+                .then(function (r) { return r.ok ? r.json() : { items: [] }; })
+                .then(function (data) {
+                    cache[q] = data;
+                    if (input.value.trim() === q) { render(data); }
+                })
+                .catch(function () { /* offline or aborted: the form still submits */ });
+        }
+
+        input.addEventListener('input', function () {
+            var q = input.value.trim();
+            clearTimeout(timer);
+            if (q.length < 2) { items = []; close(); return; }
+            timer = setTimeout(function () { load(q); }, 150);
+        });
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                if (!items.length) { return; }
+                e.preventDefault();
+                if (list.hidden) { render({ items: items }); }
+                var next = e.key === 'ArrowDown' ? active + 1 : active - 1;
+                highlight(next >= items.length ? 0 : (next < 0 ? items.length - 1 : next));
+            } else if (e.key === 'Enter' && !list.hidden && active >= 0) {
+                e.preventDefault();
+                location.href = items[active].url;
+            } else if (e.key === 'Escape' && !list.hidden) {
+                e.preventDefault();
+                close();
+            }
+        });
+        input.addEventListener('blur', close);
+    });
+})();
