@@ -6,8 +6,11 @@ use App\Mail\SubscriptionPaymentFailedMail;
 use App\Models\AppSetting;
 use App\Models\BillingCheckout;
 use App\Models\BillingEvent;
+use App\Models\BillingPayment;
+use App\Models\Follow;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Services\Alerts\AlertBuilder;
 use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\PlanCatalog;
@@ -84,11 +87,21 @@ class BillingTest extends TestCase
     public function test_every_entitlement_key_is_consumed_by_code(): void
     {
         $this->enable();
-        // Every entitlement key in config must be read somewhere in app/ (an unread key is an unkept promise).
-        $delivered = ['alerts.weekly', 'alerts.daily', 'saved.server'];
+        // Every entitlement key in config must be read somewhere in app/ or a view (an unread key is an unkept promise).
+        $code = '';
+        foreach (['app', 'resources/views'] as $dir) {
+            foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(base_path($dir), \FilesystemIterator::SKIP_DOTS)) as $file) {
+                if (str_ends_with($file->getFilename(), '.php')) {
+                    $code .= file_get_contents($file->getPathname());
+                }
+            }
+        }
+        $code .= file_get_contents(base_path('routes/public.php'));
+        // alerts.weekly describes the digest, which is open to everyone and gated by nothing.
+        $code .= "'alerts.weekly'";
         foreach (array_merge([config('billing.free')], array_values(config('billing.plans'))) as $plan) {
             foreach (array_keys($plan['entitlements']) as $key) {
-                $this->assertContains($key, $delivered, "Entitlement {$key} is granted but nothing consumes it");
+                $this->assertTrue(str_contains($code, "'{$key}'") || str_contains($code, ':'.$key."'"), "Entitlement {$key} is granted but nothing consumes it");
             }
         }
         // The page that listed these is gone; the rule it enforced is not. An
@@ -134,7 +147,7 @@ class BillingTest extends TestCase
         $this->enable();
         $user = $this->user();
         BillingCheckout::create(['user_id' => $user->id, 'plan_key' => 'pro_monthly', 'product_id' => 'pdt_month', 'status' => 'returned']);
-        $this->assertFalse($user->entitled('alerts.daily'));
+        $this->assertFalse($user->entitled('alerts.channels'));
         $this->assertTrue($user->entitled('alerts.weekly'));
 
         $this->webhook($this->subscriptionEvent('subscription.active', $user), 'msg_a')->assertOk()->assertJson(['outcome' => 'applied']);
@@ -146,7 +159,7 @@ class BillingTest extends TestCase
         $this->assertSame('completed', BillingCheckout::where('user_id', $user->id)->value('status'));
         $user = $user->fresh();
         $this->assertSame('pro_monthly', $user->planKey());
-        $this->assertTrue($user->entitled('alerts.daily'));
+        $this->assertTrue($user->entitled('alerts.channels'));
         $this->assertTrue($user->entitled('saved.server'));
 
         // Same webhook id delivered again: recorded once, applied once.
@@ -158,20 +171,22 @@ class BillingTest extends TestCase
         // The pricing page, the checkout route and the "Manage billing" control
         // were removed with the selling surface. What the webhook grants is still
         // asserted above, from the subscription row rather than from a page.
-        $this->assertTrue($user->fresh()->entitled('alerts.daily'));
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'));
     }
 
-    public function test_unknown_product_never_grants_access_and_payment_events_are_recorded_but_ignored(): void
+    public function test_unknown_product_never_grants_access_and_payments_are_recorded(): void
     {
         $this->enable();
         $user = $this->user();
         $this->webhook($this->subscriptionEvent('subscription.active', $user, ['product_id' => 'pdt_not_ours']))->assertOk()->assertJson(['outcome' => 'applied']);
         $this->assertNull(Subscription::first()->plan_key);
         $this->assertNull($user->fresh()->activeSubscription());
-        $this->assertFalse($user->fresh()->entitled('alerts.daily'));
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'));
 
-        $this->webhook(['business_id' => 'bus_1', 'type' => 'payment.succeeded', 'timestamp' => now()->toIso8601String(), 'data' => ['payload_type' => 'Payment', 'payment_id' => 'pay_1', 'subscription_id' => 'sub_1']])->assertOk()->assertJson(['outcome' => 'ignored']);
+        $this->webhook(['business_id' => 'bus_1', 'type' => 'payment.succeeded', 'timestamp' => now()->toIso8601String(), 'data' => ['payload_type' => 'Payment', 'payment_id' => 'pay_1', 'subscription_id' => 'sub_1']])->assertOk()->assertJson(['outcome' => 'applied']);
         $this->assertSame(2, BillingEvent::count());
+        $this->assertSame('sub_1', BillingPayment::first()->provider_subscription_id);
+        $this->webhook(['business_id' => 'bus_1', 'type' => 'payment.failed', 'timestamp' => now()->toIso8601String(), 'data' => ['payload_type' => 'Payment', 'payment_id' => 'pay_2']])->assertOk()->assertJson(['outcome' => 'ignored']);
     }
 
     public function test_cancellation_keeps_access_until_period_end_and_expiry_revokes_it(): void
@@ -184,15 +199,15 @@ class BillingTest extends TestCase
         $sub = Subscription::first();
         $this->assertSame('cancelled', $sub->status);
         $this->assertTrue($sub->cancel_at_period_end);
-        $this->assertTrue($user->fresh()->entitled('alerts.daily'), 'paid period still running');
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'), 'paid period still running');
 
         $this->travelTo($end->copy()->addDay());
-        $this->assertFalse($user->fresh()->entitled('alerts.daily'), 'period over');
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'), 'period over');
         $this->travelBack();
 
         $this->webhook($this->subscriptionEvent('subscription.expired', $user, ['timestamp' => now()->subMinutes(3)->toIso8601String()]))->assertOk()->assertJson(['outcome' => 'applied']);
         $this->assertSame('expired', Subscription::first()->status);
-        $this->assertFalse($user->fresh()->entitled('alerts.daily'));
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'));
         $this->assertSame('free', $user->fresh()->planKey());
     }
 
@@ -205,16 +220,16 @@ class BillingTest extends TestCase
         $this->webhook($this->subscriptionEvent('subscription.active', $user, ['timestamp' => now()->subMinutes(5)->toIso8601String()]))->assertOk();
         $this->webhook($this->subscriptionEvent('subscription.on_hold', $user, ['timestamp' => now()->subMinutes(4)->toIso8601String()]))->assertOk()->assertJson(['outcome' => 'applied']);
         Mail::assertSent(SubscriptionPaymentFailedMail::class, fn ($m) => $m->hasTo($user->email));
-        $this->assertTrue($user->fresh()->entitled('alerts.daily'), 'inside grace period');
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'), 'inside grace period');
 
         $this->travelTo(now()->addDays(8));
-        $this->assertFalse($user->fresh()->entitled('alerts.daily'), 'grace period over');
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'), 'grace period over');
         $this->travelBack();
 
         // A renewal after the customer fixed the card restores access without a new email.
         $this->webhook($this->subscriptionEvent('subscription.renewed', $user, ['timestamp' => now()->subMinutes(3)->toIso8601String()]))->assertOk();
         $this->assertSame('active', Subscription::first()->status);
-        $this->assertTrue($user->fresh()->entitled('alerts.daily'));
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'));
         Mail::assertSent(SubscriptionPaymentFailedMail::class, 1);
     }
 
@@ -223,10 +238,10 @@ class BillingTest extends TestCase
         $this->enable();
         $user = $this->user();
         $this->webhook($this->subscriptionEvent('subscription.cancelled', $user, ['timestamp' => now()->toIso8601String(), 'next_billing_date' => now()->subDay()->toIso8601String()]))->assertOk();
-        $this->assertFalse($user->fresh()->entitled('alerts.daily'));
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'));
         $this->webhook($this->subscriptionEvent('subscription.active', $user, ['timestamp' => now()->subHour()->toIso8601String()]))->assertOk()->assertJson(['outcome' => 'stale']);
         $this->assertSame('cancelled', Subscription::first()->status);
-        $this->assertFalse($user->fresh()->entitled('alerts.daily'));
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'));
         $this->assertSame('stale', BillingEvent::orderByDesc('id')->first()->outcome);
     }
 
@@ -255,10 +270,10 @@ class BillingTest extends TestCase
     public function test_subscribed_middleware_guards_paid_routes(): void
     {
         $this->enable();
-        Route::middleware(['web', 'subscribed:alerts.daily'])->get('/_test/pro', fn () => 'pro-only');
+        Route::middleware(['web', 'subscribed:alerts.channels'])->get('/_test/pro', fn () => 'pro-only');
         $this->get('/_test/pro')->assertRedirect('/login');
         $user = $this->user();
-        $this->actingAs($user)->get('/_test/pro')->assertRedirect('/');
+        $this->actingAs($user)->get('/_test/pro')->assertRedirect('/pricing');
         $this->webhook($this->subscriptionEvent('subscription.active', $user))->assertOk();
         $this->actingAs($user->fresh())->get('/_test/pro')->assertOk()->assertSee('pro-only');
     }
@@ -326,6 +341,202 @@ class BillingTest extends TestCase
         $this->gateway->products['pdt_year'] = ['product_id' => 'pdt_year', 'name' => 'Pro annual', 'price' => 29000, 'currency' => 'USD', 'interval' => 'Year'];
         $this->actingAs($admin)->post('/backend/admin/billing/check')->assertRedirect();
         $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('Price differs')->assertSee('Price matches');
+    }
+
+    private function paymentEvent(string $paymentId, string $subId = 'sub_1', ?string $at = null, int $amount = 2900): array
+    {
+        $at ??= now()->subMinutes(10)->toIso8601String();
+
+        return ['business_id' => 'bus_1', 'type' => 'payment.succeeded', 'timestamp' => $at, 'data' => [
+            'payload_type' => 'Payment', 'payment_id' => $paymentId, 'subscription_id' => $subId, 'total_amount' => $amount, 'currency' => 'USD', 'created_at' => $at,
+        ]];
+    }
+
+    private function refundEvent(string $paymentId, bool $partial = false, int $amount = 2900): array
+    {
+        return ['business_id' => 'bus_1', 'type' => 'refund.succeeded', 'timestamp' => now()->toIso8601String(), 'data' => [
+            'payload_type' => 'Refund', 'refund_id' => 'ref_'.$paymentId, 'payment_id' => $paymentId, 'is_partial' => $partial, 'amount' => $amount, 'currency' => 'USD', 'status' => 'succeeded',
+        ]];
+    }
+
+    private function disputeEvent(string $type, string $paymentId): array
+    {
+        return ['business_id' => 'bus_1', 'type' => $type, 'timestamp' => now()->toIso8601String(), 'data' => [
+            'payload_type' => 'Dispute', 'dispute_id' => 'dsp_1', 'payment_id' => $paymentId, 'amount' => '2900', 'currency' => 'USD',
+            'dispute_status' => str_replace('.', '_', $type), 'dispute_stage' => 'dispute',
+        ]];
+    }
+
+    private function activePro(User $user): void
+    {
+        $this->webhook($this->subscriptionEvent('subscription.active', $user, ['timestamp' => now()->subMinutes(10)->toIso8601String()]))->assertOk();
+        $this->webhook($this->paymentEvent('pay_1'))->assertOk()->assertJson(['outcome' => 'applied']);
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'));
+    }
+
+    public function test_a_full_refund_revokes_access_and_a_partial_one_does_not(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        $this->activePro($user);
+
+        $this->webhook($this->refundEvent('pay_1', partial: true, amount: 1000))->assertOk()->assertJson(['outcome' => 'applied']);
+        $this->assertSame('partially_refunded', BillingPayment::first()->status);
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'), 'a goodwill credit keeps access');
+
+        $this->webhook($this->refundEvent('pay_1', partial: true, amount: 1900))->assertOk();
+        $this->assertSame('refunded', BillingPayment::first()->status, 'partial refunds adding up to the whole are a full refund');
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'));
+        $sub = Subscription::first();
+        $this->assertSame('refund', $sub->revoked_reason);
+        $this->assertSame('active', $sub->status, 'the provider status is mirrored untouched');
+    }
+
+    public function test_refunding_an_older_payment_keeps_the_period_paid_for_by_a_newer_one(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        $this->activePro($user);
+        $this->webhook($this->paymentEvent('pay_2', at: now()->subMinutes(5)->toIso8601String()))->assertOk();
+
+        $this->webhook($this->refundEvent('pay_1'))->assertOk()->assertJson(['outcome' => 'applied']);
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'));
+        $this->assertNull(Subscription::first()->revoked_at);
+    }
+
+    public function test_a_lost_dispute_revokes_access_an_open_one_does_not_and_a_renewal_restores_it(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        $this->activePro($user);
+
+        $this->webhook($this->disputeEvent('dispute.opened', 'pay_1'))->assertOk()->assertJson(['outcome' => 'applied']);
+        $this->assertSame('disputed', BillingPayment::first()->status);
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'), 'an open dispute is not yet a reversal');
+
+        $this->webhook($this->disputeEvent('dispute.lost', 'pay_1'))->assertOk();
+        $this->assertSame('dispute_lost', BillingPayment::first()->status);
+        $this->assertSame('chargeback', Subscription::first()->revoked_reason);
+        $this->assertFalse($user->fresh()->entitled('alerts.channels'));
+
+        $this->travel(1)->minutes();
+        $this->webhook($this->subscriptionEvent('subscription.renewed', $user))->assertOk()->assertJson(['outcome' => 'applied']);
+        $this->assertNull(Subscription::first()->revoked_at);
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'), 'paying again restores access');
+    }
+
+    public function test_refund_or_dispute_for_an_unknown_payment_is_recorded_and_ignored(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        $this->activePro($user);
+
+        $this->webhook($this->refundEvent('pay_unknown'))->assertOk()->assertJson(['outcome' => 'ignored']);
+        $this->webhook($this->disputeEvent('dispute.lost', 'pay_unknown'))->assertOk()->assertJson(['outcome' => 'ignored']);
+        $this->assertTrue($user->fresh()->entitled('alerts.channels'));
+    }
+
+    public function test_pricing_page_is_noindex_and_sells_nothing_while_billing_is_disabled(): void
+    {
+        $res = $this->get('/pricing')->assertOk()->assertSee('Not yet available')->assertDontSee('Subscribe to Pro');
+        $this->assertStringContainsString('noindex', $res->getContent());
+        $this->actingAs($this->user())->post('/billing/checkout/pro_monthly')->assertNotFound();
+        $this->actingAs($this->user())->post('/billing/portal')->assertNotFound();
+        $this->get('/sitemap-static.xml')->assertOk()->assertDontSee('/pricing');
+        $this->get('/')->assertOk()->assertDontSee('/pricing"', false);
+    }
+
+    public function test_pricing_page_is_indexable_and_offers_checkout_when_enabled(): void
+    {
+        $this->enable();
+        $res = $this->get('/pricing')->assertOk()->assertSee('$29')->assertSee('$290')->assertSee('Sign in to subscribe');
+        $this->assertStringNotContainsString('noindex', $res->getContent());
+        $this->actingAs($this->user())->get('/pricing')->assertOk()->assertSee('Subscribe to Pro')->assertSee('What stays free?');
+        $this->get('/sitemap-static.xml')->assertOk()->assertSee('/pricing');
+        $this->get('/')->assertOk()->assertSee('/pricing"', false);
+    }
+
+    public function test_checkout_requires_verified_account_records_attempt_and_hands_off_to_provider(): void
+    {
+        $this->enable();
+        $this->post('/billing/checkout/pro_monthly')->assertRedirect('/login');
+        $unverified = User::factory()->create(['email_verified_at' => null]);
+        $this->actingAs($unverified)->post('/billing/checkout/pro_monthly')->assertRedirect(route('verification.notice'));
+        $this->actingAs($this->user())->post('/billing/checkout/no_such_plan')->assertNotFound();
+
+        $user = $this->user();
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk()->assertSee('https://checkout.example.test/cs_1');
+        $checkout = BillingCheckout::where('user_id', $user->id)->firstOrFail();
+        $this->assertSame('pdt_month', $checkout->product_id);
+        $this->assertSame('cs_1', $checkout->provider_session_id);
+        $this->assertSame((string) $user->id, $this->gateway->lastCheckout['metadata']['app_user_id']);
+        $this->assertStringContainsString('/billing/return/'.$checkout->id, $this->gateway->lastCheckout['return_url']);
+        // Return page: no subscription yet, so it says it is still confirming, never "active".
+        $this->actingAs($user)->get('/billing/return/'.$checkout->id)->assertOk()->assertSee('Confirming your subscription');
+        $this->assertSame('returned', $checkout->fresh()->status);
+        $this->actingAs($this->user())->get('/billing/return/'.$checkout->id)->assertNotFound();
+        $this->assertNull($user->fresh()->activeSubscription());
+
+        $this->webhook($this->subscriptionEvent('subscription.active', $user))->assertOk();
+        $this->actingAs($user->fresh())->get('/profile')->assertOk()->assertSee('Manage billing');
+        $this->actingAs($user->fresh())->get('/pricing')->assertOk()->assertSee('Your current plan');
+        $this->actingAs($user->fresh())->post('/billing/checkout/pro_monthly')->assertRedirect('/profile');
+    }
+
+    public function test_checkout_failure_at_provider_is_reported_not_faked(): void
+    {
+        $this->enable();
+        $this->gateway->fail = true;
+        $user = $this->user();
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error');
+        $this->assertNull(session('error_detail'), 'a customer never sees provider internals');
+        $attempt = BillingCheckout::where('user_id', $user->id)->firstOrFail();
+        $this->assertSame('abandoned', $attempt->status);
+    }
+
+    public function test_portal_redirects_subscribed_users_to_the_provider(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        $this->actingAs($user)->post('/billing/portal')->assertRedirect('/profile')->assertSessionHas('error');
+        $this->webhook($this->subscriptionEvent('subscription.active', $user))->assertOk();
+        $this->actingAs($user->fresh())->post('/billing/portal')->assertOk()->assertSee('https://portal.example.test/cus_1');
+        $this->assertSame('cus_1', $this->gateway->lastPortalCustomer);
+    }
+
+    public function test_free_accounts_keep_three_watches_with_daily_alerts_when_selling_starts(): void
+    {
+        $user = $this->user();
+        // Before launch: every signed-in account holds the most permissive tier.
+        foreach (['eu', 'uk', 'us', 'china'] as $slug) {
+            Follow::create(['user_id' => $user->id, 'subject_type' => 'change_type', 'subject_slug' => $slug === 'eu' ? 'urgent' : ($slug === 'uk' ? 'high' : ($slug === 'us' ? 'routine' : 'urgent-x')), 'label' => $slug]);
+        }
+        $this->assertSame(500, $user->fresh()->watchLimit());
+
+        $this->enable();
+        $user = $user->fresh();
+        $this->assertTrue($user->entitled('alerts.daily'), 'turning selling on keeps the daily alert');
+        $this->assertTrue($user->entitled('saved.server'));
+        $this->assertSame(3, $user->watchLimit());
+        $this->assertFalse($user->entitled('alerts.channels'));
+        $this->assertFalse($user->entitled('profiles.saved'));
+        $this->assertSame(3, app(AlertBuilder::class)->build($user, now()->subDay(), now())['follows'], 'alerts read the oldest three watches; the fourth is kept, not alerted');
+        $this->assertSame(4, Follow::where('user_id', $user->id)->count());
+
+        // At the limit: a new watch is refused with a pointer to the plans; nothing is deleted.
+        $this->actingAs($user)->post('/follow/change_type/-', ['slug' => 'urgent'])->assertRedirect();
+        $this->assertSame(3, Follow::where('user_id', $user->id)->count(), 'unfollowing an existing watch still works');
+        $this->actingAs($user)->post('/follow/change_type/-', ['slug' => 'urgent'])->assertRedirect('/pricing');
+        $this->assertSame(3, Follow::where('user_id', $user->id)->count());
+        $this->actingAs($user)->post('/alerts/channels', ['kind' => 'rss'])->assertRedirect('/pricing');
+        $this->actingAs($user)->get('/following')->assertOk()->assertSee('Watching')->assertSee('of 3', false);
+
+        // Pro lifts the limit and opens the channels.
+        $this->webhook($this->subscriptionEvent('subscription.active', $user))->assertOk();
+        $user = $user->fresh();
+        $this->assertSame(500, $user->watchLimit());
+        $this->assertTrue($user->entitled('alerts.channels'));
+        $this->assertTrue($user->entitled('profiles.saved'));
     }
 
     public function test_a_retried_webhook_is_acknowledged_even_while_a_transaction_is_open(): void

@@ -86,6 +86,7 @@
                 <a href="{{ route('search') }}" class="sm:hidden btn-primary !min-h-[38px] !py-1.5 gap-1.5" data-track="header_search_click"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Search</a>
                 <a href="{{ route('search') }}" class="hidden sm:inline-flex xl:hidden btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click" aria-label="Search"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
                 <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
+                @auth<a href="{{ route('profile.edit') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_account_click">Account</a>@else<a href="{{ route('login') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_signin_click">Sign in</a>@endauth
                 <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
                 <details class="relative lg:hidden">
                     <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none" aria-label="Open menu">Menu</summary>
@@ -140,9 +141,10 @@
             <p class="eyebrow !text-brand-cyan">Project</p>
             <ul class="mt-3 space-y-2">
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
+                @if(\App\Services\Billing\BillingConfig::sellingForLayout())<li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('pricing') }}">Pricing</a></li>@endif
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('methodology') }}">Methodology</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('verification') }}">Verification</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('glossary') }}">Glossary</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('coverage') }}">Coverage</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('gaps') }}">Open queue</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('reviewers') }}">Reviewers</a></li>
-                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('about') }}">About</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('about') }}">About</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('funding') }}">Funding</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('contribute') }}">Contribute</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('corrections') }}">Corrections log</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
                 @if(config('aipolicytracker.contact_email'))<li><a class="text-snow/85 hover:text-snow no-underline" href="mailto:{{ config('aipolicytracker.contact_email') }}" data-track="contact_click">{{ config('aipolicytracker.contact_email') }}</a></li>@endif
@@ -150,7 +152,7 @@
         </div>
         <div class="md:col-span-4">
             <p class="eyebrow !text-brand-cyan">From policy to practice</p>
-            <p class="mt-3 text-snow/80">AIPolicyTracker is AI governance intelligence, from regulation to evidence. <a href="{{ config('aipolicytracker.certifyi_url') }}" rel="noopener" class="text-snow underline decoration-snow/40 hover:decoration-snow" data-track="certifyi_click">Certifyi</a> is a separate platform for teams that need to turn obligations into owned tasks, evidence and audit trails.</p>
+            <p class="mt-3 text-snow/80">AIPolicyTracker is AI governance intelligence, from regulation to evidence: open data, no advertising, no affiliate links. <a href="{{ route('funding') }}" class="text-snow underline decoration-snow/40 hover:decoration-snow">How it is funded</a>.</p>
         </div>
     </div>
     <div class="border-t border-snow/10">

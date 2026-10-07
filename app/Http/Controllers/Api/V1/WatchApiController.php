@@ -27,6 +27,10 @@ class WatchApiController extends Controller
         }
         $user = $request->user();
         abort_if($user->entitled('saved.server') === false, 402, 'This feature requires a Pro plan.');
+        $exists = Follow::where('user_id', $user->id)->where('subject_type', $data['type'])->where('subject_slug', $resolved['slug'])->exists();
+        if (! $exists && Follow::where('user_id', $user->id)->count() >= $user->watchLimit()) {
+            return response()->json(['message' => 'Watch limit reached for this plan ('.$user->watchLimit().').'], 402);
+        }
         $follow = Follow::firstOrCreate(['user_id' => $user->id, 'subject_type' => $data['type'], 'subject_slug' => $resolved['slug']], ['label' => $resolved['label'], 'params' => $resolved['params']]);
 
         return response()->json(['data' => $this->row($follow)], $follow->wasRecentlyCreated ? 201 : 200);

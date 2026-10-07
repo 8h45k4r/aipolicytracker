@@ -7,6 +7,7 @@ use App\Enums\ReviewStatus;
 use App\Http\Controllers\Controller;
 use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
+use App\Services\Billing\BillingConfig;
 use App\Services\PolicyData\OpenDataExporter;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\ContentCache;
@@ -95,6 +96,30 @@ class PageController extends Controller
             ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]], $faq)]);
 
         return view('site.pages.about', ['seo' => $seo, 'maintainers' => config('aipolicytracker.maintainers'), 'contacts' => config('aipolicytracker.contact_emails'), 'organization' => config('aipolicytracker.organization'), 'references' => config('aipolicytracker.references'), 'faq' => $faq]);
+    }
+
+    /**
+     * How the project is paid for and the rules that keep money away from the
+     * records. Linked from Organization.ownershipFundingInfo, so it must stay a
+     * statement of fact: funders come from config/funding.php and nowhere else.
+     */
+    public function funding(BillingConfig $billing): View
+    {
+        $seo = Seo::make(
+            'Funding and independence: how AIPolicyTracker is paid for',
+            'Who funds AIPolicyTracker, what each funder pays for, and the rules that keep funders, subscribers and related products out of what the records say.',
+            route('funding')
+        )->withBreadcrumbs([['Home', route('home')], ['About', route('about')], ['Funding and independence', route('funding')]])
+            ->withPageType('AboutPage', ['name' => 'Funding and independence', 'mainEntity' => ['@id' => url('/').'#organization']]);
+
+        return view('site.pages.funding', [
+            'seo' => $seo,
+            'funders' => (array) config('funding.funders'),
+            'threshold' => (int) config('funding.disclosure_threshold'),
+            'sponsorUrl' => config('funding.sponsor_url'),
+            'selling' => $billing->enabled(),
+            'certifyiUrl' => config('aipolicytracker.certifyi_url'),
+        ]);
     }
 
     /**

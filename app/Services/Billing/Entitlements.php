@@ -31,6 +31,10 @@ class Entitlements
         if ($s->expires_at && $s->expires_at->lte($now)) {
             return false;
         }
+        // Refunded in full or charged back: the provider status may still read active.
+        if ($s->revoked_at && $s->revoked_at->lte($now)) {
+            return false;
+        }
 
         return match ($s->status) {
             'active' => true,

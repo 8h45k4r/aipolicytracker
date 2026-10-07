@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
- * Server-side follows for Pro accounts (entitlement saved.server), the input
+ * Server-side follows (entitlement saved.server, up to watches.max), the input
  * to the daily alert. Records are validated against the published tables so a
  * follow can only point at something that exists.
  */
@@ -71,6 +71,9 @@ class FollowController extends Controller
             $existing->delete();
 
             return redirect()->to(self::localPath($request->input('return')) ?? $back)->with('status', 'unfollowed');
+        }
+        if (Follow::where('user_id', $user->id)->count() >= $user->watchLimit()) {
+            return redirect()->route('pricing')->with('error', 'You are watching '.$user->watchLimit().' items, the most your plan allows. Stop watching one, or choose Pro to watch more.');
         }
         Follow::create(['user_id' => $user->id, 'subject_type' => $type, 'subject_slug' => $resolved['slug'], 'label' => $resolved['label'], 'params' => $resolved['params']]);
 

@@ -33,7 +33,7 @@ class ApplicabilityController extends Controller
         $submitted = $request->has('jurisdictions') && $answers['jurisdictions'] !== [];
         $result = $submitted ? $screener->screen($answers) : null;
         $user = $request->user();
-        $canSave = (bool) $user?->entitled('saved.server');
+        $canSave = (bool) $user?->entitled('profiles.saved');
         $savedProfile = $submitted && $user ? ApplicabilityProfile::where('user_id', $user->id)->get()->first(fn ($p) => $p->matchesAnswers($answers)) : null;
 
         $seo = Seo::make(

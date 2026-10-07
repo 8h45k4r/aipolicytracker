@@ -170,7 +170,6 @@
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Terms explained</p><ul class="mt-2 space-y-1.5">@foreach($glossary as $g)<li><a href="{{ \App\Services\Glossary\GlossaryTerms::url($g['id']) }}" class="text-brand-body hover:underline">{{ $g['term'] }}</a></li>@endforeach</ul></div>
                 @endif
                 <x-site.assessments kind="policy" :key="$policy->slug" />
-                <x-site.certifyi-cta label="Export these obligations to a compliance workflow" />
             </div>
         </aside>
     </div>

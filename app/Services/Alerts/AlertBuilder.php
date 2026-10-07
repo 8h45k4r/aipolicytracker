@@ -40,8 +40,11 @@ class AlertBuilder
      */
     public function build(User $user, CarbonInterface $since, CarbonInterface $until): array
     {
-        $follows = Follow::where('user_id', $user->id)->get();
-        $profiles = ApplicabilityProfile::where('user_id', $user->id)->get();
+        // Watches beyond the plan's quota (an account that lapsed from Pro, or one that
+        // followed more while selling was off) are kept but not alerted on: the oldest
+        // ones count, so the alert does not change under the reader from day to day.
+        $follows = Follow::where('user_id', $user->id)->orderBy('id')->limit($user->watchLimit())->get();
+        $profiles = $user->entitled('profiles.saved') ? ApplicabilityProfile::where('user_id', $user->id)->get() : collect();
         $empty = ['changes' => collect(), 'deadlines' => collect(), 'milestone' => false, 'follows' => $follows->count(), 'profiles' => $profiles, 'reasons' => []];
 
         [$jurisdictionIds, $instrumentIds, $obligationIds] = $this->followedIds($follows);

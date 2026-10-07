@@ -116,7 +116,6 @@
                 </div>
                 @endif
                 <x-site.correction-cta subject-type="control" :subject-slug="$control->slug" :save-title="$control->title" :save-url="$control->url()" save-meta="Control" />
-                <x-site.certifyi-cta label="Run this control as a tracked task" />
             </div>
         </aside>
     </div>

@@ -124,7 +124,6 @@
         <p class="mt-2 max-w-[60ch] text-brand-body">Records live as reviewable YAML in a public repository. Propose corrections and sources through pull requests, or use the <a href="{{ route('contribute') }}">contribution form</a>.</p>
         <a href="{{ config('aipolicytracker.github_url') }}" rel="noopener" class="btn-secondary mt-4" data-track="github_click">View on GitHub</a>
     </div>
-    <x-site.certifyi-cta label="Export obligations to a workflow tool" class="self-start" />
 </section>
 <div class="container-site pb-6"><x-site.disclaimer /></div>
 @endsection

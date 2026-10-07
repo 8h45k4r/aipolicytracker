@@ -1,10 +1,8 @@
 @props(['kind', 'key', 'limit' => 2, 'title' => 'Check where you stand'])
-{{-- The free self-assessments that fit this page, if any. Kept to two, and it stands in
-     for the Certifyi note on the same page (certifyi-cta skips itself), so a page never
-     carries two mentions of a related product. --}}
+{{-- The free self-assessments that fit this page, if any. Kept to two. They run on
+     Certifyi, a related product, and say so: the only place a record page names it. --}}
 @php($items = \App\Services\Assessments\AssessmentCatalog::for($kind, $key, $limit))
 @if($items->isNotEmpty())
-@php(request()->attributes->set('assessments.shown', true))
 <section {{ $attributes->merge(['class' => 'rounded-sm border border-brand-line bg-brand-paper p-4 text-sm']) }} aria-label="Free self-assessments">
     <p class="font-semibold text-brand-navy">{{ $title }}</p>
     <ul class="mt-2 space-y-2">

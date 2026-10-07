@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\ResourceDownload;
+use App\Services\Billing\BillingConfig;
+use App\Services\Subscribers\AccountDigest;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,9 +26,9 @@ class ProfileController extends Controller
         $downloads = ResourceDownload::with('tool')->where('user_id', $user->id)->orderByDesc('id')->limit(20)->get();
 
         $subscription = $user->activeSubscription();
-        $billingEnabled = (bool) config('billing.enabled');
+        $billingEnabled = app(BillingConfig::class)->enabled();
 
-        return view('site.account.profile', compact('seo', 'user', 'downloads', 'subscription', 'billingEnabled'));
+        return view('site.account.profile', compact('seo', 'user', 'downloads', 'subscription', 'billingEnabled') + ['digestActive' => app(AccountDigest::class)->active($user)]);
     }
 
     /**
@@ -36,13 +38,14 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
         $request->user()->organization_name = $request->input('organization_name') ?: null;
-        $request->user()->marketing_consent_at = $request->boolean('marketing_consent') ? ($request->user()->marketing_consent_at ?? now()) : null;
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
         $request->user()->save();
+        // The box shows whether the address receives the digest, so saving it unchanged changes nothing.
+        app(AccountDigest::class)->set($request->user(), $request->boolean('marketing_consent'));
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

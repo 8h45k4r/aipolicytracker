@@ -10,6 +10,9 @@
     @if(session('status') === 'profile-deleted')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile deleted.</p>@endif
     @if(session('status') === 'followed')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Watching.</p>@endif
     @if(session('status') === 'unfollowed')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Unfollowed.</p>@endif
+    @php($selling = app(\App\Services\Billing\BillingConfig::class)->enabled())
+    @if(session('error'))<p class="mt-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
+    @if($selling)<p class="mt-3 text-sm text-brand-body">Watching <strong>{{ $follows->count() }}</strong> of {{ $user->watchLimit() }}@if($follows->count() > $user->watchLimit()) · alerts cover the first {{ $user->watchLimit() }}; the rest are kept @endif @unless($user->entitled('alerts.channels')) · <a href="{{ route('pricing') }}">Pro</a> watches up to 500 and adds Slack, webhook and RSS alerts @endunless</p>@endif
     <p class="mt-3 meta">@if($lastAlert)Last alert sent {{ $lastAlert->sent_on->format('j M Y') }} ({{ $lastAlert->changes_count }} {{ \Illuminate\Support\Str::plural('change', $lastAlert->changes_count) }}).@else No alert sent yet.@endif</p>
     @if($follows->isEmpty())
     <div class="mt-6"><x-site.empty title="You are not following anything yet">Open any policy, jurisdiction or obligation and use "Follow for daily alerts" in its sidebar.</x-site.empty>
@@ -62,11 +65,15 @@
                 <form method="post" action="{{ route('alerts.channels.destroy', $c) }}">@csrf @method('DELETE')<button type="submit" class="btn-secondary !min-h-[36px] !py-1">Remove</button></form></div></li>
             @endforeach
         </ul>
+        @if($user->entitled('alerts.channels'))
         <div class="mt-4 grid gap-3 sm:grid-cols-3">
             <form method="post" action="{{ route('alerts.channels.store') }}">@csrf<input type="hidden" name="kind" value="rss"><button type="submit" class="btn-secondary w-full" @disabled($channels->contains('kind', 'rss'))>Add private RSS feed</button></form>
             <form method="post" action="{{ route('alerts.channels.store') }}" class="flex gap-2">@csrf<input type="hidden" name="kind" value="slack"><input name="endpoint" type="url" class="input" placeholder="https://hooks.slack.com/services/…" required aria-label="Slack incoming webhook URL"><button type="submit" class="btn-secondary">Add Slack</button></form>
             <form method="post" action="{{ route('alerts.channels.store') }}" class="flex gap-2">@csrf<input type="hidden" name="kind" value="webhook"><input name="endpoint" type="url" class="input" placeholder="https://your-host/webhook" required aria-label="Webhook URL"><button type="submit" class="btn-secondary">Add webhook</button></form>
         </div>
+        @else
+        <p class="mt-4 text-sm text-brand-body">Alerts to Slack, a signed webhook or a private RSS feed are part of Pro. <a href="{{ route('pricing') }}" data-track="channels_pricing_click">See Pro plans</a>.</p>
+        @endif
         @error('endpoint')<p class="mt-2 text-xs text-state-bad" role="alert">{{ $message }}</p>@enderror
         <p class="mt-2 text-xs text-brand-muted">Webhooks receive JSON with <code>X-AIP-Signature</code> (HMAC-SHA256 of the body), <code>X-AIP-Delivery</code> and <code>X-AIP-Event</code>; failures retry with backoff, five attempts, and the log is kept here. Every consent change is recorded; <a href="{{ route('account.export') }}">export everything we hold about you</a>.</p>
     </section>

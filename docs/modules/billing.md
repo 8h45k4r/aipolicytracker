@@ -14,11 +14,11 @@ Design rules:
 
 | Plan key | Name | Price (config) | Entitlements |
 |----------|------|----------------|--------------|
-| `free` (implicit) | Free | 0 | `alerts.weekly` |
-| `pro_monthly` | Pro | $29 / month | `alerts.weekly`, `alerts.daily`, `saved.server` |
+| `free` (implicit) | Free | 0 | `alerts.weekly`, `alerts.daily`, `saved.server`, `watches.max` = 3 |
+| `pro_monthly` | Pro | $29 / month | as Free, plus `watches.max` = 500, `alerts.channels`, `profiles.saved` |
 | `pro_yearly` | Pro (annual) | $290 / year | same as Pro |
 
-Only entitlements with a consumer in the code are listed: `alerts.daily` and `saved.server` are read by the alerts module ([alerts.md](alerts.md)), `alerts.weekly` describes the digest that is open to everyone. A key with no reader is a promise the product does not keep, so it does not belong in the config or on the pricing page.
+Free keeps three watches with the daily inbox alert, so switching selling on never takes alerts away from an account that already had them: an account with more than three watches keeps them all, and the daily alert reads the oldest three (`User::watchLimit()`, `AlertBuilder::build`). Pro sells volume (`watches.max`), the Slack, webhook and RSS channels (`alerts.channels`) and saved applicability profiles for change-impact alerts (`profiles.saved`). Only entitlements with a consumer in the code are listed (`BillingTest::test_every_entitlement_key_is_consumed_by_code`); `alerts.weekly` describes the digest, which is open to everyone. A key with no reader is a promise the product does not keep, so it does not belong in the config or on the pricing page.
 
 Entitlement keys are strings such as `alerts.daily`; `User::entitled('alerts.daily')` answers from the covering subscription's plan or the free tier. `User::planKey()` returns `free` or the plan key. The `subscribed` middleware (`subscribed` for any plan, `subscribed:saved.server` for one capability) guards routes: guests go to sign-in, members without the entitlement go to `/pricing` (402 JSON for API callers). `follow.toggle` uses it.
 
@@ -29,6 +29,7 @@ Access rules (`Entitlements::covers`):
 | `active` | yes |
 | `on_hold`, `past_due` (renewal failed) | yes for `BILLING_ON_HOLD_GRACE_DAYS` (default 7) after `on_hold_at`; a `SubscriptionPaymentFailedMail` is sent once on the transition |
 | `cancelled` | yes until `current_period_end` (cancel at period end), otherwise no |
+| any status with `revoked_at` set | no, from `revoked_at`: the latest payment was refunded in full or lost to a chargeback |
 | `pending`, `paused`, `failed`, `expired`, past `expires_at`, unknown product | no |
 
 ## Schema: `billing_customers`
@@ -85,6 +86,25 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | error | text | yes |  | Exception message when `outcome = error` |
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |
+
+## Schema: `billing_payments`
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | integer | no |  |  |
+| provider | varchar | no | 'dodo' |  |
+| provider_payment_id | varchar | no |  | Unique; Dodo `payment_id` |
+| provider_subscription_id | varchar | yes |  | Indexed; the subscription the payment paid for |
+| total_amount | integer | yes |  | Smallest currency unit |
+| currency | varchar | yes |  |  |
+| status | varchar | no |  | `succeeded`, `partially_refunded`, `refunded`, `disputed`, `dispute_lost`, `dispute_won` |
+| refunded_amount | integer | no | 0 | Running total of refunds |
+| dispute_status | varchar | yes |  | Last dispute status from the provider |
+| paid_at | datetime | yes |  |  |
+| created_at | datetime | yes |  |  |
+| updated_at | datetime | yes |  |  |
+
+`subscriptions` also carries `revoked_at` (datetime, null) and `revoked_reason` (varchar, null).
 
 ## Schema: `billing_checkouts`
 
@@ -144,7 +164,9 @@ Checkout and portal hand-offs render an interstitial page with a nonce-carrying 
 
 Headers `webhook-id`, `webhook-timestamp`, `webhook-signature` (`v1,<base64>`), signed content `id.timestamp.body`. Payload: `{business_id, type, timestamp, data: {payload_type, subscription_id, product_id, status, next_billing_date, cancel_at_next_billing_date, cancelled_at, expires_at, customer: {customer_id, email, name}, metadata}}`.
 
-Handled: `subscription.active`, `subscription.renewed`, `subscription.plan_changed`, `subscription.on_hold`, `subscription.cancelled`, `subscription.failed`, `subscription.expired`, `subscription.paused` (status taken from `data.status` when valid, otherwise derived from the event name). `payment.*` events are stored with outcome `ignored`. User resolution order: `metadata.app_user_id`, then `customer.customer_id` against `billing_customers`, then `customer.email` (case-insensitive). Unresolvable events are stored as `ignored`.
+Refunds and disputes name a payment, never a subscription, so `payment.succeeded` is recorded in `billing_payments` with the subscription it paid for. `refund.succeeded` that is not partial (or partial refunds that add up to the payment) and `dispute.lost` or `dispute.accepted` set `revoked_at` and `revoked_reason` (`refund`, `chargeback`) on that subscription, but only when the reversed payment is its latest: refunding last month's charge after this month's renewal keeps the paid period. `dispute.opened` and `dispute.challenged` are recorded only. A later `subscription.active` or `subscription.renewed` (a new payment) clears the revocation. The provider's own `status` is never overwritten, so the mirror stays faithful. A refund or dispute for a payment never seen is stored as `ignored`.
+
+Subscription events handled: `subscription.active`, `subscription.renewed`, `subscription.plan_changed`, `subscription.on_hold`, `subscription.cancelled`, `subscription.failed`, `subscription.expired`, `subscription.paused` (status taken from `data.status` when valid, otherwise derived from the event name). Other `payment.*` events are stored with outcome `ignored`. User resolution order: `metadata.app_user_id`, then `customer.customer_id` against `billing_customers`, then `customer.email` (case-insensitive). Unresolvable events are stored as `ignored`.
 
 Responses: 400 for a missing or invalid signature or a stale timestamp (nothing stored); 200 `{outcome}` for applied, ignored, stale and duplicate; 500 when applying failed (the row keeps the error; the provider retries with the same id).
 
@@ -155,7 +177,7 @@ Responses: 400 for a missing or invalid signature or a stale timestamp (nothing 
 3. Admin → Billing → "Provision webhook and products". The app registers `https://aipolicytracker.org/webhooks/dodo` for every subscription and payment event (reusing an endpoint with that URL), creates "AIPolicyTracker Pro" ($29/month) and "AIPolicyTracker Pro (annual)" ($290/year) as SaaS subscriptions (reusing products with the same name), and stores the signing secret and product ids as encrypted settings. The success message lists what was created or reused.
 4. Admin → Billing → "Check products against the provider": both plans must read "Price matches".
 5. In test mode, buy a plan with card `4242 4242 4242 4242` and confirm the subscription appears with status `active`; decline with `4000 0000 0000 0002` and confirm nothing is granted.
-6. Admin → Settings → Billing → Checkout `on` to open the pricing page for purchase. (Environment variables `BILLING_ENABLED`, `DODO_PAYMENTS_*` and `DODO_PRODUCT_*` remain the fallback for hosts without the settings table.)
+6. Admin → Settings → Billing → Checkout `on` to open the pricing page for purchase. While it is off, nothing on the public site changes: no Pricing link, no upsell, the pricing page is `noindex` and says "Not yet available", checkout and portal return 404, and every signed-in account keeps the most permissive tier. (Environment variables `BILLING_ENABLED`, `DODO_PAYMENTS_*` and `DODO_PRODUCT_*` remain the fallback for hosts without the settings table.)
 ### When checkout fails
 
 The customer always sees a neutral message. The provider's own answer is kept on the checkout attempt (`billing_checkouts.error`, listed under Admin → Billing), shown inline on `/pricing` to admins only, and reproducible on demand with Admin → Billing → "Can we sell right now?", which opens a session for the first purchasable plan and prints the result. A refusal there is the provider's verdict, not the application's: typically an unverified business, a product that cannot sell in that environment, or a key without payment permission.
@@ -169,3 +191,15 @@ The customer always sees a neutral message. The provider's own answer is kept on
 ## Open debt
 
 See `docs/reference/technical-debt.md` #21 to #23.
+
+## Go-live checklist
+
+Only the account owner can do steps 1, 2 and 7: they happen in the Dodo dashboard and in production settings.
+
+1. **Dodo business verification.** Dodo dashboard → Business → Verification: identity, business details and payout bank account. Live keys are not issued until this is approved.
+2. **Test mode first.** Settings → Billing: environment `test_mode`, test API key; Admin → Billing → "Provision webhook and products"; "Check products against the provider" reads "Price matches" for both plans.
+3. **One purchase, one decline.** With Checkout `on` in test mode: buy with `4242 4242 4242 4242` and confirm the subscription is `active` in Admin → Billing and the account shows Pro; decline with `4000 0000 0000 0002` and confirm nothing is granted. Both appear in `billing_events`.
+4. **One refund.** Refund the test purchase in full from the Dodo dashboard; Admin → Billing shows "access revoked (refund)" and the account is back on Free with its watches kept.
+5. **Copy check.** `/pricing`, `/following` and the account page read correctly for a free account, a Pro account and a refunded one.
+6. **Checkout `off`** again in test mode.
+7. **Live.** Environment `live_mode`, live API key, run provisioning again (live objects are separate), product check green, then Checkout `on`. Close debt #21.

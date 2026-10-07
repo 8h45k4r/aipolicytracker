@@ -29,6 +29,7 @@ class Subscription extends Model
             'on_hold_at' => 'datetime',
             'expires_at' => 'datetime',
             'last_event_at' => 'datetime',
+            'revoked_at' => 'datetime',
             'metadata' => 'array',
         ];
     }

@@ -45,10 +45,16 @@ return [
     // unread is a promise the product does not keep (see docs/reference/technical-debt.md).
     'free' => [
         'name' => 'Free',
+        // A small free quota, so turning selling on never takes alerts away from an
+        // account that already had them: free accounts keep three watches and the
+        // daily inbox alert. Pro sells volume, channels and change-impact profiles.
         'entitlements' => [
             'alerts.weekly' => true,
-            'alerts.daily' => false,
-            'saved.server' => false,
+            'alerts.daily' => true,
+            'saved.server' => true,
+            'watches.max' => 3,
+            'alerts.channels' => false,
+            'profiles.saved' => false,
         ],
     ],
 
@@ -64,6 +70,9 @@ return [
                 'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
+                'watches.max' => 500,
+                'alerts.channels' => true,
+                'profiles.saved' => true,
             ],
         ],
         'pro_yearly' => [
@@ -77,6 +86,9 @@ return [
                 'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
+                'watches.max' => 500,
+                'alerts.channels' => true,
+                'profiles.saved' => true,
             ],
         ],
     ],
@@ -88,11 +100,12 @@ return [
             'Weekly digest by jurisdiction',
             'Applicability screening, comparisons and open-data downloads',
             'Read-only API at the public rate limit',
+            'Watch up to 3 records or topics: a daily email the day one changes, and reminders 30, 7 and 1 days before their application dates',
         ],
         'pro' => [
-            'Follow any policy, jurisdiction or obligation, synced to your account',
-            'One daily email when a record you follow changes, with the official source',
-            'Application-date reminders 30, 7 and 1 days before they fall due',
+            'Watch up to 500 policies, jurisdictions, obligations, sectors, frameworks or saved searches',
+            'Alerts to Slack, a signed webhook or a private RSS feed, as well as email',
+            'Saved applicability profiles: a daily alert naming the system a change may affect',
         ],
     ],
 ];

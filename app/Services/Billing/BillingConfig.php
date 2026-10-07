@@ -20,6 +20,20 @@ class BillingConfig
         };
     }
 
+    /**
+     * enabled() for the shared layout. Error pages use that layout and must render when
+     * the database is down, which is when they are most needed, so a failed read
+     * means "not selling" rather than a second error.
+     */
+    public static function sellingForLayout(): bool
+    {
+        try {
+            return app(self::class)->enabled();
+        } catch (\Throwable) {
+            return false;
+        }
+    }
+
     /** Where the current enabled value comes from, for the admin page. */
     public function enabledSource(): string
     {

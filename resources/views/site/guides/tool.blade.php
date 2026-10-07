@@ -63,7 +63,6 @@
                     </dl></div>
                 <div class="flex flex-col gap-2 text-sm"><x-site.save-button type="tool" :slug="$tool->slug" :title="$tool->title" :url="$tool->url()" meta="Free tool" /><button type="button" class="btn-secondary" data-copy-link>Copy link</button></div>
                 @if($next)<div class="text-sm"><p class="font-semibold text-brand-navy">Next step</p><p class="mt-1"><a href="{{ $next->url() }}" class="text-brand-navy">Download the {{ $next->title }} →</a></p></div>@endif
-                <x-site.certifyi-cta label="Turn this template into a live governance workflow" />
             </div>
         </aside>
     </div>

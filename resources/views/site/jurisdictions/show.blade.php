@@ -119,7 +119,6 @@
                 @endif
                 <x-site.correction-cta subject-type="jurisdiction" :subject-slug="$jurisdiction->slug" :save-title="$jurisdiction->name" :save-url="$jurisdiction->url()" save-meta="Jurisdiction" />
                 <x-site.assessments kind="jurisdiction" :key="$jurisdiction->slug" />
-                <x-site.certifyi-cta />
             </div>
         </aside>
     </div>

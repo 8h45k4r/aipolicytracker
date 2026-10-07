@@ -36,5 +36,11 @@ entries per group as the desktop menu, and the same hub link, so nothing is desk
     <div class="mt-2 border-t border-brand-line pt-2">
         <a href="{{ route('subscribe.show') }}" class="block rounded-sm px-3 py-2.5 text-sm font-medium text-brand-navy no-underline hover:bg-brand-paper">Subscribe to the digest</a>
         <a href="{{ route('saved') }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">Saved records</a>
+        @auth
+        <a href="{{ route('profile.edit') }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">Your account</a>
+        <a href="{{ route('following.index') }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">What you watch</a>
+        @else
+        <a href="{{ route('login') }}" class="block rounded-sm px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">Sign in</a>
+        @endauth
     </div>
 </nav>
