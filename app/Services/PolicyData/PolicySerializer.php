@@ -92,6 +92,7 @@ class PolicySerializer
             'related_frameworks' => $p->related_frameworks ?? [],
             'faq' => $p->faq ?? [],
             ...$this->sourceQuality($p),
+            'second_review' => $p->secondReview(),
         ];
     }
 

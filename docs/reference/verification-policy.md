@@ -47,6 +47,39 @@ A record becomes `verified` only when a named reviewer opens the official source
 
 Until then a record is published with its `review_status` and `confidence_level` shown to the reader, and it is counted as overdue here.
 
+## Independent checks
+
+One reviewer's verification is only as good as that reviewer. A random sample of verified records is therefore re-checked each quarter by a second, independent reviewer, and the agreement between the two is published.
+
+**Protocol.**
+
+1. At the start of each quarter, draw the sample: `php artisan verification:sample` (default 20% of published, verified policy records not yet double-checked; `--percent`, `--seed`, `--quarter`, `--include-checked`). The seed defaults to the quarter label (`2026-Q4`) and the population is sorted by slug before a seeded Mersenne Twister shuffle, so anyone can re-run the draw from the same data and get the same list. Paste the command and its output into the tracking issue.
+2. Assign each sampled record to a reviewer on the published roster who is **not** its `reviewed_by`. The second reviewer opens the official source without looking at the record's values and records, under `second_review` in the policy YAML:
+   ```yaml
+   second_review:
+     reviewed_by: Jane Doe          # a published roster name, a different person from reviewed_by
+     reviewed_on: 2026-10-14
+     sample: 2026-Q4                # the draw it came from (optional)
+     coded:                         # the second reviewer's own values, before comparing
+       status: in_force
+       is_binding: true
+       review_status: verified      # would they sign it as verified?
+     agreed: false                  # true exactly when fields_disputed is empty
+     fields_disputed:
+       - field: status              # status | is_binding | review_status | dates | actors | obligations | penalties | official_source
+         first: adopted             # the first reviewer's value; required for status, is_binding, review_status
+         resolution: Applies from 2 August 2026 per Art. 113; record corrected.
+       - field: dates
+         note: Application date of Chapter III
+   ```
+3. Disagreements are resolved between the two reviewers. The resolution is written on the dispute; if the record was wrong, it is corrected in the same pull request (bump `content_version`, write `change_summary`) and the correction appears in `/corrections`. The `first` value is kept so the statistic reflects what the two reviewers originally recorded, not the corrected record.
+
+**Validation.** `policy:validate` rejects a `second_review` whose reviewer is not on the published roster, is the same person as `reviewed_by` (compared by roster slug and case-insensitively by name), whose `agreed` contradicts `fields_disputed`, whose disputed categorical field lacks the first reviewer's value or records the same value twice, whose field names are unknown, or which is dated in the future. A record whose first reviewer was later replaced, in the admin queue, by the second reviewer is not counted as double-checked.
+
+**The statistic.** `App\Services\Verification\AgreementStatistics` (pure, unit-tested against hand-worked examples) reports, per field, percent agreement (share of double-checked records on which the field was not disputed) and, for status, binding and review status, Cohen's kappa from the two reviewers' coded values. Kappa is reported as undefined when both reviewers used a single value for every record (chance agreement is then total). Nothing per field is published until at least `independent_checks.min_sample` (20) records have been double-checked; below that `/methodology` says how many exist and that no figure is published. With none, it says so plainly.
+
+**Where it shows.** `/methodology#independent-checks`; the API returns `second_review` on each policy record; `PolicyInstrument::secondReview()` and `isDoubleChecked()` are what a record page uses to show "checked by".
+
 ## What the public sees
 
 `/verification` publishes the table above, the current counts, and the longest overdue records, computed from the same service the gate uses. There is no marketing number anywhere on that page: if the corpus is in poor shape, the page says so.
@@ -63,4 +96,6 @@ This is a deliberate trade. Publishing the backlog costs a little credibility to
 | Command and gate | `App\Console\Commands\VerificationFreshnessCommand` (`policy:freshness`) |
 | Public page | `Site\VerificationController`, `site/pages/verification` |
 | Continuous integration | `.github/workflows/validate-data.yml` |
-| Tests | `tests/Feature/VerificationPolicyTest.php` |
+| Independent checks: rules, statistic, reader | `App\Services\Verification\SecondReview`, `AgreementStatistics`, `IndependentChecks` |
+| Sample draw | `App\Console\Commands\VerificationSampleCommand` (`verification:sample`) |
+| Tests | `tests/Feature/VerificationPolicyTest.php`, `tests/Feature/IndependentChecksTest.php`, `tests/Unit/AgreementStatisticsTest.php` |
