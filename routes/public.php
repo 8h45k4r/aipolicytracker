@@ -140,6 +140,8 @@ Route::get('/methodology', [PageController::class, 'methodology'])->name('method
 Route::get('/glossary', [GlossaryController::class, 'index'])->name('glossary');
 Route::get('/glossary/{term}', [GlossaryController::class, 'show'])->where('term', '[a-z0-9-]+')->name('glossary.show');
 Route::get('/search', [SearchController::class, 'index'])->middleware('throttle:60,1')->name('search');
+// Typeahead under the search boxes: a short JSON list for the same query.
+Route::get('/search/suggest', [SearchController::class, 'suggest'])->middleware('throttle:120,1')->name('search.suggest');
 Route::get('/explore/{group}', [ExploreController::class, 'show'])->whereIn('group', array_keys(config('navigation.primary')))->name('explore');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
 Route::get('/coverage', [CoverageController::class, 'show'])->name('coverage');
