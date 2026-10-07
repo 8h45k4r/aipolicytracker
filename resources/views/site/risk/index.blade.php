@@ -3,19 +3,19 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-3">AI risk</p>
-    <p class="eyebrow mt-3">AI risk, evidenced</p>
-    <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[26ch]">Advanced AI must be handled with great responsibility. Here is what has actually gone wrong, who it hurt, and which rules answer it.</h1>
+    <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[30ch]">AI risk: recorded incidents, the risk taxonomy and the policies that respond</h1>
     <p class="mt-4 max-w-[68ch] text-brand-body leading-7">Concern about AI risk is now shared by researchers, boards, regulators and heads of state. This page keeps that concern honest: every number below comes from the AI Incident Database (recorded harms) and the MIT AI Risk Repository (how experts classify risk), is dated, and links to the record behind it and to the policy instruments that respond.</p>
 
     <dl class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 text-sm">
         @foreach([['Recorded incidents', number_format($aiid['totals']['incidents'] ?? 0), route('risk.incidents.browse'), 'since 2012, AI Incident Database'], ['Last 12 months', number_format($narrative['last12']), route('risk.incidents.browse', ['year' => now()->year]), $narrative['growth'] === null ? 'vs previous 12 months: —' : ($narrative['growth'] >= 0 ? '+' : '').$narrative['growth'].'% vs previous 12 months'], ['Classified to a risk domain', number_format($narrative['classified']), route('risk.incidents'), 'MIT taxonomy applied by AIID'], ['Risk entries', number_format($incidentTotals['risks']), route('risk.risks'), 'from 74 frameworks, MIT AI Risk Repository'], ['Instruments tracked', number_format(\App\Models\PolicyInstrument::published()->count()), route('policies.index'), 'across '.\App\Models\Jurisdiction::published()->count().' jurisdictions']] as [$label, $value, $href, $sub])
-        <div class="card-flat p-4"><dt class="meta">{{ $label }}</dt><dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $value }}</dd><a href="{{ $href }}" class="text-xs text-brand-muted hover:text-brand-navy">{{ $sub }}</a></div>
+        <div class="card-flat p-4"><dt class="meta">{{ $label }}</dt><dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $value }}</dd><dd><a href="{{ $href }}" class="text-xs text-brand-muted hover:text-brand-navy">{{ $sub }}</a></dd></div>
         @endforeach
     </dl>
 
     <section class="mt-12" aria-labelledby="story-heading">
-        <div class="rule-strong pt-3"><h2 id="story-heading" class="section-title">1. Harm is rising, and its shape is changing</h2></div>
-        <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Recorded incidents grow year on year while the mix shifts: generative systems moved misinformation, impersonation and fraud from the margins to the centre. The timeline marks the policy milestones that followed; each bar opens the incidents of that year.</p>
+        {{-- Stated from the same growth figure as the "Last 12 months" tile above, never asserted. --}}
+        <div class="rule-strong pt-3"><h2 id="story-heading" class="section-title" data-trend="{{ \App\Http\Controllers\Site\RiskController::trend($narrative['growth']) }}">1. {{ \App\Http\Controllers\Site\RiskController::trendHeading($narrative['growth']) }}</h2></div>
+        <p class="mt-2 max-w-[68ch] text-brand-body leading-7">The mix of recorded incidents shifts over time: generative systems moved misinformation, impersonation and fraud from the margins to the centre. The timeline marks the policy milestones that followed; each bar opens the incidents of that year.</p>
         <x-site.timeline-chart class="mt-4" :series="collect($aiid['incidents_per_year'] ?? [])->filter(fn ($v, $y) => $y >= 2016)" :milestones="$narrative['milestones']" title="AI incidents recorded per year, with policy milestones" note="Incident date; the current year is partial. Milestones are adoption or application dates recorded in the policy tracker." />
         @if($narrative['domain_share'])
         <div class="mt-6 grid gap-6 lg:grid-cols-2">

@@ -25,7 +25,7 @@
             <div class="rule-strong pt-3 flex items-baseline justify-between"><h2 id="risks-heading" class="section-title">Risk entries</h2><a href="{{ route('risk.risks', ['subdomain' => $sub]) }}" class="text-sm">Browse and export all</a></div>
             @if($risks->isEmpty())<div class="mt-4"><x-site.empty title="No risk entries coded to this subdomain" /></div>@else
             <ul class="mt-3 divide-y divide-brand-line">@foreach($risks as $r)<li class="py-3 text-sm"><a href="{{ $r->url() }}" class="font-medium text-brand-navy">{{ $r->risk_subcategory ?: $r->risk_category ?: $r->ev_id }}</a><p class="mt-0.5 text-brand-body">{{ \Illuminate\Support\Str::limit($r->description, 200) }}</p><p class="meta mt-0.5">{{ $r->paper_title }} ({{ $r->quick_ref }}) · {{ $r->entity ?: '—' }} · {{ $r->intent ?: '—' }} · {{ $r->timing ?: '—' }}</p></li>@endforeach</ul>
-            <nav class="mt-4" aria-label="Pagination">{{ $risks->links() }}</nav>@endif
+            <div class="mt-4">{{ $risks->links() }}</div>@endif
         </section>
         <aside class="lg:col-span-5 min-w-0 space-y-8">
             <section aria-labelledby="papers-heading">

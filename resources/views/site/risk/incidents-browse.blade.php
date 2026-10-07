@@ -33,7 +33,7 @@
         </li>
         @endforeach
     </ol>
-    <nav class="mt-6" aria-label="Pagination">{{ $incidents->links() }}</nav>
+    <div class="mt-6">{{ $incidents->links() }}</div>
     @endif
     <x-site.attribution class="mt-10" :name="$aiid['source'] ?? 'AI Incident Database'" :url="$aiid['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$aiid['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$aiid['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$aiid['citation'] ?? null" :date="$aiid['snapshot_date'] ?? null" note="Titles, descriptions and classifications are reproduced under CC BY-SA 4.0; report texts are not. Exports carry the same licence." />
     <x-site.disclaimer class="mt-6" />

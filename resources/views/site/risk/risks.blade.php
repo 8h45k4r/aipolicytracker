@@ -46,7 +46,7 @@
         </li>
         @endforeach
     </ol>
-    <nav class="mt-6" aria-label="Pagination">{{ $risks->links() }}</nav>
+    <div class="mt-6">{{ $risks->links() }}</div>
     @endif
     <x-site.attribution class="mt-10" :name="$mit['source'] ?? 'MIT AI Risk Repository'" :url="$mit['source_url'] ?? 'https://airisk.mit.edu/'" :license="$mit['license'] ?? 'CC BY 4.0'" :licenseUrl="$mit['license_url'] ?? 'https://creativecommons.org/licenses/by/4.0/'" :citation="$mit['citation'] ?? null" note="Descriptions are the repository's extracted evidence, reproduced under CC BY 4.0; identifiers were reformatted." />
     <x-site.disclaimer class="mt-6" />
