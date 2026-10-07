@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Control;
+use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -26,7 +28,10 @@ class RecordPageLayoutTest extends TestCase
 
         $actions = $this->between($html, 'data-record-actions', '</p>');
         $this->assertLessThan(strpos($html, 'data-answer-box'), strpos($html, 'data-record-actions'), 'actions sit in the header, before the answer');
-        $this->assertStringContainsString('btn-primary', $actions, 'Save is the primary action');
+        // The official text is what a reader came for: it is the one primary button, Save and Follow are secondary.
+        $this->assertMatchesRegularExpression('#<a href="'.preg_quote(e($policy->official_source_url), '#').'" rel="noopener" class="btn-primary"[^>]*>Open official source</a>#', $actions);
+        $this->assertSame(1, substr_count($actions, 'btn-primary'), 'one primary action');
+        $this->assertMatchesRegularExpression('#class="btn-secondary[^"]*"[^>]*data-save=#', $actions, 'Save is secondary');
 
         foreach (['Copy link', 'Report a correction', 'How we verify'] as $label) {
             $this->assertStringContainsString('>'.$label.'<', $actions);
@@ -57,6 +62,97 @@ class RecordPageLayoutTest extends TestCase
             $this->assertLessThanOrEqual(1, substr_count($html, 'id="faq-heading"'), "{$url} prints its FAQ more than once");
         }
         $this->assertSame(1, substr_count($this->get('/templates')->getContent(), 'id="faq-heading"'));
+    }
+
+    public function test_a_policy_page_has_an_on_this_page_list_of_the_sections_it_renders(): void
+    {
+        $html = $this->get('/policies/eu-ai-act')->assertOk()->getContent();
+
+        $this->assertStringContainsString('data-toc="sidebar"', $html, 'a sidebar list for desktop');
+        $this->assertMatchesRegularExpression('#<details class="[^"]*lg:hidden[^"]*" data-toc="mobile">#', $html, 'a <details> jump menu for phones, no JavaScript');
+        $sidebar = $this->between($html, 'data-toc="sidebar"', '</nav>');
+        preg_match_all('#href="\#([a-z0-9-]+)"#', $sidebar, $m);
+        $this->assertContains('obligations-heading', $m[1]);
+        $this->assertContains('faq-heading', $m[1]);
+        foreach ($m[1] as $id) {
+            $this->assertStringContainsString('id="'.$id.'"', $html, "the list points at #{$id}, which the page renders");
+        }
+        // A section the record lacks is not listed.
+        $bare = PolicyInstrument::published()->whereNull('penalties_summary')->firstOrFail();
+        $this->assertStringNotContainsString('href="#penalties-heading"', $this->get($bare->url())->assertOk()->getContent());
+    }
+
+    public function test_obligations_on_a_policy_page_are_one_line_each_and_link_to_their_own_page(): void
+    {
+        $policy = PolicyInstrument::where('slug', 'eu-ai-act')->with('obligations.terms')->firstOrFail();
+        $html = $this->get($policy->url())->assertOk()->getContent();
+
+        preg_match_all('#<details class="card-flat group"([^>]*)data-obligation-row>#', $html, $rows);
+        $this->assertCount($policy->obligations->count(), $rows[0], 'one row per recorded obligation');
+        foreach ($rows[1] as $attrs) {
+            $this->assertStringNotContainsString(' open', $attrs, 'every obligation starts collapsed');
+        }
+        $o = $policy->obligations->first(fn ($o) => $o->applies_from !== null);
+        $row = $this->between($html, 'id="obligation-'.$o->slug.'"', '</details>');
+        $summary = $this->between($row, '<summary', '</summary>');
+        $this->assertStringContainsString($o->is_binding ? 'Legal requirement' : 'Voluntary', $summary);
+        $this->assertStringContainsString(e($o->title), $summary);
+        $this->assertStringContainsString('datetime="'.$o->applies_from->toDateString().'"', $summary);
+        if ($o->termsOf('actor')->isNotEmpty()) {
+            $this->assertStringContainsString('data-obligation-actor', $summary);
+        }
+        $this->assertStringContainsString('href="'.$o->url().'"', $row, 'each row links to the obligation page');
+    }
+
+    public function test_one_verification_badge_with_a_legend_on_every_record_page(): void
+    {
+        $policy = PolicyInstrument::where('slug', 'eu-ai-act')->with(['obligations', 'jurisdiction'])->firstOrFail();
+        $obligation = $policy->obligations->first();
+        $control = Control::published()->firstOrFail();
+
+        foreach ([$policy, $obligation, $control, $policy->jurisdiction] as $record) {
+            $html = $this->get($record->url())->assertOk()->getContent();
+            $this->assertSame(1, substr_count($html, 'data-verification-badge'), $record->url().': one badge in the header');
+            $this->assertStringContainsString('data-verification-state="'.$record->verificationState().'"', $html, $record->url());
+            $legend = $this->between($html, 'data-verification-legend', '</details>');
+            $this->assertStringContainsString('href="'.route('verification').'"', $legend, 'the legend links the verification policy');
+            foreach (['Verified', 'Pending review', 'Source-linked'] as $state) {
+                $this->assertStringContainsString('>'.$state.'</dt>', $legend);
+            }
+            $this->assertDoesNotMatchRegularExpression('#<a [^>]*>\s*<span[^>]*data-verification-badge#', $html, 'the badge is not wrapped in a link (it holds the reviewer link)');
+        }
+
+        // Each unverified state says what it means.
+        $obligation->forceFill(['review_status' => 'pending_review', 'last_verified_at' => null])->save();
+        $this->assertSame('pending_review', $obligation->verificationState());
+        $this->get($obligation->url())->assertSee('Pending review')->assertSee('waiting for a reviewer to confirm it');
+        $obligation->forceFill(['review_status' => 'needs_update'])->save();
+        $this->assertSame('source_linked', $obligation->verificationState());
+        $this->get($obligation->url())->assertSee('Source-linked')->assertSee('not yet confirmed by a reviewer');
+    }
+
+    public function test_an_obligation_page_leads_with_the_source_and_folds_its_questions(): void
+    {
+        $o = Obligation::published()->whereHas('policyInstrument', fn ($q) => $q->where('slug', 'eu-ai-act'))->firstOrFail();
+        $html = $this->get($o->url())->assertOk()->getContent();
+
+        $actions = $this->between($html, 'data-record-actions', '</p>');
+        $this->assertLessThan(strpos($html, 'data-answer-box'), strpos($html, 'data-record-actions'), 'actions sit in the header');
+        $this->assertStringContainsString('class="btn-primary" data-track="source_click" data-primary-source>Open official source</a>', $actions);
+
+        $faq = $this->between($html, 'data-faq-collapsed', '</section>');
+        $this->assertGreaterThan(0, substr_count($faq, '<details'), 'the questions are folded');
+        $this->assertSame(substr_count($faq, '<h3'), substr_count($faq, '<details'), 'every question folds');
+    }
+
+    public function test_the_eu_ai_act_page_separates_entry_into_force_from_first_application(): void
+    {
+        $html = $this->get('/policies/eu-ai-act')->assertOk()->getContent();
+        $answer = $this->between($html, 'data-answer>', '</p>');
+
+        $this->assertStringNotContainsString('applied in part since 1 August 2024', $answer);
+        $this->assertStringContainsString('in force since 1 August 2024; its first obligations applied from 2 February 2025', $answer);
+        $this->assertMatchesRegularExpression('#Applies from \(first\)</dt>\s*<dd[^>]*>2 February 2025</dd>#', $html);
     }
 
     private function between(string $html, string $from, string $to): string

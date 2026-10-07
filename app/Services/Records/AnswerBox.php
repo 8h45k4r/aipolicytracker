@@ -299,6 +299,23 @@ final class AnswerBox
     private static function statusSentence(PolicyInstrument $policy, string $label): ?string
     {
         $status = $policy->status;
+        // Entry into force and application are different events: a staged law is in
+        // force from one date and its first duties apply from a later one. Say both
+        // when the record has both, and never call the entry-into-force date the
+        // date it began to apply.
+        if (in_array($status, ['in_force', 'partially_applicable'], true)) {
+            $inForce = $policy->in_force_on;
+            $first = $policy->firstApplicationDate();
+            if ($inForce && $first && $first->gt($inForce)) {
+                return "It has been in force since {$inForce->format('j F Y')}; its first obligations ".($first->isFuture() ? 'apply' : 'applied')." from {$first->format('j F Y')}.";
+            }
+            if ($inForce) {
+                return "It has been in force since {$inForce->format('j F Y')}.";
+            }
+            if ($first) {
+                return ($status === 'in_force' ? 'It has applied since ' : 'It has applied in part since ').$first->format('j F Y').'.';
+            }
+        }
         $since = match ($status) {
             'in_force', 'partially_applicable' => $policy->in_force_on ?? $policy->applies_from,
             'adopted' => $policy->adopted_on,

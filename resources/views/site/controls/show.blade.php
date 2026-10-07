@@ -12,7 +12,7 @@
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $control->title }}</h1>
         <p class="mt-3 max-w-[64ch] text-lg leading-8 text-brand-body">{{ $control->purpose }}</p>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <a href="{{ route('verification') }}" class="no-underline"><x-site.verified :record="$control" class="!text-sm" /></a>
+            <x-site.verified :record="$control" class="!text-sm" legend />
             <a href="{{ route('controls.context', $control->slug) }}" class="text-brand-muted hover:text-brand-navy" title="This control as one Markdown file, with its provenance">Context file</a>
         </div>
     </header>
