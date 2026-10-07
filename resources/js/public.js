@@ -312,6 +312,8 @@
 
         if (searchWrap) { searchWrap.hidden = false; }
         if (summary) { summary.hidden = false; }
+        var quickRow = picker.querySelector('[data-picker-quick]');
+        if (quickRow) { quickRow.hidden = false; }
 
         function checked() { return boxes.filter(function (b) { return b.checked; }); }
 
@@ -335,7 +337,7 @@
                     var li = document.createElement('li');
                     var btn = document.createElement('button');
                     btn.type = 'button';
-                    btn.className = 'chip !min-h-0 !py-1 inline-flex items-center gap-1';
+                    btn.className = 'chip !min-h-[32px] !py-1 inline-flex items-center gap-1';
                     btn.setAttribute('data-picker-remove', box.value);
                     btn.appendChild(document.createTextNode(label(box)));
                     var x = document.createElement('span');

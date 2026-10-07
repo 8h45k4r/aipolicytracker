@@ -7,7 +7,7 @@
     <x-site.disclaimer class="mt-3 max-w-3xl">Educational screening only; not legal advice. Results reflect the scope recorded in our data, not a determination that any law applies to you.</x-site.disclaimer>
 
     <div class="mt-6 grid gap-10 lg:grid-cols-3">
-        <form method="get" action="{{ route('tools.applicability') }}" class="card-flat p-4 sm:p-5 space-y-5 lg:col-span-1 self-start" data-track="applicability_submit" aria-label="Screening questionnaire">
+        <form method="get" action="{{ route('tools.applicability') }}#results" class="card-flat p-4 sm:p-5 space-y-5 lg:col-span-1 self-start" data-track="applicability_submit" aria-label="Screening questionnaire">
             <x-site.jurisdiction-picker name="jurisdictions" :jurisdictions="$jurisdictions" :selected="$answers['jurisdictions']" required
                 legend="1. Markets or jurisdictions"
                 hint="Where you sell, deploy or have users. The number beside a name is how many instruments are recorded for it." />
@@ -21,14 +21,29 @@
             <div class="flex gap-2"><button type="submit" class="btn-primary flex-1">Run screening</button><a href="{{ route('tools.applicability') }}" class="btn-secondary">Reset</a></div>
         </form>
 
-        <div class="lg:col-span-2 min-w-0">
+        {{-- The form submits to #results so a phone, where the form stacks above, lands on the answer. --}}
+        <div id="results" class="lg:col-span-2 min-w-0 scroll-mt-4">
             @if(!$submitted)
                 <div class="rounded-sm border border-dashed border-brand-line p-8 text-sm text-brand-muted"><p class="font-medium text-brand-navy">Your results will appear here.</p><p class="mt-1">The screening lists recorded policies whose scope overlaps your answers, the obligations that mention your role and use case, questions to investigate, a starter checklist and official sources. Nothing is stored.</p></div>
             @else
                 @if(session('error'))<p class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
-                <section class="mb-6 card-flat p-4" aria-labelledby="r-watch">
+                {{-- Headline first, computed from the same rows the register exports. --}}
+                <section class="mb-6" aria-labelledby="r-summary" data-applicability-summary>
+                    <h2 id="r-summary" class="section-title !text-lg">Screening summary</h2>
+                    <p class="mt-1 text-base font-medium text-brand-navy">
+                        {{ $summary['total'] }} {{ Str::plural('duty', $summary['total']) }} may apply
+                        · {{ $summary['in_force'] }} already in force
+                        · next date: @if($summary['next_date'])<time datetime="{{ $summary['next_date']->toDateString() }}">{{ $summary['next_date']->format('j M Y') }}</time>@else none recorded @endif
+                    </p>
+                    <p class="mt-1 meta">
+                        @if($summary['next_title'])Next: {{ $summary['next_title'] }}. @endif
+                        @if($summary['undated'])Application date not recorded for {{ $summary['undated'] }} of them. @endif
+                        A duty's date is its own application date, else its instrument's.
+                    </p>
                     @php($exportQuery = array_filter($answers, fn ($v) => $v !== null && $v !== []))
-                    <div class="mt-3 flex flex-wrap gap-2" aria-label="Export the obligations register">@foreach(['xlsx' => 'XLSX', 'csv' => 'CSV', 'json' => 'JSON', 'pdf' => 'PDF'] as $fmt => $label)<a href="{{ route('tools.applicability.register', ['format' => $fmt] + $exportQuery) }}" class="btn-secondary !min-h-[36px] !py-1" data-track="register_export" data-track-label="{{ $fmt }}">Register {{ $label }}</a>@endforeach<span class="meta self-center">One row per screened duty, cited; nothing stored.</span></div>
+                    <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Export the obligations register">@foreach(['xlsx' => 'XLSX', 'csv' => 'CSV', 'json' => 'JSON', 'pdf' => 'PDF'] as $fmt => $label)<a href="{{ route('tools.applicability.register', ['format' => $fmt] + $exportQuery) }}" class="btn-secondary !min-h-[36px] !py-1" data-track="register_export" data-track-label="{{ $fmt }}">Register {{ $label }}</a>@endforeach<span class="meta self-center">One row per screened duty, cited; nothing stored.</span></div>
+                </section>
+                <section class="mb-6 card-flat p-4" aria-labelledby="r-watch">
                     <h2 id="r-watch" class="section-title !text-lg">Watch this screening</h2>
                     @if($savedProfile)
                         <p class="mt-1 text-sm text-brand-body">Saved as <strong>{{ $savedProfile->name }}</strong>. Changes in scope reach you in the daily alert. <a href="{{ route('following.index') }}">Manage profiles</a>.</p>
