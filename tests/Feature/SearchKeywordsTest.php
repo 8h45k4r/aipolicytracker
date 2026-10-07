@@ -31,8 +31,12 @@ class SearchKeywordsTest extends TestCase
         $this->assertStringContainsString('AI Policy Tracker', $this->title('/'));
         $this->assertStringContainsString('Global AI Law and Policy Tracker', $this->title('/'));
         $this->assertStringContainsString('AI Regulations Around the World', $this->title(route('jurisdictions.index')));
-        $this->assertStringContainsString('2082', $this->title(route('landing', 'ai-policy-nepal')));
-        $this->assertStringContainsString('AI Policy in India', $this->title(route('landing', 'ai-regulation-india')));
+        // The country landings were retired in favour of the pages search engines preferred
+        // (the Nepal hub, the India jurisdiction page); the head terms now sit on those pages.
+        $nepal = Jurisdiction::where('slug', 'nepal')->firstOrFail()->url();
+        $this->assertStringContainsString('Nepal AI Policy', $this->title($nepal));
+        $this->assertStringContainsString('2082', $this->get($nepal)->assertOk()->getContent(), 'the hub names the National AI Policy 2082');
+        $this->assertStringContainsString('India AI Policy', $this->title(Jurisdiction::where('slug', 'india')->firstOrFail()->url()));
         $this->assertStringContainsString('AI Policy & Regulation', $this->title(Jurisdiction::where('slug', 'south-africa')->firstOrFail()->url()));
         foreach ([$this->title('/'), $this->title(route('jurisdictions.index')), $this->title(route('ai-policy-examples'))] as $t) {
             $this->assertLessThanOrEqual(60, mb_strlen($t), $t);

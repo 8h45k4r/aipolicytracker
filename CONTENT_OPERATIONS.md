@@ -10,12 +10,14 @@ How editorial pages are created, refreshed and retired. Editorial text lives in 
 | Policy page `/policies/{slug}` | `data/policies/**/*.yaml` | summary, scope, official source, published |
 | Obligation page `/obligations/{slug}` | obligations inside a policy file | summary present and parent policy indexable |
 | Change log `/changes`, `/changes/{year}` | `data/changes/*.yaml` | always (year pages need ≥ 1 change) |
-| Landing page `/eu-ai-act`, `/ai-regulation-{x}` | `config/content.php` → `landings` + live records | ≥ 1 published instrument for the jurisdiction(s) |
+| Landing page `/ai-governance-uae`, `/ai-regulation-south-asia` | `config/content.php` → `landings` + live records | ≥ 1 published instrument for the jurisdiction(s) |
 | Guide `/guides/{slug}` | `config/content.php` → `guides` + live records | always (guides must reference real records) |
 | Curated comparison `/compare/{slug}` | `config/content.php` → `comparisons` + `ComparisonBuilder` | both jurisdictions published |
 | Ad-hoc comparison, applicability results, search | generated | never (noindex,follow) |
 
 Programmatic pages are never mass-generated: a landing page or comparison exists only when a maintainer adds it to `config/content.php`, and it stays `noindex` until the data threshold is met.
+
+One subject, one page: a landing is not added for a subject a record page already answers (a law, or a country). The landings that did so (`/eu-ai-act`, `/ai-regulation-usa`, `-india`, `-uk`, `-australia`, `/ai-governance-singapore`, `/ai-policy-nepal`) were retired after Search Console showed each splitting its queries with the record page; they are listed in `config/content.php` → `retired_landings` and answer 301 to the record's canonical address (see `SEO_OPERATIONS.md`).
 
 ## 2. Quality bar before publishing a new jurisdiction or policy page
 

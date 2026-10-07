@@ -52,6 +52,40 @@ class CountryHubsTest extends TestCase
         $this->get('/jurisdictions/india')->assertOk();
     }
 
+    public function test_retired_landings_answer_301_to_the_one_page_for_their_subject(): void
+    {
+        $expected = [
+            '/eu-ai-act' => PolicyInstrument::where('slug', 'eu-ai-act')->firstOrFail()->url(),
+            '/ai-regulation-usa' => Jurisdiction::where('slug', 'us')->firstOrFail()->url(),
+            '/ai-regulation-india' => Jurisdiction::where('slug', 'india')->firstOrFail()->url(),
+            '/ai-regulation-uk' => Jurisdiction::where('slug', 'uk')->firstOrFail()->url(),
+            '/ai-regulation-australia' => Jurisdiction::where('slug', 'australia')->firstOrFail()->url(),
+            '/ai-governance-singapore' => Jurisdiction::where('slug', 'singapore')->firstOrFail()->url(),
+            '/ai-policy-nepal' => Jurisdiction::where('slug', 'nepal')->firstOrFail()->url(),
+        ];
+        $this->assertSame(array_keys($expected), array_map(fn ($s) => '/'.$s, array_keys(config('content.retired_landings'))));
+        $this->assertSame(url('/policies/eu-ai-act'), $expected['/eu-ai-act']);
+        $this->assertSame(url('/jurisdictions/us'), $expected['/ai-regulation-usa']);
+        $this->assertSame(route('hubs.show', 'ai-regulation-nepal'), $expected['/ai-policy-nepal']);
+
+        $html = $this->get('/')->assertOk()->getContent();
+        $sitemap = $this->get('/sitemap-resources.xml')->assertOk()->getContent();
+        $llms = $this->get('/llms.txt')->assertOk()->getContent();
+        foreach ($expected as $old => $target) {
+            // Permanent, straight to the canonical address, and nothing carried over.
+            $this->get($old.'?utm_source=x')->assertStatus(301)->assertRedirect($target);
+            $this->get($target)->assertOk();
+            // Nothing the site publishes points at an address that now redirects.
+            $this->assertStringNotContainsString('href="'.url($old).'"', $html, "the menu links {$old}");
+            $this->assertStringNotContainsString('<loc>'.url($old).'</loc>', $sitemap, "the sitemap lists {$old}");
+            $this->assertStringNotContainsString('('.url($old).')', $llms, "llms.txt lists {$old}");
+        }
+        // The landings with no record page of the same subject stay.
+        $this->get('/ai-governance-uae')->assertOk();
+        $this->get('/ai-regulation-south-asia')->assertOk();
+        $this->assertStringContainsString('<loc>'.url('/ai-regulation-south-asia').'</loc>', $sitemap);
+    }
+
     public function test_the_thin_guard_indexes_a_hub_only_with_two_sourced_instruments_or_a_verified_strategy(): void
     {
         $ghana = Jurisdiction::where('slug', 'ghana')->firstOrFail();
