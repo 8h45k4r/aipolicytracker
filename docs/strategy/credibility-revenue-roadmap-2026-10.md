@@ -33,7 +33,7 @@ this note changes it. Every build item in §5 is sized so that it can pass the g
 | Declared interest | The maintainer is associated with Certifyi, a commercial AI-governance platform; disclosed on the roster and About page | `data/reviewers/bhaskar-bhatt.yaml` |
 | EU AI Act | Carries the Digital Omnibus dates (Reg. (EU) 2026/1744, OJ 24 July 2026; Annex III duties from 2027-12-02) but is still labelled *pending review against the Official Journal* ten weeks after publication | `data/policies/eu/eu-ai-act.yaml` |
 | Enforcement | `enforcement_events` exists in the policy schema and renders on policy pages, but is **empty on every record**; no hub page | `data/schema/policy.schema.json`, `data/policies/**` |
-| Revenue | Pro plan built (Dodo Payments, $29/mo, $290/yr), **checkout switched off**; Dodo business verification outstanding (debt #21) | `docs/modules/billing.md` |
+| Revenue | Pro plan built (Dodo Payments, $29/mo, $290/yr), but selling was **retired** on 2026-09-20 (pricing, checkout and portal removed, debt #41). Revived in this round behind the Checkout switch; Dodo business verification outstanding (debt #21) | `docs/modules/billing.md` |
 | Persistent identifiers | No DOI, no `CITATION.cff`, no data paper | repository root |
 
 The engineering is ahead of the institution. The code already does more than most trackers do: per-record provenance,
@@ -62,13 +62,13 @@ commercial interest, fails that test however well the conflict is disclosed.
 
 | # | Action | Why | Effort | Cost |
 |---|---|---|---|---|
-| C1 | **Second verifier and published agreement.** Recruit 2–4 reviewers (law students, policy-school fellows, retired regulator staff). Double-code a random 20% sample of records each quarter; publish Cohen's kappa per field (status, dates, binding, actors) on `/methodology`. Show "verified by A, checked by B" on records with two sign-offs. `RecordVerification` and `ReviewerDecision` already store decisions; this adds a second decision and a statistic. | Turns "trust the maintainer" into "here is how often two people agree". It is the single largest credibility gain available. | M | $0–5k (volunteer, or paid student coders) |
+| C1 | **Second verifier and published agreement.** Start with the two research contributors already listed in `config/team.php`; recruit 2–4 more reviewers (law students, policy-school fellows, retired regulator staff). Double-code a random 20% sample of records each quarter; publish Cohen's kappa per field (status, dates, binding, actors) on `/methodology`. Show "verified by A, checked by B" on records with two sign-offs. `RecordVerification` and `ReviewerDecision` already store decisions; this adds a second decision and a statistic. | Turns "trust the maintainer" into "here is how often two people agree". It is the single largest credibility gain available. | M | $0–5k (volunteer, or paid student coders) |
 | C2 | **Close the Omnibus review now.** Read Reg. (EU) 2026/1744 against the record and clear `pending_review` on the EU AI Act and the 13 records added from secondary sources in September. | The flagship record is the one most often checked, and it still says it has not been checked. | S | $0 |
 | C3 | **Editorial independence policy and advisory board.** A page stating that Certifyi has no editorial say, no early access and no data not offered to everyone; that sponsors and funders never review content before publication; and that a 3–5 person board (academia, civil society, a former regulator) rules on disputes. Add a funding page listing every source above $1k. Link both from `Organization.publishingPrinciples` and `ownershipFundingInfo`, which already exist. | It must exist **before** any revenue switches on; afterwards it reads as damage control. | S–M | $0 |
 | C4 | **DOIs for every quarterly snapshot.** Turn on the Zenodo–GitHub integration so each tagged release gets a version DOI under one concept DOI. Add `CITATION.cff` (`type: dataset`). Put the DOI in the Dataset JSON-LD `identifier` and in the existing "Cite this record" box, with BibTeX. `report:freeze` already produces the snapshot; a release tag on the same day is the only new step. | Academics cite DOIs, not URLs. DataCite DOIs are indexed by Google Dataset Search directly. | S | $0 |
 | C5 | **Data paper.** arXiv preprint, then a *Scientific Data* Data Descriptor or AIES/FAccT, describing the schema, the provenance model, the verification protocol and the agreement statistics from C1 ([Scientific Data](https://www.nature.com/sdata/for-authors)). | The strongest route into academic citation, and external peer review of exactly the question C1 raises. Requires C1 and C4. | L | Journal APC (not confirmed) |
 | C6 | **Academic partner.** A university lab or policy school as co-host or validating partner; invite national experts to validate their own jurisdiction's records, as OECD does with governments. | Adds an institution, unlocks grants that require one, and passes the Wikipedia test. | M–L | $0 or grant-funded |
-| C7 | **Public correction statistics.** Quarterly count of corrections received, accepted and fixed, with median time to fix, on `/methodology`. The correction form and `ContributorSubmission` already hold the data. | Matches the Trust Project's "actionable feedback" indicator ([Trust Project](https://thetrustproject.org/)); a source that shows its errors is believed more. | S | $0 |
+| C7 | **Public correction statistics.** *Already live at `/corrections`*: received, accepted, declined, open and median days to decision, with declined reports listed too. Remaining: link it from `/methodology` and the quarterly report. | Matches the Trust Project's "actionable feedback" indicator ([Trust Project](https://thetrustproject.org/)); a source that shows its errors is believed more. | S | $0 |
 | C8 | **Earned citations.** Offer snapshot extracts to journalists and to the tracker round-ups ([HKS list](https://hksaitechpolicy.notion.site/AI-Legislation-Trackers-146610af47d780899780ca1c2de55308)); submit to the OECD.AI and AI Index source lists. | Answer engines lean on news, Wikipedia and forums more than on markup ([arXiv 2507.05301](https://arxiv.org/pdf/2507.05301)). | M | $0 |
 
 Answer-engine markup is already strong (`research-2026-10-01.md`). The one remaining technical step is Bing
@@ -119,7 +119,7 @@ Revenue ranges are estimates for a solo-run site of this size; none rests on pub
 | 0–3 mo | R0 | Publish the independence and funding pages (C3) | — | — | lowers it | Before any money is taken |
 | 0–3 mo | R1 | **Switch on Pro** after Dodo verification (debt #21) | $29/mo, $290/yr | $15k–90k ARR at 50–300 subscribers | Low | Pro buys speed and convenience only: every record, source, deadline and the weekly digest stay free |
 | 0–3 mo | R2 | GitHub Sponsors and/or Open Collective | any | $1k–10k/yr | Low | Funders page lists every amount over $1k. GitHub takes 0% on personal sponsorships; Open Source Collective takes 10% ([docs](https://docs.opencollective.com/help/fiscal-hosts/fiscal-host-fees)) |
-| 0–3 mo | R3 | Grants: NLnet NGI Zero Commons (€5k–50k, open-source output; next call after the June 2026 one), Humanity AI, Mozilla Democracy x AI, Patrick J. McGovern Foundation, EU Digital Europe | — | one or two awards of €20k–150k | Low | Unrestricted funding preferred; funders do not review output (the [Our World in Data](https://ourworldindata.org/funding) practice) |
+| 0–3 mo | R3 | Grants: **NLnet Restack** (deadline 3 November 2026; the NGI Zero Commons Fund closed for good on 1 June 2026; draft in `docs/funding/nlnet-restack-2026-11.md`), Humanity AI, Mozilla Democracy x AI, Patrick J. McGovern Foundation, EU Digital Europe | — | one or two awards of €20k–150k | Low | Unrestricted funding preferred; funders do not review output (the [Our World in Data](https://ourworldindata.org/funding) practice) |
 | 3–12 mo | R4 | **Commercial API and data service**: free key (rate-limited), Builder $99–299/mo (higher limits, change webhooks, bulk NDJSON snapshots, paid MCP tier), Enterprise/OEM $5k–25k/yr flat for GRC vendors and RAG builders (SLA, support, attribution terms) | see left | $25k–250k/yr at 5–20 licences | Medium | The same data at every tier; licensees listed publicly; customers never influence coverage |
 | 3–12 mo | R5 | **Team plan**: Pro for 3–10 seats, shared watchlists, a team obligations register, SSO later | $990–2,900/yr | depends on R1 uptake | Low | As R1 |
 | 3–12 mo | R6 | One labelled sponsor slot in the weekly digest | $150–750/issue under 5k subscribers | $5k–30k/yr | Medium | No sponsor placed beside coverage of its own regulation or product; no sponsor from a vendor that competes with Certifyi or with Certifyi itself |
@@ -177,7 +177,41 @@ SB 26-189's effective date; the Article 6 consultation's closing date; member-st
 
 ## 5. UX
 
-See §5.1 for the audit findings, which come from running the site locally at 1440 px and 390 px.
+Audit of 21 pages run locally at 1440 px and 390 px, with axe-core, on 2026-10-07. What works: visible keyboard
+focus, a skip link, one H1 per page, alt text everywhere, a working mobile menu and filters bar, and rich source and
+date metadata. TTFB under 300 ms locally.
+
+### 5.1 Five changes with the most effect
+
+| # | Change | Evidence | Where | Effort |
+|---|---|---|---|---|
+| U1 | **Search finds the obvious record first, with suggestions while typing.** Rank on alias, short name and slug, then legal force; add a "top match" card. | "eu ai act" lists Ecuador and Estonia before the EU AI Act; "deployer" returns no EU AI Act at all. The header search offers no suggestions. | `Site\SearchController` (`titleFirst`), `layouts/app.blade.php`, `home.blade.php` | M |
+| U2 | **Home page and menu say who the site is for and follow the product's own model.** Move a one-line persona strip under the hero search; menu: Laws · Obligations & controls · Tools · Templates · Updates · Risk. | The "Where should you start?" cards sit about 2,900 px down a 7,300 px page (12,800 px on a phone). Obligations, controls, compare and the calendar hide under "Policies"; templates and the applicability check hide under "Guides". | `home.blade.php`, `config/navigation.php` | M |
+| U3 | **Record pages can be navigated.** Sticky "On this page" list (a jump menu on phones), obligations collapsed to title rows, and the official source as the primary button. | `/policies/eu-ai-act` is 12,163 px on desktop and 26,197 px on a phone (31 screens), with 44 obligations expanded inline. "Save" is the dark primary button; the official source is a plain link. | `policies/show.blade.php`, `save-button`, `follow-button` | M |
+| U4 | **One verification label, and the EU AI Act summary corrected.** One badge with a legend and the reviewer and date on every record. The "In brief" text gives the entry-into-force date (1 August 2024) as the date the Act "has applied in part since"; application started on 2 February 2025. | Grey "Source-linked" and green "Verified … reviewed by" appear side by side while the home page says 184 of 187 are reviewer-confirmed. | `components/site/verified.blade.php`, the "In brief" composer for policies | S |
+| U5 | **Tools open on sensible defaults.** Curated quick picks (EU, US, UK, China, India, Japan, Brazil…) on compare, applicability and deadlines; regions collapsed; a results headline ("12 duties may apply, 3 in force") before the export buttons; scroll to results on phones. | The EU is missing from the quick picks because "most recorded" ranks it at 2 instruments; the list opens on Africa's 55 entries. | `components/site/jurisdiction-picker.blade.php:28`, `tools/applicability.blade.php` | S |
+
+### 5.2 Further findings
+
+| # | Finding | Where | Effort |
+|---|---|---|---|
+| U6 | Template pages badge "Free · sent to your work email" while the README and the templates index say no account is needed; "Downloads 0" counters show on new templates. Decide which is true and make every surface say it. | `templates/show.blade.php:98`, `_request-form.blade.php`, README | S |
+| U7 | `/ai-risk` scrolls sideways at 390 px (scrollWidth 436): `<table class="sr-only">` ignores the width. Wrap each table in `<div class="sr-only">`. | `components/site/{timeline,bar,stacked}-chart.blade.php` | S |
+| U8 | `/ai-risk` opens with an editorial H1 and says "harm is rising" beside a tile showing −24% against the previous 12 months. | `risk/index.blade.php:7,17` | S |
+| U9 | Contrast: inline links #006aac without underline beside #1e2a3b body text (2.52:1 between them); 27 heat-map labels at 3.7–4.0:1. | CSS tokens, `risk/index.blade.php` | S |
+| U10 | axe: `aria-label` on a pagination `<span>`, heading-order skips on policy cards, a focusable element inside an SVG, `dl` with `div > a` children, duplicate "Data attribution" landmarks. | pagination component, `risk/index.blade.php` | S |
+| U11 | Two ~95 KB logo SVGs on every page (about 190 of a ~460 KB baseline); the logo's alt text does not match the wordmark. | `public/brand/*.svg`, `layouts/app.blade.php` | S |
+| U12 | `/jurisdictions` ships a 555 KB map script and 368 KB of HTML (1.3 MB). Load the map on visibility, legend above the fold, list first on phones (28,000 px tall). | `jurisdictions/index.blade.php`, `world-map` | M |
+| U13 | Fonts from a third-party host block rendering; self-host through Vite. | `layouts/app.blade.php:55-56` | S |
+| U14 | The policy explorer opens on Indonesian-language titles (sort "updated"); default to binding-first and headline the English title. | `policies/index.blade.php`, `_filters.blade.php:62` | S |
+| U15 | Duplicate pages per country and per law (`/ai-regulation-india` and `/jurisdictions/india`; `/eu-ai-act` and `/policies/eu-ai-act`), also raised in `research-2026-10-01.md`. | `landing.blade.php`, `config/navigation.php` | M |
+| U16 | Obligation categories render as raw keys ("accuracy robustness security"). | `obligations/index.blade.php:11` | S |
+| U17 | `/updates` reads thin (4 changes in 30 days, all California; latest 18 September) and shows raw significance scores (47/47/47/18). Use a 90-day window and impact labels. The cure is editorial: log changes weekly. | `updates/page.blade.php` | S |
+| U18 | Overlapping "keep me informed" actions: Saved, Save, Follow, Subscribe, "Get update alerts", "Watch this screening". Merge Save and Follow into one menu. | layout header, `save-button`, `follow-button` | M |
+| U19 | Tap targets: picker checkboxes about 13 px and chips about 28 px; more than 250 targets under 24 px on compare and applicability. | `jurisdiction-picker.blade.php` | S |
+| U20 | Obligation pages repeat their content in a seven-question FAQ and carry no verbatim article excerpt, which lawyers ask for. | `obligations/show.blade.php` | M |
+
+Fixed in this round: the header now offers "Sign in" or "Account".
 
 ## 6. Dodo Payments: review
 
@@ -205,21 +239,21 @@ What is right:
 
 | # | Finding | Effect | Fix | Effort |
 |---|---|---|---|---|
-| D1 | `payment.*`, `refund.*` and `dispute.*` events are stored as `ignored`. | A refunded or charged-back customer keeps Pro until the subscription itself changes state. Revenue in Admin → Billing cannot be reconciled from local data. | Apply `refund.succeeded` and `dispute.opened`/`dispute.lost` to the subscription (revoke, or flag for review); record `payment.succeeded` amounts for an MRR figure. | S |
-| D2 | Turning billing on silently removes features from free accounts. While selling is off, `Entitlements::value()` grants every signed-in account the most permissive tier, so all of them hold `saved.server` (watches) and `alerts.daily`; the moment the switch flips, their watches stop alerting. | Existing users lose a feature they were given, at launch, which is the moment the site is most visible. | Grandfather accounts created before launch (an expiry date on the free entitlement, announced by email), or keep a small free watch quota (for example three watches) and gate only volume, daily email and the Slack and webhook channels. | S |
+| D1 | **Fixed 2026-10-07.** `payment.*`, `refund.*` and `dispute.*` events were stored as `ignored`. | A refunded or charged-back customer keeps Pro until the subscription itself changes state. Revenue in Admin → Billing cannot be reconciled from local data. | Apply `refund.succeeded` and `dispute.opened`/`dispute.lost` to the subscription (revoke, or flag for review); record `payment.succeeded` amounts for an MRR figure. | S |
+| D2 | **Fixed 2026-10-07** with a free tier of three watches and the daily alert. Turning billing on silently removed features from free accounts. While selling is off, `Entitlements::value()` grants every signed-in account the most permissive tier, so all of them hold `saved.server` (watches) and `alerts.daily`; the moment the switch flips, their watches stop alerting. | Existing users lose a feature they were given, at launch, which is the moment the site is most visible. | Grandfather accounts created before launch (an expiry date on the free entitlement, announced by email), or keep a small free watch quota (for example three watches) and gate only volume, daily email and the Slack and webhook channels. | S |
 | D3 | Webhook processing runs inline (debt #23). | Acceptable at launch volume; a retry storm is absorbed only by the 120/min throttle. | As recorded: queue after the row is written, once `queue:work` runs in production. | S |
 | D4 | One plan for one person. | Teams, the buyers with budget, have nothing to buy; nothing serves API users. | R4 and R5 in §3.3. Dodo supports usage-based billing ($1 per million events) and licence keys, which fit metered API tiers. | M |
 | D5 | Effective fees are higher than the headline. | Dodo lists 4% + $0.40 for US cards, +1.5% for international cards, and more for PayPal and BNPL; one independent review estimates 6–7% effective for a global SaaS ([review](https://fungies.io/dodo-payments-review-2026)). On $29 that is roughly $1.60–2.30 per charge. | Promote the annual plan (one fixed fee instead of twelve); check the live pricing page before modelling margins. | — |
 | D6 | No trial. `trial_days` is 0. | For a $29 alerting product, the value shows only after a change lands. | A 14-day trial on the monthly plan, which the config already supports, with webhook-driven access as today. | S |
 
-None of D1–D6 blocks a test-mode launch. D1 and D2 should be fixed before checkout goes on in live mode.
+None of D1–D6 blocks a test-mode launch. D1 and D2 are fixed. The steps that remain are the owner's: Dodo business verification, a test purchase, decline and refund, then live mode (the go-live checklist in `docs/modules/billing.md`).
 
 ## 7. Order of work
 
 | Order | Item | Why first |
 |---|---|---|
-| 1 | C2 (close the Omnibus review), C3 (independence and funding pages) | No code; protects everything after |
-| 2 | D1, D2, then Dodo verification and Pro on (R1) | The revenue path that is already built |
+| 1 | C2 (close the Omnibus review); C3 (independence and funding pages; `/funding` shipped 2026-10-07, advisory board still to name) | Protects everything after |
+| 2 | Dodo verification and Pro on (R1); D1 and D2 done | The revenue path that is already built |
 | 3 | C4 (DOIs, `CITATION.cff`), C7 (correction statistics), Bing Webmaster and `INDEXNOW_KEY` | Small, permanent credibility gains |
 | 4 | F1, F2, F7 (enforcement, AI Act implementation, standards) | The post-Omnibus questions, on existing machinery |
 | 5 | C1 (second verifier, agreement statistics), R3 (grants) | Grants fund reviewers; reviewers make C5 possible |
