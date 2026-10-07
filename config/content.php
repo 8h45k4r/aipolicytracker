@@ -187,117 +187,21 @@ return [
         ],
     ],
 
+    // Editorial landings retired because each split a subject with the page search engines
+    // already preferred (docs/reference/search-console-2026-10.md, finding 1). Each address
+    // answers 301 to the record's canonical url(), resolved at request time so a country that
+    // later gains a hub address is reached in one hop, never through a chain.
+    'retired_landings' => [
+        'eu-ai-act' => ['policy' => 'eu-ai-act'],
+        'ai-regulation-usa' => ['jurisdiction' => 'us'],
+        'ai-regulation-india' => ['jurisdiction' => 'india'],
+        'ai-regulation-uk' => ['jurisdiction' => 'uk'],
+        'ai-regulation-australia' => ['jurisdiction' => 'australia'],
+        'ai-governance-singapore' => ['jurisdiction' => 'singapore'],
+        'ai-policy-nepal' => ['jurisdiction' => 'nepal'],
+    ],
+
     'landings' => [
-        'eu-ai-act' => [
-            'h1' => 'EU AI Act: what it is, who it covers and what to do',
-            'title' => 'EU AI Act explained: scope, deadlines and what to do',
-            'description' => 'Plain-language explainer of the EU AI Act with live records: who it covers, phased application dates, key obligations, latest changes and official sources.',
-            'jurisdictions' => ['eu'],
-            'policy' => 'eu-ai-act',
-            'answer' => 'The EU AI Act (Regulation (EU) 2024/1689) is the European Union\'s binding, risk-based law for AI systems and general-purpose AI models. It entered into force on 1 August 2024 and applies in phases: prohibited practices and AI-literacy duties from 2 February 2025, general-purpose AI model duties from 2 August 2025, and most remaining obligations, including high-risk requirements, from 2 August 2026 under the adopted text, with product-embedded high-risk AI following in 2027. Amendments proposed in late 2025 may shift some high-risk dates; check the official sources linked on this page.',
-            'sections' => [
-                ['heading' => 'Who does the EU AI Act apply to?', 'body' => 'It applies by role rather than by company size or location: providers who place AI systems or models on the EU market, deployers established in the EU that use AI under their authority, importers and distributors, and non-EU providers and deployers whose system output is used in the EU. Public bodies are deployers with extra duties. The same organisation can be a provider for one system and a deployer for another, so map roles system by system.'],
-                ['heading' => 'How does the risk-based approach work?', 'body' => 'The Act bans a short list of practices, treats a defined set of uses as high-risk (safety components of regulated products and the Annex III areas such as employment, education, credit, essential services, law enforcement and migration), adds transparency duties for chatbots, emotion recognition and synthetic content, and leaves most other AI under general law. General-purpose AI models have their own chapter, with heavier duties for models with systemic risk.'],
-                ['heading' => 'What should a team do first?', 'body' => 'Build an inventory, assign roles, screen for prohibited practices (already applicable), classify against Annex I and Annex III, and then plan the high-risk workstreams: risk management, data governance, technical documentation, logging, transparency to deployers, human oversight, accuracy and security, quality management, conformity assessment and registration, post-market monitoring and incident reporting. Deployers focus on instructions, oversight, logs, notices and, where required, fundamental-rights impact assessments.'],
-            ],
-            'faq' => [
-                ['question' => 'Is the EU AI Act in force?', 'answer' => 'Yes. It entered into force on 1 August 2024. Its obligations apply in phases from February 2025 to August 2027, subject to any adopted amendments.'],
-                ['question' => 'Does the EU AI Act apply to startups outside the EU?', 'answer' => 'It can, if you place an AI system or general-purpose model on the EU market or your system\'s output is used in the EU. Check Article 2 and your role for each product.'],
-            ],
-        ],
-        'ai-regulation-india' => [
-            'h1' => 'AI policy and regulation in India',
-            'title' => 'AI Policy in India: DPDP Act, IT Rules and AI Guidelines',
-            'description' => 'How AI is governed in India today: the Digital Personal Data Protection Act 2023 and 2025 Rules, IT Act and intermediary rules, IndiaAI Mission and the 2025 AI Governance Guidelines, with official sources.',
-            'jurisdictions' => ['india'],
-            'policy' => 'india-dpdp-act',
-            'answer' => 'India has no dedicated AI statute. AI is governed through the Digital Personal Data Protection Act 2023 and its 2025 Rules, the Information Technology Act 2000 and intermediary rules, sector regulators, and non-binding policy such as the IndiaAI Mission and the India AI Governance Guidelines released by MeitY in November 2025. The stated direction favours enabling innovation with principle-based governance and enforcement through existing law.',
-            'sections' => [
-                ['heading' => 'What is binding today?', 'body' => 'The DPDP Act sets consent, notice, security, breach-notification and rights obligations for digital personal data, which covers most AI training and inference data about Indian residents. The IT Act and the 2021 intermediary rules apply to platforms hosting AI-generated or synthetic content. Sector regulators such as the RBI, SEBI and IRDAI regulate automated decisions in lending, markets and insurance under their own rules.'],
-                ['heading' => 'What is guidance?', 'body' => 'The India AI Governance Guidelines describe principles, an institutional framework and voluntary commitments; NITI Aayog\'s Responsible AI papers and MeitY advisories add expectations without creating statutory duties. Treat them as signals of regulatory direction and of what a future law might contain.'],
-                ['heading' => 'Practical steps for teams operating in India', 'body' => 'Map personal data flows into your AI systems and establish a lawful basis; prepare breach and rights processes for the DPDP commencement dates; if you run a platform, review synthetic-media duties; and align governance with the 2025 guidelines to be ready for voluntary commitments and sector expectations.'],
-            ],
-            'faq' => [
-                ['question' => 'Does India have an AI Act?', 'answer' => 'No. India relies on the DPDP Act, the IT Act and sector regulation, plus non-binding AI governance guidelines.'],
-            ],
-        ],
-        'ai-policy-nepal' => [
-            'h1' => 'AI policy in Nepal: the National AI Policy 2082',
-            'title' => 'AI Policy Nepal 2082: National AI Policy and Privacy Law',
-            'description' => 'Nepal\'s AI governance landscape: the 2025 National AI Policy, the 2024 AI concept paper, the Individual Privacy Act 2075 and digital governance rules, with source certainty clearly marked.',
-            'jurisdictions' => ['nepal'],
-            'policy' => 'nepal-national-ai-policy',
-            'answer' => 'Nepal has a National AI Policy approved by the Council of Ministers in 2025 and a 2024 concept paper from the Ministry of Communication and Information Technology, but no AI-specific legislation. Binding obligations for AI come from existing law, chiefly the Individual Privacy Act 2075 (2018), the Electronic Transactions Act 2063 (2008) and sector rules. Official English texts and stable document links are limited, so every record for Nepal on this site is marked with its source certainty and awaits human verification.',
-            'sections' => [
-                ['heading' => 'What the National AI Policy does', 'body' => 'It sets government direction on AI infrastructure, skills, ethics, data governance and institutions, and signals that implementing legislation and standards will follow. It does not itself impose obligations on private organisations.'],
-                ['heading' => 'What applies to AI systems now', 'body' => 'The Individual Privacy Act requires consent for collecting and using personal information and restricts disclosure; the Electronic Transactions Act governs electronic records and cyber offences; regulators such as Nepal Rastra Bank and the Nepal Telecommunications Authority set sector rules. AI systems that process personal data of people in Nepal must respect these limits.'],
-                ['heading' => 'How to use this page', 'body' => 'Use the records here to orient your planning, then verify every claim against MoCIT and Nepal Law Commission publications. Dates in official documents use the Bikram Sambat calendar; conversions here are approximate until verified.'],
-            ],
-            'faq' => [
-                ['question' => 'Is there an AI law in Nepal?', 'answer' => 'No. Nepal has a national AI policy (2025) and applies existing privacy, electronic-transaction and cyber-security law to AI.'],
-            ],
-        ],
-        'ai-governance-singapore' => [
-            'h1' => 'AI governance in Singapore',
-            'title' => 'AI governance in Singapore: Model Framework, AI Verify and PDPC guidance',
-            'description' => 'Singapore\'s voluntary-framework approach to AI: the Model AI Governance Framework, the generative-AI framework, AI Verify, PDPC advisory guidelines and the National AI Strategy 2.0, with official sources.',
-            'jurisdictions' => ['singapore'],
-            'policy' => 'singapore-model-ai-governance-framework',
-            'answer' => 'Singapore governs AI through voluntary frameworks, testing tools and sector guidance rather than an AI statute. The Model AI Governance Framework (2020) and its 2024 generative-AI companion describe expected practices; AI Verify offers a testing framework and toolkit; the PDPC\'s 2024 advisory guidelines explain how the Personal Data Protection Act applies to AI recommendation and decision systems. Binding duties come from the PDPA and sector regulation.',
-            'sections' => [
-                ['heading' => 'Why the frameworks matter even though they are voluntary', 'body' => 'Regulators, government buyers and enterprise customers in Singapore reference the Model Framework and AI Verify as the expected baseline, and the PDPC uses the frameworks to interpret binding PDPA obligations. Aligning with them is the practical route to demonstrating responsible AI in the market.'],
-                ['heading' => 'What is binding', 'body' => 'The PDPA governs personal data in AI, including the consent obligation and its business-improvement and research exceptions, and the notification obligation. Financial institutions follow MAS requirements; online platforms follow the online-safety framework.'],
-            ],
-            'faq' => [
-                ['question' => 'Does Singapore have an AI Act?', 'answer' => 'No. Singapore uses voluntary frameworks and existing law, with the PDPA as the main binding constraint for AI using personal data.'],
-            ],
-        ],
-        'ai-regulation-australia' => [
-            'h1' => 'AI regulation in Australia',
-            'title' => 'AI regulation in Australia: voluntary standard, guardrails and existing law',
-            'description' => 'Australia\'s AI regulatory position: the Voluntary AI Safety Standard, the 2024 mandatory-guardrails proposal, the government AI policy and Privacy Act changes, with official sources and status.',
-            'jurisdictions' => ['australia'],
-            'policy' => 'australia-voluntary-ai-safety-standard',
-            'answer' => 'Australia has no AI-specific statute. The Voluntary AI Safety Standard (September 2024) sets ten guardrails aligned with ISO/IEC 42001 and the NIST AI RMF, a proposals paper consulted on mandatory guardrails for high-risk AI, and the December 2025 National AI Plan signalled reliance on strengthening existing laws rather than a standalone AI Act. Federal agencies follow a binding policy for responsible use of AI in government, and the Privacy Act, consumer law and anti-discrimination law apply to AI.',
-            'sections' => [
-                ['heading' => 'What to build against', 'body' => 'The ten voluntary guardrails are the practical baseline: accountability, risk management, data governance, testing and monitoring, human control, user transparency, contestability, supply-chain transparency, record keeping and stakeholder engagement. They were designed to match the proposed mandatory guardrails, so adopting them prepares you for whichever regulatory option is chosen.'],
-                ['heading' => 'What is binding', 'body' => 'The Privacy Act 1988 (with 2024 amendments introducing automated-decision transparency provisions that commence later), the Australian Consumer Law, anti-discrimination Acts and sector regulators. Government suppliers must support agency obligations under the DTA policy.'],
-            ],
-            'faq' => [
-                ['question' => 'Will Australia pass an AI Act?', 'answer' => 'As of the last check, the government indicated it would strengthen existing laws rather than introduce a standalone AI Act. Check the official sources on this page for the current position.'],
-            ],
-        ],
-        'ai-regulation-uk' => [
-            'h1' => 'AI regulation in the UK',
-            'title' => 'AI regulation in the UK: principles, regulators and what is binding',
-            'description' => 'The UK\'s regulator-led approach to AI: the 2023 white paper principles, the 2024 government response, ICO guidance, the AI Security Institute and the laws that already bind AI, with official sources.',
-            'jurisdictions' => ['uk'],
-            'policy' => 'uk-ai-regulation-white-paper',
-            'answer' => 'The United Kingdom has not enacted a cross-sector AI law. Existing regulators apply five principles (safety, transparency, fairness, accountability, contestability) within their remits, as set out in the 2023 white paper and confirmed in February 2024. Binding obligations therefore come from UK GDPR and the Data Protection Act 2018, the Equality Act 2010, consumer and product law, the Online Safety Act 2023 and sector rules. The government has signalled future legislation for the most powerful models, but no bill had been introduced at the last check.',
-            'sections' => [
-                ['heading' => 'Which regulator matters for you', 'body' => 'The ICO for any AI using personal data, the FCA for financial services, the CMA for competition and consumer issues including foundation models, Ofcom for online services, the MHRA for medical devices and the EHRC for discrimination. Each has published AI guidance or strategies in response to the white paper.'],
-                ['heading' => 'UK versus EU', 'body' => 'UK-based companies selling into the EU should assume the EU AI Act sets the higher bar and design once for both. The UK framework adds few AI-specific duties beyond data protection, but regulators can enforce existing law against AI harms today.'],
-            ],
-            'faq' => [
-                ['question' => 'Is there a UK AI Act?', 'answer' => 'No. The UK uses a principles-based, regulator-led framework with binding duties coming from existing laws.'],
-            ],
-        ],
-        'ai-regulation-usa' => [
-            'h1' => 'AI regulation in the United States',
-            'title' => 'AI regulation in the USA: federal policy, NIST AI RMF and state laws',
-            'description' => 'How AI is regulated in the United States: executive orders and OMB memoranda, the voluntary NIST AI RMF, agency enforcement under existing law, and binding state statutes such as Colorado SB 24-205 and California SB 53.',
-            'jurisdictions' => ['us', 'us-colorado', 'us-california'],
-            'policy' => 'us-nist-ai-rmf',
-            'answer' => 'There is no comprehensive federal AI statute in the United States. Federal policy comes from executive orders (Executive Order 14179 of January 2025), OMB memoranda that bind federal agencies, the voluntary NIST AI Risk Management Framework, and enforcement of existing consumer-protection, civil-rights and financial laws. Binding AI-specific rules for businesses come mainly from states, including Colorado\'s algorithmic-discrimination law and California\'s frontier-model transparency act.',
-            'sections' => [
-                ['heading' => 'Federal layer', 'body' => 'Executive orders set policy direction for agencies and shape procurement; OMB memoranda M-25-21 and M-25-22 require agency governance, inventories, high-impact AI practices and acquisition rules; NIST provides the AI RMF and its Generative AI Profile as the shared vocabulary. Agencies such as the FTC, EEOC and CFPB apply existing law to AI.'],
-                ['heading' => 'State layer', 'body' => 'States create most binding duties for private organisations. Colorado imposes reasonable-care duties on developers and deployers of high-risk AI; California requires frontier-model safety frameworks and regulates automated decision-making under the CCPA; Texas, Utah and others have targeted statutes. Effective dates have moved after enactment, so verify each record\'s official source.'],
-                ['heading' => 'What to do', 'body' => 'Map where your users and employees are; adopt the NIST AI RMF as your governance backbone (state laws and federal buyers recognise it); and treat anti-discrimination, consumer-protection and privacy law as applying to AI today.'],
-            ],
-            'faq' => [
-                ['question' => 'Is the NIST AI RMF mandatory in the US?', 'answer' => 'No, it is voluntary, but state laws and federal procurement reference it as a recognised framework.'],
-            ],
-        ],
         'ai-governance-uae' => [
             'h1' => 'AI governance in the UAE',
             'title' => 'AI governance in the UAE: strategy, ethics principles and data protection',

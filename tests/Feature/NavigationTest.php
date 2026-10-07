@@ -87,10 +87,10 @@ class NavigationTest extends TestCase
 
     public function test_the_current_page_is_marked_in_its_group(): void
     {
-        // A parameterised route must match on the resolved URL, not the route name: nine
-        // landing pages share one name and would otherwise all claim to be current.
-        $here = route('landing', 'eu-ai-act');
-        $sibling = route('landing', 'ai-regulation-uk');
+        // A parameterised route must match on the resolved URL, not the route name: the
+        // regional hubs share one name and would otherwise all claim to be current.
+        $here = route('hubs.show', 'ai-regulation-asia');
+        $sibling = route('hubs.show', 'ai-regulation-africa');
         $html = $this->get($here)->assertOk()->getContent();
 
         $marked = fn (string $url) => (bool) preg_match('#href="'.preg_quote($url, '#').'"[^>]*aria-current="page"#', $html);

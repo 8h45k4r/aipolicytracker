@@ -11,6 +11,7 @@ use App\Models\Tool;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\Seo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -56,6 +57,24 @@ class LandingController extends Controller
         }
 
         return view('site.landing', compact('seo', 'page', 'landing', 'jurisdictions', 'policies', 'primary', 'changes', 'deadlines', 'obligations'));
+    }
+
+    /**
+     * A retired landing answers 301 to the one page that now carries its subject: the
+     * record's own url(), so the target is always the canonical address and never a
+     * second redirect. The query string is not carried over.
+     */
+    public function retired(string $retired): RedirectResponse
+    {
+        $target = config('content.retired_landings.'.$retired);
+        abort_unless($target, 404);
+
+        $record = isset($target['policy'])
+            ? PolicyInstrument::published()->where('slug', $target['policy'])->first()
+            : Jurisdiction::published()->where('slug', $target['jurisdiction'])->first();
+        abort_unless($record, 404);
+
+        return redirect()->to($record->url(), 301);
     }
 
     public function guides(Request $request): View
