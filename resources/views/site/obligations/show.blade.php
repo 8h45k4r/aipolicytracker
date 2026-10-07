@@ -50,7 +50,7 @@
             @if(isset($templates) && $templates->isNotEmpty())
             <section aria-labelledby="templates-heading" class="mt-8">
                 <h2 id="templates-heading" class="section-title">Templates that cover this duty</h2>
-                <p class="mt-1 text-xs text-brand-muted">Generated from the records, free, no account: this duty is cited in each file with its source reference and a link back here.</p>
+                <p class="mt-1 text-xs text-brand-muted">Generated from the records. {{ \App\Models\TemplateDownloadRequest::accessLabel() }}. This duty is cited in each file with its source reference and a link back here.</p>
                 <ul class="mt-3 grid gap-3 sm:grid-cols-2 text-sm">
                     @foreach($templates->take(4) as $t)
                     <li class="card-flat p-3"><a href="{{ route('templates.show', $t['slug']) }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $t['title'] }}</a><p class="mt-0.5 text-xs text-brand-muted">{{ \App\Services\Templates\TemplateCatalog::typeLabel($t['type']) }} · {{ \App\Services\Templates\TemplateCatalog::formatList($t) }}@if($t['version']) · {{ $t['version']->label() }}@endif</p></li>

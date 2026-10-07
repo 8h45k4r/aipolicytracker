@@ -15,7 +15,7 @@
         </li>
         @endforeach
     </ol>
-    <nav class="mt-6" aria-label="Pagination">{{ $issues->links() }}</nav>
+    <div class="mt-6">{{ $issues->links() }}</div>
     @endif
     <x-site.disclaimer class="mt-8" />
 </div>

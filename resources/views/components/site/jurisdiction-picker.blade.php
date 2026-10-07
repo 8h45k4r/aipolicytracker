@@ -6,8 +6,8 @@
     'legend' => 'Markets or jurisdictions',
     'hint' => null,
     'required' => false,
-    // Compact: quick picks for the most-recorded jurisdictions, every region
-    // collapsed, a shorter list, and the hint kept to one line.
+    // Compact: a shorter scrolling list for pages where the picker sits beside
+    // other content.
     'compact' => false,
 ])
 {{--
@@ -25,7 +25,12 @@
     $groups = $jurisdictions->groupBy(fn ($j) => $j->region ?: 'Other')->sortKeys();
     $chosen = $jurisdictions->whereIn('slug', $selected)->sortBy('name')->values();
     $withRecords = $jurisdictions->filter(fn ($j) => ($j->policy_instruments_count ?? 0) > 0)->count();
-    $quick = $compact ? $jurisdictions->sortByDesc(fn ($j) => [(int) ($j->policy_instruments_count ?? 0), $j->featured ?? false])->take(10)->sortBy('name')->values() : collect();
+    // A curated, pinned set rather than "most recorded": ranking by instrument
+    // count dropped the EU (two instruments, one of them the AI Act) and kept the
+    // reader's most likely markets out of reach. Only slugs that exist render.
+    $quickSlugs = ['eu', 'us', 'uk', 'china', 'india', 'japan', 'brazil', 'canada', 'singapore', 'south-korea'];
+    $bySlug = $jurisdictions->keyBy('slug');
+    $quick = collect($quickSlugs)->map(fn ($slug) => $bySlug->get($slug))->filter()->values();
 @endphp
 <fieldset {{ $attributes->merge(['class' => 'min-w-0']) }} data-jurisdiction-picker @if($max) data-max="{{ $max }}" @endif>
     <legend class="label">{{ $legend }} @if($required)<span class="text-state-bad" aria-hidden="true">*</span>@endif</legend>
@@ -37,17 +42,21 @@
         <p class="text-sm text-brand-body"><span data-picker-count aria-live="polite">{{ count($selected) }}</span> selected @if($max)<span class="text-brand-muted">(up to {{ $max }})</span>@endif</p>
         <ul class="mt-1.5 flex flex-wrap gap-1.5" data-picker-chips>
             @foreach($chosen as $j)
-            <li><button type="button" class="chip !min-h-0 !py-1 inline-flex items-center gap-1" data-picker-remove="{{ $j->slug }}">{{ $j->short_name ?: $j->name }}<span aria-hidden="true">&times;</span><span class="sr-only">Remove {{ $j->name }}</span></button></li>
+            <li><button type="button" class="chip !min-h-[32px] !py-1 inline-flex items-center gap-1" data-picker-remove="{{ $j->slug }}">{{ $j->short_name ?: $j->name }}<span aria-hidden="true">&times;</span><span class="sr-only">Remove {{ $j->name }}</span></button></li>
             @endforeach
         </ul>
         <p class="mt-1 text-xs text-state-bad" data-picker-limit hidden>Only the first {{ $max }} are compared.</p>
     </div>
 
     @if($quick->isNotEmpty())
-    <div class="mt-2 flex flex-wrap gap-1.5" aria-label="Most recorded jurisdictions" data-picker-quick>
+    {{-- Buttons do nothing without script, so the row is revealed by it. --}}
+    <div class="mt-2" data-picker-quick hidden>
+        <p class="text-xs text-brand-muted" id="{{ $name }}-quick-label">Quick picks</p>
+        <div class="mt-1 flex flex-wrap gap-1.5" role="group" aria-labelledby="{{ $name }}-quick-label">
         @foreach($quick as $j)
-        <button type="button" class="chip !min-h-0 !py-1 {{ in_array($j->slug, $selected, true) ? 'chip-active' : '' }}" data-picker-quick-pick="{{ $j->slug }}" aria-pressed="{{ in_array($j->slug, $selected, true) ? 'true' : 'false' }}">{{ $j->short_name ?: $j->name }}</button>
+        <button type="button" class="chip !min-h-[32px] !py-1 {{ in_array($j->slug, $selected, true) ? 'chip-active' : '' }}" data-picker-quick-pick="{{ $j->slug }}" aria-pressed="{{ in_array($j->slug, $selected, true) ? 'true' : 'false' }}">{{ $j->short_name ?: $j->name }}</button>
         @endforeach
+        </div>
     </div>
     @endif
 
@@ -60,7 +69,9 @@
     <div class="mt-2 {{ $compact ? 'max-h-[13rem]' : 'max-h-[22rem]' }} overflow-y-auto rounded-sm border border-brand-line divide-y divide-brand-line">
         @foreach($groups as $region => $list)
         @php($inRegion = $list->whereIn('slug', $selected)->count())
-        <details data-picker-group @if($inRegion || (! $compact && $loop->first)) open @endif>
+        {{-- Every region starts collapsed unless it holds part of the selection:
+             opening the first group put 55 mostly empty rows in front of the reader. --}}
+        <details data-picker-group @if($inRegion) open @endif>
             <summary class="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-sm font-medium text-brand-navy hover:bg-brand-paper">
                 <span>{{ $region }} <span class="font-normal text-brand-muted">({{ $list->count() }})</span></span>
                 <span class="text-xs text-brand-muted" data-picker-group-count>{{ $inRegion ? $inRegion.' selected' : '' }}</span>
@@ -68,7 +79,7 @@
             <div class="px-3 pb-2">
                 @foreach($list->sortBy('name') as $j)
                 <label class="flex min-h-[36px] items-center gap-2 rounded-sm px-1 text-sm text-brand-body hover:bg-brand-paper" data-picker-option data-picker-label="{{ Str::lower($j->name.' '.$j->short_name.' '.$region) }}">
-                    <input type="checkbox" name="{{ $name }}[]" value="{{ $j->slug }}" class="rounded border-brand-line text-brand-blue focus:ring-brand-cyan" @checked(in_array($j->slug, $selected, true))>
+                    <input type="checkbox" name="{{ $name }}[]" value="{{ $j->slug }}" class="h-5 w-5 shrink-0 rounded border-brand-line text-brand-blue focus:ring-brand-cyan" @checked(in_array($j->slug, $selected, true))>
                     <span class="min-w-0 flex-1 truncate">{{ $j->name }}</span>
                     @if(($j->policy_instruments_count ?? 0) > 0)
                         <span class="shrink-0 text-xs text-brand-muted" title="{{ $j->policy_instruments_count }} recorded {{ Str::plural('instrument', $j->policy_instruments_count) }}">{{ $j->policy_instruments_count }}</span>

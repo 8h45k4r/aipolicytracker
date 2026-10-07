@@ -498,7 +498,7 @@ class PublicSiteTest extends TestCase
 
         $this->get('/ai-risk')->assertOk()->assertSee('Risk entries by entity');
         $this->get(RiskTaxonomy::domainUrl(1))->assertOk()->assertSee('risk entries')->assertSee('Browse and export these incidents')->assertSee(RiskTaxonomy::subdomainUrl(1, '1.1'));
-        $this->get('/ai-risk')->assertOk()->assertSee('Harm is rising, and its shape is changing')->assertSee('Where harm is recorded versus where rules exist')->assertSee('Most frequently named deployers')->assertSee('policy milestones')->assertSee('What to do with this, depending on who you are')->assertSee('Explore: domains and subdomains')->assertSee('data-chart-export="png"', false)->assertSee('data-tip=', false)->assertSee('top quarter')->assertSee(RiskTaxonomy::subdomainUrl(2, '2.1'));
+        $this->get('/ai-risk')->assertOk()->assertSee('id="story-heading" class="section-title" data-trend=', false)->assertSee('Where harm is recorded versus where rules exist')->assertSee('Most frequently named deployers')->assertSee('policy milestones')->assertSee('What to do with this, depending on who you are')->assertSee('Explore: domains and subdomains')->assertSee('data-chart-export="png"', false)->assertSee('data-tip=', false)->assertSee('top quarter')->assertSee(RiskTaxonomy::subdomainUrl(2, '2.1'));
         $this->get('/ai-risk/2/2.1')->assertStatus(301)->assertRedirect(RiskTaxonomy::subdomainUrl(2, '2.1'));
         $this->get(RiskTaxonomy::subdomainUrl(2, '2.1'))->assertOk()->assertSee('Compromise of privacy')->assertSee('Causal entity (risk entries)')->assertSee('Frameworks covering this subdomain')->assertSee('Recent incidents');
         $this->get('/ai-risk/2/9.9')->assertNotFound();

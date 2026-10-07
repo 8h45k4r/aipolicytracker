@@ -5,7 +5,7 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
-        <div class="flex flex-wrap gap-1.5"><span class="badge bg-brand-navy text-white ring-brand-navy">{{ $catalog::typeLabel($meta['type']) }}</span><span class="badge bg-state-goodbg text-state-good ring-state-good/30">Free · sent to your work email</span>@foreach(($meta['frameworks'] ?? []) as $f)<span class="badge-neutral">{{ $catalog::frameworkLabel($f) }}</span>@endforeach</div>
+        <div class="flex flex-wrap gap-1.5"><span class="badge bg-brand-navy text-white ring-brand-navy">{{ $catalog::typeLabel($meta['type']) }}</span><span class="badge bg-state-goodbg text-state-good ring-state-good/30">{{ \App\Models\TemplateDownloadRequest::accessLabel() }}</span>@foreach(($meta['frameworks'] ?? []) as $f)<span class="badge-neutral">{{ $catalog::frameworkLabel($f) }}</span>@endforeach</div>
         <h1 class="mt-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $meta['title'] }}</h1>
         <div class="mt-4 flex flex-wrap gap-2">
             <a href="#download" class="btn-primary" data-track="template_request_open" data-track-label="{{ $meta['slug'] }}">Get the {{ $formats }} files</a>
@@ -95,7 +95,8 @@
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Version</dt><dd>{{ $version->label() }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Built</dt><dd><time datetime="{{ $version->generated_at->toDateString() }}">{{ $version->generated_at->format('j M Y') }}</time></dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Citations</dt><dd>{{ number_format($version->stats['citations'] ?? 0) }}</dd></div>
-                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Downloads</dt><dd>{{ number_format($versions->sum('downloads')) }}</dd></div>
+                        @php($downloadCount = (int) $versions->sum('downloads'))
+                        @if($downloadCount >= \App\Models\TemplateDownloadRequest::DOWNLOADS_SHOWN_FROM)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Downloads</dt><dd>{{ number_format($downloadCount) }}</dd></div>@endif
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Licence</dt><dd>CC BY 4.0</dd></div>
                     </dl>
                     @include('site.templates._request-form', ['slug' => $meta['slug'], 'formats' => $formats])

@@ -26,5 +26,5 @@
         @endforeach
     </svg>
     <ul class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-brand-body" aria-label="Legend">@foreach($keys as $k => $key)<li class="inline-flex items-center gap-1"><span aria-hidden="true" class="inline-block h-2.5 w-2.5" style="background: {{ $palette[$k % count($palette)] }}"></span>{{ $key }}</li>@endforeach</ul>
-    <table class="sr-only"><caption>{{ $title }}</caption><thead><tr><th scope="col">Label</th>@foreach($keys as $key)<th scope="col">{{ $key }}</th>@endforeach</tr></thead><tbody>@foreach($labels as $label)<tr><td>{{ $label }}</td>@foreach($keys as $key)<td>{{ $series[$label][$key] ?? 0 }}</td>@endforeach</tr>@endforeach</tbody></table>
+    <div class="sr-only"><table><caption>{{ $title }}</caption><thead><tr><th scope="col">Label</th>@foreach($keys as $key)<th scope="col">{{ $key }}</th>@endforeach</tr></thead><tbody>@foreach($labels as $label)<tr><td>{{ $label }}</td>@foreach($keys as $key)<td>{{ $series[$label][$key] ?? 0 }}</td>@endforeach</tr>@endforeach</tbody></table></div>
 </figure>

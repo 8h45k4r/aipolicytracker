@@ -9,6 +9,7 @@
         <div>
             <p class="eyebrow">Templates</p>
             <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $items->count() === \App\Services\Templates\TemplateCatalog::all()->count() ? $items->count().' free ' : 'Free ' }}AI governance templates, generated from the law on record</h1>
+            <p class="mt-2"><span class="badge bg-state-goodbg text-state-good ring-state-good/30">{{ \App\Models\TemplateDownloadRequest::accessLabel() }}</span></p>
         </div>
         <div class="flex gap-2"><a href="{{ route('templates.feed') }}" class="btn-secondary" data-track="rss_click">RSS of versions</a><a href="#subscribe" class="btn-primary" data-track="newsletter_click">Get update alerts</a></div>
     </div>

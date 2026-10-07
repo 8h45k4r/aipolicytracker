@@ -9,6 +9,8 @@
             <div class="sticky top-4 card-flat p-4">@include('site.policies._filters')</div>
         </aside>
         <div class="lg:col-span-3">
+            {{-- Each result card is an h3; this keeps the outline h1 → h2 → h3 (axe heading-order). --}}
+            <h2 class="sr-only">Results</h2>
             @php($filtered = $chips !== [] && $total !== null)
             @php($noun = \Illuminate\Support\Str::plural($mode === 'policies' ? 'instrument' : 'obligation', $filtered ? $total : $paginator->total()))
             <p class="text-sm text-brand-muted" role="status">
@@ -27,7 +29,7 @@
             <div class="mt-2 divide-y divide-brand-line border-y border-brand-line">
                 {{ $slot }}
             </div>
-            <nav class="mt-6" aria-label="Pagination">{{ $paginator->links() }}</nav>
+            <div class="mt-6">{{ $paginator->links() }}</div>
         </div>
     </div>
 </div>

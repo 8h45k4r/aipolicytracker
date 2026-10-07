@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TaxonomyTerm;
+use App\Services\PolicyData\PolicyCatalog;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -60,5 +62,50 @@ class ListingFiltersTest extends TestCase
 
         // The record page keeps the full line and the reviewer link.
         $this->get($verified->url())->assertOk()->assertSee('reviewed by <a href="'.route('reviewers').'"', false);
+    }
+
+    public function test_the_policy_explorer_opens_on_binding_law_ordered_by_title(): void
+    {
+        $html = $this->get(route('policies.index'))->assertOk()->getContent();
+
+        $expected = PolicyInstrument::published()->orderByDesc('is_binding')->orderBy('title')->limit(5)->get();
+        $this->assertTrue((bool) $expected->first()->is_binding, 'the first record is binding law');
+        $offsets = $expected->map(fn ($p) => strpos($html, 'href="'.$p->url().'"'))->all();
+        $this->assertNotContains(false, $offsets, 'the first five binding records are on page one');
+        $sorted = $offsets;
+        sort($sorted);
+        $this->assertSame($sorted, $offsets, 'in title order');
+        $this->assertMatchesRegularExpression('#<option value="binding"\s+selected#', $html, 'the sort control says so');
+
+        // The API keeps "updated" as its default order.
+        $orders = app(PolicyCatalog::class)->policyQuery([])->getQuery()->orders;
+        $this->assertSame([['column' => 'policy_instruments.updated_at', 'direction' => 'desc']], $orders);
+        $this->getJson('/api/v1/policies?sort=binding')->assertOk();
+    }
+
+    public function test_obligation_cards_name_their_category_not_its_key(): void
+    {
+        $html = $this->get(route('obligations.index'))->assertOk()->getContent();
+
+        preg_match_all('#data-obligation-category="([a-z_]+)">([^<]+)</span>#', $html, $m, PREG_SET_ORDER);
+        $this->assertNotEmpty($m);
+        $names = TaxonomyTerm::where('taxonomy', 'obligation_category')->pluck('name', 'slug');
+        foreach ($m as [, $slug, $label]) {
+            $this->assertSame(e($names[$slug]), $label, "{$slug} shows its display name");
+        }
+    }
+
+    public function test_listing_pagination_and_headings_pass_the_accessibility_rules(): void
+    {
+        foreach ([route('policies.index'), route('obligations.index'), route('updates.index')] as $url) {
+            $html = $this->get($url)->assertOk()->getContent();
+            // aria-label is not allowed on a generic span (axe aria-prohibited-attr).
+            $this->assertDoesNotMatchRegularExpression('#<span[^>]*aria-disabled="true"[^>]*aria-label=#', $html, $url);
+            // One pagination landmark, not a nav wrapped in a nav.
+            $this->assertStringNotContainsString('aria-label="Pagination"><nav', $html, $url);
+        }
+        // Result cards are h3s under an h2, not straight after the h1.
+        $html = $this->get(route('policies.index'))->getContent();
+        $this->assertLessThan(strpos($html, '<h3'), strpos($html, '<h2 class="sr-only">Results</h2>'));
     }
 }

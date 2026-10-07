@@ -24,5 +24,5 @@
     </svg>
     @if($scale)<p class="meta mt-1"><span class="inline-block h-2.5 w-2.5 rounded-sm align-middle" style="background:#002147"></span> below half of peak · <span class="inline-block h-2.5 w-2.5 rounded-sm align-middle" style="background:#B45309"></span> half to three-quarters · <span class="inline-block h-2.5 w-2.5 rounded-sm align-middle" style="background:#9B1C2E"></span> top quarter</p>@endif
     @if($export)<x-site.chart-tools />@endif
-    <table class="sr-only"><caption>{{ $title }}</caption><thead><tr><th scope="col">Label</th><th scope="col">Value</th></tr></thead><tbody>@foreach($values as $label => $value)<tr><td>{{ $label }}</td><td>{{ $value }}</td></tr>@endforeach</tbody></table>
+    <div class="sr-only"><table><caption>{{ $title }}</caption><thead><tr><th scope="col">Label</th><th scope="col">Value</th></tr></thead><tbody>@foreach($values as $label => $value)<tr><td>{{ $label }}</td><td>{{ $value }}</td></tr>@endforeach</tbody></table></div>
 </figure>

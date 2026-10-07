@@ -25,6 +25,13 @@
             <x-site.stat label="Entered into force" :value="number_format($summary['in_force'])" />
             <x-site.stat label="Urgent or high impact" :value="number_format($summary['urgent'] + $summary['high'])" />
         </dl>
+        @if($context === 'hub' && !empty($windowDays))
+        <p class="mt-3 flex flex-wrap items-center gap-2 text-xs text-brand-muted" data-updates-window="{{ $windowDays }}">Summary of
+            @foreach(\App\Http\Controllers\Site\UpdatesController::WINDOWS as $d)
+            <a href="{{ $d === \App\Http\Controllers\Site\UpdatesController::WINDOWS[0] ? route('updates.index', $filters) : route('updates.index', $filters + ['window' => $d]) }}" class="chip {{ $windowDays === $d ? 'chip-active' : '' }}" @if($windowDays === $d) aria-current="true" @endif>last {{ $d }} days</a>
+            @endforeach
+        </p>
+        @endif
         @if($summary['updated_at'])
         <p class="mt-3 text-xs text-brand-muted">Last updated <time datetime="{{ $summary['updated_at']->toAtomString() }}">{{ $summary['updated_at']->format('j M Y, H:i') }} UTC</time>@if($summary['latest_on']) · most recent change {{ $summary['latest_on']->format('j M Y') }}@endif</p>
         @endif
@@ -55,7 +62,7 @@
                     <div class="py-6"><x-site.empty :reset="route('updates.index')" /></div>
                 @endforelse
             </div>
-            @if($isPaginated)<nav class="mt-6" aria-label="Pagination">{{ $changes->links() }}</nav>@endif
+            @if($isPaginated)<div class="mt-6">{{ $changes->links() }}</div>@endif
         </section>
         <aside>
             @if($summary['top']->isNotEmpty())
@@ -64,7 +71,9 @@
                 <ol class="mt-2 space-y-3 text-sm">
                     @foreach($summary['top'] as $t)
                     <li class="flex gap-3">
-                        <span class="shrink-0 rounded-sm bg-brand-navy px-1.5 py-0.5 font-mono text-[11px] font-semibold text-white" title="Significance, 0 to 100" aria-label="Significance {{ $scoreOf($t) }} of 100">{{ $scoreOf($t) }}</span>
+                        {{-- The recorded impact level, as on each change; the significance score only orders the list. --}}
+                        @php($impact = $t->impactEnum())
+                        <span class="badge shrink-0 self-start whitespace-nowrap {{ $impact->value === 'urgent' ? 'bg-state-badbg text-state-bad ring-state-bad/20' : ($impact->value === 'high' ? 'bg-state-warnbg text-state-warn ring-state-warn/20' : 'bg-state-neutralbg text-brand-body ring-brand-line') }}" data-impact="{{ $impact->value }}">{{ $impact->label() }}</span>
                         <div>
                             <a href="{{ $t->url() }}" class="text-brand-navy hover:underline">{{ $t->title }}</a>
                             <div class="text-xs text-brand-muted"><time datetime="{{ $t->occurred_on->toDateString() }}">{{ $t->occurred_on->format('j M Y') }}</time> · {{ $t->jurisdiction?->name }}</div>
@@ -72,7 +81,7 @@
                     </li>
                     @endforeach
                 </ol>
-                <p class="mt-2 text-xs text-brand-muted">Ranked by a <a href="{{ route('methodology') }}#significance">published rule</a>: impact, binding force, status, review and recency.</p>
+                <p class="mt-2 text-xs text-brand-muted">Ordered by a <a href="{{ route('methodology') }}#significance">published rule</a>: impact, binding force, status, review and recency. The label is the recorded impact level.</p>
             </section>
             @endif
 
