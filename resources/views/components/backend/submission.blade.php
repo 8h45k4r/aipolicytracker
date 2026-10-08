@@ -3,7 +3,7 @@
 @props(['submission', 'bulk' => null])
 @php($s = $submission)
 <article class="p-4 text-sm {{ $bulk ? 'flex gap-3' : '' }}" id="submission-{{ $s->id }}">
-    @if($bulk)<div class="pt-0.5"><input type="checkbox" name="ids[]" value="{{ $s->id }}" form="{{ $bulk }}" data-bulk-item aria-label="Select submission {{ $s->id }}: {{ \Illuminate\Support\Str::limit($s->summary, 60) }}"></div>@endif
+    @if($bulk)<div class="pt-0.5"><input type="checkbox" name="ids[]" value="{{ $s->id }}" form="{{ $bulk }}" data-bulk-item @checked(old('_form') === $bulk && in_array((string) $s->id, array_map('strval', (array) old('ids', [])), true)) aria-label="Select submission {{ $s->id }}: {{ \Illuminate\Support\Str::limit($s->summary, 60) }}"></div>@endif
     <div class="min-w-0 flex-1">
         <div class="flex flex-wrap items-center gap-2 meta"><span class="font-mono">#{{ $s->id }}</span><span>{{ \App\Models\ContributorSubmission::TYPES[$s->type] ?? $s->type }}</span><span>{{ $s->created_at->format('j M Y H:i') }}</span><x-backend.badge :status="$s->status" />@if($s->subject_slug)<span>{{ $s->subject_type }}: {{ $s->subject_slug }}</span>@endif</div>
         <p class="mt-1 font-medium text-brand-navy">{{ $s->summary }}</p>
@@ -21,11 +21,27 @@
             <div><dt class="inline">Page:</dt> <dd class="inline">{{ $s->source_page ? \Illuminate\Support\Str::limit($s->source_page, 70) : '—' }}</dd></div>
         </dl>
         @foreach($s->decisions as $d)<p class="mt-1 text-xs text-brand-muted">Decision: <x-backend.badge :status="$d->decision" /> by {{ $d->reviewer?->name ?? 'unknown' }} on {{ $d->decided_at->format('j M Y') }}@if($d->notes) — {{ $d->notes }}@endif @if($d->public_note) · published: {{ $d->public_note }}@endif</p>@endforeach
+        {{-- The decision is never pre-chosen: the select starts on "Choose…" and is required.
+             A submission already decided shows that decision; changing it is a deliberate
+             second step behind "Change decision", not a live form on every card. --}}
+        @php($formId = 'submission-'.$s->id)
+        @php($mine = old('_form') === $formId)
+        @php($decided = $s->status !== 'pending_review')
+        @if($decided)
+        {{-- The decision history above already names it; a status set without one is shown here. --}}
+        @if($s->decisions->isEmpty())<p class="mt-2 text-xs text-brand-muted">Decided: <x-backend.badge :status="$s->status" /></p>@endif
+        <details class="mt-2" data-decided="{{ $s->status }}" @if($mine) open @endif>
+            <summary class="cursor-pointer text-xs text-brand-muted">Change decision</summary>
+        @endif
         <form method="post" action="{{ route('backend.review.decide', $s) }}" class="mt-3 flex flex-wrap items-end gap-2">@csrf
-            <div><label for="d-{{ $s->id }}" class="label !mb-0.5 !text-xs">Decision</label><select id="d-{{ $s->id }}" name="decision" class="input !min-h-0 !py-1.5"><option value="approved">Approve</option><option value="needs_information">Needs information</option><option value="rejected">Reject</option></select></div>
-            <div class="flex-1 min-w-[12rem]"><label for="n-{{ $s->id }}" class="label !mb-0.5 !text-xs">Notes (internal)</label><input id="n-{{ $s->id }}" name="notes" class="input !min-h-0 !py-1.5" maxlength="2000"></div>
-            <div class="flex-1 min-w-[12rem]"><label for="pn-{{ $s->id }}" class="label !mb-0.5 !text-xs">Public note</label><input id="pn-{{ $s->id }}" name="public_note" class="input !min-h-0 !py-1.5" maxlength="500" placeholder="Shown on /corrections. Leave empty to publish the facts only."></div>
-            <button type="submit" class="btn-secondary !min-h-0 !py-1.5">Record decision</button>
+            <input type="hidden" name="_form" value="{{ $formId }}">
+            <div><label for="d-{{ $s->id }}" class="label !mb-0.5 !text-xs">{{ $decided ? 'New decision' : 'Decision' }}</label><select id="d-{{ $s->id }}" name="decision" class="input !min-h-0 !py-1.5" required><option value="">Choose…</option>@foreach(['approved' => 'Approve', 'needs_information' => 'Needs information', 'rejected' => 'Reject'] as $value => $label)<option value="{{ $value }}" @selected($mine && old('decision') === $value)>{{ $label }}</option>@endforeach</select></div>
+            <div class="flex-1 min-w-[12rem]"><label for="n-{{ $s->id }}" class="label !mb-0.5 !text-xs">Notes (internal)</label><input id="n-{{ $s->id }}" name="notes" value="{{ $mine ? old('notes') : '' }}" class="input !min-h-0 !py-1.5" maxlength="2000"></div>
+            <div class="flex-1 min-w-[12rem]"><label for="pn-{{ $s->id }}" class="label !mb-0.5 !text-xs">Public note</label><input id="pn-{{ $s->id }}" name="public_note" value="{{ $mine ? old('public_note') : '' }}" class="input !min-h-0 !py-1.5" maxlength="500" placeholder="Shown on /corrections. Leave empty to publish the facts only."></div>
+            <button type="submit" class="btn-secondary !min-h-0 !py-1.5">{{ $decided ? 'Record new decision' : 'Record decision' }}</button>
         </form>
+        @if($decided)
+        </details>
+        @endif
     </div>
 </article>
