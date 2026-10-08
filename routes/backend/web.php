@@ -84,6 +84,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
     Route::middleware('can:users.manage')->prefix('backend/admin/users')->as('backend.admin.users.')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/export', 'export')->name('export');
+        Route::get('/invite', 'inviteForm')->name('invite.create');
         Route::post('/invite', 'invite')->middleware('throttle:20,1')->name('invite');
         Route::post('/bulk', 'bulk')->name('bulk');
         Route::post('/bulk-delete', 'bulkDelete')->middleware('password.confirm')->name('bulk.delete');

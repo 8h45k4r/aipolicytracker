@@ -6,11 +6,11 @@ use App\Enums\AdminCapability;
 use App\Enums\AdminRole;
 use App\Http\Controllers\Auth\InvitationController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\InviteUserRequest;
 use App\Mail\AdminInvitationMail;
 use App\Models\AdminAuditLog;
 use App\Models\ResourceDownload;
 use App\Models\User;
-use App\Rules\NotDisposableEmail;
 use App\Services\Admin\RolePermissions;
 use App\Support\Csv;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,6 +23,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 /**
  * Accounts and the roles granted to them.
@@ -37,7 +38,10 @@ class UserController extends Controller
 {
     public const SORTS = ['joined' => 'Newest first', 'last_login' => 'Last signed in', 'name' => 'Name', 'email' => 'Email'];
 
-    public function index(Request $request): View
+    /** Mailers that accept a message and deliver nothing to the recipient. */
+    private const NON_DELIVERING_MAILERS = ['log', 'array'];
+
+    public function index(Request $request, RolePermissions $permissions): View
     {
         $owners = config('aipolicytracker.admin_emails', []);
         $filters = $this->filters($request);
@@ -57,6 +61,7 @@ class UserController extends Controller
             ],
             'ownerAddresses' => count($owners),
             'inviteDays' => AdminInvitationMail::DAYS,
+            'roleOptions' => $this->roleOptions($permissions),
         ]);
     }
 
@@ -74,6 +79,7 @@ class UserController extends Controller
         return view('backend.admin.user', [
             'user' => $user,
             'roles' => AdminRole::cases(),
+            'roleOptions' => $this->roleOptions($permissions),
             'capabilities' => AdminCapability::cases(),
             'held' => $user->effectiveCapabilities(),
             'roleEdited' => $user->adminRole() ? $permissions->isEdited($user->adminRole()) : false,
@@ -110,24 +116,32 @@ class UserController extends Controller
     }
 
     /**
-     * Create an account and email a week-long link to choose its password. A role can be
-     * granted at the same time; ownership cannot, and an owner address is refused, because
-     * an owner's account should be created by its owner.
+     * The invitation form on a page of its own: where the "Invite a user" button leads
+     * without JavaScript, and where the command palette goes from any other admin page.
+     * With JavaScript the same form opens as a side panel on the list.
      */
-    public function invite(Request $request): RedirectResponse
+    public function inviteForm(RolePermissions $permissions): View
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'string', 'lowercase', 'email:rfc', 'max:255', Rule::unique('users', 'email'), new NotDisposableEmail],
-            'admin_role' => ['nullable', 'string', Rule::in(AdminRole::values())],
-            'note' => ['nullable', 'string', 'max:500'],
+        return view('backend.admin.users.invite', [
+            'roleOptions' => $this->roleOptions($permissions),
+            'inviteDays' => AdminInvitationMail::DAYS,
         ]);
-        $email = Str::lower($data['email']);
-        if (in_array($email, array_map('strtolower', config('aipolicytracker.admin_emails', [])), true)) {
-            return back()->withInput()->withErrors(['email' => 'This address is an owner (ADMIN_EMAILS). Owners create their own account by registering.']);
-        }
+    }
 
-        $role = isset($data['admin_role']) && $data['admin_role'] !== '' ? AdminRole::from($data['admin_role']) : null;
+    /**
+     * Create an account and email a week-long link to choose its password. A role can be
+     * granted at the same time; ownership cannot (InviteUserRequest).
+     *
+     * The message afterwards says what actually happened to the email. On a mailer that
+     * delivers nothing (log, array) or a delivery that failed, the account still exists and
+     * the link is valid, so the inviter is shown the link once, on the account's page, to
+     * pass on themselves; the toast never says "sent" for an email nobody will receive.
+     */
+    public function invite(InviteUserRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $email = Str::lower($data['email']);
+        $role = $request->role();
         $user = new User(['name' => $data['name'], 'email' => $email, 'password' => Str::password(40)]);
         $user->forceFill([
             'invited_at' => now(),
@@ -137,9 +151,13 @@ class UserController extends Controller
             'admin_role_granted_at' => $role ? now() : null,
         ])->save();
 
-        $this->sendInvitation($user, $request->user(), $role, $data['note'] ?? null);
+        $sent = $this->sendInvitation($user, $request->user(), $role, $data['note'] ?? null);
+        $redirect = redirect()->route('backend.admin.users.show', $user);
 
-        return redirect()->route('backend.admin.users.show', $user)->with('success', "Invitation sent to {$email}. The link works for ".AdminInvitationMail::DAYS.' days.');
+        return $sent['delivered']
+            ? $redirect->with('success', "Invitation emailed to {$email}. The link works for ".AdminInvitationMail::DAYS.' days.')
+            : $redirect->with('error', "Created the account for {$email}, but the invitation was not delivered: {$sent['reason']} Copy the invitation link below and send it to them yourself.")
+                ->with('invitation_link', ['user' => $user->getKey(), 'url' => $sent['url']]);
     }
 
     public function resendInvitation(Request $request, User $user): RedirectResponse
@@ -147,10 +165,13 @@ class UserController extends Controller
         $this->guardFor($user, 'invite');
         abort_unless($user->invitationPending(), 422, 'This account has already accepted its invitation.');
 
-        $this->sendInvitation($user, $request->user(), $user->adminRole(), null);
+        $sent = $this->sendInvitation($user, $request->user(), $user->adminRole(), null);
         $user->forceFill(['invited_at' => now()])->save();
 
-        return back()->with('success', "A new invitation was sent to {$user->email}; the previous link no longer works.");
+        return $sent['delivered']
+            ? back()->with('success', "A new invitation was emailed to {$user->email}; the previous link no longer works.")
+            : back()->with('error', "A new invitation link was made for {$user->email} (the previous one no longer works), but it was not delivered: {$sent['reason']} Copy the link below and send it to them yourself.")
+                ->with('invitation_link', ['user' => $user->getKey(), 'url' => $sent['url']]);
     }
 
     /** Email a password reset link, the same one "Forgot password" sends. */
@@ -312,12 +333,16 @@ class UserController extends Controller
             'admin_role' => ['nullable', 'string', 'in:'.implode(',', AdminRole::values())],
         ]);
 
-        $role = $data['admin_role'] ?? null;
-        $this->applyRole($user, $role === null ? null : AdminRole::from($role), $request->user());
+        $role = ($data['admin_role'] ?? null) === null ? null : AdminRole::from($data['admin_role']);
+        $before = $user->adminRole();
+        if (! $this->applyRole($user, $role, $request->user())) {
+            return back()->with('success', "No change: {$user->email} already has ".($role ? 'the '.$role->label().' role' : 'no admin access').'.');
+        }
 
         return back()->with('success', $role === null
-            ? "Removed admin access from {$user->email}."
-            : "{$user->email} is now ".AdminRole::from($role)->label().'. They will be asked to enrol an authenticator at next sign-in.');
+            ? "Removed admin access from {$user->email} (was ".$before?->label().').'
+            : "{$user->email} changed from ".($before?->label() ?? 'no admin access').' to '.$role->label().'.'
+                .($user->hasTwoFactorEnabled() ? '' : ' They will be asked to enrol an authenticator at next sign-in.'));
     }
 
     public function suspend(Request $request, User $user): RedirectResponse
@@ -392,11 +417,62 @@ class UserController extends Controller
         return true;
     }
 
-    private function sendInvitation(User $user, User $inviter, ?AdminRole $role, ?string $note): void
+    /**
+     * Make a fresh invitation link (which retires the previous one) and email it.
+     *
+     * "Delivered" means handed to a mailer that sends real email. The log and array mailers
+     * accept the message and deliver nothing, so they count as not delivered, as does a
+     * transport failure; the reason is worded for the toast.
+     *
+     * @return array{delivered: bool, url: string, reason: ?string}
+     */
+    private function sendInvitation(User $user, User $inviter, ?AdminRole $role, ?string $note): array
     {
-        $broker = Password::broker(InvitationController::BROKER);
-        $token = $broker->createToken($user);
-        Mail::to($user->email)->send(new AdminInvitationMail($user, $inviter, route('invitation.show', ['token' => $token, 'email' => $user->email]), $role, $note));
+        $token = Password::broker(InvitationController::BROKER)->createToken($user);
+        $url = route('invitation.show', ['token' => $token, 'email' => $user->email]);
+        $mailer = (string) config('mail.default');
+
+        try {
+            Mail::to($user->email)->send(new AdminInvitationMail($user, $inviter, $url, $role, $note));
+        } catch (TransportExceptionInterface $e) {
+            report($e);
+
+            return ['delivered' => false, 'url' => $url, 'reason' => 'the mail server refused it or could not be reached.'];
+        }
+
+        if (in_array($mailer, self::NON_DELIVERING_MAILERS, true)) {
+            return ['delivered' => false, 'url' => $url, 'reason' => "this server's mailer is \"{$mailer}\", which keeps a copy and sends nothing."];
+        }
+
+        return ['delivered' => true, 'url' => $url, 'reason' => null];
+    }
+
+    /**
+     * The choices on the invitation form: no access, then each role with what it can do
+     * now (an owner's edit on the permissions page included).
+     *
+     * @return list<array{value: string, label: string, description: string, capabilities: list<string>, edited: bool}>
+     */
+    private function roleOptions(RolePermissions $permissions): array
+    {
+        $options = [[
+            'value' => '',
+            'label' => 'No admin access',
+            'description' => 'A reader account: the public site, follows and downloads. No admin pages.',
+            'capabilities' => [],
+            'edited' => false,
+        ]];
+        foreach (AdminRole::cases() as $role) {
+            $options[] = [
+                'value' => $role->value,
+                'label' => $role->label(),
+                'description' => $role->description(),
+                'capabilities' => array_map(fn (AdminCapability $c) => $c->label(), $permissions->for($role)),
+                'edited' => $permissions->isEdited($role),
+            ];
+        }
+
+        return $options;
     }
 
     /** @return array{q:string, role:?string, status:?string, sort:string} */
