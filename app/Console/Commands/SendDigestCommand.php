@@ -66,7 +66,9 @@ class SendDigestCommand extends Command
                 'recipients' => $sent,
             ])->save();
         }
-        $this->info("Digest: {$sent} sent, {$skipped} skipped, {$changes->count()} changes in window ({$period}).");
+        $this->info($this->option('dry-run')
+            ? "Digest dry run, nothing sent: {$sent} would be sent, {$skipped} skipped, {$changes->count()} changes in window ({$period})."
+            : "Digest: {$sent} sent, {$skipped} skipped, {$changes->count()} changes in window ({$period}).");
 
         return self::SUCCESS;
     }

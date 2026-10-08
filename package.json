@@ -7,7 +7,7 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "typecheck": "echo \"No TypeScript sources; static checks run via 'npm run lint' and 'composer lint'.\"",
-        "test": "node --test agent/*.test.mjs"
+        "test": "node --test agent/*.test.mjs tests/js/*.test.mjs"
     },
     "devDependencies": {
         "@eslint-react/eslint-plugin": "^5.23.3",
