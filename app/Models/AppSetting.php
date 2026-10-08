@@ -45,6 +45,10 @@ class AppSetting extends Model
         'stale_after_days' => ['label' => 'Stale after (days)', 'secret' => false, 'hint' => 'A record not verified within this many days is flagged stale. Default 180'],
         'turnstile_site_key' => ['label' => 'Turnstile site key', 'secret' => false, 'hint' => 'Cloudflare dashboard → Turnstile → Add site (widget mode Managed). Public: it is placed in the page.'],
         'turnstile_secret_key' => ['label' => 'Turnstile secret key', 'secret' => true, 'hint' => 'Shown beside the site key in Cloudflare. Used only by the server to confirm each check.'],
+        // Citation and funding. Each overrides the environment or config/funding.php; empty falls back.
+        'dataset_doi' => ['label' => 'Dataset DOI', 'secret' => false, 'hint' => 'The Zenodo concept DOI, e.g. 10.5281/zenodo.1234567 or its https://doi.org/ URL. Shown in citations and the /open-data structured data. Only a DOI Zenodo has minted.'],
+        'sponsor_url' => ['label' => 'Sponsor link', 'secret' => false, 'hint' => 'https link to the sponsorship page (GitHub Sponsors or a fiscal host). Shown on /funding.'],
+        'funding_threshold' => ['label' => 'Disclosure threshold (USD a year)', 'secret' => false, 'hint' => 'Funders giving more than this in a year must be listed on /funding. Whole dollars.'],
         'google_site_verification' => ['label' => 'Google Search Console token', 'secret' => false, 'hint' => 'The HTML-tag verification value'],
         'bing_site_verification' => ['label' => 'Bing Webmaster token', 'secret' => false, 'hint' => 'The msvalidate.01 value'],
     ];

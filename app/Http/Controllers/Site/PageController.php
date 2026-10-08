@@ -13,6 +13,7 @@ use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Verification\IndependentChecks;
 use App\Support\ContentCache;
 use App\Support\DatasetCitation;
+use App\Support\FundingDisclosure;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Carbon;
@@ -106,7 +107,8 @@ class PageController extends Controller
     /**
      * How the project is paid for and the rules that keep money away from the
      * records. Linked from Organization.ownershipFundingInfo, so it must stay a
-     * statement of fact: funders come from config/funding.php and nowhere else.
+     * statement of fact: funders are the published rows the owner keeps in the admin
+     * (config/funding.php while that table is empty), never anything inferred.
      */
     public function funding(BillingConfig $billing): View
     {
@@ -119,9 +121,9 @@ class PageController extends Controller
 
         return view('site.pages.funding', [
             'seo' => $seo,
-            'funders' => (array) config('funding.funders'),
-            'threshold' => (int) config('funding.disclosure_threshold'),
-            'sponsorUrl' => config('funding.sponsor_url'),
+            'funders' => FundingDisclosure::funders(),
+            'threshold' => FundingDisclosure::threshold(),
+            'sponsorUrl' => FundingDisclosure::sponsorUrl(),
             'selling' => $billing->enabled(),
             'certifyiUrl' => config('aipolicytracker.certifyi_url'),
         ]);
