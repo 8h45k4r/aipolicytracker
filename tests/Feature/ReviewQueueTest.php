@@ -58,7 +58,9 @@ class ReviewQueueTest extends TestCase
         foreach (ReviewableTypes::keys() as $type) {
             $model = ReviewableTypes::model($type);
             $model::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
-            $slugs = $model::query()->limit(2)->pluck('slug')->all();
+            // A record the data check would refuse to verify without a source is skipped by
+            // the queue (see test_a_record_without_its_required_source_is_skipped).
+            $slugs = $model::query()->when(ReviewableTypes::needsSource($type, 'verified'), fn ($q) => $q->whereNotNull('official_source_url'))->limit(2)->pluck('slug')->all();
             $this->assertNotEmpty($slugs, $type);
             $picked[$type] = $slugs;
 
@@ -168,13 +170,13 @@ class ReviewQueueTest extends TestCase
         try {
             $this->actingAs($this->owner());
             $picked = [];
-            foreach (['control', 'change', 'transition_measure', 'jurisdiction', 'policy'] as $type) {
-                $slug = ReviewableTypes::model($type)::query()->orderBy('slug')->value('slug');
+            foreach (['control', 'change', 'transition_measure', 'implementation_measure', 'jurisdiction', 'policy'] as $type) {
+                $slug = ReviewableTypes::model($type)::query()->when(ReviewableTypes::needsSource($type, 'verified'), fn ($q) => $q->whereNotNull('official_source_url'))->orderBy('slug')->value('slug');
                 $picked[$type] = $slug;
                 $this->post('/backend/review/verify-many/'.$type, ['slugs' => [$slug], 'review_status' => 'verified', 'confidence_level' => 'high', 'source_opened' => 1])->assertRedirect();
             }
 
-            $this->artisan('policy:export-verifications')->expectsOutputToContain('5 record(s) written')->assertExitCode(0);
+            $this->artisan('policy:export-verifications')->expectsOutputToContain('6 record(s) written')->assertExitCode(0);
 
             foreach ($picked as $type => $slug) {
                 $file = ReviewableTypes::file($type, $slug, $dir);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Review;
 use App\Enums\SubmissionStatus;
 use App\Http\Controllers\Controller;
 use App\Models\ContributorSubmission;
+use App\Models\EnforcementEvent;
 use App\Models\RecordVerification;
 use App\Models\ReviewerDecision;
 use App\Services\Review\ReviewableTypes;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -67,6 +69,7 @@ class ReviewController extends Controller
             'byReview' => $byReview, 'tabs' => $tabs, 'matching' => $records->total(), 'unpublished' => $model::whereNull('published_at')->count(),
             'pendingExport' => RecordVerification::where('exported', false)->count(),
             'reviewStatuses' => ReviewableTypes::REVIEW_STATUSES, 'confidenceLevels' => ReviewableTypes::CONFIDENCE_LEVELS, 'reviewFilters' => self::REVIEW_FILTERS,
+            'pendingEvents' => $this->pendingEnforcementEvents(),
         ]);
     }
 
@@ -129,13 +132,24 @@ class ReviewController extends Controller
         }
 
         $recorded = 0;
+        $skipped = [];
         foreach ($this->selection($request, $type, $data) as $model) {
+            if ($this->lacksRequiredSource($type, $model, $data['review_status'])) {
+                $skipped[] = $model->slug;
+
+                continue;
+            }
             $this->record($type, $model, $data, $request->user());
             $recorded++;
         }
         ContentCache::flush();
 
-        return back()->with('success', $recorded.' '.ReviewableTypes::label($type, $recorded !== 1).' marked '.str_replace('_', ' ', $data['review_status']).' ('.$data['confidence_level'].') by '.$request->user()->name.'. Run `php artisan policy:export-verifications` and open a pull request to write it into data/.');
+        $message = $recorded.' '.ReviewableTypes::label($type, $recorded !== 1).' marked '.str_replace('_', ' ', $data['review_status']).' ('.$data['confidence_level'].') by '.$request->user()->name.'. Run `php artisan policy:export-verifications` and open a pull request to write it into data/.';
+        if ($skipped !== []) {
+            $message .= ' Skipped '.count($skipped).' with no official source URL ('.implode(', ', array_slice($skipped, 0, 5)).(count($skipped) > 5 ? ', …' : '').'): add the source in data/ first.';
+        }
+
+        return back()->with('success', $message);
     }
 
     /** Records a human verification (reviewer opened the official source) and applies it to the live row. */
@@ -155,6 +169,10 @@ class ReviewController extends Controller
         // from writing a decision that could never be exported.
         if ($data['review_status'] === 'verified' && ! $this->isPublishedReviewer($request->user()->name)) {
             return back()->withErrors(['source_opened' => $this->rosterError($request->user()->name)]);
+        }
+
+        if ($this->lacksRequiredSource($type, $model, $data['review_status'])) {
+            return back()->withErrors(['review_status' => $this->sourceError($type)]);
         }
 
         $this->record($type, $model, $data, $request->user());
@@ -192,6 +210,27 @@ class ReviewController extends Controller
         ContentCache::flush();
 
         return back()->with('success', ($publish ? 'Published ' : 'Unpublished ').$n.' '.ReviewableTypes::label($type, $n !== 1).'. Remember to mirror the change in data/ (published: '.($publish ? 'true' : 'false').').');
+    }
+
+    /**
+     * Enforcement events waiting for review, read-only.
+     *
+     * They are items inside their instrument's YAML file, the importer deletes and
+     * recreates them on every run, and an event need not carry a slug in the file, so a
+     * decision stored here could neither be re-applied after an import nor written back
+     * to the right list item. They are listed so the work is visible; the decision is
+     * made in the policy file by pull request.
+     *
+     * @return array{total: int, events: Collection<int, EnforcementEvent>, files: Collection<string, ?string>}
+     */
+    private function pendingEnforcementEvents(): array
+    {
+        $query = EnforcementEvent::where('review_status', 'pending_review');
+        $events = (clone $query)->with(['policyInstrument', 'jurisdiction'])->orderByDesc('occurred_on')->orderBy('id')->limit(self::PER_PAGE)->get();
+        $files = $events->pluck('policyInstrument.slug')->filter()->unique()
+            ->mapWithKeys(fn (string $slug) => [$slug => ($f = ReviewableTypes::file('policy', $slug)) ? Str::after($f, base_path().'/') : null]);
+
+        return ['total' => $query->count(), 'events' => $events, 'files' => $files];
     }
 
     // ---- selection and filters -------------------------------------------------
@@ -276,6 +315,7 @@ class ReviewController extends Controller
             'control' => $m->kindLabel().' · '.$m->obligations_count.' '.Str::plural('duty', $m->obligations_count),
             'change' => $m->occurred_on?->format('j M Y').' · '.($m->jurisdiction?->name ?? '—'),
             'transition_measure' => $m->typeLabel().' · '.$m->statusLabel(),
+            'implementation_measure' => $m->kindLabel().' · '.$m->statusLabel(),
         };
         $note = $type === 'policy' && $m->date_notes && str_contains($m->date_notes, 'not established') ? 'date missing' : null;
 
@@ -355,6 +395,17 @@ class ReviewController extends Controller
         abort_unless(ReviewableTypes::has($type), 404);
 
         return ReviewableTypes::model($type)::where('slug', $slug)->firstOrFail();
+    }
+
+    /** See ReviewableTypes::needsSource: a decision the data check would refuse is not stored. */
+    private function lacksRequiredSource(string $type, Model $model, string $reviewStatus): bool
+    {
+        return ReviewableTypes::needsSource($type, $reviewStatus) && blank($model->official_source_url ?? null);
+    }
+
+    private function sourceError(string $type): string
+    {
+        return 'This '.Str::lower(ReviewableTypes::label($type)).' has no official source URL, so the data check would refuse the decision. Add the source in data/ through a pull request first.';
     }
 
     private function isPublishedReviewer(?string $name): bool
