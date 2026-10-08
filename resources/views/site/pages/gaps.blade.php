@@ -47,6 +47,30 @@
     </ul>
     @endif
 
+    @if($implementation->isNotEmpty())
+    <section class="mt-10" aria-labelledby="impl-h" data-gaps-implementation="{{ $implementation->count() }}">
+        <h2 id="impl-h" class="section-title">Implementation measures not yet checked</h2>
+        <p class="mt-2 text-sm text-brand-body leading-7">Guidelines, codes of practice, templates and standards that no reviewer has yet confirmed against the official source. A draft has nothing recorded beyond its working title. A record pending review has a source, but nobody has checked it yet. If you know the official page, send it.</p>
+        <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
+            @foreach($implementation as $m)
+            <li class="flex flex-wrap items-start justify-between gap-3 py-3">
+                <span class="min-w-0">
+                    <a href="{{ $m->url() }}" class="text-brand-navy hover:underline">{{ $m->title }}</a>
+                    <span class="meta block">{{ $m->kindLabel() }}@if($m->policyInstrument) · {{ $m->policyInstrument->short_title ?: $m->policyInstrument->title }}@endif · {{ $m->review_status === 'draft' ? 'draft, not yet read from the source' : 'pending review' }}</span>
+                </span>
+                @if($m->review_status === 'draft' || blank($m->official_source_url))
+                <a class="btn-secondary !min-h-0 whitespace-nowrap" href="{{ route('contribute', ['type' => 'new_source']) }}">Propose the source</a>
+                @elseif($m->policyInstrument)
+                <a class="btn-secondary !min-h-0 whitespace-nowrap" href="{{ route('contribute', ['type' => 'correction', 'subject_type' => 'policy', 'subject_slug' => $m->policyInstrument->slug]) }}">Report an error</a>
+                @else
+                <a class="btn-secondary !min-h-0 whitespace-nowrap" href="{{ route('contribute', ['type' => 'correction']) }}">Report an error</a>
+                @endif
+            </li>
+            @endforeach
+        </ul>
+    </section>
+    @endif
+
     <section class="mt-10" aria-labelledby="how-h">
         <h2 id="how-h" class="section-title">What happens to what you send</h2>
         <p class="mt-2 text-sm text-brand-body leading-7">A reviewer opens the official source and checks the proposal against it before the record changes. The decision, including a refusal, is published in the <a href="{{ route('corrections') }}">corrections log</a> with the date it was received and the date it was decided. Your name and address are never published.</p>
