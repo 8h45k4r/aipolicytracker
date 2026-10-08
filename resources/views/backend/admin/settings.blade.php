@@ -88,6 +88,20 @@
         </div>
     </div>
     @endforeach
+    <h2 class="section-title !text-lg pt-2" id="citation-funding">Citation and funding</h2>
+    <p class="text-sm text-brand-body">The dataset DOI appears in the "Cite this record" box, on /open-data and in its structured data. Set it only after Zenodo has minted the concept DOI; the steps are in <code>docs/reference/releases.md</code> under "One-time setup (maintainer)". A value saved here replaces the <code>DATASET_DOI</code> step (step 3), so no redeploy is needed. The sponsor link and threshold are shown on <a href="{{ route('funding') }}">/funding</a>; the funders themselves are kept on <a href="{{ route('backend.admin.funding.index') }}">Funding</a>.</p>
+    <p class="meta" data-effective-citation>In use now: DOI {{ $citation['doi'] ?? 'none (nothing DOI-related is shown)' }} · sponsor link {{ $citation['sponsor'] ?? 'none' }} · threshold {{ '$'.number_format($citation['threshold']) }} a year.</p>
+    @foreach(['dataset_doi', 'sponsor_url', 'funding_threshold'] as $key)
+    @php($v = $values[$key])
+    <div class="grid gap-1 sm:grid-cols-12 sm:gap-4 items-start">
+        <label for="f-{{ $key }}" class="label sm:col-span-3 sm:pt-2">{{ $v['meta']['label'] }}</label>
+        <div class="sm:col-span-9">
+            <input id="f-{{ $key }}" name="{{ $key }}" type="{{ $key === 'funding_threshold' ? 'number' : 'text' }}" @if($key === 'funding_threshold') min="0" step="1" @endif class="input @if($key === 'dataset_doi') font-mono @endif" autocomplete="off" spellcheck="false" placeholder="{{ $v['display'] ?: 'Not set' }}">
+            @error($key)<p class="mt-1 text-xs text-state-bad">{{ $message }}</p>@enderror
+            <p class="meta mt-1">{{ $v['meta']['hint'] }}@if($v['env']) · environment: {{ $v['env'] }}@endif @if($key === 'funding_threshold') · default in config/funding.php: {{ '$'.number_format((int) config('funding.disclosure_threshold')) }}@endif @if($v['set'])<label class="ml-2"><input type="checkbox" name="clear[]" value="{{ $key }}"> clear stored value</label>@endif</p>
+        </div>
+    </div>
+    @endforeach
     <div class="flex gap-2"><button type="submit" class="btn-primary">Save settings</button></div>
 </form>
 <form method="post" action="{{ route('backend.admin.settings.turnstile') }}" id="turnstile-check" class="hidden">@csrf</form>

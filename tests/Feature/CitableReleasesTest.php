@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\AppSetting;
 use App\Models\PolicyInstrument;
+use App\Models\User;
 use App\Support\DatasetCitation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\Yaml\Yaml;
@@ -132,6 +134,36 @@ class CitableReleasesTest extends TestCase
         $this->assertMatchesRegularExpression('#^\s*note\s*=\s*\{Data licensed CC BY 4\.0#m', $html);
 
         $this->get(route('open-data'))->assertSee('data-dataset-doi', false);
+    }
+
+    public function test_a_doi_saved_in_the_admin_overrides_the_environment_and_must_parse(): void
+    {
+        config(['aipolicytracker.dataset_doi' => '10.5281/zenodo.7654321', 'aipolicytracker.admin_emails' => ['owner@example.test']]);
+        $owner = User::factory()->create(['email' => 'owner@example.test']);
+        $policy = PolicyInstrument::published()->firstOrFail();
+
+        // A value the citation code would not print is refused, not stored.
+        foreach (['TBD', 'zenodo.1234567', 'https://example.org/10.5281/zenodo.1', '10.12/too-short-prefix'] as $bad) {
+            $this->actingAs($owner)->post('/backend/admin/settings', ['dataset_doi' => $bad])->assertSessionHasErrors('dataset_doi');
+        }
+        $this->assertNull(AppSetting::get('dataset_doi'));
+
+        // The doi.org URL form is accepted and wins over the environment value.
+        $this->actingAs($owner)->post('/backend/admin/settings', ['dataset_doi' => 'https://doi.org/'.self::DOI])->assertSessionHasNoErrors();
+        $this->assertSame(self::DOI, DatasetCitation::doi());
+        $corpus = collect($this->datasets(route('open-data')))->firstWhere('url', route('open-data'));
+        $this->assertSame(self::DOI, $corpus['identifier']['value']);
+        $html = html_entity_decode($this->get($policy->url())->assertOk()->getContent());
+        $this->assertStringContainsString('data-cite-doi>https://doi.org/'.self::DOI.'<', $html);
+        $this->assertStringNotContainsString('7654321', $html);
+        $this->actingAs($owner)->get('/backend/admin/settings')->assertOk()->assertSee('In use now: DOI '.self::DOI);
+
+        // Cleared, and with no environment value, nothing DOI-related renders.
+        $this->actingAs($owner)->post('/backend/admin/settings', ['clear' => ['dataset_doi']]);
+        config(['aipolicytracker.dataset_doi' => null]);
+        $this->assertNull(DatasetCitation::doi());
+        $this->get(route('open-data'))->assertOk()->assertDontSee('doi.org', false)->assertDontSee('data-dataset-doi', false);
+        $this->get($policy->url())->assertOk()->assertDontSee('data-cite-doi', false);
     }
 
     public function test_bibtex_escapes_markup_characters_in_titles(): void

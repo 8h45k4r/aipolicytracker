@@ -12,7 +12,7 @@
             <li>The founder and maintainer, <a href="{{ route('team') }}">Bhaskar Bhatt</a>, pays for hosting and does most of the work unpaid.</li>
             @if($selling)<li>Individual <a href="{{ route('pricing') }}">Pro subscriptions</a> pay for more watches and more alert channels. The records are the same for everyone.</li>@endif
             <li>No advertising, no affiliate links and no sponsored content, on the site or in the digest.</li>
-            <li>No grants have been received yet. Applications are made in the project's name and are listed here once agreed.</li>
+            @if(collect($funders)->where('kind', 'grant')->isEmpty())<li>No grants have been received yet. Applications are made in the project's name and are listed here once agreed.</li>@else<li>Grants are made to the project and listed below from the day they are agreed.</li>@endif
         </ul>
     </section>
 
@@ -24,7 +24,7 @@
         <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
             <caption class="sr-only">Funders, amounts and purposes</caption>
             <thead><tr class="text-left text-brand-muted"><th scope="col" class="py-2 pr-3">Funder</th><th scope="col" class="py-2 pr-3">Kind</th><th scope="col" class="py-2 pr-3">Amount</th><th scope="col" class="py-2">Pays for</th></tr></thead>
-            <tbody class="divide-y divide-brand-line">@foreach($funders as $f)<tr><td class="py-2 pr-3">@if(!empty($f['url']))<a href="{{ $f['url'] }}" rel="noopener">{{ $f['name'] }}</a>@else{{ $f['name'] }}@endif</td><td class="py-2 pr-3">{{ $f['kind'] }}</td><td class="py-2 pr-3 whitespace-nowrap">{{ $f['amount'] }} {{ $f['period'] ?? '' }}</td><td class="py-2">{{ $f['purpose'] }}</td></tr>@endforeach</tbody>
+            <tbody class="divide-y divide-brand-line">@foreach($funders as $f)<tr><td class="py-2 pr-3">@if(!empty($f['url']))<a href="{{ $f['url'] }}" rel="noopener">{{ $f['name'] }}</a>@else{{ $f['name'] }}@endif</td><td class="py-2 pr-3">{{ \App\Models\Funder::KINDS[$f['kind']] ?? $f['kind'] }}</td><td class="py-2 pr-3 whitespace-nowrap">{{ $f['amount'] }} {{ $f['period'] ?? '' }}@if($f['ended'] ?? null)<span class="block meta">ended {{ $f['ended'] }}</span>@endif</td><td class="py-2">{{ $f['purpose'] }}</td></tr>@endforeach</tbody>
         </table></div>
         @endif
     </section>
