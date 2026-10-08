@@ -74,3 +74,32 @@ dialog.adm-palette { margin-top: 12vh; width: min(36rem, calc(100vw - 2rem)); }
 .btn-danger:hover { filter: brightness(0.92); }
 button[aria-busy="true"] { cursor: progress; opacity: 0.75; }
 kbd.adm-kbd { display: inline-block; padding: 0 0.3rem; border: 1px solid rgb(255 255 255 / 0.25); border-radius: 3px; font-size: 10px; line-height: 1.4; }
+
+/* ==== Users and roles: users, user and permissions pages ==================================== */
+/* Permissions matrix: scrolls inside its own box so the role header row and the permission
+   column stay in view; a box that differs from the saved state is tinted until saved. */
+html[data-admin] .table-wrap.adm-matrix { max-height: 72vh; overflow: auto; }
+/* Layers: body cells < the sticky permission column < the sticky header row < their corner. */
+html[data-admin] .adm-matrix tbody th[scope="row"] { position: sticky; left: 0; z-index: 2; background: rgb(var(--c-white)); box-shadow: inset -1px 0 0 rgb(var(--c-line)); }
+html[data-admin] .adm-matrix thead th { z-index: 3; }
+html[data-admin] .adm-matrix thead th:first-child { left: 0; z-index: 4; box-shadow: inset -1px 0 0 rgb(var(--c-line)); }
+.adm-matrix td.adm-cell-changed { background: rgb(var(--c-warnbg)); }
+.adm-unsaved { position: sticky; bottom: 0; z-index: 4; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-top: 1rem; padding: 0.75rem 1rem; border: 1px solid rgb(var(--c-line)); border-radius: 6px; background: rgb(var(--c-white)); box-shadow: 0 -4px 16px rgb(0 33 71 / 0.08); }
+.adm-unsaved[data-dirty] { border-color: rgb(var(--c-warn)); }
+
+/* Users list below 640px: each row becomes a card with labelled lines, so the status and the
+   Manage button are never cut off by a sideways-scrolling table. */
+@media (max-width: 639px) {
+    .adm-users-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .adm-users-table, .adm-users-table tbody, .adm-users-table tr, .adm-users-table td { display: block; width: 100%; }
+    .adm-users-table tr { position: relative; padding: 0.75rem 1rem; border-top: 1px solid rgb(var(--c-line)); }
+    .adm-users-table tr:first-child { border-top: 0; }
+    html[data-admin] .adm-users-table td { padding: 0.2rem 0; border-top: 0; white-space: normal; }
+    .adm-users-table td[data-label] { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.5rem; align-items: baseline; }
+    .adm-users-table td[data-label]::before { content: attr(data-label); font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgb(var(--c-muted)); }
+    .adm-users-table td.adm-users-select { position: absolute; top: 0.75rem; right: 1rem; width: auto; padding: 0; }
+    .adm-users-table td.adm-users-account { padding-right: 2rem; padding-bottom: 0.4rem; }
+    .adm-users-table td.adm-users-manage { padding-top: 0.5rem; }
+    .adm-users-table td.adm-users-manage a { width: 100%; min-height: 40px !important; }
+}
+/* ==== end Users and roles =================================================================== */
