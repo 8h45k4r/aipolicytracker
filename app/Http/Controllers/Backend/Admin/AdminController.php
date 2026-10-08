@@ -36,6 +36,8 @@ use App\Services\Verification\IndependentChecks;
 use App\Support\Admin\CsvStream;
 use App\Support\Admin\ListFilters;
 use App\Support\ContentCache;
+use App\Support\DatasetCitation;
+use App\Support\FundingDisclosure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -329,8 +331,8 @@ class AdminController extends Controller
     public function subscribersExport(Request $request): StreamedResponse
     {
         return CsvStream::from($this->subscriberQuery($request, ListFilters::from($request, self::SUBSCRIBER_SORTS)), 'subscribers',
-            ['email', 'topics', 'confirmed_at', 'unsubscribed_at', 'last_sent_at', 'source', 'created_at'],
-            fn (Subscriber $s) => [$s->email, implode('|', $s->topics ?? []), $s->confirmed_at, $s->unsubscribed_at, $s->last_sent_at, $s->source, $s->created_at]);
+            ['email', 'topics', 'confirmed_at', 'unsubscribed_at', 'last_sent_at', 'source', 'has_account', 'created_at'],
+            fn (Subscriber $s) => [$s->email, implode('|', $s->topics ?? []), $s->confirmed_at, $s->unsubscribed_at, $s->last_sent_at, $s->source, $s->account_id !== null, $s->created_at]);
     }
 
     private function subscriberState(Request $request): string
@@ -348,8 +350,19 @@ class AdminController extends Controller
             default => $query->active(),
         };
         $topic = (string) $request->query('topic', '');
+        $source = (string) $request->query('source', '');
         $query->when(preg_match('/^[a-z0-9-]{1,64}$/', $topic), fn ($q) => $q->whereJsonContains('topics', $topic))
-            ->when($request->filled('source'), fn ($q) => $q->where('source', (string) $request->query('source')));
+            ->when($source === '(none)', fn ($q) => $q->whereNull('source'))
+            ->when($source !== '' && $source !== '(none)', fn ($q) => $q->where('source', $source));
+        // The verified account behind the address, if any: shown as a badge and exported.
+        // Subscriber addresses are stored lower-cased; account addresses may not be.
+        $account = fn () => User::query()->select('users.id')->whereNotNull('users.email_verified_at')->whereRaw('LOWER(users.email) = subscribers.email')->limit(1);
+        $query->addSelect(['account_id' => $account()]);
+        match ($request->query('account')) {
+            'yes' => $query->whereExists($account()),
+            'no' => $query->whereNotExists($account()),
+            default => null,
+        };
         $filters->search($query, ['email']);
         $filters->dateRange($query, 'created_at');
 
@@ -497,6 +510,7 @@ class AdminController extends Controller
         'contact_email' => 'CONTACT_EMAIL', 'google_analytics_id' => 'GOOGLE_ANALYTICS_ID', 'cloudflare_analytics_token' => 'CLOUDFLARE_ANALYTICS_TOKEN',
         'analytics_require_consent' => 'ANALYTICS_REQUIRE_CONSENT', 'social_cards_enabled' => 'SOCIAL_CARDS_ENABLED', 'email_domain_enforcement' => 'EMAIL_DOMAIN_ENFORCEMENT',
         'google_site_verification' => 'GOOGLE_SITE_VERIFICATION', 'bing_site_verification' => 'BING_SITE_VERIFICATION', 'x_handle' => 'SITE_X_HANDLE', 'newsletter_url' => 'SITE_NEWSLETTER_URL',
+        'dataset_doi' => 'DATASET_DOI', 'sponsor_url' => 'SPONSOR_URL',
     ];
 
     public function settings(): View
@@ -511,7 +525,8 @@ class AdminController extends Controller
             $values[$key] = ['meta' => $meta, 'set' => $current !== null && $current !== '', 'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''), 'env' => $envReadable ? $this->envHint($key, (bool) $meta['secret']) : null];
         }
 
-        return view('backend.admin.settings', ['values' => $values, 'envReadable' => $envReadable, 'turnstile' => app(Turnstile::class), 'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')]]);
+        return view('backend.admin.settings', ['values' => $values, 'envReadable' => $envReadable, 'turnstile' => app(Turnstile::class), 'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')],
+            'citation' => ['doi' => DatasetCitation::doi(), 'sponsor' => FundingDisclosure::sponsorUrl(), 'threshold' => FundingDisclosure::threshold()]]);
     }
 
     private function envHint(string $key, bool $secret): ?string
@@ -557,6 +572,14 @@ class AdminController extends Controller
             'turnstile_site_key' => ['nullable', 'string', 'max:120', 'regex:/^[0-9A-Za-z_-]{10,120}$/'],
             'turnstile_secret_key' => ['nullable', 'string', 'max:120', 'regex:/^[0-9A-Za-z_-]{10,120}$/'],
             'newsletter_url' => ['nullable', 'url:https', 'max:512'],
+            // Parsed the way the citation code reads it, so a value accepted here is one it prints.
+            'dataset_doi' => ['nullable', 'string', 'max:255', function (string $attribute, mixed $value, \Closure $fail) {
+                if (DatasetCitation::parse((string) $value) === null) {
+                    $fail('Enter a DOI such as 10.5281/zenodo.1234567, or its https://doi.org/ URL.');
+                }
+            }],
+            'sponsor_url' => ['nullable', 'url:https', 'max:512'],
+            'funding_threshold' => ['nullable', 'integer', 'min:0', 'max:10000000'],
             'clear' => ['nullable', 'array'],
             'clear.*' => ['in:'.implode(',', array_keys(AppSetting::KEYS))],
         ]);

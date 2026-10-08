@@ -39,6 +39,7 @@
             'Administration' => [
                 ['backend.admin.users.index', 'Users and roles', 'users.manage'],
                 ['backend.admin.billing.index', 'Billing', 'billing.manage'],
+                ['backend.admin.funding.index', 'Funding and funders', 'settings.manage'],
                 ['backend.admin.settings', 'Settings and API keys', 'settings.manage'],
             ],
             // Enrolling and rotating your own factor is not gated by a capability: a newly

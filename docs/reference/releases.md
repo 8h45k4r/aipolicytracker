@@ -18,7 +18,7 @@ Only real people go in `authors` and `creators`. Add a person when they have con
 
 1. Sign in to Zenodo with the GitHub account that owns the repository, open the GitHub integration page in Zenodo and switch the repository on. Zenodo then archives every **published** GitHub release.
 2. Cut the first release (below). Zenodo mints two DOIs: a **version DOI** for that release and a **concept DOI** that always resolves to the newest version.
-3. Set `DATASET_DOI` to the **concept DOI** in the production environment (a bare `10.5281/zenodo.N` or the `https://doi.org/` URL both work) and redeploy. Check `/open-data`: the citation section now shows the DOI.
+3. Set the **concept DOI** as the "Dataset DOI" on the admin settings page (Citation and funding), or set `DATASET_DOI` in the production environment and redeploy. A bare `10.5281/zenodo.N` or the `https://doi.org/` URL both work. The saved setting wins over the environment. Check `/open-data`: the citation section now shows the DOI.
 4. Add `doi: 10.5281/zenodo.N` (the concept DOI) to `CITATION.cff` in a pull request.
 
 Never set `DATASET_DOI` to a value Zenodo has not minted. A malformed value is ignored by the code, but a well-formed wrong DOI would be printed into every citation.

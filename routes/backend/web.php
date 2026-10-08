@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\AlertsController;
 use App\Http\Controllers\Backend\Admin\BillingController;
+use App\Http\Controllers\Backend\Admin\FundingController;
 use App\Http\Controllers\Backend\Admin\ToolController;
 use App\Http\Controllers\Backend\Admin\UserController;
 use App\Http\Controllers\Backend\Review\IndependentChecksController;
@@ -124,6 +125,17 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
             Route::post('/deliveries/retry-many', 'retryMany')->name('deliveries.retry.many');
             Route::post('/deliveries/{delivery}/retry', 'retry')->whereNumber('delivery')->name('deliveries.retry');
         });
+    });
+
+    // Funders disclosed on /funding. Owner only, like settings: what the site says about its
+    // money is a statement by the project.
+    Route::middleware('can:settings.manage')->prefix('backend/admin/funding')->as('backend.admin.funding.')->controller(FundingController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{funder}', 'update')->name('update');
+        Route::post('/{funder}/publish', 'publish')->name('publish');
+        Route::post('/{funder}/move', 'move')->name('move');
+        Route::delete('/{funder}', 'destroy')->name('destroy');
     });
     // Free-tool library CRUD (tools, files, status).
     Route::middleware('can:tools.manage')->prefix('backend/admin/tools')->as('backend.admin.tools.')->controller(ToolController::class)->group(function () {

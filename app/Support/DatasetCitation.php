@@ -2,11 +2,15 @@
 
 namespace App\Support;
 
+use App\Models\AppSetting;
+use Illuminate\Database\QueryException;
+
 /**
  * The dataset's persistent identifier and the citation formats built on it.
  *
- * The DOI is the Zenodo concept DOI (config `aipolicytracker.dataset_doi`, env
- * DATASET_DOI), which always resolves to the newest archived release. Until the
+ * The DOI is the Zenodo concept DOI (the `dataset_doi` admin setting, else config
+ * `aipolicytracker.dataset_doi`, env DATASET_DOI), which always resolves to the newest
+ * archived release. Until the
  * maintainer has had one minted it is unset, and every caller must then render
  * nothing DOI-related: a placeholder DOI is worse than none, because a reader
  * copies it into a reference list.
@@ -16,10 +20,28 @@ namespace App\Support;
  */
 class DatasetCitation
 {
-    /** The DOI as a bare name (10.prefix/suffix), or null when unset or malformed. */
+    /**
+     * The DOI as a bare name (10.prefix/suffix), or null when unset or malformed. The
+     * `dataset_doi` setting saved in the admin wins over the environment value.
+     */
     public static function doi(): ?string
     {
-        $raw = trim((string) config('aipolicytracker.dataset_doi'));
+        try {
+            $stored = trim((string) AppSetting::get('dataset_doi'));
+        } catch (QueryException) {
+            $stored = ''; // no settings table yet; the environment still answers
+        }
+
+        return self::parse($stored !== '' ? $stored : (string) config('aipolicytracker.dataset_doi'));
+    }
+
+    /**
+     * Reduces a bare DOI, a `doi:` name or a doi.org URL to the bare DOI, or null when the
+     * value is empty or malformed. The admin settings page validates with this too.
+     */
+    public static function parse(?string $raw): ?string
+    {
+        $raw = trim((string) $raw);
         if ($raw === '') {
             return null;
         }
