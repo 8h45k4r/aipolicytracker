@@ -21,11 +21,14 @@ class FundingController extends Controller
     public function index(Request $request): View
     {
         $funders = Funder::ordered()->get();
+        // ?new=1 and ?edit=<id> are the addresses of the forms without JavaScript: the form
+        // is then on the page. With JavaScript the same links open a side panel instead.
         $editing = $request->filled('edit') ? $funders->firstWhere('id', (int) $request->query('edit')) : null;
 
         return view('backend.admin.funding', [
             'funders' => $funders,
             'editing' => $editing,
+            'adding' => ! $editing && $request->boolean('new'),
             'threshold' => FundingDisclosure::threshold(),
             'sponsorUrl' => FundingDisclosure::sponsorUrl(),
             'usingConfig' => $funders->isEmpty() && (array) config('funding.funders') !== [],
@@ -99,6 +102,9 @@ class FundingController extends Controller
             'ends_on' => ['nullable', 'date', 'after_or_equal:starts_on'],
             'published' => ['nullable', 'boolean'],
             'sort' => ['nullable', 'integer', 'min:0', 'max:100000'],
+        ], [
+            'url.url' => 'Use a full https:// address, for example https://example.org/grants.',
+            'ends_on.after_or_equal' => 'The end date cannot be before the start date.',
         ]);
         $data['published'] = (bool) ($data['published'] ?? false);
 

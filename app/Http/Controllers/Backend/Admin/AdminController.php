@@ -513,7 +513,7 @@ class AdminController extends Controller
         'dataset_doi' => 'DATASET_DOI', 'sponsor_url' => 'SPONSOR_URL',
     ];
 
-    public function settings(): View
+    public function settings(BillingConfig $billing): View
     {
         // With the configuration cached (every production release), .env is never read,
         // so env() answers null for everything and the page used to imply nothing was
@@ -522,10 +522,38 @@ class AdminController extends Controller
         $values = [];
         foreach (AppSetting::KEYS as $key => $meta) {
             $current = AppSetting::get($key);
-            $values[$key] = ['meta' => $meta, 'set' => $current !== null && $current !== '', 'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''), 'env' => $envReadable ? $this->envHint($key, (bool) $meta['secret']) : null];
+            $set = $current !== null && $current !== '';
+            $env = $envReadable ? $this->envHint($key, (bool) $meta['secret']) : null;
+            $values[$key] = [
+                'meta' => $meta,
+                'set' => $set,
+                // Only a non-secret value goes back to the browser; a secret is masked.
+                'value' => $meta['secret'] ? '' : ($current ?? ''),
+                'display' => $meta['secret'] ? AppSetting::mask($current) : ($current ?? ''),
+                'env' => $env,
+                // Where the value in use comes from: saved here, the host's environment, or the built-in default.
+                'source' => match (true) {
+                    $set => 'saved',
+                    $env !== null => 'environment',
+                    $envReadable => 'default',
+                    default => 'unknown',
+                },
+            ];
+        }
+        // What each live switch is doing right now, whichever source set it.
+        $live = [
+            'billing_enabled' => $billing->enabled() ? 'on' : 'off',
+            'dodo_environment' => $billing->environment(),
+            'analytics_require_consent' => config('aipolicytracker.analytics_require_consent') ? 'on' : 'off',
+            'email_domain_enforcement' => config('email.enforce') ? 'on' : 'off',
+        ];
+        $groups = [];
+        foreach (AppSetting::GROUPS as $id => $group) {
+            $groups[$id] = $group + ['keys' => array_keys(AppSetting::keysIn($id))];
         }
 
-        return view('backend.admin.settings', ['values' => $values, 'envReadable' => $envReadable, 'turnstile' => app(Turnstile::class), 'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')],
+        return view('backend.admin.settings', ['values' => $values, 'groups' => $groups, 'live' => $live, 'envReadable' => $envReadable, 'turnstile' => app(Turnstile::class),
+            'effective' => ['mailer' => config('mail.default'), 'from' => config('mail.from.address').' ('.config('mail.from.name').')', 'resend' => (bool) config('services.resend.key')],
             'citation' => ['doi' => DatasetCitation::doi(), 'sponsor' => FundingDisclosure::sponsorUrl(), 'threshold' => FundingDisclosure::threshold()]]);
     }
 
@@ -544,9 +572,12 @@ class AdminController extends Controller
         };
     }
 
-    public function settingsSave(Request $request): RedirectResponse
+    /** @return array<string, array<int, mixed>> Validation rules for every managed key. */
+    private function settingRules(): array
     {
-        $data = $request->validate([
+        $https = 'Use a full https:// address, for example https://example.org/page.';
+
+        return [
             'mail_mailer' => ['nullable', 'in:log,resend,smtp,array'],
             'resend_key' => ['nullable', 'string', 'max:200', 'regex:/^re_[A-Za-z0-9_]+$/'],
             'mail_from_address' => ['nullable', 'email', 'max:190'],
@@ -571,50 +602,97 @@ class AdminController extends Controller
             // Cloudflare keys look like 0x4AAAAAAA…; the test keys start 1x/2x/3x.
             'turnstile_site_key' => ['nullable', 'string', 'max:120', 'regex:/^[0-9A-Za-z_-]{10,120}$/'],
             'turnstile_secret_key' => ['nullable', 'string', 'max:120', 'regex:/^[0-9A-Za-z_-]{10,120}$/'],
-            'newsletter_url' => ['nullable', 'url:https', 'max:512'],
+            'newsletter_url' => ['nullable', 'string', 'max:512', $this->httpsUrl($https)],
             // Parsed the way the citation code reads it, so a value accepted here is one it prints.
             'dataset_doi' => ['nullable', 'string', 'max:255', function (string $attribute, mixed $value, \Closure $fail) {
                 if (DatasetCitation::parse((string) $value) === null) {
                     $fail('Enter a DOI such as 10.5281/zenodo.1234567, or its https://doi.org/ URL.');
                 }
             }],
-            'sponsor_url' => ['nullable', 'url:https', 'max:512'],
+            'sponsor_url' => ['nullable', 'string', 'max:512', $this->httpsUrl($https)],
             'funding_threshold' => ['nullable', 'integer', 'min:0', 'max:10000000'],
+        ];
+    }
+
+    /** The url:https rule, with a message that says what to type instead of Laravel's generic one. */
+    private function httpsUrl(string $message): \Closure
+    {
+        return function (string $attribute, mixed $value, \Closure $fail) use ($message) {
+            if (validator(['url' => $value], ['url' => 'url:https'])->fails()) {
+                $fail($message);
+            }
+        };
+    }
+
+    /**
+     * Saves one group of settings (the form's "group" field) and touches no other key. In a
+     * group, an emptied plain field falls back to the environment; an empty secret keeps
+     * the stored one, since it is never sent to the browser. A post without a group is the
+     * older single form: every key, and an empty field keeps its value.
+     */
+    public function settingsSave(Request $request): RedirectResponse
+    {
+        $group = $request->input('group');
+        abort_unless($group === null || (is_string($group) && array_key_exists($group, AppSetting::GROUPS)), 422, 'Unknown settings group.');
+        $keys = $group ? array_keys(AppSetting::keysIn($group)) : array_keys(AppSetting::KEYS);
+        $rules = array_intersect_key($this->settingRules(), array_flip($keys)) + [
             'clear' => ['nullable', 'array'],
-            'clear.*' => ['in:'.implode(',', array_keys(AppSetting::KEYS))],
-        ]);
-        foreach (AppSetting::KEYS as $key => $meta) {
+            'clear.*' => ['in:'.implode(',', $keys)],
+        ];
+        $back = route('backend.admin.settings').($group ? '#group-'.$group : '');
+        $secrets = array_keys(array_filter(AppSetting::KEYS, fn (array $meta) => $meta['secret']));
+        // Messages name the field by its label on the page ("The From address field …").
+        $validator = validator($request->only(array_merge($keys, ['clear'])), $rules, [], array_map(fn (array $meta) => $meta['label'], AppSetting::KEYS));
+        if ($validator->fails()) {
+            // Typed values come back into the form; secrets are not kept in the session.
+            return redirect()->to($back)->withErrors($validator)->withInput($request->except(array_merge($secrets, ['_token'])));
+        }
+        $data = $validator->validated();
+        $userId = $request->user()->id;
+        $changed = 0;
+        foreach ($keys as $key) {
             if (in_array($key, $data['clear'] ?? [], true)) {
-                AppSetting::put($key, null, $request->user()->id);
+                AppSetting::put($key, null, $userId);
+                $changed++;
 
                 continue;
             }
-            if (array_key_exists($key, $data) && $data[$key] !== null && $data[$key] !== '') {
-                AppSetting::put($key, $data[$key], $request->user()->id);
+            $value = $data[$key] ?? null;
+            if ($value !== null && $value !== '') {
+                AppSetting::put($key, (string) $value, $userId);
+                $changed++;
+            } elseif ($group && $request->has($key) && ! AppSetting::KEYS[$key]['secret'] && AppSetting::get($key) !== null) {
+                AppSetting::put($key, null, $userId);
+                $changed++;
             }
         }
+        $label = $group ? AppSetting::GROUPS[$group]['label'] : 'Settings';
 
-        return back()->with('success', 'Settings saved. Secrets are stored encrypted and only shown masked.');
+        return redirect()->to($back)->with('success', $changed ? $label.' saved. Secrets are stored encrypted and only shown masked.' : $label.': nothing to change.');
     }
 
     public function settingsTurnstileCheck(Turnstile $turnstile): RedirectResponse
     {
         $result = $turnstile->checkSecret();
 
-        return back()->with($result['ok'] ? 'success' : 'error', 'Turnstile: '.$result['message']);
+        return redirect()->to(route('backend.admin.settings').'#group-bot')->with($result['ok'] ? 'success' : 'error', 'Turnstile: '.$result['message']);
     }
 
     public function settingsTestMail(Request $request): RedirectResponse
     {
-        $to = $request->validate(['to' => ['required', 'email']])['to'];
+        $validator = validator($request->only('to'), ['to' => ['required', 'email']], ['to.email' => 'Enter one full email address, such as you@example.org.']);
+        if ($validator->fails()) {
+            return redirect()->to(route('backend.admin.settings').'#group-email')->withErrors($validator)->withInput($request->only('to'));
+        }
+        $to = $validator->validated()['to'];
         try {
             Mail::to($to)->send(new TestMail((string) config('mail.default')));
         } catch (\Throwable $e) {
             report($e);
 
-            return back()->withErrors(['to' => 'Send failed: '.mb_substr($e->getMessage(), 0, 200)]);
+            return redirect()->to(route('backend.admin.settings').'#group-email')->withErrors(['to' => 'Send failed: '.mb_substr($e->getMessage(), 0, 200)])->withInput(['to' => $to]);
         }
 
-        return back()->with('success', "Test message sent to {$to} via ".config('mail.default').'.');
+        return redirect()->to(route('backend.admin.settings').'#group-email')->with('success', "Test message sent to {$to} via ".config('mail.default').'.');
     }
 }
