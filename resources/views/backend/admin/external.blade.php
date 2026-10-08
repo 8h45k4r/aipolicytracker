@@ -1,7 +1,6 @@
 @extends('backend.layouts.app', ['title' => 'External data'])
 @section('content')
-<h1 class="font-display text-2xl font-semibold text-brand-navy">External data</h1>
-<p class="mt-1 meta">Third-party datasets shown on the public site. Incidents are synced from the AI Incident Database API every six hours ("Sync AI incidents" workflow); the weekly "Refresh external datasets" workflow rebuilds the charts and opens a pull request.</p>
+<x-backend.page-header title="External data" description="Third-party datasets shown on the public site. Incidents are synced from the AI Incident Database API every six hours (“Sync AI incidents” workflow); the weekly “Refresh external datasets” workflow rebuilds the charts and opens a pull request." />
 <div class="mt-6 grid gap-6 lg:grid-cols-2">
     <section class="card-flat p-5"><h2 class="section-title !text-lg">AI Incident Database</h2>
         <dl class="mt-3 text-sm divide-y divide-brand-line">
@@ -19,7 +18,7 @@
             <div class="py-2 flex justify-between gap-4"><dt class="shrink-0 text-brand-muted">Last synced</dt><dd class="text-right break-words min-w-0 font-mono">{{ $live['synced_at'] ? \Illuminate\Support\Carbon::parse($live['synced_at'])->format('Y-m-d H:i') : '—' }}</dd></div>
             <div class="py-2 flex justify-between gap-4"><dt class="shrink-0 text-brand-muted">Last run</dt><dd class="text-right break-words min-w-0 font-mono text-xs">@if($live['last_run']){{ $live['last_run']['at'] }} · {{ $live['last_run']['incidents'] }} incidents, {{ $live['last_run']['reports'] }} reports{{ $live['last_run']['error'] ? ' · error: '.$live['last_run']['error'] : '' }}@else —@endif</dd></div>
         </dl>
-        <form method="post" action="{{ route('backend.admin.external.sync') }}" class="mt-3 flex flex-wrap items-center gap-3 text-sm">@csrf<button type="submit" class="btn-primary">Sync now from the AIID API</button><span class="meta">Incremental: records modified since the last sync, up to 300 per run.</span></form>
+        <form method="post" action="{{ route('backend.admin.external.sync') }}" class="mt-3 flex flex-wrap items-center gap-3 text-sm">@csrf<button type="submit" class="btn-primary" data-command="Sync the AI Incident Database now">Sync now from the AIID API</button><span class="meta">Incremental: records modified since the last sync, up to 300 per run.</span></form>
         <p class="mt-3 text-sm"><a href="{{ route('risk.incidents') }}">Public page</a> · <a href="{{ config('aipolicytracker.github_url') }}/actions/workflows/sync-aiid.yml" rel="noopener">Sync workflow</a> · <a href="{{ config('aipolicytracker.github_url') }}/actions/workflows/refresh-external-data.yml" rel="noopener">Weekly refresh workflow</a></p>
     </section>
     <section class="card-flat p-5"><h2 class="section-title !text-lg">MIT AI Risk Repository</h2>

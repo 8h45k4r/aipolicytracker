@@ -14,11 +14,11 @@
     @endif
     @if($keepSort && request('sort'))<input type="hidden" name="sort" value="{{ request('sort') }}"><input type="hidden" name="dir" value="{{ request('dir') }}">@endif
     <div class="flex items-end gap-2">
-        <button type="submit" class="btn-primary !min-h-[38px] !py-1.5">Apply</button>
-        @if(collect(request()->except(['page', 'sort', 'dir']))->filter(fn ($v) => filled($v))->isNotEmpty())<a href="{{ $action }}" class="btn-secondary !min-h-[38px] !py-1.5">Clear</a>@endif
+        <button type="submit" class="btn-primary">Apply</button>
+        @if(collect(request()->except(['page', 'sort', 'dir']))->filter(fn ($v) => filled($v))->isNotEmpty())<a href="{{ $action }}" class="btn-secondary">Clear</a>@endif
     </div>
     <div class="ml-auto flex items-end gap-3">
         @if($total !== null)<p class="pb-2 text-sm text-brand-muted" role="status"><span class="font-semibold text-brand-navy">{{ number_format($total) }}</span> {{ \Illuminate\Support\Str::plural($noun, $total) }}</p>@endif
-        @if($export)<a href="{{ $export.(str_contains($export, '?') ? '&' : '?').http_build_query(request()->except(['page'])) }}" class="btn-secondary !min-h-[38px] !py-1.5" data-track="admin_export">Export CSV</a>@endif
+        @if($export)<a href="{{ $export.(str_contains($export, '?') ? '&' : '?').http_build_query(request()->except(['page'])) }}" class="btn-secondary" data-track="admin_export">Export CSV</a>@endif
     </div>
 </form>
