@@ -1,8 +1,9 @@
 @extends('backend.layouts.app', ['title' => 'Role permissions'])
 @section('content')
 <p class="text-sm"><a href="{{ route('backend.admin.users.index') }}">← Users and roles</a></p>
-<h1 class="mt-2 font-display text-2xl font-semibold text-brand-navy">Role permissions</h1>
-<p class="mt-1 meta max-w-3xl">What each role may do. A change applies to everyone holding the role from their next page load, and is recorded in the audit log. Saving asks you to confirm your password.</p>
+<div class="mt-2">
+    <x-backend.page-header title="Role permissions" description="What each role may do. A change applies to everyone holding the role from their next page load, and is recorded in the audit log. This page asks for your password before it opens." />
+</div>
 
 <div class="mt-4 rounded-sm border border-brand-line bg-white p-4 text-sm">
     <p class="font-semibold text-brand-navy">Owner-only permissions cannot be given to a role</p>
@@ -10,9 +11,11 @@
 </div>
 
 @php($groups = collect($capabilities)->groupBy(fn ($c) => $c->group()))
-<form method="post" action="{{ route('backend.admin.users.permissions.update') }}" class="mt-6">@csrf
+{{-- data-unsaved-form: admin.js (users section) tints every box that differs from what is
+     saved, counts them in the bar under the table and warns before leaving with them. --}}
+<form method="post" action="{{ route('backend.admin.users.permissions.update') }}" class="mt-6" data-unsaved-form>@csrf
     @foreach($roles as $role)<input type="hidden" name="roles[]" value="{{ $role->value }}">@endforeach
-    <div class="table-wrap bg-white">
+    <div class="table-wrap adm-matrix bg-white">
         <table>
             <caption class="sr-only">Permissions by role. Tick a box to give the role that permission.</caption>
             <thead>
@@ -56,8 +59,12 @@
         </table>
     </div>
     <p class="mt-2 meta"><span class="text-state-warn">●</span> marks a permission that differs from the role's default.</p>
-    <div class="mt-4 flex flex-wrap items-center gap-2">
-        <button class="btn-primary" data-confirm="Save these permissions? They apply to every holder of each role.">Save permissions</button>
+    <div class="adm-unsaved" data-unsaved-bar>
+        <p class="text-sm text-brand-body" role="status" data-unsaved-status>Every box in the table is saved together.</p>
+        <div class="ml-auto flex flex-wrap items-center gap-2">
+            <button type="reset" class="btn-secondary">Discard changes</button>
+            <button type="submit" class="btn-primary" data-confirm="Save these permissions? They apply to every holder of each role." data-confirm-label="Save permissions" data-confirm-danger>Save permissions</button>
+        </div>
     </div>
 </form>
 
