@@ -13,7 +13,12 @@ class AdminInvitationMail extends Mailable
 {
     public const DAYS = 7;
 
-    public function __construct(public User $invitee, public User $inviter, public string $url, public ?AdminRole $role = null, public ?string $note = null) {}
+    /*
+     * The two accounts are private on purpose: a Mailable hands its public properties to the view and they win
+     * over with(), so a public $inviter printed the inviter's whole account record (email,
+     * sign-in time, second-factor fields) where the template meant their name.
+     */
+    public function __construct(private User $invitee, private User $inviter, public string $url, public ?AdminRole $role = null, public ?string $note = null) {}
 
     public function envelope(): Envelope
     {
