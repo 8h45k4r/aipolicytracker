@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Obligation pages are titled by article and topic, the way people search ("EU AI Act Article 14: Human oversight"), instead of a duty sentence cut off mid-phrase. Each obligation record can carry a `short_title`; 114 now do. Long instrument names give way to their plain form, acronym or country. South Korea's Framework Act is shown as the AI Basic Act, as its official title names it.
 - Admin interface: side panels for invite and funder forms, toasts for results, a confirmation dialog that names the count and the consequence, buttons that show they are working, and Ctrl/⌘ K to jump to any page, action, person, policy record or submission. Poppins is self-hosted, and no page loads fonts from a third party.
 - Admin errors (refused, missing, expired, too many requests) are explained inside the admin, naming your role and the permission you'd need. Signed-in administrators have their own limit of 600 requests a minute.
 - Users and roles: invite from a side panel with role cards that list what each role can do; roles are changed by name on the account's page with a confirmation; bulk actions have one button each; phones get one card per account; the permissions matrix keeps its headers in view and counts unsaved changes.

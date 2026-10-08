@@ -61,6 +61,7 @@ sections:
   - { reference: "Developers", title: "Developer documentation", summary: "Developers supply deployers with the documentation the statute lists." }
 obligations:
   - slug: us-colorado-admt-advance-notice
+    short_title: "Advance notice to consumers"
     title: Notify consumers before automated decision-making technology influences a consequential decision
     category: transparency
     section: "Advance notice"
@@ -79,6 +80,7 @@ obligations:
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-adverse-decision-disclosure
+    short_title: "Adverse decision disclosure"
     title: Disclose the use of the technology and the principal reasons after an adverse consequential decision
     category: transparency
     section: "Adverse outcomes"
@@ -96,6 +98,7 @@ obligations:
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-human-review
+    short_title: "Human review of adverse decisions"
     title: Offer meaningful human review of an adverse consequential decision
     category: human_oversight
     section: "Adverse outcomes"
@@ -114,6 +117,7 @@ obligations:
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-record-keeping
+    short_title: "Record keeping"
     title: Keep records of consequential decisions influenced by the technology for three years
     category: record_keeping
     section: "Records"
@@ -131,6 +135,7 @@ obligations:
     review_status: pending_review
     confidence_level: medium
   - slug: us-colorado-admt-developer-documentation
+    short_title: "Developer documentation"
     title: Developers must supply deployers with documentation of the technology
     category: technical_documentation
     section: "Developers"

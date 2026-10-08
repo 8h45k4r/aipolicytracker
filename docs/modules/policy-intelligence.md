@@ -129,6 +129,7 @@ Every record type that makes a factual claim carries the shared source-quality c
 | policy_instrument_id | integer | no |  | FK → policy_instruments.id (cascade) |
 | policy_section_id | integer | yes |  | FK → policy_sections.id (nullable, set null) |
 | title | varchar | no |  |  |
+| short_title | varchar(80) | yes |  | Topic as people search for it ("Human oversight"); page title only |
 | category | varchar | no |  |  |
 | summary | text | yes |  |  |
 | practical_action | text | yes |  |  |

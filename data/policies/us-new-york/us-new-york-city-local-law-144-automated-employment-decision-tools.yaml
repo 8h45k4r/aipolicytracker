@@ -47,6 +47,7 @@ versions: []
 sections: []
 obligations:
 - slug: us-new-york-city-local-law-144-bias-audit
+  short_title: "Bias audit"
   title: Employers and employment agencies must obtain an independent bias audit before using an automated employment decision tool
   category: accuracy_robustness_security
   source_reference: "NYC Administrative Code Section 20-871(a)(1); 6 RCNY Section 5-301"
@@ -84,6 +85,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-publish-audit-summary
+  short_title: "Publishing the bias audit summary"
   title: Employers and employment agencies must publish a summary of the bias audit results
   category: transparency
   source_reference: "NYC Administrative Code Section 20-871(a)(2); 6 RCNY Section 5-302"
@@ -120,6 +122,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-candidate-notice
+  short_title: "Candidate notice"
   title: Employers and employment agencies must notify candidates and employees before an automated tool is used
   category: transparency
   source_reference: "NYC Administrative Code Section 20-871(b)(1) and (b)(2); 6 RCNY Section 5-303"
@@ -156,6 +159,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-alternative-process-request
+  short_title: "Alternative selection process"
   title: Employers and employment agencies must let candidates request an alternative selection process or accommodation
   category: human_oversight
   source_reference: "NYC Administrative Code Section 20-871(b)(1); 6 RCNY Section 5-303"
@@ -191,6 +195,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-new-york-city-local-law-144-data-policy-disclosure
+  short_title: "Data and retention disclosure"
   title: Employers and employment agencies must disclose the data collected and their retention policy for the tool
   category: privacy_data_protection
   source_reference: "NYC Administrative Code Section 20-871(b)(3); 6 RCNY Section 5-303"

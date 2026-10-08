@@ -222,6 +222,7 @@ class PolicyImporter
                     'policy_instrument_id' => $policy->id,
                     'policy_section_id' => isset($item['section'], $sections[$item['section']]) ? $sections[$item['section']]->id : null,
                     'title' => $item['title'],
+                    'short_title' => $item['short_title'] ?? null,
                     'category' => $item['category'],
                     'summary' => $item['summary'],
                     'practical_action' => $item['practical_action'] ?? null,

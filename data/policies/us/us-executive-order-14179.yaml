@@ -37,6 +37,7 @@ use_cases: [government_procurement, generative_ai]
 related_policies: [us-omb-m-25-21, us-nist-ai-rmf]
 obligations:
   - slug: us-eo-14179-agency-review-of-prior-actions
+    short_title: "Agency review of prior actions"
     title: Federal agencies must review and revise actions inconsistent with the new AI policy
     category: public_sector_use
     source_reference: "Section 5"
