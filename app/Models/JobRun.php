@@ -36,6 +36,9 @@ class JobRun extends Model
 
     public const JOBS = [
         'digest' => ['command' => 'digest:send', 'args' => [], 'label' => 'Weekly digest', 'what' => 'E-mails the week\'s changes to confirmed subscribers.', 'schedule' => 'Mondays 07:00 UTC', 'confirm' => true],
+        // The digest without the sending: who would get it and what it would hold, so the
+        // week's mail can be checked before Monday. Sends nothing, so it asks for nothing.
+        'digest_dry_run' => ['command' => 'digest:send', 'args' => ['--dry-run' => true], 'label' => 'Weekly digest, dry run', 'what' => 'Counts who this week\'s digest would go to and how many changes it covers, without sending anything.', 'schedule' => 'On demand', 'confirm' => false],
         'alerts' => ['command' => 'alerts:send', 'args' => [], 'label' => 'Daily alerts', 'what' => 'E-mails Pro accounts about changes and deadlines on records they follow.', 'schedule' => 'Daily 06:30 UTC', 'confirm' => true],
         'alerts_deliver' => ['command' => 'alerts:deliver', 'args' => [], 'label' => 'Retry alert deliveries', 'what' => 'Retries Slack and webhook alert deliveries that failed, with backoff, up to five attempts.', 'schedule' => 'Hourly', 'confirm' => false],
         'aiid_sync' => ['command' => 'external:sync-aiid-api', 'args' => ['--max' => 300], 'label' => 'AI Incident Database sync', 'what' => 'Pulls incidents modified since the last sync, up to 300 per run.', 'schedule' => 'Daily 03:15 UTC', 'confirm' => false],

@@ -2,7 +2,7 @@
 @section('content')
 <x-backend.page-header title="Tool library">
     <x-slot:description>Templates, checklists, registers and plans shown on <a href="{{ route('guides.index') }}">/guides</a>. Only published tools with at least one active file are listed publicly.</x-slot:description>
-    <x-slot:actions><a href="{{ route('backend.admin.tools.create') }}" class="btn-primary !min-h-[38px] !py-1.5">New tool</a>@can('audience.view')<a href="{{ route('backend.admin.downloads', ['view' => 'downloads']) }}" class="btn-secondary !min-h-[38px] !py-1.5">Download activity</a>@endcan</x-slot:actions>
+    <x-slot:actions><a href="{{ route('backend.admin.tools.create') }}" class="btn-primary" data-command="Create a tool">New tool</a>@can('audience.view')<a href="{{ route('backend.admin.downloads', ['view' => 'downloads']) }}" class="btn-secondary">Download activity</a>@endcan</x-slot:actions>
 </x-backend.page-header>
 <nav class="adm-tabs" aria-label="Status">
     <a href="{{ request()->fullUrlWithQuery(['status' => null]) }}" @if(! $status) aria-current="page" @endif>All<span class="adm-count">{{ $counts->sum() }}</span></a>
@@ -28,7 +28,7 @@
     <span class="font-medium text-brand-navy">Set the status of the selection</span>
     <span class="badge-neutral" data-bulk-count="bulk-tools">0 selected</span>
     <label class="ml-auto flex items-center gap-2 text-xs"><span class="meta">Status</span><select name="status" class="input !min-h-0 !py-1 !w-auto" aria-label="Status for the selection">@foreach(\App\Models\Tool::STATUSES as $k => $label)<option value="{{ $k }}">{{ $label }}</option>@endforeach</select></label>
-    <button type="submit" class="btn-primary !min-h-0 !py-1" data-bulk-needs="bulk-tools" data-confirm="Change the status of {n} tools? Publishing skips any tool without an active file.">Apply to selected</button>
+    <button type="submit" class="btn-primary btn-sm" data-bulk-needs="bulk-tools" data-confirm="Change the status of {n} tools? Publishing skips any tool without an active file.">Apply to selected</button>
 </form>
 <div class="table-wrap mt-3"><table><caption class="sr-only">Tools in the library</caption><thead><tr><th scope="col" class="w-8"><input type="checkbox" data-bulk-all="bulk-tools" aria-label="Select every tool shown"></th><x-backend.sort-th key="order" label="Order" :filters="$filters" /><x-backend.sort-th key="title" label="Title" :filters="$filters" /><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Version</th><th scope="col">Files</th><x-backend.sort-th key="downloads" label="Downloads" :filters="$filters" /><x-backend.sort-th key="updated" label="Updated" :filters="$filters" /><th scope="col" class="sticky right-0"><span class="sr-only">Actions</span></th></tr></thead><tbody>
 @foreach($tools as $t)
@@ -42,7 +42,7 @@
     <td class="font-mono">{{ $t->files_count ?: '—' }}</td>
     <td class="font-mono">@if($t->downloads_count && auth()->user()->can('audience.view'))<a href="{{ route('backend.admin.downloads', ['view' => 'downloads', 'resource' => $t->slug]) }}" title="Who downloaded it">{{ $t->downloads_count }}</a>@else{{ $t->downloads_count ?: '—' }}@endif</td>
     <td class="whitespace-nowrap">{{ $t->updated_on?->format('Y-m-d') ?? '—' }}</td>
-    <td class="sticky right-0 whitespace-nowrap bg-white text-right"><a href="{{ route('backend.admin.tools.edit', $t) }}" class="btn-secondary !min-h-0 !py-1">Edit</a> @if($t->status === 'published')<a href="{{ $t->url() }}" class="btn-secondary !min-h-0 !py-1" target="_blank" rel="noopener">View</a>@endif</td>
+    <td class="sticky right-0 whitespace-nowrap bg-white text-right"><a href="{{ route('backend.admin.tools.edit', $t) }}" class="btn-secondary btn-sm">Edit</a> @if($t->status === 'published')<a href="{{ $t->url() }}" class="btn-secondary btn-sm" target="_blank" rel="noopener">View</a>@endif</td>
 </tr>
 @endforeach
 </tbody></table></div>

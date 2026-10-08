@@ -41,6 +41,19 @@ class EnsureAdminSecondFactor
         return $next($request);
     }
 
+    /**
+     * Whether this request's session has passed the factor for its signed-in admin: what the
+     * gated routes require. The admin error pages use it to decide whether to show the
+     * sidebar, so an error never shows the admin's navigation to a session that has not.
+     */
+    public static function passed(Request $request): bool
+    {
+        $user = $request->user();
+
+        return $user !== null && $user->isAdmin() && $user->hasTwoFactorEnabled() && $request->hasSession()
+            && (int) $request->session()->get(self::SESSION_KEY) === (int) $user->getKey();
+    }
+
     public static function pass(Request $request): void
     {
         $request->session()->put(self::SESSION_KEY, (int) $request->user()->getKey());

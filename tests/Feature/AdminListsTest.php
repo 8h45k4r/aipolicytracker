@@ -89,12 +89,15 @@ class AdminListsTest extends TestCase
         AdminAuditLog::forceCreate(['user_email' => 'b@example.org', 'method' => 'POST', 'route_name' => 'backend.admin.settings.save', 'path' => '/y', 'status' => 422, 'created_at' => now()]);
 
         $html = $this->actingAs($owner)->get(route('backend.admin.audit', ['result' => 'failed']))->assertOk()->getContent();
-        $this->assertStringContainsString('settings.save', $html);
-        $this->assertStringNotContainsString('review.publish</a>', $html);
+        // Rows read as what was done and whether it went through, not as route names and codes.
+        $this->assertStringContainsString('Saved settings</a>', $html);
+        $this->assertStringContainsString('>Refused</span>', $html);
+        $this->assertStringNotContainsString('Published or unpublished a record</a>', $html);
 
+        // The export keeps the raw columns and adds the readable action and outcome.
         $rows = $this->csv(route('backend.admin.audit.export', ['user' => 'a@example.org']), $owner);
-        $this->assertSame([['at', 'user', 'method', 'action', 'path', 'record', 'status']], array_slice($rows, 0, 1));
-        $this->assertSame('a@example.org', $rows[1][1]);
+        $this->assertSame([['at', 'user', 'method', 'action', 'label', 'path', 'record', 'status', 'outcome']], array_slice($rows, 0, 1));
+        $this->assertSame(['a@example.org', 'backend.review.publish', 'Published or unpublished a record', '302', 'Success'], [$rows[1][1], $rows[1][3], $rows[1][4], $rows[1][7], $rows[1][8]]);
 
         $logged = AdminAuditLog::where('route_name', 'backend.admin.audit.export')->sole();
         $this->assertSame('user=a@example.org', $logged->route_params['filters'], 'who took which list, and which slice of it');

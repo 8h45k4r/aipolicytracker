@@ -86,7 +86,9 @@ class AdminAuditLogTest extends TestCase
         $this->actingAs($admin)->post(route('backend.review.decide', $submission), ['decision' => 'approved'])->assertRedirect();
 
         $page = $this->actingAs($admin)->get(route('backend.admin.audit'))->assertOk();
-        $page->assertSee('backend.review.decide')->assertSee($admin->name)->assertSee('submission='.$submission->id);
+        // The action in words, the raw route beneath it, and the record it acted on, linked.
+        $page->assertSee('Approved a submission')->assertSee('backend.review.decide')->assertSee($admin->name)
+            ->assertSee('A test submission.')->assertSee('#submission-'.$submission->id, false)->assertSee('>Success</span>', false);
 
         $member = User::factory()->create(['email' => 'member@example.com']);
         $this->actingAs($member)->get(route('backend.admin.audit'))->assertRedirect(route('home', absolute: false));

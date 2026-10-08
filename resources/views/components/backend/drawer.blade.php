@@ -8,7 +8,7 @@
             <h2 id="{{ $id }}-title" class="text-lg font-semibold text-brand-navy">{{ $title }}</h2>
             @if($description)<p class="mt-0.5 text-sm text-brand-muted">{{ $description }}</p>@endif
         </div>
-        <button type="button" class="btn-secondary !min-h-[34px] !px-2.5" data-drawer-close aria-label="Close">×</button>
+        <button type="button" class="btn-secondary btn-sm" data-drawer-close aria-label="Close">×</button>
     </div>
     <div class="adm-drawer-body">{{ $slot }}</div>
     @isset($footer)<div class="adm-drawer-foot">{{ $footer }}</div>@endisset

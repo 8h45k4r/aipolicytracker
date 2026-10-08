@@ -33,6 +33,7 @@ use App\Services\Billing\Entitlements;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Security\Turnstile;
 use App\Services\Verification\IndependentChecks;
+use App\Support\Admin\AuditActions;
 use App\Support\Admin\CsvStream;
 use App\Support\Admin\ListFilters;
 use App\Support\ContentCache;
@@ -202,18 +203,22 @@ class AdminController extends Controller
             'trend' => $this->dailyCounts(AdminAuditLog::query(), 'created_at', 14),
         ];
         $people = AdminAuditLog::whereNotNull('user_email')->distinct()->orderBy('user_email')->pluck('user_email');
-        $actions = AdminAuditLog::whereNotNull('route_name')->distinct()->orderBy('route_name')->pluck('route_name');
+        // The filter lists actions by what they did, A to Z; the value stays the route name.
+        $actions = AdminAuditLog::whereNotNull('route_name')->distinct()->pluck('route_name')
+            ->mapWithKeys(fn ($r) => [$r => AuditActions::label($r)])->sort(fn ($a, $b) => strcasecmp($a, $b));
+        $lookups = AuditActions::lookups($entries->getCollection());
 
-        return view('backend.admin.audit', compact('entries', 'filters', 'summary', 'people', 'actions'));
+        return view('backend.admin.audit', compact('entries', 'filters', 'summary', 'people', 'actions', 'lookups'));
     }
 
+    /** The raw columns, as stored, plus the readable action and outcome the page shows. */
     public function auditExport(Request $request): StreamedResponse
     {
         $filters = ListFilters::from($request, ['when' => 'id', 'who' => 'user_email', 'action' => 'route_name', 'status' => 'status']);
 
         return CsvStream::from($this->auditQuery($request, $filters), 'admin-audit-log',
-            ['at', 'user', 'method', 'action', 'path', 'record', 'status'],
-            fn (AdminAuditLog $e) => [$e->created_at, $e->user_email, $e->method, $e->route_name, $e->path, $e->route_params ? collect($e->route_params)->map(fn ($v, $k) => $k.'='.$v)->implode(' ') : null, $e->status]);
+            ['at', 'user', 'method', 'action', 'label', 'path', 'record', 'status', 'outcome'],
+            fn (AdminAuditLog $e) => [$e->created_at, $e->user_email, $e->method, $e->route_name, AuditActions::label($e->route_name, $e->method, $e->path, $e->route_params ?? []), $e->path, $e->route_params ? collect($e->route_params)->map(fn ($v, $k) => $k.'='.$v)->implode(' ') : null, $e->status, AuditActions::outcome((int) $e->status)]);
     }
 
     private function auditQuery(Request $request, ListFilters $filters): Builder
