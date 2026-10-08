@@ -39,6 +39,7 @@ versions:
   - { version_label: "Model AI Governance Framework for Generative AI", version_date: 2024-05-30, summary: "Companion framework with nine dimensions for generative AI.", official_source_url: "https://aiverifyfoundation.sg/resources/mgf-gen-ai/" }
 obligations:
   - slug: singapore-mgf-internal-governance
+    short_title: "Internal governance"
     title: Establish internal governance structures and measures for AI
     category: governance_accountability
     source_reference: "Second edition, Part on internal governance structures and measures"
@@ -63,6 +64,7 @@ obligations:
       - { control: ai-literacy-and-role-based-training, relationship: supports, note: "Staff training component.", confidence_level: medium }
       - { control: ai-risk-assessment, relationship: supports, note: "Adding AI risks to enterprise risk management.", confidence_level: medium }
   - slug: singapore-mgf-human-involvement
+    short_title: "Human involvement in AI decisions"
     title: Determine the appropriate level of human involvement in AI decisions
     category: human_oversight
     source_reference: "Second edition, Part on human involvement in AI-augmented decision-making"
@@ -85,6 +87,7 @@ obligations:
       - { control: human-oversight-and-override, relationship: satisfies, note: "Records the in-the-loop, over-the-loop or out-of-the-loop choice and rationale.", confidence_level: high }
       - { control: ai-risk-assessment, relationship: supports, note: "Probability and severity of harm drive the involvement level.", confidence_level: medium }
   - slug: singapore-mgf-operations-management
+    short_title: "Operations management"
     title: Manage data quality, model development and monitoring across the lifecycle
     category: data_governance
     source_reference: "Second edition, Part on operations management"
@@ -108,6 +111,7 @@ obligations:
       - { control: post-market-monitoring-and-drift-detection, relationship: satisfies, note: "Active monitoring and regular tuning after deployment.", confidence_level: medium }
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Repeatability and robustness evidence before release.", confidence_level: medium }
   - slug: singapore-mgf-genai-incident-reporting-and-provenance
+    short_title: "Incident reporting and content provenance"
     title: Report incidents and mark AI-generated content (generative AI framework)
     category: transparency
     source_reference: "Generative AI framework, dimensions on incident reporting and content provenance"

@@ -66,6 +66,28 @@ class TitlesAndAddressesTest extends TestCase
         }
     }
 
+    public function test_obligation_titles_name_the_article_and_topic_people_search_for(): void
+    {
+        $title = fn (string $slug) => PageTitle::obligation(Obligation::with('policyInstrument.jurisdiction')->where('slug', $slug)->firstOrFail());
+
+        $this->assertSame('EU AI Act Article 14: Human oversight', $title('eu-ai-act-human-oversight'));
+        $this->assertSame('EU AI Act Article 15: Accuracy, robustness and cybersecurity', $title('eu-ai-act-accuracy-robustness-cybersecurity'));
+        // "Article 11 and Annex IV" leads with the article.
+        $this->assertSame('EU AI Act Article 11: Technical documentation', $title('eu-ai-act-technical-documentation'));
+        // A list is cited whole or not at all, never as "Articles 43".
+        $this->assertSame('EU AI Act: Conformity assessment and registration', $title('eu-ai-act-conformity-assessment-registration'));
+        // A long instrument name gives way to its plain form, its acronym, then the place.
+        $this->assertSame('NYC Local Law 144: Bias audit', $title('us-new-york-city-local-law-144-bias-audit'));
+        $this->assertSame('Texas TRAIGA: Government social scoring ban', $title('us-texas-responsible-ai-governance-act-traiga-government-social-scoring-prohibition'));
+        $this->assertSame('Singapore: Human involvement in AI decisions', $title('singapore-mgf-human-involvement'));
+
+        // A duty with a short title is never cut mid-phrase.
+        foreach (Obligation::published()->whereNotNull('short_title')->with('policyInstrument.jurisdiction')->get() as $o) {
+            $this->assertStringNotContainsString('…', PageTitle::obligation($o), $o->slug);
+            $this->assertStringContainsString($o->short_title, PageTitle::obligation($o), $o->slug);
+        }
+    }
+
     public function test_incident_and_risk_titles_and_addresses_meet_the_rules_and_survive_a_reimport(): void
     {
         $this->artisan('external:import')->assertExitCode(0);

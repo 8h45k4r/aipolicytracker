@@ -4,8 +4,7 @@ jurisdiction: south-korea
 title: >-
   Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation for Trust (AI Basic
   Act, Act No. 20676)
-short_title: >-
-  Framework Act on the Development of Artificial Intelligence and Establishment of a Foundation for Trust
+short_title: AI Basic Act
 instrument_type: act
 status: in_force
 status_note: >-
@@ -46,6 +45,7 @@ versions: []
 sections: []
 obligations:
 - slug: south-korea-ai-basic-act-art-31-advance-notice-of-high-impact-and-generative-ai
+  short_title: "Advance notice of AI use"
   title: AI business operators must notify users in advance that a product or service runs on high-impact or generative AI
   category: transparency
   source_reference: "Article 31(1)"
@@ -81,6 +81,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-31-generative-output-labelling-and-deepfake-notice
+  short_title: "Labelling generative AI output"
   title: AI business operators must label generative AI output and clearly flag realistic synthetic media
   category: transparency
   source_reference: "Article 31(2) and 31(3)"
@@ -117,6 +118,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-32-safety-measures-for-high-performance-ai
+  short_title: "Safety of high-performance AI"
   title: Operators of AI above the compute threshold must run lifecycle risk management and report safety results
   category: safety_testing
   source_reference: "Article 32"
@@ -154,6 +156,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-risk-management-plan
+  short_title: "High-impact AI risk management plan"
   title: Operators of high-impact AI must establish and operate a risk management plan
   category: risk_management
   source_reference: "Article 34(1)"
@@ -191,6 +194,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-explanation-measures
+  short_title: "Explaining high-impact AI outputs"
   title: Operators of high-impact AI must be able to explain outputs and the main criteria behind them
   category: transparency
   source_reference: "Article 34(1)"
@@ -226,6 +230,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-human-oversight
+  short_title: "Human oversight of high-impact AI"
   title: Operators of high-impact AI must ensure human management and supervision
   category: human_oversight
   source_reference: "Article 34(1)"
@@ -259,6 +264,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-34-high-impact-ai-user-protection-and-documentation
+  short_title: "User protection and records"
   title: Operators of high-impact AI must prepare user-protection measures and keep records of their safety and trust measures
   category: governance_accountability
   source_reference: "Article 34(1)"
@@ -295,6 +301,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-35-high-impact-ai-impact-assessment
+  short_title: "Fundamental rights impact assessment"
   title: Operators of high-impact AI should assess its impact on fundamental rights before use
   category: impact_assessment
   source_reference: "Article 35"
@@ -329,6 +336,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: south-korea-ai-basic-act-art-36-domestic-representative
+  short_title: "Domestic representative"
   title: Foreign AI business operators above the threshold must designate a domestic representative in Korea
   category: governance_accountability
   source_reference: "Article 36"
@@ -389,7 +397,7 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
+content_version: 2
 change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+  Short title changed to "AI Basic Act", the name the official title itself gives, so pages and search results name
+  the law the way people refer to it. No facts changed.
