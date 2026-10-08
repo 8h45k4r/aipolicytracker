@@ -53,7 +53,7 @@ One reviewer's verification is only as good as that reviewer. A random sample of
 
 **Protocol.**
 
-1. At the start of each quarter, draw the sample: `php artisan verification:sample` (default 20% of published, verified policy records not yet double-checked; `--percent`, `--seed`, `--quarter`, `--include-checked`). The seed defaults to the quarter label (`2026-Q4`) and the population is sorted by slug before a seeded Mersenne Twister shuffle, so anyone can re-run the draw from the same data and get the same list. Paste the command and its output into the tracking issue.
+1. At the start of each quarter, draw the sample: `php artisan verification:sample` (default 20% of published, verified policy records not yet double-checked; `--percent`, `--seed`, `--quarter`, `--include-checked`). The seed defaults to the quarter label (`2026-Q4`) and the population is sorted by slug before a seeded Mersenne Twister shuffle, so anyone can re-run the draw from the same data and get the same list. A record whose `second_review.sample` names the quarter stays in that quarter's population, so recording checks does not change the draw. Paste the command and its output into the tracking issue. The same draw is on the admin page (below) and in Jobs as "Draw the quarterly verification sample".
 2. Assign each sampled record to a reviewer on the published roster who is **not** its `reviewed_by`. The second reviewer opens the official source without looking at the record's values and records, under `second_review` in the policy YAML:
    ```yaml
    second_review:
@@ -78,6 +78,8 @@ One reviewer's verification is only as good as that reviewer. A random sample of
 
 **The statistic.** `App\Services\Verification\AgreementStatistics` (pure, unit-tested against hand-worked examples) reports, per field, percent agreement (share of double-checked records on which the field was not disputed) and, for status, binding and review status, Cohen's kappa from the two reviewers' coded values. Kappa is reported as undefined when both reviewers used a single value for every record (chance agreement is then total). Nothing per field is published until at least `independent_checks.min_sample` (20) records have been double-checked; below that `/methodology` says how many exist and that no figure is published. With none, it says so plainly.
 
+**Admin page.** `/backend/review/independent-checks` (capability `records.verify`) shows the quarter's sample from the same service as the command, with the first reviewer and whether each record has a second check. It also shows progress, the agreement figures under the same threshold as the public page, and every disputed field, unresolved first. "Export sample CSV" gives reviewers the list to work from. The page writes nothing. Second checks are entered by pull request to `data/`, because the admin never writes YAML from a form.
+
 **Where it shows.** `/methodology#independent-checks`; the API returns `second_review` on each policy record; `PolicyInstrument::secondReview()` and `isDoubleChecked()` are what a record page uses to show "checked by".
 
 ## What the public sees
@@ -97,5 +99,6 @@ This is a deliberate trade. Publishing the backlog costs a little credibility to
 | Public page | `Site\VerificationController`, `site/pages/verification` |
 | Continuous integration | `.github/workflows/validate-data.yml` |
 | Independent checks: rules, statistic, reader | `App\Services\Verification\SecondReview`, `AgreementStatistics`, `IndependentChecks` |
-| Sample draw | `App\Console\Commands\VerificationSampleCommand` (`verification:sample`) |
-| Tests | `tests/Feature/VerificationPolicyTest.php`, `tests/Feature/IndependentChecksTest.php`, `tests/Unit/AgreementStatisticsTest.php` |
+| Sample draw | `App\Services\Verification\VerificationSample`, printed by `App\Console\Commands\VerificationSampleCommand` (`verification:sample`) |
+| Admin page | `Backend\Review\IndependentChecksController`, `backend/review/independent-checks` |
+| Tests | `tests/Feature/VerificationPolicyTest.php`, `tests/Feature/IndependentChecksTest.php`, `tests/Feature/IndependentChecksAdminTest.php`, `tests/Unit/AgreementStatisticsTest.php` |

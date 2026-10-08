@@ -4,6 +4,7 @@ namespace App\Services\Review;
 
 use App\Models\ChangeEvent;
 use App\Models\Control;
+use App\Models\ImplementationMeasure;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Models\TransitionMeasure;
@@ -40,6 +41,10 @@ final class ReviewableTypes
         ],
         'transition_measure' => [
             'model' => TransitionMeasure::class, 'label' => 'Transition measure', 'plural' => 'transition measures', 'title' => 'title', 'context' => 'Type · status',
+            'attestation' => 'I opened the official source of every selected measure',
+        ],
+        'implementation_measure' => [
+            'model' => ImplementationMeasure::class, 'label' => 'Implementation measure', 'plural' => 'implementation measures', 'title' => 'title', 'context' => 'Kind · status',
             'attestation' => 'I opened the official source of every selected measure',
         ],
     ];
@@ -88,6 +93,7 @@ final class ReviewableTypes
         return match ($type) {
             'policy', 'change' => $query->with('jurisdiction'),
             'control' => $query->withCount('obligations'),
+            'implementation_measure' => $query->with('policyInstrument'),
             default => $query,
         };
     }
@@ -110,12 +116,29 @@ final class ReviewableTypes
             'jurisdiction' => $dir.'/jurisdictions/'.$slug.'.yaml',
             'control' => $dir.'/controls/'.$slug.'.yaml',
             'transition_measure' => $dir.'/transition/measures/'.$slug.'.yaml',
+            'implementation_measure' => $dir.'/implementation/'.$slug.'.yaml',
             'change' => collect(glob($dir.'/changes/*.yaml'))
                 ->first(fn ($f) => preg_match('/^\s*-\s+slug:\s*'.preg_quote($slug, '/').'\s*$/m', (string) file_get_contents($f)) === 1),
             default => null,
         };
 
         return $path && is_file($path) ? $path : null;
+    }
+
+    /**
+     * True when a record with no official source URL may not be given this review status,
+     * because policy:validate would refuse the exported file. An implementation measure
+     * may omit its source only while it is a draft, and the queue never sets draft; a
+     * transition measure may not be verified without one. The queue skips such a record
+     * rather than store a decision that could never be exported.
+     */
+    public static function needsSource(string $type, string $reviewStatus): bool
+    {
+        return match ($type) {
+            'implementation_measure' => true,
+            'transition_measure' => $reviewStatus === 'verified',
+            default => false,
+        };
     }
 
     /** True when the record is one item of a list inside its file rather than the whole file. */
