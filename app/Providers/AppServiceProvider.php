@@ -14,14 +14,24 @@ use App\Services\Security\SystemMailDomainResolver;
 use App\Services\Subscribers\AccountDigest;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Requests a minute one signed-in administrator may make to /backend. An owner working
+     * through a queue opens, filters and saves quickly; ten pages a second for a full minute
+     * is still far beyond any person and well inside what the host serves.
+     */
+    public const ADMIN_REQUESTS_PER_MINUTE = 600;
+
     /**
      * Register any application services.
      */
@@ -65,6 +75,15 @@ class AppServiceProvider extends ServiceProvider
         foreach (AdminCapability::cases() as $capability) {
             Gate::define($capability->value, fn (User $user) => $user->hasCapability($capability));
         }
+
+        // The admin's own limiter, keyed on the account rather than the address, so an owner
+        // clicking quickly is not counted with anything else and the public limits stay as
+        // they are. Named, so its bucket is its own: plain `throttle:N,1` limits all share a
+        // single per-account counter. A request with no account (it cannot pass `auth`, but
+        // the limiter runs only after it) falls back to the public rate per address.
+        RateLimiter::for('admin', fn (Request $request) => $request->user()
+            ? Limit::perMinute(self::ADMIN_REQUESTS_PER_MINUTE)->by('user:'.$request->user()->getAuthIdentifier())
+            : Limit::perMinute(120)->by('ip:'.$request->ip()));
 
         // A choice made at sign-up to receive the digest takes effect once the address is proven.
         Event::listen(Verified::class, function (Verified $event) {

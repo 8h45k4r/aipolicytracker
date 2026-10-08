@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\AlertsController;
 use App\Http\Controllers\Backend\Admin\BillingController;
 use App\Http\Controllers\Backend\Admin\FundingController;
+use App\Http\Controllers\Backend\Admin\ShellController;
 use App\Http\Controllers\Backend\Admin\ToolController;
 use App\Http\Controllers\Backend\Admin\UserController;
 use App\Http\Controllers\Backend\Review\IndependentChecksController;
@@ -11,21 +12,26 @@ use App\Http\Controllers\Backend\Review\ReviewController;
 use App\Http\Controllers\Backend\Security\TwoFactorController;
 use Illuminate\Support\Facades\Route;
 
+// Every group below carries `throttle:admin` (AppServiceProvider): a limit of its own, per
+// account, high enough for a person working quickly. The few routes with a tighter limit
+// name a bucket of their own (the third argument), because plain `throttle:N,1` limits
+// all count into one shared per-account counter, public routes included.
+
 // Second-factor enrolment and challenge. Reachable by an admin who has not yet passed the
 // factor, which is why these sit outside the gated groups below; still audited.
-Route::middleware(['auth', 'isAdmin', 'admin.audit'])->prefix('backend/security')->as('admin.two-factor.')->controller(TwoFactorController::class)->group(function () {
+Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.audit'])->prefix('backend/security')->as('admin.two-factor.')->controller(TwoFactorController::class)->group(function () {
     Route::get('/enrol', 'enrol')->name('enrol');
-    Route::post('/enrol', 'confirm')->middleware('throttle:10,1')->name('confirm');
+    Route::post('/enrol', 'confirm')->middleware('throttle:10,1,admin-2fa-enrol:')->name('confirm');
     Route::get('/challenge', 'challenge')->name('challenge');
-    Route::post('/challenge', 'verify')->middleware('throttle:5,1')->name('verify');
+    Route::post('/challenge', 'verify')->middleware('throttle:5,1,admin-2fa-challenge:')->name('verify');
 });
 // Recovery codes are shown once and regenerated only behind a fresh password.
-Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('backend/security')->as('admin.two-factor.')->controller(TwoFactorController::class)->group(function () {
+Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audit'])->prefix('backend/security')->as('admin.two-factor.')->controller(TwoFactorController::class)->group(function () {
     Route::get('/recovery-codes', 'recovery')->name('recovery');
     Route::post('/recovery-codes', 'regenerate')->middleware('password.confirm')->name('regenerate');
 });
 
-Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(function () {
+Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audit'])->group(function () {
     // Admin (Blade).
     Route::get('/backend/dashboard', [AdminController::class, 'dashboard'])->middleware('can:dashboard.view')->name('dashboard');
     // Grouped by the capability each page needs rather than by controller, so a granted role
@@ -72,7 +78,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
             Route::get('/settings', 'settings')->middleware('password.confirm')->name('settings');
             Route::post('/settings', 'settingsSave')->middleware('password.confirm')->name('settings.save');
             Route::post('/settings/test-mail', 'settingsTestMail')->name('settings.test');
-            Route::post('/settings/turnstile-check', 'settingsTurnstileCheck')->middleware('throttle:10,1')->name('settings.turnstile');
+            Route::post('/settings/turnstile-check', 'settingsTurnstileCheck')->middleware('throttle:10,1,admin-turnstile:')->name('settings.turnstile');
         });
         Route::middleware('can:audit.view')->group(function () {
             Route::get('/audit', 'audit')->name('audit');
@@ -84,7 +90,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
     Route::middleware('can:users.manage')->prefix('backend/admin/users')->as('backend.admin.users.')->controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/export', 'export')->name('export');
-        Route::post('/invite', 'invite')->middleware('throttle:20,1')->name('invite');
+        Route::post('/invite', 'invite')->middleware('throttle:20,1,admin-invite:')->name('invite');
         Route::post('/bulk', 'bulk')->name('bulk');
         Route::post('/bulk-delete', 'bulkDelete')->middleware('password.confirm')->name('bulk.delete');
         // What each role may do. Changing it changes every holder at once, so it needs a
@@ -93,9 +99,9 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         Route::post('/permissions', 'updatePermissions')->middleware('password.confirm')->name('permissions.update');
         Route::post('/permissions/reset', 'resetPermissions')->middleware('password.confirm')->name('permissions.reset');
         Route::get('/{user}', 'show')->name('show');
-        Route::post('/{user}/invitation', 'resendInvitation')->middleware('throttle:10,1')->name('invitation');
-        Route::post('/{user}/password-reset', 'sendPasswordReset')->middleware('throttle:10,1')->name('password-reset');
-        Route::post('/{user}/verification', 'resendVerification')->middleware('throttle:10,1')->name('verification');
+        Route::post('/{user}/invitation', 'resendInvitation')->middleware('throttle:10,1,admin-user-mail:')->name('invitation');
+        Route::post('/{user}/password-reset', 'sendPasswordReset')->middleware('throttle:10,1,admin-user-mail:')->name('password-reset');
+        Route::post('/{user}/verification', 'resendVerification')->middleware('throttle:10,1,admin-user-mail:')->name('verification');
         Route::post('/{user}/role', 'updateRole')->name('role');
         Route::post('/{user}/suspend', 'suspend')->name('suspend');
         Route::post('/{user}/restore', 'restore')->name('restore');
@@ -137,6 +143,10 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
         Route::post('/{funder}/move', 'move')->name('move');
         Route::delete('/{funder}', 'destroy')->name('destroy');
     });
+    // The command palette's record search. Open to any admin; the controller answers only
+    // with the kinds of record this account may open, and 403 when it may open none.
+    Route::get('/backend/admin/search', [ShellController::class, 'search'])->name('backend.admin.search');
+
     // Free-tool library CRUD (tools, files, status).
     Route::middleware('can:tools.manage')->prefix('backend/admin/tools')->as('backend.admin.tools.')->controller(ToolController::class)->group(function () {
         Route::get('/', 'index')->name('index');
@@ -154,7 +164,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
 });
 
 // Reviewer queue and publishing controls (admin only).
-Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('backend/review')->as('backend.review.')->group(function () {
+Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audit'])->prefix('backend/review')->as('backend.review.')->group(function () {
     // A reviewer confirms records against their source and decides submissions; publishing is
     // a separate capability, because making a record public is a different act from agreeing
     // that it is accurate.
@@ -173,7 +183,13 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('back
 
 // Quarterly independent second checks: the sample, progress, agreement and disputes. Read-only;
 // a second check is recorded in data/ by pull request.
-Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit', 'can:records.verify'])->prefix('backend/review/independent-checks')->as('backend.checks.')->controller(IndependentChecksController::class)->group(function () {
+Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audit', 'can:records.verify'])->prefix('backend/review/independent-checks')->as('backend.checks.')->controller(IndependentChecksController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/export', 'export')->name('export');
 });
+
+// Any other address under /backend is answered by the admin's own "not found" page, with the
+// sidebar, for a signed-in administrator. Marked as a fallback, so it is matched after every
+// other route, including ones registered later. Without it an unknown admin address
+// skipped the session and showed the public 404.
+Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa'])->any('/backend/{path?}', [ShellController::class, 'missing'])->where('path', '.*')->fallback()->name('backend.missing');
