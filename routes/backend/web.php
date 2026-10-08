@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\BillingController;
 use App\Http\Controllers\Backend\Admin\ToolController;
 use App\Http\Controllers\Backend\Admin\UserController;
+use App\Http\Controllers\Backend\Review\IndependentChecksController;
 use App\Http\Controllers\Backend\Review\ReviewController;
 use App\Http\Controllers\Backend\Security\TwoFactorController;
 use Illuminate\Support\Facades\Route;
@@ -140,4 +141,11 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->prefix('back
     Route::post('/publish-many/{type}', [ReviewController::class, 'publishMany'])->middleware('can:records.publish')->name('publish.many');
     Route::post('/verify/{type}/{slug}', [ReviewController::class, 'verify'])->middleware('can:records.verify')->name('verify');
     Route::post('/verify-many/{type}', [ReviewController::class, 'verifyMany'])->middleware('can:records.verify')->name('verify.many');
+});
+
+// Quarterly independent second checks: the sample, progress, agreement and disputes. Read-only;
+// a second check is recorded in data/ by pull request.
+Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit', 'can:records.verify'])->prefix('backend/review/independent-checks')->as('backend.checks.')->controller(IndependentChecksController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/export', 'export')->name('export');
 });

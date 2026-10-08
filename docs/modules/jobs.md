@@ -1,6 +1,6 @@
 # Jobs and schedule
 
-**What it is.** One catalogue of the recurring work the platform does, in `App\Models\JobRun::JOBS`: the weekly digest, the daily alerts, the incremental AI Incident Database sync, the external and policy imports, data validation, the freshness and coverage reports and the throwaway-domain refresh. Each entry names the artisan command, what it does, when the scheduler runs it and whether it needs a password confirmation.
+**What it is.** One catalogue of the recurring work the platform does, in `App\Models\JobRun::JOBS`: the weekly digest, the daily alerts, the incremental AI Incident Database sync, the external and policy imports, data validation, the freshness and coverage reports, the quarterly verification sample draw (on demand, read-only) and the throwaway-domain refresh. Each entry names the artisan command, what it does, when the scheduler runs it and whether it needs a password confirmation.
 
 **Why it exists.** The same jobs were started from three places (GitHub Actions, the container entrypoint, an operator's terminal) and nothing on the platform could say when one last ran or whether it finished. A site whose whole argument is that its records are current should be able to answer that from its own dashboard.
 
