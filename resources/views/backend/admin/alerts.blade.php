@@ -40,10 +40,14 @@
 
     @if($deliveries->isEmpty())<div class="mt-4"><x-site.empty :title="$status || $filters->active() || request('kind') ? 'No deliveries match these filters' : 'No Slack or webhook deliveries yet'" :reset="$status || $filters->active() || request('kind') ? route('backend.admin.alerts.index') : null">A delivery is queued for every enabled Slack or webhook channel when the daily alert goes out.</x-site.empty></div>@else
     @if($canManage)
-    <form method="post" action="{{ route('backend.admin.alerts.deliveries.retry.many') }}" id="bulk-deliveries" class="mt-4 flex flex-wrap items-center gap-2 rounded-md border border-brand-line bg-white p-3 text-sm">@csrf
+    {{-- Posts to a URL carrying this list's query string, so "all matching" retries exactly the
+         unsent deliveries the filters show, up to the per-action limit. --}}
+    @php($retryable = $deliveries->getCollection()->where('status', '!=', 'sent')->count())
+    <form method="post" action="{{ route('backend.admin.alerts.deliveries.retry.many', request()->except(['page'])) }}" id="bulk-deliveries" class="adm-bulkbar sticky top-0 z-10 mt-4 flex flex-wrap items-center gap-2 rounded-md border border-brand-line bg-white p-3 text-sm shadow-sm">@csrf
         <span class="font-medium text-brand-navy">Act on the selection</span>
-        <span class="badge-neutral" data-bulk-count="bulk-deliveries">0 selected</span>
-        <span class="meta">Up to {{ $retryMax }} at a time; sent ones are skipped.</span>
+        <span class="badge-neutral" data-bulk-count="bulk-deliveries" data-bulk-count-all="all {{ $unsentMatching }} unsent matching">0 selected</span>
+        @if($unsentMatching > $retryable || $unsentMatching > $retryMax)<label class="flex items-center gap-1 meta"><input type="checkbox" name="scope" value="filtered" data-bulk-scope="bulk-deliveries" data-bulk-scope-count="{{ min($unsentMatching, $retryMax) }}"> apply to all {{ $unsentMatching }} unsent deliveries matching the filters{{ $unsentMatching > $retryMax ? ' (up to '.$retryMax.' per action)' : '' }}</label>@endif
+        <span class="meta adm-bulkbar-hint">Up to {{ $retryMax }} at a time; sent ones are skipped.</span>
         <span class="ml-auto"><button type="submit" class="btn-secondary !min-h-0 !py-1" data-bulk-needs="bulk-deliveries" data-confirm="Try {n} deliveries again now? Each counts as an attempt.">Retry now</button></span>
     </form>
     @endif

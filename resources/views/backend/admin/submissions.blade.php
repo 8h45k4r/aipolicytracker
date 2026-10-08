@@ -25,8 +25,9 @@
 </x-backend.filters>
 
 @if($submissions->isEmpty())<div class="mt-6"><x-site.empty title="No submissions match" :reset="route('backend.admin.submissions')">Change the type, status, search or dates, or clear them to see every submission.</x-site.empty></div>@else
-<x-backend.decision-bar id="bulk-submissions" />
-<div class="mt-3 divide-y divide-brand-line rounded-md border border-brand-line bg-white">
+<x-backend.decision-bar id="bulk-submissions" :matching="$submissions->total()" :on-page="$submissions->count()" />
+<p class="mt-3 flex items-center gap-2 text-sm"><label class="flex items-center gap-1 meta"><input type="checkbox" data-bulk-all="bulk-submissions" aria-label="Select every submission on this page"> Select all on this page</label></p>
+<div class="mt-2 divide-y divide-brand-line rounded-md border border-brand-line bg-white">
     @foreach($submissions as $s)<x-backend.submission :submission="$s" bulk="bulk-submissions" />@endforeach
 </div>
 <nav class="mt-4" aria-label="Pagination">{{ $submissions->links() }}</nav>
