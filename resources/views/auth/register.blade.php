@@ -4,8 +4,6 @@
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow">
     <title>Create a free account | AIPolicyTracker</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
     @vite(['resources/css/public.css', 'resources/js/public.js'])
 </head>
 <body class="min-h-screen bg-brand-paper">

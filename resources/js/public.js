@@ -507,6 +507,8 @@
     // never ran and a delete went through on the first click. A form or the button
     // that submits it carries data-confirm instead; {n} is the number of ticked rows.
     document.addEventListener('submit', function (event) {
+        // In the admin, admin.js asks with its own dialog before this runs.
+        if (document.getElementById('adm-confirm')) { return; }
         var form = event.target;
         var source = (event.submitter && event.submitter.getAttribute('data-confirm')) ? event.submitter : form;
         var message = source.getAttribute('data-confirm');
