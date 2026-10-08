@@ -34,8 +34,8 @@
     <span class="badge-neutral" data-bulk-count="bulk-subscribers" data-bulk-count-all="all {{ $matching }} matching">{{ $wholeFilter ? 'all '.$matching.' matching' : count($picked).' selected' }}</span>
     @if($matching > $subscribers->count())<label class="flex items-center gap-1 meta"><input type="checkbox" name="scope" value="filtered" data-bulk-scope="bulk-subscribers" data-bulk-scope-count="{{ $matching }}" @checked($wholeFilter)> apply to all {{ $matching }} matching, not only this page{{ $matching > 1000 ? ' (up to 1,000 per action)' : '' }}</label>@endif
     <span class="ml-auto flex flex-wrap gap-1">
-        <button type="submit" class="btn-secondary !min-h-0 !py-1" data-bulk-needs="bulk-subscribers" data-confirm="Re-send the confirmation email to the unconfirmed addresses among the {n} selected?" data-confirm-label="Re-send">Re-send confirmation</button>
-        <button type="submit" formaction="{{ route('backend.admin.subscribers.delete.many', request()->except(['page'])) }}" class="btn-secondary !min-h-0 !py-1 text-state-bad" data-bulk-needs="bulk-subscribers" data-confirm="Delete {n} subscribers permanently? This cannot be undone." data-confirm-label="Delete" data-confirm-danger>Delete selected</button>
+        <button type="submit" class="btn-secondary btn-sm" data-bulk-needs="bulk-subscribers" data-confirm="Re-send the confirmation email to the unconfirmed addresses among the {n} selected?" data-confirm-label="Re-send">Re-send confirmation</button>
+        <button type="submit" formaction="{{ route('backend.admin.subscribers.delete.many', request()->except(['page'])) }}" class="btn-secondary btn-sm text-state-bad" data-bulk-needs="bulk-subscribers" data-confirm="Delete {n} subscribers permanently? This cannot be undone." data-confirm-label="Delete" data-confirm-danger>Delete selected</button>
     </span>
 </form>
 @endcan
@@ -58,8 +58,8 @@
 <td class="text-xs">@if($s->source)<a href="{{ request()->fullUrlWithQuery(['source' => $s->source, 'page' => null]) }}" class="no-underline hover:underline" title="Only subscribers from {{ $s->source }}">{{ $s->source }}</a>@else<span class="text-brand-muted" title="Not recorded">—</span>@endif</td>
 <td class="text-xs whitespace-nowrap">{{ $s->created_at?->format('j M Y') }}</td>
 @can('subscribers.manage')<td class="whitespace-nowrap">
-    @unless($s->confirmed_at || $s->unsubscribed_at)<form method="post" action="{{ route('backend.admin.subscribers.resend', $s) }}" class="inline">@csrf<button class="btn-secondary !min-h-0 !py-1 !px-2 text-xs">Re-send confirmation</button></form>@endunless
-    <form method="post" action="{{ route('backend.admin.subscribers.delete', $s) }}" class="inline" data-confirm="Delete {{ $s->email }} permanently?" data-confirm-label="Delete" data-confirm-danger>@csrf @method('DELETE')<button class="btn-secondary !min-h-0 !py-1 !px-2 text-xs text-state-bad">Delete</button></form>
+    @unless($s->confirmed_at || $s->unsubscribed_at)<form method="post" action="{{ route('backend.admin.subscribers.resend', $s) }}" class="inline">@csrf<button class="btn-secondary btn-sm text-xs">Re-send confirmation</button></form>@endunless
+    <form method="post" action="{{ route('backend.admin.subscribers.delete', $s) }}" class="inline" data-confirm="Delete {{ $s->email }} permanently?" data-confirm-label="Delete" data-confirm-danger>@csrf @method('DELETE')<button class="btn-secondary btn-sm text-xs text-state-bad">Delete</button></form>
 </td>@endcan</tr>@endforeach</tbody></table></div>
 <nav class="mt-4" aria-label="Pagination">{{ $subscribers->links() }}</nav>
 @endif

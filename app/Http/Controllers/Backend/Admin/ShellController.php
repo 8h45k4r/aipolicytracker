@@ -54,7 +54,10 @@ class ShellController extends Controller
             }
         }
         if (in_array('policy', $kinds, true)) {
-            foreach ($match(PolicyInstrument::query(), ['title', 'slug'])->orderBy('title')->limit(self::PER_KIND)->get(['id', 'title', 'slug', 'review_status', 'published_at']) as $p) {
+            // "eu ai act" names the record by its short title or slug (eu-ai-act), not its full title.
+            $slugLike = '%'.str_replace(['\\', '%', '_', ' '], ['\\\\', '\\%', '\\_', '-'], mb_strtolower($q)).'%';
+            $policies = $match(PolicyInstrument::query(), ['title', 'short_title', 'slug'])->orWhereRaw('LOWER(slug) LIKE ? ESCAPE ?', [$slugLike, '\\']);
+            foreach ($policies->orderByRaw('CASE WHEN LOWER(short_title) = ? THEN 0 ELSE 1 END', [mb_strtolower($q)])->orderBy('title')->limit(self::PER_KIND)->get(['id', 'title', 'slug', 'review_status', 'published_at']) as $p) {
                 $results[] = ['kind' => 'policy', 'label' => $p->title, 'detail' => $p->slug.' · '.str_replace('_', ' ', (string) $p->review_status).($p->published_at ? '' : ' · unpublished'),
                     'url' => route('backend.review.index', ['type' => 'policy', 'q' => $p->slug])];
             }

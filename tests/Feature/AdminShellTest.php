@@ -179,6 +179,17 @@ class AdminShellTest extends TestCase
         $this->assertStringEndsWith('#submission-'.$s->id, $kinds['submission'][0]['url']);
     }
 
+    public function test_the_palette_finds_a_policy_by_its_short_title_or_slug(): void
+    {
+        $owner = $this->owner();
+        $this->artisan('policy:import');
+
+        $json = $this->actingAs($owner)->getJson(route('backend.admin.search', ['q' => 'eu ai act']))->assertOk()->json();
+        $policies = collect($json['results'])->where('kind', 'policy')->values();
+        $this->assertNotEmpty($policies, 'the short title names the record');
+        $this->assertStringStartsWith('eu-ai-act ', $policies[0]['detail'], 'the exact short title comes first');
+    }
+
     public function test_the_palette_search_offers_only_what_the_role_may_open(): void
     {
         User::factory()->create(['name' => 'Ivy Example', 'email' => 'ivy@example.org']);

@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Admin interface: side panels for invite and funder forms, toasts for results, a confirmation dialog that names the count and the consequence, buttons that show they are working, and Ctrl/⌘ K to jump to any page, action, person, policy record or submission. Poppins is self-hosted, and no page loads fonts from a third party.
+- Admin errors (refused, missing, expired, too many requests) are explained inside the admin, naming your role and the permission you'd need. Signed-in administrators have their own limit of 600 requests a minute.
+- Users and roles: invite from a side panel with role cards that list what each role can do; roles are changed by name on the account's page with a confirmation; bulk actions have one button each; phones get one card per account; the permissions matrix keeps its headers in view and counts unsaved changes.
+- Settings: each group has its own Save that changes only that group, keeps what was typed after an error and labels every value as saved here, from the environment or the default. Switches that change the live site sit apart and ask first.
+- Review queue: admins not on the reviewer roster are told before they try to verify; bulk status and confidence default to "Keep current"; publishing asks first; Submissions, Subscribers and alert deliveries can act on every row the filters match and say when a run hit its limit.
+- The audit log reads in words ("Changed a role to Editor") with Success and Refused badges and a link to the record.
+- The dashboard leads with what needs attention and offers quick actions, including a weekly-digest dry run.
 - Admin → Billing: Pro subscriptions, monthly recurring revenue, payments with CSV export, refunds and disputes, revoked and on-hold counts, a webhook log with re-apply for failed events, and a free-tier quota view.
 - Admin → Alerts and watches: watches, profiles, channels, the last daily run, Slack and webhook deliveries with retry and CSV export, and the consent log.
 - Admin → Funding and funders: owners add, edit, publish and order the funders shown on `/funding`. The dataset DOI, sponsor link and disclosure threshold are settings, checked before saving.
@@ -35,6 +42,9 @@ All notable changes to this project are documented here. The format follows [Kee
 - `/ai-risk` has a factual heading, and its trend heading follows the 12-month figure.
 
 ### Fixed
+- Invitation emails printed the inviter's account record (email, last sign-in, second-factor fields) where they meant the inviter's name. Only the name is sent now.
+- Jobs that act on live data or send mail now ask before running; the job table no longer shows a stray "@else".
+- Invitations no longer say "sent" when the server's mailer delivers nothing; the account page offers the link to copy instead.
 - "Report a correction" on a transition measure returned a server error; it now opens the form with the measure named.
 - The review queue no longer records a decision the data check would refuse (a record with no official source).
 - An import runs a third fewer queries (8,024 to 5,361), with an identical result, which shortens both test jobs.

@@ -81,7 +81,7 @@
                     <option value="none">No admin access</option>
                 </select>
             </div>
-            <button type="submit" name="action" value="role" class="btn-primary !min-h-[38px] !py-1.5" data-bulk-needs="bulk-users" data-confirm="Set the chosen role on {n} accounts? Any role they hold now is replaced." data-confirm-danger data-confirm-label="Set role">Set role</button>
+            <button type="submit" name="action" value="role" class="btn-primary btn-sm" data-bulk-needs="bulk-users" data-confirm="Set the chosen role on {n} accounts? Any role they hold now is replaced." data-confirm-danger data-confirm-label="Set role">Set role</button>
         </fieldset>
         <fieldset class="flex flex-wrap items-end gap-2">
             <legend class="sr-only">Suspend</legend>
@@ -89,12 +89,12 @@
                 <label for="bulk-reason" class="adm-label">Reason <span class="normal-case tracking-normal">(optional)</span></label>
                 <input id="bulk-reason" name="reason" maxlength="255" class="input !min-h-[38px] !py-1.5 !w-48" placeholder="Kept with the account">
             </div>
-            <button type="submit" name="action" value="suspend" formnovalidate class="btn-secondary !min-h-[38px] !py-1.5" data-bulk-needs="bulk-users" data-confirm="Suspend {n} accounts? They are signed out everywhere and cannot sign in.">Suspend</button>
+            <button type="submit" name="action" value="suspend" formnovalidate class="btn-secondary btn-sm" data-bulk-needs="bulk-users" data-confirm="Suspend {n} accounts? They are signed out everywhere and cannot sign in.">Suspend</button>
         </fieldset>
         <div class="flex flex-wrap items-end gap-2 lg:justify-end">
-            <button type="submit" name="action" value="restore" formnovalidate class="btn-secondary !min-h-[38px] !py-1.5" data-bulk-needs="bulk-users" data-confirm="Restore access for {n} accounts?">Restore</button>
-            <button type="submit" name="action" value="verify" formnovalidate class="btn-secondary !min-h-[38px] !py-1.5" data-bulk-needs="bulk-users" data-confirm="Re-send the verification email to {n} accounts?">Re-send verification</button>
-            <button type="submit" formaction="{{ route('backend.admin.users.bulk.delete') }}" formnovalidate class="btn-secondary !min-h-[38px] !py-1.5 text-state-bad" data-bulk-needs="bulk-users" data-confirm="Delete {n} accounts permanently? This cannot be undone." data-confirm-danger>Delete</button>
+            <button type="submit" name="action" value="restore" formnovalidate class="btn-secondary btn-sm" data-bulk-needs="bulk-users" data-confirm="Restore access for {n} accounts?">Restore</button>
+            <button type="submit" name="action" value="verify" formnovalidate class="btn-secondary btn-sm" data-bulk-needs="bulk-users" data-confirm="Re-send the verification email to {n} accounts?">Re-send verification</button>
+            <button type="submit" formaction="{{ route('backend.admin.users.bulk.delete') }}" formnovalidate class="btn-secondary btn-sm text-state-bad" data-bulk-needs="bulk-users" data-confirm="Delete {n} accounts permanently? This cannot be undone." data-confirm-danger>Delete</button>
         </div>
     </div>
 </form>
@@ -159,7 +159,7 @@
                     @else<span class="text-brand-muted">Never</span>@endif
                 </td>
                 <td class="whitespace-nowrap text-xs" data-label="Joined">{{ $u->created_at?->format('j M Y') ?? '—' }}</td>
-                <td class="whitespace-nowrap adm-users-manage"><a href="{{ route('backend.admin.users.show', $u) }}" class="btn-secondary !min-h-0 !py-1 !px-2 text-xs" aria-label="Manage {{ $u->email }}">Manage</a></td>
+                <td class="whitespace-nowrap adm-users-manage"><a href="{{ route('backend.admin.users.show', $u) }}" class="btn-secondary btn-sm text-xs" aria-label="Manage {{ $u->email }}">Manage</a></td>
             </tr>
         @endforeach
         </tbody>

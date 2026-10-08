@@ -23,7 +23,7 @@
 @if($tab === 'subscriptions')
 <section class="mt-4">
     <h2 class="section-title !text-lg">Subscriptions</h2>
-    <p class="mt-2 text-sm">@foreach([...\App\Models\Subscription::STATUSES, 'revoked'] as $s)<a href="{{ request()->fullUrlWithQuery(['status' => $s, 'subs' => null]) }}" class="mr-3 {{ $status === $s ? 'font-semibold' : '' }}" @if($status === $s) aria-current="true" @endif>{{ $s === 'revoked' ? 'access revoked' : str_replace('_', ' ', $s) }} ({{ $byStatus[$s] ?? 0 }})</a>@endforeach <a href="{{ route('backend.admin.billing.index') }}" class="{{ $status ? '' : 'font-semibold' }}">all</a> · checkouts: @forelse($checkouts as $s => $n){{ $s }} {{ $n }}@if(!$loop->last), @endif @empty none @endforelse</p>
+    <p class="mt-2 text-sm adm-linkrow">@foreach([...\App\Models\Subscription::STATUSES, 'revoked'] as $s)<a href="{{ request()->fullUrlWithQuery(['status' => $s, 'subs' => null]) }}" class="mr-3 {{ $status === $s ? 'font-semibold' : '' }}" @if($status === $s) aria-current="true" @endif>{{ $s === 'revoked' ? 'access revoked' : str_replace('_', ' ', $s) }} ({{ $byStatus[$s] ?? 0 }})</a>@endforeach <a href="{{ route('backend.admin.billing.index') }}" class="{{ $status ? '' : 'font-semibold' }}">all</a> · checkouts: @forelse($checkouts as $s => $n){{ $s }} {{ $n }}@if(!$loop->last), @endif @empty none @endforelse</p>
     <x-backend.filters :action="route('backend.admin.billing.index')" :filters="$filters" :export="route('backend.admin.billing.export')" placeholder="Email, name, plan or provider id" :total="$subscriptions->total()" noun="subscription">
         @if($status)<input type="hidden" name="status" value="{{ $status }}">@endif
     </x-backend.filters>
@@ -72,7 +72,7 @@
     @if($blockers !== [])
     <div id="probe-blocked" class="mt-3 rounded-sm border border-state-warn/30 bg-state-warnbg px-3 py-2 text-sm text-brand-body" data-probe-blocked>
         <p class="font-medium text-state-warn">"Can we sell right now?" is off until:</p>
-        <ul class="mt-1 list-disc space-y-0.5 pl-5">
+        <ul class="mt-1 list-disc space-y-0.5 pl-5 adm-linkrow">
             @foreach($blockers as $b)<li>{{ $b['reason'] }} <a href="{{ $b['fix'] }}">{{ $b['label'] }}</a>.</li>@endforeach
         </ul>
     </div>
@@ -140,7 +140,7 @@
 <section class="mt-4">
     <h2 class="section-title !text-lg">Received webhooks</h2>
     <p class="mt-1 meta">Every signed delivery, stored once by its event id. A retry of an applied event is acknowledged as a duplicate without a new row. An event whose processing failed keeps its error; re-apply runs it again from the stored payload with the same event id, as a provider retry would.</p>
-    <p class="mt-2 text-sm">@foreach([...\App\Models\BillingEvent::OUTCOMES, 'pending'] as $o)<a href="{{ route('backend.admin.billing.index', ['tab' => 'webhooks', 'outcome' => $o]) }}" class="mr-3 {{ $outcome === $o ? 'font-semibold' : '' }} {{ $o === 'error' && ($outcomeCounts[$o] ?? 0) ? 'text-state-bad' : '' }}" @if($outcome === $o) aria-current="true" @endif>{{ $o }} ({{ $outcomeCounts[$o] ?? 0 }})</a>@endforeach <a href="{{ route('backend.admin.billing.index', ['tab' => 'webhooks']) }}" class="{{ $outcome ? '' : 'font-semibold' }}">all</a></p>
+    <p class="mt-2 text-sm adm-linkrow">@foreach([...\App\Models\BillingEvent::OUTCOMES, 'pending'] as $o)<a href="{{ route('backend.admin.billing.index', ['tab' => 'webhooks', 'outcome' => $o]) }}" class="mr-3 {{ $outcome === $o ? 'font-semibold' : '' }} {{ $o === 'error' && ($outcomeCounts[$o] ?? 0) ? 'text-state-bad' : '' }}" @if($outcome === $o) aria-current="true" @endif>{{ $o }} ({{ $outcomeCounts[$o] ?? 0 }})</a>@endforeach <a href="{{ route('backend.admin.billing.index', ['tab' => 'webhooks']) }}" class="{{ $outcome ? '' : 'font-semibold' }}">all</a></p>
     <x-backend.filters :action="route('backend.admin.billing.index')" :filters="$filters" placeholder="Event type, event id or subscription id" :total="$events->total()" noun="event">
         <input type="hidden" name="tab" value="webhooks">
         <div><label for="f-outcome" class="adm-label">Outcome</label><select id="f-outcome" name="outcome" class="input !min-h-[38px] !py-1.5 !w-auto"><option value="">Any</option>@foreach([...\App\Models\BillingEvent::OUTCOMES, 'pending'] as $o)<option value="{{ $o }}" @selected($outcome === $o)>{{ $o }}</option>@endforeach</select></div>
@@ -160,7 +160,7 @@
             <td class="font-mono text-xs">@if($e->provider_subscription_id)<a href="{{ route('backend.admin.billing.index', ['q' => $e->provider_subscription_id]) }}">{{ $e->provider_subscription_id }}</a>@else — @endif</td>
             <td><x-backend.badge :status="match ($e->outcome) { 'applied' => 'ok', 'error' => 'failed', 'stale' => 'needs_update', null => 'running', default => 'no' }">{{ $e->outcome ?? 'pending' }}</x-backend.badge></td>
             <td class="text-xs font-mono whitespace-pre-wrap break-all {{ $e->outcome === 'error' ? 'text-state-bad' : 'text-brand-muted' }}">{{ $e->error ? \Illuminate\Support\Str::limit($e->error, 2000) : '—' }}</td>
-            <td class="whitespace-nowrap">@if($e->outcome === 'error')<form method="post" action="{{ route('backend.admin.billing.events.reapply', $e) }}" class="inline" data-confirm="Apply {{ $e->event_type }} again from its stored payload? It runs exactly as a provider retry would and may change this customer's access.">@csrf<button type="submit" class="btn-secondary !min-h-0 !py-1 !px-2 text-xs">Re-apply</button></form>@else — @endif</td></tr>
+            <td class="whitespace-nowrap">@if($e->outcome === 'error')<form method="post" action="{{ route('backend.admin.billing.events.reapply', $e) }}" class="inline" data-confirm="Apply {{ $e->event_type }} again from its stored payload? It runs exactly as a provider retry would and may change this customer's access.">@csrf<button type="submit" class="btn-secondary btn-sm text-xs">Re-apply</button></form>@else — @endif</td></tr>
         @endforeach
         </tbody></table></div>
     <nav class="mt-3" aria-label="Pagination">{{ $events->links() }}</nav>

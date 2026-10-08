@@ -2,8 +2,8 @@
 @section('content')
 <x-backend.page-header title="Review queue" description="Imported records are confirmed against their official source and switched on or off for the public site, API and sitemaps. Tick rows, then act on the selection: one attestation covers the whole selection and every record still gets its own dated, named verification. Submissions are decided on the Submissions page.">
     <x-slot:actions>
-        <a href="{{ route('backend.admin.submissions', ['status' => 'pending_review']) }}" class="btn-secondary !min-h-0 !py-1.5" data-command="Decide waiting submissions">Submissions</a>
-        @can('records.verify')<a href="{{ route('backend.checks.index') }}" class="btn-secondary !min-h-0 !py-1.5">Independent checks</a>@endcan
+        <a href="{{ route('backend.admin.submissions', ['status' => 'pending_review']) }}" class="btn-secondary btn-sm" data-command="Decide waiting submissions">Submissions</a>
+        @can('records.verify')<a href="{{ route('backend.checks.index') }}" class="btn-secondary btn-sm">Independent checks</a>@endcan
     </x-slot:actions>
 </x-backend.page-header>
 
@@ -40,10 +40,10 @@
         <label class="text-sm"><span class="block meta">Search</span><input type="search" name="q" value="{{ $filters['q'] }}" placeholder="title or slug" class="input mt-1 !min-h-0 !py-1.5 w-56"></label>
         <label class="text-sm"><span class="block meta">Review status</span><select name="review" class="input mt-1 !min-h-0 !py-1.5 !w-auto"><option value="">Any</option>@foreach($reviewFilters as $r)<option value="{{ $r }}" @selected($filters['review'] === $r)>{{ $r === 'stale' ? 'never verified or stale' : str_replace('_', ' ', $r) }} ({{ $byReview[$r] ?? 0 }})</option>@endforeach</select></label>
         <label class="text-sm"><span class="block meta">Published</span><select name="published" class="input mt-1 !min-h-0 !py-1.5 !w-auto"><option value="">Any</option><option value="yes" @selected($filters['published'] === 'yes')>yes</option><option value="no" @selected($filters['published'] === 'no')>no ({{ $unpublished }})</option></select></label>
-        <button class="btn-secondary !min-h-0 !py-1.5">Filter</button>
-        @if($filters['q'] !== '' || $filters['review'] || $filters['published'])<a href="{{ route('backend.review.index', ['type' => $type]) }}#rec-heading" class="btn-secondary !min-h-0 !py-1.5">Clear</a>@endif
+        <button class="btn-secondary btn-sm">Filter</button>
+        @if($filters['q'] !== '' || $filters['review'] || $filters['published'])<a href="{{ route('backend.review.index', ['type' => $type]) }}#rec-heading" class="btn-secondary btn-sm">Clear</a>@endif
         <span class="meta ml-auto">{{ $matching }} {{ \Illuminate\Support\Str::plural('record', $matching) }} match{{ $records->hasPages() ? ', '.$records->count().' on this page' : '' }}</span>
-        <a href="{{ route('backend.review.export', ['type' => $type] + array_filter($filters)) }}" class="btn-secondary !min-h-0 !py-1.5 text-sm" data-track="admin_export">Export CSV</a>
+        <a href="{{ route('backend.review.export', ['type' => $type] + array_filter($filters)) }}" class="btn-secondary btn-sm text-sm" data-track="admin_export">Export CSV</a>
     </form>
 
     @if($rows->isEmpty())
@@ -73,7 +73,7 @@
             <label class="text-xs"><span class="block meta">Review status</span><select name="review_status" class="input mt-0.5 !min-h-0 !py-1 !w-auto"><option value="{{ $keep }}">Keep current</option>@foreach($reviewStatuses as $r)<option value="{{ $r }}" @selected(old('review_status') === $r)>{{ str_replace('_', ' ', $r) }}</option>@endforeach</select></label>
             <label class="text-xs"><span class="block meta">Confidence</span><select name="confidence_level" class="input mt-0.5 !min-h-0 !py-1 !w-auto"><option value="{{ $keep }}">Keep current</option>@foreach($confidenceLevels as $c)<option value="{{ $c }}" @selected(old('confidence_level') === $c)>{{ $c }}</option>@endforeach</select></label>
             <label class="text-xs flex-1 min-w-[10rem]"><span class="block meta">Notes (internal, optional)</span><input name="notes" value="{{ old('notes') }}" class="input mt-0.5 !min-h-0 !py-1" maxlength="2000"></label>
-            <button type="submit" class="btn-primary !min-h-0 !py-1" data-bulk-needs="{{ $bulk }}" data-confirm="Record this review for {n} {{ $meta['plural'] }} under your name? Fields left on “Keep current” are not changed.">Save review for selected</button>
+            <button type="submit" class="btn-primary btn-sm" data-bulk-needs="{{ $bulk }}" data-confirm="Record this review for {n} {{ $meta['plural'] }} under your name? Fields left on “Keep current” are not changed.">Save review for selected</button>
         </div>
         @if($onRoster)
         {{-- Its own row: the one statement a verification rests on, with the count it covers. --}}
@@ -82,8 +82,8 @@
         @endcan
         @can('records.publish')
         <div class="flex flex-wrap gap-1">
-            <button type="submit" name="publish" value="1" formaction="{{ route('backend.review.publish.many', ['type' => $type]) }}" formnovalidate class="btn-secondary !min-h-0 !py-1" data-bulk-needs="{{ $bulk }}" data-confirm="Publish {n} {{ $meta['plural'] }}? They appear on the public site, API and sitemaps at once." data-confirm-label="Publish">Publish selected</button>
-            <button type="submit" name="publish" value="0" formaction="{{ route('backend.review.publish.many', ['type' => $type]) }}" formnovalidate class="btn-secondary !min-h-0 !py-1 text-state-bad" data-bulk-needs="{{ $bulk }}" data-confirm="Unpublish {n} {{ $meta['plural'] }}? They leave the public site, API and sitemaps at once." data-confirm-label="Unpublish" data-confirm-danger>Unpublish selected</button>
+            <button type="submit" name="publish" value="1" formaction="{{ route('backend.review.publish.many', ['type' => $type]) }}" formnovalidate class="btn-secondary btn-sm" data-bulk-needs="{{ $bulk }}" data-confirm="Publish {n} {{ $meta['plural'] }}? They appear on the public site, API and sitemaps at once." data-confirm-label="Publish">Publish selected</button>
+            <button type="submit" name="publish" value="0" formaction="{{ route('backend.review.publish.many', ['type' => $type]) }}" formnovalidate class="btn-secondary btn-sm text-state-bad" data-bulk-needs="{{ $bulk }}" data-confirm="Unpublish {n} {{ $meta['plural'] }}? They leave the public site, API and sitemaps at once." data-confirm-label="Unpublish" data-confirm-danger>Unpublish selected</button>
         </div>
         @endcan
         <p class="meta adm-bulkbar-hint">Tick only what you have actually opened and confirmed: each record is dated and published under your name, and the site tells readers a person checked it. Shift-click selects a range.</p>

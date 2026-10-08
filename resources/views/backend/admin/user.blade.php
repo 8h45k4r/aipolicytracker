@@ -23,7 +23,7 @@
         <label for="invite-link" class="sr-only">Invitation link</label>
         <input id="invite-link" type="text" readonly value="{{ $invitation['url'] }}" class="input !min-h-[38px] min-w-0 flex-1 font-mono text-xs">
         {{-- Shown by admin.js (users section), which does the copying; without it, select the text. --}}
-        <button type="button" class="btn-primary !min-h-[38px] !py-1.5" data-copy-from="invite-link" hidden>Copy invitation link</button>
+        <button type="button" class="btn-primary btn-sm" data-copy-from="invite-link" hidden>Copy invitation link</button>
     </div>
 </section>
 @endif
@@ -105,7 +105,7 @@
                     @if($isCurrent)
                         <p class="text-sm font-medium text-brand-navy">Current role</p>
                     @else
-                        <button type="submit" name="admin_role" value="{{ $option['value'] }}" class="{{ $raises ? 'btn-primary' : 'btn-secondary' }} w-full !min-h-[38px] !py-1.5"
+                        <button type="submit" name="admin_role" value="{{ $option['value'] }}" class="{{ $raises ? 'btn-primary' : 'btn-secondary' }} w-full"
                             data-confirm="Change {{ $user->email }} from {{ $currentOption['label'] }} to {{ $option['label'] }}?{{ $raises ? ' This gives them access they do not have now.' : '' }}"
                             data-confirm-label="Change to {{ $option['label'] }}" @if($raises) data-confirm-danger @endif>
                             {{ $option['value'] === '' ? 'Remove admin access' : 'Change to '.$option['label'] }}
