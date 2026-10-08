@@ -51,7 +51,25 @@ How `/funding` reads it (`App\Support\FundingDisclosure`):
 - When the table is empty, the page lists `config('funding.funders')`. This keeps old installs working.
 - With no funder to show, the page says "None yet".
 
-Admin: `backend.admin.funding.index|store|update|publish|move|destroy` under `/backend/admin/funding`. The capability is `settings.manage`, so only owners reach it. Delete asks for confirmation first. The `admin.audit` middleware writes one audit row for every write, with the funder id.
+Admin: `backend.admin.funding.index|store|update|publish|move|destroy` under `/backend/admin/funding`. The capability is `settings.manage`, so only owners reach it. "Add a funder" (also a Ctrl K action) and "Edit" open the form in a side panel (`x-backend.drawer`). Without JavaScript the same links go to `?new=1` or `?edit=<id>`, and the form is shown on the page. A refused save reopens the panel it came from (hidden field `_drawer`) with the typed values. A link that is not https gets "Use a full https:// address". Delete asks for confirmation first and names the funder. The `admin.audit` middleware writes one audit row for every write, with the funder id.
+
+## The settings page
+
+`AppSetting::GROUPS` lists the groups in page order and every key in `AppSetting::KEYS` names its `group`. Each group is its own card, form and Save button. The form posts `group=<id>` and `settingsSave` validates and saves only that group's keys; keys from other groups in the same request are ignored. In a group form:
+
+- An emptied plain field clears the stored value, so the environment or the default applies again.
+- An empty secret keeps the stored secret, because a secret is never sent back to the page. The "clear the stored value" box removes it.
+- A refused save saves nothing in the group. It returns to `#group-<id>` with the typed values (`old()`) and an error under each field. Secrets are not flashed to the session, so they must be pasted again.
+
+A post with no `group` is the older single form. It validates every key, and an empty field keeps its value.
+
+Each field shows where the value in use comes from: "Saved here", "From environment" or "Default". With the configuration cached the environment cannot be read, so an unsaved field shows "Environment or default".
+
+The tests live in their groups: "Send test email" (Email), "Check keys with Cloudflare" (Bot protection) and a link to the "Can we sell right now?" probe on Billing (Billing). The Billing page says why the probe is disabled (no API key, no webhook secret, no product id) and links to the setting or button that fixes it.
+
+**Live switches.** `billing_enabled`, `dodo_environment`, `email_domain_enforcement` and `analytics_require_consent` are in the `live` group, in a separate section at the end. Each switch shows the value in use and offers one button per other value. A key's `live` metadata names the consequence of each risky value (Checkout on, `live_mode`, enforcement on, consent off). That button asks first through `data-confirm-danger`, and the question names the consequence.
+
+Each group registers a Ctrl K palette action, "Settings: <group>".
 
 ## Settings: citation and funding
 

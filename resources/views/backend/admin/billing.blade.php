@@ -50,10 +50,10 @@
     @endif
 </section>
 
-<section class="mt-6 card-flat p-5">
+<section id="setup" class="mt-6 card-flat scroll-mt-6 p-5">
     <h2 class="section-title !text-lg">Setup</h2>
     <dl class="mt-3 text-sm divide-y divide-brand-line">
-        <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Checkout</dt><dd>{{ $setup['enabled'] ? 'on' : 'off' }} <span class="meta">(from {{ $setup['enabled_source'] === 'setting' ? 'Settings' : 'BILLING_ENABLED' }})</span></dd></div>
+        <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Checkout</dt><dd>{{ $setup['enabled'] ? 'on' : 'off' }} <span class="meta">(from {{ $setup['enabled_source'] === 'setting' ? 'Settings' : 'BILLING_ENABLED' }}) · <a href="{{ route('backend.admin.settings') }}#group-live">change under Live switches</a></span></dd></div>
         <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Environment</dt><dd class="font-mono">{{ $setup['environment'] }}</dd></div>
         <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">API key</dt><dd>{{ $setup['api_key'] ? 'configured' : 'missing' }}</dd></div>
         <div class="py-2 flex justify-between gap-4"><dt class="text-brand-muted">Webhook secret</dt><dd>{{ $setup['webhook_secret'] ? 'configured' : 'missing' }}</dd></div>
@@ -64,10 +64,19 @@
         @endforeach
     </dl>
     <div class="mt-4 flex flex-wrap gap-2">
-        <form method="post" action="{{ route('backend.admin.billing.provision') }}">@csrf<button type="submit" class="btn-primary" @disabled(!$setup['api_key'])>Provision webhook and products</button></form>
+        <form method="post" action="{{ route('backend.admin.billing.provision') }}">@csrf<button type="submit" class="btn-primary" @disabled(!$setup['api_key']) @unless($setup['api_key']) aria-describedby="provision-blocked" @endunless>Provision webhook and products</button></form>
         <form method="post" action="{{ route('backend.admin.billing.check') }}">@csrf<button type="submit" class="btn-secondary">Check products against the provider</button></form>
-        <form method="post" action="{{ route('backend.admin.billing.probe') }}">@csrf<button type="submit" class="btn-secondary" @disabled(!$setup['api_key'])>Can we sell right now?</button></form>
+        <form method="post" action="{{ route('backend.admin.billing.probe') }}">@csrf<button type="submit" class="btn-secondary" @disabled($blockers !== []) @if($blockers !== []) aria-describedby="probe-blocked" @endif>Can we sell right now?</button></form>
     </div>
+    @unless($setup['api_key'])<p id="provision-blocked" class="meta mt-2">Provisioning needs the Dodo API key. <a href="{{ route('backend.admin.settings') }}#f-dodo_api_key">Add the API key in Settings</a>.</p>@endunless
+    @if($blockers !== [])
+    <div id="probe-blocked" class="mt-3 rounded-sm border border-state-warn/30 bg-state-warnbg px-3 py-2 text-sm text-brand-body" data-probe-blocked>
+        <p class="font-medium text-state-warn">"Can we sell right now?" is off until:</p>
+        <ul class="mt-1 list-disc space-y-0.5 pl-5">
+            @foreach($blockers as $b)<li>{{ $b['reason'] }} <a href="{{ $b['fix'] }}">{{ $b['label'] }}</a>.</li>@endforeach
+        </ul>
+    </div>
+    @endif
     @if($probe)
     <div class="mt-3 rounded-sm border px-3 py-2 text-sm {{ $probe['ok'] ? 'border-state-good/30 bg-state-goodbg text-state-good' : 'border-state-bad/30 bg-state-badbg text-state-bad' }}" role="status">
         <p class="font-semibold">{{ $probe['ok'] ? 'Yes: the provider opened a checkout session' : 'No: the provider refused to open a checkout session' }} ({{ $probe['plan'] }}, {{ $probe['environment'] }})</p>
