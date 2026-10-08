@@ -59,7 +59,7 @@ class ContributeController extends Controller
             'subject' => $subject,
             'prefill' => [
                 'type' => array_key_exists($request->query('type', ''), ContributorSubmission::TYPES) ? $request->query('type') : 'correction',
-                'subject_type' => $subject['type'] ?? (in_array($subjectType, ['policy', 'jurisdiction', 'obligation', 'change', 'control', 'incident', 'risk', 'other'], true) ? $subjectType : null),
+                'subject_type' => $subject['type'] ?? (in_array($subjectType, ['policy', 'jurisdiction', 'obligation', 'change', 'control', 'transition_measure', 'incident', 'risk', 'other'], true) ? $subjectType : null),
                 'subject_slug' => $subject['slug'] ?? (preg_match('/^[A-Za-z0-9._-]{0,160}$/', $subjectSlug) ? $subjectSlug : null),
                 'field' => $subject && array_key_exists((string) $request->query('field'), $subject['fields']) ? $request->query('field') : null,
             ],
@@ -78,7 +78,7 @@ class ContributeController extends Controller
 
         $data = $request->validate([
             'type' => ['required', 'in:'.implode(',', array_keys(ContributorSubmission::TYPES))],
-            'subject_type' => ['nullable', 'in:policy,jurisdiction,obligation,change,control,incident,risk,other'],
+            'subject_type' => ['nullable', 'in:policy,jurisdiction,obligation,change,control,transition_measure,incident,risk,other'],
             'subject_slug' => ['nullable', 'string', 'max:160', 'regex:/^[A-Za-z0-9._-]*$/'],
             'field' => ['nullable', 'string', 'max:64', 'regex:/^[a-z_]*$/'],
             'current_value' => ['nullable', 'string', 'max:4000'],
@@ -161,6 +161,7 @@ class ContributeController extends Controller
             'obligation' => [$record->title, $record->url(), $record->policyInstrument?->jurisdiction?->name],
             'change' => [$record->title, $record->url(), $record->jurisdiction?->name],
             'control' => [$record->title, $record->url(), null],
+            'transition_measure' => [$record->title, $record->url(), $record->jurisdiction?->name],
             'incident' => [PageTitle::incident($record), $record->url(), 'AI Incident Database'],
             'risk' => [PageTitle::risk($record), $record->url(), 'MIT AI Risk Repository'],
         };
