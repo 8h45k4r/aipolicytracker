@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Admin → Billing: Pro subscriptions, monthly recurring revenue, payments with CSV export, refunds and disputes, revoked and on-hold counts, a webhook log with re-apply for failed events, and a free-tier quota view.
+- Admin → Alerts and watches: watches, profiles, channels, the last daily run, Slack and webhook deliveries with retry and CSV export, and the consent log.
+- Admin → Funding and funders: owners add, edit, publish and order the funders shown on `/funding`. The dataset DOI, sponsor link and disclosure threshold are settings, checked before saving.
+- Admin → Independent checks: the quarter's verification sample, progress, agreement, disputed fields and a CSV for reviewers. The sample draw is also a job.
+- The review queue covers implementation measures (verify, publish, export to `data/implementation`) and lists enforcement events pending review. `/gaps` lists measures still in draft or pending review.
+- The dashboard counts watches, Pro subscriptions and second checks, and flags failed billing webhooks, failed alert deliveries, recent refunds, measures awaiting review and unresolved second-check disputes.
+- The subscribers list marks addresses that belong to a verified account.
 - Enforcement tracker at `/enforcement` (fines, orders, warnings, settlements, court decisions, annulments), EU AI Act implementation tracker at `/policies/eu-ai-act/implementation`, and AI standards tracker at `/ai-standards` (CEN-CENELEC JTC 21 and ISO/IEC SC 42, metadata only). Each has an API endpoint, CSV and NDJSON exports and an MCP tool. They stay noindex until five entries are recorded; the enforcement tracker starts empty because an action is recorded only from the regulator's or court's own publication.
 - Search suggests results as you type (`/search/suggest`), lists the record you name first and shows a top match.
 - Record pages have an "On this page" list, one-line collapsible obligations and "Open official source" as the main action.
@@ -28,6 +35,9 @@ All notable changes to this project are documented here. The format follows [Kee
 - `/ai-risk` has a factual heading, and its trend heading follows the 12-month figure.
 
 ### Fixed
+- "Report a correction" on a transition measure returned a server error; it now opens the form with the measure named.
+- The review queue no longer records a decision the data check would refuse (a record with no official source).
+- An import runs a third fewer queries (8,024 to 5,361), with an identical result, which shortens both test jobs.
 - The EU AI Act summary separates entry into force (1 August 2024) from first application (2 February 2025).
 - Accessibility: links in body text are underlined, heat-map text contrast fixed, paginator ARIA fixed, heading order on listings, unique attribution landmarks, and chart data tables no longer cause sideways scrolling on phones.
 - Ticking "send me the digest" at sign-up or on the account page now subscribes the address to the weekly digest once it is verified (it used to record consent and send nothing); unticking it, or unsubscribing from any issue, turns it off in both places.
