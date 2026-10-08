@@ -34,6 +34,7 @@ use_cases: [hiring_and_hr, finance_and_credit, generative_ai, public_services]
 related_policies: [uk-ai-regulation-white-paper, eu-ai-act]
 obligations:
   - slug: uk-ico-dpia-for-ai
+    short_title: "Data protection impact assessment for AI"
     title: Carry out a data protection impact assessment for high-risk AI processing
     category: impact_assessment
     source_reference: "UK GDPR Article 35; ICO guidance, accountability and governance section"
@@ -59,6 +60,7 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "DPIA with AI-specific sections before processing starts.", confidence_level: high }
       - { control: ai-impact-assessment, relationship: supports, note: "Bias, explainability and oversight analysis reused in the DPIA.", confidence_level: medium }
   - slug: uk-ico-automated-decision-safeguards
+    short_title: "Automated decision safeguards"
     title: Apply safeguards to solely automated decisions with significant effects
     category: human_oversight
     source_reference: "UK GDPR Article 22 as amended by the Data (Use and Access) Act 2025"

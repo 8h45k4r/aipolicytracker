@@ -135,6 +135,7 @@ class PolicySerializer
         $out = [
             'slug' => $o->slug,
             'title' => $o->title,
+            'short_title' => $o->short_title,
             'category' => $o->category,
             'summary' => $o->summary,
             'practical_action' => $o->practical_action,

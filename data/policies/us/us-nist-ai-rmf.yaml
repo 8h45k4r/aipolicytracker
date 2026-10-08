@@ -39,6 +39,7 @@ sections:
   - { reference: "NIST AI 600-1", title: "Generative AI Profile", summary: "Twelve generative-AI risk areas and suggested actions." }
 obligations:
   - slug: us-nist-ai-rmf-govern
+    short_title: "Govern function"
     title: Establish AI governance policies, roles and accountability (Govern)
     category: governance_accountability
     section: "Part 2: Core"
@@ -64,6 +65,7 @@ obligations:
       - { control: ai-literacy-and-role-based-training, relationship: supports, note: "Workforce training outcomes.", confidence_level: high }
       - { control: third-party-ai-due-diligence, relationship: supports, note: "Third-party risk management outcomes.", confidence_level: high }
   - slug: us-nist-ai-rmf-map
+    short_title: "Map function"
     title: Map context, intended use and potential impacts (Map)
     category: impact_assessment
     section: "Part 2: Core"
@@ -88,6 +90,7 @@ obligations:
       - { control: ai-system-inventory, relationship: supports, note: "Intended purpose, users and settings recorded at intake.", confidence_level: high }
       - { control: ai-risk-assessment, relationship: supports, note: "Risk categorisation and benefit-cost analysis.", confidence_level: medium }
   - slug: us-nist-ai-rmf-measure
+    short_title: "Measure function"
     title: Measure and test trustworthiness characteristics (Measure)
     category: safety_testing
     section: "Part 2: Core"
@@ -113,6 +116,7 @@ obligations:
       - { control: genai-red-team-testing, relationship: supports, note: "Red-teaming and independent review for generative AI.", confidence_level: high }
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Tracking metrics over time.", confidence_level: high }
   - slug: us-nist-ai-rmf-manage
+    short_title: "Manage function"
     title: Prioritise, respond to and monitor AI risks (Manage)
     category: risk_management
     section: "Part 2: Core"

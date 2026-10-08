@@ -62,6 +62,7 @@ versions: []
 sections: []
 obligations:
 - slug: us-texas-responsible-ai-governance-act-traiga-government-agency-ai-interaction-disclosure
+  short_title: "Government AI interaction disclosure"
   title: Government agencies must disclose to consumers that they are interacting with an AI system
   category: transparency
   source_reference: "Business and Commerce Code Section 551.051"
@@ -98,6 +99,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-health-care-ai-disclosure
+  short_title: "Health care AI disclosure"
   title: Health-care providers must disclose the use of AI in patient services
   category: transparency
   source_reference: "Business and Commerce Code Section 551.051"
@@ -133,6 +135,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: us-texas-responsible-ai-governance-act-traiga-manipulation-prohibition
+  short_title: "Ban on AI that incites harm"
   title: Developers and deployers must not use AI to incite self-harm, harm to others or crime
   category: prohibited_practice
   source_reference: "Business and Commerce Code Section 551.052"
@@ -169,6 +172,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-government-social-scoring-prohibition
+  short_title: "Government social scoring ban"
   title: Governmental entities must not use AI for social scoring
   category: prohibited_practice
   source_reference: "Business and Commerce Code Section 551.053"
@@ -204,6 +208,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-government-biometric-identification-prohibition
+  short_title: "Government biometric identification limits"
   title: Governmental entities must not use AI for biometric identification from public data without consent where it infringes rights
   category: prohibited_practice
   source_reference: "Business and Commerce Code Section 551.054"
@@ -240,6 +245,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-unlawful-discrimination-prohibition
+  short_title: "Unlawful discrimination ban"
   title: Developers and deployers must not use AI with the intent to unlawfully discriminate against a protected class
   category: prohibited_practice
   source_reference: "Business and Commerce Code Section 551.056"
@@ -275,6 +281,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-sexual-content-and-csam-prohibition
+  short_title: "Sexual deepfake and CSAM ban"
   title: Developers and distributors must not build AI intended to produce child sexual abuse material or unlawful sexual deepfakes
   category: prohibited_practice
   source_reference: "Business and Commerce Code Section 551.057"

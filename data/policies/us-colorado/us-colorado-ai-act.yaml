@@ -53,6 +53,7 @@ related_policies: [us-colorado-automated-decision-making-technology-act, us-nist
 related_frameworks: [nist_ai_rmf, iso_42001]
 obligations:
   - slug: us-colorado-deployer-risk-management-program
+    short_title: "Deployer risk management program"
     title: Deployers must implement a risk management policy and programme
     category: risk_management
     source_reference: "C.R.S. 6-1-1703(2)"
@@ -80,6 +81,7 @@ obligations:
       - { control: ai-risk-assessment, relationship: satisfies, note: "Per-system identification, documentation and mitigation of algorithmic discrimination risk.", confidence_level: high }
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "The risk-management policy, principles and personnel the statute expects.", confidence_level: medium }
   - slug: us-colorado-deployer-impact-assessment
+    short_title: "Deployer impact assessment"
     title: Deployers must complete impact assessments for high-risk AI
     category: impact_assessment
     source_reference: "C.R.S. 6-1-1703(3)"
@@ -107,6 +109,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: satisfies, note: "Templated assessment aligned to the statutory elements, refreshed annually and on material change.", confidence_level: high }
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Post-deployment monitoring described in the assessment.", confidence_level: medium }
   - slug: us-colorado-consumer-notice-and-adverse-decision-explanation
+    short_title: "Consumer notice and adverse decisions"
     title: Notify consumers and explain adverse consequential decisions
     category: transparency
     source_reference: "C.R.S. 6-1-1703(4)"
@@ -133,6 +136,7 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Pre-decision notice with purpose, nature and contact details.", confidence_level: high }
       - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Adverse-decision reasons, data correction and appeal for human review.", confidence_level: high }
   - slug: us-colorado-developer-documentation-and-disclosure
+    short_title: "Developer documentation and disclosure"
     title: Developers must document high-risk systems and disclose known risks
     category: technical_documentation
     source_reference: "C.R.S. 6-1-1702"
@@ -160,6 +164,7 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Deployer information pack and public statement derived from the documentation set.", confidence_level: high }
       - { control: training-data-provenance-and-copyright-register, relationship: supports, note: "Training-data summaries.", confidence_level: medium }
   - slug: us-colorado-ai-act-developer-reasonable-care
+    short_title: "Developer duty of reasonable care"
     title: Developers must use reasonable care to avoid algorithmic discrimination
     category: risk_management
     source_reference: "C.R.S. 6-1-1702(1)"
@@ -196,6 +201,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-developer-disclosure-to-attorney-general
+    short_title: "Developer notice to the Attorney General"
     title: Developers must notify the Attorney General and deployers of discovered algorithmic discrimination
     category: incident_handling
     source_reference: "C.R.S. 6-1-1702(5)"
@@ -232,6 +238,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-reasonable-care
+    short_title: "Deployer duty of reasonable care"
     title: Deployers must use reasonable care to avoid algorithmic discrimination
     category: risk_management
     source_reference: "C.R.S. 6-1-1703(1)"
@@ -268,6 +275,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-public-statement
+    short_title: "Deployer public statement"
     title: Deployers must publish a statement about the high-risk AI systems they use
     category: transparency
     source_reference: "C.R.S. 6-1-1703(5)"
@@ -303,6 +311,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-disclosure-to-attorney-general
+    short_title: "Deployer notice to the Attorney General"
     title: Deployers must notify the Attorney General of discovered algorithmic discrimination
     category: incident_handling
     source_reference: "C.R.S. 6-1-1703(7)"
@@ -336,6 +345,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-consumer-ai-interaction-disclosure
+    short_title: "Disclosing AI interaction to consumers"
     title: Deployers and developers must disclose to consumers that they are interacting with an AI system
     category: transparency
     source_reference: "C.R.S. 6-1-1704"
