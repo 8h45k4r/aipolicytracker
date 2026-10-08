@@ -141,7 +141,7 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | Access decisions | `App\Services\Billing\Entitlements`, `App\Http\Middleware\EnsureSubscribed` |
 | Public pages | `Site\BillingController` (`site/pricing`, `site/billing/redirect`, `site/billing/return`), plan card on `site/account/profile` |
 | Webhook endpoint | `Site\BillingWebhookController` |
-| Admin | `Backend\Admin\BillingController` (`backend/admin/billing`), Dodo section in Settings |
+| Admin | `Backend\Admin\BillingController` (`backend/admin/billing`: summary, subscriptions, payments, webhooks with re-apply, free-tier quota), Dodo section in Settings |
 | Mail | `SubscriptionPaymentFailedMail` (`emails/site/payment-failed`, text alternate) |
 
 ## Routes
@@ -157,6 +157,27 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | POST | `/backend/admin/billing/check` | `backend.admin.billing.check` | admin |
 | POST | `/backend/admin/billing/provision` | `backend.admin.billing.provision` | admin |
 | POST | `/backend/admin/billing/probe` | `backend.admin.billing.probe` | admin |
+| GET | `/backend/admin/billing/payments/export` | `backend.admin.billing.payments.export` | admin (`billing.manage`), audited |
+| POST | `/backend/admin/billing/events/{event}/reapply` | `backend.admin.billing.events.reapply` | admin (`billing.manage`), audited |
+
+## Admin page
+
+Admin → Billing needs `billing.manage` (owner only). The cards at the top show:
+
+- Pro subscriptions with access, monthly and annual. "With access" means `Entitlements::covers`.
+- Monthly recurring revenue: the config price of each covering subscription, annual divided by 12, per currency. It includes subscriptions set to cancel at period end.
+- Payments in the last 30 days: count and amount from `billing_payments`, before refunds.
+- Refunds and lost or accepted disputes in the last 30 days, from applied `billing_events`.
+- Subscriptions with access revoked, subscriptions on hold within the grace period, and webhooks that failed.
+
+The page has four tabs:
+
+- **Subscriptions.** Filter by status, or by "access revoked". The revocation reason and date show on the row and in the CSV. Setup and recent checkout attempts sit below the table.
+- **Payments.** Filter by status and paid date, search by payment id, subscription id or account email. Each row links to the account and the subscription. CSV export.
+- **Webhooks.** Filter by outcome (`applied`, `ignored`, `stale`, `error`, or `pending` for a row still being applied). The error text shows in full. A retried delivery of an applied event is acknowledged as `duplicate` and gets no row, so there is nothing to filter for it. An event with outcome `error` has a **Re-apply** button. It runs `WebhookProcessor::handle` on the stored payload with the same event id, exactly like a provider retry. It asks for confirmation, refuses any other outcome and is written to the audit log.
+- **Free tier.** Accounts with no watches, with up to the free limit, and above it. It lists accounts above the free limit with no covering subscription, linked to their user page. While checkout is off this is who would be over the limit once selling starts.
+
+The admin dashboard raises a failed webhook (critical), and a refund or lost dispute in the last 7 days (info), to accounts with `billing.manage`.
 
 Checkout and portal hand-offs render an interstitial page with a nonce-carrying redirect script and a plain link, because the site's CSP restricts `form-action` to `'self'`.
 
@@ -187,6 +208,8 @@ The customer always sees a neutral message. The provider's own answer is kept on
 ## Tests
 
 `tests/Feature/BillingTest.php`: admin provisioning (endpoint and products created once, keys stored encrypted, stored secret verifies real webhooks, rerun reuses); checkout switch in settings overriding the environment; pricing page disabled and enabled states; checkout guards, attempt record and hand-off; provider failure reported not faked; webhook signature rejection (missing, wrong secret, stale timestamp, no secret); signed activation grants entitlements and duplicate delivery is idempotent; unknown product never grants access; cancellation keeps access to period end, expiry revokes; failed renewal grace period and one email; stale events cannot reactivate; unknown customer ignored; email fallback resolution; portal hand-off; `subscribed` middleware; admin page, encrypted settings and product price check.
+
+`tests/Feature/AdminBillingPageTest.php`: capability on the page, export and re-apply; summary figures from seeded subscriptions, payments and events; revoked filter and export columns; payment filters, account links and formula-safe CSV; webhook outcome filter with the error shown; re-apply of an errored event under the same id, audited, and refused for any other outcome; free-tier buckets and accounts over the limit; dashboard items.
 
 ## Open debt
 

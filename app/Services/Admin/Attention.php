@@ -3,12 +3,16 @@
 namespace App\Services\Admin;
 
 use App\Console\Commands\SyncAiidApiCommand;
+use App\Http\Controllers\Backend\Admin\BillingController;
 use App\Http\Controllers\Backend\Review\ReviewController;
+use App\Models\BillingEvent;
+use App\Models\ChannelDelivery;
 use App\Models\ContributorSubmission;
 use App\Models\JobRun;
 use App\Models\PolicyInstrument;
 use App\Models\Subscriber;
 use App\Models\User;
+use App\Services\Billing\WebhookProcessor;
 use App\Services\Security\Turnstile;
 use Illuminate\Support\Facades\Cache;
 
@@ -46,6 +50,21 @@ final class Attention
         $noFactor = User::whereNotNull('admin_role')->whereNull('two_factor_confirmed_at')->whereNull('suspended_at')->count();
         if ($noFactor > 0) {
             $add('users.manage', 'critical', $noFactor.' admin '.($noFactor === 1 ? 'account has' : 'accounts have').' no second factor', 'They cannot pass the admin sign-in check until they enrol an authenticator.', 'Review accounts', route('backend.admin.users.index', ['status' => 'no_factor']));
+        }
+
+        $webhookErrors = BillingEvent::where('outcome', WebhookProcessor::OUTCOME_ERROR)->count();
+        if ($webhookErrors > 0) {
+            $add('billing.manage', 'critical', $webhookErrors.' billing '.($webhookErrors === 1 ? 'webhook' : 'webhooks').' failed to apply', 'A subscription change from the provider was not applied, so an account may have the wrong access. Read the error, fix the cause, then re-apply.', 'Open failed webhooks', route('backend.admin.billing.index', ['tab' => 'webhooks', 'outcome' => 'error']));
+        }
+
+        $failedDeliveries = ChannelDelivery::where('status', 'failed')->where('updated_at', '>=', now()->subDays(7))->count();
+        if ($failedDeliveries > 0) {
+            $add('subscribers.manage', 'warning', $failedDeliveries.' Slack or webhook '.($failedDeliveries === 1 ? 'alert' : 'alerts').' failed in the last 7 days', 'All attempts were used up or the channel was disabled, so the account did not receive that alert there.', 'Open deliveries', route('backend.admin.alerts.index', ['status' => 'failed']));
+        }
+
+        $reversals = BillingEvent::whereIn('event_type', BillingController::REVERSAL_EVENTS)->where('outcome', WebhookProcessor::OUTCOME_APPLIED)->where('received_at', '>=', now()->subDays(7))->count();
+        if ($reversals > 0) {
+            $add('billing.manage', 'info', $reversals.' '.($reversals === 1 ? 'refund or lost dispute' : 'refunds or lost disputes').' in the last 7 days', 'A full refund or a lost chargeback on the latest payment removes Pro access.', 'Open payments', route('backend.admin.billing.index', ['tab' => 'payments', 'from' => now()->subDays(7)->toDateString()]));
         }
 
         $pending = ContributorSubmission::where('status', 'pending_review')->count();
