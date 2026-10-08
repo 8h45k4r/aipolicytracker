@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Console\Commands\SyncAiidApiCommand;
-use App\Enums\SubmissionStatus;
 use App\Http\Controllers\Backend\Review\ReviewController;
 use App\Http\Controllers\Controller;
 use App\Mail\SubscriptionConfirmMail;
@@ -33,8 +32,10 @@ use App\Services\Billing\Entitlements;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Security\Turnstile;
 use App\Services\Verification\IndependentChecks;
+use App\Support\Admin\BulkAction;
 use App\Support\Admin\CsvStream;
 use App\Support\Admin\ListFilters;
+use App\Support\Admin\SubmissionQuery;
 use App\Support\ContentCache;
 use App\Support\DatasetCitation;
 use App\Support\FundingDisclosure;
@@ -272,9 +273,9 @@ class AdminController extends Controller
     /** Every contribution, by type and status, searchable and dated, with an export of what is filtered. */
     public function submissions(Request $request): View
     {
-        $filters = ListFilters::from($request, ['received' => 'created_at', 'type' => 'type', 'status' => 'status', 'summary' => 'summary']);
-        [$type, $status] = $this->submissionScope($request);
-        $submissions = $this->submissionQuery($request, $filters)->with('decisions.reviewer')->paginate(25)->withQueryString();
+        $filters = SubmissionQuery::filters($request);
+        [$type, $status] = SubmissionQuery::scope($request);
+        $submissions = SubmissionQuery::query($request, $filters)->with('decisions.reviewer')->paginate(25)->withQueryString();
         $byType = ContributorSubmission::selectRaw('type, COUNT(*) as n')->groupBy('type')->pluck('n', 'type');
         $byStatus = ContributorSubmission::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
         $trend = $this->dailyCounts(ContributorSubmission::query(), 'created_at', 30);
@@ -284,33 +285,9 @@ class AdminController extends Controller
 
     public function submissionsExport(Request $request): StreamedResponse
     {
-        $filters = ListFilters::from($request, ['received' => 'created_at', 'type' => 'type', 'status' => 'status', 'summary' => 'summary']);
-
-        return CsvStream::from($this->submissionQuery($request, $filters), 'submissions',
+        return CsvStream::from(SubmissionQuery::query($request), 'submissions',
             ['received_at', 'type', 'status', 'summary', 'subject_type', 'subject_slug', 'proposed_source_url', 'submitter_name', 'submitter_email', 'submitter_affiliation', 'source_page', 'details'],
             fn (ContributorSubmission $s) => [$s->created_at, ContributorSubmission::TYPES[$s->type] ?? $s->type, $s->status, $s->summary, $s->subject_type, $s->subject_slug, $s->proposed_source_url, $s->submitter_name, $s->submitter_email, $s->submitter_affiliation, $s->source_page, $s->details]);
-    }
-
-    /** @return array{0:?string, 1:?string} the type and status filters, each only if it names a real value */
-    private function submissionScope(Request $request): array
-    {
-        $type = array_key_exists((string) $request->query('type'), ContributorSubmission::TYPES) ? (string) $request->query('type') : null;
-        $status = in_array($request->query('status'), SubmissionStatus::values(), true) ? (string) $request->query('status') : null;
-
-        return [$type, $status];
-    }
-
-    private function submissionQuery(Request $request, ListFilters $filters): Builder
-    {
-        [$type, $status] = $this->submissionScope($request);
-        $query = ContributorSubmission::query()
-            ->when($type, fn ($q) => $q->where('type', $type))
-            ->when($status, fn ($q) => $q->where('status', $status))
-            ->when($request->filled('subject'), fn ($q) => $q->where('subject_slug', (string) $request->query('subject')));
-        $filters->search($query, ['summary', 'details', 'submitter_email', 'submitter_name', 'subject_slug']);
-        $filters->dateRange($query, 'created_at');
-
-        return $filters->order($query);
     }
 
     private const SUBSCRIBER_SORTS = ['joined' => 'created_at', 'email' => 'email', 'confirmed' => 'confirmed_at', 'sent' => 'last_sent_at'];
@@ -380,33 +357,57 @@ class AdminController extends Controller
     {
         $subscriber->delete();
 
-        return back()->with('success', 'Subscriber removed.');
+        return BulkAction::back('subscribers-list')->with('success', 'Subscriber removed.');
     }
 
-    /** Re-sends the confirmation to every ticked address that is still waiting for one. */
+    /** The most subscribers one bulk action may touch. */
+    private const SUBSCRIBER_BULK_LIMIT = 1000;
+
+    /** Re-sends the confirmation to every selected address that is still waiting for one. */
     public function subscribersResendMany(Request $request): RedirectResponse
     {
-        $ids = $this->ids($request);
+        [$ids, $total] = $this->subscriberSelection($request);
         $waiting = Subscriber::whereIn('id', $ids)->whereNull('confirmed_at')->whereNull('unsubscribed_at')->get();
         foreach ($waiting as $subscriber) {
             Mail::to($subscriber->email)->send(new SubscriptionConfirmMail($subscriber));
         }
         $skipped = count($ids) - $waiting->count();
 
-        return back()->with('success', 'Confirmation re-sent to '.$waiting->count().' '.Str::plural('address', $waiting->count()).'.'.($skipped ? ' '.$skipped.' already confirmed or unsubscribed, not sent.' : ''));
+        return BulkAction::back('subscribers-list')->with('success', 'Confirmation re-sent to '.$waiting->count().' '.Str::plural('address', $waiting->count()).'.'
+            .($skipped ? ' '.$skipped.' already confirmed or unsubscribed, not sent.' : '')
+            .BulkAction::capNote(count($ids), $total, self::SUBSCRIBER_BULK_LIMIT));
     }
 
     public function subscribersDeleteMany(Request $request): RedirectResponse
     {
-        $n = Subscriber::whereIn('id', $this->ids($request))->delete();
+        [$ids, $total] = $this->subscriberSelection($request);
+        $n = Subscriber::whereIn('id', $ids)->delete();
 
-        return back()->with('success', $n.' '.Str::plural('subscriber', $n).' removed.');
+        return BulkAction::back('subscribers-list')->with('success', $n.' '.Str::plural('subscriber', $n).' removed.'.BulkAction::capNote(count($ids), $total, self::SUBSCRIBER_BULK_LIMIT));
     }
 
-    /** @return list<int> */
-    private function ids(Request $request): array
+    /**
+     * The ticked ids, or, with scope=filtered, every subscriber the list's filters match
+     * (read from the query string the bulk form posts to), up to the cap.
+     *
+     * @return array{0: list<int>, 1: int} the ids and how many the selection matched in all
+     */
+    private function subscriberSelection(Request $request): array
     {
-        return array_values(array_unique($request->validate(['ids' => ['required', 'array', 'min:1', 'max:1000'], 'ids.*' => ['integer']])['ids']));
+        $data = $request->validate([
+            'scope' => ['nullable', 'in:filtered'],
+            'ids' => ['required_without:scope', 'array', 'max:'.self::SUBSCRIBER_BULK_LIMIT],
+            'ids.*' => ['integer'],
+        ]);
+        if (($data['scope'] ?? null) === 'filtered') {
+            $query = $this->subscriberQuery($request, ListFilters::from($request, self::SUBSCRIBER_SORTS));
+            $ids = (clone $query)->limit(self::SUBSCRIBER_BULK_LIMIT)->pluck('subscribers.id')->map(fn ($id) => (int) $id)->all();
+
+            return [$ids, (clone $query)->reorder()->count()];
+        }
+        $ids = array_values(array_unique(array_map('intval', $data['ids'])));
+
+        return [$ids, count($ids)];
     }
 
     public function external(ExternalDataset $external): View

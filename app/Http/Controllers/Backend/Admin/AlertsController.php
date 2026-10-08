@@ -11,6 +11,7 @@ use App\Models\ConsentEvent;
 use App\Models\Follow;
 use App\Models\JobRun;
 use App\Services\Alerts\WebhookDispatcher;
+use App\Support\Admin\BulkAction;
 use App\Support\Admin\CsvStream;
 use App\Support\Admin\ListFilters;
 use Illuminate\Database\Eloquent\Builder;
@@ -70,6 +71,8 @@ class AlertsController extends Controller
             'consentKinds' => $consentKinds,
             'consents' => ConsentEvent::with('user')->when($consentKind !== '', fn ($q) => $q->where('kind', $consentKind))->orderByDesc('id')->limit(100)->get(),
             'retryMax' => self::RETRY_MAX,
+            // What "all matching" would retry: the filtered deliveries that are not sent yet.
+            'unsentMatching' => $this->query($request, $filters)->where('status', '!=', 'sent')->reorder()->count(),
         ]);
     }
 
@@ -99,10 +102,22 @@ class AlertsController extends Controller
 
     public function retryMany(Request $request, WebhookDispatcher $dispatcher): RedirectResponse
     {
-        $ids = array_values(array_unique($request->validate([
-            'ids' => ['required', 'array', 'min:1', 'max:'.self::RETRY_MAX],
+        $data = $request->validate([
+            'scope' => ['nullable', 'in:filtered'],
+            'ids' => ['required_without:scope', 'array', 'max:'.self::RETRY_MAX],
             'ids.*' => ['integer'],
-        ], ['ids.max' => 'Retry at most '.self::RETRY_MAX.' deliveries at a time.'])['ids']));
+        ], ['ids.max' => 'Retry at most '.self::RETRY_MAX.' deliveries at a time.']);
+
+        // "All matching": the list's filters ride on the query string the bulk form posts
+        // to. Sent deliveries are never retried, so they are not part of the selection.
+        if (($data['scope'] ?? null) === 'filtered') {
+            $matching = $this->query($request, ListFilters::from($request, self::SORTS))->where('status', '!=', 'sent');
+            $ids = (clone $matching)->limit(self::RETRY_MAX)->pluck('id')->map(fn ($id) => (int) $id)->all();
+            $total = (clone $matching)->reorder()->count();
+        } else {
+            $ids = array_values(array_unique(array_map('intval', $data['ids'])));
+            $total = count($ids);
+        }
 
         $sent = $failed = 0;
         $deliveries = ChannelDelivery::with('channel')->whereIn('id', $ids)->where('status', '!=', 'sent')->orderBy('id')->get();
@@ -110,9 +125,10 @@ class AlertsController extends Controller
             $dispatcher->attempt($delivery) ? $sent++ : $failed++;
         }
         $skipped = count($ids) - $deliveries->count();
-        $message = $sent.' '.Str::plural('delivery', $sent).' sent, '.$failed.' failed again.'.($skipped ? ' '.$skipped.' already sent or missing, not retried.' : '');
+        $message = $sent.' '.Str::plural('delivery', $sent).' sent, '.$failed.' failed again.'.($skipped ? ' '.$skipped.' already sent or missing, not retried.' : '')
+            .BulkAction::capNote(count($ids), $total, self::RETRY_MAX);
 
-        return back()->with($failed ? 'error' : 'success', $message);
+        return BulkAction::back('deliveries')->with($failed ? 'error' : 'success', $message);
     }
 
     private function status(Request $request): ?string

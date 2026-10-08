@@ -74,3 +74,18 @@ dialog.adm-palette { margin-top: 12vh; width: min(36rem, calc(100vw - 2rem)); }
 .btn-danger:hover { filter: brightness(0.92); }
 button[aria-busy="true"] { cursor: progress; opacity: 0.75; }
 kbd.adm-kbd { display: inline-block; padding: 0 0.3rem; border: 1px solid rgb(255 255 255 / 0.25); border-radius: 3px; font-size: 10px; line-height: 1.4; }
+
+/* ---- Bulk bars (review queue, Submissions, Subscribers, Alert deliveries) ----------------
+   Owned by the review and bulk-action views; class .adm-bulkbar on the bar's <form>, and
+   .adm-bulkbar-hint on help text that can go on a small screen. On a phone the bar is a
+   compact strip along the bottom, shown only while a row is ticked or "all matching" is on.
+   :has() is progressive: a browser without it keeps the strip visible. */
+@media (max-width: 639px) {
+    html[data-admin] .adm-bulkbar { position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 40; margin: 0; max-height: 60vh; overflow-y: auto; border-radius: 10px 10px 0 0; padding: 0.625rem 1rem calc(0.625rem + env(safe-area-inset-bottom)); box-shadow: 0 -8px 24px rgb(0 33 71 / 0.16); }
+    html[data-admin] .adm-bulkbar .adm-bulkbar-hint { display: none; }
+    html[data-admin] body:has([data-bulk-item]:checked, [data-bulk-scope]:checked) { padding-bottom: 16rem; }
+    @supports selector(:has(*)) {
+        html[data-admin] body:not(:has([data-bulk-item]:checked, [data-bulk-scope]:checked)) .adm-bulkbar { display: none; }
+    }
+}
+/* ---- end Bulk bars ---- */
