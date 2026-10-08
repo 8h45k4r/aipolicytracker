@@ -26,6 +26,7 @@ use App\Models\TransitionIndicator;
 use App\Models\TransitionMeasure;
 use App\Services\Transition\DisplacementPolicyIndex;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +50,7 @@ class PolicyImporter
 
     public function run(): array
     {
+        $this->jurisdictionsBySlug = [];
         DB::transaction(function () {
             $this->importTaxonomies();
             $this->importJurisdictions();
@@ -149,8 +151,8 @@ class PolicyImporter
         }
         foreach ($records as $record) {
             if (! empty($record['parent'])) {
-                $parent = Jurisdiction::where('slug', $record['parent'])->first();
-                $child = Jurisdiction::where('slug', $record['slug'])->first();
+                $parent = $this->jurisdiction($record['parent']);
+                $child = $this->jurisdiction($record['slug']);
                 // Saved only when it differs: an Eloquent update() stamps updated_at even when
                 // nothing changed, which moved these pages' modified date on every import.
                 $child?->forceFill(['parent_jurisdiction_id' => $parent?->id])->save();
@@ -161,7 +163,7 @@ class PolicyImporter
     private function importPolicies(): void
     {
         foreach ($this->repository->policies() as $file => $record) {
-            $jurisdiction = Jurisdiction::where('slug', $record['jurisdiction'])->firstOrFail();
+            $jurisdiction = $this->jurisdictionOrFail($record['jurisdiction']);
 
             $policy = PolicyInstrument::updateOrCreate(['slug' => $record['slug']], [
                 'jurisdiction_id' => $jurisdiction->id,
@@ -292,7 +294,7 @@ class PolicyImporter
             $policy->enforcementEvents()->delete();
             foreach ($record['enforcement_events'] ?? [] as $event) {
                 // A national authority acting under a regional instrument is filed where it acted.
-                $eventJurisdiction = ! empty($event['jurisdiction']) ? Jurisdiction::where('slug', $event['jurisdiction'])->value('id') : null;
+                $eventJurisdiction = ! empty($event['jurisdiction']) ? $this->jurisdiction($event['jurisdiction'])?->id : null;
                 $regulator = $event['regulator'] ?? $event['authority'] ?? null;
                 EnforcementEvent::create([
                     'jurisdiction_id' => $eventJurisdiction ?? $jurisdiction->id, 'policy_instrument_id' => $policy->id, 'published_at' => $policy->published_at,
@@ -332,7 +334,7 @@ class PolicyImporter
     {
         foreach ($this->repository->changeFiles() as $contents) {
             foreach ($contents['changes'] ?? [] as $change) {
-                $jurisdiction = Jurisdiction::where('slug', $change['jurisdiction'])->firstOrFail();
+                $jurisdiction = $this->jurisdictionOrFail($change['jurisdiction']);
                 $policy = ! empty($change['policy']) ? PolicyInstrument::where('slug', $change['policy'])->first() : null;
                 ChangeEvent::updateOrCreate(['slug' => $change['slug']], [
                     'jurisdiction_id' => $jurisdiction->id,
@@ -361,7 +363,35 @@ class PolicyImporter
                 }
             }
         }
-        $model->terms()->sync($ids);
+        // sync() inserts one row per new term; on PostgreSQL in CI each insert is a
+        // round trip, and the suite imports the corpus some two hundred times. One
+        // detach and one attach do the same work in two statements.
+        $ids = array_values(array_unique($ids));
+        $current = $model->terms()->pluck('taxonomy_terms.id')->map(fn ($id) => (int) $id)->all();
+        if ($removed = array_values(array_diff($current, $ids))) {
+            $model->terms()->detach($removed);
+        }
+        if ($added = array_values(array_diff($ids, $current))) {
+            $model->terms()->attach($added);
+        }
+    }
+
+    /** @var array<string, Jurisdiction|null> slug => jurisdiction, filled as the import looks them up */
+    private array $jurisdictionsBySlug = [];
+
+    /** One query per slug per import instead of one per record that names it. */
+    private function jurisdiction(string $slug): ?Jurisdiction
+    {
+        if (! array_key_exists($slug, $this->jurisdictionsBySlug)) {
+            $this->jurisdictionsBySlug[$slug] = Jurisdiction::where('slug', $slug)->first();
+        }
+
+        return $this->jurisdictionsBySlug[$slug];
+    }
+
+    private function jurisdictionOrFail(string $slug): Jurisdiction
+    {
+        return $this->jurisdiction($slug) ?? throw (new ModelNotFoundException)->setModel(Jurisdiction::class, [$slug]);
     }
 
     private function sourceQuality(array $record): array
@@ -406,7 +436,7 @@ class PolicyImporter
     {
         $kept = [];
         foreach ($this->repository->transitionMeasures() as $record) {
-            $jurisdiction = Jurisdiction::where('slug', $record['jurisdiction'])->firstOrFail();
+            $jurisdiction = $this->jurisdictionOrFail($record['jurisdiction']);
             $m = TransitionMeasure::updateOrCreate(['slug' => $record['slug']], [
                 'jurisdiction_id' => $jurisdiction->id,
                 'title' => $record['title'],
@@ -426,7 +456,7 @@ class PolicyImporter
         TransitionMeasure::whereNotIn('id', $kept)->delete();
         $keptIndicators = [];
         foreach ($this->repository->transitionIndicators() as $record) {
-            $jurisdiction = ! empty($record['jurisdiction']) ? Jurisdiction::where('slug', $record['jurisdiction'])->first() : null;
+            $jurisdiction = ! empty($record['jurisdiction']) ? $this->jurisdiction($record['jurisdiction']) : null;
             $i = TransitionIndicator::updateOrCreate(['slug' => $record['slug']], [
                 'jurisdiction_id' => $jurisdiction?->id,
                 'title' => $record['title'],
