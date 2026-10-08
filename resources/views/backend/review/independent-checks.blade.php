@@ -1,8 +1,12 @@
 @extends('backend.layouts.app', ['title' => 'Independent checks'])
 @section('content')
 @php($size = $rows->count())
-<h1 class="font-display text-2xl font-semibold text-brand-navy">Independent checks</h1>
-<p class="mt-1 meta max-w-3xl">Each quarter a random {{ rtrim(rtrim(number_format($sample['percent'], 2, '.', ''), '0'), '.') }}% of verified policy records is re-checked by a second reviewer. This page lists the quarter's sample, how far the second checks have got, and what the two reviewers disagreed on. The method is in <code>docs/reference/verification-policy.md</code>; the published figures are on <a href="{{ route('methodology') }}#independent-checks" target="_blank" rel="noopener">Methodology ↗</a>.</p>
+<x-backend.page-header title="Independent checks" :description="'Each quarter a random '.rtrim(rtrim(number_format($sample['percent'], 2, '.', ''), '0'), '.').'% of verified policy records is re-checked by a second reviewer. This page lists the quarter\'s sample, how far the second checks have got, and what the two reviewers disagreed on. The method is in docs/reference/verification-policy.md.'">
+    <x-slot:actions>
+        <a href="{{ route('methodology') }}#independent-checks" target="_blank" rel="noopener" class="btn-secondary !min-h-0 !py-1.5">Published figures ↗</a>
+        @can('submissions.decide')<a href="{{ route('backend.review.index') }}" class="btn-secondary !min-h-0 !py-1.5">Review queue</a>@endcan
+    </x-slot:actions>
+</x-backend.page-header>
 
 <section class="mt-6" aria-labelledby="sample-heading">
     <div class="flex flex-wrap items-baseline justify-between gap-3">

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Review;
 
-use App\Enums\SubmissionStatus;
 use App\Http\Controllers\Controller;
 use App\Models\ContributorSubmission;
 use App\Models\EnforcementEvent;
@@ -10,7 +9,9 @@ use App\Models\RecordVerification;
 use App\Models\ReviewerDecision;
 use App\Services\Review\ReviewableTypes;
 use App\Services\Reviewers\ReviewerRoster;
+use App\Support\Admin\BulkAction;
 use App\Support\Admin\CsvStream;
+use App\Support\Admin\SubmissionQuery;
 use App\Support\ContentCache;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +19,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -40,14 +43,22 @@ class ReviewController extends Controller
     /** The most records one bulk action may touch; larger than any single kind today. */
     private const BULK_LIMIT = 1000;
 
+    /** The bulk bar's default for review status and confidence: leave each record's value as it is. */
+    public const KEEP = 'keep';
+
     /** 'stale' is not a stored status: never verified, or verified longer ago than the stale threshold in settings. */
     private const REVIEW_FILTERS = ['stale', 'verified', 'pending_review', 'needs_update', 'draft'];
 
     public function index(Request $request): View
     {
-        $status = in_array($request->query('status'), SubmissionStatus::values(), true) ? $request->query('status') : 'pending_review';
-        $submissions = ContributorSubmission::where('status', $status)->with('decisions.reviewer')->orderByDesc('created_at')->paginate(25, ['*'], 'submissions')->withQueryString();
+        // Submissions are decided on the Submissions page; the queue only says what is waiting
+        // and links there, so there is one place, and one form, for each decision.
+        $waiting = ContributorSubmission::where('status', 'pending_review')->orderByDesc('created_at')->limit(5)->get();
         $counts = ContributorSubmission::selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
+
+        // Whether the signed-in reviewer may sign a verification is known before the form is
+        // drawn, so someone off the roster is told why instead of meeting a refusal on submit.
+        $onRoster = $this->isPublishedReviewer($request->user()->name);
 
         $type = ReviewableTypes::has($request->query('type')) ? $request->query('type') : 'policy';
         $filters = $this->filters($request);
@@ -64,11 +75,12 @@ class ReviewController extends Controller
         })->values();
 
         return view('backend.review.index', [
-            'submissions' => $submissions, 'status' => $status, 'counts' => $counts,
+            'waiting' => $waiting, 'counts' => $counts, 'onRoster' => $onRoster,
             'type' => $type, 'meta' => ReviewableTypes::TYPES[$type], 'filters' => $filters, 'records' => $records, 'rows' => $rows,
             'byReview' => $byReview, 'tabs' => $tabs, 'matching' => $records->total(), 'unpublished' => $model::whereNull('published_at')->count(),
             'pendingExport' => RecordVerification::where('exported', false)->count(),
-            'reviewStatuses' => ReviewableTypes::REVIEW_STATUSES, 'confidenceLevels' => ReviewableTypes::CONFIDENCE_LEVELS, 'reviewFilters' => self::REVIEW_FILTERS,
+            'reviewStatuses' => $onRoster ? ReviewableTypes::REVIEW_STATUSES : array_values(array_diff(ReviewableTypes::REVIEW_STATUSES, ['verified'])),
+            'keep' => self::KEEP, 'bulkLimit' => self::BULK_LIMIT, 'confidenceLevels' => ReviewableTypes::CONFIDENCE_LEVELS, 'reviewFilters' => self::REVIEW_FILTERS,
             'pendingEvents' => $this->pendingEnforcementEvents(),
         ]);
     }
@@ -88,23 +100,40 @@ class ReviewController extends Controller
 
     public function decide(Request $request, ContributorSubmission $submission): RedirectResponse
     {
-        $data = $this->decisionData($request);
+        $data = $this->decisionData($request, 'submission-'.$submission->id);
         $this->recordDecision($submission, $data, $request->user());
 
-        return back()->with('success', 'Decision recorded and published to the corrections log. Approved submissions must still be applied to the data/ directory through a pull request.');
+        return BulkAction::back('submission-'.$submission->id)->with('success', 'Decision recorded on #'.$submission->id.' and published to the corrections log. Approved submissions must still be applied to the data/ directory through a pull request.');
     }
 
-    /** One decision for every ticked submission: the same notes, the same public note. */
+    /**
+     * One decision for every selected submission: the same notes, the same public note.
+     * The selection is the ticked cards, or, with scope=filtered, every submission the
+     * Submissions list's filters match (they ride on the query string the form posts to).
+     */
     public function decideMany(Request $request): RedirectResponse
     {
-        $data = $this->decisionData($request, ['ids' => ['required', 'array', 'min:1', 'max:'.self::BULK_LIMIT], 'ids.*' => ['integer']]);
-        $submissions = ContributorSubmission::whereIn('id', array_unique($data['ids']))->get();
+        $data = $this->decisionData($request, 'bulk-submissions', [
+            'scope' => ['nullable', 'in:filtered'],
+            'ids' => ['required_without:scope', 'array', 'max:'.self::BULK_LIMIT],
+            'ids.*' => ['integer'],
+        ]);
+        if (($data['scope'] ?? null) === 'filtered') {
+            $matching = SubmissionQuery::query($request);
+            $submissions = (clone $matching)->limit(self::BULK_LIMIT)->get();
+            $total = (clone $matching)->reorder()->count();
+        } else {
+            $submissions = ContributorSubmission::whereIn('id', array_unique($data['ids']))->get();
+            $total = $submissions->count();
+        }
         foreach ($submissions as $submission) {
             $this->recordDecision($submission, $data, $request->user());
         }
         $n = $submissions->count();
 
-        return back()->with('success', $n.' '.Str::plural('submission', $n).' marked '.str_replace('_', ' ', $data['decision']).'. Approved submissions must still be applied to the data/ directory through a pull request.');
+        return BulkAction::back('bulk-submissions')->with('success', $n.' '.Str::plural('submission', $n).' marked '.str_replace('_', ' ', $data['decision']).'.'
+            .BulkAction::capNote($n, $total, self::BULK_LIMIT)
+            .' Approved submissions must still be applied to the data/ directory through a pull request.');
     }
 
     /**
@@ -112,29 +141,44 @@ class ReviewController extends Controller
      *
      * The selection is the ticked rows, or, with scope=filtered, every record the
      * current filter matches, so "everything pending in this jurisdiction" is one act
-     * once the reviewer has actually read it.
+     * once the reviewer has actually read it. Review status and confidence each default
+     * to "keep current": only a field the reviewer chose is changed, so re-checking a
+     * mixed selection never flattens its confidence levels.
      */
     public function verifyMany(Request $request, string $type): RedirectResponse
     {
         abort_unless(ReviewableTypes::has($type), 404);
-        $data = $request->validate([
+        $anchor = 'bulk-'.$type;
+        $validator = Validator::make($request->all(), [
             'slugs' => ['required_without:scope', 'array', 'max:'.self::BULK_LIMIT],
             'slugs.*' => ['string', 'max:190'],
             'scope' => ['nullable', 'in:filtered'],
-            'review_status' => ['required', 'in:'.implode(',', ReviewableTypes::REVIEW_STATUSES)],
-            'confidence_level' => ['required', 'in:'.implode(',', ReviewableTypes::CONFIDENCE_LEVELS)],
-            'source_opened' => ['required_if:review_status,verified', 'accepted'],
+            'review_status' => ['required', 'in:'.implode(',', [self::KEEP, ...ReviewableTypes::REVIEW_STATUSES])],
+            'confidence_level' => ['required', 'in:'.implode(',', [self::KEEP, ...ReviewableTypes::CONFIDENCE_LEVELS])],
+            'source_opened' => ['exclude_unless:review_status,verified', 'required_if:review_status,verified', 'accepted'],
             'notes' => ['nullable', 'string', 'max:2000'],
-        ], ['source_opened.accepted' => 'Confirm that you opened the official source of every selected record before marking them verified.']);
+        ], self::attestationMessages('every selected record'));
+        $validator->after(function ($v) use ($request) {
+            if ($request->input('review_status') === self::KEEP && $request->input('confidence_level') === self::KEEP) {
+                $v->errors()->add('review_status', 'Nothing to change: choose a review status, a confidence level, or both. "Keep current" on both leaves every record as it is.');
+            }
+        });
+        if ($validator->fails()) {
+            return BulkAction::back($anchor)->withErrors($validator)->withInput();
+        }
+        $data = $validator->validated();
+        $keepStatus = $data['review_status'] === self::KEEP;
+        $keepConfidence = $data['confidence_level'] === self::KEEP;
 
         if ($data['review_status'] === 'verified' && ! $this->isPublishedReviewer($request->user()->name)) {
-            return back()->withErrors(['source_opened' => $this->rosterError($request->user()->name)]);
+            return BulkAction::back($anchor)->withErrors(['source_opened' => $this->rosterError($request->user()->name)])->withInput();
         }
 
         $recorded = 0;
         $skipped = [];
-        foreach ($this->selection($request, $type, $data) as $model) {
-            if ($this->lacksRequiredSource($type, $model, $data['review_status'])) {
+        [$models, $total] = $this->selection($request, $type, $data);
+        foreach ($models as $model) {
+            if (! $keepStatus && $this->lacksRequiredSource($type, $model, $data['review_status'])) {
                 $skipped[] = $model->slug;
 
                 continue;
@@ -144,12 +188,17 @@ class ReviewController extends Controller
         }
         ContentCache::flush();
 
-        $message = $recorded.' '.ReviewableTypes::label($type, $recorded !== 1).' marked '.str_replace('_', ' ', $data['review_status']).' ('.$data['confidence_level'].') by '.$request->user()->name.'. Run `php artisan policy:export-verifications` and open a pull request to write it into data/.';
+        $message = $recorded.' '.ReviewableTypes::label($type, $recorded !== 1)
+            .($keepStatus ? ' updated · review status kept' : ' marked '.str_replace('_', ' ', $data['review_status']))
+            .($keepConfidence ? ' · confidence kept for '.$recorded : ' · confidence '.$data['confidence_level'])
+            .' · by '.$request->user()->name.'.'
+            .BulkAction::capNote(count($models), $total, self::BULK_LIMIT)
+            .' Run `php artisan policy:export-verifications` and open a pull request to write it into data/.';
         if ($skipped !== []) {
             $message .= ' Skipped '.count($skipped).' with no official source URL ('.implode(', ', array_slice($skipped, 0, 5)).(count($skipped) > 5 ? ', …' : '').'): add the source in data/ first.';
         }
 
-        return back()->with('success', $message);
+        return BulkAction::back($anchor)->with('success', $message);
     }
 
     /** Records a human verification (reviewer opened the official source) and applies it to the live row. */
@@ -159,26 +208,26 @@ class ReviewController extends Controller
         $data = $request->validate([
             'review_status' => ['required', 'in:'.implode(',', ReviewableTypes::REVIEW_STATUSES)],
             'confidence_level' => ['required', 'in:'.implode(',', ReviewableTypes::CONFIDENCE_LEVELS)],
-            'source_opened' => ['required_if:review_status,verified', 'accepted'],
+            'source_opened' => ['exclude_unless:review_status,verified', 'required_if:review_status,verified', 'accepted'],
             'notes' => ['nullable', 'string', 'max:2000'],
-        ], ['source_opened.accepted' => 'Confirm that you opened the official source before marking a record verified.']);
+        ], self::attestationMessages('this record'));
 
         // A verification is only worth something if the person who made it is named and
         // has published what they are interested in. The data validator refuses a record
         // verified by anyone outside the roster, so refusing it here too keeps the admin
         // from writing a decision that could never be exported.
         if ($data['review_status'] === 'verified' && ! $this->isPublishedReviewer($request->user()->name)) {
-            return back()->withErrors(['source_opened' => $this->rosterError($request->user()->name)]);
+            return back()->withErrors(['source_opened' => $this->rosterError($request->user()->name)])->withInput();
         }
 
         if ($this->lacksRequiredSource($type, $model, $data['review_status'])) {
-            return back()->withErrors(['review_status' => $this->sourceError($type)]);
+            return back()->withErrors(['review_status' => $this->sourceError($type)])->withInput();
         }
 
         $this->record($type, $model, $data, $request->user());
         ContentCache::flush();
 
-        return back()->with('success', ucfirst($type).' '.$slug.' marked '.$data['review_status'].' ('.$data['confidence_level'].'). Run `php artisan policy:export-verifications` and open a pull request to write it into data/.');
+        return BulkAction::back('rec-'.$slug)->with('success', ucfirst($type).' '.$slug.' marked '.$data['review_status'].' ('.$data['confidence_level'].'). Run `php artisan policy:export-verifications` and open a pull request to write it into data/.');
     }
 
     public function publish(Request $request, string $type, string $slug): RedirectResponse
@@ -188,28 +237,43 @@ class ReviewController extends Controller
         $this->setPublished($type, $model, $publish);
         ContentCache::flush();
 
-        return back()->with('success', ($publish ? 'Published ' : 'Unpublished ').$model->slug.'. Remember to mirror the change in data/ (published: '.($publish ? 'true' : 'false').').');
+        return BulkAction::back('rec-'.$model->slug)->with('success', ($publish ? 'Published ' : 'Unpublished ').$model->slug.'. Remember to mirror the change in data/ (published: '.($publish ? 'true' : 'false').').');
     }
 
     /** The publish switch for a selection. Unpublishing hides records from the site, API and sitemaps at once. */
     public function publishMany(Request $request, string $type): RedirectResponse
     {
         abort_unless(ReviewableTypes::has($type), 404);
-        $data = $request->validate([
+        $validator = Validator::make($request->all(), [
             'slugs' => ['required_without:scope', 'array', 'max:'.self::BULK_LIMIT],
             'slugs.*' => ['string', 'max:190'],
             'scope' => ['nullable', 'in:filtered'],
             'publish' => ['required', 'boolean'],
         ]);
-        $publish = (bool) $data['publish'];
-        $n = 0;
-        foreach ($this->selection($request, $type, $data) as $model) {
-            $this->setPublished($type, $model, $publish);
-            $n++;
+        if ($validator->fails()) {
+            return BulkAction::back('bulk-'.$type)->withErrors($validator)->withInput();
         }
+        $data = $validator->validated();
+        $publish = (bool) $data['publish'];
+        [$models, $total] = $this->selection($request, $type, $data);
+        foreach ($models as $model) {
+            $this->setPublished($type, $model, $publish);
+        }
+        $n = count($models);
         ContentCache::flush();
 
-        return back()->with('success', ($publish ? 'Published ' : 'Unpublished ').$n.' '.ReviewableTypes::label($type, $n !== 1).'. Remember to mirror the change in data/ (published: '.($publish ? 'true' : 'false').').');
+        return BulkAction::back('bulk-'.$type)->with('success', ($publish ? 'Published ' : 'Unpublished ').$n.' '.ReviewableTypes::label($type, $n !== 1).'.'
+            .BulkAction::capNote($n, $total, self::BULK_LIMIT)
+            .' Remember to mirror the change in data/ (published: '.($publish ? 'true' : 'false').').');
+    }
+
+    /** @return array<string, string> the attestation messages, in plain words */
+    private static function attestationMessages(string $what): array
+    {
+        return [
+            'source_opened.required_if' => 'To mark '.$what.' verified, tick the box saying you opened the official source. A record counts as verified only once a person has read its source.',
+            'source_opened.accepted' => 'Confirm that you opened the official source of '.$what.' before marking it verified.',
+        ];
     }
 
     /**
@@ -286,14 +350,18 @@ class ReviewController extends Controller
 
     /**
      * The records a bulk action applies to: the ticked slugs, or every record the
-     * current filter matches when the reviewer asked for the whole filtered set.
+     * current filter matches when the reviewer asked for the whole filtered set, up to
+     * BULK_LIMIT. The second value is how many the selection matched in all, so the
+     * message can say when the cap stopped it short.
      *
-     * @return iterable<Model>
+     * @return array{0: list<Model>, 1: int}
      */
-    private function selection(Request $request, string $type, array $data): iterable
+    private function selection(Request $request, string $type, array $data): array
     {
         if (($data['scope'] ?? null) === 'filtered') {
-            return $this->filtered($type, $this->filters($request))->limit(self::BULK_LIMIT)->get();
+            $query = $this->filtered($type, $this->filters($request));
+
+            return [(clone $query)->limit(self::BULK_LIMIT)->get()->all(), (clone $query)->reorder()->count()];
         }
         $models = [];
         foreach (array_unique($data['slugs'] ?? []) as $slug) {
@@ -302,7 +370,7 @@ class ReviewController extends Controller
             }
         }
 
-        return $models;
+        return [$models, count($models)];
     }
 
     /** One display row, the same shape for every kind so the table is one template. */
@@ -337,13 +405,23 @@ class ReviewController extends Controller
 
     // ---- writes ----------------------------------------------------------------
 
-    /** One stored verification, applied to the live row so the site reflects it before the export. */
+    /**
+     * One stored verification, applied to the live row so the site reflects it before the export.
+     *
+     * A field sent as KEEP keeps the record's current value. Changing only the confidence is
+     * not a new verification, so a kept "verified" also keeps its date and the reviewer who
+     * signed it; the change is still stored under the acting account's user id.
+     */
     private function record(string $type, Model $model, array $data, Authenticatable $user): void
     {
-        $verified = $data['review_status'] === 'verified';
+        $keepStatus = $data['review_status'] === self::KEEP;
+        $status = $keepStatus ? $model->review_status : $data['review_status'];
+        $confidence = $data['confidence_level'] === self::KEEP ? $model->confidence_level : $data['confidence_level'];
+        $lastVerified = $keepStatus ? $model->last_verified_at?->toDateString() : ($status === 'verified' ? now()->toDateString() : null);
+        $reviewedBy = $keepStatus && $status === 'verified' ? ($model->reviewed_by ?? $user->name) : $user->name;
         $verification = RecordVerification::updateOrCreate(['record_type' => $type, 'record_slug' => $model->slug], [
-            'review_status' => $data['review_status'], 'confidence_level' => $data['confidence_level'], 'last_verified_at' => $verified ? now()->toDateString() : null,
-            'reviewed_by' => $user->name, 'source_checked_url' => $model->official_source_url ?? null, 'notes' => $data['notes'] ?? null, 'user_id' => $user->getAuthIdentifier(), 'exported' => false,
+            'review_status' => $status, 'confidence_level' => $confidence, 'last_verified_at' => $lastVerified,
+            'reviewed_by' => $reviewedBy, 'source_checked_url' => $model->official_source_url ?? null, 'notes' => $data['notes'] ?? null, 'user_id' => $user->getAuthIdentifier(), 'exported' => false,
         ]);
         $model->forceFill(['review_status' => $verification->review_status, 'confidence_level' => $verification->confidence_level, 'last_verified_at' => $verification->last_verified_at, 'reviewed_by' => $verification->reviewed_by])->save();
     }
@@ -366,15 +444,21 @@ class ReviewController extends Controller
         }
     }
 
-    private function decisionData(Request $request, array $extra = []): array
+    /** Validated decision fields; on failure the page comes back at the form that was sent. */
+    private function decisionData(Request $request, string $anchor, array $extra = []): array
     {
-        return $request->validate($extra + [
+        $validator = Validator::make($request->all(), $extra + [
             'decision' => ['required', 'in:approved,rejected,needs_information'],
             'notes' => ['nullable', 'string', 'max:2000'],
             // Written deliberately for /corrections. `notes` is the internal record and is
             // never published, so a reviewer who wants to say something publicly says it here.
             'public_note' => ['nullable', 'string', 'max:500'],
-        ]);
+        ], ['decision.required' => 'Choose a decision before recording it.', 'ids.required_without' => 'Tick at least one submission, or choose all matching.']);
+        if ($validator->fails()) {
+            throw (new ValidationException($validator))->redirectTo(BulkAction::back($anchor)->getTargetUrl());
+        }
+
+        return $validator->validated();
     }
 
     private function recordDecision(ContributorSubmission $submission, array $data, Authenticatable $user): void
