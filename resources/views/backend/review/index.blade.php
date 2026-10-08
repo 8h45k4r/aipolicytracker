@@ -1,7 +1,7 @@
 @extends('backend.layouts.app', ['title' => 'Review queue'])
 @section('content')
 <h1 class="font-display text-2xl font-semibold text-brand-navy">Review queue and publishing</h1>
-<p class="mt-1 meta max-w-3xl">Submissions are triaged here; approved content is applied to <code>data/</code> through a pull request. Imported records are confirmed against their official source and switched on or off for the public site, API and sitemaps. Tick rows, then act on the selection: one attestation covers the whole selection and every record still gets its own dated, named verification.</p>
+<p class="mt-1 meta max-w-3xl">Submissions are triaged here; approved content is applied to <code>data/</code> through a pull request. Imported records are confirmed against their official source and switched on or off for the public site, API and sitemaps. Tick rows, then act on the selection: one attestation covers the whole selection and every record still gets its own dated, named verification.@can('records.verify') The quarterly second checks are on <a href="{{ route('backend.checks.index') }}">Independent checks</a>.@endcan</p>
 
 <section class="mt-6" aria-labelledby="sub-heading">
     <div class="flex flex-wrap items-baseline justify-between gap-3"><h2 id="sub-heading" class="section-title !text-lg">Contributor submissions</h2><a href="{{ route('backend.admin.submissions') }}" class="text-sm">All submissions and feedback</a></div>
@@ -90,6 +90,31 @@
         @endforeach
         </tbody></table></div>
     <nav class="mt-4" aria-label="Records pagination">{{ $records->links() }}</nav>
+    @endif
+</section>
+
+{{-- Read-only: an enforcement event is an item inside its instrument's file and is rebuilt on
+     every import, so a decision is made in that file by pull request, not here. --}}
+<section class="mt-10" aria-labelledby="enf-heading" data-pending-enforcement="{{ $pendingEvents['total'] }}">
+    <h2 id="enf-heading" class="section-title !text-lg">Enforcement events pending review <span class="font-mono text-sm text-brand-muted">{{ $pendingEvents['total'] }}</span></h2>
+    <p class="mt-1 meta max-w-3xl">Listed, not decided here. An event is recorded inside its instrument's YAML file and rebuilt on every import, so a decision made in this queue would not survive the next import and could not be written back to the right item. Open the official source, then set <code>review_status</code>, <code>reviewed_by</code> and <code>last_verified_at</code> on the event in the policy file by pull request. A reader's report goes through the correction form.</p>
+    @if($pendingEvents['events']->isEmpty())
+    <div class="mt-3"><x-site.empty title="No enforcement events pending review">Events whose review status is “pending review” appear here.</x-site.empty></div>
+    @else
+    <div class="table-wrap mt-3 bg-white"><table>
+        <caption class="sr-only">Enforcement events with review status pending review</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">Instrument</th><th scope="col">Occurred</th><th scope="col">Data file</th></tr></thead>
+        <tbody>
+        @foreach($pendingEvents['events'] as $e)
+        <tr>
+            <td><a href="{{ $e->url() }}" target="_blank" rel="noopener">{{ $e->title }}</a><div class="meta">@if($e->official_source_url)<a href="{{ $e->official_source_url }}" target="_blank" rel="noopener">Open official source ↗</a>@else <span class="text-state-warn">no source URL</span> @endif · confidence {{ $e->confidence_level }}</div></td>
+            <td class="text-xs">@if($e->policyInstrument)<a href="{{ $e->policyInstrument->url() }}" target="_blank" rel="noopener">{{ $e->policyInstrument->short_title ?: $e->policyInstrument->title }}</a> · <a href="{{ route('contribute', ['type' => 'correction', 'subject_type' => 'policy', 'subject_slug' => $e->policyInstrument->slug]) }}" target="_blank" rel="noopener">correction form</a>@else — @endif</td>
+            <td class="text-xs whitespace-nowrap">{{ $e->occurred_on?->format('j M Y') ?? '—' }}</td>
+            <td class="text-xs"><code>{{ $pendingEvents['files'][$e->policyInstrument?->slug] ?? '—' }}</code></td>
+        </tr>
+        @endforeach
+        </tbody></table></div>
+    @if($pendingEvents['total'] > $pendingEvents['events']->count())<p class="mt-2 meta">Showing the latest {{ $pendingEvents['events']->count() }} of {{ $pendingEvents['total'] }}.</p>@endif
     @endif
 </section>
 @endsection

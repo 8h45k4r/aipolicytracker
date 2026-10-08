@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\ImplementationMeasure;
 use App\Services\Completeness\CompletenessReport;
 use App\Support\Seo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 /**
@@ -67,6 +69,20 @@ class CoverageController extends Controller
             'checks' => $completeness->checks(),
             'activeKind' => $kind,
             'activeCheck' => $check,
+            'implementation' => $kind || $check ? collect() : $this->implementationOpen(),
         ]);
+    }
+
+    /**
+     * Published implementation measures nobody has yet confirmed against the source:
+     * drafts (nothing read yet) and records pending review. Listed under their own
+     * heading because they are open work of a different kind from a missing field.
+     */
+    private function implementationOpen(): Collection
+    {
+        return ImplementationMeasure::published()->with('policyInstrument')
+            ->whereIn('review_status', ['draft', 'pending_review'])
+            ->orderByRaw("CASE review_status WHEN 'draft' THEN 0 ELSE 1 END")->orderBy('title')
+            ->get();
     }
 }

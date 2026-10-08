@@ -243,7 +243,7 @@ Every record type that makes a factual claim carries the shared source-quality c
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |
 
-Events are recorded inside the instrument's YAML (`enforcement_events`); an optional `jurisdiction` files an event where the authority acted (a national authority under an EU regulation). An event is public while its instrument is. Listed across instruments at `/enforcement` (`EnforcementController`), `GET /api/v1/enforcement`, `/open-data/enforcement.{csv,ndjson}` and the MCP tool `list_enforcement_actions`.
+Events are recorded inside the instrument's YAML (`enforcement_events`) and rebuilt on every import. The review queue lists the ones pending review read-only, with the policy file to change; the decision is made in that file by pull request. An optional `jurisdiction` files an event where the authority acted (a national authority under an EU regulation). An event is public while its instrument is. Listed across instruments at `/enforcement` (`EnforcementController`), `GET /api/v1/enforcement`, `/open-data/enforcement.{csv,ndjson}` and the MCP tool `list_enforcement_actions`.
 
 ## Schema: `implementation_measures`
 
@@ -275,6 +275,8 @@ Record type for the implementation and standards trackers, imported from `data/i
 | created_at, updated_at | datetime | yes |  |  |
 
 Pages: `/policies/{policy}/implementation` (non-standard measures of one instrument; 404 when it has none) and `/ai-standards` (standards). API `GET /api/v1/implementation-measures` (filters `instrument`, `kind`, `status` (derived), `body`, `standards`); exports `/open-data/implementation.{csv,ndjson}`; MCP `list_implementation_measures`. The include point for an instrument page is `<x-site.implementation-link :policy="$policy" />`, which renders nothing when the instrument has no measure.
+
+Review: implementation measures are a kind in the admin review queue (`implementation_measure`); decisions export to `data/implementation/<slug>.yaml`. Published drafts and records pending review are listed on `/gaps` under their own heading.
 
 Thin-content rule (`App\Services\Implementation\Trackers`): `/enforcement`, `/ai-standards` and each implementation page are `noindex` and left out of the sitemap until they hold 5 recorded (published, non-draft) entries; filtered views are always `noindex`.
 
@@ -401,7 +403,7 @@ Thin-content rule (`App\Services\Implementation\Trackers`): `/enforcement`, `/ai
 | exported | boolean | no | false | True once `policy:export-verifications` wrote it into data/ |
 | created_at / updated_at | timestamp | yes | | |
 
-Workflow: Admin → Review queue → open the official source → tick the rows (or "apply to all matching the filter") → save status and confidence once for the selection (verified requires the "source opened" attestation and a name on the published roster). `record_type` is any key of `App\Services\Review\ReviewableTypes`: `policy`, `jurisdiction`, `control`, `change`, `transition_measure`. `PolicyImporter` re-applies every stored decision after each import, so deploys never undo a verification. `php artisan policy:export-verifications` writes the review fields into the file that holds each record (`YamlRecordPatch`: line-level, so the rest of the file is untouched; a change log entry is one item inside its yearly file); commit them through a pull request so `data/` remains the source of truth.
+Workflow: Admin → Review queue → open the official source → tick the rows (or "apply to all matching the filter") → save status and confidence once for the selection (verified requires the "source opened" attestation and a name on the published roster). `record_type` is any key of `App\Services\Review\ReviewableTypes`: `policy`, `jurisdiction`, `control`, `change`, `transition_measure`, `implementation_measure`. The queue skips a record the data check would refuse after export: an implementation measure with no official source (only a draft may omit it), or a transition measure verified without one. It names the skipped slugs. `PolicyImporter` re-applies every stored decision after each import, so deploys never undo a verification. `php artisan policy:export-verifications` writes the review fields into the file that holds each record (`YamlRecordPatch`: line-level, so the rest of the file is untouched; a change log entry is one item inside its yearly file); commit them through a pull request so `data/` remains the source of truth.
 
 Routes (`routes/backend/web.php`, all behind `auth`, `isAdmin`, `admin.2fa`, `admin.audit`): `GET /backend/review?type=&q=&review=&published=` (`submissions.decide`); `POST /backend/review/verify/{type}/{slug}` and `POST /backend/review/verify-many/{type}` (`records.verify`; body `slugs[]`, or `scope=filtered` with the filter fields); `POST /backend/review/publish/{type}/{slug}` and `POST /backend/review/publish-many/{type}` (`records.publish`; `publish` 0/1); `POST /backend/review/submissions/{submission}/decide` and `POST /backend/review/submissions/decide-many` (`submissions.decide`; `ids[]`). Reviewed in [docs/reference/admin-review-2026-09-26.md](../reference/admin-review-2026-09-26.md).
 
@@ -449,7 +451,7 @@ Routes (`routes/backend/web.php`, all behind `auth`, `isAdmin`, `admin.2fa`, `ad
 Public (Blade, server-rendered): `home`, `policies.index|show|json`, `jurisdictions.index|show`, `obligations.index|show`, `compare.index|show`, `changes.index|year|feed`, `tools.applicability`, `open-data`, `open-data.download`, `methodology`, `about`, `contribute`, `contribute.store`, `guides.index|show`, `landing`, `sitemap.index|section`, `llms`, `llms.full`, `openapi`.
 Search (public, throttled, never indexed): `search` (grouped results with a top match) and `search.suggest` (JSON typeahead, up to 8 `{title, type, url}`, `Cache-Control: public, max-age=600`). Laws are ordered by `App\Services\Search\PolicyRanker`: how well the query names the record (exact short title, title, slug, bracketed name or jurisdiction plus short title; then the query as whole words in a name; every word at a word start; matching published duties; text), then legal force (in force, adopted, guidance, proposed, then repealed, superseded and archived), binding force, number of matching duties, most recent date, and title.
 API (read-only, throttled, cached): `api.v1.root|jurisdictions|jurisdiction|policies|policy|obligations|obligation|changes|taxonomies`.
-Admin (auth + `isAdmin`): `backend.review.index|decide|publish`.
+Admin (auth + `isAdmin`): `backend.review.index|decide|publish`; `backend.checks.index|export` (independent checks, `records.verify`).
 
 ## Commands
 
