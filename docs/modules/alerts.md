@@ -112,6 +112,7 @@ Unique (`user_id`, `subject_type`, `subject_slug`); index (`subject_type`, `subj
 | Email | `App\Mail\DailyAlertMail`, `emails/site/alert` (+ text) |
 | Follow toggle and list | `Site\FollowController`, `site/account/following` |
 | Follow button (Pro form or pricing link) | `components/site/follow-button`, rendered inside `components/site/correction-cta` on policy, jurisdiction and obligation pages |
+| Admin page (cards, deliveries with retry, consent log) | `Backend\Admin\AlertsController`, `backend/admin/alerts` |
 | Scheduled trigger | `Site\CronController::alerts`, `.github/workflows/daily-alerts.yml` (06:30 UTC daily, `CRON_TOKEN`) |
 
 ## Routes
@@ -123,10 +124,29 @@ Unique (`user_id`, `subject_type`, `subject_slug`); index (`subject_type`, `subj
 | POST | `/profiles` | `profiles.store` | `auth`, `verified`, `subscribed:saved.server`, throttle 30/min |
 | DELETE | `/profiles/{profile}` | `profiles.destroy` | `auth`, `verified`; owner only |
 | POST | `/cron/alerts` | `cron.alerts` | bearer `cron_token`, no CSRF, throttle 5/min |
+| GET | `/backend/admin/alerts` | `backend.admin.alerts.index` | admin, `audience.view` |
+| GET | `/backend/admin/alerts/deliveries/export` | `backend.admin.alerts.deliveries.export` | admin, `audience.view`, audited |
+| POST | `/backend/admin/alerts/deliveries/{delivery}/retry` | `backend.admin.alerts.deliveries.retry` | admin, `subscribers.manage`, audited |
+| POST | `/backend/admin/alerts/deliveries/retry-many` | `backend.admin.alerts.deliveries.retry.many` | admin, `subscribers.manage`, audited; at most 25 ids |
+
+## Admin page
+
+Admin → Alerts (`Backend\Admin\AlertsController`, `backend/admin/alerts`). Reading it needs `audience.view`; retrying needs `subscribers.manage`, the same split as the subscribers page.
+
+- **Cards.** Accounts with watches, watches by type, saved profiles, channels by kind (enabled of total), the last `alerts:send` run, deliveries today (alert emails plus Slack and webhook sends) and deliveries failed in the last 7 days.
+- **Deliveries.** Every `channel_deliveries` row with status, attempts, response code, last error and next attempt. Filter by status, channel kind, date and account email or error text. CSV export.
+- **Retry now.** For one row or a selection, after a confirmation. It calls `WebhookDispatcher::attempt`, so the signature, the attempt count and the backoff are the same as the hourly retry. A sent delivery is never sent again.
+- **Consent events.** The latest 100, filterable by kind.
+
+Endpoints show as host and a shortened path, on screen and in the CSV. A Slack webhook URL is itself a credential. Payloads are not exported.
+
+The admin dashboard raises Slack or webhook deliveries that failed in the last 7 days (warning) to accounts with `subscribers.manage`.
 
 ## Tests
 
 `tests/Feature/AlertsTest.php`: saved profiles are Pro only, normalise answers, refuse duplicates, scope the alert to the matching profile, name it in the subject and body, never match a profile in another market, and delete only for the owner; guests and free accounts see "Follow with Pro" and cannot follow; Pro toggles on and off, unknown records and types are refused, lists are per account; the daily send reaches followers by policy and by jurisdiction, skips unrelated, lapsed and free followers, is idempotent per day and quiet when nothing changed; a deadline milestone alone sends an alert and obligation follows match their instrument; the cron endpoint requires the token.
+
+`tests/Feature/AdminAlertsPageTest.php`: read and retry capabilities; cards from seeded watches, profiles, channels, runs and deliveries; status filter; CSV with formulas neutralised and no full endpoint; single and bulk retry through the dispatcher with faked HTTP, including backoff on failure and the 25-row cap; consent filter; dashboard item.
 
 ## Open debt
 
