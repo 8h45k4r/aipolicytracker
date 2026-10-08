@@ -8,6 +8,7 @@ use App\Http\Middleware\EnsureSubscribed;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\RecordAdminAction;
 use App\Http\Middleware\SecurityHeaders;
+use App\Support\Admin\AdminErrorPage;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -55,6 +56,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        // Inside /backend, a signed-in administrator's 403, 404, 419, 429 and 500 render in
+        // the admin layout with the reason and a way back; everything else, and anything
+        // that fails while drawing that page, falls through to the public error pages.
+        $exceptions->render(fn (Throwable $e, Request $request) => AdminErrorPage::render($e, $request));
+
         // The handler builds the error response outside the middleware stack, so the
         // header is set here as well: the reference the page shows is the one on the
         // wire and the one in the log.
