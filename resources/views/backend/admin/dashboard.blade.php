@@ -5,34 +5,41 @@
 @php($healthy = $scheduled->filter(fn ($run) => $run && $run->finished_at && $run->succeeded())->count())
 @php($verifiedPct = $stats['policies'] ? (int) round(100 * $stats['policies_verified'] / $stats['policies']) : 0)
 
-<div class="flex flex-wrap items-end justify-between gap-4">
-    <div>
-        <h1 class="font-display text-2xl font-semibold text-brand-navy">Dashboard</h1>
-        <p class="mt-1 meta">{{ now()->format('l j F Y') }} · signed in as {{ $user->name }}</p>
-    </div>
-    <div class="flex flex-wrap gap-2 text-sm" aria-label="Quick actions">
-        @can('submissions.decide')<a href="{{ route('backend.review.index') }}" class="btn-primary !min-h-[38px] !py-1.5">Open review queue</a>@endcan
-        @can('users.manage')<a href="{{ route('backend.admin.users.index') }}#invite" class="btn-secondary !min-h-[38px] !py-1.5">Invite a user</a>@endcan
-        @can('jobs.run')<a href="{{ route('backend.admin.jobs') }}" class="btn-secondary !min-h-[38px] !py-1.5">Run a job</a>@endcan
-    </div>
-</div>
+{{-- Quick actions sit in the header, each also a palette command (Ctrl K); only the ones
+     this role can take are offered. --}}
+<x-backend.page-header title="Dashboard" :description="now()->format('l j F Y').' · signed in as '.$user->name.' ('.$user->adminRoleLabel().')'">
+    <x-slot:actions>
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Quick actions" data-quick-actions>
+            @can('users.manage')<a href="{{ route('backend.admin.users.index') }}#invite" class="btn-secondary" data-command="Invite a user">Invite a user</a>@endcan
+            @can('submissions.decide')<a href="{{ route('backend.review.index') }}" class="btn-secondary" data-command="Open the review queue">Review queue</a>@endcan
+            @can('jobs.run')<a href="{{ route('backend.admin.jobs') }}#job-digest_dry_run" class="btn-secondary" data-command="Run the weekly digest as a dry run">Digest dry run</a>@endcan
+            @can('settings.manage')<a href="{{ route('backend.admin.funding.index') }}#funder-form" class="btn-secondary" data-command="Add a funder">Add a funder</a>@endcan
+        </div>
+    </x-slot:actions>
+</x-backend.page-header>
 
-{{-- What needs someone now, most serious first. Everything below is reference. --}}
+{{-- What needs someone now, most serious first, each with the one thing to do about it.
+     It is the first section on purpose: everything below it is reference. --}}
+@php($severity = [
+    'critical' => ['Action needed', 'btn-primary', '<path d="M10 6v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="14" r="1.1" fill="currentColor"/><circle cx="10" cy="10" r="7.25" stroke="currentColor" stroke-width="1.5" fill="none"/>'],
+    'warning' => ['Review', 'btn-secondary', '<path d="M10 3.5 17.5 16.5h-15z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M10 8v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="14.3" r="1" fill="currentColor"/>'],
+    'info' => ['For information', 'btn-secondary', '<circle cx="10" cy="10" r="7.25" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="6.3" r="1.1" fill="currentColor"/>'],
+])
 <section class="mt-6" aria-labelledby="attention-heading" data-attention>
-    <h2 id="attention-heading" class="sr-only">Needs attention</h2>
+    <h2 id="attention-heading" class="text-sm font-semibold uppercase tracking-wide text-brand-muted">Needs attention @if($attention !== [])<span class="ml-1 rounded-full bg-brand-paper px-1.5 text-xs tabular-nums ring-1 ring-brand-line">{{ count($attention) }}</span>@endif</h2>
     @if($attention === [])
-    <p class="card-flat flex items-center gap-3 p-4 text-sm text-state-good"><svg class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 10.5 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><span class="font-semibold">All clear.</span> Nothing needs attention: jobs are healthy, the queues are empty and email is being delivered.</span></p>
+    <p class="mt-2 card-flat flex items-center gap-3 p-4 text-sm text-state-good"><svg class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 10.5 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><span class="font-semibold">All clear.</span> Nothing needs attention: jobs are healthy, the queues are empty and email is being delivered.</span></p>
     @else
-    <ul class="card-flat divide-y divide-brand-line">
+    <ul class="mt-2 card-flat divide-y divide-brand-line">
         @foreach($attention as $item)
-        @php($tone = ['critical' => ['bg-state-bad', 'text-state-bad', 'Action needed'], 'warning' => ['bg-state-warn', 'text-state-warn', 'Review'], 'info' => ['bg-brand-blue', 'text-brand-blue', 'For information']][$item['severity']])
+        @php($tone = $severity[$item['severity']])
         <li class="flex flex-wrap items-center gap-x-4 gap-y-2 p-4" data-severity="{{ $item['severity'] }}">
-            <span class="h-2.5 w-2.5 shrink-0 rounded-full {{ $tone[0] }}" aria-hidden="true"></span>
-            <div class="min-w-0 flex-1 basis-[calc(100%-2rem)] sm:basis-0">
-                <p class="text-sm font-semibold text-brand-navy"><span class="sr-only">{{ $tone[2] }}: </span>{{ $item['title'] }}</p>
+            <span class="adm-sev adm-sev-{{ $item['severity'] }}" title="{{ $tone[0] }}"><svg class="h-5 w-5" viewBox="0 0 20 20" aria-hidden="true">{!! $tone[2] !!}</svg></span>
+            <div class="min-w-0 flex-1 basis-[calc(100%-3rem)] sm:basis-0">
+                <p class="text-sm font-semibold text-brand-navy"><span class="sr-only">{{ $tone[0] }}: </span>{{ $item['title'] }}</p>
                 <p class="text-sm text-brand-muted">{{ $item['detail'] }}</p>
             </div>
-            <a href="{{ $item['url'] }}" class="btn-secondary ml-6 sm:ml-0 !min-h-[36px] !py-1 text-sm">{{ $item['action'] }}</a>
+            <a href="{{ $item['url'] }}" class="{{ $tone[1] }} btn-sm ml-11 sm:ml-0">{{ $item['action'] }}</a>
         </li>
         @endforeach
     </ul>

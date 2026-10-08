@@ -1,7 +1,7 @@
 @extends('backend.layouts.app', ['title' => 'Guides and downloads'])
 @section('content')
 <x-backend.page-header title="Guides and downloads" description="Who requests and downloads the templates and free tools, and how they found them. Each view filters, sorts and exports on its own.">
-    <x-slot:actions>@can('tools.manage')<a href="{{ route('backend.admin.tools.index') }}" class="btn-secondary !min-h-[38px] !py-1.5">Manage the tool library</a>@endcan</x-slot:actions>
+    <x-slot:actions>@can('tools.manage')<a href="{{ route('backend.admin.tools.index') }}" class="btn-secondary">Manage the tool library</a>@endcan</x-slot:actions>
 </x-backend.page-header>
 
 <nav class="adm-tabs" aria-label="Views">

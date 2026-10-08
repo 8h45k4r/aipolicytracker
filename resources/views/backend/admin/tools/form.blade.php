@@ -2,12 +2,22 @@
 @section('content')
 @php($fw = config('resources.frameworks'))
 @php($topics = config('resources.topics'))
-<div class="flex flex-wrap items-start justify-between gap-3">
-    <div><h1 class="font-display text-2xl font-semibold text-brand-navy">{{ $tool->exists ? $tool->title : 'New tool' }}</h1><p class="mt-1 meta"><a href="{{ route('backend.admin.tools.index') }}">Tool library</a>@if($tool->exists) · <span class="font-mono">{{ $tool->slug }}</span> · {{ \App\Models\Tool::STATUSES[$tool->status] }}@if($tool->status === 'published') · <a href="{{ $tool->url() }}" target="_blank" rel="noopener">View public page</a>@endif @endif</p></div>
-    @if($tool->exists && $tool->status !== 'archived')
-    <form method="post" action="{{ route('backend.admin.tools.destroy', $tool) }}" data-confirm="Archive this tool? It will be hidden from /guides and can no longer be downloaded. Download records are kept.">@csrf @method('DELETE')<button type="submit" class="btn-secondary">Archive</button></form>
-    @endif
-</div>
+@php($statusBadge = $tool->exists ? \App\Models\Tool::STATUSES[$tool->status] : null)
+<x-backend.page-header :title="$tool->exists ? $tool->title : 'New tool'" :crumbs="[['Tool library', route('backend.admin.tools.index')], [$tool->exists ? $tool->title : 'New tool']]">
+    <x-slot:description>
+        @if($tool->exists)
+        <span class="font-mono">{{ $tool->slug }}</span> · <x-backend.badge :status="$tool->status">{{ $statusBadge }}</x-backend.badge>
+        @if($tool->status === 'published') · <a href="{{ $tool->url() }}" target="_blank" rel="noopener">View public page</a> @endif
+        @else
+        Give it a title and a slug, save it as a draft, then upload its files.
+        @endif
+    </x-slot:description>
+    <x-slot:actions>
+        @if($tool->exists && $tool->status !== 'archived')
+        <form method="post" action="{{ route('backend.admin.tools.destroy', $tool) }}" data-confirm="Archive this tool? It will be hidden from /guides and can no longer be downloaded. Download records are kept." data-confirm-danger data-confirm-label="Archive">@csrf @method('DELETE')<button type="submit" class="btn-secondary">Archive</button></form>
+        @endif
+    </x-slot:actions>
+</x-backend.page-header>
 <div class="mt-6 grid gap-8 lg:grid-cols-3">
 <form method="post" action="{{ $tool->exists ? route('backend.admin.tools.update', $tool) : route('backend.admin.tools.store') }}" class="lg:col-span-2 card-flat p-5 space-y-4">
     @csrf @if($tool->exists) @method('PUT') @endif
@@ -43,9 +53,9 @@
                 <div class="flex flex-wrap items-center justify-between gap-2"><span class="font-mono">{{ $f->file_name }}</span><span class="badge-neutral">{{ $f->label }}</span></div>
                 <p class="meta mt-0.5">v{{ $f->version }} · {{ number_format($f->size / 1024, 1) }} KB · {{ $f->download_count ?: '—' }} downloads · {{ $f->is_active ? 'active' : 'inactive' }}@if(!$f->exists()) · <span class="text-state-bad">file missing on disk</span>@endif</p>
                 <div class="mt-1.5 flex flex-wrap gap-1.5">
-                    <a href="{{ route('backend.admin.tools.files.download', [$tool, $f]) }}" class="btn-secondary !min-h-0 !py-1">Download</a>
-                    <form method="post" action="{{ route('backend.admin.tools.files.toggle', [$tool, $f]) }}">@csrf<button type="submit" class="btn-secondary !min-h-0 !py-1">{{ $f->is_active ? 'Deactivate' : 'Activate' }}</button></form>
-                    <form method="post" action="{{ route('backend.admin.tools.files.destroy', [$tool, $f]) }}" data-confirm="Remove this file permanently?">@csrf @method('DELETE')<button type="submit" class="btn-secondary !min-h-0 !py-1">Remove</button></form>
+                    <a href="{{ route('backend.admin.tools.files.download', [$tool, $f]) }}" class="btn-secondary btn-sm">Download</a>
+                    <form method="post" action="{{ route('backend.admin.tools.files.toggle', [$tool, $f]) }}">@csrf<button type="submit" class="btn-secondary btn-sm">{{ $f->is_active ? 'Deactivate' : 'Activate' }}</button></form>
+                    <form method="post" action="{{ route('backend.admin.tools.files.destroy', [$tool, $f]) }}" data-confirm="Remove {{ $f->file_name }} permanently? Its download history is kept.">@csrf @method('DELETE')<button type="submit" class="btn-secondary btn-sm">Remove</button></form>
                 </div>
             </li>
             @empty<li class="py-2 text-brand-muted">No files yet.</li>@endforelse

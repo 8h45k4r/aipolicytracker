@@ -23,6 +23,8 @@ html[data-admin] .table-wrap { background: rgb(var(--c-white)); border: 1px soli
 html[data-admin] .table-wrap table { width: 100%; }
 html[data-admin] .table-wrap thead th { position: sticky; top: 0; z-index: 1; background: rgb(var(--c-paper)); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(var(--c-muted)); }
 html[data-admin] .table-wrap tbody tr:hover { background: rgb(var(--c-paper) / 0.6); }
+/* A row a link pointed at (…/jobs#job-digest_dry_run) is marked, so the eye lands on it. */
+html[data-admin] .table-wrap tbody tr:target { background: rgb(var(--c-infobg)); box-shadow: inset 3px 0 0 rgb(var(--c-blue)); }
 
 /* Cards and figures. */
 html[data-admin] .card-flat { border-radius: 6px; }
@@ -74,3 +76,48 @@ dialog.adm-palette { margin-top: 12vh; width: min(36rem, calc(100vw - 2rem)); }
 .btn-danger:hover { filter: brightness(0.92); }
 button[aria-busy="true"] { cursor: progress; opacity: 0.75; }
 kbd.adm-kbd { display: inline-block; padding: 0 0.3rem; border: 1px solid rgb(255 255 255 / 0.25); border-radius: 3px; font-size: 10px; line-height: 1.4; }
+
+/*
+ Admin button scale. Two sizes, so a page never invents its own with !min-h-0 !py-1:
+
+   default   .btn-primary / .btn-secondary / .btn-accent / .btn-danger
+             38px tall. Page headers, filter bars, forms, dialogs, the attention list.
+   .btn-sm   add to any of them: 30px tall, smaller type. Table rows, file lists and
+             bulk bars, where full-size buttons would double the row height. Still
+             above the 24px target size of WCAG 2.2 (2.5.8).
+
+ The public site keeps its 44px buttons; this applies under html[data-admin] only.
+*/
+html[data-admin] .btn-primary,
+html[data-admin] .btn-secondary,
+html[data-admin] .btn-accent,
+html[data-admin] .btn-danger { min-height: 38px; padding: 0.375rem 0.875rem; }
+html[data-admin] .btn-sm { min-height: 30px; padding: 0.25rem 0.625rem; font-size: 0.8125rem; gap: 0.375rem; }
+
+/* Sidebar: the menu scrolls on its own and fades at an edge with more beyond it
+   (admin.js sets data-overflow), so a clipped last entry reads as "scroll", not as cut. */
+.adm-nav { scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / 0.25) transparent; }
+.adm-nav[data-overflow="bottom"] { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); }
+.adm-nav[data-overflow="top"] { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 20px); mask-image: linear-gradient(to bottom, transparent, #000 20px); }
+.adm-nav[data-overflow="both"] { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 20px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to bottom, transparent, #000 20px, #000 calc(100% - 28px), transparent); }
+
+/* Account menu in the sidebar footer. */
+.adm-account > summary { list-style: none; cursor: pointer; }
+.adm-account > summary::-webkit-details-marker { display: none; }
+.adm-account[open] > summary { background: rgb(255 255 255 / 0.06); }
+
+/* Breadcrumb above a page title. */
+.adm-crumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; margin: 0; padding: 0; list-style: none; font-size: 0.8125rem; color: rgb(var(--c-muted)); }
+.adm-crumbs li + li::before { content: "›"; margin-right: 0.25rem; }
+.adm-crumbs a { color: inherit; text-decoration: none; }
+.adm-crumbs a:hover { color: rgb(var(--c-navy)); text-decoration: underline; }
+
+/* Palette: a record result carries a second line saying what it is. */
+.adm-palette-item .adm-palette-detail { display: block; color: rgb(var(--c-muted)); font-size: 0.75rem; }
+.adm-palette-group { padding: 0.5rem 0.875rem 0.25rem; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(var(--c-muted)); }
+
+/* Attention list on the dashboard: one icon per severity, coloured and shaped differently. */
+.adm-sev { display: inline-flex; align-items: center; justify-content: center; width: 1.75rem; height: 1.75rem; border-radius: 999px; flex-shrink: 0; }
+.adm-sev-critical { background: rgb(var(--c-bad, 185 28 28) / 0.1); color: rgb(var(--c-bad, 185 28 28)); }
+.adm-sev-warning { background: rgb(var(--c-warn, 161 98 7) / 0.12); color: rgb(var(--c-warn, 161 98 7)); }
+.adm-sev-info { background: rgb(var(--c-blue, 0 106 172) / 0.1); color: rgb(var(--c-blue, 0 106 172)); }

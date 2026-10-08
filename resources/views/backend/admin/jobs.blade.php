@@ -14,12 +14,12 @@
     <tbody>
     @foreach($jobs as $key => $job)
     @php($last = $latest[$key])
-    <tr>
+    <tr id="job-{{ $key }}">
         <td><a href="{{ route('backend.admin.jobs', ['job' => $key]) }}#history" class="font-medium text-brand-navy no-underline hover:underline" title="This job's run history">{{ $job['label'] }}</a><div class="meta">{{ $job['what'] }} <code class="text-[11px]">{{ $job['command'] }}</code></div></td>
         <td class="whitespace-nowrap text-xs">{{ $job['schedule'] }}</td>
         <td class="whitespace-nowrap text-xs">@if($last){{ $last->started_at->format('j M Y H:i') }}<div class="meta">{{ $last->trigger }}@if($last->user) · {{ $last->user->name }}@endif</div>@else<span class="text-brand-muted">never</span>@endif</td>
         <td>@if($last)<span class="badge {{ $last->finished_at === null ? 'bg-state-warnbg text-state-warn ring-state-warn/20' : ($last->succeeded() ? 'bg-state-goodbg text-state-good ring-state-good/20' : 'bg-state-badbg text-state-bad ring-state-bad/20') }}">{{ $last->finished_at === null ? 'running' : ($last->succeeded() ? 'ok' : 'failed') }}</span>@if($last->output)<details class="mt-1 text-xs"><summary class="cursor-pointer text-brand-muted">output</summary><pre class="mt-1 max-h-40 overflow-auto whitespace-pre-wrap rounded-sm bg-brand-paper p-2 text-[11px]">{{ $last->output }}</pre></details>@endif @else<span class="text-brand-muted">—</span>@endif</td>
-        <td><form method="post" action="{{ $job['confirm'] ? route('backend.admin.jobs.run.confirmed', $key) : route('backend.admin.jobs.run', $key) }}" @if($job['confirm']) data-confirm="Run “{{ $job['label'] }}” now? {{ $job['what'] }} This acts on live data or sends mail, and cannot be undone." data-confirm-label="Run now" data-confirm-danger @endif>@csrf<button type="submit" class="btn-secondary !min-h-0 !py-1 text-xs whitespace-nowrap">Run now</button>@if($job['confirm'])<div class="meta mt-0.5">asks first</div>@endif</form></td>
+        <td><form method="post" action="{{ $job['confirm'] ? route('backend.admin.jobs.run.confirmed', $key) : route('backend.admin.jobs.run', $key) }}" @if($job['confirm']) data-confirm="Run “{{ $job['label'] }}” now? {{ $job['what'] }} This acts on live data or sends mail, and cannot be undone." data-confirm-label="Run now" data-confirm-danger @endif>@csrf<button type="submit" class="btn-secondary btn-sm whitespace-nowrap" @if($key === 'digest_dry_run') data-command="Run the weekly digest as a dry run" @endif>Run now</button>@if($job['confirm'])<div class="meta mt-0.5">asks first</div>@endif</form></td>
     </tr>
     @endforeach
     </tbody></table></div>
