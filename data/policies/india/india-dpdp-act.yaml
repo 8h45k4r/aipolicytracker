@@ -47,6 +47,7 @@ use_cases: [generative_ai, finance_and_credit, hiring_and_hr, health]
 related_policies: [india-ai-governance-guidelines, eu-ai-act]
 obligations:
   - slug: india-dpdp-consent-and-notice
+    short_title: "Consent and notice"
     title: Process personal data only with valid consent or a legitimate use, after notice
     category: privacy_data_protection
     source_reference: "Sections 4 to 7"
@@ -70,6 +71,7 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Legal basis and notice recorded for each training and inference data source.", confidence_level: high }
       - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Dataset documentation records consent status per source.", confidence_level: medium }
   - slug: india-dpdp-security-and-breach-notification
+    short_title: "Security and breach notification"
     title: Implement reasonable security safeguards and notify breaches
     category: incident_handling
     source_reference: "Section 8(5) and 8(6); DPDP Rules on breach intimation"
@@ -94,6 +96,7 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Breach handling extended to model outputs and training data.", confidence_level: medium }
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Reasonable security safeguards evidenced by testing.", confidence_level: medium }
   - slug: india-dpdp-significant-data-fiduciary-duties
+    short_title: "Significant Data Fiduciary duties"
     title: Significant Data Fiduciaries must appoint a DPO and run impact assessments and audits
     category: impact_assessment
     source_reference: "Section 10"

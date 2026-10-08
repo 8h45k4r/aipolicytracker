@@ -186,6 +186,12 @@
             "type": "string",
             "minLength": 5
           },
+          "short_title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 48,
+            "description": "The topic as people search for it, e.g. the article heading. Used in the page title."
+          },
           "category": {
             "type": "string"
           },

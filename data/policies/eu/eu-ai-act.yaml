@@ -100,6 +100,7 @@ sections:
   - { reference: "Article 113", title: "Entry into force and application", summary: "Phased application dates." }
 obligations:
   - slug: eu-ai-act-prohibited-practices
+    short_title: "Prohibited AI practices"
     title: Do not deploy or provide AI for prohibited practices
     category: prohibited_practice
     section: "Article 5"
@@ -134,6 +135,7 @@ obligations:
       - { control: prohibited-use-screening-gate, relationship: satisfies, note: "Screens every new and existing system against the banned practices with a recorded outcome.", confidence_level: high }
       - { control: ai-system-inventory, relationship: supports, note: "A complete register is the population to be screened.", confidence_level: high }
   - slug: eu-ai-act-ai-literacy
+    short_title: "AI literacy"
     title: Ensure AI literacy of staff operating AI systems
     category: ai_literacy
     section: "Article 4"
@@ -161,6 +163,7 @@ obligations:
     controls:
       - { control: ai-literacy-and-role-based-training, relationship: satisfies, note: "Role-based curricula with completion records are the expected measure.", confidence_level: high }
   - slug: eu-ai-act-risk-management-system
+    short_title: "Risk management system"
     title: Establish a risk management system for high-risk AI
     category: risk_management
     section: "Articles 8–15"
@@ -193,6 +196,7 @@ obligations:
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Testing confirms that mitigations work.", confidence_level: high }
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Post-market data feeds risk re-evaluation.", confidence_level: medium }
   - slug: eu-ai-act-data-governance
+    short_title: "Data and data governance"
     title: Apply data governance and quality criteria to training, validation and testing data
     category: data_governance
     section: "Articles 8–15"
@@ -224,6 +228,7 @@ obligations:
       - { control: data-governance-and-dataset-documentation, relationship: satisfies, note: "Dataset documentation, representativeness and bias checks per dataset.", confidence_level: high }
       - { control: training-data-provenance-and-copyright-register, relationship: supports, note: "Origin and collection records for each source.", confidence_level: medium }
   - slug: eu-ai-act-technical-documentation
+    short_title: "Technical documentation"
     title: Draw up technical documentation before placing a high-risk system on the market
     category: technical_documentation
     section: "Articles 8–15"
@@ -254,6 +259,7 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Versioned technical file structured to the required elements.", confidence_level: high }
       - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Dataset sheets supply the data sections.", confidence_level: high }
   - slug: eu-ai-act-record-keeping
+    short_title: "Record-keeping"
     title: Design high-risk systems to log events automatically
     category: record_keeping
     section: "Articles 8–15"
@@ -282,6 +288,7 @@ obligations:
     controls:
       - { control: record-keeping-and-logging, relationship: satisfies, note: "Automatic logging with a defined schema, retention and access controls.", confidence_level: high }
   - slug: eu-ai-act-transparency-to-deployers
+    short_title: "Transparency and information to deployers"
     title: Provide deployers with clear instructions for use
     category: transparency
     section: "Articles 8–15"
@@ -311,6 +318,7 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Instructions for use derived from the technical documentation.", confidence_level: medium }
       - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Customer terms carry the instructions and feedback channels.", confidence_level: medium }
   - slug: eu-ai-act-human-oversight
+    short_title: "Human oversight"
     title: Enable and assign effective human oversight
     category: human_oversight
     section: "Articles 8–15"
@@ -341,6 +349,7 @@ obligations:
       - { control: human-oversight-and-override, relationship: satisfies, note: "Oversight roles, interface measures, stop mechanism and override paths per deployment.", confidence_level: high }
       - { control: ai-literacy-and-role-based-training, relationship: supports, note: "Overseers must be competent and alert to automation bias.", confidence_level: medium }
   - slug: eu-ai-act-accuracy-robustness-cybersecurity
+    short_title: "Accuracy, robustness and cybersecurity"
     title: Achieve appropriate accuracy, robustness and cybersecurity
     category: accuracy_robustness_security
     section: "Articles 8–15"
@@ -374,6 +383,7 @@ obligations:
       - { control: genai-red-team-testing, relationship: supports, note: "Adversarial exercises cover poisoning, evasion and extraction attempts.", confidence_level: medium }
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Consistent performance over the lifecycle is confirmed in operation.", confidence_level: medium }
   - slug: eu-ai-act-quality-management-system
+    short_title: "Quality management system"
     title: Operate a quality management system
     category: quality_management
     section: "Articles 16–27"
@@ -405,6 +415,7 @@ obligations:
       - { control: model-release-and-change-management-gate, relationship: supports, note: "Design, release and change procedures within the system.", confidence_level: medium }
       - { control: ai-governance-policy-and-accountability, relationship: supports, note: "Accountability and resource allocation.", confidence_level: medium }
   - slug: eu-ai-act-conformity-assessment-registration
+    short_title: "Conformity assessment and registration"
     title: Complete conformity assessment, CE marking and EU database registration
     category: conformity_assessment
     section: "Articles 16–27"
@@ -435,6 +446,7 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: supports, note: "The technical file is the input to the assessment.", confidence_level: high }
       - { control: ai-quality-management-system, relationship: supports, note: "Internal-control assessment relies on the documented management system.", confidence_level: medium }
   - slug: eu-ai-act-deployer-obligations
+    short_title: "Obligations of deployers of high-risk AI"
     title: Use high-risk AI as instructed, monitor it and inform affected people
     category: governance_accountability
     section: "Articles 16–27"
@@ -467,6 +479,7 @@ obligations:
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Monitoring operation and informing the provider of risks.", confidence_level: medium }
       - { control: ai-interaction-and-use-disclosure, relationship: supports, note: "Informing workers and affected people that a high-risk system is used.", confidence_level: medium }
   - slug: eu-ai-act-fundamental-rights-impact-assessment
+    short_title: "Fundamental rights impact assessment"
     title: Carry out a fundamental rights impact assessment before deployment
     category: impact_assessment
     section: "Articles 16–27"
@@ -498,6 +511,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: satisfies, note: "A rights-focused assessment template covering the required elements.", confidence_level: high }
       - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Reuse of the DPIA workflow and findings.", confidence_level: high }
   - slug: eu-ai-act-transparency-article-50
+    short_title: "Transparency obligations for AI systems"
     title: Disclose AI interaction and label synthetic content
     category: transparency
     section: "Article 50"
@@ -528,6 +542,7 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "User-facing AI interaction notices.", confidence_level: high }
       - { control: synthetic-content-labelling-and-provenance, relationship: satisfies, note: "Machine-readable marking of synthetic output and deepfake labels.", confidence_level: high }
   - slug: eu-ai-act-gpai-provider-obligations
+    short_title: "Obligations of GPAI model providers"
     title: Meet general-purpose AI model provider obligations
     category: copyright_training_data
     section: "Articles 51–56"
@@ -560,6 +575,7 @@ obligations:
       - { control: training-data-provenance-and-copyright-register, relationship: satisfies, note: "Produces the copyright policy and the public training-content summary.", confidence_level: high }
       - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Provides the model documentation and the downstream information pack.", confidence_level: medium }
   - slug: eu-ai-act-gpai-systemic-risk
+    short_title: "GPAI models with systemic risk"
     title: Manage systemic risk for high-impact general-purpose models
     category: safety_testing
     section: "Articles 51–56"
@@ -590,6 +606,7 @@ obligations:
       - { control: genai-red-team-testing, relationship: satisfies, note: "Model evaluation including adversarial testing.", confidence_level: medium }
       - { control: ai-incident-management-and-reporting, relationship: supports, note: "Tracking and reporting serious incidents to the AI Office.", confidence_level: medium }
   - slug: eu-ai-act-post-market-monitoring
+    short_title: "Post-market monitoring"
     title: Operate a post-market monitoring system
     category: post_market_monitoring
     section: "Article 72"
@@ -620,6 +637,7 @@ obligations:
       - { control: record-keeping-and-logging, relationship: supports, note: "Logs are the primary data source.", confidence_level: high }
       - { control: ai-incident-management-and-reporting, relationship: supports, note: "Monitoring findings escalate into incidents.", confidence_level: medium }
   - slug: eu-ai-act-serious-incident-reporting
+    short_title: "Reporting of serious incidents"
     title: Report serious incidents to market surveillance authorities
     category: incident_handling
     section: "Article 73"
@@ -651,6 +669,7 @@ obligations:
       - { control: ai-incident-management-and-reporting, relationship: satisfies, note: "Serious-incident criteria, causal-link decision and the reporting clock in the playbook.", confidence_level: high }
       - { control: record-keeping-and-logging, relationship: supports, note: "Logs support the investigation and report.", confidence_level: medium }
   - slug: eu-ai-act-importer-distributor-obligations
+    short_title: "Obligations of importers and distributors"
     title: Verify conformity before importing or distributing high-risk AI
     category: vendor_governance
     section: "Articles 16–27"
@@ -681,6 +700,7 @@ obligations:
       - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Supplier terms require the paperwork and notice of changes.", confidence_level: medium }
       - { control: conformity-assessment-and-registration, relationship: supports, note: "Knowledge of the assessment route needed to verify it.", confidence_level: low }
   - slug: eu-ai-act-art-16-provider-obligations
+    short_title: "Obligations of providers of high-risk AI"
     title: Providers must meet the full set of provider duties for high-risk AI
     category: governance_accountability
     section: "Articles 16–27"
@@ -718,6 +738,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-18-documentation-keeping
+    short_title: "Documentation keeping"
     title: Providers must keep high-risk AI documentation for ten years
     category: record_keeping
     section: "Articles 16–27"
@@ -755,6 +776,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-19-provider-log-retention
+    short_title: "Automatically generated logs"
     title: Providers must retain automatically generated logs under their control
     category: record_keeping
     section: "Articles 16–27"
@@ -791,6 +813,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-20-corrective-actions-and-information
+    short_title: "Corrective actions and duty of information"
     title: Providers must take corrective action and inform the supply chain about non-conforming high-risk AI
     category: incident_handling
     section: "Articles 16–27"
@@ -830,6 +853,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-21-cooperation-with-authorities
+    short_title: "Cooperation with competent authorities"
     title: Providers must supply conformity evidence and log access to authorities on request
     category: governance_accountability
     section: "Articles 16–27"
@@ -868,6 +892,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-22-authorised-representative
+    short_title: "Authorised representatives"
     title: Non-EU providers must appoint an EU authorised representative for high-risk AI
     category: governance_accountability
     section: "Articles 16–27"
@@ -906,6 +931,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-25-value-chain-becoming-provider
+    short_title: "Responsibilities along the AI value chain"
     title: Deployers, distributors and importers must assume provider duties when they rebrand or substantially modify high-risk AI
     category: governance_accountability
     section: "Articles 16–27"
@@ -945,6 +971,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-25-4-written-agreements-with-component-suppliers
+    short_title: "Written agreements with suppliers"
     title: Providers of high-risk AI must have written agreements with suppliers of components, tools and services
     category: vendor_governance
     section: "Articles 16–27"
@@ -983,6 +1010,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-6-4-non-high-risk-assessment-documentation
+    short_title: "Documenting a not-high-risk assessment"
     title: Providers must document and register a conclusion that an Annex III system is not high-risk
     category: technical_documentation
     section: "Articles 6–7"
@@ -1021,6 +1049,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-4-deployer-input-data
+    short_title: "Deployer control of input data"
     title: Deployers must ensure input data they control is relevant and representative
     category: data_governance
     section: "Articles 16–27"
@@ -1057,6 +1086,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-5-deployer-monitoring-and-suspension
+    short_title: "Deployer monitoring and suspension"
     title: Deployers must monitor high-risk AI, suspend use on risk and report serious incidents
     category: post_market_monitoring
     section: "Articles 16–27"
@@ -1096,6 +1126,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-7-worker-information
+    short_title: "Informing workers before use"
     title: Employers must inform workers and their representatives before using high-risk AI at work
     category: transparency
     section: "Articles 16–27"
@@ -1133,6 +1164,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-8-public-authority-registration-before-use
+    short_title: "Registration by public authorities"
     title: Public authorities must register their use of high-risk AI and must not use unregistered systems
     category: public_sector_use
     section: "Articles 16–27"
@@ -1170,6 +1202,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-9-dpia-using-provider-information
+    short_title: "DPIA using provider information"
     title: Deployers must use the provider's transparency information in their data protection impact assessment
     category: privacy_data_protection
     section: "Articles 16–27"
@@ -1206,6 +1239,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-26-10-post-remote-biometric-identification-authorisation
+    short_title: "Post remote biometric identification"
     title: Law-enforcement deployers must obtain authorisation for post-remote biometric identification and report annually
     category: governance_accountability
     section: "Articles 16–27"
@@ -1246,6 +1280,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: medium
   - slug: eu-ai-act-art-26-11-notice-to-affected-persons
+    short_title: "Informing affected persons"
     title: Deployers must tell natural persons that a high-risk AI system is used in decisions about them
     category: transparency
     section: "Articles 16–27"
@@ -1282,6 +1317,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-50-2-synthetic-content-marking
+    short_title: "Marking AI-generated content"
     title: Providers of generative AI must mark synthetic output as artificially generated in a machine-readable way
     category: transparency
     section: "Article 50"
@@ -1320,6 +1356,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-50-3-emotion-recognition-notice
+    short_title: "Emotion recognition notice"
     title: Deployers of emotion recognition or biometric categorisation must inform exposed persons
     category: transparency
     section: "Article 50"
@@ -1359,6 +1396,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-50-4-deepfake-and-public-interest-text-disclosure
+    short_title: "Deepfake disclosure"
     title: Deployers must disclose deepfakes and AI-generated text published on matters of public interest
     category: transparency
     section: "Article 50"
@@ -1398,6 +1436,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-52-systemic-risk-notification
+    short_title: "Notifying a systemic-risk GPAI model"
     title: Providers of GPAI models must notify the Commission within two weeks of meeting the systemic-risk threshold
     category: governance_accountability
     section: "Articles 51–56"
@@ -1435,6 +1474,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-53-gpai-technical-and-downstream-documentation
+    short_title: "GPAI technical documentation"
     title: Providers of GPAI models must maintain technical documentation and inform downstream providers
     category: technical_documentation
     section: "Articles 51–56"
@@ -1474,6 +1514,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-54-gpai-authorised-representative
+    short_title: "Authorised representatives for GPAI"
     title: Non-EU providers of GPAI models must appoint an EU authorised representative
     category: governance_accountability
     section: "Articles 51–56"
@@ -1513,6 +1554,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-55-systemic-risk-incident-reporting
+    short_title: "Systemic-risk incident reporting"
     title: Providers of systemic-risk GPAI models must track and report serious incidents to the AI Office
     category: incident_handling
     section: "Articles 51–56"
@@ -1550,6 +1592,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-55-systemic-risk-cybersecurity
+    short_title: "Systemic-risk model cybersecurity"
     title: Providers of systemic-risk GPAI models must secure the model and its infrastructure
     category: accuracy_robustness_security
     section: "Articles 51–56"
@@ -1588,6 +1631,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: eu-ai-act-art-86-right-to-explanation
+    short_title: "Right to explanation"
     title: Deployers must explain individual decisions taken with high-risk AI on request
     category: transparency
     section: "Chapter IX — Remedies"

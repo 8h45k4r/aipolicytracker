@@ -37,6 +37,7 @@ use_cases: [government_procurement, public_services]
 related_policies: [us-executive-order-14179, us-nist-ai-rmf]
 obligations:
   - slug: us-omb-m-25-21-high-impact-ai-practices
+    short_title: "High-impact AI practices"
     title: Apply minimum risk-management practices to high-impact AI
     category: risk_management
     source_reference: "Section 4"
@@ -63,6 +64,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: supports, note: "AI impact assessment content.", confidence_level: medium }
       - { control: human-oversight-and-override, relationship: supports, note: "Human oversight and operator arrangements.", confidence_level: medium }
   - slug: us-omb-m-25-21-use-case-inventory
+    short_title: "AI use-case inventory"
     title: Publish an annual AI use-case inventory
     category: transparency
     source_reference: "Section 3"

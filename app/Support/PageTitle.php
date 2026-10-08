@@ -238,8 +238,14 @@ final class PageTitle
 
     /**
      * "<Policy> <reference>: <what the duty is>" — the citation people search
-     * for, first, then as much of the duty as fits. The duty is never dropped to
-     * make room for the citation; the citation gives way first.
+     * for, first, then the duty. The duty is named by its short title when the
+     * record has one ("EU AI Act Article 14: Human oversight"), which is how
+     * people search; otherwise by its full title.
+     *
+     * A whole name with less citation beats a cut name with more: Search
+     * Console showed these pages cut mid-phrase ("Enable and assign effective
+     * human…") earning almost no clicks. Only when no lead lets the full title
+     * fit is it cut, and then the citation still gives way first.
      */
     public static function obligation(Obligation $obligation): string
     {
@@ -250,6 +256,35 @@ final class PageTitle
         if ($ref !== null && $short !== null && self::mentions($short, $ref)) {
             $ref = null;
         }
+        $abbr = $ref !== null ? preg_replace('/^Article\b/u', 'Art.', $ref) : null;
+        // "NYC Local Law 144 (automated employment decision tools)" reads as
+        // "NYC Local Law 144"; "Texas Responsible AI Governance Act (TRAIGA)" as
+        // "Texas TRAIGA". The place is the last lead to go before the citation alone.
+        $plain = $short !== null ? trim(preg_replace('/\s*\([^)]*\)$/u', '', $short)) : null;
+        $where = $policy?->jurisdiction?->short_name ?: $policy?->jurisdiction?->name;
+        $acronym = $short !== null && preg_match('/\(([A-Z][A-Z0-9-]{2,})\)$/u', $short, $m) ? $m[1] : null;
+        $leads = array_values(array_unique(array_filter([
+            $short && $ref ? "{$short} {$ref}" : null,
+            $short && $abbr !== $ref ? "{$short} {$abbr}" : null,
+            $short,
+            $plain && $ref ? "{$plain} {$ref}" : null,
+            $plain,
+            $acronym && $where ? "{$where} {$acronym}" : null,
+            $where,
+            $ref,
+        ])));
+
+        foreach (array_filter([self::clean((string) $obligation->short_title), $title]) as $name) {
+            foreach ($leads as $lead) {
+                if (mb_strlen("{$lead}: {$name}") <= self::MAX) {
+                    return "{$lead}: {$name}";
+                }
+            }
+            if (mb_strlen($name) <= self::MAX && $name !== $title) {
+                return $name;
+            }
+        }
+
         foreach ([trim(($short && mb_strlen($short) <= 28 ? $short : '').' '.($ref ?? '')), $ref ?? '', ''] as $lead) {
             $lead = trim($lead);
             $room = self::MAX - ($lead === '' ? 0 : mb_strlen($lead) + 2);
@@ -456,15 +491,21 @@ final class PageTitle
         return self::leaksIdentifier($quickRef) ? null : $quickRef;
     }
 
-    /** The first clause of a source reference, when it is short enough to lead a title. */
+    /** The first citation in a source reference, when it is short enough to lead a title. */
     private static function reference(?string $ref): ?string
     {
         if (! $ref) {
             return null;
         }
-        $first = self::clean(preg_split('/[;,]/', $ref)[0]);
+        // "Article 11 and Annex IV; Article 26(6) for deployers" leads with "Article 11".
+        // A list is kept whole or not at all: "Articles 43" would cite the wrong thing.
+        $first = self::clean(preg_split('/;/', $ref)[0]);
+        $first = self::clean(preg_replace('/(,| and)\s+Annex(es)?\b.*$/u', '', $first));
+        if (! preg_match('/\d/', $first) || mb_strlen($first) > 22) {
+            return null;
+        }
 
-        return mb_strlen($first) <= 22 ? $first : null;
+        return $first;
     }
 
     /** "AI Governance Templates: Free XLSX & DOCX Built from Law" */

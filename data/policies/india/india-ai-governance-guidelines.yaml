@@ -37,6 +37,7 @@ related_policies: [india-dpdp-act, singapore-model-ai-governance-framework]
 related_frameworks: [nist_ai_rmf]
 obligations:
   - slug: india-ai-guidelines-principles-and-risk-based-governance
+    short_title: "Principles and risk-based governance"
     title: Adopt the guiding principles and risk-based governance (voluntary)
     category: governance_accountability
     source_reference: "Guiding principles and recommendations sections"
