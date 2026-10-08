@@ -39,7 +39,9 @@ class AdminListsTest extends TestCase
     public function test_the_admin_reads_in_poppins(): void
     {
         $html = $this->actingAs($this->owner())->get(route('backend.admin.dashboard'))->assertOk()->getContent();
-        $this->assertStringContainsString('family=poppins', $html);
+        $this->assertStringNotContainsString('fonts.bunny.net', $html, 'Poppins is self-hosted');
+        $this->assertStringContainsString("@font-face { font-family: 'Poppins'", file_get_contents(resource_path('css/admin.css')));
+        $this->assertFileExists(resource_path('fonts/poppins-latin-400-normal.woff2'));
         $this->assertStringContainsString('<html lang="en" data-scheme="light" data-admin>', $html, 'admin.css scopes its rules to this attribute');
         $this->assertStringContainsString('font-family: "Poppins"', file_get_contents(resource_path('css/admin.css')));
     }
