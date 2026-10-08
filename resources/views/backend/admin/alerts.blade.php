@@ -2,7 +2,7 @@
 @section('content')
 @php($canManage = auth()->user()->can('subscribers.manage'))
 @php($canUsers = auth()->user()->can('users.manage'))
-<x-backend.page-header title="Alerts" description="Watches, alert channels, Slack and webhook deliveries, and the consent log. Daily emails are sent by the alerts:send job; Slack and webhook deliveries are retried hourly with backoff, up to five attempts." />
+<x-backend.page-header title="Alerts and watches" description="Watches, alert channels, Slack and webhook deliveries, and the consent log. Daily emails are sent by the alerts:send job; Slack and webhook deliveries are retried hourly with backoff, up to five attempts." />
 
 <div class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
     <x-backend.stat label="Accounts with watches" :value="number_format($cards['accounts'])" :hint="number_format($cards['watches']->sum()).' watches in all'" />
@@ -48,7 +48,7 @@
         <span class="badge-neutral" data-bulk-count="bulk-deliveries" data-bulk-count-all="all {{ $unsentMatching }} unsent matching">0 selected</span>
         @if($unsentMatching > $retryable || $unsentMatching > $retryMax)<label class="flex items-center gap-1 meta"><input type="checkbox" name="scope" value="filtered" data-bulk-scope="bulk-deliveries" data-bulk-scope-count="{{ min($unsentMatching, $retryMax) }}"> apply to all {{ $unsentMatching }} unsent deliveries matching the filters{{ $unsentMatching > $retryMax ? ' (up to '.$retryMax.' per action)' : '' }}</label>@endif
         <span class="meta adm-bulkbar-hint">Up to {{ $retryMax }} at a time; sent ones are skipped.</span>
-        <span class="ml-auto"><button type="submit" class="btn-secondary !min-h-0 !py-1" data-bulk-needs="bulk-deliveries" data-confirm="Try {n} deliveries again now? Each counts as an attempt.">Retry now</button></span>
+        <span class="ml-auto"><button type="submit" class="btn-secondary btn-sm" data-bulk-needs="bulk-deliveries" data-confirm="Try {n} deliveries again now? Each counts as an attempt.">Retry now</button></span>
     </form>
     @endif
     <div class="table-wrap mt-3"><table><caption class="sr-only">Slack and webhook deliveries</caption><thead><tr>
@@ -71,7 +71,7 @@
         <td class="tabular-nums">{{ $d->attempts }} / {{ \App\Models\ChannelDelivery::MAX_ATTEMPTS }}</td>
         <td class="text-xs font-mono break-all {{ $d->last_error ? 'text-state-bad' : 'text-brand-muted' }}">{{ $d->last_error ?? '—' }}</td>
         <td class="whitespace-nowrap text-xs">{{ $d->status === 'pending' ? ($d->next_attempt_at?->format('j M Y H:i') ?? 'next run') : ($d->sent_at ? 'sent '.$d->sent_at->format('j M Y H:i') : '—') }}</td>
-        @if($canManage)<td class="whitespace-nowrap">@if($d->status !== 'sent')<form method="post" action="{{ route('backend.admin.alerts.deliveries.retry', $d) }}" class="inline" data-confirm="Try delivery #{{ $d->id }} again now?">@csrf<button type="submit" class="btn-secondary !min-h-0 !py-1 !px-2 text-xs">Retry now</button></form>@else — @endif</td>@endif
+        @if($canManage)<td class="whitespace-nowrap">@if($d->status !== 'sent')<form method="post" action="{{ route('backend.admin.alerts.deliveries.retry', $d) }}" class="inline" data-confirm="Try delivery #{{ $d->id }} again now?">@csrf<button type="submit" class="btn-secondary btn-sm text-xs">Retry now</button></form>@else — @endif</td>@endif
     </tr>@endforeach</tbody></table></div>
     <nav class="mt-4" aria-label="Pagination">{{ $deliveries->links() }}</nav>
     @endif
@@ -83,7 +83,7 @@
     <form method="get" action="{{ route('backend.admin.alerts.index') }}#consent" class="adm-toolbar">
         @foreach(request()->except(['consent', 'page']) as $k => $v)@if(is_string($v))<input type="hidden" name="{{ $k }}" value="{{ $v }}">@endif @endforeach
         <div><label for="f-consent" class="adm-label">Kind</label><select id="f-consent" name="consent" class="input !min-h-[38px] !py-1.5 !w-auto"><option value="">Any</option>@foreach($consentKinds as $k)<option value="{{ $k }}" @selected($consentKind === $k)>{{ $k }}</option>@endforeach</select></div>
-        <div class="flex items-end"><button type="submit" class="btn-primary !min-h-[38px] !py-1.5">Apply</button></div>
+        <div class="flex items-end"><button type="submit" class="btn-primary btn-sm">Apply</button></div>
     </form>
     @if($consents->isEmpty())<div class="mt-4"><x-site.empty title="No consent events{{ $consentKind ? ' of this kind' : ' yet' }}">An event is written when an account turns its inbox alerts on or off, adds or removes a channel, or uses an unsubscribe link.</x-site.empty></div>@else
     <div class="table-wrap mt-3"><table><caption class="sr-only">Consent events</caption><thead><tr><th scope="col">When</th><th scope="col">Account</th><th scope="col">Kind</th><th scope="col">Decision</th><th scope="col">Source</th><th scope="col">Detail</th></tr></thead>

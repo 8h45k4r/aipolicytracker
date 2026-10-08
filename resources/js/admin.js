@@ -254,6 +254,9 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
             var to = (e.key === 'ArrowDown' || e.key === 'ArrowUp') ? nextIndex(active, e.key, shown.length) : null;
             if (to !== null) { e.preventDefault(); active = to; paintActive(); }
             else if (e.key === 'Enter' && shown[active]) { e.preventDefault(); go(shown[active], e.ctrlKey || e.metaKey); }
+            // A search field spends its first Escape clearing the text; in the palette,
+            // Escape always closes, as the footer promises.
+            else if (e.key === 'Escape') { e.preventDefault(); palette.close(); }
         });
         palette.addEventListener('click', function (event) { if (event.target === palette) { palette.close(); } });
         palette.addEventListener('close', function () { window.clearTimeout(timer); if (inflight) { inflight.abort(); } input.setAttribute('aria-expanded', 'false'); });

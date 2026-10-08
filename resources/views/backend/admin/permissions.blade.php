@@ -77,7 +77,7 @@
                 <p class="mt-1 text-brand-body">@if($edited[$role->value])<span class="font-medium">Default:</span> @endif{{ $role->description() }}</p>
                 @if($edited[$role->value])
                     <p class="mt-2 meta">Edited {{ $edited[$role->value]->updated_at?->format('j M Y') }}@if($edited[$role->value]->updatedBy) by {{ $edited[$role->value]->updatedBy->email }}@endif.</p>
-                    <form method="post" action="{{ route('backend.admin.users.permissions.reset') }}" class="mt-2" data-confirm="Put {{ $role->label() }} back to its default permissions?">@csrf<input type="hidden" name="role" value="{{ $role->value }}"><button class="btn-secondary !min-h-0 !py-1 text-xs">Reset to defaults</button></form>
+                    <form method="post" action="{{ route('backend.admin.users.permissions.reset') }}" class="mt-2" data-confirm="Put {{ $role->label() }} back to its default permissions?">@csrf<input type="hidden" name="role" value="{{ $role->value }}"><button class="btn-secondary btn-sm text-xs">Reset to defaults</button></form>
                 @else
                     <p class="mt-2 meta">Using its defaults.</p>
                 @endif

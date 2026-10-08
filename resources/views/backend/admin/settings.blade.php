@@ -6,7 +6,7 @@
     $groupErrors = collect($groups)->map(fn ($g, $id) => collect($g['keys'])->contains(fn ($k) => $errors->has($k)) || ($id === 'email' && $errors->has('to')));
 @endphp
 <x-backend.page-header title="Settings and API keys" description="Values saved here override the environment. Secrets are encrypted with the application key before they are stored and are never shown again in full.">
-    <x-slot:actions><a href="{{ route('backend.admin.billing.index') }}" class="btn-secondary !min-h-[38px] !py-1.5">Billing</a><a href="{{ route('backend.admin.funding.index') }}" class="btn-secondary !min-h-[38px] !py-1.5">Funding and funders</a></x-slot:actions>
+    <x-slot:actions><a href="{{ route('backend.admin.billing.index') }}" class="btn-secondary btn-sm">Billing</a><a href="{{ route('backend.admin.funding.index') }}" class="btn-secondary btn-sm">Funding and funders</a></x-slot:actions>
 </x-backend.page-header>
 @unless($envReadable)<p class="mt-3 rounded-sm border border-brand-line bg-white px-3 py-2 text-sm text-brand-body">The configuration is cached on this host, so the environment file is not read at request time and its values cannot be shown beside each field. A field not saved here shows "Environment or default".</p>@endunless
 

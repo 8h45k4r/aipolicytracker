@@ -3,8 +3,8 @@
 @php($size = $rows->count())
 <x-backend.page-header title="Independent checks" :description="'Each quarter a random '.rtrim(rtrim(number_format($sample['percent'], 2, '.', ''), '0'), '.').'% of verified policy records is re-checked by a second reviewer. This page lists the quarter\'s sample, how far the second checks have got, and what the two reviewers disagreed on. The method is in docs/reference/verification-policy.md.'">
     <x-slot:actions>
-        <a href="{{ route('methodology') }}#independent-checks" target="_blank" rel="noopener" class="btn-secondary !min-h-0 !py-1.5">Published figures ↗</a>
-        @can('submissions.decide')<a href="{{ route('backend.review.index') }}" class="btn-secondary !min-h-0 !py-1.5">Review queue</a>@endcan
+        <a href="{{ route('methodology') }}#independent-checks" target="_blank" rel="noopener" class="btn-secondary btn-sm">Published figures ↗</a>
+        @can('submissions.decide')<a href="{{ route('backend.review.index') }}" class="btn-secondary btn-sm">Review queue</a>@endcan
     </x-slot:actions>
 </x-backend.page-header>
 
@@ -13,8 +13,8 @@
         <h2 id="sample-heading" class="section-title !text-lg">Sample for {{ $sample['quarter'] }}</h2>
         <form method="get" action="{{ route('backend.checks.index') }}" class="flex items-end gap-2 text-sm">
             <label class="text-sm"><span class="block meta">Quarter</span><select name="quarter" class="input mt-1 !min-h-0 !py-1.5 !w-auto">@foreach($quarters as $q)<option value="{{ $q }}" @selected($sample['quarter'] === $q)>{{ $q }}</option>@endforeach @if(! in_array($sample['quarter'], $quarters, true))<option value="{{ $sample['quarter'] }}" selected>{{ $sample['quarter'] }}</option>@endif</select></label>
-            <button class="btn-secondary !min-h-0 !py-1.5">Show</button>
-            <a href="{{ route('backend.checks.export', ['quarter' => $sample['quarter']]) }}" class="btn-secondary !min-h-0 !py-1.5" data-track="admin_export">Export sample CSV</a>
+            <button class="btn-secondary btn-sm">Show</button>
+            <a href="{{ route('backend.checks.export', ['quarter' => $sample['quarter']]) }}" class="btn-secondary btn-sm" data-track="admin_export">Export sample CSV</a>
         </form>
     </div>
     <p class="mt-1 meta">Seed <code>{{ $sample['seed'] }}</code> · population {{ number_format($sample['population']) }} verified {{ \Illuminate\Support\Str::plural('record', $sample['population']) }} · sample {{ $size }}. The same list as <code>php artisan verification:sample --quarter={{ $sample['quarter'] }}</code>.</p>

@@ -38,7 +38,7 @@
             <div><label for="d-{{ $s->id }}" class="label !mb-0.5 !text-xs">{{ $decided ? 'New decision' : 'Decision' }}</label><select id="d-{{ $s->id }}" name="decision" class="input !min-h-0 !py-1.5" required><option value="">Choose…</option>@foreach(['approved' => 'Approve', 'needs_information' => 'Needs information', 'rejected' => 'Reject'] as $value => $label)<option value="{{ $value }}" @selected($mine && old('decision') === $value)>{{ $label }}</option>@endforeach</select></div>
             <div class="flex-1 min-w-[12rem]"><label for="n-{{ $s->id }}" class="label !mb-0.5 !text-xs">Notes (internal)</label><input id="n-{{ $s->id }}" name="notes" value="{{ $mine ? old('notes') : '' }}" class="input !min-h-0 !py-1.5" maxlength="2000"></div>
             <div class="flex-1 min-w-[12rem]"><label for="pn-{{ $s->id }}" class="label !mb-0.5 !text-xs">Public note</label><input id="pn-{{ $s->id }}" name="public_note" value="{{ $mine ? old('public_note') : '' }}" class="input !min-h-0 !py-1.5" maxlength="500" placeholder="Shown on /corrections. Leave empty to publish the facts only."></div>
-            <button type="submit" class="btn-secondary !min-h-0 !py-1.5">{{ $decided ? 'Record new decision' : 'Record decision' }}</button>
+            <button type="submit" class="btn-secondary btn-sm">{{ $decided ? 'Record new decision' : 'Record decision' }}</button>
         </form>
         @if($decided)
         </details>

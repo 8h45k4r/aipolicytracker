@@ -1,1 +1,0 @@
-import{t as e}from"./app-CKJkG7An.js";import"./ApplicationLogo-CJzV3BK5.js";var t=e();function n({children:e}){return(0,t.jsx)(t.Fragment,{children:(0,t.jsx)(`div`,{className:``,children:e})})}export{n as t};

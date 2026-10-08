@@ -165,3 +165,14 @@ html[data-admin] .btn-sm { min-height: 30px; padding: 0.25rem 0.625rem; font-siz
     }
 }
 /* ---- end Bulk bars ---- */
+
+/* Disabled buttons read as unavailable: muted, no hover, the not-allowed cursor. A disabled
+   control should say why next to it (see Billing → Can we sell right now?). */
+html[data-admin] :is(.btn-primary, .btn-secondary, .btn-accent, .btn-danger):disabled,
+html[data-admin] :is(.btn-primary, .btn-secondary, .btn-accent, .btn-danger)[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.4); box-shadow: none; }
+html[data-admin] button[aria-busy="true"]:disabled { cursor: progress; filter: none; }
+
+/* A row of filter links inside a sentence ("active (3) · cancelled (1) · all"): underlined so
+   each reads as a link, not as text that happens to be blue. */
+html[data-admin] .adm-linkrow a { text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgb(var(--c-line)); }
+html[data-admin] .adm-linkrow a:hover, html[data-admin] .adm-linkrow a[aria-current] { text-decoration-color: currentColor; }
