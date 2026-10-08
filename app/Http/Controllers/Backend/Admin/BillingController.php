@@ -86,7 +86,31 @@ class BillingController extends Controller
             ],
             'check' => session('billing_check'),
             'probe' => session('probe'),
+            'blockers' => $this->probeBlockers($config, $catalog),
         ];
+    }
+
+    /**
+     * Why "Can we sell right now?" cannot run yet, each with the place that fixes it. The
+     * same checks as probe(), so a button the page enables is one the probe accepts.
+     *
+     * @return list<array{reason: string, fix: string, label: string}>
+     */
+    private function probeBlockers(BillingConfig $config, PlanCatalog $catalog): array
+    {
+        $settings = route('backend.admin.settings');
+        $blockers = [];
+        if ($config->apiKey() === '') {
+            $blockers[] = ['reason' => 'No Dodo API key is stored or set in the environment.', 'fix' => $settings.'#f-dodo_api_key', 'label' => 'Add the API key in Settings'];
+        }
+        if ($config->webhookSecret() === '') {
+            $blockers[] = ['reason' => 'No webhook secret yet.', 'fix' => $config->apiKey() === '' ? $settings.'#f-dodo_webhook_secret' : '#setup', 'label' => $config->apiKey() === '' ? 'Add it in Settings' : 'Use "Provision webhook and products"'];
+        }
+        if (! collect($catalog->plans())->contains(fn ($p) => ! empty($p['product_id']))) {
+            $blockers[] = ['reason' => 'The products are not provisioned: no plan has a product id.', 'fix' => $config->apiKey() === '' ? $settings.'#f-dodo_product_pro_monthly' : '#setup', 'label' => $config->apiKey() === '' ? 'Enter the product ids in Settings' : 'Use "Provision webhook and products"'];
+        }
+
+        return $blockers;
     }
 
     private function paymentsTab(Request $request): array
