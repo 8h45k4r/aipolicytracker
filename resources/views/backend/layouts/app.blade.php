@@ -4,9 +4,8 @@
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow">
     <title>{{ $title ?? 'Admin' }} | AIPolicyTracker admin</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('brand/mark.svg') }}">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700|space-mono:400,700&display=swap" rel="stylesheet">
-    @vite(['resources/css/public.css', 'resources/css/admin.css', 'resources/js/public.js'])
+    {{-- Poppins and Space Mono are self-hosted (admin.css, public.css): no third-party font host. --}}
+    @vite(['resources/css/public.css', 'resources/css/admin.css', 'resources/js/public.js', 'resources/js/admin.js'])
 </head>
 <body class="min-h-screen bg-brand-paper">
 <div class="lg:grid lg:grid-cols-[248px_1fr] min-h-screen">
@@ -59,6 +58,7 @@
             <div class="px-4 pb-2">
                 <label for="admin-nav-filter" class="sr-only">Go to a page</label>
                 <input id="admin-nav-filter" type="search" placeholder="Go to…  ( / )" autocomplete="off" class="w-full rounded-sm border-0 bg-white/10 px-3 py-1.5 text-sm text-white placeholder:text-white/50 focus:ring-2 focus:ring-brand-cyan" data-admin-nav-filter>
+                <button type="button" class="mt-2 hidden w-full items-center justify-between rounded-sm bg-white/5 px-3 py-1.5 text-left text-xs text-white/70 hover:bg-white/10 lg:flex" data-palette-open hidden>Search pages and actions <kbd class="adm-kbd">Ctrl K</kbd></button>
             </div>
             <nav class="flex-1 overflow-y-auto px-3 pb-4 text-sm" aria-label="Admin">
                 @foreach($groups as $heading => $entries)
@@ -80,11 +80,34 @@
         </div>
     </aside>
     <main id="main" class="bg-brand-paper px-4 sm:px-8 py-6 lg:py-8 min-w-0 min-h-screen">
-        @if(session('success'))<div class="mb-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">{{ session('success') }}</div>@endif
-        @if(session('error'))<div class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</div>@endif
-        @if($errors->any())<div class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ $errors->first() }}</div>@endif
+        {{-- Messages from the last action, as toasts: rendered here so they show without
+             JavaScript; admin.js adds the close button and lets successes fade out. --}}
+        <div class="adm-toasts" data-toasts>
+            @if(session('success'))<div class="adm-toast" data-toast="success" role="status"><span>{{ session('success') }}</span><button type="button" data-toast-close aria-label="Dismiss" hidden>×</button></div>@endif
+            @if(session('error'))<div class="adm-toast" data-toast="error" role="alert"><span>{{ session('error') }}</span><button type="button" data-toast-close aria-label="Dismiss" hidden>×</button></div>@endif
+            @if($errors->any())<div class="adm-toast" data-toast="error" role="alert"><span>{{ $errors->first() }}@if($errors->count() > 1) <span class="text-brand-muted">(and {{ $errors->count() - 1 }} more on the form)</span>@endif</span><button type="button" data-toast-close aria-label="Dismiss" hidden>×</button></div>@endif
+        </div>
         @yield('content')
     </main>
 </div>
+{{-- Asked before any [data-confirm] action (admin.js); without JavaScript, nothing is asked twice. --}}
+<dialog id="adm-confirm" class="adm-modal" aria-labelledby="adm-confirm-title">
+    <div class="p-5">
+        <h2 id="adm-confirm-title" class="text-base font-semibold text-brand-navy">Please confirm</h2>
+        <p class="mt-2 text-sm text-brand-body" data-confirm-text></p>
+    </div>
+    <div class="flex justify-end gap-2 border-t border-brand-line bg-brand-paper px-5 py-3">
+        <button type="button" class="btn-secondary" data-confirm-cancel>Cancel</button>
+        <button type="button" class="btn-primary" data-confirm-ok>Confirm</button>
+    </div>
+</dialog>
+<dialog id="adm-palette" class="adm-modal adm-palette" aria-label="Search pages and actions">
+    <div class="border-b border-brand-line p-3">
+        <input type="search" class="input" placeholder="Search pages and actions…" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="adm-palette-list" aria-autocomplete="list">
+    </div>
+    <ul id="adm-palette-list" role="listbox" class="max-h-[50vh] overflow-y-auto py-1" aria-label="Results"></ul>
+    <p class="px-4 py-3 text-sm text-brand-muted" data-palette-empty hidden>Nothing matches.</p>
+    <p class="border-t border-brand-line bg-brand-paper px-4 py-2 text-xs text-brand-muted">↑ ↓ to move · Enter to open · Esc to close</p>
+</dialog>
 </body>
 </html>
