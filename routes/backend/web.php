@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\AlertsController;
 use App\Http\Controllers\Backend\Admin\BillingController;
 use App\Http\Controllers\Backend\Admin\ToolController;
 use App\Http\Controllers\Backend\Admin\UserController;
@@ -104,9 +105,24 @@ Route::middleware(['auth', 'isAdmin', 'admin.2fa', 'admin.audit'])->group(functi
     Route::middleware('can:billing.manage')->prefix('backend/admin/billing')->as('backend.admin.billing.')->controller(BillingController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/export', 'export')->name('export');
+        Route::get('/payments/export', 'paymentsExport')->name('payments.export');
+        // Runs a failed webhook again from its stored payload, under the same event id.
+        Route::post('/events/{event}/reapply', 'reapply')->whereNumber('event')->name('events.reapply');
         Route::post('/check', 'check')->name('check');
         Route::post('/provision', 'provision')->middleware('password.confirm')->name('provision');
         Route::post('/probe', 'probe')->name('probe');
+    });
+    // Alerts: watches, channels, channel deliveries and consent. Reading is an audience
+    // read; retrying a delivery is acting on the audience, like resending to a subscriber.
+    Route::prefix('backend/admin/alerts')->as('backend.admin.alerts.')->controller(AlertsController::class)->group(function () {
+        Route::middleware('can:audience.view')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/deliveries/export', 'export')->name('deliveries.export');
+        });
+        Route::middleware('can:subscribers.manage')->group(function () {
+            Route::post('/deliveries/retry-many', 'retryMany')->name('deliveries.retry.many');
+            Route::post('/deliveries/{delivery}/retry', 'retry')->whereNumber('delivery')->name('deliveries.retry');
+        });
     });
     // Free-tool library CRUD (tools, files, status).
     Route::middleware('can:tools.manage')->prefix('backend/admin/tools')->as('backend.admin.tools.')->controller(ToolController::class)->group(function () {
