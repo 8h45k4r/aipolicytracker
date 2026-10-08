@@ -15,6 +15,7 @@ use App\Models\ContributorSubmission;
 use App\Models\Control;
 use App\Models\ExternalIncident;
 use App\Models\ExternalIncidentReport;
+use App\Models\Follow;
 use App\Models\JobRun;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
@@ -22,12 +23,16 @@ use App\Models\PageView;
 use App\Models\PolicyInstrument;
 use App\Models\ResourceDownload;
 use App\Models\Subscriber;
+use App\Models\Subscription;
 use App\Models\TemplateDownloadRequest;
 use App\Models\Tool;
 use App\Models\User;
 use App\Services\Admin\Attention;
+use App\Services\Billing\BillingConfig;
+use App\Services\Billing\Entitlements;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Security\Turnstile;
+use App\Services\Verification\IndependentChecks;
 use App\Support\Admin\CsvStream;
 use App\Support\Admin\ListFilters;
 use App\Support\ContentCache;
@@ -74,6 +79,13 @@ class AdminController extends Controller
             'changes' => $this->dailyCounts(ChangeEvent::published(), 'created_at', 30),
         ], fn ($t) => $t !== null);
         $stats['requests_30d'] = TemplateDownloadRequest::where('created_at', '>=', now()->subDays(30))->count();
+        $stats['watches'] = Follow::count();
+        $stats['watchers'] = Follow::distinct()->count('user_id');
+        $stats['pro'] = Subscription::whereNotNull('plan_key')->get()->filter(fn ($s) => app(Entitlements::class)->covers($s))->count();
+        $stats['selling'] = app(BillingConfig::class)->enabled();
+        $checks = app(IndependentChecks::class)->summary();
+        $stats['double_checked'] = $checks['n'];
+        $stats['verified_total'] = $checks['verified'];
 
         return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs', 'attention', 'turnstile', 'trends'));
     }
