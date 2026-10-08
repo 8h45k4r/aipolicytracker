@@ -22,6 +22,7 @@
             ],
             'Content' => [
                 ['backend.review.index', 'Review queue', 'submissions.decide'],
+                ['backend.checks.index', 'Independent checks', 'records.verify'],
                 ['backend.admin.submissions', 'Submissions and feedback', 'submissions.decide'],
                 ['backend.admin.external', 'External data', 'external.sync'],
                 ['backend.admin.tools.index', 'Tool library', 'tools.manage'],
@@ -29,6 +30,7 @@
             'Audience' => [
                 ['backend.admin.subscribers', 'Subscribers', 'audience.view'],
                 ['backend.admin.downloads', 'Guides and downloads', 'audience.view'],
+                ['backend.admin.alerts.index', 'Alerts and watches', 'audience.view'],
             ],
             'Operations' => [
                 ['backend.admin.jobs', 'Jobs and schedule', 'jobs.run'],

@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Review\ReviewController;
 use App\Models\BillingEvent;
 use App\Models\ChannelDelivery;
 use App\Models\ContributorSubmission;
+use App\Models\ImplementationMeasure;
 use App\Models\JobRun;
 use App\Models\PolicyInstrument;
 use App\Models\Subscriber;
@@ -76,6 +77,19 @@ final class Attention
         $stale = PolicyInstrument::published()->where(fn ($q) => $q->whereNull('last_verified_at')->orWhere('last_verified_at', '<', now()->subDays($days)))->count();
         if ($stale > 0) {
             $add('records.verify', 'warning', $stale.' '.($stale === 1 ? 'instrument is' : 'instruments are').' unverified or past '.$days.' days', 'Re-check each against its official source and record the review.', 'Show them', route('backend.review.index', ['type' => 'policy', 'review' => 'stale']));
+        }
+
+        $measures = ImplementationMeasure::whereIn('review_status', ['pending_review', 'draft'])->count();
+        if ($measures > 0) {
+            $add('records.verify', 'info', $measures.' implementation '.($measures === 1 ? 'measure is' : 'measures are').' draft or awaiting review', 'They stay out of the trackers\' indexed pages until a reviewer confirms them against the official source.', 'Review them', route('backend.review.index', ['type' => 'implementation_measure']));
+        }
+
+        // A second check that found a disagreement and recorded no resolution.
+        $disputed = PolicyInstrument::published()->whereNotNull('second_review')->get()
+            ->filter(fn (PolicyInstrument $p) => collect($p->secondReview()['fields_disputed'] ?? [])->contains(fn ($d) => empty($d['resolution'])))
+            ->count();
+        if ($disputed > 0) {
+            $add('records.verify', 'warning', $disputed.' '.($disputed === 1 ? 'record has' : 'records have').' an unresolved second-check dispute', 'Two reviewers read the source differently; decide which reading stands and record the resolution.', 'Open independent checks', route('backend.checks.index'));
         }
 
         if (! $this->turnstile->configured()) {
