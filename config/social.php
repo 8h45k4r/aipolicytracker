@@ -76,4 +76,34 @@ return [
     // whose title changes gets a new file and the old one is simply unused.
     'cache_disk' => env('SOCIAL_CARD_DISK', 'local'),
     'cache_path' => 'social-cards',
+
+    /*
+     | Posting changes to X. Off until an owner turns it on and gives the four
+     | OAuth 1.0a keys of the posting account (developer.x.com → the app → Keys
+     | and tokens, with "Read and write" permission).
+     |
+     | Every post carries a link to the change, and X bills a post with a link
+     | at a higher rate than one without (about $0.20 against $0.015 since April
+     | 2026), so the monthly cap is a spending limit as much as a volume one.
+     | "review" holds each post as a draft until someone approves it in the admin.
+     */
+    'x' => [
+        'enabled' => (bool) env('X_POSTING', false),
+        'mode' => env('X_MODE', 'auto'), // auto | review
+        'api_key' => env('X_API_KEY'),
+        'api_secret' => env('X_API_SECRET'),
+        'access_token' => env('X_ACCESS_TOKEN'),
+        'access_secret' => env('X_ACCESS_SECRET'),
+        'mentions' => env('X_MENTIONS', '@aipolicytracker @8h45k4r'),
+        'hashtags' => env('X_HASHTAGS', '#AIPolicy'),
+        'monthly_cap' => (int) env('X_MONTHLY_CAP', 40),
+        'min_impact' => env('X_MIN_IMPACT', 'routine'), // routine | high | urgent
+        // A change is posted only while it is news: dated, and first published
+        // here, within this many days. It also has to be verified, so a change
+        // confirmed a few days after it went up is still posted. A rebuilt
+        // database stamps every change as new and must not post the archive.
+        'max_age_days' => 21,
+        'per_run' => 2,
+        'endpoint' => env('X_ENDPOINT', 'https://api.x.com/2/tweets'),
+    ],
 ];
