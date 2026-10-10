@@ -33,6 +33,7 @@ class AppSetting extends Model
         'citation' => ['label' => 'Citation and funding', 'intro' => 'The dataset DOI, the sponsor link and the funding disclosure threshold.'],
         'site' => ['label' => 'Site', 'intro' => 'Contact details and site behaviour. Each value overrides the environment variable of the same meaning.'],
         'analytics' => ['label' => 'Analytics and search engines', 'intro' => 'Analytics tags and search engine ownership tokens. An empty field keeps the environment value.'],
+        'social' => ['label' => 'Posting to X', 'intro' => 'Posts each new verified change to X with its link, hashtags and mentions. Keys come from developer.x.com → your app → Keys and tokens, with "Read and write" permission. X bills each post with a link (about $0.20 since April 2026), so the monthly cap is also a spending limit.'],
         'live' => ['label' => 'Live switches', 'intro' => 'Each of these changes what visitors or customers meet on the next request. Turning one towards its live setting asks first.'],
     ];
 
@@ -69,6 +70,17 @@ class AppSetting extends Model
         'dataset_doi' => ['label' => 'Dataset DOI', 'secret' => false, 'group' => 'citation', 'hint' => 'The Zenodo concept DOI, e.g. 10.5281/zenodo.1234567 or its https://doi.org/ URL. Shown in citations and the /open-data structured data. Only a DOI Zenodo has minted.'],
         'sponsor_url' => ['label' => 'Sponsor link', 'secret' => false, 'group' => 'citation', 'hint' => 'https link to the sponsorship page (GitHub Sponsors or a fiscal host). Shown on /funding.'],
         'funding_threshold' => ['label' => 'Disclosure threshold (USD a year)', 'secret' => false, 'group' => 'citation', 'hint' => 'Funders giving more than this in a year must be listed on /funding. Whole dollars.'],
+        // Posting to X. Each overrides the X_* environment value; empty falls back.
+        'x_posting' => ['label' => 'Post changes to X', 'secret' => false, 'group' => 'live', 'hint' => 'On posts every new verified change, every 30 minutes, within the monthly cap.', 'options' => ['on' => 'On', 'off' => 'Off'], 'live' => ['on' => 'New verified changes start going out on X under the account whose keys are set here, and X bills each post.']],
+        'x_mode' => ['label' => 'Before posting', 'secret' => false, 'group' => 'social', 'hint' => 'Review holds each post as a draft until someone approves it under Operations → Posts to X.', 'options' => ['auto' => 'Post automatically', 'review' => 'Wait for approval']],
+        'x_api_key' => ['label' => 'API key (consumer key)', 'secret' => true, 'group' => 'social', 'hint' => 'developer.x.com → app → Keys and tokens → Consumer keys'],
+        'x_api_secret' => ['label' => 'API key secret', 'secret' => true, 'group' => 'social', 'hint' => 'Shown with the API key'],
+        'x_access_token' => ['label' => 'Access token', 'secret' => true, 'group' => 'social', 'hint' => 'Generate it after setting "Read and write"; a token made before that cannot post'],
+        'x_access_secret' => ['label' => 'Access token secret', 'secret' => true, 'group' => 'social', 'hint' => 'Shown with the access token'],
+        'x_mentions' => ['label' => 'Mentions', 'secret' => false, 'group' => 'social', 'hint' => 'Handles added to every post, separated by spaces. Default: @aipolicytracker @8h45k4r'],
+        'x_hashtags' => ['label' => 'Base hashtags', 'secret' => false, 'group' => 'social', 'hint' => 'Added to every post before the instrument and place tags; three tags at most in all. Default: #AIPolicy'],
+        'x_monthly_cap' => ['label' => 'Posts a month, at most', 'secret' => false, 'group' => 'social', 'hint' => '0 to 500; default 40. Posts over the cap wait for next month.'],
+        'x_min_impact' => ['label' => 'Post changes of impact', 'secret' => false, 'group' => 'social', 'hint' => 'The lowest impact level that is posted.', 'options' => ['routine' => 'All (routine and up)', 'high' => 'High and urgent', 'urgent' => 'Urgent only']],
         'google_site_verification' => ['label' => 'Google Search Console token', 'secret' => false, 'group' => 'analytics', 'hint' => 'The HTML-tag verification value'],
         'bing_site_verification' => ['label' => 'Bing Webmaster token', 'secret' => false, 'group' => 'analytics', 'hint' => 'The msvalidate.01 value'],
     ];
