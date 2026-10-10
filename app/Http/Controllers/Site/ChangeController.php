@@ -90,6 +90,7 @@ class ChangeController extends Controller
             // stated in the body and in the dateline below.
             ->withPublished($change->first_published_at ?? $change->occurred_on)
             ->withOgType('article')
+            ->withCard('change', $change->slug, $change->updated_at)
             ->withFeed(route('changes.feed'))
             ->withAlternate('text/markdown', route('changes.context', $change->slug))
             ->withPageType('NewsArticle', array_filter([

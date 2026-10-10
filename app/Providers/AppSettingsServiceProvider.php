@@ -41,6 +41,14 @@ class AppSettingsServiceProvider extends ServiceProvider
             'bing_site_verification' => 'aipolicytracker.bing_site_verification',
             'turnstile_site_key' => 'services.turnstile.site_key',
             'turnstile_secret_key' => 'services.turnstile.secret_key',
+            'x_mode' => 'social.x.mode',
+            'x_api_key' => 'social.x.api_key',
+            'x_api_secret' => 'social.x.api_secret',
+            'x_access_token' => 'social.x.access_token',
+            'x_access_secret' => 'social.x.access_secret',
+            'x_mentions' => 'social.x.mentions',
+            'x_hashtags' => 'social.x.hashtags',
+            'x_min_impact' => 'social.x.min_impact',
         ];
         foreach ($map as $key => $configKey) {
             $value = AppSetting::get($key);
@@ -53,11 +61,14 @@ class AppSettingsServiceProvider extends ServiceProvider
             config(['aipolicytracker.contact_emails' => [$contact]]);
         }
         // Switches: "on" / "off" stored as text, applied as booleans.
-        foreach (['analytics_require_consent' => 'aipolicytracker.analytics_require_consent', 'social_cards_enabled' => 'social.cards', 'email_domain_enforcement' => 'email.enforce'] as $key => $configKey) {
+        foreach (['analytics_require_consent' => 'aipolicytracker.analytics_require_consent', 'social_cards_enabled' => 'social.cards', 'email_domain_enforcement' => 'email.enforce', 'x_posting' => 'social.x.enabled'] as $key => $configKey) {
             $value = AppSetting::get($key);
             if (in_array($value, ['on', 'off'], true)) {
                 config([$configKey => $value === 'on']);
             }
+        }
+        if (($cap = AppSetting::get('x_monthly_cap')) !== null && ctype_digit($cap)) {
+            config(['social.x.monthly_cap' => (int) $cap]);
         }
         if (($days = AppSetting::get('stale_after_days')) && ctype_digit($days)) {
             config(['aipolicytracker.stale_after_days' => (int) $days]);
