@@ -33,6 +33,7 @@
             ],
             'Operations' => [
                 ['backend.admin.jobs', 'Jobs and schedule', 'jobs.run'],
+                ['backend.admin.social.index', 'Posts to X', 'records.publish'],
                 ['backend.admin.audit', 'Audit log', 'audit.view'],
             ],
             'Administration' => [

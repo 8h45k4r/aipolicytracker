@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -62,6 +63,7 @@ class SocialCardController extends Controller
             'policy' => $this->policy($slug),
             'jurisdiction' => $this->jurisdiction($slug),
             'obligation' => $this->obligation($slug),
+            'change' => $this->change($slug),
             // One site card exists. Accepting any slug here drew and stored a fresh PNG
             // per made-up slug, which filled the disk from a loop of GETs.
             'site' => $slug === 'default' ? $this->site($catalog) : null,
@@ -126,6 +128,26 @@ class SocialCardController extends Controller
             'title' => $obligation->title,
             'meta' => implode(' · ', array_filter([$policy->short_title ?: $policy->title, $policy->jurisdiction?->name])),
             'footer' => config('aipolicytracker.site_name').' · informational, not legal advice',
+        ];
+    }
+
+    /**
+     * A change: the card shown under every post to X and every shared link.
+     * When it happened and where lead, because that is what makes it news.
+     */
+    private function change(string $slug): ?array
+    {
+        $change = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->where('slug', $slug)->first();
+        if (! $change) {
+            return null;
+        }
+        $impact = $change->impactEnum();
+
+        return [
+            'eyebrow' => 'AI policy update · '.$change->occurred_on->format('j M Y').($impact->value !== 'routine' ? ' · '.$impact->label().' impact' : ''),
+            'title' => $change->title,
+            'meta' => implode(' · ', array_filter([$change->jurisdiction?->name, $change->policyInstrument ? ($change->policyInstrument->short_title ?: $change->policyInstrument->title) : null])),
+            'footer' => $this->footerFor($change->last_verified_at, $change->review_status),
         ];
     }
 

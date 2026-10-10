@@ -50,6 +50,12 @@
                     @endswitch
                 </p>
                 @break
+                @case('social')
+                <div class="mt-5 flex flex-wrap items-center gap-3 border-t border-brand-line pt-4" data-settings-test="social">
+                    <a href="{{ route('backend.admin.social.index') }}" class="btn-secondary">Posts to X</a>
+                    <span class="meta">Preview the next posts, approve drafts and see what was sent. Turning posting on is under Live switches below.</span>
+                </div>
+                @break
                 @case('billing')
                 <p class="mt-2 text-sm text-brand-body">Point the Dodo webhook at <code class="break-all">{{ route('billing.webhook') }}</code> with the subscription and payment events enabled. Easier: store the API key, then use "Provision webhook and products" on <a href="{{ route('backend.admin.billing.index') }}#setup">Billing</a> to create the endpoint and plans and fill the remaining fields. Checkout and the live environment are under <a href="#group-live">Live switches</a>.</p>
                 @break

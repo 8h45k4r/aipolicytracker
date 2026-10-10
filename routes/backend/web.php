@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\Admin\AlertsController;
 use App\Http\Controllers\Backend\Admin\BillingController;
 use App\Http\Controllers\Backend\Admin\FundingController;
 use App\Http\Controllers\Backend\Admin\ShellController;
+use App\Http\Controllers\Backend\Admin\SocialPostController;
 use App\Http\Controllers\Backend\Admin\ToolController;
 use App\Http\Controllers\Backend\Admin\UserController;
 use App\Http\Controllers\Backend\Review\IndependentChecksController;
@@ -143,6 +144,18 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
         Route::post('/{funder}/publish', 'publish')->name('publish');
         Route::post('/{funder}/move', 'move')->name('move');
         Route::delete('/{funder}', 'destroy')->name('destroy');
+    });
+    // Posts to X. A post is the project speaking in public, so it sits with publishing;
+    // the keys and the on/off switch stay with the owner on the settings page.
+    Route::middleware('can:records.publish')->prefix('backend/admin/social')->as('backend.admin.social.')->controller(SocialPostController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/queue', 'queue')->name('queue');
+        Route::post('/', 'store')->name('store');
+        Route::post('/approve-all', 'approveAll')->name('approve.all');
+        Route::put('/{post}', 'update')->whereNumber('post')->name('update');
+        Route::post('/{post}/approve', 'approve')->whereNumber('post')->name('approve');
+        Route::post('/{post}/send', 'send')->whereNumber('post')->name('send');
+        Route::post('/{post}/skip', 'skip')->whereNumber('post')->name('skip');
     });
     // The command palette's record search. Open to any admin; the controller answers only
     // with the kinds of record this account may open, and 403 when it may open none.

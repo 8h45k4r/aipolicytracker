@@ -517,6 +517,8 @@ class AdminController extends Controller
         'analytics_require_consent' => 'ANALYTICS_REQUIRE_CONSENT', 'social_cards_enabled' => 'SOCIAL_CARDS_ENABLED', 'email_domain_enforcement' => 'EMAIL_DOMAIN_ENFORCEMENT',
         'google_site_verification' => 'GOOGLE_SITE_VERIFICATION', 'bing_site_verification' => 'BING_SITE_VERIFICATION', 'x_handle' => 'SITE_X_HANDLE', 'newsletter_url' => 'SITE_NEWSLETTER_URL',
         'dataset_doi' => 'DATASET_DOI', 'sponsor_url' => 'SPONSOR_URL',
+        'x_posting' => 'X_POSTING', 'x_mode' => 'X_MODE', 'x_api_key' => 'X_API_KEY', 'x_api_secret' => 'X_API_SECRET', 'x_access_token' => 'X_ACCESS_TOKEN',
+        'x_access_secret' => 'X_ACCESS_SECRET', 'x_mentions' => 'X_MENTIONS', 'x_hashtags' => 'X_HASHTAGS', 'x_monthly_cap' => 'X_MONTHLY_CAP', 'x_min_impact' => 'X_MIN_IMPACT',
     ];
 
     public function settings(BillingConfig $billing): View
@@ -552,6 +554,7 @@ class AdminController extends Controller
             'dodo_environment' => $billing->environment(),
             'analytics_require_consent' => config('aipolicytracker.analytics_require_consent') ? 'on' : 'off',
             'email_domain_enforcement' => config('email.enforce') ? 'on' : 'off',
+            'x_posting' => config('social.x.enabled') ? 'on' : 'off',
         ];
         $groups = [];
         foreach (AppSetting::GROUPS as $id => $group) {
@@ -573,7 +576,7 @@ class AdminController extends Controller
 
         return match (true) {
             $secret => 'set in environment',
-            in_array($key, ['billing_enabled', 'analytics_require_consent', 'social_cards_enabled', 'email_domain_enforcement'], true) => filter_var($value, FILTER_VALIDATE_BOOL) ? 'on' : 'off',
+            in_array($key, ['billing_enabled', 'analytics_require_consent', 'social_cards_enabled', 'email_domain_enforcement', 'x_posting'], true) => filter_var($value, FILTER_VALIDATE_BOOL) ? 'on' : 'off',
             default => (string) $value,
         };
     }
@@ -617,6 +620,16 @@ class AdminController extends Controller
             }],
             'sponsor_url' => ['nullable', 'string', 'max:512', $this->httpsUrl($https)],
             'funding_threshold' => ['nullable', 'integer', 'min:0', 'max:10000000'],
+            'x_posting' => ['nullable', 'in:on,off'],
+            'x_mode' => ['nullable', 'in:auto,review'],
+            'x_api_key' => ['nullable', 'string', 'max:200', 'regex:/^[A-Za-z0-9_-]{10,200}$/'],
+            'x_api_secret' => ['nullable', 'string', 'max:200', 'regex:/^[A-Za-z0-9_-]{10,200}$/'],
+            'x_access_token' => ['nullable', 'string', 'max:200', 'regex:/^[0-9]+-[A-Za-z0-9_-]{10,200}$/'],
+            'x_access_secret' => ['nullable', 'string', 'max:200', 'regex:/^[A-Za-z0-9_-]{10,200}$/'],
+            'x_mentions' => ['nullable', 'string', 'max:120', 'regex:/^\s*(@?[A-Za-z0-9_]{1,15}[\s,]*){1,4}$/'],
+            'x_hashtags' => ['nullable', 'string', 'max:80', 'regex:/^\s*(#?[\pL\pN_]{2,30}[\s,]*){1,3}$/u'],
+            'x_monthly_cap' => ['nullable', 'integer', 'min:0', 'max:500'],
+            'x_min_impact' => ['nullable', 'in:routine,high,urgent'],
         ];
     }
 
