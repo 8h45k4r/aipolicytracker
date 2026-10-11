@@ -193,12 +193,12 @@ ssh aip 'install -m 0755 /opt/aip/repo/deploy/remote-deploy.sh /usr/local/sbin/a
 ssh aip "printf 'command=\"/usr/local/sbin/aip-deploy\",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty %s\n' \"$(cat ~/.ssh/aip_deploy.pub)\" >> /root/.ssh/authorized_keys"
 
 # 3. Prove the binding: the key may deploy and nothing else.
-ssh -i ~/.ssh/aip_deploy root@<origin-ip> "$(git rev-parse origin/main)"   # deploys
-ssh -i ~/.ssh/aip_deploy root@<origin-ip> hostname                          # refused by the script
+ssh -i ~/.ssh/aip_deploy <deploy-user>@<origin-ip> "$(git rev-parse origin/main)"   # deploys
+ssh -i ~/.ssh/aip_deploy <deploy-user>@<origin-ip> hostname                          # refused by the script
 
 # 4. Hand the workflow what it needs. Nothing here is written into the repository.
 gh secret set DEPLOY_HOST --body <origin-ip>
-gh secret set DEPLOY_USER --body root
+gh secret set DEPLOY_USER --body <deploy-user>
 gh secret set DEPLOY_SSH_KEY < ~/.ssh/aip_deploy
 gh secret set DEPLOY_KNOWN_HOSTS --body "$(ssh-keyscan -t ed25519 <origin-ip> 2>/dev/null)"
 ```

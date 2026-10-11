@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ExternalIncidentReport;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
@@ -87,7 +88,7 @@ class SyncAiidReportsCommand extends Command
             $reports[] = [
                 'report_number' => $n, 'incident_id' => $map[$n], 'title' => mb_substr((string) $r['title'], 0, 300), 'url' => preg_match('#^https?://#i', (string) $r['url']) ? mb_substr((string) $r['url'], 0, 2048) : '',
                 'source_domain' => mb_substr((string) $r['source_domain'], 0, 190), 'date_published' => substr((string) $r['date_published'], 0, 10),
-                'authors' => array_slice(array_map(fn ($a) => mb_substr((string) $a, 0, 120), $authors), 0, 6), 'language' => mb_substr((string) $r['language'], 0, 8),
+                'authors' => ExternalIncidentReport::cleanAuthors($authors), 'language' => mb_substr((string) $r['language'], 0, 8),
             ];
         }
         fclose($h);
