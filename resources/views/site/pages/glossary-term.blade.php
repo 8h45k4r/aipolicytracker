@@ -40,7 +40,7 @@
         <h2 id="related-heading" class="section-title">Related terms</h2>
         <ul class="mt-3 grid gap-3 sm:grid-cols-2 text-sm">
             @foreach($related as $r)
-            <li class="rounded-sm border border-brand-line p-3"><a href="{{ \App\Services\Glossary\GlossaryTerms::url($r['id']) }}" class="font-medium">{{ $r['term'] }}</a><span class="mt-1 block text-xs text-brand-muted">{{ \Illuminate\Support\Str::limit($r['definition'], 110) }}</span></li>
+            <li class="rounded-md border border-brand-line p-3"><a href="{{ \App\Services\Glossary\GlossaryTerms::url($r['id']) }}" class="font-medium">{{ $r['term'] }}</a><span class="mt-1 block text-xs text-brand-muted">{{ \Illuminate\Support\Str::limit($r['definition'], 110) }}</span></li>
             @endforeach
         </ul>
     </section>

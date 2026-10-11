@@ -45,7 +45,7 @@
             <section aria-labelledby="overview-heading" class="mt-8">
                 <h2 id="overview-heading" class="section-title">What is {{ $policy->definiteName() }}?</h2>
                 <div class="prose-policy mt-2"><p>{{ $policy->summary_plain }}</p></div>
-                @if($policy->status_note)<p class="mt-3 rounded-sm bg-brand-paper border border-brand-line px-3 py-2 text-sm text-brand-body"><span class="font-medium">Status note:</span> {{ $policy->status_note }}</p>@endif
+                @if($policy->status_note)<p class="mt-3 rounded-md bg-brand-paper border border-brand-line px-3 py-2 text-sm text-brand-body"><span class="font-medium">Status note:</span> {{ $policy->status_note }}</p>@endif
             </section>
 
             <section aria-labelledby="scope-heading" class="mt-8">

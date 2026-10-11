@@ -24,7 +24,7 @@
     <p class="mt-2 meta">The initial library is seeded from <code>config/resources.php</code> once; edits made here are never overwritten by deploys.</p>
 </details>
 @if($tools->isEmpty())<div class="mt-6">@if($status || $filters->active())<x-site.empty title="No tools match" :reset="route('backend.admin.tools.index')">Change the status or the search to see more tools.</x-site.empty>@else<x-site.empty title="No tools yet">Create a tool, then upload its files.</x-site.empty>@endif</div>@else
-<form method="post" action="{{ route('backend.admin.tools.status.many') }}" id="bulk-tools" class="mt-6 flex flex-wrap items-center gap-2 rounded-sm border border-brand-line bg-white p-3 text-sm">@csrf
+<form method="post" action="{{ route('backend.admin.tools.status.many') }}" id="bulk-tools" class="mt-6 flex flex-wrap items-center gap-2 rounded-md border border-brand-line bg-white p-3 text-sm">@csrf
     <span class="font-medium text-brand-navy">Set the status of the selection</span>
     <span class="badge-neutral" data-bulk-count="bulk-tools">0 selected</span>
     <label class="ml-auto flex items-center gap-2 text-xs"><span class="meta">Status</span><select name="status" class="input !min-h-0 !py-1 !w-auto" aria-label="Status for the selection">@foreach(\App\Models\Tool::STATUSES as $k => $label)<option value="{{ $k }}">{{ $label }}</option>@endforeach</select></label>

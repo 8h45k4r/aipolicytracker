@@ -64,6 +64,24 @@
             track(form.getAttribute('data-track'), {});
         }
     });
+    // A sent form cannot be sent twice: its button is held for a moment and marked busy,
+    // so a double click on "Subscribe" makes one request. GET forms (search, filters)
+    // are left alone, the admin has its own version, and the hold lifts after a few
+    // seconds in case the response was a download that never leaves the page.
+    document.addEventListener('submit', function (e) {
+        var form = e.target, button = e.submitter;
+        if (e.defaultPrevented || document.documentElement.hasAttribute('data-admin')) { return; }
+        if (!form || (form.getAttribute('method') || 'get').toLowerCase() === 'get' || form.hasAttribute('target') || form.hasAttribute('data-no-busy')) { return; }
+        if (!button || button.hasAttribute('data-no-busy')) { return; }
+        window.setTimeout(function () {
+            button.disabled = true;
+            button.setAttribute('aria-busy', 'true');
+            window.setTimeout(function () { button.disabled = false; button.removeAttribute('aria-busy'); }, 6000);
+        }, 0);
+    });
+    window.addEventListener('pageshow', function () {
+        document.querySelectorAll('button[aria-busy="true"]').forEach(function (b) { b.disabled = false; b.removeAttribute('aria-busy'); });
+    });
     if (document.body.getAttribute('data-page-track')) {
         track(document.body.getAttribute('data-page-track'), { path: location.pathname });
     }

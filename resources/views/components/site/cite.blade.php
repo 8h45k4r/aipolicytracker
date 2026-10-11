@@ -18,6 +18,6 @@
     @endif
     <details class="mt-2 text-xs">
         <summary class="cursor-pointer text-brand-blue">BibTeX</summary>
-        <pre class="mt-2 overflow-x-auto rounded-sm bg-brand-paper p-3 text-brand-body" data-cite-bibtex>{{ \App\Support\DatasetCitation::bibtex($title, $url) }}</pre>
+        <pre class="mt-2 overflow-x-auto rounded-md bg-brand-paper p-3 text-brand-body" data-cite-bibtex>{{ \App\Support\DatasetCitation::bibtex($title, $url) }}</pre>
     </details>
 </section>

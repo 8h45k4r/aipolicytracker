@@ -70,7 +70,7 @@
     </div>
     @unless($setup['api_key'])<p id="provision-blocked" class="meta mt-2">Provisioning needs the Dodo API key. <a href="{{ route('backend.admin.settings') }}#f-dodo_api_key">Add the API key in Settings</a>.</p>@endunless
     @if($blockers !== [])
-    <div id="probe-blocked" class="mt-3 rounded-sm border border-state-warn/30 bg-state-warnbg px-3 py-2 text-sm text-brand-body" data-probe-blocked>
+    <div id="probe-blocked" class="mt-3 rounded-md border border-state-warn/30 bg-state-warnbg px-3 py-2 text-sm text-brand-body" data-probe-blocked>
         <p class="font-medium text-state-warn">"Can we sell right now?" is off until:</p>
         <ul class="mt-1 list-disc space-y-0.5 pl-5 adm-linkrow">
             @foreach($blockers as $b)<li>{{ $b['reason'] }} <a href="{{ $b['fix'] }}">{{ $b['label'] }}</a>.</li>@endforeach
@@ -78,7 +78,7 @@
     </div>
     @endif
     @if($probe)
-    <div class="mt-3 rounded-sm border px-3 py-2 text-sm {{ $probe['ok'] ? 'border-state-good/30 bg-state-goodbg text-state-good' : 'border-state-bad/30 bg-state-badbg text-state-bad' }}" role="status">
+    <div class="mt-3 rounded-md border px-3 py-2 text-sm {{ $probe['ok'] ? 'border-state-good/30 bg-state-goodbg text-state-good' : 'border-state-bad/30 bg-state-badbg text-state-bad' }}" role="status">
         <p class="font-semibold">{{ $probe['ok'] ? 'Yes: the provider opened a checkout session' : 'No: the provider refused to open a checkout session' }} ({{ $probe['plan'] }}, {{ $probe['environment'] }})</p>
         <pre class="mt-2 overflow-x-auto whitespace-pre-wrap break-all text-xs">{{ $probe['detail'] }}</pre>
         @unless($probe['ok'])<p class="mt-2 text-xs">A refusal here is the provider's answer, not this site's: an unverified business, a product that cannot sell in this environment, or a key without payment permission. Nothing was charged.</p>@endunless

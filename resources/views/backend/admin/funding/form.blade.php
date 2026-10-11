@@ -11,7 +11,7 @@
 @endphp
 <form method="post" action="{{ $editing ? route('backend.admin.funding.update', $f) : route('backend.admin.funding.store') }}" id="{{ $form }}-form" class="space-y-4" data-funder-form="{{ $form }}">@csrf @if($editing) @method('PUT') @endif
     <input type="hidden" name="_drawer" value="{{ $form }}">
-    @if($mine && $errors->any())<p class="rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">Not saved. Fix the fields marked below.</p>@endif
+    @if($mine && $errors->any())<p class="rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">Not saved. Fix the fields marked below.</p>@endif
     <div class="grid gap-4 sm:grid-cols-2">
         <div><label for="{{ $p }}name" class="label">Name</label><input id="{{ $p }}name" name="name" class="input" required maxlength="160" value="{{ $val('name', $f->name) }}" @if($err('name')) aria-invalid="true" @endif>@if($err('name'))<p class="mt-1 text-xs text-state-bad">{{ $err('name') }}</p>@endif</div>
         <div><label for="{{ $p }}kind" class="label">Kind</label><select id="{{ $p }}kind" name="kind" class="input">@foreach(\App\Models\Funder::KINDS as $k => $l)<option value="{{ $k }}" @selected($val('kind', $f->kind) === $k)>{{ $l }}</option>@endforeach</select>@if($err('kind'))<p class="mt-1 text-xs text-state-bad">{{ $err('kind') }}</p>@endif</div>

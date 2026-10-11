@@ -7,12 +7,13 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
 /**
- * Fonts are self-hosted. A font CDN sees every visitor's address and page, which the
- * privacy notice does not promise, so no source or built file may name one.
+ * Fonts are self-hosted. A CDN sees every visitor's address and page, which the privacy
+ * notice does not promise, so no source or built file loads a font, script or
+ * stylesheet from one.
  */
 class NoThirdPartyFontsTest extends TestCase
 {
-    public function test_no_source_or_built_file_loads_a_font_from_a_cdn(): void
+    public function test_no_source_or_built_file_loads_from_a_cdn(): void
     {
         $root = dirname(__DIR__, 2);
         $hits = [];
@@ -21,7 +22,7 @@ class NoThirdPartyFontsTest extends TestCase
                 if (! preg_match('/\.(php|css|scss|js|jsx|html)$/', $file->getFilename())) {
                     continue;
                 }
-                if (preg_match('/fonts\.(googleapis|gstatic|bunny)\.(com|net)/', (string) file_get_contents($file->getPathname()))) {
+                if (preg_match('/fonts\.(googleapis|gstatic|bunny)\.(com|net)|cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|unpkg\.com/', (string) file_get_contents($file->getPathname()))) {
                     $hits[] = substr($file->getPathname(), strlen($root) + 1);
                 }
             }

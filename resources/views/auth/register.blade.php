@@ -26,7 +26,7 @@
             <a href="{{ route('home') }}" class="lg:hidden inline-block no-underline mb-6"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></a>
             <p class="eyebrow">Create a free account</p>
             <h2 class="mt-2 font-display text-2xl font-semibold text-brand-navy">Sign up with email</h2>
-            @if($errors->any())<div class="mt-3 rounded-sm border border-state-bad/30 bg-state-badbg p-3 text-sm text-state-bad" role="alert"><ul class="list-disc pl-5">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
+            @if($errors->any())<div class="mt-3 rounded-md border border-state-bad/30 bg-state-badbg p-3 text-sm text-state-bad" role="alert"><ul class="list-disc pl-5">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
             <form method="post" action="{{ route('register') }}" class="mt-6 space-y-4">
                 @csrf
                 <div><label for="name" class="label">Name</label><input id="name" name="name" value="{{ old('name') }}" required autocomplete="name" class="input"></div>

@@ -2,7 +2,7 @@
 {{-- The portrait is sized by its width/height attributes (the file is 400px square, shown at 112px), so it never depends on a utility being in the built stylesheet. --}}
 <li class="card-flat p-4 flex items-start gap-4" id="{{ $person['slug'] }}">
     @if(!empty($person['photo']))
-    <img src="{{ asset('images/team/'.$person['photo']) }}" alt="Portrait of {{ $person['name'] }}" width="112" height="112" class="shrink-0 rounded-sm object-cover" loading="lazy" decoding="async">
+    <img src="{{ asset('images/team/'.$person['photo']) }}" alt="Portrait of {{ $person['name'] }}" width="112" height="112" class="shrink-0 rounded-md object-cover" loading="lazy" decoding="async">
     @else
     <div class="shrink-0 rounded-sm bg-brand-line" style="width:112px;height:112px" aria-hidden="true"></div>
     @endif

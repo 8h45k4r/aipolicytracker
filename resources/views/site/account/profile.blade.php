@@ -5,9 +5,9 @@
     <p class="eyebrow mt-3">Your account</p>
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $user->name }}</h1>
     <p class="mt-1 text-sm text-brand-muted">{{ $user->email }} · member since {{ $user->created_at?->format('j M Y') }}@if($user->isAdmin()) · <a href="{{ route('backend.admin.dashboard') }}">Admin</a>@endif</p>
-    @if(session('error'))<p class="mt-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
-    @if(session('status') === 'already-subscribed')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">You already have an active plan.</p>@endif
-    @if(session('status') === 'profile-updated')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile saved.</p>@elseif(session('status') === 'password-updated')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Password updated.</p>@elseif(session('status') === 'verification-link-sent')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Verification link sent.</p>@endif
+    @if(session('error'))<p class="mt-4 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
+    @if(session('status') === 'already-subscribed')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">You already have an active plan.</p>@endif
+    @if(session('status') === 'profile-updated')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile saved.</p>@elseif(session('status') === 'password-updated')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Password updated.</p>@elseif(session('status') === 'verification-link-sent')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Verification link sent.</p>@endif
     <section class="mt-8 card-flat p-5" aria-labelledby="plan-h">
         <h2 id="plan-h" class="section-title !text-lg">Your plan</h2>
         @if($subscription)
@@ -45,7 +45,7 @@
             @if(!$user->email_verified_at)<form method="post" action="{{ route('verification.send') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">Resend verification email</button></form>@endif
             <p class="mt-3 meta">Weekly digest subscriptions are managed from the <a href="{{ route('subscribe.show') }}">subscribe page</a> and the unsubscribe link in every email. Daily alert channels are on the <a href="{{ route('following.index') }}">alerts page</a>.</p>
             <p class="mt-2 meta"><a href="{{ route('account.export') }}">Export everything we hold about you (JSON)</a> · deleting the account below removes it all.</p>
-            @if(session('api_token'))<p class="mt-3 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-xs text-state-good" role="status">API token (shown once): <code class="break-all">{{ session('api_token') }}</code></p>@endif
+            @if(session('api_token'))<p class="mt-3 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-xs text-state-good" role="status">API token (shown once): <code class="break-all">{{ session('api_token') }}</code></p>@endif
             <form method="post" action="{{ route('profile.api-token') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">{{ $user->tokens()->exists() ? 'Replace API token' : 'Create API token' }}</button> <span class="meta">for <code>/api/v1/watches</code></span></form>
         </section>
     </div>

@@ -21,7 +21,7 @@
             <section aria-labelledby="inside-heading">
                 <h2 id="inside-heading" class="section-title">What's inside</h2>
                 <ul class="mt-2 list-disc space-y-1.5 pl-5 text-sm text-brand-body">@foreach($meta['inside'] as $line)<li>{{ $line }}</li>@endforeach</ul>
-                @if($caveat)<p class="mt-3 rounded-sm border border-state-warn/40 bg-state-warnbg p-3 text-sm text-brand-body"><span class="font-medium text-brand-navy">Dates:</span> {{ $caveat }}</p>@endif
+                @if($caveat)<p class="mt-3 rounded-md border border-state-warn/40 bg-state-warnbg p-3 text-sm text-brand-body"><span class="font-medium text-brand-navy">Dates:</span> {{ $caveat }}</p>@endif
             </section>
 
             <section id="preview" class="mt-8" aria-labelledby="preview-heading">

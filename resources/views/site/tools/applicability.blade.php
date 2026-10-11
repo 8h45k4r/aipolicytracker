@@ -24,9 +24,9 @@
         {{-- The form submits to #results so a phone, where the form stacks above, lands on the answer. --}}
         <div id="results" class="lg:col-span-2 min-w-0 scroll-mt-4">
             @if(!$submitted)
-                <div class="rounded-sm border border-dashed border-brand-line p-8 text-sm text-brand-muted"><p class="font-medium text-brand-navy">Your results will appear here.</p><p class="mt-1">The screening lists recorded policies whose scope overlaps your answers, the obligations that mention your role and use case, questions to investigate, a starter checklist and official sources. Nothing is stored.</p></div>
+                <div class="rounded-lg border border-dashed border-brand-line p-8 text-sm text-brand-muted"><p class="font-medium text-brand-navy">Your results will appear here.</p><p class="mt-1">The screening lists recorded policies whose scope overlaps your answers, the obligations that mention your role and use case, questions to investigate, a starter checklist and official sources. Nothing is stored.</p></div>
             @else
-                @if(session('error'))<p class="mb-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
+                @if(session('error'))<p class="mb-4 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
                 {{-- Headline first, computed from the same rows the register exports. --}}
                 <section class="mb-6" aria-labelledby="r-summary" data-applicability-summary>
                     <h2 id="r-summary" class="section-title !text-lg">Screening summary</h2>

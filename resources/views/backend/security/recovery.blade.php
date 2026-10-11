@@ -5,7 +5,7 @@
 <section class="mt-6 card-flat p-5 border-state-warn/40">
     <h2 class="section-title !text-lg">Save these recovery codes now</h2>
     <p class="mt-1 text-sm text-brand-body">Each code signs you in once if you cannot use your authenticator. They are shown this once and are not stored in a readable form.</p>
-    <ul class="mt-3 grid gap-2 sm:grid-cols-2 font-mono text-sm">@foreach($codes as $c)<li class="rounded-sm bg-brand-paper px-3 py-2 select-all">{{ $c }}</li>@endforeach</ul>
+    <ul class="mt-3 grid gap-2 sm:grid-cols-2 font-mono text-sm">@foreach($codes as $c)<li class="rounded-md bg-brand-paper px-3 py-2 select-all">{{ $c }}</li>@endforeach</ul>
     <p class="mt-3 text-xs text-brand-muted">Print them or put them in a password manager, then leave this page.</p>
 </section>
 @else

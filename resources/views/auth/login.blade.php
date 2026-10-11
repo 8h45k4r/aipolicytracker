@@ -26,7 +26,7 @@
             <a href="{{ route('home') }}" class="lg:hidden inline-block no-underline mb-6"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></a>
             <p class="eyebrow">Admin sign in</p>
             <h2 class="mt-2 font-display text-2xl font-semibold text-brand-navy">Sign in to the admin</h2>
-            @if(session('status'))<p class="mt-3 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">{{ session('status') }}</p>@endif
+            @if(session('status'))<p class="mt-3 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">{{ session('status') }}</p>@endif
             <form method="post" action="{{ route('login') }}" class="mt-6 space-y-4" autocomplete="on">
                 @csrf
                 <div>

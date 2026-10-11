@@ -27,7 +27,7 @@
                     <div><dt class="text-brand-muted">{{ $label }}</dt><dd class="mt-0.5">@if($r->{$k})<a href="{{ route('risk.risks', [$k => $r->{$k}]) }}">{{ $r->{$k} }}</a>@else —@endif</dd></div>
                     @endforeach
                 </dl>
-                @if($subdomainMeta && !empty($subdomainMeta['description']))<p class="mt-4 rounded-sm bg-brand-paper border border-brand-line px-3 py-2 text-sm text-brand-body"><span class="font-medium">Subdomain definition:</span> {{ $subdomainMeta['description'] }}</p>@endif
+                @if($subdomainMeta && !empty($subdomainMeta['description']))<p class="mt-4 rounded-md bg-brand-paper border border-brand-line px-3 py-2 text-sm text-brand-body"><span class="font-medium">Subdomain definition:</span> {{ $subdomainMeta['description'] }}</p>@endif
             </section>
             @if($incidents->isNotEmpty())
             <section aria-labelledby="inc-heading" class="mt-8">

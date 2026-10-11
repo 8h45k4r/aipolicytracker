@@ -34,7 +34,7 @@ name and would otherwise all report themselves as current.
                     @foreach(\App\Support\Navigation::menu($group) as $item)
                         <li>
                             <a href="{{ $urlOf($item) }}"
-                               class="block rounded-sm px-3 py-2 no-underline hover:bg-brand-paper {{ $isHere($item) ? 'bg-brand-paper' : '' }}"
+                               class="block rounded px-3 py-2 no-underline hover:bg-brand-paper {{ $isHere($item) ? 'bg-brand-paper' : '' }}"
                                @if($isHere($item)) aria-current="page" @endif
                                data-track="nav_click" data-track-label="{{ $key }}">
                                 <span class="block text-sm font-medium text-brand-navy">{{ $item['label'] }}</span>

@@ -51,13 +51,13 @@
         <div class="flex items-center justify-between gap-3 px-4 py-4 lg:py-5">
             <a href="{{ route('backend.admin.dashboard') }}" class="block no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker admin" class="h-8 w-auto"></a>
             <span class="hidden lg:inline eyebrow !text-brand-cyan">Admin</span>
-            <button type="button" class="lg:hidden rounded-sm border border-white/20 px-3 py-1.5 text-sm text-white" aria-controls="admin-nav" aria-expanded="false" data-admin-menu>{{ $current[1] ?? 'Menu' }} ▾</button>
+            <button type="button" class="lg:hidden rounded-md border border-white/20 px-3 py-1.5 text-sm text-white" aria-controls="admin-nav" aria-expanded="false" data-admin-menu>{{ $current[1] ?? 'Menu' }} ▾</button>
         </div>
         <div id="admin-nav" class="hidden lg:flex lg:flex-1 lg:min-h-0 flex-col border-t border-white/10 lg:border-0" data-admin-nav>
             <div class="px-4 pb-2">
                 <label for="admin-nav-filter" class="sr-only">Go to a page</label>
-                <input id="admin-nav-filter" type="search" placeholder="Go to…  ( / )" autocomplete="off" class="w-full rounded-sm border-0 bg-white/10 px-3 py-1.5 text-sm text-white placeholder:text-white/50 focus:ring-2 focus:ring-brand-cyan" data-admin-nav-filter>
-                <button type="button" class="mt-2 hidden w-full items-center justify-between gap-2 rounded-sm bg-white/5 px-3 py-1.5 text-left text-xs text-white/75 hover:bg-white/10 lg:flex" data-palette-open hidden><span class="truncate">{{ $searchKinds !== [] ? 'Search pages and records' : 'Search pages and actions' }}</span> <kbd class="adm-kbd shrink-0 whitespace-nowrap">Ctrl K</kbd></button>
+                <input id="admin-nav-filter" type="search" placeholder="Go to…  ( / )" autocomplete="off" class="w-full rounded-md border-0 bg-white/10 px-3 py-1.5 text-sm text-white placeholder:text-white/50 focus:ring-2 focus:ring-brand-cyan" data-admin-nav-filter>
+                <button type="button" class="mt-2 hidden w-full items-center justify-between gap-2 rounded-md bg-white/5 px-3 py-1.5 text-left text-xs text-white/75 hover:bg-white/10 lg:flex" data-palette-open hidden><span class="truncate">{{ $searchKinds !== [] ? 'Search pages and records' : 'Search pages and actions' }}</span> <kbd class="adm-kbd shrink-0 whitespace-nowrap">Ctrl K</kbd></button>
             </div>
             {{-- min-h-0 lets the menu shrink below its content inside the column, so it
                  scrolls on a short window instead of pushing the account footer out of view. --}}
@@ -70,7 +70,7 @@
                     <p class="px-3 pb-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65">{{ $heading }}</p>
                     @foreach($visible as [$r, $label, $capability])
                     @php($active = request()->routeIs($pattern($r)))
-                    <a href="{{ route($r) }}" class="flex items-center rounded-sm border-l-2 px-3 py-[5px] no-underline {{ $active ? 'border-brand-cyan bg-white/10 text-white font-medium' : 'border-transparent text-white/75 hover:bg-white/5 hover:text-white' }}" @if($active) aria-current="page" @endif data-admin-nav-link>{{ $label }}</a>
+                    <a href="{{ route($r) }}" class="flex items-center rounded-md border-l-2 px-3 py-[5px] no-underline {{ $active ? 'border-brand-cyan bg-white/10 text-white font-medium' : 'border-transparent text-white/75 hover:bg-white/5 hover:text-white' }}" @if($active) aria-current="page" @endif data-admin-nav-link>{{ $label }}</a>
                     @endforeach
                 </div>
                 @endforeach

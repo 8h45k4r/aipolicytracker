@@ -58,7 +58,7 @@
     {{-- The action bar. It is a sibling of the table (a form cannot hold another form), and the
          rows' checkboxes point at it with form="{{ $bulk }}". Sticky, so it stays in reach on a long
          page; on a phone it is a compact bar along the bottom that appears once a row is ticked. --}}
-    <form method="post" action="{{ route('backend.review.verify.many', ['type' => $type]) }}" id="{{ $bulk }}" class="adm-bulkbar sticky top-0 z-10 mt-3 space-y-2 rounded-sm border border-brand-line bg-white p-3 text-sm shadow-sm">@csrf
+    <form method="post" action="{{ route('backend.review.verify.many', ['type' => $type]) }}" id="{{ $bulk }}" class="adm-bulkbar sticky top-0 z-10 mt-3 space-y-2 rounded-md border border-brand-line bg-white p-3 text-sm shadow-sm">@csrf
         <input type="hidden" name="q" value="{{ $filters['q'] }}"><input type="hidden" name="review" value="{{ $filters['review'] }}"><input type="hidden" name="published" value="{{ $filters['published'] }}">
         <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
             <span class="font-medium text-brand-navy">Act on the selection</span>
@@ -67,7 +67,7 @@
         </div>
         @can('records.verify')
         @unless($onRoster)
-        <p class="rounded-sm border border-brand-line bg-state-warnbg px-3 py-2 text-xs text-brand-body" data-roster-notice>You are signed in as <strong>{{ auth()->user()->name }}</strong>, a name that is not on the published reviewer roster, so you cannot mark records verified. You can still set another review status or the confidence. To verify, add yourself to <code>data/reviewers/</code> with a declaration of interest by pull request and import it. <a href="{{ route('reviewers') }}" target="_blank" rel="noopener">See the reviewer roster ↗</a></p>
+        <p class="rounded-md border border-brand-line bg-state-warnbg px-3 py-2 text-xs text-brand-body" data-roster-notice>You are signed in as <strong>{{ auth()->user()->name }}</strong>, a name that is not on the published reviewer roster, so you cannot mark records verified. You can still set another review status or the confidence. To verify, add yourself to <code>data/reviewers/</code> with a declaration of interest by pull request and import it. <a href="{{ route('reviewers') }}" target="_blank" rel="noopener">See the reviewer roster ↗</a></p>
         @endunless
         <div class="flex flex-wrap items-end gap-2">
             <label class="text-xs"><span class="block meta">Review status</span><select name="review_status" class="input mt-0.5 !min-h-0 !py-1 !w-auto"><option value="{{ $keep }}">Keep current</option>@foreach($reviewStatuses as $r)<option value="{{ $r }}" @selected(old('review_status') === $r)>{{ str_replace('_', ' ', $r) }}</option>@endforeach</select></label>

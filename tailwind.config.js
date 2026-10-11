@@ -9,6 +9,9 @@ const tone = (name, rgb) => `rgb(var(--${name}, ${rgb}) / <alpha-value>)`;
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: "class",
+    // hover: styles apply only where a pointer can hover, so a tap on a phone does not
+    // leave a button stuck in its hover state.
+    future: { hoverOnlyWhenSupported: true },
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
@@ -74,6 +77,19 @@ export default {
             borderColor: (theme) => ({
                 "light-border": theme("colors.light-color"),
             }),
+            // One corner scale for the whole portal, read from the --radius-* tokens in
+            // public.css (docs/reference/design-system.md). The names keep their Tailwind
+            // meaning (sm is the smallest step), so every existing class lands on the scale.
+            borderRadius: {
+                none: "0",
+                sm: "var(--radius-xs, 4px)", // badges, checkboxes, swatches, inline marks
+                DEFAULT: "var(--radius-sm, 6px)", // menu items, small controls inside a panel
+                md: "var(--radius-md, 8px)", // buttons, inputs, chips, callouts, toasts
+                lg: "var(--radius-lg, 12px)", // cards, panels, tables, popovers
+                xl: "var(--radius-xl, 16px)", // dialogs, sheets
+                "2xl": "20px",
+                full: "9999px", // pills, avatars, status dots
+            },
             aspectRatio: {
                 "1/1": "1 / 1",
             },

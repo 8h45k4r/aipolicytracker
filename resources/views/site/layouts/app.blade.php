@@ -74,7 +74,7 @@
             </a>
             <x-site.nav />
             <div class="flex items-center gap-2 lg:gap-1.5 xl:gap-2">
-                <form action="{{ route('search') }}" method="get" role="search" class="hidden xl:block" data-track="header_search_submit">
+                <form action="{{ route('search') }}" method="get" role="search" class="hidden 2xl:block" data-track="header_search_submit">
                     <label for="header-q" class="sr-only">Search the site</label>
                     <div class="relative">
                         <svg class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-muted" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -82,7 +82,7 @@
                     </div>
                 </form>
                 <a href="{{ route('search') }}" class="sm:hidden btn-primary !min-h-[38px] !py-1.5 gap-1.5" data-track="header_search_click"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Search</a>
-                <a href="{{ route('search') }}" class="hidden sm:inline-flex xl:hidden btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click" aria-label="Search"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+                <a href="{{ route('search') }}" class="hidden sm:inline-flex 2xl:hidden btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click" aria-label="Search"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
                 <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
                 @auth<a href="{{ route('profile.edit') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_account_click">Account</a>@else<a href="{{ route('login') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_signin_click">Sign in</a>@endauth
                 <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
@@ -116,7 +116,7 @@
             <p class="mt-4 max-w-sm text-xs leading-5 text-snow/60">{{ config('aipolicytracker.disclaimer') }}</p>
             <ul class="mt-5 flex items-center gap-3" aria-label="Follow AIPolicyTracker">
                 @foreach(config('aipolicytracker.social', []) as $social)
-                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-snow/20 hover:ring-snow/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-sm"></a></li>
+                <li><a href="{{ $social['url'] }}" rel="me noopener" class="block rounded-sm ring-1 ring-snow/20 hover:ring-snow/60" data-track="social_click" data-track-label="{{ $social['key'] }}" title="{{ $social['label'] }}"><img src="{{ asset('brand/social/'.$social['key'].'.svg') }}" alt="{{ $social['label'] }}" width="32" height="32" class="h-8 w-8 rounded-md"></a></li>
                 @endforeach
             </ul>
         </div>

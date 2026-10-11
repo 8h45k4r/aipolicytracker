@@ -4,7 +4,7 @@
     <x-slot:actions><a href="{{ route('backend.admin.funding.index', ['new' => 1]) }}#funder-form" class="btn-primary btn-sm" data-drawer-open="funder-add" data-command="Add a funder">Add a funder</a><a href="{{ route('funding') }}" class="btn-secondary btn-sm" target="_blank" rel="noopener">View /funding</a><a href="{{ route('backend.admin.settings') }}#citation-funding" class="btn-secondary btn-sm">Threshold and sponsor link</a></x-slot:actions>
 </x-backend.page-header>
 
-<div class="mt-4 rounded-sm border border-brand-line bg-white px-4 py-3 text-sm text-brand-body" data-funding-threshold>
+<div class="mt-4 rounded-lg border border-brand-line bg-white px-4 py-3 text-sm text-brand-body" data-funding-threshold>
     <p><strong class="text-brand-navy">Disclosure threshold: {{ '$'.number_format($threshold) }} a year.</strong> Every funder giving more than this in a year must be listed and published here, with the amount and what it pays for. Add the entry when the money is agreed, not when it arrives.</p>
     <p class="mt-1 meta">Write the amount as agreed. Do not estimate or round it. The threshold and the sponsor link are set on the settings page.@if($sponsorUrl) Sponsor link: <a href="{{ $sponsorUrl }}" rel="noopener">{{ $sponsorUrl }}</a>.@endif</p>
     @if($usingConfig)<p class="mt-1 text-state-warn">This table is empty, so /funding still shows the list in config/funding.php. Once you add an entry here, only this table is used.</p>@endif

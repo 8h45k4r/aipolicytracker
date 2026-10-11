@@ -15,10 +15,10 @@
     <form method="post" action="{{ route('contribute.store') }}" class="mt-8 card-flat p-4 sm:p-6 space-y-4" data-track="submission_submit">
         @csrf
         <h2 class="section-title">Submission form</h2>
-        @if($errors->any())<div class="rounded-sm border border-state-bad/30 bg-state-badbg p-3 text-sm text-state-bad" role="alert"><p class="font-medium">Please fix the following:</p><ul class="mt-1 list-disc pl-5">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
+        @if($errors->any())<div class="rounded-md border border-state-bad/30 bg-state-badbg p-3 text-sm text-state-bad" role="alert"><p class="font-medium">Please fix the following:</p><ul class="mt-1 list-disc pl-5">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
         <div><label for="s-type" class="label">What are you submitting?</label><select id="s-type" name="type" class="input" required>@foreach($types as $k => $label)<option value="{{ $k }}" @selected(old('type', $prefill['type']) === $k)>{{ $label }}</option>@endforeach</select></div>
         @if($subject)
-        <div class="rounded-sm border border-brand-navy/20 bg-brand-paper p-4 text-sm" data-correction-context>
+        <div class="rounded-lg border border-brand-navy/20 bg-brand-paper p-4 text-sm" data-correction-context>
             <p class="eyebrow">Record you are correcting</p>
             <p class="mt-1 font-semibold text-brand-navy"><a href="{{ $subject['url'] }}">{{ $subject['title'] }}</a>@if($subject['jurisdiction']) <span class="font-normal text-brand-muted">· {{ $subject['jurisdiction'] }}</span>@endif</p>
             <dl class="mt-2 grid gap-x-6 gap-y-1 sm:grid-cols-2 text-xs text-brand-muted">

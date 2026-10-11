@@ -5,6 +5,12 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Changed
+- One corner-radius scale for the whole portal (4, 6, 8, 12 and 16px plus pills), applied by role: badges and checkboxes 4px, buttons, inputs and callouts 8px, cards, panels and tables 12px, dialogs 16px, filter chips as pills. Shadows and motion use shared tokens too. See `docs/reference/design-system.md`.
+- Interaction: one focus outline that keeps each control's shape and survives high-contrast mode; hover styles only on devices that hover; invalid fields marked in red; public forms cannot be sent twice by a double click; disabled buttons look unavailable; balanced headings and tabular figures.
+- The account screens no longer load Font Awesome or Flowbite from a CDN, and the security policy no longer allows either.
+- The header search box appears from 1536px wide, so the header no longer runs off the edge at 1280px.
+
+### Changed
 - Open-source readiness: the deploy guide no longer names the origin server or its user; the amCharts licence ships with the map and each build lists the licence of every bundled package; NOTICE covers fonts, amCharts (not open source), trademarks and team photos; the template licence wording no longer adds a restriction CC BY 4.0 forbids; e-mail addresses are dropped from republished incident report authors.
 - Contributors: the pull request template has a data-only path and refers to the components that exist; README lists the PHP extensions needed; CONTRIBUTING says when to commit `public/build`; SECURITY.md, the module docs and the support guide match the repository; `.env.example` lost its duplicate keys and no longer refuses made-up addresses locally.
 - No page loads a font from a third party, including the account screens and the verification e-mail.

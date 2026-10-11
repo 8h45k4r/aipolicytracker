@@ -32,7 +32,7 @@ no-JavaScript explanation of the three states with a link to the verification po
 @if($legend)
 <details class="relative text-xs text-brand-muted" data-verification-legend>
     <summary class="cursor-pointer list-none underline decoration-dotted hover:text-brand-navy">What this label means</summary>
-    <dl class="mt-2 max-w-md space-y-1.5 rounded-sm border border-brand-line bg-brand-paper p-3 text-brand-body">
+    <dl class="mt-2 max-w-md space-y-1.5 rounded-md border border-brand-line bg-brand-paper p-3 text-brand-body">
         <div><dt class="inline font-medium text-state-good">Verified</dt> <dd class="inline">— a named reviewer opened the official source and confirmed the record; the date and the reviewer are shown.</dd></div>
         <div><dt class="inline font-medium text-state-warn">Pending review</dt> <dd class="inline">— linked to the official source and in the queue for a reviewer to confirm.</dd></div>
         <div><dt class="inline font-medium">Source-linked</dt> <dd class="inline">— linked to the official source, not yet confirmed by a reviewer.</dd></div>

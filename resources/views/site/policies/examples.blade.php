@@ -6,7 +6,7 @@
     <x-site.answer-box :text="$answer" class="mt-4 max-w-3xl" />
 
     @if($template)
-    <section class="mt-8 max-w-3xl rounded-sm border border-brand-line p-4" aria-labelledby="company-heading">
+    <section class="mt-8 max-w-3xl rounded-lg border border-brand-line p-4" aria-labelledby="company-heading">
         <h2 id="company-heading" class="section-title !text-lg">A company AI policy</h2>
         <p class="mt-1 text-sm text-brand-body">Looking for your organisation's own policy rather than a government's? The <a href="{{ \App\Services\Templates\TemplateCatalog::url('acceptable-use-policy') }}">company AI policy template</a> (an acceptable use policy) sets out scope, approved and prohibited uses, data rules, disclosure, training, enforcement and review, and cites the recorded duties each section serves. Free, DOCX.</p>
     </section>

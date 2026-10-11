@@ -50,7 +50,7 @@ export default function Login({ status, canResetPassword }) {
                                     <ul className="mt-5">
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
-                                                <i className="fa-solid fa-arrow-right-long text-sm"></i>
+                                                <span aria-hidden="true" className="text-sm">→</span>
                                             </strong>
                                             <h2 className="tracking-wider leading-6">
                                                 <strong className="me-2">
@@ -64,7 +64,7 @@ export default function Login({ status, canResetPassword }) {
                                         </li>
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
-                                                <i className="fa-solid fa-arrow-right-long text-sm"></i>
+                                                <span aria-hidden="true" className="text-sm">→</span>
                                             </strong>
                                             <h2 className=" tracking-wider leading-6">
                                                 <strong className="me-2">
@@ -77,7 +77,7 @@ export default function Login({ status, canResetPassword }) {
                                         </li>
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
-                                                <i className="fa-solid fa-arrow-right-long text-xl"></i>
+                                                <span aria-hidden="true" className="text-xl">→</span>
                                             </strong>
                                             <h2 className=" tracking-wider">
                                                 <strong className="me-2 leading-6">
@@ -94,7 +94,7 @@ export default function Login({ status, canResetPassword }) {
                                         </li>
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
-                                                <i className="fa-solid fa-arrow-right-long text-xl"></i>
+                                                <span aria-hidden="true" className="text-xl">→</span>
                                             </strong>
                                             <h2 className=" tracking-wider">
                                                 <strong className="me-2 leading-6">
@@ -108,7 +108,7 @@ export default function Login({ status, canResetPassword }) {
 
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
-                                                <i className="fa-solid fa-arrow-right-long text-xl"></i>
+                                                <span aria-hidden="true" className="text-xl">→</span>
                                             </strong>
                                             <h2 className=" tracking-wider">
                                                 <strong className="me-2 leading-6">

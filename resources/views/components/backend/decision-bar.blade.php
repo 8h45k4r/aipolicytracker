@@ -7,7 +7,7 @@
 @php($mine = old('_form') === $id)
 @php($wholeFilter = $mine && old('scope') === 'filtered')
 @php($picked = $mine ? count((array) old('ids', [])) : 0)
-<form method="post" action="{{ route('backend.review.decide.many', request()->except(['page'])) }}" id="{{ $id }}" class="adm-bulkbar sticky top-0 z-10 mt-3 flex flex-wrap items-end gap-2 rounded-sm border border-brand-line bg-white p-3 text-sm shadow-sm">@csrf
+<form method="post" action="{{ route('backend.review.decide.many', request()->except(['page'])) }}" id="{{ $id }}" class="adm-bulkbar sticky top-0 z-10 mt-3 flex flex-wrap items-end gap-2 rounded-md border border-brand-line bg-white p-3 text-sm shadow-sm">@csrf
     <input type="hidden" name="_form" value="{{ $id }}">
     <p class="w-full flex flex-wrap items-center gap-x-4 gap-y-1">
         <span class="font-medium text-brand-navy">Decide the selected submissions</span>

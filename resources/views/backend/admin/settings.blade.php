@@ -8,14 +8,14 @@
 <x-backend.page-header title="Settings and API keys" description="Values saved here override the environment. Secrets are encrypted with the application key before they are stored and are never shown again in full.">
     <x-slot:actions><a href="{{ route('backend.admin.billing.index') }}" class="btn-secondary btn-sm">Billing</a><a href="{{ route('backend.admin.funding.index') }}" class="btn-secondary btn-sm">Funding and funders</a></x-slot:actions>
 </x-backend.page-header>
-@unless($envReadable)<p class="mt-3 rounded-sm border border-brand-line bg-white px-3 py-2 text-sm text-brand-body">The configuration is cached on this host, so the environment file is not read at request time and its values cannot be shown beside each field. A field not saved here shows "Environment or default".</p>@endunless
+@unless($envReadable)<p class="mt-3 rounded-md border border-brand-line bg-white px-3 py-2 text-sm text-brand-body">The configuration is cached on this host, so the environment file is not read at request time and its values cannot be shown beside each field. A field not saved here shows "Environment or default".</p>@endunless
 
 <div class="mt-6 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:items-start lg:gap-8">
     <nav aria-label="Settings groups" class="mb-6 lg:sticky lg:top-6 lg:mb-0" data-settings-nav>
         <p class="mb-2 hidden text-xs font-semibold uppercase tracking-wide text-brand-muted lg:block">On this page</p>
         <ul class="flex flex-wrap gap-2 text-sm lg:flex-col lg:gap-0.5">
             @foreach($groups as $id => $group)
-            <li><a href="#group-{{ $id }}" data-command="Settings: {{ $group['label'] }}" class="inline-flex items-center gap-2 rounded-sm border border-brand-line bg-white px-2.5 py-1 text-brand-navy no-underline hover:bg-brand-paper lg:flex lg:border-0 lg:bg-transparent lg:px-2 lg:py-1.5 @if($id === 'live') text-state-bad @endif">{{ $group['label'] }}@if($groupErrors[$id])<span class="inline-block h-2 w-2 rounded-full bg-state-bad" aria-label="has errors"></span>@endif</a></li>
+            <li><a href="#group-{{ $id }}" data-command="Settings: {{ $group['label'] }}" class="inline-flex items-center gap-2 rounded-md border border-brand-line bg-white px-2.5 py-1 text-brand-navy no-underline hover:bg-brand-paper lg:flex lg:border-0 lg:bg-transparent lg:px-2 lg:py-1.5 @if($id === 'live') text-state-bad @endif">{{ $group['label'] }}@if($groupErrors[$id])<span class="inline-block h-2 w-2 rounded-full bg-state-bad" aria-label="has errors"></span>@endif</a></li>
             @endforeach
         </ul>
     </nav>
@@ -26,12 +26,12 @@
         <section id="group-{{ $id }}" class="card-flat scroll-mt-6 p-5" aria-labelledby="group-{{ $id }}-title" data-settings-group="{{ $id }}">
             <h2 id="group-{{ $id }}-title" class="section-title !text-lg">{{ $group['label'] }}</h2>
             <p class="mt-1 text-sm text-brand-body">{{ $group['intro'] }}</p>
-            @if($groupErrors[$id])<p class="mt-3 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">Nothing in this group was saved. Fix the fields marked below and save again.</p>@endif
+            @if($groupErrors[$id])<p class="mt-3 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">Nothing in this group was saved. Fix the fields marked below and save again.</p>@endif
 
             @switch($id)
                 @case('email')
                 <p class="mt-2 text-sm text-brand-body">Create a key at <a href="https://resend.com/api-keys" rel="noopener">resend.com/api-keys</a> with "Sending access" for the verified domain, paste it below and set the transport to <code>resend</code>. Then send a test email.</p>
-                <dl class="mt-3 divide-y divide-brand-line rounded-sm border border-brand-line bg-brand-paper px-3 text-sm" data-effective-mail>
+                <dl class="mt-3 divide-y divide-brand-line rounded-lg border border-brand-line bg-brand-paper px-3 text-sm" data-effective-mail>
                     <div class="flex justify-between gap-4 py-2"><dt class="text-brand-muted">Mail transport in use</dt><dd class="font-mono">{{ $effective['mailer'] }}</dd></div>
                     <div class="flex justify-between gap-4 py-2"><dt class="text-brand-muted">From</dt><dd class="font-mono break-all text-right">{{ $effective['from'] }}</dd></div>
                     <div class="flex justify-between gap-4 py-2"><dt class="text-brand-muted">Resend key</dt><dd>{{ $effective['resend'] ? 'configured' : 'not configured' }}</dd></div>
@@ -115,7 +115,7 @@
         <section id="group-live" class="scroll-mt-6 rounded-md border-2 border-state-bad/40 bg-white p-5" aria-labelledby="group-live-title" data-settings-group="live">
             <h2 id="group-live-title" class="section-title !text-lg text-state-bad">{{ $liveGroup['label'] }}</h2>
             <p class="mt-1 text-sm text-brand-body">{{ $liveGroup['intro'] }}</p>
-            @if($groupErrors['live'])<p class="mt-3 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">That switch was not changed. {{ $errors->first() }}</p>@endif
+            @if($groupErrors['live'])<p class="mt-3 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">That switch was not changed. {{ $errors->first() }}</p>@endif
             <div class="mt-4 divide-y divide-brand-line">
                 @foreach($liveGroup['keys'] as $key)
                 @php

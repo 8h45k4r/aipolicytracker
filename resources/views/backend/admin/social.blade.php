@@ -20,7 +20,7 @@
 <p class="meta mt-2">X bills each post that has a link, about $0.20 each since April 2026: this month's posts come to roughly ${{ number_format($thisMonth * 0.2, 2) }}. Check the current rate in the X developer console.</p>
 
 @if($pending->isNotEmpty())
-<div class="mt-4 rounded-sm border border-brand-line bg-white px-4 py-3 text-sm" data-social-pending>
+<div class="mt-4 rounded-lg border border-brand-line bg-white px-4 py-3 text-sm" data-social-pending>
     <p class="font-medium text-brand-navy">{{ $pending->count() }} new verified {{ \Illuminate\Support\Str::plural('change', $pending->count()) }} not yet turned into a post</p>
     <ul class="mt-1 list-disc pl-5 text-brand-body">@foreach($pending->take(5) as $c)<li>{{ $c->title }} <span class="meta">({{ $c->occurred_on->format('j M Y') }})</span></li>@endforeach</ul>
     <p class="meta mt-1">The next run adds them, or use "Check for new changes".</p>
@@ -46,14 +46,14 @@
         <span class="meta tabular-nums {{ $weight > \App\Services\Social\ChangePost::LIMIT ? 'text-state-bad' : '' }}">{{ $weight }}/{{ \App\Services\Social\ChangePost::LIMIT }}</span>
     </div>
     {{-- The post as it will read on X: line breaks kept, links shown whole. --}}
-    <p class="mt-3 flex-1 whitespace-pre-line break-words rounded-sm border border-brand-line bg-brand-paper p-3 text-sm leading-6 text-brand-ink" lang="en">{{ $post->text }}</p>
+    <p class="mt-3 flex-1 whitespace-pre-line break-words rounded-md border border-brand-line bg-brand-paper p-3 text-sm leading-6 text-brand-ink" lang="en">{{ $post->text }}</p>
     <p class="meta mt-2">
         @if($post->changeEvent)Change: <a href="{{ $post->changeEvent->url() }}" target="_blank" rel="noopener">{{ \Illuminate\Support\Str::limit($post->changeEvent->title, 70) }}</a> · {{ $post->changeEvent->occurred_on->format('j M Y') }}@endif
         @if($post->approver) · approved by {{ $post->approver->name }}@endif
         @if($post->posted_at) · posted {{ $post->posted_at->diffForHumans() }}@endif
         @if($post->attempts) · {{ $post->attempts }} {{ \Illuminate\Support\Str::plural('attempt', $post->attempts) }}@endif
     </p>
-    @if($post->error && $post->status !== 'posted')<p class="mt-2 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="status">{{ $post->error }}</p>@endif
+    @if($post->error && $post->status !== 'posted')<p class="mt-2 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="status">{{ $post->error }}</p>@endif
     <div class="mt-3 flex flex-wrap gap-2">
         @if($post->status === 'posted' && $post->externalUrl())
             <a href="{{ $post->externalUrl() }}" class="btn-secondary btn-sm" target="_blank" rel="noopener">View on X</a>

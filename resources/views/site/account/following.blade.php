@@ -5,13 +5,13 @@
     <p class="eyebrow mt-3">Daily alerts</p>
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Records you follow</h1>
     <p class="mt-3 text-brand-body leading-7">Every morning we check the policies, jurisdictions and obligations below. When a dated, source-linked change is recorded, or an application date is 30, 7 or 1 days away, you get one email at {{ $user->email }}. Quiet days send nothing.</p>
-    @if(session('status') === 'profile-saved')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile saved. The daily alert will name it when a change may affect it.</p>@endif
-    @if(session('status') === 'profile-exists')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">You already have a profile with those answers.</p>@endif
-    @if(session('status') === 'profile-deleted')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile deleted.</p>@endif
-    @if(session('status') === 'followed')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Watching.</p>@endif
-    @if(session('status') === 'unfollowed')<p class="mt-4 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Unfollowed.</p>@endif
+    @if(session('status') === 'profile-saved')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile saved. The daily alert will name it when a change may affect it.</p>@endif
+    @if(session('status') === 'profile-exists')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">You already have a profile with those answers.</p>@endif
+    @if(session('status') === 'profile-deleted')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Profile deleted.</p>@endif
+    @if(session('status') === 'followed')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Watching.</p>@endif
+    @if(session('status') === 'unfollowed')<p class="mt-4 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Unfollowed.</p>@endif
     @php($selling = app(\App\Services\Billing\BillingConfig::class)->enabled())
-    @if(session('error'))<p class="mt-4 rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
+    @if(session('error'))<p class="mt-4 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
     @if($selling)<p class="mt-3 text-sm text-brand-body">Watching <strong>{{ $follows->count() }}</strong> of {{ $user->watchLimit() }}@if($follows->count() > $user->watchLimit()) · alerts cover the first {{ $user->watchLimit() }}; the rest are kept @endif @unless($user->entitled('alerts.channels')) · <a href="{{ route('pricing') }}">Pro</a> watches up to 500 and adds Slack, webhook and RSS alerts @endunless</p>@endif
     <p class="mt-3 meta">@if($lastAlert)Last alert sent {{ $lastAlert->sent_on->format('j M Y') }} ({{ $lastAlert->changes_count }} {{ \Illuminate\Support\Str::plural('change', $lastAlert->changes_count) }}).@else No alert sent yet.@endif</p>
     @if($follows->isEmpty())
@@ -49,9 +49,9 @@
 
     <section class="mt-10" aria-labelledby="chan-h">
         <h2 id="chan-h" class="section-title">Where alerts go</h2>
-        @if(session('status') === 'channel-added')<p class="mt-3 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Channel added.@if(session('channel_secret')) Signing secret (shown once; verify <code>X-AIP-Signature: sha256=HMAC-SHA256(body)</code> with it): <code class="break-all">{{ session('channel_secret') }}</code>@endif</p>@endif
-        @if(session('status') === 'channel-test-ok')<p class="mt-3 rounded-sm border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Test delivered.</p>@endif
-        @if(session('status') === 'channel-test-failed')<p class="mt-3 rounded-sm border border-state-bad/30 bg-red-50 px-3 py-2 text-sm text-state-bad" role="alert">Test failed: {{ session('channel_error') ?: 'no response' }}. It will be retried up to five times with backoff.</p>@endif
+        @if(session('status') === 'channel-added')<p class="mt-3 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Channel added.@if(session('channel_secret')) Signing secret (shown once; verify <code>X-AIP-Signature: sha256=HMAC-SHA256(body)</code> with it): <code class="break-all">{{ session('channel_secret') }}</code>@endif</p>@endif
+        @if(session('status') === 'channel-test-ok')<p class="mt-3 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Test delivered.</p>@endif
+        @if(session('status') === 'channel-test-failed')<p class="mt-3 rounded-md border border-state-bad/30 bg-red-50 px-3 py-2 text-sm text-state-bad" role="alert">Test failed: {{ session('channel_error') ?: 'no response' }}. It will be retried up to five times with backoff.</p>@endif
         <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm" aria-label="Alert channels">
             <li class="flex flex-wrap items-center justify-between gap-3 py-3"><div><span class="font-medium text-brand-navy">Email</span> <span class="meta">{{ $user->email }} · {{ $emailOn ? 'on' : 'off' }}</span></div>
                 @php($emailChannel = $channels->firstWhere('kind', 'email'))

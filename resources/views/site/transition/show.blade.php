@@ -15,7 +15,7 @@
                 <dl class="mt-4 grid gap-2 sm:grid-cols-2 text-sm">@foreach($facts as $k => $v)<div class="flex justify-between gap-3 border-b border-brand-line py-1"><dt class="text-brand-muted">{{ $k }}</dt><dd class="text-right text-brand-body">{{ $v }}</dd></div>@endforeach</dl>
             </section>
             @if($measure->isDraft())
-            <section class="mt-8 rounded-sm border border-state-warn/40 bg-state-warnbg p-4 text-sm text-brand-body" aria-labelledby="draft-heading">
+            <section class="mt-8 rounded-lg border border-state-warn/40 bg-state-warnbg p-4 text-sm text-brand-body" aria-labelledby="draft-heading">
                 <h2 id="draft-heading" class="font-semibold text-brand-navy">Why this page is nearly empty</h2>
                 <p class="mt-1">This tracker never fills a field from memory or a secondary source. Mechanism, funding, trigger, benefit, cost, bill number, sponsors and dates stay empty until a reviewer has read the official text and cites it. The record is listed so the gap is visible on the <a href="{{ route('gaps') }}">open gaps</a> page. <a href="{{ route('contribute') }}">Send the official source</a> if you have it.</p>
             </section>

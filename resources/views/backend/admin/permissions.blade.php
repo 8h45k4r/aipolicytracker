@@ -5,7 +5,7 @@
     <x-backend.page-header title="Role permissions" description="What each role may do. A change applies to everyone holding the role from their next page load, and is recorded in the audit log. This page asks for your password before it opens." />
 </div>
 
-<div class="mt-4 rounded-sm border border-brand-line bg-white p-4 text-sm">
+<div class="mt-4 rounded-lg border border-brand-line bg-white p-4 text-sm">
     <p class="font-semibold text-brand-navy">Owner-only permissions cannot be given to a role</p>
     <p class="mt-1 text-brand-body">Platform settings, billing and user management stay with the owners in <code class="font-mono text-xs">ADMIN_EMAILS</code>. A role that could manage users could make itself anything, so those rows are locked here and refused by the server whatever is submitted.</p>
 </div>

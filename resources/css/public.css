@@ -46,6 +46,29 @@ body:has(#home-q) header form[role="search"] { display: none; }
     --c-good: 11 107 79; --c-goodbg: 231 244 239; --c-info: 0 106 172; --c-infobg: 230 242 250; --c-warn: 122 75 0; --c-warnbg: 255 243 220;
     --c-bad: 155 28 46; --c-badbg: 252 233 236; --c-neutral: 93 107 126; --c-neutralbg: 245 247 250;
     --c-heat: 0 33 71;
+
+    /* Shape. One scale for the whole portal, on a 4px grid (docs/reference/design-system.md).
+       Small things get small corners and surfaces get larger ones, and a corner inside a
+       padded container is the container's radius minus the padding, so nested corners
+       stay concentric. */
+    --radius-xs: 4px;   /* badges, checkboxes, swatches, inline code */
+    --radius-sm: 6px;   /* menu items and small controls inside a panel */
+    --radius-md: 8px;   /* buttons, inputs, chips' hit area, callouts, toasts */
+    --radius-lg: 12px;  /* cards, panels, tables, popovers */
+    --radius-xl: 16px;  /* dialogs and bottom sheets */
+    --radius-full: 9999px;
+
+    /* Elevation, tinted with the brand navy rather than black, so shadows read as depth
+       on the page rather than as dirt. Four steps: resting, raised, floating, modal. */
+    --shadow-sm: 0 1px 2px rgb(0 33 71 / 0.06);
+    --shadow-md: 0 2px 4px rgb(0 33 71 / 0.05), 0 6px 16px rgb(0 33 71 / 0.07);
+    --shadow-lg: 0 4px 8px rgb(0 33 71 / 0.06), 0 16px 32px rgb(0 33 71 / 0.12);
+    --shadow-xl: 0 8px 16px rgb(0 33 71 / 0.08), 0 24px 56px rgb(0 33 71 / 0.20);
+
+    /* Motion. Short and decelerating: things arrive quickly and settle. */
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --duration-fast: 120ms;
+    --duration-base: 200ms;
 }
 @media (prefers-color-scheme: dark) {
     :root:not([data-scheme="light"]) {
@@ -73,6 +96,11 @@ body:has(#home-q) header form[role="search"] { display: none; }
         --c-neutralbg: 21 30 45;
         /* Heat-map shade: a mid blue whose darkest step still carries light text. */
         --c-heat: 37 99 178;
+        /* On a dark surface a tinted shadow vanishes; depth comes from a darker, denser one. */
+        --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+        --shadow-md: 0 2px 6px rgb(0 0 0 / 0.35), 0 8px 20px rgb(0 0 0 / 0.35);
+        --shadow-lg: 0 6px 12px rgb(0 0 0 / 0.4), 0 18px 36px rgb(0 0 0 / 0.45);
+        --shadow-xl: 0 10px 20px rgb(0 0 0 / 0.45), 0 28px 64px rgb(0 0 0 / 0.55);
     }
 }
 
@@ -82,17 +110,32 @@ body:has(#home-q) header form[role="search"] { display: none; }
         html { scroll-behavior: auto; }
         *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
-    html { overflow-x: clip; }
+    html { overflow-x: clip; scrollbar-gutter: stable; }
     body { @apply bg-white text-brand-body antialiased font-sans; overflow-x: clip; font-feature-settings: "kern", "liga", "calt"; }
     h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
-    h1 { @apply text-balance; }
+    h1, h2, h3 { text-wrap: balance; }
+    /* No single word stranded on the last line of a paragraph. */
+    p, li, dd, figcaption, blockquote { text-wrap: pretty; }
+    /* An anchor target lands with room above it rather than flush with the viewport edge. */
+    [id] { scroll-margin-top: 1.5rem; }
+    /* Taps act at once (no double-tap zoom wait) and show the control's own pressed
+       state rather than the browser's grey flash. */
+    a, button, summary, label, [role="button"], input, select, textarea { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    input[type="checkbox"], input[type="radio"], input[type="range"], progress { accent-color: rgb(var(--c-navy)); }
+    /* Numbers in tables line up by place value. */
+    td, th { font-variant-numeric: tabular-nums; }
     a { @apply text-brand-blue underline-offset-[3px] decoration-brand-line hover:decoration-brand-blue; }
     /* A link inside running text is told apart by more than its colour (WCAG 1.4.1).
        Buttons, chips and navigation are excluded by class; everything else that sits
        in a block of body copy is underlined, with an underline visible against the text. */
     :is(p, dd, td, blockquote, figcaption, small, label, .meta, .prose-policy, [role="status"], [role="alert"]) a:not(.btn):not([class*="btn-"]):not(.chip):not(.nav-link):not(.no-underline) { @apply underline; text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
     a.no-underline { text-decoration: none; }
-    :focus-visible { @apply outline-none ring-2 ring-brand-cyan ring-offset-2 ring-offset-white rounded-sm; }
+    /* One focus indicator everywhere: a 2px outline 2px off the edge. An outline follows
+       the element's own corners, so a focused button keeps its shape, and unlike a
+       box-shadow ring it survives Windows high-contrast mode (WCAG 2.4.7, 2.4.13). */
+    :focus-visible { outline: 2px solid rgb(var(--c-cyan)); outline-offset: 2px; }
+    /* A bare link in running text gets a small radius so its outline is not a hard box. */
+    a:not([class]):focus-visible { border-radius: var(--radius-xs); }
     summary { cursor: pointer; }
     summary::-webkit-details-marker { display: none; }
     ::selection { background: rgb(var(--c-cyan, 0 156 224) / 0.22); }
@@ -103,26 +146,37 @@ body:has(#home-q) header form[role="search"] { display: none; }
     .prose-policy { @apply text-[15.5px] leading-7 text-brand-body max-w-[68ch]; }
     .prose-policy p + p { @apply mt-3; }
 
-    .btn { @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2.5 text-sm font-medium min-h-[44px] no-underline transition-[background-color,border-color,color,box-shadow,transform] duration-150; }
+    .btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium min-h-[44px] no-underline select-none transition-[background-color,border-color,color,box-shadow,transform]; transition-duration: var(--duration-fast); transition-timing-function: var(--ease-standard); }
+    /* Unavailable is visible, not just inert: faded, no lift, and the cursor says why. */
+    .btn:disabled, .btn[aria-disabled="true"] { @apply cursor-not-allowed opacity-50 shadow-none; transform: none; }
+    /* Sent and waiting: not greyed out like an unavailable button, just paused. */
+    .btn[aria-busy="true"] { @apply cursor-progress opacity-80; }
     /* The primary action lifts by one pixel on hover and settles on press. It is the
        only motion in the system, so it reads as "this is the button" without colour. */
-    .btn-primary { @apply btn bg-brand-navy text-white shadow-sm hover:bg-brand-ink hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
+    .btn-primary { @apply btn border border-transparent bg-brand-navy text-white shadow-sm hover:bg-brand-ink hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
     .btn-secondary { @apply btn border border-brand-navy/30 bg-white text-brand-navy hover:border-brand-navy hover:bg-brand-paper; }
     /* Admin action bars: a button that waits for a selection says so. */
     [data-bulk-needs]:disabled { @apply cursor-not-allowed opacity-50 hover:bg-white; }
-    .btn-accent { @apply btn bg-brand-blue text-white shadow-sm hover:bg-brand-navy hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
+    .btn-accent { @apply btn border border-transparent bg-brand-blue text-white shadow-sm hover:bg-brand-navy hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm; }
 
-    .chip { @apply inline-flex items-center gap-1 rounded-sm border border-brand-line bg-white px-2.5 py-1 text-xs font-medium text-brand-body no-underline hover:border-brand-navy hover:text-brand-navy min-h-[34px]; }
+    .chip { @apply inline-flex items-center gap-1 rounded-full border border-brand-line bg-white px-3 py-1 text-xs font-medium text-brand-body no-underline hover:border-brand-navy hover:text-brand-navy min-h-[34px] transition-colors; }
     .chip-active { @apply border-brand-navy bg-brand-navy text-white hover:text-white; }
     .badge { @apply inline-flex items-center rounded-sm px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide ring-1 ring-inset; }
     .badge-binding { @apply badge bg-brand-navy text-white ring-brand-navy; }
     .badge-neutral { @apply badge bg-brand-paper text-brand-muted ring-brand-line; }
 
     .label { @apply block text-sm font-medium text-brand-navy mb-1; }
-    .input { @apply block w-full rounded-sm border-brand-line bg-white text-brand-body placeholder:text-brand-muted text-sm shadow-none focus:border-brand-navy focus:ring-brand-cyan min-h-[44px]; }
+    .input { @apply block w-full rounded-md border-brand-line bg-white text-brand-body placeholder:text-brand-muted text-sm shadow-none focus:border-brand-navy focus:ring-brand-cyan min-h-[44px] transition-[border-color,box-shadow]; transition-duration: var(--duration-fast); }
+    /* The field the server refused is marked in the field, not only in the message below it. */
+    .input[aria-invalid="true"] { @apply border-state-bad focus:border-state-bad focus:ring-state-bad; }
+    .input:disabled { @apply cursor-not-allowed bg-brand-paper text-brand-muted; }
+    /* A field shows focus with its own border and ring; the global outline would double it. */
+    .input:focus-visible { outline: none; }
 
-    .card-flat { @apply rounded-sm border border-brand-line bg-white; }
-    .card-link { @apply card-flat transition-colors hover:border-brand-navy focus-within:border-brand-navy; }
+    .card-flat { @apply rounded-lg border border-brand-line bg-white; }
+    /* A card that is a link rises a step on hover, so the whole surface reads as the target. */
+    .card-link { @apply card-flat transition-[border-color,box-shadow] hover:border-brand-navy focus-within:border-brand-navy; transition-duration: var(--duration-base); transition-timing-function: var(--ease-standard); }
+    .card-link:hover { box-shadow: var(--shadow-md); }
 
     /* A figure with its label. One definition, so counts look the same on every page. */
     .stat { @apply card-flat p-4 min-w-0 relative overflow-hidden; }
@@ -145,7 +199,7 @@ body:has(#home-q) header form[role="search"] { display: none; }
     .heat { color: rgb(var(--c-body)); }
     .heat-mid { color: rgb(var(--c-ink)); }
     .heat-hi { color: rgb(var(--c-white)); }
-    .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-sm overflow-hidden sm:grid-cols-5; counter-reset: chain-step; }
+    .chain { @apply grid gap-px bg-brand-line border border-brand-line rounded-lg overflow-hidden sm:grid-cols-5; counter-reset: chain-step; }
     .chain-step { @apply bg-white; counter-increment: chain-step; }
     /* Phones: one line per step (number, label, count), so the strip takes about a fifth of a screen rather than two. */
     .chain-link { @apply flex items-center gap-3 py-2.5 pl-11 pr-4 sm:block h-full sm:p-4 sm:pt-9 no-underline hover:bg-brand-paper transition-colors relative; }
@@ -160,14 +214,14 @@ body:has(#home-q) header form[role="search"] { display: none; }
 
     /* Empty state. A mark, the reason, then the way out — in that order, centred and
        narrow so a filtered list that finds nothing does not read as a broken table. */
-    .empty-state { @apply rounded-sm border border-dashed border-brand-line bg-brand-paper/40 px-6 py-10 text-center; }
+    .empty-state { @apply rounded-lg border border-dashed border-brand-line bg-brand-paper/40 px-6 py-10 text-center; }
     .empty-mark { @apply mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-muted ring-1 ring-brand-line; }
     .empty-title { @apply font-display font-semibold text-brand-navy; }
     .empty-body { @apply mx-auto mt-1 max-w-[44ch] text-sm leading-6 text-brand-muted; }
 
     /* A tinted panel for a block that asks the reader for something (subscribe, follow)
        so it separates from the reference material around it. */
-    .panel-tinted { @apply rounded-sm border border-brand-line bg-brand-paper p-5; }
+    .panel-tinted { @apply rounded-lg border border-brand-line bg-brand-paper p-5; }
 
     .rule { @apply border-t border-brand-line; }
     .chart-bar, .chart-dot { transition: opacity .15s ease; cursor: pointer; }
@@ -176,26 +230,28 @@ body:has(#home-q) header form[role="search"] { display: none; }
 
     /* relative: visually hidden text in a wide table (sr-only headers, notes) is absolutely
        positioned, and would escape the scroll box and widen the page without it. */
-    .table-wrap { @apply relative overflow-x-auto border-y border-brand-line -mx-4 sm:mx-0; }
+    .table-wrap { @apply relative overflow-x-auto border-y border-brand-line -mx-4 sm:mx-0 sm:rounded-lg sm:border-x; }
+    .table-wrap tbody tr { transition: background-color var(--duration-fast) var(--ease-standard); }
+    .table-wrap tbody tr:hover { background: rgb(var(--c-paper) / 0.6); }
     .table-wrap table { @apply min-w-full text-sm; }
     .table-wrap th { @apply bg-brand-paper text-left text-xs font-semibold uppercase tracking-wide text-brand-muted px-3 py-2 align-top; }
     .table-wrap td { @apply px-3 py-2.5 align-top border-t border-brand-line; }
     .table-sticky th:first-child, .table-sticky td:first-child { @apply sticky left-0 bg-white z-10 border-r border-brand-line; }
     .table-sticky th:first-child { @apply bg-brand-paper; }
 
-    .skip-link { @apply sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-sm focus:shadow; }
+    .skip-link { @apply sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg; }
     .section-title { @apply font-display text-xl sm:text-2xl font-semibold text-brand-navy tracking-tight; }
     .eyebrow { @apply font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-blue; }
     .meta { @apply text-xs text-brand-muted; }
     .datestamp { @apply font-mono text-xs text-brand-navy tabular-nums; }
-    .skeleton { @apply animate-pulse rounded-sm bg-brand-paper; }
+    .skeleton { @apply animate-pulse rounded-md bg-brand-paper; }
 
     .nav-link { @apply inline-flex items-center whitespace-nowrap border-b-2 border-transparent px-1.5 xl:px-2.5 py-5 text-sm font-medium text-brand-body no-underline hover:text-brand-navy hover:border-brand-line; }
     .nav-link-active { @apply border-brand-navy text-brand-navy; }
 
     /* Dropdown panel for a primary-nav group. The group is a <details>, so this is only
        laid out when the browser has opened it; the rotation gives the chevron a state. */
-    .nav-panel { @apply absolute left-0 top-full z-40 rounded-sm border border-brand-line bg-white p-2 shadow-lg; }
+    .nav-panel { @apply absolute left-0 top-full z-40 rounded-lg border border-brand-line bg-white p-1.5; box-shadow: var(--shadow-lg); }
     [data-nav-group][open] > summary { @apply text-brand-navy border-brand-line; }
     [data-nav-group][open] > summary svg { @apply rotate-180; }
     /* The last groups sit near the right edge, so their panels open leftwards. */
@@ -227,4 +283,14 @@ body:has(#home-q) header form[role="search"] { display: none; }
     :root:not([data-scheme="light"]) nav[role="navigation"] .bg-gray-100, :root:not([data-scheme="light"]) nav[role="navigation"] .hover\:bg-gray-100:hover { background-color: rgb(var(--c-paper)); }
     :root:not([data-scheme="light"]) .heat-mid, :root:not([data-scheme="light"]) .heat-hi { color: rgb(var(--c-navy)); }
     :root:not([data-scheme="light"]) nav[role="navigation"] .bg-gray-200 { background-color: rgb(var(--c-navy)); color: rgb(var(--c-white)); border-color: rgb(var(--c-navy)); }
+}
+
+/* Windows high-contrast and other forced-colour modes drop backgrounds and box-shadows.
+   Filled buttons, active chips and badges keep a visible edge, and focus uses the
+   system highlight colour. */
+@media (forced-colors: active) {
+    .btn-primary, .btn-accent, .chip-active, .badge { border: 1px solid ButtonText; }
+    :focus-visible { outline-color: Highlight; }
+    .card-link:hover { outline: 1px solid Highlight; }
+    .input:focus-visible { outline: 2px solid Highlight; }
 }

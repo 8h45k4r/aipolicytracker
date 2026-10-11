@@ -21,7 +21,7 @@
 
     <p class="mt-3 text-sm text-brand-body" data-checks-progress="{{ $checked }}/{{ $size }}"><strong>{{ $checked }} of {{ $size }}</strong> sampled {{ \Illuminate\Support\Str::plural('record', $size) }} double-checked.</p>
     @if($size > 0)
-    <div class="mt-1 h-2 w-full max-w-md rounded-sm bg-brand-line" role="presentation"><div class="h-2 rounded-sm bg-state-good" style="width: {{ (int) round(100 * $checked / $size) }}%"></div></div>
+    <div class="mt-1 h-2 w-full max-w-md rounded-full bg-brand-line" role="presentation"><div class="h-2 rounded-full bg-state-good" style="width: {{ (int) round(100 * $checked / $size) }}%"></div></div>
     @endif
 
     @if($rows->isEmpty())

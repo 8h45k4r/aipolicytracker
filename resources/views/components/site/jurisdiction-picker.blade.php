@@ -66,7 +66,7 @@
         <p class="mt-1 text-xs text-brand-muted" data-picker-empty hidden>No jurisdiction matches that.</p>
     </div>
 
-    <div class="mt-2 {{ $compact ? 'max-h-[13rem]' : 'max-h-[22rem]' }} overflow-y-auto rounded-sm border border-brand-line divide-y divide-brand-line">
+    <div class="mt-2 {{ $compact ? 'max-h-[13rem]' : 'max-h-[22rem]' }} overflow-y-auto rounded-lg border border-brand-line divide-y divide-brand-line">
         @foreach($groups as $region => $list)
         @php($inRegion = $list->whereIn('slug', $selected)->count())
         {{-- Every region starts collapsed unless it holds part of the selection:
@@ -78,7 +78,7 @@
             </summary>
             <div class="px-3 pb-2">
                 @foreach($list->sortBy('name') as $j)
-                <label class="flex min-h-[36px] items-center gap-2 rounded-sm px-1 text-sm text-brand-body hover:bg-brand-paper" data-picker-option data-picker-label="{{ Str::lower($j->name.' '.$j->short_name.' '.$region) }}">
+                <label class="flex min-h-[36px] items-center gap-2 rounded px-1 text-sm text-brand-body hover:bg-brand-paper" data-picker-option data-picker-label="{{ Str::lower($j->name.' '.$j->short_name.' '.$region) }}">
                     <input type="checkbox" name="{{ $name }}[]" value="{{ $j->slug }}" class="h-5 w-5 shrink-0 rounded border-brand-line text-brand-blue focus:ring-brand-cyan" @checked(in_array($j->slug, $selected, true))>
                     <span class="min-w-0 flex-1 truncate">{{ $j->name }}</span>
                     @if(($j->policy_instruments_count ?? 0) > 0)

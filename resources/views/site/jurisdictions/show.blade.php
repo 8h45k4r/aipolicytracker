@@ -11,7 +11,7 @@
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             @if(!empty($translation))
-            <p class="mb-4 rounded-sm border border-brand-line bg-brand-paper px-3 py-2 text-sm text-brand-body" lang="{{ $locale }}">{{ $translation['lead'] ?? '' }} <span class="meta">{{ $reviewedTranslation ? 'Revisado: '.$translation['reviewed_by'] : ($translation['translated_by'] ?? 'Draft').' · unreviewed translation' }} · <a href="{{ $englishUrl }}" hreflang="en">English</a></span></p>
+            <p class="mb-4 rounded-md border border-brand-line bg-brand-paper px-3 py-2 text-sm text-brand-body" lang="{{ $locale }}">{{ $translation['lead'] ?? '' }} <span class="meta">{{ $reviewedTranslation ? 'Revisado: '.$translation['reviewed_by'] : ($translation['translated_by'] ?? 'Draft').' · unreviewed translation' }} · <a href="{{ $englishUrl }}" hreflang="en">English</a></span></p>
             @endif
             <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
             <section aria-labelledby="overview-heading"><h2 id="overview-heading" class="section-title">Overview</h2><p class="prose-policy mt-2">{{ $jurisdiction->overview }}</p></section>

@@ -2,7 +2,7 @@
      work address given, as signed links valid for a week (TemplateDownloadRequest). --}}
 <div id="download" class="mt-3 scroll-mt-24">
 @if(session('template_requested'))
-    <div class="rounded-sm border border-state-good/30 bg-state-goodbg p-3 text-sm text-brand-body" role="status">
+    <div class="rounded-md border border-state-good/30 bg-state-goodbg p-3 text-sm text-brand-body" role="status">
         <p class="font-semibold text-state-good">Check your inbox</p>
         <p class="mt-1">We've sent the download links{{ is_string(session('template_requested')) ? ' to '.session('template_requested') : '' }}. They work for {{ \App\Models\TemplateDownloadRequest::LINK_DAYS }} days. Nothing there after a few minutes? Check spam, or request again below.</p>
     </div>
@@ -10,7 +10,7 @@
     <form method="post" action="{{ route('templates.request', $slug) }}" class="mt-3 space-y-2.5" aria-labelledby="request-heading" novalidate>
         @csrf
         <p id="request-heading" class="font-semibold text-brand-navy">Get the {{ $formats }} files by email</p>
-        @if($errors->any())<div class="rounded-sm border border-state-bad/30 bg-state-badbg px-3 py-2 text-xs text-state-bad" role="alert">{{ $errors->first() }}</div>@endif
+        @if($errors->any())<div class="rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-xs text-state-bad" role="alert">{{ $errors->first() }}</div>@endif
         <div><label for="tr-name" class="label !mb-0.5 !text-xs">Full name</label><input id="tr-name" name="name" value="{{ old('name') }}" required maxlength="120" autocomplete="name" class="input !min-h-0 !py-1.5"></div>
         <div><label for="tr-email" class="label !mb-0.5 !text-xs">Work email</label><input id="tr-email" name="email" type="email" value="{{ old('email') }}" required maxlength="190" autocomplete="email" class="input !min-h-0 !py-1.5" aria-describedby="tr-email-hint"><p id="tr-email-hint" class="meta mt-0.5">Your organisation's address. Personal and temporary mailboxes are not accepted; the links are sent here.</p></div>
         <div><label for="tr-company" class="label !mb-0.5 !text-xs">Company or organisation</label><input id="tr-company" name="company" value="{{ old('company') }}" required maxlength="160" autocomplete="organization" class="input !min-h-0 !py-1.5"></div>
