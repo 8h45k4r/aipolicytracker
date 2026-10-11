@@ -444,7 +444,7 @@ Routes (`routes/backend/web.php`, all behind `auth`, `isAdmin`, `admin.2fa`, `ad
 ## Interlinks
 
 - **Outbound:** `reviewer_decisions.reviewer_user_id` → `users` ([accounts.md](accounts.md)). All other foreign keys are internal to this module (listed in the field tables above); `taxonomy_assignments` is a polymorphic pivot to `policy_instruments` and `obligations`.
-- **Inbound:** none from legacy modules. The legacy [policies](policies.md) module (`ai_policy_trackers`) is independent and still powers the `/map` dashboard; records are not yet cross-linked (see debt).
+- **Inbound:** none from legacy modules. The legacy `ai_policy_trackers` module was removed; its old URLs redirect to these pages (debt #17).
 - **Files:** `data/jurisdictions/*.yaml`, `data/policies/**/*.yaml`, `data/implementation/*.yaml`, `data/changes/*.yaml`, `data/taxonomies/terms.yaml`, `data/schema/*.json`.
 
 ## Routes

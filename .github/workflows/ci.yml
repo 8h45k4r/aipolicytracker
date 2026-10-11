@@ -12,10 +12,11 @@ jobs:
   backend:
     name: PHP lint & tests
     runs-on: ubuntu-latest
-    # The SQLite run takes about 11 minutes. Without a cap a stuck job runs to
-    # GitHub's 6-hour default, and GitHub serves no log for a job that is still
-    # in progress, so the failure is invisible for as long as it lasts.
-    timeout-minutes: 30
+    # The SQLite run grew with the suite (731 tests by October 2026, 20 to 30
+    # minutes on a laptop). Without a cap a stuck job runs to GitHub's 6-hour
+    # default, and GitHub serves no log for a job that is still in progress, so
+    # the failure is invisible for as long as it lasts.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up PHP

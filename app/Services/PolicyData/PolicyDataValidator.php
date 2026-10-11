@@ -142,6 +142,12 @@ class PolicyDataValidator
                     }
                 }
                 $this->checkVerification($obligation, $file, "$.obligations[{$i}]", $errors);
+                // A duty whose citation is still a note to the reviewer has not been checked
+                // against the article it cites, whatever the record around it says.
+                $effective = $obligation['review_status'] ?? $record['review_status'] ?? null;
+                if ($effective === 'verified' && preg_match('/reviewer to cite|to be confirmed/i', (string) ($obligation['source_reference'] ?? ''))) {
+                    $errors[$file][] = "$.obligations[{$i}].source_reference: still a placeholder (\"{$obligation['source_reference']}\"); cite the article or set the obligation's review_status to pending_review";
+                }
             }
             foreach ($record['deadlines'] ?? [] as $i => $deadline) {
                 if (($deadline['date_precision'] ?? 'exact') !== 'tbd' && empty($deadline['due_on'])) {

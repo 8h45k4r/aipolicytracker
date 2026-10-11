@@ -36,6 +36,7 @@ obligations:
     title: Collect and use personal information only with consent and for the stated purpose
     category: privacy_data_protection
     source_reference: "Chapter on collection and protection of personal information (reviewer to cite sections)"
+    review_status: pending_review
     is_binding: true
     actors: [provider, deployer, public_authority]
     sectors: [cross_sector]
