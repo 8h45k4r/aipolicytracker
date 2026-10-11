@@ -39,6 +39,10 @@ output that proves a change works.
   php artisan policy:validate && composer lint && composer test && npm run lint && npm test && npm run build
   ```
 
+The full PHP suite takes 20 to 30 minutes; while you work, run the tests you touched with `php artisan test --filter=...`.
+
+`public/build` is committed so the site deploys without Node. Commit it only when your change touches `resources/js`, `resources/css` or `vite.config.js`, and rebuild it in the same commit. A data-only or PHP-only pull request leaves it alone.
+
 CI also runs the tests on PostgreSQL, checks the committed `public/build` manifest and runs the security scans.
 
 ## Branches, commits and pull requests

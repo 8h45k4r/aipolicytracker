@@ -41,6 +41,7 @@ obligations:
     title: Respect the right to object to automated decision-making without human intervention
     category: human_oversight
     source_reference: "Article on data-subject rights relating to automated processing (reviewer to cite article number)"
+    review_status: pending_review
     is_binding: true
     actors: [deployer]
     sectors: [cross_sector]
@@ -64,6 +65,7 @@ obligations:
     title: Conduct a data protection impact assessment for high-risk processing using new technologies
     category: impact_assessment
     source_reference: "Article on data protection impact assessment (reviewer to cite article number)"
+    review_status: pending_review
     is_binding: true
     actors: [provider, deployer]
     sectors: [cross_sector]

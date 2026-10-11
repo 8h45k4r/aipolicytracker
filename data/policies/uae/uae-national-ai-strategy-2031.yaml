@@ -36,6 +36,7 @@ obligations:
     title: Government commitment to AI ethics, governance and regulation (strategy objective)
     category: governance_accountability
     source_reference: "Strategy objectives on governance and ethics (reviewer to cite the section)"
+    review_status: pending_review
     is_binding: false
     actors: [public_authority]
     sectors: [public_services]
