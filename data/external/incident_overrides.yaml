@@ -1,3 +1,4 @@
+# Licence: CC BY-SA 4.0 (adapts AI Incident Database records).
 # Reviewer overrides for what this site adds to AI Incident Database records.
 #
 # Every incident is classified automatically (App\Services\ExternalData\
