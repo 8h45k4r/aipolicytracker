@@ -1,5 +1,7 @@
 # AIPolicyTracker — Product, SEO and AEO Audit
 
+> **Historical.** A point-in-time record from September 2026, kept for the history of decisions. It describes the codebase before later changes; for the current state see `README.md`, `CHANGELOG.md` and `docs/modules/README.md`.
+
 Audit date: 2026-09-10
 Scope: the `8h45k4r/aipolicytracker` repository as it stood before the policy-intelligence rebuild (commit `48d7bdc`).
 

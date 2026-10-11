@@ -24,7 +24,7 @@ The data is CC BY 4.0. Credit "AIPolicyTracker" and link to the record you used.
 
 ## Running it locally
 
-You need PHP 8.2+ with `pdo_sqlite`, Composer 2 and Node (the version in `.nvmrc`).
+You need PHP 8.2+ with the `pdo_sqlite`, `mbstring`, `intl`, `gd`, `zip`, `xml`, `fileinfo`, `iconv` and `bcmath` extensions (`composer check-platform-reqs` lists anything missing), Composer 2, and Node (the version in `.nvmrc`). Nothing needs a network connection or an API key: the external datasets are committed, and the built front end is in `public/build`, so `npm` is only needed to change the front end.
 
 ```bash
 composer install && npm ci

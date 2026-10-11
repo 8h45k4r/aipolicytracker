@@ -2,7 +2,7 @@
 
 How a change is made so that this evidence exists is defined in the [engineering standard](engineering-standard.md); the gates below are what the pull request must prove.
 
-Every change to `main` must pass the five role gates below, in order. Each gate re-checks the one before it. This is binding, not advisory, and applies to one-line changes as much as to features. Record the outcome of all five gates in the pull request description with evidence (query output, counts, command output). A gate that does not apply is marked **N/A with a reason**, never left blank.
+Every change to `main` must pass the five role gates below, in order. Each gate re-checks the one before it. This is binding, not advisory, and applies to one-line changes as much as to features. Record the outcome of all five gates in the pull request description with evidence (query output, counts, command output). A gate that does not apply is marked **N/A with a reason**, never left blank. A change that touches only `data/` fills gate 1 with the `policy:validate` and `policy:import` output and the sources table, and marks gates 2–5 "N/A (data only)".
 
 ## 1. Engineering & QA/QC
 
@@ -16,7 +16,7 @@ Every change to `main` must pass the five role gates below, in order. Each gate 
 
 ## 2. UI/UX
 
-- Platform primitives only: `PageHeader`, `DataTable`, `FormDialog`, `ConfirmDialog`, and all three of skeleton / empty / error states. (Until these exist in `resources/js/Components/`, this is recorded as debt, see `technical-debt.md`.)
+- Existing Blade components only: `x-site.*` and `x-backend.*` (page header, drawer, empty state, badge, stat, filters), with empty, error and long-content states handled.
 - Semantic colour tokens from `tailwind.config.js` (`primary`, `secondary`), never raw hex in components.
 - Null renders `—`, never `0`.
 - Simulated or sample values are labelled as such.

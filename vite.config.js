@@ -10,6 +10,11 @@ export default defineConfig({
         }),
         react(),
     ],
+    // Writes public/build/.vite/license.md: the licence of every package that ends
+    // up in the committed bundle, which the minified files no longer carry.
+    build: {
+        license: true,
+    },
 });
 
 

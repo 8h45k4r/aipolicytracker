@@ -8,7 +8,7 @@ return [
     'types' => ['guide' => 'Guide', 'template' => 'Template', 'checklist' => 'Checklist', 'register' => 'Register'],
     'frameworks' => ['eu-ai-act' => 'EU AI Act', 'iso-42001' => 'ISO/IEC 42001', 'nist-ai-rmf' => 'NIST AI RMF'],
     'topics' => ['inventory' => 'Inventory', 'risk' => 'Risk', 'incident' => 'Incident', 'governance' => 'Governance', 'evidence' => 'Evidence'],
-    'license' => 'Templates are provided under CC BY 4.0 for use inside your organisation. They are informational resources, not legal advice, and completing one does not make an organisation compliant with any law or standard.',
+    'license' => 'Templates are provided under CC BY 4.0: you may use, adapt and share them, including commercially, with attribution to aipolicytracker.org. They are informational resources, not legal advice, and completing one does not make an organisation compliant with any law or standard.',
 
     // Tags for the editorial guides in config/content.php so they share the same filters.
     'guide_tags' => [

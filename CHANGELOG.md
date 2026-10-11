@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Open-source readiness: the deploy guide no longer names the origin server or its user; the amCharts licence ships with the map and each build lists the licence of every bundled package; NOTICE covers fonts, amCharts (not open source), trademarks and team photos; the template licence wording no longer adds a restriction CC BY 4.0 forbids; e-mail addresses are dropped from republished incident report authors.
+- Contributors: the pull request template has a data-only path and refers to the components that exist; README lists the PHP extensions needed; CONTRIBUTING says when to commit `public/build`; SECURITY.md, the module docs and the support guide match the repository; `.env.example` lost its duplicate keys and no longer refuses made-up addresses locally.
+- No page loads a font from a third party, including the account screens and the verification e-mail.
+- Five obligations whose citation was still a note to the reviewer (UAE PDPL, UAE AI Strategy, Nepal) are marked pending review, and the validator refuses a verified duty with a placeholder citation.
+
 ### Added
 - Posting to X: each new verified change is posted with a flag, headline, one sentence, its link, hashtags and mentions (@aipolicytracker @8h45k4r by default). Automatic or with approval, within a monthly cap, with failures kept and rate limits retried. Admin → Operations → Posts to X previews, edits, approves and sends; keys live under Settings → Posting to X. Change pages now have their own preview card, which is what shows under each post.
 - Obligation pages are titled by article and topic, the way people search ("EU AI Act Article 14: Human oversight"), instead of a duty sentence cut off mid-phrase. Each obligation record can carry a `short_title`; 114 now do. Long instrument names give way to their plain form, acronym or country. South Korea's Framework Act is shown as the AI Basic Act, as its official title names it.
@@ -533,7 +539,7 @@ First tagged release. It covers everything built since the project moved to stru
 - Azure App Service startup/nginx configuration and GitHub Actions deploy workflow.
 - Production `Dockerfile`, entrypoint, `.dockerignore`, and optional `fly.toml`; README deployment notes for containers and Cloudflare.
 
-## [1.0.0] - 2026-09-10
+## [0.1.0] - 2026-09-10 (initial import, untagged)
 
 First public open-source release.
 

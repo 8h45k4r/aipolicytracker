@@ -101,7 +101,7 @@ class SyncAiidApiCommand extends Command
                 $reportRows[(int) $r['report_number']] = [
                     'report_number' => (int) $r['report_number'], 'incident_id' => $id, 'title' => mb_substr((string) ($r['title'] ?: '(untitled)'), 0, 300), 'url' => mb_substr((string) $r['url'], 0, 2048),
                     'source_domain' => mb_substr((string) ($r['source_domain'] ?? ''), 0, 190) ?: null, 'date_published' => $r['date_published'] ? substr((string) $r['date_published'], 0, 10) : null,
-                    'authors' => array_slice(array_map(fn ($a) => mb_substr((string) $a, 0, 120), $r['authors'] ?? []), 0, 6), 'language' => mb_substr((string) ($r['language'] ?? ''), 0, 8) ?: null,
+                    'authors' => ExternalIncidentReport::cleanAuthors($r['authors'] ?? []), 'language' => mb_substr((string) ($r['language'] ?? ''), 0, 8) ?: null,
                 ];
             }
         }

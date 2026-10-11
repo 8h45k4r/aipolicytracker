@@ -13,13 +13,13 @@ Please **do not** open a public GitHub issue for security problems.
 
 The same contact is published in machine-readable form at <https://aipolicytracker.org/.well-known/security.txt> (RFC 9116).
 
-Automated scanning: CodeQL runs on every pull request and weekly (`.github/workflows/codeql.yml`). Dependency version updates are not automated in this repository: the Dependabot configuration was removed and updates are made through the release process, with `npm audit --omit=dev` and `composer audit` run and recorded in every pull request. Whether GitHub raises Dependabot alerts for known advisories is a repository setting rather than anything configured here; the security tab is the authority on it.
+Automated scanning: CodeQL runs on every pull request and weekly (`.github/workflows/codeql.yml`). Dependabot opens weekly update pull requests (`.github/dependabot.yml`), Gitleaks and Semgrep run in `.github/workflows/security.yml`, and `npm audit --omit=dev` and `composer audit` are recorded in every pull request.
 
 Include a description, reproduction steps, affected version/commit, and any proof-of-concept. You will receive an acknowledgement within 5 working days and a resolution target after triage. Please give us reasonable time to fix the issue before public disclosure.
 
 ## Scope
 
-In scope: this application's code, its default configuration, and its data-handling. Out of scope: third-party services (Supabase, mail providers, CDNs), denial-of-service testing, and social engineering.
+In scope: this application's code, its default configuration, and its data-handling. Out of scope: third-party services (the hosting provider, Cloudflare, mail and payment providers, X), denial-of-service testing, and social engineering.
 
 ## Security practices in this project
 

@@ -1,5 +1,7 @@
 # Open Source Readiness Audit
 
+> **Historical.** A point-in-time record from September 2026, kept for the history of decisions. It describes the codebase before later changes; for the current state see `README.md`, `CHANGELOG.md` and `docs/modules/README.md`.
+
 Audit date: 2026-09-10. Scope: the full `aipolicytracker` codebase as extracted from `aipolicytracker-main.zip`. Items marked **Done** were fixed in this pass; others remain for the maintainers.
 
 ## 1. Current architecture

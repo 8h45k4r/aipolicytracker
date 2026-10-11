@@ -56,6 +56,8 @@ prod_value() {
     SESSION_ENCRYPT)       echo "true" ;;
     MAIL_MAILER)           echo "resend" ;;
     APP_MAINTENANCE_DRIVER) echo "cache" ;;
+    # Off in the example so local sign-ups work; production refuses domains with no mail route.
+    EMAIL_CHECK_DELIVERABILITY) echo "true" ;;
     # An example address in ADMIN_EMAILS is worse than an empty one: it reads as
     # configured while granting the backend to nobody.
     ADMIN_EMAILS|ADMIN_EMAIL|CONTACT_EMAILS|MAIL_FROM_ADDRESS|ADMIN_PASSWORD) echo "" ;;

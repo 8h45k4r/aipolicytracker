@@ -16,7 +16,8 @@ abstract: >-
   Every record links its official source and carries its review status, confidence
   level, last-verified date and the named reviewer who confirmed it. The data
   under data/ is licensed CC BY 4.0; the application source code is licensed
-  Apache-2.0.
+  Apache-2.0. Copies of the AI Incident Database in data/external/aiid_* keep
+  their CC BY-SA 4.0 licence.
 authors:
   - given-names: Bhaskar
     family-names: Bhatt
