@@ -220,7 +220,7 @@ database needs restoring separately.
 
 ## The host cannot reach GitHub on port 22
 
-The repository is private, so the checkout on the host fetches with a read-only
+The checkout on the host fetches with a read-only
 deploy key (`/root/.ssh/github_deploy_ed25519`, registered under Settings →
 Deploy keys). This host blocks outbound port 22, so `/root/.ssh/config.github`
 routes `github.com` to `ssh.github.com` on port 443, which GitHub serves for
