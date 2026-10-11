@@ -1,5 +1,3 @@
 # One identity per person in `git log`, `git shortlog` and `git blame`. Commits made
-# before the move to the project domain carry the old personal address; history is
-# not rewritten, so this maps it to the current one wherever git reads authorship.
-Bhaskar Bhatt <bhaskar@aipolicytracker.org> Bhaskar Bhatt <bhaskar@aipolicytracker.org>
-Bhaskar Bhatt <bhaskar@aipolicytracker.org> <bhaskar@aipolicytracker.org>
+# through GitHub's web interface carry the account's noreply address.
+Bhaskar Bhatt <bhaskar@aipolicytracker.org> <15045469+8h45k4r@users.noreply.github.com>
