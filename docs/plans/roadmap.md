@@ -24,7 +24,7 @@ phase is adjusted; each adjustment says why.
 | Email | Resend (`resend/resend-php`); double opt-in subscribe; `digest:send` (weekly) and `alerts:send` (daily, Pro) |
 | Billing | Dodo Payments; entitlements gate Pro features such as daily alerts |
 | Scheduler | `routes/console.php` drives jobs through `JobRun`, with an admin log at `/backend/admin/jobs` |
-| Tests | PHPUnit 11: 338 tests (unit + feature). `node --test` for the MCP server. |
+| Tests | PHPUnit 11: unit and feature tests (731 in October 2026). `node --test` for the MCP server. |
 | Lint | Pint (PHP), ESLint (JS). There is no TypeScript; `npm run typecheck` is a no-op message by design. |
 | Deploy | Docker Compose on a VPS behind host nginx and Cloudflare (`deploy/README-docker.md`). The *Deploy* workflow deploys each green commit of `main` over a forced-command SSH key; the same script runs by hand. |
 | Analytics | **None on the public site.** GA4 (`gtag`) is loaded only in the Inertia shell (`resources/views/app.blade.php`). Search Console is the only measurement of public pages. |

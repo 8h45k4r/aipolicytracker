@@ -72,7 +72,7 @@ class ImportExternalDataCommand extends Command
                 foreach (array_chunk(array_values($unique), 500) as $chunk) {
                     $rows = array_map(fn ($r) => [
                         'report_number' => $r['report_number'], 'incident_id' => $r['incident_id'], 'title' => $r['title'] ?: '(untitled)', 'url' => $r['url'],
-                        'source_domain' => $r['source_domain'] ?: null, 'date_published' => $r['date_published'] ?: null, 'authors' => json_encode($r['authors'] ?? []), 'language' => $r['language'] ?: null,
+                        'source_domain' => $r['source_domain'] ?: null, 'date_published' => $r['date_published'] ?: null, 'authors' => json_encode(ExternalIncidentReport::cleanAuthors($r['authors'] ?? [])), 'language' => $r['language'] ?: null,
                         'created_at' => now(), 'updated_at' => now(),
                     ], $chunk);
                     ExternalIncidentReport::upsert($rows, ['report_number'], array_diff(array_keys($rows[0]), ['report_number', 'created_at']));

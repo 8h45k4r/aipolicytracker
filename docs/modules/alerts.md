@@ -113,7 +113,7 @@ Unique (`user_id`, `subject_type`, `subject_slug`); index (`subject_type`, `subj
 | Follow toggle and list | `Site\FollowController`, `site/account/following` |
 | Follow button (Pro form or pricing link) | `components/site/follow-button`, rendered inside `components/site/correction-cta` on policy, jurisdiction and obligation pages |
 | Admin page (cards, deliveries with retry, consent log) | `Backend\Admin\AlertsController`, `backend/admin/alerts` |
-| Scheduled trigger | `Site\CronController::alerts`, `.github/workflows/daily-alerts.yml` (06:30 UTC daily, `CRON_TOKEN`) |
+| Scheduled trigger | The `alerts` job in `routes/console.php`, daily at 06:30 UTC; `Site\CronController::alerts` (`CRON_TOKEN`) for manual runs |
 
 ## Routes
 

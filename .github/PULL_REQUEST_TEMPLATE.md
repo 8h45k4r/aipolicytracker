@@ -4,17 +4,12 @@
 
 Closes #
 
-## Engineering standard
-
-- [ ] Followed `docs/reference/engineering-standard.md`: inspected the affected architecture, database, APIs, auth/RBAC and tests; Analyze → Design → Implement → Test → Validate → Document; root cause fixed; verification output pasted in gate 1.
-
-## Type of change
-
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Policy / regulatory data change
-- [ ] Documentation
-- [ ] Refactor / chore
+<!--
+Data-only change (only files under data/)? Keep the Sources table, paste the
+`php artisan policy:validate` and `php artisan policy:import` output under gate 1,
+and leave gates 2–5 as "N/A (data only)". The gate check only needs the headings
+to be present.
+-->
 
 ## Sources (required for any policy or regulatory data change)
 
@@ -22,45 +17,34 @@ Closes #
 |-----------------------|----------------------------------------|---------------|
 |                       |                                        |               |
 
-- [ ] Every data change links to an official or publicly licensed source (`SOURCE_ATTRIBUTION.md`).
-- [ ] No copyrighted legal commentary, paid database content, or standards text reproduced.
+- [ ] Every data change links to an official or openly licensed source (`SOURCE_ATTRIBUTION.md`).
+- [ ] No copyrighted legal commentary, paid database content or standards text reproduced.
 
-## Role gates (binding, see `docs/reference/change-gates.md`)
+## Role gates (see `docs/reference/change-gates.md`)
 
-Fill every gate. Use **Pass**, **N/A (reason)**, or **Debt #n** (entry in `docs/reference/technical-debt.md`). Never leave a gate blank.
+Write **Pass**, **N/A (reason)** or **Debt #n** (an entry in `docs/reference/technical-debt.md`) for each.
 
 ### 1. Engineering & QA/QC
-- Static checks (`npm run lint`, `npm run build`, `composer lint`, `composer test`):
-- No fake success:
-- No demo tables/rows shipped:
-- Scoping enforced database-side / RLS or equivalent on new tables:
-- Interlinks proven by query (total = resolves), paste counts:
-- Module has real inbound and outbound links:
+- Checks run (`composer lint`, `composer test`, `npm run lint`, `npm run build`; for data, `policy:validate` and `policy:import`), output pasted:
+- Root cause fixed, not the symptom:
+- Tests added or updated for changed behaviour:
 
 ### 2. UI/UX
-- Platform primitives only (PageHeader, DataTable, FormDialog, ConfirmDialog, skeleton/empty/error):
-- Semantic colour tokens:
-- Null renders `—`, never `0`:
-- Simulated values labelled; unresolvable ids show "Unavailable":
-- No dead-end records:
-- Screenshots (before/after):
+- Uses the existing Blade components (`x-site.*`, `x-backend.*`: page-header, drawer, empty, badge, stat) and colour tokens:
+- Empty, error and long-content states checked; nothing renders `0` for "unknown":
+- Screenshots (before/after) for visible changes:
 
 ### 3. Documentation
-- `docs/modules/<module>.md` exists and field table matches schema:
-- Interlinks documented both ways:
-- README and CHANGELOG updated:
-- Migration carries a why comment:
+- `docs/modules/<module>.md` updated (field table matches the migration):
+- README / CHANGELOG updated if a reader would notice:
 
 ### 4. Compliance
-- Mapped in `docs/reference/compliance-map.md` or out of scope with reason:
-- Evidence chain not weakened:
-- Secrets stored as digests / host secret store, never plaintext:
+- Licences and attribution respected; personal data not added:
 
-### 5. Security (VAPT)
-- Probes run (headers, exposed files, CSRF, authorisation, injection, redirects, throttling) or N/A with reason:
-- `npm audit --omit=dev` / `composer audit`:
-- Findings recorded in `docs/reference/vapt-<date>.md` or debt:
+### 5. Security
+- Input validated server-side; authorisation checked on new routes:
+- `composer audit` / `npm audit --omit=dev`:
 
 ## Accepted debt
 
-<!-- List technical-debt.md entry numbers added or touched by this PR, with owners. -->
+<!-- technical-debt.md entries added or touched by this PR, or "None". -->

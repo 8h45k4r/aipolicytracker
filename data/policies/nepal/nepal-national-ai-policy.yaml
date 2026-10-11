@@ -42,6 +42,7 @@ obligations:
     title: Government bodies to promote ethical, responsible and inclusive AI (policy commitment)
     category: governance_accountability
     source_reference: "Policy objectives and strategies (to be confirmed against the official text)"
+    review_status: pending_review
     is_binding: false
     actors: [public_authority]
     sectors: [public_services]

@@ -444,7 +444,7 @@ Routes (`routes/backend/web.php`, all behind `auth`, `isAdmin`, `admin.2fa`, `ad
 ## Interlinks
 
 - **Outbound:** `reviewer_decisions.reviewer_user_id` → `users` ([accounts.md](accounts.md)). All other foreign keys are internal to this module (listed in the field tables above); `taxonomy_assignments` is a polymorphic pivot to `policy_instruments` and `obligations`.
-- **Inbound:** none from legacy modules. The legacy [policies](policies.md) module (`ai_policy_trackers`) is independent and still powers the `/map` dashboard; records are not yet cross-linked (see debt).
+- **Inbound:** none from legacy modules. The legacy `ai_policy_trackers` module was removed; its old URLs redirect to these pages (debt #17).
 - **Files:** `data/jurisdictions/*.yaml`, `data/policies/**/*.yaml`, `data/implementation/*.yaml`, `data/changes/*.yaml`, `data/taxonomies/terms.yaml`, `data/schema/*.json`.
 
 ## Routes
@@ -468,4 +468,4 @@ See `docs/reference/technical-debt.md` #11 (seed records pending human verificat
 
 ## Bridged records
 
-Records whose `change_summary` begins with "Imported from the source-backed legacy dataset" were generated from `database/data/ai_policies.json` (68 instruments researched from official sources). They carry only what the official page states (title, issuing body, dates, summary, sources, milestones), have empty obligation/deadline lists, and stay `pending_review` until a reviewer enriches and verifies them. Entries already curated by hand (EU AI Act, UK white paper, US EO 14179, NIST AI RMF, Nepal AI Policy, Singapore Model Framework, Australia Voluntary Standard, India Governance Guidelines, UAE Strategy 2031) were not duplicated.
+Records whose `change_summary` begins with "Imported from the source-backed legacy dataset" were generated from a legacy file, `database/data/ai_policies.json`, since removed (68 instruments researched from official sources). They carry only what the official page states (title, issuing body, dates, summary, sources, milestones), have empty obligation/deadline lists, and stay `pending_review` until a reviewer enriches and verifies them. Entries already curated by hand (EU AI Act, UK white paper, US EO 14179, NIST AI RMF, Nepal AI Policy, Singapore Model Framework, Australia Voluntary Standard, India Governance Guidelines, UAE Strategy 2031) were not duplicated.
