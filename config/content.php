@@ -188,7 +188,7 @@ return [
     ],
 
     // Editorial landings retired because each split a subject with the page search engines
-    // already preferred (docs/reference/search-console-2026-10.md, finding 1). Each address
+    // already preferred (Search Console, October 2026). Each address
     // answers 301 to the record's canonical url(), resolved at request time so a country that
     // later gains a hub address is reached in one hop, never through a chain.
     'retired_landings' => [
