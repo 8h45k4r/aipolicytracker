@@ -123,14 +123,8 @@ class JurisdictionController extends Controller
                 'description' => $answer,
                 'about' => ['@type' => $jurisdiction->jurisdiction_type === 'supranational' ? 'AdministrativeArea' : ($jurisdiction->jurisdiction_type === 'state' ? 'State' : 'Country'), 'name' => $jurisdiction->name],
                 'mainEntity' => Seo::itemList($policies, fn ($p) => $p->title, fn ($p) => $p->url(), 'AI policy instruments recorded for '.$jurisdiction->name),
-            ])
-            ->withJsonLd(Seo::dataset(
-                'AI regulation in '.$jurisdiction->name,
-                'Recorded AI policy instruments, obligations and deadlines for '.$jurisdiction->name.', each linked to its official source.',
-                $jurisdiction->url(),
-                ['text/markdown' => route('jurisdictions.context', $jurisdiction->slug)],
-                $lastModified,
-            ));
+                'isPartOf' => Seo::recordIsPartOf(),
+            ]);
         $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
 
         return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl'));

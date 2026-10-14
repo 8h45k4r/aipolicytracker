@@ -1,1 +1,0 @@
-import{t as e}from"./app-Dwzokwdi.js";import"./ApplicationLogo-Br0nUp-y.js";var t=e();function n({children:e}){return(0,t.jsx)(t.Fragment,{children:(0,t.jsx)(`div`,{className:``,children:e})})}export{n as t};

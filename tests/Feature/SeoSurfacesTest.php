@@ -122,8 +122,8 @@ class SeoSurfacesTest extends TestCase
         $this->assertStringContainsString('<link rel="canonical" href="'.route('obligations.index').'?page=2">', $html);
         $this->assertStringContainsString('content="index,follow', $html);
 
-        $html = $this->get('/policies?jurisdiction=eu&page=2')->assertOk()->getContent();
-        $this->assertStringContainsString('<link rel="canonical" href="'.route('policies.index').'?jurisdiction=eu&amp;page=2">', $html, 'a filter query and a page number join with & not a second ?');
+        $html = $this->get('/policies?status=in_force&page=2')->assertOk()->getContent();
+        $this->assertStringContainsString('<link rel="canonical" href="'.route('policies.index').'?status=in_force&amp;page=2">', $html, 'a filter query and a page number join with & not a second ?');
     }
 
     public function test_sitemap_dates_are_only_claimed_where_they_are_known(): void

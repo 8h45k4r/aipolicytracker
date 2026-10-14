@@ -274,7 +274,17 @@ class RiskController extends Controller
         $topPapers = ExternalRisk::selectRaw('quick_ref, MAX(paper_title) as title, COUNT(*) as n')->where('domain', (int) $d['id'])->groupBy('quick_ref')->orderByDesc('n')->limit(8)->get();
         $recent = ExternalIncident::standard()->where('mit_domain', $d['aiid_domain_label'])->orderByDesc('occurred_on')->limit(8)->get();
 
-        return view('site.risk.domain', ['seo' => $seo, 'mit' => $mit, 'domain' => $d, 'incidents' => $incidents, 'trend' => $trend, 'policies' => $policies, 'aiid' => $aiid, 'subRisks' => $subRisks, 'subIncidents' => $subIncidents, 'riskCount' => $riskCount, 'topPapers' => $topPapers, 'recent' => $recent]);
+        // The answer first, composed from the taxonomy and the counts on the page. The
+        // snapshot carries no definition of the domain itself, and none is written here
+        // that the MIT repository does not give.
+        $kinds = collect($d['subdomains'] ?? [])->map(fn ($s) => mb_strtolower($s['name']));
+        $answer = implode(' ', array_filter([
+            $d['name'].' is domain '.$d['id'].' of the MIT AI Risk Repository\'s domain taxonomy. It groups '.$kinds->count().' kinds of risk: '.$kinds->join(', ', ' and ').'.',
+            $incidents !== null ? number_format($incidents).' incidents in the AI Incident Database are classified under it.' : null,
+            $riskCount ? number_format($riskCount).' risk entries in the MIT database are coded to it.' : null,
+        ]));
+
+        return view('site.risk.domain', ['seo' => $seo, 'mit' => $mit, 'domain' => $d, 'incidents' => $incidents, 'trend' => $trend, 'policies' => $policies, 'aiid' => $aiid, 'subRisks' => $subRisks, 'subIncidents' => $subIncidents, 'riskCount' => $riskCount, 'topPapers' => $topPapers, 'recent' => $recent, 'answer' => $answer]);
     }
 
     public function incidents(): View

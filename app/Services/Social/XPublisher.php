@@ -31,7 +31,7 @@ class XPublisher
             ->where('occurred_on', '>=', $since->toDateString())
             ->where(fn ($q) => $q->whereNull('first_published_at')->orWhere('first_published_at', '>=', $since))
             // Template releases are the site's own housekeeping, not policy news.
-            ->where('slug', 'not like', 'template-%')
+            ->regulatory()
             ->whereNotExists(fn ($q) => $q->selectRaw('1')->from('social_posts')->whereColumn('social_posts.change_event_id', 'change_events.id')->where('network', 'x'))
             ->orderBy('first_published_at')->orderBy('occurred_on')
             ->get();

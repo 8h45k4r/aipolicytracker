@@ -182,9 +182,15 @@ class PolicyCatalog
     }
 
     /**
-     * Indexation rule for filtered listing URLs: only a bare listing, a single
-     * jurisdiction filter, or a single status filter is indexable. Everything
-     * else (search, multi-filter, sort, date ranges) is noindex,follow.
+     * Indexation rule for filtered listing URLs: only a bare listing, or a single
+     * status or category filter naming a value that exists, is indexable.
+     * Everything else (search, multi-filter, sort, date ranges, a value that
+     * matches nothing) is noindex,follow.
+     *
+     * A single jurisdiction is not indexable: its country page lists every
+     * instrument this listing would, with the answer and sources around them,
+     * and two addresses for one question compete with each other. The listing
+     * is still served, linked and crawlable.
      */
     public function isIndexableFilterSet(array $filters): bool
     {
@@ -192,18 +198,31 @@ class PolicyCatalog
         if ($keys === []) {
             return true;
         }
-        if (count($keys) === 1 && in_array($keys[0], ['jurisdiction', 'status', 'category'], true) && ! str_contains($filters[$keys[0]], ',')) {
-            return true;
-        }
 
-        return false;
+        return count($keys) === 1 && in_array($keys[0], self::INDEXABLE_FILTERS, true)
+            && ! str_contains((string) $filters[$keys[0]], ',')
+            && $this->isKnownValue($keys[0], (string) $filters[$keys[0]]);
+    }
+
+    /** The single filters that may give an indexable listing. */
+    public const INDEXABLE_FILTERS = ['status', 'category'];
+
+    /** Whether a filter value names something that exists, so a typo or a stale link is not offered as a page. */
+    public function isKnownValue(string $key, string $value): bool
+    {
+        return match ($key) {
+            'status' => PolicyStatus::tryFrom($value) !== null,
+            'category' => $this->filterOptions()['categories']->contains('slug', $value),
+            'jurisdiction' => $this->filterOptions()['jurisdictions']->contains('slug', $value),
+            default => false,
+        };
     }
 
     /** Canonical URL for a listing: strips non-indexable parameters. */
     public function canonicalFor(string $base, array $filters): string
     {
         if ($this->isIndexableFilterSet($filters)) {
-            $keep = array_intersect_key($filters, array_flip(['jurisdiction', 'status', 'category']));
+            $keep = array_intersect_key($filters, array_flip(self::INDEXABLE_FILTERS));
 
             return $keep ? $base.'?'.http_build_query($keep) : $base;
         }

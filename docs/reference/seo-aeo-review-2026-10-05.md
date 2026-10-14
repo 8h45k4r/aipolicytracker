@@ -39,6 +39,6 @@ Not done, on purpose: a separate statistics page (the quarterly report is that p
 
 1. After deploying, run "Recompute incident links" from Admin → Jobs and schedule (or `php artisan incidents:enrich --refresh` on the host) once, so the incident pages' stored law lists use the subdomain matching. The pages already drop lapsed laws without it; overrides in `data/external/incident_overrides.yaml` are kept.
 2. Set `INDEXNOW_KEY` in production if it is not set, verify the site in Bing Webmaster Tools and submit the sitemap there: ChatGPT search and Copilot read Bing's index.
-3. In GA4, mark `ai_referral` as a key event and add an exploration by `engine`; check Search Console for the `/glossary/` pages being indexed and the short risk entries leaving the index.
+3. In GA4, mark `ai_referral` as a key event and add an exploration by `ai_engine` (see `seo-aeo-audit-2026-10-14.md`); check Search Console for the `/glossary/` pages being indexed and the short risk entries leaving the index.
 4. Create a Wikidata item for the site (name, alternate names, URL, founder, parent organisation) and add it to `sameAs` in `config/aipolicytracker.php`; answer engines use it to resolve the entity.
 5. Brand mentions are the off-site half of AI visibility: the quarterly report, the embeddable map and deadline widgets, and the open data are the pieces to offer to journalists, newsletters and university guides.

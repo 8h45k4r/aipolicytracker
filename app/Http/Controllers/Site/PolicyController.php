@@ -15,7 +15,6 @@ use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class PolicyController extends Controller
@@ -24,6 +23,8 @@ class PolicyController extends Controller
     {
         $filters = $catalog->filtersFromRequest($request);
         $policies = $catalog->policyQuery($filters, PolicyCatalog::SITE_DEFAULT_SORT)->paginate(20)->withQueryString();
+        // A page past the last is not an empty page of results; it does not exist.
+        abort_if($policies->currentPage() > max(1, $policies->lastPage()), 404);
         $options = $catalog->filterOptions();
 
         $indexable = $catalog->isIndexableFilterSet($filters) && $policies->currentPage() === 1;
@@ -123,25 +124,20 @@ class PolicyController extends Controller
             // Merged into the page's own node rather than written as a second one, so
             // it carries the identifier, breadcrumb, language and publisher every page
             // node gets instead of a thinner hand-made copy.
-            ->withPageType('Article', [
+            // An ItemPage, not an Article: the page is a record about one instrument,
+            // and as a WebPage it can say who checked it against the source and when.
+            ->withPageType('ItemPage', [
                 'headline' => $name.': requirements, deadlines and compliance actions',
                 'name' => $name.': requirements, deadlines and compliance actions',
                 'description' => $answer,
                 'about' => $about,
+                'mainEntity' => $about,
+                'isPartOf' => Seo::recordIsPartOf(),
                 'citation' => $policy->sourceDocuments->map(fn ($s) => ['@type' => 'CreativeWork', 'name' => $s->title, 'url' => $s->url, 'publisher' => $s->publisher])->values()->all(),
-            ] + Seo::provenance($policy))
-            // The record behind the page, with the files that actually serve it. This is
-            // the claim worth making to an answer engine: not prose about a law, but a
-            // structured record at a stable URL under a licence that permits reuse.
-            ->withJsonLd(Seo::dataset(
-                $name,
-                $policy->summary_plain ? Str::limit(preg_replace('/\s+/', ' ', $policy->summary_plain), 300) : $name,
-                $policy->url(),
-                ['application/json' => route('policies.json', $policy->slug), 'text/markdown' => route('policies.context', $policy->slug)],
-                $policy->updated_at,
-                $policy->source_reference ?: null,
-                ['isBasedOn' => $policy->official_source_url ?: null, 'spatialCoverage' => $policy->jurisdiction->name, 'sameAs' => config('aipolicytracker.github_url').'/blob/main/data/policies/'.$policy->jurisdiction->slug.'/'.$policy->slug.'.yaml'],
-            ));
+                // What the page is derived from: the official text, and the open data
+                // record it is rendered from.
+                'isBasedOn' => array_values(array_filter([$policy->official_source_url ?: null, config('aipolicytracker.github_url').'/blob/main/data/policies/'.$policy->jurisdiction->slug.'/'.$policy->slug.'.yaml'])),
+            ] + Seo::provenance($policy));
         // A binding instrument is described as Legislation as well as a page, so an answer
         // engine is told its jurisdiction, type, dates and — the part most often got wrong —
         // whether it is actually in force. Non-binding instruments get no such claim.

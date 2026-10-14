@@ -167,23 +167,24 @@ class StructuredDataGraphTest extends TestCase
         }
     }
 
-    public function test_a_record_page_offers_its_record_as_an_openly_licensed_dataset(): void
+    public function test_a_record_page_points_to_its_openly_licensed_record_without_calling_itself_a_dataset(): void
     {
         $policy = PolicyInstrument::published()->firstOrFail();
+        $schemas = collect($this->schemas($policy->url()));
 
-        $dataset = collect($this->schemas($policy->url()))->firstWhere('@type', 'Dataset');
-        $this->assertNotNull($dataset, 'a record page should describe the record behind it');
+        // One record is not a dataset: the collections (home, open data, the quarterly
+        // report) carry Dataset markup; a record page describes itself as a page.
+        $this->assertNull($schemas->firstWhere('@type', 'Dataset'), 'a single record is not a Dataset');
+        $page = $schemas->firstWhere('@type', 'ItemPage');
+        $this->assertNotNull($page);
+        $this->assertSame(config('aipolicytracker.data_license_url'), $page['license']);
+        $this->assertSame(url('/').'#organization', $page['publisher']['@id']);
 
-        $this->assertSame(config('aipolicytracker.data_license_url'), $dataset['license']);
-        $this->assertTrue($dataset['isAccessibleForFree']);
-        $this->assertSame(url('/').'#organization', $dataset['publisher']['@id']);
-
-        $urls = array_column($dataset['distribution'], 'contentUrl');
-        $this->assertContains(route('policies.json', $policy->slug), $urls);
-        $this->assertContains(route('policies.context', $policy->slug), $urls);
-
-        // And the files it advertises actually serve something.
-        foreach ($urls as $url) {
+        // The machine-readable record is still offered, and serves something.
+        $html = $this->get($policy->url())->getContent();
+        foreach ([route('policies.json', $policy->slug), route('policies.context', $policy->slug)] as $url) {
+            $this->assertStringContainsString('rel="alternate"', $html);
+            $this->assertStringContainsString($url, $html);
             $this->get($url)->assertOk();
         }
     }
@@ -263,7 +264,7 @@ class StructuredDataGraphTest extends TestCase
         // whether the sitemap enumerates the table, not how big the table is.
         ExternalIncident::create([
             'incident_id' => 4242, 'title' => 'Recruitment model rejected applicants by postcode',
-            'description' => 'A screening model trained on historic hiring data rejected applicants from particular postcodes at a markedly higher rate.',
+            'description' => 'A screening model trained on historic hiring data rejected applicants from particular postcodes at a markedly higher rate, and the employer used its scores to decide who reached an interview for two hiring rounds.',
             'occurred_on' => '2026-03-04', 'year' => 2026, 'report_count' => 3,
             'snapshot_date' => '2026-09-07', 'mit_domain' => '1', 'mit_subdomain' => '1.1',
         ]);

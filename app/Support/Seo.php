@@ -369,9 +369,32 @@ class Seo
         return false;
     }
 
+    /**
+     * What a record page belongs to: the site, anything the caller names (an obligation's
+     * instrument), and, once a DOI has been minted, the citable corpus release, so a
+     * record cited from here resolves to the release it is part of. The DOI identifies
+     * the corpus, never the record.
+     */
+    public static function recordIsPartOf(array ...$also): array
+    {
+        $parts = array_values(array_filter([['@id' => url('/').'#website'], ...$also, DatasetCitation::corpusNode()]));
+
+        return count($parts) === 1 ? $parts[0] : $parts;
+    }
+
+    /**
+     * Article types: reviewedBy and lastReviewed are WebPage properties, so on one of
+     * these they are dropped rather than emitted as properties the type does not have.
+     */
+    private const ARTICLE_TYPES = ['Article', 'NewsArticle', 'BlogPosting', 'Report'];
+
     /** This page as an entity: what it is, what it belongs to, when it changed. */
     private function pageNode(): array
     {
+        $properties = in_array($this->pageType, self::ARTICLE_TYPES, true)
+            ? array_diff_key($this->pageProperties, array_flip(['reviewedBy', 'lastReviewed']))
+            : $this->pageProperties;
+
         return array_filter(array_merge([
             '@type' => $this->pageType,
             '@id' => $this->canonical.'#webpage',
@@ -385,7 +408,7 @@ class Seo
             'dateModified' => $this->modified?->format(DATE_ATOM),
             'publisher' => ['@id' => url('/').'#organization'],
             'license' => config('aipolicytracker.data_license_url'),
-        ], $this->pageProperties), fn ($v) => $v !== null && $v !== [] && $v !== '');
+        ], $properties), fn ($v) => $v !== null && $v !== [] && $v !== '');
     }
 
     /**

@@ -104,7 +104,7 @@ class TransitionController extends Controller
             ->withBreadcrumbs([['Home', route('home')], ['AI economic transition', route('transition.index')], [$measure->title, $measure->url()]])
             ->withModified($measure->updated_at)
             ->withPageProperties(Seo::provenance($measure))
-            ->withPageType('Article', ['headline' => $measure->title, 'about' => ['@type' => 'Legislation', 'name' => $measure->title, 'legislationJurisdiction' => $measure->jurisdiction->name]])
+            ->withPageType('ItemPage', ['headline' => $measure->title, 'about' => ['@type' => 'Legislation', 'name' => $measure->title, 'legislationJurisdiction' => $measure->jurisdiction->name]])
             ->withFaq(array_values(array_filter([
                 ['question' => 'What is the status of '.$measure->title.'?', 'answer' => $measure->isDraft() ? 'Unverified: the record is a draft and the status has not been read from an official source.' : $measure->statusLabel().($measure->in_force_on ? ', in force since '.$measure->in_force_on->format('j F Y') : ($measure->enacted_on ? ', enacted '.$measure->enacted_on->format('j F Y') : ''))],
                 $measure->mechanism ? ['question' => 'How would it work?', 'answer' => $measure->mechanism] : null,

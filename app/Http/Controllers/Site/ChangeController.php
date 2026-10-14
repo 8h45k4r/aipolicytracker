@@ -32,6 +32,8 @@ class ChangeController extends Controller
             $query->where('impact_level', $impact);
         }
         $changes = $query->orderByDesc('occurred_on')->orderByDesc('id')->paginate(25)->withQueryString();
+        // A page past the last is not an empty page of results; it does not exist.
+        abort_if($changes->currentPage() > max(1, $changes->lastPage()), 404);
         $urgent = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereIn('impact_level', ['urgent', 'high'])->orderByDesc('occurred_on')->limit(5)->get();
         $years = ChangeEvent::publishedYears();
         $indexable = empty($filters['q']) && $impact === null && empty($filters['jurisdiction']);
@@ -82,21 +84,25 @@ class ChangeController extends Controller
             PageTitle::change($change),
             Str::limit(trim(preg_replace('/\s+/', ' ', $change->what_changed)), 155),
             $change->url(),
-            filled($change->what_changed) && filled($change->official_source_url)
+            // A site update (a new template version) stays listed in the change log
+            // but is not offered to search engines as a change in the law.
+            filled($change->what_changed) && filled($change->official_source_url) && ! $change->isSiteUpdate()
         )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], [(string) $change->occurred_on->year, route('changes.year', $change->occurred_on->year)], [$change->title, $change->url()]])
             ->withModified($change->updated_at)
             // Published when the entry first appeared here, not when the event
             // happened: a news reader asks the first question. The event date is
             // stated in the body and in the dateline below.
             ->withPublished($change->first_published_at ?? $change->occurred_on)
-            ->withOgType('article')
+            ->withOgType($change->isSiteUpdate() ? 'website' : 'article')
             ->withCard('change', $change->slug, $change->updated_at)
             ->withFeed(route('changes.feed'))
             ->withAlternate('text/markdown', route('changes.context', $change->slug))
-            ->withPageType('NewsArticle', array_filter([
-                'headline' => PageTitle::shorten($change->title, 110),
-                'dateline' => trim(($name ?? '').', '.$change->occurred_on->format('j F Y'), ', '),
-                'articleSection' => 'AI policy updates',
+            // A change in the law is news; a new version of one of this site's own
+            // templates is a page about the site, with no headline or dateline.
+            ->withPageType($change->isSiteUpdate() ? 'WebPage' : 'NewsArticle', array_filter([
+                'headline' => $change->isSiteUpdate() ? null : PageTitle::shorten($change->title, 110),
+                'dateline' => $change->isSiteUpdate() ? null : trim(($name ?? '').', '.$change->occurred_on->format('j F Y'), ', '),
+                'articleSection' => $change->isSiteUpdate() ? null : 'AI policy updates',
                 'isBasedOn' => $change->official_source_url ?: null,
                 'about' => array_values(array_filter([
                     $instrument ? ['@type' => $instrument->is_binding ? 'Legislation' : 'CreativeWork', 'name' => $instrument->short_title ?: $instrument->title, 'url' => $instrument->url()] : null,

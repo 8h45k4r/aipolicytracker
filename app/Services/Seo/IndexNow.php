@@ -48,6 +48,14 @@ final class IndexNow
         $urls = [];
         foreach (self::MODELS as $model) {
             $model::published()->where('updated_at', '>=', $since)->get()->each(function ($record) use (&$urls) {
+                // Only pages offered to search engines: a noindex page or a site update
+                // would be a request to crawl something the page itself declines.
+                if (method_exists($record, 'isIndexable') && ! $record->isIndexable()) {
+                    return;
+                }
+                if ($record instanceof ChangeEvent && $record->isSiteUpdate()) {
+                    return;
+                }
                 $urls[] = $record->url();
             });
         }

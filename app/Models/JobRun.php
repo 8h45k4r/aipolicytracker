@@ -53,6 +53,9 @@ class JobRun extends Model
         'coverage' => ['command' => 'policy:coverage', 'args' => ['--list' => 20], 'label' => 'Coverage report', 'what' => 'Lists required and expected gaps. Changes nothing.', 'schedule' => 'On demand', 'confirm' => false],
         'social_post' => ['command' => 'social:post', 'args' => [], 'label' => 'Post changes to X', 'what' => 'Queues a post for each new verified change and sends up to two that are due, within the monthly cap. Does nothing while posting to X is off.', 'schedule' => 'Every 30 minutes, when posting is on', 'confirm' => false],
         'social_post_dry_run' => ['command' => 'social:post', 'args' => ['--dry-run' => true], 'label' => 'Post changes to X, dry run', 'what' => 'Prints the posts the next run would queue. Sends nothing.', 'schedule' => 'On demand', 'confirm' => false],
+        // Records published, verified or edited in the admin reach Bing (and through it
+        // Copilot and ChatGPT search) within the hour, not only after the nightly import.
+        'indexnow' => ['command' => 'seo:indexnow', 'args' => ['--since' => '70 minutes'], 'label' => 'Notify search engines of changes (IndexNow)', 'what' => 'Submits the public pages of records published or changed in the last 70 minutes to IndexNow (Bing, Yandex, Naver, Seznam). Does nothing while INDEXNOW_KEY is unset.', 'schedule' => 'Hourly, when INDEXNOW_KEY is set', 'confirm' => false],
         'email_domains' => ['command' => 'email:domains-refresh', 'args' => [], 'label' => 'Throwaway-domain list refresh', 'what' => 'Refreshes the overlay of disposable mail domains from the list named by EMAIL_DISPOSABLE_SOURCE. Unset, the scheduler skips it.', 'schedule' => 'Wednesdays 05:00 UTC, when a source is set', 'confirm' => false],
     ];
 

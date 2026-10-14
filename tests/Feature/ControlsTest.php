@@ -57,7 +57,9 @@ class ControlsTest extends TestCase
             $page->assertSee('href="'.$o->url().'"', false);
         }
         $html = $page->getContent();
-        $this->assertStringContainsString('"@type":"Dataset"', $html);
+        // A single record is not a Dataset; the page names the data file it is built from.
+        $this->assertStringNotContainsString('"@type":"Dataset"', $html);
+        $this->assertStringContainsString('/data/controls/', $html);
         $this->assertStringContainsString('"@type":"FAQPage"', $html);
         $this->assertStringContainsString('<link rel="alternate" type="text/markdown" href="'.route('controls.context', $control->slug).'">', $html);
 

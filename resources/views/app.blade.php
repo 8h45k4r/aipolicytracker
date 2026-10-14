@@ -24,7 +24,9 @@
     @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
     @inertiaHead
 
-    @if (config('aipolicytracker.google_analytics_id'))
+    {{-- The account area has no consent banner, so it loads analytics only where consent is
+         not required, and never on a page whose address carries a token. --}}
+    @if (config('aipolicytracker.google_analytics_id') && ! config('aipolicytracker.analytics_require_consent') && \App\Support\Analytics::allowedHere())
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('aipolicytracker.google_analytics_id') }}"></script>
         <script nonce="{{ Illuminate\Support\Facades\Vite::cspNonce() }}">

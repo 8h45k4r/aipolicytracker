@@ -22,6 +22,8 @@ class ObligationController extends Controller
     {
         $filters = $catalog->filtersFromRequest($request);
         $obligations = $catalog->obligationQuery($filters)->paginate(25)->withQueryString();
+        // A page past the last is not an empty page of results; it does not exist.
+        abort_if($obligations->currentPage() > max(1, $obligations->lastPage()), 404);
         $options = $catalog->filterOptions();
         // Same rule as the policy listing: every page of an indexable filter set is
         // indexable and canonical to itself.
@@ -82,7 +84,7 @@ class ObligationController extends Controller
             ->withCard('obligation', $obligation->slug, $obligation->updated_at)
             ->withAlternate('text/markdown', route('obligations.context', $obligation->slug))
             ->withPageProperties(Seo::provenance($obligation))
-            ->withPageType('Article', [
+            ->withPageType('ItemPage', [
                 'headline' => $obligation->title,
                 'name' => $obligation->title,
                 'description' => $answer,
@@ -90,15 +92,8 @@ class ObligationController extends Controller
                 'citation' => $obligation->official_source_url,
                 // An obligation is read out of an instrument; saying which one is the
                 // difference between a requirement and a floating assertion.
-                'isPartOf' => [['@id' => url('/').'#website'], ['@type' => 'Legislation', 'name' => $policy->short_title ?: $policy->title, 'url' => $policy->url()]],
-            ])
-            ->withJsonLd(Seo::dataset(
-                $obligation->title,
-                ($obligation->is_binding ? 'Legal requirement' : 'Voluntary guidance').' under '.($policy->short_title ?: $policy->title).' in '.$policy->jurisdiction->name.'.',
-                $obligation->url(),
-                ['text/markdown' => route('obligations.context', $obligation->slug)],
-                $obligation->updated_at,
-            ));
+                'isPartOf' => Seo::recordIsPartOf(['@type' => 'Legislation', 'name' => $policy->short_title ?: $policy->title, 'url' => $policy->url()]),
+            ]);
 
         $seo->withFaq(QuestionBank::obligation($obligation));
 

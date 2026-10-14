@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\JobRun;
+use App\Services\Seo\IndexNow;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schedule;
 
@@ -28,6 +29,7 @@ $timetable = [
     'report_freeze' => fn ($e) => $e->quarterlyOn(1, '01:00'),
     // Only while posting is switched on, so a host without keys records no failed runs.
     'social_post' => fn ($e) => $e->everyThirtyMinutes()->when(fn () => (bool) config('social.x.enabled')),
+    'indexnow' => fn ($e) => $e->hourly()->when(fn () => app(IndexNow::class)->enabled()),
     // Only when the operator has named a list. Scheduled without one, this job
     // failed every Wednesday for want of an argument nobody could supply.
     'email_domains' => fn ($e) => $e->weeklyOn(3, '05:00')->when(fn () => filled(config('email.overlay_source'))),

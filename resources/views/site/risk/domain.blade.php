@@ -5,6 +5,7 @@
     <p class="eyebrow mt-3">AI risk domain {{ $domain['id'] }}</p>
     <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[24ch]">{{ $domain['name'] }}</h1>
     @if($domain['description'])<p class="mt-4 max-w-[64ch] text-brand-body leading-7">{{ $domain['description'] }}</p>@endif
+    <x-site.answer-box class="mt-5 max-w-3xl" :text="$answer" />
 
     <div class="mt-10 grid gap-10 lg:grid-cols-12">
         <section class="lg:col-span-7" aria-labelledby="sub-heading">
@@ -37,7 +38,8 @@
     @endif
 
     <section class="mt-12" aria-labelledby="policies-heading">
-        <div class="rule-strong pt-3 flex items-baseline justify-between"><h2 id="policies-heading" class="section-title">Policies addressing related use cases</h2><span class="meta">Editorial mapping by AIPolicyTracker</span></div>
+        <div class="rule-strong pt-3 flex items-baseline justify-between"><h2 id="policies-heading" class="section-title">Which laws on record cover this risk area?</h2><span class="meta">Editorial mapping by AIPolicyTracker</span></div>
+        <p class="mt-2 text-sm text-brand-muted">Instruments tagged with the use cases this domain concerns. A law listed covers the area; it is not a finding that it applies to any particular system or incident.</p>
         @if($domain['use_cases'])<p class="mt-2 meta">Use cases: @foreach($domain['use_cases'] as $u)<a class="chip !min-h-0 !py-0.5 mr-1" href="{{ route('policies.index', ['use_case' => $u]) }}">{{ str_replace('_', ' ', $u) }}</a>@endforeach</p>@endif
         <div class="mt-2 divide-y divide-brand-line border-b border-brand-line">
             @forelse($policies as $p)<x-site.policy-row :policy="$p" />@empty<div class="py-6"><x-site.empty title="No mapped policies yet">Records tagged with these use cases will appear here as reviewers enrich the dataset.</x-site.empty></div>@endforelse

@@ -120,9 +120,11 @@ class RiskBrowseController extends Controller
         $seo = Seo::make(PageTitle::incident($i), $description, $i->url(), $i->isIndexable())
             ->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Incidents', route('risk.incidents.browse')], [PageTitle::shorten($heading, 48), $i->url()]])
             ->withModified($i->modified_at ?? $i->snapshot_date)
-            ->withPageType('Article', [
+            // A page about one record of an external database, not an article of ours.
+            // The incident's own date is in the body; datePublished would claim it as
+            // the date this page was published.
+            ->withPageType('ItemPage', [
                 'headline' => PageTitle::shorten($heading, 110),
-                'datePublished' => $i->occurred_on->toDateString(),
                 // This record is the AI Incident Database's, under its own licence,
                 // which is not the licence the rest of this site publishes under.
                 'isBasedOn' => $i->citeUrl(),

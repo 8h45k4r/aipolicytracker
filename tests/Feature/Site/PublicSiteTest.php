@@ -135,7 +135,9 @@ class PublicSiteTest extends TestCase
     {
         $this->get('/policies?q=ai')->assertSee('noindex,follow', false);
         $this->get('/policies?jurisdiction=eu&status=in_force')->assertSee('noindex,follow', false);
-        $this->get('/policies?jurisdiction=eu')->assertSee('index,follow', false)->assertSee('<link rel="canonical" href="'.url('/policies?jurisdiction=eu').'"', false);
+        // A single status is indexable; a single country defers to the country page.
+        $this->get('/policies?status=in_force')->assertSee('index,follow', false)->assertSee('<link rel="canonical" href="'.url('/policies?status=in_force').'"', false);
+        $this->get('/policies?jurisdiction=eu')->assertSee('noindex,follow', false);
         $this->get('/compare?j[]=eu&j[]=uk')->assertSee('noindex,follow', false);
     }
 

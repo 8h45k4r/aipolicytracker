@@ -119,8 +119,10 @@ class CitableReleasesTest extends TestCase
         $this->assertSame(['@type' => 'PropertyValue', 'propertyID' => 'DOI', 'value' => self::DOI, 'url' => 'https://doi.org/'.self::DOI], $corpus['identifier']);
         $this->assertSame('https://doi.org/'.self::DOI, $corpus['sameAs']);
 
-        // A record's Dataset is declared part of the DOI'd corpus; the DOI is not its own.
-        $record = collect($this->datasets($policy->url()))->firstWhere('url', $policy->url());
+        // A record page is declared part of the DOI'd corpus; the DOI is not its own.
+        $this->assertNull(collect($this->datasets($policy->url()))->firstWhere('url', $policy->url()), 'a single record is not a Dataset');
+        preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $this->get($policy->url())->getContent(), $m);
+        $record = collect($m[1])->map(fn ($j) => json_decode($j, true))->firstWhere('@type', 'ItemPage');
         $this->assertNotNull($record);
         $this->assertNotSame(self::DOI, $record['identifier']['value'] ?? null);
         $parent = collect($record['isPartOf'])->firstWhere('@type', 'Dataset');

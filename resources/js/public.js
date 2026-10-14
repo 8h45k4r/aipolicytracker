@@ -32,9 +32,40 @@
             c.setAttribute('data-cf-beacon', JSON.stringify({ token: cfg.cfToken }));
             document.head.appendChild(c);
         }
+        flushAiReferral();
     }
     function track(name, params) {
         if (window.gtag) { window.gtag('event', name, params || {}); }
+    }
+
+    // Visits sent by an answer engine or AI assistant, as their own event, so the
+    // traffic AI search brings is visible apart from ordinary referrals. ChatGPT also
+    // tags its links with utm_source=chatgpt.com. The engine is worked out on landing
+    // and held in memory only: nothing is stored or sent before consent, and when the
+    // reader accepts on this page the event goes out then (loadAnalytics below).
+    var AI_ENGINES = {
+        'chatgpt.com': 'chatgpt', 'chat.openai.com': 'chatgpt', 'perplexity.ai': 'perplexity', 'claude.ai': 'claude',
+        'gemini.google.com': 'gemini', 'copilot.microsoft.com': 'copilot', 'copilot.cloud.microsoft': 'copilot', 'm365.cloud.microsoft': 'copilot',
+        'chat.deepseek.com': 'deepseek', 'chat.mistral.ai': 'mistral', 'grok.com': 'grok', 'meta.ai': 'meta_ai', 'you.com': 'you', 'poe.com': 'poe', 'phind.com': 'phind'
+    };
+    function aiEngine(host) {
+        host = String(host || '').toLowerCase().replace(/^www\./, '');
+        for (var domain in AI_ENGINES) {
+            if (host === domain || host.slice(-(domain.length + 1)) === '.' + domain) { return AI_ENGINES[domain]; }
+        }
+        return '';
+    }
+    var aiReferral = (function () {
+        var host;
+        try { host = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) { host = ''; }
+        var engine = aiEngine(host) || aiEngine(new URLSearchParams(location.search).get('utm_source'));
+        // The path only: a query string can carry anything.
+        return engine ? { ai_engine: engine, landing_path: location.pathname } : null;
+    })();
+    function flushAiReferral() {
+        if (!aiReferral || !window.gtag) { return; }
+        track('ai_referral', aiReferral);
+        aiReferral = null;
     }
     var banner = document.getElementById('consent-banner');
     var cfg = window.APT_ANALYTICS || {};
@@ -85,19 +116,6 @@
     if (document.body.getAttribute('data-page-track')) {
         track(document.body.getAttribute('data-page-track'), { path: location.pathname });
     }
-    // Visits sent by an answer engine or AI assistant, as their own event, so the
-    // traffic AI search brings is visible apart from ordinary referrals. ChatGPT
-    // also tags its links with utm_source=chatgpt.com.
-    (function () {
-        var engines = { 'chatgpt.com': 'chatgpt', 'chat.openai.com': 'chatgpt', 'perplexity.ai': 'perplexity', 'claude.ai': 'claude',
-            'gemini.google.com': 'gemini', 'copilot.microsoft.com': 'copilot', 'chat.deepseek.com': 'deepseek', 'chat.mistral.ai': 'mistral', 'you.com': 'you', 'meta.ai': 'meta_ai' };
-        var host;
-        try { host = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch (e) { host = ''; }
-        var utm = new URLSearchParams(location.search).get('utm_source') || '';
-        var engine = engines[host] || engines[utm.replace(/^www\./, '')] || '';
-        if (engine) { track('ai_referral', { engine: engine, path: location.pathname }); }
-    })();
-
     // Mobile filter sheet (bottom sheet) toggle.
     var openBtns = document.querySelectorAll('[data-open-filters]');
     var sheet = document.getElementById('filter-sheet');

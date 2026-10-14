@@ -14,7 +14,26 @@ class ChangeEvent extends Model
 {
     use HasSourceQuality;
 
+    /**
+     * Change entries recording a new version of one of this site's own templates
+     * carry this slug prefix. They are site updates, not regulatory news: their
+     * "source" is the template page here, not an official publication.
+     */
+    public const SITE_UPDATE_PREFIX = 'template-';
+
     protected $guarded = [];
+
+    /** Whether this entry records a change to the site's own material rather than to the law. */
+    public function isSiteUpdate(): bool
+    {
+        return str_starts_with((string) $this->slug, self::SITE_UPDATE_PREFIX);
+    }
+
+    /** Entries about the law: everything that is not a site update. */
+    public function scopeRegulatory($query)
+    {
+        return $query->where('slug', 'not like', self::SITE_UPDATE_PREFIX.'%');
+    }
 
     protected function casts(): array
     {

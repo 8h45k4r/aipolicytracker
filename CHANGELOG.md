@@ -5,6 +5,10 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Changed
+- Search index quality (audit: `docs/reference/seo-aeo-audit-2026-10-14.md`): a listing filtered by a value that names nothing, or by a single country, is `noindex,follow` (the country page answers that question); a listing page past the last is a 404; template releases recorded as changes are site updates (`WebPage`, `noindex`, out of the changes and news sitemaps), not news; an incident page is indexed with at least 25 words of description and a risk classification or a law on record.
+- Structured data: policy, obligation, incident and transition-measure pages are `ItemPage` (a policy's main entity is its `Legislation` node, and `isBasedOn` names the official text and the open-data record); `reviewedBy` and `lastReviewed` are no longer emitted on article types; single records no longer declare themselves a `Dataset`.
+- Risk-domain pages open with an answer composed from the taxonomy and the counts, and ask "Which laws on record cover this risk area?"; obligation pages link the glossary terms they use; four country answers no longer read "guidance, guidance".
+- IndexNow: an hourly job submits pages published or changed in the admin (only pages offered to search engines).
 - One corner-radius scale for the whole portal (4, 6, 8, 12 and 16px plus pills), applied by role: badges and checkboxes 4px, buttons, inputs and callouts 8px, cards, panels and tables 12px, dialogs 16px, filter chips as pills. Shadows and motion use shared tokens too. See `docs/reference/design-system.md`.
 - Interaction: one focus outline that keeps each control's shape and survives high-contrast mode; hover styles only on devices that hover; invalid fields marked in red; public forms cannot be sent twice by a double click; disabled buttons look unavailable; balanced headings and tabular figures.
 - The account screens no longer load Font Awesome or Flowbite from a CDN, and the security policy no longer allows either.
@@ -56,6 +60,8 @@ All notable changes to this project are documented here. The format follows [Kee
 - `/ai-risk` has a factual heading, and its trend heading follows the 12-month figure.
 
 ### Fixed
+- The `ai_referral` event is sent when the reader consents on the landing page (it was checked before analytics could load), with `ai_engine` and `landing_path` parameters and more engines recognised.
+- Pages whose address carries a token (subscription confirm and unsubscribe, password reset, invitation, email check) never load analytics, so the token cannot reach an analytics report.
 - Invitation emails printed the inviter's account record (email, last sign-in, second-factor fields) where they meant the inviter's name. Only the name is sent now.
 - Jobs that act on live data or send mail now ask before running; the job table no longer shows a stray "@else".
 - Invitations no longer say "sent" when the server's mailer delivers nothing; the account page offers the link to copy instead.

@@ -87,6 +87,10 @@
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
                 <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Source</p><p class="mt-1 text-brand-body">{{ $policy->source_title }}</p><p class="text-xs text-brand-muted">{{ $policy->source_publisher }}@if($obligation->source_reference) · {{ $obligation->source_reference }}@endif</p>@if($obligation->official_source_url)<a href="{{ $obligation->official_source_url }}" rel="noopener" class="mt-2 inline-block text-brand-blue hover:underline break-all" data-track="source_click">{{ \Illuminate\Support\Str::limit($obligation->official_source_url, 60) }}</a>@endif</div>
+                @php($glossary = \App\Services\Glossary\GlossaryTerms::foundIn(implode(' ', [$obligation->title, $obligation->summary, $obligation->practical_action]), 4))
+                @if($glossary)
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Terms explained</p><ul class="mt-2 space-y-1.5">@foreach($glossary as $g)<li><a href="{{ \App\Services\Glossary\GlossaryTerms::url($g['id']) }}" class="text-brand-body hover:underline">{{ $g['term'] }}</a></li>@endforeach</ul></div>
+                @endif
             </div>
         </aside>
     </div>

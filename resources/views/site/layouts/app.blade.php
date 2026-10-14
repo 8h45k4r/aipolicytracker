@@ -59,7 +59,7 @@
     <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
     @endforeach
     @vite(['resources/css/public.css', 'resources/js/public.js'])
-    @if(config('aipolicytracker.google_analytics_id') || config('aipolicytracker.cloudflare_analytics_token'))
+    @if(\App\Support\Analytics::allowedHere())
     <script nonce="{{ Illuminate\Support\Facades\Vite::cspNonce() }}">window.APT_ANALYTICS = @json(['gaId' => config('aipolicytracker.google_analytics_id'), 'cfToken' => config('aipolicytracker.cloudflare_analytics_token'), 'requireConsent' => (bool) config('aipolicytracker.analytics_require_consent')]);</script>
     @endif
 </head>
@@ -164,7 +164,7 @@
     </div>
 </footer>
 
-@if(config('aipolicytracker.google_analytics_id') || config('aipolicytracker.cloudflare_analytics_token'))
+@if(\App\Support\Analytics::allowedHere())
 <div id="consent-banner" hidden class="fixed inset-x-0 bottom-0 z-50 border-t border-brand-line bg-white p-4 shadow-lg" role="dialog" aria-label="Analytics consent">
     <div class="mx-auto max-w-7xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm">
         <p class="text-brand-body">We use privacy-conscious analytics to understand which policies and tools are useful. No advertising. You can decline.</p>

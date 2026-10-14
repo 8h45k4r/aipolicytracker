@@ -252,15 +252,9 @@ class SitemapController extends Controller
         // the records they are built from, below.
         $listings = [route('home'), route('policies.index'), route('jurisdictions.index'), route('obligations.index'), route('changes.index'), route('calendar'), route('coverage'), route('gaps'), route('corrections'), route('verification')];
         $urls = collect($pages)->map(fn ($p) => ['loc' => $p[0], 'lastmod' => in_array($p[0], $listings, true) ? $lastmod : null, 'changefreq' => $p[1], 'priority' => $p[2]]);
-        // Indexable single-filter listings: one per jurisdiction and one per
-        // obligation category, dated by their own records and gated on the same
-        // rule the jurisdiction page applies to itself.
-        foreach (Jurisdiction::published()->withPublishedInstrument()->orderBy('slug')->get() as $j) {
-            if ($j->isIndexable()) {
-                $mod = $j->policyInstruments()->published()->max('updated_at');
-                $urls->push(['loc' => route('policies.index', ['jurisdiction' => $j->slug]), 'lastmod' => $mod ? Carbon::parse($mod)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6']);
-            }
-        }
+        // Indexable single-filter listings: one per obligation category, dated by
+        // its own records. A listing for one jurisdiction is not listed: the
+        // country page answers that question and lists every instrument it would.
         foreach (TaxonomyTerm::taxonomy('obligation_category')->get() as $c) {
             $mod = Obligation::published()->where('category', $c->slug)->max('updated_at');
             if ($mod) {
@@ -277,9 +271,10 @@ class SitemapController extends Controller
         $urls = $years->map(fn ($m, $y) => ['loc' => route('changes.year', $y), 'lastmod' => $m ? Carbon::parse($m)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6'])->values();
 
         // Each change is a page now, dated by itself. Only one that can be
-        // indexed is listed: the page applies the same test.
+        // indexed is listed: the page applies the same test, and a site update
+        // (a new version of a template here) is not a change in the law.
         return $urls->concat(
-            ChangeEvent::published()->whereNotNull('official_source_url')->whereNotNull('what_changed')->orderByDesc('occurred_on')->lazy(500)
+            ChangeEvent::published()->regulatory()->whereNotNull('official_source_url')->whereNotNull('what_changed')->orderByDesc('occurred_on')->lazy(500)
                 ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $c->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5'])
         )->values();
     }
@@ -297,7 +292,7 @@ class SitemapController extends Controller
 
     private function newsItems()
     {
-        return ChangeEvent::published()->with('jurisdiction')
+        return ChangeEvent::published()->regulatory()->with('jurisdiction')
             ->whereNotNull('official_source_url')->whereNotNull('what_changed')
             ->where('first_published_at', '>=', now()->subHours(48))
             ->where('occurred_on', '>=', now()->subDays(14)->toDateString())

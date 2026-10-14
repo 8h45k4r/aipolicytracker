@@ -87,11 +87,12 @@ class AnswerFirstRecordsTest extends TestCase
             $this->assertLessThanOrEqual(155, mb_strlen(html_entity_decode($m[1])), $url);
         }
         $policy = $this->get('/policies/eu-ai-act')->getContent();
-        $this->assertStringContainsString('"@type":"Article"', $policy);
+        $this->assertStringContainsString('"@type":"ItemPage"', $policy);
         $this->assertStringContainsString('"@type":"Legislation"', $policy);
-        $this->assertStringContainsString('"@type":"Dataset"', $policy);
-        $this->assertStringContainsString('"@type":"Article"', $this->get('/obligations/'.$o->slug)->getContent());
-        $this->assertStringContainsString('"@type":"Dataset"', $this->get('/jurisdictions/eu')->getContent());
+        // Single records are pages, not datasets; the collections carry Dataset markup.
+        $this->assertStringNotContainsString('"@type":"Dataset"', $policy);
+        $this->assertStringContainsString('"@type":"ItemPage"', $this->get('/obligations/'.$o->slug)->getContent());
+        $this->assertStringNotContainsString('"@type":"Dataset"', $this->get('/jurisdictions/eu')->getContent());
     }
 
     public function test_the_question_bank_asks_only_what_the_record_can_answer(): void

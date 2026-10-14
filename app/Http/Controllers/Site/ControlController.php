@@ -89,16 +89,9 @@ class ControlController extends Controller
                 'name' => $control->title,
                 'about' => ['@type' => 'DefinedTerm', 'name' => $control->kindLabel(), 'inDefinedTermSet' => route('controls.index')],
                 'mentions' => $duties->map(fn ($o) => ['@type' => $o->policyInstrument->is_binding ? 'Legislation' : 'CreativeWork', 'name' => $o->policyInstrument->short_title ?: $o->policyInstrument->title, 'url' => $o->policyInstrument->url()])->unique('url')->values()->all(),
+                'isBasedOn' => config('aipolicytracker.github_url').'/blob/main/data/controls/'.$control->slug.'.yaml',
+                'isPartOf' => Seo::recordIsPartOf(),
             ] + Seo::provenance($control))
-            ->withJsonLd(Seo::dataset(
-                $control->title,
-                Str::limit(preg_replace('/\s+/', ' ', $control->purpose), 300),
-                $control->url(),
-                ['text/markdown' => route('controls.context', $control->slug)],
-                $control->updated_at,
-                null,
-                ['sameAs' => config('aipolicytracker.github_url').'/blob/main/data/controls/'.$control->slug.'.yaml'],
-            ))
             ->withFaq(array_values(array_filter([
                 ['question' => 'Which legal duties does "'.$control->title.'" satisfy?', 'answer' => $duties->where('pivot.relationship', 'satisfies')->isNotEmpty()
                     ? 'It is recorded as satisfying '.$duties->where('pivot.relationship', 'satisfies')->count().' and supporting '.$duties->where('pivot.relationship', 'supports')->count().' duties across '.$byJurisdiction->keys()->join(', ', ' and ').'. A mapping means the control, operated properly, does the work the duty asks for; the official text decides whether it is enough.'

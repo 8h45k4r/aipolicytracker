@@ -87,7 +87,8 @@ class IncidentBrandSafetyTest extends TestCase
     public function test_a_sensitive_page_is_neutral_noindexed_out_of_sitemaps_and_modules_and_still_links_the_law(): void
     {
         $sensitive = $this->incident(['incident_id' => 90004, 'title' => 'Deepfake Nudes of a Singer Circulated on Social Media', 'developers' => ['Stability AI'], 'mit_domain' => 'Malicious actors', 'mit_subdomain' => 'Disinformation, surveillance, and influence at scale', 'countries' => ['US'], 'occurred_on' => '2026-09-20', 'year' => 2026]);
-        $standard = $this->incident(['incident_id' => 90005, 'title' => 'Recruitment Model Rejected Applicants by Postcode', 'mit_domain' => 'Discrimination and Toxicity', 'mit_subdomain' => 'Unfair discrimination and misrepresentation', 'countries' => ['US'], 'occurred_on' => '2026-09-21', 'year' => 2026]);
+        // Long enough to be indexed: an incident page needs 25 words of description of its own.
+        $standard = $this->incident(['incident_id' => 90005, 'title' => 'Recruitment Model Rejected Applicants by Postcode', 'description' => 'A screening model trained on historic hiring data rejected applicants from particular postcodes at a markedly higher rate, and the employer used its scores to decide who reached an interview for two hiring rounds.', 'mit_domain' => 'Discrimination and Toxicity', 'mit_subdomain' => 'Unfair discrimination and misrepresentation', 'countries' => ['US'], 'occurred_on' => '2026-09-21', 'year' => 2026]);
         IncidentEnrichment::apply();
 
         $html = $this->get($sensitive->fresh()->url())->assertOk()->getContent();
@@ -97,12 +98,12 @@ class IncidentBrandSafetyTest extends TestCase
         $this->assertStringNotContainsStringIgnoringCase('nude', $head);
         $this->assertStringNotContainsStringIgnoringCase('singer', $html, 'the page body does not repeat the headline either');
         $this->assertStringContainsString('Laws on record for this risk area', $html);
-        $this->assertStringContainsString('"@type":"Article"', $head);
+        $this->assertStringContainsString('"@type":"ItemPage"', $head);
 
         $standardHtml = $this->get($standard->fresh()->url())->assertOk()->getContent();
         $this->assertStringContainsString('Laws on record for this risk area', $standardHtml);
         $this->assertStringContainsString('Policy angle', $standardHtml);
-        $this->assertStringContainsString('index,follow', $standardHtml);
+        $this->assertStringContainsString('content="index,follow', $standardHtml);
 
         $this->get('/sitemap-incidents.xml')->assertOk()->assertDontSee($sensitive->fresh()->url())->assertSee($standard->fresh()->url());
         foreach (['/', '/ai-risk/incidents', '/ai-risk/malicious-actors', '/ai-risk'] as $module) {

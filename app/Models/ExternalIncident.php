@@ -15,6 +15,9 @@ class ExternalIncident extends Model
     /** Policy statuses that no longer bind or guide anyone, so never shown as a law for an incident. */
     public const LAPSED_STATUSES = ['repealed', 'archived', 'superseded'];
 
+    /** Words of description an incident needs before its page is offered to search engines (the risk entries' rule). */
+    public const MIN_INDEXABLE_WORDS = ExternalRisk::MIN_INDEXABLE_WORDS;
+
     protected $primaryKey = 'incident_id';
 
     public $incrementing = false;
@@ -86,18 +89,20 @@ class ExternalIncident extends Model
     }
 
     /**
-     * The same threshold as every other record type, stated rather than assumed.
+     * When an incident page is offered to search engines.
      *
-     * Every one of the 1,663 incidents currently carries a description, so this
-     * excludes nothing today and the sitemap is unchanged by it. That is the
-     * point: the incident corpus was passing a test nobody had written, and a
-     * test nobody has written cannot fail when a future import brings in a record
-     * with no description. An entry that arrives empty is now served
-     * noindex,follow instead of being offered as a result with nothing on it.
+     * The record and its text are the AI Incident Database's. What this page adds is
+     * the classification in the MIT risk taxonomy and the laws on record for that
+     * risk area. A page with neither adds nothing of its own to the database's text,
+     * and a description under MIN_INDEXABLE_WORDS words is not much of a page either;
+     * both are served noindex,follow, reachable and linked, like a short risk entry.
+     * Sensitive records are never indexed.
      */
     public function isIndexable(): bool
     {
-        return filled($this->description) && ! IncidentSensitivity::isSensitive($this);
+        return filled($this->description) && ! IncidentSensitivity::isSensitive($this)
+            && str_word_count((string) $this->description) >= self::MIN_INDEXABLE_WORDS
+            && (filled($this->mit_domain) || ! empty($this->related_policy_slugs));
     }
 
     /** AIID Discover view listing every report on this incident (the reports themselves stay on AIID). */
