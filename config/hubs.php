@@ -47,6 +47,6 @@ return [
         ['us', 'canada'], ['us', 'uk'], ['japan', 'south-korea'], ['singapore', 'malaysia'], ['indonesia', 'malaysia'],
         ['thailand', 'vietnam'], ['brazil', 'mexico'], ['brazil', 'peru'], ['saudi-arabia', 'uae'], ['egypt', 'saudi-arabia'],
         ['nigeria', 'kenya'], ['ghana', 'nigeria'], ['india', 'pakistan'], ['nepal', 'sri-lanka'], ['australia', 'new-zealand'],
-        ['china', 'japan'], ['eu', 'china'],
+        ['china', 'japan'], ['eu', 'china'], ['china', 'us'],
     ],
 ];

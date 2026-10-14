@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Changed
+- Share cards for glossary terms (the term and its source) and the quarterly report (the quarter's headline figures); the China–US comparison is offered to search engines (both records verified at official sources). `SITE_SOCIAL_PROFILES` is documented as the place for the site's Wikidata item once it exists.
 - Search index quality (audit: `docs/reference/seo-aeo-audit-2026-10-14.md`): a listing filtered by a value that names nothing, or by a single country, is `noindex,follow` (the country page answers that question); a listing page past the last is a 404; template releases recorded as changes are site updates (`WebPage`, `noindex`, out of the changes and news sitemaps), not news; an incident page is indexed with at least 25 words of description and a risk classification or a law on record.
 - Structured data: policy, obligation, incident and transition-measure pages are `ItemPage` (a policy's main entity is its `Legislation` node, and `isBasedOn` names the official text and the open-data record); `reviewedBy` and `lastReviewed` are no longer emitted on article types; single records no longer declare themselves a `Dataset`.
 - Risk-domain pages open with an answer composed from the taxonomy and the counts, and ask "Which laws on record cover this risk area?"; obligation pages link the glossary terms they use; four country answers no longer read "guidance, guidance".

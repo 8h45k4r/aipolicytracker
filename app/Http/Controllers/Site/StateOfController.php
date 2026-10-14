@@ -54,6 +54,8 @@ class StateOfController extends Controller
         $seo = Seo::make(PageTitle::fit($title, [': Statistics, Laws & Changes', ': Countries, Laws & Changes', '']), PageTitle::description(sprintf('AI regulation statistics, %s: %d jurisdictions with binding AI law (%d in force), %s instruments, %s duties, %d %s next quarter.', $label, $t['jurisdictions_with_binding_law'], $t['jurisdictions_with_binding_in_force'], number_format($t['instruments']), number_format($t['obligations']), $t['deadlines_next_quarter'], Str::plural('deadline', $t['deadlines_next_quarter']))), $url, $isCurrent || $report['frozen'])
             ->withBreadcrumbs(array_values(array_filter([['Home', route('home')], ['State of AI regulation', route('state-of.show')], $isCurrent ? null : [$label, $url]])))
             ->withModified($report['frozen'] ? Carbon::parse($report['frozen_at']) : now())
+            // The live quarter's figures move, so its card token changes daily; a frozen one never.
+            ->withCard('report', strtolower($quarter), $report['frozen'] ? (string) $report['frozen_at'] : now()->toDateString())
             ->withPageType('Report', ['headline' => 'The state of AI regulation, '.$label, 'reportNumber' => $quarter, 'author' => ['@id' => url('/').'#organization']])
             ->withJsonLd(Seo::dataset('State of AI regulation '.$label, 'Quarterly figures computed from the AI policy records: jurisdictions by level of AI law, instruments by type and status, changes in the quarter, deadlines next quarter, verification coverage.', $url, ['text/csv' => route('state-of.csv', $quarter)], $report['frozen'] ? Carbon::parse($report['frozen_at']) : now(), 'state-of-ai-regulation-'.$quarter))
             ->withFaq($faq);

@@ -7,7 +7,9 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\Glossary\GlossaryTerms;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Report\StateOfAiRegulation;
 use App\Services\Social\SocialCard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -64,6 +66,8 @@ class SocialCardController extends Controller
             'jurisdiction' => $this->jurisdiction($slug),
             'obligation' => $this->obligation($slug),
             'change' => $this->change($slug),
+            'glossary' => $this->glossary($slug),
+            'report' => $this->report($slug),
             // One site card exists. Accepting any slug here drew and stored a fresh PNG
             // per made-up slug, which filled the disk from a loop of GETs.
             'site' => $slug === 'default' ? $this->site($catalog) : null,
@@ -148,6 +152,51 @@ class SocialCardController extends Controller
             'title' => $change->title,
             'meta' => implode(' · ', array_filter([$change->jurisdiction?->name, $change->policyInstrument ? ($change->policyInstrument->short_title ?: $change->policyInstrument->title) : null])),
             'footer' => $this->footerFor($change->last_verified_at, $change->review_status),
+        ];
+    }
+
+    /** A glossary term: the term, and the instrument its explanation follows. */
+    private function glossary(string $slug): ?array
+    {
+        $term = GlossaryTerms::find($slug);
+        if (! $term) {
+            return null;
+        }
+
+        return [
+            'eyebrow' => 'AI governance glossary',
+            'title' => $term['term'],
+            'meta' => $term['source'] ? 'Definition · source: '.$term['source'][0] : 'Definition',
+            'footer' => config('aipolicytracker.site_name').' · plain language, linked to the source',
+        ];
+    }
+
+    /**
+     * The quarterly report: the quarter and its headline figures, read from the same
+     * report the page shows (frozen for a past quarter, live for the current one).
+     */
+    private function report(string $slug): ?array
+    {
+        $quarter = strtoupper($slug);
+        if (! StateOfAiRegulation::isValidQuarter($quarter) || $quarter > StateOfAiRegulation::currentQuarter()) {
+            return null;
+        }
+        $report = StateOfAiRegulation::report($quarter);
+        if ($quarter !== StateOfAiRegulation::currentQuarter() && ! $report['frozen']) {
+            return null;
+        }
+        $t = $report['totals'];
+        $label = str_replace('-Q', ' Q', $quarter);
+
+        return [
+            'eyebrow' => 'State of AI regulation · '.$label,
+            'title' => 'The state of AI regulation, '.$label,
+            'meta' => implode(' · ', [
+                $t['jurisdictions_with_binding_law'].' jurisdictions with binding AI law',
+                number_format($t['instruments']).' instruments',
+                number_format($t['obligations']).' duties',
+            ]),
+            'footer' => config('aipolicytracker.site_name').' · '.($report['frozen'] ? 'figures frozen at quarter end' : 'live figures, computed from the records'),
         ];
     }
 

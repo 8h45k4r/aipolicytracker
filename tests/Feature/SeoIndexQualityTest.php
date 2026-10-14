@@ -7,6 +7,7 @@ use App\Models\ExternalIncident;
 use App\Models\JobRun;
 use App\Models\Jurisdiction;
 use App\Models\Subscriber;
+use App\Services\Report\StateOfAiRegulation;
 use App\Services\Seo\IndexNow;
 use App\Support\RiskTaxonomy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -197,5 +198,25 @@ class SeoIndexQualityTest extends TestCase
         $this->get(route('obligations.show', 'eu-ai-act-ai-literacy'))->assertOk()
             ->assertSee('Terms explained')
             ->assertSee(route('glossary.show', 'ai-literacy'), false);
+    }
+
+    public function test_glossary_terms_and_the_report_have_their_own_share_card(): void
+    {
+        $term = $this->get(route('glossary.show', 'ai-literacy'))->assertOk()->getContent();
+        $this->assertMatchesRegularExpression('#<meta property="og:image" content="[^"]*/og/glossary/ai-literacy\.png#', $term);
+        $this->assertContains($this->get('/og/glossary/ai-literacy.png')->status(), [200, 302]);
+        $this->get('/og/glossary/not-a-term.png')->assertNotFound();
+
+        $quarter = strtolower(StateOfAiRegulation::currentQuarter());
+        $report = $this->get(route('state-of.show'))->assertOk()->getContent();
+        $this->assertMatchesRegularExpression('#<meta property="og:image" content="[^"]*/og/report/'.$quarter.'\.png#', $report);
+        $this->assertContains($this->get('/og/report/'.$quarter.'.png')->status(), [200, 302]);
+        $this->get('/og/report/2999-q1.png')->assertNotFound();
+    }
+
+    public function test_the_china_us_comparison_is_offered_to_search_engines(): void
+    {
+        $html = $this->get('/compare/china-vs-us')->assertOk()->getContent();
+        $this->assertStringStartsWith('index', $this->robots($html));
     }
 }

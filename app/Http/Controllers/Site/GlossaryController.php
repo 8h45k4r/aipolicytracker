@@ -117,6 +117,7 @@ class GlossaryController extends Controller
             PageTitle::description($t['short'].': '.$t['definition']),
             $url,
         )->withBreadcrumbs([['Home', route('home')], ['Glossary', route('glossary')], [$t['short'], $url]])
+            ->withCard('glossary', $t['id'], md5($t['term'].($t['source'][0] ?? '')))
             ->withPageType('WebPage', ['name' => $t['term'], 'mainEntity' => ['@id' => $url.'#term']])
             ->withJsonLd(array_filter([
                 '@type' => 'DefinedTerm',
