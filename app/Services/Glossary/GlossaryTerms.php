@@ -17,7 +17,12 @@ use Illuminate\Support\Facades\Route;
  */
 final class GlossaryTerms
 {
-    /** @return array<string, array{id:string, term:string, short:string, definition:string, source:?array, see:list<array{0:string,1:string}>, phrases:list<string>}> */
+    /** The group a curated term is listed under when its entry names none. */
+    public const DEFAULT_GROUP = 'EU AI Act concepts';
+
+    /**
+     * @return array<string, array{id:string, term:string, short:string, definition:string, answer:?string, question:string, why:list<string>, related:list<string>, group:string, canonical:?string, autolink:bool, faq:bool, source:?array, see:list<array{0:string,1:string}>, phrases:list<string>}>
+     */
     public static function all(): array
     {
         $out = [];
@@ -29,11 +34,30 @@ final class GlossaryTerms
                     $see[] = [$label, route($name, $params)];
                 }
             }
+            $short = self::short($t['term']);
+            // A term whose subject already has a record page here (the EU AI Act) points
+            // there instead of getting a second page that competes for the same question.
+            $canonical = isset($t['canonical']) && Route::has($t['canonical'][0]) ? route($t['canonical'][0], $t['canonical'][1]) : null;
             $out[$id] = [
                 'id' => $id,
                 'term' => $t['term'],
-                'short' => self::short($t['term']),
+                'short' => $short,
                 'definition' => $t['definition'],
+                // The answer an engine can lift whole: one sentence or two, under fifty words,
+                // under the question it answers. Optional; the definition stands in without it.
+                'answer' => $t['answer'] ?? null,
+                // The name as it reads mid-sentence: "prompt injection", but "AI risk" (an
+                // acronym keeps its capitals).
+                'inline' => $inline = preg_match('/^\p{Lu}\p{Ll}/u', $short) ? lcfirst($short) : $short,
+                'question' => $t['question'] ?? 'What is '.$inline.'?',
+                'why' => array_values($t['why'] ?? []),
+                'related' => array_values($t['related'] ?? []),
+                'group' => $t['group'] ?? self::DEFAULT_GROUP,
+                'canonical' => $canonical,
+                // A term too general to be useful as a contextual link (AI risk) is not linked
+                // automatically from record pages; it is still listed and has its page.
+                'autolink' => (bool) ($t['autolink'] ?? true),
+                'faq' => (bool) ($t['faq'] ?? false),
                 'source' => $t['source'] ?? null,
                 'see' => $see,
                 'phrases' => self::phrases($t),
@@ -48,9 +72,16 @@ final class GlossaryTerms
         return self::all()[$id] ?? null;
     }
 
+    /** The term's page: its own glossary page, or the record page it points to. */
     public static function url(string $id): string
     {
-        return route('glossary.show', $id);
+        return self::find($id)['canonical'] ?? route('glossary.show', $id);
+    }
+
+    /** The answer to show first: the short answer where one is written, else the definition. */
+    public static function lead(array $term): string
+    {
+        return $term['answer'] ?? $term['definition'];
     }
 
     /** The term without its parenthetical: "Fundamental rights impact assessment". */
@@ -92,21 +123,26 @@ final class GlossaryTerms
      */
     public static function foundIn(string $text, int $limit = 6, ?string $except = null): array
     {
+        $here = request()->url();
+
         return collect(self::all())
-            ->reject(fn ($t) => $t['id'] === $except)
+            ->reject(fn ($t) => $t['id'] === $except || ! $t['autolink'] || ($t['canonical'] ?? route('glossary.show', $t['id'])) === $here)
             ->filter(fn ($t) => self::mentions($text, $t))
             ->take($limit)->values()->all();
     }
 
     /**
-     * Other terms this one is bound up with: those its definition uses, then those
-     * whose definitions use it.
+     * Other terms this one is bound up with: those its entry names, then those its
+     * definition uses, then those whose definitions use it.
      *
      * @return list<array>
      */
     public static function related(array $term, int $limit = 6): array
     {
-        $used = collect(self::foundIn($term['definition'], 50, $term['id']));
+        $all = self::all();
+        // The entry's own list first: the relationships an editor chose.
+        $chosen = collect($term['related'])->map(fn ($id) => $all[$id] ?? null)->filter()->values();
+        $used = $chosen->concat(collect(self::foundIn($term['definition'], 50, $term['id']))->reject(fn ($t) => $chosen->contains('id', $t['id'])));
         $usedBy = collect(self::all())->reject(fn ($t) => $t['id'] === $term['id'] || $used->contains('id', $t['id']))
             ->filter(fn ($t) => self::mentions($t['definition'], $term));
 

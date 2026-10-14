@@ -4,7 +4,24 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="mt-2 eyebrow">AI governance glossary</p>
     <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy"><dfn class="not-italic">{{ $t['term'] }}</dfn></h1>
+    @if($t['answer'])
+    {{-- The question as asked, answered in one or two sentences an engine can lift whole. --}}
+    <x-site.answer-box :text="$t['answer']" :label="$t['question']" class="mt-4" />
+    @if($t['why'])
+    <section class="mt-8" aria-labelledby="why-heading">
+        <h2 id="why-heading" class="section-title">Why it matters</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-brand-body">
+            @foreach($t['why'] as $point)<li>{{ $point }}</li>@endforeach
+        </ul>
+    </section>
+    @endif
+    <section class="mt-8" aria-labelledby="detail-heading">
+        <h2 id="detail-heading" class="section-title">In detail</h2>
+        <p class="prose-policy mt-2">{{ $t['definition'] }}</p>
+    </section>
+    @else
     <x-site.answer-box :text="$t['definition']" label="Definition" class="mt-4" />
+    @endif
     <p class="mt-3 text-sm text-brand-muted">
         @if($t['source'])Source: <a href="{{ $t['source'][1] }}" rel="noopener" target="_blank">{{ $t['source'][0] }}</a>. @endif
         A plain-language explanation for orientation, not the legal text; follow the source for the binding wording.
@@ -37,10 +54,10 @@
 
     @if($related)
     <section class="mt-10" aria-labelledby="related-heading">
-        <h2 id="related-heading" class="section-title">Related terms</h2>
+        <h2 id="related-heading" class="section-title">Related concepts</h2>
         <ul class="mt-3 grid gap-3 sm:grid-cols-2 text-sm">
             @foreach($related as $r)
-            <li class="rounded-md border border-brand-line p-3"><a href="{{ \App\Services\Glossary\GlossaryTerms::url($r['id']) }}" class="font-medium">{{ $r['term'] }}</a><span class="mt-1 block text-xs text-brand-muted">{{ \Illuminate\Support\Str::limit($r['definition'], 110) }}</span></li>
+            <li class="rounded-md border border-brand-line p-3"><a href="{{ \App\Services\Glossary\GlossaryTerms::url($r['id']) }}" class="font-medium">{{ $r['term'] }}</a><span class="mt-1 block text-xs text-brand-muted">{{ \Illuminate\Support\Str::limit(\App\Services\Glossary\GlossaryTerms::lead($r), 110) }}</span></li>
             @endforeach
         </ul>
     </section>

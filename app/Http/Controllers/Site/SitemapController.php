@@ -198,8 +198,11 @@ class SitemapController extends Controller
         foreach (StateOfAiRegulation::frozenQuarters() as $q) {
             $pages[] = [route('state-of.quarter', $q), 'yearly', '0.5'];
         }
-        foreach (array_keys(GlossaryTerms::all()) as $term) {
-            $pages[] = [GlossaryTerms::url($term), 'monthly', '0.6'];
+        // A term answered on a record page (the EU AI Act) is listed there, not twice.
+        foreach (GlossaryTerms::all() as $term) {
+            if (! $term['canonical']) {
+                $pages[] = [route('glossary.show', $term['id']), 'monthly', '0.6'];
+            }
         }
         $pages[] = [route('embed.index'), 'monthly', '0.4'];
         foreach (app(ReviewerRoster::class)->published() as $r) {
