@@ -7,6 +7,7 @@ use App\Http\Middleware\EnsureAdminSecondFactor;
 use App\Http\Middleware\EnsureSubscribed;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\RecordAdminAction;
+use App\Http\Middleware\RecordAlertClick;
 use App\Http\Middleware\SecurityHeaders;
 use App\Support\Admin\AdminErrorPage;
 use Illuminate\Foundation\Application;
@@ -43,6 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
             CountFunnelViews::class,
+            RecordAlertClick::class,
         ]);
         // Global, not web-only: the API, unmatched-route 404s and every other response
         // get the same headers. On the web group alone, JSON and error pages went out

@@ -13,6 +13,7 @@
         <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $obligation->title }}</h1>
         <p class="mt-1 text-sm text-brand-muted"><a href="{{ route('obligations.context', $obligation->slug) }}" class="float-right text-brand-muted hover:text-brand-navy" title="This duty as one Markdown file, with its provenance">Context file</a>Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" legend /></div>
+        <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" :save-title="$obligation->title" :save-url="$obligation->url()" :save-meta="($policy->short_title ?: $policy->title)" :source-url="$obligation->official_source_url ?: $policy->official_source_url" class="mt-4" />
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
@@ -78,7 +79,8 @@
             @endif
             {{-- The questions restate the facts above for answer engines; collapsed so a reader is not shown them twice. --}}
             <x-site.faq :items="$seo->faqItems()" collapsible />
-            <x-site.cite :title="$obligation->title.' ('.($policy->short_title ?: $policy->title).')'" :url="$obligation->url()" :source-url="$obligation->official_source_url" :source-title="$policy->source_title" :publisher="$policy->source_publisher" class="mt-8" />
+            <x-site.cite :record="$obligation" :reviewer="$obligation->reviewed_by ?? $policy->reviewed_by" :verified-at="$obligation->last_verified_at ?? ($obligation->review_status === 'verified' ? $policy->last_verified_at : null)" :title="$obligation->title.' ('.($policy->short_title ?: $policy->title).')'" :url="$obligation->url()" :source-url="$obligation->official_source_url" :source-title="$policy->source_title" :publisher="$policy->source_publisher" class="mt-8" />
+            <section aria-labelledby="duty-history-heading" class="mt-8"><h2 id="duty-history-heading" class="section-title">Change history</h2><x-site.record-history :revisions="$revisions" since="16 October 2026" /></section>
             @if($similar->isNotEmpty())
             <section aria-labelledby="similar-heading" class="mt-8"><h2 id="similar-heading" class="section-title">Similar obligations in other instruments</h2><ul class="mt-2 space-y-2 text-sm">@foreach($similar as $s)<li><a href="{{ $s->url() }}" class="text-brand-navy hover:underline">{{ $s->title }}</a> <span class="text-xs text-brand-muted">— {{ $s->policyInstrument->short_title ?: $s->policyInstrument->title }}, {{ $s->policyInstrument->jurisdiction->name }}{{ $s->is_binding ? '' : ' (voluntary)' }}</span></li>@endforeach</ul></section>
             @endif

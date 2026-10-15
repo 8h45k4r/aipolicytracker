@@ -13,6 +13,7 @@ One document per module. Each doc has: purpose, schema field table (must match t
 | Controls | [controls.md](controls.md) | `controls`, `control_evidence`, `control_framework_references`, `control_obligation` |
 | Jobs and schedule | [jobs.md](jobs.md) | `job_runs` |
 | Alerts | [alerts.md](alerts.md) | `follows`, `alert_deliveries`, `applicability_profiles` |
+| Change desk and provenance | [change-desk-and-provenance.md](change-desk-and-provenance.md) | `record_revisions`, `source_checks`, `account_weeks` |
 | Posting to X | [social-posting.md](social-posting.md) | `social_posts` |
 
 Framework tables (`cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, `migrations`) are Laravel-managed and not documented as modules.

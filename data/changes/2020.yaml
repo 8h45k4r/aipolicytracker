@@ -1,5 +1,6 @@
 changes:
   - slug: 2020-08-10-indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045
+    aipt_id: AIPT-CHG-0007
     jurisdiction: indonesia
     policy: indonesia-strategi-nasional-kecerdasan-artifisial-indonesia-2020-2045
     occurred_on: '2020-08-10'
@@ -25,6 +26,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2020-07-17-saudi-arabia-national-strategy-for-data-ai
+    aipt_id: AIPT-CHG-0008
     jurisdiction: saudi-arabia
     policy: saudi-arabia-national-strategy-for-data-ai
     occurred_on: '2020-07-17'

@@ -1,4 +1,5 @@
 slug: uae-national-ai-strategy-2031
+aipt_id: AIPT-POL-0191
 jurisdiction: uae
 title: "UAE National Strategy for Artificial Intelligence 2031"
 short_title: UAE AI Strategy 2031
@@ -33,6 +34,7 @@ use_cases: [public_services, government_procurement]
 related_policies: [uae-personal-data-protection-law, singapore-model-ai-governance-framework]
 obligations:
   - slug: uae-ai-strategy-ethics-and-governance-commitment
+    aipt_id: AIPT-OBL-0069
     title: Government commitment to AI ethics, governance and regulation (strategy objective)
     category: governance_accountability
     source_reference: "Strategy objectives on governance and ethics (reviewer to cite the section)"

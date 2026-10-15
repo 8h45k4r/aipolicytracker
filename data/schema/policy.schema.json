@@ -12,6 +12,9 @@
     "slug": {
       "$ref": "common.schema.json#/$defs/slug"
     },
+    "aipt_id": {
+      "$ref": "common.schema.json#/$defs/aiptId"
+    },
     "jurisdiction": {
       "$ref": "common.schema.json#/$defs/slug"
     },
@@ -181,6 +184,9 @@
         "properties": {
           "slug": {
             "$ref": "common.schema.json#/$defs/slug"
+          },
+          "aipt_id": {
+            "$ref": "common.schema.json#/$defs/aiptId"
           },
           "title": {
             "type": "string",
@@ -379,6 +385,7 @@
         },
         "required": [
           "slug",
+          "aipt_id",
           "title",
           "category",
           "summary",
@@ -746,6 +753,7 @@
   },
   "required": [
     "slug",
+    "aipt_id",
     "jurisdiction",
     "title",
     "instrument_type",

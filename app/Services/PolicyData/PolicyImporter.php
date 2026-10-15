@@ -97,7 +97,10 @@ class PolicyImporter
     {
         $kept = [];
         foreach ($this->repository->controls() as $file => $record) {
+            $this->releaseId(Control::class, $record['aipt_id'] ?? null, $record['slug']);
+            $before = RevisionRecorder::snapshot('control', Control::where('slug', $record['slug'])->first());
             $control = Control::updateOrCreate(['slug' => $record['slug']], [
+                'aipt_id' => $record['aipt_id'] ?? null,
                 'title' => $record['title'],
                 'kind' => $record['kind'],
                 'purpose' => $record['purpose'],
@@ -112,6 +115,9 @@ class PolicyImporter
                 'reviewed_by' => $record['reviewed_by'] ?? null,
                 'published_at' => $this->publishedAt($record, Control::class),
             ]);
+            if (RevisionRecorder::record('control', $before, $control)) {
+                $this->stats['record_revisions'] = ($this->stats['record_revisions'] ?? 0) + 1;
+            }
             $control->evidence()->delete();
             foreach ($record['evidence'] ?? [] as $i => $evidence) {
                 ControlEvidence::create(['control_id' => $control->id, 'evidence_type' => $evidence['type'], 'sort_order' => $i, ...Arr::only($evidence, ['title', 'description'])]);
@@ -170,7 +176,10 @@ class PolicyImporter
         foreach ($this->repository->policies() as $file => $record) {
             $jurisdiction = $this->jurisdictionOrFail($record['jurisdiction']);
 
+            $this->releaseId(PolicyInstrument::class, $record['aipt_id'] ?? null, $record['slug']);
+            $before = RevisionRecorder::snapshot('policy', PolicyInstrument::where('slug', $record['slug'])->first());
             $policy = PolicyInstrument::updateOrCreate(['slug' => $record['slug']], [
+                'aipt_id' => $record['aipt_id'] ?? null,
                 'jurisdiction_id' => $jurisdiction->id,
                 'title' => $record['title'],
                 'short_title' => $record['short_title'] ?? null,
@@ -200,6 +209,9 @@ class PolicyImporter
                 'published_at' => $this->publishedAt($record, PolicyInstrument::class),
                 ...$this->sourceQuality($record),
             ]);
+            if (RevisionRecorder::record('policy', $before, $policy)) {
+                $this->stats['record_revisions'] = ($this->stats['record_revisions'] ?? 0) + 1;
+            }
 
             $this->syncTerms($policy, $record);
 
@@ -223,7 +235,10 @@ class PolicyImporter
             $keptObligationIds = [];
             $obligationsBySlug = [];
             foreach ($record['obligations'] ?? [] as $i => $item) {
+                $this->releaseId(Obligation::class, $item['aipt_id'] ?? null, $item['slug']);
+                $obligationBefore = RevisionRecorder::snapshot('obligation', Obligation::where('slug', $item['slug'])->first());
                 $obligation = Obligation::updateOrCreate(['slug' => $item['slug']], [
+                    'aipt_id' => $item['aipt_id'] ?? null,
                     'policy_instrument_id' => $policy->id,
                     'policy_section_id' => isset($item['section'], $sections[$item['section']]) ? $sections[$item['section']]->id : null,
                     'title' => $item['title'],
@@ -241,6 +256,9 @@ class PolicyImporter
                     'sort_order' => $i,
                     'published_at' => $policy->published_at,
                 ]);
+                if (RevisionRecorder::record('obligation', $obligationBefore, $obligation)) {
+                    $this->stats['record_revisions'] = ($this->stats['record_revisions'] ?? 0) + 1;
+                }
                 $keptObligationIds[] = $obligation->id;
                 $obligationsBySlug[$item['slug']] = $obligation;
                 $this->syncTerms($obligation, $item + ['obligation_categories' => [$item['category']]]);
@@ -342,7 +360,10 @@ class PolicyImporter
             foreach ($contents['changes'] ?? [] as $change) {
                 $jurisdiction = $this->jurisdictionOrFail($change['jurisdiction']);
                 $policy = ! empty($change['policy']) ? PolicyInstrument::where('slug', $change['policy'])->first() : null;
-                ChangeEvent::updateOrCreate(['slug' => $change['slug']], [
+                $this->releaseId(ChangeEvent::class, $change['aipt_id'] ?? null, $change['slug']);
+                $changeBefore = RevisionRecorder::snapshot('change', ChangeEvent::where('slug', $change['slug'])->first());
+                $changeRecord = ChangeEvent::updateOrCreate(['slug' => $change['slug']], [
+                    'aipt_id' => $change['aipt_id'] ?? null,
                     'jurisdiction_id' => $jurisdiction->id,
                     'policy_instrument_id' => $policy?->id,
                     'occurred_on' => $change['occurred_on'],
@@ -354,6 +375,9 @@ class PolicyImporter
                     'published_at' => $this->publishedAt($change, ChangeEvent::class),
                     ...$this->sourceQuality($change),
                 ]);
+                if (RevisionRecorder::record('change', $changeBefore, $changeRecord)) {
+                    $this->stats['record_revisions'] = ($this->stats['record_revisions'] ?? 0) + 1;
+                }
                 $this->stats['changes']++;
             }
         }
@@ -427,6 +451,20 @@ class PolicyImporter
      *
      * @param  class-string<Model>  $model
      */
+    /**
+     * A permanent id follows its record through a slug rename: the row left behind under
+     * the old slug gives the id up, so the renamed record can take it and the old address
+     * can be resolved to the new one by id.
+     *
+     * @param  class-string<Model>  $model
+     */
+    private function releaseId(string $model, ?string $id, string $slug): void
+    {
+        if ($id) {
+            $model::where('aipt_id', $id)->where('slug', '!=', $slug)->update(['aipt_id' => null]);
+        }
+    }
+
     private function publishedAt(array $record, string $model): ?Carbon
     {
         if (! ($record['published'] ?? true)) {

@@ -40,6 +40,7 @@ use App\Support\Admin\SubmissionQuery;
 use App\Support\ContentCache;
 use App\Support\DatasetCitation;
 use App\Support\FundingDisclosure;
+use App\Support\Reliance;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -85,6 +86,9 @@ class AdminController extends Controller
         $stats['requests_30d'] = TemplateDownloadRequest::where('created_at', '>=', now()->subDays(30))->count();
         $stats['watches'] = Follow::count();
         $stats['watchers'] = Follow::distinct()->count('user_id');
+        // The north star: accounts that acted on an alert in each of the last four weeks.
+        $stats['relied_weekly'] = Reliance::reliedOnEveryWeek();
+        $stats['relied_this_week'] = Reliance::activeThisWeek();
         $stats['pro'] = Subscription::whereNotNull('plan_key')->get()->filter(fn ($s) => app(Entitlements::class)->covers($s))->count();
         $stats['selling'] = app(BillingConfig::class)->enabled();
         $checks = app(IndependentChecks::class)->summary();

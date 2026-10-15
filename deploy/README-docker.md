@@ -257,9 +257,39 @@ Memory is capped in `compose.yml`: 512 MB for the application, 256 MB for
 PostgreSQL. Both are limits, not reservations. `docker stats` shows the real
 figure.
 
+## Backups
+
+`deploy/backup.sh` dumps the database (`pg_dump -Fc`), checks the file with
+`pg_restore --list` before it counts, copies it off the host and keeps 14 days.
+Install it once, as root:
+
+```bash
+# Off-host copies: any rclone remote (Backblaze B2, S3, another server over SFTP).
+rclone config                                   # create the remote, e.g. "b2"
+echo 'BACKUP_RCLONE_REMOTE=b2:aip-backups' >> /opt/aip/repo/deploy/.env
+
+# Nightly at 03:17 UTC, logged.
+echo '17 3 * * * root /opt/aip/repo/deploy/backup.sh >> /var/log/aip-backup.log 2>&1' > /etc/cron.d/aip-backup
+
+# Take one now, then prove it restores.
+bash /opt/aip/repo/deploy/backup.sh
+bash /opt/aip/repo/deploy/backup.sh --verify-latest
+```
+
+Without `BACKUP_RCLONE_REMOTE` the dumps stay on this host, which protects
+against a bad migration but not against losing the machine; the log says so on
+every run. Run `--verify-latest` monthly: it restores the newest dump into a
+scratch database inside the container, counts the policy records and drops it.
+
+To restore for real, stop the app, then:
+
+```bash
+docker compose -f deploy/compose.yml stop app
+docker exec -i aip-db pg_restore -U "$DB_USERNAME" -d "$DB_DATABASE" --clean --if-exists --no-owner < /var/backups/aip/aip-YYYYMMDD-HHMM.dump
+docker compose -f deploy/compose.yml start app
+```
+
 ## Not done here
 
-- **No backups.** The database lives in the `aip-db-data` volume and nothing
-  copies it anywhere. Recorded as debt.
 - **No HTTP caching beyond the asset headers**, and no Redis. The application
   uses the database for cache and sessions, which is adequate at this size.

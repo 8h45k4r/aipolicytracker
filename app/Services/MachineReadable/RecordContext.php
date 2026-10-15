@@ -294,10 +294,11 @@ class RecordContext
         $source = $record->official_source_url ?? $fallbackSource;
         $verified = $record->last_verified_at ?? null;
 
-        $rows = [
+        $rows = array_values(array_filter([
+            ! empty($record->aipt_id) ? '- **Permanent id**: '.$record->aipt_id.' ('.route('record.id', $record->aipt_id).'; never changes or gets reused)' : null,
             '- **Record page**: '.$url,
             '- **Official source**: '.($source ?: 'none recorded — this record is incomplete, see '.route('gaps')),
-        ];
+        ]));
         if (! empty($record->source_title)) {
             $rows[] = '- **Source document**: '.$this->flatten((string) $record->source_title);
         }
@@ -315,6 +316,10 @@ class RecordContext
         }
         $rows[] = '- **Retrieved**: '.now()->toDateString();
         $rows[] = '- **Licence**: '.config('aipolicytracker.data_license_url');
+        if (! empty($record->aipt_id)) {
+            // The preferred citation, so an agent that quotes the record can cite it the same way a person would.
+            $rows[] = '- **Cite as**: '.config('aipolicytracker.site_name').' ('.now()->year.'). "'.$this->flatten((string) ($record->title ?? $record->name ?? '')).'" ['.$record->aipt_id.($verified ? ', verified '.$this->date($verified) : ', not yet verified').']. '.route('record.id', $record->aipt_id).'.';
+        }
 
         return "\n## Provenance\n\n".implode("\n", $rows)
             ."\n\n> This record is a structured summary with a link to the official text. It is not legal advice."

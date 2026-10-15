@@ -36,6 +36,7 @@ use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
 use App\Http\Controllers\Site\PolicyExamplesController;
+use App\Http\Controllers\Site\RecordIdController;
 use App\Http\Controllers\Site\RegisterExportController;
 use App\Http\Controllers\Site\ReviewersController;
 use App\Http\Controllers\Site\RiskBrowseController;
@@ -153,6 +154,8 @@ Route::get('/search', [SearchController::class, 'index'])->middleware('throttle:
 Route::get('/search/suggest', [SearchController::class, 'suggest'])->middleware('throttle:120,1')->name('search.suggest');
 Route::get('/explore/{group}', [ExploreController::class, 'show'])->whereIn('group', array_keys(config('navigation.primary')))->name('explore');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
+Route::get('/freshness', [PageController::class, 'freshness'])->name('freshness');
+Route::get('/independence', [PageController::class, 'independence'])->name('independence');
 Route::get('/coverage', [CoverageController::class, 'show'])->name('coverage');
 Route::get('/gaps', [CoverageController::class, 'gaps'])->name('gaps');
 Route::get('/corrections', [CorrectionsController::class, 'show'])->name('corrections');
@@ -261,6 +264,13 @@ Route::get('/{landing}', [LandingController::class, 'landing'])
 Route::get('/{retired}', [LandingController::class, 'retired'])
     ->where('retired', implode('|', array_map('preg_quote', array_keys(config('content.retired_landings')))))
     ->name('landing.retired');
+
+// Permanent record ids (AIPT-POL-0001 …): resolve to wherever the record lives now, so a
+// citation, a ticket or a calendar entry holding the id keeps working after a rename.
+Route::get('/id/{aiptId}', RecordIdController::class)
+    ->where('aiptId', 'AIPT-(POL|OBL|CHG|CTL)-[0-9]{4,}')
+    ->middleware('throttle:120,1')
+    ->name('record.id');
 
 // Machine-readable assets.
 // The image a platform shows when a page is shared, drawn from the record. The

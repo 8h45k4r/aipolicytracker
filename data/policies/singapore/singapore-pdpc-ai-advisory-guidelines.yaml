@@ -1,4 +1,5 @@
 slug: singapore-pdpc-ai-advisory-guidelines
+aipt_id: AIPT-POL-0171
 jurisdiction: singapore
 title: "PDPC Advisory Guidelines on Use of Personal Data in AI Recommendation and Decision Systems"
 short_title: PDPC AI advisory guidelines
@@ -33,6 +34,7 @@ use_cases: [finance_and_credit, customer_service, hiring_and_hr]
 related_policies: [singapore-model-ai-governance-framework]
 obligations:
   - slug: singapore-pdpc-consent-or-exception-for-ai-data
+    aipt_id: AIPT-OBL-0058
     short_title: "Consent or exception for AI data"
     title: Identify consent or an applicable PDPA exception before using personal data in AI
     category: privacy_data_protection
@@ -57,6 +59,7 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Maps each AI data use to consent or a named exception and records the conditions.", confidence_level: high }
       - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Dataset sheets record the legal basis alongside provenance.", confidence_level: medium }
   - slug: singapore-pdpc-ai-notification
+    aipt_id: AIPT-OBL-0059
     short_title: "Notifying individuals about AI use"
     title: Notify individuals about the use of personal data in AI recommendations and decisions
     category: transparency

@@ -1,4 +1,5 @@
 slug: india-dpdp-act
+aipt_id: AIPT-POL-0094
 jurisdiction: india
 title: "Digital Personal Data Protection Act, 2023 and DPDP Rules, 2025"
 short_title: India DPDP Act
@@ -47,6 +48,7 @@ use_cases: [generative_ai, finance_and_credit, hiring_and_hr, health]
 related_policies: [india-ai-governance-guidelines, eu-ai-act]
 obligations:
   - slug: india-dpdp-consent-and-notice
+    aipt_id: AIPT-OBL-0049
     short_title: "Consent and notice"
     title: Process personal data only with valid consent or a legitimate use, after notice
     category: privacy_data_protection
@@ -71,6 +73,7 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "Legal basis and notice recorded for each training and inference data source.", confidence_level: high }
       - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Dataset documentation records consent status per source.", confidence_level: medium }
   - slug: india-dpdp-security-and-breach-notification
+    aipt_id: AIPT-OBL-0050
     short_title: "Security and breach notification"
     title: Implement reasonable security safeguards and notify breaches
     category: incident_handling
@@ -96,6 +99,7 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Breach handling extended to model outputs and training data.", confidence_level: medium }
       - { control: accuracy-robustness-security-testing, relationship: supports, note: "Reasonable security safeguards evidenced by testing.", confidence_level: medium }
   - slug: india-dpdp-significant-data-fiduciary-duties
+    aipt_id: AIPT-OBL-0051
     short_title: "Significant Data Fiduciary duties"
     title: Significant Data Fiduciaries must appoint a DPO and run impact assessments and audits
     category: impact_assessment

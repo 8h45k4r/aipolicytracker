@@ -62,6 +62,7 @@
         @can('audience.view')
         <x-backend.stat label="Active subscribers" :value="number_format($stats['subscribers_active'])" :trend="$trends['subscribers'] ?? null" :href="route('backend.admin.subscribers')" :hint="$stats['subscribers_unconfirmed'].' awaiting confirmation'" />
         <x-backend.stat label="Template requests, 30 days" :value="number_format($stats['requests_30d'])" :trend="$trends['requests'] ?? null" :href="route('backend.admin.downloads', ['view' => 'requests', 'from' => now()->subDays(29)->toDateString()])" />
+        <x-backend.stat label="Relied on every week" :value="number_format($stats['relied_weekly'])" :hint="'Accounts acting on an alert 4 weeks running · '.$stats['relied_this_week'].' this week'" />
         <x-backend.stat label="Watches" :value="number_format($stats['watches'])" :hint="$stats['watchers'].' accounts get daily alerts'" :href="auth()->user()->can('audience.view') ? route('backend.admin.alerts.index') : null" />
         @can('billing.manage')<x-backend.stat label="Pro subscriptions" :value="number_format($stats['pro'])" :hint="$stats['selling'] ? 'Checkout is on' : 'Checkout is off'" :href="route('backend.admin.billing.index')" />@endcan
         @can('records.verify')<x-backend.stat label="Independent second checks" :value="number_format($stats['double_checked']).' / '.number_format($stats['verified_total'])" hint="Verified records checked by a second reviewer" :href="route('backend.checks.index')" />@endcan

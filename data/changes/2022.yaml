@@ -1,5 +1,6 @@
 changes:
   - slug: 2022-06-16-canada-artificial-intelligence-and-data-act
+    aipt_id: AIPT-CHG-0014
     jurisdiction: canada
     policy: canada-artificial-intelligence-and-data-act
     occurred_on: '2022-06-16'
@@ -24,6 +25,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2022-07-26-thailand-thailand-national-ai-strategy-and-action-plan
+    aipt_id: AIPT-CHG-0015
     jurisdiction: thailand
     policy: thailand-thailand-national-ai-strategy-and-action-plan
     occurred_on: '2022-07-26'
@@ -49,6 +51,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2022-12-01-thailand-thailand-national-ai-strategy-and-action-plan
+    aipt_id: AIPT-CHG-0016
     jurisdiction: thailand
     policy: thailand-thailand-national-ai-strategy-and-action-plan
     occurred_on: '2022-12-01'

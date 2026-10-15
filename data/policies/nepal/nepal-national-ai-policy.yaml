@@ -1,4 +1,5 @@
 slug: nepal-national-ai-policy
+aipt_id: AIPT-POL-0140
 jurisdiction: nepal
 title: "National Artificial Intelligence Policy, 2082 (2025) — Nepal"
 short_title: Nepal National AI Policy
@@ -39,6 +40,7 @@ use_cases: [public_services, generative_ai]
 related_policies: [india-ai-governance-guidelines, singapore-model-ai-governance-framework]
 obligations:
   - slug: nepal-ai-policy-responsible-ai-principles
+    aipt_id: AIPT-OBL-0053
     title: Government bodies to promote ethical, responsible and inclusive AI (policy commitment)
     category: governance_accountability
     source_reference: "Policy objectives and strategies (to be confirmed against the official text)"

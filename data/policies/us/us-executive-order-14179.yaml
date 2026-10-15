@@ -1,4 +1,5 @@
 slug: us-executive-order-14179
+aipt_id: AIPT-POL-0231
 jurisdiction: us
 title: "Executive Order 14179: Removing Barriers to American Leadership in Artificial Intelligence"
 short_title: EO 14179
@@ -37,6 +38,7 @@ use_cases: [government_procurement, generative_ai]
 related_policies: [us-omb-m-25-21, us-nist-ai-rmf]
 obligations:
   - slug: us-eo-14179-agency-review-of-prior-actions
+    aipt_id: AIPT-OBL-0111
     short_title: "Agency review of prior actions"
     title: Federal agencies must review and revise actions inconsistent with the new AI policy
     category: public_sector_use

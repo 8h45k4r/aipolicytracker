@@ -30,7 +30,7 @@
                 <p class="mt-2 text-sm"><a href="{{ $change->official_source_url }}" rel="noopener" class="font-medium text-brand-blue hover:underline break-words" data-track="source_click">{{ $change->source_title ?: $change->official_source_url }}</a>@if($change->source_publisher)<span class="block text-xs text-brand-muted">{{ $change->source_publisher }}@if($change->source_document_date) · {{ $change->source_document_date->format('j M Y') }}@endif</span>@endif</p>
             </section>
             @endif
-            <x-site.cite :title="$change->title" :url="$change->url()" :source-url="$change->official_source_url" :source-title="$change->source_title" :publisher="$change->source_publisher" class="mt-8" />
+            <x-site.cite :record="$change" :title="$change->title" :url="$change->url()" :source-url="$change->official_source_url" :source-title="$change->source_title" :publisher="$change->source_publisher" class="mt-8" />
             @if($related->isNotEmpty())
             <section aria-labelledby="related-heading" class="mt-8">
                 <h2 id="related-heading" class="section-title">Related changes</h2>

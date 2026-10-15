@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Site;
 use App\Enums\PolicyStatus;
 use App\Enums\ReviewStatus;
 use App\Http\Controllers\Controller;
+use App\Models\PolicyInstrument;
 use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
 use App\Services\Billing\BillingConfig;
+use App\Services\ChangeDesk\Freshness;
 use App\Services\PolicyData\OpenDataExporter;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Verification\IndependentChecks;
 use App\Support\ContentCache;
 use App\Support\DatasetCitation;
@@ -69,6 +72,48 @@ class PageController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')]]);
 
         return view('site.pages.methodology', ['seo' => $seo, 'statuses' => PolicyStatus::cases(), 'reviewStatuses' => ReviewStatus::cases(), 'tiers' => SourceDocument::TIERS, 'taxonomies' => TaxonomyTerm::TAXONOMIES, 'checks' => $independentChecks->summary()]);
+    }
+
+    /**
+     * How fast changes reach the record, against a published target. The numbers are
+     * computed from the change log itself, so the page cannot claim a speed the data
+     * does not show.
+     */
+    public function freshness(): View
+    {
+        $rows = Freshness::measured();
+        $seo = Seo::make(
+            'How fast AI law changes reach the record',
+            'The change desk target, days from an official text to its entry here, measured month by month from the change log, with the latest changes and their lag.',
+            route('freshness')
+        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Freshness', route('freshness')]]);
+
+        return view('site.pages.freshness', [
+            'seo' => $seo,
+            'summary' => Freshness::summary($rows),
+            'months' => Freshness::byMonth(),
+            'latest' => $rows->take(15),
+            'targetDays' => Freshness::targetDays(),
+            'since' => Freshness::since(),
+            'cadence' => config('changedesk.cadence_days'),
+        ]);
+    }
+
+    /**
+     * Who stands behind the records and what keeps them independent, from the facts
+     * the site already publishes: the reviewer roster, the funding rules and the
+     * corrections log. It also says plainly what is not yet independent.
+     */
+    public function independence(ReviewerRoster $roster): View
+    {
+        $reviewers = $roster->published();
+        $seo = Seo::make(
+            'Editorial independence: who checks the records',
+            'Who verifies AIPolicyTracker records, the relationship with Certifyi and the rules that keep it away from the data, and how anyone can check a record themselves.',
+            route('independence')
+        )->withBreadcrumbs([['Home', route('home')], ['Methodology', route('methodology')], ['Independence', route('independence')]]);
+
+        return view('site.pages.independence', ['seo' => $seo, 'reviewers' => $reviewers, 'verified' => PolicyInstrument::published()->where('review_status', 'verified')->count(), 'total' => PolicyInstrument::published()->count()]);
     }
 
     /** Per-browser reading list; the list itself lives in localStorage and is rendered client-side. */

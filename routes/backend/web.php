@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\AlertsController;
 use App\Http\Controllers\Backend\Admin\BillingController;
+use App\Http\Controllers\Backend\Admin\ChangeDeskController;
 use App\Http\Controllers\Backend\Admin\FundingController;
 use App\Http\Controllers\Backend\Admin\ShellController;
 use App\Http\Controllers\Backend\Admin\SocialPostController;
@@ -144,6 +145,11 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
         Route::post('/{funder}/publish', 'publish')->name('publish');
         Route::post('/{funder}/move', 'move')->name('move');
         Route::delete('/{funder}', 'destroy')->name('destroy');
+    });
+    // The change desk: official sources due a look, logged checks and the freshness target.
+    Route::middleware('can:records.verify')->prefix('backend/admin/change-desk')->as('backend.admin.changedesk.')->controller(ChangeDeskController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/checks', 'store')->name('store');
     });
     // Posts to X. A post is the project speaking in public, so it sits with publishing;
     // the keys and the on/off switch stay with the owner on the settings page.

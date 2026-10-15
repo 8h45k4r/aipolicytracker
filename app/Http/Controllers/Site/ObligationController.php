@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Obligation;
+use App\Models\RecordRevision;
 use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\PolicyData\RecordStanding;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
@@ -97,6 +99,9 @@ class ObligationController extends Controller
 
         $seo->withFaq(QuestionBank::obligation($obligation));
 
-        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName', 'answer', 'facts', 'templates'));
+        $standing = RecordStanding::forObligation($obligation);
+        $revisions = RecordRevision::for('obligation', $obligation->slug)->limit(10)->get();
+
+        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName', 'answer', 'facts', 'templates', 'standing', 'revisions'));
     }
 }

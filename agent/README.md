@@ -34,6 +34,7 @@ Most MCP clients take a command and its environment. For example:
 |------|---------|
 | `corpus_health` | How far the corpus can be trusted right now: records published, how many are past their re-check date, how many are missing required fields, how many were verified by a named reviewer. |
 | `search_policies` | Instruments by keyword, jurisdiction or status. |
+| `resolve_record_id` | A permanent id (`AIPT-OBL-0004`) to the record's kind, slug and current address. Ids never change, so cite them. |
 | `get_policy` | One instrument as a Markdown context file, provenance block included. |
 | `get_jurisdiction` | One jurisdiction profile as a Markdown context file. |
 | `list_obligations` | Duties recorded against instruments, with the provision each comes from. |

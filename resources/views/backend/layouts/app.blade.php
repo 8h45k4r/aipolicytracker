@@ -20,6 +20,7 @@
                 ['backend.admin.dashboard', 'Dashboard', 'dashboard.view'],
             ],
             'Content' => [
+                ['backend.admin.changedesk.index', 'Change desk', 'records.verify'],
                 ['backend.review.index', 'Review queue', 'submissions.decide'],
                 ['backend.checks.index', 'Independent checks', 'records.verify'],
                 ['backend.admin.submissions', 'Submissions and feedback', 'submissions.decide'],
