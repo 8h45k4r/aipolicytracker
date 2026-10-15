@@ -169,9 +169,21 @@ class PolicyDataValidator
                     $errors[$file][] = "$.obligations[{$i}].source_reference: still a placeholder (\"{$obligation['source_reference']}\"); cite the article or set the obligation's review_status to pending_review";
                 }
             }
+            // A section or duty named by reference must exist in the same record; the import
+            // would otherwise drop the link without a word.
+            $sectionRefs = array_flip(array_map(fn ($s) => (string) ($s['reference'] ?? ''), $record['sections'] ?? []));
+            $obligationSlugs = array_flip(array_map(fn ($o) => (string) ($o['slug'] ?? ''), $record['obligations'] ?? []));
+            foreach ($record['obligations'] ?? [] as $i => $obligation) {
+                if (isset($obligation['section']) && ! isset($sectionRefs[$obligation['section']])) {
+                    $errors[$file][] = "$.obligations[{$i}].section: no section with reference \"{$obligation['section']}\" in this record";
+                }
+            }
             foreach ($record['deadlines'] ?? [] as $i => $deadline) {
                 if (($deadline['date_precision'] ?? 'exact') !== 'tbd' && empty($deadline['due_on'])) {
                     $errors[$file][] = "$.deadlines[{$i}]: due_on is required unless date_precision is \"tbd\"";
+                }
+                if (isset($deadline['obligation']) && ! isset($obligationSlugs[$deadline['obligation']])) {
+                    $errors[$file][] = "$.deadlines[{$i}].obligation: no obligation with slug \"{$deadline['obligation']}\" in this record";
                 }
             }
             $this->checkEnforcementEvents($record, $file, $jurisdictionSlugs, $enforcementSlugs, $errors);

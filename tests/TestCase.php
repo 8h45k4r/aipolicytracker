@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Http\Middleware\EnsureAdminSecondFactor;
+use App\Support\OutboundUrl;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,11 @@ abstract class TestCase extends BaseTestCase
         // Feature tests render Inertia views; skip the Vite manifest lookup so
         // they run without a front-end build.
         $this->withoutVite();
+
+        // The documentation domains (RFC 2606) stand for a public host in webhook tests,
+        // whether or not the machine running the suite can reach DNS. Any other name
+        // still goes to DNS.
+        OutboundUrl::resolveUsing(fn (string $host) => preg_match('/(^|\.)example\.(org|com|net)$/i', $host) ? ['93.184.215.14'] : null);
 
         $this->statisticsGathered = false;
     }

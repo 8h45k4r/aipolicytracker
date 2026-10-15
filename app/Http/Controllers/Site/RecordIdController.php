@@ -27,14 +27,21 @@ class RecordIdController extends Controller
 
     public function __invoke(Request $request, string $aiptId): RedirectResponse|JsonResponse
     {
+        // Ids are written upper case; one typed or pasted in lower case still resolves.
+        $aiptId = strtoupper($aiptId);
+        abort_unless(preg_match('/^AIPT-(POL|OBL|CHG|CTL)-\d{4,}$/', $aiptId) === 1, 404);
         [$model, $kind] = self::KINDS[explode('-', $aiptId)[1]];
         $record = $model::query()->where('aipt_id', $aiptId)->whereNotNull('published_at')->where('published_at', '<=', now())->first();
         abort_unless($record, 404);
 
+        // Private and short-lived: the target can move again (a rename, a takedown), the same
+        // address answers JSON or a redirect depending on Accept, and the response carries
+        // the session cookie, so no shared cache may keep it.
+        $headers = ['Cache-Control' => 'private, max-age=300', 'Vary' => 'Accept'];
         if ($request->wantsJson()) {
-            return response()->json(['id' => $aiptId, 'kind' => $kind, 'slug' => $record->slug, 'url' => $record->url(), 'permanent_url' => route('record.id', $aiptId)]);
+            return response()->json(['id' => $aiptId, 'kind' => $kind, 'slug' => $record->slug, 'url' => $record->url(), 'permanent_url' => route('record.id', $aiptId)], 200, $headers);
         }
 
-        return redirect()->to($record->url(), 302)->header('Cache-Control', 'public, max-age=3600');
+        return redirect()->to($record->url(), 302)->withHeaders($headers);
     }
 }

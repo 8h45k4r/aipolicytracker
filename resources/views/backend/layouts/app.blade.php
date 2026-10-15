@@ -80,7 +80,7 @@
                  account itself. A <details> menu, so it opens without JavaScript; admin.js
                  closes it on Escape and on a click elsewhere. --}}
             <details class="adm-account relative shrink-0 border-t border-white/10" data-admin-account>
-                <summary class="flex items-center gap-2.5 px-4 py-2.5 text-xs text-white/85 hover:bg-white/5" aria-label="Account menu for {{ $me->name }}, {{ $me->adminRoleLabel() }}">
+                <summary class="flex items-center gap-2.5 px-4 py-2.5 text-xs text-white/85 hover:bg-white/5" aria-label="{{ $me->name }} {{ $me->adminRoleLabel() }}: account menu">
                     <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-cyan/25 text-[11px] font-semibold uppercase text-white ring-1 ring-white/20" aria-hidden="true">{{ $initials }}</span>
                     <span class="min-w-0 flex-1"><span class="block truncate text-[13px] text-white">{{ $me->name }}</span><span class="block text-white/65">{{ $me->adminRoleLabel() }}</span></span>
                     <span class="text-white/65" aria-hidden="true">▴</span>

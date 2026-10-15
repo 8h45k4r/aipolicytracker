@@ -25,7 +25,7 @@ The citation on every record names the id, the record version, the reviewer and 
 
 The importer compares each record's tracked fields (`RevisionRecorder::FIELDS`) with the database
 before updating it and writes a `record_revisions` row when any differ: field, from, to, when.
-Prose fields are marked "revised" rather than quoted. History starts on 16 October 2026; earlier
+Prose fields are marked "revised" rather than quoted. History starts on 15 October 2026 (CHANGEDESK_HISTORY_SINCE); earlier
 wordings are in git. Policy and obligation pages show the list.
 
 `RecordStanding` gives each policy and obligation page one line, the strongest that applies:

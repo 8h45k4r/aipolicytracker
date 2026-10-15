@@ -73,6 +73,7 @@ class SendDigestCommand extends Command
                 'period_end' => now()->toDateString(),
                 'change_ids' => $changes->pluck('id')->all(),
                 'deadline_ids' => $deadlines->pluck('id')->all(),
+                'deadlines' => DigestIssue::snapshotDeadlines($deadlines),
                 'incident_count' => $incidentCount,
                 'recipients' => $sent,
             ])->save();

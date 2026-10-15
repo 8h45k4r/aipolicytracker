@@ -25,8 +25,20 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 if [ -f "$HERE/.env" ]; then
-  # Only the variables this script needs, without echoing anything.
-  eval "$(grep -E '^(DB_DATABASE|DB_USERNAME|BACKUP_DIR|BACKUP_KEEP_DAYS|BACKUP_RCLONE_REMOTE|AIP_DB_CONTAINER)=' "$HERE/.env" | sed 's/^/export /')"
+  # Read only the keys this script needs, as plain text: nothing in the file is executed,
+  # surrounding quotes are stripped, and a value already set in the environment wins.
+  while IFS='=' read -r key value; do
+    case "$key" in
+      DB_DATABASE|DB_USERNAME|BACKUP_DIR|BACKUP_KEEP_DAYS|BACKUP_RCLONE_REMOTE|AIP_DB_CONTAINER) ;;
+      *) continue ;;
+    esac
+    value="${value%$'\r'}"
+    value="${value#\"}"; value="${value%\"}"
+    value="${value#\'}"; value="${value%\'}"
+    if [ -z "${!key:-}" ]; then
+      export "$key=$value"
+    fi
+  done < "$HERE/.env"
 fi
 
 CONTAINER="${AIP_DB_CONTAINER:-aip-db}"

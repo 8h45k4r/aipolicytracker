@@ -1042,7 +1042,7 @@ obligations:
     short_title: "Documenting a not-high-risk assessment"
     title: Providers must document and register a conclusion that an Annex III system is not high-risk
     category: technical_documentation
-    section: "Articles 6–7"
+    section: "Article 6"
     source_reference: "Article 6(4); Article 49(2)"
     is_binding: true
     applies_from: 2027-12-02
@@ -1679,7 +1679,6 @@ obligations:
     short_title: "Right to explanation"
     title: Deployers must explain individual decisions taken with high-risk AI on request
     category: transparency
-    section: "Chapter IX — Remedies"
     source_reference: "Article 86"
     is_binding: true
     applies_from: 2027-12-02

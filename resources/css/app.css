@@ -137,3 +137,6 @@ select:focus {
 
     background-color: rgba(25, 118, 210, 0.09) !important;
 }
+
+/* The hidden attribute always hides, whatever display a utility class sets. */
+[hidden] { display: none !important; }

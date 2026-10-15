@@ -34,6 +34,15 @@ final class RevisionRecorder
         ],
     ];
 
+    /** @var array<string, array<string, mixed>> "type:slug" => fields an admin decision will set after the import */
+    private static array $overrides = [];
+
+    /** @param  array<string, array<string, mixed>>  $overrides */
+    public static function useOverrides(array $overrides): void
+    {
+        self::$overrides = $overrides;
+    }
+
     /** Fields whose old and new text are not quoted, only marked as revised. */
     private const PROSE = ['summary_plain', 'summary', 'practical_action', 'what_changed', 'purpose'];
 
@@ -58,6 +67,11 @@ final class RevisionRecorder
             return false; // a new record has no earlier state to compare
         }
         $now = self::snapshot($type, $after);
+        foreach (self::$overrides[$type.':'.$after->getAttribute('slug')] ?? [] as $field => $value) {
+            if (array_key_exists($field, $now)) {
+                $now[$field] = self::normalise($value);
+            }
+        }
         $changes = [];
         foreach (self::FIELDS[$type] as $field => $label) {
             if (($before[$field] ?? null) === ($now[$field] ?? null)) {

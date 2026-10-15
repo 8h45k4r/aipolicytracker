@@ -3,6 +3,7 @@
 use App\Models\JobRun;
 use App\Services\Seo\IndexNow;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schedule;
 
 /*
@@ -36,6 +37,11 @@ $timetable = [
 ];
 
 Schedule::call(fn () => Cache::put('scheduler.last_tick', now()->toIso8601String(), 3600))->everyMinute()->name('scheduler:tick');
+
+// The database cache store never deletes an expired row on its own; rate limiter and
+// cached-page rows would pile up for good.
+Schedule::call(fn () => DB::table(config('cache.stores.database.table', 'cache'))->where('expiration', '<', now()->timestamp)->delete())
+    ->hourly()->name('cache:prune-expired')->when(fn () => config('cache.default') === 'database');
 
 foreach ($timetable as $job => $when) {
     $when(Schedule::call(fn () => JobRun::run($job, 'schedule'))->name('job:'.$job)->withoutOverlapping()->description(JobRun::JOBS[$job]['label']));

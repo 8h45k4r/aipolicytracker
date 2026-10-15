@@ -16,7 +16,11 @@ return [
     'target_days' => (int) env('CHANGEDESK_TARGET_DAYS', 3),
 
     // Measurement starts here; earlier first-publication dates come from the bulk import.
-    'measured_since' => env('CHANGEDESK_MEASURED_SINCE', '2026-10-16'),
+    'measured_since' => env('CHANGEDESK_MEASURED_SINCE', '2026-10-15'),
+
+    // The day field-level record history (record_revisions) began; shown on records
+    // with no revision yet.
+    'history_since' => env('CHANGEDESK_HISTORY_SINCE', '2026-10-15'),
 
     // How often an instrument's official source is due a look, in days.
     'cadence_days' => [

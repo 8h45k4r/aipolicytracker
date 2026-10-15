@@ -23,22 +23,8 @@
                     <legend class="label">Also send me</legend>
                     <ul class="mt-1.5"><li><label class="flex items-center gap-2 text-sm text-brand-body"><input type="checkbox" name="topics[]" value="templates" class="rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy" @checked(in_array('templates', old('topics', $selected), true))>New versions of the <a href="{{ route('templates.index') }}">templates library</a> (when a change to the records reaches a file)</label></li></ul>
                 </fieldset>
-                <fieldset>
-                    <legend class="label">Jurisdictions to follow</legend>
-                    <p class="text-xs text-brand-muted">Leave everything unticked to receive all jurisdictions.</p>
-                    <div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        @foreach($jurisdictions as $region => $items)
-                        <div>
-                            <p class="text-xs font-semibold uppercase tracking-wide text-brand-muted">{{ $region ?: 'Other' }}</p>
-                            <ul class="mt-1.5 space-y-1">
-                                @foreach($items as $j)
-                                <li><label class="flex items-center gap-2 text-sm text-brand-body"><input type="checkbox" name="topics[]" value="{{ $j->slug }}" class="rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy" @checked(in_array($j->slug, old('topics', $selected), true))>{{ $j->name }}</label></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endforeach
-                    </div>
-                </fieldset>
+                {{-- The same grouped, searchable picker as the deadline engine; leaving it empty means everything. --}}
+                <x-site.jurisdiction-picker name="topics" :jurisdictions="$jurisdictions" :selected="old('topics', $selected)" legend="Jurisdictions to follow" hint="Leave everything unticked to receive all jurisdictions. Up to 19." />
                 <p class="text-xs text-brand-muted">We store your address, chosen topics and timestamps, nothing else. Confirmation and unsubscribe links are unique to you.</p>
                 <x-site.turnstile />
                 <button type="submit" class="btn-primary">Subscribe</button>

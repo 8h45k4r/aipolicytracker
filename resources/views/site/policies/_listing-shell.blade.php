@@ -39,11 +39,11 @@
     <div class="absolute inset-0 bg-brand-navy/40" data-close-filters></div>
     <div class="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-4 shadow-xl">
         <div class="flex items-center justify-between"><p class="font-semibold text-brand-navy">Filters</p><button type="button" class="btn-secondary !min-h-[40px]" data-close-filters>Close</button></div>
-        <div class="mt-3">@include('site.policies._filters')</div>
+        <div class="mt-3">@include('site.policies._filters', ['idp' => 'm-f-'])</div>
     </div>
 </div>
 <div class="lg:hidden sticky bottom-0 z-40 border-t border-brand-line bg-white/95 backdrop-blur px-4 py-2 flex gap-2">
-    <a href="#f-q" class="btn-secondary flex-1" data-open-filters>Search</a>
+    <a href="#m-f-q" class="btn-secondary flex-1" data-open-filters>Search</a>
     <button type="button" class="btn-primary flex-1" data-open-filters>Filters @if($chips !== []) <span class="rounded-sm bg-white/20 px-1.5 text-xs">{{ count($chips) }}</span>@endif</button>
     <button type="button" class="btn-secondary" data-copy-link>Share</button>
 </div>

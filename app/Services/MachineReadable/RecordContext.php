@@ -9,6 +9,7 @@ use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\Records\AnswerBox;
+use App\Support\RecordCitation;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -293,6 +294,13 @@ class RecordContext
     {
         $source = $record->official_source_url ?? $fallbackSource;
         $verified = $record->last_verified_at ?? null;
+        $reviewer = $record->reviewed_by ?? null;
+        // A duty verified with its instrument carries the instrument's date and reviewer,
+        // as its page does.
+        if ($record instanceof Obligation && $verified === null && $record->review_status === 'verified' && $record->policyInstrument) {
+            $verified = $record->policyInstrument->last_verified_at;
+            $reviewer = $reviewer ?? $record->policyInstrument->reviewed_by;
+        }
 
         $rows = array_values(array_filter([
             ! empty($record->aipt_id) ? '- **Permanent id**: '.$record->aipt_id.' ('.route('record.id', $record->aipt_id).'; never changes or gets reused)' : null,
@@ -311,14 +319,14 @@ class RecordContext
         $rows[] = '- **Review status**: '.str_replace('_', ' ', (string) ($record->review_status ?? 'pending review'));
         $rows[] = '- **Confidence**: '.($record->confidence_level ?? 'not stated');
         $rows[] = '- **Facts last confirmed**: '.($verified ? $this->date($verified) : 'never confirmed against the official source');
-        if (! empty($record->reviewed_by)) {
-            $rows[] = '- **Confirmed by**: '.$this->flatten((string) $record->reviewed_by).' (see '.route('reviewers').')';
+        if (! empty($reviewer)) {
+            $rows[] = '- **Confirmed by**: '.$this->flatten((string) $reviewer).' (see '.route('reviewers').')';
         }
         $rows[] = '- **Retrieved**: '.now()->toDateString();
         $rows[] = '- **Licence**: '.config('aipolicytracker.data_license_url');
         if (! empty($record->aipt_id)) {
             // The preferred citation, so an agent that quotes the record can cite it the same way a person would.
-            $rows[] = '- **Cite as**: '.config('aipolicytracker.site_name').' ('.now()->year.'). "'.$this->flatten((string) ($record->title ?? $record->name ?? '')).'" ['.$record->aipt_id.($verified ? ', verified '.$this->date($verified) : ', not yet verified').']. '.route('record.id', $record->aipt_id).'.';
+            $rows[] = '- **Cite as**: '.RecordCitation::text($this->flatten(RecordCitation::title($record)), $record, route('record.id', $record->aipt_id), $reviewer, $verified);
         }
 
         return "\n## Provenance\n\n".implode("\n", $rows)

@@ -35,8 +35,8 @@
     </td>
     <td class="tabular-nums">{{ $r['watchers'] }}</td>
     <td class="whitespace-nowrap text-xs">
-        @if($r['last'])
-            {{ $r['last']->checked_at->format('j M Y') }}<div class="meta">{{ \App\Models\SourceCheck::OUTCOMES[$r['last']->outcome] ?? $r['last']->outcome }}</div>
+        @if($r['last_at'])
+            {{ $r['last_at']->format('j M Y') }}<div class="meta">{{ $r['last_outcome'] ? (\App\Models\SourceCheck::OUTCOMES[$r['last_outcome']] ?? $r['last_outcome']) : 'Checked in data/' }}</div>
             @if($r['due'])<x-backend.badge status="needs_update">due</x-backend.badge>@endif
         @else
             <x-backend.badge status="needs_update">never checked</x-backend.badge>
@@ -57,6 +57,7 @@
 </tr>
 @endforeach
 </tbody></table></div>
+@if($rows->hasPages())<div class="mt-4">{{ $rows->links() }}</div>@endif
 @endif
 
 <div class="mt-8 grid gap-6 lg:grid-cols-2">
@@ -74,7 +75,7 @@
         @if($recent->isEmpty())
         <p class="mt-3 text-sm text-brand-muted">No checks recorded yet. Start with the binding instruments at the top of the list.</p>
         @else
-        <ul class="mt-3 divide-y divide-brand-line text-sm">@foreach($recent as $c)<li class="py-2"><span class="font-medium">{{ $c->record_slug }}</span> · {{ mb_strtolower(\App\Models\SourceCheck::OUTCOMES[$c->outcome] ?? $c->outcome) }}<div class="meta">{{ $c->checked_at->format('j M Y H:i') }}@if($c->user) · {{ $c->user->name }}@endif @if($c->note)· {{ $c->note }}@endif</div></li>@endforeach</ul>
+        <ul class="mt-3 divide-y divide-brand-line text-sm">@foreach($recent as $c)<li class="py-2"><span class="font-medium">{{ $titles[$c->record_slug] ?? $c->record_slug }}</span> · {{ mb_strtolower(\App\Models\SourceCheck::OUTCOMES[$c->outcome] ?? $c->outcome) }}<div class="meta">{{ $c->checked_at->format('j M Y H:i') }}@if($c->user) · {{ $c->user->name }}@endif @if($c->note)· {{ $c->note }}@endif</div></li>@endforeach</ul>
         @endif
     </section>
 </div>

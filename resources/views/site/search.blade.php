@@ -13,6 +13,9 @@
 
     @if($q !== '')
         <p class="mt-4 text-sm text-brand-muted" role="status">{{ $total ? number_format($total).' '.\Illuminate\Support\Str::plural('result', $total).' for' : 'Nothing found for' }} <span class="font-medium text-brand-navy">“{{ $q }}”</span>.@unless($total) Try a shorter word, a country name or a law's short title.@endunless</p>
+        @unless($total)
+        <p class="mt-2 text-sm">Or browse: <a href="{{ route('jurisdictions.index') }}">jurisdictions</a> · <a href="{{ route('policies.index') }}">laws and policies</a> · <a href="{{ route('obligations.index') }}">obligations</a> · <a href="{{ route('changes.index') }}">the change log</a> · <a href="{{ route('risk.incidents.browse') }}">AI incidents</a> · <a href="{{ route('glossary') }}">glossary</a></p>
+        @endunless
         @if($top)
         <section aria-labelledby="top-match" class="mt-6 max-w-3xl rounded-md border border-brand-line bg-brand-paper p-4 sm:p-5">
             <h2 id="top-match" class="eyebrow">Top match</h2>

@@ -11,6 +11,33 @@ All notable changes to this project are documented here. The format follows [Kee
 - `/independence`: who verifies the records, the Certifyi relationship and its rules, how to check a record yourself, and what is not yet independent.
 - Reliance measure: alert links carry `src=alert`, and the admin dashboard shows accounts that acted on an alert in each of the last four weeks.
 - `deploy/backup.sh`: nightly checked database dumps, copied off the host with rclone, rotated after 14 days, with `--verify-latest` to rehearse a restore.
+- Site search covers AI Incident Database records by headline, and a search with no result offers the main listings.
+- `scripts/npm-audit.mjs` audits every npm dependency, build tools included, against a short allowlist with reasons; the security workflow runs it.
+
+### Changed
+- PHP 8.3 is the minimum, matching the production image; CI tests on 8.3.
+- API tokens expire after a year unless `SANCTUM_EXPIRATION_MINUTES` says otherwise (0 or empty: until revoked). Existing tokens older than a year stop working.
+- Invitations have their own token table (`invitation_tokens`; run `php artisan migrate`). An invitation and a password reset no longer overwrite each other, and a reset token is never accepted for seven days as an invitation. Invitations sent before the upgrade must be re-sent.
+- A record whose file leaves `data/` is unpublished on the next import (policies with their duties, jurisdictions and changes), as controls already were.
+- Weekly digest issues keep the dates they carried by value; deadline rows are rebuilt on every import, so an archived issue had been showing whichever deadline later took the old id.
+- The record standing says "No change recorded as of <date>" only with a date, counting the record's own last check; with none it says the record has not yet been checked. A change logged in the last 90 days (was 30) is shown.
+- The change desk counts a source as checked from the record's `last_checked_at` until the desk logs its own check, shows 25 sources a page, names records by title, and builds its queue once per request.
+- Removed the unused axios, Flowbite and flowbite-react packages; the public and account style sheets are about half their previous size.
+
+### Fixed
+- A record de-verified in the admin no longer gets a false revision on each import, and the obligation JSON id now reads AIPT-OBL.
+- `/id/` accepts lower-case ids; the policy summary in the API carries `content_version`.
+- Alert webhooks also refuse IPv6 private, IPv4-mapped and documentation, benchmarking and multicast addresses, and an address that does not resolve when sent.
+- Reliance counts weeks from Monday everywhere and counts alert clicks on record pages only.
+- `deploy/backup.sh` reads its environment file without evaluating it.
+- Performance: settings are read with one query per request; foreign-key columns are indexed (run `php artisan migrate`); `llms-full.txt` went from 325 queries to 22, and the completeness report checks duties and controls in one query each; expired database-cache rows are pruned hourly; sitemaps, feeds, `llms.txt`, OpenAPI and share images no longer start a session or set cookies, and sitemap sections are cached for 15 minutes and cleared on import.
+- Data checks: `policy:validate` now refuses a duty pointing at a section, or a deadline pointing at a duty, that the record does not have; two EU AI Act references fixed accordingly.
+- The AI Incident Database sync walks changes oldest first, so a run stopped by its cap no longer skips the records it did not reach.
+- `llms.txt` lists permanent ids, `/id/`, the citation format, `/freshness` and `/independence`, lists the enforcement tracker only once it has entries, and no longer contains HTML entities.
+- Accessibility: links in list items are underlined; the mobile filter sheet keeps focus inside while open and returns it on close; the desktop and mobile filters no longer share ids; the key-dates table can be scrolled by keyboard; the paginator summary is readable in dark mode; the admin account menu's name starts with its visible text; the sign-in and registration screens have a page heading at every width; the password confirmation screen has a heading; `[hidden]` always hides.
+- The policy page's change list is in date order, a change summary no longer ends in two full stops, and the duty page's history has one heading.
+- The footer links to `/freshness` and `/independence`; the subscribe form uses the searchable jurisdiction picker.
+- `.env.example` lists `CHANGEDESK_*`, `SOCIAL_CARD_DISK` and `X_ENDPOINT`; the measurement and history start dates are configurable rather than fixed in the views.
 
 ### Added
 - Sub-national AI laws and policies: 53 records across 37 new states, provinces, regions and cities (pending review), including the Illinois AI Safety Measures Act (SB 315), California's training-data, AI transparency, companion-chatbot and CPPA automated decision-making rules, Connecticut SB 5, Washington's companion-chatbot law, Executive Order 14365 on state AI laws, Galicia's and Calabria's regional AI laws, Shanghai's and Shenzhen's AI regulations, NSW's AI policy, assessment framework and digital work systems act, and the Australian state, Indian state, Scottish, Welsh, Canadian provincial, Brazilian state and UAE emirate instruments. See `docs/reference/subnational-research-2026-10-15.md`.

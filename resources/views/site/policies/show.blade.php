@@ -69,7 +69,8 @@
                 <h2 id="dates-heading" class="section-title">When do the requirements apply?</h2>
                 @if($policy->key_dates_summary)<p class="prose-policy mt-2">{{ $policy->key_dates_summary }}</p>@endif
                 @if($policy->deadlines->isNotEmpty())
-                <div class="table-wrap mt-3">
+                {{-- Focusable so a keyboard user can scroll the table sideways on a narrow screen. --}}
+                <div class="table-wrap mt-3" tabindex="0" role="region" aria-label="Key dates and deadlines for {{ $name }}">
                     <table>
                         <caption class="sr-only">Key dates and deadlines for {{ $name }}</caption>
                         <thead><tr><th scope="col">Date</th><th scope="col">Milestone</th><th scope="col">Source reference</th><th scope="col">Status</th></tr></thead>
@@ -149,13 +150,16 @@
                 <h2 id="history-heading" class="section-title">Change history</h2>
                 @if($policy->versions->isNotEmpty() || $policy->changeEvents->isNotEmpty())
                 <ul class="mt-2 space-y-2 text-sm text-brand-body">
-                    @foreach($policy->changeEvents as $c)<li><time class="font-mono" datetime="{{ $c->occurred_on->toDateString() }}">{{ $c->occurred_on->format('j M Y') }}</time> — <a href="{{ $c->url() }}" class="text-brand-navy hover:underline">{{ $c->title }}</a></li>@endforeach
-                    @foreach($policy->versions as $v)<li><span class="font-mono">{{ $v->version_date?->format('j M Y') ?? '—' }}</span> — {{ $v->version_label }}@if($v->official_source_url) (<a href="{{ $v->official_source_url }}" rel="noopener" class="text-brand-blue">source</a>)@endif</li>@endforeach
+                    {{-- Changes and versions in one list, newest first. --}}
+                    @foreach($policy->changeEvents->map(fn ($c) => ['at' => $c->occurred_on, 'change' => $c])->concat($policy->versions->map(fn ($v) => ['at' => $v->version_date, 'version' => $v]))->sortByDesc(fn ($e) => $e['at']?->timestamp ?? 0) as $e)
+                    @if(isset($e['change']))@php($c = $e['change'])<li><time class="font-mono" datetime="{{ $c->occurred_on->toDateString() }}">{{ $c->occurred_on->format('j M Y') }}</time> — <a href="{{ $c->url() }}" class="text-brand-navy hover:underline">{{ $c->title }}</a></li>
+                    @else @php($v = $e['version'])<li>@if($v->version_date)<time class="font-mono" datetime="{{ $v->version_date->toDateString() }}">{{ $v->version_date->format('j M Y') }}</time>@else<span class="font-mono">—</span>@endif — {{ $v->version_label }}@if($v->official_source_url) (<a href="{{ $v->official_source_url }}" rel="noopener" class="text-brand-blue">source</a>)@endif</li>@endif
+                    @endforeach
                 </ul>
                 @if($policy->changeEvents->isNotEmpty())<p class="mt-2 text-xs text-brand-muted"><a href="{{ route('updates.jurisdiction', $policy->jurisdiction->slug) }}" class="hover:text-brand-navy">All updates for {{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $policy->jurisdiction->slug) }}" class="hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="hover:text-brand-navy">Updates hub</a></p>@endif
                 @endif
-                <x-site.record-history :revisions="$revisions" since="16 October 2026" />
-                <p class="mt-2 text-xs text-brand-muted">Record version {{ $policy->content_version }}@if($policy->change_summary): {{ $policy->change_summary }}@endif. Every earlier wording is in the <a href="{{ config('aipolicytracker.github_url') }}" rel="noopener">GitHub repository</a>.</p>
+                <x-site.record-history :revisions="$revisions" />
+                <p class="mt-2 text-xs text-brand-muted">Record version {{ $policy->content_version }}@if($policy->change_summary): {{ rtrim($policy->change_summary, '. ') }}@endif. Every earlier wording is in the <a href="{{ config('aipolicytracker.github_url') }}" rel="noopener">GitHub repository</a>.</p>
             </section>
 
             <x-site.faq :items="$faqItems" />

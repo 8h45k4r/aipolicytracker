@@ -15,15 +15,16 @@ class AppSettingsServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        if ($this->app->runningInConsole() && ! $this->app->runningUnitTests()) {
-            // Console commands (migrate, seed, digest) still get settings when the table exists.
-        }
-        try {
-            if (! Schema::hasTable('app_settings')) {
-                return;
+        // A web request trusts the migrated schema; AppSetting reads a missing table as empty.
+        // The console checks first so migrate and key:generate never log a failed query.
+        if ($this->app->runningInConsole()) {
+            try {
+                if (! Schema::hasTable('app_settings')) {
+                    return;
+                }
+            } catch (\Throwable) {
+                return; // no database yet (first boot, key:generate, etc.)
             }
-        } catch (\Throwable) {
-            return; // no database yet (first boot, key:generate, etc.)
         }
 
         // Plain string overrides.

@@ -20,11 +20,13 @@ export default function ConfirmPassword() {
 
     return (
         <GuestLayout>
-            <Head title="Confirm Password" />
+            <Head title="Confirm your password" />
 
-            <div className="mb-4 text-sm text-gray-600">
+            <main className="mx-auto w-full max-w-md px-4 py-12">
+            <h1 className="text-xl font-bold text-primary">Confirm your password</h1>
+            <p className="mt-2 mb-4 text-sm text-gray-700">
                 This is a secure area of the application. Please confirm your password before continuing.
-            </div>
+            </p>
 
             <form onSubmit={submit}>
                 <div className="mt-4">
@@ -49,6 +51,7 @@ export default function ConfirmPassword() {
                     </PrimaryButton>
                 </div>
             </form>
+            </main>
         </GuestLayout>
     );
 }

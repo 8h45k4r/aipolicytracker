@@ -18,7 +18,7 @@
         <h2 id="deadlines-heading" class="section-title">Application dates that were coming up</h2>
         <ul class="mt-2 space-y-2 text-sm">
             @foreach($deadlines as $d)
-            <li><span class="font-mono text-brand-navy">{{ $d->displayDate() }}</span> · <a href="{{ $d->policyInstrument->url() }}" class="text-brand-blue hover:underline">{{ $d->title }}</a> <span class="text-brand-muted">({{ $d->policyInstrument->jurisdiction->name }})</span></li>
+            <li><span class="font-mono text-brand-navy">{{ $d['date'] }}</span> · @if($d['url'])<a href="{{ $d['url'] }}" class="text-brand-blue hover:underline">{{ $d['title'] }}</a>@else{{ $d['title'] }}@endif @if($d['jurisdiction'])<span class="text-brand-muted">({{ $d['jurisdiction'] }})</span>@endif</li>
             @endforeach
         </ul>
     </section>

@@ -1,12 +1,13 @@
-@props(['revisions', 'since' => null])
+@props(['revisions', 'heading' => true])
+@php($since = \Illuminate\Support\Carbon::parse(config('changedesk.history_since'))->format('j F Y'))
 {{--
     The record's own history, field by field (record_revisions, written by the import).
     Prose fields are marked "revised" rather than quoted; the repository has every wording.
 --}}
 <div {{ $attributes->merge(['class' => 'mt-3']) }} data-record-history>
-    <h3 class="text-sm font-semibold text-brand-navy">Record history</h3>
+    @if($heading)<h3 class="text-sm font-semibold text-brand-navy">Record history</h3>@endif
     @if($revisions->isEmpty())
-    <p class="mt-1 text-xs text-brand-muted">No change to this record's tracked fields has been recorded{{ $since ? ' since '.$since : '' }}.</p>
+    <p class="mt-1 text-xs text-brand-muted">No change to this record's tracked fields has been recorded since {{ $since }}, when field-level history began.</p>
     @else
     <ol class="mt-2 space-y-2 border-l border-brand-line pl-4 text-sm">
         @foreach($revisions as $r)
@@ -18,7 +19,7 @@
                 <li><span class="font-medium">{{ $f['label'] }}</span>: @if($f['to'] === 'revised' && $f['from'] === null)revised @else{{ $f['from'] ?? '—' }} → {{ $f['to'] ?? '—' }}@endif</li>
                 @endforeach
             </ul>
-            @if($r->change_summary)<p class="meta mt-0.5">{{ $r->change_summary }}</p>@endif
+            @if($r->change_summary)<p class="meta mt-0.5">{{ rtrim($r->change_summary, '. ') }}.</p>@endif
         </li>
         @endforeach
     </ol>

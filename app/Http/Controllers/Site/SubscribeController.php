@@ -32,7 +32,7 @@ class SubscribeController extends Controller
             route('subscribe.show')
         )->withBreadcrumbs([['Home', route('home')], ['Subscribe', route('subscribe.show')]]);
 
-        $jurisdictions = Jurisdiction::published()->orderBy('region')->orderBy('name')->get(['slug', 'name', 'region', 'jurisdiction_type'])->groupBy('region');
+        $jurisdictions = Jurisdiction::published()->withCount(['policyInstruments' => fn ($q) => $q->published()])->orderBy('name')->get();
         $selected = array_values(array_filter((array) $request->query('topics', []), fn ($t) => is_string($t) && preg_match('/^[a-z0-9-]+$/', $t)));
         $recent = ChangeEvent::published()->with('jurisdiction')->orderByDesc('occurred_on')->limit(5)->get();
 

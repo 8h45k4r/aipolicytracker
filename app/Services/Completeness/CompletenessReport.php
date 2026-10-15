@@ -93,7 +93,12 @@ class CompletenessReport
         foreach (self::KINDS as $kind => $class) {
             /** @var class-string<Model> $class */
             $checks = $this->checksFor($kind);
-            $records = $class::published()->get();
+            $records = $class::published()->tap(fn ($q) => match ($kind) {
+                // One query for the existence checks below instead of one per record.
+                'policy' => $q->withExists(['obligations as has_published_obligations' => fn ($o) => $o->whereNotNull('obligations.published_at')]),
+                'obligation' => $q->withExists(['controls as has_published_controls' => fn ($c) => $c->whereNotNull('controls.published_at')]),
+                default => $q,
+            })->get();
             $totals[$kind] = $records->count();
 
             foreach ($records as $record) {

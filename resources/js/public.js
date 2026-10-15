@@ -120,17 +120,42 @@
     var openBtns = document.querySelectorAll('[data-open-filters]');
     var sheet = document.getElementById('filter-sheet');
     if (sheet && openBtns.length) {
-        var closeSheet = function () { sheet.setAttribute('data-open', 'false'); document.body.style.overflow = ''; };
+        var opener = null;
+        var isOpen = function () { return sheet.getAttribute('data-open') === 'true'; };
+        var focusables = function () {
+            return Array.prototype.filter.call(sheet.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'), function (el) { return el.offsetParent !== null; });
+        };
+        var closeSheet = function () {
+            if (!isOpen()) return;
+            sheet.setAttribute('data-open', 'false');
+            document.body.style.overflow = '';
+            // Focus goes back to the control that opened the sheet (WCAG 2.4.3).
+            if (opener) opener.focus();
+        };
         openBtns.forEach(function (b) {
-            b.addEventListener('click', function () {
+            b.addEventListener('click', function (e) {
+                e.preventDefault();
+                opener = b;
                 sheet.setAttribute('data-open', 'true');
                 document.body.style.overflow = 'hidden';
-                var first = sheet.querySelector('input, select, button');
+                var target = b.getAttribute('href') && b.getAttribute('href').charAt(0) === '#' ? document.getElementById(b.getAttribute('href').slice(1)) : null;
+                var first = target || sheet.querySelector('input, select, button');
                 if (first) first.focus();
             });
         });
         sheet.querySelectorAll('[data-close-filters]').forEach(function (b) { b.addEventListener('click', closeSheet); });
-        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
+        document.addEventListener('keydown', function (e) {
+            if (!isOpen()) return;
+            if (e.key === 'Escape') { closeSheet(); return; }
+            // Tab cycles inside the open sheet: it is a modal dialog.
+            if (e.key === 'Tab') {
+                var items = focusables();
+                if (!items.length) return;
+                var first = items[0], last = items[items.length - 1];
+                if (e.shiftKey && (document.activeElement === first || !sheet.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && (document.activeElement === last || !sheet.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+            }
+        });
     }
 
     // Copy-link buttons.

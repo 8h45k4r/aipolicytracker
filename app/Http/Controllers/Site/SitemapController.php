@@ -27,6 +27,7 @@ use App\Services\Templates\TemplateCatalog;
 use App\Support\RiskTaxonomy;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Sitemap index plus one sitemap per content type. Only indexable pages are
@@ -63,7 +64,16 @@ class SitemapController extends Controller
         return $this->xml(view('site.sitemap.index', compact('entries'))->render());
     }
 
+    /**
+     * A section is rebuilt at most every quarter hour: the incident and risk sections walk
+     * thousands of rows, and crawlers fetch every section on each visit.
+     */
     public function section(string $section): Response
+    {
+        return $this->xml(Cache::remember('sitemap:section:'.$section, now()->addMinutes(15), fn () => $this->renderSection($section)));
+    }
+
+    private function renderSection(string $section): string
     {
         $urls = match ($section) {
             'static' => $this->staticUrls(),
@@ -79,7 +89,7 @@ class SitemapController extends Controller
             'risks' => $this->riskUrls(),
         };
 
-        return $this->xml(view('site.sitemap.urlset', compact('urls'))->render());
+        return view('site.sitemap.urlset', compact('urls'))->render();
     }
 
     /**

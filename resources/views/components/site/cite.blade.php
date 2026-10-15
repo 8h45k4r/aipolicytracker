@@ -15,10 +15,7 @@
      record was relied on. --}}
 @php($aiptId = data_get($record, 'aipt_id'))
 @php($permalink = $aiptId ? route('record.id', $aiptId) : $url)
-@php($version = data_get($record, 'content_version'))
-@php($verifiedAt = $verifiedAt ?? data_get($record, 'last_verified_at'))
-@php($verifiedBy = $reviewer ?? data_get($record, 'reviewed_by'))
-@php($stamp = array_values(array_filter([$aiptId, $version ? 'record version '.$version : null, $verifiedAt ? 'verified '.$verifiedAt->format('j F Y').($verifiedBy ? ' by '.$verifiedBy : '') : 'not yet verified'])))
+@php($stamp = \App\Support\RecordCitation::stamp($record, $reviewer, $verifiedAt))
 <section aria-labelledby="cite-heading" {{ $attributes }}>
     <h2 id="cite-heading" class="section-title">Cite this record</h2>
     <p class="mt-2 text-sm text-brand-body break-words" data-cite>{{ config('aipolicytracker.site_name') }} ({{ now()->year }}). &ldquo;{{ $title }}&rdquo;@if($record) [{{ implode(', ', $stamp) }}]@endif. <a href="{{ $permalink }}">{{ $permalink }}</a> (accessed {{ now()->format('j F Y') }}). Data licensed {{ config('aipolicytracker.data_license') }}.@if($doiUrl) Part of the {{ config('aipolicytracker.site_name') }} dataset, <a href="{{ $doiUrl }}" rel="noopener" data-cite-doi>{{ $doiUrl }}</a>.@endif</p>

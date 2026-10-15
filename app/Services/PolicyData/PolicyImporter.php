@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -56,6 +57,11 @@ class PolicyImporter
     {
         $this->publications = null;
         $this->jurisdictionsBySlug = [];
+        // Admin verifications not yet exported are re-applied after the import; the
+        // revision recorder compares against the record as it will stand then, so a
+        // pending decision never shows up as a de-verification in the record's history.
+        RevisionRecorder::useOverrides(RecordVerification::query()->where('exported', false)->get()
+            ->mapWithKeys(fn ($v) => [$v->record_type.':'.$v->record_slug => ['review_status' => $v->review_status, 'last_verified_at' => $v->last_verified_at, 'reviewed_by' => $v->reviewed_by]])->all());
         DB::transaction(function () {
             $this->importTaxonomies();
             $this->importJurisdictions();
@@ -69,6 +75,10 @@ class PolicyImporter
 
         // Human verification decisions recorded in the admin outlive every re-import.
         $this->stats['verifications_applied'] = RecordVerification::applyAll();
+        // The cached sitemap sections describe the read model just replaced.
+        foreach (['static', 'jurisdictions', 'policies', 'obligations', 'controls', 'changes', 'updates', 'resources'] as $section) {
+            Cache::forget('sitemap:section:'.$section);
+        }
 
         return $this->stats;
     }
@@ -136,9 +146,10 @@ class PolicyImporter
     private function importJurisdictions(): void
     {
         $records = $this->repository->jurisdictions();
+        $kept = [];
         // Two passes so parent references resolve regardless of file order.
         foreach ($records as $record) {
-            Jurisdiction::updateOrCreate(['slug' => $record['slug']], [
+            $kept[] = Jurisdiction::updateOrCreate(['slug' => $record['slug']], [
                 'name' => $record['name'],
                 'short_name' => $record['short_name'] ?? null,
                 'iso_code' => $record['iso_code'] ?? null,
@@ -157,7 +168,7 @@ class PolicyImporter
                 'featured' => (bool) ($record['featured'] ?? false),
                 'published_at' => $this->publishedAt($record, Jurisdiction::class),
                 ...$this->sourceQuality($record),
-            ]);
+            ])->id;
             $this->stats['jurisdictions']++;
         }
         foreach ($records as $record) {
@@ -169,10 +180,28 @@ class PolicyImporter
                 $child?->forceFill(['parent_jurisdiction_id' => $parent?->id])->save();
             }
         }
+        $this->unpublishMissing(Jurisdiction::class, $kept);
+    }
+
+    /**
+     * A record whose file left data/ is unpublished, not deleted: its URL answers 404 like
+     * any unpublished record, while follows, revisions and its permanent id stay intact.
+     * An empty read (a missing or broken data/ directory) unpublishes nothing.
+     *
+     * @param  class-string<Model>  $model
+     * @param  array<int, int>  $kept
+     */
+    private function unpublishMissing(string $model, array $kept): void
+    {
+        if ($kept !== []) {
+            $this->stats['unpublished'] = ($this->stats['unpublished'] ?? 0)
+                + $model::whereNotIn('id', $kept)->whereNotNull('published_at')->update(['published_at' => null]);
+        }
     }
 
     private function importPolicies(): void
     {
+        $kept = [];
         foreach ($this->repository->policies() as $file => $record) {
             $jurisdiction = $this->jurisdictionOrFail($record['jurisdiction']);
 
@@ -209,6 +238,7 @@ class PolicyImporter
                 'published_at' => $this->publishedAt($record, PolicyInstrument::class),
                 ...$this->sourceQuality($record),
             ]);
+            $kept[] = $policy->id;
             if (RevisionRecorder::record('policy', $before, $policy)) {
                 $this->stats['record_revisions'] = ($this->stats['record_revisions'] ?? 0) + 1;
             }
@@ -352,10 +382,16 @@ class PolicyImporter
 
             $this->stats['policies']++;
         }
+        $this->unpublishMissing(PolicyInstrument::class, $kept);
+        if ($kept !== []) {
+            // The duties of a withdrawn instrument go with it.
+            Obligation::whereNotIn('policy_instrument_id', $kept)->whereNotNull('published_at')->update(['published_at' => null]);
+        }
     }
 
     private function importChanges(): void
     {
+        $kept = [];
         foreach ($this->repository->changeFiles() as $contents) {
             foreach ($contents['changes'] ?? [] as $change) {
                 $jurisdiction = $this->jurisdictionOrFail($change['jurisdiction']);
@@ -378,9 +414,11 @@ class PolicyImporter
                 if (RevisionRecorder::record('change', $changeBefore, $changeRecord)) {
                     $this->stats['record_revisions'] = ($this->stats['record_revisions'] ?? 0) + 1;
                 }
+                $kept[] = $changeRecord->id;
                 $this->stats['changes']++;
             }
         }
+        $this->unpublishMissing(ChangeEvent::class, $kept);
     }
 
     private function syncTerms(PolicyInstrument|Obligation $model, array $record): void

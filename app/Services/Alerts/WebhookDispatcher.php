@@ -49,15 +49,16 @@ final class WebhookDispatcher
         // Checked again at send time: a name can be pointed at a private address after it
         // was saved. The connection is then pinned to the addresses checked, and never
         // follows a redirect, which could lead anywhere.
-        if ($reason = OutboundUrl::refusal($channel->endpoint)) {
-            $delivery->forceFill(['status' => 'failed', 'last_error' => 'Refused: the address is '.$reason.'.', 'next_attempt_at' => null])->save();
+        $target = OutboundUrl::prepare($channel->endpoint);
+        if ($target['refusal']) {
+            $delivery->forceFill(['status' => 'failed', 'last_error' => 'Refused: the address is '.$target['refusal'].'.', 'next_attempt_at' => null])->save();
 
             return false;
         }
         try {
             $response = $channel->kind === 'slack'
-                ? Http::timeout(self::TIMEOUT)->withOptions(OutboundUrl::pinnedOptions($channel->endpoint))->asJson()->post($channel->endpoint, ['text' => $this->slackText($delivery->payload)])
-                : $this->signedPost($channel, $delivery);
+                ? Http::timeout(self::TIMEOUT)->withOptions($target['options'])->asJson()->post($channel->endpoint, ['text' => $this->slackText($delivery->payload)])
+                : $this->signedPost($channel, $delivery, $target['options']);
             if ($response->successful()) {
                 $delivery->forceFill(['status' => 'sent', 'response_code' => $response->status(), 'sent_at' => now(), 'last_error' => null, 'next_attempt_at' => null])->save();
                 $channel->update(['last_delivered_at' => now()]);
@@ -75,11 +76,11 @@ final class WebhookDispatcher
         return false;
     }
 
-    private function signedPost(AlertChannel $channel, ChannelDelivery $delivery)
+    private function signedPost(AlertChannel $channel, ChannelDelivery $delivery, array $options)
     {
         $body = json_encode($delivery->payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
-        return Http::timeout(self::TIMEOUT)->withOptions(OutboundUrl::pinnedOptions($channel->endpoint))->withHeaders([
+        return Http::timeout(self::TIMEOUT)->withOptions($options)->withHeaders([
             'Content-Type' => 'application/json',
             'User-Agent' => 'aipolicytracker-alerts/1.0',
             'X-AIP-Signature' => $channel->sign($body),

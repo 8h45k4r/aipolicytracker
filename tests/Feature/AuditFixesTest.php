@@ -140,11 +140,15 @@ class AuditFixesTest extends TestCase
 
     public function test_alert_webhooks_cannot_point_at_private_addresses(): void
     {
-        foreach (['https://127.0.0.1/x', 'https://169.254.169.254/latest', 'https://10.0.0.1/admin', 'https://[::1]/x', 'https://[::ffff:127.0.0.1]/x', 'https://100.64.0.1/x', 'https://localhost:8080/x', 'https://db.internal/x'] as $url) {
+        foreach (['https://127.0.0.1/x', 'https://169.254.169.254/latest', 'https://10.0.0.1/admin', 'https://[::1]/x', 'https://[::ffff:127.0.0.1]/x', 'https://100.64.0.1/x', 'https://localhost:8080/x', 'https://db.internal/x',
+            // Every IPv6 spelling of an IPv4 loopback, and special-purpose IPv4 blocks.
+            'https://[::ffff:7f00:1]/x', 'https://[::127.0.0.1]/x', 'https://[64:ff9b::7f00:1]/x', 'https://192.0.0.1/x', 'https://198.18.0.1/x', 'https://0.0.0.0/x', 'https://224.0.0.1/x', 'https://[ff02::1]/x'] as $url) {
             $this->assertNotNull(OutboundUrl::refusal($url), $url);
         }
         $this->assertNull(OutboundUrl::refusal('https://8.8.8.8/hook'));
-        $this->assertSame(false, OutboundUrl::pinnedOptions('https://8.8.8.8/hook')['allow_redirects']);
+        $this->assertSame(false, OutboundUrl::prepare('https://8.8.8.8/hook')['options']['allow_redirects']);
+        // At send time a name that resolves to nothing is refused rather than left to curl to resolve.
+        $this->assertSame('an address that does not resolve', OutboundUrl::prepare('https://does-not-exist.invalid/x')['refusal']);
 
         $user = User::factory()->create(['email_verified_at' => now()]);
         $this->actingAs($user)->post(route('alerts.channels.store'), ['kind' => 'webhook', 'endpoint' => 'https://127.0.0.1:5432/x'])->assertSessionHasErrors('endpoint');

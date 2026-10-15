@@ -53,8 +53,16 @@ use App\Http\Controllers\Site\VerificationController;
 use App\Services\Hubs\HubCatalog;
 use App\Services\Localization\Translations;
 use App\Support\RiskTaxonomy;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+
+// Feeds, sitemaps, machine-readable files and share images: no session, cookie or CSRF
+// token, so a crawler polling them writes no session row and the CDN may cache them.
+$stateless = [StartSession::class, ShareErrorsFromSession::class, ValidateCsrfToken::class, AddQueuedCookiesToResponse::class, EncryptCookies::class];
 
 // Public, server-rendered policy-intelligence site.
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -105,21 +113,21 @@ Route::get('/frameworks/{framework}/{jurisdiction}', [FrameworkController::class
 Route::get('/updates', [UpdatesController::class, 'index'])->name('updates.index');
 Route::get('/updates/{month}', [UpdatesController::class, 'month'])->where('month', '20[0-9]{2}-(0[1-9]|1[0-2])')->name('updates.month');
 Route::get('/updates/{day}', [UpdatesController::class, 'day'])->where('day', '20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])')->name('updates.day');
-Route::get('/updates/{jurisdiction}/feed', [UpdatesController::class, 'jurisdictionFeed'])->where('jurisdiction', '[a-z][a-z0-9-]*')->name('updates.jurisdiction.feed');
+Route::get('/updates/{jurisdiction}/feed', [UpdatesController::class, 'jurisdictionFeed'])->where('jurisdiction', '[a-z][a-z0-9-]*')->withoutMiddleware($stateless)->name('updates.jurisdiction.feed');
 Route::get('/updates/{jurisdiction}', [UpdatesController::class, 'jurisdiction'])->where('jurisdiction', '[a-z][a-z0-9-]*')->name('updates.jurisdiction');
 Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
 Route::get('/newsletter/{issue}', [NewsletterController::class, 'show'])->where('issue', '20[0-9]{2}-[0-9]{2}-[0-9]{2}')->name('newsletter.show');
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
-Route::get('/changes/feed', [ChangeController::class, 'feed'])->name('changes.feed');
+Route::get('/changes/feed', [ChangeController::class, 'feed'])->withoutMiddleware($stateless)->name('changes.feed');
 Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->name('changes.context');
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
 // The deadline engine: five plain-form steps, a personal timeline from recorded dates, .ics and PDF of the same rows.
 Route::get('/deadlines/which-date-applies', [DeadlineEngineController::class, 'show'])->name('deadlines.engine');
 Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->name('deadlines.engine.ics');
 Route::get('/deadlines/which-date-applies.pdf', [DeadlineEngineController::class, 'pdf'])->middleware('throttle:30,1')->name('deadlines.engine.pdf');
-Route::get('/calendar/ai-policy-deadlines.ics', [CalendarController::class, 'feed'])->name('calendar.feed');
-Route::get('/calendar/{jurisdiction}.ics', [CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->name('calendar.feed.jurisdiction');
+Route::get('/calendar/ai-policy-deadlines.ics', [CalendarController::class, 'feed'])->withoutMiddleware($stateless)->name('calendar.feed');
+Route::get('/calendar/{jurisdiction}.ics', [CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('calendar.feed.jurisdiction');
 Route::get('/changes/{year}', [ChangeController::class, 'year'])->where('year', '20[0-9]{2}')->name('changes.year');
 // One page per change. A development that only existed as an anchor on a list
 // could not be shared, cited or returned as an answer on its own.
@@ -218,7 +226,7 @@ Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('thro
 Route::get('/self-assessments', [AssessmentController::class, 'index'])->name('assessments.index');
 Route::get('/ai-policy-examples', [PolicyExamplesController::class, 'index'])->name('ai-policy-examples');
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
-Route::get('/templates/feed', [TemplateController::class, 'feed'])->name('templates.feed');
+Route::get('/templates/feed', [TemplateController::class, 'feed'])->withoutMiddleware($stateless)->name('templates.feed');
 // One landing page per framework or type ("EU AI Act templates"); only those with enough
 // templates exist (TemplateCatalog::facets), the rest 404.
 Route::get('/templates/{facet}/{key}', [TemplateController::class, 'facet'])->whereIn('facet', ['framework', 'type'])->where('key', '[a-z0-9-]+')->name('templates.facet');
@@ -268,7 +276,7 @@ Route::get('/{retired}', [LandingController::class, 'retired'])
 // Permanent record ids (AIPT-POL-0001 …): resolve to wherever the record lives now, so a
 // citation, a ticket or a calendar entry holding the id keeps working after a rename.
 Route::get('/id/{aiptId}', RecordIdController::class)
-    ->where('aiptId', 'AIPT-(POL|OBL|CHG|CTL)-[0-9]{4,}')
+    ->where('aiptId', '[Aa][Ii][Pp][Tt]-[A-Za-z]{3}-[0-9]{4,}')
     ->middleware('throttle:120,1')
     ->name('record.id');
 
@@ -279,18 +287,18 @@ Route::get('/id/{aiptId}', RecordIdController::class)
 Route::get('/og/{kind}/{slug}.png', SocialCardController::class)
     ->where(['kind' => 'policy|jurisdiction|obligation|change|glossary|report|site|page', 'slug' => '[a-z0-9-]{1,160}'])
     ->middleware('throttle:120,1')
-    ->name('social.card');
+    ->withoutMiddleware($stateless)->name('social.card');
 
-Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|updates|templates|resources|incidents|risks')->name('sitemap.section');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->withoutMiddleware($stateless)->name('sitemap.index');
+Route::get('/sitemap-{section}.xml', [SitemapController::class, 'section'])->where('section', 'static|jurisdictions|policies|obligations|controls|changes|updates|templates|resources|incidents|risks')->withoutMiddleware($stateless)->name('sitemap.section');
 // Google News: entries first published in the last two days, in the news namespace.
-Route::get('/sitemap-news.xml', [SitemapController::class, 'news'])->name('sitemap.news');
-Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->name('llms');
-Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->middleware('throttle:30,1')->name('llms.full');
-Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->name('openapi');
+Route::get('/sitemap-news.xml', [SitemapController::class, 'news'])->withoutMiddleware($stateless)->name('sitemap.news');
+Route::get('/llms.txt', [MachineReadableController::class, 'llms'])->withoutMiddleware($stateless)->name('llms');
+Route::get('/llms-full.txt', [MachineReadableController::class, 'llmsFull'])->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('llms.full');
+Route::get('/openapi.json', [MachineReadableController::class, 'openapi'])->withoutMiddleware($stateless)->name('openapi');
 // RFC 9116: where a security researcher should write. Generated rather than a
 // static file so the mandatory Expires field can never fall into the past.
-Route::get('/.well-known/security.txt', [MachineReadableController::class, 'securityTxt'])->name('security.txt');
+Route::get('/.well-known/security.txt', [MachineReadableController::class, 'securityTxt'])->withoutMiddleware($stateless)->name('security.txt');
 Route::redirect('/security.txt', '/.well-known/security.txt', 301);
 
 // Legacy URL redirects.
@@ -302,4 +310,4 @@ Route::get('/aipolicytracker/{any?}', fn () => redirect('/policies', 301))->wher
 
 // IndexNow key file (config services.indexnow.key). Last, so every named .txt route
 // above (robots, llms, llms-full) is matched first; any other name is a 404.
-Route::get('/{key}.txt', [MachineReadableController::class, 'indexNowKey'])->where('key', '[A-Za-z0-9-]{8,128}')->name('indexnow.key');
+Route::get('/{key}.txt', [MachineReadableController::class, 'indexNowKey'])->where('key', '[A-Za-z0-9-]{8,128}')->withoutMiddleware($stateless)->name('indexnow.key');

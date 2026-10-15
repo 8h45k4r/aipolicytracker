@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Control;
+use App\Models\ExternalIncident;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
@@ -60,6 +61,7 @@ class SearchController extends Controller
                 $this->group('Glossary', $glossary, route('glossary')),
                 $this->group('Changes', ChangeEvent::published()->with('jurisdiction')->search($q)->where('slug', 'not like', 'template-%')->orderByDesc('occurred_on')->orderBy('title')->limit(self::PER_GROUP)->get()
                     ->map(fn ($c) => ['title' => $c->title, 'url' => $c->url(), 'meta' => $c->occurred_on->format('j M Y').' · '.$c->jurisdiction?->name]), route('changes.index')),
+                $this->incidents($q),
             ]));
         }
 
@@ -103,6 +105,17 @@ class SearchController extends Controller
             'Cache-Control' => 'public, max-age=600, stale-while-revalidate=3600',
             'X-Robots-Tag' => 'noindex',
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    /** AI Incident Database records by headline, sensitive ones excluded (they carry a neutral headline). */
+    private function incidents(string $q): ?array
+    {
+        $like = PolicyRanker::like($q);
+        $match = ExternalIncident::standard()->whereRaw('LOWER(title) LIKE ? ESCAPE ?', [$like, '\\']);
+
+        return $this->group('AI incidents', (clone $match)->orderByDesc('occurred_on')->limit(self::PER_GROUP)->get()
+            ->map(fn (ExternalIncident $i) => ['title' => $i->displayTitle(), 'url' => $i->url(), 'meta' => 'Incident '.$i->incident_id.($i->occurred_on ? ' · '.$i->occurred_on->format('j M Y') : '')]),
+            route('risk.incidents.browse', ['q' => $q]), $match->count());
     }
 
     private function query(Request $request): string

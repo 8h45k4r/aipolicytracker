@@ -34,7 +34,7 @@ class MachineReadableController extends Controller
     public function llmsFull(): Response
     {
         $jurisdictions = Jurisdiction::published()->withPublishedInstrument()->orderBy('name')->get()->filter->isIndexable();
-        $policies = PolicyInstrument::published()->with(['jurisdiction', 'deadlines'])->orderBy('title')->get()->filter->isIndexable();
+        $policies = PolicyInstrument::published()->with(['jurisdiction', 'deadlines', 'obligations' => fn ($q) => $q->published()->select(['id', 'policy_instrument_id', 'applies_from', 'published_at', 'sort_order'])])->orderBy('title')->get()->filter->isIndexable();
         $obligations = Obligation::published()->with('policyInstrument')->orderBy('category')->orderBy('title')->get();
         $changes = ChangeEvent::published()->with('jurisdiction')->orderByDesc('occurred_on')->limit(100)->get();
         $controls = Control::published()->with(['evidence', 'obligations'])->orderBy('title')->get();
@@ -122,6 +122,7 @@ class MachineReadableController extends Controller
 
     private function text(string $body): Response
     {
-        return response($body, 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'public, max-age=3600']);
+        // Blade escapes for HTML; a plain-text file wants the characters themselves.
+        return response(html_entity_decode($body, ENT_QUOTES | ENT_HTML5, 'UTF-8'), 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'public, max-age=3600']);
     }
 }

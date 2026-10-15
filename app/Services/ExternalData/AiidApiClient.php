@@ -27,15 +27,18 @@ class AiidApiClient
     public function __construct(private readonly int $timeout = 60) {}
 
     /**
-     * One page of incidents, newest first. When $modifiedAfter is given only
-     * records changed after that instant are returned (incremental sync).
+     * One page of incidents. When $modifiedAfter is given only records changed after
+     * that instant are returned, oldest change first, so a run stopped by its cap has
+     * taken everything before its newest modified date and the next run's cursor (the
+     * newest date stored) skips nothing. A full walk goes newest incident first.
      *
      * @return array<int, array<string, mixed>>
      */
     public function incidents(int $limit = 100, int $skip = 0, ?string $modifiedAfter = null): array
     {
         $filter = $modifiedAfter ? sprintf('filter: { date_modified: { GT: "%s" } }, ', $modifiedAfter) : '';
-        $query = sprintf('{ incidents(%ssort: { incident_id: DESC }, pagination: { limit: %d, skip: %d }) { %s } }', $filter, $limit, $skip, self::INCIDENT_FIELDS);
+        $sort = $modifiedAfter ? '{ date_modified: ASC }' : '{ incident_id: DESC }';
+        $query = sprintf('{ incidents(%ssort: %s, pagination: { limit: %d, skip: %d }) { %s } }', $filter, $sort, $limit, $skip, self::INCIDENT_FIELDS);
 
         return $this->query($query)['incidents'] ?? [];
     }

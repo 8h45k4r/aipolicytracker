@@ -44,15 +44,15 @@ export default function Login({ status, canResetPassword }) {
 
                             <div className=" bg-primary w-full h-full flex items-center justify-center rounded-md px-10">
                                 <div>
-                                    <h1 className=" text-3xl font-bold text-center">
+                                    <h2 className=" text-3xl font-bold text-center">
                                         Welcome Back
-                                    </h1>
+                                    </h2>
                                     <ul className="mt-5">
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
                                                 <span aria-hidden="true" className="text-sm">→</span>
                                             </strong>
-                                            <h2 className="tracking-wider leading-6">
+                                            <p className="tracking-wider leading-6">
                                                 <strong className="me-2">
                                                     High-Level AI Regulation
                                                     Summary:
@@ -60,26 +60,26 @@ export default function Login({ status, canResetPassword }) {
                                                 A quick overview of AI
                                                 regulation status across
                                                 countries.
-                                            </h2>
+                                            </p>
                                         </li>
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
                                                 <span aria-hidden="true" className="text-sm">→</span>
                                             </strong>
-                                            <h2 className=" tracking-wider leading-6">
+                                            <p className=" tracking-wider leading-6">
                                                 <strong className="me-2">
                                                     Detailed Market Profiles:
                                                 </strong>
                                                 In-depth data on AI policies,
                                                 legislation, and schedules in
                                                 individual markets.
-                                            </h2>
+                                            </p>
                                         </li>
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
                                                 <span aria-hidden="true" className="text-xl">→</span>
                                             </strong>
-                                            <h2 className=" tracking-wider">
+                                            <p className=" tracking-wider">
                                                 <strong className="me-2 leading-6">
                                                     Policy Alerts:
                                                 </strong>
@@ -87,7 +87,7 @@ export default function Login({ status, canResetPassword }) {
                                                 important regulatory changes and
                                                 upcoming legislation that could
                                                 impact your business.
-                                            </h2>
+                                            </p>
                                         </li>
                                         <li className="mb-5 font-bold">
                                             Additionally, enjoy:
@@ -96,21 +96,21 @@ export default function Login({ status, canResetPassword }) {
                                             <strong>
                                                 <span aria-hidden="true" className="text-xl">→</span>
                                             </strong>
-                                            <h2 className=" tracking-wider">
+                                            <p className=" tracking-wider">
                                                 <strong className="me-2 leading-6">
                                                     AI Policy News:
                                                 </strong>
                                                 Stay informed with the latest
                                                 developments in AI governance
                                                 from around the world.
-                                            </h2>
+                                            </p>
                                         </li>
 
                                         <li className="flex items-center gap-3 mb-5">
                                             <strong>
                                                 <span aria-hidden="true" className="text-xl">→</span>
                                             </strong>
-                                            <h2 className=" tracking-wider">
+                                            <p className=" tracking-wider">
                                                 <strong className="me-2 leading-6">
                                                     Policy Timelines:
                                                 </strong>
@@ -118,7 +118,7 @@ export default function Login({ status, canResetPassword }) {
                                                 tracking the progress of AI
                                                 policies and regulations in key
                                                 markets.
-                                            </h2>
+                                            </p>
                                         </li>
                                     </ul>
                                 </div>
@@ -136,9 +136,9 @@ export default function Login({ status, canResetPassword }) {
                                         alt="AI Policy Tracker"
                                         className="w-[127px] h-[33px]"
                                     />
-                                    <h3 className="my-4 font-bold text-xl text-primary">
-                                        Welcom back!
-                                    </h3>
+                                    <h1 className="my-4 font-bold text-xl text-primary">
+                                        Welcome back!
+                                    </h1>
 
                                     {status && (
                                         <div className="mb-4 font-medium text-sm text-green-600">

@@ -80,7 +80,7 @@
             {{-- The questions restate the facts above for answer engines; collapsed so a reader is not shown them twice. --}}
             <x-site.faq :items="$seo->faqItems()" collapsible />
             <x-site.cite :record="$obligation" :reviewer="$obligation->reviewed_by ?? $policy->reviewed_by" :verified-at="$obligation->last_verified_at ?? ($obligation->review_status === 'verified' ? $policy->last_verified_at : null)" :title="$obligation->title.' ('.($policy->short_title ?: $policy->title).')'" :url="$obligation->url()" :source-url="$obligation->official_source_url" :source-title="$policy->source_title" :publisher="$policy->source_publisher" class="mt-8" />
-            <section aria-labelledby="duty-history-heading" class="mt-8"><h2 id="duty-history-heading" class="section-title">Change history</h2><x-site.record-history :revisions="$revisions" since="16 October 2026" /></section>
+            <section aria-labelledby="duty-history-heading" class="mt-8"><h2 id="duty-history-heading" class="section-title">Change history</h2><x-site.record-history :revisions="$revisions" :heading="false" /></section>
             @if($similar->isNotEmpty())
             <section aria-labelledby="similar-heading" class="mt-8"><h2 id="similar-heading" class="section-title">Similar obligations in other instruments</h2><ul class="mt-2 space-y-2 text-sm">@foreach($similar as $s)<li><a href="{{ $s->url() }}" class="text-brand-navy hover:underline">{{ $s->title }}</a> <span class="text-xs text-brand-muted">— {{ $s->policyInstrument->short_title ?: $s->policyInstrument->title }}, {{ $s->policyInstrument->jurisdiction->name }}{{ $s->is_binding ? '' : ' (voluntary)' }}</span></li>@endforeach</ul></section>
             @endif

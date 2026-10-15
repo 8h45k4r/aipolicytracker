@@ -34,7 +34,9 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Applicability check (educational), with an obligations register export as XLSX, CSV, JSON or PDF (state in the URL; API: {{ route('api.v1.applicability.register') }}): {{ route('tools.applicability') }}
 - Which date applies to you (five questions, a personal timeline from recorded deadlines with the reason each applies, .ics and PDF; API POST /api/v1/deadlines/applicable): {{ route('deadlines.engine') }}
 - AI economic transition tracker (dividends, basic income, AI taxes, funds, layoff disclosure, retraining, worker voice; drafts are labelled and never scored; displacement policy index with published method): {{ route('transition.index') }} (index method: {{ route('transition.methodology') }}; API: {{ route('api.v1.transition.measures') }})
+@if(\App\Services\Implementation\Trackers::enforcementIndexable())
 - Enforcement tracker (fines, orders, warnings, settlements, court decisions and annulments under recorded instruments, each with regulator, respondent, legal basis, amount as published, outcome and appeal status; recorded only from the regulator's or court's own publication): {{ route('enforcement.index') }} (API: {{ route('api.v1.enforcement') }}; CSV: {{ route('open-data.csv', 'enforcement') }})
+@endif
 - EU AI Act implementation tracker (guidelines, codes of practice, delegated and implementing acts, templates, with due and actual dates; "overdue" is derived from today's date; drafts are labelled): {{ route('policies.implementation', 'eu-ai-act') }} (API: {{ route('api.v1.implementation', ['instrument' => 'eu-ai-act']) }})
 - AI standards tracker (CEN-CENELEC JTC 21 harmonised standards and ISO/IEC JTC 1/SC 42 standards; metadata only, never standard text): {{ route('standards.index') }} (API: {{ route('api.v1.implementation', ['standards' => 1]) }})
 - State of AI regulation (quarterly report computed from the records: jurisdictions by level of AI law, instruments, changes, deadlines, verification; past quarters frozen; CSV): {{ route('state-of.show') }}
@@ -66,6 +68,18 @@ Read {{ route('open-data.health') }} before quoting any record as settled. It re
 - Open queue of gaps: {{ route('gaps') }}
 - Corrections log (what readers reported and what was decided): {{ route('corrections') }}
 - Reviewers and their declared interests: {{ route('reviewers') }}
+- Who verifies the records, the maintainer's commercial relationship, and what is not yet independent: {{ route('independence') }}
+- How fast changes reach the record, measured against a published target of {{ config('changedesk.target_days') }} days: {{ route('freshness') }}
+
+## Permanent ids and citation
+
+Every policy, obligation, change and control carries a permanent id that never changes or is reused, even when its slug does: AIPT-POL-nnnn, AIPT-OBL-nnnn, AIPT-CHG-nnnn, AIPT-CTL-nnnn. `/id/{id}` resolves one to its page (or to JSON with `Accept: application/json`), e.g. {{ url('/id/AIPT-POL-0073') }}. The API and every context file carry the id.
+
+Cite a record by its title, id, record version and verification, as each page's "Cite this record" block gives it:
+
+    AI Policy Tracker, "<title>" [<id>, record version <n>, verified <date> by <reviewer>], <permanent URL>, accessed <date>.
+
+A record not yet verified says "not yet verified" in place of the verification.
 
 ## Reading a record without scraping a page
 

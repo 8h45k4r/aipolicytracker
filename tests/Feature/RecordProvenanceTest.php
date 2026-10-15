@@ -17,6 +17,7 @@ use App\Services\PolicyData\PolicyDataValidator;
 use App\Services\PolicyData\RecordStanding;
 use App\Services\PolicyData\SchemaValidator;
 use App\Support\Reliance;
+use Carbon\CarbonInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Tests\TestCase;
@@ -162,7 +163,7 @@ class RecordProvenanceTest extends TestCase
         $this->assertSame(0, Reliance::reliedOnEveryWeek(), 'one week is not four');
 
         foreach ([1, 2, 3] as $weeksAgo) {
-            \DB::table('account_weeks')->insert(['user_id' => $user->id, 'week_start' => now()->startOfWeek()->subWeeks($weeksAgo)->toDateString(), 'alert_clicks' => 1, 'created_at' => now(), 'updated_at' => now()]);
+            \DB::table('account_weeks')->insert(['user_id' => $user->id, 'week_start' => now()->startOfWeek(CarbonInterface::MONDAY)->subWeeks($weeksAgo)->toDateString(), 'alert_clicks' => 1, 'created_at' => now(), 'updated_at' => now()]);
         }
         $this->assertSame(1, Reliance::reliedOnEveryWeek());
 

@@ -1,7 +1,5 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 import forms from "@tailwindcss/forms";
-// const flowbite = require("flowbite/plugin");
-const flowbite = require("flowbite-react/tailwind");
 
 /** A colour read from a CSS variable of RGB channels, falling back to the light value. */
 const tone = (name, rgb) => `rgb(var(--${name}, ${rgb}) / <alpha-value>)`;
@@ -19,8 +17,6 @@ export default {
         "./resources/js/**/*.jsx",
         "./resources/js/public.js",
         "./app/Enums/*.php",
-        "./node_modules/flowbite/**/*.js",
-        flowbite.content(),
     ],
 
     theme: {
@@ -102,7 +98,7 @@ export default {
         },
     },
 
-    plugins: [forms, flowbite.plugin()],
+    plugins: [forms],
 };
 
 // 002147

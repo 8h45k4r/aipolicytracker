@@ -93,15 +93,47 @@ class AppSetting extends Model
 
     public static function get(string $key, ?string $default = null): ?string
     {
-        $row = static::query()->find($key);
-        if (! $row || $row->value === null) {
+        $value = self::stored()[$key] ?? null;
+        if ($value === null) {
             return $default;
         }
         try {
-            return Crypt::decryptString($row->value);
+            return Crypt::decryptString($value);
         } catch (DecryptException) {
             return $default;
         }
+    }
+
+    /**
+     * Every stored (encrypted) value, read once per application instance: a request reads
+     * many keys, and one query beats one per key. A missing table reads as no settings.
+     *
+     * @return array<string, ?string>
+     */
+    private static function stored(): array
+    {
+        $app = app();
+        if (! $app->bound('app_settings.stored')) {
+            try {
+                $rows = static::query()->pluck('value', 'key')->all();
+            } catch (\Throwable) {
+                return []; // no database or table yet (first boot, key:generate, migrate)
+            }
+            $app->instance('app_settings.stored', $rows);
+        }
+
+        return $app->make('app_settings.stored');
+    }
+
+    public static function forgetStored(): void
+    {
+        app()->forgetInstance('app_settings.stored');
+    }
+
+    protected static function booted(): void
+    {
+        static::saved(fn () => self::forgetStored());
+        static::deleted(fn () => self::forgetStored());
     }
 
     public static function put(string $key, ?string $value, ?int $userId = null): void

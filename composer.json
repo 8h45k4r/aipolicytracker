@@ -27,7 +27,7 @@
         "security": "https://github.com/8h45k4r/aipolicytracker/security/advisories/new"
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "dodopayments/client": "^6.25",
         "dompdf/dompdf": "^3.1",
         "inertiajs/inertia-laravel": "^3.0",
@@ -96,7 +96,7 @@
         "optimize-autoloader": true,
         "process-timeout": 0,
         "platform": {
-            "php": "8.2"
+            "php": "8.3"
         },
         "preferred-install": "dist",
         "sort-packages": true,

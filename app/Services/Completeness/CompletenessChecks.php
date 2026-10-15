@@ -140,7 +140,7 @@ class CompletenessChecks
                 'why' => 'Binding law that carries no mapped obligation cannot be turned into anything a team can act on.',
                 'severity' => 'expected',
                 'applies' => fn ($r) => (bool) $r->is_binding && in_array($r->status, ['in_force', 'partially_in_force'], true),
-                'missing' => fn ($r) => ! $r->obligations()->published()->exists(),
+                'missing' => fn ($r) => ! ($r->has_published_obligations ?? $r->obligations()->published()->exists()),
             ],
 
             // ---- Obligations -------------------------------------------------------
@@ -179,7 +179,7 @@ class CompletenessChecks
                 'label' => 'A control that meets the duty',
                 'why' => 'A duty with no control named against it cannot be planned, owned or evidenced; it is a requirement without a response.',
                 'severity' => 'expected',
-                'missing' => fn ($r) => ! $r->controls()->whereNotNull('controls.published_at')->exists(),
+                'missing' => fn ($r) => ! ($r->has_published_controls ?? $r->controls()->whereNotNull('controls.published_at')->exists()),
             ],
 
             // ---- Change log entries ------------------------------------------------

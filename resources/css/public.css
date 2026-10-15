@@ -128,8 +128,10 @@ body:has(#home-q) header form[role="search"] { display: none; }
     /* A link inside running text is told apart by more than its colour (WCAG 1.4.1).
        Buttons, chips and navigation are excluded by class; everything else that sits
        in a block of body copy is underlined, with an underline visible against the text. */
-    :is(p, dd, td, blockquote, figcaption, small, label, .meta, .prose-policy, [role="status"], [role="alert"]) a:not(.btn):not([class*="btn-"]):not(.chip):not(.nav-link):not(.no-underline) { @apply underline; text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
+    :is(p, dd, td, blockquote, figcaption, small, label, main li:not(nav li), .meta, .prose-policy, [role="status"], [role="alert"]) a:not(.btn):not([class*="btn-"]):not(.chip):not(.nav-link):not(.no-underline) { @apply underline; text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
     a.no-underline { text-decoration: none; }
+    /* The hidden attribute always hides, whatever display a utility class sets. */
+    [hidden] { display: none !important; }
     /* One focus indicator everywhere: a 2px outline 2px off the edge. An outline follows
        the element's own corners, so a focused button keeps its shape, and unlike a
        box-shadow ring it survives Windows high-contrast mode (WCAG 2.4.7, 2.4.13). */

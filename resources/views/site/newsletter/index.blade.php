@@ -11,7 +11,7 @@
         @foreach($issues as $issue)
         <li class="py-4">
             <a href="{{ $issue->url() }}" class="font-display text-lg font-semibold text-brand-navy no-underline hover:underline">AI policy digest, {{ $issue->sent_on->format('j F Y') }}</a>
-            <p class="mt-1 text-sm text-brand-muted">Week to {{ $issue->period_end->format('j M Y') }} · {{ count($issue->change_ids ?: []) }} {{ \Illuminate\Support\Str::plural('change', count($issue->change_ids ?: [])) }}@if(count($issue->deadline_ids ?: [])) · {{ count($issue->deadline_ids) }} upcoming {{ \Illuminate\Support\Str::plural('date', count($issue->deadline_ids)) }}@endif</p>
+            <p class="mt-1 text-sm text-brand-muted">Week to {{ $issue->period_end->format('j M Y') }} · {{ count($issue->change_ids ?: []) }} {{ \Illuminate\Support\Str::plural('change', count($issue->change_ids ?: [])) }}@if($issue->deadlineCount()) · {{ $issue->deadlineCount() }} upcoming {{ \Illuminate\Support\Str::plural('date', $issue->deadlineCount()) }}@endif</p>
         </li>
         @endforeach
     </ol>
