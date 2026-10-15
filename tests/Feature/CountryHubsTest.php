@@ -55,7 +55,7 @@ class CountryHubsTest extends TestCase
     public function test_a_country_page_lists_the_laws_of_its_states_in_the_body(): void
     {
         $html = $this->followingRedirects()->get('/jurisdictions/us')->assertOk()->getContent();
-        $this->assertStringContainsString('State AI laws and policies', $html);
+        $this->assertStringContainsString('have their own AI laws and policies?', $html);
         foreach (['us-california-sb-53', 'us-new-york-raise-act'] as $slug) {
             $this->assertStringContainsString(PolicyInstrument::where('slug', $slug)->firstOrFail()->url(), $html, $slug);
         }

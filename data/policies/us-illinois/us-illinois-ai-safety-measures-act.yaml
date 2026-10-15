@@ -72,7 +72,13 @@ sources:
   document_date: '2026-07-06'
   document_type: legislation
   tier: 1
-faq: []
+faq:
+- question: Which US states have frontier AI safety and transparency laws?
+  answer: >-
+    Three states have enacted laws requiring large frontier-model developers to publish safety frameworks and report critical incidents: California (SB 53, the Transparency in Frontier Artificial Intelligence Act), New York (the RAISE Act) and Illinois (SB 315, the AI Safety Measures Act), which also requires annual third-party audits. Connecticut's SB 5 covers large frontier developers through whistleblower and internal-reporting duties rather than published frameworks.
+- question: How does the Illinois AI Safety Measures Act differ from California SB 53?
+  answer: >-
+    Both apply to large frontier developers above the same compute and revenue thresholds and require a published frontier AI framework, transparency reports, incident reporting and whistleblower protection. Illinois adds annual independent third-party audits from 2028, with a published summary sent to the state; California's law has no audit requirement.
 official_source_url: https://www.ilga.gov/Legislation/BillStatus?DocNum=315&DocTypeID=SB&GA=104&GAID=18&SessionID=114
 source_title: 'Illinois General Assembly: bill status of SB 315 (104th General Assembly)'
 source_publisher: Illinois General Assembly

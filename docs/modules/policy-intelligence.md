@@ -404,9 +404,23 @@ Thin-content rule (`App\Services\Implementation\Trackers`): `/enforcement`, `/ai
 | exported | boolean | no | false | True once `policy:export-verifications` wrote it into data/ |
 | created_at / updated_at | timestamp | yes | | |
 
-Workflow: Admin → Review queue → open the official source → tick the rows (or "apply to all matching the filter") → save status and confidence once for the selection (verified requires the "source opened" attestation and a name on the published roster). `record_type` is any key of `App\Services\Review\ReviewableTypes`: `policy`, `jurisdiction`, `control`, `change`, `transition_measure`, `implementation_measure`. The queue skips a record the data check would refuse after export: an implementation measure with no official source (only a draft may omit it), or a transition measure verified without one. It names the skipped slugs. `PolicyImporter` re-applies every stored decision after each import, so deploys never undo a verification. `php artisan policy:export-verifications` writes the review fields into the file that holds each record (`YamlRecordPatch`: line-level, so the rest of the file is untouched; a change log entry is one item inside its yearly file); commit them through a pull request so `data/` remains the source of truth.
+Workflow: Admin → Review queue → open the official source → tick the rows (or "apply to all matching the filter") → save status and confidence once for the selection (verified requires the "source opened" attestation and a name on the published roster). `record_type` is any key of `App\Services\Review\ReviewableTypes`: `policy`, `jurisdiction`, `control`, `change`, `transition_measure`, `implementation_measure`. The queue skips a record the data check would refuse after export: an implementation measure with no official source (only a draft may omit it), or a transition measure verified without one. It names the skipped slugs. `PolicyImporter` re-applies every decision not yet exported after each import, so deploys never undo a verification; once `exported` is true the YAML carries the decision and is the source of truth, so a later `needs_update` in `data/` is not overridden. `php artisan policy:export-verifications` writes the review fields into the file that holds each record (`YamlRecordPatch`: line-level, so the rest of the file is untouched; a change log entry is one item inside its yearly file); commit them through a pull request so `data/` remains the source of truth.
 
 Routes (`routes/backend/web.php`, all behind `auth`, `isAdmin`, `admin.2fa`, `admin.audit`): `GET /backend/review?type=&q=&review=&published=` (`submissions.decide`); `POST /backend/review/verify/{type}/{slug}` and `POST /backend/review/verify-many/{type}` (`records.verify`; body `slugs[]`, or `scope=filtered` with the filter fields); `POST /backend/review/publish/{type}/{slug}` and `POST /backend/review/publish-many/{type}` (`records.publish`; `publish` 0/1); `POST /backend/review/submissions/{submission}/decide` and `POST /backend/review/submissions/decide-many` (`submissions.decide`; `ids[]`). Reviewed in [docs/reference/admin-review-2026-09-26.md](../reference/admin-review-2026-09-26.md).
+
+## Schema: `record_publications`
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | bigint | no | | |
+| record_type | varchar(32) | no | | Any key of `ReviewableTypes` |
+| record_slug | varchar(160) | no | | Unique with `record_type`; logical FK to the record's slug |
+| published | boolean | no | | The admin's last decision: false is a takedown |
+| first_published_at | timestamp | yes | | When the record first went public, restored on republish |
+| user_id | bigint | yes | | FK → users.id (null on delete) |
+| created_at / updated_at | timestamp | yes | | |
+
+Written by `ReviewController::setPublished` (single and bulk publish). `PolicyImporter::publishedAt()` honours a takedown on every import until an admin republishes, and a record imported without a publication date takes `first_published_at` back. A decision to publish never overrides `published: false` in `data/`: only a takedown is held over the files. Test: `AuditFixesTest::test_a_takedown_survives_the_import_and_republishing_restores_the_first_date`.
 
 ## Schema: `contributor_submissions`
 

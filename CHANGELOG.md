@@ -7,8 +7,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Added
 - Sub-national AI laws and policies: 53 records across 37 new states, provinces, regions and cities (pending review), including the Illinois AI Safety Measures Act (SB 315), California's training-data, AI transparency, companion-chatbot and CPPA automated decision-making rules, Connecticut SB 5, Washington's companion-chatbot law, Executive Order 14365 on state AI laws, Galicia's and Calabria's regional AI laws, Shanghai's and Shenzhen's AI regulations, NSW's AI policy, assessment framework and digital work systems act, and the Australian state, Indian state, Scottish, Welsh, Canadian provincial, Brazilian state and UAE emirate instruments. See `docs/reference/subnational-research-2026-10-15.md`.
 - Country pages list their states' and provinces' AI laws in the body, not only by name in the sidebar.
+- Singapore's agentic AI testing: the Starter Kit for Testing Agentic Systems for Safety and Reliability (launched 14 October 2026), the Model AI Governance Framework for Agentic AI, the LLM application testing starter kit and the AI Tester Accreditation Programme (pending review). See `docs/reference/singapore-agentic-testing-2026-10-15.md`.
 
 ### Fixed
+- The sign-in page's side panel uses the brand colour tokens; the raw colour values it used were not in the built stylesheet, so the panel showed without its background.
+- Question headings name state and regional instruments with "the" ("Is the Illinois AI Safety Measures Act in force?"), and the country page asks which of its states have their own AI laws.
 - The weekly digest goes out every week (a 07:00 send last Monday no longer counts as "this week"), and each issue covers the changes since the previous issue, including ones dated earlier but imported after it, without repeating any.
 - Daily alerts include a change imported, or backdated, after the previous alert (within 30 days of its date); a same-day re-run no longer sends twice on SQLite. Neither the digest nor alerts list deadlines of unpublished records or deadlines that were superseded.
 - A verification decision already exported to `data/` no longer overrides the file on every import, so a record later marked `needs_update` there shows as such.

@@ -129,7 +129,7 @@ Three further gates stand in front of the backend (2026-09-18):
 
 | Gate | Middleware | What it does |
 |------|-----------|--------------|
-| Second factor | `admin.2fa` (`EnsureAdminSecondFactor`) | Every admin session must prove a TOTP code. An admin who has not enrolled is redirected to enrolment; one who has not proved a code this session is redirected to the challenge. Bound to the user id, so a pass does not carry across a re-login as someone else. |
+| Second factor | `admin.2fa` (`EnsureAdminSecondFactor`) | Every admin session must prove a TOTP code. An admin who has not enrolled is redirected to enrolment; one who has not proved a code this session is redirected to the challenge. Bound to the user id, so a pass does not carry across a re-login as someone else. After 10 wrong authenticator codes in a day (`TwoFactorController::DAILY_FAILURES`) codes are refused until the next day, recovery codes still work, and the account holder is emailed (`SecondFactorLockedMail`). |
 | Audit | `admin.audit` (`RecordAdminAction`) | Writes one `admin_audit_logs` row per state-changing admin request: who, route, route parameters, status, hashed IP. Never request bodies. |
 | Fresh password | `password.confirm` | Required on the actions that change secrets or remove things: settings save, billing provisioning, tool and tool-file deletion, recovery-code regeneration. |
 
@@ -191,6 +191,8 @@ The text is built from `config/legal.php` and from the application's real schema
 Both are recorded as debt #29. Debt #28 records the related honesty problem the privacy page surfaced: `user_infos.ip_address` keeps the sign-up address in full while `resource_downloads` and `admin_audit_logs` both hash theirs. The page says so in plain words rather than glossing it.
 
 ## Routes
+
+Public "Sign in" links carry `?return=` with the page they were on; `AuthenticatedSessionController::create` keeps it as the intended URL only when it is a path on this site (`isLocalPath`), so a reader lands back on the record. API tokens (Sanctum) are deleted by `User::endAllSessions()` (password reset, suspension) and refused for a suspended account; `SANCTUM_EXPIRATION_MINUTES` optionally sets a lifetime.
 
 All account pages are server-rendered Blade in the site theme: `/login`, `/register`, `/forgot-password`, `/reset-password/{token}`, `/verify-email`, `/confirm-password` (through `x-auth-shell`) and `/profile` (profile, password, downloads, consent, account deletion). The profile form also stores `organization_name` and toggles `marketing_consent_at`.
 

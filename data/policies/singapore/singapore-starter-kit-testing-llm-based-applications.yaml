@@ -1,0 +1,72 @@
+slug: singapore-starter-kit-testing-llm-based-applications
+jurisdiction: singapore
+title: Starter Kit for Testing LLM-Based Applications for Safety and Reliability (v1.0)
+short_title: Singapore starter kit for testing LLM applications
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Infocomm Media Development Authority (IMDA)
+summary_plain: >-
+  Voluntary guidelines for testing applications built on large language models against five risks: hallucination and inaccuracy,
+  bias in decision-making, undesirable content, data leakage and adversarial prompts. Baseline tests are available on Project
+  Moonshot.
+scope_summary: Organisations building or deploying LLM-based applications; voluntary.
+who_it_applies_to: Developers, deployers and testers of LLM-based applications.
+key_dates_summary: Draft consulted on in 2025 (closed 25 June 2025); version 1.0 published January 2026.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The exact day of publication of version 1.0 and the start of the 2025 consultation were not confirmed.
+actors:
+- provider
+- deployer
+ai_system_types:
+- generative_ai
+- conversational_agent
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+related_policies:
+- singapore-model-ai-governance-framework
+- singapore-starter-kit-testing-agentic-systems
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Starter Kit for Testing LLM-Based Applications for Safety and Reliability
+  publisher: Infocomm Media Development Authority
+  url: https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/starter-kit-for-testing-llm-based-applications-for-safety-and-reliability.pdf
+  document_date: null
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/starter-kit-for-testing-llm-based-applications-for-safety-and-reliability.pdf
+source_title: Starter Kit for Testing LLM-Based Applications for Safety and Reliability
+source_publisher: Infocomm Media Development Authority
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

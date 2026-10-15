@@ -198,14 +198,19 @@ class UpdatesHubTest extends TestCase
         $this->artisan('digest:send')->assertExitCode(0);
 
         $issue = DigestIssue::firstOrFail();
-        $this->assertEqualsCanonicalizing($ids, $issue->change_ids);
+        // The first issue covers the last seven days by event date: these three, plus any
+        // change in data/ that happens to fall in the same week.
+        $window = ChangeEvent::published()->whereDate('occurred_on', '>=', now()->subDays(7)->toDateString())
+            ->whereDate('occurred_on', '<=', now()->toDateString())->pluck('id')->all();
+        $this->assertEqualsCanonicalizing($window, $issue->change_ids);
+        $this->assertEmpty(array_diff($ids, $issue->change_ids));
         $this->assertSame(1, $issue->recipients);
         $this->assertTrue($issue->isIndexable());
 
         $html = $this->get('/newsletter/'.$issue->sent_on->toDateString())->assertOk()->getContent();
         $this->assertStringContainsString('<title>'.PageTitle::newsletterIssue($issue->sent_on), $html);
         $this->assertStringContainsString('Change number 1 this week', $html);
-        $this->assertStringContainsString('3 changes in AI policy', $html);
+        $this->assertStringContainsString(count($window).' changes in AI policy', $html);
         $this->assertStringContainsString('"@type":"Article"', $html);
         $this->get('/newsletter')->assertOk()->assertSee($issue->url())->assertSee('index,follow', false);
         $this->get('/newsletter/1999-01-01')->assertNotFound();
