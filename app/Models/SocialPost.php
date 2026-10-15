@@ -17,6 +17,7 @@ class SocialPost extends Model
         'posted' => 'Posted',
         'failed' => 'Failed',
         'skipped' => 'Skipped',
+        'sending' => 'Sending',
     ];
 
     /** Attempts before a post that keeps meeting rate limits or outages is given up. */

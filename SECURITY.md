@@ -13,7 +13,7 @@ Please **do not** open a public GitHub issue for security problems.
 
 The same contact is published in machine-readable form at <https://aipolicytracker.org/.well-known/security.txt> (RFC 9116).
 
-Automated scanning: CodeQL runs on every pull request and weekly (`.github/workflows/codeql.yml`). Dependabot opens weekly update pull requests (`.github/dependabot.yml`), Gitleaks and Semgrep run in `.github/workflows/security.yml`, and `npm audit --omit=dev` and `composer audit` are recorded in every pull request.
+Automated scanning: CodeQL runs on every pull request and weekly (`.github/workflows/codeql.yml`). Dependabot opens weekly update pull requests (`.github/dependabot.yml`), and `.github/workflows/security.yml` runs on every pull request and push to main: Gitleaks over the full history, Semgrep, `composer audit`, `scripts/npm-audit.mjs` (every npm dependency, failing on a high or critical advisory outside its short, reasoned allowlist), and Trivy over the lockfiles and the production container image. Changes to deploy files are also checked by Trivy config and Checkov, and a ZAP baseline and API scan run weekly.
 
 Include a description, reproduction steps, affected version/commit, and any proof-of-concept. You will receive an acknowledgement within 5 working days and a resolution target after triage. Please give us reasonable time to fix the issue before public disclosure.
 

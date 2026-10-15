@@ -108,16 +108,19 @@ class PolicyCatalog
         }
 
         $sort = $filters['sort'] ?? $defaultSort;
+        // An undated record sorts last on both engines (PostgreSQL puts NULLs first in a
+        // descending sort, SQLite last), and every order ends on the id, so ties (most rows
+        // share the import's updated_at) never move between pages on PostgreSQL.
         match (array_key_exists($sort, self::SORTS) ? $sort : $defaultSort) {
             // Rows show the short title, so sort on what the reader sees (LOWER and COALESCE run on SQLite and PostgreSQL; LOWER so "NSW" files with "Nepal" on both).
             'binding' => $q->orderByDesc('is_binding')->orderByRaw('LOWER(COALESCE(policy_instruments.short_title, policy_instruments.title))'),
-            'effective' => $q->orderByRaw('COALESCE(applies_from, in_force_on, adopted_on) DESC'),
+            'effective' => $q->orderByRaw('CASE WHEN COALESCE(applies_from, in_force_on, adopted_on) IS NULL THEN 1 ELSE 0 END')->orderByRaw('COALESCE(applies_from, in_force_on, adopted_on) DESC'),
             'jurisdiction' => $q->join('jurisdictions as jsort', 'jsort.id', '=', 'policy_instruments.jurisdiction_id')->orderBy('jsort.name')->orderByRaw('LOWER(COALESCE(policy_instruments.short_title, policy_instruments.title))')->select('policy_instruments.*'),
             'relevance' => $q->orderByDesc('featured')->orderByDesc('is_binding')->orderByDesc('updated_at'),
             default => $q->orderByDesc('policy_instruments.updated_at'),
         };
 
-        return $q;
+        return $q->orderBy('policy_instruments.id');
     }
 
     public function obligationQuery(array $filters): Builder
@@ -142,7 +145,7 @@ class PolicyCatalog
             }
         }
 
-        return $q->orderByDesc('is_binding')->orderBy('category')->orderBy('title');
+        return $q->orderByDesc('is_binding')->orderBy('category')->orderBy('title')->orderBy('obligations.id');
     }
 
     public function latestChanges(int $limit = 6): Collection

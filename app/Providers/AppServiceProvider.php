@@ -16,6 +16,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
@@ -72,6 +73,10 @@ class AppServiceProvider extends ServiceProvider
             URL::forceRootUrl(config('app.url'));
             URL::forceScheme('https');
         }
+        // Page links are built through the URL generator, so they follow the forced root
+        // too. Built from the raw request they kept whatever host a caller sent, and the
+        // cached API responses then served that host to everyone.
+        Paginator::currentPathResolver(fn () => url()->current());
 
         // One ability per administrative capability, so a route group says what it needs
         // ("can:users.manage") instead of naming the roles it trusts. Adding a page means

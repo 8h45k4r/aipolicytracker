@@ -79,10 +79,28 @@ class AuditRoundThreeTest extends TestCase
 
         $this->artisan('external:sync-aiid-api', ['--since' => '2026-10-13', '--max' => 100])->assertSuccessful();
 
-        $this->assertSame('2026-10-14T01:40:00Z', Cache::get('aiid.sync.cursor'), 'the newest change taken in a capped run');
+        $this->assertSame(['after' => '2026-10-14T01:39:59Z', 'offset' => 1], Cache::get('aiid.sync.cursor'), 'resumes a second before the newest change taken, past the rows already taken');
 
         Http::fake([AiidApiClient::ENDPOINT => Http::response(['data' => ['incidents' => []]])]);
         $this->artisan('external:sync-aiid-api', ['--max' => 100])->assertSuccessful();
-        Http::assertSent(fn ($r) => str_contains($r->body(), '2026-10-14T01:39:59Z'));
+        Http::assertSent(fn ($r) => str_contains($r->body(), '2026-10-14T01:39:59Z') && str_contains($r->body(), 'skip: 1'));
+    }
+
+    public function test_a_bulk_edit_sharing_one_timestamp_is_walked_through(): void
+    {
+        Storage::fake('local');
+        $this->artisan('policy:import');
+        $row = fn (int $id) => ['incident_id' => $id, 'date' => '2026-09-10', 'date_modified' => '2026-10-14T12:00:00Z', 'title' => 'Incident '.$id, 'description' => 'D', 'editor_notes' => '', 'reports' => []];
+        $empty = ['data' => ['classifications' => [], 'incidents' => []]];
+        Http::fake([AiidApiClient::ENDPOINT => Http::sequence()
+            ->push(['data' => ['incidents' => array_map($row, range(1, 100))]])->push($empty)
+            ->push(['data' => ['incidents' => array_map($row, range(101, 200))]])->push($empty)
+            ->whenEmpty(Http::response($empty))]);
+        $this->artisan('external:sync-aiid-api', ['--since' => '2026-10-13', '--max' => 100])->assertSuccessful();
+        $this->assertSame(['after' => '2026-10-14T11:59:59Z', 'offset' => 100], Cache::get('aiid.sync.cursor'));
+
+        $this->artisan('external:sync-aiid-api', ['--max' => 100])->assertSuccessful();
+        Http::assertSent(fn ($r) => str_contains($r->body(), 'skip: 100'));
+        $this->assertSame(200, Cache::get('aiid.sync.cursor')['offset'], 'the same second again: skip past both runs');
     }
 }

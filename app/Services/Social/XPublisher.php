@@ -78,7 +78,8 @@ class XPublisher
         if (! $this->client->configured()) {
             return ['held' => 'The X keys are not set.'] + $result;
         }
-        $due = SocialPost::with('changeEvent')->where('network', 'x')->where('status', 'queued')->orderBy('created_at')->limit($limit ?? (int) config('social.x.per_run', 2))->get();
+        $due = SocialPost::with('changeEvent')->where('network', 'x')->where('status', 'queued')
+            ->whereHas('changeEvent', fn ($q) => $q->published())->orderBy('created_at')->limit($limit ?? (int) config('social.x.per_run', 2))->get();
         foreach ($due as $post) {
             if ($this->capReached()) {
                 $result['held'] = 'This month\'s cap of '.(int) config('social.x.monthly_cap').' posts is reached; the rest wait for next month or a higher cap.';
@@ -93,6 +94,20 @@ class XPublisher
     /** Send one post now. True when X accepted it. */
     public function send(SocialPost $post): bool
     {
+        // A post links to its change: one withdrawn since the post was queued would send
+        // readers (and a paid post) to a 404.
+        if (! $post->changeEvent()->published()->exists()) {
+            $post->update(['status' => 'skipped', 'error' => 'The change is no longer published.']);
+
+            return false;
+        }
+        // Claimed in one statement, so the scheduled run and an admin's "Send now" (or a
+        // double click) cannot both post it, nor one overwrite the other's outcome.
+        $claimed = SocialPost::whereKey($post->getKey())->whereIn('status', ['draft', 'queued', 'failed'])->update(['status' => 'sending']);
+        if ($claimed !== 1) {
+            return false;
+        }
+        $post->refresh();
         $post->increment('attempts');
         try {
             $id = $this->client->post($post->text);

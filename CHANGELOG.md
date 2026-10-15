@@ -54,8 +54,6 @@ All notable changes to this project are documented here. The format follows [Kee
 - The admin seeder reads `config('aipolicytracker.seed_admin')` and refuses the `.env.example` placeholder password outside local and testing. The settings provider and the admin Settings page read the environment through config, not `env()`.
 - `deploy/deploy.sh` runs `php artisan queue:restart` after the release swap.
 - PHP 8.3 is the minimum, matching the production image; CI tests on 8.3.
-- API tokens expire after a year unless `SANCTUM_EXPIRATION_MINUTES` says otherwise (0 or empty: until revoked). Existing tokens older than a year stop working.
-- Invitations have their own token table (`invitation_tokens`; run `php artisan migrate`). An invitation and a password reset no longer overwrite each other, and a reset token is never accepted for seven days as an invitation. Invitations sent before the upgrade must be re-sent.
 - A record whose file leaves `data/` is unpublished on the next import (policies with their duties, jurisdictions and changes), as controls already were.
 - Weekly digest issues keep the dates they carried by value; deadline rows are rebuilt on every import, so an archived issue had been showing whichever deadline later took the old id.
 - The record standing says "No change recorded as of <date>" only with a date, counting the record's own last check; with none it says the record has not yet been checked.
@@ -125,10 +123,17 @@ All notable changes to this project are documented here. The format follows [Kee
 - Five templates (South Korea AI Basic Act checklist, Texas TRAIGA checklist, US state AI law matrix, public-sector AI use-case inventory, synthetic content labelling plan; 41 in all), landing pages per framework and per document type, and eight guides grounded in the records.
 
 ### Fixed
+- `/freshness` and the change desk measure only changes dated since measurement began; changes recorded today from earlier research had shown a median lag of hundreds of days.
+- Queued X posts whose change has been unpublished are skipped, and a post is claimed before it is sent, so the scheduled run and "Send now" cannot both post it.
+- Paginated listings and API pages end every sort on the record id, so rows that tie (most share the import's timestamp) no longer move between pages on PostgreSQL; undated records sort last on both engines.
+- API page links follow the configured site address, not the host the first caller sent.
+- The AI Incident Database sync walks through a bulk edit that gives more than one run's worth of incidents the same timestamp.
+- `policy:import` takes a lock in the shared cache, so two containers or the scheduler cannot import at once.
+- Deploys had been held since the morning: the secret scan read X's published OAuth example in a test as a secret, and the repository-wide lint rejected `scripts/npm-audit.mjs`.
+- The verification budget is 98 (from 60), with the reason recorded: 38 binding sub-national records, all pending review, joined the critical rules; nothing already confirmed regressed.
 - `deploy/README.md` described no scheduler and no queue worker; it now lists the scheduled jobs and the single `schedule:run` cron entry, and says the queue worker idles because mail is sent during the request. `.env.example` lists the keys config reads that it lacked.
 - A record de-verified in the admin no longer gets a false revision on each import, and the obligation JSON id now reads AIPT-OBL.
 - `/id/` accepts lower-case ids; the policy summary in the API carries `content_version`.
-- Alert webhooks also refuse IPv6 private, IPv4-mapped and documentation, benchmarking and multicast addresses, and an address that does not resolve when sent.
 - Reliance counts weeks from Monday everywhere and counts alert clicks on record pages only.
 - `deploy/backup.sh` reads its environment file without evaluating it.
 - Performance: settings are read with one query per request; foreign-key columns are indexed (run `php artisan migrate`); `llms-full.txt` went from 325 queries to 22, and the completeness report checks duties and controls in one query each; expired database-cache rows are pruned hourly; sitemaps, feeds, `llms.txt`, OpenAPI and share images no longer start a session or set cookies, and the incident and risk sitemap sections (thousands of rows each) are cached for 15 minutes.
@@ -149,14 +154,10 @@ All notable changes to this project are documented here. The format follows [Kee
 - Daily alerts include a change imported, or backdated, after the previous alert (within 30 days of its date); a same-day re-run no longer sends twice on SQLite. Neither the digest nor alerts list deadlines of unpublished records or deadlines that were superseded.
 - A verification decision already exported to `data/` no longer overrides the file on every import, so a record later marked `needs_update` there shows as such.
 - An admin takedown survives the nightly import, and republishing restores the first-published date. Decisions are kept in a new `record_publications` table (run `php artisan migrate`; existing data is not touched).
-- Alert webhooks: an address that is, or resolves to, a loopback, private, link-local, shared or reserved address is refused when saved and again when sent; the connection is pinned to the checked address, redirects are not followed, and connection errors are no longer shown verbatim.
 - An administrator's name can no longer be changed through the template download form.
 - Admin two-factor sign-in: after 10 wrong codes in a day, authenticator codes are refused until the next day (recovery codes still work) and the account holder is emailed.
-- API tokens are revoked when all sessions are ended (password reset, suspension) and are refused for a suspended account; `SANCTUM_EXPIRATION_MINUTES` optionally sets a lifetime.
 - "Sign in" on public pages opens a reader sign-in ("Sign in to AIPolicyTracker", with "Create a free account") and returns to the page it came from; only paths on this site are accepted as the return address.
 - The `ai_referral` event is sent when the reader consents on the landing page (it was checked before analytics could load), with `ai_engine` and `landing_path` parameters and more engines recognised.
-- Pages whose address carries a token (subscription confirm and unsubscribe, password reset, invitation, email check) never load analytics, so the token cannot reach an analytics report.
-- Invitation emails printed the inviter's account record (email, last sign-in, second-factor fields) where they meant the inviter's name. Only the name is sent now.
 - Jobs that act on live data or send mail now ask before running; the job table no longer shows a stray "@else".
 - Invitations no longer say "sent" when the server's mailer delivers nothing; the account page offers the link to copy instead.
 - "Report a correction" on a transition measure returned a server error; it now opens the form with the measure named.
@@ -188,6 +189,18 @@ All notable changes to this project are documented here. The format follows [Kee
 - The throwaway-domain refresh job was scheduled every Wednesday with no source URL, and the command refuses to run without one, so it failed every week. The source now comes from `EMAIL_DISPOSABLE_SOURCE`; unset, the scheduler skips the job and the admin button's failure names the variable.
 - The static fallback image itself is redrawn from the same design with no figures in it, so a host that cannot draw cards no longer shows a count that stopped being true. The site card's footer no longer runs into the domain.
 - `PHP tests (PostgreSQL)` had never once reported. It was in progress on every one of the last eight commits, including several that predate this branch, and the oldest had been running for five hours; GitHub would have killed it at the six-hour default. Because GitHub serves no log for a job that is still in progress, nothing could be read from it while it ran, so the failure was both slow and invisible — and the divergence the job exists to catch (debt #15's `/reviewers` 500, the retried-webhook 500) has therefore never actually been guarded in CI. Every job in every workflow — all seventeen, across `ci.yml`, `codeql.yml`, `composer-lock.yml`, `deploy-check.yml`, `gates.yml`, `refresh-external-data.yml`, `release.yml`, `security.yml`, `uptime-self-heal.yml` and `validate-data.yml` — now carries a `timeout-minutes`, so a stuck run fails inside the hour and publishes its log. The deployment check needed one for the same reason: thirty probes against a live origin that accepts a connection and then stalls will hold a job open well past the time the probes themselves should take. The cause was then found and fixed. PostgreSQL plans a query from the statistics `ANALYZE` collects, and `ANALYZE` counts only committed rows; `RefreshDatabase` seeds inside a transaction that is rolled back and never committed, so on a fresh database the planner was told every table was empty and chose the plan that suits no rows and ruins thousands. A `count(*)` over 117 obligations took 18 seconds, and a listing re-runs that count once per facet, so a single page never finished rendering — which is why the job ran for hours while the SQLite job passed in eleven minutes. `Tests\TestCase` now runs one `ANALYZE` per test, on the first request, on PostgreSQL only; it costs the SQLite job nothing. `tests/Feature/Site/PublicSiteTest.php` went from hanging for ever at its eleventh test to `OK (27 tests, 474 assertions)` in 2m43s. See debt #49.
+
+### Security
+- Settings saved in the admin are no longer written into the configuration cache, where decrypted keys sat in plain text and a cleared key stayed live until a restart.
+- Feeds, sitemaps, machine-readable files, embeds and search suggestions that are publicly cacheable start no session, so no cached response carries a visitor's session cookie.
+- The outbound address check unwraps 6to4 and local-use NAT64 addresses and refuses Teredo and site-local ones.
+- API tokens expire after a year unless `SANCTUM_EXPIRATION_MINUTES` says otherwise (0 or empty: until revoked). Existing tokens older than a year stop working.
+- Invitations have their own token table (`invitation_tokens`; run `php artisan migrate`). An invitation and a password reset no longer overwrite each other, and a reset token is never accepted for seven days as an invitation. Invitations sent before the upgrade must be re-sent.
+- Alert webhooks also refuse IPv6 private, IPv4-mapped and documentation, benchmarking and multicast addresses, and an address that does not resolve when sent.
+- Alert webhooks: an address that is, or resolves to, a loopback, private, link-local, shared or reserved address is refused when saved and again when sent; the connection is pinned to the checked address, redirects are not followed, and connection errors are no longer shown verbatim.
+- API tokens are revoked when all sessions are ended (password reset, suspension) and are refused for a suspended account; `SANCTUM_EXPIRATION_MINUTES` optionally sets a lifetime.
+- Pages whose address carries a token (subscription confirm and unsubscribe, password reset, invitation, email check) never load analytics, so the token cannot reach an analytics report.
+- Invitation emails printed the inviter's account record (email, last sign-in, second-factor fields) where they meant the inviter's name. Only the name is sent now.
 
 ## [1.0.0] - 2026-09-27
 

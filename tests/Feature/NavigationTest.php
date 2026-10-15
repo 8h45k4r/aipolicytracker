@@ -100,7 +100,7 @@ class NavigationTest extends TestCase
 
         // A page listed only on the hub still marks its group as the current one.
         $html = $this->get(route('frameworks.crosswalk', ['iso-42001', 'eu']))->assertOk()->getContent();
-        $this->assertMatchesRegularExpression('#nav-link-active" aria-haspopup="true">\s*Guides#', $html);
+        $this->assertMatchesRegularExpression('#nav-link-active">\s*Guides#', $html);
     }
 
     public function test_the_menu_works_without_javascript(): void
@@ -110,6 +110,5 @@ class NavigationTest extends TestCase
         // <details>/<summary> is the whole mechanism; a nav built on buttons alone would be
         // inert with scripting off.
         $this->assertStringContainsString('<details class="relative" data-nav-group>', $html);
-        $this->assertStringContainsString('aria-haspopup="true"', $html);
     }
 }

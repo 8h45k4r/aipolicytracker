@@ -37,4 +37,6 @@ jobs:
       - name: Verification policy (freshness)
         run: php artisan policy:freshness --list=40
       - name: Completeness policy (coverage)
+        # Runs even when the freshness step failed, so a coverage regression is never hidden.
+        if: ${{ !cancelled() }}
         run: php artisan policy:coverage --list=40

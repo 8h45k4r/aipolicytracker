@@ -37,7 +37,7 @@ class TransitionController extends Controller
             'status' => array_key_exists((string) $request->query('status'), TransitionMeasure::STATUSES) ? $request->query('status') : null,
             'jurisdiction' => preg_match('/^[a-z0-9-]+$/', (string) $request->query('jurisdiction')) ? $request->query('jurisdiction') : null,
         ];
-        $all = TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')->orderByDesc('last_verified_at')->orderBy('title')->get();
+        $all = TransitionMeasure::whereNotNull('published_at')->with('jurisdiction')->orderByRaw('CASE WHEN last_verified_at IS NULL THEN 1 ELSE 0 END')->orderByDesc('last_verified_at')->orderBy('title')->get();
         $measures = $all->filter(fn ($m) => (! $filters['type'] || $m->measure_type === $filters['type']) && (! $filters['status'] || $m->status === $filters['status']) && (! $filters['jurisdiction'] || $m->jurisdiction->slug === $filters['jurisdiction']))->values();
         // Three states, named honestly: verified by a named reviewer, recorded from a cited
         // source but awaiting that review, or an empty draft. Only the first is "verified".

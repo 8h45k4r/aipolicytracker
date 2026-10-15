@@ -174,8 +174,10 @@ cd /opt/aip/repo && git pull
 cd deploy && docker compose up -d --build
 ```
 
-The old container keeps serving until the new one is built and healthy. Assets
-are built inside the image, so the host still needs no Node.
+The old container keeps serving while the new image builds. `docker compose up -d`
+then replaces it in place, so expect a short gap while the new one migrates and
+warms its caches before it answers. Assets are built inside the image, so the host
+still needs no Node.
 
 ## Automatic deploys
 

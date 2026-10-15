@@ -9,6 +9,8 @@ use App\Services\PolicyData\SchemaValidator;
 use App\Services\Seo\IndexNow;
 use App\Support\ContentCache;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Cache\LockTimeoutException;
+use Illuminate\Support\Facades\Cache;
 
 class PolicyImportCommand extends Command
 {
@@ -31,7 +33,16 @@ class PolicyImportCommand extends Command
 
         // A second of slack: updated_at is stored to the second.
         $started = now()->subSecond();
-        $stats = (new PolicyImporter($repository))->run();
+        // One import at a time across every container and the scheduler: two at once
+        // interleave their updates, and each unpublishes what the other has not written yet.
+        // The lock lives in the shared cache store, not a file in one container's /tmp.
+        try {
+            $stats = Cache::lock('policy:import', 900)->block(600, fn () => (new PolicyImporter($repository))->run());
+        } catch (LockTimeoutException) {
+            $this->error('Another import has held the lock for ten minutes; nothing imported.');
+
+            return self::FAILURE;
+        }
         ContentCache::flush();
 
         $this->info(sprintf(

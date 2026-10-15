@@ -12,9 +12,11 @@ use Illuminate\Support\Collection;
  * the change first appeared here. The official date is the source document's date, or
  * the event date where the record has none.
  *
- * Measured only for changes first published since the desk started (config
- * changedesk.measured_since): earlier first-publication dates come from a bulk import
- * and would describe the import, not the desk.
+ * Measured only for changes that happened since the desk started (config
+ * changedesk.measured_since) and were first published since: earlier first-publication
+ * dates come from a bulk import, and a change dated before the start that is recorded
+ * now is research filling in the past, not the desk missing a change. Counting either
+ * would describe the backlog, not the desk.
  */
 final class Freshness
 {
@@ -42,7 +44,9 @@ final class Freshness
                 $official = CarbonImmutable::parse($c->source_document_date ?? $c->occurred_on)->startOfDay();
 
                 return ['change' => $c, 'official' => $official, 'lag' => max(0, (int) $official->diffInDays(CarbonImmutable::parse($c->first_published_at)->startOfDay()))];
-            });
+            })
+            ->filter(fn ($r) => $r['official']->gte(self::since()))
+            ->values();
     }
 
     /** @return array{count: int, median: ?float, within_target: ?int, p90: ?int} */

@@ -15,6 +15,13 @@ class AppSettingsServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        // config:cache boots the providers to build bootstrap/cache/config.php. Applied
+        // then, every stored setting (decrypted secrets included) would be frozen into
+        // that file in plain text, and a setting cleared later would keep its old value
+        // until the next restart. Settings apply at request time instead.
+        if ($this->app->runningConsoleCommand('config:cache', 'optimize')) {
+            return;
+        }
         // A web request trusts the migrated schema; AppSetting reads a missing table as empty.
         // The console checks first so migrate and key:generate never log a failed query.
         if ($this->app->runningInConsole()) {

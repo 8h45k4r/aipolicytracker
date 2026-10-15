@@ -9,7 +9,7 @@
     <section class="mt-8" aria-labelledby="now-h">
         <h2 id="now-h" class="section-title">Since {{ $since->format('j F Y') }}</h2>
         @if($summary['count'] === 0)
-        <x-site.empty class="mt-3" title="No changes measured yet">Measurement started on {{ $since->format('j F Y') }}. The first figures appear here once changes are logged after that date.</x-site.empty>
+        <x-site.empty class="mt-3" title="No changes measured yet">Measurement started on {{ $since->format('j F Y') }}. The first figures appear here once a change dated after that day is logged.</x-site.empty>
         @else
         <dl class="mt-4 grid gap-3 sm:grid-cols-3">
             <div class="stat"><dt class="stat-label">Median days to log</dt><dd class="stat-value" data-freshness-median>{{ rtrim(rtrim(number_format($summary['median'], 1), '0'), '.') }}</dd><dd class="stat-note">Target: {{ $targetDays }} or fewer</dd></div>
@@ -44,7 +44,7 @@
         <ul class="mt-3 space-y-2 text-sm text-brand-body leading-7 list-disc pl-5">
             <li><strong class="text-brand-navy">Days to log</strong> runs from the date of the official text (the source document's date, or the date of the event where there is none) to the day the change first appeared on this site.</li>
             <li>A change that happened before it could be found, such as a law published without notice, counts against us all the same. The figure is not adjusted.</li>
-            <li>Measurement started on {{ $since->format('j F Y') }}. Earlier first-appearance dates come from a bulk import, so they describe the import, not the desk.</li>
+            <li>Measurement started on {{ $since->format('j F Y') }}. Only changes dated on or after that day count. Earlier first-appearance dates come from a bulk import, and an older change recorded now is research filling in the past; both describe the backlog, not the desk.</li>
             <li>The change desk looks at the official source of every binding instrument that is proposed, adopted or applying every {{ $cadence['binding'] }} days, and every other current instrument every {{ $cadence['other'] }} days. Each record shows when its source was last checked and what was found.</li>
         </ul>
         <p class="mt-4 text-sm"><a href="{{ route('methodology') }}">Methodology</a> · <a href="{{ route('changes.index') }}">Change log</a> · <a href="{{ route('corrections') }}">Corrections</a></p>

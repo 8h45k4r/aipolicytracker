@@ -4,7 +4,7 @@
 
 | Area | Used by the public site? | Decision |
 |------|--------------------------|----------|
-| Legacy map dashboard (`/map`), news (`/news`), timeline, bookmarks, single-policy view, GovAI assessment (Inertia/React; tables `ai_policy_trackers`, `news`, `countries`, `book_marks`) | **No.** Zero links from the Blade site or its components; no `Site` controller or service reads these models. Reachable only by direct URL, served `noindex`. | Disabled behind `LEGACY_MAP_ENABLED` (default off). Old URLs 301 to the equivalent new pages. Code and tables retained so the map can be re-enabled. |
+| Legacy map dashboard (`/map`), news (`/news`), timeline, bookmarks, single-policy view, GovAI assessment (Inertia/React; tables `ai_policy_trackers`, `news`, `countries`, `book_marks`) | **No.** Zero links from the Blade site or its components; no `Site` controller or service reads these models. Reachable only by direct URL, served `noindex`. | Superseded: the legacy code was removed (technical-debt #17), so the `LEGACY_MAP_ENABLED` flag no longer exists. Old URLs 301 to the equivalent new pages. |
 | Legacy admin CRUD (map policies, news, countries, accounts, logos) | Only feeds the legacy pages above. | Disabled with the same flag; hidden from the admin navigation. |
 | Review queue (`/backend/review`) | Yes: controls `published_at` of imported records and records submission decisions. | Kept; moved into the shared admin layout; jurisdictions publish table added. |
 | Submissions, subscribers, external data, settings | Yes (new in #33). | Kept. |

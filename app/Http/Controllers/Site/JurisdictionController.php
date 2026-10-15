@@ -73,7 +73,7 @@ class JurisdictionController extends Controller
         // were easy to miss from the country page.
         $subnational = $jurisdiction->children->isEmpty() ? collect() : PolicyInstrument::published()
             ->whereIn('jurisdiction_id', $jurisdiction->children->pluck('id'))->with('jurisdiction')
-            ->orderByDesc('is_binding')->orderByDesc('adopted_on')->orderBy('title')->get();
+            ->orderByDesc('is_binding')->orderByRaw('CASE WHEN adopted_on IS NULL THEN 1 ELSE 0 END')->orderByDesc('adopted_on')->orderBy('title')->get();
         $region = HubCatalog::regionSlugFor($jurisdiction->region);
         $changes = ChangeEvent::published()->where('jurisdiction_id', $jurisdiction->id)->with('policyInstrument')->orderByDesc('occurred_on')->limit(8)->get();
         $deadlines = $catalog->upcomingDeadlines(8, $jurisdiction->id);

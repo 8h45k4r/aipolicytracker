@@ -33,6 +33,9 @@ class SyncAiidApiCommand extends Command
     /** Where a capped incremental run left off (see handle()). */
     private const CURSOR_KEY = 'aiid.sync.cursor';
 
+    /** Rows to skip at the start of a window resumed from the cursor. */
+    private int $cursorOffset = 0;
+
     protected $signature = 'external:sync-aiid-api
         {--since= : Only records modified after this date or time (ISO 8601)}
         {--full : Walk every incident instead of the modified-since window}
@@ -58,7 +61,8 @@ class SyncAiidApiCommand extends Command
         $this->line($since ? "Fetching incidents modified after {$since}…" : 'Fetching every incident…');
 
         $incidents = [];
-        $skip = 0;
+        // Rows at the start of the window that the last capped run already took.
+        $skip = $this->cursorOffset;
         try {
             do {
                 $page = $api->incidents(self::PAGE, $skip, $since);
@@ -74,9 +78,18 @@ class SyncAiidApiCommand extends Command
             // which after a burst of more than one cap of edits in a day would fetch the
             // same rows again and never move on.
             // Applied only after the rows are written, so a failed write is fetched again.
+            // The window restarts a second before the newest change taken, and skips the rows
+            // already taken inside that second, so even a bulk edit that gives more than one
+            // cap of incidents the same timestamp is walked through, not fetched again forever.
             $capped = count($page) === self::PAGE && count($incidents) >= $max;
             $newest = collect($incidents)->pluck('date_modified')->filter()->max();
-            $nextCursor = $since !== null && $capped && $newest ? Carbon::parse($newest)->toIso8601ZuluString() : null;
+            $nextCursor = null;
+            if ($since !== null && $capped && $newest) {
+                $after = Carbon::parse($newest)->subSecond()->toIso8601ZuluString();
+                $taken = collect($incidents)->filter(fn ($r) => ! empty($r['date_modified']) && Carbon::parse($r['date_modified'])->gt(Carbon::parse($after)))->count();
+                // Still inside the same second: the rows skipped this run were taken before.
+                $nextCursor = ['after' => $after, 'offset' => $taken + ($after === $since ? $this->cursorOffset : 0)];
+            }
             $classifications = $incidents ? $api->classifications(array_keys($incidents)) : [];
         } catch (AiidLoginRequired $e) {
             // Not an outage and nothing this server can fix by retrying: say so once per run,
@@ -215,8 +228,10 @@ class SyncAiidApiCommand extends Command
         if ($this->option('since')) {
             return Carbon::parse($this->option('since'))->toIso8601ZuluString();
         }
-        if (! $this->option('no-db') && ($cursor = Cache::get(self::CURSOR_KEY))) {
-            return Carbon::parse($cursor)->subSecond()->toIso8601ZuluString();
+        if (! $this->option('no-db') && is_array($cursor = Cache::get(self::CURSOR_KEY)) && isset($cursor['after'])) {
+            $this->cursorOffset = (int) ($cursor['offset'] ?? 0);
+
+            return (string) $cursor['after'];
         }
         $last = $this->option('no-db') ? null : ExternalIncident::max('modified_at');
         if ($last) {

@@ -183,7 +183,7 @@ class PublicApiController extends Controller
             $page = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
                 ->when($since, fn ($q) => $q->where('occurred_on', '>=', $since))
                 ->when($jurisdiction, fn ($q) => $q->whereHas('jurisdiction', fn ($j) => $j->where('slug', $jurisdiction)))
-                ->orderByDesc('occurred_on')->paginate(50)->appends(self::linkParams(['since' => $since, 'jurisdiction' => $jurisdiction]));
+                ->orderByDesc('occurred_on')->orderBy('id')->paginate(50)->appends(self::linkParams(['since' => $since, 'jurisdiction' => $jurisdiction]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($c) => $this->serializer->change($c))->all(),
@@ -284,7 +284,7 @@ class PublicApiController extends Controller
             $page = Deadline::with(['policyInstrument.jurisdiction', 'obligation'])
                 ->whereHas('policyInstrument', fn ($q) => $q->published())
                 ->when($from, fn ($q) => $q->where('due_on', '>=', $from))
-                ->orderByRaw('due_on is null, due_on')->paginate(100)->appends(self::linkParams(['from' => $from]));
+                ->orderByRaw('due_on is null, due_on')->orderBy('id')->paginate(100)->appends(self::linkParams(['from' => $from]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($d) => [

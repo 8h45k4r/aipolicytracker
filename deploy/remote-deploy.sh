@@ -29,7 +29,7 @@ REPO="${AIP_REPO:-/opt/aip/repo}"
 LOCK="${AIP_LOCK:-/run/lock/aip-deploy.lock}"
 LOG="${AIP_LOG:-/var/log/aip-deploy.log}"
 HEALTH="http://127.0.0.1:${AIP_PORT:-8080}"
-HEALTH_WAIT="${AIP_HEALTH_WAIT:-360}"   # half-seconds: three minutes, the entrypoint migrates and imports first
+HEALTH_WAIT="${AIP_HEALTH_WAIT:-360}"   # half-seconds: three minutes, the entrypoint migrates and caches first (imports run in the background)
 PROBE_PATHS="/ /policies /obligations /api/v1/ /llms.txt"
 
 die() { echo "aip-deploy: $*" >&2; exit 1; }

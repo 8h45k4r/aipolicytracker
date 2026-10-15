@@ -20,6 +20,7 @@ class PolicyExamplesController extends Controller
     {
         $policies = PolicyInstrument::published()->with('jurisdiction')
             ->whereIn('instrument_type', ['strategy', 'policy'])
+            ->orderByRaw('CASE WHEN COALESCE(adopted_on, published_on, in_force_on) IS NULL THEN 1 ELSE 0 END')
             ->orderByRaw('COALESCE(adopted_on, published_on, in_force_on) DESC')
             ->get();
         $byRegion = $policies->groupBy(fn ($p) => $p->jurisdiction?->region ?: 'International')->sortKeys();

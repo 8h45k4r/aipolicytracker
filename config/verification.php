@@ -58,7 +58,14 @@ return [
     // review, and the repealed SB 24-205 and its ten duties left the critical rules (an
     // instrument no longer in force is history, not a compliance position). The corpus
     // grew by six unconfirmed critical records; nothing already confirmed regressed.
-    'critical_budget' => (int) env('VERIFICATION_CRITICAL_BUDGET', 60),
+    //
+    // 2026-10-15, raised to 98. The sub-national round (commit 34dc7fb) recorded 53
+    // instruments from search extracts of official pages that could not be opened, all
+    // pending review; the 38 of them that are binding fall under the critical rules (28
+    // in force, 10 adopted). The corpus grew by 38 unconfirmed critical records; the 60
+    // already counted are unchanged and nothing confirmed regressed. Lower it as the
+    // reviewer checklist in docs/reference/subnational-research-2026-10-15.md is worked.
+    'critical_budget' => (int) env('VERIFICATION_CRITICAL_BUDGET', 98),
 
     // Independent second checks (docs/reference/verification-policy.md). Each quarter a
     // reproducible random sample of verified policy records (`verification:sample`) is
