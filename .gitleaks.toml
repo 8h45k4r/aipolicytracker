@@ -16,4 +16,9 @@ regexes = [
   '''re_TESTKEY_1234567890''',
   # The IndexNow key the answer-engine tests configure: the sixteen hex digits in order, served back as /<key>.txt
   '''^0123456789abcdef$''',
+  # X's published OAuth 1.0a worked example ("Creating a signature" in the X developer
+  # docs), used by the posting tests to check the signer against a known answer
+  '''xvz1evFS4wEEPTGEFPHBog''',
+  '''kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg''',
+  '''370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb''',
 ]
