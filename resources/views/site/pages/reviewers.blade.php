@@ -48,7 +48,7 @@
 
                 @if(! empty($r['affiliations']))
                 <p class="mt-3 text-sm text-brand-body"><span class="text-brand-muted">Affiliations:</span>
-                    @foreach($r['affiliations'] as $a){{ $a['organisation'] }}@if(! empty($a['role'])) ({{ $a['role'] }})@endif@if(isset($a['current']) && ! $a['current']), former@endif{{ ! $loop->last ? '; ' : '' }}@endforeach
+                    @foreach($r['affiliations'] as $a){{ $a['organisation'] }}@if(! empty($a['role'])) ({{ $a['role'] }})@endif{{ isset($a['current']) && ! $a['current'] ? ', former' : '' }}{{ ! $loop->last ? '; ' : '' }}@endforeach
                 </p>
                 @endif
 

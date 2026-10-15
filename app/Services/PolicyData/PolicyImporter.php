@@ -25,7 +25,9 @@ use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
 use App\Models\TransitionIndicator;
 use App\Models\TransitionMeasure;
+use App\Services\Templates\TemplateBuilder;
 use App\Services\Transition\DisplacementPolicyIndex;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
@@ -185,12 +187,13 @@ class PolicyImporter
      *
      * @param  class-string<Model>  $model
      * @param  array<int, int>  $kept
+     * @param  (callable(Builder): mixed)|null  $scope  narrows the rows that may be unpublished
      */
-    private function unpublishMissing(string $model, array $kept): void
+    private function unpublishMissing(string $model, array $kept, ?callable $scope = null): void
     {
         if ($kept !== []) {
             $this->stats['unpublished'] = ($this->stats['unpublished'] ?? 0)
-                + $model::whereNotIn('id', $kept)->whereNotNull('published_at')->update(['published_at' => null]);
+                + $model::whereNotIn('id', $kept)->whereNotNull('published_at')->when($scope, $scope)->update(['published_at' => null]);
         }
     }
 
@@ -413,7 +416,9 @@ class PolicyImporter
                 $this->stats['changes']++;
             }
         }
-        $this->unpublishMissing(ChangeEvent::class, $kept);
+        // Template releases are change entries written by templates:build, never read
+        // from data/, so they are not "missing" from it.
+        $this->unpublishMissing(ChangeEvent::class, $kept, fn ($q) => $q->where('slug', 'not like', TemplateBuilder::CHANGE_SLUG_PREFIX.'%'));
     }
 
     private function syncTerms(PolicyInstrument|Obligation $model, array $record): void

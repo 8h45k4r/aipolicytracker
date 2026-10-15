@@ -21,7 +21,7 @@
         <p class="mt-2 meta">Invoices, payment method and cancellation are handled by our payment provider. Cancelling keeps Pro until the end of the paid period.</p>
         <p class="mt-3 text-sm"><a href="{{ route('following.index') }}">Records you follow ({{ $user->follows()->count() }})</a> · daily alerts go to {{ $user->email }} when something changes.</p>
         @else
-        <p class="mt-2 text-sm text-brand-body"><strong>Free</strong> · every record, weekly digest, applicability check and open data@if($billingEnabled), and up to {{ $user->watchLimit() }} watches with a daily alert@endif.</p>
+        <p class="mt-2 text-sm text-brand-body"><strong>Free</strong> · every record, weekly digest, applicability check and open data{{ $billingEnabled ? ', and up to '.$user->watchLimit().' watches with a daily alert' : '' }}.</p>
         <p class="mt-3 text-sm"><a href="{{ route('following.index') }}">What you watch ({{ $user->follows()->count() }}@if($billingEnabled) of {{ $user->watchLimit() }}@endif)</a></p>
         @if($billingEnabled)
         <p class="mt-2 text-sm text-brand-body">Pro adds up to 500 watches, alerts to Slack, a webhook or RSS, and saved applicability profiles that name the system a change may affect.</p>
@@ -40,7 +40,7 @@
             <dl class="mt-3 text-sm space-y-1.5 text-brand-body">
                 <div class="flex justify-between gap-2"><dt class="text-brand-muted">Email verified</dt><dd>{{ $user->email_verified_at ? $user->email_verified_at->format('j M Y') : '—' }}</dd></div>
                 <div class="flex justify-between gap-2"><dt class="text-brand-muted">Terms accepted</dt><dd>{{ $user->terms_accepted_at?->format('j M Y') ?? '—' }}</dd></div>
-                <div class="flex justify-between gap-2"><dt class="text-brand-muted">Weekly digest</dt><dd>@if($digestActive)receiving · <a href="{{ route('subscribe.show') }}">change topics</a>@elseif($user->marketing_consent_at && !$user->email_verified_at)starts once you verify your address@else not receiving @endif</dd></div>
+                <div class="flex justify-between gap-2"><dt class="text-brand-muted">Weekly digest</dt><dd>@if($digestActive)receiving · <a href="{{ route('subscribe.show') }}">change topics</a>@elseif($user->marketing_consent_at && !$user->email_verified_at)starts once you verify your address @else not receiving @endif</dd></div>
             </dl>
             @if(!$user->email_verified_at)<form method="post" action="{{ route('verification.send') }}" class="mt-3">@csrf<button type="submit" class="btn-secondary">Resend verification email</button></form>@endif
             <p class="mt-3 meta">Weekly digest subscriptions are managed from the <a href="{{ route('subscribe.show') }}">subscribe page</a> and the unsubscribe link in every email. Daily alert channels are on the <a href="{{ route('following.index') }}">alerts page</a>.</p>

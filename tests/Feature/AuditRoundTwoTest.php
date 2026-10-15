@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\PolicyData\PolicyDataValidator;
 use App\Services\PolicyData\SchemaValidator;
+use App\Services\Templates\TemplateBuilder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -45,6 +46,16 @@ class AuditRoundTwoTest extends TestCase
         $this->assertNull($change->fresh()->published_at);
         $this->assertNotNull($eu->fresh()->published_at, 'records still in data/ stay published');
         $this->assertSame(0, Obligation::where('policy_instrument_id', $orphan->id)->whereNotNull('published_at')->count());
+    }
+
+    public function test_a_template_release_entry_survives_the_import(): void
+    {
+        $release = ChangeEvent::query()->firstOrFail()->replicate(['aipt_id'])->fill(['slug' => TemplateBuilder::CHANGE_SLUG_PREFIX.'ai-register-v2', 'published_at' => now()]);
+        $release->save();
+
+        $this->artisan('policy:import')->assertSuccessful();
+
+        $this->assertNotNull($release->fresh()->published_at, 'written by templates:build, never read from data/');
     }
 
     public function test_the_validator_refuses_a_dangling_section_or_duty_reference(): void
