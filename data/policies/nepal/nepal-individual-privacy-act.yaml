@@ -1,4 +1,5 @@
 slug: nepal-individual-privacy-act
+aipt_id: AIPT-POL-0139
 jurisdiction: nepal
 title: "Individual Privacy Act, 2075 (2018) — Nepal"
 short_title: Nepal Privacy Act 2075
@@ -33,6 +34,7 @@ use_cases: [biometrics, finance_and_credit, public_services]
 related_policies: [nepal-national-ai-policy, india-dpdp-act]
 obligations:
   - slug: nepal-privacy-act-consent-and-purpose
+    aipt_id: AIPT-OBL-0052
     title: Collect and use personal information only with consent and for the stated purpose
     category: privacy_data_protection
     source_reference: "Chapter on collection and protection of personal information (reviewer to cite sections)"

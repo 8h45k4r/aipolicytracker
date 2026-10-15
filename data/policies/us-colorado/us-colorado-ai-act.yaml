@@ -1,4 +1,5 @@
 slug: us-colorado-ai-act
+aipt_id: AIPT-POL-0213
 jurisdiction: us-colorado
 title: "Colorado Senate Bill 24-205: Consumer Protections for Artificial Intelligence (Colorado AI Act)"
 short_title: Colorado AI Act
@@ -53,6 +54,7 @@ related_policies: [us-colorado-automated-decision-making-technology-act, us-nist
 related_frameworks: [nist_ai_rmf, iso_42001]
 obligations:
   - slug: us-colorado-deployer-risk-management-program
+    aipt_id: AIPT-OBL-0084
     short_title: "Deployer risk management program"
     title: Deployers must implement a risk management policy and programme
     category: risk_management
@@ -81,6 +83,7 @@ obligations:
       - { control: ai-risk-assessment, relationship: satisfies, note: "Per-system identification, documentation and mitigation of algorithmic discrimination risk.", confidence_level: high }
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "The risk-management policy, principles and personnel the statute expects.", confidence_level: medium }
   - slug: us-colorado-deployer-impact-assessment
+    aipt_id: AIPT-OBL-0085
     short_title: "Deployer impact assessment"
     title: Deployers must complete impact assessments for high-risk AI
     category: impact_assessment
@@ -109,6 +112,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: satisfies, note: "Templated assessment aligned to the statutory elements, refreshed annually and on material change.", confidence_level: high }
       - { control: post-market-monitoring-and-drift-detection, relationship: supports, note: "Post-deployment monitoring described in the assessment.", confidence_level: medium }
   - slug: us-colorado-consumer-notice-and-adverse-decision-explanation
+    aipt_id: AIPT-OBL-0086
     short_title: "Consumer notice and adverse decisions"
     title: Notify consumers and explain adverse consequential decisions
     category: transparency
@@ -136,6 +140,7 @@ obligations:
       - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Pre-decision notice with purpose, nature and contact details.", confidence_level: high }
       - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Adverse-decision reasons, data correction and appeal for human review.", confidence_level: high }
   - slug: us-colorado-developer-documentation-and-disclosure
+    aipt_id: AIPT-OBL-0087
     short_title: "Developer documentation and disclosure"
     title: Developers must document high-risk systems and disclose known risks
     category: technical_documentation
@@ -164,6 +169,7 @@ obligations:
       - { control: technical-documentation-and-model-cards, relationship: satisfies, note: "Deployer information pack and public statement derived from the documentation set.", confidence_level: high }
       - { control: training-data-provenance-and-copyright-register, relationship: supports, note: "Training-data summaries.", confidence_level: medium }
   - slug: us-colorado-ai-act-developer-reasonable-care
+    aipt_id: AIPT-OBL-0088
     short_title: "Developer duty of reasonable care"
     title: Developers must use reasonable care to avoid algorithmic discrimination
     category: risk_management
@@ -201,6 +207,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-developer-disclosure-to-attorney-general
+    aipt_id: AIPT-OBL-0089
     short_title: "Developer notice to the Attorney General"
     title: Developers must notify the Attorney General and deployers of discovered algorithmic discrimination
     category: incident_handling
@@ -238,6 +245,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-reasonable-care
+    aipt_id: AIPT-OBL-0090
     short_title: "Deployer duty of reasonable care"
     title: Deployers must use reasonable care to avoid algorithmic discrimination
     category: risk_management
@@ -275,6 +283,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-public-statement
+    aipt_id: AIPT-OBL-0091
     short_title: "Deployer public statement"
     title: Deployers must publish a statement about the high-risk AI systems they use
     category: transparency
@@ -311,6 +320,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-deployer-disclosure-to-attorney-general
+    aipt_id: AIPT-OBL-0092
     short_title: "Deployer notice to the Attorney General"
     title: Deployers must notify the Attorney General of discovered algorithmic discrimination
     category: incident_handling
@@ -345,6 +355,7 @@ obligations:
     last_checked_at: '2026-09-26'
     confidence_level: high
   - slug: us-colorado-ai-act-consumer-ai-interaction-disclosure
+    aipt_id: AIPT-OBL-0093
     short_title: "Disclosing AI interaction to consumers"
     title: Deployers and developers must disclose to consumers that they are interacting with an AI system
     category: transparency

@@ -1,5 +1,6 @@
 changes:
   - slug: 2019-10-29-qatar-national-artificial-intelligence-strategy-for-qatar-2019
+    aipt_id: AIPT-CHG-0005
     jurisdiction: qatar
     policy: qatar-national-artificial-intelligence-strategy-for-qatar-2019
     occurred_on: '2019-10-29'
@@ -26,6 +27,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2019-05-22-oecd-ai-principles
+    aipt_id: AIPT-CHG-0006
     jurisdiction: international
     policy: oecd-recommendation-on-artificial-intelligence
     occurred_on: 2019-05-22

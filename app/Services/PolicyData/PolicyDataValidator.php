@@ -61,8 +61,24 @@ class PolicyDataValidator
         // related controls resolve. Collected first so an obligation's reference to
         // one can be checked below.
         $controlSlugs = [];
+        // Permanent ids are unique across every kind of record and carry their kind's prefix.
+        $ids = [];
+        $claim = function (?string $id, string $prefix, string $file, string $path) use (&$ids, &$errors): void {
+            if ($id === null || $id === '') {
+                return; // the schema reports a missing id
+            }
+            if (! str_starts_with($id, 'AIPT-'.$prefix.'-')) {
+                $errors[$file][] = "{$path}.aipt_id: \"{$id}\" must start with AIPT-{$prefix}-";
+            }
+            if (isset($ids[$id])) {
+                $errors[$file][] = "{$path}.aipt_id: \"{$id}\" is already used in {$ids[$id]}; an id is never reused";
+            }
+            $ids[$id] = $file;
+        };
+
         $controls = $this->repository->controls();
         foreach ($controls as $file => $record) {
+            $claim($record['aipt_id'] ?? null, 'CTL', $file, '$');
             foreach ($this->schema->validate($record, 'control.schema.json') as $e) {
                 $errors[$file][] = $e;
             }
@@ -98,6 +114,10 @@ class PolicyDataValidator
         foreach ($policies as $file => $record) {
             foreach ($this->schema->validate($record, 'policy.schema.json') as $e) {
                 $errors[$file][] = $e;
+            }
+            $claim($record['aipt_id'] ?? null, 'POL', $file, '$');
+            foreach ($record['obligations'] ?? [] as $i => $obligation) {
+                $claim($obligation['aipt_id'] ?? null, 'OBL', $file, "$.obligations[{$i}]");
             }
             $slug = $record['slug'] ?? null;
             if ($slug) {
@@ -180,6 +200,7 @@ class PolicyDataValidator
                 $errors[$file][] = $e;
             }
             foreach ($contents['changes'] ?? [] as $i => $change) {
+                $claim($change['aipt_id'] ?? null, 'CHG', $file, "$.changes[{$i}]");
                 $slug = $change['slug'] ?? '';
                 if (isset($changeSlugs[$slug])) {
                     $errors[$file][] = "$.changes[{$i}]: duplicate change slug \"{$slug}\"";

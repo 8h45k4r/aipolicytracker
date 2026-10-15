@@ -39,6 +39,7 @@
             <li><strong class="text-brand-navy">Mistakes are public.</strong> Every decided correction, including the ones turned down, is on the <a href="{{ route('corrections') }}">corrections log</a>, and every verification names who did it and when.</li>
             <li><strong class="text-brand-navy">Funders are named.</strong> Anyone giving more than {{ '$'.number_format($threshold) }} in a year is listed above with the amount and purpose.</li>
         </ol>
+        <p class="mt-3 text-sm">Who checks the records, and what is not yet independent: <a href="{{ route('independence') }}">editorial independence</a>.</p>
     </section>
 
     <section class="mt-10" aria-labelledby="help-h">

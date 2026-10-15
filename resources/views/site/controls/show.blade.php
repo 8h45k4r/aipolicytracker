@@ -87,7 +87,7 @@
             </section>
             @endif
 
-            <x-site.cite :title="$control->title" :url="$control->url()" class="mt-8" />
+            <x-site.cite :record="$control" :title="$control->title" :url="$control->url()" class="mt-8" />
             <x-site.disclaimer class="mt-8" />
         </div>
 

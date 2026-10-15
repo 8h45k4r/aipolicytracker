@@ -11,6 +11,7 @@
         "allOf": [ { "$ref": "common.schema.json#/$defs/sourceQuality" } ],
         "properties": {
           "slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "aipt_id": { "$ref": "common.schema.json#/$defs/aiptId" },
           "jurisdiction": { "$ref": "common.schema.json#/$defs/slug" },
           "policy": { "anyOf": [ { "$ref": "common.schema.json#/$defs/slug" }, { "type": "null" } ] },
           "occurred_on": { "$ref": "common.schema.json#/$defs/date" },
@@ -21,7 +22,7 @@
           "status_after": { "anyOf": [ { "$ref": "common.schema.json#/$defs/policyStatus" }, { "type": "null" } ] },
           "published": { "type": "boolean" }
         },
-        "required": ["slug", "jurisdiction", "occurred_on", "title", "what_changed", "impact_level"]
+        "required": ["slug", "aipt_id", "jurisdiction", "occurred_on", "title", "what_changed", "impact_level"]
       }
     }
   },

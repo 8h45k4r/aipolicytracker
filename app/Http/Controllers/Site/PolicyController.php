@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\PolicyInstrument;
+use App\Models\RecordRevision;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\PolicyData\PolicySerializer;
+use App\Services\PolicyData\RecordStanding;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
@@ -153,7 +155,10 @@ class PolicyController extends Controller
         // offers the files that help meet it.
         $templates = TemplateCatalog::forPolicy($policy->slug)->take(6);
 
-        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls', 'answer', 'facts', 'templates'));
+        $standing = RecordStanding::forPolicy($policy);
+        $revisions = RecordRevision::for('policy', $policy->slug)->limit(10)->get();
+
+        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls', 'answer', 'facts', 'templates', 'standing', 'revisions'));
     }
 
     public function json(PolicyInstrument $policy, PolicySerializer $serializer): JsonResponse

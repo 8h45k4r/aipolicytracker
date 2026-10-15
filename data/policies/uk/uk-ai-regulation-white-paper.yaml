@@ -1,4 +1,5 @@
 slug: uk-ai-regulation-white-paper
+aipt_id: AIPT-POL-0201
 jurisdiction: uk
 title: "A pro-innovation approach to AI regulation (white paper and government response)"
 short_title: UK AI regulation framework
@@ -46,6 +47,7 @@ sections:
   - { reference: "Part 4", title: "Central functions", summary: "Monitoring, risk assessment, coordination and sandbox support from central government." }
 obligations:
   - slug: uk-principles-safety-security-robustness
+    aipt_id: AIPT-OBL-0072
     short_title: "Safety, security and robustness"
     title: Ensure AI systems are safe, secure and robust throughout their lifecycle
     category: risk_management
@@ -73,6 +75,7 @@ obligations:
       - { control: ai-risk-assessment, relationship: satisfies, note: "Lifecycle identification and management of risks.", confidence_level: medium }
       - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Security and robustness evidence to show a regulator.", confidence_level: medium }
   - slug: uk-principles-transparency-explainability
+    aipt_id: AIPT-OBL-0073
     short_title: "Transparency and explainability"
     title: Provide appropriate transparency and explainability
     category: transparency
@@ -100,6 +103,7 @@ obligations:
       - { control: decision-explanation-and-appeal-route, relationship: supports, note: "Explanations of decisions about individuals.", confidence_level: high }
       - { control: technical-documentation-and-model-cards, relationship: supports, note: "Explainability documentation.", confidence_level: medium }
   - slug: uk-principles-fairness
+    aipt_id: AIPT-OBL-0074
     short_title: "Fairness"
     title: Use AI in ways that are fair and do not discriminate unlawfully
     category: governance_accountability
@@ -126,6 +130,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: supports, note: "Identifies groups at risk of unfair treatment.", confidence_level: medium }
       - { control: data-governance-and-dataset-documentation, relationship: supports, note: "Bias checks on training data.", confidence_level: medium }
   - slug: uk-principles-accountability-governance
+    aipt_id: AIPT-OBL-0075
     short_title: "Accountability and governance"
     title: Establish accountability and governance for AI
     category: governance_accountability
@@ -152,6 +157,7 @@ obligations:
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Clear lines of accountability and a governance decision log.", confidence_level: high }
       - { control: ai-system-inventory, relationship: supports, note: "Named owner for each AI system.", confidence_level: high }
   - slug: uk-principles-contestability-redress
+    aipt_id: AIPT-OBL-0076
     short_title: "Contestability and redress"
     title: Provide routes to contest AI outcomes and seek redress
     category: human_oversight

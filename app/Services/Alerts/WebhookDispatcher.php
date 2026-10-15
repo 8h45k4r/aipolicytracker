@@ -121,8 +121,18 @@ final class WebhookDispatcher
             'event' => 'alert.daily',
             'title' => $title,
             'sent_at' => now()->toAtomString(),
-            'changes' => $digest['changes']->map(fn ($c) => ['slug' => $c->slug, 'title' => $c->title, 'occurred_on' => $c->occurred_on?->toDateString(), 'jurisdiction' => $c->jurisdiction?->name, 'policy' => $c->policyInstrument?->slug, 'impact_level' => $c->impact_level, 'what_changed' => $c->what_changed, 'official_source_url' => $c->official_source_url, 'url' => $c->url()])->values()->all(),
-            'deadlines' => $digest['deadlines']->map(fn ($d) => ['title' => $d->title, 'due_on' => $d->due_on?->toDateString(), 'jurisdiction' => $d->policyInstrument?->jurisdiction?->name, 'policy' => $d->policyInstrument?->slug, 'official_source_url' => $d->official_source_url, 'url' => $d->policyInstrument?->url()])->values()->all(),
+            // Each row carries its permanent id and its provenance (the official date, when
+            // it first appeared here, who verified it), so a receiving system can key on the
+            // id and show where the claim came from without calling back.
+            'changes' => $digest['changes']->map(fn ($c) => [
+                'id' => $c->aipt_id, 'slug' => $c->slug, 'title' => $c->title, 'occurred_on' => $c->occurred_on?->toDateString(),
+                'official_date' => $c->source_document_date?->toDateString(), 'first_published_at' => $c->first_published_at?->toAtomString(),
+                'jurisdiction' => $c->jurisdiction?->name, 'policy' => $c->policyInstrument?->slug, 'policy_id' => $c->policyInstrument?->aipt_id,
+                'impact_level' => $c->impact_level, 'what_changed' => $c->what_changed, 'official_source_url' => $c->official_source_url,
+                'review_status' => $c->review_status, 'reviewed_by' => $c->review_status === 'verified' ? $c->reviewed_by : null, 'last_verified_at' => $c->last_verified_at?->toDateString(),
+                'url' => $c->url(), 'permanent_url' => $c->aipt_id ? route('record.id', $c->aipt_id) : null,
+            ])->values()->all(),
+            'deadlines' => $digest['deadlines']->map(fn ($d) => ['title' => $d->title, 'due_on' => $d->due_on?->toDateString(), 'jurisdiction' => $d->policyInstrument?->jurisdiction?->name, 'policy' => $d->policyInstrument?->slug, 'policy_id' => $d->policyInstrument?->aipt_id, 'official_source_url' => $d->official_source_url, 'url' => $d->policyInstrument?->url()])->values()->all(),
             'note' => 'Informational only; not legal advice. Every row links to its record and official source.',
             'manage_url' => $manageUrl,
         ];

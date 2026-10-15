@@ -1,4 +1,5 @@
 slug: us-omb-m-25-21
+aipt_id: AIPT-POL-0234
 jurisdiction: us
 title: "OMB Memorandum M-25-21: Accelerating Federal Use of AI through Innovation, Governance, and Public Trust"
 short_title: OMB M-25-21
@@ -37,6 +38,7 @@ use_cases: [government_procurement, public_services]
 related_policies: [us-executive-order-14179, us-nist-ai-rmf]
 obligations:
   - slug: us-omb-m-25-21-high-impact-ai-practices
+    aipt_id: AIPT-OBL-0116
     short_title: "High-impact AI practices"
     title: Apply minimum risk-management practices to high-impact AI
     category: risk_management
@@ -64,6 +66,7 @@ obligations:
       - { control: ai-impact-assessment, relationship: supports, note: "AI impact assessment content.", confidence_level: medium }
       - { control: human-oversight-and-override, relationship: supports, note: "Human oversight and operator arrangements.", confidence_level: medium }
   - slug: us-omb-m-25-21-use-case-inventory
+    aipt_id: AIPT-OBL-0117
     short_title: "AI use-case inventory"
     title: Publish an annual AI use-case inventory
     category: transparency

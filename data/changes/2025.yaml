@@ -1,5 +1,6 @@
 changes:
   - slug: 2025-01-23-us-eo-14179
+    aipt_id: AIPT-CHG-0067
     jurisdiction: us
     policy: us-executive-order-14179
     occurred_on: 2025-01-23
@@ -23,6 +24,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2025-02-02-eu-ai-act-prohibitions-apply
+    aipt_id: AIPT-CHG-0068
     jurisdiction: eu
     policy: eu-ai-act
     occurred_on: 2025-02-02
@@ -47,6 +49,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2025-04-03-us-omb-ai-memoranda
+    aipt_id: AIPT-CHG-0069
     jurisdiction: us
     policy: us-omb-m-25-21
     occurred_on: 2025-04-03
@@ -70,6 +73,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-07-10-eu-gpai-code-of-practice
+    aipt_id: AIPT-CHG-0070
     jurisdiction: eu
     policy: eu-ai-act
     occurred_on: 2025-07-10
@@ -93,6 +97,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2025-07-23-us-ai-action-plan
+    aipt_id: AIPT-CHG-0071
     jurisdiction: us
     policy: us-executive-order-14179
     occurred_on: 2025-07-23
@@ -116,6 +121,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-08-02-eu-gpai-obligations-apply
+    aipt_id: AIPT-CHG-0072
     jurisdiction: eu
     policy: eu-ai-act
     occurred_on: 2025-08-02
@@ -139,6 +145,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2025-08-nepal-national-ai-policy-approved
+    aipt_id: AIPT-CHG-0073
     jurisdiction: nepal
     policy: nepal-national-ai-policy
     occurred_on: 2025-08-01
@@ -163,6 +170,7 @@ changes:
     content_version: 1
     change_summary: Month-level date; reviewer to confirm.
   - slug: 2025-08-28-colorado-ai-act-delayed
+    aipt_id: AIPT-CHG-0074
     jurisdiction: us-colorado
     policy: us-colorado-ai-act
     occurred_on: 2025-08-28
@@ -186,6 +194,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-09-29-california-sb-53-signed
+    aipt_id: AIPT-CHG-0075
     jurisdiction: us-california
     policy: us-california-sb-53
     occurred_on: 2025-09-29
@@ -209,6 +218,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-11-05-india-ai-governance-guidelines
+    aipt_id: AIPT-CHG-0076
     jurisdiction: india
     policy: india-ai-governance-guidelines
     occurred_on: 2025-11-05
@@ -232,6 +242,7 @@ changes:
     confidence_level: low
     content_version: 1
   - slug: 2025-11-13-india-dpdp-rules-notified
+    aipt_id: AIPT-CHG-0077
     jurisdiction: india
     policy: india-dpdp-act
     occurred_on: 2025-11-13
@@ -255,6 +266,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-11-19-eu-digital-omnibus-proposal
+    aipt_id: AIPT-CHG-0078
     jurisdiction: eu
     policy: eu-ai-act
     occurred_on: 2025-11-19
@@ -280,6 +292,7 @@ changes:
     content_version: 1
     change_summary: Reviewer to link the proposal document and confirm adoption status.
   - slug: 2025-12-02-australia-national-ai-plan
+    aipt_id: AIPT-CHG-0079
     jurisdiction: australia
     policy: australia-mandatory-guardrails-proposal
     occurred_on: 2025-12-02
@@ -305,6 +318,7 @@ changes:
     content_version: 1
     change_summary: Date and document link to be confirmed by reviewer.
   - slug: 2025-05-20-bahrain-general-policy-for-the-use-of-artificial-intelligence
+    aipt_id: AIPT-CHG-0080
     jurisdiction: bahrain
     policy: bahrain-general-policy-for-the-use-of-artificial-intelligence
     occurred_on: '2025-05-20'
@@ -330,6 +344,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-07-27-bahrain-general-policy-for-the-use-of-artificial-intelligence
+    aipt_id: AIPT-CHG-0081
     jurisdiction: bahrain
     policy: bahrain-general-policy-for-the-use-of-artificial-intelligence
     occurred_on: '2025-07-27'
@@ -358,6 +373,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-10-01-bhutan-bhutan-national-ai-strategy-2025
+    aipt_id: AIPT-CHG-0082
     jurisdiction: bhutan
     policy: bhutan-bhutan-national-ai-strategy-2025
     occurred_on: '2025-10-01'
@@ -382,6 +398,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-03-17-brazil-projeto-de-lei-no-2338-2023
+    aipt_id: AIPT-CHG-0083
     jurisdiction: brazil
     policy: brazil-projeto-de-lei-no-2338-2023
     occurred_on: '2025-03-17'
@@ -407,6 +424,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-04-01-chile-politica-nacional-de-inteligencia-artificial
+    aipt_id: AIPT-CHG-0084
     jurisdiction: chile
     policy: chile-politica-nacional-de-inteligencia-artificial
     occurred_on: '2025-04-01'
@@ -436,6 +454,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-10-24-chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-boletin-16821-19
+    aipt_id: AIPT-CHG-0085
     jurisdiction: chile
     policy: chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-boletin-16821-19
     occurred_on: '2025-10-24'
@@ -463,6 +482,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-03-14-china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+    aipt_id: AIPT-CHG-0086
     jurisdiction: china
     policy: china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
     occurred_on: '2025-03-14'
@@ -488,6 +508,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-09-01-china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+    aipt_id: AIPT-CHG-0087
     jurisdiction: china
     policy: china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
     occurred_on: '2025-09-01'
@@ -513,6 +534,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-08-26-china-opinions-of-the-state-council-on-deepening-the-implementation-of-the-ai-plus-action
+    aipt_id: AIPT-CHG-0088
     jurisdiction: china
     policy: china-opinions-of-the-state-council-on-deepening-the-implementation-of-the-ai-plus-action
     occurred_on: '2025-08-26'
@@ -538,6 +560,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-02-14-colombia-documento-conpes-4144
+    aipt_id: AIPT-CHG-0089
     jurisdiction: colombia
     policy: colombia-documento-conpes-4144
     occurred_on: '2025-02-14'
@@ -563,6 +586,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-01-01-egypt-national-ai-strategy
+    aipt_id: AIPT-CHG-0090
     jurisdiction: egypt
     policy: egypt-national-ai-strategy
     occurred_on: '2025-01-01'
@@ -588,6 +612,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-10-08-eu-apply-ai-strategy
+    aipt_id: AIPT-CHG-0091
     jurisdiction: eu
     policy: eu-apply-ai-strategy
     occurred_on: '2025-10-08'
@@ -613,6 +638,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-05-02-ghana-ghana-national-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0092
     jurisdiction: ghana
     policy: ghana-ghana-national-artificial-intelligence-strategy
     occurred_on: '2025-05-02'
@@ -639,6 +665,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-11-05-india-indiaai-mission
+    aipt_id: AIPT-CHG-0093
     jurisdiction: india
     policy: india-indiaai-mission
     occurred_on: '2025-11-05'
@@ -664,6 +691,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-06-04-japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-techn
+    aipt_id: AIPT-CHG-0094
     jurisdiction: japan
     policy: >-
       japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-technolo
@@ -691,6 +719,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-09-01-japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-techn
+    aipt_id: AIPT-CHG-0095
     jurisdiction: japan
     policy: >-
       japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-technolo
@@ -719,6 +748,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-12-23-japan-artificial-intelligence-basic-plan
+    aipt_id: AIPT-CHG-0096
     jurisdiction: japan
     policy: japan-artificial-intelligence-basic-plan
     occurred_on: '2025-12-23'
@@ -743,6 +773,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-01-14-kenya-kenya-artificial-intelligence-strategy-2025-2030
+    aipt_id: AIPT-CHG-0097
     jurisdiction: kenya
     policy: kenya-kenya-artificial-intelligence-strategy-2025-2030
     occurred_on: '2025-01-14'
@@ -768,6 +799,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-03-27-kenya-kenya-artificial-intelligence-strategy-2025-2030
+    aipt_id: AIPT-CHG-0098
     jurisdiction: kenya
     policy: kenya-kenya-artificial-intelligence-strategy-2025-2030
     occurred_on: '2025-03-27'
@@ -793,6 +825,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-04-30-mexico-iniciativa-con-proyecto-de-decreto-por-el-que-se-expide-la-ley-federal-para-el-desarrollo-etico-sobe
+    aipt_id: AIPT-CHG-0099
     jurisdiction: mexico
     policy: >-
       mexico-iniciativa-con-proyecto-de-decreto-por-el-que-se-expide-la-ley-federal-para-el-desarrollo-etico-soberan
@@ -819,6 +852,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-08-14-pakistan-national-artificial-intelligence-policy-2025
+    aipt_id: AIPT-CHG-0100
     jurisdiction: pakistan
     policy: pakistan-national-artificial-intelligence-policy-2025
     occurred_on: '2025-08-14'
@@ -843,6 +877,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-09-09-peru-ley-n-31814
+    aipt_id: AIPT-CHG-0101
     jurisdiction: peru
     policy: peru-ley-n-31814
     occurred_on: '2025-09-09'
@@ -867,6 +902,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-09-09-peru-decreto-supremo-n-115-2025-pcm
+    aipt_id: AIPT-CHG-0102
     jurisdiction: peru
     policy: peru-decreto-supremo-n-115-2025-pcm
     occurred_on: '2025-09-09'
@@ -891,6 +927,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-04-30-philippines-national-ai-strategy-roadmap-2-0
+    aipt_id: AIPT-CHG-0103
     jurisdiction: philippines
     policy: philippines-national-ai-strategy-roadmap-2-0
     occurred_on: '2025-04-30'
@@ -917,6 +954,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-04-30-philippines-national-ai-strategy-for-the-philippines
+    aipt_id: AIPT-CHG-0104
     jurisdiction: philippines
     policy: philippines-national-ai-strategy-for-the-philippines
     occurred_on: '2025-04-30'
@@ -942,6 +980,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-05-01-saudi-arabia-ai-ethics-principles
+    aipt_id: AIPT-CHG-0105
     jurisdiction: saudi-arabia
     policy: saudi-arabia-ai-ethics-principles
     occurred_on: '2025-05-01'
@@ -967,6 +1006,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-01-21-south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-f
+    aipt_id: AIPT-CHG-0106
     jurisdiction: south-korea
     policy: >-
       south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
@@ -993,6 +1033,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-06-11-thailand-draft-principles-of-the-law-on-artificial-intelligence
+    aipt_id: AIPT-CHG-0107
     jurisdiction: thailand
     policy: thailand-draft-principles-of-the-law-on-artificial-intelligence
     occurred_on: '2025-06-11'
@@ -1018,6 +1059,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-01-13-uk-ai-opportunities-action-plan
+    aipt_id: AIPT-CHG-0108
     jurisdiction: uk
     policy: uk-ai-opportunities-action-plan
     occurred_on: '2025-01-13'
@@ -1043,6 +1085,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-02-10-uk-artificial-intelligence-playbook-for-the-uk-government
+    aipt_id: AIPT-CHG-0109
     jurisdiction: uk
     policy: uk-artificial-intelligence-playbook-for-the-uk-government
     occurred_on: '2025-02-10'
@@ -1068,6 +1111,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-01-23-us-winning-the-race-america-s-ai-action-plan
+    aipt_id: AIPT-CHG-0110
     jurisdiction: us
     policy: us-winning-the-race-america-s-ai-action-plan
     occurred_on: '2025-01-23'
@@ -1093,6 +1137,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-07-23-us-winning-the-race-america-s-ai-action-plan
+    aipt_id: AIPT-CHG-0111
     jurisdiction: us
     policy: us-winning-the-race-america-s-ai-action-plan
     occurred_on: '2025-07-23'
@@ -1118,6 +1163,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2025-12-10-vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
+    aipt_id: AIPT-CHG-0112
     jurisdiction: vietnam
     policy: >-
       vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
@@ -1144,6 +1190,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-12-10-vietnam-law-on-artificial-intelligence
+    aipt_id: AIPT-CHG-0113
     jurisdiction: vietnam
     policy: vietnam-law-on-artificial-intelligence
     occurred_on: '2025-12-10'
@@ -1168,6 +1215,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2025-02-12-switzerland-ai-regulatory-approach
+    aipt_id: AIPT-CHG-0114
     jurisdiction: switzerland
     policy: switzerland-federal-council-ai-regulatory-approach-2025
     occurred_on: 2025-02-12
@@ -1190,6 +1238,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2025-03-11-spain-ai-governance-bill
+    aipt_id: AIPT-CHG-0115
     jurisdiction: spain
     policy: spain-draft-law-on-good-use-and-governance-of-ai
     occurred_on: 2025-03-11
@@ -1212,6 +1261,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-06-22-texas-traiga-signed
+    aipt_id: AIPT-CHG-0116
     jurisdiction: us-texas
     policy: us-texas-responsible-ai-governance-act-traiga
     occurred_on: 2025-06-22
@@ -1234,6 +1284,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2025-07-08-new-zealand-ai-strategy
+    aipt_id: AIPT-CHG-0117
     jurisdiction: new-zealand
     policy: new-zealand-ai-strategy-2025
     occurred_on: 2025-07-08
@@ -1256,6 +1307,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-09-25-italy-ai-law-published
+    aipt_id: AIPT-CHG-0118
     jurisdiction: italy
     policy: italy-law-132-2025-ai
     occurred_on: 2025-09-25
@@ -1278,6 +1330,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2025-11-17-kazakhstan-ai-law-signed
+    aipt_id: AIPT-CHG-0119
     jurisdiction: kazakhstan
     policy: kazakhstan-law-on-artificial-intelligence-2025
     occurred_on: 2025-11-17
@@ -1300,6 +1353,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2025-12-19-new-york-raise-act-signed
+    aipt_id: AIPT-CHG-0120
     jurisdiction: us-new-york
     policy: us-new-york-raise-act
     occurred_on: 2025-12-19

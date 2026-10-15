@@ -1,5 +1,6 @@
 changes:
   - slug: 2026-01-01-california-sb-53-operative
+    aipt_id: AIPT-CHG-0121
     jurisdiction: us-california
     policy: us-california-sb-53
     occurred_on: 2026-01-01
@@ -23,6 +24,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-01-25-bangladesh-national-artificial-intelligence-policy-2026-2030
+    aipt_id: AIPT-CHG-0122
     jurisdiction: bangladesh
     policy: bangladesh-national-artificial-intelligence-policy-2026-2030
     occurred_on: '2026-01-25'
@@ -47,6 +49,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-02-09-bangladesh-national-artificial-intelligence-policy-2026-2030
+    aipt_id: AIPT-CHG-0123
     jurisdiction: bangladesh
     policy: bangladesh-national-artificial-intelligence-policy-2026-2030
     occurred_on: '2026-02-09'
@@ -71,6 +74,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-01-01-egypt-national-ai-strategy
+    aipt_id: AIPT-CHG-0124
     jurisdiction: egypt
     policy: egypt-national-ai-strategy
     occurred_on: '2026-01-01'
@@ -95,6 +99,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-04-24-ghana-ghana-national-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0125
     jurisdiction: ghana
     policy: ghana-ghana-national-artificial-intelligence-strategy
     occurred_on: '2026-04-24'
@@ -121,6 +126,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2026-02-11-indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+    aipt_id: AIPT-CHG-0126
     jurisdiction: indonesia
     policy: >-
       indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
@@ -148,6 +154,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2026-05-05-indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+    aipt_id: AIPT-CHG-0127
     jurisdiction: indonesia
     policy: >-
       indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
@@ -176,6 +183,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-03-31-japan-ai-guidelines-for-business
+    aipt_id: AIPT-CHG-0128
     jurisdiction: japan
     policy: japan-ai-guidelines-for-business
     occurred_on: '2026-03-31'
@@ -200,6 +208,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-07-14-japan-artificial-intelligence-basic-plan
+    aipt_id: AIPT-CHG-0129
     jurisdiction: japan
     policy: japan-artificial-intelligence-basic-plan
     occurred_on: '2026-07-14'
@@ -224,6 +233,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-07-10-malaysia-artificial-intelligence
+    aipt_id: AIPT-CHG-0130
     jurisdiction: malaysia
     policy: malaysia-artificial-intelligence
     occurred_on: '2026-07-10'
@@ -250,6 +260,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-04-01-mexico-plan-nacional-de-inteligencia-artificial
+    aipt_id: AIPT-CHG-0131
     jurisdiction: mexico
     policy: mexico-plan-nacional-de-inteligencia-artificial
     occurred_on: '2026-04-01'
@@ -274,6 +285,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-05-20-singapore-national-artificial-intelligence-strategy-2-0
+    aipt_id: AIPT-CHG-0132
     jurisdiction: singapore
     policy: singapore-national-artificial-intelligence-strategy-2-0
     occurred_on: '2026-05-20'
@@ -300,6 +312,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-04-26-south-africa-draft-south-africa-national-artificial-intelligence
+    aipt_id: AIPT-CHG-0133
     jurisdiction: south-africa
     policy: south-africa-draft-south-africa-national-artificial-intelligence
     occurred_on: '2026-04-26'
@@ -325,6 +338,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-06-12-south-africa-draft-south-africa-national-artificial-intelligence
+    aipt_id: AIPT-CHG-0134
     jurisdiction: south-africa
     policy: south-africa-draft-south-africa-national-artificial-intelligence
     occurred_on: '2026-06-12'
@@ -351,6 +365,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2026-01-22-south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-f
+    aipt_id: AIPT-CHG-0135
     jurisdiction: south-korea
     policy: >-
       south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
@@ -377,6 +392,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-03-01-vietnam-law-on-artificial-intelligence
+    aipt_id: AIPT-CHG-0136
     jurisdiction: vietnam
     policy: vietnam-law-on-artificial-intelligence
     occurred_on: '2026-03-01'
@@ -401,6 +417,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2026-01-01-texas-traiga-effective
+    aipt_id: AIPT-CHG-0137
     jurisdiction: us-texas
     policy: us-texas-responsible-ai-governance-act-traiga
     occurred_on: 2026-01-01
@@ -423,6 +440,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2026-01-01-illinois-hb-3773-effective
+    aipt_id: AIPT-CHG-0138
     jurisdiction: us-illinois
     policy: us-illinois-hb-3773-ai-in-employment
     occurred_on: 2026-01-01
@@ -445,6 +463,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2026-01-01-ontario-job-posting-ai-disclosure
+    aipt_id: AIPT-CHG-0139
     jurisdiction: ca-ontario
     policy: ca-ontario-working-for-workers-four-act-ai-in-job-postings
     occurred_on: 2026-01-01
@@ -467,6 +486,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2026-05-14-colorado-sb26-189-repeals-and-replaces-ai-act
+    aipt_id: AIPT-CHG-0140
     jurisdiction: us-colorado
     policy: us-colorado-automated-decision-making-technology-act
     occurred_on: 2026-05-14
@@ -491,6 +511,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-06-18-us-american-ai-sovereign-wealth-fund-act-introduced
+    aipt_id: AIPT-CHG-0141
     jurisdiction: us
     policy: null
     occurred_on: 2026-06-18
@@ -513,6 +534,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-07-27-eu-digital-omnibus-on-ai-in-force-high-risk-dates-move
+    aipt_id: AIPT-CHG-0142
     jurisdiction: eu
     policy: eu-ai-act
     occurred_on: 2026-07-27
@@ -537,6 +559,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-08-02-eu-ai-act-general-application-and-article-50-transparency-begin
+    aipt_id: AIPT-CHG-0143
     jurisdiction: eu
     policy: eu-ai-act
     occurred_on: 2026-08-02
@@ -558,6 +581,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-08-06-us-house-ai-tax-and-work-protection-act-introduced
+    aipt_id: AIPT-CHG-0144
     jurisdiction: us
     policy: null
     occurred_on: 2026-08-06
@@ -580,6 +604,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-09-09-california-sb-813-ab-1405-ai-audit-framework
+    aipt_id: AIPT-CHG-0145
     jurisdiction: us-california
     policy: null
     occurred_on: 2026-09-09
@@ -603,6 +628,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-09-10-california-companion-chatbot-child-safety-laws
+    aipt_id: AIPT-CHG-0146
     jurisdiction: us-california
     policy: null
     occurred_on: 2026-09-10
@@ -626,6 +652,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-09-16-california-sb-1050-synthetic-performer-ad-disclosure
+    aipt_id: AIPT-CHG-0147
     jurisdiction: us-california
     policy: null
     occurred_on: 2026-09-16
@@ -648,6 +675,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-09-18-california-executive-order-ai-oversight-kill-switch
+    aipt_id: AIPT-CHG-0148
     jurisdiction: us-california
     policy: null
     occurred_on: 2026-09-18
@@ -671,6 +699,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-03-27-new-york-raise-act-chapter-amendment
+    aipt_id: AIPT-CHG-0149
     jurisdiction: us-new-york
     policy: us-new-york-raise-act
     occurred_on: 2026-03-27
@@ -692,6 +721,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-05-27-connecticut-sb-5-online-safety-signed
+    aipt_id: AIPT-CHG-0150
     jurisdiction: us-connecticut
     policy: us-connecticut-sb-5-online-safety
     occurred_on: 2026-05-27
@@ -713,6 +743,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-07-06-illinois-ai-safety-measures-act-enacted
+    aipt_id: AIPT-CHG-0151
     jurisdiction: us-illinois
     policy: us-illinois-ai-safety-measures-act
     occurred_on: 2026-07-06
@@ -734,6 +765,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-09-10-california-sb-1119-chatbot-child-safety-signed
+    aipt_id: AIPT-CHG-0152
     jurisdiction: us-california
     policy: us-california-sb-1119-companion-chatbots-child-safety
     occurred_on: 2026-09-10

@@ -8,6 +8,11 @@
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
       "maxLength": 120
     },
+    "aiptId": {
+      "type": "string",
+      "pattern": "^AIPT-(POL|OBL|CHG|CTL)-[0-9]{4,}$",
+      "description": "Permanent record identifier. Assigned once, never changed or reused, and kept when a slug is renamed."
+    },
     "url": {
       "type": "string",
       "format": "uri",

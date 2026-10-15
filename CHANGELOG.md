@@ -5,6 +5,14 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Permanent record ids (AIPT-POL-0073, AIPT-OBL-0004, AIPT-CHG-0121, AIPT-CTL-0001) on every policy, duty, change and control: never changed or reused, resolved at `/id/{id}` wherever the record lives, and carried by the API, alert webhooks, context files and the MCP server (`resolve_record_id`). Citations name the id, the record version, the reviewer and the date.
+- Record history: each import records which tracked fields of a record changed, from what to what, and the record pages show it. A one-line standing on policy and duty pages says whether the record is still good: no longer in force, a date moved, changed recently, or no change since the last source check.
+- Change desk (Admin → Content): official sources due a look on a cadence, most watched first, with one-line check logging, and "Deepen next" for watched instruments with few duties. `/freshness` publishes the target (3 days from an official text to its entry here) and measures it month by month.
+- `/independence`: who verifies the records, the Certifyi relationship and its rules, how to check a record yourself, and what is not yet independent.
+- Reliance measure: alert links carry `src=alert`, and the admin dashboard shows accounts that acted on an alert in each of the last four weeks.
+- `deploy/backup.sh`: nightly checked database dumps, copied off the host with rclone, rotated after 14 days, with `--verify-latest` to rehearse a restore.
+
+### Added
 - Sub-national AI laws and policies: 53 records across 37 new states, provinces, regions and cities (pending review), including the Illinois AI Safety Measures Act (SB 315), California's training-data, AI transparency, companion-chatbot and CPPA automated decision-making rules, Connecticut SB 5, Washington's companion-chatbot law, Executive Order 14365 on state AI laws, Galicia's and Calabria's regional AI laws, Shanghai's and Shenzhen's AI regulations, NSW's AI policy, assessment framework and digital work systems act, and the Australian state, Indian state, Scottish, Welsh, Canadian provincial, Brazilian state and UAE emirate instruments. See `docs/reference/subnational-research-2026-10-15.md`.
 - Country pages list their states' and provinces' AI laws in the body, not only by name in the sidebar.
 - Singapore's agentic AI testing: the Starter Kit for Testing Agentic Systems for Safety and Reliability (launched 14 October 2026), the Model AI Governance Framework for Agentic AI, the LLM application testing starter kit and the AI Tester Accreditation Programme (pending review). See `docs/reference/singapore-agentic-testing-2026-10-15.md`.

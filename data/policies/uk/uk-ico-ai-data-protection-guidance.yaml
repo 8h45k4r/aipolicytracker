@@ -1,4 +1,5 @@
 slug: uk-ico-ai-data-protection-guidance
+aipt_id: AIPT-POL-0203
 jurisdiction: uk
 title: "ICO Guidance on AI and data protection"
 short_title: ICO AI guidance
@@ -34,6 +35,7 @@ use_cases: [hiring_and_hr, finance_and_credit, generative_ai, public_services]
 related_policies: [uk-ai-regulation-white-paper, eu-ai-act]
 obligations:
   - slug: uk-ico-dpia-for-ai
+    aipt_id: AIPT-OBL-0077
     short_title: "Data protection impact assessment for AI"
     title: Carry out a data protection impact assessment for high-risk AI processing
     category: impact_assessment
@@ -60,6 +62,7 @@ obligations:
       - { control: privacy-and-data-protection-for-ai, relationship: satisfies, note: "DPIA with AI-specific sections before processing starts.", confidence_level: high }
       - { control: ai-impact-assessment, relationship: supports, note: "Bias, explainability and oversight analysis reused in the DPIA.", confidence_level: medium }
   - slug: uk-ico-automated-decision-safeguards
+    aipt_id: AIPT-OBL-0078
     short_title: "Automated decision safeguards"
     title: Apply safeguards to solely automated decisions with significant effects
     category: human_oversight

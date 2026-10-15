@@ -1,4 +1,5 @@
 slug: uae-personal-data-protection-law
+aipt_id: AIPT-POL-0192
 jurisdiction: uae
 title: "Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data (UAE PDPL)"
 short_title: UAE PDPL
@@ -37,6 +38,7 @@ use_cases: [finance_and_credit, hiring_and_hr, generative_ai]
 related_policies: [uae-national-ai-strategy-2031, india-dpdp-act]
 obligations:
   - slug: uae-pdpl-automated-decision-objection
+    aipt_id: AIPT-OBL-0070
     short_title: "Objecting to automated decisions"
     title: Respect the right to object to automated decision-making without human intervention
     category: human_oversight
@@ -61,6 +63,7 @@ obligations:
       - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Provides the human-review route for solely automated decisions.", confidence_level: high }
       - { control: human-oversight-and-override, relationship: supports, note: "Design of the human intervention step.", confidence_level: medium }
   - slug: uae-pdpl-impact-assessment-new-technologies
+    aipt_id: AIPT-OBL-0071
     short_title: "Data protection impact assessment"
     title: Conduct a data protection impact assessment for high-risk processing using new technologies
     category: impact_assessment

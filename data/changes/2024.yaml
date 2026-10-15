@@ -1,5 +1,6 @@
 changes:
   - slug: 2024-05-17-colorado-ai-act-signed
+    aipt_id: AIPT-CHG-0034
     jurisdiction: us-colorado
     policy: us-colorado-ai-act
     occurred_on: 2024-05-17
@@ -23,6 +24,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-05-30-singapore-genai-framework
+    aipt_id: AIPT-CHG-0035
     jurisdiction: singapore
     policy: singapore-model-ai-governance-framework
     occurred_on: 2024-05-30
@@ -46,6 +48,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-07-12-eu-ai-act-published
+    aipt_id: AIPT-CHG-0036
     jurisdiction: eu
     policy: eu-ai-act
     occurred_on: 2024-07-12
@@ -69,6 +72,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-09-05-australia-voluntary-standard-and-guardrails
+    aipt_id: AIPT-CHG-0037
     jurisdiction: australia
     policy: australia-voluntary-ai-safety-standard
     occurred_on: 2024-09-05
@@ -92,6 +96,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-06-13-african-union-continental-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0038
     jurisdiction: african-union
     policy: african-union-continental-artificial-intelligence-strategy
     occurred_on: '2024-06-13'
@@ -118,6 +123,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-08-09-african-union-continental-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0039
     jurisdiction: african-union
     policy: african-union-continental-artificial-intelligence-strategy
     occurred_on: '2024-08-09'
@@ -143,6 +149,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-09-24-argentina-decision-administrativa-899-2024
+    aipt_id: AIPT-CHG-0040
     jurisdiction: argentina
     policy: argentina-decision-administrativa-899-2024
     occurred_on: '2024-09-24'
@@ -167,6 +174,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-09-05-australia-national-ai-plan
+    aipt_id: AIPT-CHG-0041
     jurisdiction: australia
     policy: australia-national-ai-plan
     occurred_on: '2024-09-05'
@@ -196,6 +204,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-12-10-brazil-projeto-de-lei-no-2338-2023
+    aipt_id: AIPT-CHG-0042
     jurisdiction: brazil
     policy: brazil-projeto-de-lei-no-2338-2023
     occurred_on: '2024-12-10'
@@ -220,6 +229,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-07-30-brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
+    aipt_id: AIPT-CHG-0043
     jurisdiction: brazil
     policy: brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
     occurred_on: '2024-07-30'
@@ -245,6 +255,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-11-12-brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
+    aipt_id: AIPT-CHG-0044
     jurisdiction: brazil
     policy: brazil-plano-brasileiro-de-inteligencia-artificial-2024-2028
     occurred_on: '2024-11-12'
@@ -271,6 +282,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-05-02-chile-politica-nacional-de-inteligencia-artificial
+    aipt_id: AIPT-CHG-0045
     jurisdiction: chile
     policy: chile-politica-nacional-de-inteligencia-artificial
     occurred_on: '2024-05-02'
@@ -297,6 +309,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2024-05-07-chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-boletin-16821-19
+    aipt_id: AIPT-CHG-0046
     jurisdiction: chile
     policy: chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-boletin-16821-19
     occurred_on: '2024-05-07'
@@ -323,6 +336,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-03-07-india-national-strategy-for-artificial-intelligence
+    aipt_id: AIPT-CHG-0047
     jurisdiction: india
     policy: india-national-strategy-for-artificial-intelligence
     occurred_on: '2024-03-07'
@@ -348,6 +362,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-03-07-india-indiaai-mission
+    aipt_id: AIPT-CHG-0048
     jurisdiction: india
     policy: india-indiaai-mission
     occurred_on: '2024-03-07'
@@ -372,6 +387,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-04-19-japan-ai-guidelines-for-business
+    aipt_id: AIPT-CHG-0049
     jurisdiction: japan
     policy: japan-ai-guidelines-for-business
     occurred_on: '2024-04-19'
@@ -396,6 +412,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-09-01-malaysia-national-artificial-intelligence-roadmap-2021-2025
+    aipt_id: AIPT-CHG-0050
     jurisdiction: malaysia
     policy: malaysia-national-artificial-intelligence-roadmap-2021-2025
     occurred_on: '2024-09-01'
@@ -421,6 +438,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-09-01-malaysia-the-national-guidelines-on-ai-governance-ethics
+    aipt_id: AIPT-CHG-0051
     jurisdiction: malaysia
     policy: malaysia-the-national-guidelines-on-ai-governance-ethics
     occurred_on: '2024-09-01'
@@ -446,6 +464,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-07-05-nepal-concept-paper-on-the-use-and-practice-of-artificial-intelligence-in-nepal
+    aipt_id: AIPT-CHG-0052
     jurisdiction: nepal
     policy: nepal-concept-paper-on-the-use-and-practice-of-artificial-intelligence-in-nepal
     occurred_on: '2024-07-05'
@@ -471,6 +490,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-08-01-nigeria-national-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0053
     jurisdiction: nigeria
     policy: nigeria-national-artificial-intelligence-strategy
     occurred_on: '2024-08-01'
@@ -496,6 +516,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-07-03-philippines-national-ai-strategy-roadmap-2-0
+    aipt_id: AIPT-CHG-0054
     jurisdiction: philippines
     policy: philippines-national-ai-strategy-roadmap-2-0
     occurred_on: '2024-07-03'
@@ -522,6 +543,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2024-12-26-south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-f
+    aipt_id: AIPT-CHG-0055
     jurisdiction: south-korea
     policy: >-
       south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
@@ -548,6 +570,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-06-10-uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence
+    aipt_id: AIPT-CHG-0056
     jurisdiction: uae
     policy: uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence
     occurred_on: '2024-06-10'
@@ -574,6 +597,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-11-21-uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
+    aipt_id: AIPT-CHG-0057
     jurisdiction: uruguay
     policy: uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
     occurred_on: '2024-11-21'
@@ -600,6 +624,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-11-22-uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
+    aipt_id: AIPT-CHG-0058
     jurisdiction: uruguay
     policy: uruguay-estrategia-nacional-de-inteligencia-artificial-del-uruguay-2024-2030
     occurred_on: '2024-11-22'
@@ -625,6 +650,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2024-03-21-un-general-assembly-ai-resolution
+    aipt_id: AIPT-CHG-0059
     jurisdiction: international
     policy: un-general-assembly-resolution-78-265-on-ai
     occurred_on: 2024-03-21
@@ -647,6 +673,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-05-01-utah-ai-policy-act-effective
+    aipt_id: AIPT-CHG-0060
     jurisdiction: us-utah
     policy: us-utah-artificial-intelligence-policy-act
     occurred_on: 2024-05-01
@@ -669,6 +696,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-05-03-oecd-ai-principles-revised
+    aipt_id: AIPT-CHG-0061
     jurisdiction: international
     policy: oecd-recommendation-on-artificial-intelligence
     occurred_on: 2024-05-03
@@ -691,6 +719,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-05-17-council-of-europe-ai-convention-adopted
+    aipt_id: AIPT-CHG-0062
     jurisdiction: council-of-europe
     policy: council-of-europe-framework-convention-on-ai
     occurred_on: 2024-05-17
@@ -713,6 +742,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-06-11-hong-kong-pcpd-ai-framework
+    aipt_id: AIPT-CHG-0063
     jurisdiction: hong-kong
     policy: hong-kong-pcpd-model-personal-data-protection-framework-for-ai
     occurred_on: 2024-06-11
@@ -735,6 +765,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-07-01-tennessee-elvis-act-effective
+    aipt_id: AIPT-CHG-0064
     jurisdiction: us-tennessee
     policy: us-tennessee-elvis-act
     occurred_on: 2024-07-01
@@ -757,6 +788,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-08-09-illinois-hb-3773-signed
+    aipt_id: AIPT-CHG-0065
     jurisdiction: us-illinois
     policy: us-illinois-hb-3773-ai-in-employment
     occurred_on: 2024-08-09
@@ -779,6 +811,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2024-11-25-ontario-bill-194-royal-assent
+    aipt_id: AIPT-CHG-0066
     jurisdiction: ca-ontario
     policy: ca-ontario-enhancing-digital-security-and-trust-act-2024
     occurred_on: 2024-11-25

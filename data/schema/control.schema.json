@@ -7,6 +7,7 @@
   "additionalProperties": false,
   "properties": {
     "slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "aipt_id": { "$ref": "common.schema.json#/$defs/aiptId" },
     "title": { "type": "string", "minLength": 5, "maxLength": 120 },
     "kind": { "type": "string", "enum": ["policy", "process", "technical", "contractual", "training"] },
     "purpose": { "type": "string", "minLength": 40, "maxLength": 700, "description": "What the control achieves, in one or two sentences of original prose." },
@@ -54,5 +55,5 @@
     "reviewed_by": { "$ref": "common.schema.json#/$defs/nullableString" },
     "published": { "type": "boolean" }
   },
-  "required": ["slug", "title", "kind", "purpose", "owner_role", "frequency", "evidence"]
+  "required": ["slug", "aipt_id", "title", "kind", "purpose", "owner_role", "frequency", "evidence"]
 }

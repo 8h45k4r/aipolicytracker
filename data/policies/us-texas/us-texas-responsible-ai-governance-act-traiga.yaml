@@ -1,4 +1,5 @@
 slug: us-texas-responsible-ai-governance-act-traiga
+aipt_id: AIPT-POL-0227
 jurisdiction: us-texas
 title: Texas Responsible Artificial Intelligence Governance Act (HB 149, 89th Legislature)
 short_title: Texas Responsible AI Governance Act (TRAIGA)
@@ -62,6 +63,7 @@ versions: []
 sections: []
 obligations:
 - slug: us-texas-responsible-ai-governance-act-traiga-government-agency-ai-interaction-disclosure
+  aipt_id: AIPT-OBL-0104
   short_title: "Government AI interaction disclosure"
   title: Government agencies must disclose to consumers that they are interacting with an AI system
   category: transparency
@@ -99,6 +101,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-health-care-ai-disclosure
+  aipt_id: AIPT-OBL-0105
   short_title: "Health care AI disclosure"
   title: Health-care providers must disclose the use of AI in patient services
   category: transparency
@@ -135,6 +138,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: medium
 - slug: us-texas-responsible-ai-governance-act-traiga-manipulation-prohibition
+  aipt_id: AIPT-OBL-0106
   short_title: "Ban on AI that incites harm"
   title: Developers and deployers must not use AI to incite self-harm, harm to others or crime
   category: prohibited_practice
@@ -172,6 +176,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-government-social-scoring-prohibition
+  aipt_id: AIPT-OBL-0107
   short_title: "Government social scoring ban"
   title: Governmental entities must not use AI for social scoring
   category: prohibited_practice
@@ -208,6 +213,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-government-biometric-identification-prohibition
+  aipt_id: AIPT-OBL-0108
   short_title: "Government biometric identification limits"
   title: Governmental entities must not use AI for biometric identification from public data without consent where it infringes rights
   category: prohibited_practice
@@ -245,6 +251,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-unlawful-discrimination-prohibition
+  aipt_id: AIPT-OBL-0109
   short_title: "Unlawful discrimination ban"
   title: Developers and deployers must not use AI with the intent to unlawfully discriminate against a protected class
   category: prohibited_practice
@@ -281,6 +288,7 @@ obligations:
   last_checked_at: '2026-09-26'
   confidence_level: high
 - slug: us-texas-responsible-ai-governance-act-traiga-sexual-content-and-csam-prohibition
+  aipt_id: AIPT-OBL-0110
   short_title: "Sexual deepfake and CSAM ban"
   title: Developers and distributors must not build AI intended to produce child sexual abuse material or unlawful sexual deepfakes
   category: prohibited_practice

@@ -18,6 +18,7 @@ Fork the repository, clone your fork, then follow "Running it locally" in the [R
 
 1. For anything bigger than a typo, open a *Policy data correction* or *New jurisdiction or source* issue first.
 2. Edit the YAML under `data/` (the format is in [`data/README.md`](data/README.md)). Bump `content_version` and write a `change_summary` when you edit an existing record.
+   A new policy, obligation, change or control needs a permanent `aipt_id`: `php artisan policy:next-id POL` (or `OBL`, `CHG`, `CTL`) prints the next free one. Never change or reuse an id.
 3. Run `php artisan policy:validate` and `php artisan policy:import`.
 4. In the pull request, list each changed field, its source URL and the date you accessed it.
 

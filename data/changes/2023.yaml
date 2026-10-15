@@ -1,5 +1,6 @@
 changes:
   - slug: 2023-06-02-argentina-disposicion-2-2023
+    aipt_id: AIPT-CHG-0017
     jurisdiction: argentina
     policy: argentina-disposicion-2-2023
     occurred_on: '2023-06-02'
@@ -24,6 +25,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2023-04-24-canada-artificial-intelligence-and-data-act
+    aipt_id: AIPT-CHG-0018
     jurisdiction: canada
     policy: canada-artificial-intelligence-and-data-act
     occurred_on: '2023-04-24'
@@ -50,6 +52,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2023-09-27-canada-voluntary-code-of-conduct-on-the-responsible-development-and-management-of-advanced-generative-ai-sy
+    aipt_id: AIPT-CHG-0019
     jurisdiction: canada
     policy: >-
       canada-voluntary-code-of-conduct-on-the-responsible-development-and-management-of-advanced-generative-ai-syste
@@ -78,6 +81,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2023-07-13-china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
+    aipt_id: AIPT-CHG-0020
     jurisdiction: china
     policy: china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
     occurred_on: '2023-07-13'
@@ -104,6 +108,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2023-08-15-china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
+    aipt_id: AIPT-CHG-0021
     jurisdiction: china
     policy: china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
     occurred_on: '2023-08-15'
@@ -129,6 +134,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2023-12-19-indonesia-surat-edaran-menteri-komunikasi-dan-informatika-nomor-9-tahun-2023-tentang-etika-kecerdasan-artif
+    aipt_id: AIPT-CHG-0022
     jurisdiction: indonesia
     policy: >-
       indonesia-surat-edaran-menteri-komunikasi-dan-informatika-nomor-9-tahun-2023-tentang-etika-kecerdasan-artifisi
@@ -156,6 +162,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2023-08-28-nigeria-national-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0023
     jurisdiction: nigeria
     policy: nigeria-national-artificial-intelligence-strategy
     occurred_on: '2023-08-28'
@@ -180,6 +187,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2023-07-05-peru-ley-n-31814
+    aipt_id: AIPT-CHG-0024
     jurisdiction: peru
     policy: peru-ley-n-31814
     occurred_on: '2023-07-05'
@@ -204,6 +212,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2023-04-20-rwanda-the-national-ai-policy
+    aipt_id: AIPT-CHG-0025
     jurisdiction: rwanda
     policy: rwanda-the-national-ai-policy
     occurred_on: '2023-04-20'
@@ -229,6 +238,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2023-09-01-saudi-arabia-ai-ethics-principles
+    aipt_id: AIPT-CHG-0026
     jurisdiction: saudi-arabia
     policy: saudi-arabia-ai-ethics-principles
     occurred_on: '2023-09-01'
@@ -253,6 +263,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2023-12-04-singapore-national-artificial-intelligence-strategy-2-0
+    aipt_id: AIPT-CHG-0027
     jurisdiction: singapore
     policy: singapore-national-artificial-intelligence-strategy-2-0
     occurred_on: '2023-12-04'
@@ -277,6 +288,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2023-07-05-nyc-local-law-144-enforcement
+    aipt_id: AIPT-CHG-0028
     jurisdiction: us-new-york
     policy: us-new-york-city-local-law-144-automated-employment-decision-tools
     occurred_on: 2023-07-05
@@ -299,6 +311,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2023-09-22-quebec-law-25-automated-decisions
+    aipt_id: AIPT-CHG-0029
     jurisdiction: ca-quebec
     policy: ca-quebec-law-25-automated-decision-provisions
     occurred_on: 2023-09-22
@@ -321,6 +334,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2023-10-30-g7-hiroshima-code-of-conduct
+    aipt_id: AIPT-CHG-0030
     jurisdiction: international
     policy: g7-hiroshima-process-code-of-conduct-for-advanced-ai
     occurred_on: 2023-10-30
@@ -343,6 +357,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2023-11-01-bletchley-declaration
+    aipt_id: AIPT-CHG-0031
     jurisdiction: international
     policy: bletchley-declaration-ai-safety-summit-2023
     occurred_on: 2023-11-01
@@ -365,6 +380,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2023-12-17-israel-ai-policy
+    aipt_id: AIPT-CHG-0032
     jurisdiction: israel
     policy: israel-ai-regulation-and-ethics-policy-2023
     occurred_on: 2023-12-17
@@ -387,6 +403,7 @@ changes:
     confidence_level: high
     content_version: 1
   - slug: 2023-12-18-iso-iec-42001-published
+    aipt_id: AIPT-CHG-0033
     jurisdiction: international
     policy: iso-iec-42001-2023-ai-management-system
     occurred_on: 2023-12-18

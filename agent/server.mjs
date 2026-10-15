@@ -111,6 +111,23 @@ const TOOLS = [
     run: (args) => get('/api/v1/policies' + query({ q: args.q, jurisdiction: args.jurisdiction, status: args.status, per_page: limit(args.limit) })),
   },
   {
+    name: 'resolve_record_id',
+    description:
+      'Resolve a permanent record id (AIPT-POL-0073, AIPT-OBL-0004, AIPT-CHG-0121, AIPT-CTL-0001) to the record\'s kind, slug and current address. Ids never change or get reused, so prefer citing them over slugs or page titles.',
+    inputSchema: {
+      type: 'object',
+      properties: { id: { type: 'string', description: 'A permanent id such as "AIPT-OBL-0004".' } },
+      required: ['id'],
+      additionalProperties: false,
+    },
+    run: (args) => {
+      if (typeof args.id !== 'string' || !/^AIPT-(POL|OBL|CHG|CTL)-[0-9]{4,}$/.test(args.id)) {
+        throw new Error('id must look like "AIPT-OBL-0004"')
+      }
+      return get(`/id/${args.id}`)
+    },
+  },
+  {
     name: 'get_policy',
     description:
       'The full record for one policy instrument as a Markdown context file: summary, scope, who it applies to, dated milestones, the obligations recorded against it, and a provenance block with the official source, review status and the date the facts were last confirmed.',

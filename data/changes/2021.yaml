@@ -1,5 +1,6 @@
 changes:
   - slug: 2021-04-19-canada-pan-canadian-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0009
     jurisdiction: canada
     policy: canada-pan-canadian-artificial-intelligence-strategy
     occurred_on: '2021-04-19'
@@ -24,6 +25,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2021-07-01-egypt-egypt-national-artificial-intelligence-strategy
+    aipt_id: AIPT-CHG-0010
     jurisdiction: egypt
     policy: egypt-egypt-national-artificial-intelligence-strategy
     occurred_on: '2021-07-01'
@@ -49,6 +51,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2021-12-01-malaysia-national-artificial-intelligence-roadmap-2021-2025
+    aipt_id: AIPT-CHG-0011
     jurisdiction: malaysia
     policy: malaysia-national-artificial-intelligence-roadmap-2021-2025
     occurred_on: '2021-12-01'
@@ -74,6 +77,7 @@ changes:
     change_summary: Imported milestone from the legacy dataset.
   - slug: >-
       2021-01-26-vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
+    aipt_id: AIPT-CHG-0012
     jurisdiction: vietnam
     policy: >-
       vietnam-national-strategy-on-research-development-and-application-of-artificial-intelligence-to-2030
@@ -100,6 +104,7 @@ changes:
     content_version: 1
     change_summary: Imported milestone from the legacy dataset.
   - slug: 2021-11-23-unesco-ethics-recommendation
+    aipt_id: AIPT-CHG-0013
     jurisdiction: international
     policy: unesco-recommendation-on-the-ethics-of-ai
     occurred_on: 2021-11-23

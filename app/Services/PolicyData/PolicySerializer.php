@@ -45,6 +45,8 @@ class PolicySerializer
     {
         return [
             'slug' => $p->slug,
+            'id' => $p->aipt_id,
+            'permanent_url' => $p->aipt_id ? route('record.id', $p->aipt_id) : null,
             'title' => $p->title,
             'short_title' => $p->short_title,
             'jurisdiction' => $p->jurisdiction?->slug,
@@ -58,6 +60,7 @@ class PolicySerializer
             'applies_from' => $p->applies_from?->toDateString(),
             'official_source_url' => $p->official_source_url,
             'last_verified_at' => $p->last_verified_at?->toDateString(),
+            'reviewed_by' => $p->review_status === 'verified' ? $p->reviewed_by : null,
             'review_status' => $p->review_status,
             'confidence_level' => $p->confidence_level,
             'updated_at' => $p->updated_at?->toIso8601String(),
@@ -104,6 +107,7 @@ class PolicySerializer
 
         return [
             'slug' => $c->slug,
+            'id' => $c->aipt_id,
             'title' => $c->title,
             'kind' => $c->kind,
             'kind_label' => $c->kindLabel(),
@@ -134,6 +138,8 @@ class PolicySerializer
     {
         $out = [
             'slug' => $o->slug,
+            'id' => $o->aipt_id,
+            'permanent_url' => $o->aipt_id ? route('record.id', $o->aipt_id) : null,
             'title' => $o->title,
             'short_title' => $o->short_title,
             'category' => $o->category,
@@ -146,7 +152,9 @@ class PolicySerializer
             'official_source_url' => $o->official_source_url,
             'review_status' => $o->review_status,
             'confidence_level' => $o->confidence_level,
-            'last_verified_at' => $o->last_verified_at?->toDateString(),
+            'last_verified_at' => ($o->last_verified_at ?? ($o->review_status === 'verified' ? $o->policyInstrument?->last_verified_at : null))?->toDateString(),
+            // Duties are verified with their instrument; the instrument's reviewer signs them.
+            'reviewed_by' => $o->review_status === 'verified' ? $o->policyInstrument?->reviewed_by : null,
             'actors' => $o->terms->where('taxonomy', 'actor')->pluck('slug')->values()->all(),
             'sectors' => $o->terms->where('taxonomy', 'sector')->pluck('slug')->values()->all(),
             'use_cases' => $o->terms->where('taxonomy', 'use_case')->pluck('slug')->values()->all(),
@@ -167,6 +175,8 @@ class PolicySerializer
     {
         return [
             'slug' => $c->slug,
+            'id' => $c->aipt_id,
+            'permanent_url' => $c->aipt_id ? route('record.id', $c->aipt_id) : null,
             'occurred_on' => $c->occurred_on?->toDateString(),
             'jurisdiction' => $c->jurisdiction?->slug,
             'policy' => $c->policyInstrument?->slug,

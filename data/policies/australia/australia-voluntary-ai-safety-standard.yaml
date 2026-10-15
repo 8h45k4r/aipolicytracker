@@ -1,4 +1,5 @@
 slug: australia-voluntary-ai-safety-standard
+aipt_id: AIPT-POL-0021
 jurisdiction: australia
 title: "Voluntary AI Safety Standard (Australia)"
 short_title: Australian Voluntary AI Safety Standard
@@ -33,6 +34,7 @@ related_policies: [australia-mandatory-guardrails-proposal, us-nist-ai-rmf, sing
 related_frameworks: [iso_42001, nist_ai_rmf]
 obligations:
   - slug: australia-vaiss-accountability-and-risk-management
+    aipt_id: AIPT-OBL-0001
     short_title: "Accountability and risk management"
     title: Establish accountability processes and a risk-management process (guardrails 1 and 2)
     category: governance_accountability
@@ -58,6 +60,7 @@ obligations:
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Guardrail 1: accountable owner, policy and compliance strategy.", confidence_level: high }
       - { control: ai-risk-assessment, relationship: satisfies, note: "Guardrail 2: per-use-case lifecycle risk process.", confidence_level: high }
   - slug: australia-vaiss-testing-human-control-transparency
+    aipt_id: AIPT-OBL-0002
     short_title: "Testing, human control and transparency"
     title: Test and monitor systems, enable human control, and be transparent with users (guardrails 4 to 6)
     category: human_oversight
@@ -82,6 +85,7 @@ obligations:
       - { control: human-oversight-and-override, relationship: supports, note: "Guardrail 4: meaningful human control.", confidence_level: high }
       - { control: ai-interaction-and-use-disclosure, relationship: supports, note: "Guardrail 5: informing end users.", confidence_level: high }
   - slug: australia-vaiss-contestability-supply-chain-records
+    aipt_id: AIPT-OBL-0003
     short_title: "Contestability, supply chain and records"
     title: Provide contestability, supply-chain transparency and records (guardrails 7 to 9)
     category: vendor_governance

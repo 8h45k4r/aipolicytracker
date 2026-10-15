@@ -1,4 +1,5 @@
 slug: india-ai-governance-guidelines
+aipt_id: AIPT-POL-0093
 jurisdiction: india
 title: "India AI Governance Guidelines (MeitY, 2025)"
 short_title: India AI Governance Guidelines
@@ -37,6 +38,7 @@ related_policies: [india-dpdp-act, singapore-model-ai-governance-framework]
 related_frameworks: [nist_ai_rmf]
 obligations:
   - slug: india-ai-guidelines-principles-and-risk-based-governance
+    aipt_id: AIPT-OBL-0048
     short_title: "Principles and risk-based governance"
     title: Adopt the guiding principles and risk-based governance (voluntary)
     category: governance_accountability
