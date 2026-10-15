@@ -1,0 +1,79 @@
+slug: us-connecticut-sb-5-online-safety
+jurisdiction: us-connecticut
+title: 'Connecticut SB 5: An Act Concerning Online Safety (Public Act 26-15)'
+short_title: Connecticut online safety and frontier AI law (SB 5)
+title_native: null
+instrument_type: act
+status: partially_applicable
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Connecticut General Assembly
+summary_plain: >-
+  A broad online-safety act that covers frontier developers, AI companions, AI in employment and synthetic content. Its frontier
+  provisions bar retaliation against whistleblowers and require large frontier developers to set up an anonymous internal
+  reporting process and report to their boards quarterly; no duty to publish a safety framework or transparency report was
+  found.
+scope_summary: >-
+  Frontier developers (models trained with more than 10^26 operations; "large" developers with more than $500 million in revenue),
+  AI companion operators, employers using AI and creators of synthetic content, as the act sets out.
+who_it_applies_to: Frontier-model developers, AI companion operators and other businesses named in the act.
+key_dates_summary: >-
+  Signed 27 May 2026; frontier provisions effective 1 October 2026; internal reporting process by 1 January 2027; quarterly
+  board reports from 1 May 2027.
+adopted_on: '2026-05-27'
+published_on: null
+in_force_on: '2026-10-01'
+applies_from: null
+date_notes: >-
+  The civil penalty figure (up to $1,000 per violation) comes from an April 2026 draft analysis and is not recorded here as
+  final.
+actors:
+- gpai_provider
+- provider
+- deployer
+ai_system_types:
+- general_purpose_ai_model
+- conversational_agent
+sectors:
+- cross_sector
+risk_categories:
+- systemic_risk
+use_cases:
+- generative_ai
+related_policies:
+- us-california-sb-53
+- us-illinois-ai-safety-measures-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Public Act 26-15 (SB 5)
+  publisher: Connecticut General Assembly
+  url: https://www.cga.ct.gov/2026/act/Pa/pdf/2026PA-00015-R00SB-00005-PA.PDF
+  document_date: '2026-05-27'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.cga.ct.gov/2026/act/Pa/pdf/2026PA-00015-R00SB-00005-PA.PDF
+source_title: Public Act 26-15 (SB 5)
+source_publisher: Connecticut General Assembly
+source_document_date: '2026-05-27'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

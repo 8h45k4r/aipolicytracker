@@ -1,0 +1,74 @@
+slug: br-goias-complementary-law-205-2025-ai
+jurisdiction: br-goias
+title: 'Goiás Complementary Law No. 205 of 19 May 2025: State Policy for the Promotion of Innovation in Artificial Intelligence'
+short_title: Goiás state AI law (LC 205/2025)
+title_native: Lei Complementar nº 205, de 19 de maio de 2025 (Política Estadual de Fomento à Inovação em Inteligência Artificial)
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Legislative Assembly of Goiás
+summary_plain: >-
+  Promotes AI innovation, prefers open-source and open models in public AI projects, and gives people rights over automated
+  decisions, including information, contestation and human review on appeal. It creates an AI ethics and innovation advisory
+  body, a permanent state AI sandbox and an annual AI prize.
+scope_summary: The Goiás state executive and public sector, and the state innovation ecosystem.
+who_it_applies_to: Goiás state bodies, and organisations taking part in its AI programmes.
+key_dates_summary: Sanctioned 19 May 2025.
+adopted_on: '2025-05-19'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+- provider
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- high_risk
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Lei Complementar nº 205/2025
+  publisher: Casa Civil do Estado de Goiás
+  url: https://legisla.casacivil.go.gov.br/api/v2/pesquisa/legislacoes/110694/pdf
+  document_date: '2025-05-19'
+  document_type: legislation
+  tier: 1
+- title: Política Estadual de Fomento à Inovação em Inteligência Artificial
+  publisher: Governo de Goiás
+  url: https://goias.gov.br/governo/go-ia/politica-estadual-de-fomento-a-inovacao-em-inteligencia-artificial/
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://legisla.casacivil.go.gov.br/api/v2/pesquisa/legislacoes/110694/pdf
+source_title: Lei Complementar nº 205/2025
+source_publisher: Casa Civil do Estado de Goiás
+source_document_date: '2025-05-19'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

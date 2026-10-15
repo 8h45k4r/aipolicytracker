@@ -1,0 +1,68 @@
+slug: us-montana-right-to-compute-act
+jurisdiction: us-montana
+title: Montana Right to Compute Act (SB 212, 69th Legislature, 2025)
+short_title: Montana Right to Compute Act
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Montana Legislature
+summary_plain: >-
+  Recognises a right to own and use computational resources and limits government restrictions on them; critical infrastructure
+  facilities controlled by an AI system must have a risk management policy.
+scope_summary: >-
+  Government action restricting computational resources in Montana, and critical infrastructure controlled by AI systems.
+who_it_applies_to: Montana state and local government; operators of AI-controlled critical infrastructure.
+key_dates_summary: Enacted in 2025; effective on passage and approval.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: The signing date and chapter number (the file name suggests Chapter 150) were not confirmed.
+actors:
+- public_authority
+- deployer
+ai_system_types:
+- safety_component
+sectors:
+- critical_infrastructure
+risk_categories:
+- high_risk
+use_cases:
+- safety_critical
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Montana Legislature: SB 212 session law (69th Legislature)'
+  publisher: Montana Legislature
+  url: https://archive.legmt.gov/content/Sessions/69th/Contractor_index/CH0150.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://archive.legmt.gov/content/Sessions/69th/Contractor_index/CH0150.pdf
+source_title: 'Montana Legislature: SB 212 session law (69th Legislature)'
+source_publisher: Montana Legislature
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

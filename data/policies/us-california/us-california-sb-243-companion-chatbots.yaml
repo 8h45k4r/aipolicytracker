@@ -1,0 +1,74 @@
+slug: us-california-sb-243-companion-chatbots
+jurisdiction: us-california
+title: 'California SB 243: Companion chatbots (Chapter 677, Statutes of 2025)'
+short_title: California companion chatbot law (SB 243)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Operators of companion chatbots must disclose that the chatbot is AI and maintain a protocol for responding to suicidal
+  ideation and self-harm that refers users to crisis services. Users known to be minors get break reminders and protection
+  from sexual content. Annual reports to the Office of Suicide Prevention begin 1 July 2027, and a person injured by a violation
+  can bring a civil action.
+scope_summary: Companion chatbot platforms offered to users in California.
+who_it_applies_to: Operators of companion chatbot platforms.
+key_dates_summary: Chaptered 13 October 2025; annual reports from 1 July 2027.
+adopted_on: '2025-10-13'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: The general effective date and the statutory damages figure were not confirmed.
+actors:
+- deployer
+- provider
+ai_system_types:
+- conversational_agent
+sectors:
+- consumer_retail
+- healthcare
+risk_categories:
+- transparency_risk
+use_cases:
+- customer_service
+- health
+related_policies:
+- us-california-sb-1119-companion-chatbots-child-safety
+- us-new-york-ai-companion-safeguards
+- us-washington-eshb-2225-ai-companion-chatbots
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 243 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB243
+  document_date: '2025-10-13'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB243
+source_title: 'California Legislative Information: SB 243 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2025-10-13'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -1,0 +1,46 @@
+slug: de-schleswig-holstein
+name: Schleswig-Holstein (Germany)
+short_name: Schleswig-Holstein
+iso_code: DE-SH
+jurisdiction_type: state
+region: Europe
+subregion: Western Europe
+parent: germany
+featured: false
+published: true
+overview: >-
+  Schleswig-Holstein is recorded here for its own AI instruments, which apply within its territory alongside Germany's national
+  rules. On record: Schleswig-Holstein AI in administration act (ITEG). This page was added in the October 2026 sub-national
+  research round; see each instrument for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Schleswig-Holstein AI in administration act (ITEG). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside Germany's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: Gesetz- und Verordnungsblatt Schleswig-Holstein 2022 No. 5
+  publisher: Land Schleswig-Holstein
+  url: https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/IV/Service/GVOBl/GVOBl/2022/gvobl_5_2022.pdf?__blob=publicationFile&v=2
+  document_date: '2022-04-14'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- germany
+official_source_url: https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/IV/Service/GVOBl/GVOBl/2022/gvobl_5_2022.pdf?__blob=publicationFile&v=2
+source_title: Gesetz- und Verordnungsblatt Schleswig-Holstein 2022 No. 5
+source_publisher: Land Schleswig-Holstein
+source_document_date: '2022-04-14'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -1,0 +1,78 @@
+slug: es-galicia-ai-law-2-2025
+jurisdiction: es-galicia
+title: Galician Law 2/2025 of 2 April for the development and promotion of artificial intelligence in Galicia
+short_title: Galicia AI law (Law 2/2025)
+title_native: Lei 2/2025, do 2 de abril, para o desenvolvemento e impulso da intelixencia artificial en Galicia
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Parliament of Galicia
+summary_plain: >-
+  Sets the framework for how the Galician administration and regional public sector design, procure, deploy and use AI. It
+  creates a Galician AI Office, a Galician AI Council and AI commissioners within departments, and provides for a regulatory
+  sandbox and support for start-ups.
+scope_summary: >-
+  The Xunta de Galicia and its regional public sector, with promotion measures for businesses and researchers.
+who_it_applies_to: The Galician regional administration and public sector bodies.
+key_dates_summary: >-
+  Published in the Diario Oficial de Galicia (No. 66) on 4 April 2025; in force 24 April 2025, twenty days after publication.
+adopted_on: '2025-04-02'
+published_on: '2025-04-04'
+in_force_on: '2025-04-24'
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+- government_procurement
+related_policies:
+- eu-ai-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Diario Oficial de Galicia No. 66: Ley 2/2025'
+  publisher: Xunta de Galicia
+  url: https://www.xunta.gal/dog/Publicados/2025/20250404/AnuncioC3B0-030425-0001_es.html
+  document_date: '2025-04-04'
+  document_type: legislation
+  tier: 1
+- title: 'BOE-A-2025-21026: Ley 2/2025 de Galicia'
+  publisher: Boletín Oficial del Estado
+  url: https://www.boe.es/buscar/doc.php?id=BOE-A-2025-21026
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.xunta.gal/dog/Publicados/2025/20250404/AnuncioC3B0-030425-0001_es.html
+source_title: 'Diario Oficial de Galicia No. 66: Ley 2/2025'
+source_publisher: Xunta de Galicia
+source_document_date: '2025-04-04'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

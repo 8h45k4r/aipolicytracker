@@ -1,0 +1,77 @@
+slug: us-california-sb-1119-companion-chatbots-child-safety
+jurisdiction: us-california
+title: 'California SB 1119: Companion chatbots: children''s safety (Chapter 190, Statutes of 2026)'
+short_title: California chatbot child-safety law (SB 1119)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Operators must carry out a documented, child-focused risk assessment before releasing a new or substantially modified companion
+  chatbot, from 1 July 2027, and commission child-safety audits by 1 January 2029 or before first public release if later.
+  The Attorney General must set up a public incident-reporting mechanism by 1 January 2028.
+scope_summary: Companion chatbots made available to users in California.
+who_it_applies_to: Operators of companion chatbots.
+key_dates_summary: >-
+  Chaptered 10 September 2026; risk assessments from 1 July 2027; incident-reporting mechanism by 1 January 2028; child-safety
+  audits by 1 January 2029.
+adopted_on: '2026-09-10'
+published_on: null
+in_force_on: null
+applies_from: '2027-07-01'
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- deployer
+- provider
+ai_system_types:
+- conversational_agent
+sectors:
+- consumer_retail
+risk_categories:
+- high_risk
+use_cases:
+- customer_service
+related_policies:
+- us-california-sb-243-companion-chatbots
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 1119 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1119
+  document_date: '2026-09-10'
+  document_type: legislation
+  tier: 1
+- title: Governor Newsom signs the strongest child safety chatbot and social media laws in the nation
+  publisher: Office of the Governor of California
+  url: https://www.gov.ca.gov/2026/09/10/governor-newsom-signs-the-strongest-child-safety-chatbot-and-social-media-laws-in-the-nation/
+  document_date: '2026-09-10'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1119
+source_title: 'California Legislative Information: SB 1119 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-10'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

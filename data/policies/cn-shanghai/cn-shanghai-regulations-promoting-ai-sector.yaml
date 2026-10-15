@@ -1,0 +1,80 @@
+slug: cn-shanghai-regulations-promoting-ai-sector
+jurisdiction: cn-shanghai
+title: Regulations of Shanghai Municipality on Promoting the Development of the Artificial Intelligence Sector
+short_title: Shanghai AI regulations (2022)
+title_native: 上海市促进人工智能产业发展条例
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Standing Committee of the Shanghai Municipal People's Congress
+summary_plain: >-
+  Promotes the AI industry and names the economy and informatization department as lead regulator; sets up a strategy advisory
+  committee and an AI ethics expert committee; bans certain uses such as discrimination and algorithmic price discrimination;
+  applies list-based compliance review to high-risk AI products and disclosure with after-the-fact control to lower-risk ones;
+  and allows sandbox supervision.
+scope_summary: Government bodies and AI market actors in Shanghai.
+who_it_applies_to: AI developers, providers and users in Shanghai, and municipal authorities.
+key_dates_summary: >-
+  Adopted 22 September 2022 (Announcement No. 127); effective 1 October 2022. Six chapters, 72 articles.
+adopted_on: '2022-09-22'
+published_on: null
+in_force_on: '2022-10-01'
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- provider
+- deployer
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- cross_sector
+risk_categories:
+- high_risk
+- prohibited
+use_cases:
+- public_services
+related_policies:
+- china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Regulations of Shanghai Municipality on Promoting the Development of the AI Sector (official English translation)
+  publisher: Shanghai Municipal People's Government
+  url: https://english.shanghai.gov.cn/en-LocalRules/20240913/4395d1563dd548b39406cbe8833c9ef6.html
+  document_date: '2022-09-22'
+  document_type: legislation
+  tier: 1
+- title: 上海市促进人工智能产业发展条例
+  publisher: Shanghai Municipal People's Government
+  url: https://www.shanghai.gov.cn/rgznsj/20250610/a8b55b62dc07441c874a256d11e725a7.html
+  document_date: '2022-09-22'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://english.shanghai.gov.cn/en-LocalRules/20240913/4395d1563dd548b39406cbe8833c9ef6.html
+source_title: Regulations of Shanghai Municipality on Promoting the Development of the AI Sector (official English translation)
+source_publisher: Shanghai Municipal People's Government
+source_document_date: '2022-09-22'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

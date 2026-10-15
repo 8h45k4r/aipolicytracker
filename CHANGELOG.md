@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Sub-national AI laws and policies: 53 records across 37 new states, provinces, regions and cities (pending review), including the Illinois AI Safety Measures Act (SB 315), California's training-data, AI transparency, companion-chatbot and CPPA automated decision-making rules, Connecticut SB 5, Washington's companion-chatbot law, Executive Order 14365 on state AI laws, Galicia's and Calabria's regional AI laws, Shanghai's and Shenzhen's AI regulations, NSW's AI policy, assessment framework and digital work systems act, and the Australian state, Indian state, Scottish, Welsh, Canadian provincial, Brazilian state and UAE emirate instruments. See `docs/reference/subnational-research-2026-10-15.md`.
+- Country pages list their states' and provinces' AI laws in the body, not only by name in the sidebar.
+
 ### Fixed
 - A frozen quarterly report stays as frozen: running the freeze again returns the snapshot already taken instead of recomputing it.
 - A change entered unpublished counts as news from the day it is published, not the day it was created (news sitemap and the X posting window).

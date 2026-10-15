@@ -1,0 +1,75 @@
+slug: cn-shenzhen-sez-ai-industry-promotion-regulations
+jurisdiction: cn-shenzhen
+title: Shenzhen Special Economic Zone Regulations on Promoting the Artificial Intelligence Industry
+short_title: Shenzhen AI industry regulations (2022)
+title_native: 深圳经济特区人工智能产业促进条例
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Standing Committee of the Shenzhen Municipal People's Congress
+summary_plain: >-
+  Defines AI and the AI industry, sets up statistical monitoring and a municipal AI ethics committee, and allows trial access
+  for low-risk AI products and services where no national or local standard exists yet.
+scope_summary: Government bodies and AI industry actors in Shenzhen.
+who_it_applies_to: AI developers and providers in Shenzhen, and municipal authorities.
+key_dates_summary: Adopted 30 August 2022; Announcement No. 64 dated 5 September 2022; effective 1 November 2022.
+adopted_on: '2022-08-30'
+published_on: '2022-09-05'
+in_force_on: '2022-11-01'
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- provider
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- cross_sector
+risk_categories:
+- minimal_risk
+use_cases:
+- public_services
+related_policies:
+- cn-shanghai-regulations-promoting-ai-sector
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 深圳经济特区人工智能产业促进条例
+  publisher: Shenzhen Municipal People's Congress
+  url: https://www.szrd.gov.cn/v2/zx/szfg/content/post_966197.html
+  document_date: '2022-09-05'
+  document_type: legislation
+  tier: 1
+- title: Shenzhen Government Gazette 2022 No. 34
+  publisher: Shenzhen Municipal People's Government
+  url: https://www.sz.gov.cn/attachment/1/1199/1199387/10166718.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.szrd.gov.cn/v2/zx/szfg/content/post_966197.html
+source_title: 深圳经济特区人工智能产业促进条例
+source_publisher: Shenzhen Municipal People's Congress
+source_document_date: '2022-09-05'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

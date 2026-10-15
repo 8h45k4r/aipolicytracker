@@ -1,0 +1,69 @@
+slug: us-washington-eshb-2225-ai-companion-chatbots
+jurisdiction: us-washington
+title: 'Washington ESHB 2225: AI companion chatbots (Chapter 168, Laws of 2026)'
+short_title: Washington AI companion chatbot law (ESHB 2225)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Washington State Legislature
+summary_plain: >-
+  Operators must disclose that a companion chatbot is AI, repeat the notice hourly for known minors, limit sexual content
+  and manipulative engagement tactics for minors, and keep and publish a self-harm protocol with crisis referrals. A violation
+  is a violation of the Consumer Protection Act.
+scope_summary: AI companion chatbots offered to users in Washington State.
+who_it_applies_to: Operators of AI companion chatbots.
+key_dates_summary: Signed 24 March 2026; effective 1 January 2027.
+adopted_on: '2026-03-24'
+published_on: null
+in_force_on: null
+applies_from: '2027-01-01'
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- deployer
+- provider
+ai_system_types:
+- conversational_agent
+sectors:
+- consumer_retail
+risk_categories:
+- transparency_risk
+use_cases:
+- customer_service
+related_policies:
+- us-california-sb-243-companion-chatbots
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Washington State Legislature: HB 2225 (2025-26) bill summary'
+  publisher: Washington State Legislature
+  url: https://app.leg.wa.gov/billsummary?Year=2025&BillNumber=2225
+  document_date: '2026-03-24'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://app.leg.wa.gov/billsummary?Year=2025&BillNumber=2225
+source_title: 'Washington State Legislature: HB 2225 (2025-26) bill summary'
+source_publisher: Washington State Legislature
+source_document_date: '2026-03-24'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

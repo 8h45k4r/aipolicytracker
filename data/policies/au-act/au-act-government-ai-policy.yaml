@@ -1,0 +1,67 @@
+slug: au-act-government-ai-policy
+jurisdiction: au-act
+title: ACT Government Artificial Intelligence Policy (Version 1.0) and AI Assurance Framework
+short_title: ACT Government AI policy
+title_native: null
+instrument_type: policy
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: ACT Government
+summary_plain: >-
+  Aligns ACT government use of AI with Australia's AI Ethics Principles and the national assurance framework; in-scope initiatives
+  are reviewed by an ACT AI Advisory Group, and standard AI features of commercial products are exempt.
+scope_summary: ACT Government directorates and agencies.
+who_it_applies_to: ACT Government directorates and agencies.
+key_dates_summary: Version 1.0, May 2025.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Whether the policy is formally mandatory was not confirmed.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: ACT Government Artificial Intelligence Policy
+  publisher: ACT Government
+  url: https://www.act.gov.au/open/act-government-artificial-intelligence-policy
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.act.gov.au/open/act-government-artificial-intelligence-policy
+source_title: ACT Government Artificial Intelligence Policy
+source_publisher: ACT Government
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

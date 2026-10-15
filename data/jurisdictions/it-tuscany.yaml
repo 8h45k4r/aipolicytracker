@@ -1,0 +1,46 @@
+slug: it-tuscany
+name: Tuscany (Italy)
+short_name: Tuscany
+iso_code: IT-52
+jurisdiction_type: region
+region: Europe
+subregion: Southern Europe
+parent: italy
+featured: false
+published: true
+overview: >-
+  Tuscany is recorded here for its own AI instruments, which apply within its territory alongside Italy's national rules.
+  On record: Tuscany AI law (2026). This page was added in the October 2026 sub-national research round; see each instrument
+  for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Tuscany AI law (2026). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside Italy's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: 'Toscana Notizie: Tuscany approves its AI law'
+  publisher: Regione Toscana
+  url: https://www.toscana-notizie.it/-/ia-etica-toscana-approva-prima-legge-organica-in-italia-giani-e-lenzi-un-modello-per-il-paese-
+  document_date: '2026-07-21'
+  document_type: press_release
+  tier: 1
+faq: []
+related_jurisdictions:
+- italy
+official_source_url: https://www.toscana-notizie.it/-/ia-etica-toscana-approva-prima-legge-organica-in-italia-giani-e-lenzi-un-modello-per-il-paese-
+source_title: 'Toscana Notizie: Tuscany approves its AI law'
+source_publisher: Regione Toscana
+source_document_date: '2026-07-21'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

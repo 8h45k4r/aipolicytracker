@@ -1,0 +1,68 @@
+slug: uk-wales-ai-plan
+jurisdiction: uk-wales
+title: 'AI Cymru: Shaping a Smarter, Fairer, More Prosperous Wales (AI plan for Wales)'
+short_title: AI plan for Wales
+title_native: null
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Welsh Government
+summary_plain: >-
+  A plan built on four pillars (economic growth, educating Wales, equitable delivery, excellence and trust) with a Welsh Government
+  Office for AI and a Strategic AI Advisory Group. It proposes no legislation.
+scope_summary: The Welsh Government, public services and economy.
+who_it_applies_to: Welsh public bodies and organisations taking part in its programmes.
+key_dates_summary: Published November 2025.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The gov.wales landing page says 12 November 2025; the document and press release say 18 November 2025.
+actors:
+- public_authority
+ai_system_types:
+- generative_ai
+sectors:
+- cross_sector
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI plan for Wales
+  publisher: Welsh Government
+  url: https://www.gov.wales/ai-plan-for-wales
+  document_date: null
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.gov.wales/ai-plan-for-wales
+source_title: AI plan for Wales
+source_publisher: Welsh Government
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

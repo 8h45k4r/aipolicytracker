@@ -1,0 +1,68 @@
+slug: au-victoria-generative-ai-administrative-guideline
+jurisdiction: au-victoria
+title: Administrative Guideline for the safe and responsible use of Generative AI in the Victorian Public Sector (No. 2024/07)
+short_title: Victoria public sector generative AI guideline
+title_native: null
+instrument_type: guidance
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Department of Premier and Cabinet (Victoria)
+summary_plain: >-
+  Sets minimum requirements for generative AI in the Victorian public sector: agency-approved tools are preferred, AI should
+  not be used to make decisions or assessments, privacy, FOI and human-rights obligations still apply, and staff must be trained.
+  Relying on unverified AI output could breach the codes of conduct.
+scope_summary: Public service bodies and public entities under the Public Administration Act 2004.
+who_it_applies_to: Victorian public sector employees and bodies.
+key_dates_summary: Endorsed by the Victorian Secretaries Board 24 September 2024; made 27 November 2024.
+adopted_on: '2024-11-27'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+- user
+ai_system_types:
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Administrative Guideline for the safe and responsible use of Generative AI in the VPS
+  publisher: Victorian Government
+  url: https://www.vic.gov.au/administrative-guideline-safe-responsible-use-gen-ai-vps
+  document_date: '2024-11-27'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.vic.gov.au/administrative-guideline-safe-responsible-use-gen-ai-vps
+source_title: Administrative Guideline for the safe and responsible use of Generative AI in the VPS
+source_publisher: Victorian Government
+source_document_date: '2024-11-27'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -1,0 +1,46 @@
+slug: ca-alberta
+name: Alberta (Canada)
+short_name: Alberta
+iso_code: CA-AB
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: canada
+featured: false
+published: true
+overview: >-
+  Alberta is recorded here for its own AI instruments, which apply within its territory alongside Canada's national rules.
+  On record: Alberta government AI usage policy. This page was added in the October 2026 sub-national research round; see
+  each instrument for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Alberta government AI usage policy. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside Canada's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: Artificial Intelligence Usage Policy
+  publisher: Government of Alberta
+  url: https://manuals.alberta.ca/media/i5mjqsgw/artificial-intelligence-usage-policy.pdf
+  document_date: '2025-05-01'
+  document_type: guidance
+  tier: 1
+faq: []
+related_jurisdictions:
+- canada
+official_source_url: https://manuals.alberta.ca/media/i5mjqsgw/artificial-intelligence-usage-policy.pdf
+source_title: Artificial Intelligence Usage Policy
+source_publisher: Government of Alberta
+source_document_date: '2025-05-01'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

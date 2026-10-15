@@ -1,0 +1,73 @@
+slug: us-executive-order-14365-national-policy-framework-for-ai
+jurisdiction: us
+title: 'Executive Order 14365: Ensuring a National Policy Framework for Artificial Intelligence'
+short_title: Executive Order 14365 (state AI laws)
+title_native: null
+instrument_type: executive_order
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: The White House
+summary_plain: >-
+  Directs the Attorney General to set up an AI Litigation Task Force to challenge state AI laws, asks the Commerce Department
+  to identify "onerous" state AI laws (with non-deployment broadband (BEAD) funds tied to that list), and asks the FTC for
+  a policy statement on AI outputs. It does not itself pre-empt any state law; that would take legislation or a court ruling.
+scope_summary: Federal agencies; aimed at state AI laws such as those recorded under each state.
+who_it_applies_to: Federal agencies; indirectly, states with AI laws and organisations relying on them.
+key_dates_summary: >-
+  Signed 11 December 2025; published in the Federal Register 16 December 2025 (2025-23092); DOJ task force memo 9 January
+  2026; FTC policy statement 7 July 2026.
+adopted_on: '2025-12-11'
+published_on: '2025-12-16'
+in_force_on: '2025-12-11'
+applies_from: null
+date_notes: >-
+  Whether the Commerce evaluation was published, and whether the task force has filed any lawsuit, was not confirmed.
+actors:
+- public_authority
+ai_system_types:
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+related_policies:
+- us-executive-order-14179
+- us-colorado-automated-decision-making-technology-act
+- us-california-sb-53
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Federal Register: Ensuring a National Policy Framework for Artificial Intelligence'
+  publisher: Federal Register
+  url: https://www.federalregister.gov/documents/2025/12/16/2025-23092/ensuring-a-national-policy-framework-for-artificial-intelligence
+  document_date: '2025-12-16'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.federalregister.gov/documents/2025/12/16/2025-23092/ensuring-a-national-policy-framework-for-artificial-intelligence
+source_title: 'Federal Register: Ensuring a National Policy Framework for Artificial Intelligence'
+source_publisher: Federal Register
+source_document_date: '2025-12-16'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

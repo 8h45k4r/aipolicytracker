@@ -1,0 +1,69 @@
+slug: ae-difc-data-protection-regulation-10-autonomous-systems
+jurisdiction: ae-dubai
+title: 'DIFC Data Protection Regulations, Regulation 10: personal data processed through autonomous and semi-autonomous systems'
+short_title: DIFC Regulation 10 (AI and personal data)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Dubai International Financial Centre Authority
+summary_plain: >-
+  Sets rules for personal data processed through autonomous and semi-autonomous systems in the Dubai International Financial
+  Centre: notice and transparency when such a system is used, the deployer as controller and the operator as processor, limits
+  on purposes, a future certification scheme, and an Autonomous Systems Officer for high-risk processing.
+scope_summary: Organisations processing personal data in the DIFC free zone.
+who_it_applies_to: Deployers and operators of AI systems processing personal data in the DIFC.
+key_dates_summary: Regulations enacted 1 September 2023; guidance DIFC-DP-GL-23 dated 27 August 2024.
+adopted_on: '2023-09-01'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Later amendments were not checked.
+actors:
+- deployer
+- provider
+ai_system_types:
+- automated_decision_system
+sectors:
+- financial_services
+- cross_sector
+risk_categories:
+- high_risk
+use_cases:
+- finance_and_credit
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Regulation 10
+  publisher: DIFC Commissioner of Data Protection
+  url: https://www.difc.com/business/registrars-and-commissioners/commissioner-of-data-protection/regulation-10
+  document_date: '2023-09-01'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.difc.com/business/registrars-and-commissioners/commissioner-of-data-protection/regulation-10
+source_title: Regulation 10
+source_publisher: DIFC Commissioner of Data Protection
+source_document_date: '2023-09-01'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

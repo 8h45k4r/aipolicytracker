@@ -60,7 +60,8 @@ class CountryHubsTest extends TestCase
             $this->assertStringContainsString(PolicyInstrument::where('slug', $slug)->firstOrFail()->url(), $html, $slug);
         }
         // A country without sub-national records shows no such section.
-        $this->assertStringNotContainsString('subnational-heading', $this->followingRedirects()->get('/jurisdictions/india')->getContent());
+        $this->assertStringNotContainsString('subnational-heading', $this->followingRedirects()->get('/jurisdictions/nepal')->getContent());
+        $this->assertStringContainsString('Tamil Nadu', $this->followingRedirects()->get('/jurisdictions/india')->getContent());
     }
 
     public function test_retired_landings_answer_301_to_the_one_page_for_their_subject(): void

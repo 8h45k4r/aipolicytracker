@@ -1,0 +1,46 @@
+slug: us-connecticut
+name: Connecticut (United States)
+short_name: Connecticut
+iso_code: US-CT
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Connecticut is recorded here for its own AI instruments, which apply within its territory alongside US's national rules.
+  On record: Connecticut online safety and frontier AI law (SB 5). This page was added in the October 2026 sub-national research
+  round; see each instrument for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Connecticut online safety and frontier AI law (SB 5). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside US's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: Public Act 26-15 (SB 5)
+  publisher: Connecticut General Assembly
+  url: https://www.cga.ct.gov/2026/act/Pa/pdf/2026PA-00015-R00SB-00005-PA.PDF
+  document_date: '2026-05-27'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+official_source_url: https://www.cga.ct.gov/2026/act/Pa/pdf/2026PA-00015-R00SB-00005-PA.PDF
+source_title: Public Act 26-15 (SB 5)
+source_publisher: Connecticut General Assembly
+source_document_date: '2026-05-27'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

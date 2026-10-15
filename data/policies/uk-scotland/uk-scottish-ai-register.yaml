@@ -1,0 +1,75 @@
+slug: uk-scottish-ai-register
+jurisdiction: uk-scotland
+title: Scottish AI Register
+short_title: Scottish AI Register
+title_native: null
+instrument_type: policy
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Scottish Government
+summary_plain: >-
+  A public register of AI systems in use or in development in the Scottish public sector. The government announced in March
+  2024 that registration would become mandatory, starting with its own departments, but a 2025 freedom-of-information response
+  describes the register as voluntary with an expectation that public bodies use it.
+scope_summary: AI systems used or developed by Scottish public bodies.
+who_it_applies_to: Scottish public sector bodies.
+key_dates_summary: Launched March 2023; mandatory registration announced 28 March 2024.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Recorded as voluntary: the 2024 announcement and a 13 August 2025 FOI response differ on whether registration is mandatory.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- transparency_risk
+use_cases:
+- public_services
+related_policies:
+- uk-scotland-ai-strategy-2026-2031
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Increasing AI transparency
+  publisher: Scottish Government
+  url: https://www.gov.scot/news/increasing-ai-transparency/
+  document_date: '2024-03-28'
+  document_type: press_release
+  tier: 1
+- title: Scottish AI Register
+  publisher: Scottish AI Alliance
+  url: https://scottishairegister.com/
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.gov.scot/news/increasing-ai-transparency/
+source_title: Increasing AI transparency
+source_publisher: Scottish Government
+source_document_date: '2024-03-28'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.
