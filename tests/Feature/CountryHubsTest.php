@@ -52,6 +52,17 @@ class CountryHubsTest extends TestCase
         $this->get('/jurisdictions/india')->assertOk();
     }
 
+    public function test_a_country_page_lists_the_laws_of_its_states_in_the_body(): void
+    {
+        $html = $this->followingRedirects()->get('/jurisdictions/us')->assertOk()->getContent();
+        $this->assertStringContainsString('State AI laws and policies', $html);
+        foreach (['us-california-sb-53', 'us-new-york-raise-act'] as $slug) {
+            $this->assertStringContainsString(PolicyInstrument::where('slug', $slug)->firstOrFail()->url(), $html, $slug);
+        }
+        // A country without sub-national records shows no such section.
+        $this->assertStringNotContainsString('subnational-heading', $this->followingRedirects()->get('/jurisdictions/india')->getContent());
+    }
+
     public function test_retired_landings_answer_301_to_the_one_page_for_their_subject(): void
     {
         $expected = [

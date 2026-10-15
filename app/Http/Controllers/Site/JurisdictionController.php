@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
+use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Services\Hubs\HubCatalog;
 use App\Services\Localization\Translations;
@@ -67,6 +68,12 @@ class JurisdictionController extends Controller
         $jurisdiction->load(['parent', 'children' => fn ($q) => $q->published()]);
         $policies = $jurisdiction->policyInstruments()->published()->with(['terms', 'deadlines'])->orderByDesc('featured')->orderByDesc('is_binding')->orderBy('title')->get();
         $timeline = HubCatalog::timeline($policies);
+        // Laws of its states, provinces and cities, in the page body: listed only by name in
+        // the sidebar, a country's state-level laws (California SB 53, the New York RAISE Act)
+        // were easy to miss from the country page.
+        $subnational = $jurisdiction->children->isEmpty() ? collect() : PolicyInstrument::published()
+            ->whereIn('jurisdiction_id', $jurisdiction->children->pluck('id'))->with('jurisdiction')
+            ->orderByDesc('is_binding')->orderByDesc('adopted_on')->orderBy('title')->get();
         $region = HubCatalog::regionSlugFor($jurisdiction->region);
         $changes = ChangeEvent::published()->where('jurisdiction_id', $jurisdiction->id)->with('policyInstrument')->orderByDesc('occurred_on')->limit(8)->get();
         $deadlines = $catalog->upcomingDeadlines(8, $jurisdiction->id);
@@ -127,7 +134,7 @@ class JurisdictionController extends Controller
             ]);
         $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'subnational', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl'));
     }
 
     private function firstSentence(?string $text): string

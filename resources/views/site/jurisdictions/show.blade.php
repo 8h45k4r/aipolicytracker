@@ -25,6 +25,22 @@
                 </div>
             </section>
 
+            @if($subnational->isNotEmpty())
+            @php($kinds = $jurisdiction->children->pluck('jurisdiction_type')->unique())
+            <section aria-labelledby="subnational-heading" class="mt-8">
+                <h2 id="subnational-heading" class="section-title">{{ $kinds->count() === 1 && $kinds->first() === 'state' ? 'State' : 'State, provincial and local' }} AI laws and policies</h2>
+                <p class="mt-1 text-sm text-brand-muted">{{ $subnational->count() }} {{ \Illuminate\Support\Str::plural('instrument', $subnational->count()) }} on record from {{ $subnational->pluck('jurisdiction_id')->unique()->count() }} of {{ $jurisdiction->short_name ?: $jurisdiction->name }}'s sub-national jurisdictions. Each applies only within its own territory.</p>
+                <div class="table-wrap mt-3"><table><caption class="sr-only">Sub-national AI laws and policies recorded for {{ $jurisdiction->name }}</caption>
+                    <thead><tr><th scope="col">Instrument</th><th scope="col">Where</th><th scope="col">Status</th><th scope="col">Binding</th></tr></thead>
+                    <tbody>@foreach($subnational as $p)<tr>
+                        <th scope="row" class="font-medium"><a href="{{ $p->url() }}" class="text-brand-navy">{{ $p->short_title ?: $p->title }}</a></th>
+                        <td><a href="{{ $p->jurisdiction->url() }}" class="text-brand-body">{{ $p->jurisdiction->short_name ?: $p->jurisdiction->name }}</a></td>
+                        <td><x-site.status-badge :status="$p->statusEnum()" /></td>
+                        <td>{{ $p->is_binding ? 'Binding' : 'Voluntary' }}</td>
+                    </tr>@endforeach</tbody></table></div>
+            </section>
+            @endif
+
             @if($policies->isNotEmpty())
             <section aria-labelledby="instruments-heading" class="mt-8">
                 <h2 id="instruments-heading" class="section-title">Instruments at a glance</h2>
