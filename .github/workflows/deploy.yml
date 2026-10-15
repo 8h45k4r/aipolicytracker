@@ -135,7 +135,9 @@ jobs:
           printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
           # The key's forced command on the host is the deploy script; the sha
           # is the only argument it accepts, and it refuses anything not on main.
-          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 \
+          # Keepalives: the image build prints nothing for minutes, and an idle
+          # connection was cut ("Broken pipe") mid-deploy.
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
               -i ~/.ssh/deploy_key "$USER@$HOST" "$SHA"
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
