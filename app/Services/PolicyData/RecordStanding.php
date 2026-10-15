@@ -16,7 +16,7 @@ use Carbon\CarbonInterface;
  *
  *   1. the instrument is no longer in force (superseded, repealed, archived);
  *   2. a date in it moved in the last 180 days;
- *   3. a change to it was logged in the last 90 days;
+ *   3. a change to it was logged in the last 30 days;
  *   4. the record itself was revised in the last 30 days;
  *   5. otherwise: no change recorded as of the last source check or verification;
  *   6. with neither date on file, a neutral line saying so. A good state never
@@ -41,7 +41,7 @@ final class RecordStanding
             return ['tone' => 'warn', 'label' => 'A date moved on '.$moved->changed_at->format('j M Y'), 'detail' => $moved->title.': '.($moved->from_due_on?->format('j M Y') ?? ($moved->from_label ?: 'undated')).' → '.($moved->to_due_on?->format('j M Y') ?? ($moved->to_label ?: 'undated'))] + $base;
         }
 
-        $change = $policy->changeEvents()->published()->where('occurred_on', '>=', now()->subDays(90)->toDateString())->latest('occurred_on')->first();
+        $change = $policy->changeEvents()->published()->where('occurred_on', '>=', now()->subDays(30)->toDateString())->latest('occurred_on')->first();
         if ($change) {
             return ['tone' => 'info', 'label' => 'Changed on '.$change->occurred_on->format('j M Y'), 'detail' => $change->title, 'url' => $change->url()] + $base;
         }

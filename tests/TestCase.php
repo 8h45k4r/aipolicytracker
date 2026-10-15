@@ -18,10 +18,17 @@ abstract class TestCase extends BaseTestCase
         // they run without a front-end build.
         $this->withoutVite();
 
-        // The documentation domains (RFC 2606) stand for a public host in webhook tests,
-        // whether or not the machine running the suite can reach DNS. Any other name
-        // still goes to DNS.
-        OutboundUrl::resolveUsing(fn (string $host) => preg_match('/(^|\.)example\.(org|com|net)$/i', $host) ? ['93.184.215.14'] : null);
+        // Webhook tests must not depend on the machine running the suite reaching DNS:
+        // a name DNS cannot answer stands for a public host, except the reserved
+        // .invalid and localhost names, which tests use for "does not resolve" and
+        // "loopback".
+        OutboundUrl::resolveUsing(function (string $host): ?array {
+            if (preg_match('/(^|\.)(invalid|localhost)$/i', $host)) {
+                return null;
+            }
+
+            return @gethostbynamel($host) ?: ['93.184.215.14'];
+        });
 
         $this->statisticsGathered = false;
     }

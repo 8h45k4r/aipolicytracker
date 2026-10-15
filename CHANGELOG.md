@@ -20,7 +20,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Invitations have their own token table (`invitation_tokens`; run `php artisan migrate`). An invitation and a password reset no longer overwrite each other, and a reset token is never accepted for seven days as an invitation. Invitations sent before the upgrade must be re-sent.
 - A record whose file leaves `data/` is unpublished on the next import (policies with their duties, jurisdictions and changes), as controls already were.
 - Weekly digest issues keep the dates they carried by value; deadline rows are rebuilt on every import, so an archived issue had been showing whichever deadline later took the old id.
-- The record standing says "No change recorded as of <date>" only with a date, counting the record's own last check; with none it says the record has not yet been checked. A change logged in the last 90 days (was 30) is shown.
+- The record standing says "No change recorded as of <date>" only with a date, counting the record's own last check; with none it says the record has not yet been checked.
 - The change desk counts a source as checked from the record's `last_checked_at` until the desk logs its own check, shows 25 sources a page, names records by title, and builds its queue once per request.
 - Removed the unused axios, Flowbite and flowbite-react packages; the public and account style sheets are about half their previous size.
 
