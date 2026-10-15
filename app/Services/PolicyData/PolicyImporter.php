@@ -19,6 +19,7 @@ use App\Models\PolicyInstrument;
 use App\Models\PolicySection;
 use App\Models\PolicyVersion;
 use App\Models\ProcurementRule;
+use App\Models\RecordPublication;
 use App\Models\RecordVerification;
 use App\Models\SourceDocument;
 use App\Models\TaxonomyTerm;
@@ -38,6 +39,9 @@ use Illuminate\Support\Facades\DB;
  */
 class PolicyImporter
 {
+    /** @var array<string, RecordPublication>|null admin publish decisions, loaded once per import */
+    private ?array $publications = null;
+
     /** @var array<string, array<string, TaxonomyTerm>> */
     private array $terms = [];
 
@@ -50,6 +54,7 @@ class PolicyImporter
 
     public function run(): array
     {
+        $this->publications = null;
         $this->jurisdictionsBySlug = [];
         DB::transaction(function () {
             $this->importTaxonomies();
@@ -427,9 +432,16 @@ class PolicyImporter
         if (! ($record['published'] ?? true)) {
             return null;
         }
+        // An admin takedown holds until an admin republishes: the files say the record
+        // may be public, the admin said it must not be for now.
+        $type = RecordPublication::typeFor($model);
+        $decision = $type ? ($this->publications ??= RecordPublication::byKey())[$type.':'.$record['slug']] ?? null : null;
+        if ($decision && ! $decision->published) {
+            return null;
+        }
         $current = $model::where('slug', $record['slug'])->value('published_at');
 
-        return $current ? Carbon::parse($current) : now();
+        return $current ? Carbon::parse($current) : ($decision?->first_published_at ?? now());
     }
 
     /** Transition measures and indicators, replaced from data/transition; then the index snapshot for the current quarter. */

@@ -40,7 +40,7 @@ entries per group as the desktop menu, and the same hub link, so nothing is desk
         <a href="{{ route('profile.edit') }}" class="block rounded px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">Your account</a>
         <a href="{{ route('following.index') }}" class="block rounded px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">What you watch</a>
         @else
-        <a href="{{ route('login') }}" class="block rounded px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">Sign in</a>
+        <a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="block rounded px-3 py-2.5 text-sm text-brand-body no-underline hover:bg-brand-paper">Sign in</a>
         @endauth
     </div>
 </nav>

@@ -68,6 +68,19 @@ class DownloadLeadCaptureTest extends TestCase
         $this->assertSame(1, ResourceDownload::where('user_id', $user->id)->count());
     }
 
+    public function test_an_admin_cannot_rename_themselves_through_the_download_form(): void
+    {
+        // An admin's name is matched against the reviewer roster and signs verifications;
+        // the profile form refuses to change it, and this form must not be the way round.
+        config(['aipolicytracker.admin_emails' => ['owner@example.org']]);
+        $admin = User::factory()->create(['email' => 'owner@example.org', 'name' => 'Mallory Admin', 'organization_name' => 'Example Org']);
+        $this->assertTrue($admin->isAdmin());
+
+        $this->actingAs($admin)->post(self::TOOL, ['terms' => 1, 'name' => 'Jane Reviewer', 'organization_name' => 'Example Org'])->assertRedirect();
+
+        $this->assertSame('Mallory Admin', $admin->fresh()->name);
+    }
+
     public function test_the_form_is_prefilled_from_the_account_so_a_returning_reader_confirms_rather_than_retypes(): void
     {
         $user = User::factory()->create(['name' => 'Grace Example', 'organization_name' => 'Example Agency']);

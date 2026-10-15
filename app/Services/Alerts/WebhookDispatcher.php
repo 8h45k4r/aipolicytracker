@@ -4,7 +4,9 @@ namespace App\Services\Alerts;
 
 use App\Models\AlertChannel;
 use App\Models\ChannelDelivery;
+use App\Support\OutboundUrl;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Sends an alert to Slack and webhook channels and keeps the delivery log.
@@ -44,9 +46,17 @@ final class WebhookDispatcher
             return false;
         }
         $delivery->attempts++;
+        // Checked again at send time: a name can be pointed at a private address after it
+        // was saved. The connection is then pinned to the addresses checked, and never
+        // follows a redirect, which could lead anywhere.
+        if ($reason = OutboundUrl::refusal($channel->endpoint)) {
+            $delivery->forceFill(['status' => 'failed', 'last_error' => 'Refused: the address is '.$reason.'.', 'next_attempt_at' => null])->save();
+
+            return false;
+        }
         try {
             $response = $channel->kind === 'slack'
-                ? Http::timeout(self::TIMEOUT)->asJson()->post($channel->endpoint, ['text' => $this->slackText($delivery->payload)])
+                ? Http::timeout(self::TIMEOUT)->withOptions(OutboundUrl::pinnedOptions($channel->endpoint))->asJson()->post($channel->endpoint, ['text' => $this->slackText($delivery->payload)])
                 : $this->signedPost($channel, $delivery);
             if ($response->successful()) {
                 $delivery->forceFill(['status' => 'sent', 'response_code' => $response->status(), 'sent_at' => now(), 'last_error' => null, 'next_attempt_at' => null])->save();
@@ -56,7 +66,10 @@ final class WebhookDispatcher
             }
             $this->fail($delivery, $response->status(), 'HTTP '.$response->status());
         } catch (\Throwable $e) {
-            $this->fail($delivery, null, mb_substr($e->getMessage(), 0, 480));
+            // The connection error is logged for the operator; the account holder is told only
+            // that it failed, so the message cannot be used to map hosts and ports from here.
+            Log::notice('alert.webhook.failed', ['delivery' => $delivery->id, 'error' => mb_substr($e->getMessage(), 0, 480)]);
+            $this->fail($delivery, null, 'Could not connect to the endpoint.');
         }
 
         return false;
@@ -66,7 +79,7 @@ final class WebhookDispatcher
     {
         $body = json_encode($delivery->payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
-        return Http::timeout(self::TIMEOUT)->withHeaders([
+        return Http::timeout(self::TIMEOUT)->withOptions(OutboundUrl::pinnedOptions($channel->endpoint))->withHeaders([
             'Content-Type' => 'application/json',
             'User-Agent' => 'aipolicytracker-alerts/1.0',
             'X-AIP-Signature' => $channel->sign($body),

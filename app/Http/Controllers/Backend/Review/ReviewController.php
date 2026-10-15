@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Review;
 use App\Http\Controllers\Controller;
 use App\Models\ContributorSubmission;
 use App\Models\EnforcementEvent;
+use App\Models\RecordPublication;
 use App\Models\RecordVerification;
 use App\Models\ReviewerDecision;
 use App\Services\Review\ReviewableTypes;
@@ -429,8 +430,14 @@ class ReviewController extends Controller
     private function setPublished(string $type, Model $model, bool $publish): void
     {
         $was = $model->published_at;
+        // The decision is kept so the nightly import honours a takedown instead of
+        // republishing the record from its file, and so republishing restores the date the
+        // record first went public rather than starting it again today.
+        $decision = RecordPublication::firstOrNew(['record_type' => $type, 'record_slug' => $model->slug]);
+        $first = $decision->first_published_at ?? $was;
+        $decision->fill(['published' => $publish, 'first_published_at' => $first, 'user_id' => auth()->id()])->save();
         // Publishing an already-published record keeps the date it first went public.
-        $model->forceFill(['published_at' => $publish ? ($was ?? now()) : null])->save();
+        $model->forceFill(['published_at' => $publish ? ($was ?? $first ?? now()) : null])->save();
         // An instrument's duties follow it: unpublishing hides them all, because a hidden
         // instrument with visible obligations would point readers at a record that is not
         // there. Publishing brings back only what went down with it (a policy that was

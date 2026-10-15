@@ -27,7 +27,7 @@
                 @elseif(!$enabled || empty($plan['product_id']))<span class="btn-secondary opacity-60 cursor-not-allowed" aria-disabled="true">Not yet available</span>
                 @elseif($current)<span class="meta">Change plans from <a href="{{ route('profile.edit') }}">your account</a></span>
                 @elseif($user)<form method="post" action="{{ route('billing.checkout', $key) }}">@csrf<button type="submit" class="btn-primary" data-track="checkout_start" data-plan="{{ $key }}">Subscribe to {{ $plan['name'] }}</button></form>
-                @else<a href="{{ route('login') }}" class="btn-primary">Sign in to subscribe</a>
+                @else<a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="btn-primary">Sign in to subscribe</a>
                 @endif
             </div>
         </section>

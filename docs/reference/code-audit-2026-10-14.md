@@ -1,6 +1,6 @@
 # Full code audit, 14 October 2026
 
-Five read-only reviews of `main` (security; correctness and data integrity; performance; dependencies and platform; features, UX and accessibility), run against a migrated copy of the database. The findings marked **verified** were reproduced by the reviewer and re-checked against the code; the others were read from the code path end to end. Nothing here has been changed yet.
+Five read-only reviews of `main` (security; correctness and data integrity; performance; dependencies and platform; features, UX and accessibility), run against a migrated copy of the database. The findings marked **verified** were reproduced by the reviewer and re-checked against the code; the others were read from the code path end to end. Items 1 to 10 of the first table were fixed on 15 October 2026 (see the CHANGELOG and `tests/Feature/AuditFixesTest.php`); the separate invitation token table in item 8 is still open, as is everything below the first table.
 
 ## Fix first: wrong results or exposure today
 

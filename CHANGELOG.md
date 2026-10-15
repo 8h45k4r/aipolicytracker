@@ -4,6 +4,17 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- The weekly digest goes out every week (a 07:00 send last Monday no longer counts as "this week"), and each issue covers the changes since the previous issue, including ones dated earlier but imported after it, without repeating any.
+- Daily alerts include a change imported, or backdated, after the previous alert (within 30 days of its date); a same-day re-run no longer sends twice on SQLite. Neither the digest nor alerts list deadlines of unpublished records or deadlines that were superseded.
+- A verification decision already exported to `data/` no longer overrides the file on every import, so a record later marked `needs_update` there shows as such.
+- An admin takedown survives the nightly import, and republishing restores the first-published date. Decisions are kept in a new `record_publications` table (run `php artisan migrate`; existing data is not touched).
+- Alert webhooks: an address that is, or resolves to, a loopback, private, link-local, shared or reserved address is refused when saved and again when sent; the connection is pinned to the checked address, redirects are not followed, and connection errors are no longer shown verbatim.
+- An administrator's name can no longer be changed through the template download form.
+- Admin two-factor sign-in: after 10 wrong codes in a day, authenticator codes are refused until the next day (recovery codes still work) and the account holder is emailed.
+- API tokens are revoked when all sessions are ended (password reset, suspension) and are refused for a suspended account; `SANCTUM_EXPIRATION_MINUTES` optionally sets a lifetime.
+- "Sign in" on public pages opens a reader sign-in ("Sign in to AIPolicyTracker", with "Create a free account") and returns to the page it came from; only paths on this site are accepted as the return address.
+
 ### Changed
 - AI policy and GRC glossary: 15 new terms (AI GRC, AI risk, the EU AI Act, Google's Secure AI Framework, the OWASP Top 10 for LLM Applications, prompt injection, data poisoning, algorithmic bias, AI lineage, AI impact assessment, AI bill of materials, shadow AI, AI explainability, AI hallucination, agentic AI), and ISO/IEC 42001, the NIST AI RMF and AI red teaming rewritten in the same form: the question, a sourced answer under 50 words, why it matters, related concepts. The glossary is grouped (governance, risk and compliance; AI security; EU AI Act concepts) and answers the five core questions as FAQ. The EU AI Act entry points to its record page instead of a second page; general terms (AI risk, AI GRC) are not linked automatically from records.
 - Share cards for glossary terms (the term and its source) and the quarterly report (the quarter's headline figures); the China–US comparison is offered to search engines (both records verified at official sources). `SITE_SOCIAL_PROFILES` is documented as the place for the site's Wikidata item once it exists.

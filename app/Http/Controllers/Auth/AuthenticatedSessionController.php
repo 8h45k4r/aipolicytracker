@@ -14,14 +14,25 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View|RedirectResponse
+    public function create(Request $request): View|RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->intended(route('dashboard', absolute: false));
         }
+        // A "Sign in" link on a record page says where it came from, so the reader lands back
+        // there afterwards. Only a path on this site is accepted, never another host.
+        $return = (string) $request->query('return', '');
+        if (self::isLocalPath($return)) {
+            $request->session()->put('url.intended', url($return));
+        }
 
-        // Server-rendered in the admin theme; the legacy Inertia page carried outdated marketing copy.
         return view('auth.login');
+    }
+
+    /** A path on this site ("/policies/eu-ai-act"), not a protocol-relative or absolute URL. */
+    public static function isLocalPath(string $path): bool
+    {
+        return $path !== '' && str_starts_with($path, '/') && ! str_starts_with($path, '//') && ! str_contains($path, '\\') && ! preg_match('/[\x00-\x1f]/', $path);
     }
 
     /**

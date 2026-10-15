@@ -43,7 +43,7 @@
                 @else
                 <h2 id="dl-heading" class="section-title">Create a free account to download</h2>
                 <p class="mt-2 text-sm text-brand-body">Get instant access to this free {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }} and receive updates when related AI policy requirements change.</p>
-                <div class="mt-3 flex flex-wrap gap-2"><a href="{{ route('tools.gate', $tool->slug) }}" class="btn-primary">Continue with email</a><a href="{{ route('login') }}" class="btn-secondary">I already have an account</a></div>
+                <div class="mt-3 flex flex-wrap gap-2"><a href="{{ route('tools.gate', $tool->slug) }}" class="btn-primary">Continue with email</a><a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="btn-secondary">I already have an account</a></div>
                 <p class="mt-3 text-xs text-brand-muted">By downloading, you agree to the template licence and acknowledge that AIPolicyTracker provides informational resources, not legal advice.</p>
                 @endauth
             </section>

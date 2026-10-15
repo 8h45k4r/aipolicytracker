@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -56,6 +57,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // A suspended account's API tokens stop working at once, whether or not they were
+        // revoked when it was suspended.
+        Sanctum::authenticateAccessTokensUsing(fn ($token, bool $isValid) => $isValid && ! ($token->tokenable?->isSuspended() ?? false));
+
         // One password rule for sign-up, reset and change. Sign-up used to ask
         // for mixed case and a symbol while a reset accepted any eight
         // characters, so the weakest path set the real minimum.

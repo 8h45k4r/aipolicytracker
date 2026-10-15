@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Backend\Security;
 
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\EnsureAdminSecondFactor;
+use App\Mail\SecondFactorLockedMail;
 use App\Services\Security\Totp;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -22,6 +26,9 @@ use Illuminate\View\View;
  */
 class TwoFactorController extends Controller
 {
+    /** Wrong codes allowed per account in 24 hours before authenticator codes are refused. */
+    public const DAILY_FAILURES = 10;
+
     private const RECOVERY_CODES = 8;
 
     private const PENDING_KEY = 'auth.two_factor_pending_secret';
@@ -111,12 +118,27 @@ class TwoFactorController extends Controller
         }
         $data = $request->validate(['code' => ['required', 'string', 'max:20']]);
         $code = trim($data['code']);
+        // The route allows five tries a minute; this caps them per day as well. Five a
+        // minute with no ceiling is 7,200 guesses a day, which finds a six-digit code with
+        // fair odds within a month. Past the cap, authenticator codes are refused until the
+        // day is out; a recovery code (ten random characters) still works.
+        $key = 'admin-2fa-failures:'.$user->id;
+        $locked = RateLimiter::tooManyAttempts($key, self::DAILY_FAILURES);
 
-        if ($this->consumeAuthenticatorCode($user, $code) || $this->consumeRecoveryCode($user, $code)) {
+        if ((! $locked && $this->consumeAuthenticatorCode($user, $code)) || $this->consumeRecoveryCode($user, $code)) {
+            RateLimiter::clear($key);
             $request->session()->regenerate();
             EnsureAdminSecondFactor::pass($request);
 
             return redirect()->intended(route('dashboard'));
+        }
+        if ($locked) {
+            return back()->withErrors(['code' => 'Too many wrong codes today: authenticator codes are refused for now. Use a recovery code, or try again tomorrow.']);
+        }
+        RateLimiter::hit($key, 86400);
+        if (RateLimiter::attempts($key) === self::DAILY_FAILURES) {
+            Mail::to($user->email)->send(new SecondFactorLockedMail(self::DAILY_FAILURES, 24));
+            Log::warning('admin.2fa.locked', ['user' => $user->id]);
         }
 
         return back()->withErrors(['code' => 'That code did not match.']);

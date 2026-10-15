@@ -63,8 +63,15 @@ class AlertBuilder
             return $empty;
         }
 
+        // A change belongs to this window if it happened in it, or if it appeared here in it
+        // though dated earlier: imported the morning after, or backdated. Keyed on the event
+        // date alone, a change dated the day of the previous alert but imported after it fell
+        // between two windows and was never sent. The 30-day bound keeps a rebuilt database,
+        // where every row "appeared" at build time, from alerting on old history.
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
-            ->whereDate('occurred_on', '>', $since->toDateString())->whereDate('occurred_on', '<=', $until->toDateString())
+            ->where(fn ($w) => $w->where(fn ($d) => $d->whereDate('occurred_on', '>', $since->toDateString())->whereDate('occurred_on', '<=', $until->toDateString()))
+                ->orWhere(fn ($late) => $late->where('first_published_at', '>', $since)->where('first_published_at', '<=', $until)
+                    ->whereDate('occurred_on', '>=', $until->copy()->subDays(30)->toDateString())->whereDate('occurred_on', '<=', $until->toDateString())))
             ->where(function ($q) use ($jurisdictionIds, $instrumentIds, $extended) {
                 $q->whereRaw('1 = 0');
                 if ($jurisdictionIds !== []) {
@@ -94,6 +101,8 @@ class AlertBuilder
             })->orderByDesc('occurred_on')->orderByDesc('id')->get();
 
         $deadlines = Deadline::with('policyInstrument.jurisdiction')
+            ->whereHas('policyInstrument', fn ($q) => $q->published())
+            ->where('deadline_status', 'scheduled')
             ->whereDate('due_on', '>=', $until->toDateString())->whereDate('due_on', '<=', $until->copy()->addDays(self::DEADLINE_HORIZON_DAYS)->toDateString())
             ->where(function ($q) use ($instrumentIds, $obligationIds) {
                 $q->whereRaw('1 = 0');

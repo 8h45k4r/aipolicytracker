@@ -189,6 +189,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->setRememberToken(Str::random(60));
         $this->save();
+        // API tokens are sessions too: a suspended account or a reset password must not
+        // leave a token that still reads the account's watches.
+        $this->tokens()->delete();
 
         if (config('session.driver') === 'database') {
             DB::connection(config('session.connection'))

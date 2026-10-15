@@ -37,7 +37,7 @@ class SendAlertsCommand extends Command
             ->merge(ApplicabilityProfile::query()->distinct()->pluck('user_id'))->unique()->values();
         User::whereIn('id', $userIds)->orderBy('id')->chunk(100, function ($users) use ($builder, $dispatcher, $now, $today, &$sent, &$skipped, &$empty) {
             foreach ($users as $user) {
-                if (! $user->entitled('alerts.daily') || AlertDelivery::where('user_id', $user->id)->where('sent_on', $today)->exists()) {
+                if (! $user->entitled('alerts.daily') || AlertDelivery::where('user_id', $user->id)->whereDate('sent_on', $today)->exists()) {
                     $skipped++;
 
                     continue;

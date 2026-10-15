@@ -8,6 +8,7 @@ use App\Models\ConsentEvent;
 use App\Models\User;
 use App\Services\Alerts\AlertBuilder;
 use App\Services\Alerts\WebhookDispatcher;
+use App\Support\OutboundUrl;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,6 +35,9 @@ class AlertChannelController extends Controller
         abort_if(AlertChannel::where('user_id', $user->id)->count() >= AlertChannel::MAX_PER_USER, 422, 'Channel limit reached');
         if ($data['kind'] === 'slack' && ! str_starts_with((string) $data['endpoint'], 'https://hooks.slack.com/')) {
             return back()->withErrors(['endpoint' => 'A Slack incoming webhook starts with https://hooks.slack.com/.'])->withInput();
+        }
+        if (! empty($data['endpoint']) && ($reason = OutboundUrl::refusal($data['endpoint']))) {
+            return back()->withErrors(['endpoint' => 'That address cannot be used for alerts: it is '.$reason.'.'])->withInput();
         }
         if ($data['kind'] === 'rss' && AlertChannel::where('user_id', $user->id)->where('kind', 'rss')->exists()) {
             return redirect()->route('following.index')->with('status', 'channel-exists');

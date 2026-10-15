@@ -187,7 +187,7 @@ class PublicSiteTest extends TestCase
 
     public function test_login_page_is_server_rendered_with_password_toggle_and_about_lists_maintainer_links(): void
     {
-        $this->get('/login')->assertOk()->assertSee('Sign in to the admin')->assertSee('data-password-toggle', false)->assertDontSee('Register')->assertSee('brand/logo-on-dark.svg');
+        $this->get('/login')->assertOk()->assertSee('Sign in to AIPolicyTracker')->assertSee('Create a free account')->assertDontSee('Sign in to the admin')->assertSee('data-password-toggle', false)->assertSee('brand/logo-on-dark.svg');
         $this->get('/about')->assertOk()->assertSee('Follow on X (Twitter)')->assertSee('Get connected on LinkedIn')->assertSee('https://bhaskar.com.np/');
         $this->get('/')->assertOk()->assertSee('Maintained by');
     }

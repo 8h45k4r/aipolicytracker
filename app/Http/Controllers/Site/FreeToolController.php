@@ -91,7 +91,9 @@ class FreeToolController extends Controller
         $user = $request->user();
         $user->forceFill([
             'terms_accepted_at' => $user->terms_accepted_at ?? now(),
-            'name' => trim($data['name']),
+            // An admin's display name is tied to the reviewer roster and to the verifications
+            // they sign (see ProfileUpdateRequest), so this form does not change it.
+            'name' => $user->isAdmin() ? $user->name : trim($data['name']),
             'organization_name' => trim($data['organization_name']),
         ]);
         if (! empty($data['updates']) && ! $user->marketing_consent_at) {

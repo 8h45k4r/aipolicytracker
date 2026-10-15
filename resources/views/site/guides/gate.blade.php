@@ -7,7 +7,7 @@
     <p class="mt-3 text-brand-body leading-7">Get instant access to the free <strong>{{ $tool->title }}</strong> ({{ $tool->formatList() }}) and receive updates when related AI policy requirements change.</p>
     <div class="mt-6 flex flex-col gap-2 max-w-sm">
         <a href="{{ route('register') }}" class="btn-primary" data-track="gate_register">Continue with email</a>
-        <a href="{{ route('login') }}" class="btn-secondary" data-track="gate_login">Sign in to an existing account</a>
+        <a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="btn-secondary" data-track="gate_login">Sign in to an existing account</a>
     </div>
     <p class="mt-4 text-xs text-brand-muted">By downloading, you agree to the template licence and acknowledge that AIPolicyTracker provides informational resources, not legal advice. We store your email, name and download history; marketing updates are opt-in.</p>
     <p class="mt-6 text-sm"><a href="{{ $tool->url() }}">Back to the preview</a></p>
