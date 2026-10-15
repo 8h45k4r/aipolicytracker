@@ -79,7 +79,8 @@ class ListingFiltersTest extends TestCase
 
         // The API keeps "updated" as its default order.
         $orders = app(PolicyCatalog::class)->policyQuery([])->getQuery()->orders;
-        $this->assertSame([['column' => 'policy_instruments.updated_at', 'direction' => 'desc']], $orders);
+        // Ending on the id keeps ties (most rows share the import's timestamp) on one page.
+        $this->assertSame([['column' => 'policy_instruments.updated_at', 'direction' => 'desc'], ['column' => 'policy_instruments.id', 'direction' => 'asc']], $orders);
         $this->getJson('/api/v1/policies?sort=binding')->assertOk();
     }
 
