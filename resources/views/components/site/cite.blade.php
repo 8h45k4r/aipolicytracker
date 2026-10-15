@@ -27,6 +27,7 @@
     @endif
     <details class="mt-2 text-xs">
         <summary class="cursor-pointer text-brand-blue">BibTeX</summary>
-        <pre class="mt-2 overflow-x-auto rounded-md bg-brand-paper p-3 text-brand-body" data-cite-bibtex>{{ \App\Support\DatasetCitation::bibtex($title, $url) }}</pre>
+        {{-- Focusable and named: a long BibTeX line scrolls sideways, which a keyboard user can only do from focus (WCAG 2.1.1). --}}
+        <pre class="mt-2 overflow-x-auto rounded-md bg-brand-paper p-3 text-brand-body" tabindex="0" role="region" aria-label="BibTeX citation" data-cite-bibtex>{{ \App\Support\DatasetCitation::bibtex($title, $url) }}</pre>
     </details>
 </section>

@@ -880,17 +880,30 @@
 // A table that scrolls sideways must be reachable by keyboard (WCAG 2.1.1) and named for
 // screen readers, so every .table-wrap that actually overflows becomes a focusable region
 // named by its caption. Wrappers that already carry these in the markup are left alone.
+// What the script added it takes back (listed in data-region-added) once the table fits
+// again, e.g. after a rotate, so a table that does not scroll is not a stray tab stop.
 (function () {
     var mark = function () {
         document.querySelectorAll('.table-wrap').forEach(function (wrap) {
-            if (wrap.scrollWidth <= wrap.clientWidth + 1) { return; }
-            if (!wrap.hasAttribute('tabindex')) { wrap.setAttribute('tabindex', '0'); }
-            if (!wrap.hasAttribute('role')) { wrap.setAttribute('role', 'region'); }
-            if (!wrap.hasAttribute('aria-label') && !wrap.hasAttribute('aria-labelledby')) {
+            var added = (wrap.getAttribute('data-region-added') || '').split(' ').filter(Boolean);
+            if (wrap.scrollWidth <= wrap.clientWidth + 1) {
+                added.forEach(function (attr) { wrap.removeAttribute(attr); });
+                wrap.removeAttribute('data-region-added');
+                return;
+            }
+            var set = function (attr, value) {
+                if (wrap.hasAttribute(attr)) { return; }
+                wrap.setAttribute(attr, value);
+                added.push(attr);
+            };
+            set('tabindex', '0');
+            set('role', 'region');
+            if (!wrap.hasAttribute('aria-labelledby')) {
                 var caption = wrap.querySelector('caption');
                 var text = caption ? caption.textContent.replace(/\s+/g, ' ').trim() : '';
-                wrap.setAttribute('aria-label', text || 'Scrollable table');
+                set('aria-label', text || 'Scrollable table');
             }
+            if (added.length) { wrap.setAttribute('data-region-added', added.join(' ')); }
         });
     };
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', mark); } else { mark(); }

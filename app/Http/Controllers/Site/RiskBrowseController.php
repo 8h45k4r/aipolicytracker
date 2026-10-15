@@ -70,7 +70,8 @@ class RiskBrowseController extends Controller
     public function incidentsBrowse(Request $request): View
     {
         [$query, $filters] = $this->incidentQuery($request);
-        $incidents = $query->orderByDesc('occurred_on')->orderByDesc('incident_id')->paginate(50)->withQueryString();
+        // 25, not 50: each row is a full card on a phone, and fifty made the page ~28,000px tall.
+        $incidents = $query->orderByDesc('occurred_on')->orderByDesc('incident_id')->paginate(25)->withQueryString();
         $facets = [
             'year' => ExternalIncident::selectRaw('year, COUNT(*) as n')->groupBy('year')->orderByDesc('year')->pluck('n', 'year'),
             'domain' => ExternalIncident::selectRaw('mit_domain, COUNT(*) as n')->whereNotNull('mit_domain')->groupBy('mit_domain')->orderByDesc('n')->pluck('n', 'mit_domain'),

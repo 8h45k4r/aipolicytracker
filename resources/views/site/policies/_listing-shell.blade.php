@@ -36,8 +36,11 @@
 
 {{-- Mobile bottom sheet --}}
 <div id="filter-sheet" data-open="false" class="lg:hidden fixed inset-0 z-50 data-[open=false]:hidden" role="dialog" aria-modal="true" aria-label="Filters">
-    <div class="absolute inset-0 bg-brand-navy/40" data-close-filters></div>
-    <div class="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-4 shadow-xl">
+    {{-- Black rather than navy: a navy scrim barely dims the dark theme's navy page. --}}
+    <div class="absolute inset-0 bg-black/50" data-close-filters></div>
+    {{-- No bottom padding: a sticky child stops at the scroller's padding edge, which left the
+         Apply row floating above the sheet's bottom with results scrolling beneath it. --}}
+    <div class="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white px-4 pt-4 shadow-xl">
         <div class="flex items-center justify-between"><p class="font-semibold text-brand-navy">Filters</p><button type="button" class="btn-secondary !min-h-[40px]" data-close-filters>Close</button></div>
         <div class="mt-3">@include('site.policies._filters', ['idp' => 'm-f-'])</div>
     </div>

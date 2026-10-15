@@ -5,24 +5,27 @@ Each group is a <details> element, so the menu opens, closes and takes keyboard 
 JavaScript disabled. public.js only adds Escape-to-close, close-on-outside-click and
 closing a sibling when another group opens.
 
-A group is marked current when one of its links is the page being viewed. Matching is done
-on the resolved URL rather than the route name, because nine landing pages share one route
-name and would otherwise all report themselves as current.
+A group is marked current by URL prefix (Navigation::currentGroup, 'paths' in the config), so
+every record page under a section highlights it. A single link is marked current on the
+resolved URL rather than the route name, because nine landing pages share one route name and
+would otherwise all report themselves as current.
+
+The <summary> carries no aria-haspopup: it already announces as a disclosure, and "has popup"
+promises a menu with arrow-key navigation that these plain links do not provide.
 --}}
 @php
     $groups = \App\Support\Navigation::groups();
     $here = url()->current();
     $urlOf = fn (array $item) => \App\Support\Navigation::url($item);
     $isHere = fn (array $item) => $urlOf($item) === $here;
-    $groupIsHere = fn (string $key, array $group) => route('explore', $key) === $here
-        || \App\Support\Navigation::items($group)->contains(fn ($item) => $isHere($item));
+    $currentGroup = \App\Support\Navigation::currentGroup(request()->path(), $here);
 @endphp
 
 <nav aria-label="Primary" class="hidden lg:flex items-center gap-1" data-nav>
     @foreach($groups as $key => $group)
-        @php($current = $groupIsHere($key, $group))
+        @php($current = $key === $currentGroup)
         <details class="relative" data-nav-group>
-            <summary class="nav-link list-none gap-1 {{ $current ? 'nav-link-active' : '' }}" aria-haspopup="true">
+            <summary class="nav-link list-none gap-1 {{ $current ? 'nav-link-active' : '' }}">
                 {{ $group['label'] }}
                 <svg class="h-3 w-3 shrink-0 text-brand-muted transition-transform" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </summary>

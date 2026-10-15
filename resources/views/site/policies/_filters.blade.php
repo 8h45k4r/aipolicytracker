@@ -66,7 +66,7 @@
     </div>
     @endif
     {{-- In the phone sheet the buttons stay pinned to its bottom, so Apply is reachable from any filter. --}}
-    <div class="flex gap-2 {{ $inSheet ? 'sticky bottom-0 -mx-4 -mb-4 border-t border-brand-line bg-white px-4 py-3' : '' }}">
+    <div class="flex gap-2 {{ $inSheet ? 'sticky bottom-0 -mx-4 border-t border-brand-line bg-white px-4 py-3' : '' }}">
         <button type="submit" class="btn-primary flex-1" data-track="filter_apply">Apply filters</button>
         <a href="{{ $action }}" class="btn-secondary">Reset</a>
     </div>

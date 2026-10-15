@@ -8,14 +8,22 @@
             <a href="#subscribe" class="btn-primary" data-track="newsletter_click">Email digest</a>
         </div>
     </div>
-    <form method="get" action="{{ route('changes.index') }}" class="mt-5 grid gap-3 sm:grid-cols-4" data-autosubmit aria-label="Filter changes">
+    {{-- On phones the filters fold away and the digest card drops below the list, so the first
+         change is near the top; public.js opens the panel on wide screens, and it starts open
+         whenever a filter is set, so the form shows its state without JavaScript. --}}
+    @php($activeFilters = count(array_filter([$filters['q'] ?? null, $filters['jurisdiction'] ?? null, $impact])))
+    <div class="flex flex-col">
+    <details class="mt-5 rounded-md border border-brand-line bg-white" data-open-on-desktop @if($activeFilters) open @endif>
+    <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-brand-navy">Filter changes @if($activeFilters)<span class="text-brand-muted font-normal">({{ $activeFilters }} active)</span>@endif</summary>
+    <form method="get" action="{{ route('changes.index') }}" class="grid gap-3 border-t border-brand-line p-4 sm:grid-cols-4" data-autosubmit aria-label="Filter changes">
         <div class="sm:col-span-2"><label for="c-q" class="label">Keyword</label><input id="c-q" type="search" name="q" value="{{ $filters['q'] ?? '' }}" class="input" placeholder="e.g. deadline, GPAI, consultation"></div>
         <div><label for="c-j" class="label">Jurisdiction</label><select id="c-j" name="jurisdiction" class="input"><option value="">All</option>@foreach($jurisdictions as $j)<option value="{{ $j->slug }}" @selected(($filters['jurisdiction'] ?? '') === $j->slug)>{{ $j->name }}</option>@endforeach</select></div>
         <div><label for="c-i" class="label">Impact</label><select id="c-i" name="impact" class="input"><option value="">All</option>@foreach(['urgent','high','routine'] as $i)<option value="{{ $i }}" @selected($impact === $i)>{{ ucfirst($i) }}</option>@endforeach</select></div>
         <div class="sm:col-span-4 flex gap-2"><button type="submit" class="btn-primary">Apply</button><a href="{{ route('changes.index') }}" class="btn-secondary">Reset</a></div>
+        <div class="sm:col-span-4 flex flex-wrap gap-2 text-sm" aria-label="Browse by year">@foreach($years as $y)<a class="chip" href="{{ route('changes.year', $y) }}">{{ $y }}</a>@endforeach</div>
     </form>
-    <x-site.subscribe-form id="subscribe" source="changes" class="mt-6" />
-    <div class="mt-4 flex flex-wrap gap-2 text-sm" aria-label="Browse by year">@foreach($years as $y)<a class="chip" href="{{ route('changes.year', $y) }}">{{ $y }}</a>@endforeach</div>
+    </details>
+    <x-site.subscribe-form id="subscribe" source="changes" class="mt-6 order-last lg:order-none" />
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <section class="lg:col-span-2 min-w-0" aria-labelledby="all-heading">
@@ -29,6 +37,7 @@
             <div class="mt-6 card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">How changes are detected</p><p class="mt-1 text-brand-body">Maintainers and contributors monitor official journals, regulator pages and consultations; every entry is recorded with its source and reviewed before publication. See the <a href="{{ route('methodology') }}">methodology</a>.</p></div>
             <div class="mt-4 text-sm"><a href="{{ url('/api/v1/changes') }}" class="text-brand-blue hover:underline">JSON API for changes</a></div>
         </aside>
+    </div>
     </div>
     <x-site.disclaimer class="mt-8" />
 </div>

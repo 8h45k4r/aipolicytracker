@@ -11,7 +11,7 @@
             <x-site.status-badge :status="$policy->statusEnum()" />
         </div>
         <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $obligation->title }}</h1>
-        <p class="mt-1 text-sm text-brand-muted"><a href="{{ route('obligations.context', $obligation->slug) }}" class="float-right text-brand-muted hover:text-brand-navy" title="This duty as one Markdown file, with its provenance">Context file</a>Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
+        <p class="mt-1 text-sm text-brand-muted"><span class="float-right">Download: <a href="{{ route('obligations.context', $obligation->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This duty as one Markdown file, with its provenance">Markdown</a></span>Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" legend /></div>
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" :save-title="$obligation->title" :save-url="$obligation->url()" :save-meta="($policy->short_title ?: $policy->title)" :source-url="$obligation->official_source_url ?: $policy->official_source_url" class="mt-4" />
@@ -72,7 +72,8 @@
                 <p class="mt-1 text-xs text-brand-muted">Original editorial crosswalks. They cite clause numbers only and reproduce no standard text; confidence reflects how direct the mapping is.</p>
                 @php($mappedSlug = config('frameworks.'.$obligation->frameworkMappings->first()->framework.'.slug'))
                 @if($mappedSlug)<p class="mt-1 text-xs"><a href="{{ route('frameworks.crosswalk', [$mappedSlug, $policy->jurisdiction->slug]) }}" class="text-brand-blue hover:underline">See every {{ $policy->jurisdiction->name }} duty mapped this way &rarr;</a></p>@endif
-                <div class="table-wrap mt-3" tabindex="0" role="region" aria-label="Framework mappings"><table><caption class="sr-only">Framework mappings</caption><thead><tr><th scope="col">Framework</th><th scope="col">Reference</th><th scope="col">Note</th><th scope="col">Confidence</th></tr></thead><tbody>
+                {{-- The caption names the table (and the scroll region public.js makes of it on overflow) apart from the section, which is also "Framework mappings" (axe landmark-unique). --}}
+                <div class="table-wrap mt-3"><table><caption class="sr-only">Framework mappings table</caption><thead><tr><th scope="col">Framework</th><th scope="col">Reference</th><th scope="col">Note</th><th scope="col">Confidence</th></tr></thead><tbody>
                 @foreach($obligation->frameworkMappings as $m)<tr><td class="whitespace-nowrap font-medium">@if(config('frameworks.'.$m->framework))<a href="{{ route('frameworks.show', config('frameworks.'.$m->framework.'.slug')) }}" class="text-brand-navy hover:underline">{{ $m->frameworkName() }}</a>@else{{ $m->frameworkName() }}@endif</td><td>{{ $m->reference }}</td><td>{{ $m->note }}</td><td>{{ $m->confidence_level }}</td></tr>@endforeach
                 </tbody></table></div>
             </section>

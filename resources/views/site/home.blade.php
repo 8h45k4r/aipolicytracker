@@ -13,7 +13,7 @@
             <form action="{{ route('policies.index') }}" method="get" role="search" class="mt-8 max-w-2xl" data-track="home_search">
                 <label for="home-q" class="sr-only">Search AI policies</label>
                 <div class="flex gap-2">
-                    <input id="home-q" name="q" type="search" class="input flex-1" placeholder="Search laws, regulations, guidance, obligations…" autocomplete="off">
+                    <input id="home-q" name="q" type="search" class="input flex-1" placeholder="Search laws and duties" autocomplete="off">
                     <button type="submit" class="btn-primary">Search</button>
                 </div>
             </form>

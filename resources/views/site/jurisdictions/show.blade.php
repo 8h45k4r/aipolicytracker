@@ -5,7 +5,7 @@
     <header class="mt-3">
         <p class="eyebrow">{{ ucfirst($jurisdiction->jurisdiction_type) }}@if($jurisdiction->parent) · <a href="{{ $jurisdiction->parent->url() }}">{{ $jurisdiction->parent->name }}</a>@endif · {{ $jurisdiction->region }}</p>
         <h1 class="mt-1 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">AI regulation in {{ $jurisdiction->nameWithArticle() }}</h1>
-        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$jurisdiction" class="!text-sm" legend /><a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-muted hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Context file</a><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$jurisdiction" class="!text-sm" legend /><span class="text-brand-muted">Download: <a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Markdown</a></span><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
     </header>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
@@ -30,7 +30,8 @@
             <section aria-labelledby="subnational-heading" class="mt-8">
                 <h2 id="subnational-heading" class="section-title">Which {{ $kinds->count() === 1 && $kinds->first() === 'state' ? 'states' : 'states, provinces and regions' }} in {{ $jurisdiction->short_name ?: $jurisdiction->name }} have their own AI laws and policies?</h2>
                 <p class="mt-1 text-sm text-brand-muted">{{ $subnational->count() }} {{ \Illuminate\Support\Str::plural('instrument', $subnational->count()) }} on record from {{ $subnational->pluck('jurisdiction_id')->unique()->count() }} of {{ $jurisdiction->short_name ?: $jurisdiction->name }}'s sub-national jurisdictions. Each applies only within its own territory.</p>
-                <div class="table-wrap mt-3" tabindex="0" role="region" aria-label="Sub-national AI laws and policies recorded for {{ $jurisdiction->name }}"><table><caption class="sr-only">Sub-national AI laws and policies recorded for {{ $jurisdiction->name }}</caption>
+                {{-- No static tabindex/role: public.js makes a .table-wrap a named, focusable region only while it overflows. --}}
+                <div class="table-wrap mt-3"><table><caption class="sr-only">Sub-national AI laws and policies recorded for {{ $jurisdiction->name }}</caption>
                     <thead><tr><th scope="col">Instrument</th><th scope="col">Where</th><th scope="col">Status</th><th scope="col">Binding</th></tr></thead>
                     <tbody>@foreach($subnational as $p)<tr>
                         <th scope="row" class="font-medium"><a href="{{ $p->url() }}" class="text-brand-navy">{{ $p->short_title ?: $p->title }}</a></th>
@@ -45,7 +46,7 @@
             <section aria-labelledby="instruments-heading" class="mt-8">
                 <h2 id="instruments-heading" class="section-title">Instruments at a glance</h2>
                 <p class="mt-1 text-xs text-brand-muted">Native-language names are shown where the record carries one; a blank means the source is in English or the name is not yet recorded.</p>
-                <div class="table-wrap mt-3" tabindex="0" role="region" aria-label="AI policy instruments recorded for {{ $jurisdiction->name }}"><table><caption class="sr-only">AI policy instruments recorded for {{ $jurisdiction->name }}</caption>
+                <div class="table-wrap mt-3"><table><caption class="sr-only">AI policy instruments recorded for {{ $jurisdiction->name }}</caption>
                     <thead><tr><th scope="col">Instrument</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Binding</th><th scope="col">Key date</th><th scope="col">Source</th></tr></thead>
                     <tbody>@foreach($policies as $p)<tr>
                         <th scope="row" class="font-medium"><a href="{{ $p->url() }}" class="text-brand-navy">{{ $p->short_title ?: $p->title }}</a>@if($p->title_native)<span class="block text-xs font-normal text-brand-muted">{{ $p->title_native }}</span>@endif</th>

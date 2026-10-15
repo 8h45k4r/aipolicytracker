@@ -28,8 +28,9 @@
         @foreach($incidents as $i)
         <li class="py-4 grid gap-2 lg:grid-cols-12 lg:gap-6 text-sm">
             <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta">#{{ $i->incident_id }} · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
-            <div class="lg:col-span-7"><a href="{{ $i->url() }}" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->displayTitle() }}</a> <a href="{{ $i->citeUrl() }}" rel="noopener" class="meta inline-block py-1 no-underline hover:underline">AIID ↗</a><p class="mt-1 text-brand-body leading-6">{{ $i->displayDescription() ?: '—' }}</p>
-                <p class="mt-1 meta">@if($i->deployers)Deployer: {{ implode(', ', $i->deployers) }}@endif @if($i->developers)· Developer: {{ implode(', ', $i->developers) }}@endif @if($i->harmed)· Harmed: {{ implode(', ', $i->harmed) }}@endif</p></div>
+            <div class="lg:col-span-7"><a href="{{ $i->url() }}" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->displayTitle() }}</a> <a href="{{ $i->citeUrl() }}" rel="noopener" class="meta inline-block py-1 no-underline hover:underline">AIID ↗</a>{{-- Clamped so a long report does not make every row a screenful; the full text is on the incident page. --}}
+                <p class="mt-1 text-brand-body leading-6 line-clamp-3">{{ $i->displayDescription() ?: '—' }}</p>
+                <p class="mt-1 meta line-clamp-1">@if($i->deployers)Deployer: {{ implode(', ', $i->deployers) }}@endif @if($i->developers)· Developer: {{ implode(', ', $i->developers) }}@endif @if($i->harmed)· Harmed: {{ implode(', ', $i->harmed) }}@endif</p></div>
             {{-- Chips keep a 24px minimum height and an 8px gap so each is its own tap target (WCAG 2.5.8). --}}
             <div class="lg:col-span-3 flex flex-wrap gap-2 content-start">
                 @if($i->mit_domain)<a class="chip !min-h-[24px] !py-0.5" href="{{ route('risk.incidents.browse', ['domain' => $i->mit_domain]) }}">{{ \Illuminate\Support\Str::limit($i->mit_domain, 30) }}</a>@endif

@@ -4,7 +4,7 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI regulations around the world</h1>
     <p class="mt-2 max-w-3xl text-brand-body">Each jurisdiction page answers the same questions: what is binding, what is guidance, what applies when, and where the official sources are. Coverage grows only as records are source-backed and reviewed.</p>
-    <form action="{{ route('policies.index') }}" method="get" class="mt-4 max-w-md flex gap-2" role="search"><label for="j-q" class="sr-only">Search policies</label><input id="j-q" name="q" type="search" class="input" placeholder="Search policies across jurisdictions"><button class="btn-primary" type="submit">Search</button></form>
+    <form action="{{ route('policies.index') }}" method="get" class="mt-4 max-w-md flex gap-2" role="search"><label for="j-q" class="sr-only">Search policies</label><input id="j-q" name="q" type="search" class="input" placeholder="Search policies"><button class="btn-primary" type="submit">Search</button></form>
     {{-- On a phone the list comes first and the map last: the tables answer the page's
          question in text, and the map script is fetched only if a reader scrolls to it. --}}
     <div class="flex flex-col">
@@ -12,7 +12,19 @@
     @foreach($byRegion as $region => $items)
     <section class="mt-8" aria-labelledby="region-{{ \Illuminate\Support\Str::slug($region) }}">
         <h2 id="region-{{ \Illuminate\Support\Str::slug($region) }}" class="section-title">{{ $region }}</h2>
-        <div class="table-wrap mt-3 table-sticky" tabindex="0" role="region" aria-label="Jurisdictions in {{ $region }}">
+        {{-- Below sm a five-column table only scrolls sideways, so each row becomes a stacked card;
+             the table stays for wider screens, where public.js makes it a region if it overflows. --}}
+        <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line sm:hidden" aria-label="Jurisdictions in {{ $region }}">
+            @foreach($items as $j)
+            <li class="py-3 text-sm">
+                <a href="{{ $j->url() }}" class="font-medium text-brand-navy hover:underline">{{ $j->name }}</a>
+                <p class="text-xs text-brand-muted">{{ ucfirst($j->jurisdiction_type) }}@if($j->parent) · part of {{ $j->parent->name }}@endif · {{ $j->policies_count }} {{ \Illuminate\Support\Str::plural('instrument', $j->policies_count) }}</p>
+                <p class="mt-1 text-brand-body">{{ \Illuminate\Support\Str::limit($j->regulatory_status_summary, 180) }}</p>
+                <div class="mt-1"><x-site.verified :record="$j" compact /></div>
+            </li>
+            @endforeach
+        </ul>
+        <div class="table-wrap mt-3 table-sticky hidden sm:block">
             <table>
                 <caption class="sr-only">Jurisdictions in {{ $region }}</caption>
                 <thead><tr><th scope="col">Jurisdiction</th><th scope="col">Type</th><th scope="col">Regulatory status</th><th scope="col">Instruments</th><th scope="col">Verification</th></tr></thead>

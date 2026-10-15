@@ -23,7 +23,7 @@
 <div class="mt-4"><x-site.empty title="Nothing is due">Every current instrument's official source has been checked within its cadence.</x-site.empty></div>
 @else
 <div class="table-wrap mt-4"><table><caption class="sr-only">Official sources, most urgent first</caption><thead><tr>
-    <th scope="col">Instrument</th><th scope="col">Watchers</th><th scope="col">Last checked</th><th scope="col">Record what you found</th>
+    <th scope="col">Instrument</th><th scope="col" class="hidden sm:table-cell">Watchers</th><th scope="col">Last checked</th><th scope="col">Record what you found</th>
 </tr></thead><tbody>
 @foreach($rows as $r)
 @php($p = $r['policy'])
@@ -33,7 +33,8 @@
         <div class="meta">{{ $p->jurisdiction?->short_name ?: $p->jurisdiction?->name }} · {{ $p->is_binding ? 'binding' : 'non-binding' }} · {{ $p->obligations_count }} {{ \Illuminate\Support\Str::plural('duty', $p->obligations_count) }}@if($p->aipt_id) · <span class="font-mono">{{ $p->aipt_id }}</span>@endif</div>
         @if($p->official_source_url)<a href="{{ $p->official_source_url }}" class="text-xs" target="_blank" rel="noopener">Open the official source <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>@endif
     </td>
-    <td class="tabular-nums">{{ $r['watchers'] }}</td>
+    {{-- Hidden on phones: the least needed column, and dropping it lets the row fit without a sideways scroll. --}}
+    <td class="hidden tabular-nums sm:table-cell">{{ $r['watchers'] }}</td>
     <td class="whitespace-nowrap text-xs">
         @if($r['last_at'])
             {{ $r['last_at']->format('j M Y') }}<div class="meta">{{ $r['last_outcome'] ? (\App\Models\SourceCheck::OUTCOMES[$r['last_outcome']] ?? $r['last_outcome']) : 'Checked in the data files' }}</div>

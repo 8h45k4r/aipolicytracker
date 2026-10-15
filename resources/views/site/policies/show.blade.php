@@ -32,8 +32,8 @@
         @if($policy->short_title && $policy->short_title !== $policy->title)<p class="mt-1 text-sm text-brand-muted">{{ $policy->title }}</p>@endif
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <x-site.verified :record="$policy" class="!text-sm" legend />
-            <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy">JSON record</a>
-            <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-muted hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Context file</a>
+            {{-- Underlined and named by format: grey plain text did not read as a link, and "Context file" named nothing a reader knows. --}}
+            <span class="text-brand-muted">Download: <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Markdown</a></span>
         </div>
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" :source-url="$policy->official_source_url" class="mt-4" />
@@ -69,8 +69,8 @@
                 <h2 id="dates-heading" class="section-title">When do the requirements apply?</h2>
                 @if($policy->key_dates_summary)<p class="prose-policy mt-2">{{ $policy->key_dates_summary }}</p>@endif
                 @if($policy->deadlines->isNotEmpty())
-                {{-- Focusable so a keyboard user can scroll the table sideways on a narrow screen. --}}
-                <div class="table-wrap mt-3" tabindex="0" role="region" aria-label="Key dates and deadlines for {{ $name }}">
+                {{-- public.js makes this a focusable region, named by the caption, only while it overflows. --}}
+                <div class="table-wrap mt-3">
                     <table>
                         <caption class="sr-only">Key dates and deadlines for {{ $name }}</caption>
                         <thead><tr><th scope="col">Date</th><th scope="col">Milestone</th><th scope="col">Source reference</th><th scope="col">Status</th></tr></thead>

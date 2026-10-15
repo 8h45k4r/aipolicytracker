@@ -49,7 +49,8 @@
             @endif
             <div class="text-sm">
                 <p class="font-semibold text-brand-navy">Follow a single policy</p>
-                <p class="mt-1 text-brand-body">Every policy page has a "Follow" box that subscribes you to changes for that instrument only.</p>
+                {{-- Names the box as it now reads ("Weekly digest for …"); it no longer says "Follow". --}}
+                <p class="mt-1 text-brand-body">Every policy page has a "Weekly digest for …" box: choose "Get the digest" there for changes to that instrument only.</p>
             </div>
         </aside>
     </div>

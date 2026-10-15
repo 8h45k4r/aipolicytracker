@@ -10,7 +10,8 @@
 <div class="min-h-screen lg:grid lg:grid-cols-2">
     {{-- Fixed dark hex and fixed light text, not the theme tokens: those flip light in dark mode and
          the white logo and pale text would vanish. --}}
-    <section class="hidden lg:flex flex-col justify-between bg-[#00142b] text-snow/85 p-10">
+    {{-- An <aside>, so the panel sits in a landmark (axe region) without competing with <main>. --}}
+    <aside aria-label="About your account" class="hidden lg:flex flex-col justify-between bg-[#00142b] text-snow/85 p-10">
         <a href="{{ route('home') }}" class="no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" class="h-10 w-auto"></a>
         <div>
             <p class="eyebrow !text-[#5cc8f2]">Your account</p>
@@ -22,7 +23,7 @@
             </ul>
         </div>
         <p class="text-xs text-snow/75">{{ config('aipolicytracker.disclaimer') }}</p>
-    </section>
+    </aside>
     <main class="flex items-center justify-center px-4 py-12">
         <div class="w-full max-w-sm">
             <a href="{{ route('home') }}" class="lg:hidden inline-block no-underline mb-6"><picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></picture></a>

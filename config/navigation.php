@@ -11,11 +11,17 @@
 //
 // Groups open as a <details> panel, which works with JavaScript disabled; the script only
 // adds Escape-to-close and close-on-outside-click.
+//
+// 'paths' marks a group current for every URL under it (a prefix also covers its sub-paths;
+// '*' is a wildcard), so a record page such as /policies/eu-ai-act highlights its section
+// even though it is not itself a menu entry. Paths win over an exact link match, which only
+// decides pages no prefix claims.
 return [
     'primary' => [
         'policies' => [
             'label' => 'Policies',
             'summary' => 'Laws, duties, dates and what changed.',
+            'paths' => ['policies', 'updates', 'obligations', 'controls', 'compare', 'calendar', 'deadlines', 'changes', 'state-of-ai-regulation', 'ai-policy-examples', 'ai-economic-transition', 'ubi', 'ai-dividend', 'ai-tax', 'ai-layoff-disclosure-laws', 'enforcement', 'ai-standards'],
             'sections' => [
                 [
                     'heading' => 'Laws and duties',
@@ -47,6 +53,7 @@ return [
         'jurisdictions' => [
             'label' => 'Jurisdictions',
             'summary' => 'Country, regional and state pages.',
+            'paths' => ['jurisdictions', 'ai-regulation-*', '*/ai-regulation-*', 'ai-governance-*'],
             'sections' => [
                 [
                     'heading' => 'Regions',
@@ -77,6 +84,7 @@ return [
         'guides' => [
             'label' => 'Guides',
             'summary' => 'Walkthroughs, free templates and standards crosswalks.',
+            'paths' => ['guides', 'templates', 'tools', 'self-assessments', 'for', 'frameworks'],
             'sections' => [
                 [
                     'heading' => 'Guides and templates',
@@ -118,6 +126,7 @@ return [
         'risk' => [
             'label' => 'AI risk',
             'summary' => 'Recorded harms and the taxonomies behind them.',
+            'paths' => ['ai-risk'],
             'sections' => [
                 [
                     'heading' => 'Explore',
@@ -135,6 +144,7 @@ return [
         'data' => [
             'label' => 'Data & API',
             'summary' => 'Every record, machine readable and openly licensed.',
+            'paths' => ['open-data'],
             'sections' => [
                 [
                     'heading' => 'For people',
@@ -157,6 +167,7 @@ return [
         'trust' => [
             'label' => 'How we work',
             'summary' => 'Sources, review state and what is still missing.',
+            'paths' => ['methodology', 'verification', 'reviewers', 'team', 'about', 'coverage', 'gaps', 'corrections', 'contribute'],
             'sections' => [
                 [
                     'heading' => 'Method',

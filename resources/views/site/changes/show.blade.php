@@ -15,7 +15,7 @@
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <x-site.verified :record="$change" class="!text-sm" legend />
             @if($change->official_source_url)<a href="{{ $change->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
-            <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-muted hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Context file</a>
+            <span class="text-brand-muted">Download: <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Markdown</a></span>
         </div>
     </header>
 
