@@ -65,12 +65,15 @@ class SitemapController extends Controller
     }
 
     /**
-     * A section is rebuilt at most every quarter hour: the incident and risk sections walk
-     * thousands of rows, and crawlers fetch every section on each visit.
+     * The incident and risk sections walk thousands of rows from weekly snapshots, and
+     * crawlers fetch every section on each visit, so those two are rebuilt at most every
+     * quarter hour. The record sections stay live: a publish or takedown shows at once.
      */
     public function section(string $section): Response
     {
-        return $this->xml(Cache::remember('sitemap:section:'.$section, now()->addMinutes(15), fn () => $this->renderSection($section)));
+        return $this->xml(in_array($section, ['incidents', 'risks'], true)
+            ? Cache::remember('sitemap:section:'.$section, now()->addMinutes(15), fn () => $this->renderSection($section))
+            : $this->renderSection($section));
     }
 
     private function renderSection(string $section): string

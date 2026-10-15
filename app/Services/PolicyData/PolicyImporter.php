@@ -30,7 +30,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -75,10 +74,6 @@ class PolicyImporter
 
         // Human verification decisions recorded in the admin outlive every re-import.
         $this->stats['verifications_applied'] = RecordVerification::applyAll();
-        // The cached sitemap sections describe the read model just replaced.
-        foreach (['static', 'jurisdictions', 'policies', 'obligations', 'controls', 'changes', 'updates', 'resources'] as $section) {
-            Cache::forget('sitemap:section:'.$section);
-        }
 
         return $this->stats;
     }
