@@ -1,0 +1,100 @@
+slug: singapore-starter-kit-testing-agentic-systems
+aipt_id: AIPT-POL-0244
+jurisdiction: singapore
+title: Starter Kit for Testing Agentic Systems for Safety and Reliability
+short_title: Singapore starter kit for testing agentic AI
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of press coverage of the launch; IMDA's own page and the kit
+  document were not found, so the title, contents and status here are pending review against them. Anthropic, which
+  signed a separate memorandum of understanding with Singapore's Ministry of Digital Development and Information on
+  the same day, is not named in any source on the kit.
+is_binding: false
+featured: true
+published: true
+issuing_body: Infocomm Media Development Authority (IMDA)
+summary_plain: >-
+  A practical reference for organisations starting to test AI agents that reason, act on a user's behalf, use tools and access
+  data. It sets out four steps (identify risks such as erroneous or unauthorised actions; design and run realistic tests without
+  real-world harm; analyse results and operational logs; monitor and retest continuously), tests the agent's whole trajectory
+  of reasoning and actions rather than only its output, and suggests metrics such as tool-use accuracy, handoff accuracy and
+  human-intervention rates. It extends the agentic AI governance framework and builds on the LLM starter kit.
+scope_summary: Organisations testing agentic AI systems; presented as guidance, with no legal force of its own.
+who_it_applies_to: Developers, deployers and testers of AI agents.
+key_dates_summary: Launched 14 October 2026 at the AI Assurance Exchange in Singapore.
+adopted_on: null
+published_on: '2026-10-14'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Version, consultation window and voluntary status were not stated in the sources found; the earlier LLM starter kit describes
+  itself as voluntary guidelines. Reported to draw on consultations with more than 20 deployers and testers (Google, AWS and
+  Resaro named) and on the Global AI Assurance Sandbox, with case studies from Cohere, CyberSierra, Earlybird AI, KBTG and
+  Knovel Engineering.
+actors:
+- provider
+- deployer
+ai_system_types:
+- conversational_agent
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+- customer_service
+related_policies:
+- singapore-model-ai-governance-framework-for-agentic-ai
+- singapore-starter-kit-testing-llm-based-applications
+- singapore-ai-tester-accreditation-programme
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Singapore strengthens AI safety and resilience
+  publisher: Smart Cities World
+  url: https://www.smartcitiesworld.net/news/singapore-strengthens-ai-safety-and-resilience-13295
+  document_date: '2026-10-14'
+  document_type: secondary
+  tier: 3
+- title: IMDA unveils three initiatives to strengthen AI safety
+  publisher: AsiaOne
+  url: https://www.asiaone.com/singapore/imda-ai-safety-initiatives-agentic-ai-testing-cybersecurity
+  document_date: '2026-10-14'
+  document_type: secondary
+  tier: 3
+- title: Singapore's next AI industry may be the people who check the agents
+  publisher: e27
+  url: https://e27.co/singapores-next-ai-industry-may-be-the-people-who-check-the-agents-20261014/
+  document_date: '2026-10-14'
+  document_type: secondary
+  tier: 3
+faq:
+- question: How does Singapore's agentic AI testing starter kit relate to its governance framework?
+  answer: >-
+    The Model AI Governance Framework for Agentic AI (January 2026) sets out how to govern AI agents and said IMDA was developing testing guidelines for them. The starter kit (October 2026) is that testing guidance: it extends the framework and builds on the earlier starter kit for testing LLM-based applications.
+- question: Is Anthropic a partner in Singapore's agentic AI testing starter kit?
+  answer: >-
+    No source on the kit names Anthropic. On the same day, 14 October 2026, Anthropic signed a separate memorandum of understanding with Singapore's Ministry of Digital Development and Information on AI safety, security and model evaluation. The kit was reported as drawing on more than 20 deployers and testers, with Google, AWS and Resaro named.
+official_source_url: https://www.smartcitiesworld.net/news/singapore-strengthens-ai-safety-and-resilience-13295
+source_title: Singapore strengthens AI safety and resilience
+source_publisher: Smart Cities World
+source_document_date: '2026-10-14'
+source_tier: 3
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

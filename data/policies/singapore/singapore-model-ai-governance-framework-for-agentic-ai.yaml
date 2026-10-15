@@ -1,0 +1,86 @@
+slug: singapore-model-ai-governance-framework-for-agentic-ai
+aipt_id: AIPT-POL-0241
+jurisdiction: singapore
+title: Model AI Governance Framework for Agentic AI
+short_title: Singapore agentic AI governance framework
+title_native: null
+instrument_type: framework
+status: voluntary_standard
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Infocomm Media Development Authority (IMDA)
+summary_plain: >-
+  A governance framework for AI agents that reason and act on a user's behalf, in four areas: assessing and bounding risks
+  upfront, making humans meaningfully accountable, technical controls across the agent lifecycle, and enabling end-user responsibility.
+  IMDA treats it as a living document and has since added case studies and input from more than 50 organisations.
+scope_summary: Organisations developing or deploying AI agents; voluntary guidance with no legal force of its own.
+who_it_applies_to: Developers and deployers of agentic AI systems in Singapore and elsewhere.
+key_dates_summary: Launched 22 January 2026 at the World Economic Forum in Davos; later updated with case studies.
+adopted_on: null
+published_on: '2026-01-22'
+in_force_on: null
+applies_from: null
+date_notes: The date of the later update with case studies was not confirmed.
+actors:
+- provider
+- deployer
+ai_system_types:
+- conversational_agent
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+- customer_service
+related_policies:
+- singapore-model-ai-governance-framework
+- singapore-starter-kit-testing-llm-based-applications
+- singapore-starter-kit-testing-agentic-systems
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: New Model AI Governance Framework for Agentic AI
+  publisher: Infocomm Media Development Authority
+  url: https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/new-model-ai-governance-framework-for-agentic-ai
+  document_date: '2026-01-22'
+  document_type: press_release
+  tier: 1
+- title: Model AI Governance Framework for Agentic AI (PDF)
+  publisher: Infocomm Media Development Authority
+  url: https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf
+  document_date: null
+  document_type: guidance
+  tier: 1
+- title: Singapore launches new Model AI Governance Framework for Agentic AI
+  publisher: Ministry of Digital Development and Information
+  url: https://www.mddi.gov.sg/newsroom/singapore-launches-new-model-ai-governance-framework-for-agentic-ai--/
+  document_date: '2026-01-22'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/new-model-ai-governance-framework-for-agentic-ai
+source_title: New Model AI Governance Framework for Agentic AI
+source_publisher: Infocomm Media Development Authority
+source_document_date: '2026-01-22'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -9,10 +9,10 @@
 <body class="min-h-screen bg-brand-paper">
 <div class="min-h-screen lg:grid lg:grid-cols-2">
     {{-- A fixed dark panel, not the theme token: in dark mode the token turns light and the white logo vanished. --}}
-    <section class="hidden lg:flex flex-col justify-between bg-[#002147] text-white/85 p-10">
+    <section class="hidden lg:flex flex-col justify-between bg-brand-navy text-white/85 p-10">
         <a href="{{ route('home') }}" class="no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" class="h-10 w-auto"></a>
         <div>
-            <p class="eyebrow !text-[#7fd3ff]">Your account</p>
+            <p class="eyebrow !text-brand-cyan">Your account</p>
             <p class="mt-3 font-display text-3xl font-semibold text-white">Follow the AI rules that matter to you</p>
             <ul class="mt-6 space-y-3 text-sm text-white/85 max-w-md">
                 <li>Follow laws, countries and duties, and get an email when they change or a date comes due.</li>

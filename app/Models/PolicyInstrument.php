@@ -153,7 +153,9 @@ class PolicyInstrument extends Model
     {
         $name = $this->short_title ?: $this->title;
 
-        return preg_match('/^(EU|UK|US|UAE|NIST|ICO|OMB|PDPC|Colorado|California|Australian|Singapore|Nepal|India)\b/', $name) ? 'the '.$name : $name;
+        // A name that starts with a place or body takes "the" ("the Illinois AI Safety Measures
+        // Act"); a possessive one does not ("Scotland's AI Strategy").
+        return preg_match("/^(EU|UK|US|UAE|NIST|ICO|OMB|PDPC|DIFC|NSW|ACT|Colorado|California|Illinois|New York|Connecticut|Washington|Kentucky|Maryland|Montana|Texas|Utah|Tennessee|Australian|Singapore|Nepal|India|Shanghai|Shenzhen|Beijing|Hong Kong|Tamil Nadu|Telangana|Odisha|Maharashtra|Queensland|Victoria|Western Australia|South Australia|Tokyo|Seoul|Galicia|Extremadura|Catalonia|Calabria|Tuscany|Flanders|Schleswig-Holstein|Alberta|British Columbia|Goiás|Paraná|Buenos Aires|Dubai|Abu Dhabi|Northern Ireland)\\b(?!')/u", $name) ? 'the '.$name : $name;
     }
 
     /**

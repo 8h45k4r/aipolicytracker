@@ -786,3 +786,49 @@ changes:
     review_status: pending_review
     confidence_level: medium
     content_version: 1
+  - slug: 2026-01-22-singapore-model-ai-governance-framework-for-agentic-ai
+    aipt_id: AIPT-CHG-0153
+    jurisdiction: singapore
+    policy: singapore-model-ai-governance-framework-for-agentic-ai
+    occurred_on: 2026-01-22
+    title: Singapore launches a Model AI Governance Framework for Agentic AI
+    what_changed: >
+      IMDA launched a voluntary governance framework for AI agents at the World Economic Forum, covering upfront risk
+      bounding, human accountability, technical controls across the agent lifecycle and end-user responsibility, and
+      said it was developing testing guidelines for agentic applications. Recorded from search extracts of IMDA and
+      MDDI pages.
+    practical_impact: Organisations deploying AI agents can use it as a reference for governance and controls.
+    impact_level: routine
+    status_after: voluntary_standard
+    published: true
+    official_source_url: "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/new-model-ai-governance-framework-for-agentic-ai"
+    source_title: "New Model AI Governance Framework for Agentic AI"
+    source_publisher: "Infocomm Media Development Authority"
+    source_document_date: 2026-01-22
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-10-14-singapore-starter-kit-testing-agentic-systems
+    aipt_id: AIPT-CHG-0154
+    jurisdiction: singapore
+    policy: singapore-starter-kit-testing-agentic-systems
+    occurred_on: 2026-10-14
+    title: Singapore launches a starter kit for testing AI agents for safety and reliability
+    what_changed: >
+      IMDA released a starter kit for testing agentic systems, setting out a four-step approach (identify risks,
+      test realistically without real-world harm, analyse results and logs, monitor and retest) and metrics such as
+      tool-use accuracy and human-intervention rates. The AI Verify Foundation named its first five accredited AI
+      testers the same day. Recorded from press coverage; IMDA's own page was not found.
+    practical_impact: Teams deploying AI agents can use it to plan pre-deployment tests and ongoing monitoring.
+    impact_level: routine
+    status_after: guidance
+    published: true
+    official_source_url: "https://www.smartcitiesworld.net/news/singapore-strengthens-ai-safety-and-resilience-13295"
+    source_title: "Singapore strengthens AI safety and resilience"
+    source_publisher: "Smart Cities World"
+    source_document_date: 2026-10-14
+    source_tier: 3
+    review_status: pending_review
+    confidence_level: low
+    content_version: 1

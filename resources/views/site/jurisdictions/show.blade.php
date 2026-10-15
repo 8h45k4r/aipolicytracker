@@ -28,7 +28,7 @@
             @if($subnational->isNotEmpty())
             @php($kinds = $jurisdiction->children->pluck('jurisdiction_type')->unique())
             <section aria-labelledby="subnational-heading" class="mt-8">
-                <h2 id="subnational-heading" class="section-title">{{ $kinds->count() === 1 && $kinds->first() === 'state' ? 'State' : 'State, provincial and local' }} AI laws and policies</h2>
+                <h2 id="subnational-heading" class="section-title">Which {{ $kinds->count() === 1 && $kinds->first() === 'state' ? 'states' : 'states, provinces and regions' }} in {{ $jurisdiction->short_name ?: $jurisdiction->name }} have their own AI laws and policies?</h2>
                 <p class="mt-1 text-sm text-brand-muted">{{ $subnational->count() }} {{ \Illuminate\Support\Str::plural('instrument', $subnational->count()) }} on record from {{ $subnational->pluck('jurisdiction_id')->unique()->count() }} of {{ $jurisdiction->short_name ?: $jurisdiction->name }}'s sub-national jurisdictions. Each applies only within its own territory.</p>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Sub-national AI laws and policies recorded for {{ $jurisdiction->name }}</caption>
                     <thead><tr><th scope="col">Instrument</th><th scope="col">Where</th><th scope="col">Status</th><th scope="col">Binding</th></tr></thead>

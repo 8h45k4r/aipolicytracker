@@ -42,8 +42,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Added
 - Sub-national AI laws and policies: 53 records across 37 new states, provinces, regions and cities (pending review), including the Illinois AI Safety Measures Act (SB 315), California's training-data, AI transparency, companion-chatbot and CPPA automated decision-making rules, Connecticut SB 5, Washington's companion-chatbot law, Executive Order 14365 on state AI laws, Galicia's and Calabria's regional AI laws, Shanghai's and Shenzhen's AI regulations, NSW's AI policy, assessment framework and digital work systems act, and the Australian state, Indian state, Scottish, Welsh, Canadian provincial, Brazilian state and UAE emirate instruments. See `docs/reference/subnational-research-2026-10-15.md`.
 - Country pages list their states' and provinces' AI laws in the body, not only by name in the sidebar.
+- Singapore's agentic AI testing: the Starter Kit for Testing Agentic Systems for Safety and Reliability (launched 14 October 2026), the Model AI Governance Framework for Agentic AI, the LLM application testing starter kit and the AI Tester Accreditation Programme (pending review). See `docs/reference/singapore-agentic-testing-2026-10-15.md`.
 
 ### Fixed
+- The sign-in page's side panel uses the brand colour tokens; the raw colour values it used were not in the built stylesheet, so the panel showed without its background.
+- Question headings name state and regional instruments with "the" ("Is the Illinois AI Safety Measures Act in force?"), and the country page asks which of its states have their own AI laws.
 - A frozen quarterly report stays as frozen: running the freeze again returns the snapshot already taken instead of recomputing it.
 - A change entered unpublished counts as news from the day it is published, not the day it was created (news sitemap and the X posting window).
 - The deadline calendar says "Status changed" when only a deadline's status changed, and "Moved" only when its date did.

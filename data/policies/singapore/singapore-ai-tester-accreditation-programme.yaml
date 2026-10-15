@@ -1,0 +1,72 @@
+slug: singapore-ai-tester-accreditation-programme
+aipt_id: AIPT-POL-0243
+jurisdiction: singapore
+title: AI Tester Accreditation Programme (AI TAP)
+short_title: Singapore AI Tester Accreditation Programme
+title_native: null
+instrument_type: policy
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: AI Verify Foundation
+summary_plain: >-
+  Accredits third-party firms that test AI systems, in benchmarking and red teaming, for 12 months at a time; the first five
+  were AIDX Tech, Knovel Engineering, PwC Singapore, Resaro and Vulcan. Accreditation does not certify that a tester is independent
+  or that a tested system is safe.
+scope_summary: Firms offering AI testing services, and organisations choosing a tester; voluntary.
+who_it_applies_to: AI testing firms; organisations commissioning AI tests.
+key_dates_summary: Announced 18 May 2026; first accredited testers named October 2026.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The first cohort was announced alongside the agentic testing starter kit in October 2026, per press reports.
+actors:
+- provider
+- deployer
+ai_system_types:
+- generative_ai
+- conversational_agent
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+related_policies:
+- singapore-starter-kit-testing-agentic-systems
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Accredited testers
+  publisher: AI Verify Foundation
+  url: https://aiverifyfoundation.sg/ai-assurance/accredited-testers/
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://aiverifyfoundation.sg/ai-assurance/accredited-testers/
+source_title: Accredited testers
+source_publisher: AI Verify Foundation
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.
