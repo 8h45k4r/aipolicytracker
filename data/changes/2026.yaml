@@ -787,6 +787,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-01-22-singapore-model-ai-governance-framework-for-agentic-ai
+    aipt_id: AIPT-CHG-0153
     jurisdiction: singapore
     policy: singapore-model-ai-governance-framework-for-agentic-ai
     occurred_on: 2026-01-22
@@ -809,6 +810,7 @@ changes:
     confidence_level: medium
     content_version: 1
   - slug: 2026-10-14-singapore-starter-kit-testing-agentic-systems
+    aipt_id: AIPT-CHG-0154
     jurisdiction: singapore
     policy: singapore-starter-kit-testing-agentic-systems
     occurred_on: 2026-10-14
