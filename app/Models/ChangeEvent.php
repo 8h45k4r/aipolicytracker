@@ -54,8 +54,14 @@ class ChangeEvent extends Model
      */
     protected static function booted(): void
     {
-        static::creating(function (self $change) {
-            $change->first_published_at ??= now();
+        // Stamped when the entry is first saved as published, not when the row is created:
+        // a change imported unpublished and published a week later is news that week,
+        // for the news sitemap and the X posting window alike.
+        static::saving(function (self $change) {
+            if ($change->first_published_at === null && $change->published_at !== null) {
+                // A publication scheduled for later counts from the day it goes out.
+                $change->first_published_at = $change->published_at->isFuture() ? $change->published_at : now();
+            }
         });
     }
 

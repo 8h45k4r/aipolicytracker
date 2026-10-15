@@ -307,12 +307,26 @@ class PublicApiController extends Controller
         });
     }
 
+    /** AIID's label for an MIT risk domain number, from the committed taxonomy file. */
+    private static function incidentDomainLabel(string $id): ?string
+    {
+        static $labels = null;
+        if ($labels === null) {
+            $file = json_decode((string) @file_get_contents(base_path('data/external/mit_ai_risk_domains.json')), true);
+            $labels = collect($file['domains'] ?? [])->mapWithKeys(fn ($d) => [(string) $d['id'] => $d['aiid_domain_label'] ?? $d['name']])->all();
+        }
+
+        return $labels[$id] ?? null;
+    }
+
     /** Incidents mirrored from the AI Incident Database. Attribution is a licence condition. */
     public function incidents(Request $request): JsonResponse
     {
         $filters = [
             'domain' => preg_match('/^[0-9]+$/', (string) $request->query('domain')) ? $request->query('domain') : null,
-            'country' => preg_match('/^[A-Za-z .\-]{2,60}$/', (string) $request->query('country')) ? $request->query('country') : null,
+            // Country codes are stored upper case ("US"); a lower-case query matched on SQLite
+            // and nothing on PostgreSQL.
+            'country' => preg_match('/^[A-Za-z .\-]{2,60}$/', (string) $request->query('country')) ? (strlen((string) $request->query('country')) <= 3 ? strtoupper((string) $request->query('country')) : $request->query('country')) : null,
             'from' => preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $request->query('from')) ? $request->query('from') : null,
         ];
         $perPage = min(max((int) $request->query('per_page', 50), 1), config('aipolicytracker.max_per_page'));
@@ -320,7 +334,9 @@ class PublicApiController extends Controller
 
         return $this->cached($key, function () use ($filters, $perPage) {
             $page = ExternalIncident::query()
-                ->when($filters['domain'], fn ($q, $d) => $q->where('mit_domain', $d))
+                // The API takes the MIT domain number (1-7); the column stores AIID's label for
+                // that domain, so the number is translated before it is compared.
+                ->when($filters['domain'], fn ($q, $d) => $q->where('mit_domain', self::incidentDomainLabel($d) ?? '__none__'))
                 // The same predicate RiskBrowseController uses for this column: it is a
                 // json column, not jsonb, and matching the quoted token works identically
                 // on SQLite and PostgreSQL where a containment operator does not.

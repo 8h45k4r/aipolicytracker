@@ -80,7 +80,13 @@
                 </div>
                 <p class="mt-0.5 font-medium text-brand-navy">{{ $d->title }}</p>
                 <p class="text-xs text-brand-muted"><a href="{{ $d->policyInstrument->url() }}" class="text-brand-blue hover:underline">{{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</a> · {{ $d->policyInstrument->jurisdiction->name }}@if($d->obligation) · duty: <a href="{{ $d->obligation->url() }}" class="text-brand-blue hover:underline">{{ $d->obligation->title }}</a>@endif @if($d->source_reference) · {{ $d->source_reference }}@endif</p>
-                @if($r['revision'])<p class="mt-0.5 text-xs text-brand-body"><span class="font-medium">Moved:</span> originally {{ $r['revision']->from_due_on?->format('j F Y') ?? ($r['revision']->from_label ?: 'undated') }} → now {{ $d->displayDate() }} <span class="meta">(recorded {{ $r['revision']->changed_at->format('j M Y') }})</span></p>@endif
+                @if($r['revision'])
+                    @php($rev = $r['revision'])
+                    @php($dateMoved = $rev->from_due_on?->toDateString() !== $rev->to_due_on?->toDateString() || ($rev->from_label ?? '') !== ($rev->to_label ?? ''))
+                    {{-- A revision that changed only the status (scheduled → passed) is not a move. --}}
+                    @if($dateMoved)<p class="mt-0.5 text-xs text-brand-body"><span class="font-medium">Moved:</span> originally {{ $rev->from_due_on?->format('j F Y') ?? ($rev->from_label ?: 'undated') }} → now {{ $d->displayDate() }} <span class="meta">(recorded {{ $rev->changed_at->format('j M Y') }})</span></p>
+                    @elseif($rev->from_status !== $rev->to_status)<p class="mt-0.5 text-xs text-brand-body"><span class="font-medium">Status changed:</span> {{ str_replace('_', ' ', (string) $rev->from_status) }} → {{ str_replace('_', ' ', (string) $rev->to_status) }} <span class="meta">(recorded {{ $rev->changed_at->format('j M Y') }})</span></p>@endif
+                @endif
                 @if($d->description)<p class="mt-0.5 text-brand-body">{{ $d->description }}</p>@endif
                 <p class="mt-0.5 text-xs text-brand-muted">Shown because it {{ implode(' and ', $r['why']) }}.@if($d->official_source_url) <a href="{{ $d->official_source_url }}" rel="noopener" class="text-brand-blue hover:underline">Official source</a>@endif</p>
             </li>

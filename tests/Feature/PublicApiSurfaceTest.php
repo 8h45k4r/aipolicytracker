@@ -135,7 +135,8 @@ class PublicApiSurfaceTest extends TestCase
 
         // The incidents table names its taxonomy columns mit_domain/mit_subdomain, so a
         // domain filter that reached for "domain" would fail only when it is exercised.
-        ExternalIncident::where('incident_id', 9002)->update(['mit_domain' => '7']);
+        // The column holds AIID's label (as the import writes it); the API takes the number.
+        ExternalIncident::where('incident_id', 9002)->update(['mit_domain' => 'AI system safety, failures, and limitations']);
         $this->assertSame(1, $this->getJson('/api/v1/incidents?domain=7')->assertOk()->json('meta.total'));
 
         $this->getJson('/api/v1/risks?entity=nonsense')->assertOk()->assertJsonPath('meta.filters.entity', null);
