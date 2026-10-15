@@ -105,10 +105,14 @@ final class StateOfAiRegulation
         return self::compute($quarter) + ['frozen' => false, 'frozen_at' => null];
     }
 
-    /** Freeze a quarter (idempotent per quarter and version). */
+    /**
+     * Freeze a quarter. Once frozen it never changes: a second run returns the snapshot
+     * already taken instead of recomputing it from today's data, which would rewrite a
+     * report people have already cited.
+     */
     public static function freeze(string $quarter): ReportSnapshot
     {
-        return ReportSnapshot::updateOrCreate(['quarter' => $quarter, 'version' => self::VERSION], ['data' => self::compute($quarter), 'frozen_at' => now()]);
+        return ReportSnapshot::firstOrCreate(['quarter' => $quarter, 'version' => self::VERSION], ['data' => self::compute($quarter), 'frozen_at' => now()]);
     }
 
     /** Quarters that have a frozen snapshot, newest first. @return Collection<int,string> */

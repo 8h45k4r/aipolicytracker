@@ -5,6 +5,10 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Fixed
+- A frozen quarterly report stays as frozen: running the freeze again returns the snapshot already taken instead of recomputing it.
+- A change entered unpublished counts as news from the day it is published, not the day it was created (news sitemap and the X posting window).
+- The deadline calendar says "Status changed" when only a deadline's status changed, and "Moved" only when its date did.
+- `/api/v1/incidents?domain=N` filters by the MIT domain number as documented (it returned nothing), and `country=` accepts lower-case codes.
 - The weekly digest goes out every week (a 07:00 send last Monday no longer counts as "this week"), and each issue covers the changes since the previous issue, including ones dated earlier but imported after it, without repeating any.
 - Daily alerts include a change imported, or backdated, after the previous alert (within 30 days of its date); a same-day re-run no longer sends twice on SQLite. Neither the digest nor alerts list deadlines of unpublished records or deadlines that were superseded.
 - A verification decision already exported to `data/` no longer overrides the file on every import, so a record later marked `needs_update` there shows as such.

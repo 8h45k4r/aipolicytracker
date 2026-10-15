@@ -22,11 +22,11 @@ Five read-only reviews of `main` (security; correctness and data integrity; perf
 
 - Records removed or renamed in `data/` stay published (policies, jurisdictions, changes): no unpublish pass for missing slugs (`PolicyImporter.php`).
 - The AIID incremental sync can skip incidents permanently after a bulk upstream edit (sorted by id, capped at 300, cursor moves on) (`SyncAiidApiCommand.php`).
-- API `/api/v1/incidents?domain=N` returns no rows on real data: the parameter is numeric, the stored value is the domain name (`PublicApiController.php:315,325`).
-- "Frozen" quarterly reports are overwritten if the freeze job is re-run (`StateOfAiRegulation.php:109`): use `firstOrCreate`.
-- `first_published_at` is set when a row is created even if unpublished, so a later-published change misses the news sitemap and the X window (`ChangeEvent.php:56`).
-- A deadline whose status changed but whose date did not shows as "Moved" (`PolicyImporter.php:285`).
-- On SQLite only, re-running alerts the same day double-sends (`SendAlertsCommand.php:41`); the API country filter is case-sensitive on PostgreSQL (`PublicApiController.php:327`).
+- **Fixed 15 Oct 2026:** API `/api/v1/incidents?domain=N` returns no rows on real data: the parameter is numeric, the stored value is the domain name (`PublicApiController.php:315,325`).
+- **Fixed 15 Oct 2026:** "Frozen" quarterly reports are overwritten if the freeze job is re-run (`StateOfAiRegulation.php:109`): use `firstOrCreate`.
+- **Fixed 15 Oct 2026:** `first_published_at` is set when a row is created even if unpublished, so a later-published change misses the news sitemap and the X window (`ChangeEvent.php:56`).
+- **Fixed 15 Oct 2026:** A deadline whose status changed but whose date did not shows as "Moved" (`PolicyImporter.php:285`).
+- On SQLite only, re-running alerts the same day double-sends (`SendAlertsCommand.php:41`); the API country filter is case-sensitive on PostgreSQL (country codes are now upper-cased, fixed 15 Oct 2026) (`PublicApiController.php:327`).
 - Validation gaps the importer tolerates silently: obligation `section` and deadline `obligation` references, obligation term slugs, a removed `parent:`.
 
 ## Performance (production runs PostgreSQL over the network)
