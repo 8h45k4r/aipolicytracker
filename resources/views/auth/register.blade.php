@@ -8,24 +8,26 @@
 </head>
 <body class="min-h-screen bg-brand-paper">
 <div class="min-h-screen lg:grid lg:grid-cols-2">
-    <section class="hidden lg:flex flex-col justify-between bg-brand-ink text-white/85 p-10">
+    {{-- Fixed dark hex and fixed light text, not the theme tokens: those flip light in dark mode and
+         the white logo and pale text would vanish. --}}
+    <section class="hidden lg:flex flex-col justify-between bg-[#00142b] text-snow/85 p-10">
         <a href="{{ route('home') }}" class="no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" class="h-10 w-auto"></a>
         <div>
-            <p class="eyebrow !text-brand-cyan">Free account</p>
-            <h1 class="mt-3 font-display text-3xl font-semibold text-white">Download free templates, save records and follow policy changes</h1>
-            <ul class="mt-6 space-y-3 text-sm text-white/80 max-w-md">
+            <p class="eyebrow !text-[#5cc8f2]">Free account</p>
+            <p class="mt-3 font-display text-3xl font-semibold text-snow">Download free templates, save records and follow policy changes</p>
+            <ul class="mt-6 space-y-3 text-sm text-snow/85 max-w-md">
                 <li>AI system inventory, risk register, EU AI Act readiness and incident response templates.</li>
                 <li>Every template states its version and that it is informational, not legal advice.</li>
                 <li>We store your name, email and download history. Updates are opt-in and unsubscribe is one click.</li>
             </ul>
         </div>
-        <p class="text-xs text-white/50">{{ config('aipolicytracker.disclaimer') }}</p>
+        <p class="text-xs text-snow/75">{{ config('aipolicytracker.disclaimer') }}</p>
     </section>
     <main class="flex items-center justify-center px-4 py-12">
         <div class="w-full max-w-sm">
-            <a href="{{ route('home') }}" class="lg:hidden inline-block no-underline mb-6"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></a>
+            <a href="{{ route('home') }}" class="lg:hidden inline-block no-underline mb-6"><picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></picture></a>
             <p class="eyebrow">Create a free account</p>
-            <h2 class="mt-2 font-display text-2xl font-semibold text-brand-navy">Sign up with email</h2>
+            <h1 class="mt-2 font-display text-2xl font-semibold text-brand-navy">Sign up with email</h1>
             @if($errors->any())<div class="mt-3 rounded-md border border-state-bad/30 bg-state-badbg p-3 text-sm text-state-bad" role="alert"><ul class="list-disc pl-5">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
             <form method="post" action="{{ route('register') }}" class="mt-6 space-y-4">
                 @csrf

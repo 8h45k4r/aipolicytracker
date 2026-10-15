@@ -8,23 +8,24 @@
 </head>
 <body class="min-h-screen bg-brand-paper">
 <div class="min-h-screen lg:grid lg:grid-cols-2">
-    {{-- A fixed dark panel, not the theme token: in dark mode the token turns light and the white logo vanished. --}}
-    <section class="hidden lg:flex flex-col justify-between bg-brand-navy text-white/85 p-10">
+    {{-- Fixed dark hex and fixed light text, not the theme tokens: those flip light in dark mode and
+         the white logo and pale text would vanish. --}}
+    <section class="hidden lg:flex flex-col justify-between bg-[#00142b] text-snow/85 p-10">
         <a href="{{ route('home') }}" class="no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker" class="h-10 w-auto"></a>
         <div>
-            <p class="eyebrow !text-brand-cyan">Your account</p>
-            <p class="mt-3 font-display text-3xl font-semibold text-white">Follow the AI rules that matter to you</p>
-            <ul class="mt-6 space-y-3 text-sm text-white/85 max-w-md">
+            <p class="eyebrow !text-[#5cc8f2]">Your account</p>
+            <p class="mt-3 font-display text-3xl font-semibold text-snow">Follow the AI rules that matter to you</p>
+            <ul class="mt-6 space-y-3 text-sm text-snow/85 max-w-md">
                 <li>Follow laws, countries and duties, and get an email when they change or a date comes due.</li>
                 <li>Keep the records you saved, and export the obligations that apply to you.</li>
                 <li>Editors and reviewers use this same sign-in for the review queue.</li>
             </ul>
         </div>
-        <p class="text-xs text-white/70">{{ config('aipolicytracker.disclaimer') }}</p>
+        <p class="text-xs text-snow/75">{{ config('aipolicytracker.disclaimer') }}</p>
     </section>
     <main class="flex items-center justify-center px-4 py-12">
         <div class="w-full max-w-sm">
-            <a href="{{ route('home') }}" class="lg:hidden inline-block no-underline mb-6"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></a>
+            <a href="{{ route('home') }}" class="lg:hidden inline-block no-underline mb-6"><picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="AIPolicyTracker" class="h-9 w-auto"></picture></a>
             <p class="eyebrow">Sign in</p>
             <h1 class="mt-2 font-display text-2xl font-semibold text-brand-navy">Sign in to AIPolicyTracker</h1>
             @if(session('status'))<p class="mt-3 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">{{ session('status') }}</p>@endif

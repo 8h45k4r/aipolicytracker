@@ -43,7 +43,7 @@
     </div>
 </div>
 <div class="lg:hidden sticky bottom-0 z-40 border-t border-brand-line bg-white/95 backdrop-blur px-4 py-2 flex gap-2">
-    <a href="#m-f-q" class="btn-secondary flex-1" data-open-filters>Search</a>
-    <button type="button" class="btn-primary flex-1" data-open-filters>Filters @if($chips !== []) <span class="rounded-sm bg-white/20 px-1.5 text-xs">{{ count($chips) }}</span>@endif</button>
+    <a href="#m-f-q" class="btn-secondary flex-1" data-open-filters aria-controls="filter-sheet" aria-expanded="false">Search</a>
+    <button type="button" class="btn-primary flex-1" data-open-filters aria-controls="filter-sheet" aria-expanded="false">Filters @if($chips !== []) <span class="rounded-sm bg-white/20 px-1.5 text-xs">{{ count($chips) }}</span>@endif</button>
     <button type="button" class="btn-secondary" data-copy-link>Share</button>
 </div>

@@ -15,13 +15,17 @@ no-JavaScript explanation of the three states with a link to the verification po
 @if($compact)
 {{-- In lists: a mark, the state and the date. The full line and the reviewer are in the tooltip and on the record page. --}}
 @php($date = $verified ? $record->last_verified_at : ($record->last_checked_at ?? null))
-<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-1 text-xs whitespace-nowrap '.$tone]) }} data-verification-state="{{ $state }}" title="{{ $record->verificationLabel() }}{{ $reviewer ? ' · reviewed by '.$reviewer : '' }}. A factual check against the official source, not a legal review." data-verified-mark>
-    @if($verified)<svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>@else<span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm {{ $state === 'pending_review' ? 'bg-state-warn' : 'bg-brand-line' }}"></span>@endif
-    {{ $name }}@if($date) <time datetime="{{ $date->toDateString() }}">{{ $date->format('j M Y') }}</time>@endif
+{{-- The whole badge is nowrap, so the mark never wraps onto a line alone. The reviewer and the
+     caveat are repeated as sr-only, because title= is not read reliably and never on touch. --}}
+@php($full = $record->verificationLabel().($reviewer ? ' · reviewed by '.$reviewer : '').'. A factual check against the official source, not a legal review.')
+<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-1 text-xs whitespace-nowrap '.$tone]) }} data-verification-state="{{ $state }}" title="{{ $full }}" data-verified-mark>
+    @if($verified)<svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>@else<span aria-hidden="true" class="inline-block h-2 w-2 shrink-0 rounded-sm {{ $state === 'pending_review' ? 'bg-state-warn' : 'bg-brand-line' }}"></span>@endif
+    <span>{{ $name }}@if($date) <time datetime="{{ $date->toDateString() }}">{{ $date->format('j M Y') }}</time>@endif<span class="sr-only"> ({{ $reviewer ? 'reviewed by '.$reviewer.'; ' : '' }}a factual check against the official source, not a legal review)</span></span>
 </span>
 @else
-<span {{ $attributes->merge(['class' => 'inline-flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs '.$tone]) }} data-verification-badge data-verification-state="{{ $state }}">
-    @if($verified)<svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>@else<span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm {{ $state === 'pending_review' ? 'bg-state-warn' : 'bg-brand-line' }}"></span>@endif
+{{-- Not flex-wrap: the long line wraps inside its own span, so the mark stays beside its first line. --}}
+<span {{ $attributes->merge(['class' => 'inline-flex items-start gap-x-1.5 text-xs '.$tone]) }} data-verification-badge data-verification-state="{{ $state }}">
+    @if($verified)<svg class="mt-px h-3.5 w-3.5 shrink-0" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>@else<span aria-hidden="true" class="mt-1 inline-block h-2 w-2 shrink-0 rounded-sm {{ $state === 'pending_review' ? 'bg-state-warn' : 'bg-brand-line' }}"></span>@endif
     @if($verified)
     <span>{{ $record->verificationLabel() }}@if($reviewer) · reviewed by <a href="{{ route('reviewers') }}" class="underline decoration-dotted" title="The reviewer roster and each reviewer's declared interests">{{ $reviewer }}</a>@endif</span>
     @else

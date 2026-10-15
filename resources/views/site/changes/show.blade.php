@@ -7,7 +7,7 @@
         <div class="flex flex-wrap items-center gap-2 text-xs">
             <time datetime="{{ $change->occurred_on->toDateString() }}" class="datestamp">{{ $change->occurred_on->format('j M Y') }}</time>
             @if($change->jurisdiction)<a href="{{ $change->jurisdiction->url() }}" class="font-medium text-brand-body hover:text-brand-navy">{{ $change->jurisdiction->name }}</a>@endif
-            <span class="badge {{ $impact->value === 'urgent' ? 'bg-state-badbg text-state-bad ring-state-bad/20' : ($impact->value === 'high' ? 'bg-state-warnbg text-state-warn ring-state-warn/20' : 'bg-state-neutralbg text-brand-body ring-brand-line') }}">{{ $impact->label() }}</span>
+            <x-site.impact-badge :change="$change" />
             @if($change->statusAfterEnum())<x-site.status-badge :status="$change->statusAfterEnum()" />@endif
         </div>
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $change->title }}</h1>

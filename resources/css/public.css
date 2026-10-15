@@ -238,8 +238,12 @@ body:has(#home-q) header form[role="search"] { display: none; }
     .table-wrap table { @apply min-w-full text-sm; }
     .table-wrap th { @apply bg-brand-paper text-left text-xs font-semibold uppercase tracking-wide text-brand-muted px-3 py-2 align-top; }
     .table-wrap td { @apply px-3 py-2.5 align-top border-t border-brand-line; }
+    /* A row header names the row, so it reads as body text, not as a small uppercase column label. */
+    .table-wrap th[scope=row] { @apply bg-transparent normal-case tracking-normal text-sm font-medium text-brand-navy py-2.5 border-t border-brand-line; }
     .table-sticky th:first-child, .table-sticky td:first-child { @apply sticky left-0 bg-white z-10 border-r border-brand-line; }
     .table-sticky th:first-child { @apply bg-brand-paper; }
+    /* A pinned row header stays opaque, but in the body colour like the cells beside it. */
+    .table-sticky tbody th[scope=row]:first-child { @apply bg-white; }
 
     .skip-link { @apply sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg; }
     .section-title { @apply font-display text-xl sm:text-2xl font-semibold text-brand-navy tracking-tight; }

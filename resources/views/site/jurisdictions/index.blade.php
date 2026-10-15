@@ -12,7 +12,7 @@
     @foreach($byRegion as $region => $items)
     <section class="mt-8" aria-labelledby="region-{{ \Illuminate\Support\Str::slug($region) }}">
         <h2 id="region-{{ \Illuminate\Support\Str::slug($region) }}" class="section-title">{{ $region }}</h2>
-        <div class="table-wrap mt-3 table-sticky">
+        <div class="table-wrap mt-3 table-sticky" tabindex="0" role="region" aria-label="Jurisdictions in {{ $region }}">
             <table>
                 <caption class="sr-only">Jurisdictions in {{ $region }}</caption>
                 <thead><tr><th scope="col">Jurisdiction</th><th scope="col">Type</th><th scope="col">Regulatory status</th><th scope="col">Instruments</th><th scope="col">Verification</th></tr></thead>

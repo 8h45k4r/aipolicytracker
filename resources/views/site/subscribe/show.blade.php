@@ -21,7 +21,7 @@
                 </div>
                 <fieldset>
                     <legend class="label">Also send me</legend>
-                    <ul class="mt-1.5"><li><label class="flex items-center gap-2 text-sm text-brand-body"><input type="checkbox" name="topics[]" value="templates" class="rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy" @checked(in_array('templates', old('topics', $selected), true))>New versions of the <a href="{{ route('templates.index') }}">templates library</a> (when a change to the records reaches a file)</label></li></ul>
+                    <ul class="mt-1.5"><li><label class="flex items-center gap-2 text-sm text-brand-body"><input type="checkbox" name="topics[]" value="templates" class="rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy" @checked(in_array('templates', old('topics', $selected), true))><span>New versions of the <a href="{{ route('templates.index') }}">templates library</a> (when a change to the records reaches a file)</span></label></li></ul>
                 </fieldset>
                 {{-- The same grouped, searchable picker as the deadline engine; leaving it empty means everything. --}}
                 <x-site.jurisdiction-picker name="topics" :jurisdictions="$jurisdictions" :selected="old('topics', $selected)" legend="Jurisdictions to follow" hint="Leave everything unticked to receive all jurisdictions. Up to 19." />

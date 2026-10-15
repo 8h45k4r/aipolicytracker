@@ -2,7 +2,7 @@
 @section('content')
 <x-backend.page-header title="Change desk" description="The weekly routine that keeps the record current: open each source that is due, record what you found, and log any change in data/changes.">
     <x-slot:actions>
-        <a href="{{ route('freshness') }}" class="btn-secondary btn-sm" target="_blank" rel="noopener">Public freshness page</a>
+        <a href="{{ route('freshness') }}" class="btn-secondary btn-sm" target="_blank" rel="noopener">Public freshness page<span class="sr-only"> (opens in new tab)</span></a>
         <a href="{{ route('backend.review.index', ['type' => 'change']) }}" class="btn-secondary btn-sm">Changes in the review queue</a>
     </x-slot:actions>
 </x-backend.page-header>
@@ -29,14 +29,14 @@
 @php($p = $r['policy'])
 <tr data-desk-row="{{ $p->slug }}">
     <td class="min-w-[16rem] max-w-[26rem]">
-        <a href="{{ $p->url() }}" class="font-medium text-brand-navy" target="_blank" rel="noopener">{{ $p->short_title ?: $p->title }}</a>
+        <a href="{{ $p->url() }}" class="font-medium text-brand-navy" target="_blank" rel="noopener">{{ $p->short_title ?: $p->title }}<span class="sr-only"> (opens in new tab)</span></a>
         <div class="meta">{{ $p->jurisdiction?->short_name ?: $p->jurisdiction?->name }} · {{ $p->is_binding ? 'binding' : 'non-binding' }} · {{ $p->obligations_count }} {{ \Illuminate\Support\Str::plural('duty', $p->obligations_count) }}@if($p->aipt_id) · <span class="font-mono">{{ $p->aipt_id }}</span>@endif</div>
-        @if($p->official_source_url)<a href="{{ $p->official_source_url }}" class="text-xs" target="_blank" rel="noopener">Open the official source ↗</a>@endif
+        @if($p->official_source_url)<a href="{{ $p->official_source_url }}" class="text-xs" target="_blank" rel="noopener">Open the official source <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>@endif
     </td>
     <td class="tabular-nums">{{ $r['watchers'] }}</td>
     <td class="whitespace-nowrap text-xs">
         @if($r['last_at'])
-            {{ $r['last_at']->format('j M Y') }}<div class="meta">{{ $r['last_outcome'] ? (\App\Models\SourceCheck::OUTCOMES[$r['last_outcome']] ?? $r['last_outcome']) : 'Checked in data/' }}</div>
+            {{ $r['last_at']->format('j M Y') }}<div class="meta">{{ $r['last_outcome'] ? (\App\Models\SourceCheck::OUTCOMES[$r['last_outcome']] ?? $r['last_outcome']) : 'Checked in the data files' }}</div>
             @if($r['due'])<x-backend.badge status="needs_update">due</x-backend.badge>@endif
         @else
             <x-backend.badge status="needs_update">never checked</x-backend.badge>
@@ -49,9 +49,9 @@
             <select id="outcome-{{ $p->id }}" name="outcome" class="input !min-h-[30px] !w-auto !py-1 text-xs">
                 @foreach(\App\Models\SourceCheck::OUTCOMES as $value => $label)<option value="{{ $value }}">{{ $label }}</option>@endforeach
             </select>
-            <label class="sr-only" for="note-{{ $p->id }}">Note</label>
+            <label class="sr-only" for="note-{{ $p->id }}">Note for {{ $p->short_title ?: $p->title }}</label>
             <input id="note-{{ $p->id }}" name="note" maxlength="500" class="input !min-h-[30px] !w-40 !py-1 text-xs" placeholder="Note (optional)">
-            <button class="btn-secondary btn-sm">Record</button>
+            <button class="btn-secondary btn-sm" aria-label="Record check for {{ $p->short_title ?: $p->title }}">Record</button>
         </form>
     </td>
 </tr>

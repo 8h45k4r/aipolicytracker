@@ -13,7 +13,7 @@ feed. One component, so home, policy and jurisdiction pages agree.
     @if($intro)<p class="mt-2 max-w-[64ch] text-sm text-brand-body">{{ $intro }}</p>@endif
     @if($items->isNotEmpty())
         @foreach($items as $change)<x-site.change-item :change="$change" compact />@endforeach
-        <p class="mt-3 text-xs text-brand-muted"><a href="{{ $jurisdiction ? route('updates.jurisdiction.feed', $jurisdiction->slug) : route('changes.feed') }}" class="hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="hover:text-brand-navy">Updates hub</a> · <a href="{{ route('subscribe.show') }}" class="hover:text-brand-navy">Weekly digest</a></p>
+        <p class="mt-3 text-xs text-brand-muted leading-8"><a href="{{ $jurisdiction ? route('updates.jurisdiction.feed', $jurisdiction->slug) : route('changes.feed') }}" class="inline-block py-1 hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="inline-block py-1 hover:text-brand-navy">Updates hub</a> · <a href="{{ route('subscribe.show') }}" class="inline-block py-1 hover:text-brand-navy">Weekly digest</a></p>
     @else
         <p class="py-4 text-sm text-brand-muted">No changes recorded yet. <a href="{{ route('updates.index') }}" class="text-brand-blue hover:underline">See all AI policy updates</a>.</p>
     @endif

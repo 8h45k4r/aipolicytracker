@@ -122,6 +122,10 @@
     if (sheet && openBtns.length) {
         var opener = null;
         var isOpen = function () { return sheet.getAttribute('data-open') === 'true'; };
+        // Every opener reports the sheet's state, whichever one opened it.
+        var setExpanded = function (open) {
+            openBtns.forEach(function (b) { b.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+        };
         var focusables = function () {
             return Array.prototype.filter.call(sheet.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'), function (el) { return el.offsetParent !== null; });
         };
@@ -129,6 +133,7 @@
             if (!isOpen()) return;
             sheet.setAttribute('data-open', 'false');
             document.body.style.overflow = '';
+            setExpanded(false);
             // Focus goes back to the control that opened the sheet (WCAG 2.4.3).
             if (opener) opener.focus();
         };
@@ -138,6 +143,7 @@
                 opener = b;
                 sheet.setAttribute('data-open', 'true');
                 document.body.style.overflow = 'hidden';
+                setExpanded(true);
                 var target = b.getAttribute('href') && b.getAttribute('href').charAt(0) === '#' ? document.getElementById(b.getAttribute('href').slice(1)) : null;
                 var first = target || sheet.querySelector('input, select, button');
                 if (first) first.focus();
@@ -504,6 +510,20 @@
             if (summary) { summary.focus(); }
         });
     }
+
+    // The phone Menu is a <details> too, so it gets the same dismissals: outside click and Escape.
+    var mobileMenu = document.querySelector('[data-mobile-menu]');
+    if (mobileMenu) {
+        document.addEventListener('click', function (event) {
+            if (mobileMenu.open && !mobileMenu.contains(event.target)) { mobileMenu.open = false; }
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key !== 'Escape' || !mobileMenu.open) { return; }
+            mobileMenu.open = false;
+            var summary = mobileMenu.querySelector(':scope > summary');
+            if (summary) { summary.focus(); }
+        });
+    }
 })();
 
 // Admin tables: selection, counts and confirmations.
@@ -848,4 +868,32 @@
         });
         input.addEventListener('blur', close);
     });
+})();
+
+// Filter panels that collapse on phones (so results come first) open on wide screens,
+// where there is room for both. Without JavaScript they start open only when a filter is set.
+(function () {
+    if (!window.matchMedia('(min-width: 1024px)').matches) { return; }
+    document.querySelectorAll('details[data-open-on-desktop]').forEach(function (d) { d.open = true; });
+})();
+
+// A table that scrolls sideways must be reachable by keyboard (WCAG 2.1.1) and named for
+// screen readers, so every .table-wrap that actually overflows becomes a focusable region
+// named by its caption. Wrappers that already carry these in the markup are left alone.
+(function () {
+    var mark = function () {
+        document.querySelectorAll('.table-wrap').forEach(function (wrap) {
+            if (wrap.scrollWidth <= wrap.clientWidth + 1) { return; }
+            if (!wrap.hasAttribute('tabindex')) { wrap.setAttribute('tabindex', '0'); }
+            if (!wrap.hasAttribute('role')) { wrap.setAttribute('role', 'region'); }
+            if (!wrap.hasAttribute('aria-label') && !wrap.hasAttribute('aria-labelledby')) {
+                var caption = wrap.querySelector('caption');
+                var text = caption ? caption.textContent.replace(/\s+/g, ' ').trim() : '';
+                wrap.setAttribute('aria-label', text || 'Scrollable table');
+            }
+        });
+    };
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', mark); } else { mark(); }
+    var timer = null;
+    window.addEventListener('resize', function () { clearTimeout(timer); timer = setTimeout(mark, 200); }, { passive: true });
 })();

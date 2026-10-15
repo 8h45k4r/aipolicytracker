@@ -7,14 +7,15 @@
     <input type="hidden" name="source" value="{{ $source }}">
     @if($topic)<input type="hidden" name="topics[]" value="{{ $topic }}">@endif
     <div class="hidden" aria-hidden="true"><label for="sub-website-{{ $source }}">Website</label><input id="sub-website-{{ $source }}" type="text" name="website" value="" tabindex="-1" autocomplete="off"></div>
-    <p class="eyebrow">{{ $topic ? 'Follow by email' : 'Weekly digest' }}</p>
+    {{-- With a topic this is still the weekly digest, filtered; "Follow" read like the account follow button. --}}
+    <p class="eyebrow">{{ $topic ? 'Weekly digest for '.($topicLabel ?: 'this jurisdiction') : 'Weekly digest' }}</p>
     <p class="mt-1 text-sm text-brand-body">{{ $topic ? 'Get every dated, source-linked change to '.($topicLabel ?: 'this jurisdiction').' in a weekly email.' : 'Dated, source-linked AI policy changes and upcoming application dates, once a week. No marketing.' }}</p>
     @if(session('success'))<p class="mt-2 text-sm text-state-good" role="status">{{ session('success') }}</p>@endif
     @error('email')<p class="mt-2 text-sm text-state-bad" role="alert">{{ $message }}</p>@enderror
     <div class="mt-3 flex gap-2 {{ $compact ? 'flex-col' : 'max-w-md' }}">
         <label for="sub-email-{{ $source }}" class="sr-only">Email address</label>
         <input id="sub-email-{{ $source }}" type="email" name="email" required class="input flex-1" placeholder="you@example.org" autocomplete="email">
-        <button type="submit" class="btn-primary">{{ $topic ? 'Follow' : 'Subscribe' }}</button>
+        <button type="submit" class="btn-primary">{{ $topic ? 'Get the digest' : 'Subscribe' }}</button>
     </div>
     <x-site.turnstile class="mt-3" />
     <p class="mt-2 meta">Double opt-in; one-click unsubscribe in every email. <a href="{{ route('subscribe.show') }}">Choose jurisdictions</a></p>

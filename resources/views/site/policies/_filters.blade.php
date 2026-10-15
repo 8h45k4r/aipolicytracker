@@ -1,4 +1,5 @@
 {{-- Shared filter form for policies and obligations. $mode = 'policies' | 'obligations' --}}
+@php($inSheet = ($idp ?? 'f-') === 'm-f-')
 @php($action = $mode === 'policies' ? route('policies.index') : route('obligations.index'))
 {{-- Each option carries how many results it would give with the other filters as they are. --}}
 @php($n = fn (string $facet, $value) => isset($facets[$facet]) ? ' ('.number_format($facets[$facet][(string) $value] ?? 0).')' : '')
@@ -54,7 +55,8 @@
         <select id="{{ $idp ?? 'f-' }}binding" name="binding" class="input"><option value="">Legal and voluntary</option><option value="yes" @selected(($filters['binding'] ?? '') === 'yes')>Legal requirements only{{ $n('binding', 'yes') }}</option><option value="no" @selected(($filters['binding'] ?? '') === 'no')>Voluntary guidance only{{ $n('binding', 'no') }}</option></select>
     </div>
     @if($mode === 'policies')
-    <div class="grid grid-cols-2 gap-2">
+    {{-- Stacked in the narrow desktop sidebar, where two date inputs side by side truncate the date. --}}
+    <div class="grid gap-2 {{ $inSheet ? 'grid-cols-2' : 'grid-cols-1' }}">
         <div><label for="{{ $idp ?? 'f-' }}from" class="label">Effective from</label><input id="{{ $idp ?? 'f-' }}from" type="date" name="from" value="{{ $filters['from'] ?? '' }}" class="input"></div>
         <div><label for="{{ $idp ?? 'f-' }}to" class="label">Effective to</label><input id="{{ $idp ?? 'f-' }}to" type="date" name="to" value="{{ $filters['to'] ?? '' }}" class="input"></div>
     </div>
@@ -63,7 +65,8 @@
         <select id="{{ $idp ?? 'f-' }}sort" name="sort" class="input">@foreach(\App\Services\PolicyData\PolicyCatalog::SORTS as $k => $v)<option value="{{ $k }}" @selected(($filters['sort'] ?? \App\Services\PolicyData\PolicyCatalog::SITE_DEFAULT_SORT) === $k)>{{ $v }}</option>@endforeach</select>
     </div>
     @endif
-    <div class="flex gap-2">
+    {{-- In the phone sheet the buttons stay pinned to its bottom, so Apply is reachable from any filter. --}}
+    <div class="flex gap-2 {{ $inSheet ? 'sticky bottom-0 -mx-4 -mb-4 border-t border-brand-line bg-white px-4 py-3' : '' }}">
         <button type="submit" class="btn-primary flex-1" data-track="filter_apply">Apply filters</button>
         <a href="{{ $action }}" class="btn-secondary">Reset</a>
     </div>

@@ -109,9 +109,10 @@ class PolicyCatalog
 
         $sort = $filters['sort'] ?? $defaultSort;
         match (array_key_exists($sort, self::SORTS) ? $sort : $defaultSort) {
-            'binding' => $q->orderByDesc('is_binding')->orderBy('policy_instruments.title'),
+            // Rows show the short title, so sort on what the reader sees (LOWER and COALESCE run on SQLite and PostgreSQL; LOWER so "NSW" files with "Nepal" on both).
+            'binding' => $q->orderByDesc('is_binding')->orderByRaw('LOWER(COALESCE(policy_instruments.short_title, policy_instruments.title))'),
             'effective' => $q->orderByRaw('COALESCE(applies_from, in_force_on, adopted_on) DESC'),
-            'jurisdiction' => $q->join('jurisdictions as jsort', 'jsort.id', '=', 'policy_instruments.jurisdiction_id')->orderBy('jsort.name')->orderBy('policy_instruments.title')->select('policy_instruments.*'),
+            'jurisdiction' => $q->join('jurisdictions as jsort', 'jsort.id', '=', 'policy_instruments.jurisdiction_id')->orderBy('jsort.name')->orderByRaw('LOWER(COALESCE(policy_instruments.short_title, policy_instruments.title))')->select('policy_instruments.*'),
             'relevance' => $q->orderByDesc('featured')->orderByDesc('is_binding')->orderByDesc('updated_at'),
             default => $q->orderByDesc('policy_instruments.updated_at'),
         };

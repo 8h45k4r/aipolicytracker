@@ -5,7 +5,8 @@
         <span aria-hidden="true">·</span>
         <span>{{ $policy->typeEnum()->label() }}</span>
         <x-site.status-badge :status="$policy->statusEnum()" />
-        @if($policy->is_binding)<span class="badge-binding">Binding</span>@endif
+        {{-- A draft binds nobody yet, so a bare "Binding" would overstate it. --}}
+        @if($policy->is_binding)<span class="badge-binding">{{ in_array($policy->statusEnum(), [\App\Enums\PolicyStatus::Proposed, \App\Enums\PolicyStatus::UnderConsultation], true) ? 'Binding once adopted' : 'Binding' }}</span>@endif
     </div>
     {{-- The headline is the English name. Where a reviewer recorded the native name and the
          short title is that native name, the full (English) title leads instead and the

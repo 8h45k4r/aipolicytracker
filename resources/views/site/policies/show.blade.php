@@ -26,7 +26,7 @@
             <span class="text-brand-muted" aria-hidden="true">·</span>
             <span class="text-brand-muted">{{ $policy->typeEnum()->label() }}</span>
             <x-site.status-badge :status="$status" />
-            <span class="badge {{ $policy->is_binding ? 'bg-brand-navy text-white ring-brand-navy' : 'bg-brand-paper text-brand-body ring-brand-line' }}">{{ $policy->is_binding ? 'Binding' : 'Non-binding' }}</span>
+            <span class="badge {{ $policy->is_binding ? 'bg-brand-navy text-white ring-brand-navy' : 'bg-brand-paper text-brand-body ring-brand-line' }}">{{ $policy->is_binding ? (in_array($policy->statusEnum(), [\App\Enums\PolicyStatus::Proposed, \App\Enums\PolicyStatus::UnderConsultation], true) ? 'Binding once adopted' : 'Binding') : 'Non-binding' }}</span>
         </div>
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $name }}: requirements, deadlines and compliance actions</h1>
         @if($policy->short_title && $policy->short_title !== $policy->title)<p class="mt-1 text-sm text-brand-muted">{{ $policy->title }}</p>@endif

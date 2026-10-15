@@ -70,7 +70,7 @@
     <div class="container-site">
         <div class="flex items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="flex items-center py-3 no-underline shrink-0" aria-label="Artificial Intelligence Policy Tracker, home">
-                <picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="Artificial Intelligence Policy Tracker" width="163" height="50" class="h-10 lg:h-9 xl:h-10 w-auto" decoding="async"></picture>
+                <picture><source srcset="{{ asset('brand/logo-on-dark.svg') }}" media="(prefers-color-scheme: dark)"><img src="{{ asset('brand/logo-on-light.svg') }}" alt="Artificial Intelligence Policy Tracker" width="163" height="50" class="h-9 sm:h-10 lg:h-9 xl:h-10 w-auto" decoding="async"></picture>
             </a>
             <x-site.nav />
             <div class="flex items-center gap-2 lg:gap-1.5 xl:gap-2">
@@ -81,13 +81,14 @@
                         <input id="header-q" name="q" type="search" value="{{ request()->routeIs('search') ? request('q') : '' }}" class="input !min-h-[38px] w-44 !pl-8" placeholder="Search the site" autocomplete="off" data-suggest="{{ route('search.suggest') }}">
                     </div>
                 </form>
-                <a href="{{ route('search') }}" class="sm:hidden btn-primary !min-h-[38px] !py-1.5 gap-1.5" data-track="header_search_click"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Search</a>
+                {{-- Icon-only on phones so logo, Search and Menu fit a 320px screen; the sr-only word keeps its name. --}}
+                <a href="{{ route('search') }}" class="sm:hidden btn-primary !min-h-[38px] !py-1.5" data-track="header_search_click"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="sr-only">Search</span></a>
                 <a href="{{ route('search') }}" class="hidden sm:inline-flex 2xl:hidden btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click" aria-label="Search"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
                 <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
                 @auth<a href="{{ route('profile.edit') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_account_click">Account</a>@else<a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_signin_click">Sign in</a>@endauth
                 <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
-                <details class="relative lg:hidden">
-                    <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none" aria-label="Open menu">Menu</summary>
+                <details class="relative lg:hidden" data-mobile-menu>
+                    <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none">Menu</summary>
                     <x-site.nav-mobile />
                 </details>
             </div>

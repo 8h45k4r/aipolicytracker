@@ -8,6 +8,8 @@
     @vite(['resources/css/public.css', 'resources/css/admin.css', 'resources/js/public.js', 'resources/js/admin.js'])
 </head>
 <body class="min-h-screen bg-brand-paper">
+{{-- Past the long sidebar menu in one keystroke, as on the public site. --}}
+<a href="#main" class="skip-link">Skip to content</a>
 <div class="lg:grid lg:grid-cols-[248px_1fr] min-h-screen">
     {{-- The sidebar stays in view while the page scrolls (sticky, full height, its own
          scroll if the menu is taller than the window). On small screens it collapses
@@ -95,7 +97,7 @@
             </details>
         </div>
     </aside>
-    <main id="main" class="bg-brand-paper px-4 sm:px-8 py-6 lg:py-8 min-w-0 min-h-screen">
+    <main id="main" tabindex="-1" class="bg-brand-paper px-4 sm:px-8 py-6 lg:py-8 min-w-0 min-h-screen">
         {{-- Messages from the last action, as toasts: rendered here so they show without
              JavaScript; admin.js adds the close button and lets successes fade out. --}}
         <div class="adm-toasts" data-toasts>
