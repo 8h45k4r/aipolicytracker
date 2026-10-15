@@ -34,4 +34,4 @@ if (blocking.length) {
     console.error(`\n${blocking.length} high or critical advisory path(s) not on the allowlist.`);
     process.exit(1);
 }
-console.log(`npm audit: no high or critical advisory outside the allowlist (${[...ALLOWED].join(', ')}).`);
+process.stdout.write(`npm audit: no high or critical advisory outside the allowlist (${[...ALLOWED].join(', ')}).` + "\n");

@@ -15,7 +15,7 @@ export default [
     },
     {
         // The agent server and the Node tests run under Node, not in a browser.
-        files: ["agent/**/*.mjs", "tests/js/**/*.mjs"],
+        files: ["agent/**/*.mjs", "tests/js/**/*.mjs", "scripts/**/*.mjs"],
         languageOptions: { ecmaVersion: 2022, sourceType: "module", globals: { ...globals.node } },
         rules: { "no-console": ["error", { allow: ["warn", "error"] }] },
     },
