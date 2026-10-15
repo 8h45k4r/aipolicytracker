@@ -175,10 +175,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      # public/build is committed, because the production host does not build
-      # assets: a Vite build needs Node plus roughly 200 MB of node_modules,
-      # which is most of the memory budget on the host this site shares with
-      # another application.
+      # public/build is committed for the native deploy (deploy/deploy.sh), which
+      # does not build assets: a Vite build needs Node plus roughly 200 MB of
+      # node_modules. The Docker image builds its own and ignores this copy.
       #
       # This checks that the committed manifest is present and covers every
       # Vite input. It deliberately does NOT compare the committed bytes against

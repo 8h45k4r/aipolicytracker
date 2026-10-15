@@ -71,8 +71,9 @@ those are not optional in practice:
 - **`ADMIN_EMAILS`** — administrator access is a list of addresses, not a column
   on the users table. With it unset, nobody can reach `/backend`, and the
   middleware redirects to the homepage rather than showing an error.
-- **`CRON_TOKEN`** — the scheduled workflows authenticate to `/cron/*` with it.
-  Unset, every one of them gets 401 and the data stops refreshing, silently.
+- **`CRON_TOKEN`** — only for calling the `/cron/*` routes from outside. The
+  container's own scheduler (`schedule:work`, unless `SCHEDULER=off`) runs the
+  jobs without it; unset, any external caller of `/cron/*` gets 401.
 
 Build and start:
 
