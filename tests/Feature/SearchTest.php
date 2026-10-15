@@ -23,7 +23,7 @@ class SearchTest extends TestCase
 
         $this->assertStringContainsString('action="'.route('search').'"', $html);
         $this->assertStringContainsString('role="search"', $html);
-        $this->assertMatchesRegularExpression('#<a href="'.preg_quote(route('search'), '#').'" class="sm:hidden btn-primary[^"]*"[^>]*>.*?Search</a>#s', $html, 'on phones search is a labelled primary button, not hidden in the menu');
+        $this->assertMatchesRegularExpression('#<a href="'.preg_quote(route('search'), '#').'" class="sm:hidden btn-primary[^"]*"[^>]*>.*?(<span class="sr-only">)?Search(</span>)?</a>#s', $html, 'on phones search is a labelled primary button (icon-only at 320px, named by sr-only text), not hidden in the menu');
     }
 
     public function test_search_groups_results_across_records_templates_guides_and_the_glossary(): void

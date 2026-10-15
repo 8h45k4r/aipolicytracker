@@ -68,7 +68,7 @@ class ListingFiltersTest extends TestCase
     {
         $html = $this->get(route('policies.index'))->assertOk()->getContent();
 
-        $expected = PolicyInstrument::published()->orderByDesc('is_binding')->orderBy('title')->limit(5)->get();
+        $expected = PolicyInstrument::published()->orderByDesc('is_binding')->orderByRaw('LOWER(COALESCE(short_title, title))')->limit(5)->get();
         $this->assertTrue((bool) $expected->first()->is_binding, 'the first record is binding law');
         $offsets = $expected->map(fn ($p) => strpos($html, 'href="'.$p->url().'"'))->all();
         $this->assertNotContains(false, $offsets, 'the first five binding records are on page one');
