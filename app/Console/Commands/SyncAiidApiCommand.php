@@ -30,6 +30,9 @@ use Throwable;
  */
 class SyncAiidApiCommand extends Command
 {
+    /** Where a capped incremental run left off (see handle()). */
+    private const CURSOR_KEY = 'aiid.sync.cursor';
+
     protected $signature = 'external:sync-aiid-api
         {--since= : Only records modified after this date or time (ISO 8601)}
         {--full : Walk every incident instead of the modified-since window}
@@ -66,6 +69,14 @@ class SyncAiidApiCommand extends Command
                 $this->output->write('.');
             } while (count($page) === self::PAGE && count($incidents) < $max);
             $this->newLine();
+            // A run stopped by its cap took the oldest changes first. The next run resumes
+            // from the newest change taken here, not from "a day before the newest stored",
+            // which after a burst of more than one cap of edits in a day would fetch the
+            // same rows again and never move on.
+            // Applied only after the rows are written, so a failed write is fetched again.
+            $capped = count($page) === self::PAGE && count($incidents) >= $max;
+            $newest = collect($incidents)->pluck('date_modified')->filter()->max();
+            $nextCursor = $since !== null && $capped && $newest ? Carbon::parse($newest)->toIso8601ZuluString() : null;
             $classifications = $incidents ? $api->classifications(array_keys($incidents)) : [];
         } catch (AiidLoginRequired $e) {
             // Not an outage and nothing this server can fix by retrying: say so once per run,
@@ -155,6 +166,10 @@ class SyncAiidApiCommand extends Command
             $this->mergeJson($incidentRows, $reportRows, $now, base_path(ExternalDataset::AIID_INCIDENTS), base_path('data/external/aiid_reports.json'));
         }
 
+        if (! $this->option('no-db')) {
+            $nextCursor ? Cache::forever(self::CURSOR_KEY, $nextCursor) : Cache::forget(self::CURSOR_KEY);
+        }
+
         $latest = max(array_keys($incidentRows));
         $this->recordRun(count($incidentRows), count($reportRows), null, $latest);
         $this->info(sprintf('Synced %d incidents (%d new) and %d reports from the AI Incident Database; latest id %d.', count($incidentRows), $new, count($reportRows), $latest));
@@ -199,6 +214,9 @@ class SyncAiidApiCommand extends Command
         }
         if ($this->option('since')) {
             return Carbon::parse($this->option('since'))->toIso8601ZuluString();
+        }
+        if (! $this->option('no-db') && ($cursor = Cache::get(self::CURSOR_KEY))) {
+            return Carbon::parse($cursor)->subSecond()->toIso8601ZuluString();
         }
         $last = $this->option('no-db') ? null : ExternalIncident::max('modified_at');
         if ($last) {

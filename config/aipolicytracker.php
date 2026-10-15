@@ -90,6 +90,9 @@ return [
     // Every contact address listed on the About page. Defaults to the official
     // mailbox above; set CONTACT_EMAILS to list more than one.
     'contact_emails' => $csv(env('CONTACT_EMAILS')) ?: array_values(array_filter([env('CONTACT_EMAIL', 'bhaskar@aipolicytracker.org')])),
+    // Whether the environment listed the addresses itself. When it did not, an address
+    // saved in the admin Settings page replaces the default list (AppSettingsServiceProvider).
+    'contact_emails_from_env' => $csv(env('CONTACT_EMAILS')) !== [],
 
     // Key contributors listed on the About page. Edit here (not secret) or leave empty.
     // Each entry: ['name' => '...', 'url' => 'https://...', 'icon' => 'fa-brands fa-linkedin']
@@ -121,4 +124,43 @@ return [
 
     // Upper bound for client-supplied page sizes on JSON list endpoints.
     'max_per_page' => (int) env('MAX_PER_PAGE', 100),
+
+    // The first administrator account, created once by `php artisan db:seed`
+    // (Database\Seeders\AdminSeeder). Leave the password empty to skip it.
+    'seed_admin' => [
+        'name' => env('ADMIN_NAME', 'Admin'),
+        'email' => env('ADMIN_EMAIL'),
+        'password' => env('ADMIN_PASSWORD'),
+    ],
+
+    // What the host's environment says for each setting the admin Settings page manages,
+    // read here so the page can show it without calling env() at request time. The list
+    // is the environment names in AdminController::ENV_NAMES; keep the two in step.
+    'settings_env' => (static function (): array {
+        $names = [
+            'MAIL_MAILER', 'RESEND_KEY', 'MAIL_FROM_ADDRESS', 'MAIL_FROM_NAME', 'CRON_TOKEN',
+            'BILLING_ENABLED', 'DODO_PAYMENTS_ENVIRONMENT', 'DODO_PAYMENTS_API_KEY', 'DODO_PAYMENTS_WEBHOOK_KEY',
+            'TURNSTILE_SITE_KEY', 'TURNSTILE_SECRET_KEY', 'DODO_PRODUCT_PRO_MONTHLY', 'DODO_PRODUCT_PRO_YEARLY',
+            'CONTACT_EMAIL', 'GOOGLE_ANALYTICS_ID', 'CLOUDFLARE_ANALYTICS_TOKEN', 'ANALYTICS_REQUIRE_CONSENT',
+            'SOCIAL_CARDS_ENABLED', 'EMAIL_DOMAIN_ENFORCEMENT', 'GOOGLE_SITE_VERIFICATION', 'BING_SITE_VERIFICATION',
+            'SITE_X_HANDLE', 'SITE_NEWSLETTER_URL', 'DATASET_DOI', 'SPONSOR_URL',
+            'X_POSTING', 'X_MODE', 'X_API_KEY', 'X_API_SECRET', 'X_ACCESS_TOKEN', 'X_ACCESS_SECRET',
+            'X_MENTIONS', 'X_HASHTAGS', 'X_MONTHLY_CAP', 'X_MIN_IMPACT',
+        ];
+
+        return array_combine($names, array_map(static fn (string $name) => env($name), $names));
+    })(),
+
+    // Health check (`php artisan aip:health`, run by the Docker HEALTHCHECK).
+    'health' => [
+        // "off" when this container does not run the scheduler (docker/entrypoint.sh);
+        // the check then skips the scheduler tick.
+        'scheduler' => env('SCHEDULER', 'work'),
+        // Written by docker/entrypoint.sh when the container starts. While it is younger
+        // than the grace period the tick is not checked, because the scheduler has not
+        // had a minute to report yet. Absent (a host without the entrypoint), no grace.
+        'boot_marker' => '/tmp/aip-booted',
+        'grace_minutes' => 5,
+        'tick_max_age_minutes' => 5,
+    ],
 ];

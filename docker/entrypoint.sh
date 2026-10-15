@@ -2,6 +2,10 @@
 set -e
 cd /var/www/html
 
+# Start time, for `php artisan aip:health`: the scheduler has not reported yet in
+# the first minutes, so the health check skips that part until this is 5 minutes old.
+touch /tmp/aip-booted 2>/dev/null || true
+
 # Everything before the server starts is downtime. nginx proxies to this port,
 # so until the listener is up every request is a 502. The rule here is that only
 # work the application cannot serve without belongs above the exec line.
@@ -53,7 +57,11 @@ php artisan view:cache
   php artisan external:import || echo "WARNING: external:import failed; serving previous records"
 ) 9>/tmp/aip-import.lock &
 
-# Queue worker for e-mail notifications, in the background.
+# Queue worker, in the background. Nothing is queued today: mail is sent during
+# the request so a form can tell the visitor when delivery failed, and no class
+# implements ShouldQueue. The worker idles on an empty queue and is kept so a job
+# added later is picked up without a change here. If it dies, nothing is lost
+# today; `docker compose restart app` brings it back.
 php artisan queue:work --tries=3 --sleep=3 &
 
 # The scheduler: digests, alerts, syncs and imports on their own timetable
@@ -62,6 +70,10 @@ php artisan queue:work --tries=3 --sleep=3 &
 # Exactly one scheduler may run for a deployment. A host that drives the jobs
 # from its own crontab (deploy/cron-install.sh) must start the container with
 # SCHEDULER=off, or every job runs twice and every subscriber is mailed twice.
+#
+# The HEALTHCHECK (Dockerfile) runs `php artisan aip:health`, which fails when this
+# scheduler stops writing its once-a-minute tick, so a dead scheduler marks the
+# container unhealthy instead of going unnoticed.
 if [ "${SCHEDULER:-work}" = "work" ]; then
   php artisan schedule:work > /dev/null 2>&1 &
 else

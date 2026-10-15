@@ -108,7 +108,7 @@ class PublicApiController extends Controller
         $key = 'api.policies.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
-            $page = $this->catalog->policyQuery($filters)->paginate($perPage)->withQueryString();
+            $page = $this->catalog->policyQuery($filters)->paginate($perPage)->appends(self::linkParams($filters + ['per_page' => $perPage]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($p) => $this->serializer->policySummary($p))->all(),
@@ -133,7 +133,7 @@ class PublicApiController extends Controller
         $key = 'api.obligations.'.hash('xxh128', json_encode($filters).$perPage.max(1, $request->integer('page', 1)));
 
         return $this->cached($key, function () use ($filters, $perPage) {
-            $page = $this->catalog->obligationQuery($filters)->paginate($perPage)->withQueryString();
+            $page = $this->catalog->obligationQuery($filters)->paginate($perPage)->appends(self::linkParams($filters + ['per_page' => $perPage]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($o) => $this->serializer->obligation($o))->all(),
@@ -183,7 +183,7 @@ class PublicApiController extends Controller
             $page = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
                 ->when($since, fn ($q) => $q->where('occurred_on', '>=', $since))
                 ->when($jurisdiction, fn ($q) => $q->whereHas('jurisdiction', fn ($j) => $j->where('slug', $jurisdiction)))
-                ->orderByDesc('occurred_on')->paginate(50)->withQueryString();
+                ->orderByDesc('occurred_on')->paginate(50)->appends(self::linkParams(['since' => $since, 'jurisdiction' => $jurisdiction]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($c) => $this->serializer->change($c))->all(),
@@ -284,7 +284,7 @@ class PublicApiController extends Controller
             $page = Deadline::with(['policyInstrument.jurisdiction', 'obligation'])
                 ->whereHas('policyInstrument', fn ($q) => $q->published())
                 ->when($from, fn ($q) => $q->where('due_on', '>=', $from))
-                ->orderByRaw('due_on is null, due_on')->paginate(100)->withQueryString();
+                ->orderByRaw('due_on is null, due_on')->paginate(100)->appends(self::linkParams(['from' => $from]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($d) => [
@@ -344,7 +344,7 @@ class PublicApiController extends Controller
                 ->when($filters['from'], fn ($q, $f) => $q->where('occurred_on', '>=', $f))
                 // occurred_on repeats across incidents, so the key breaks the tie and keeps
                 // pagination stable rather than letting rows shift between pages.
-                ->orderByDesc('occurred_on')->orderByDesc('incident_id')->paginate($perPage)->withQueryString();
+                ->orderByDesc('occurred_on')->orderByDesc('incident_id')->paginate($perPage)->appends(self::linkParams($filters + ['per_page' => $perPage]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($i) => [
@@ -400,7 +400,7 @@ class PublicApiController extends Controller
             // that does not exist is silently accepted by SQLite, which reads an unmatched
             // double-quoted identifier as a string literal, and rejected by PostgreSQL.
             $page = $query->when($filters['domain'], fn ($q, $d) => $q->where('domain', $d))
-                ->orderBy('ev_id')->paginate($perPage)->withQueryString();
+                ->orderBy('ev_id')->paginate($perPage)->appends(self::linkParams($filters + ['per_page' => $perPage]));
 
             return [
                 'data' => $page->getCollection()->map(fn ($r) => [
@@ -705,5 +705,18 @@ class PublicApiController extends Controller
             'Access-Control-Allow-Origin' => '*',
             'X-Robots-Tag' => 'noindex',
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * The query a page link carries: the parameters the response was cached under, never
+     * the caller's raw query string, which the cached links would otherwise hand to
+     * every later caller.
+     *
+     * @param  array<string, mixed>  $params
+     * @return array<string, mixed>
+     */
+    private static function linkParams(array $params): array
+    {
+        return array_filter($params, fn ($v) => $v !== null && $v !== '' && $v !== []);
     }
 }

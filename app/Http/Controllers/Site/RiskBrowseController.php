@@ -262,7 +262,9 @@ class RiskBrowseController extends Controller
         }
         if ($f['q'] !== '') {
             $like = '%'.mb_strtolower(mb_substr($f['q'], 0, 100)).'%';
-            $q->where(fn ($w) => $w->whereRaw('LOWER(title) LIKE ?', [$like])->orWhereRaw('LOWER(description) LIKE ?', [$like]));
+            // A sensitive record is shown under a neutral headline, so text search never
+            // matches the wording it hides.
+            $q->standard()->where(fn ($w) => $w->whereRaw('LOWER(title) LIKE ?', [$like])->orWhereRaw('LOWER(description) LIKE ?', [$like]));
         }
 
         return [$q, $f];

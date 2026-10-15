@@ -58,7 +58,7 @@ class AppSettingsServiceProvider extends ServiceProvider
             }
         }
         // The contact list follows the single address unless the environment listed several.
-        if (($contact = AppSetting::get('contact_email')) && ! env('CONTACT_EMAILS')) {
+        if (($contact = AppSetting::get('contact_email')) && ! config('aipolicytracker.contact_emails_from_env')) {
             config(['aipolicytracker.contact_emails' => [$contact]]);
         }
         // Switches: "on" / "off" stored as text, applied as booleans.

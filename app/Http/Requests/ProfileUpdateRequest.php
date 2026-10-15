@@ -33,6 +33,7 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
                 strtolower((string) $this->input('email')) === strtolower((string) $this->user()->email) ? null : new NotDisposableEmail,
             ]),
+            'organization_name' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

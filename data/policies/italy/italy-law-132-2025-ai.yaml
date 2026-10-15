@@ -80,7 +80,7 @@ deadlines:
   due_on: '2026-10-10'
   date_precision: exact
   description: Government delegation to be exercised within twelve months of entry into force.
-  deadline_status: scheduled
+  deadline_status: passed
   confidence_level: medium
 enforcement_events: []
 procurement_rules: []

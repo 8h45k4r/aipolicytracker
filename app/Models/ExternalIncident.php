@@ -63,6 +63,12 @@ class ExternalIncident extends Model
         return $query->where(fn ($q) => $q->whereNull('sensitivity')->orWhere('sensitivity', '!=', IncidentEnrichment::SENSITIVE));
     }
 
+    /** The description to show: the database's, or a neutral one for a sensitive record (as the API and export do). */
+    public function displayDescription(): ?string
+    {
+        return IncidentSensitivity::isSensitive($this) ? IncidentSensitivity::neutralDescription($this) : $this->description;
+    }
+
     /** The headline to show: the database's, or a neutral one for a sensitive record. */
     public function displayTitle(): string
     {

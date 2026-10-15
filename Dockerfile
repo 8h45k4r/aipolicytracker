@@ -1,4 +1,4 @@
-# Production image for AI Policy Tracker (Laravel 11 + Inertia/React).
+# Production image for AI Policy Tracker (Laravel 12 + Inertia/React).
 # Works on any container host (Fly.io, Render, Railway, a VPS with Docker).
 
 # ---- Stage 1: build front-end assets ----
@@ -46,7 +46,12 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 # import lock in /tmp) is owned by www-data, and the listener binds 8080, so
 # nothing here needs root. A process that serves the internet does not get it.
 USER www-data
-# /up is Laravel's health route: it boots the framework without touching a page.
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-    CMD php -r 'exit(@file_get_contents("http://127.0.0.1:" . (getenv("PORT") ?: "8080") . "/up") === false ? 1 : 0);'
+# Two checks, both must pass. /up is Laravel's health route: it proves the web
+# server answers and the framework boots, without touching a page. `aip:health`
+# covers what /up cannot see: the database answers, and the background scheduler
+# the entrypoint starts has ticked in the last 5 minutes (skipped with
+# SCHEDULER=off, and for the first 5 minutes after the container starts).
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD php -r 'exit(@file_get_contents("http://127.0.0.1:" . (getenv("PORT") ?: "8080") . "/up") === false ? 1 : 0);' \
+        && php artisan aip:health > /dev/null
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

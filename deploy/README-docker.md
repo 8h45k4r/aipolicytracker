@@ -82,9 +82,20 @@ docker compose up -d --build
 docker compose logs -f app
 ```
 
-The entrypoint migrates, imports the policy records from `data/`, caches config,
-routes and views, starts a queue worker, then serves on port 8080. Wait for the
-`Server running on` line.
+The entrypoint migrates, caches config, routes and views, starts the policy and
+external-data imports in the background, starts the scheduler (`schedule:work`,
+unless `SCHEDULER=off`) and a queue worker, then serves on port 8080. Wait for
+the `Server running on` line.
+
+The queue worker idles today: nothing is queued, and mail is sent during the
+request so a form can report a failed delivery. It is started so a queued job
+added later runs without a change to the image.
+
+The image's health check runs two probes: `/up`, and `php artisan aip:health`,
+which fails when the database does not answer or, with the scheduler on, when
+the scheduler has not ticked for 5 minutes (it allows 5 minutes after the
+container starts). `docker ps` shows `unhealthy` when either fails; run
+`docker exec aip-app php artisan aip:health` to see which.
 
 Check it before nginx is involved at all:
 
@@ -276,6 +287,14 @@ echo '17 3 * * * root /opt/aip/repo/deploy/backup.sh >> /var/log/aip-backup.log 
 bash /opt/aip/repo/deploy/backup.sh
 bash /opt/aip/repo/deploy/backup.sh --verify-latest
 ```
+
+A host that drives the jobs from its own crontab (`SCHEDULER=off` and
+`deploy/cron-install.sh`) can skip the `/etc/cron.d` line: when
+`BACKUP_RCLONE_REMOTE` is set, in the environment or in `deploy/.env`, that script
+adds the same nightly entry to root's crontab beside `schedule:run`. It leaves
+the entry out if `/etc/cron.d/aip-backup` already exists, so the dump is never
+taken twice. This repository does not record which of the two a host has; check with
+`crontab -l` and `ls /etc/cron.d/` on the host.
 
 Without `BACKUP_RCLONE_REMOTE` the dumps stay on this host, which protects
 against a bad migration but not against losing the machine; the log says so on

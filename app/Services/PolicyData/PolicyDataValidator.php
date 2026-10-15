@@ -225,6 +225,10 @@ class PolicyDataValidator
                     $errors[$file][] = "$.changes[{$i}]: unknown policy \"{$change['policy']}\"";
                 }
                 $this->checkVerification($change, $file, "$.changes[{$i}]", $errors);
+                // A verified entry says what changed; a note to the reviewer is not that.
+                if (($change['review_status'] ?? null) === 'verified' && preg_match('/to be expanded|reviewer to (cite|confirm)/i', (string) ($change['what_changed'] ?? ''))) {
+                    $errors[$file][] = "$.changes[{$i}].what_changed: still carries a reviewer placeholder; write the change or set review_status to pending_review";
+                }
             }
         }
 

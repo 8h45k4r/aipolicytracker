@@ -573,7 +573,7 @@ class AdminController extends Controller
     private function envHint(string $key, bool $secret): ?string
     {
         $name = self::ENV_NAMES[$key] ?? null;
-        $value = $name ? env($name) : null;
+        $value = $name ? (config('aipolicytracker.settings_env')[$name] ?? null) : null;
         if ($value === null || $value === '') {
             return null;
         }

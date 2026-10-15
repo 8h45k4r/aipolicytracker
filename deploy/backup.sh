@@ -27,7 +27,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 if [ -f "$HERE/.env" ]; then
   # Read only the keys this script needs, as plain text: nothing in the file is executed,
   # surrounding quotes are stripped, and a value already set in the environment wins.
-  while IFS='=' read -r key value; do
+  while IFS='=' read -r key value || [ -n "$key" ]; do
     case "$key" in
       DB_DATABASE|DB_USERNAME|BACKUP_DIR|BACKUP_KEEP_DAYS|BACKUP_RCLONE_REMOTE|AIP_DB_CONTAINER) ;;
       *) continue ;;

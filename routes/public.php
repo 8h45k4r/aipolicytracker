@@ -68,8 +68,8 @@ $stateless = [StartSession::class, ShareErrorsFromSession::class, ValidateCsrfTo
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/policies', [PolicyController::class, 'index'])->name('policies.index');
-Route::get('/policies/{policy}.json', [PolicyController::class, 'json'])->name('policies.json');
-Route::get('/policies/{policy}.md', [AgentSurfaceController::class, 'policy'])->where('policy', '[a-z0-9-]+')->name('policies.context');
+Route::get('/policies/{policy}.json', [PolicyController::class, 'json'])->withoutMiddleware($stateless)->name('policies.json');
+Route::get('/policies/{policy}.md', [AgentSurfaceController::class, 'policy'])->where('policy', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('policies.context');
 Route::get('/policies/{policy}', [PolicyController::class, 'show'])->name('policies.show');
 // What an instrument depends on to work: guidelines, codes of practice, delegated and implementing acts,
 // templates. 404 for an instrument with none recorded.
@@ -79,18 +79,18 @@ Route::get('/enforcement', [EnforcementController::class, 'index'])->name('enfor
 Route::get('/ai-standards', [ImplementationController::class, 'standards'])->name('standards.index');
 
 Route::get('/jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
-Route::get('/jurisdictions/{jurisdiction}.md', [AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->name('jurisdictions.context');
+Route::get('/jurisdictions/{jurisdiction}.md', [AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('jurisdictions.context');
 Route::get('/jurisdictions/{jurisdiction}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 Route::get('/obligations', [ObligationController::class, 'index'])->name('obligations.index');
-Route::get('/obligations/{obligation}.md', [AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->name('obligations.context');
+Route::get('/obligations/{obligation}.md', [AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('obligations.context');
 Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
 
 // Controls: what an organisation operates to meet the duties above. One control
 // serves many duties in many jurisdictions, which is the reuse a compliance lead
 // is looking for.
 Route::get('/controls', [ControlController::class, 'index'])->name('controls.index');
-Route::get('/controls/{control}.md', [AgentSurfaceController::class, 'control'])->where('control', '[a-z0-9-]+')->name('controls.context');
+Route::get('/controls/{control}.md', [AgentSurfaceController::class, 'control'])->where('control', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('controls.context');
 Route::get('/controls/{control}', [ControlController::class, 'show'])->where('control', '[a-z0-9-]+')->name('controls.show');
 
 // The corpus cut by role, sector and use case, generated from the taxonomy terms
@@ -120,7 +120,7 @@ Route::get('/newsletter/{issue}', [NewsletterController::class, 'show'])->where(
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->withoutMiddleware($stateless)->name('changes.feed');
-Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->name('changes.context');
+Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('changes.context');
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
 // The deadline engine: five plain-form steps, a personal timeline from recorded dates, .ics and PDF of the same rows.
 Route::get('/deadlines/which-date-applies', [DeadlineEngineController::class, 'show'])->name('deadlines.engine');
@@ -149,17 +149,17 @@ Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->whe
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
 
 Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
-Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->middleware('throttle:30,1')->name('open-data.download');
-Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->name('open-data.health');
-Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.csv');
-Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->name('open-data.ndjson');
-Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z-]+')->name('schema.show');
+Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('open-data.download');
+Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->withoutMiddleware($stateless)->name('open-data.health');
+Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('open-data.csv');
+Route::get('/open-data/{dataset}.ndjson', [AgentSurfaceController::class, 'exportNdjson'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('open-data.ndjson');
+Route::get('/schema/{name}.schema.json', [AgentSurfaceController::class, 'schema'])->where('name', '[a-z-]+')->withoutMiddleware($stateless)->name('schema.show');
 Route::get('/methodology', [PageController::class, 'methodology'])->name('methodology');
 Route::get('/glossary', [GlossaryController::class, 'index'])->name('glossary');
 Route::get('/glossary/{term}', [GlossaryController::class, 'show'])->where('term', '[a-z0-9-]+')->name('glossary.show');
 Route::get('/search', [SearchController::class, 'index'])->middleware('throttle:60,1')->name('search');
 // Typeahead under the search boxes: a short JSON list for the same query.
-Route::get('/search/suggest', [SearchController::class, 'suggest'])->middleware('throttle:120,1')->name('search.suggest');
+Route::get('/search/suggest', [SearchController::class, 'suggest'])->middleware('throttle:120,1')->withoutMiddleware($stateless)->name('search.suggest');
 Route::get('/explore/{group}', [ExploreController::class, 'show'])->whereIn('group', array_keys(config('navigation.primary')))->name('explore');
 Route::get('/verification', [VerificationController::class, 'show'])->name('verification');
 Route::get('/freshness', [PageController::class, 'freshness'])->name('freshness');
@@ -258,12 +258,12 @@ Route::get('/{hub}', [HubController::class, 'show'])->where('hub', HubCatalog::p
 Route::get('/{locale}/{hub}', [HubController::class, 'localized'])->where(['locale' => Translations::pattern(), 'hub' => HubCatalog::pattern()])->name('hubs.localized');
 // The quarterly report, and the embeddable widgets (the only pages other sites may frame).
 Route::get('/state-of-ai-regulation', [StateOfController::class, 'show'])->name('state-of.show');
-Route::get('/state-of-ai-regulation/{quarter}.csv', [StateOfController::class, 'csv'])->where('quarter', '20[0-9]{2}-Q[1-4]')->name('state-of.csv');
+Route::get('/state-of-ai-regulation/{quarter}.csv', [StateOfController::class, 'csv'])->where('quarter', '20[0-9]{2}-Q[1-4]')->withoutMiddleware($stateless)->name('state-of.csv');
 Route::get('/state-of-ai-regulation/{quarter}', [StateOfController::class, 'show'])->where('quarter', '[A-Za-z0-9-]+')->name('state-of.quarter');
 Route::get('/embed', [EmbedController::class, 'index'])->name('embed.index');
-Route::get('/embed/jurisdiction/{slug}', [EmbedController::class, 'jurisdiction'])->where('slug', '[a-z0-9-]+')->name('embed.jurisdiction');
-Route::get('/embed/deadlines', [EmbedController::class, 'deadlines'])->name('embed.deadlines');
-Route::get('/embed/map', [EmbedController::class, 'map'])->name('embed.map');
+Route::get('/embed/jurisdiction/{slug}', [EmbedController::class, 'jurisdiction'])->where('slug', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('embed.jurisdiction');
+Route::get('/embed/deadlines', [EmbedController::class, 'deadlines'])->withoutMiddleware($stateless)->name('embed.deadlines');
+Route::get('/embed/map', [EmbedController::class, 'map'])->withoutMiddleware($stateless)->name('embed.map');
 // The editorial landings that remain, and the retired ones, which answer 301 to the record
 // page that now carries their subject (config content.retired_landings).
 Route::get('/{landing}', [LandingController::class, 'landing'])

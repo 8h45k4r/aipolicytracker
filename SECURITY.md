@@ -26,10 +26,10 @@ In scope: this application's code, its default configuration, and its data-handl
 - Admin access is limited to e-mail addresses configured in `ADMIN_EMAILS`; there are no hard-coded accounts.
 - Passwords are hashed with bcrypt; plaintext passwords are never stored.
 - Login is rate-limited; JSON endpoints clamp page sizes and never return exception details.
-- Browser security headers are added by `App\Http\Middleware\SecurityHeaders`.
+- Browser security headers are added by `App\Http\Middleware\SecurityHeaders`, including a nonce-based Content-Security-Policy on every web response: inline scripts must carry the Vite CSP nonce, and third-party script sources are listed explicitly in the middleware.
 - Debug/maintenance routes have been removed; use `php artisan` commands instead.
-- Uploaded files are validated by MIME type and size and stored under `storage/app/public`.
+- Tool library uploads (admin only) are validated by sniffed type against an allow-list and by size (10 MB), and stored on the private `local` disk (`storage/app`, or `FILESYSTEM_LOCAL_ROOT`), not under the public web root. They are served through a short-lived signed URL to the signed-in account that requested the download.
 
 ## Deployment recommendations
 
-Run with `APP_DEBUG=false`, HTTPS only (`SESSION_SECURE_COOKIE=true`), a strong `ADMIN_PASSWORD`, a non-`log` mail driver, and a CDN/WAF in front for rate limiting. Add a Content-Security-Policy at the proxy once your allowed script sources are known.
+Run with `APP_DEBUG=false`, HTTPS only (`SESSION_SECURE_COOKIE=true`), a strong `ADMIN_PASSWORD`, a non-`log` mail driver, and a CDN/WAF in front for rate limiting. The application already sends its own Content-Security-Policy; do not add a second one at the proxy, because the browser enforces both, and a proxy policy cannot carry the per-request nonce, so it would block the site's own inline scripts. To allow a new script source, change `SecurityHeaders::policy()`.

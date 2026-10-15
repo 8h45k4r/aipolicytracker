@@ -93,7 +93,17 @@ log "current -> $RELEASE"
 # host is affected.
 sudo /bin/systemctl reload "$PHP_FPM_POOL" || fail "could not reload $PHP_FPM_POOL"
 
-# Prove it serves before declaring success.
+# Tell any running queue worker to exit after its current job, so a supervisor
+# restarts it on the new code. Nothing is queued today and this runbook starts no
+# worker, so this is a no-op until one exists; it is here so adding one later does
+# not leave it running the previous release.
+php artisan queue:restart >/dev/null 2>&1 || log "WARNING: queue:restart failed"
+
+# Prove it serves before declaring success. -k is needed, not a shortcut: port 80
+# only redirects to https (nginx-aip.conf), and on 443 nginx presents the
+# Cloudflare Origin Certificate, which no public CA signs and which does not name
+# 127.0.0.1, so a verifying curl would fail on a healthy site. This checks that
+# nginx, PHP-FPM and the release answer, not the certificate.
 code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Host: aipolicytracker.org' https://127.0.0.1/up -k || true)
 [ "$code" = "200" ] || fail "health check returned $code — roll back with deploy/README.md"
 log "health 200"

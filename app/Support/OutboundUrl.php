@@ -16,6 +16,9 @@ namespace App\Support;
  */
 final class OutboundUrl
 {
+    /** The refusal for a name with no address: possibly a passing DNS fault, so retried. */
+    public const UNRESOLVED = 'an address that does not resolve';
+
     /**
      * Why the URL may not be called from the server, or null when it may. At save time a
      * name that does not resolve yet is accepted (it may be about to); at send time
@@ -25,7 +28,7 @@ final class OutboundUrl
     {
         $reason = self::prepare($url)['refusal'];
 
-        return $reason === 'an address that does not resolve' ? null : $reason;
+        return $reason === self::UNRESOLVED ? null : $reason;
     }
 
     /**
@@ -71,11 +74,18 @@ final class OutboundUrl
             return false;
         }
         // An IPv4 address carried inside IPv6 is judged as the IPv4 address, in every
-        // spelling: mapped (::ffff:7f00:1), compatible (::127.0.0.1) and NAT64 (64:ff9b::/96).
+        // spelling: mapped (::ffff:7f00:1), compatible (::127.0.0.1), NAT64 (64:ff9b::/96 and
+        // the local-use 64:ff9b:1::/48) and 6to4 (2002::/16, the IPv4 in bits 16-47).
         if (strlen($packed) === 16) {
             $prefix = substr($packed, 0, 12);
-            if ($prefix === str_repeat("\0", 10)."\xff\xff" || $prefix === str_repeat("\0", 12) || $prefix === "\x00\x64\xff\x9b".str_repeat("\0", 8)) {
+            if ($prefix === str_repeat("\0", 10)."\xff\xff" || $prefix === str_repeat("\0", 12) || $prefix === "\x00\x64\xff\x9b".str_repeat("\0", 8)
+                || substr($packed, 0, 6) === "\x00\x64\xff\x9b\x00\x01") {
                 $packed = substr($packed, 12);
+            } elseif (substr($packed, 0, 2) === "\x20\x02") {
+                $packed = substr($packed, 2, 4);
+            } elseif (substr($packed, 0, 4) === "\x20\x01\x00\x00" // Teredo (2001::/32): tunnels to an address it hides
+                || (ord($packed[0]) === 0xFE && (ord($packed[1]) & 0xC0) === 0xC0)) { // deprecated site-local (fec0::/10)
+                return false;
             }
         }
         $ip = inet_ntop($packed);
@@ -117,7 +127,7 @@ final class OutboundUrl
         }
         $ips = self::addresses($host);
         if ($ips === []) {
-            return ['refusal' => 'an address that does not resolve', 'options' => []];
+            return ['refusal' => self::UNRESOLVED, 'options' => []];
         }
         foreach ($ips as $ip) {
             if (! self::isPublic($ip)) {

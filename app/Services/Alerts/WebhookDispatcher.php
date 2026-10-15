@@ -50,6 +50,12 @@ final class WebhookDispatcher
         // was saved. The connection is then pinned to the addresses checked, and never
         // follows a redirect, which could lead anywhere.
         $target = OutboundUrl::prepare($channel->endpoint);
+        if ($target['refusal'] === OutboundUrl::UNRESOLVED) {
+            // A lookup that failed once may succeed at the next attempt: back off and retry.
+            $this->fail($delivery, null, 'Refused: the address is '.$target['refusal'].'.');
+
+            return false;
+        }
         if ($target['refusal']) {
             $delivery->forceFill(['status' => 'failed', 'last_error' => 'Refused: the address is '.$target['refusal'].'.', 'next_attempt_at' => null])->save();
 

@@ -171,19 +171,66 @@ TLS uses a Cloudflare Origin Certificate you create yourself:
 /etc/ssl/aip/origin.key      the key, chmod 600, owned by root
 ```
 
-Cloudflare SSL mode must be **Full (strict)**.
+Cloudflare SSL mode should be **Full (strict)**, so the edge validates this
+certificate. Production does not run that mode yet: it is on Flexible, and the
+hop from the edge to the origin is unencrypted until it moves (debt #34).
 
-### 5. What this site does *not* need
+### 5. The scheduler, and the queue worker this site does not need yet
 
-- **No queue worker.** One notification implements `ShouldQueue` and nothing
-  else queues. Leave `QUEUE_CONNECTION=sync` and the footprint is zero. A worker,
-  permanent or scheduled, would be memory spent on nothing.
-- **No scheduler cron.** Nothing in this application registers a scheduled task.
-  Every recurring job is a GitHub Actions workflow calling a `/cron/*` endpoint
-  with `CRON_TOKEN`. Adding `schedule:run` to crontab would run an empty
-  schedule every minute.
+**The scheduler is required.** `routes/console.php` registers every recurring
+job, so the jobs run only if something calls `php artisan schedule:run` every
+minute. The timetable, from `routes/console.php` (times are UTC, labels from
+`App\Models\JobRun::JOBS`):
 
-Both were in the original migration plan. The repository says otherwise.
+| Job | What (label on the admin Jobs page) | When |
+|---|---|---|
+| `policy_import` | Policy import | daily 02:30 |
+| `aiid_sync` | AI Incident Database sync | daily 03:15 |
+| `alerts` | Daily alerts | daily 06:30 |
+| `alerts_deliver` | Retry alert deliveries | hourly |
+| `digest` | Weekly digest | Mondays 07:00 |
+| `external_import` | External data import | Sundays 04:00 |
+| `templates_build` | Templates library build | daily 05:30 |
+| `report_freeze` | Freeze last quarter's report | first day of each quarter, 01:00 |
+| `social_post` | Post changes to X | every 30 minutes, only while posting to X is on |
+| `indexnow` | Notify search engines of changes (IndexNow) | hourly, only when `INDEXNOW_KEY` is set |
+| `email_domains` | Throwaway-domain list refresh | Wednesdays 05:00, only when `EMAIL_DISPOSABLE_SOURCE` is set |
+
+Two housekeeping entries run as well: a once-a-minute tick that records when the
+scheduler last ran (`scheduler.last_tick`, shown on the admin Jobs page), and an
+hourly purge of expired cache rows when the cache store is the database.
+
+On this native host, install one crontab entry for the `aip` user:
+
+```bash
+sudo crontab -u aip -e
+# add:
+* * * * * cd /var/www/aip/current && php artisan schedule:run >> /dev/null 2>&1
+```
+
+That is the same single `schedule:run` entry that `deploy/cron-install.sh`
+installs on the Docker host. That script calls `docker exec aip-app` and only
+works with the container, so on this host add the line by hand. One entry runs
+the whole timetable; do not add one per job. Exactly one scheduler may run for
+a database, or every digest and alert goes out twice.
+
+Every run, whether from the scheduler, the admin "Run now" button or a
+`/cron/*` call with `CRON_TOKEN`, is recorded and shown on the admin Jobs page,
+which also says when the scheduler last ticked.
+
+**No queue worker is needed yet.** No class implements `ShouldQueue`, and mail
+is sent during the request on purpose, so a form can tell the visitor when
+delivery failed. Leave `QUEUE_CONNECTION` as it is and run no worker. The Docker
+image does start `queue:work`, idle, so a job added later is picked up there;
+`deploy.sh` runs `php artisan queue:restart` after each swap so a worker added
+here later does not keep running the previous release.
+
+### 6. Backups
+
+`deploy/backup.sh` is written for the Docker host: it runs `pg_dump` inside the
+`aip-db` container. On a native host, take dumps with `pg_dump -Fc` from cron
+yourself. On the Docker host, `deploy/cron-install.sh` adds the nightly backup
+entry when `BACKUP_RCLONE_REMOTE` is set; see `README-docker.md`, "Backups".
 
 ## Deploying
 

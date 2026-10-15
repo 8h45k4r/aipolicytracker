@@ -6,7 +6,8 @@
 
 An open tracker of AI laws, policies and the duties they create, at **[aipolicytracker.org](https://aipolicytracker.org)**.
 
-It covers 212 jurisdictions, including every UN member state, with extra attention to the regions most trackers
+It covers 249 jurisdictions: 197 countries, including every UN member state, 5 supranational bodies, 31 states
+and provinces, 14 regions and cities, and 2 territories. It pays extra attention to the regions most trackers
 skip: South Asia, South-East Asia, Africa and Latin America. Each record links to its official source and says
 whether a person has checked it. Laws are broken down into obligations, the obligations are linked to controls
 and evidence, and the whole dataset can be downloaded, queried through an API or read by AI agents.
@@ -27,15 +28,17 @@ The data is CC BY 4.0. Credit "AIPolicyTracker" and link to the record you used.
 You need PHP 8.3+ with the `pdo_sqlite`, `mbstring`, `intl`, `gd`, `zip`, `xml`, `fileinfo`, `iconv` and `bcmath` extensions (`composer check-platform-reqs` lists anything missing), Composer 2, and Node (the version in `.nvmrc`). Nothing needs a network connection or an API key: the external datasets are committed, and the built front end is in `public/build`, so `npm` is only needed to change the front end.
 
 ```bash
-composer install && npm ci
+composer install
 cp .env.example .env && php artisan key:generate
 touch database/database.sqlite
 php artisan migrate --seed
 php artisan policy:import      # build the database from data/
 php artisan external:import    # AI incidents and the MIT risk repository
-npm run dev                    # in one terminal
-php artisan serve              # in another, then open http://127.0.0.1:8000
+php artisan serve              # then open http://127.0.0.1:8000
 ```
+
+Only to change the front end (`resources/js`, `resources/css`), also run `npm ci` once and `npm run dev` in a
+second terminal; without them the site uses the committed build in `public/build`.
 
 Before you open a pull request: `composer lint`, `composer test`, `npm run lint`, `npm run build`.
 `php artisan policy:validate` checks the data files on their own.
@@ -45,7 +48,8 @@ Before you open a pull request: `composer lint`, `composer test`, `npm run lint`
 - `data/` is the source of truth: one YAML file per jurisdiction, policy and control, each with a JSON Schema in
   `data/schema/`. Every deploy rebuilds the database from these files, so a correction is a reviewable diff.
 - The site is Laravel with server-rendered Blade pages. Only the account screens use React.
-- PostgreSQL runs in production; the tests run on both SQLite and PostgreSQL.
+- PostgreSQL runs in production. CI runs the tests on SQLite, and that job gates deploys; a second job runs them
+  on PostgreSQL but often hits its 90-minute limit, so it does not gate anything yet (debt #49).
 - `docs/modules/` has one page per part of the system, `docs/reference/` holds the standards and audits, and
   `deploy/` has the runbooks.
 

@@ -28,9 +28,10 @@ scope_summary: >-
 key_dates_summary: >-
   2023-07-13: Measures published (Order No. 15, dated 10 July 2023); 2023-08-15: Measures enter into force
 adopted_on: '2023-07-13'
+in_force_on: '2023-08-15'
 date_notes: >-
-  Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
-  by a reviewer.
+  The in-force date is the one the key dates above record from the source; application dates are to
+  be confirmed by a reviewer.
 actors: []
 ai_system_types: []
 sectors: []
