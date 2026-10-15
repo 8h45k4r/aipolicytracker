@@ -1,0 +1,67 @@
+slug: cn-beijing-measures-promoting-general-ai
+jurisdiction: cn-beijing
+title: 'Beijing: Several Measures for Promoting the Innovation and Development of General Artificial Intelligence'
+short_title: Beijing general AI measures (2023)
+title_native: 北京市促进通用人工智能创新发展的若干措施
+instrument_type: policy
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: General Office of the Beijing Municipal People's Government
+summary_plain: >-
+  Twenty-one measures on compute, data, models, application scenarios and an "inclusive and prudent" approach to regulation
+  and ethics for general-purpose AI in Beijing.
+scope_summary: Beijing government departments and the city's AI industry.
+who_it_applies_to: Beijing municipal departments and AI companies.
+key_dates_summary: Document 京政办发〔2023〕15号, dated 23 May 2023 and published 30 May 2023.
+adopted_on: '2023-05-23'
+published_on: '2023-05-30'
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+- gpai_provider
+ai_system_types:
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 北京市促进通用人工智能创新发展的若干措施
+  publisher: Beijing Municipal People's Government
+  url: https://www.beijing.gov.cn/zhengce/gfxwj/202305/t20230530_3116869.html
+  document_date: '2023-05-30'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.beijing.gov.cn/zhengce/gfxwj/202305/t20230530_3116869.html
+source_title: 北京市促进通用人工智能创新发展的若干措施
+source_publisher: Beijing Municipal People's Government
+source_document_date: '2023-05-30'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

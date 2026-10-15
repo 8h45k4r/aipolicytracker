@@ -1,0 +1,69 @@
+slug: us-kentucky-sb-4-state-government-ai
+jurisdiction: us-kentucky
+title: 'Kentucky SB 4 (2025): An Act relating to protection of information (Acts Chapter 66)'
+short_title: Kentucky state-government AI law (SB 4)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Kentucky General Assembly
+summary_plain: >-
+  The Commonwealth Office of Technology must create an AI Governance Committee, write AI policy and technology standards,
+  and keep a registry of generative and high-risk AI used by state agencies. Agencies must disclose when AI is used in decisions
+  about people or businesses and report every year. The act also creates a cause of action over synthetic media in election
+  campaigns.
+scope_summary: Kentucky state agencies using AI, and synthetic media in election communications.
+who_it_applies_to: Kentucky state agencies and the Commonwealth Office of Technology.
+key_dates_summary: Signed 24 March 2025; effective 24 March 2025 under its emergency clause.
+adopted_on: '2025-03-24'
+published_on: null
+in_force_on: '2025-03-24'
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- generative_ai
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- high_risk
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Kentucky General Assembly: 25RS SB 4'
+  publisher: Kentucky General Assembly
+  url: https://apps.legislature.ky.gov/record/25rs/sb4.html
+  document_date: '2025-03-24'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://apps.legislature.ky.gov/record/25rs/sb4.html
+source_title: 'Kentucky General Assembly: 25RS SB 4'
+source_publisher: Kentucky General Assembly
+source_document_date: '2025-03-24'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

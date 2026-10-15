@@ -1,0 +1,46 @@
+slug: br-parana
+name: Paraná (Brazil)
+short_name: Paraná
+iso_code: BR-PR
+jurisdiction_type: state
+region: Americas
+subregion: South America
+parent: brazil
+featured: false
+published: true
+overview: >-
+  Paraná is recorded here for its own AI instruments, which apply within its territory alongside Brazil's national rules.
+  On record: Paraná AI in public administration law. This page was added in the October 2026 sub-national research round;
+  see each instrument for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Paraná AI in public administration law. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside Brazil's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: Lei nº 22.324/2025
+  publisher: Casa Civil do Paraná
+  url: https://www.legislacao.pr.gov.br/legislacao/exibirAto.do?action=iniciarProcesso&codAto=356786&codItemAto=2253463
+  document_date: '2025-04-02'
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- brazil
+official_source_url: https://www.legislacao.pr.gov.br/legislacao/exibirAto.do?action=iniciarProcesso&codAto=356786&codItemAto=2253463
+source_title: Lei nº 22.324/2025
+source_publisher: Casa Civil do Paraná
+source_document_date: '2025-04-02'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -1,0 +1,76 @@
+slug: us-new-york-ai-companion-safeguards
+jurisdiction: us-new-york
+title: New York AI companion safeguards (General Business Law Article 47, sections 1700-1701)
+short_title: New York AI companion safeguards
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: New York State Legislature
+summary_plain: >-
+  Operators of AI companions must have a protocol to detect and respond to suicidal ideation and self-harm, and must tell
+  users they are talking to AI at the start of a session and at least every three hours.
+scope_summary: AI companion products offered to users in New York.
+who_it_applies_to: Operators of AI companion products.
+key_dates_summary: Enacted in the FY2026 budget; effective 5 November 2025.
+adopted_on: null
+published_on: null
+in_force_on: '2025-11-05'
+applies_from: null
+date_notes: The budget bill number and the enforcement mechanism were not confirmed.
+actors:
+- deployer
+- provider
+ai_system_types:
+- conversational_agent
+sectors:
+- consumer_retail
+- healthcare
+risk_categories:
+- transparency_risk
+use_cases:
+- customer_service
+- health
+related_policies:
+- us-california-sb-243-companion-chatbots
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: New York General Business Law section 1701
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/laws/GBS/1701
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: Governor Hochul pens letter to AI companion companies notifying them safeguard requirements are in effect
+  publisher: Office of the Governor of New York
+  url: https://www.governor.ny.gov/news/governor-hochul-pens-letter-ai-companion-companies-notifying-them-safeguard-requirements-are
+  document_date: '2025-11-05'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://www.nysenate.gov/legislation/laws/GBS/1701
+source_title: New York General Business Law section 1701
+source_publisher: New York State Senate
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

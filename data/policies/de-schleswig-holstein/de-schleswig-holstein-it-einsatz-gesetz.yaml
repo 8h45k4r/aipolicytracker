@@ -1,0 +1,73 @@
+slug: de-schleswig-holstein-it-einsatz-gesetz
+jurisdiction: de-schleswig-holstein
+title: 'Schleswig-Holstein IT Deployment Act (ITEG): Act on the use of data-driven information technologies in public administration'
+short_title: Schleswig-Holstein AI in administration act (ITEG)
+title_native: Gesetz über die Möglichkeit des Einsatzes von datengetriebenen Informationstechnologien bei öffentlich-rechtlicher
+  Verwaltungstätigkeit (IT-Einsatz-Gesetz – ITEG)
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Landtag of Schleswig-Holstein
+summary_plain: >-
+  Allows public administration to use AI and other data-driven IT as a general rule, with listed exclusions (for example,
+  it may not be used to issue administrative acts involving discretion), and gives people a specific remedy, the "AI complaint"
+  (KI-Rüge).
+scope_summary: Public administration bodies in Schleswig-Holstein.
+who_it_applies_to: Schleswig-Holstein public authorities using data-driven IT.
+key_dates_summary: >-
+  Enacted 16 March 2022 as Article 12 of the Digitalisation Act; published in the Land gazette (GVOBl. Schl.-H. S. 285, 296)
+  on 14 April 2022.
+adopted_on: '2022-03-16'
+published_on: '2022-04-14'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The entry-into-force date was not confirmed. A 2026 bill (Drucksache 20/4202) would rename it the Künstliche-Intelligenz-Einsatz-Gesetz
+  (KIEG); its passage was not confirmed.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- high_risk
+use_cases:
+- public_services
+related_policies:
+- eu-ai-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Gesetz- und Verordnungsblatt Schleswig-Holstein 2022 No. 5
+  publisher: Land Schleswig-Holstein
+  url: https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/IV/Service/GVOBl/GVOBl/2022/gvobl_5_2022.pdf?__blob=publicationFile&v=2
+  document_date: '2022-04-14'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/IV/Service/GVOBl/GVOBl/2022/gvobl_5_2022.pdf?__blob=publicationFile&v=2
+source_title: Gesetz- und Verordnungsblatt Schleswig-Holstein 2022 No. 5
+source_publisher: Land Schleswig-Holstein
+source_document_date: '2022-04-14'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

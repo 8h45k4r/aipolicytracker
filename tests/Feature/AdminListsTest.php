@@ -176,8 +176,10 @@ class AdminListsTest extends TestCase
         $policy->forceFill(['last_verified_at' => now()->subDays(45), 'review_status' => 'verified'])->saveQuietly();
 
         $owner = $this->owner();
-        $html = $this->actingAs($owner)->get(route('backend.review.index', ['type' => 'policy', 'review' => 'stale']))->assertOk()->getContent();
+        // Never-verified records are stale too and sort first, so find this one by its slug.
+        $html = $this->actingAs($owner)->get(route('backend.review.index', ['type' => 'policy', 'review' => 'stale', 'q' => $policy->slug]))->assertOk()->getContent();
         $this->assertStringContainsString(e($policy->title), $html);
+        $html = $this->actingAs($owner)->get(route('backend.review.index', ['type' => 'policy', 'review' => 'stale']))->assertOk()->getContent();
         $this->assertStringContainsString(e(route('backend.review.export', ['type' => 'policy', 'review' => 'stale'])), $html);
 
         $rows = $this->csv(route('backend.review.export', ['type' => 'policy', 'review' => 'stale']), $owner);

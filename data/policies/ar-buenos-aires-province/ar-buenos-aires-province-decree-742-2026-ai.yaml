@@ -1,0 +1,68 @@
+slug: ar-buenos-aires-province-decree-742-2026-ai
+jurisdiction: ar-buenos-aires-province
+title: 'Buenos Aires Province Decree 742/2026: Provincial framework for the development, use and governance of artificial
+  intelligence'
+short_title: Buenos Aires Province AI framework decree
+title_native: Decreto 742/2026, Marco Provincial para el Desarrollo, Uso y Gobernanza de la Inteligencia Artificial
+instrument_type: executive_order
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Government of the Province of Buenos Aires
+summary_plain: >-
+  Sets the framework for AI in the provincial public sector, including risk and impact assessment and human oversight of decisions
+  affecting rights. The Undersecretariat of Digital Government enforces it; it creates a provincial AI register and invites
+  municipalities to adhere.
+scope_summary: Centralised, decentralised and autonomous bodies of the provincial administration.
+who_it_applies_to: Buenos Aires provincial public bodies; municipalities that adhere.
+key_dates_summary: Signed 6 July 2026.
+adopted_on: '2026-07-06'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: The Official Bulletin publication date was not confirmed.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- high_risk
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Decreto 742/2026
+  publisher: Normas de la Provincia de Buenos Aires
+  url: https://normas.gba.gob.ar/documentos/B11QWLI4.html
+  document_date: '2026-07-06'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://normas.gba.gob.ar/documentos/B11QWLI4.html
+source_title: Decreto 742/2026
+source_publisher: Normas de la Provincia de Buenos Aires
+source_document_date: '2026-07-06'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

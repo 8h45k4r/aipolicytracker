@@ -1,0 +1,72 @@
+slug: it-calabria-regional-law-4-2026-ai
+jurisdiction: it-calabria
+title: Calabria Regional Law No. 4 of 2 February 2026 on the use of artificial intelligence systems in the region
+short_title: Calabria AI law (Regional Law 4/2026)
+title_native: Legge regionale 2 febbraio 2026, n. 4, "Disposizioni concernenti l'impiego di sistemi di intelligenza artificiale
+  in ambito regionale"
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Regional Council of Calabria
+summary_plain: >-
+  Governs the use of AI in the regional administration, with human review, data protection and transparency; sets up a health-AI
+  pilot programme, a voluntary regional register of AI developers and a regional AI Office.
+scope_summary: The Calabria regional public administration; registration is voluntary for AI developers.
+who_it_applies_to: The Calabria regional administration and, on a voluntary basis, AI developers.
+key_dates_summary: >-
+  Approved by the Regional Council on 27 January 2026; published in the regional bulletin (BURC No. 22) on 2 February 2026.
+adopted_on: '2026-02-02'
+published_on: '2026-02-02'
+in_force_on: null
+applies_from: null
+date_notes: The entry-into-force date was not confirmed.
+actors:
+- public_authority
+- provider
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+- healthcare
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+- health
+related_policies:
+- eu-ai-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Consiglio regionale della Calabria: Legge regionale n. 4/2026'
+  publisher: Consiglio regionale della Calabria
+  url: https://www.consiglioregionale.calabria.it/bdf/api/BDF?numero=4&anno=2026
+  document_date: '2026-02-02'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.consiglioregionale.calabria.it/bdf/api/BDF?numero=4&anno=2026
+source_title: 'Consiglio regionale della Calabria: Legge regionale n. 4/2026'
+source_publisher: Consiglio regionale della Calabria
+source_document_date: '2026-02-02'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

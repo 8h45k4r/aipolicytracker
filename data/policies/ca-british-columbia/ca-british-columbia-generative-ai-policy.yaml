@@ -1,0 +1,68 @@
+slug: ca-british-columbia-generative-ai-policy
+jurisdiction: ca-british-columbia
+title: BC Public Service policy on the use of generative AI
+short_title: British Columbia public service generative AI policy
+title_native: null
+instrument_type: policy
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Government of British Columbia
+summary_plain: >-
+  Bars BC public servants from entering confidential or personal information into public generative-AI tools, allows it only
+  in tools covered by the government's Microsoft agreement when signed in with a government account, and requires staff to
+  verify outputs.
+scope_summary: All BC Public Service employees using generative AI tools.
+who_it_applies_to: British Columbia public servants.
+key_dates_summary: Last updated 9 May 2025.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: The original issue date was not confirmed.
+actors:
+- public_authority
+- user
+ai_system_types:
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Policy on the use of generative AI
+  publisher: Government of British Columbia
+  url: https://digital.gov.bc.ca/ai/gen-ai-policy/
+  document_date: '2025-05-09'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://digital.gov.bc.ca/ai/gen-ai-policy/
+source_title: Policy on the use of generative AI
+source_publisher: Government of British Columbia
+source_document_date: '2025-05-09'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

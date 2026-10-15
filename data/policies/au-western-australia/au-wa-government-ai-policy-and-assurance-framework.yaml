@@ -1,0 +1,68 @@
+slug: au-wa-government-ai-policy-and-assurance-framework
+jurisdiction: au-western-australia
+title: WA Government Artificial Intelligence Policy and Assurance Framework
+short_title: Western Australia AI policy and assurance framework
+title_native: null
+instrument_type: policy
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Office of Digital Government (Western Australia)
+summary_plain: >-
+  Each WA public sector entity nominates an AI Accountable Officer and self-assesses its AI and automated decision-making
+  systems; higher-risk, Digital Capability Fund-funded or large projects go to the WA AI Advisory Board, whose advice is non-binding,
+  and use cases are recorded in a government AI register.
+scope_summary: The WA public sector; universities and local governments are encouraged to comply.
+who_it_applies_to: Western Australian public sector entities.
+key_dates_summary: Published March 2024; updated June 2025.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: WA Government Artificial Intelligence Policy and Assurance Framework
+  publisher: Government of Western Australia
+  url: https://www.wa.gov.au/government/publications/wa-government-artificial-intelligence-policy-and-assurance-framework
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.wa.gov.au/government/publications/wa-government-artificial-intelligence-policy-and-assurance-framework
+source_title: WA Government Artificial Intelligence Policy and Assurance Framework
+source_publisher: Government of Western Australia
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

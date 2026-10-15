@@ -1,0 +1,73 @@
+slug: us-maryland-ai-governance-act-2024
+jurisdiction: us-maryland
+title: Maryland Artificial Intelligence Governance Act of 2024 (SB 818 / HB 1271, Chapter 496)
+short_title: Maryland AI Governance Act 2024
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Maryland General Assembly
+summary_plain: >-
+  The Department of Information Technology sets AI policies for state government; state units must inventory their AI systems
+  and carry out impact assessments, and public higher-education institutions must adopt AI policies.
+scope_summary: Maryland state units and public institutions of higher education.
+who_it_applies_to: Maryland state government units and public universities and colleges.
+key_dates_summary: Approved by the Governor 9 May 2024.
+adopted_on: '2024-05-09'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Operative deadlines changed from the fiscal note; confirm them in the chapter text.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+- education
+risk_categories:
+- high_risk
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Maryland General Assembly: SB 818 (2024 Regular Session)'
+  publisher: Maryland General Assembly
+  url: https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/SB0818?ys=2024rs
+  document_date: '2024-05-09'
+  document_type: legislation
+  tier: 1
+- title: Chapter 496 (SB 818, enrolled)
+  publisher: Maryland General Assembly
+  url: https://mgaleg.maryland.gov/2024rs/Chapters_noln/CH_496_sb0818e.pdf
+  document_date: '2024-05-09'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/SB0818?ys=2024rs
+source_title: 'Maryland General Assembly: SB 818 (2024 Regular Session)'
+source_publisher: Maryland General Assembly
+source_document_date: '2024-05-09'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

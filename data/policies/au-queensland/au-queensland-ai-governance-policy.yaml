@@ -1,0 +1,67 @@
+slug: au-queensland-ai-governance-policy
+jurisdiction: au-queensland
+title: Queensland Government Artificial Intelligence Governance Policy (QGEA)
+short_title: Queensland AI governance policy
+title_native: null
+instrument_type: policy
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Queensland Government Customer and Digital Group
+summary_plain: >-
+  Queensland departments must carry out a Foundational AI Risk Assessment (FAIRA, or FAIRA Lite for low-risk work, or an agreed
+  equivalent) and set up AI governance with regard to ISO/IEC 38507.
+scope_summary: All Queensland Government departments under the Public Sector Act 2022.
+who_it_applies_to: Queensland government departments.
+key_dates_summary: First introduced September 2024; version 2.0.0 effective August 2026.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Artificial intelligence governance policy
+  publisher: Queensland Government
+  url: https://www.forgov.qld.gov.au/information-technology/queensland-government-enterprise-architecture-qgea/qgea-directions-and-guidance/qgea-policies-standards-and-guidelines/artificial-intelligence-governance-policy
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.forgov.qld.gov.au/information-technology/queensland-government-enterprise-architecture-qgea/qgea-directions-and-guidance/qgea-policies-standards-and-guidelines/artificial-intelligence-governance-policy
+source_title: Artificial intelligence governance policy
+source_publisher: Queensland Government
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

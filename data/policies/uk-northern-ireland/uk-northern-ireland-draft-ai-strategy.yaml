@@ -1,0 +1,66 @@
+slug: uk-northern-ireland-draft-ai-strategy
+jurisdiction: uk-northern-ireland
+title: Northern Ireland's Draft Artificial Intelligence Strategy
+short_title: Northern Ireland draft AI strategy
+title_native: null
+instrument_type: strategy
+status: under_consultation
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: The Executive Office (Northern Ireland)
+summary_plain: >-
+  A draft strategy for responsible AI adoption across the Northern Ireland public sector under eight principles; the final
+  version goes to the Executive.
+scope_summary: Northern Ireland departments and the wider public sector.
+who_it_applies_to: Northern Ireland departments and public bodies.
+key_dates_summary: Consultation ran from 12 August to 7 October 2026.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Consultation: Northern Ireland''s draft Artificial Intelligence Strategy'
+  publisher: The Executive Office
+  url: https://www.executiveoffice-ni.gov.uk/consultations/northern-irelands-draft-artificial-intelligence-strategy
+  document_date: '2026-08-12'
+  document_type: consultation
+  tier: 1
+faq: []
+official_source_url: https://www.executiveoffice-ni.gov.uk/consultations/northern-irelands-draft-artificial-intelligence-strategy
+source_title: 'Consultation: Northern Ireland''s draft Artificial Intelligence Strategy'
+source_publisher: The Executive Office
+source_document_date: '2026-08-12'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

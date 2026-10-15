@@ -1,0 +1,76 @@
+slug: jp-tokyo-ai-introduction-and-utilization-guideline
+jurisdiction: jp-tokyo
+title: Tokyo Metropolitan Government AI Introduction and Utilization Guideline
+short_title: Tokyo government AI guideline (2026)
+title_native: 東京都 AI導入・活用ガイドライン
+instrument_type: guidance
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Tokyo Metropolitan Government
+summary_plain: >-
+  Practical rules for Tokyo Metropolitan Government divisions adopting AI, including generative AI: a basic policy, six AI-specific
+  cautions and a process from planning through procurement to retirement, with points graded as required or recommended. A
+  staff handbook on generative AI was issued the same day.
+scope_summary: Tokyo Metropolitan Government divisions.
+who_it_applies_to: Tokyo Metropolitan Government divisions and staff.
+key_dates_summary: Formulated 30 March 2026.
+adopted_on: '2026-03-30'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+- user
+ai_system_types:
+- generative_ai
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+- government_procurement
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI導入・活用ガイドライン
+  publisher: Tokyo Metropolitan Government
+  url: https://www.digitalservice.metro.tokyo.lg.jp/business/ai/ai-guideline
+  document_date: '2026-03-30'
+  document_type: guidance
+  tier: 1
+- title: Press release, 30 March 2026
+  publisher: Tokyo Metropolitan Government
+  url: https://www.metro.tokyo.lg.jp/information/press/2026/03/2026033059
+  document_date: '2026-03-30'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://www.digitalservice.metro.tokyo.lg.jp/business/ai/ai-guideline
+source_title: AI導入・活用ガイドライン
+source_publisher: Tokyo Metropolitan Government
+source_document_date: '2026-03-30'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

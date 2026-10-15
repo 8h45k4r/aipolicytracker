@@ -1,0 +1,74 @@
+slug: in-tamil-nadu-safe-and-ethical-ai-policy-2020
+jurisdiction: in-tamil-nadu
+title: Tamil Nadu Safe and Ethical Artificial Intelligence Policy 2020
+short_title: Tamil Nadu Safe and Ethical AI Policy 2020
+title_native: null
+instrument_type: policy
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Information Technology Department, Government of Tamil Nadu
+summary_plain: >-
+  Recommends a six-dimension framework (TAM-DEF: transparency and audit, accountability and legal issues, misuse protection,
+  digital divide and data deficit, ethics and fairness, equity) and a DEEP-MAX scorecard for deploying AI in government, with
+  AI procurement guidelines.
+scope_summary: Tamil Nadu government departments; implemented through the Tamil Nadu e-Governance Agency.
+who_it_applies_to: Tamil Nadu government departments and their AI suppliers.
+key_dates_summary: Approved by G.O. (Ms) No. 24 of the IT Department, dated 18 September 2020.
+adopted_on: '2020-09-18'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+- government_procurement
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: G.O. (Ms) No. 24, IT Department, 18 September 2020
+  publisher: Government of Tamil Nadu
+  url: https://kygcms.tn.gov.in/cms_migrated/document/GO/it_e_24_2020.pdf
+  document_date: '2020-09-18'
+  document_type: official
+  tier: 1
+- title: Tamil Nadu Safe and Ethical Artificial Intelligence Policy 2020
+  publisher: State Planning Commission, Tamil Nadu
+  url: https://spc.tn.gov.in/policy/tamil-nadu-safe-and-ethical-artificial-intelligence-policy-2020/
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://kygcms.tn.gov.in/cms_migrated/document/GO/it_e_24_2020.pdf
+source_title: G.O. (Ms) No. 24, IT Department, 18 September 2020
+source_publisher: Government of Tamil Nadu
+source_document_date: '2020-09-18'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

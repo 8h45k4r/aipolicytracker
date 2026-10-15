@@ -670,3 +670,87 @@ changes:
     review_status: pending_review
     confidence_level: medium
     content_version: 1
+  - slug: 2026-03-27-new-york-raise-act-chapter-amendment
+    jurisdiction: us-new-york
+    policy: us-new-york-raise-act
+    occurred_on: 2026-03-27
+    title: New York signs the chapter amendment that rewrites the RAISE Act
+    what_changed: >
+      The chapter amendment to the RAISE Act was signed as chapter 96 of 2026. Its sponsor memo says it repeals the
+      underlying 2025 chapter and establishes a new regulatory regime aligned more closely with California SB 53.
+      Recorded from search extracts of the Senate bill page; the effective date was not confirmed.
+    practical_impact: Frontier developers should read the RAISE Act as amended, not the 2025 text.
+    impact_level: high
+    status_after: null
+    published: true
+    official_source_url: "https://www.nysenate.gov/legislation/bills/2025/S8828"
+    source_title: "New York State Senate: bill S8828"
+    source_publisher: "New York State Senate"
+    source_document_date: 2026-03-27
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-05-27-connecticut-sb-5-online-safety-signed
+    jurisdiction: us-connecticut
+    policy: us-connecticut-sb-5-online-safety
+    occurred_on: 2026-05-27
+    title: Connecticut signs SB 5 on online safety, with frontier-developer whistleblower duties
+    what_changed: >
+      Public Act 26-15 was signed. Its frontier provisions, effective 1 October 2026, protect whistleblowers and
+      require large frontier developers to set up an internal reporting process and report to their boards.
+      Recorded from search extracts of the General Assembly's pages.
+    practical_impact: Large frontier developers should have an anonymous internal reporting process by 1 January 2027.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.cga.ct.gov/2026/act/Pa/pdf/2026PA-00015-R00SB-00005-PA.PDF"
+    source_title: "Public Act 26-15 (SB 5)"
+    source_publisher: "Connecticut General Assembly"
+    source_document_date: 2026-05-27
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-07-06-illinois-ai-safety-measures-act-enacted
+    jurisdiction: us-illinois
+    policy: us-illinois-ai-safety-measures-act
+    occurred_on: 2026-07-06
+    title: Illinois enacts the AI Safety Measures Act (SB 315) on frontier-model safety and transparency
+    what_changed: >
+      SB 315 became Public Act 104-0538. Large frontier developers must publish a frontier AI framework and
+      transparency reports, report critical safety incidents to the state, protect whistleblowers and, from 2028,
+      commission annual independent third-party audits. Recorded from search extracts of the ILGA bill status page.
+    practical_impact: Large frontier developers should map their California SB 53 framework to Illinois's audit requirement.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&DocTypeID=SB&GA=104&GAID=18&SessionID=114"
+    source_title: "Illinois General Assembly: bill status of SB 315 (104th General Assembly)"
+    source_publisher: "Illinois General Assembly"
+    source_document_date: 2026-07-06
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-09-10-california-sb-1119-chatbot-child-safety-signed
+    jurisdiction: us-california
+    policy: us-california-sb-1119-companion-chatbots-child-safety
+    occurred_on: 2026-09-10
+    title: California signs SB 1119 on companion chatbots and children's safety
+    what_changed: >
+      SB 1119 was chaptered (Chapter 190, Statutes of 2026). Operators must carry out a child-focused risk
+      assessment before releasing a new or substantially modified companion chatbot from 1 July 2027, and
+      commission child-safety audits by 1 January 2029. Recorded from search extracts of the legislature's pages.
+    practical_impact: Companion chatbot operators should plan a documented child-safety risk assessment before mid-2027 releases.
+    impact_level: high
+    status_after: adopted
+    published: true
+    official_source_url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1119"
+    source_title: "California Legislative Information: SB 1119 (2025-2026) status"
+    source_publisher: "California Legislative Information"
+    source_document_date: 2026-09-10
+    source_tier: 1
+    review_status: pending_review
+    confidence_level: medium
+    content_version: 1

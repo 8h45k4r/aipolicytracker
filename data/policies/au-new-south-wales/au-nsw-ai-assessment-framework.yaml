@@ -1,0 +1,75 @@
+slug: au-nsw-ai-assessment-framework
+jurisdiction: au-new-south-wales
+title: NSW AI Assessment Framework
+short_title: NSW AI Assessment Framework
+title_native: null
+instrument_type: framework
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Digital NSW
+summary_plain: >-
+  A risk-triage self-assessment across the AI lifecycle that replaced the NSW AI Assurance Framework. High- or critical-risk
+  systems go to the AI Review Committee; using the assessment platform is mandatory for agencies under Circular DCS-2026-02.
+scope_summary: NSW government agencies developing or procuring AI systems.
+who_it_applies_to: NSW government agencies.
+key_dates_summary: Modernised framework announced 27 January 2026; platform use mandatory from 30 September 2026.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: '2026-09-30'
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- high_risk
+use_cases:
+- public_services
+- government_procurement
+related_policies:
+- au-nsw-ai-operational-policy
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: NSW AI Assessment Framework
+  publisher: Digital NSW
+  url: https://digital.nsw.gov.au/policy/artificial-intelligence/ai-governance-assurance-and-frameworks/nsw-ai-assessment-framework
+  document_date: null
+  document_type: guidance
+  tier: 1
+- title: NSW strengthens AI oversight with modernised framework
+  publisher: NSW Government
+  url: https://www.nsw.gov.au/departments-and-agencies/customer-service/media-releases/nsw-strengthens-ai-oversight-modernised-framework
+  document_date: '2026-01-27'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://digital.nsw.gov.au/policy/artificial-intelligence/ai-governance-assurance-and-frameworks/nsw-ai-assessment-framework
+source_title: NSW AI Assessment Framework
+source_publisher: Digital NSW
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

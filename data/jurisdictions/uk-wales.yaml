@@ -1,0 +1,46 @@
+slug: uk-wales
+name: Wales (United Kingdom)
+short_name: Wales
+iso_code: GB-WLS
+jurisdiction_type: region
+region: Europe
+subregion: null
+parent: uk
+featured: false
+published: true
+overview: >-
+  Wales is recorded here for its own AI instruments, which apply within its territory alongside UK's national rules. On record:
+  AI plan for Wales. This page was added in the October 2026 sub-national research round; see each instrument for what it
+  requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: none recorded. Strategy or guidance: AI plan for Wales.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside UK's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: AI plan for Wales
+  publisher: Welsh Government
+  url: https://www.gov.wales/ai-plan-for-wales
+  document_date: null
+  document_type: strategy
+  tier: 1
+faq: []
+related_jurisdictions:
+- uk
+official_source_url: https://www.gov.wales/ai-plan-for-wales
+source_title: AI plan for Wales
+source_publisher: Welsh Government
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

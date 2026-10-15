@@ -1,0 +1,77 @@
+slug: us-illinois-wellness-and-oversight-for-psychological-resources-act
+jurisdiction: us-illinois
+title: Illinois Wellness and Oversight for Psychological Resources Act (HB 1806, Public Act 104-0054)
+short_title: Illinois AI therapy law (HB 1806)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Illinois General Assembly
+summary_plain: >-
+  No one may provide therapy or psychotherapy in Illinois, including through AI, unless it is delivered by a licensed professional.
+  AI may be used only for administrative and supplementary support, with notice to and consent from the client. The Department
+  of Financial and Professional Regulation enforces it.
+scope_summary: Therapy and psychotherapy services offered to people in Illinois, including AI-based services.
+who_it_applies_to: >-
+  Providers of therapy or psychotherapy services, including AI products marketed as therapy, and licensed professionals who
+  use AI tools.
+key_dates_summary: Approved and effective 1 August 2025.
+penalties_summary: Fines of up to $10,000, per the Department's announcement.
+adopted_on: '2025-08-01'
+published_on: null
+in_force_on: '2025-08-01'
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- provider
+- deployer
+ai_system_types:
+- conversational_agent
+sectors:
+- healthcare
+risk_categories:
+- high_risk
+use_cases:
+- health
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Illinois General Assembly: bill status of HB 1806 (104th General Assembly)'
+  publisher: Illinois General Assembly
+  url: https://ilga.gov/Legislation/BillStatus?DocNum=1806&GAID=18&DocTypeID=HB&LegId=159219&SessionID=114
+  document_date: '2025-08-01'
+  document_type: legislation
+  tier: 1
+- title: Gov. Pritzker signs legislation prohibiting AI therapy in Illinois
+  publisher: Illinois Department of Financial and Professional Regulation
+  url: https://idfpr.illinois.gov/news/2025/gov-pritzker-signs-state-leg-prohibiting-ai-therapy-in-il.html
+  document_date: '2025-08-01'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://ilga.gov/Legislation/BillStatus?DocNum=1806&GAID=18&DocTypeID=HB&LegId=159219&SessionID=114
+source_title: 'Illinois General Assembly: bill status of HB 1806 (104th General Assembly)'
+source_publisher: Illinois General Assembly
+source_document_date: '2025-08-01'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

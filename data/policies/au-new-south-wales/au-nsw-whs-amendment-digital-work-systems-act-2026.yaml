@@ -1,0 +1,76 @@
+slug: au-nsw-whs-amendment-digital-work-systems-act-2026
+jurisdiction: au-new-south-wales
+title: Work Health and Safety Amendment (Digital Work Systems) Act 2026 (NSW) (Act No 5 of 2026)
+short_title: NSW digital work systems act 2026
+title_native: null
+instrument_type: act
+status: partially_applicable
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Parliament of New South Wales
+summary_plain: >-
+  Makes it a primary duty of a person conducting a business or undertaking to ensure that workers' health and safety is not
+  put at risk by "digital work systems" (an algorithm, AI, automation or online platform), and lets WHS entry-permit holders
+  ask to inspect those systems.
+scope_summary: Persons conducting a business or undertaking in New South Wales.
+who_it_applies_to: NSW employers and other businesses or undertakings that use digital work systems.
+key_dates_summary: >-
+  Passed 12 February 2026; assented 18 February 2026. Only some provisions commenced on assent; the rest commence on dates
+  to be announced, mostly no earlier than a month after SafeWork NSW publishes guidelines.
+adopted_on: '2026-02-18'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: The commencement of the main duties was not confirmed.
+actors:
+- deployer
+- user
+ai_system_types:
+- automated_decision_system
+sectors:
+- employment
+risk_categories:
+- high_risk
+use_cases:
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Work Health and Safety Amendment (Digital Work Systems) Act 2026 No 5
+  publisher: NSW Legislation
+  url: https://legislation.nsw.gov.au/view/html/inforce/current/act-2026-005
+  document_date: '2026-02-18'
+  document_type: legislation
+  tier: 1
+- title: 'Bill details: Work Health and Safety Amendment (Digital Work Systems) Bill 2026'
+  publisher: Parliament of New South Wales
+  url: https://www.parliament.nsw.gov.au/bills/Pages/bill-details.aspx?pk=18847
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://legislation.nsw.gov.au/view/html/inforce/current/act-2026-005
+source_title: Work Health and Safety Amendment (Digital Work Systems) Act 2026 No 5
+source_publisher: NSW Legislation
+source_document_date: '2026-02-18'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

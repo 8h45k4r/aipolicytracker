@@ -1,0 +1,89 @@
+slug: us-illinois-ai-safety-measures-act
+jurisdiction: us-illinois
+title: Illinois Artificial Intelligence Safety Measures Act (SB 315, Public Act 104-0538)
+short_title: Illinois AI Safety Measures Act (SB 315)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: true
+published: true
+issuing_body: Illinois General Assembly
+summary_plain: >-
+  Illinois's frontier-AI safety and transparency law, built on the model of California SB 53: large frontier developers must
+  publish a frontier AI framework and update it every year, publish a transparency report when they deploy a new or substantially
+  modified frontier model, report critical safety incidents to the Illinois Emergency Management Agency and Office of Homeland
+  Security, and protect whistleblowing employees. Unlike the California and New York laws, it also requires annual independent
+  third-party audits, with a published summary.
+scope_summary: >-
+  A "frontier model" is a foundation model trained with more than 10^26 operations, counting fine-tuning and other material
+  modifications; a "large frontier developer" also had more than $500 million in annual gross revenue in the prior year, with
+  affiliates. Ordinary deployers of AI systems are not covered.
+who_it_applies_to: Large frontier-model developers whose models are made available in Illinois.
+key_dates_summary: >-
+  Became Public Act 104-0538 on 6 July 2026 (bill status page); reported effective 1 January 2027; third-party audits from
+  1 January 2028, or 90 days after a developer first qualifies, whichever is later.
+penalties_summary: >-
+  Civil penalties of up to $1,000,000 for a first violation, per extracts of the enacted text; a higher cap for later violations
+  appears only in secondary reporting.
+adopted_on: '2026-07-06'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 6 July 2026 Public Act date is from the ILGA bill status page. The 1 January 2027 effective date appears in the amendment
+  synopsis but was not confirmed in the enrolled Act; secondary sources disagree between 2027 and 2028. Passage dates and
+  votes come from secondary reporting only.
+actors:
+- gpai_provider
+- provider
+ai_system_types:
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- systemic_risk
+use_cases:
+- generative_ai
+related_policies:
+- us-california-sb-53
+- us-new-york-raise-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Illinois General Assembly: bill status of SB 315 (104th General Assembly)'
+  publisher: Illinois General Assembly
+  url: https://www.ilga.gov/Legislation/BillStatus?DocNum=315&DocTypeID=SB&GA=104&GAID=18&SessionID=114
+  document_date: '2026-07-06'
+  document_type: legislation
+  tier: 1
+- title: Public Act 104-0538
+  publisher: Illinois General Assembly
+  url: https://www.ilga.gov/documents/legislation/PublicActs/104/104-0538.htm
+  document_date: '2026-07-06'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.ilga.gov/Legislation/BillStatus?DocNum=315&DocTypeID=SB&GA=104&GAID=18&SessionID=114
+source_title: 'Illinois General Assembly: bill status of SB 315 (104th General Assembly)'
+source_publisher: Illinois General Assembly
+source_document_date: '2026-07-06'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

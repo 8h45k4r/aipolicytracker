@@ -1,0 +1,81 @@
+slug: us-california-cppa-admt-regulations
+jurisdiction: us-california
+title: California Privacy Protection Agency regulations on automated decision-making technology, risk assessments and cybersecurity
+  audits
+short_title: California CPPA automated decision-making rules
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: California Privacy Protection Agency
+summary_plain: >-
+  Regulations under the California Consumer Privacy Act on automated decision-making technology (ADMT), risk assessments and
+  cybersecurity audits. Businesses that use ADMT to make significant decisions about consumers must comply from 1 January
+  2027, with further deadlines phased into 2028.
+scope_summary: >-
+  Businesses subject to the CCPA that use automated decision-making technology for significant decisions, or whose processing
+  requires a risk assessment or cybersecurity audit.
+who_it_applies_to: Businesses subject to the California Consumer Privacy Act.
+key_dates_summary: >-
+  Approved by the Office of Administrative Law 22 September 2025; effective 1 January 2026; ADMT compliance from 1 January
+  2027; a submission to the CPPA due 1 April 2028.
+adopted_on: '2025-09-22'
+published_on: null
+in_force_on: '2026-01-01'
+applies_from: '2027-01-01'
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- deployer
+ai_system_types:
+- automated_decision_system
+sectors:
+- cross_sector
+- employment
+- financial_services
+risk_categories:
+- high_risk
+use_cases:
+- hiring_and_hr
+- finance_and_credit
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'CPPA announcement: regulations approved by the Office of Administrative Law'
+  publisher: California Privacy Protection Agency
+  url: https://cppa.ca.gov/announcements/2025/20250923.html
+  document_date: '2025-09-23'
+  document_type: legislation
+  tier: 1
+- title: CCPA updates, cybersecurity audits, risk assessments and ADMT regulations
+  publisher: California Privacy Protection Agency
+  url: https://cppa.ca.gov/regulations/ccpa_updates.html
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://cppa.ca.gov/announcements/2025/20250923.html
+source_title: 'CPPA announcement: regulations approved by the Office of Administrative Law'
+source_publisher: California Privacy Protection Agency
+source_document_date: '2025-09-23'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

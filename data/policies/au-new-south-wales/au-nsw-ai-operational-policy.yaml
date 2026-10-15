@@ -1,0 +1,74 @@
+slug: au-nsw-ai-operational-policy
+jurisdiction: au-new-south-wales
+title: 'NSW AI Operational Policy and Circular DCS-2026-02: Use of Artificial Intelligence by NSW Government Agencies'
+short_title: NSW AI Operational Policy
+title_native: null
+instrument_type: policy
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: NSW Department of Customer Service
+summary_plain: >-
+  Replaces the NSW AI Ethics Policy and adopts Australia's AI Ethics Principles. Agencies must use the NSW AI Assessment Framework
+  and give NSW GovAI a signed annual attestation by 31 October each year, the first due by 31 October 2027.
+scope_summary: NSW Government sector agencies and statutory bodies, and their employees.
+who_it_applies_to: NSW government agencies.
+key_dates_summary: Circular issued 30 July 2026 and updated 1 September 2026; first attestation due 31 October 2027.
+adopted_on: '2026-07-30'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies:
+- au-nsw-ai-assessment-framework
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: DCS-2026-02 Use of Artificial Intelligence by NSW Government Agencies
+  publisher: NSW Government
+  url: https://arp.nsw.gov.au/dcs-2026-02-use-of-artificial-intelligence-by-nsw-government-agencies
+  document_date: '2026-07-30'
+  document_type: official
+  tier: 1
+- title: NSW AI Operational Policy
+  publisher: Digital NSW
+  url: https://digital.nsw.gov.au/policy/artificial-intelligence/ai-strategy-and-operational-policy/nsw-ai-operational-policy
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://arp.nsw.gov.au/dcs-2026-02-use-of-artificial-intelligence-by-nsw-government-agencies
+source_title: DCS-2026-02 Use of Artificial Intelligence by NSW Government Agencies
+source_publisher: NSW Government
+source_document_date: '2026-07-30'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -1,0 +1,75 @@
+slug: us-utah-hb-452-mental-health-chatbots
+jurisdiction: us-utah
+title: 'Utah HB 452 (2025): Artificial Intelligence Amendments (mental health chatbots, Utah Code 13-72a)'
+short_title: Utah mental health chatbot law (HB 452)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Utah State Legislature
+summary_plain: >-
+  Mental health chatbots must disclose that they are AI; suppliers may not sell or share users' health information or input,
+  or use it to target advertising. A written policy filed with the Division of Professional Licensing gives a supplier an
+  affirmative defence.
+scope_summary: Mental health chatbots offered to users in Utah.
+who_it_applies_to: Suppliers of mental health chatbots.
+key_dates_summary: Effective 7 May 2025.
+adopted_on: null
+published_on: null
+in_force_on: '2025-05-07'
+applies_from: null
+date_notes: The signing date was not confirmed.
+actors:
+- provider
+- deployer
+ai_system_types:
+- conversational_agent
+sectors:
+- healthcare
+risk_categories:
+- transparency_risk
+use_cases:
+- health
+related_policies:
+- us-utah-artificial-intelligence-policy-act
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Utah Legislature: HB 452 enrolled (2025 General Session)'
+  publisher: Utah State Legislature
+  url: https://le.utah.gov/Session/2025/bills/enrolled/HB0452.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: Mental health chatbot
+  publisher: Utah Division of Professional Licensing
+  url: https://commerce.utah.gov/dopl/mental-health-chatbot/
+  document_date: null
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://le.utah.gov/Session/2025/bills/enrolled/HB0452.pdf
+source_title: 'Utah Legislature: HB 452 enrolled (2025 General Session)'
+source_publisher: Utah State Legislature
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

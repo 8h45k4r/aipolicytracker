@@ -1,0 +1,68 @@
+slug: hong-kong-ethical-ai-framework
+jurisdiction: hong-kong
+title: Hong Kong Ethical Artificial Intelligence Framework (Digital Policy Office)
+short_title: Hong Kong Ethical AI Framework
+title_native: null
+instrument_type: framework
+status: guidance
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Digital Policy Office
+summary_plain: >-
+  Guiding principles, leading practices and an AI assessment for government AI projects, with a three-line governance model
+  in which the IT board or chief information officer reviews high-risk AI. It was updated for generative AI.
+scope_summary: Government bureaux and departments; a version is offered to other organisations for reference.
+who_it_applies_to: Hong Kong government bureaux and departments.
+key_dates_summary: Updated in August 2023 for generative AI.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: The original issue date and whether adoption is formally mandatory were not confirmed.
+actors:
+- public_authority
+ai_system_types:
+- generative_ai
+- automated_decision_system
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies:
+- hong-kong-generative-ai-technical-and-application-guideline
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ethical Artificial Intelligence Framework
+  publisher: Digital Policy Office, Hong Kong SAR Government
+  url: https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/ethical_ai_framework/
+  document_date: null
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/ethical_ai_framework/
+source_title: Ethical Artificial Intelligence Framework
+source_publisher: Digital Policy Office, Hong Kong SAR Government
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -1,0 +1,67 @@
+slug: au-sa-ai-ethics-policy
+jurisdiction: au-south-australia
+title: South Australian Government Artificial Intelligence Ethics Policy (v1.0)
+short_title: South Australia AI ethics policy
+title_native: null
+instrument_type: policy
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Government of South Australia
+summary_plain: >-
+  A mandatory policy requiring SA government agencies to align their AI systems with the Australian Government's AI Ethics
+  Principles; a separate policy on responsible use and disclosure is being developed.
+scope_summary: All South Australian public sector agencies.
+who_it_applies_to: South Australian government agencies.
+key_dates_summary: Approved 10 October 2025; next review 10 October 2026.
+adopted_on: '2025-10-10'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Artificial Intelligence Ethics Policy
+  publisher: Government of South Australia
+  url: https://www.treasury.sa.gov.au/__data/assets/pdf_file/0004/1194340/AI_Ethics_Policy.pdf
+  document_date: '2025-10-10'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.treasury.sa.gov.au/__data/assets/pdf_file/0004/1194340/AI_Ethics_Policy.pdf
+source_title: Artificial Intelligence Ethics Policy
+source_publisher: Government of South Australia
+source_document_date: '2025-10-10'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

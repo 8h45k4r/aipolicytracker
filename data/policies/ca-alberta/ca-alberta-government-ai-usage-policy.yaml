@@ -1,0 +1,67 @@
+slug: ca-alberta-government-ai-usage-policy
+jurisdiction: ca-alberta
+title: Government of Alberta Artificial Intelligence Usage Policy
+short_title: Alberta government AI usage policy
+title_native: null
+instrument_type: policy
+status: in_force
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: Government of Alberta
+summary_plain: >-
+  Lets Alberta public servants use AI responsibly, within a list of approved AI platforms and use cases kept by the Ministry
+  of Technology and Innovation; non-compliance can lead to discipline under the Public Service Act.
+scope_summary: Government of Alberta employees and ministries using AI tools.
+who_it_applies_to: Alberta public servants and ministries.
+key_dates_summary: Effective 1 May 2025.
+adopted_on: null
+published_on: null
+in_force_on: '2025-05-01'
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+- user
+ai_system_types:
+- generative_ai
+sectors:
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Artificial Intelligence Usage Policy
+  publisher: Government of Alberta
+  url: https://manuals.alberta.ca/media/i5mjqsgw/artificial-intelligence-usage-policy.pdf
+  document_date: '2025-05-01'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://manuals.alberta.ca/media/i5mjqsgw/artificial-intelligence-usage-policy.pdf
+source_title: Artificial Intelligence Usage Policy
+source_publisher: Government of Alberta
+source_document_date: '2025-05-01'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

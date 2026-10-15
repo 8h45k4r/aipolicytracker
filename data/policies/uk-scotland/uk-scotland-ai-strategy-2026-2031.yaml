@@ -1,0 +1,68 @@
+slug: uk-scotland-ai-strategy-2026-2031
+jurisdiction: uk-scotland
+title: Scotland's AI Strategy 2026-2031
+short_title: Scotland's AI Strategy 2026-2031
+title_native: null
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+featured: false
+published: true
+issuing_body: Scottish Government
+summary_plain: >-
+  A five-year strategy for responsible and inclusive AI growth, with ten early actions due by the end of March 2027, delivered
+  through the AI Scotland programme. It builds on the 2021 strategy for trustworthy, ethical and inclusive AI.
+scope_summary: The Scottish Government, public sector and AI ecosystem.
+who_it_applies_to: Scottish public bodies and organisations taking part in its programmes.
+key_dates_summary: Published 20 March 2026; early actions due by 31 March 2027.
+adopted_on: null
+published_on: '2026-03-20'
+in_force_on: null
+applies_from: null
+date_notes: Dates as stated in search extracts of the official source; confirm against it.
+actors:
+- public_authority
+ai_system_types:
+- generative_ai
+sectors:
+- cross_sector
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies:
+- uk-scottish-ai-register
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Scotland's AI Strategy 2026-2031
+  publisher: Scottish Government
+  url: https://www.gov.scot/publications/scotlands-ai-strategy-2026-2031/
+  document_date: '2026-03-20'
+  document_type: strategy
+  tier: 1
+faq: []
+official_source_url: https://www.gov.scot/publications/scotlands-ai-strategy-2026-2031/
+source_title: Scotland's AI Strategy 2026-2031
+source_publisher: Scottish Government
+source_document_date: '2026-03-20'
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

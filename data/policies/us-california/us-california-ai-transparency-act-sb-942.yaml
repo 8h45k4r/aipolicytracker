@@ -1,0 +1,84 @@
+slug: us-california-ai-transparency-act-sb-942
+jurisdiction: us-california
+title: California AI Transparency Act (SB 942, as amended by AB 853)
+short_title: California AI Transparency Act (SB 942)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Covered providers of generative AI systems must offer a free AI-detection tool and embed disclosures and provenance data
+  in AI-generated content. AB 853 (Chapter 674, Statutes of 2025) moved the operative date to 2 August 2026 and added duties
+  for large online platforms and generative-AI hosting platforms.
+scope_summary: >-
+  Covered providers of generative AI systems used in California; from 2027, large online platforms and hosting platforms under
+  AB 853.
+who_it_applies_to: >-
+  Large generative-AI providers, and from 2027 large online platforms and generative-AI hosting platforms.
+key_dates_summary: >-
+  AB 853 approved 13 October 2025; provider duties operative 2 August 2026; platform duties operative 1 January 2027; one
+  further section operative 1 January 2028.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: '2026-08-02'
+date_notes: >-
+  SB 942's own chapter number and signing date were not confirmed; the code display page still shows a 1 January 2026 effective
+  date, which appears to predate AB 853.
+actors:
+- provider
+- gpai_provider
+- distributor
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+risk_categories:
+- transparency_risk
+use_cases:
+- generative_ai
+- content_moderation
+related_policies:
+- us-california-ab-2013-training-data-transparency
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 942 (2023-2024)'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'California Legislative Information: AB 853 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB853
+  document_date: '2025-10-13'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942
+source_title: 'California Legislative Information: SB 942 (2023-2024)'
+source_publisher: California Legislative Information
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-10-15'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.
