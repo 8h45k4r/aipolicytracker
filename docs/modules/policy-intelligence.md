@@ -57,6 +57,7 @@ Every record type that makes a factual claim carries the shared source-quality c
 | status | varchar | no |  | `App\\Enums\\PolicyStatus` |
 | status_note | text | yes |  |  |
 | is_binding | tinyint(1) | no | '0' |  |
+| ai_specific | tinyint(1) | no | '1' | About AI itself, not a general (privacy, cyber, consumer) law that also applies to AI. From `ai_specific` in data/ (default true; the validator makes a binding record whose name does not mention AI state it). Pages that say whether a jurisdiction has binding AI law count only these (`PolicyInstrument::scopeBindingAiLaw`). |
 | issuing_body | varchar | yes |  |  |
 | summary_plain | text | yes |  |  |
 | scope_summary | text | yes |  |  |
@@ -459,6 +460,7 @@ Written by `ReviewController::setPublished` (single and bulk publish). `PolicyIm
 
 - **Outbound:** `reviewer_decisions.reviewer_user_id` → `users` ([accounts.md](accounts.md)). All other foreign keys are internal to this module (listed in the field tables above); `taxonomy_assignments` is a polymorphic pivot to `policy_instruments` and `obligations`.
 - **Inbound:** none from legacy modules. The legacy `ai_policy_trackers` module was removed; its old URLs redirect to these pages (debt #17).
+- **Outbound (billing):** every policy record page carries `x-site.commercial-use` (commercial use under the data licence, and a link to the licence enquiry form on `/pricing#licence`) ([billing.md](billing.md)).
 - **Files:** `data/jurisdictions/*.yaml`, `data/policies/**/*.yaml`, `data/implementation/*.yaml`, `data/changes/*.yaml`, `data/taxonomies/terms.yaml`, `data/schema/*.json`.
 
 ## Routes

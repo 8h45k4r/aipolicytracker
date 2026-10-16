@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $seo->fullTitle() }}</title>
     <meta name="description" content="{{ $seo->description }}">
-    <link rel="canonical" href="{{ $seo->canonical }}">
+    @if($canonicalHref = $seo->canonicalLink(url()->full()))<link rel="canonical" href="{{ $canonicalHref }}">@endif
     @foreach($seo->hreflang as $code => $href)<link rel="alternate" hreflang="{{ $code }}" href="{{ $href }}">
     @endforeach
     @foreach($seo->alternates as $alt)<link rel="alternate" type="{{ $alt['type'] }}" href="{{ $alt['url'] }}">
@@ -140,7 +140,7 @@
             <p class="eyebrow !text-brand-cyan">Project</p>
             <ul class="mt-3 space-y-2">
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
-                @if(\App\Services\Billing\BillingConfig::sellingForLayout())<li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('pricing') }}">Pricing</a></li>@endif
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('pricing') }}">Pricing and data licences</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('methodology') }}">Methodology</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('verification') }}">Verification</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('freshness') }}">Freshness</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('glossary') }}">Glossary</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('coverage') }}">Coverage</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('gaps') }}">Open queue</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('reviewers') }}">Reviewers</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('about') }}">About</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('funding') }}">Funding</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('independence') }}">Independence</a></li>

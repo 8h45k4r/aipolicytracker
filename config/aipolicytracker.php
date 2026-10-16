@@ -53,6 +53,9 @@ return [
     'data_license' => 'CC BY 4.0',
     'data_license_url' => 'https://creativecommons.org/licenses/by/4.0/',
     'data_schema_version' => '1.0.0',
+    // The day the structured dataset was first released (the first entry in the
+    // release history on /open-data), for the corpus Dataset's datePublished.
+    'data_first_released' => '2026-09-10',
     'citation' => 'AIPolicyTracker (year). "Record title". https://aipolicytracker.org/... (accessed date). Data licensed CC BY 4.0.',
     // The dataset's Zenodo concept DOI (resolves to the newest archived release), for
     // example 10.5281/zenodo.1234567. Left unset, nothing DOI-related is rendered

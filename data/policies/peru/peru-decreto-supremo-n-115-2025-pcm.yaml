@@ -9,6 +9,7 @@ instrument_type: act
 status: in_force
 status_note: A draft regulation had been released for public comment in May 2024 before final approval.
 is_binding: true
+ai_specific: true
 featured: false
 published: true
 issuing_body: Presidencia del Consejo de Ministros (PCM)

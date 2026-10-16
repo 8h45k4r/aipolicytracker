@@ -24,7 +24,7 @@
                 <h2 id="countries-heading" class="section-title">Country by country</h2>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Jurisdictions in {{ $regionName }} with recorded AI policy</caption>
                     <thead><tr><th scope="col">Jurisdiction</th><th scope="col">Instruments</th><th scope="col">Binding</th><th scope="col">Status</th></tr></thead>
-                    <tbody>@foreach($withInstruments as $j)<tr><th scope="row" class="font-medium"><a href="{{ $j->url() }}" class="text-brand-navy">{{ $j->name }}</a></th><td>{{ $j->instruments_count }}</td><td>{{ $j->binding_count > 0 ? $j->binding_count.' binding' : 'Guidance and strategy' }}</td><td class="text-sm">{{ \Illuminate\Support\Str::limit($j->regulatory_status_summary, 140) }}</td></tr>@endforeach</tbody></table></div>
+                    <tbody>@foreach($withInstruments as $j)<tr><th scope="row" class="font-medium"><a href="{{ $j->url() }}" class="text-brand-navy">{{ $j->name }}</a></th><td>{{ $j->instruments_count }}</td><td>{{ $j->binding_count > 0 ? $j->binding_count.' binding AI '.\Illuminate\Support\Str::plural('law', $j->binding_count) : 'Guidance, strategy or existing law' }}</td><td class="text-sm">{{ \Illuminate\Support\Str::limit($j->regulatory_status_summary, 140) }}</td></tr>@endforeach</tbody></table></div>
                 @php($without = $members->filter(fn ($j) => $j->instruments_count === 0))
                 @if($without->isNotEmpty())<p class="mt-2 text-xs text-brand-muted">No instrument recorded yet for: {{ $without->pluck('name')->join(', ') }}. <a href="{{ route('gaps') }}">See the open gaps</a>.</p>@endif
             </section>

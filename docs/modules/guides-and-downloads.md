@@ -113,6 +113,7 @@ phone number, and the NOT NULL column made every form sign-up fail after the use
 ## Interlinks
 
 - **Outbound:** `resource_downloads.user_id` → [accounts](accounts.md); `resource_slug` → `config/resources.php`; tools link to `policy_instruments` (`related_policies`) and guides (`related_guides`).
+- **Outbound (billing):** tool pages (`site/guides/tool`) and template pages carry `x-site.commercial-use`, linking to the licence enquiry form on `/pricing#licence` ([billing.md](billing.md)).
 - **Inbound:** `/guides` cards, guide pages ("related tools" via `related_guides`), admin Guides and downloads page and dashboard tiles.
 
 ## Routes

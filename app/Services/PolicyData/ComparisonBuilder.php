@@ -40,7 +40,7 @@ class ComparisonBuilder
             $obligations = Obligation::published()->whereIn('policy_instrument_id', $ids)->with(['terms', 'policyInstrument'])->get();
 
             $rows['status']['cells'][$j->slug] = ['text' => $j->regulatory_status_summary, 'links' => []];
-            $binding = $policies->where('is_binding', true);
+            $binding = $policies->where('is_binding', true)->where('ai_specific', true);
             $rows['binding']['cells'][$j->slug] = $binding->isEmpty()
                 ? ['text' => 'No AI-specific binding legislation recorded. See status and guidance.', 'links' => []]
                 : ['text' => null, 'links' => $binding->map(fn ($p) => ['name' => ($p->short_title ?: $p->title).' ('.$p->statusEnum()->label().')', 'url' => $p->url()])->values()->all()];

@@ -27,6 +27,7 @@
     </section>
 
     <section class="mt-8" aria-labelledby="license-heading"><h2 id="license-heading" class="section-title">Data licence</h2><p class="prose-policy mt-2">Data: <a href="{{ config('aipolicytracker.data_license_url') }}" rel="license noopener">{{ config('aipolicytracker.data_license') }}</a>. Code: Apache-2.0. Official documents linked from records remain under their publishers' terms.</p></section>
+    <x-site.licence-enquiry source="open-data" title="Commercial licences, SLAs and custom coverage" class="mt-8" />
 
     <section class="mt-8" aria-labelledby="api-heading"><h2 id="api-heading" class="section-title">API documentation</h2>
         <p class="prose-policy mt-2">Read-only, no authentication, rate limited (120 requests per minute per IP), cached for 10 minutes, CORS enabled. Base URL <code class="rounded bg-brand-paper px-1">{{ url('/api/v1') }}</code>.</p>

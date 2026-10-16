@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\PolicyStatus;
 use App\Models\ChangeEvent;
 use App\Models\Control;
 use App\Models\ExternalIncident;
@@ -9,6 +10,7 @@ use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\TaxonomyTerm;
 use App\Services\ExternalData\IncidentSensitivity;
 use App\Support\PageTitle;
 use App\Support\RiskTaxonomy;
@@ -58,7 +60,11 @@ class TitlesAndAddressesTest extends TestCase
         $eu = PolicyInstrument::with('jurisdiction')->where('slug', 'eu-ai-act')->firstOrFail();
         $this->assertSame('EU AI Act (2024): Status, Duties & Dates', PageTitle::policy($eu));
         $brazil = Jurisdiction::where('slug', 'brazil')->firstOrFail();
-        $this->assertSame('Brazil AI Policy & Regulation 2026: Laws & Deadlines', PageTitle::jurisdiction($brazil, 2026));
+        $this->assertSame('Brazil AI Policy & Regulation: Laws & Deadlines', PageTitle::jurisdiction($brazil));
+        // No year: a title that changes every 1 January changes without the page changing.
+        foreach (Jurisdiction::published()->get() as $j) {
+            $this->assertDoesNotMatchRegularExpression('/\b(19|20)\d{2}\b/', PageTitle::jurisdiction($j), $j->slug);
+        }
         // The country is the last thing a policy title gives up.
         foreach (PolicyInstrument::published()->with('jurisdiction')->get() as $p) {
             $place = $p->jurisdiction?->short_name ?: $p->jurisdiction?->name;
@@ -223,6 +229,37 @@ class TitlesAndAddressesTest extends TestCase
         $this->assertSame('rogue-ais', $row['slug']);
         $this->assertSame('Hendrycks, 2023', $row['citation']);
         $this->assertSame($risk->url(), $row['url']);
+    }
+
+    public function test_no_listing_or_audience_title_is_cut_with_an_ellipsis(): void
+    {
+        $urls = array_merge(
+            [route('policies.index'), route('policies.index', ['page' => 2]), route('obligations.index'), route('obligations.index', ['page' => 2]), route('changes.index'), route('changes.index', ['page' => 2])],
+            array_map(fn ($slug) => route('audiences.show', $slug), array_keys(config('content.audiences'))),
+            array_map(fn ($s) => route('policies.index', ['status' => $s->value]), PolicyStatus::cases()),
+            TaxonomyTerm::taxonomy('obligation_category')->pluck('slug')->map(fn ($c) => route('obligations.index', ['category' => $c]))->all(),
+            array_map(fn ($slug) => route('landing', $slug), array_keys(config('content.landings'))),
+            array_map(fn ($slug) => route('compare.show', $slug), array_keys(config('content.comparisons'))),
+        );
+        $titles = [];
+        foreach ($urls as $url) {
+            $response = $this->get($url);
+            if ($response->status() === 404) {
+                continue; // a status or page with no records has no listing to title
+            }
+            preg_match('#<title>(.*?)</title>#s', $response->assertOk()->getContent(), $m);
+            $title = html_entity_decode($m[1] ?? '');
+            $this->assertNotSame('', $title, $url);
+            $this->assertStringEndsNotWith('…', $title, "{$url} has a cut title");
+            $this->assertStringNotContainsString('…', $title, "{$url} has a cut title");
+            $this->assertLessThanOrEqual(PageTitle::MAX, mb_strlen($title), $url);
+            $titles[$url] = $title;
+        }
+        // A status listing is indexable, so it has a title of its own rather than the
+        // unfiltered listing's.
+        $this->assertNotSame($titles[route('policies.index')], $titles[route('policies.index', ['status' => 'in_force'])]);
+        $this->assertSame(PageTitle::withBrand('AI policies and regulations: In force'), $titles[route('policies.index', ['status' => 'in_force'])]);
+        $this->assertSame(PageTitle::withBrand('AI in hiring and HR: duties, controls and evidence'), $titles[route('audiences.show', 'hr-and-recruitment')]);
     }
 
     private function incident(array $attributes): ExternalIncident

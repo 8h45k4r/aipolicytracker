@@ -195,15 +195,15 @@ class TemplateController extends Controller
             ->withAlternate('application/json', route('api.v1.template', $slug))
             // The page is about one document: an item page whose main entity is the file.
             ->withPageType('ItemPage', ['name' => $meta['title'], 'mainEntity' => $document])
-            ->withJsonLd(Seo::howTo('How to use the '.$meta['title'], PageTitle::description($answer), $url, $steps))
             ->withFaq(array_map(fn ($q) => ['question' => $q[0], 'answer' => $q[1]], $faq));
 
         return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq', 'answer', 'facts', 'steps', 'audience'));
     }
 
     /**
-     * How to use it, as steps a reader can follow: the same steps are shown on the page
-     * and emitted as HowTo, never one without the other. Built from what the file holds.
+     * How to use it, as steps a reader can follow, shown on the page. Built from what the
+     * file holds. They are not marked up as HowTo: search engines no longer show HowTo
+     * results, so the markup bought nothing the visible list does not.
      *
      * @return list<array{title:string, body:string}>
      */

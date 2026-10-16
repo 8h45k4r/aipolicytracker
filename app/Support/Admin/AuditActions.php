@@ -65,6 +65,7 @@ final class AuditActions
         'backend.admin.subscribers.delete.many' => 'Removed subscribers',
         'backend.admin.subscribers.export' => 'Exported subscribers',
         'backend.admin.downloads.export' => 'Exported downloads',
+        'backend.admin.enquiries.export' => 'Exported licence enquiries',
         'backend.admin.alerts.deliveries.retry' => 'Retried an alert delivery',
         'backend.admin.alerts.deliveries.retry.many' => 'Retried alert deliveries',
         'backend.admin.alerts.deliveries.export' => 'Exported alert deliveries',

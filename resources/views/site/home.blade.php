@@ -6,8 +6,10 @@
     <div class="container-site py-8 sm:py-16 grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end">
         <div class="lg:col-span-8">
             {{-- The kicker is part of the heading, so the phrase people search for (an AI
-                 regulation or legislation tracker) is what the page says it is. --}}
-            <h1 class="font-display font-semibold text-brand-navy"><span class="eyebrow block">Free global AI regulation and legislation tracker</span> <span class="mt-3 block text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] max-w-[18ch]">From regulation to evidence.</span></h1>
+                 regulation or legislation tracker) is what the page says it is. The hidden
+                 colon keeps the two phrases apart where the heading is read as one line (a
+                 screen reader's accessible name, a crawler's text); the blocks only look apart. --}}
+            <h1 class="font-display font-semibold text-brand-navy"><span class="eyebrow block">Free global AI regulation and legislation tracker<span class="sr-only">:</span></span> <span class="mt-3 block text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] max-w-[18ch]">From regulation to evidence.</span></h1>
             <p class="mt-5 max-w-[60ch] text-lg leading-8 text-brand-body">Track AI laws, regulations and the obligations they create in every jurisdiction on record. Connect them to governance controls, risks and evidence. Every claim links to its source.</p>
             <p class="mt-2 max-w-[60ch] text-sm text-brand-muted"><span class="font-medium text-brand-navy">AI policy, verified at the source.</span> Every record links its official text and states when a person last checked it.</p>
             <form action="{{ route('policies.index') }}" method="get" role="search" class="mt-8 max-w-2xl" data-track="home_search">

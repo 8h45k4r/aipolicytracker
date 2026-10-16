@@ -47,3 +47,5 @@ than what they are listed as covering. Use the same spelling as the reviewer's a
 in the admin review queue.
 
 Set `published: false` to keep an entry in the repository without listing it.
+
+A reviewer who has joined but not yet declared their interests is added with `published: false` and a declaration that says so in words ("Not yet received …"). That keeps them off `/reviewers` and stops any record being signed in their name until the declaration arrives, without inventing one.

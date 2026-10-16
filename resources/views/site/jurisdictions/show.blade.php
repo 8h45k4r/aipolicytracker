@@ -71,15 +71,20 @@
             </section>
             @endif
 
+            {{-- The heading only when there is a date to list: a heading over nothing is an
+                 empty section to a reader and a promise the page does not keep to a crawler.
+                 Without one, a line still says so and offers the feed new dates will reach. --}}
+            @if($deadlines->isEmpty())
+            <p class="mt-8 text-sm text-brand-muted">No future deadlines are recorded for {{ $jurisdiction->short_name ?: $jurisdiction->name }}; past milestones are listed on each policy page. New dates reach the calendar feed: <a href="{{ route('calendar.feed.jurisdiction', $jurisdiction->slug) }}">{{ $jurisdiction->short_name ?: $jurisdiction->name }} feed</a> · <a href="{{ route('calendar') }}">how it works</a></p>
+            @else
             <section aria-labelledby="deadlines-heading" class="mt-8">
                 <h2 id="deadlines-heading" class="section-title">Upcoming deadlines</h2>
                 <p class="mt-1 text-sm text-brand-muted">Subscribe to these dates in your calendar: <a href="{{ route('calendar.feed.jurisdiction', $jurisdiction->slug) }}">{{ $jurisdiction->short_name ?: $jurisdiction->name }} feed</a> · <a href="{{ route('calendar') }}">how it works</a></p>
-                @if($deadlines->isNotEmpty())
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Upcoming deadlines in {{ $jurisdiction->name }}</caption><thead><tr><th scope="col">Date</th><th scope="col">Milestone</th><th scope="col">Instrument</th></tr></thead><tbody>
                 @foreach($deadlines as $d)<tr><td class="whitespace-nowrap font-mono"><time datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time></td><td>{{ $d->title }}@if($d->confidence_level !== 'high')<div class="text-xs text-state-warn">confidence: {{ $d->confidence_level }}</div>@endif</td><td><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</a></td></tr>@endforeach
                 </tbody></table></div>
-                @else<p class="mt-2 text-sm text-brand-muted">No scheduled future dates recorded. Past milestones are listed on each policy page.</p>@endif
             </section>
+            @endif
 
             @if($jurisdiction->current_priorities)<section aria-labelledby="priorities-heading" class="mt-8"><h2 id="priorities-heading" class="section-title">Current priorities</h2><p class="prose-policy mt-2">{{ $jurisdiction->current_priorities }}</p></section>@endif
 

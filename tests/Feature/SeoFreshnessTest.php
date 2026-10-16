@@ -7,6 +7,7 @@ use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\RecordRevision;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -54,5 +55,47 @@ class SeoFreshnessTest extends TestCase
 
         $this->assertTrue($policy->fresh()->updated_at->greaterThan($before));
         $this->assertEquals($policy->published_at, $policy->fresh()->published_at, 'first publication is kept');
+    }
+
+    private function lastmod(string $section, string $loc): ?string
+    {
+        $xml = $this->get(route('sitemap.section', $section))->assertOk()->getContent();
+
+        return preg_match('#<loc>'.preg_quote($loc, '#').'</loc><lastmod>([^<]+)</lastmod>#', $xml, $m) ? $m[1] : null;
+    }
+
+    public function test_sitemap_lastmod_is_the_content_date_not_the_time_the_row_was_written(): void
+    {
+        $this->artisan('policy:import')->assertSuccessful();
+        $policy = PolicyInstrument::with('jurisdiction')->where('slug', 'eu-ai-act')->firstOrFail();
+        $obligation = Obligation::published()->where('policy_instrument_id', $policy->id)->whereNotNull('summary')->firstOrFail();
+        $before = [
+            'policy' => $this->lastmod('policies', $policy->url()),
+            'obligation' => $this->lastmod('obligations', $obligation->url()),
+            'jurisdiction' => $this->lastmod('jurisdictions', $policy->jurisdiction->url()),
+        ];
+        $this->assertNotContains(null, $before, 'every record entry carries a lastmod');
+
+        // A write that changes nothing a reader sees (a bulk edit to every file, a link
+        // check, an admin decision re-applied) moves updated_at on every row. It used to
+        // move every lastmod with it, to the time of the deploy.
+        $this->travel(3)->days();
+        foreach ([PolicyInstrument::class, Obligation::class, Jurisdiction::class] as $model) {
+            $model::query()->toBase()->update(['updated_at' => now()]);
+        }
+        $this->assertSame($before, [
+            'policy' => $this->lastmod('policies', $policy->url()),
+            'obligation' => $this->lastmod('obligations', $obligation->url()),
+            'jurisdiction' => $this->lastmod('jurisdictions', $policy->jurisdiction->url()),
+        ]);
+
+        // A revision to one of its duties is a change to the policy page, and to the
+        // country page that lists the policy, as well as to the duty's own page.
+        $this->travel(1)->days();
+        RecordRevision::create(['record_type' => 'obligation', 'record_slug' => $obligation->slug, 'fields' => [['field' => 'summary', 'label' => 'Summary', 'from' => null, 'to' => 'revised']], 'changed_at' => now()]);
+        $now = now()->startOfSecond()->toAtomString();
+        $this->assertSame($now, $this->lastmod('obligations', $obligation->url()));
+        $this->assertSame($now, $this->lastmod('policies', $policy->url()));
+        $this->assertSame($now, $this->lastmod('jurisdictions', $policy->jurisdiction->url()));
     }
 }

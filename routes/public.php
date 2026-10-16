@@ -17,6 +17,7 @@ use App\Http\Controllers\Site\CorrectionsController;
 use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
 use App\Http\Controllers\Site\DeadlineEngineController;
+use App\Http\Controllers\Site\DevelopersController;
 use App\Http\Controllers\Site\EmbedController;
 use App\Http\Controllers\Site\EnforcementController;
 use App\Http\Controllers\Site\ExploreController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\Site\ImplementationController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
 use App\Http\Controllers\Site\LegalController;
+use App\Http\Controllers\Site\LicenceEnquiryController;
 use App\Http\Controllers\Site\MachineReadableController;
 use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\ObligationController;
@@ -149,6 +151,8 @@ Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->whe
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
 
 Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
+Route::get('/developers', [DevelopersController::class, 'developers'])->name('developers');
+Route::get('/mcp', [DevelopersController::class, 'mcp'])->name('mcp');
 Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('open-data.download');
 Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->withoutMiddleware($stateless)->name('open-data.health');
 Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('open-data.csv');
@@ -191,9 +195,11 @@ Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsu
 Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.digest');
 Route::post('/cron/external-sync', [CronController::class, 'externalSync'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.external-sync');
 
-// Billing: pricing is public (noindex while checkout is off); checkout and portal need a verified account
-// and return 404 while it is off; the webhook is signature-authenticated.
+// Billing: pricing is public and indexable whether or not checkout is on; checkout and portal need a
+// verified account and return 404 while it is off; the webhook is signature-authenticated.
 Route::get('/pricing', [BillingController::class, 'pricing'])->name('pricing');
+// Licence, team and custom-coverage enquiries, from /pricing and /open-data: stored, then mailed.
+Route::post('/pricing/enquiry', [LicenceEnquiryController::class, 'store'])->middleware('throttle:10,1')->name('licence-enquiry.store');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/billing/checkout/{plan}', [BillingController::class, 'checkout'])->where('plan', '[a-z0-9_]+')->middleware('throttle:10,1')->name('billing.checkout');
     Route::get('/billing/return/{checkout}', [BillingController::class, 'returned'])->where('checkout', '[0-9]+')->name('billing.return');

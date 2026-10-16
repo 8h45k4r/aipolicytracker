@@ -49,9 +49,6 @@ class LandingController extends Controller
                 'headline' => $page['h1'],
                 'author' => ['@id' => url('/').'#organization'],
             ]);
-        if (! empty($page['steps'])) {
-            $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('landing', $landing), $page['steps']));
-        }
         if (! empty($page['faq'])) {
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($page['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }
@@ -171,9 +168,6 @@ class LandingController extends Controller
             ]));
         // The templates built on the laws this guide covers: the guide explains, the files help do.
         $templates = $policies->flatMap(fn ($p) => TemplateCatalog::forPolicy($p->slug)->values())->unique('slug')->take(5)->values();
-        if (! empty($page['steps'])) {
-            $seo->withJsonLd(Seo::howTo($page['h1'], $page['description'], route('guides.show', $slug), $page['steps']));
-        }
         if (! empty($page['faq'])) {
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($page['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }

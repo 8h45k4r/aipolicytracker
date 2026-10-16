@@ -10,6 +10,7 @@
         <div class="mt-4 flex flex-wrap gap-2"><a href="#preview" class="btn-secondary">Preview {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }}</a>
             @auth<a href="#download" class="btn-primary">Download free {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }}</a>@else<a href="{{ route('tools.gate', $tool->slug) }}" class="btn-primary" data-track="download_click" data-track-label="{{ $tool->slug }}">Download free {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }}</a>@endauth</div>
         <p class="mt-2 meta">Formats: {{ $formats }} · Version {{ $tool->version }} · Last updated {{ ($tool->updated_on?->format('j M Y') ?? '—') }}</p>
+        <x-site.commercial-use class="mt-2" />
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">

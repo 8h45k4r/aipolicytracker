@@ -2,11 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Models\ChangeEvent;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\MachineReadable\BulkExport;
+use App\Support\DatasetCitation;
+use App\Support\Seo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -253,6 +257,62 @@ class StructuredDataGraphTest extends TestCase
         }
 
         $this->assertGreaterThanOrEqual(6, $found, 'the research and open-data pages should each describe their dataset');
+    }
+
+    public function test_the_corpus_is_one_dataset_with_its_dates_coverage_and_every_file_served(): void
+    {
+        config(['aipolicytracker.dataset_doi' => null]);
+        $corpus = Seo::corpusDataset();
+
+        $this->assertSame(DatasetCitation::corpusId(), $corpus['@id']);
+        $this->assertSame(DatasetCitation::corpusName(), $corpus['name']);
+        $this->assertSame(config('aipolicytracker.data_license_url'), $corpus['license']);
+        $this->assertSame(url('/').'#organization', $corpus['creator']['@id']);
+        $this->assertSame(config('aipolicytracker.data_first_released'), $corpus['datePublished']);
+        $this->assertNotEmpty($corpus['dateModified']);
+        $this->assertArrayNotHasKey('identifier', $corpus, 'no DOI until one has been minted');
+        $this->assertArrayNotHasKey('sameAs', $corpus);
+
+        // The span of dates the records carry, computed from them.
+        $dates = collect([
+            PolicyInstrument::published()->min('adopted_on'), PolicyInstrument::published()->max('adopted_on'),
+            ChangeEvent::published()->min('occurred_on'), ChangeEvent::published()->max('occurred_on'),
+        ])->filter()->map(fn ($d) => substr((string) $d, 0, 10));
+        $this->assertSame($dates->min().'/'.$dates->max(), $corpus['temporalCoverage']);
+        $this->assertNotEmpty($corpus['spatialCoverage']);
+
+        // Every export the site serves is listed, and every file listed is served.
+        $urls = array_column($corpus['distribution'], 'contentUrl');
+        $this->assertContains(route('open-data.download'), $urls);
+        foreach (array_keys(BulkExport::DATASETS) as $key) {
+            $this->assertContains(route('open-data.csv', $key), $urls);
+            $this->assertContains(route('open-data.ndjson', $key), $urls);
+        }
+        foreach ($corpus['distribution'] as $file) {
+            $this->assertNotEmpty($file['name']);
+            $this->get($file['contentUrl'])->assertOk();
+        }
+
+        // With a DOI, the corpus (and only the corpus) is identified by it.
+        config(['aipolicytracker.dataset_doi' => '10.5281/zenodo.1234567']);
+        $this->assertSame('https://doi.org/10.5281/zenodo.1234567', Seo::corpusDataset()['sameAs']);
+    }
+
+    public function test_other_pages_point_at_the_corpus_rather_than_describing_it_again(): void
+    {
+        // The home page is about the corpus; a narrower collection is part of it.
+        $home = collect($this->schemas('/'));
+        $this->assertNull($home->firstWhere('@type', 'Dataset'), 'the home page no longer has a Dataset of its own');
+        $this->assertSame(DatasetCitation::corpusId(), $home->firstWhere('@type', 'CollectionPage')['about']['@id']);
+
+        $log = collect($this->schemas(route('changes.index')))->firstWhere('@type', 'Dataset');
+        $this->assertContains(DatasetCitation::corpusId(), array_column($log['isPartOf'], '@id'));
+        $this->assertNotSame(DatasetCitation::corpusId(), $log['@id'] ?? null, 'the change log is part of the corpus, not the corpus');
+
+        // Wherever the corpus is named, it is named the same way.
+        foreach ([$home->firstWhere('@type', 'CollectionPage')['about'], collect($log['isPartOf'])->firstWhere('@id', DatasetCitation::corpusId())] as $reference) {
+            $this->assertSame(DatasetCitation::corpusName(), $reference['name']);
+        }
     }
 
     public function test_the_research_corpus_is_in_a_sitemap(): void

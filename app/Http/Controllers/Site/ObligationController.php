@@ -31,19 +31,18 @@ class ObligationController extends Controller
         // indexable and canonical to itself.
         $indexable = $catalog->isIndexableFilterSet($filters);
 
-        $title = 'AI compliance obligations explorer';
+        // Written to fit (PageTitle::listing), page number included: the longer
+        // category names used to be cut with an ellipsis.
+        $forms = ['AI compliance obligations explorer'];
         $description = 'Search practical AI requirements such as risk management, data governance, transparency, human oversight, technical documentation, post-market monitoring and incident handling, with their legal sources and evidence examples.';
         if (! empty($filters['category']) && ! str_contains($filters['category'], ',')) {
             $cat = $options['categories']->firstWhere('slug', $filters['category']);
             if ($cat) {
-                $title = $cat->name.': AI obligations across jurisdictions';
+                $forms = [$cat->name.': AI obligations across jurisdictions', $cat->name.': AI obligations by jurisdiction', $cat->name.': AI obligations', $cat->name];
                 $description = 'Legal requirements and voluntary guidance on '.mb_strtolower($cat->name).' for AI systems, with policy sources, actors and evidence examples.';
             }
         }
-
-        if ($obligations->currentPage() > 1) {
-            $title .= ' (page '.$obligations->currentPage().')';
-        }
+        $title = PageTitle::listing($forms, $obligations->currentPage());
 
         $seo = Seo::make($title, $description, Seo::pagedUrl($catalog->canonicalFor(route('obligations.index'), $filters), $indexable ? $obligations->currentPage() : 1), $indexable)
             ->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')]])

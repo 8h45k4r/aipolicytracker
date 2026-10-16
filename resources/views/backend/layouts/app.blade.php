@@ -33,6 +33,7 @@
                 ['backend.admin.subscribers', 'Subscribers', 'audience.view'],
                 ['backend.admin.downloads', 'Guides and downloads', 'audience.view'],
                 ['backend.admin.alerts.index', 'Alerts and watches', 'audience.view'],
+                ['backend.admin.enquiries.index', 'Licence enquiries', 'audience.view'],
             ],
             'Operations' => [
                 ['backend.admin.jobs', 'Jobs and schedule', 'jobs.run'],

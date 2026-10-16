@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Enums\PolicyStatus;
 use App\Http\Controllers\Controller;
 use App\Models\PolicyInstrument;
 use App\Models\RecordRevision;
@@ -30,18 +31,22 @@ class PolicyController extends Controller
         $options = $catalog->filterOptions();
 
         $indexable = $catalog->isIndexableFilterSet($filters) && $policies->currentPage() === 1;
-        $title = 'AI policy explorer: laws, regulations, standards and guidance';
+        // Each title is written to fit (PageTitle::listing), page number included, so
+        // none is cut with an ellipsis; a status listing is indexable and gets its own.
+        $forms = ['AI policy explorer: laws, regulations and guidance', 'AI policy explorer'];
         $description = 'Search and filter source-backed AI policy instruments by jurisdiction, status, type, sector, use case, risk category and actor. Every record links to its official source.';
+        if (! empty($filters['status']) && ($status = PolicyStatus::tryFrom($filters['status']))) {
+            $forms = ['AI policies and regulations: '.$status->label(), 'AI policies: '.$status->label()];
+            $description = 'AI policy instruments with the status '.$status->label().': '.lcfirst($status->definition()).' Each record links to its official source.';
+        }
         if (! empty($filters['jurisdiction']) && ! str_contains($filters['jurisdiction'], ',')) {
             $j = $options['jurisdictions']->firstWhere('slug', $filters['jurisdiction']);
             if ($j) {
-                $title = 'AI policies and regulations in '.$j->name;
+                $forms = ['AI policies and regulations in '.$j->name, 'AI policies in '.$j->name];
                 $description = 'Source-backed AI laws, regulations, standards and guidance in '.$j->name.', with status, deadlines and official sources.';
             }
         }
-        if ($policies->currentPage() > 1) {
-            $title .= ' (page '.$policies->currentPage().')';
-        }
+        $title = PageTitle::listing($forms, $policies->currentPage());
 
         // Every page of an indexable listing is indexable and canonical to itself:
         // a later page is where the records past the first twenty are linked from,

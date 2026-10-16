@@ -39,7 +39,7 @@ class ChangeController extends Controller
         $indexable = empty($filters['q']) && $impact === null && empty($filters['jurisdiction']);
 
         $seo = Seo::make(
-            'AI policy change log: dated, source-backed regulatory updates'.($changes->currentPage() > 1 ? ' (page '.$changes->currentPage().')' : ''),
+            PageTitle::listing(['AI policy change log: dated, source-backed updates', 'AI policy change log'], $changes->currentPage()),
             'Chronological log of AI policy changes across jurisdictions: what changed, practical impact, status after the change, official source and verification date. RSS available.',
             Seo::pagedUrl(route('changes.index'), $indexable ? $changes->currentPage() : 1),
             $indexable

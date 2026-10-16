@@ -141,7 +141,10 @@ forces a re-scrape.
 
 Eight sections under `/sitemap.xml`: `static`, `jurisdictions`, `policies`, `obligations`,
 `changes`, `resources`, `incidents`, `risks`. Every entry carries a `lastmod` taken from a real
-record timestamp.
+record date. For the policy records that is the content date (`App\Support\ContentDates`: last
+verification, last recorded revision, first publication), not `updated_at`, which an import moves
+whenever it rewrites a row; `SeoFreshnessTest` asserts that a rewrite leaves `lastmod` alone and a
+revision moves it.
 
 The last two were added on 2026-09-18 and are most of the file by volume. Roughly 1,700 incident
 pages and 2,500 risk entries were reachable, indexable and listed in no sitemap at all, which is
@@ -166,7 +169,7 @@ actually served.
 | Routing, streaming, schemas, health | `app/Http/Controllers/Site/AgentSurfaceController.php` |
 | Agent server and its test | `agent/server.mjs`, `agent/server.test.mjs`, `agent/README.md` |
 | Social preview cards | `app/Services/Social/SocialCard.php`, `app/Http/Controllers/Site/SocialCardController.php`, `config/social.php`, `php artisan social:doctor` |
-| Page structured data | `app/Support/Seo.php` (`jsonLdBlocks`, `graph`, `dataset`, `itemList`, `legislation`, `howTo`) |
+| Page structured data | `app/Support/Seo.php` (`jsonLdBlocks`, `graph`, `corpusDataset`, `dataset`, `itemList`, `legislation`) |
 | Tests | `tests/Feature/MachineReadableSurfacesTest.php`, `tests/Feature/StructuredDataGraphTest.php`, `tests/Feature/StructuredDataAndInterlinksTest.php`, `npm test` |
 
 ## Adding a dataset

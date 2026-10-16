@@ -57,11 +57,11 @@ class TemplatesAndGuidesSeoTest extends TestCase
         $this->assertSame('DigitalDocument', $page['mainEntity']['@type']);
         $this->assertStringEndsWith('#document', $page['mainEntity']['@id']);
 
-        $howTo = $nodes->firstWhere('@type', 'HowTo');
-        $this->assertNotNull($howTo);
-        foreach ($howTo['step'] as $step) {
-            $this->assertStringContainsString(e($step['name']), $html, 'every HowTo step is shown on the page');
-        }
+        // The steps are shown on the page; they are not marked up as HowTo, which search
+        // engines no longer display.
+        $this->assertNull($nodes->firstWhere('@type', 'HowTo'));
+        $this->assertStringContainsString('id="howto-heading"', $html, 'the steps are still on the page');
+        $this->assertMatchesRegularExpression('#aria-labelledby="howto-heading">.*?<li\b#s', $html, 'with at least one step');
 
         $faq = $nodes->firstWhere('@type', 'FAQPage');
         $this->assertSame('What is in the '.TemplateCatalog::find($slug)['title'].'?', $faq['mainEntity'][0]['name'], 'the first question is about this template');

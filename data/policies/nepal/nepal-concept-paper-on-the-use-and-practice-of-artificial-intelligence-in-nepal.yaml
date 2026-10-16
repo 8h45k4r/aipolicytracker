@@ -4,7 +4,7 @@ jurisdiction: nepal
 title: Concept Paper on the Use and Practice of Artificial Intelligence in Nepal
 short_title: Concept Paper on the Use and Practice of Artificial Intelligence in Nepal
 instrument_type: consultation
-status: under_consultation
+status: superseded
 status_note: >-
   Date converted from Bikram Sambat (21 Asar 2081). Superseded in practice by the National AI Policy 2025.
 is_binding: false
@@ -21,7 +21,7 @@ scope_summary: >-
   Oversight: MoCIT technical committee. Stated purpose: Assess Nepal's AI readiness and lay the groundwork for a
   national AI policy and law.
 key_dates_summary: '2024-07-05: Concept paper published for comments on MoCIT website (21 Asar 2081)'
-adopted_on: '2024-07-05'
+published_on: '2024-07-05'
 date_notes: >-
   Only the announcement or adoption date is recorded from the source; in-force and application dates are to be confirmed
   by a reviewer.
@@ -57,7 +57,8 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
+content_version: 2
 change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+  The 5 July 2024 date is when the paper was published for comment, so it is recorded as the publication date,
+  not an adoption date; the status follows the record's note that the 2025 National AI Policy superseded it. The
+  page had shown the paper as both adopted and under consultation.

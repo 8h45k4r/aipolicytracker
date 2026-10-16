@@ -8,6 +8,7 @@ use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\Entitlements;
 use App\Services\Billing\PlanCatalog;
+use App\Support\Faq;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,11 +27,15 @@ class BillingController extends Controller
     public function pricing(Request $request): View
     {
         $enabled = $this->config->enabled();
-        $seo = Seo::make('Pricing: Free and Pro plans', 'Every policy record stays free and open. Pro adds a daily alert for the policies, jurisdictions and obligations you follow, and reminders before application dates fall due.', route('pricing'), $enabled)
-            ->withBreadcrumbs([['Home', route('home')], ['Pricing', route('pricing')]]);
-        if (! $enabled) {
-            $seo->noindex();
-        }
+        // Indexable whether or not checkout is on: the page also answers "can I use this
+        // commercially" and carries the licence enquiry form, which never depend on selling.
+        // The switch still decides whether the Builder buttons take orders.
+        $seo = Seo::make(
+            'Pricing and commercial data licences',
+            'The data stays free under '.config('aipolicytracker.data_license').', commercial use included. Builder adds alerts at volume; Team and Commercial add white-label licences and SLAs.',
+            route('pricing')
+        )->withBreadcrumbs([['Home', route('home')], ['Pricing', route('pricing')]])
+            ->withFaq(Faq::for('pricing'));
         $plans = array_filter($this->catalog->plans(), fn ($p) => ! empty($p['product_id']) || ! $enabled);
         $user = $request->user();
         $current = $user ? $this->entitlements->activeSubscription($user) : null;
@@ -41,6 +46,7 @@ class BillingController extends Controller
             'free' => $this->catalog->free(),
             'plans' => $plans,
             'features' => (array) config('billing.features'),
+            'contactPlans' => (array) config('billing.contact_plans'),
             'current' => $current,
             'user' => $user,
         ]);

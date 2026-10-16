@@ -12,6 +12,7 @@
             <a href="#preview" class="btn-secondary">Preview</a>
         </div>
         <p class="mt-2 meta">Formats: {{ $formats }} · Version {{ $version->label() }} · Built <time datetime="{{ $version->generated_at->toAtomString() }}">{{ $version->generated_at->format('j M Y') }}</time> from dataset <code>{{ $version->dataset_version }}</code> · {{ config('templates.licence') }}</p>
+        <x-site.commercial-use class="mt-2" />
     </header>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
@@ -44,7 +45,7 @@
                 @endif
             </section>
 
-            {{-- The same steps are emitted as HowTo; markup never describes steps a reader cannot see. --}}
+            {{-- The steps are shown here, not as HowTo markup, which search engines no longer use. --}}
             <section class="mt-8" aria-labelledby="howto-heading">
                 <h2 id="howto-heading" class="section-title">How to use it</h2>
                 <ol class="mt-3 space-y-3">

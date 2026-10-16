@@ -71,7 +71,7 @@ Access has two independent sources, deliberately:
 | | Where it lives | Who can change it |
 |---|---|---|
 | **Owner** | the `ADMIN_EMAILS` environment list | only someone who can edit `deploy/.env` on the host and restart the container |
-| **Editor, Reviewer, Analyst** | `users.admin_role` | an owner, from Admin → Users and roles |
+| **Editor, Reviewer, Analyst** | `users.admin_role` | an owner, from Admin → Users and roles, or on the host with `php artisan admin:invite <email> "<name>" --role=reviewer` (creates the account and emails the same invitation; an existing account is left unchanged) |
 
 Ownership is never stored in the database. That is the point: a mistake in the `users` table, or
 write access to it, cannot create an owner, cannot remove the last one, and cannot lock everybody

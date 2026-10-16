@@ -10,7 +10,7 @@ Academics cite DOIs, not URLs, and DataCite DOIs are indexed by dataset search e
 |-------|---------|
 | `CITATION.cff` | Citation File Format 1.2.0, `type: dataset`. GitHub shows a "Cite this repository" button from it. |
 | `.zenodo.json` | Metadata Zenodo uses when it archives a GitHub release: upload type, title, creators, licence (CC BY 4.0), keywords, related links. It takes precedence over `CITATION.cff` on Zenodo, so keep the two in step. |
-| `DATASET_DOI` (env) → `config('aipolicytracker.dataset_doi')` | The concept DOI. When set, it is emitted as the corpus Dataset's `identifier` and `sameAs` in JSON-LD (home page, `/open-data`), each record's Dataset is declared `isPartOf` that DOI'd corpus, and the "Cite this record" box and `/open-data` show the DOI and carry it in the BibTeX. When unset, nothing DOI-related renders. Code: `App\Support\DatasetCitation`. |
+| `DATASET_DOI` (env) → `config('aipolicytracker.dataset_doi')` | The concept DOI. When set, it is emitted as the corpus Dataset's `identifier` and `sameAs` in JSON-LD (the one corpus node, `Seo::corpusDataset()` at `/open-data`; the home page and each narrower Dataset reference it by `@id`), each record page is declared `isPartOf` that DOI'd corpus, and the "Cite this record" box and `/open-data` show the DOI and carry it in the BibTeX. When unset, nothing DOI-related renders. Code: `App\Support\DatasetCitation`. |
 
 Only real people go in `authors` and `creators`. Add a person when they have contributed to the data as a named reviewer or author and have agreed to be listed; never add an ORCID, affiliation or funder that has not been confirmed with them.
 

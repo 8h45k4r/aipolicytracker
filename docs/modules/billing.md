@@ -7,7 +7,8 @@ Design rules:
 - **Access is granted only by a verified webhook.** The provider's return URL never activates anything; the return page shows "confirming" until the `subscription.active` event has been applied.
 - **Every webhook is stored exactly once** (`billing_events.event_id` is the provider's `webhook-id`), so retries are idempotent, and every entitlement change is traceable to a signed event. The insert runs inside its own savepoint: idempotency is the unique index, so the duplicate path runs *after* a failed insert, and PostgreSQL refuses every later statement in a transaction once one has failed (SQLSTATE 25P02). Without the savepoint the existence check in the error handler was itself refused and a provider's ordinary retry received a 500, which makes a provider retry harder. SQLite does not behave that way, so the suite was green until the PostgreSQL job was added to CI (debt #15).
 - **Out-of-order delivery cannot change access incorrectly.** An event older than the last applied one for the same subscription is recorded with outcome `stale` and skipped.
-- **Nothing is sold while checkout is off.** The switch is the `billing_enabled` setting (Admin → Settings, `on`/`off`), falling back to `BILLING_ENABLED`. While off the pricing page is `noindex` and shows plans as "Not yet available", checkout and portal routes return 404, and the webhook endpoint still records events so a test-mode integration can be verified before launch.
+- **Nothing is sold while checkout is off.** The switch is the `billing_enabled` setting (Admin → Settings, `on`/`off`), falling back to `BILLING_ENABLED`. While off the pricing page shows the Builder buttons as "Not yet available", checkout and portal routes return 404, and the webhook endpoint still records events so a test-mode integration can be verified before launch. The pricing page itself stays indexable and linked from the footer either way: it also states the data licence and carries the licence enquiry form, which do not depend on selling.
+- **The pricing page lists only what exists.** It shows four tiers: Open (free), Builder (the `pro_*` plans below, sold by checkout and shown as Pro in the account and on receipts), and Team and Commercial, sold by written agreement through the licence enquiry form. `config/billing.php` `contact_plans` keeps three lists per agreement tier: `included` (delivered by code today), `agreed` (a contract term) and `coming` (not built, shown as "Coming, not built yet").
 - **The plan we sell is the plan in `config/billing.php`.** A subscription whose product id is not one of ours is mirrored (for the audit trail) but never grants access. Admin → Billing compares each configured product with the provider and flags a price mismatch.
 
 ## Plans and entitlements
@@ -120,10 +121,33 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | created_at | datetime | yes |  |  |
 | updated_at | datetime | yes |  |  |
 
+## Schema: `licence_enquiries`
+
+One row per enquiry from the form on `/pricing` and `/open-data` (`x-site.licence-enquiry`). Its own table, not `contributor_submissions`: an enquiry is a sales conversation and must never enter the editorial review queue or the corrections log.
+
+| Field | Type | Null | Default | Notes |
+|-------|------|------|---------|-------|
+| id | integer | no |  |  |
+| name | varchar | no |  |  |
+| email | varchar | no |  | Indexed; lower-cased; a work address (`WorkEmail`, `NotDisposableEmail`) |
+| organization | varchar | no |  |  |
+| tier | varchar | no |  | Indexed; `commercial`, `team`, `builder` or `unsure` (`LicenceEnquiry::TIERS`) |
+| use_case | text | no |  | "What will you use the data for?" |
+| coverage_request | text | yes |  | Jurisdictions or instruments asked for; weighed like any reader's request |
+| source | varchar | yes |  | `pricing` or `open-data`: the page the form was sent from, and where it returns |
+| ip_hash | varchar | yes |  | SHA-256 of the IP and the app key; the address itself is not kept |
+| notified_at | datetime | yes |  | Set when the mail to the contact address went; null when it failed or was held back (more than 20 enquiries in an hour) |
+| created_at | datetime | yes |  |  |
+| updated_at | datetime | yes |  |  |
+
+The row is written before the mail is sent, and the page says "sent" only when at least one mail to `aipolicytracker.contact_emails` went; otherwise it says "recorded". A filled honeypot stores nothing and shows no confirmation. Turnstile is checked when configured. The route is throttled at 10 a minute.
+
 ## Interlinks
 
 - **Outbound (accounts):** `billing_customers.user_id`, `subscriptions.user_id`, `billing_checkouts.user_id` → `users.id` ([accounts.md](accounts.md)); rows are deleted with the account. `User` gains `billingCustomer()`, `subscriptions()`, `activeSubscription()`, `planKey()` and `entitled()`.
 - **Outbound (subscribers and settings):** provider keys live in `app_settings` (`dodo_environment`, `dodo_api_key`, `dodo_webhook_secret`, `dodo_product_pro_monthly`, `dodo_product_pro_yearly`), encrypted, with environment fallbacks ([subscribers-and-settings.md](subscribers-and-settings.md)).
+- **Outbound (subscribers and settings):** licence enquiry notifications go to `aipolicytracker.contact_emails`, which the contact address saved in Admin → Settings replaces when the environment does not set `CONTACT_EMAILS` ([subscribers-and-settings.md](subscribers-and-settings.md)).
+- **Inbound (policy intelligence, guides and downloads):** every policy record page, template page and tool page carries `x-site.commercial-use`, which links to `/pricing#licence` ([policy-intelligence.md](policy-intelligence.md), [guides-and-downloads.md](guides-and-downloads.md)).
 - **Inbound (alerts):** `saved.server` gates the follow toggle and `alerts.daily` gates the daily send ([alerts.md](alerts.md)). API keys will follow the same pattern.
 
 ## Code map
@@ -142,13 +166,19 @@ Indexes: `plan_key`, `status`, (`user_id`, `status`).
 | Public pages | `Site\BillingController` (`site/pricing`, `site/billing/redirect`, `site/billing/return`), plan card on `site/account/profile` |
 | Webhook endpoint | `Site\BillingWebhookController` |
 | Admin | `Backend\Admin\BillingController` (`backend/admin/billing`: summary, subscriptions, payments, webhooks with re-apply, free-tier quota), Dodo section in Settings |
-| Mail | `SubscriptionPaymentFailedMail` (`emails/site/payment-failed`, text alternate) |
+| Mail | `SubscriptionPaymentFailedMail` (`emails/site/payment-failed`, text alternate); `LicenceEnquiryMail` (`emails/site/licence-enquiry`, text alternate, reply-to the enquirer) |
+| Agreement tiers (Team, Commercial) and the pricing FAQ | `config/billing.php` `contact_plans`; `config/faq.php` `pricing` (FAQPage JSON-LD via `Seo::withFaq`) |
+| Licence enquiries | `Site\LicenceEnquiryController` (form: `components/site/licence-enquiry`), `App\Models\LicenceEnquiry`; admin list and CSV `Backend\Admin\LicenceEnquiryController` (`backend/admin/enquiries`) |
+| Commercial-use line on record, template and tool pages | `components/site/commercial-use` |
 
 ## Routes
 
 | Method | Path | Name | Access |
 |--------|------|------|--------|
-| GET | `/pricing` | `pricing` | public; indexable only while billing is enabled |
+| GET | `/pricing` | `pricing` | public; indexable whether or not checkout is on |
+| POST | `/pricing/enquiry` | `licence-enquiry.store` | public, CSRF, throttle 10/min, honeypot, Turnstile when configured |
+| GET | `/backend/admin/enquiries` | `backend.admin.enquiries.index` | admin (`audience.view`) |
+| GET | `/backend/admin/enquiries/export` | `backend.admin.enquiries.export` | admin (`audience.view`), audited |
 | POST | `/billing/checkout/{plan}` | `billing.checkout` | `auth`, `verified`, throttle 10/min; 404 unless the plan is purchasable |
 | GET | `/billing/return/{checkout}` | `billing.return` | `auth`, `verified`; owner only |
 | POST | `/billing/portal` | `billing.portal` | `auth`, `verified`, throttle 10/min |

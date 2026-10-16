@@ -45,8 +45,9 @@ final class StateOfAiRegulation
         ['start' => $start, 'end' => $end] = self::bounds($quarter);
         $jurisdictions = Jurisdiction::published()->whereIn('jurisdiction_type', ['country', 'supranational'])->withCount([
             'policyInstruments as instruments_count' => fn ($q) => $q->published(),
-            'policyInstruments as binding_count' => fn ($q) => $q->published()->where('is_binding', true),
-            'policyInstruments as in_force_count' => fn ($q) => $q->published()->where('is_binding', true)->whereIn('status', ['in_force', 'partially_applicable']),
+            // "Binding AI law": AI-specific instruments only, not privacy or cyber laws.
+            'policyInstruments as binding_count' => fn ($q) => $q->published()->bindingAiLaw(),
+            'policyInstruments as in_force_count' => fn ($q) => $q->published()->bindingAiLaw()->whereIn('status', ['in_force', 'partially_applicable']),
         ])->get();
         $policies = PolicyInstrument::published()->get(['id', 'instrument_type', 'status', 'is_binding', 'review_status', 'official_source_url', 'jurisdiction_id']);
         $changes = ChangeEvent::published()->whereDate('occurred_on', '>=', $start->toDateString())->whereDate('occurred_on', '<=', $end->toDateString())->get(['id', 'impact_level', 'jurisdiction_id', 'title', 'slug', 'occurred_on']);

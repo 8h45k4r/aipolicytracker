@@ -79,17 +79,52 @@ class DatasetCitation
         ];
     }
 
+    /** The `@id` of the one corpus Dataset node, which /open-data publishes (Seo::corpusDataset). */
+    public static function corpusId(): string
+    {
+        return route('open-data').'#dataset';
+    }
+
+    /** The corpus Dataset's name, the same wherever the corpus is named. */
+    public static function corpusName(): string
+    {
+        return config('aipolicytracker.site_name').' open AI policy dataset';
+    }
+
+    /** What the corpus is, in the words its Dataset node and every reference to it share. */
+    public static function corpusDescription(): string
+    {
+        return 'Structured, source-backed records of AI laws, regulations, standards, guidance, obligations, the controls that meet them, deadlines and change events across jurisdictions.';
+    }
+
     /**
-     * A reference to the whole corpus as a Dataset node, for a record-level Dataset's
-     * `isPartOf`. Null when no DOI is set, so a record keeps its existing graph.
+     * The corpus as other nodes point at it: the one Dataset that /open-data describes in
+     * full, named by its `@id`. It carries the same name and description as that node,
+     * and the DOI when one is set, so a page fetched on its own still says what it is
+     * part of without describing the corpus a second, different way.
+     *
+     * @return array<string, mixed>
+     */
+    public static function corpusReference(): array
+    {
+        return [
+            '@type' => 'Dataset',
+            '@id' => self::corpusId(),
+            'name' => self::corpusName(),
+            'description' => self::corpusDescription(),
+            'url' => route('open-data'),
+            'license' => config('aipolicytracker.data_license_url'),
+        ] + self::jsonLdIdentifier();
+    }
+
+    /**
+     * A reference to the whole corpus as a Dataset node, for a record page's `isPartOf`.
+     * Null when no DOI is set, so a record keeps its existing graph: a single record is
+     * not a dataset, and only the DOI makes the corpus worth naming from one.
      */
     public static function corpusNode(): ?array
     {
-        if (! self::doi()) {
-            return null;
-        }
-
-        return ['@type' => 'Dataset', '@id' => route('open-data').'#dataset', 'name' => config('aipolicytracker.site_name').' open AI policy dataset', 'url' => route('open-data')] + self::jsonLdIdentifier();
+        return self::doi() ? self::corpusReference() : null;
     }
 
     /**

@@ -436,14 +436,16 @@ class BillingTest extends TestCase
         $this->assertTrue($user->fresh()->entitled('alerts.channels'));
     }
 
-    public function test_pricing_page_is_noindex_and_sells_nothing_while_billing_is_disabled(): void
+    public function test_pricing_page_is_indexable_but_sells_nothing_while_billing_is_disabled(): void
     {
+        // The page also carries the licence terms and the enquiry form, which do not depend on
+        // selling, so it is indexed and linked from the footer either way; only checkout is off.
         $res = $this->get('/pricing')->assertOk()->assertSee('Not yet available')->assertDontSee('Subscribe to Pro');
-        $this->assertStringContainsString('noindex', $res->getContent());
+        $this->assertStringNotContainsString('noindex', $res->getContent());
         $this->actingAs($this->user())->post('/billing/checkout/pro_monthly')->assertNotFound();
         $this->actingAs($this->user())->post('/billing/portal')->assertNotFound();
-        $this->get('/sitemap-static.xml')->assertOk()->assertDontSee('/pricing');
-        $this->get('/')->assertOk()->assertDontSee('/pricing"', false);
+        $this->get('/sitemap-static.xml')->assertOk()->assertSee('/pricing');
+        $this->get('/')->assertOk()->assertSee('/pricing"', false);
     }
 
     public function test_pricing_page_is_indexable_and_offers_checkout_when_enabled(): void

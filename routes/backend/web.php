@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\Admin\AlertsController;
 use App\Http\Controllers\Backend\Admin\BillingController;
 use App\Http\Controllers\Backend\Admin\ChangeDeskController;
 use App\Http\Controllers\Backend\Admin\FundingController;
+use App\Http\Controllers\Backend\Admin\LicenceEnquiryController;
 use App\Http\Controllers\Backend\Admin\ShellController;
 use App\Http\Controllers\Backend\Admin\SocialPostController;
 use App\Http\Controllers\Backend\Admin\ToolController;
@@ -134,6 +135,13 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
             Route::post('/deliveries/retry-many', 'retryMany')->name('deliveries.retry.many');
             Route::post('/deliveries/{delivery}/retry', 'retry')->whereNumber('delivery')->name('deliveries.retry');
         });
+    });
+
+    // Licence and coverage enquiries from /pricing and /open-data. Contact details of
+    // prospective customers, so reading them is an audience read, like template requests.
+    Route::middleware('can:audience.view')->prefix('backend/admin/enquiries')->as('backend.admin.enquiries.')->controller(LicenceEnquiryController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/export', 'export')->name('export');
     });
 
     // Funders disclosed on /funding. Owner only, like settings: what the site says about its

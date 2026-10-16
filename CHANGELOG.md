@@ -5,6 +5,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- `/developers` (the read-only API, its endpoints, bulk data and the licence) and `/mcp` (the open-source MCP server, how to install it and its 16 tools), indexed with FAQ markup, in the sitemap and in `llms.txt`. The MCP page says there is no hosted endpoint yet.
+- `php artisan admin:invite <email> "<name>" --role=reviewer` creates an account with an admin role and sends the same invitation as Admin → Users; an existing account is left unchanged.
+- Reviewer roster: Joyce Loksee Ho and Kailash Bohara, unpublished until their declarations of interest are received; the editorial desk lists info@aipolicytracker.org.
+- `ai_specific` on policy records: pages that say whether a jurisdiction has binding AI law (country FAQs, regional hubs, the world map, comparisons, the quarterly report) count only instruments about AI itself, and name privacy or cyber laws that also apply to AI separately. The validator requires it on a binding record whose name does not mention AI.
+- `/pricing` is indexed and linked from the footer whether or not checkout is on, and shows four tiers: Open (free), Builder ($29 a month or $290 a year, the existing Pro checkout), Team ($149 a month) and Commercial (from $6,000 a year) by written agreement, each listing only what exists today, with unbuilt items marked "Coming, not built yet". It carries five pricing questions as FAQPage markup. A licence and custom-coverage enquiry form on `/pricing` and `/open-data` stores each enquiry (`licence_enquiries`) before mailing the contact address, and is throttled, honeypotted and Turnstile-checked; Admin → Audience → Licence enquiries lists them with CSV export. Every policy, template and tool page says commercial use is allowed under CC BY 4.0 and links to the form.
 - `php artisan aip:health` fails when the database does not answer or, where the container schedules, when the scheduler has not ticked for 5 minutes (5 minutes' grace after start). The Docker health check runs it beside `/up`.
 - `deploy/cron-install.sh` also installs the nightly `deploy/backup.sh` entry, only when `BACKUP_RCLONE_REMOTE` is set and `/etc/cron.d/aip-backup` does not exist.
 - Permanent record ids (AIPT-POL-0073, AIPT-OBL-0004, AIPT-CHG-0121, AIPT-CTL-0001) on every policy, duty, change and control: never changed or reused, resolved at `/id/{id}` wherever the record lives, and carried by the API, alert webhooks, context files and the MCP server (`resolve_record_id`). Citations name the id, the record version, the reviewer and the date.
@@ -123,6 +128,15 @@ All notable changes to this project are documented here. The format follows [Kee
 - Five templates (South Korea AI Basic Act checklist, Texas TRAIGA checklist, US state AI law matrix, public-sector AI use-case inventory, synthetic content labelling plan; 41 in all), landing pages per framework and per document type, and eight guides grounded in the records.
 
 ### Fixed
+- India's "Is there a federal AI law?" answered yes from its data protection act while the page said it had no AI law; the Asia hub counted privacy laws and bills as binding AI law. Both now count adopted, AI-specific instruments.
+- The open-data release history states the live counts (the first release keeps its historical figures, labelled as such), and the web app manifest no longer names a jurisdiction count.
+- Nepal's 2024 concept paper was shown as both adopted and under consultation: it now carries its publication date and the superseded status its own note gave it. Timelines show one line per instrument per day.
+- Sitemap `lastmod` is the date a record's content last changed (a revision, a verification or first publication), not the deploy time.
+- Country and region titles no longer carry the year; listing, status, audience, landing and comparison titles are written to fit instead of being cut with "…".
+- A noindex page no longer declares a canonical pointing at another URL.
+- HowTo markup is no longer emitted (the steps stay on the page); one Dataset node, on `/open-data`, carries the coverage dates, every export and the DOI once minted, and other pages refer to it.
+- The home page heading reads as two phrases, and a country page shows "Upcoming deadlines" only when there are some.
+- Deploys purge the Cloudflare cache when `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` are set, so robots.txt, sitemaps and llms.txt are not served stale.
 - `/freshness` and the change desk measure only changes dated since measurement began; changes recorded today from earlier research had shown a median lag of hundreds of days.
 - Queued X posts whose change has been unpublished are skipped, and a post is claimed before it is sent, so the scheduled run and "Send now" cannot both post it.
 - Paginated listings and API pages end every sort on the record id, so rows that tie (most share the import's timestamp) no longer move between pages on PostgreSQL; undated records sort last on both engines.

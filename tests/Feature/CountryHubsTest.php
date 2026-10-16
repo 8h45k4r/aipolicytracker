@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Services\Hubs\HubCatalog;
+use App\Services\PolicyData\PolicyCatalog;
 use App\Support\PageTitle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -39,7 +40,10 @@ class CountryHubsTest extends TestCase
         $this->assertStringContainsString('data-answer-box', $html, 'the answer box leads');
         $this->assertStringContainsString('Instruments at a glance', $html);
         $this->assertStringContainsString('id="timeline-heading"', $html);
-        $this->assertStringContainsString('Upcoming deadlines', $html);
+        // The dates, or when none lies ahead, the feed that new ones will reach; never a
+        // deadlines heading over an empty section.
+        $this->assertStringContainsString(route('calendar.feed.jurisdiction', 'japan'), $html);
+        $this->assertSame(app(PolicyCatalog::class)->upcomingDeadlines(1, $japan->id)->isNotEmpty(), str_contains($html, 'id="deadlines-heading"'));
         $this->assertStringContainsString(route('updates.jurisdiction.feed', 'japan'), $html, 'the updates feed is linked');
         $this->assertStringContainsString('"@type":"FAQPage"', $html);
         $this->assertStringContainsString('"@type":"BreadcrumbList"', $html);

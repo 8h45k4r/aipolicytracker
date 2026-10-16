@@ -37,12 +37,14 @@ class HubController extends Controller
             ->withPublishedInstrument()
             ->withCount([
                 'policyInstruments as instruments_count' => fn ($q) => $q->published(),
-                'policyInstruments as binding_count' => fn ($q) => $q->published()->where('is_binding', true),
+                // AI-specific and adopted: a privacy law or a bill still in parliament is not
+                // "binding AI law", which is what the answer and the FAQ below say this counts.
+                'policyInstruments as binding_count' => fn ($q) => $q->published()->bindingAiLaw()->whereIn('status', ['adopted', 'in_force', 'partially_applicable']),
             ])
             ->orderBy('name')->get();
         $ids = $members->pluck('id');
         $policyIds = PolicyInstrument::published()->whereIn('jurisdiction_id', $ids)->pluck('id');
-        $binding = PolicyInstrument::published()->with('jurisdiction')->whereIn('jurisdiction_id', $ids)->where('is_binding', true)->orderBy('applies_from')->orderBy('title')->get();
+        $binding = PolicyInstrument::published()->with('jurisdiction')->whereIn('jurisdiction_id', $ids)->bindingAiLaw()->orderBy('applies_from')->orderBy('title')->get();
         $duties = Obligation::published()->whereIn('policy_instrument_id', $policyIds)->count();
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereIn('jurisdiction_id', $ids)->orderByDesc('occurred_on')->limit(8)->get();
         $deadlines = $catalog->upcomingDeadlines(8)->filter(fn ($d) => $ids->contains($d->policyInstrument?->jurisdiction_id))->values();

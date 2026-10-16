@@ -8,9 +8,9 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\ContentCache;
+use App\Support\DatasetCitation;
 use App\Support\Faq;
 use App\Support\Seo;
-use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -25,17 +25,11 @@ class HomeController extends Controller
         // Attached here rather than by the layout, because the page renders its questions
         // itself (as disclosure widgets) and the view runs before the layout does.
         $seo->withFaq(Faq::for('home'));
-        // Organization and WebSite are now emitted on every page by the layout, so
-        // the homepage no longer adds its own copies. What it adds instead is the
-        // corpus itself: the thing a reader or an answer engine arrives here for.
-        $seo->withPageType('CollectionPage')
-            ->withJsonLd(Seo::dataset(
-                'AI policy and regulatory corpus',
-                config('aipolicytracker.supporting'),
-                url('/'),
-                ['application/json' => route('open-data.download'), 'text/csv' => route('open-data.csv', 'policies')],
-                $catalog->stats()['last_updated'] ? Carbon::parse($catalog->stats()['last_updated']) : null,
-            ));
+        // Organization and WebSite are emitted on every page by the layout. The corpus,
+        // the thing a reader or an answer engine arrives here for, is described once, on
+        // /open-data; this page says it is about that Dataset by its @id rather than
+        // describing it a second time under a second name.
+        $seo->withPageType('CollectionPage', ['about' => DatasetCitation::corpusReference()]);
 
         // The page is the same for every anonymous reader and its queries are the
         // slowest part of answering it. Five minutes, the same horizon as the

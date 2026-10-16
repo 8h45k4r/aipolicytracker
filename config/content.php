@@ -38,7 +38,7 @@ return [
         'providers' => [
             'taxonomy' => 'actor', 'term' => 'provider',
             'h1' => 'AI regulation for providers and developers',
-            'title' => 'AI rules for providers and developers: duties, controls, evidence',
+            'title' => 'AI rules for providers and developers: duties and evidence',
             'description' => 'Every recorded duty that binds an organisation that develops an AI system or places it on a market, across jurisdictions, with the controls that meet it and the evidence a reviewer expects.',
             'answer' => 'A provider is the organisation that develops an AI system, or has one developed, and puts it on a market or into service under its own name. Most binding AI law lands here first: risk management, data governance, technical documentation, logging, accuracy and security, conformity assessment and post-market monitoring are provider duties before they are anyone else\'s.',
             'sections' => [
@@ -53,7 +53,7 @@ return [
         'deployers' => [
             'taxonomy' => 'actor', 'term' => 'deployer',
             'h1' => 'AI regulation for deployers and user organisations',
-            'title' => 'AI rules for deployers: duties, controls and evidence by jurisdiction',
+            'title' => 'AI rules for deployers: duties, controls and evidence',
             'description' => 'Every recorded duty on organisations that use AI systems under their own authority, with the controls that meet it, the evidence to keep and the dates that apply.',
             'answer' => 'A deployer uses an AI system under its own authority in the course of its business. Deployer duties are lighter than provider duties but they are the ones most organisations actually have: follow the instructions, keep humans in a position to oversee, retain logs, tell people when AI is used in decisions about them, and in some jurisdictions assess the impact before use.',
             'sections' => [
@@ -68,7 +68,7 @@ return [
         'general-purpose-ai-providers' => [
             'taxonomy' => 'actor', 'term' => 'gpai_provider',
             'h1' => 'AI regulation for general-purpose and foundation model providers',
-            'title' => 'Rules for foundation model providers: duties, controls, evidence',
+            'title' => 'Foundation model provider rules: duties, controls, evidence',
             'description' => 'Recorded duties on providers of general-purpose AI models, including systemic-risk tiers, with the controls, documentation and evidence they call for.',
             'answer' => 'Providers of general-purpose AI models face a distinct set of duties: technical documentation for downstream integrators, a copyright policy and training-data summary, and for the most capable models, evaluation, adversarial testing, incident reporting and cybersecurity. These duties sit with the model provider even when the model is used inside someone else\'s system.',
             'sections' => [
@@ -83,7 +83,7 @@ return [
         'public-sector' => [
             'taxonomy' => 'actor', 'term' => 'public_authority',
             'h1' => 'AI regulation for public bodies and government',
-            'title' => 'AI rules for public bodies: duties, controls, procurement evidence',
+            'title' => 'AI rules for public bodies: duties, controls, procurement',
             'description' => 'Recorded duties on public authorities that procure, deploy or oversee AI, across jurisdictions, with the controls that meet them and the transparency evidence citizens and auditors expect.',
             'answer' => 'Public bodies are deployers with extra duties: impact assessment before use, public registers of systems, procurement rules that pass duties to suppliers, and explanations to people affected by automated decisions. Several jurisdictions regulate government use of AI before, or instead of, private use.',
             'sections' => [
@@ -98,7 +98,7 @@ return [
         'hr-and-recruitment' => [
             'taxonomy' => 'use_case', 'term' => 'hiring_and_hr',
             'h1' => 'AI in hiring and employment: the rules that apply',
-            'title' => 'AI in hiring and HR: duties, controls and evidence by jurisdiction',
+            'title' => 'AI in hiring and HR: duties, controls and evidence',
             'description' => 'Every recorded duty on AI used in recruitment, screening, promotion and workforce management, across jurisdictions, with the controls that meet it and the evidence to keep.',
             'answer' => 'Hiring and employment is the use case regulated most often and most specifically: bias audits, notices to candidates, impact assessments, human review of decisions and record keeping appear in city, state, national and supranational rules. An organisation that uses AI anywhere in the employee lifecycle is a deployer in most of them.',
             'sections' => [
@@ -113,7 +113,7 @@ return [
         'healthcare' => [
             'taxonomy' => 'sector', 'term' => 'healthcare',
             'h1' => 'AI regulation in healthcare and life sciences',
-            'title' => 'AI rules for healthcare: duties, controls and evidence by jurisdiction',
+            'title' => 'AI rules for healthcare: duties, controls and evidence',
             'description' => 'Recorded AI duties that reach hospitals, clinicians, device makers and health data holders, across jurisdictions, with the controls that meet them and the clinical and data-governance evidence they call for.',
             'answer' => 'Healthcare AI sits under two regimes at once: medical-device and safety law for the product, and AI and data-protection law for the decision. A diagnostic or triage system is usually high-risk under AI law and a regulated device under health law, so its technical file, clinical evaluation and post-market surveillance have to satisfy both.',
             'sections' => [
@@ -128,7 +128,7 @@ return [
         'financial-services' => [
             'taxonomy' => 'sector', 'term' => 'financial_services',
             'h1' => 'AI regulation in financial services, credit and insurance',
-            'title' => 'AI rules for financial services: duties, controls, model evidence',
+            'title' => 'AI rules for financial services: duties, controls, evidence',
             'description' => 'Recorded AI duties that reach lenders, insurers, payment firms and their vendors, with the controls that meet them and the model-governance evidence supervisors expect.',
             'answer' => 'Financial firms already run model risk management, so most AI duties land on existing controls: model inventories, validation, monitoring, explanations of adverse decisions and vendor oversight. What changes is scope and evidence: credit scoring and insurance pricing are high-risk uses in several instruments, and the explanation given to a consumer is a duty rather than a courtesy.',
             'sections' => [
@@ -158,7 +158,7 @@ return [
         'generative-ai' => [
             'taxonomy' => 'use_case', 'term' => 'generative_ai',
             'h1' => 'Generative AI and foundation models: the rules that apply',
-            'title' => 'Generative AI rules: duties, controls and evidence by jurisdiction',
+            'title' => 'Generative AI rules: duties, controls and evidence',
             'description' => 'Recorded duties on generative AI systems and the models behind them, from content labelling and disclosure to training-data transparency and safety testing, with the controls that meet them.',
             'answer' => 'Generative AI attracts three families of duty: transparency (tell people they are interacting with AI, label synthetic content), model governance (document the model, publish a training-data summary, respect copyright) and safety (evaluate, red-team, report incidents, secure the system). Several jurisdictions have rules specific to synthetic media even where they have no general AI law.',
             'sections' => [
@@ -173,7 +173,7 @@ return [
         'biometrics' => [
             'taxonomy' => 'use_case', 'term' => 'biometrics',
             'h1' => 'Biometric and facial recognition AI: the rules that apply',
-            'title' => 'Biometric AI rules: prohibitions, duties, controls and evidence',
+            'title' => 'Biometric AI rules: prohibitions, duties and evidence',
             'description' => 'Recorded duties and prohibitions on biometric identification, categorisation and emotion recognition, across jurisdictions, with the controls that meet them.',
             'answer' => 'Biometric AI is where prohibitions live. Real-time remote identification in public spaces, biometric categorisation by sensitive traits and emotion recognition in workplaces and schools are banned or tightly conditioned in several jurisdictions; where a biometric use is allowed it is almost always high-risk, with the full set of provider and deployer duties on top of data-protection rules for biometric data.',
             'sections' => [
@@ -204,7 +204,7 @@ return [
     'landings' => [
         'ai-governance-uae' => [
             'h1' => 'AI governance in the UAE',
-            'title' => 'AI governance in the UAE: strategy, ethics principles and data protection',
+            'title' => 'AI governance in the UAE: strategy, ethics and data law',
             'description' => 'The United Arab Emirates\' approach to AI: the National AI Strategy 2031, AI ethics principles and charter, the federal Personal Data Protection Law and free-zone regimes, with official sources.',
             'jurisdictions' => ['uae'],
             'policy' => 'uae-national-ai-strategy-2031',
@@ -219,7 +219,7 @@ return [
         ],
         'ai-regulation-south-asia' => [
             'h1' => 'AI regulation in South Asia',
-            'title' => 'AI regulation in South Asia: India, Nepal and the regional picture',
+            'title' => 'AI regulation in South Asia: India, Nepal and the region',
             'description' => 'Overview of AI governance across South Asia, starting with India\'s DPDP Act and AI governance guidelines and Nepal\'s National AI Policy, with official sources and clear status labels.',
             'jurisdictions' => ['india', 'nepal'],
             'policy' => null,
@@ -507,7 +507,7 @@ return [
         'eu-vs-us-ai-regulation' => [
             'short' => 'EU vs US',
             'jurisdictions' => ['eu', 'us', 'us-colorado'],
-            'title' => 'EU vs US AI regulation: federal, state and EU AI Act compared',
+            'title' => 'EU vs US AI regulation: federal, state and AI Act compared',
             'description' => 'Compare the EU AI Act with US federal policy (executive orders, OMB memoranda, NIST AI RMF) and Colorado\'s state AI law across status, binding rules, high-risk and generative AI, transparency, oversight, dates and sources.',
             'intro' => 'The EU has one binding law applied across 27 Member States; the United States has federal policy that binds agencies, a voluntary NIST framework, and a growing set of state statutes. Colorado is included because it is the closest US analogue to the EU\'s high-risk approach.',
             'faq' => [],

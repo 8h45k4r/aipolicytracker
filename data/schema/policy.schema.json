@@ -41,6 +41,10 @@
     "is_binding": {
       "type": "boolean"
     },
+    "ai_specific": {
+      "type": "boolean",
+      "description": "Whether the instrument is about AI itself, not a general law (privacy, consumer, cyber) that also applies to AI. Pages count only AI-specific instruments when they say a jurisdiction has, or lacks, binding AI law. Defaults to true; a binding instrument whose name does not mention AI must state it."
+    },
     "featured": {
       "type": "boolean"
     },
