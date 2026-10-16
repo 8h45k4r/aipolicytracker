@@ -60,11 +60,14 @@
         <div><label for="{{ $idp ?? 'f-' }}from" class="label">Effective from</label><input id="{{ $idp ?? 'f-' }}from" type="date" name="from" value="{{ $filters['from'] ?? '' }}" class="input"></div>
         <div><label for="{{ $idp ?? 'f-' }}to" class="label">Effective to</label><input id="{{ $idp ?? 'f-' }}to" type="date" name="to" value="{{ $filters['to'] ?? '' }}" class="input"></div>
     </div>
+    @endif
+    {{-- Each listing has its own orders; the explorer's sort is the same control as before. --}}
+    @php($sortOptions = $mode === 'policies' ? \App\Services\PolicyData\PolicyCatalog::SORTS : \App\Services\PolicyData\PolicyCatalog::OBLIGATION_SORTS)
+    @php($sortDefault = $mode === 'policies' ? \App\Services\PolicyData\PolicyCatalog::SITE_DEFAULT_SORT : 'binding')
     <div>
         <label for="{{ $idp ?? 'f-' }}sort" class="label">Sort</label>
-        <select id="{{ $idp ?? 'f-' }}sort" name="sort" class="input">@foreach(\App\Services\PolicyData\PolicyCatalog::SORTS as $k => $v)<option value="{{ $k }}" @selected(($filters['sort'] ?? \App\Services\PolicyData\PolicyCatalog::SITE_DEFAULT_SORT) === $k)>{{ $v }}</option>@endforeach</select>
+        <select id="{{ $idp ?? 'f-' }}sort" name="sort" class="input">@foreach($sortOptions as $k => $v)<option value="{{ $k }}" @selected(($filters['sort'] ?? $sortDefault) === $k)>{{ $v }}</option>@endforeach</select>
     </div>
-    @endif
     {{-- In the phone sheet the buttons stay pinned to its bottom, so Apply is reachable from any filter. --}}
     <div class="flex gap-2 {{ $inSheet ? 'sticky bottom-0 -mx-4 border-t border-brand-line bg-white px-4 py-3' : '' }}">
         <button type="submit" class="btn-primary flex-1" data-track="filter_apply">Apply filters</button>

@@ -13,10 +13,12 @@ use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Services\Templates\TemplateCatalog;
+use App\Support\Admin\CsvStream;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ObligationController extends Controller
 {
@@ -56,6 +58,16 @@ class ObligationController extends Controller
         $total = $chips === [] ? $obligations->total() : $catalog->obligationQuery([])->count();
 
         return view('site.obligations.index', compact('seo', 'obligations', 'filters', 'options', 'facets', 'chips', 'total'));
+    }
+
+    /** The obligations listing as a CSV download, with the same filters and order as the page on screen. */
+    public function export(Request $request, PolicyCatalog $catalog): StreamedResponse
+    {
+        $filters = $catalog->filtersFromRequest($request);
+
+        return CsvStream::from($catalog->obligationQuery($filters), 'ai-obligations',
+            ['title', 'category', 'binding', 'jurisdiction', 'policy', 'source_reference', 'applies_from', 'official_source_url', 'url'],
+            fn (Obligation $o) => [$o->title, $o->category, $o->is_binding ? 'binding' : 'voluntary', $o->policyInstrument?->jurisdiction?->name, $o->policyInstrument?->title, $o->source_reference, $o->applies_from?->toDateString(), $o->official_source_url, $o->url()]);
     }
 
     public function show(Obligation $obligation): View

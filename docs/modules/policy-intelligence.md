@@ -435,7 +435,7 @@ Written by `ReviewController::setPublished` (single and bulk publish). `PolicyIm
 | details | text | yes |  |  |
 | proposed_source_url | varchar | yes |  |  |
 | submitter_name | varchar | yes |  |  |
-| submitter_email | varchar | yes |  |  |
+| submitter_email | varchar | yes |  | When given, the submitter gets `SubmissionOutcomeMail`: a receipt on submission and the decision on review (accepted, not accepted, needs information), with the reviewer's public note only; internal notes are never sent. A mail failure is reported and does not block the submission or the decision. |
 | submitter_affiliation | varchar | yes |  |  |
 | payload | text | yes |  | JSON captured at submission for corrections: `field`, `current_value`, `proposed_value`, `record_title`, `record_url`, `record_official_source_url`, `record_content_version`. Correctable fields per record type are listed in `ContributeController::CORRECTABLE_FIELDS`. |
 | status | varchar | no | 'pending_review' | `App\\Enums\\SubmissionStatus`; defaults to pending_review |

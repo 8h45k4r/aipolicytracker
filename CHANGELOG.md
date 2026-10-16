@@ -5,6 +5,10 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- People who send a correction or suggestion with an email address get a receipt, and later the decision (accepted, not accepted, needs more information) with the reviewer's public note; internal notes are never sent.
+- Site search also finds risks, frameworks and published transition measures, with full counts and links to the filtered listing.
+- Obligations and changes can be sorted and downloaded as CSV; the download uses the same query as the listing on screen.
+- Admin dashboard: recent admin activity (for accounts that can view the audit log), status badges on the latest submissions, and set-up links for email and bot protection.
 - `/developers` (the read-only API, its endpoints, bulk data and the licence) and `/mcp` (the open-source MCP server, how to install it and its 16 tools), indexed with FAQ markup, in the sitemap and in `llms.txt`. The MCP page says there is no hosted endpoint yet.
 - `php artisan admin:invite <email> "<name>" --role=reviewer` creates an account with an admin role and sends the same invitation as Admin → Users; an existing account is left unchanged.
 - Reviewer roster: Joyce Loksee Ho and Kailash Bohara, unpublished until their declarations of interest are received; the editorial desk lists info@aipolicytracker.org.
