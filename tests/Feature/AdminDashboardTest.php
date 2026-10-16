@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\AdminRole;
+use App\Models\AdminAuditLog;
 use App\Models\ContributorSubmission;
 use App\Models\JobRun;
 use App\Models\User;
@@ -37,6 +38,20 @@ class AdminDashboardTest extends TestCase
         $this->assertStringContainsString('Email is not being sent', $html);
         $this->assertStringContainsString('1 submission is waiting for review', $html);
         $this->assertStringContainsString('Bot protection is off', $html);
+    }
+
+    public function test_the_dashboard_shows_recent_admin_activity_only_to_accounts_that_can_read_the_audit_log(): void
+    {
+        config(['mail.default' => 'log']);
+        AdminAuditLog::create(['user_email' => 'owner@example.org', 'method' => 'POST', 'path' => '/backend/x', 'route_name' => 'backend.admin.settings.update', 'status' => 302, 'route_params' => []]);
+        $reviewer = User::factory()->create(['admin_role' => AdminRole::Reviewer, 'two_factor_secret' => 'JBSWY3DPEHPK3PXP', 'two_factor_confirmed_at' => now()]);
+
+        $owner = $this->actingAs($this->owner())->get(route('backend.admin.dashboard'))->assertOk()->getContent();
+        $this->assertStringContainsString('Recent admin activity', $owner);
+        $this->assertStringContainsString('by owner@example.org', $owner);
+
+        $html = $this->actingAs($reviewer)->get(route('backend.admin.dashboard'))->assertOk()->getContent();
+        $this->assertStringNotContainsString('Recent admin activity', $html);
     }
 
     public function test_an_unscheduled_jobs_old_failure_is_not_raised(): void

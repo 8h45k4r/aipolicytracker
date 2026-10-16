@@ -95,7 +95,10 @@ class AdminController extends Controller
         $stats['double_checked'] = $checks['n'];
         $stats['verified_total'] = $checks['verified'];
 
-        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs', 'attention', 'turnstile', 'trends'));
+        // The latest state-changing requests, for the accounts that may read the audit log.
+        $activity = $user->can('audit.view') ? AdminAuditLog::with('user')->latest('id')->limit(6)->get() : collect();
+
+        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs', 'attention', 'turnstile', 'trends', 'activity'));
     }
 
     /** The four views of the downloads page; each has its own filters, sort and export. */

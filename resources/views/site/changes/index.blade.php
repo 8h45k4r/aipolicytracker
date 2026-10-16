@@ -18,6 +18,7 @@
     <form method="get" action="{{ route('changes.index') }}" class="grid gap-3 border-t border-brand-line p-4 sm:grid-cols-4" data-autosubmit aria-label="Filter changes">
         <div class="sm:col-span-2"><label for="c-q" class="label">Keyword</label><input id="c-q" type="search" name="q" value="{{ $filters['q'] ?? '' }}" class="input" placeholder="e.g. deadline, GPAI, consultation"></div>
         <div><label for="c-j" class="label">Jurisdiction</label><select id="c-j" name="jurisdiction" class="input"><option value="">All</option>@foreach($jurisdictions as $j)<option value="{{ $j->slug }}" @selected(($filters['jurisdiction'] ?? '') === $j->slug)>{{ $j->name }}</option>@endforeach</select></div>
+        <div><label for="c-s" class="label">Sort</label><select id="c-s" name="sort" class="input">@foreach(\App\Http\Controllers\Site\ChangeController::SORTS as $k => $v)<option value="{{ $k }}" @selected(($sort ?? 'newest') === $k)>{{ $v }}</option>@endforeach</select></div>
         <div><label for="c-i" class="label">Impact</label><select id="c-i" name="impact" class="input"><option value="">All</option>@foreach(['urgent','high','routine'] as $i)<option value="{{ $i }}" @selected($impact === $i)>{{ ucfirst($i) }}</option>@endforeach</select></div>
         <div class="sm:col-span-4 flex gap-2"><button type="submit" class="btn-primary">Apply</button><a href="{{ route('changes.index') }}" class="btn-secondary">Reset</a></div>
         <div class="sm:col-span-4 flex flex-wrap gap-2 text-sm" aria-label="Browse by year">@foreach($years as $y)<a class="chip" href="{{ route('changes.year', $y) }}">{{ $y }}</a>@endforeach</div>
@@ -27,7 +28,7 @@
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <section class="lg:col-span-2 min-w-0" aria-labelledby="all-heading">
-            <h2 id="all-heading" class="section-title">All changes <span class="text-sm font-normal text-brand-muted">({{ $changes->total() }})</span></h2>
+            <h2 id="all-heading" class="section-title">All changes <span class="text-sm font-normal text-brand-muted">({{ $changes->total() }})</span></h2> <a href="{{ route('changes.export', request()->query()) }}" class="ml-2 text-sm text-brand-blue">Download as CSV</a>
             <div class="mt-1 divide-y divide-brand-line border-y border-brand-line">@forelse($changes as $c)<x-site.change-item :change="$c" />@empty<div class="py-6"><x-site.empty :reset="route('changes.index')" /></div>@endforelse</div>
             <div class="mt-6">{{ $changes->links() }}</div>
         </section>

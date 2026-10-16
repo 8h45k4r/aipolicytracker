@@ -7,31 +7,28 @@ use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Records\AnswerBox;
+use App\Support\Admin\CsvStream;
 use App\Support\PageTitle;
 use App\Support\Seo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ChangeController extends Controller
 {
+    /** Sort choices for the change log; the default is newest first, as the log has always been. */
+    public const SORTS = ['newest' => 'Newest first', 'oldest' => 'Oldest first', 'impact' => 'Impact, urgent first', 'title' => 'Title A to Z'];
+
     public function index(Request $request, PolicyCatalog $catalog): View
     {
         $filters = $catalog->filtersFromRequest($request);
         $impact = in_array($request->query('impact'), ['urgent', 'high', 'routine'], true) ? $request->query('impact') : null;
+        $sort = $this->sort($request);
 
-        $query = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument']);
-        if (! empty($filters['q'])) {
-            $query->search($filters['q']);
-        }
-        if (! empty($filters['jurisdiction'])) {
-            $query->whereHas('jurisdiction', fn ($j) => $j->where('slug', $filters['jurisdiction']));
-        }
-        if ($impact) {
-            $query->where('impact_level', $impact);
-        }
-        $changes = $query->orderByDesc('occurred_on')->orderByDesc('id')->paginate(25)->withQueryString();
+        $changes = $this->query($filters, $impact, $sort)->paginate(25)->withQueryString();
         // A page past the last is not an empty page of results; it does not exist.
         abort_if($changes->currentPage() > max(1, $changes->lastPage()), 404);
         $urgent = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereIn('impact_level', ['urgent', 'high'])->orderByDesc('occurred_on')->limit(5)->get();
@@ -59,9 +56,49 @@ class ChangeController extends Controller
             ));
 
         return view('site.changes.index', [
-            'seo' => $seo, 'changes' => $changes, 'urgent' => $urgent, 'years' => $years, 'filters' => $filters, 'impact' => $impact,
+            'seo' => $seo, 'changes' => $changes, 'urgent' => $urgent, 'years' => $years, 'filters' => $filters, 'impact' => $impact, 'sort' => $sort,
             'jurisdictions' => Jurisdiction::published()->orderBy('name')->get(['slug', 'name']),
         ]);
+    }
+
+    /** The change log as a CSV download, with the same filters and order as the listing on screen. */
+    public function export(Request $request, PolicyCatalog $catalog): StreamedResponse
+    {
+        $filters = $catalog->filtersFromRequest($request);
+        $impact = in_array($request->query('impact'), ['urgent', 'high', 'routine'], true) ? $request->query('impact') : null;
+
+        return CsvStream::from($this->query($filters, $impact, $this->sort($request)), 'ai-policy-changes',
+            ['occurred_on', 'title', 'jurisdiction', 'impact_level', 'status_after', 'what_changed', 'official_source_url', 'url'],
+            fn (ChangeEvent $c) => [$c->occurred_on?->toDateString(), $c->title, $c->jurisdiction?->name, $c->impact_level, $c->status_after, $c->what_changed, $c->official_source_url, $c->url()]);
+    }
+
+    private function sort(Request $request): string
+    {
+        $sort = $request->query('sort');
+
+        return is_string($sort) && array_key_exists($sort, self::SORTS) ? $sort : 'newest';
+    }
+
+    /** The published change log for the given filters, in the given order; every order ends on the id. */
+    private function query(array $filters, ?string $impact, string $sort): Builder
+    {
+        $query = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument']);
+        if (! empty($filters['q'])) {
+            $query->search($filters['q']);
+        }
+        if (! empty($filters['jurisdiction'])) {
+            $query->whereHas('jurisdiction', fn ($j) => $j->where('slug', $filters['jurisdiction']));
+        }
+        if ($impact) {
+            $query->where('impact_level', $impact);
+        }
+
+        return match ($sort) {
+            'oldest' => $query->orderBy('occurred_on')->orderBy('id'),
+            'impact' => $query->orderByRaw("CASE impact_level WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'routine' THEN 2 ELSE 3 END")->orderByDesc('occurred_on')->orderByDesc('id'),
+            'title' => $query->orderByRaw('LOWER(title)')->orderBy('id'),
+            default => $query->orderByDesc('occurred_on')->orderByDesc('id'),
+        };
     }
 
     /**
