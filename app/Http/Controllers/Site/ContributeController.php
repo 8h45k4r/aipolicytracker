@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SubmissionOutcomeMail;
 use App\Mail\SubmissionReceivedMail;
 use App\Models\ChangeEvent;
 use App\Models\ContributorSubmission;
@@ -113,6 +114,14 @@ class ContributeController extends Controller
         foreach ($recent <= 20 ? config('aipolicytracker.admin_emails', []) : [] as $admin) {
             try {
                 Mail::to($admin)->send(new SubmissionReceivedMail($submission));
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        }
+        // The person who sent it hears that it arrived, and later what was decided.
+        if ($submission->submitter_email) {
+            try {
+                Mail::to($submission->submitter_email)->send(new SubmissionOutcomeMail($submission, 'received'));
             } catch (\Throwable $e) {
                 report($e);
             }

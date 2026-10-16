@@ -77,8 +77,8 @@
         <div class="flex items-baseline justify-between gap-3"><h2 id="health" class="section-title !text-lg">System health</h2>@can('jobs.run')<a href="{{ route('backend.admin.jobs') }}" class="text-sm">Jobs and schedule</a>@endcan</div>
         <dl class="mt-3 divide-y divide-brand-line text-sm">
             <div class="flex items-center justify-between gap-3 py-2"><dt>Scheduled jobs</dt><dd class="{{ $healthy === $scheduled->count() ? 'text-state-good' : 'text-state-bad' }}">{{ $healthy }} of {{ $scheduled->count() }} healthy</dd></div>
-            <div class="flex items-center justify-between gap-3 py-2"><dt>Email</dt><dd class="{{ $mail['mailer'] === 'log' ? 'text-state-bad' : 'text-state-good' }}">{{ $mail['mailer'] === 'log' ? 'Not sending (log only)' : 'Sending via '.$mail['mailer'] }}</dd></div>
-            <div class="flex items-center justify-between gap-3 py-2"><dt>Bot protection</dt><dd class="{{ $turnstile ? 'text-state-good' : 'text-state-warn' }}">{{ $turnstile ? 'Turnstile on' : 'Turnstile off' }}</dd></div>
+            <div class="flex items-center justify-between gap-3 py-2"><dt>Email</dt><dd class="{{ $mail['mailer'] === 'log' ? 'text-state-bad' : 'text-state-good' }}">{{ $mail['mailer'] === 'log' ? 'Not sending (log only)' : 'Sending via '.$mail['mailer'] }}@if($mail['mailer'] === 'log')@can('settings.manage') <a href="{{ route('backend.admin.settings') }}" class="ml-1 text-brand-blue">Set up</a>@endcan @endif</dd></div>
+            <div class="flex items-center justify-between gap-3 py-2"><dt>Bot protection</dt><dd class="{{ $turnstile ? 'text-state-good' : 'text-state-warn' }}">{{ $turnstile ? 'Turnstile on' : 'Turnstile off' }}@if(! $turnstile)@can('settings.manage') <a href="{{ route('backend.admin.settings') }}" class="ml-1 text-brand-blue">Set up</a>@endcan @endif</dd></div>
             <div class="flex items-center justify-between gap-3 py-2"><dt>AI Incident Database snapshot</dt><dd class="font-mono">{{ $aiid['snapshot_date'] ?? '—' }}</dd></div>
         </dl>
         <details class="mt-3 text-sm">
@@ -105,10 +105,29 @@
         @if($recentSubmissions->isEmpty())<p class="mt-3 text-sm text-brand-muted">No submissions yet. Readers' corrections and sources will appear here.</p>@else
         <ul class="mt-3 divide-y divide-brand-line text-sm">
             @foreach($recentSubmissions as $s)
-            <li class="py-2">@can('submissions.decide')<a href="{{ route('backend.admin.submissions', ['q' => \Illuminate\Support\Str::limit($s->summary, 60, '')]) }}" class="font-medium">{{ \Illuminate\Support\Str::limit($s->summary, 80) }}</a>@else<span class="font-medium text-brand-navy">{{ \Illuminate\Support\Str::limit($s->summary, 80) }}</span>@endcan<span class="block text-xs text-brand-muted">{{ $s->created_at->format('j M Y') }} · {{ \App\Models\ContributorSubmission::TYPES[$s->type] ?? $s->type }} · {{ str_replace('_', ' ', $s->status) }}</span></li>
+            <li class="py-2">@can('submissions.decide')<a href="{{ route('backend.admin.submissions', ['q' => \Illuminate\Support\Str::limit($s->summary, 60, '')]) }}" class="font-medium">{{ \Illuminate\Support\Str::limit($s->summary, 80) }}</a>@else<span class="font-medium text-brand-navy">{{ \Illuminate\Support\Str::limit($s->summary, 80) }}</span>@endcan<span class="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs text-brand-muted"><time datetime="{{ $s->created_at->toIso8601String() }}">{{ $s->created_at->diffForHumans() }}</time><span aria-hidden="true">·</span><span>{{ \App\Models\ContributorSubmission::TYPES[$s->type] ?? $s->type }}</span><x-backend.badge :status="$s->status" /></span></li>
             @endforeach
         </ul>
         @endif
     </section>
 </div>
+
+{{-- The newest state-changing admin requests, so a change made by someone else is visible here. --}}
+@can('audit.view')
+<section class="card-flat mt-6 p-5" aria-labelledby="activity">
+    <div class="flex items-baseline justify-between gap-3"><h2 id="activity" class="section-title !text-lg">Recent admin activity</h2><a href="{{ route('backend.admin.audit') }}" class="text-sm">Full audit log</a></div>
+    @if($activity->isEmpty())
+    <p class="mt-3 text-sm text-brand-muted">No admin actions recorded yet.</p>
+    @else
+    <ul class="mt-3 divide-y divide-brand-line text-sm">
+        @foreach($activity as $e)
+        <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-2">
+            <span class="min-w-0"><span class="font-medium text-brand-navy">{{ \App\Support\Admin\AuditActions::label($e->route_name, $e->method, $e->path, $e->route_params ?? []) }}</span> <span class="text-brand-muted">by {{ $e->user_email ?? 'unknown' }}</span></span>
+            <span class="flex items-center gap-2 text-xs text-brand-muted"><x-backend.badge :status="\App\Support\Admin\AuditActions::tone((int) $e->status)" title="HTTP {{ $e->status }}">{{ \App\Support\Admin\AuditActions::outcome((int) $e->status) }}</x-backend.badge><time datetime="{{ $e->created_at->toIso8601String() }}">{{ $e->created_at->diffForHumans() }}</time></span>
+        </li>
+        @endforeach
+    </ul>
+    @endif
+</section>
+@endcan
 @endsection

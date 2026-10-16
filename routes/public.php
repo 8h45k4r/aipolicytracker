@@ -83,6 +83,8 @@ Route::get('/jurisdictions/{jurisdiction}.md', [AgentSurfaceController::class, '
 Route::get('/jurisdictions/{jurisdiction}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 Route::get('/obligations', [ObligationController::class, 'index'])->name('obligations.index');
+// Before the single-duty route, so the download is not read as a duty named "export.csv".
+Route::get('/obligations/export.csv', [ObligationController::class, 'export'])->middleware('throttle:30,1')->name('obligations.export');
 Route::get('/obligations/{obligation}.md', [AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('obligations.context');
 Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
 
@@ -119,6 +121,7 @@ Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newslet
 Route::get('/newsletter/{issue}', [NewsletterController::class, 'show'])->where('issue', '20[0-9]{2}-[0-9]{2}-[0-9]{2}')->name('newsletter.show');
 
 Route::get('/changes', [ChangeController::class, 'index'])->name('changes.index');
+Route::get('/changes/export.csv', [ChangeController::class, 'export'])->middleware('throttle:30,1')->name('changes.export');
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->withoutMiddleware($stateless)->name('changes.feed');
 Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('changes.context');
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');

@@ -6,14 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Control;
 use App\Models\ExternalIncident;
+use App\Models\ExternalRisk;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
+use App\Models\TransitionMeasure;
 use App\Services\Glossary\GlossaryTerms;
 use App\Services\Search\PolicyRanker;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\Seo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -23,7 +26,7 @@ use Illuminate\View\View;
 /**
  * One search box for the whole site, in the header of every page. Results are grouped by
  * what they are (jurisdictions, laws, duties, controls, templates, guides, glossary terms,
- * changes), with a link to the full filtered listing where one exists. Laws are ordered by
+ * changes, risks, frameworks, transition measures, incidents), with a link to the full filtered listing where one exists. Laws are ordered by
  * PolicyRanker so the record a reader names comes first; when one record is named plainly
  * (an exact short title, a country, a glossary term) it is shown as the top match above
  * the groups. /search/suggest answers the same query as a short JSON list for the
@@ -61,6 +64,9 @@ class SearchController extends Controller
                 $this->group('Glossary', $glossary, route('glossary')),
                 $this->group('Changes', ChangeEvent::published()->with('jurisdiction')->search($q)->where('slug', 'not like', 'template-%')->orderByDesc('occurred_on')->orderBy('title')->limit(self::PER_GROUP)->get()
                     ->map(fn ($c) => ['title' => $c->title, 'url' => $c->url(), 'meta' => $c->occurred_on->format('j M Y').' · '.$c->jurisdiction?->name]), route('changes.index')),
+                $this->group('Risks', $this->risks($q, self::PER_GROUP), route('risk.risks', ['q' => $q]), $this->riskMatches($q)->count()),
+                $this->group('Frameworks', $this->frameworks($q), route('frameworks.index')),
+                $this->group('Transition measures', $this->transitionMeasures($q, self::PER_GROUP), route('transition.index'), $this->transitionMatches($q)->count()),
                 $this->incidents($q),
             ]));
         }
@@ -105,6 +111,43 @@ class SearchController extends Controller
             'Cache-Control' => 'public, max-age=600, stale-while-revalidate=3600',
             'X-Robots-Tag' => 'noindex',
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    /** Risk entries whose category, subcategory or description names the query; the title match comes first. */
+    private function riskMatches(string $q): Builder
+    {
+        $like = PolicyRanker::like($q);
+
+        return ExternalRisk::query()->where(fn ($w) => $w->whereRaw('LOWER(risk_category) LIKE ? ESCAPE ?', [$like, '\\'])->orWhereRaw('LOWER(risk_subcategory) LIKE ? ESCAPE ?', [$like, '\\'])->orWhereRaw('LOWER(description) LIKE ? ESCAPE ?', [$like, '\\']));
+    }
+
+    private function risks(string $q, int $limit): Collection
+    {
+        return $this->riskMatches($q)->orderByRaw($this->titleFirst('risk_subcategory'), [PolicyRanker::like($q)])->orderBy('ev_id')->limit($limit)->get()
+            ->map(fn (ExternalRisk $r) => ['title' => $r->risk_subcategory ?: $r->risk_category ?: Str::limit((string) $r->description, 80), 'url' => $r->url(), 'meta' => 'Risk entry'.($r->risk_category ? ' · '.$r->risk_category : '')])
+            ->values();
+    }
+
+    /** Frameworks and standards by name, short name or summary. */
+    private function frameworks(string $q): Collection
+    {
+        return collect(config('frameworks'))->filter(fn ($f) => $this->matches($q, $f['name'], $f['short'] ?? '', $f['summary'] ?? ''))
+            ->take(self::PER_GROUP)->map(fn ($f) => ['title' => $f['name'], 'url' => route('frameworks.show', $f['slug']), 'meta' => $f['publisher'] ?? 'Framework'])->values();
+    }
+
+    /** Published transition measures by title or summary; the same published rule the transition index uses. */
+    private function transitionMatches(string $q): Builder
+    {
+        $like = PolicyRanker::like($q);
+
+        return TransitionMeasure::whereNotNull('published_at')->where(fn ($w) => $w->whereRaw('LOWER(title) LIKE ? ESCAPE ?', [$like, '\\'])->orWhereRaw('LOWER(summary) LIKE ? ESCAPE ?', [$like, '\\']));
+    }
+
+    private function transitionMeasures(string $q, int $limit): Collection
+    {
+        return $this->transitionMatches($q)->with('jurisdiction')->orderBy('title')->limit($limit)->get()
+            ->map(fn (TransitionMeasure $m) => ['title' => $m->title, 'url' => $m->url(), 'meta' => $m->typeLabel().($m->jurisdiction ? ' · '.$m->jurisdiction->name : '')])
+            ->values();
     }
 
     /** AI Incident Database records by headline, sensitive ones excluded (they carry a neutral headline). */

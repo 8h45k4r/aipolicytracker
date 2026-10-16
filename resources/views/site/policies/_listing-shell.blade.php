@@ -17,6 +17,7 @@
                 <span class="font-medium text-brand-navy">{{ number_format($paginator->total()) }}</span>
                 {{ $filtered ? 'of '.number_format($total).' '.$noun.' match' : $noun }}
                 @if($paginator->lastPage() > 1) · page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }} @endif
+                @if($mode === 'obligations') · <a href="{{ route('obligations.export', request()->query()) }}" class="text-brand-blue">Download these as CSV</a>@endif
             </p>
             @if($chips !== [])
             <ul class="mt-2 flex flex-wrap items-center gap-2" aria-label="Active filters" data-active-filters>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Review;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SubmissionOutcomeMail;
 use App\Models\ContributorSubmission;
 use App\Models\EnforcementEvent;
 use App\Models\RecordPublication;
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -479,6 +481,15 @@ class ReviewController extends Controller
             'decided_at' => now(),
         ]);
         $submission->update(['status' => $data['decision']]);
+
+        // The person who sent it hears the decision, with the public note only: the internal notes stay internal.
+        if ($submission->submitter_email) {
+            try {
+                Mail::to($submission->submitter_email)->send(new SubmissionOutcomeMail($submission, $data['decision'], $data['public_note'] ?? null));
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        }
     }
 
     private function reviewable(string $type, string $slug): Model

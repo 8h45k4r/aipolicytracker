@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\DB;
  */
 class PolicyCatalog
 {
+    /** Sort choices for the obligations listing; the default keeps binding duties first, then category and title. */
+    public const OBLIGATION_SORTS = ['binding' => 'Binding first, then category', 'title' => 'Title A to Z', 'category' => 'Category', 'jurisdiction' => 'Jurisdiction'];
+
     public const SORTS = ['binding' => 'Binding first, then title', 'updated' => 'Recently updated', 'effective' => 'Effective date', 'relevance' => 'Relevance', 'jurisdiction' => 'Jurisdiction'];
 
     /**
@@ -145,7 +148,18 @@ class PolicyCatalog
             }
         }
 
-        return $q->orderByDesc('is_binding')->orderBy('category')->orderBy('title')->orderBy('obligations.id');
+        $sort = array_key_exists($filters['sort'] ?? '', self::OBLIGATION_SORTS) ? $filters['sort'] : 'binding';
+        // Every order ends on the id, so ties never move between pages.
+        match ($sort) {
+            'title' => $q->orderByRaw('LOWER(obligations.title)'),
+            'category' => $q->orderBy('obligations.category')->orderByRaw('LOWER(obligations.title)'),
+            'jurisdiction' => $q->join('policy_instruments as osort', 'osort.id', '=', 'obligations.policy_instrument_id')
+                ->join('jurisdictions as jsort', 'jsort.id', '=', 'osort.jurisdiction_id')
+                ->orderBy('jsort.name')->orderByRaw('LOWER(obligations.title)')->select('obligations.*'),
+            default => $q->orderByDesc('obligations.is_binding')->orderBy('obligations.category')->orderBy('obligations.title'),
+        };
+
+        return $q->orderBy('obligations.id');
     }
 
     public function latestChanges(int $limit = 6): Collection
