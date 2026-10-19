@@ -82,7 +82,7 @@
                 <p class="mt-1 text-xs text-brand-muted">Clause numbers only. A reference means the standard asks for overlapping work, so evidence may be reusable; it never means the standard discharges a legal duty.</p>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Framework references</caption>
                     <thead><tr><th scope="col">Framework</th><th scope="col">Reference</th><th scope="col">Note</th><th scope="col">Confidence</th></tr></thead>
-                    <tbody>@foreach($control->frameworkReferences as $r)<tr><td class="whitespace-nowrap font-medium">@if(config('frameworks.'.$r->framework))<a href="{{ route('frameworks.show', config('frameworks.'.$r->framework.'.slug')) }}" class="text-brand-navy hover:underline">{{ $r->frameworkShort() }}</a>@else{{ $r->frameworkName() }}@endif</td><td>{{ $r->reference }}</td><td>{{ $r->note }}</td><td>{{ $r->confidence_level }}</td></tr>@endforeach</tbody>
+                    <tbody>@foreach($control->frameworkReferences as $r)<tr><td class="whitespace-nowrap font-medium">@if(config('frameworks.'.$r->framework) && app(\App\Services\PolicyData\FrameworkCrosswalk::class)->hasPage($r->framework))<a href="{{ route('frameworks.show', config('frameworks.'.$r->framework.'.slug')) }}" class="text-brand-navy hover:underline">{{ $r->frameworkShort() }}</a>@else{{ $r->frameworkName() }}@endif</td><td>{{ $r->reference }}</td><td>{{ $r->note }}</td><td>{{ $r->confidence_level }}</td></tr>@endforeach</tbody>
                 </table></div>
             </section>
             @endif

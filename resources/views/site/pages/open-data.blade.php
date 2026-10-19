@@ -38,7 +38,7 @@
         <ul class="mt-2 text-sm space-y-1">
             <li>AI Incident Database, metadata for every incident (CC BY-SA 4.0): <a href="{{ route('risk.incidents.export', 'csv') }}">CSV</a> · <a href="{{ route('risk.incidents.export', 'json') }}">JSON</a> · <a href="{{ route('risk.incidents.browse') }}">browse</a></li>
             <li>MIT AI Risk Repository, risk database (CC BY 4.0): <a href="{{ route('risk.risks.export', 'csv') }}">CSV</a> · <a href="{{ route('risk.risks.export', 'json') }}">JSON</a> · <a href="{{ route('risk.risks') }}">browse</a></li>
-            <li>MIT domain taxonomy with our use-case mapping: <a href="{{ url('/data/external/mit_ai_risk_domains.json') }}" onclick="return false" class="text-brand-muted">data/external/mit_ai_risk_domains.json in the repository</a></li>
+            <li>MIT domain taxonomy with our use-case mapping: <a href="{{ config('aipolicytracker.github_url') }}/blob/main/data/external/mit_ai_risk_domains.json" rel="noopener">data/external/mit_ai_risk_domains.json in the repository</a></li>
         </ul>
         <p class="mt-2 text-sm text-brand-muted">Each policy page also exposes its record at <code class="rounded bg-brand-paper px-1">/policies/{slug}.json</code>, and the change log at <a href="{{ route('changes.feed') }}">RSS</a>.</p></section>
 

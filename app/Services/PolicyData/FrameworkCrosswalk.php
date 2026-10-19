@@ -120,6 +120,15 @@ class FrameworkCrosswalk
     }
 
     /** Every mapping on a published obligation, with the chain each page needs. */
+    /**
+     * Whether the framework has a page: one exists only once a published duty maps to it,
+     * so a link to a framework with no mapping yet would be a 404.
+     */
+    public function hasPage(string $key): bool
+    {
+        return $this->mappings()->contains('framework', $key);
+    }
+
     protected function mappings(): Collection
     {
         return once(fn () => FrameworkMapping::with(['obligation.policyInstrument.jurisdiction'])

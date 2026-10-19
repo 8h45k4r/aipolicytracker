@@ -53,6 +53,7 @@ class PolicySerializer
             'instrument_type' => $p->instrument_type,
             'status' => $p->status,
             'is_binding' => $p->is_binding,
+            'ai_specific' => (bool) $p->ai_specific,
             'issuing_body' => $p->issuing_body,
             'summary_plain' => $p->summary_plain,
             'adopted_on' => $p->adopted_on?->toDateString(),

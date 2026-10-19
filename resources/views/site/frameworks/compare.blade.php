@@ -13,7 +13,7 @@
         <h2 id="kinds-heading" class="section-title">What kind of document each one is</h2>
         <div class="table-wrap table-sticky mt-3"><table>
             <caption class="sr-only">Frameworks compared by type</caption>
-            <thead><tr><th scope="col">Dimension</th>@foreach($matrix['frameworks'] as $f)<th scope="col"><a href="{{ route('frameworks.show', $f['slug']) }}" class="text-brand-navy">{{ $f['short'] }}</a></th>@endforeach</tr></thead>
+            <thead><tr><th scope="col">Dimension</th>@foreach($matrix['frameworks'] as $key => $f)<th scope="col">@if(app(\App\Services\PolicyData\FrameworkCrosswalk::class)->hasPage($key))<a href="{{ route('frameworks.show', $f['slug']) }}" class="text-brand-navy">{{ $f['short'] }}</a>@else{{ $f['short'] }}@endif</th>@endforeach</tr></thead>
             <tbody>
                 <tr><th scope="row" class="bg-white font-medium">Purpose</th>@foreach($matrix['frameworks'] as $f)<td class="text-xs">{{ $f['summary'] }}</td>@endforeach</tr>
                 <tr><th scope="row" class="bg-white font-medium">Type</th>@foreach($matrix['frameworks'] as $f)<td>{{ $kinds[$f['kind']] ?? ucfirst(str_replace('_', ' ', $f['kind'])) }}</td>@endforeach</tr>

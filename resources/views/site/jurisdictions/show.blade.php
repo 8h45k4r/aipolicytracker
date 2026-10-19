@@ -90,7 +90,7 @@
 
             <section aria-labelledby="changes-heading" class="mt-8">
                 <h2 id="changes-heading" class="section-title">Latest changes</h2>
-                <p class="mt-1 text-xs"><a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">RSS</a></p>
+                <p class="mt-1 text-xs">@if($changes->isNotEmpty())<a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · @endif<a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">RSS</a></p>
                 <div class="mt-1 divide-y divide-brand-line border-y border-brand-line">@forelse($changes as $c)<x-site.change-item :change="$c" compact />@empty<p class="py-4 text-sm text-brand-muted">No change events recorded yet.</p>@endforelse</div>
                 @if($changes->isNotEmpty())<p class="mt-3 text-xs text-brand-muted"><a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="hover:text-brand-navy">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="hover:text-brand-navy">Updates hub</a></p>@endif
             </section>

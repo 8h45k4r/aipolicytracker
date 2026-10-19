@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- `ai_specific` in the API, the CSV and NDJSON exports and the OpenAPI schema.
 - People who send a correction or suggestion with an email address get a receipt, and later the decision (accepted, not accepted, needs more information) with the reviewer's public note; internal notes are never sent.
 - Site search also finds risks, frameworks and published transition measures, with full counts and links to the filtered listing.
 - Obligations and changes can be sorted and downloaded as CSV; the download uses the same query as the listing on screen.
@@ -132,6 +133,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Five templates (South Korea AI Basic Act checklist, Texas TRAIGA checklist, US state AI law matrix, public-sector AI use-case inventory, synthetic content labelling plan; 41 in all), landing pages per framework and per document type, and eight guides grounded in the records.
 
 ### Fixed
+- SEO and answer-engine crawl of every sitemap URL (`docs/reference/seo-aeo-audit-2026-10-19.md`): 107 broken internal links fixed (country and state pages linked an updates page that exists only once a change is recorded; controls and the framework comparison linked four framework pages that do not exist yet; `/open-data` linked a repository file the site does not serve); `/ai-risk` shows its FAQ answers, now computed from the incident snapshot instead of hard-coded; `llms.txt` lists one item per line and says commercial use is allowed.
 - India's "Is there a federal AI law?" answered yes from its data protection act while the page said it had no AI law; the Asia hub counted privacy laws and bills as binding AI law. Both now count adopted, AI-specific instruments.
 - The open-data release history states the live counts (the first release keeps its historical figures, labelled as such), and the web app manifest no longer names a jurisdiction count.
 - Nepal's 2024 concept paper was shown as both adopted and under consultation: it now carries its publication date and the superseded status its own note gave it. Timelines show one line per instrument per day.

@@ -45,10 +45,9 @@ class RiskController extends Controller
                 'isAccessibleForFree' => true,
                 'keywords' => ['AI risk taxonomy', 'AI incidents', 'AI policy'],
             ], fn ($v) => $v !== null && $v !== '' && $v !== []))
-            ->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => [
-                ['@type' => 'Question', 'name' => 'What are the seven domains of AI risk?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Discrimination and toxicity; privacy and security; misinformation; malicious actors and misuse; human-computer interaction; socioeconomic and environmental harms; and AI system safety, failures and limitations, as defined by the MIT AI Risk Repository domain taxonomy.']],
-                ['@type' => 'Question', 'name' => 'Which AI risk domain has the most recorded incidents?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'In the current AI Incident Database snapshot, malicious actors and misuse leads, followed by AI system safety, failures and limitations, and discrimination and toxicity. Counts reflect reporting and classification, not true frequency.']],
-            ]]);
+            // Shown on the page and in the markup, from the same data the charts use, so the
+            // answer moves with each weekly snapshot instead of going stale.
+            ->withFaq(self::indexFaq($mit, $aiid));
 
         $riskByDomain = ExternalRisk::selectRaw('domain, COUNT(*) as n')->whereNotNull('domain')->groupBy('domain')->pluck('n', 'domain');
         $matrix = [];
@@ -60,6 +59,32 @@ class RiskController extends Controller
         $narrative = self::narrative($aiid, $mit);
 
         return view('site.risk.index', ['seo' => $seo, 'mit' => $mit, 'aiid' => $aiid, 'riskByDomain' => $riskByDomain, 'matrix' => $matrix, 'timing' => $timing, 'incidentTotals' => $incidentTotals, 'treemapRisks' => $treemapRisks, 'treemapIncidents' => $treemapIncidents, 'narrative' => $narrative]);
+    }
+
+    /** A domain name as it reads mid-sentence: "Discrimination & Toxicity" to "discrimination and toxicity", keeping "AI". */
+    private static function inline(string $name): string
+    {
+        return preg_replace('/\\bai\\b/', 'AI', str_replace(' & ', ' and ', mb_strtolower(trim($name))));
+    }
+
+    /** @return list<array{question: string, answer: string}> */
+    private static function indexFaq(array $mit, array $aiid): array
+    {
+        $domains = collect($mit['domains'] ?? []);
+        $faq = [];
+        if ($domains->isNotEmpty()) {
+            $names = $domains->pluck('name')->map(fn ($n) => self::inline($n))->values();
+            $faq[] = ['question' => 'What are the '.(['three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][$domains->count() - 3] ?? $domains->count()).' domains of AI risk?', 'answer' => ucfirst($names->slice(0, -1)->implode('; ').'; and '.$names->last()).', as defined by the MIT AI Risk Repository domain taxonomy.'];
+        }
+        $label = $domains->pluck('name', 'aiid_domain_label');
+        $counts = collect($aiid['by_mit_domain'] ?? [])->filter(fn ($n, $l) => $label->has($l) && $n > 0)->sortDesc();
+        if ($counts->count() >= 3) {
+            $top = $counts->take(3)->map(fn ($n, $l) => self::inline($label[$l]).' ('.number_format($n).' incidents)')->values();
+            $when = ! empty($aiid['snapshot_date']) ? ' of '.Carbon::parse($aiid['snapshot_date'])->format('j F Y') : '';
+            $faq[] = ['question' => 'Which AI risk domain has the most recorded incidents?', 'answer' => "In the AI Incident Database snapshot{$when}, {$top[0]} leads, followed by {$top[1]} and {$top[2]}. Counts reflect what is reported and how it is classified, not how often each harm occurs."];
+        }
+
+        return $faq;
     }
 
     /** Subdomain profile: definition, causal breakdowns, frameworks, risk entries and incidents for one MIT subdomain (e.g. 2.1). */

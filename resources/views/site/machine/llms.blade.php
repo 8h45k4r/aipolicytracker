@@ -16,11 +16,10 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Home: {{ route('home') }}
 - Policy explorer: {{ route('policies.index') }}
 - Jurisdictions: {{ route('jurisdictions.index') }}
-- Country hubs (/ai-regulation-<country>: answer box, instrument table with native-language names, timeline, duties, regulators, deadlines, updates feed) and regional hubs: @foreach(\App\Services\Hubs\HubCatalog::regions() as $slug => $name){{ \App\Services\Hubs\HubCatalog::regionUrl($slug) }}@if(!$loop->last), @endif @endforeach
+- Country hubs (/ai-regulation-<country>: answer box, instrument table with native-language names, timeline, duties, regulators, deadlines, updates feed) and regional hubs: {{ collect(\App\Services\Hubs\HubCatalog::regions())->keys()->map(fn ($slug) => \App\Services\Hubs\HubCatalog::regionUrl($slug))->implode(', ') }}
 - Compare any two jurisdictions (/compare/<a>-vs-<b>: side-by-side table, obligation overlap by category, what is left for one side if you comply with the other): {{ route('compare.index') }}
 - Obligations: {{ route('obligations.index') }}
 - Controls (one control, the duties it satisfies, the evidence it produces): {{ route('controls.index') }}
-- Compare: {{ route('compare.index') }}
 - AI policy updates (latest changes with a computed summary, top stories by a published rule, month and day archives, one page and RSS feed per jurisdiction): {{ route('updates.index') }}
 - Change log: {{ route('changes.index') }} (RSS: {{ route('changes.feed') }}; Google News sitemap: {{ route('sitemap.news') }})
 - Weekly digest archive: {{ route('newsletter.index') }}
@@ -46,6 +45,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Glossary term pages (one per defined term: the definition, its source, and the laws and duties on record that use it), e.g. {{ route('glossary.show', 'high-risk-ai-system') }}, {{ route('glossary.show', 'ai-literacy') }}, {{ route('glossary.show', 'fundamental-rights-impact-assessment') }}
 - Open data and API: {{ route('open-data') }} (OpenAPI: {{ route('openapi') }}; developer guide: {{ route('developers') }})
 - MCP server for assistants: {{ route('mcp') }}
+- Pricing and data licences (the data is {{ config('aipolicytracker.data_license') }}, so commercial use is allowed on every plan; paid plans add service terms such as freshness commitments and delta feeds; licence enquiries through the form on the page): {{ route('pricing') }}
 - Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account, download links emailed to a work address; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - AI policy examples (national AI policies and strategies on record, by region, newest first): {{ route('ai-policy-examples') }}
 - Free AI self-assessments ({{ \App\Services\Assessments\AssessmentCatalog::all()->count() }} questionnaires on Certifyi, a related product: EU AI Act readiness, risk classification, FRIA, ISO/IEC 42001, NIST AI RMF, US state AI laws, LLM security, AI governance; score by domain, no account): {{ route('assessments.index') }}
