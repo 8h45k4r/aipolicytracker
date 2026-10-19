@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Dependencies
+- Composer: laravel/framework 12.70.0, inertiajs/inertia-laravel 3.5.1, dodopayments/client 6.29.2, tightenco/ziggy 2.6.5, laravel/pint 1.32.1, laravel/sail 1.69.0, with their Symfony, Carbon and Monolog patch releases.
+- npm: @amcharts/amcharts5 5.21.0, @inertiajs/react 3.9.1, vite 8.3.4, @vitejs/plugin-react 6.1.2, eslint 10.12.0, @eslint-react/eslint-plugin 5.26.1, postcss 8.5.29.
+- GitHub Actions: shivammathur/setup-php 2.40.0, actions/setup-node 7.1.0, actions/upload-artifact 7.0.2 (pinned by commit).
+
 ### Added
 - `ai_specific` in the API, the CSV and NDJSON exports and the OpenAPI schema.
 - People who send a correction or suggestion with an email address get a receipt, and later the decision (accepted, not accepted, needs more information) with the reviewer's public note; internal notes are never sent.
