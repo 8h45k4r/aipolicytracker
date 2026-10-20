@@ -351,7 +351,7 @@ needs no geometry, reads with a screen reader and degrades to a table.
 
 ## FINAL QA — done
 
-See `docs/launch/2026-09-26.md`: suite 416 green, full-sitemap crawl of 4,136
+See `docs/archive/2026-09-26.md`: suite 416 green, full-sitemap crawl of 4,136
 pages clean, OpenAPI lint 0 errors, Lighthouse SEO 100 and accessibility 100
 on the ten URLs, mobile performance 81–90 on the uncompressed dev server with
 the two production-relevant weights (brand SVGs, SVG favicon) cut. The manual

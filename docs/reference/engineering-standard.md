@@ -14,8 +14,8 @@ Read the parts of the system the change touches, and the parts that touch them:
 | Database | `database/migrations/*` (every migration carries a *why* comment); field tables in `docs/modules/<module>.md` are generated from the schema and must stay in sync |
 | APIs | `routes/public.php`, `routes/api.php`, `routes/backend/web.php`; `resources/openapi/openapi.php` for the public contract |
 | Auth and RBAC | `auth` and `isAdmin` middleware (`App\Http\Middleware\CheckAdmin`), `ADMIN_EMAILS`, `User::isAdmin()`; signed URLs and owner checks on user-bound routes |
-| Data and provenance | `data/` (canonical YAML), `data/schema/*.json`, `App\Services\PolicyData\*`; verification rules in `DATA_UPDATE_OPERATIONS.md` |
-| Integrations | `docs/modules/external-data.md`, `.github/workflows/*.yml`, `azure/`, `cloudflare/`, `docker/` |
+| Data and provenance | `data/` (canonical YAML), `data/schema/*.json`, `App\Services\PolicyData\*`; verification rules in [`docs/operations/data-updates.md`](../operations/data-updates.md) |
+| Integrations | `docs/modules/external-data.md`, `.github/workflows/*.yml`, `cloudflare/`, `deploy/`, `docker/` |
 | Tests | `tests/Feature/*` (feature and integration), `tests/Feature/Site/PublicSiteTest.php` (public surface, SEO rules, API, review workflow, and the foreign-key interlink proof in `test_policy_intelligence_interlinks_resolve`) |
 | Known gaps | `docs/reference/technical-debt.md`, `docs/reference/compliance-map.md`, `docs/reference/vapt-<date>.md` |
 

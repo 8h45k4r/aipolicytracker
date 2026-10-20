@@ -21,7 +21,7 @@ gap is recorded as debt so it is not quietly forgotten.
 
 Defined in `App\Services\Completeness\CompletenessChecks`, which lives in `app/` rather than
 `config/` because the checks carry closures and `php artisan config:cache` cannot serialize a
-closure — and `azure/startup.sh` runs that command on every deploy. Each check names one field or relationship, the record
+closure — and `docker/entrypoint.sh` runs that command on every container start. Each check names one field or relationship, the record
 kind it applies to, and a severity:
 
 | Severity | Meaning | Gated |

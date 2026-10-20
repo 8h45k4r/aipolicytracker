@@ -218,7 +218,7 @@ the current line is the honest one.
 - Framework pages: each counter non-zero for ISO 42001, NIST AI RMF and the EU
   AI Act before the hubs are promoted.
 - Search: impressions on queries containing "control", "evidence" or "for
-  {role}" against the existing baseline in `SEO_OPERATIONS.md`.
+  {role}" against the existing baseline in `docs/operations/seo.md`.
 - Answer engines: citations of `/controls/` and `/obligations/` URLs in the
   referrer log, against the current `/policies/` baseline.
 

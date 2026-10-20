@@ -17,7 +17,7 @@ How editorial pages are created, refreshed and retired. Editorial text lives in 
 
 Programmatic pages are never mass-generated: a landing page or comparison exists only when a maintainer adds it to `config/content.php`, and it stays `noindex` until the data threshold is met.
 
-One subject, one page: a landing is not added for a subject a record page already answers (a law, or a country). The landings that did so (`/eu-ai-act`, `/ai-regulation-usa`, `-india`, `-uk`, `-australia`, `/ai-governance-singapore`, `/ai-policy-nepal`) were retired after Search Console showed each splitting its queries with the record page; they are listed in `config/content.php` → `retired_landings` and answer 301 to the record's canonical address (see `SEO_OPERATIONS.md`).
+One subject, one page: a landing is not added for a subject a record page already answers (a law, or a country). The landings that did so (`/eu-ai-act`, `/ai-regulation-usa`, `-india`, `-uk`, `-australia`, `/ai-governance-singapore`, `/ai-policy-nepal`) were retired after Search Console showed each splitting its queries with the record page; they are listed in `config/content.php` → `retired_landings` and answer 301 to the record's canonical address (see [`seo.md`](seo.md)).
 
 ## 2. Quality bar before publishing a new jurisdiction or policy page
 
@@ -48,7 +48,7 @@ A page may be published (`published: true`) only when all of the following hold:
 2. Re-read the three most-visited jurisdiction pages against their sources; update `regulatory_status_summary` and `current_priorities` if anything moved.
 3. Update landing page `answer` paragraphs in `config/content.php` when the underlying status changes; keep them free of dates that will rot.
 4. Check that every FAQ answer is still true; remove FAQs rather than leave stale ones.
-5. Review Search Console query mining output (see `SEO_OPERATIONS.md`) and open content requests.
+5. Review Search Console query mining output (see [`seo.md`](seo.md)) and open content requests.
 6. Bump `content_version` and write `change_summary` on every edited record.
 
 ## 5. Change-log publishing workflow

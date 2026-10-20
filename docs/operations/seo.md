@@ -1,6 +1,6 @@
 # SEO Operations
 
-Operating manual for keeping aipolicytracker.org indexable, fast and honest. Pair with `CONTENT_OPERATIONS.md` (what we publish) and `DATA_UPDATE_OPERATIONS.md` (how records are verified).
+Operating manual for keeping aipolicytracker.org indexable, fast and honest. Pair with [`content.md`](content.md) (what we publish) and [`data-updates.md`](data-updates.md) (how records are verified).
 
 ## 1. What is implemented
 

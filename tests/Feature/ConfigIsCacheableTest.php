@@ -8,12 +8,12 @@ use Closure;
 use Tests\TestCase;
 
 /**
- * `php artisan config:cache` is not optional on this project: azure/startup.sh
- * runs it, and it ran under `set -e`, so a config file that cannot be cached
- * aborted the container's startup before `policy:import`, `external:import` and
- * the seeders. The site went down and the deploy workflow still reported green,
- * because the workflow only ships the zip; the startup script runs in the
- * container.
+ * `php artisan config:cache` is not optional on this project: docker/entrypoint.sh
+ * runs it on every container start, under `set -e`, so a config file that cannot
+ * be cached stops the container before the server starts listening. (The old
+ * App Service startup script had the same failure: it aborted before
+ * `policy:import`, `external:import` and the seeders while the deploy still
+ * reported green.)
  *
  * Nothing in config/ may therefore hold a closure. Behaviour that needs one
  * belongs in app/ — see VerificationRuleset and CompletenessChecks, which were
@@ -42,7 +42,7 @@ class ConfigIsCacheableTest extends TestCase
         $this->assertSame(
             [],
             $offenders,
-            'config:cache cannot serialize a closure, and azure/startup.sh runs it on every deploy. '
+            'config:cache cannot serialize a closure, and docker/entrypoint.sh runs it on every container start. '
             .'Move the behaviour into app/ and leave only serializable values in config/. Offending keys: '
             .implode(', ', $offenders)
         );

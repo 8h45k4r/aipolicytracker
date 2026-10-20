@@ -9,7 +9,7 @@ official source  →  data/*.yaml (PR)  →  policy:validate (CI)  →  review  
 ```
 
 - `data/` is canonical. The database is a read model; the admin review area only triages submissions and toggles visibility.
-- Every deploy runs `php artisan policy:import` (see `docker/entrypoint.sh`, `azure/startup.sh`). The command validates first and refuses to import invalid data.
+- Every deploy runs `php artisan policy:import` (see `docker/entrypoint.sh`, which starts it in the background once the server is listening). The command validates first and refuses to import invalid data.
 - `php artisan policy:export` writes a dated JSON bundle to `storage/app/exports` for archival releases; the live download at `/open-data/aipolicytracker-latest.json` is generated from the database.
 
 ## 2. Commands

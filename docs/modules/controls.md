@@ -2,7 +2,7 @@
 
 **What it is.** A control is what an organisation operates to meet one or more legal duties: a policy, a process, a technical measure, a contractual term or a training programme. Each control records the evidence it produces, the owner and frequency, the MIT AI Risk Repository subdomains it addresses and the standards clauses it corresponds to. Obligations reference controls as `satisfies` (the control, operated properly, does the work the duty asks for) or `supports` (it contributes but the duty needs more). One control usually serves several duties in several jurisdictions; the control page lists all of them, which is the reuse a compliance lead is looking for.
 
-**Why it exists.** An obligation said what the law requires and listed example evidence, and nothing stood between the two. The chain the site now publishes is LAW → OBLIGATION → CONTROL → EVIDENCE, with risks as a property of the control. See `docs/strategy/ai-governance-intelligence.md` for the reasoning and the build order.
+**Why it exists.** An obligation said what the law requires and listed example evidence, and nothing stood between the two. The chain the site now publishes is LAW → OBLIGATION → CONTROL → EVIDENCE, with risks as a property of the control. See [`docs/archive/ai-governance-intelligence.md`](../archive/ai-governance-intelligence.md) for the reasoning and the build order.
 
 ## Data
 
