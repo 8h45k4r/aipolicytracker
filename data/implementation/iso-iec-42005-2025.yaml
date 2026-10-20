@@ -28,7 +28,7 @@ last_verified_at: null
 review_status: pending_review
 confidence_level: medium
 content_version: 1
-change_summary: "First recorded from docs/archive/ai-governance-intelligence.md, which cites the ISO page. Publication year only; not yet read against the ISO page for this record."
+change_summary: "First recorded from docs/strategy/ai-governance-intelligence.md, which cites the ISO page. Publication year only; not yet read against the ISO page for this record."
 reviewed_by: null
 notes: "A reviewer should confirm the exact publication date, the committee and the stage code from the ISO page."
 published: true

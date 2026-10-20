@@ -8,9 +8,18 @@
   "issueTracker": "https://github.com/8h45k4r/aipolicytracker/issues",
   "readme": "https://github.com/8h45k4r/aipolicytracker/blob/main/README.md",
   "license": "https://spdx.org/licenses/Apache-2.0",
-  "programmingLanguage": ["PHP", "JavaScript"],
-  "runtimePlatform": ["PHP 8.3", "Node.js"],
-  "softwareRequirements": ["Laravel 12", "PostgreSQL or SQLite"],
+  "programmingLanguage": [
+    "PHP",
+    "JavaScript"
+  ],
+  "runtimePlatform": [
+    "PHP 8.3",
+    "Node.js"
+  ],
+  "softwareRequirements": [
+    "Laravel 12",
+    "PostgreSQL or SQLite"
+  ],
   "applicationCategory": "Regulatory intelligence",
   "keywords": [
     "AI regulation",
@@ -40,5 +49,7 @@
     "familyName": "Bhatt",
     "email": "bhaskar@aipolicytracker.org"
   },
-  "developmentStatus": "active"
+  "developmentStatus": "active",
+  "version": "2.0.0",
+  "dateModified": "2026-10-20"
 }

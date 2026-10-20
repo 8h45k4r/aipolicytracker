@@ -92,9 +92,9 @@ message.
 
 ## Releases
 
-1. In `CHANGELOG.md`, rename *Unreleased* to `[X.Y.Z] - YYYY-MM-DD` and start a new *Unreleased* above it.
-2. Check the notes with `scripts/release/notes.sh X.Y.Z`, push to `main`, then push the tag `vX.Y.Z` (or run **Release** from the Actions tab).
-3. After the deploy, run **Deployment check** from the Actions tab.
+Versions follow Semantic Versioning, and every release is cut from `CHANGELOG.md` by the **Release** workflow,
+which checks that CI is green first. The rules (what counts as major, minor or patch, when to release) and the
+step-by-step checklist are in [`docs/reference/releases.md`](docs/reference/releases.md).
 
 ## Licence
 

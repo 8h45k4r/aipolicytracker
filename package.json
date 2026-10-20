@@ -35,7 +35,7 @@
     },
     "name": "aipolicytracker",
     "description": "Front end of AIPolicyTracker, the open, source-backed tracker of AI laws, policies and obligations.",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "license": "Apache-2.0",
     "engines": {
         "node": ">=26"

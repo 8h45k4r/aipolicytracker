@@ -222,16 +222,13 @@ with a code owner's approval and green required checks.
 
 ## Releases
 
-Releases are cut from `CHANGELOG.md`, which is the only place release notes are written. The steps
-are in [CONTRIBUTING.md → Releases](../CONTRIBUTING.md#releases):
+Releases follow Semantic Versioning and are cut from `CHANGELOG.md`, the only place release notes are written.
+`scripts/release/check-changelog.sh` keeps it releasable (CI runs it on every push), and
+`scripts/release/notes.sh X.Y.Z` prints a version's notes. The **Release** workflow publishes the tag and the
+GitHub release, and refuses a commit that is not on `main` or whose CI is not green.
 
-1. In `CHANGELOG.md`, rename *Unreleased* to `[X.Y.Z] - YYYY-MM-DD` and start a new *Unreleased*.
-2. Check the notes: `scripts/release/notes.sh X.Y.Z`. It fails if the section is missing or empty.
-3. Push to `main`, then push the tag `vX.Y.Z`, or run **Release** from the Actions tab (it releases
-   the newest version in the changelog and creates the tag).
-4. After the deploy, run **Deployment check** from the Actions tab.
-
-Dataset releases and DOIs are covered in [`releases.md`](reference/releases.md).
+The versioning rules, when to release, the checklist and how Zenodo DOIs work are in
+[`releases.md`](reference/releases.md).
 
 ## Troubleshooting
 

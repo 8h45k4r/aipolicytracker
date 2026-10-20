@@ -4,6 +4,27 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-20
+
+Dataset snapshot: the records in `data/` on 20 October 2026, after the 2026-Q3 quarter (249 jurisdictions,
+244 instruments of which 184 are verified, 117 obligations, 154 dated changes, 26 controls). Every policy,
+obligation, change and control now carries a permanent id (`AIPT-…`).
+
+### Upgrade notes
+This is a major version because two changes break existing installations:
+- **PHP 8.3 is the minimum** (it was 8.2). The production image already ran 8.3.
+- **API tokens expire after a year** unless `SANCTUM_EXPIRATION_MINUTES` says otherwise (`0` or empty: until
+  revoked). Tokens older than a year stop working on upgrade.
+
+When upgrading a running copy:
+1. Run `php artisan migrate`. 17 migrations are new since 1.0.0, among them permanent ids, record revisions,
+   source checks, foreign-key indexes, digest deadlines by value, and a separate `invitation_tokens` table.
+2. Re-send any invitation sent before the upgrade: invitations now have their own token table.
+3. Compare your `.env` with `.env.example`. New keys include `CHANGEDESK_*`, `SCHEDULER`, `SOCIAL_CARD_DISK`,
+   `X_ENDPOINT` and `VERIFICATION_CRITICAL_BUDGET` (now 98, with the reason in `config/verification.php`).
+4. The Docker image's health check now also runs `php artisan aip:health` (database and scheduler).
+5. The operations runbooks moved to `docs/operations/`, and the unused `azure/` deployment files were removed.
+
 ### Dependencies
 - Composer: laravel/framework 12.70.0, inertiajs/inertia-laravel 3.5.1, dodopayments/client 6.29.2, tightenco/ziggy 2.6.5, laravel/pint 1.32.1, laravel/sail 1.69.0, with their Symfony, Carbon and Monolog patch releases.
 - npm: @amcharts/amcharts5 5.21.0, @inertiajs/react 3.9.1, vite 8.3.4, @vitejs/plugin-react 6.1.2, eslint 10.12.0, @eslint-react/eslint-plugin 5.26.1, postcss 8.5.29.
@@ -496,5 +517,6 @@ First public open-source release.
 - Hard-coded personal e-mail addresses, contributor lists, and external document links.
 - Duplicate/dead files (copied templates, unused Vue components, duplicate profile pages, unused images) and unused npm packages.
 
-[Unreleased]: https://github.com/8h45k4r/aipolicytracker/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/8h45k4r/aipolicytracker/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/8h45k4r/aipolicytracker/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/8h45k4r/aipolicytracker/releases/tag/v1.0.0
