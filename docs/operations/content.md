@@ -1,6 +1,6 @@
 # Content Operations
 
-How editorial pages are created, refreshed and retired. Editorial text lives in `config/content.php` (landing pages, guides, curated comparisons); everything factual lives in `data/` and is governed by `DATA_UPDATE_OPERATIONS.md`.
+How editorial pages are created, refreshed and retired. Editorial text lives in `config/content.php` (landing pages, guides, curated comparisons); everything factual lives in `data/` and is governed by [`data-updates.md`](data-updates.md).
 
 ## 1. Page types and where they come from
 

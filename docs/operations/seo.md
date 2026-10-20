@@ -29,7 +29,7 @@ Operating manual for keeping aipolicytracker.org indexable, fast and honest. Pai
 ## 3. Weekly checks (30 minutes)
 
 - **Coverage / Pages report:** new "Excluded" reasons. Expected exclusions: `noindex` on search/filter URLs, "Alternate page with proper canonical" for paginated filters. Investigate anything else, especially "Crawled, currently not indexed" on policy or jurisdiction pages (usually thin content: add sourced detail or unpublish).
-- **Broken links:** run `php artisan route:list` diff after deploys and a crawl (for example `wget --spider -r -nd -nv https://aipolicytracker.org/ 2>&1 | grep -B1 "404"`). Internal links must never 404; official source links may rot: see `DATA_UPDATE_OPERATIONS.md`.
+- **Broken links:** run `php artisan route:list` diff after deploys and a crawl (for example `wget --spider -r -nd -nv https://aipolicytracker.org/ 2>&1 | grep -B1 "404"`). Internal links must never 404; official source links may rot: see [`data-updates.md`](data-updates.md).
 - **Sitemap health:** Search Console shows "Success" for all eight child sitemaps (static, jurisdictions, policies, obligations, changes, resources, incidents, risks); `lastmod` dates move when data changes.
 - **Core Web Vitals:** LCP, INP, CLS in the CWV report. Public pages should stay "Good"; if CLS regresses, look for images without dimensions or newly added async content.
 - **Rich results:** Enhancements report for Breadcrumb, FAQ, Dataset, Sitelinks searchbox. Validate any changed template with the Rich Results Test before merge.
