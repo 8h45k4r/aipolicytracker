@@ -34,6 +34,7 @@
         "@amcharts/amcharts5-geodata": "^5.1.6"
     },
     "name": "aipolicytracker",
+    "description": "Front end of AIPolicyTracker, the open, source-backed tracker of AI laws, policies and obligations.",
     "version": "1.0.0",
     "license": "Apache-2.0",
     "engines": {
@@ -54,5 +55,11 @@
     },
     "overrides": {
         "postcss-selector-parser": "^7.1.6"
-    }
+    },
+    "keywords": [
+        "ai-policy",
+        "ai-regulation",
+        "ai-governance",
+        "open-data"
+    ]
 }

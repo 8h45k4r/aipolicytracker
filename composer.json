@@ -1,14 +1,18 @@
 {
     "name": "aipolicytracker/aipolicytracker",
     "type": "project",
-    "description": "Open, source-backed AI policy and regulatory intelligence tracker (Laravel + Inertia/React).",
+    "description": "Open, source-backed tracker of AI laws, policies, obligations and deadlines across 249 jurisdictions, with a REST API, open data and an MCP server.",
     "keywords": [
-        "laravel",
-        "inertia",
-        "react",
         "ai-policy",
+        "ai-regulation",
         "ai-governance",
-        "regulation"
+        "ai-law",
+        "eu-ai-act",
+        "ai-compliance",
+        "regulatory-compliance",
+        "open-data",
+        "mcp-server",
+        "laravel"
     ],
     "license": "Apache-2.0",
     "homepage": "https://aipolicytracker.org",
@@ -21,10 +25,10 @@
         }
     ],
     "support": {
-        "email": "bhaskar@aipolicytracker.org",
         "issues": "https://github.com/8h45k4r/aipolicytracker/issues",
         "source": "https://github.com/8h45k4r/aipolicytracker",
-        "security": "https://github.com/8h45k4r/aipolicytracker/security/advisories/new"
+        "docs": "https://github.com/8h45k4r/aipolicytracker/tree/main/docs",
+        "security": "https://github.com/8h45k4r/aipolicytracker/security/policy"
     },
     "require": {
         "php": "^8.3",

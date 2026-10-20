@@ -66,6 +66,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - The People page has its own share card, so a link to it previews as "People behind AIPolicyTracker" with who is listed, instead of the site card's headline. The card's URL moves when the list changes, which is what makes a platform fetch the new one.
 
 ### Changed
+- Documentation layout: a documentation index (`docs/README.md`), a developer guide and an architecture page in `docs/`; `AGENTS.md` and `CLAUDE.md` at the root for AI coding agents; the operations notes moved from the root to `docs/operations/` (`content.md`, `data-updates.md`, `seo.md`); the strategy note, roadmap, launch check and early reports moved to `docs/archive/`. `SECURITY.md` gains supported versions, disclosure, safe harbour and scope; the pull request template gains type of change, issues and evidence; a *Question* issue form is added.
 - The admin seeder reads `config('aipolicytracker.seed_admin')` and refuses the `.env.example` placeholder password outside local and testing. The settings provider and the admin Settings page read the environment through config, not `env()`.
 - `deploy/deploy.sh` runs `php artisan queue:restart` after the release swap.
 - PHP 8.3 is the minimum, matching the production image; CI tests on 8.3.
@@ -121,6 +122,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - npm 11 blocks package install scripts by default; `@parcel/watcher`'s build-from-source fallback is denied in `allowScripts` because its prebuilt binary is used.
 
 ### Removed
+- `azure/` (the App Service startup script and nginx config). Production runs on the Docker host; `docker/entrypoint.sh` is the startup path.
 - The "Turn obligations into … with Certifyi" banner on eleven page types and the promotional footer sentence. The related product is now named only where the free self-assessments run on it, and in the disclosures on About, Funding and the reviewer roster.
 - The GitHub Sponsor button no longer points at certifyi.ai; it points at `/funding`.
 - A page per glossary term (`/glossary/{term}`, 22 terms): the definition first, its source, the laws and duties on record that use it and related terms, with `DefinedTerm` and FAQ markup. Policy pages link the terms they use. Review: `docs/reference/seo-aeo-review-2026-10-05.md`.

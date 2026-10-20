@@ -1,0 +1,30 @@
+name: Question
+description: Ask how to use the data, the API, the MCP server or the code
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Nothing here is legal advice, and the maintainer cannot say whether a law applies to your organisation.
+        For the data and the API, the [open data page](https://aipolicytracker.org/open-data) and
+        [`data/README.md`](https://github.com/8h45k4r/aipolicytracker/blob/main/data/README.md) may already answer it.
+        A record that is wrong is a *Policy data correction*, not a question.
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do?
+      description: The outcome you want, not only the step you are stuck on.
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Commands, requests or pages, and what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: Records, API URLs, docs or code you are looking at.

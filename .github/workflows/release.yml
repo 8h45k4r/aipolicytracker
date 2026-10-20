@@ -26,6 +26,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+      actions: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -44,6 +45,31 @@ jobs:
           fi
           [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::no version found ($tag)"; exit 1; }
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      # A release is a citable snapshot (Zenodo archives it and mints a DOI that cannot be
+      # withdrawn), so the commit must be on main with the same CI jobs green that a deploy
+      # requires. The PostgreSQL job is not waited for while it cannot finish (debt #49).
+      - name: Require the commit to be on main with green CI
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+          REQUIRED_CI_JOBS: "PHP lint & tests|JS lint & build"
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/compare/main...$SHA" --jq .status | grep -qE '^(identical|behind)$' \
+            || { echo "::error::$SHA is not on main; release only from main"; exit 1; }
+          run="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$SHA&per_page=1" --jq '.workflow_runs[0].id // empty')"
+          [ -n "$run" ] || { echo "::error::no CI run found for $SHA"; exit 1; }
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run/jobs" --paginate \
+            --jq '.jobs[] | "\(.name)\t\(.conclusion // "running")"' > jobs.tsv
+          cat jobs.tsv
+          fail=0
+          IFS='|' read -ra required <<< "$REQUIRED_CI_JOBS"
+          for name in "${required[@]}"; do
+            result="$(awk -F'\t' -v n="$name" '$1==n {print $2}' jobs.tsv)"
+            [ "$result" = "success" ] || { echo "::error::CI job \"$name\" is ${result:-missing} for $SHA, not success"; fail=1; }
+          done
+          exit $fail
 
       - name: Release notes from CHANGELOG.md
         env:

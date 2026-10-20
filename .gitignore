@@ -57,9 +57,8 @@ Thumbs.db
 Homestead.json
 Homestead.yaml
 
-# Local notes for editor and assistant tooling; not part of the project.
-CLAUDE.md
-AGENTS.md
+# Local settings for assistant tooling. AGENTS.md and CLAUDE.md at the root are
+# project files and are tracked.
 .claude/
 
 # Scratch copies of the tree taken while reworking a module. They are whole

@@ -2,6 +2,17 @@
 
 Thanks for helping. Corrections to the data are the most useful thing you can send, and they don't need any code.
 
+## Contribution flow
+
+1. For anything non-trivial, open an issue first and wait for agreement that the work should go ahead.
+   Use the matching template: *Policy data correction*, *New jurisdiction or source*, *Bug report*,
+   *Feature request* or *Question*. A typo or a broken link can go straight to a pull request.
+2. Fork the repository and create a branch from `main` named for the change (see
+   [Branches, commits and pull requests](#branches-commits-and-pull-requests)).
+3. Make the change, with tests or sources as described below.
+4. Open a pull request from your fork using the [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
+   The more evidence it carries (command output, sources, screenshots), the faster the review.
+
 ## Ground rules
 
 - Every data change needs an official or openly licensed source. [`SOURCE_ATTRIBUTION.md`](SOURCE_ATTRIBUTION.md) says what counts.
@@ -13,6 +24,14 @@ Thanks for helping. Corrections to the data are the most useful thing you can se
 ## Setting up
 
 Fork the repository, clone your fork, then follow "Running it locally" in the [README](README.md).
+The [developer guide](docs/developer-guide.md) covers the rest: front-end builds, running single
+tests, the data checks, Docker, the artisan commands and what each CI workflow does.
+
+### AI-assisted contributions
+
+You may use AI tools, but you are the author and you answer for every line. Point the tool at
+[`AGENTS.md`](AGENTS.md), which sets out the rules it must follow here: no invented facts, an
+official source for every record, no verification it did not do, and no tool trailers in commits.
 
 ## Changing data
 
@@ -83,3 +102,5 @@ Code you contribute is Apache 2.0 ([`LICENSE`](LICENSE)); data you contribute to
 ([`data/LICENSE`](data/LICENSE)).
 
 Security problems go to [`SECURITY.md`](SECURITY.md), not a public issue.
+
+Thank you for your time and care. Every correction makes the records more useful to the people who rely on them.

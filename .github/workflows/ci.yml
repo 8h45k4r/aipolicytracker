@@ -166,6 +166,10 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Release notes are read from CHANGELOG.md; keep it releasable on every commit.
+      - name: Changelog is releasable
+        run: scripts/release/check-changelog.sh
+
       - name: Typecheck
         run: npm run typecheck
 

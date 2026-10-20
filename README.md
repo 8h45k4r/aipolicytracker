@@ -85,6 +85,7 @@ _Every record links its official source, says whether a named person has checked
 <li><a href="#mcp-server-for-ai-agents">MCP server for AI agents</a></li>
 <li><a href="#running-it-locally">Running it locally</a></li>
 <li><a href="#project-structure">Project structure</a></li>
+<li><a href="#frequently-asked-questions">Frequently asked questions</a></li>
 <li><a href="#contributing">Contributing</a></li>
 <li><a href="#security">Security</a></li>
 <li><a href="#citing">Citing</a></li>
@@ -303,6 +304,58 @@ docs/            developer guide, architecture, modules, operations, reference a
 ```
 
 The [documentation index][docsindex] lists every guide.
+
+## Frequently asked questions
+
+<details>
+<summary><b>What is AIPolicyTracker?</b></summary>
+
+An open, source-backed tracker of AI laws, regulations, strategies and guidance in 249 jurisdictions. It breaks
+laws down into the obligations they create, links each obligation to the article it comes from, and records dated
+changes, deadlines and the controls that meet the obligations.
+
+</details>
+
+<details>
+<summary><b>Is it free, and can I reuse the data?</b></summary>
+
+Yes. The site, the API and the downloads are free. The data is CC BY 4.0: reuse it for any purpose, including
+commercial use, if you credit "AIPolicyTracker" and link the record. The code is Apache 2.0.
+
+</details>
+
+<details>
+<summary><b>How do I know a record is accurate?</b></summary>
+
+Every record links its official source and says whether a named reviewer has checked it against that source, and
+when. Records not yet checked say so. Mistakes and their fixes are public on the [corrections log][corrections], and
+the [methodology][methodology] explains how records are made and verified. Nothing here is legal advice.
+
+</details>
+
+<details>
+<summary><b>Does it cover the EU AI Act?</b></summary>
+
+Yes, with its obligations broken out article by article, its application dates (including later amendments), the
+implementation measures it depends on, and the standards behind it.
+
+</details>
+
+<details>
+<summary><b>Can an AI assistant use it?</b></summary>
+
+Yes. Point an MCP client at the [MCP server](#mcp-server-for-ai-agents), or read [`/llms.txt`][llms] and the
+Markdown version of any record. Both carry the record's provenance, so an answer can cite its source.
+
+</details>
+
+<details>
+<summary><b>How do I report a mistake or suggest a law?</b></summary>
+
+Use "Report a correction" on the record's page, [open a correction issue][correction], or
+[suggest a new law or jurisdiction][newsource] with its official source.
+
+</details>
 
 ## Contributing
 
