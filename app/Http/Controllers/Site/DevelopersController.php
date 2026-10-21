@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Providers\AppServiceProvider;
+use App\Services\Billing\BillingConfig;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\Seo;
 use Illuminate\View\View;
@@ -50,9 +52,13 @@ class DevelopersController extends Controller
         ['open_gaps', 'What the corpus is missing'],
     ];
 
-    public function developers(PolicyCatalog $catalog): View
+    public function developers(PolicyCatalog $catalog, BillingConfig $billing): View
     {
         $stats = $catalog->stats();
+        $publicRate = AppServiceProvider::PUBLIC_API_REQUESTS_PER_MINUTE;
+        // The paid rate is stated only while it can be bought (see the public-api limiter).
+        $paidRate = $billing->enabled() ? (int) (config('billing.plans.pro_monthly.entitlements')['api.rate_per_minute'] ?? 0) : 0;
+        $paidLine = $paidRate > $publicRate ? " An account token on the Builder plan raises it to {$paidRate} a minute." : '';
         $licence = config('aipolicytracker.data_license');
         $seo = Seo::make(
             'AI regulation API and dataset for developers',
@@ -61,12 +67,12 @@ class DevelopersController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['Developers', route('developers')]])
             ->withPageType('WebPage')
             ->withFaq([
-                ['question' => 'Is there an API for AI regulations?', 'answer' => 'Yes. AIPolicyTracker serves a read-only JSON API at /api/v1 covering jurisdictions, policy instruments, obligations, deadlines, changes, controls and enforcement actions. It needs no key, allows 120 requests a minute, and is described by an OpenAPI document at /openapi.json.'],
+                ['question' => 'Is there an API for AI regulations?', 'answer' => "Yes. AIPolicyTracker serves a read-only JSON API at /api/v1 covering jurisdictions, policy instruments, obligations, deadlines, changes, controls and enforcement actions. It needs no key, allows {$publicRate} requests a minute,{$paidLine} and is described by an OpenAPI document at /openapi.json."],
                 ['question' => 'Can I use the AI regulation data in a commercial product?', 'answer' => "Yes. The data is published under {$licence}, which allows commercial use with attribution. Paid plans add service terms such as a freshness commitment and delta feeds; they do not change what the licence already allows."],
                 ['question' => 'Is there a bulk download?', 'answer' => 'Yes: one JSON bundle of the whole dataset, and CSV and NDJSON exports per record type, each row carrying its official source, review status and the date it was last confirmed.'],
             ]);
 
-        return view('site.pages.developers', ['seo' => $seo, 'stats' => $stats, 'endpoints' => self::ENDPOINTS]);
+        return view('site.pages.developers', ['seo' => $seo, 'stats' => $stats, 'endpoints' => self::ENDPOINTS, 'publicRate' => $publicRate, 'paidRate' => $paidRate > $publicRate ? $paidRate : 0]);
     }
 
     public function mcp(): View

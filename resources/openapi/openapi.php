@@ -3,6 +3,7 @@
 use App\Enums\PolicyStatus;
 use App\Models\EnforcementEvent;
 use App\Models\ImplementationMeasure;
+use App\Providers\AppServiceProvider;
 use App\Services\Implementation\ImplementationStatus;
 
 // OpenAPI 3.1 description of the read-only public API. Served at /openapi.json.
@@ -56,7 +57,7 @@ return [
         'title' => config('aipolicytracker.site_name').' public API',
         'version' => '1.0.0',
         'summary' => 'Read-only access to source-backed AI policy records.',
-        'description' => 'Open, source-backed AI policy and regulatory intelligence. All records carry an official source URL, review status, confidence level and verification dates. Data licence: '.config('aipolicytracker.data_license').'. Informational only; not legal advice.',
+        'description' => 'Open, source-backed AI policy and regulatory intelligence. All records carry an official source URL, review status, confidence level and verification dates. Data licence: '.config('aipolicytracker.data_license').'. No key is needed: the limit is '.AppServiceProvider::PUBLIC_API_REQUESTS_PER_MINUTE.' requests a minute per address. An account token sent as Authorization: Bearer is counted per account, at the rate of its plan; X-RateLimit-Limit gives the limit that applies. Informational only; not legal advice.',
         'license' => ['name' => config('aipolicytracker.data_license'), 'url' => config('aipolicytracker.data_license_url')],
         'termsOfService' => route('methodology'),
         'contact' => ['name' => config('aipolicytracker.site_name'), 'email' => config('aipolicytracker.contact_email'), 'url' => route('about')],

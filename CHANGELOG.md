@@ -8,6 +8,9 @@ All notable changes to this project are documented here. The format follows [Kee
 - Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
   named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's
   permanent address; `/embed` lists it beside the widgets.
+- A higher API limit on the Builder plan: an account token sent as `Authorization: Bearer` is counted per account
+  at 600 requests a minute. Without a token the API stays free at 120 a minute per address, unchanged. The paid
+  rate applies, and is mentioned on the developer page, only once selling is on.
 - "Subscribe in your calendar" (`webcal://`) on the deadline calendar, jurisdiction pages and the "which date
   applies" result, so a subscribed calendar refreshes when a date moves. The one-off `.ics` download stays.
 

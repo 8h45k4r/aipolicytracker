@@ -55,6 +55,9 @@ return [
             'watches.max' => 3,
             'alerts.channels' => false,
             'profiles.saved' => false,
+            // Requests a minute to the read-only API with the account's token. Without a
+            // token the public rate applies per address, which is the same number.
+            'api.rate_per_minute' => 120,
         ],
     ],
 
@@ -73,6 +76,7 @@ return [
                 'watches.max' => 500,
                 'alerts.channels' => true,
                 'profiles.saved' => true,
+                'api.rate_per_minute' => 600,
             ],
         ],
         'pro_yearly' => [
@@ -89,6 +93,7 @@ return [
                 'watches.max' => 500,
                 'alerts.channels' => true,
                 'profiles.saved' => true,
+                'api.rate_per_minute' => 600,
             ],
         ],
     ],
@@ -107,6 +112,7 @@ return [
             'Watch up to 500 policies, jurisdictions, obligations, sectors, frameworks or saved searches',
             'Alerts to Slack, a signed webhook or a private RSS feed, as well as email',
             'Saved applicability profiles: a daily alert naming the system a change may affect',
+            'The read-only API at 600 requests a minute with your account token, five times the public rate',
         ],
     ],
 

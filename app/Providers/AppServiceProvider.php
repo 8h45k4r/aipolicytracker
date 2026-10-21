@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Enums\AdminCapability;
 use App\Models\User;
 use App\Services\Admin\RolePermissions;
+use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\DodoGateway;
+use App\Services\Billing\Entitlements;
 use App\Services\PolicyData\PolicyDataRepository;
 use App\Services\Security\EmailDomainPolicy;
 use App\Services\Security\MailDomainResolver;
@@ -33,6 +35,9 @@ class AppServiceProvider extends ServiceProvider
      * is still far beyond any person and well inside what the host serves.
      */
     public const ADMIN_REQUESTS_PER_MINUTE = 600;
+
+    /** The read-only API's public rate, per address; free on every plan and unchanged by selling. */
+    public const PUBLIC_API_REQUESTS_PER_MINUTE = 120;
 
     /**
      * Register any application services.
@@ -94,6 +99,20 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('admin', fn (Request $request) => $request->user()
             ? Limit::perMinute(self::ADMIN_REQUESTS_PER_MINUTE)->by('user:'.$request->user()->getAuthIdentifier())
             : Limit::perMinute(120)->by('ip:'.$request->ip()));
+
+        // The read-only API. Without a token the public rate applies per address, as it always
+        // has. With an account token the count is per account, at the plan's rate once selling
+        // is on. While selling is off the token gets the public rate: granting the paid rate to
+        // everyone then (as other capabilities are) would take it away when selling starts.
+        RateLimiter::for('public-api', function (Request $request) {
+            $user = $request->bearerToken() ? auth('sanctum')->user() : null;
+            if (! $user instanceof User) {
+                return Limit::perMinute(self::PUBLIC_API_REQUESTS_PER_MINUTE)->by('ip:'.$request->ip());
+            }
+            $rate = app(BillingConfig::class)->enabled() ? (int) app(Entitlements::class)->value($user, 'api.rate_per_minute') : 0;
+
+            return Limit::perMinute(max(self::PUBLIC_API_REQUESTS_PER_MINUTE, $rate))->by('user:'.$user->getAuthIdentifier());
+        });
 
         // A choice made at sign-up to receive the digest takes effect once the address is proven.
         Event::listen(Verified::class, function (Verified $event) {

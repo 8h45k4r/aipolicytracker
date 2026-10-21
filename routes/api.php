@@ -4,8 +4,8 @@ use App\Http\Controllers\Api\V1\PublicApiController;
 use App\Http\Controllers\Api\V1\WatchApiController;
 use Illuminate\Support\Facades\Route;
 
-// Read-only public API. No authentication; rate limited; cached.
-Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(function () {
+// Read-only public API. No authentication; rate limited (an account token raises the limit on a paid plan); cached.
+Route::prefix('v1')->middleware('throttle:public-api')->name('api.v1.')->group(function () {
     Route::get('/', [PublicApiController::class, 'root'])->name('root');
     Route::get('/jurisdictions', [PublicApiController::class, 'jurisdictions'])->name('jurisdictions');
     Route::get('/jurisdictions/{slug}', [PublicApiController::class, 'jurisdiction'])->name('jurisdiction');

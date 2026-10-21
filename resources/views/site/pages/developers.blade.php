@@ -9,7 +9,7 @@
     <section class="mt-10" aria-labelledby="start-heading"><h2 id="start-heading" class="section-title">How do I call the API?</h2>
         <p class="prose-policy mt-2">Send a GET request; no key or sign-up is needed. Responses are JSON, paginated, and every record carries <code class="rounded bg-brand-paper px-1">official_source_url</code>, <code class="rounded bg-brand-paper px-1">review_status</code> and <code class="rounded bg-brand-paper px-1">last_verified_at</code>, so you can show your users how settled each fact is.</p>
         <pre class="mt-3 overflow-x-auto rounded-md bg-brand-navy p-3 text-xs text-white/80" tabindex="0" role="region" aria-label="Example request">curl "{{ url('/api/v1/policies') }}?jurisdiction=eu"</pre>
-        <p class="mt-2 text-sm text-brand-muted">Limit: 120 requests a minute per address. For more, or for webhook and delta feeds, see <a href="{{ route('pricing') }}">plans</a>.</p>
+        <p class="mt-2 text-sm text-brand-muted">Limit: {{ $publicRate }} requests a minute per address, no key needed.@if($paidRate) On the Builder plan, send your account token as <code>Authorization: Bearer …</code> for {{ $paidRate }} a minute.@endif For webhook and delta feeds, see <a href="{{ route('pricing') }}">plans</a>.</p>
     </section>
 
     <section class="mt-8" aria-labelledby="endpoints-heading"><h2 id="endpoints-heading" class="section-title">Which endpoints are there?</h2>
