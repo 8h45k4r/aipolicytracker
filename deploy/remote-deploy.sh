@@ -75,7 +75,9 @@ probe() {
 build_and_swap() {
     git reset -q --hard "$1"
     cd "$REPO/deploy"
-    docker compose build app 2>&1 | tail -3
+    # --pull: fetch the base images even when a tag is cached, so a re-published
+    # tag (an Alpine or runtime security fix) reaches production on the next deploy.
+    docker compose build --pull app 2>&1 | tail -3
     docker compose up -d
     wait_healthy && probe
 }

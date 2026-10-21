@@ -1,8 +1,13 @@
 # Production image for AI Policy Tracker (Laravel 12 + Inertia/React).
 # Works on any container host (Fly.io, Render, Railway, a VPS with Docker).
 
+# Base images are pinned to a patch release, so a deploy can never reuse a cached,
+# unpatched base: a new pin is a tag the host does not have yet, and it is pulled.
+# Dependabot (docker ecosystem) proposes the next patch. PHP 8.3.36 and Node 26.12.1
+# are the 21 October 2026 security releases.
+
 # ---- Stage 1: build front-end assets ----
-FROM node:26-alpine AS assets
+FROM node:26.12.1-alpine AS assets
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
@@ -10,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # ---- Stage 2: PHP runtime ----
-FROM php:8.3-cli-alpine
+FROM php:8.3.36-cli-alpine
 # gd: phpoffice/phpspreadsheet and phpword require it, and the social-card
 # renderer draws with it (FreeType for the TrueType text, JPEG for photos).
 # font-dejavu: the face the renderer draws with. Without a TrueType font on

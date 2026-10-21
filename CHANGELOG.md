@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Security
+- Runtime security releases of 21 October 2026: the production image now runs PHP 8.3.36 (CVE-2026-109618 and
+  CVE-2026-109619, remote code execution) and builds its assets on Node.js 26.12.1. Base images are pinned to a
+  patch release, the deploy pulls fresh base images, and the Security workflow fails an image whose PHP release
+  differs from the pin.
+
 ### Added
 - Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
   named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's

@@ -100,6 +100,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
+          # The newest 26.x, not whichever 26.x the runner image cached (security releases).
+          check-latest: true
       - name: npm audit
         # Every dependency, build tools included: the browser bundle is built with them.
         # The script fails on any high or critical advisory except the ones it lists
@@ -144,7 +146,15 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Build the production image
-        run: docker build -t aipolicytracker:scan .
+        run: docker build --pull -t aipolicytracker:scan .
+      - name: The image runs the PHP release the Dockerfile pins
+        # A pinned base is the point: the runtime gets security releases by a
+        # reviewed change, and this proves the built image carries that release.
+        run: |
+          pinned="$(sed -n 's/^FROM php:\([0-9.]*\)-.*/\1/p' Dockerfile)"
+          actual="$(docker run --rm --entrypoint php aipolicytracker:scan -r 'echo PHP_VERSION;')"
+          echo "pinned $pinned, image $actual"
+          [ -n "$pinned" ] && [ "$pinned" = "$actual" ]
       - name: Share cards can be drawn in this image (social:doctor)
         # The image went to production once without a font: every card silently
         # fell back to the static picture, and nothing was red. The doctor exits
