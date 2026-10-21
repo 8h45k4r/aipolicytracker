@@ -120,6 +120,12 @@ phone number, and the NOT NULL column made every form sign-up fail after the use
 
 Public: `guides.index` (filters `q`, `type`, `framework`, `topic`, `access`; filtered pages are `noindex,follow`), `tools.show`, `tools.gate` (stores `url.intended`). Auth: `tools.download` (POST, throttled, requires `terms`, `name` and `organization_name`; the last two are written back to the account), `tools.ready`, `tools.file` (`signed` middleware, 30-minute links, owner only). Admin: `backend.admin.downloads`, `backend.admin.downloads.export` (per user; with `?rows=downloads`, one row per download: date, tool, version, file, name, email, organisation, sign-up source, consent, referrer), `backend.admin.tools.*` (index, create, store, edit, update, destroy = archive, files.store, files.toggle, files.destroy, files.download).
 
+## The whole library as one ZIP
+
+`/templates/all.zip` (`templates.bundle`) serves every template in `/templates`, in every format, under `<slug>/<file>`, with a `README.txt` listing each template's version and date, the licence and the not-legal-advice line. `TemplateBundle` names the archive after the set of versions it holds, so it is built once and reused until a template gets a new version; the superseded archive is deleted. Archives live on the template disk under `templates/bundles/`.
+
+It needs the `templates.bundle` entitlement (Builder) and exists only while selling is on (404 otherwise); guests go to sign-in, accounts without it go to `/pricing`. The templates page links it for an entitled account and names Builder for others. Single templates keep the work-email request. Tests: `TemplateBundleTest`.
+
 ## Access rules
 
 Read guide: public · Preview tool: public · Download: authenticated + licence accepted · File URL: signed, owner only · Manage resources: repository (config) · View users/downloads: admin only.

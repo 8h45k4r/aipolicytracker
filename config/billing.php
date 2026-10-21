@@ -58,6 +58,8 @@ return [
             // Requests a minute to the read-only API with the account's token. Without a
             // token the public rate applies per address, which is the same number.
             'api.rate_per_minute' => 120,
+            // Every template in one ZIP. Single templates stay free with a work email.
+            'templates.bundle' => false,
         ],
     ],
 
@@ -77,6 +79,7 @@ return [
                 'alerts.channels' => true,
                 'profiles.saved' => true,
                 'api.rate_per_minute' => 600,
+                'templates.bundle' => true,
             ],
         ],
         'pro_yearly' => [
@@ -94,6 +97,7 @@ return [
                 'alerts.channels' => true,
                 'profiles.saved' => true,
                 'api.rate_per_minute' => 600,
+                'templates.bundle' => true,
             ],
         ],
     ],
@@ -113,6 +117,7 @@ return [
             'Alerts to Slack, a signed webhook or a private RSS feed, as well as email',
             'Saved applicability profiles: a daily alert naming the system a change may affect',
             'The read-only API at 600 requests a minute with your account token, five times the public rate',
+            'Every template in one ZIP, in every format, rebuilt when a template changes',
         ],
     ],
 

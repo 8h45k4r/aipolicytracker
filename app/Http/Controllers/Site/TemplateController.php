@@ -10,11 +10,13 @@ use App\Models\TemplateDownloadRequest;
 use App\Models\TemplateVersion;
 use App\Rules\NotDisposableEmail;
 use App\Rules\WorkEmail;
+use App\Services\Billing\BillingConfig;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Security\Turnstile;
 use App\Services\Templates\Records;
 use App\Services\Templates\TemplateBuilder;
+use App\Services\Templates\TemplateBundle;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\ContentCache;
 use App\Support\PageTitle;
@@ -85,7 +87,7 @@ class TemplateController extends Controller
             $seo->noindex();
         }
 
-        return view('site.templates.index', compact('seo', 'items', 'filters', 'filtered', 'summary', 'counts', 'lastBuilt', 'faq', 'facets'));
+        return view('site.templates.index', compact('seo', 'items', 'filters', 'filtered', 'summary', 'counts', 'lastBuilt', 'faq', 'facets') + ['bundleOffered' => app(BillingConfig::class)->enabled()]);
     }
 
     /**
@@ -368,6 +370,30 @@ class TemplateController extends Controller
 
         return response()->download($disk->path($file['path']), $file['filename'], [
             'Content-Type' => $this->mime($format),
+            'X-Robots-Tag' => 'noindex',
+            'Cache-Control' => 'private, no-store',
+        ]);
+    }
+
+    /**
+     * Every template in one ZIP, for a plan that includes it. It exists only while
+     * selling is on: with selling off every account would hold the capability, and
+     * the bundle would sidestep the work-email request that single files go through.
+     */
+    public function bundle(Request $request, BillingConfig $billing, TemplateBundle $bundle): BinaryFileResponse|RedirectResponse
+    {
+        abort_unless($billing->enabled(), 404);
+        $user = $request->user();
+        if (! $user) {
+            return redirect()->guest(route('login'));
+        }
+        if (! $user->entitled('templates.bundle')) {
+            return redirect()->route('pricing')->with('error', 'Every template in one ZIP is part of Builder. Single templates stay free.');
+        }
+        $zip = $bundle->build();
+
+        return response()->download(Storage::disk(TemplateBuilder::DISK)->path($zip['path']), $zip['filename'], [
+            'Content-Type' => 'application/zip',
             'X-Robots-Tag' => 'noindex',
             'Cache-Control' => 'private, no-store',
         ]);

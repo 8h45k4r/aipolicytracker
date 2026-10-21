@@ -236,6 +236,7 @@ Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('thro
 Route::get('/self-assessments', [AssessmentController::class, 'index'])->name('assessments.index');
 Route::get('/ai-policy-examples', [PolicyExamplesController::class, 'index'])->name('ai-policy-examples');
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+Route::get('/templates/all.zip', [TemplateController::class, 'bundle'])->middleware('throttle:10,1')->name('templates.bundle');
 Route::get('/templates/feed', [TemplateController::class, 'feed'])->withoutMiddleware($stateless)->name('templates.feed');
 // One landing page per framework or type ("EU AI Act templates"); only those with enough
 // templates exist (TemplateCatalog::facets), the rest 404.
