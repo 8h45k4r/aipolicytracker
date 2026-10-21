@@ -6,6 +6,7 @@ use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\AssessmentController;
 use App\Http\Controllers\Site\AudienceController;
+use App\Http\Controllers\Site\BadgeController;
 use App\Http\Controllers\Site\BillingController;
 use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\CalendarController;
@@ -129,7 +130,7 @@ Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->w
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
 // The deadline engine: five plain-form steps, a personal timeline from recorded dates, .ics and PDF of the same rows.
 Route::get('/deadlines/which-date-applies', [DeadlineEngineController::class, 'show'])->name('deadlines.engine');
-Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->name('deadlines.engine.ics');
+Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->withoutMiddleware($stateless)->name('deadlines.engine.ics');
 Route::get('/deadlines/which-date-applies.pdf', [DeadlineEngineController::class, 'pdf'])->middleware('throttle:30,1')->name('deadlines.engine.pdf');
 Route::get('/calendar/ai-policy-deadlines.ics', [CalendarController::class, 'feed'])->withoutMiddleware($stateless)->name('calendar.feed');
 Route::get('/calendar/{jurisdiction}.ics', [CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('calendar.feed.jurisdiction');
@@ -270,6 +271,7 @@ Route::get('/state-of-ai-regulation', [StateOfController::class, 'show'])->name(
 Route::get('/state-of-ai-regulation/{quarter}.csv', [StateOfController::class, 'csv'])->where('quarter', '20[0-9]{2}-Q[1-4]')->withoutMiddleware($stateless)->name('state-of.csv');
 Route::get('/state-of-ai-regulation/{quarter}', [StateOfController::class, 'show'])->where('quarter', '[A-Za-z0-9-]+')->name('state-of.quarter');
 Route::get('/embed', [EmbedController::class, 'index'])->name('embed.index');
+Route::get('/badges/{policy}.svg', [BadgeController::class, 'policy'])->where('policy', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('badges.policy');
 Route::get('/embed/jurisdiction/{slug}', [EmbedController::class, 'jurisdiction'])->where('slug', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('embed.jurisdiction');
 Route::get('/embed/deadlines', [EmbedController::class, 'deadlines'])->withoutMiddleware($stateless)->name('embed.deadlines');
 Route::get('/embed/map', [EmbedController::class, 'map'])->withoutMiddleware($stateless)->name('embed.map');

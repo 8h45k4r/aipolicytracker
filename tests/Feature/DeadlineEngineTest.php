@@ -71,7 +71,10 @@ class DeadlineEngineTest extends TestCase
         $html = $this->get('/deadlines/which-date-applies?jurisdictions[]=eu&role=deployer&step=5')->assertOk()->getContent();
         $this->assertMatchesRegularExpression('/\d+ recorded dates? appl(y|ies) for European Union in the role of deployer/', $html);
         $this->assertStringContainsString('Shown because it', $html);
-        $this->assertStringContainsString('Add to calendar (.ics)', $html);
+        $this->assertStringContainsString('Download .ics', $html);
+        // Subscribe opens the same feed as a calendar subscription, so a moved date updates without a new download.
+        $this->assertStringContainsString('href="webcal://'.parse_url(url('/'), PHP_URL_HOST), $html);
+        $this->assertStringContainsString('/deadlines/which-date-applies.ics?jurisdictions', $html);
         $this->assertStringContainsString('Download PDF', $html);
         $this->assertGreaterThanOrEqual(5, preg_match_all('#href="'.preg_quote(url('/'), '#').'#', $html));
     }
@@ -99,7 +102,11 @@ class DeadlineEngineTest extends TestCase
 
     public function test_ics_and_pdf_exports_carry_the_same_rows(): void
     {
-        $ics = $this->get('/deadlines/which-date-applies.ics?jurisdictions[]=eu')->assertOk()->assertHeader('Content-Type', 'text/calendar; charset=UTF-8')->getContent();
+        $response = $this->get('/deadlines/which-date-applies.ics?jurisdictions[]=eu')->assertOk()->assertHeader('Content-Type', 'text/calendar; charset=UTF-8');
+        // A calendar app polls a subscription: no session cookie, and a cache may answer it.
+        $response->assertCookieMissing(config('session.cookie'));
+        $this->assertStringContainsString('public', $response->headers->get('Cache-Control'));
+        $ics = $response->getContent();
         $this->assertStringContainsString('BEGIN:VCALENDAR', $ics);
         $this->assertStringContainsString('X-WR-CALNAME:AI regulation dates that apply to you', $ics);
         $expected = app(DeadlineEngine::class)->applicable(app(DeadlineEngine::class)->normalise(['jurisdictions' => ['eu']]))->filter(fn ($r) => $r['deadline']->due_on && $r['deadline']->date_precision === 'exact' && $r['deadline']->deadline_status === 'scheduled')->count();

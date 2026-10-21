@@ -24,6 +24,8 @@ and a model.
 | `/open-data/{dataset}.ndjson` | Newline-delimited JSON | A pipeline. One self-contained record per line, streamed in chunks so the corpus is never held in memory whole. |
 | `/schema/{name}.schema.json` | JSON Schema | Validators, at the URL each schema's own `$id` declares. |
 | `agent/server.mjs` | MCP over stdio | An assistant querying the surfaces directly. See `agent/README.md`. |
+| `/badges/{policy}.svg` | SVG | A status badge for another site or a README: the legal status and the review state as recorded ("In force · verified 12 Oct 2026", "Proposed · pending review"). The snippet on each policy page links it to the record's permanent address, which is the CC BY attribution. Cached for an hour, no cookie, `noindex`. |
+| `/calendar/ai-policy-deadlines.ics`, `/calendar/{jurisdiction}.ics`, `/deadlines/which-date-applies.ics?…` | iCalendar | Calendar apps. The pages link each one twice: a `webcal://` "Subscribe" link, which a calendar app keeps refreshing so a moved date moves, and a one-off `.ics` download. All three are stateless (no session cookie) and cacheable for an hour, because a subscribed calendar polls them. |
 
 Datasets: `jurisdictions`, `policies`, `obligations`, `controls`, `changes`, `deadlines`. Every Markdown, JSON, CSV and NDJSON form carries `X-Robots-Tag: noindex`; the per-record forms add a `Link: rel="canonical"` header back to the HTML page, which in turn names them as `rel="alternate"`.
 

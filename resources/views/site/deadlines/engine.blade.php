@@ -53,7 +53,8 @@
             @if($answers['use_cases'])<div><dt class="inline text-brand-muted">Use case:</dt> <dd class="inline">{{ collect($answers['use_cases'])->map(fn ($s) => $labels['use_cases'][$s] ?? $s)->join(', ') }}</dd></div>@endif
         </dl>
         <div class="mt-4 flex flex-wrap gap-2">
-            <a href="{{ route('deadlines.engine.ics', $query) }}" class="btn-primary" data-track="deadline_ics">Add to calendar (.ics)</a>
+            <a href="{{ \App\Services\PolicyData\DeadlineCalendar::subscribeUrl(route('deadlines.engine.ics', $query)) }}" class="btn-primary" data-track="deadline_webcal" title="Opens your calendar app; the dates refresh when the records change">Subscribe in your calendar</a>
+            <a href="{{ route('deadlines.engine.ics', $query) }}" class="btn-secondary" data-track="deadline_ics">Download .ics</a>
             <a href="{{ route('deadlines.engine.pdf', $query) }}" class="btn-secondary" data-track="deadline_pdf">Download PDF</a>
             <a href="{{ route('deadlines.engine', $query + ['step' => 1]) }}" class="btn-secondary">Change answers</a>
             <a href="{{ route('deadlines.engine') }}" class="text-sm text-brand-blue hover:underline self-center">Start over</a>

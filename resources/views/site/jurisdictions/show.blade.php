@@ -79,7 +79,7 @@
             @else
             <section aria-labelledby="deadlines-heading" class="mt-8">
                 <h2 id="deadlines-heading" class="section-title">Upcoming deadlines</h2>
-                <p class="mt-1 text-sm text-brand-muted">Subscribe to these dates in your calendar: <a href="{{ route('calendar.feed.jurisdiction', $jurisdiction->slug) }}">{{ $jurisdiction->short_name ?: $jurisdiction->name }} feed</a> · <a href="{{ route('calendar') }}">how it works</a></p>
+                <p class="mt-1 text-sm text-brand-muted">Subscribe to these dates in your calendar: <a href="{{ \App\Services\PolicyData\DeadlineCalendar::subscribeUrl(route('calendar.feed.jurisdiction', $jurisdiction->slug)) }}">{{ $jurisdiction->short_name ?: $jurisdiction->name }} feed</a> · <a href="{{ route('calendar') }}">how it works</a></p>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Upcoming deadlines in {{ $jurisdiction->name }}</caption><thead><tr><th scope="col">Date</th><th scope="col">Milestone</th><th scope="col">Instrument</th></tr></thead><tbody>
                 @foreach($deadlines as $d)<tr><td class="whitespace-nowrap font-mono"><time datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time></td><td>{{ $d->title }}@if($d->confidence_level !== 'high')<div class="text-xs text-state-warn">confidence: {{ $d->confidence_level }}</div>@endif</td><td><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</a></td></tr>@endforeach
                 </tbody></table></div>

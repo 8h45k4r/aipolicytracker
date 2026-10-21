@@ -146,6 +146,7 @@
             <x-site.source-list :sources="$policy->sourceDocuments" class="mt-8" />
             <x-site.cite :record="$policy" :title="$name" :url="$policy->url()" :source-url="$policy->official_source_url" :source-title="$policy->source_title" :publisher="$policy->source_publisher" class="mt-8" />
             <x-site.commercial-use class="mt-3" />
+            <x-site.record-badge :policy="$policy" class="mt-3" />
 
             <section aria-labelledby="history-heading" class="mt-8">
                 <h2 id="history-heading" class="section-title">Change history</h2>

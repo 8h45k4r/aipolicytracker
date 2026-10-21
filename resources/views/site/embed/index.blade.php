@@ -3,7 +3,7 @@
 <div class="container-site py-8 max-w-4xl">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Embed AI regulation on your site</h1>
-    <p class="mt-2 text-brand-body">Three live widgets, server-rendered from the records with a followed attribution link. No script is required: the snippet is a plain iframe. Only pages under <code>/embed/</code> may be framed.</p>
+    <p class="mt-2 text-brand-body">Three live widgets, server-rendered from the records with a followed attribution link, and a status badge for every policy record. No script is required: the snippet is a plain iframe or image. Only pages under <code>/embed/</code> may be framed.</p>
     <form method="get" action="{{ route('embed.index') }}" class="mt-6 card-flat p-4 grid gap-3 sm:grid-cols-3 items-end" data-autosubmit aria-label="Choose a widget">
         <div><label for="e-kind" class="label">Widget</label><select id="e-kind" name="kind" class="input">@foreach(\App\Http\Controllers\Site\EmbedController::KINDS as $k => $label)<option value="{{ $k }}" @selected($kind === $k)>{{ $label }}</option>@endforeach</select></div>
         <div><label for="e-j" class="label">Jurisdiction (card and deadlines)</label><select id="e-j" name="jurisdiction" class="input">@foreach($jurisdictions as $j)<option value="{{ $j->slug }}" @selected($jurisdiction === $j->slug)>{{ $j->name }}</option>@endforeach</select></div>
@@ -15,6 +15,10 @@
     <section class="mt-6" aria-labelledby="code-heading"><h2 id="code-heading" class="section-title">Snippet</h2>
         <pre class="mt-3 overflow-x-auto rounded-md bg-brand-paper p-3 text-xs" tabindex="0" role="region" aria-label="Embed code"><code>{{ $snippet }}</code></pre>
         <p class="mt-2 text-sm text-brand-body">Optional: add <code>&lt;script src="{{ url('/embed.js') }}" async&gt;&lt;/script&gt;</code> once and the frame sizes itself to its content (about 1 KB, no cookies, no tracking).</p>
+    </section>
+    <section class="mt-6" aria-labelledby="badge-heading"><h2 id="badge-heading" class="section-title">Status badges</h2>
+        <p class="mt-2 text-sm text-brand-body">Every policy record has a badge at <code>{{ url('/badges') }}/&lt;record&gt;.svg</code> showing its legal status and review state, for a README, a compliance page or a paper's website. Open any policy record and use "Add a status badge" to copy the snippet; it links to the record's permanent address.</p>
+        @if($example)<p class="mt-3"><a href="{{ route('policies.show', $example->slug) }}"><img src="{{ route('badges.policy', $example->slug) }}" alt="{{ config('aipolicytracker.site_name') }}: {{ $example->title }}, {{ app(\App\Services\PolicyData\RecordBadge::class)->value($example) }}" height="20" loading="lazy"></a></p>@endif
     </section>
     <section class="mt-6 text-sm text-brand-body" aria-labelledby="terms-heading"><h2 id="terms-heading" class="section-title">Terms</h2><p class="mt-2">Widgets are free under CC BY 4.0 for the data they show; keep the attribution link. They refresh with the records, carry no cookies or analytics, and show nothing that is not on the public site. Informational only; not legal advice.</p></section>
 </div>

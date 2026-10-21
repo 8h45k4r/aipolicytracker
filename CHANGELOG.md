@@ -4,7 +4,16 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
+  named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's
+  permanent address; `/embed` lists it beside the widgets.
+- "Subscribe in your calendar" (`webcal://`) on the deadline calendar, jurisdiction pages and the "which date
+  applies" result, so a subscribed calendar refreshes when a date moves. The one-off `.ics` download stays.
+
 ### Changed
+- The "which date applies" calendar file no longer starts a session and may be cached for an hour, so a calendar
+  app can poll it.
 - Prices: Pro (Builder) $49 a month or $490 a year, Team $199 a month, Commercial from $5,000 a year. Checkout
   stays off until it is turned on in Settings; the Dodo products must be set to the new prices first (Admin →
   Billing → "Check products against the provider" must read "Price matches").
