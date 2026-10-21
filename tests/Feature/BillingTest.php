@@ -297,8 +297,8 @@ class BillingTest extends TestCase
         $this->assertSame(1, (int) AppSetting::find('dodo_webhook_secret')->secret, 'stored as a secret');
         $monthly = $this->gateway->createdProducts['AIPolicyTracker Pro'];
         $yearly = $this->gateway->createdProducts['AIPolicyTracker Pro (annual)'];
-        $this->assertSame([2900, 'USD', 'Month'], [$monthly['price'], $monthly['currency'], $monthly['interval']]);
-        $this->assertSame([29000, 'USD', 'Year'], [$yearly['price'], $yearly['currency'], $yearly['interval']]);
+        $this->assertSame([4900, 'USD', 'Month'], [$monthly['price'], $monthly['currency'], $monthly['interval']]);
+        $this->assertSame([49000, 'USD', 'Year'], [$yearly['price'], $yearly['currency'], $yearly['interval']]);
         $this->assertSame($monthly['product_id'], AppSetting::get('dodo_product_pro_monthly'));
         $this->assertSame($yearly['product_id'], app(PlanCatalog::class)->plan('pro_yearly')['product_id']);
 
@@ -338,7 +338,7 @@ class BillingTest extends TestCase
 
         // Product check compares the provider price with config and flags a mismatch.
         $this->gateway->products['pdt_live_month'] = ['product_id' => 'pdt_live_month', 'name' => 'Pro', 'price' => 1900, 'currency' => 'USD', 'interval' => 'Month'];
-        $this->gateway->products['pdt_year'] = ['product_id' => 'pdt_year', 'name' => 'Pro annual', 'price' => 29000, 'currency' => 'USD', 'interval' => 'Year'];
+        $this->gateway->products['pdt_year'] = ['product_id' => 'pdt_year', 'name' => 'Pro annual', 'price' => 49000, 'currency' => 'USD', 'interval' => 'Year'];
         $this->actingAs($admin)->post('/backend/admin/billing/check')->assertRedirect();
         $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('Price differs')->assertSee('Price matches');
     }
@@ -451,7 +451,7 @@ class BillingTest extends TestCase
     public function test_pricing_page_is_indexable_and_offers_checkout_when_enabled(): void
     {
         $this->enable();
-        $res = $this->get('/pricing')->assertOk()->assertSee('$29')->assertSee('$290')->assertSee('Sign in to subscribe');
+        $res = $this->get('/pricing')->assertOk()->assertSee('$49')->assertSee('$490')->assertSee('Sign in to subscribe');
         $this->assertStringNotContainsString('noindex', $res->getContent());
         $this->actingAs($this->user())->get('/pricing')->assertOk()->assertSee('Subscribe to Pro')->assertSee('What stays free?');
         $this->get('/sitemap-static.xml')->assertOk()->assertSee('/pricing');

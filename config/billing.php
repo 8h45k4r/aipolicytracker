@@ -62,7 +62,7 @@ return [
         'pro_monthly' => [
             'name' => 'Pro',
             'interval' => 'month',
-            'price' => 2900,          // smallest currency unit; must equal the Dodo product price
+            'price' => 4900,          // smallest currency unit; must equal the Dodo product price
             'currency' => 'USD',
             'product_id' => env('DODO_PRODUCT_PRO_MONTHLY'),
             'trial_days' => 0,
@@ -78,7 +78,7 @@ return [
         'pro_yearly' => [
             'name' => 'Pro (annual)',
             'interval' => 'year',
-            'price' => 29000,
+            'price' => 49000,
             'currency' => 'USD',
             'product_id' => env('DODO_PRODUCT_PRO_YEARLY'),
             'trial_days' => 0,
@@ -118,7 +118,7 @@ return [
     'contact_plans' => [
         'team' => [
             'name' => 'Team',
-            'price' => '$149',
+            'price' => '$199',
             'per' => 'per month',
             'summary' => 'For a compliance or product team that wants the alerts together.',
             'included' => [],
@@ -133,7 +133,7 @@ return [
         ],
         'commercial' => [
             'name' => 'Commercial',
-            'price' => 'From $6,000',
+            'price' => 'From $5,000',
             'per' => 'per year',
             'summary' => 'For a product or service that builds on the records.',
             'included' => [],

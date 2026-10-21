@@ -53,7 +53,7 @@ class PlanCatalog
         return (array) config('billing.free', []);
     }
 
-    /** Price formatted for display, e.g. "$29" or "$290". */
+    /** Price formatted for display, e.g. "$49" or "$490". */
     public static function formatPrice(int $minor, string $currency): string
     {
         $symbol = match (strtoupper($currency)) {

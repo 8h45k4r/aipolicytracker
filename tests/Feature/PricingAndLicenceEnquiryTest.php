@@ -52,9 +52,9 @@ class PricingAndLicenceEnquiryTest extends TestCase
         foreach (['open', 'builder', 'team', 'commercial'] as $tier) {
             $this->assertStringContainsString('data-tier="'.$tier.'"', $html);
         }
-        $this->assertStringContainsString('$149', $html);
-        $this->assertStringContainsString('From $6,000', $html);
-        $this->assertStringContainsString('$29', $html);
+        $this->assertStringContainsString('$199', $html);
+        $this->assertStringContainsString('From $5,000', $html);
+        $this->assertStringContainsString('$49', $html);
         $this->assertStringContainsString('Coming, not built yet', $html, 'unbuilt items are labelled, never listed as included');
         $this->assertStringContainsString(route('pricing', ['tier' => 'team']).'#licence', $html);
         $this->assertStringContainsString('id="licence"', $html);

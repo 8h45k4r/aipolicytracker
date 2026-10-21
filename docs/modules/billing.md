@@ -16,8 +16,8 @@ Design rules:
 | Plan key | Name | Price (config) | Entitlements |
 |----------|------|----------------|--------------|
 | `free` (implicit) | Free | 0 | `alerts.weekly`, `alerts.daily`, `saved.server`, `watches.max` = 3 |
-| `pro_monthly` | Pro | $29 / month | as Free, plus `watches.max` = 500, `alerts.channels`, `profiles.saved` |
-| `pro_yearly` | Pro (annual) | $290 / year | same as Pro |
+| `pro_monthly` | Pro | $49 / month | as Free, plus `watches.max` = 500, `alerts.channels`, `profiles.saved` |
+| `pro_yearly` | Pro (annual) | $490 / year | same as Pro |
 
 Free keeps three watches with the daily inbox alert, so switching selling on never takes alerts away from an account that already had them: an account with more than three watches keeps them all, and the daily alert reads the oldest three (`User::watchLimit()`, `AlertBuilder::build`). Pro sells volume (`watches.max`), the Slack, webhook and RSS channels (`alerts.channels`) and saved applicability profiles for change-impact alerts (`profiles.saved`). Only entitlements with a consumer in the code are listed (`BillingTest::test_every_entitlement_key_is_consumed_by_code`); `alerts.weekly` describes the digest, which is open to everyone. A key with no reader is a promise the product does not keep, so it does not belong in the config or on the pricing page.
 
@@ -225,7 +225,7 @@ Responses: 400 for a missing or invalid signature or a stale timestamp (nothing 
 
 1. Dodo dashboard → Developer → API keys: create a key for the environment (test-mode first).
 2. Admin → Settings → Billing: set the Dodo environment and paste the API key (stored encrypted). Save.
-3. Admin → Billing → "Provision webhook and products". The app registers `https://aipolicytracker.org/webhooks/dodo` for every subscription and payment event (reusing an endpoint with that URL), creates "AIPolicyTracker Pro" ($29/month) and "AIPolicyTracker Pro (annual)" ($290/year) as SaaS subscriptions (reusing products with the same name), and stores the signing secret and product ids as encrypted settings. The success message lists what was created or reused.
+3. Admin → Billing → "Provision webhook and products". The app registers `https://aipolicytracker.org/webhooks/dodo` for every subscription and payment event (reusing an endpoint with that URL), creates "AIPolicyTracker Pro" ($49/month) and "AIPolicyTracker Pro (annual)" ($490/year) as SaaS subscriptions (reusing products with the same name), and stores the signing secret and product ids as encrypted settings. The success message lists what was created or reused.
 4. Admin → Billing → "Check products against the provider": both plans must read "Price matches".
 5. In test mode, buy a plan with card `4242 4242 4242 4242` and confirm the subscription appears with status `active`; decline with `4000 0000 0000 0002` and confirm nothing is granted.
 6. Admin → Settings → Billing → Checkout `on` to open the pricing page for purchase. While it is off, nothing on the public site changes: no Pricing link, no upsell, the pricing page is `noindex` and says "Not yet available", checkout and portal return 404, and every signed-in account keeps the most permissive tier. (Environment variables `BILLING_ENABLED`, `DODO_PAYMENTS_*` and `DODO_PRODUCT_*` remain the fallback for hosts without the settings table.)
