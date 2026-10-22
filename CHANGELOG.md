@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Governance documentation: GOVERNANCE.md rewritten with roles, decision-making, bus factor and
+  succession. New CONFLICT_OF_INTEREST.md, FUNDING.md and MANUAL_SETUP_CHECKLIST.md. CODEOWNERS
+  updated to request the independent data reviewer on data changes. PR template adds a
+  conflict-of-interest declaration. Independence page updated for the new reviewer appointment.
+
 ### Security
 - Runtime security releases of 21 October 2026: the production image now runs PHP 8.3.36 (CVE-2026-109618 and
   CVE-2026-109619, remote code execution) and builds its assets on Node.js 26.12.1. Base images are pinned to a
