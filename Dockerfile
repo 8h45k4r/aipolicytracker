@@ -11,6 +11,7 @@ RUN npm run build
 
 # ---- Stage 2: PHP runtime ----
 FROM php:8.3-cli-alpine
+RUN apk upgrade --no-cache
 # gd: phpoffice/phpspreadsheet and phpword require it, and the social-card
 # renderer draws with it (FreeType for the TrueType text, JPEG for photos).
 # font-dejavu: the face the renderer draws with. Without a TrueType font on
