@@ -458,16 +458,16 @@
         },
         {
             "name": "dodopayments/client",
-            "version": "v6.29.2",
+            "version": "v6.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dodopayments/dodopayments-php.git",
-                "reference": "2fb95f5b74065f47685bf64ca3fc4c69b3c1e33b"
+                "reference": "8a4d3923285f55b667fd952efa51657d29cb0be3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dodopayments/dodopayments-php/zipball/2fb95f5b74065f47685bf64ca3fc4c69b3c1e33b",
-                "reference": "2fb95f5b74065f47685bf64ca3fc4c69b3c1e33b",
+                "url": "https://api.github.com/repos/dodopayments/dodopayments-php/zipball/8a4d3923285f55b667fd952efa51657d29cb0be3",
+                "reference": "8a4d3923285f55b667fd952efa51657d29cb0be3",
                 "shasum": ""
             },
             "require": {
@@ -507,9 +507,9 @@
             "description": "Dodo Payments PHP SDK",
             "support": {
                 "issues": "https://github.com/dodopayments/dodopayments-php/issues",
-                "source": "https://github.com/dodopayments/dodopayments-php/tree/v6.29.2"
+                "source": "https://github.com/dodopayments/dodopayments-php/tree/v6.30.0"
             },
-            "time": "2026-10-09T18:13:12+00:00"
+            "time": "2026-10-14T08:26:58+00:00"
         },
         {
             "name": "dompdf/dompdf",
