@@ -7,7 +7,7 @@ export default [
     // "aipt-rewrite/**" is a local scratch copy of the whole tree (git-ignored). Without
     // it here, ESLint lints a second copy of every file under a config whose globs, being
     // relative to the root, no longer match — so each one fails on undefined browser globals.
-    { ignores: ["node_modules/**", "public/**", "vendor/**", "storage/**", "bootstrap/cache/**", "aipt-rewrite/**"] },
+    { ignores: ["node_modules/**", "public/**", "vendor/**", "storage/**", "bootstrap/cache/**", "aipt-rewrite/**", ".claude/**"] },
     js.configs.recommended,
     {
         files: ["cloudflare/**/*.js"],
