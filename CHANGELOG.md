@@ -4,12 +4,6 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
-### Added
-- Governance documentation: GOVERNANCE.md rewritten with roles, decision-making, bus factor and
-  succession. New CONFLICT_OF_INTEREST.md, FUNDING.md and MANUAL_SETUP_CHECKLIST.md. CODEOWNERS
-  updated to request the independent data reviewer on data changes. PR template adds a
-  conflict-of-interest declaration. Independence page updated for the new reviewer appointment.
-
 ### Security
 - Runtime security releases of 21 October 2026: the production image now runs PHP 8.3.36 (CVE-2026-109618 and
   CVE-2026-109619, remote code execution) and builds its assets on Node.js 26.12.1. Base images are pinned to a
@@ -17,6 +11,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Governance documentation: GOVERNANCE.md rewritten with roles, decision-making, bus factor and
+  succession. New CONFLICT_OF_INTEREST.md, FUNDING.md and MANUAL_SETUP_CHECKLIST.md. CODEOWNERS
+  updated to request the independent data reviewer on data changes. PR template adds a
+  conflict-of-interest declaration. Independence page updated for the new reviewer appointment.
 - Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
   named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's
   permanent address; `/embed` lists it beside the widgets.
