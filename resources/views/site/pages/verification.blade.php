@@ -17,7 +17,8 @@
         <h2 id="rules-h" class="section-title">Maximum age by record type</h2>
         <p class="mt-1 text-sm text-brand-body">A record is governed by the first rule it matches. Rules marked critical fail the data check when breaches exceed the budget.</p>
         <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
-            <thead><tr class="text-left text-brand-muted border-b border-brand-line"><th class="py-2 pr-3">Record type</th><th class="py-2 pr-3">Owner</th><th class="py-2 pr-3">Max age</th><th class="py-2 pr-3">Critical</th><th class="py-2 pr-3 text-right">Records</th><th class="py-2 pr-3 text-right">Overdue</th><th class="py-2 text-right">Never checked</th></tr></thead>
+            <caption class="sr-only">Maximum age rules by record type</caption>
+            <thead><tr class="text-left text-brand-muted border-b border-brand-line"><th scope="col" class="py-2 pr-3">Record type</th><th scope="col" class="py-2 pr-3">Owner</th><th scope="col" class="py-2 pr-3">Max age</th><th scope="col" class="py-2 pr-3">Critical</th><th scope="col" class="py-2 pr-3 text-right">Records</th><th scope="col" class="py-2 pr-3 text-right">Overdue</th><th scope="col" class="py-2 text-right">Never checked</th></tr></thead>
             <tbody class="divide-y divide-brand-line">
             @foreach($report['rules'] as $rule)
                 <tr>

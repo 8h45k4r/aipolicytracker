@@ -45,6 +45,6 @@ Route::prefix('v1')->middleware('throttle:public-api')->name('api.v1.')->group(f
 // The account's watches, over a personal access token (created on the account page).
 Route::prefix('v1')->middleware(['auth:sanctum', 'throttle:120,1'])->name('api.v1.')->group(function () {
     Route::get('/watches', [WatchApiController::class, 'index'])->name('watches.index');
-    Route::post('/watches', [WatchApiController::class, 'store'])->name('watches.store');
+    Route::post('/watches', [WatchApiController::class, 'store'])->middleware('subscribed:saved.server')->name('watches.store');
     Route::delete('/watches/{id}', [WatchApiController::class, 'destroy'])->whereNumber('id')->name('watches.destroy');
 });

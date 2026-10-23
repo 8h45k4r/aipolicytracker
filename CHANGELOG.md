@@ -28,6 +28,70 @@ All notable changes to this project are documented here. The format follows [Kee
 - Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
   named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's
   permanent address; `/embed` lists it beside the widgets.
+- JSON download for obligation and jurisdiction detail pages (matching the existing
+  policy JSON download). `<link rel="alternate" type="application/json">` added for
+  SEO and agent discovery.
+- Print-friendly styles: detail pages print as a clean single-column layout with URLs
+  shown and navigation chrome removed.
+- Back-to-top button: appears after scrolling past the first viewport on long pages.
+- Admin command palette: search button now visible on mobile and tablet screens,
+  so the Ctrl/Cmd+K palette is reachable without a keyboard.
+- Audit log: long route parameters are expandable instead of silently truncated
+  at 140 characters.
+- Jurisdictions page: filter pills to narrow by type (country, state,
+  supranational, territory, region) and region jump links for quick navigation.
+  A summary line shows the count of jurisdictions and instruments.
+- Jurisdictions page: region filter pills to narrow the listing by geographic
+  region (Africa, Americas, Asia, Europe, International, Oceania). Sort
+  dropdown preserves both type and region filters.
+- Controls page: jurisdiction dropdown to filter the control catalogue by
+  which jurisdiction's duties a control serves.
+- Obligation detail: sidebar lists other duties under the same policy
+  instrument for easier navigation between related requirements.
+- Keyboard shortcut: press `/` anywhere on the public site to jump to the
+  header search field (same pattern as the admin nav shortcut).
+- State-of-AI report: region headings link to the jurisdictions page filtered
+  by that region.
+- Jurisdictions page: sort by instrument count alongside the existing
+  alphabetical order; the dropdown preserves type and region filters.
+- Policy detail: sidebar "Compare" section links to the comparison tool
+  for related jurisdictions, mirroring the cross-link already on
+  jurisdiction pages.
+- Controls: JSON download (`/controls/{slug}.json`) matching the existing
+  policy/obligation/jurisdiction JSON endpoints. Download and copy-link
+  buttons on each control detail page.
+- Change year pages: summary stat cards (changes, jurisdictions,
+  urgent/high-impact, instruments affected), CSV export link with year
+  filtering, and RSS feed link.
+- "On this page" table of contents on obligation and jurisdiction detail
+  pages (mobile disclosure + sidebar sticky nav), matching the TOC already
+  present on policy detail pages.
+- Copy-link button on comparison, change detail and framework detail
+  pages for easy sharing.
+- Copy-link button on policy, obligation, jurisdiction, guide, risk
+  browse and incident browse pages for consistent sharing across all
+  detail and listing views.
+- Footer: Templates and Search links added to the Explore column so
+  every section of the site is reachable from the global footer.
+- Obligation detail: sidebar shows recent changes for the same policy
+  instrument, linking to the change log filtered by jurisdiction.
+- Change detail: sidebar lists the binding and voluntary obligations
+  under the affected instrument so users can see the scope of a change.
+- Keyboard shortcut hint: press `?` on any public page to see a dialog
+  listing available shortcuts (`/` for search).
+- Template detail: copy-link share button added for consistent sharing.
+
+### Fixed
+- Duplicate copy-link buttons on control and change detail pages
+  removed (two buttons rendered; now one).
+- Table accessibility: added `<caption>` and `scope="col"` to tables
+  on the verification, coverage and deadline-PDF pages so screen
+  readers announce the table purpose and column headers.
+- Removed phantom `alerts.weekly` entitlement from billing config: it was
+  defined in every tier but never checked by any code path.
+- Watch API: `POST /api/v1/watches` now uses the `subscribed` middleware
+  instead of an inline `abort_if`, giving API callers the same structured
+  402 response as the web route.
 - A higher API limit on the Builder plan: an account token sent as `Authorization: Bearer` is counted per account
   at 600 requests a minute. Without a token the API stays free at 120 a minute per address, unchanged. The paid
   rate applies, and is mentioned on the developer page, only once selling is on.

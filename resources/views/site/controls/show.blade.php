@@ -13,7 +13,8 @@
         <p class="mt-3 max-w-[64ch] text-lg leading-8 text-brand-body">{{ $control->purpose }}</p>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <x-site.verified :record="$control" class="!text-sm" legend />
-            <span class="text-brand-muted">Download: <a href="{{ route('controls.context', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This control as one Markdown file, with its provenance">Markdown</a></span>
+            <span class="text-brand-muted">Download: <a href="{{ route('controls.json', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('controls.context', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This control as one Markdown file, with its provenance">Markdown</a></span>
+            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
         </div>
     </header>
 

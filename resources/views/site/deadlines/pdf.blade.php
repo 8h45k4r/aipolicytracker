@@ -13,7 +13,7 @@ h1{font-size:18pt;color:#002147;margin:0 0 4px}h2{font-size:12pt;color:#002147;m
 </p>
 <p>{{ $summary }}</p>
 <h2>Timeline</h2>
-<table><thead><tr><th style="width:15%">Date</th><th style="width:38%">Deadline</th><th style="width:27%">Instrument</th><th>Why shown</th></tr></thead><tbody>
+<table><caption class="sr-only">Upcoming AI compliance deadlines</caption><thead><tr><th scope="col" style="width:15%">Date</th><th scope="col" style="width:38%">Deadline</th><th scope="col" style="width:27%">Instrument</th><th scope="col">Why shown</th></tr></thead><tbody>
 @forelse($rows as $r)@php($d = $r['deadline'])
 <tr>
 <td>{{ $d->displayDate() }}

@@ -16,6 +16,7 @@
             <x-site.verified :record="$change" class="!text-sm" legend />
             @if($change->official_source_url)<a href="{{ $change->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
             <span class="text-brand-muted">Download: <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Markdown</a></span>
+            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
         </div>
     </header>
 
@@ -52,6 +53,9 @@
                     </dl>
                     <p class="mt-3 text-xs"><a href="{{ route('changes.year', $change->occurred_on->year) }}">All changes in {{ $change->occurred_on->year }}</a> · <a href="{{ route('changes.feed') }}">RSS</a></p>
                 </div>
+                @if($affectedObligations->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Obligations under this instrument</p><ul class="mt-2 space-y-1.5">@foreach($affectedObligations as $o)<li><span class="badge {{ $o->is_binding ? 'bg-brand-navy text-white ring-brand-navy' : 'bg-brand-paper text-brand-body ring-brand-line' }} !text-[10px] !py-0">{{ $o->is_binding ? 'Legal' : 'Vol.' }}</span> <a href="{{ $o->url() }}" class="text-brand-body hover:underline">{{ $o->title }}</a></li>@endforeach</ul>@if($instrument)<p class="mt-1 text-xs"><a href="{{ route('obligations.index', ['policy' => $instrument->slug]) }}" class="text-brand-blue hover:underline">All obligations →</a></p>@endif</div>
+                @endif
                 <x-site.correction-cta subject-type="change" :subject-slug="$change->slug" :save-title="$change->title" :save-url="$change->url()" :save-meta="$change->jurisdiction?->name" />
             </div>
         </aside>

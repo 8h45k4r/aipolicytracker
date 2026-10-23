@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Control;
+use App\Models\Jurisdiction;
 use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\ControlIntelligence;
+use App\Services\PolicyData\PolicySerializer;
 use App\Services\Records\AnswerBox;
 use App\Support\PageTitle;
 use App\Support\Seo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -27,12 +30,19 @@ class ControlController extends Controller
     {
         $kind = array_key_exists((string) $request->query('kind'), Control::KINDS) ? $request->query('kind') : null;
         $q = trim((string) $request->query('q', ''));
+        $jurisdictionSlug = trim((string) $request->query('jurisdiction', ''));
 
         $controls = Control::published()->with(['evidence', 'frameworkReferences', 'obligations.policyInstrument.jurisdiction'])
             ->when($kind, fn ($query) => $query->where('kind', $kind))
             ->search($q)
             ->orderBy('title')->get()
             ->filter(fn ($c) => $c->obligations->contains(fn ($o) => $o->published_at !== null));
+
+        if ($jurisdictionSlug !== '') {
+            $controls = $controls->filter(fn ($c) => $c->obligations->contains(
+                fn ($o) => $o->policyInstrument?->jurisdiction?->slug === $jurisdictionSlug
+            ));
+        }
 
         $totals = [
             'controls' => $controls->count(),
@@ -61,7 +71,20 @@ class ControlController extends Controller
                 $controls->max('updated_at'),
             ));
 
-        return view('site.controls.index', compact('seo', 'controls', 'totals', 'byKind', 'kind', 'q'));
+        $jurisdictions = Jurisdiction::published()->orderBy('name')->pluck('name', 'slug');
+
+        return view('site.controls.index', compact('seo', 'controls', 'totals', 'byKind', 'kind', 'q', 'jurisdictionSlug', 'jurisdictions'));
+    }
+
+    public function json(Control $control, PolicySerializer $serializer): JsonResponse
+    {
+        abort_unless($control->published_at, 404);
+
+        return response()->json($serializer->control($control), 200, [
+            'Cache-Control' => 'public, max-age=600',
+            'X-Robots-Tag' => 'noindex',
+            'Link' => '<'.$control->url().'>; rel="canonical"',
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     public function show(Control $control): View

@@ -34,6 +34,7 @@
             <x-site.verified :record="$policy" class="!text-sm" legend />
             {{-- Underlined and named by format: grey plain text did not read as a link, and "Context file" named nothing a reader knows. --}}
             <span class="text-brand-muted">Download: <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Markdown</a></span>
+            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
         </div>
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" :source-url="$policy->official_source_url" class="mt-4" />
@@ -192,6 +193,9 @@
                 @endif
                 @if($sameJurisdiction->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">More from {{ $policy->jurisdiction->name }}</p><ul class="mt-2 space-y-1.5">@foreach($sameJurisdiction as $r)<li><a href="{{ $r->url() }}" class="text-brand-body hover:underline">{{ $r->short_title ?: $r->title }}</a></li>@endforeach</ul></div>
+                @endif
+                @if($compareJurisdictions->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Compare {{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }}</p><ul class="mt-2 space-y-1.5">@foreach($compareJurisdictions as $r)<li><a href="{{ route('compare.index', ['j' => $policy->jurisdiction->slug.','.$r->slug]) }}" class="text-brand-body hover:underline" rel="nofollow">{{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }} vs {{ $r->short_name ?: $r->name }}</a></li>@endforeach</ul></div>
                 @endif
                 @if(!empty($policy->related_frameworks))
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Framework crosswalks</p><ul class="mt-2 space-y-1.5">@if(in_array('iso_42001', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'iso-42001-vs-eu-ai-act') }}" class="text-brand-body hover:underline">ISO/IEC 42001 vs EU AI Act</a></li>@endif @if(in_array('nist_ai_rmf', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'nist-ai-rmf-vs-eu-ai-act') }}" class="text-brand-body hover:underline">NIST AI RMF vs EU AI Act</a></li>@endif</ul></div>

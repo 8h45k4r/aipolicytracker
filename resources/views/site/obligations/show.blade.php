@@ -1,5 +1,17 @@
 @extends('site.layouts.app')
 @section('content')
+@php($controls = $obligation->controls->filter(fn ($c) => $c->published_at))
+@php($toc = array_filter([
+    'req-heading' => 'What does it require?',
+    'action-heading' => $obligation->practical_action ? 'Practical action' : null,
+    'who-heading' => 'Who does it apply to?',
+    'controls-heading' => $controls->isNotEmpty() ? 'Controls ('.$controls->count().')' : null,
+    'templates-heading' => (isset($templates) && $templates->isNotEmpty()) ? 'Templates' : null,
+    'evidence-heading' => $obligation->evidenceArtifacts->isNotEmpty() ? 'Evidence' : null,
+    'mapping-heading' => $obligation->frameworkMappings->isNotEmpty() ? 'Framework mappings' : null,
+    'duty-history-heading' => 'Change history',
+    'similar-heading' => $similar->isNotEmpty() ? 'Similar obligations' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -11,11 +23,12 @@
             <x-site.status-badge :status="$policy->statusEnum()" />
         </div>
         <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $obligation->title }}</h1>
-        <p class="mt-1 text-sm text-brand-muted"><span class="float-right">Download: <a href="{{ route('obligations.context', $obligation->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This duty as one Markdown file, with its provenance">Markdown</a></span>Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
-        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" legend /></div>
+        <p class="mt-1 text-sm text-brand-muted"><span class="float-right">Download: <a href="{{ route('obligations.json', $obligation->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('obligations.context', $obligation->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This duty as one Markdown file, with its provenance">Markdown</a></span>Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" legend /><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button></div>
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" :save-title="$obligation->title" :save-url="$obligation->url()" :save-meta="($policy->short_title ?: $policy->title)" :source-url="$obligation->official_source_url ?: $policy->official_source_url" class="mt-4" />
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
@@ -32,7 +45,6 @@
                 </dl>
                 @if($obligation->applies_from)<p class="mt-3 text-sm text-brand-body"><span class="font-medium">Applies from:</span> <time datetime="{{ $obligation->applies_from->toDateString() }}">{{ $obligation->applies_from->format('j F Y') }}</time></p>@endif
             </section>
-            @php($controls = $obligation->controls->filter(fn ($c) => $c->published_at))
             @if($controls->isNotEmpty())
             <section aria-labelledby="controls-heading" class="mt-8">
                 <h2 id="controls-heading" class="section-title">Which controls meet this duty?</h2>
@@ -89,10 +101,17 @@
         </div>
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" class="lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto bg-white py-1" />
                 <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Source</p><p class="mt-1 text-brand-body">{{ $policy->source_title }}</p><p class="text-xs text-brand-muted">{{ $policy->source_publisher }}@if($obligation->source_reference) · {{ $obligation->source_reference }}@endif</p>@if($obligation->official_source_url)<a href="{{ $obligation->official_source_url }}" rel="noopener" class="mt-2 inline-block text-brand-blue hover:underline break-all" data-track="source_click">{{ \Illuminate\Support\Str::limit($obligation->official_source_url, 60) }}</a>@endif</div>
                 @php($glossary = \App\Services\Glossary\GlossaryTerms::foundIn(implode(' ', [$obligation->title, $obligation->summary, $obligation->practical_action]), 4))
                 @if($glossary)
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Terms explained</p><ul class="mt-2 space-y-1.5">@foreach($glossary as $g)<li><a href="{{ \App\Services\Glossary\GlossaryTerms::url($g['id']) }}" class="text-brand-body hover:underline">{{ $g['term'] }}</a></li>@endforeach</ul></div>
+                @endif
+                @if($siblings->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Other duties under this instrument</p><ul class="mt-2 space-y-1.5">@foreach($siblings->take(10) as $s)<li><a href="{{ $s->url() }}" class="text-brand-body hover:underline">{{ $s->title }}</a></li>@endforeach</ul>@if($siblings->count() > 10)<p class="mt-1 text-xs text-brand-muted">and {{ $siblings->count() - 10 }} more</p>@endif</div>
+                @endif
+                @if($recentChanges->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Recent changes</p><ul class="mt-2 space-y-1.5">@foreach($recentChanges as $c)<li><time datetime="{{ $c->occurred_on->toDateString() }}" class="font-mono text-xs text-brand-muted">{{ $c->occurred_on->format('j M Y') }}</time><div><a href="{{ $c->url() }}" class="text-brand-body hover:underline">{{ $c->title }}</a></div></li>@endforeach</ul><p class="mt-1 text-xs"><a href="{{ route('changes.index', ['jurisdiction' => $policy->jurisdiction->slug]) }}" class="text-brand-blue hover:underline">All changes for {{ $policy->jurisdiction->name }} →</a></p></div>
                 @endif
             </div>
         </aside>

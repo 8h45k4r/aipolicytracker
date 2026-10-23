@@ -910,3 +910,55 @@
     var timer = null;
     window.addEventListener('resize', function () { clearTimeout(timer); timer = setTimeout(mark, 200); }, { passive: true });
 })();
+
+// Back-to-top button: visible after scrolling past the first viewport height.
+(function () {
+    var btn = document.getElementById('back-to-top');
+    if (!btn) { return; }
+    var shown = false;
+    var check = function () {
+        var shouldShow = window.scrollY > window.innerHeight;
+        if (shouldShow === shown) { return; }
+        shown = shouldShow;
+        if (shown) { btn.setAttribute('data-visible', ''); } else { btn.removeAttribute('data-visible'); }
+    };
+    window.addEventListener('scroll', check, { passive: true });
+    btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    check();
+})();
+
+// Keyboard shortcuts: / to search, ? for hint overlay.
+(function () {
+    var search = document.getElementById('header-q');
+    function inInput(e) {
+        var t = e.target;
+        return t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+    }
+    document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) { return; }
+        if (inInput(e)) { return; }
+        if (e.key === '/' && search) { e.preventDefault(); search.focus(); return; }
+        if (e.key === '?') { toggleHint(); }
+    });
+    var hint = null;
+    function toggleHint() {
+        if (hint) { hint.remove(); hint = null; return; }
+        hint = document.createElement('div');
+        hint.setAttribute('role', 'dialog');
+        hint.setAttribute('aria-label', 'Keyboard shortcuts');
+        hint.className = 'fixed inset-0 z-[100] flex items-center justify-center';
+        hint.innerHTML = '<div class="absolute inset-0 bg-black/40" data-close></div>'
+            + '<div class="relative rounded-lg bg-white p-5 shadow-xl max-w-xs w-full text-sm">'
+            + '<p class="font-semibold text-brand-navy mb-3">Keyboard shortcuts</p>'
+            + '<dl class="space-y-2 text-brand-body">'
+            + '<div class="flex justify-between"><dt><kbd class="kbd">/</kbd></dt><dd>Focus search</dd></div>'
+            + '<div class="flex justify-between"><dt><kbd class="kbd">?</kbd></dt><dd>Show this help</dd></div>'
+            + '</dl>'
+            + '<button type="button" class="mt-4 btn-secondary w-full" data-close>Close</button>'
+            + '</div>';
+        hint.querySelectorAll('[data-close]').forEach(function (el) {
+            el.addEventListener('click', function () { if (hint) { hint.remove(); hint = null; } });
+        });
+        document.body.appendChild(hint);
+    }
+})();

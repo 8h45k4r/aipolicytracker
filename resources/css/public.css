@@ -300,3 +300,35 @@ body:has(#home-q) header form[role="search"] { display: none; }
     .card-link:hover { outline: 1px solid Highlight; }
     .input:focus-visible { outline: 2px solid Highlight; }
 }
+
+/* Back-to-top button: appears after scrolling past the first screen. */
+.back-to-top {
+    @apply fixed bottom-6 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-brand-line bg-white text-brand-navy opacity-0 shadow-sm transition-opacity;
+    pointer-events: none;
+}
+.back-to-top[data-visible] { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { @apply bg-brand-paper shadow-md; }
+
+.kbd { @apply inline-block min-w-[1.5em] rounded border border-brand-line bg-brand-paper px-1.5 py-0.5 text-center font-mono text-xs text-brand-navy; }
+
+/* Print: a clean single-column layout with URLs shown and chrome removed. */
+@media print {
+    body { font-size: 11pt; color: #000; background: #fff; }
+    header, footer, nav, .skip-link, .back-to-top, #consent-banner,
+    [data-record-actions], [data-mobile-menu], form[role="search"],
+    .btn-primary, .btn-secondary, .btn-accent,
+    x-site\.subscribe-form, [data-turnstile-slot],
+    details[data-mobile-menu] { display: none !important; }
+    main { padding: 0; }
+    .container-site { max-width: 100%; padding: 0; }
+    .lg\:grid-cols-3 { display: block; }
+    aside { page-break-before: always; }
+    a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; word-break: break-all; }
+    a[href^="#"]::after, a[href^="javascript"]::after, nav a::after { content: none; }
+    .table-wrap { overflow: visible; border-radius: 0; }
+    .card-flat, .panel-tinted { border: 1px solid #ccc; break-inside: avoid; }
+    details { break-inside: avoid; }
+    details[open] > summary { font-weight: bold; }
+    h1, h2, h3 { break-after: avoid; color: #000; }
+    .badge { border: 1px solid #999; }
+}
