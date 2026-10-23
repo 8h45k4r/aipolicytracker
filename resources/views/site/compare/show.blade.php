@@ -4,6 +4,9 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $config['title'] }}</h1>
     <p class="mt-3 max-w-3xl prose-policy">{{ $config['intro'] }}</p>
+    <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
+        <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+    </div>
     @include('site.compare._table')
 
     @if(!empty($overlap))

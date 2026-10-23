@@ -97,6 +97,7 @@ Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->
 // serves many duties in many jurisdictions, which is the reuse a compliance lead
 // is looking for.
 Route::get('/controls', [ControlController::class, 'index'])->name('controls.index');
+Route::get('/controls/{control}.json', [ControlController::class, 'json'])->where('control', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('controls.json');
 Route::get('/controls/{control}.md', [AgentSurfaceController::class, 'control'])->where('control', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('controls.context');
 Route::get('/controls/{control}', [ControlController::class, 'show'])->where('control', '[a-z0-9-]+')->name('controls.show');
 

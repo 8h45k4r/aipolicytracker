@@ -11,6 +11,7 @@
             <a href="#download" class="btn-primary" data-track="template_request_open" data-track-label="{{ $meta['slug'] }}">Get the {{ $formats }} files</a>
             <a href="#preview" class="btn-secondary">Preview</a>
         </div>
+        <div class="mt-2 flex flex-wrap items-center gap-3"><button type="button" class="btn-secondary !py-1 !px-2 !text-xs" data-copy-link>Copy link</button></div>
         <p class="mt-2 meta">Formats: {{ $formats }} · Version {{ $version->label() }} · Built <time datetime="{{ $version->generated_at->toAtomString() }}">{{ $version->generated_at->format('j M Y') }}</time> from dataset <code>{{ $version->dataset_version }}</code> · {{ config('templates.licence') }}</p>
         <x-site.commercial-use class="mt-2" />
     </header>

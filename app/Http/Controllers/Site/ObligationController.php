@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChangeEvent;
 use App\Models\Obligation;
 use App\Models\RecordRevision;
 use App\Models\TaxonomyTerm;
@@ -128,7 +129,8 @@ class ObligationController extends Controller
 
         $standing = RecordStanding::forObligation($obligation);
         $revisions = RecordRevision::for('obligation', $obligation->slug)->limit(10)->get();
+        $recentChanges = ChangeEvent::published()->where('policy_instrument_id', $policy->id)->orderByDesc('occurred_on')->limit(5)->get();
 
-        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'siblings', 'categoryName', 'answer', 'facts', 'templates', 'standing', 'revisions'));
+        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'siblings', 'categoryName', 'answer', 'facts', 'templates', 'standing', 'revisions', 'recentChanges'));
     }
 }

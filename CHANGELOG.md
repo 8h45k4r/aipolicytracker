@@ -57,6 +57,14 @@ All notable changes to this project are documented here. The format follows [Kee
 - Policy detail: sidebar "Compare" section links to the comparison tool
   for related jurisdictions, mirroring the cross-link already on
   jurisdiction pages.
+- Controls: JSON download (`/controls/{slug}.json`) matching the existing
+  policy/obligation/jurisdiction JSON endpoints. Download and copy-link
+  buttons on each control detail page.
+- Change year pages: summary stat cards (changes, jurisdictions,
+  urgent/high-impact, instruments affected), CSV export link with year
+  filtering, and RSS feed link.
+- Copy-link button on comparison, change detail and framework detail
+  pages for easy sharing.
 
 ### Fixed
 - Removed phantom `alerts.weekly` entitlement from billing config: it was

@@ -69,6 +69,11 @@ class ControlsTest extends TestCase
             ->assertSee('## Legal duties this control serves')
             ->assertSee('## Evidence it produces');
 
+        $this->get(route('controls.json', $control->slug))->assertOk()
+            ->assertHeader('Link', '<'.$control->url().'>; rel="canonical"')
+            ->assertJsonPath('slug', $control->slug)
+            ->assertJsonPath('title', $control->title);
+
         $this->get('/controls/no-such-control')->assertNotFound();
     }
 

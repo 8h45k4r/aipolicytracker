@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\ChangeEvent;
 use App\Models\Jurisdiction;
+use App\Models\Obligation;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Records\AnswerBox;
 use App\Support\Admin\CsvStream;
@@ -66,8 +67,9 @@ class ChangeController extends Controller
     {
         $filters = $catalog->filtersFromRequest($request);
         $impact = in_array($request->query('impact'), ['urgent', 'high', 'routine'], true) ? $request->query('impact') : null;
+        $year = is_numeric($request->query('year')) ? (int) $request->query('year') : null;
 
-        return CsvStream::from($this->query($filters, $impact, $this->sort($request)), 'ai-policy-changes',
+        return CsvStream::from($this->query($filters, $impact, $this->sort($request), $year), 'ai-policy-changes',
             ['occurred_on', 'title', 'jurisdiction', 'impact_level', 'status_after', 'what_changed', 'official_source_url', 'url'],
             fn (ChangeEvent $c) => [$c->occurred_on?->toDateString(), $c->title, $c->jurisdiction?->name, $c->impact_level, $c->status_after, $c->what_changed, $c->official_source_url, $c->url()]);
     }
@@ -80,7 +82,7 @@ class ChangeController extends Controller
     }
 
     /** The published change log for the given filters, in the given order; every order ends on the id. */
-    private function query(array $filters, ?string $impact, string $sort): Builder
+    private function query(array $filters, ?string $impact, string $sort, ?int $year = null): Builder
     {
         $query = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument']);
         if (! empty($filters['q'])) {
@@ -91,6 +93,9 @@ class ChangeController extends Controller
         }
         if ($impact) {
             $query->where('impact_level', $impact);
+        }
+        if ($year) {
+            $query->whereBetween('occurred_on', ["{$year}-01-01", "{$year}-12-31"]);
         }
 
         return match ($sort) {
@@ -147,6 +152,8 @@ class ChangeController extends Controller
                 ])),
             ]) + Seo::provenance($change));
 
+        $affectedObligations = $instrument ? Obligation::published()->where('policy_instrument_id', $instrument->id)->orderByDesc('is_binding')->orderBy('title')->limit(8)->get() : collect();
+
         $answer = AnswerBox::change($change);
         $facts = array_values(array_filter([
             ['label' => 'Date', 'value' => $change->occurred_on->format('j F Y')],
@@ -157,7 +164,7 @@ class ChangeController extends Controller
             $change->official_source_url ? ['label' => 'Official source', 'value' => $change->source_publisher ?: parse_url($change->official_source_url, PHP_URL_HOST), 'href' => $change->official_source_url] : null,
         ]));
 
-        return view('site.changes.show', compact('seo', 'change', 'related', 'instrument', 'answer', 'facts'));
+        return view('site.changes.show', compact('seo', 'change', 'related', 'instrument', 'answer', 'facts', 'affectedObligations'));
     }
 
     public function year(int $year): View

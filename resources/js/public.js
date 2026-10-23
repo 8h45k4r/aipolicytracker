@@ -927,15 +927,38 @@
     check();
 })();
 
-// Press / to focus the header search field (same pattern as admin nav).
+// Keyboard shortcuts: / to search, ? for hint overlay.
 (function () {
     var search = document.getElementById('header-q');
-    if (!search) { return; }
-    document.addEventListener('keydown', function (e) {
-        if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) { return; }
+    function inInput(e) {
         var t = e.target;
-        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) { return; }
-        e.preventDefault();
-        search.focus();
+        return t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+    }
+    document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) { return; }
+        if (inInput(e)) { return; }
+        if (e.key === '/' && search) { e.preventDefault(); search.focus(); return; }
+        if (e.key === '?') { toggleHint(); }
     });
+    var hint = null;
+    function toggleHint() {
+        if (hint) { hint.remove(); hint = null; return; }
+        hint = document.createElement('div');
+        hint.setAttribute('role', 'dialog');
+        hint.setAttribute('aria-label', 'Keyboard shortcuts');
+        hint.className = 'fixed inset-0 z-[100] flex items-center justify-center';
+        hint.innerHTML = '<div class="absolute inset-0 bg-black/40" data-close></div>'
+            + '<div class="relative rounded-lg bg-white p-5 shadow-xl max-w-xs w-full text-sm">'
+            + '<p class="font-semibold text-brand-navy mb-3">Keyboard shortcuts</p>'
+            + '<dl class="space-y-2 text-brand-body">'
+            + '<div class="flex justify-between"><dt><kbd class="kbd">/</kbd></dt><dd>Focus search</dd></div>'
+            + '<div class="flex justify-between"><dt><kbd class="kbd">?</kbd></dt><dd>Show this help</dd></div>'
+            + '</dl>'
+            + '<button type="button" class="mt-4 btn-secondary w-full" data-close>Close</button>'
+            + '</div>';
+        hint.querySelectorAll('[data-close]').forEach(function (el) {
+            el.addEventListener('click', function () { if (hint) { hint.remove(); hint = null; } });
+        });
+        document.body.appendChild(hint);
+    }
 })();

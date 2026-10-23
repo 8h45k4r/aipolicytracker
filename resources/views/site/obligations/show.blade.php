@@ -97,6 +97,9 @@
                 @if($siblings->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Other duties under this instrument</p><ul class="mt-2 space-y-1.5">@foreach($siblings->take(10) as $s)<li><a href="{{ $s->url() }}" class="text-brand-body hover:underline">{{ $s->title }}</a></li>@endforeach</ul>@if($siblings->count() > 10)<p class="mt-1 text-xs text-brand-muted">and {{ $siblings->count() - 10 }} more</p>@endif</div>
                 @endif
+                @if($recentChanges->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Recent changes</p><ul class="mt-2 space-y-1.5">@foreach($recentChanges as $c)<li><time datetime="{{ $c->occurred_on->toDateString() }}" class="font-mono text-xs text-brand-muted">{{ $c->occurred_on->format('j M Y') }}</time><div><a href="{{ $c->url() }}" class="text-brand-body hover:underline">{{ $c->title }}</a></div></li>@endforeach</ul><p class="mt-1 text-xs"><a href="{{ route('changes.index', ['jurisdiction' => $policy->jurisdiction->slug]) }}" class="text-brand-blue hover:underline">All changes for {{ $policy->jurisdiction->name }} →</a></p></div>
+                @endif
             </div>
         </aside>
     </div>

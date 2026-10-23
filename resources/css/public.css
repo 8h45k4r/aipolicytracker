@@ -309,6 +309,8 @@ body:has(#home-q) header form[role="search"] { display: none; }
 .back-to-top[data-visible] { opacity: 1; pointer-events: auto; }
 .back-to-top:hover { @apply bg-brand-paper shadow-md; }
 
+.kbd { @apply inline-block min-w-[1.5em] rounded border border-brand-line bg-brand-paper px-1.5 py-0.5 text-center font-mono text-xs text-brand-navy; }
+
 /* Print: a clean single-column layout with URLs shown and chrome removed. */
 @media print {
     body { font-size: 11pt; color: #000; background: #fff; }
