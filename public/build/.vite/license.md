@@ -40,7 +40,7 @@ Please refer to [this web page](https://www.amcharts.com/online-store/) or [cont
 
 [Contact amCharts](mailto:contact@amcharts.com). We'll be happy to sort you out.
 
-## @amcharts/amcharts5 - 5.20.8 (SEE LICENSE IN LICENSE)
+## @amcharts/amcharts5 - 5.21.0 (SEE LICENSE IN LICENSE)
 
 ## Free amCharts license
 
@@ -102,7 +102,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## @inertiajs/core - 3.8.0 (MIT)
+## @inertiajs/core - 3.9.1 (MIT)
 
 MIT License
 
@@ -126,7 +126,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## @inertiajs/react - 3.8.0 (MIT)
+## @inertiajs/react - 3.9.1 (MIT)
 
 MIT License
 
