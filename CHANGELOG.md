@@ -81,6 +81,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Fixed
 - Duplicate copy-link buttons on control and change detail pages
   removed (two buttons rendered; now one).
+- Table accessibility: added `<caption>` and `scope="col"` to tables
+  on the verification, coverage and deadline-PDF pages so screen
+  readers announce the table purpose and column headers.
 - Removed phantom `alerts.weekly` entitlement from billing config: it was
   defined in every tier but never checked by any code path.
 - Watch API: `POST /api/v1/watches` now uses the `subscribed` middleware
