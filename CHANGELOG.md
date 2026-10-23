@@ -28,6 +28,16 @@ All notable changes to this project are documented here. The format follows [Kee
 - Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
   named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's
   permanent address; `/embed` lists it beside the widgets.
+- JSON download for obligation and jurisdiction detail pages (matching the existing
+  policy JSON download). `<link rel="alternate" type="application/json">` added for
+  SEO and agent discovery.
+- Print-friendly styles: detail pages print as a clean single-column layout with URLs
+  shown and navigation chrome removed.
+- Back-to-top button: appears after scrolling past the first viewport on long pages.
+- Admin command palette: search button now visible on mobile and tablet screens,
+  so the Ctrl/Cmd+K palette is reachable without a keyboard.
+- Audit log: long route parameters are expandable instead of silently truncated
+  at 140 characters.
 - A higher API limit on the Builder plan: an account token sent as `Authorization: Bearer` is counted per account
   at 600 requests a minute. Without a token the API stays free at 120 a minute per address, unchanged. The paid
   rate applies, and is mentioned on the developer page, only once selling is on.

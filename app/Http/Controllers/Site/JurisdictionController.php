@@ -11,12 +11,14 @@ use App\Models\TaxonomyTerm;
 use App\Services\Hubs\HubCatalog;
 use App\Services\Localization\Translations;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\PolicyData\PolicySerializer;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Support\Faq;
 use App\Support\PageTitle;
 use App\Support\Seo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -56,6 +58,18 @@ class JurisdictionController extends Controller
         $seo->withFaq(array_merge($computed, Faq::for('jurisdictions.index')));
 
         return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions'));
+    }
+
+    public function json(Jurisdiction $jurisdiction, PolicySerializer $serializer): JsonResponse
+    {
+        abort_unless($jurisdiction->published_at, 404);
+        $jurisdiction->load(['policyInstruments' => fn ($q) => $q->published()]);
+
+        return response()->json($serializer->jurisdiction($jurisdiction, true), 200, [
+            'Cache-Control' => 'public, max-age=600',
+            'X-Robots-Tag' => 'noindex',
+            'Link' => '<'.$jurisdiction->url().'>; rel="canonical"',
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     public function show(Jurisdiction $jurisdiction, PolicyCatalog $catalog): View|RedirectResponse
@@ -123,6 +137,7 @@ class JurisdictionController extends Controller
             ->withModified($lastModified)
             ->withPublished($jurisdiction->created_at)
             ->withCard('jurisdiction', $jurisdiction->slug, $lastModified)
+            ->withAlternate('application/json', route('jurisdictions.json', $jurisdiction->slug))
             ->withAlternate('text/markdown', route('jurisdictions.context', $jurisdiction->slug))
             ->withPageProperties(Seo::provenance($jurisdiction))
             ->withPageType('CollectionPage', [

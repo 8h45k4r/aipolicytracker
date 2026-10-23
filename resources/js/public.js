@@ -910,3 +910,19 @@
     var timer = null;
     window.addEventListener('resize', function () { clearTimeout(timer); timer = setTimeout(mark, 200); }, { passive: true });
 })();
+
+// Back-to-top button: visible after scrolling past the first viewport height.
+(function () {
+    var btn = document.getElementById('back-to-top');
+    if (!btn) { return; }
+    var shown = false;
+    var check = function () {
+        var shouldShow = window.scrollY > window.innerHeight;
+        if (shouldShow === shown) { return; }
+        shown = shouldShow;
+        if (shown) { btn.setAttribute('data-visible', ''); } else { btn.removeAttribute('data-visible'); }
+    };
+    window.addEventListener('scroll', check, { passive: true });
+    btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    check();
+})();

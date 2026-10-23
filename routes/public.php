@@ -82,12 +82,14 @@ Route::get('/enforcement', [EnforcementController::class, 'index'])->name('enfor
 Route::get('/ai-standards', [ImplementationController::class, 'standards'])->name('standards.index');
 
 Route::get('/jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
+Route::get('/jurisdictions/{jurisdiction}.json', [JurisdictionController::class, 'json'])->withoutMiddleware($stateless)->name('jurisdictions.json');
 Route::get('/jurisdictions/{jurisdiction}.md', [AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('jurisdictions.context');
 Route::get('/jurisdictions/{jurisdiction}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 Route::get('/obligations', [ObligationController::class, 'index'])->name('obligations.index');
 // Before the single-duty route, so the download is not read as a duty named "export.csv".
 Route::get('/obligations/export.csv', [ObligationController::class, 'export'])->middleware('throttle:30,1')->name('obligations.export');
+Route::get('/obligations/{obligation}.json', [ObligationController::class, 'json'])->withoutMiddleware($stateless)->name('obligations.json');
 Route::get('/obligations/{obligation}.md', [AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('obligations.context');
 Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
 

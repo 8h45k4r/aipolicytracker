@@ -55,7 +55,10 @@
         <div class="flex items-center justify-between gap-3 px-4 py-4 lg:py-5">
             <a href="{{ route('backend.admin.dashboard') }}" class="block no-underline"><img src="{{ asset('brand/logo-on-dark.svg') }}" alt="AIPolicyTracker admin" class="h-8 w-auto"></a>
             <span class="hidden lg:inline eyebrow !text-brand-cyan">Admin</span>
-            <button type="button" class="lg:hidden rounded-md border border-white/20 px-3 py-1.5 text-sm text-white" aria-controls="admin-nav" aria-expanded="false" data-admin-menu>{{ $current[1] ?? 'Menu' }} ▾</button>
+            <div class="flex items-center gap-2 lg:hidden">
+                <button type="button" class="rounded-md border border-white/20 p-1.5 text-white" data-palette-open hidden aria-label="Search pages and records"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4" stroke-linecap="round"/></svg></button>
+                <button type="button" class="rounded-md border border-white/20 px-3 py-1.5 text-sm text-white" aria-controls="admin-nav" aria-expanded="false" data-admin-menu>{{ $current[1] ?? 'Menu' }} ▾</button>
+            </div>
         </div>
         <div id="admin-nav" class="hidden lg:flex lg:flex-1 lg:min-h-0 flex-col border-t border-white/10 lg:border-0" data-admin-nav>
             <div class="px-4 pb-2">

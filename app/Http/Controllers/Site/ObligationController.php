@@ -8,6 +8,7 @@ use App\Models\RecordRevision;
 use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\PolicyData\PolicySerializer;
 use App\Services\PolicyData\RecordStanding;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
@@ -16,6 +17,7 @@ use App\Services\Templates\TemplateCatalog;
 use App\Support\Admin\CsvStream;
 use App\Support\PageTitle;
 use App\Support\Seo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -70,6 +72,18 @@ class ObligationController extends Controller
             fn (Obligation $o) => [$o->title, $o->category, $o->is_binding ? 'binding' : 'voluntary', $o->policyInstrument?->jurisdiction?->name, $o->policyInstrument?->title, $o->source_reference, $o->applies_from?->toDateString(), $o->official_source_url, $o->url()]);
     }
 
+    public function json(Obligation $obligation, PolicySerializer $serializer): JsonResponse
+    {
+        abort_unless($obligation->published_at, 404);
+        $obligation->load(['policyInstrument.jurisdiction', 'section', 'terms', 'frameworkMappings', 'evidenceArtifacts', 'applicabilityRules', 'controls.evidence']);
+
+        return response()->json($serializer->obligation($obligation), 200, [
+            'Cache-Control' => 'public, max-age=600',
+            'X-Robots-Tag' => 'noindex',
+            'Link' => '<'.$obligation->url().'>; rel="canonical"',
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
     public function show(Obligation $obligation): View
     {
         abort_unless($obligation->published_at, 404);
@@ -95,6 +109,7 @@ class ObligationController extends Controller
             ->withModified($obligation->updated_at)
             ->withPublished($obligation->created_at)
             ->withCard('obligation', $obligation->slug, $obligation->updated_at)
+            ->withAlternate('application/json', route('obligations.json', $obligation->slug))
             ->withAlternate('text/markdown', route('obligations.context', $obligation->slug))
             ->withPageProperties(Seo::provenance($obligation))
             ->withPageType('ItemPage', [

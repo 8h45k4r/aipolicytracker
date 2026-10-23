@@ -37,7 +37,7 @@
         <td class="text-sm">
             @if($target)@if($target['url'])<a href="{{ $target['url'] }}" @if(isset($e->route_params['ids'])) title="{{ $e->route_params['ids'] }}" @endif>{{ $target['text'] }}</a>@else<span @if(isset($e->route_params['ids'])) title="{{ $e->route_params['ids'] }}" @endif>{{ $target['text'] }}</span>@endif
             @elseif($rest === '')<span class="text-brand-muted">—</span>@endif
-            @if($rest !== '')<div class="meta font-mono text-[11px] break-all">{{ \Illuminate\Support\Str::limit($rest, 140) }}</div>@endif
+            @if($rest !== '')@if(strlen($rest) > 140)<details class="meta font-mono text-[11px] break-all"><summary class="cursor-pointer">{{ \Illuminate\Support\Str::limit($rest, 140) }}</summary><div class="mt-1 whitespace-pre-wrap rounded bg-brand-paper p-2">{{ $rest }}</div></details>@else<div class="meta font-mono text-[11px] break-all">{{ $rest }}</div>@endif @endif
         </td>
         <td><x-backend.badge :status="\App\Support\Admin\AuditActions::tone((int) $e->status)" title="HTTP {{ $e->status }}">{{ \App\Support\Admin\AuditActions::outcome((int) $e->status) }}</x-backend.badge><span class="sr-only"> (HTTP {{ $e->status }})</span></td>
     </tr>
