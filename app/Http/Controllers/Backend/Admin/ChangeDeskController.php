@@ -7,6 +7,7 @@ use App\Models\PolicyInstrument;
 use App\Models\SourceCheck;
 use App\Services\ChangeDesk\Freshness;
 use App\Services\ChangeDesk\SourceQueue;
+use App\Support\Admin\BulkAction;
 use Carbon\CarbonInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -61,5 +62,33 @@ class ChangeDeskController extends Controller
         $next = $data['outcome'] === 'change_logged' ? ' Add the change to data/changes so it reaches the change log, alerts and the digest.' : '';
 
         return back()->with('success', $title.': '.mb_strtolower(SourceCheck::OUTCOMES[$data['outcome']]).' recorded.'.$next);
+    }
+
+    private const BULK_LIMIT = 50;
+
+    public function bulkCheck(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'slugs' => ['required', 'array', 'max:'.self::BULK_LIMIT],
+            'slugs.*' => ['required', 'string', Rule::exists('policy_instruments', 'slug')->whereNotNull('published_at')],
+            'outcome' => ['required', Rule::in(array_keys(SourceCheck::OUTCOMES))],
+            'note' => ['nullable', 'string', 'max:500'],
+        ]);
+        $applied = 0;
+        foreach ($data['slugs'] as $slug) {
+            SourceCheck::create([
+                'record_type' => 'policy',
+                'record_slug' => $slug,
+                'outcome' => $data['outcome'],
+                'note' => $data['note'] ?? null,
+                'user_id' => $request->user()->id,
+                'checked_at' => now(),
+            ]);
+            $applied++;
+        }
+
+        return BulkAction::back('desk-table')
+            ->with('success', $applied.' '.str('check')->plural($applied).' recorded as "'.mb_strtolower(SourceCheck::OUTCOMES[$data['outcome']]).'".'
+                .BulkAction::capNote($applied, count($data['slugs']), self::BULK_LIMIT));
     }
 }

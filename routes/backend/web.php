@@ -158,6 +158,7 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
     Route::middleware('can:records.verify')->prefix('backend/admin/change-desk')->as('backend.admin.changedesk.')->controller(ChangeDeskController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/checks', 'store')->name('store');
+        Route::post('/checks/bulk', 'bulkCheck')->name('bulk');
     });
     // Posts to X. A post is the project speaking in public, so it sits with publishing;
     // the keys and the on/off switch stay with the owner on the settings page.

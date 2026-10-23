@@ -15,6 +15,12 @@ All notable changes to this project are documented here. The format follows [Kee
   verified records) replace static claims. A feature comparison table maps each capability to its
   live page. Trust and methodology cards link to independence, freshness, coverage, corrections
   and funding documentation.
+- Header search field visible from the xl breakpoint (1280 px) instead of 2xl (1536 px), so
+  most desktop visitors see the inline search box rather than only an icon.
+- Change desk: bulk-check action lets reviewers select multiple instruments and record an
+  outcome for all of them at once, with shift-click range selection.
+- Contribute page: data partnership and research collaboration card with a link to the
+  licence enquiry form on the pricing page.
 - Governance documentation: GOVERNANCE.md rewritten with roles, decision-making, bus factor and
   succession. New CONFLICT_OF_INTEREST.md, FUNDING.md and MANUAL_SETUP_CHECKLIST.md. CODEOWNERS
   updated to request the independent data reviewer on data changes. PR template adds a

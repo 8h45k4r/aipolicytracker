@@ -178,4 +178,38 @@ class RecordProvenanceTest extends TestCase
         $this->get('/independence')->assertOk()->assertSee('Certifyi')->assertSee('What is not yet independent')->assertSee('AIPT-POL-0073');
         $this->artisan('policy:next-id', ['kind' => 'obl'])->expectsOutput(sprintf('AIPT-OBL-%04d', Obligation::count() + 1))->assertSuccessful();
     }
+
+    public function test_the_change_desk_bulk_check_records_multiple_checks_at_once(): void
+    {
+        $reviewer = User::factory()->create();
+        $reviewer->forceFill(['admin_role' => AdminRole::Reviewer])->save();
+
+        $slugs = PolicyInstrument::published()->limit(3)->pluck('slug')->all();
+        $this->assertNotEmpty($slugs, 'Seed data should include published instruments');
+
+        $this->actingAs($reviewer)->post('/backend/admin/change-desk/checks/bulk', [
+            'slugs' => $slugs,
+            'outcome' => 'no_change',
+            'note' => 'Bulk review',
+        ])->assertSessionHas('success');
+
+        foreach ($slugs as $slug) {
+            $check = SourceCheck::where('record_slug', $slug)->latest('checked_at')->first();
+            $this->assertNotNull($check);
+            $this->assertSame('no_change', $check->outcome);
+            $this->assertSame('Bulk review', $check->note);
+            $this->assertSame($reviewer->id, $check->user_id);
+        }
+
+        $this->actingAs($reviewer)->post('/backend/admin/change-desk/checks/bulk', [
+            'slugs' => $slugs,
+            'outcome' => 'invalid',
+        ])->assertSessionHasErrors('outcome');
+
+        $normal = User::factory()->create();
+        $this->actingAs($normal)->post('/backend/admin/change-desk/checks/bulk', [
+            'slugs' => $slugs,
+            'outcome' => 'no_change',
+        ])->assertRedirect();
+    }
 }
