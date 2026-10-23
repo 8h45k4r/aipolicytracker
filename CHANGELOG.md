@@ -100,6 +100,11 @@ All notable changes to this project are documented here. The format follows [Kee
   (`ip_hash`) instead of the plain address, matching the hashing used for
   download and audit log records. Existing rows migrated in place.
   Privacy policy updated accordingly (debt #28).
+- The "which date applies" calendar file no longer starts a session and may be cached for an hour, so a calendar
+  app can poll it.
+- Prices: Pro (Builder) $49 a month or $490 a year, Team $199 a month, Commercial from $5,000 a year. Checkout
+  stays off until it is turned on in Settings; the Dodo products must be set to the new prices first (Admin →
+  Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
 - Year archive container class aligned with the design-system
@@ -121,13 +126,6 @@ All notable changes to this project are documented here. The format follows [Kee
   and the licence, rebuilt when a template changes. Single templates stay free. Not offered until selling is on.
 - "Subscribe in your calendar" (`webcal://`) on the deadline calendar, jurisdiction pages and the "which date
   applies" result, so a subscribed calendar refreshes when a date moves. The one-off `.ics` download stays.
-
-### Changed
-- The "which date applies" calendar file no longer starts a session and may be cached for an hour, so a calendar
-  app can poll it.
-- Prices: Pro (Builder) $49 a month or $490 a year, Team $199 a month, Commercial from $5,000 a year. Checkout
-  stays off until it is turned on in Settings; the Dodo products must be set to the new prices first (Admin →
-  Billing → "Check products against the provider" must read "Price matches").
 
 ## [2.0.0] - 2026-10-20
 
