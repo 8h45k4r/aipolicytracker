@@ -70,6 +70,13 @@ All notable changes to this project are documented here. The format follows [Kee
   detail and listing views.
 - Footer: Templates and Search links added to the Explore column so
   every section of the site is reachable from the global footer.
+- Obligation detail: sidebar shows recent changes for the same policy
+  instrument, linking to the change log filtered by jurisdiction.
+- Change detail: sidebar lists the binding and voluntary obligations
+  under the affected instrument so users can see the scope of a change.
+- Keyboard shortcut hint: press `?` on any public page to see a dialog
+  listing available shortcuts (`/` for search).
+- Template detail: copy-link share button added for consistent sharing.
 
 ### Fixed
 - Duplicate copy-link buttons on control and change detail pages
