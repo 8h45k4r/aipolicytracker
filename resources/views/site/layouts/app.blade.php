@@ -128,12 +128,14 @@
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('obligations.index') }}">Obligations</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('controls.index') }}">Controls</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('audiences.index') }}">By role and sector</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('templates.index') }}">Templates</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('compare.index') }}">Compare</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('frameworks.index') }}">Frameworks</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('changes.feed') }}">RSS</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('calendar') }}">Calendar</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('risk.index') }}">AI risk</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('risk.incidents') }}">Incidents</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('guides.index') }}">Guides</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('subscribe.show') }}">Weekly digest</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('saved') }}">Saved</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('search') }}">Search</a></li>
             </ul>
         </div>
         <div class="md:col-span-2">

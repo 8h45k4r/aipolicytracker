@@ -65,8 +65,15 @@ All notable changes to this project are documented here. The format follows [Kee
   filtering, and RSS feed link.
 - Copy-link button on comparison, change detail and framework detail
   pages for easy sharing.
+- Copy-link button on policy, obligation, jurisdiction, guide, risk
+  browse and incident browse pages for consistent sharing across all
+  detail and listing views.
+- Footer: Templates and Search links added to the Explore column so
+  every section of the site is reachable from the global footer.
 
 ### Fixed
+- Duplicate copy-link buttons on control and change detail pages
+  removed (two buttons rendered; now one).
 - Removed phantom `alerts.weekly` entitlement from billing config: it was
   defined in every tier but never checked by any code path.
 - Watch API: `POST /api/v1/watches` now uses the `subscribed` middleware

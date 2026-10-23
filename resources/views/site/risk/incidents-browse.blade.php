@@ -4,7 +4,7 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <div class="mt-2 flex flex-wrap items-end justify-between gap-3">
         <div><p class="eyebrow">AI Incident Database</p><h1 class="mt-1 font-display text-3xl font-semibold text-brand-navy">Browse AI incidents</h1><p class="mt-2 max-w-[64ch] text-brand-body">Every incident record (metadata only) from the weekly snapshot of {{ $aiid['snapshot_date'] ?? '—' }}. Filter, then export the selection with its licence attached; each row links to the full record and its reports.</p></div>
-        <div class="flex gap-2"><a href="{{ route('risk.incidents.export', array_merge(['format' => 'csv'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export CSV</a><a href="{{ route('risk.incidents.export', array_merge(['format' => 'json'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export JSON</a><a href="{{ route('risk.incidents') }}" class="btn-primary">Charts and summary</a></div>
+        <div class="flex flex-wrap gap-2"><a href="{{ route('risk.incidents.export', array_merge(['format' => 'csv'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export CSV</a><a href="{{ route('risk.incidents.export', array_merge(['format' => 'json'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export JSON</a><button type="button" class="btn-secondary" data-copy-link>Copy link</button><a href="{{ route('risk.incidents') }}" class="btn-primary">Charts and summary</a></div>
     </div>
     {{-- Collapsed on phones so the results come first; public.js opens it on wide screens, and it starts
          open whenever a filter is set, so the form works and shows its state without JavaScript. --}}

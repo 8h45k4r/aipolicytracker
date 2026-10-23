@@ -17,7 +17,6 @@
             @if($change->official_source_url)<a href="{{ $change->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
             <span class="text-brand-muted">Download: <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Markdown</a></span>
             <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
-            <button type="button" class="btn-secondary !py-1 !px-2 !text-xs" data-copy-link>Copy link</button>
         </div>
     </header>
 
