@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Enums\PolicyStatus;
 use App\Http\Controllers\Controller;
+use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Models\RecordRevision;
 use App\Services\ExternalData\ExternalDataset;
@@ -162,8 +163,9 @@ class PolicyController extends Controller
 
         $standing = RecordStanding::forPolicy($policy);
         $revisions = RecordRevision::for('policy', $policy->slug)->limit(10)->get();
+        $compareJurisdictions = Jurisdiction::published()->whereIn('slug', $policy->jurisdiction->related_jurisdictions ?? [])->orderBy('name')->limit(5)->get();
 
-        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls', 'answer', 'facts', 'templates', 'standing', 'revisions'));
+        return view('site.policies.show', compact('seo', 'policy', 'related', 'sameJurisdiction', 'risksAddressed', 'controls', 'answer', 'facts', 'templates', 'standing', 'revisions', 'compareJurisdictions'));
     }
 
     public function json(PolicyInstrument $policy, PolicySerializer $serializer): JsonResponse

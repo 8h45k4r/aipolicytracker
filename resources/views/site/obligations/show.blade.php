@@ -94,6 +94,9 @@
                 @if($glossary)
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Terms explained</p><ul class="mt-2 space-y-1.5">@foreach($glossary as $g)<li><a href="{{ \App\Services\Glossary\GlossaryTerms::url($g['id']) }}" class="text-brand-body hover:underline">{{ $g['term'] }}</a></li>@endforeach</ul></div>
                 @endif
+                @if($siblings->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Other duties under this instrument</p><ul class="mt-2 space-y-1.5">@foreach($siblings->take(10) as $s)<li><a href="{{ $s->url() }}" class="text-brand-body hover:underline">{{ $s->title }}</a></li>@endforeach</ul>@if($siblings->count() > 10)<p class="mt-1 text-xs text-brand-muted">and {{ $siblings->count() - 10 }} more</p>@endif</div>
+                @endif
             </div>
         </aside>
     </div>

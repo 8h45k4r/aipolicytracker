@@ -43,6 +43,18 @@ class WorldMapTest extends TestCase
         $this->assertStringContainsString('bg-brand-navy text-white', $filteredHtml);
 
         $this->get('/jurisdictions?type=invalid')->assertOk();
+
+        $sorted = $this->get('/jurisdictions?sort=instruments');
+        $sorted->assertOk();
+        $this->assertStringContainsString('Most instruments', $sorted->getContent());
+
+        $this->get('/jurisdictions?sort=bogus')->assertOk();
+
+        $byRegion = $this->get('/jurisdictions?region=Europe');
+        $byRegion->assertOk();
+        $this->assertStringContainsString('in Europe', $byRegion->getContent());
+
+        $this->get('/jurisdictions?region=Narnia')->assertOk();
     }
 
     public function test_the_map_is_on_the_jurisdictions_page_and_the_report_with_a_text_legend(): void

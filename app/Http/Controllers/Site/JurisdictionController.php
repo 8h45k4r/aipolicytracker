@@ -25,17 +25,31 @@ use Illuminate\View\View;
 
 class JurisdictionController extends Controller
 {
+    public const SORTS = ['name' => 'Name', 'instruments' => 'Most instruments'];
+
+    public const REGIONS = ['Africa', 'Americas', 'Asia', 'Europe', 'International', 'Oceania'];
+
     public function index(Request $request): View
     {
         $typeFilter = in_array($request->query('type'), ['country', 'state', 'territory', 'supranational', 'region'], true) ? $request->query('type') : null;
+        $regionFilter = in_array($request->query('region'), self::REGIONS, true) ? $request->query('region') : null;
+        $sort = in_array($request->query('sort'), array_keys(self::SORTS), true) ? $request->query('sort') : 'name';
         $query = Jurisdiction::published()
             ->withCount(['policyInstruments as policies_count' => fn ($q) => $q->published()])
             ->withCount(['policyInstruments as binding_in_force_count' => fn ($q) => $q->published()->where('is_binding', true)->whereIn('status', ['in_force', 'partially_applicable'])])
             ->withCount(['policyInstruments as strategy_count' => fn ($q) => $q->published()->where('instrument_type', 'strategy')])
             ->with('parent')
-            ->orderBy('region')->orderBy('name');
+            ->orderBy('region');
+        if ($sort === 'instruments') {
+            $query->orderByDesc('policies_count')->orderBy('name');
+        } else {
+            $query->orderBy('name');
+        }
         if ($typeFilter) {
             $query->where('jurisdiction_type', $typeFilter);
+        }
+        if ($regionFilter) {
+            $query->where('region', $regionFilter);
         }
         $jurisdictions = $query->get();
         $byRegion = $jurisdictions->groupBy('region');
@@ -64,8 +78,9 @@ class JurisdictionController extends Controller
         $seo->withFaq(array_merge($computed, Faq::for('jurisdictions.index')));
 
         $typeCounts = Jurisdiction::published()->selectRaw('jurisdiction_type, COUNT(*) as n')->groupBy('jurisdiction_type')->pluck('n', 'jurisdiction_type');
+        $regionCounts = Jurisdiction::published()->selectRaw('region, COUNT(*) as n')->groupBy('region')->pluck('n', 'region');
 
-        return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions', 'typeFilter', 'typeCounts'));
+        return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions', 'typeFilter', 'typeCounts', 'regionFilter', 'regionCounts', 'sort'));
     }
 
     public function json(Jurisdiction $jurisdiction, PolicySerializer $serializer): JsonResponse

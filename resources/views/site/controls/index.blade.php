@@ -18,6 +18,7 @@
 
     <form method="get" action="{{ route('controls.index') }}" role="search" class="mt-8 flex flex-col sm:flex-row gap-2 sm:items-end">
         <div class="flex-1"><label for="c-q" class="label">Search controls</label><input id="c-q" name="q" type="search" value="{{ $q }}" class="input" placeholder="risk assessment, logging, vendor…"></div>
+        <div class="sm:w-48"><label for="c-j" class="label">Jurisdiction</label><select id="c-j" name="jurisdiction" class="input"><option value="">All jurisdictions</option>@foreach($jurisdictions as $slug => $name)<option value="{{ $slug }}" @selected($jurisdictionSlug === $slug)>{{ $name }}</option>@endforeach</select></div>
         <button type="submit" class="btn-primary">Search</button>
     </form>
     <div class="mt-3 flex flex-wrap gap-2" aria-label="Filter by kind">

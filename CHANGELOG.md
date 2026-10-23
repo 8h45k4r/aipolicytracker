@@ -41,6 +41,22 @@ All notable changes to this project are documented here. The format follows [Kee
 - Jurisdictions page: filter pills to narrow by type (country, state,
   supranational, territory, region) and region jump links for quick navigation.
   A summary line shows the count of jurisdictions and instruments.
+- Jurisdictions page: region filter pills to narrow the listing by geographic
+  region (Africa, Americas, Asia, Europe, International, Oceania). Sort
+  dropdown preserves both type and region filters.
+- Controls page: jurisdiction dropdown to filter the control catalogue by
+  which jurisdiction's duties a control serves.
+- Obligation detail: sidebar lists other duties under the same policy
+  instrument for easier navigation between related requirements.
+- Keyboard shortcut: press `/` anywhere on the public site to jump to the
+  header search field (same pattern as the admin nav shortcut).
+- State-of-AI report: region headings link to the jurisdictions page filtered
+  by that region.
+- Jurisdictions page: sort by instrument count alongside the existing
+  alphabetical order; the dropdown preserves type and region filters.
+- Policy detail: sidebar "Compare" section links to the comparison tool
+  for related jurisdictions, mirroring the cross-link already on
+  jurisdiction pages.
 
 ### Fixed
 - Removed phantom `alerts.weekly` entitlement from billing config: it was

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Control;
+use App\Models\Jurisdiction;
 use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\ControlIntelligence;
 use App\Services\Records\AnswerBox;
@@ -27,12 +28,19 @@ class ControlController extends Controller
     {
         $kind = array_key_exists((string) $request->query('kind'), Control::KINDS) ? $request->query('kind') : null;
         $q = trim((string) $request->query('q', ''));
+        $jurisdictionSlug = trim((string) $request->query('jurisdiction', ''));
 
         $controls = Control::published()->with(['evidence', 'frameworkReferences', 'obligations.policyInstrument.jurisdiction'])
             ->when($kind, fn ($query) => $query->where('kind', $kind))
             ->search($q)
             ->orderBy('title')->get()
             ->filter(fn ($c) => $c->obligations->contains(fn ($o) => $o->published_at !== null));
+
+        if ($jurisdictionSlug !== '') {
+            $controls = $controls->filter(fn ($c) => $c->obligations->contains(
+                fn ($o) => $o->policyInstrument?->jurisdiction?->slug === $jurisdictionSlug
+            ));
+        }
 
         $totals = [
             'controls' => $controls->count(),
@@ -61,7 +69,9 @@ class ControlController extends Controller
                 $controls->max('updated_at'),
             ));
 
-        return view('site.controls.index', compact('seo', 'controls', 'totals', 'byKind', 'kind', 'q'));
+        $jurisdictions = Jurisdiction::published()->orderBy('name')->pluck('name', 'slug');
+
+        return view('site.controls.index', compact('seo', 'controls', 'totals', 'byKind', 'kind', 'q', 'jurisdictionSlug', 'jurisdictions'));
     }
 
     public function show(Control $control): View

@@ -193,6 +193,9 @@
                 @if($sameJurisdiction->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">More from {{ $policy->jurisdiction->name }}</p><ul class="mt-2 space-y-1.5">@foreach($sameJurisdiction as $r)<li><a href="{{ $r->url() }}" class="text-brand-body hover:underline">{{ $r->short_title ?: $r->title }}</a></li>@endforeach</ul></div>
                 @endif
+                @if($compareJurisdictions->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Compare {{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }}</p><ul class="mt-2 space-y-1.5">@foreach($compareJurisdictions as $r)<li><a href="{{ route('compare.index', ['j' => $policy->jurisdiction->slug.','.$r->slug]) }}" class="text-brand-body hover:underline" rel="nofollow">{{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }} vs {{ $r->short_name ?: $r->name }}</a></li>@endforeach</ul></div>
+                @endif
                 @if(!empty($policy->related_frameworks))
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Framework crosswalks</p><ul class="mt-2 space-y-1.5">@if(in_array('iso_42001', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'iso-42001-vs-eu-ai-act') }}" class="text-brand-body hover:underline">ISO/IEC 42001 vs EU AI Act</a></li>@endif @if(in_array('nist_ai_rmf', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'nist-ai-rmf-vs-eu-ai-act') }}" class="text-brand-body hover:underline">NIST AI RMF vs EU AI Act</a></li>@endif</ul></div>
                 @endif

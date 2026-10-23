@@ -926,3 +926,16 @@
     btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     check();
 })();
+
+// Press / to focus the header search field (same pattern as admin nav).
+(function () {
+    var search = document.getElementById('header-q');
+    if (!search) { return; }
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) { return; }
+        var t = e.target;
+        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) { return; }
+        e.preventDefault();
+        search.focus();
+    });
+})();

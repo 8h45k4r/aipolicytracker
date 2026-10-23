@@ -8,23 +8,43 @@
 
     {{-- Type filter pills --}}
     <nav class="mt-4 flex flex-wrap gap-2" aria-label="Filter by jurisdiction type">
-        <a href="{{ route('jurisdictions.index') }}" class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition {{ !$typeFilter ? 'bg-brand-navy text-white' : 'bg-brand-paper text-brand-body hover:bg-brand-line' }}">All <span class="ml-1 text-xs opacity-75">({{ $typeCounts->sum() }})</span></a>
+        <a href="{{ route('jurisdictions.index', array_filter(['region' => $regionFilter])) }}" class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition {{ !$typeFilter ? 'bg-brand-navy text-white' : 'bg-brand-paper text-brand-body hover:bg-brand-line' }}">All <span class="ml-1 text-xs opacity-75">({{ $typeCounts->sum() }})</span></a>
         @foreach([['country', 'Countries'], ['state', 'States'], ['supranational', 'Supranational'], ['territory', 'Territories'], ['region', 'Regions']] as [$type, $label])
             @if(($typeCounts[$type] ?? 0) > 0)
-            <a href="{{ route('jurisdictions.index', ['type' => $type]) }}" class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition {{ $typeFilter === $type ? 'bg-brand-navy text-white' : 'bg-brand-paper text-brand-body hover:bg-brand-line' }}">{{ $label }} <span class="ml-1 text-xs opacity-75">({{ $typeCounts[$type] }})</span></a>
+            <a href="{{ route('jurisdictions.index', array_filter(['type' => $type, 'region' => $regionFilter])) }}" class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition {{ $typeFilter === $type ? 'bg-brand-navy text-white' : 'bg-brand-paper text-brand-body hover:bg-brand-line' }}">{{ $label }} <span class="ml-1 text-xs opacity-75">({{ $typeCounts[$type] }})</span></a>
             @endif
         @endforeach
     </nav>
 
-    {{-- Region jump links --}}
-    @if($byRegion->count() > 1)
-    <nav class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm" aria-label="Jump to region">
-        <span class="text-brand-muted">Jump to:</span>
-        @foreach($byRegion->keys() as $region)
-        <a href="#region-{{ \Illuminate\Support\Str::slug($region) }}" class="text-brand-navy hover:underline">{{ $region }}</a>
+    {{-- Region filter pills --}}
+    <nav class="mt-2 flex flex-wrap gap-2" aria-label="Filter by region">
+        <a href="{{ route('jurisdictions.index', array_filter(['type' => $typeFilter])) }}" class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition {{ !$regionFilter ? 'bg-brand-navy text-white' : 'bg-brand-paper text-brand-body hover:bg-brand-line' }}">All regions <span class="ml-1 text-xs opacity-75">({{ $regionCounts->sum() }})</span></a>
+        @foreach(\App\Http\Controllers\Site\JurisdictionController::REGIONS as $r)
+            @if(($regionCounts[$r] ?? 0) > 0)
+            <a href="{{ route('jurisdictions.index', array_filter(['type' => $typeFilter, 'region' => $r])) }}" class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition {{ $regionFilter === $r ? 'bg-brand-navy text-white' : 'bg-brand-paper text-brand-body hover:bg-brand-line' }}">{{ $r }} <span class="ml-1 text-xs opacity-75">({{ $regionCounts[$r] }})</span></a>
+            @endif
         @endforeach
     </nav>
-    @endif
+
+    {{-- Sort and region jump links --}}
+    <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
+        <div class="flex items-center gap-2 text-sm">
+            <label for="j-sort" class="text-brand-muted">Sort:</label>
+            <select id="j-sort" onchange="location.href=this.value" class="input !py-1 !text-sm !min-h-0">
+                @foreach(\App\Http\Controllers\Site\JurisdictionController::SORTS as $key => $label)
+                <option value="{{ route('jurisdictions.index', array_filter(['type' => $typeFilter, 'region' => $regionFilter, 'sort' => $key === 'name' ? null : $key])) }}" @selected($sort === $key)>{{ $label }}</option>
+                @endforeach
+            </select>
+        </div>
+        @if($byRegion->count() > 1)
+        <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm" aria-label="Jump to region">
+            <span class="text-brand-muted">Jump to:</span>
+            @foreach($byRegion->keys() as $region)
+            <a href="#region-{{ \Illuminate\Support\Str::slug($region) }}" class="text-brand-navy hover:underline">{{ $region }}</a>
+            @endforeach
+        </nav>
+        @endif
+    </div>
 
     {{-- On a phone the list comes first and the map last: the tables answer the page's
          question in text, and the map script is fetched only if a reader scrolls to it. --}}
@@ -65,7 +85,7 @@
     </section>
     @endforeach
     </div>
-    <p class="mt-8 text-sm text-brand-muted">Showing {{ $jurisdictions->count() }} jurisdiction{{ $jurisdictions->count() !== 1 ? 's' : '' }}@if($typeFilter) ({{ $typeFilter }})@endif across {{ $byRegion->count() }} region{{ $byRegion->count() !== 1 ? 's' : '' }}, with {{ $jurisdictions->sum('policies_count') }} recorded instrument{{ $jurisdictions->sum('policies_count') !== 1 ? 's' : '' }}.</p>
+    <p class="mt-8 text-sm text-brand-muted">Showing {{ $jurisdictions->count() }} jurisdiction{{ $jurisdictions->count() !== 1 ? 's' : '' }}@if($typeFilter) ({{ $typeFilter }})@endif @if($regionFilter) in {{ $regionFilter }}@else across {{ $byRegion->count() }} region{{ $byRegion->count() !== 1 ? 's' : '' }}@endif, with {{ $jurisdictions->sum('policies_count') }} recorded instrument{{ $jurisdictions->sum('policies_count') !== 1 ? 's' : '' }}.</p>
     <p class="mt-2 text-sm text-brand-muted">Missing a jurisdiction? <a href="{{ route('contribute', ['type' => 'new_policy']) }}">Propose one with an official source</a>.</p>
 </div>
 @endsection

@@ -90,6 +90,7 @@ class ObligationController extends Controller
         $obligation->load(['policyInstrument.jurisdiction', 'section', 'terms', 'frameworkMappings', 'evidenceArtifacts', 'applicabilityRules', 'deadlines', 'controls.evidence']);
         $policy = $obligation->policyInstrument;
         $similar = Obligation::published()->with('policyInstrument.jurisdiction')->where('category', $obligation->category)->where('id', '!=', $obligation->id)->orderByDesc('is_binding')->limit(8)->get();
+        $siblings = Obligation::published()->where('policy_instrument_id', $obligation->policy_instrument_id)->where('id', '!=', $obligation->id)->orderBy('title')->get();
         $categoryName = TaxonomyTerm::where('taxonomy', 'obligation_category')->where('slug', $obligation->category)->value('name') ?? $obligation->category;
 
         $answer = AnswerBox::obligation($obligation);
@@ -128,6 +129,6 @@ class ObligationController extends Controller
         $standing = RecordStanding::forObligation($obligation);
         $revisions = RecordRevision::for('obligation', $obligation->slug)->limit(10)->get();
 
-        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'categoryName', 'answer', 'facts', 'templates', 'standing', 'revisions'));
+        return view('site.obligations.show', compact('seo', 'obligation', 'policy', 'similar', 'siblings', 'categoryName', 'answer', 'facts', 'templates', 'standing', 'revisions'));
     }
 }
