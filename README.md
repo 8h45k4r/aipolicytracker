@@ -399,9 +399,14 @@ To cite the dataset as a whole, use [`CITATION.cff`](CITATION.cff); GitHub's "Ci
 AIPolicyTracker is built and maintained by [Bhaskar Bhatt](https://bhaskar.com.np/). Contact
 [bhaskar@aipolicytracker.org](mailto:bhaskar@aipolicytracker.org).
 
+**Independent data reviewer:** Joyce Loksee Ho reviews data changes for accuracy against official
+sources. Her appointment, roster entry and declaration of interest are being set up; see
+[`GOVERNANCE.md`](GOVERNANCE.md) for the current status.
+
 [How the project is funded][funding] is public, including its rules on independence. The maintainer is also
-associated with Certifyi, a commercial compliance product. That product has no say over what the records contain;
-[`/independence`][independence] sets out the relationship and what is not yet independent.
+associated with Certifyi, a commercial compliance product. That product has no editorial say over what the
+records contain; [`CONFLICT_OF_INTEREST.md`](CONFLICT_OF_INTEREST.md) sets out the binding rules and
+[`/independence`][independence] explains the relationship and what is not yet independent.
 
 ## Acknowledgements
 

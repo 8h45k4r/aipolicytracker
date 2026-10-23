@@ -36,6 +36,7 @@ to be present.
 
 - [ ] Every data change links to an official or openly licensed source (`SOURCE_ATTRIBUTION.md`).
 - [ ] No copyrighted legal commentary, paid database content or standards text reproduced.
+- [ ] I have no conflict of interest with this change, **or** I have declared it above and will not approve it alone (`CONFLICT_OF_INTEREST.md`).
 
 ## Role gates (see `docs/reference/change-gates.md`)
 
