@@ -1,5 +1,17 @@
 @extends('site.layouts.app')
 @section('content')
+@php($controls = $obligation->controls->filter(fn ($c) => $c->published_at))
+@php($toc = array_filter([
+    'req-heading' => 'What does it require?',
+    'action-heading' => $obligation->practical_action ? 'Practical action' : null,
+    'who-heading' => 'Who does it apply to?',
+    'controls-heading' => $controls->isNotEmpty() ? 'Controls ('.$controls->count().')' : null,
+    'templates-heading' => (isset($templates) && $templates->isNotEmpty()) ? 'Templates' : null,
+    'evidence-heading' => $obligation->evidenceArtifacts->isNotEmpty() ? 'Evidence' : null,
+    'mapping-heading' => $obligation->frameworkMappings->isNotEmpty() ? 'Framework mappings' : null,
+    'duty-history-heading' => 'Change history',
+    'similar-heading' => $similar->isNotEmpty() ? 'Similar obligations' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -16,6 +28,7 @@
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" :save-title="$obligation->title" :save-url="$obligation->url()" :save-meta="($policy->short_title ?: $policy->title)" :source-url="$obligation->official_source_url ?: $policy->official_source_url" class="mt-4" />
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
@@ -32,7 +45,6 @@
                 </dl>
                 @if($obligation->applies_from)<p class="mt-3 text-sm text-brand-body"><span class="font-medium">Applies from:</span> <time datetime="{{ $obligation->applies_from->toDateString() }}">{{ $obligation->applies_from->format('j F Y') }}</time></p>@endif
             </section>
-            @php($controls = $obligation->controls->filter(fn ($c) => $c->published_at))
             @if($controls->isNotEmpty())
             <section aria-labelledby="controls-heading" class="mt-8">
                 <h2 id="controls-heading" class="section-title">Which controls meet this duty?</h2>
@@ -89,6 +101,7 @@
         </div>
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" class="lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto bg-white py-1" />
                 <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Source</p><p class="mt-1 text-brand-body">{{ $policy->source_title }}</p><p class="text-xs text-brand-muted">{{ $policy->source_publisher }}@if($obligation->source_reference) · {{ $obligation->source_reference }}@endif</p>@if($obligation->official_source_url)<a href="{{ $obligation->official_source_url }}" rel="noopener" class="mt-2 inline-block text-brand-blue hover:underline break-all" data-track="source_click">{{ \Illuminate\Support\Str::limit($obligation->official_source_url, 60) }}</a>@endif</div>
                 @php($glossary = \App\Services\Glossary\GlossaryTerms::foundIn(implode(' ', [$obligation->title, $obligation->summary, $obligation->practical_action]), 4))
                 @if($glossary)

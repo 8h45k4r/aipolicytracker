@@ -1,5 +1,19 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'overview-heading' => 'Overview',
+    'status-heading' => 'Regulatory status',
+    'binding-heading' => $jurisdiction->binding_vs_guidance ? 'Binding vs guidance' : null,
+    'policies-heading' => 'Key instruments',
+    'subnational-heading' => $subnational->isNotEmpty() ? 'Sub-national' : null,
+    'instruments-heading' => $policies->isNotEmpty() ? 'Instruments at a glance' : null,
+    'timeline-heading' => !empty($timeline) ? 'Timeline' : null,
+    'deadlines-heading' => $deadlines->isNotEmpty() ? 'Upcoming deadlines' : null,
+    'priorities-heading' => $jurisdiction->current_priorities ? 'Current priorities' : null,
+    'changes-heading' => 'Latest changes',
+    'applies-heading' => ($useCases->isNotEmpty() || $sectors->isNotEmpty() || $obligationCategories->isNotEmpty()) ? 'Sectors & use cases' : null,
+    'howto-heading' => !empty($jurisdiction->how_to_use) ? 'How to use' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -8,6 +22,7 @@
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$jurisdiction" class="!text-sm" legend /><span class="text-brand-muted">Download: <a href="{{ route('jurisdictions.json', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Markdown</a></span><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
     </header>
 
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             @if(!empty($translation))
@@ -122,6 +137,7 @@
 
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" class="lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto bg-white py-1" />
                 @if(!empty($jurisdiction->regulators))
                 @if($controls->isNotEmpty())
                 <div class="card-flat p-4 text-sm">

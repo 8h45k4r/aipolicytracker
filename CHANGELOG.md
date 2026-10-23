@@ -63,6 +63,9 @@ All notable changes to this project are documented here. The format follows [Kee
 - Change year pages: summary stat cards (changes, jurisdictions,
   urgent/high-impact, instruments affected), CSV export link with year
   filtering, and RSS feed link.
+- "On this page" table of contents on obligation and jurisdiction detail
+  pages (mobile disclosure + sidebar sticky nav), matching the TOC already
+  present on policy detail pages.
 - Copy-link button on comparison, change detail and framework detail
   pages for easy sharing.
 - Copy-link button on policy, obligation, jurisdiction, guide, risk
