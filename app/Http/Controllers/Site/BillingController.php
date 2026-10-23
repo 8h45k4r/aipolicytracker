@@ -8,6 +8,7 @@ use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\Entitlements;
 use App\Services\Billing\PlanCatalog;
+use App\Services\PolicyData\PolicyCatalog;
 use App\Support\Faq;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -24,12 +25,9 @@ class BillingController extends Controller
 {
     public function __construct(private BillingConfig $config, private PlanCatalog $catalog, private Entitlements $entitlements) {}
 
-    public function pricing(Request $request): View
+    public function pricing(Request $request, PolicyCatalog $policyCatalog): View
     {
         $enabled = $this->config->enabled();
-        // Indexable whether or not checkout is on: the page also answers "can I use this
-        // commercially" and carries the licence enquiry form, which never depend on selling.
-        // The switch still decides whether the Builder buttons take orders.
         $seo = Seo::make(
             'Pricing and commercial data licences',
             'The data stays free under '.config('aipolicytracker.data_license').', commercial use included. Builder adds alerts at volume; Team and Commercial add white-label licences and SLAs.',
@@ -39,6 +37,7 @@ class BillingController extends Controller
         $plans = array_filter($this->catalog->plans(), fn ($p) => ! empty($p['product_id']) || ! $enabled);
         $user = $request->user();
         $current = $user ? $this->entitlements->activeSubscription($user) : null;
+        $stats = $policyCatalog->stats();
 
         return view('site.pricing', [
             'seo' => $seo,
@@ -49,6 +48,7 @@ class BillingController extends Controller
             'contactPlans' => (array) config('billing.contact_plans'),
             'current' => $current,
             'user' => $user,
+            'stats' => $stats,
         ]);
     }
 

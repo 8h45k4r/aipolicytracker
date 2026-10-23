@@ -11,6 +11,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Pricing page: live data counts (jurisdictions, instruments, obligations, controls, changes,
+  verified records) replace static claims. A feature comparison table maps each capability to its
+  live page. Trust and methodology cards link to independence, freshness, coverage, corrections
+  and funding documentation.
 - Governance documentation: GOVERNANCE.md rewritten with roles, decision-making, bus factor and
   succession. New CONFLICT_OF_INTEREST.md, FUNDING.md and MANUAL_SETUP_CHECKLIST.md. CODEOWNERS
   updated to request the independent data reviewer on data changes. PR template adds a
