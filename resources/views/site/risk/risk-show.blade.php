@@ -1,5 +1,12 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'desc-heading' => 'Description',
+    'coding-heading' => 'Classification',
+    'inc-heading' => $incidents->isNotEmpty() ? 'Real-world incidents' : null,
+    'peers-heading' => $peers->isNotEmpty() ? 'Other frameworks' : null,
+    'sib-heading' => $siblings->isNotEmpty() ? 'Other entries from paper' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -9,8 +16,11 @@
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <a href="{{ $r->navigatorUrl() }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open the MIT Risk Navigator</a>
             <a href="{{ route('risk.risks', ['paper' => $r->quick_ref]) }}" class="text-brand-body hover:underline">All entries from {{ $r->quick_ref }}</a>
+            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
         </div>
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             <section aria-labelledby="desc-heading">
@@ -53,6 +63,7 @@
         </div>
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Record</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">

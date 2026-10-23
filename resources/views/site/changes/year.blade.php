@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8 max-w-4xl">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI policy changes in {{ $year }}</h1>
     @php($urgentCount = $changes->whereIn('impact_level', ['urgent', 'high'])->count())
@@ -11,6 +11,8 @@
         <span class="text-brand-muted" aria-hidden="true">·</span>
         <a href="{{ route('changes.export', ['year' => $year]) }}" class="text-brand-blue hover:underline">CSV</a>
         <a href="{{ route('changes.feed') }}" class="text-brand-blue hover:underline">RSS</a>
+        <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+        <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
     </div>
     <dl class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
         <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Changes</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $changes->count() }}</dd></div>

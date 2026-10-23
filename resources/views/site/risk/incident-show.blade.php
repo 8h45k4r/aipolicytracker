@@ -1,5 +1,17 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'brief-heading' => $i->actorLine() ? 'In brief' : null,
+    'what-heading' => 'What happened',
+    'law-heading' => 'Laws on record',
+    'reports-heading' => $i->reports->isNotEmpty() ? 'News reports' : null,
+    'who-heading' => 'Who was involved',
+    'class-heading' => 'Classification',
+    'risks-heading' => $risks->isNotEmpty() ? 'Risk entries' : null,
+    'related-heading' => $related->isNotEmpty() ? 'Related incidents' : null,
+    'similar-heading' => $sameSubdomain->isNotEmpty() ? 'Same subdomain' : null,
+    'deployer-heading' => $sameDeployer->isNotEmpty() ? "Other incidents ($deployer)" : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -7,9 +19,12 @@
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $heading }}</h1>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             @if($i->reports->isNotEmpty())<a href="#reports-heading" class="text-brand-body hover:underline">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</a>@else<span class="meta">{{ $i->report_count }} {{ \Illuminate\Support\Str::plural('news report', $i->report_count) }}</span>@endif
+            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
             <span class="meta">@if($i->synced_at)Synced from source <time datetime="{{ $i->synced_at->toIso8601String() }}">{{ $i->synced_at->diffForHumans() }}</time>@if($i->modified_at) · record last edited {{ $i->modified_at->format('j M Y') }}@endif @else Snapshot {{ $i->snapshot_date?->format('j M Y') ?? '—' }}@endif</span>
         </div>
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     @if($i->actorLine())
     <section aria-labelledby="brief-heading" class="mt-6 card-flat p-5">
         <h2 id="brief-heading" class="sr-only">In brief</h2>
@@ -140,6 +155,7 @@
         </div>
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Record</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">

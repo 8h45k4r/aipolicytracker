@@ -80,8 +80,30 @@ All notable changes to this project are documented here. The format follows [Kee
 - Keyboard shortcut hint: press `?` on any public page to see a dialog
   listing available shortcuts (`/` for search).
 - Template detail: copy-link share button added for consistent sharing.
+- "On this page" table of contents on control, change, risk entry and
+  incident detail pages (mobile disclosure + sidebar sticky nav),
+  matching the TOC pattern on policy and obligation detail pages.
+- Share button (native Web Share API) on control, change, risk entry,
+  incident and year archive pages.
+- Copy-link button on year archive and risk/incident header bars.
+- `<x-null-dash>` Blade component for rendering null-safe values with an
+  em-dash fallback and optional date formatting (debt #7).
+- `aip:env-check` artisan command: fails loudly when required environment
+  variables are missing at container startup, before migrations run
+  (debt #37).
+- `ConfigIsCacheableTest` now compares every config value before and after
+  `config:cache`, catching any config file that calls `config()` internally
+  (debt #44).
+
+### Changed
+- Sign-up IP address is now stored as a keyed HMAC-SHA256 hash
+  (`ip_hash`) instead of the plain address, matching the hashing used for
+  download and audit log records. Existing rows migrated in place.
+  Privacy policy updated accordingly (debt #28).
 
 ### Fixed
+- Year archive container class aligned with the design-system
+  `container-site` token (was a manual `mx-auto` override).
 - Duplicate copy-link buttons on control and change detail pages
   removed (two buttons rendered; now one).
 - Table accessibility: added `<caption>` and `scope="col"` to tables

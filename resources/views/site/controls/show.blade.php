@@ -1,5 +1,13 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'how-heading' => $control->description ? 'How is it implemented?' : null,
+    'duties-heading' => 'Legal duties served',
+    'evidence-heading' => 'Evidence',
+    'risks-heading' => $risks->isNotEmpty() ? 'Risks addressed' : null,
+    'frameworks-heading' => $control->frameworkReferences->isNotEmpty() ? 'Standards clauses' : null,
+    'cite-heading' => 'Cite this record',
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -15,8 +23,10 @@
             <x-site.verified :record="$control" class="!text-sm" legend />
             <span class="text-brand-muted">Download: <a href="{{ route('controls.json', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('controls.context', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This control as one Markdown file, with its provenance">Markdown</a></span>
             <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button>
         </div>
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
 
     <dl class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <x-site.stat label="Duties satisfied" :value="$duties->where('pivot.relationship', 'satisfies')->count()" note="done properly, does the work" />
@@ -94,6 +104,7 @@
 
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Governance card</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">
