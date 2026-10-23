@@ -11,6 +11,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Governance documentation: GOVERNANCE.md rewritten with roles, decision-making, bus factor and
+  succession. New CONFLICT_OF_INTEREST.md, FUNDING.md and MANUAL_SETUP_CHECKLIST.md. CODEOWNERS
+  updated to request the independent data reviewer on data changes. PR template adds a
+  conflict-of-interest declaration. Independence page updated for the new reviewer appointment.
 - Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
   named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's
   permanent address; `/embed` lists it beside the widgets.
