@@ -79,9 +79,9 @@ class LegalPagesTest extends TestCase
             $this->assertStringContainsString($claim, $html, "the policy does not mention {$claim}");
         }
 
-        // Stated plainly rather than glossed, because it is the one field kept in full.
-        $this->assertStringContainsString('IP address', $html);
-        $this->assertStringContainsString('technical debt', $html, 'the unhashed sign-up address is disclosed, not hidden');
+        // The sign-up IP is stored as a keyed hash, not in full.
+        $this->assertStringContainsString('IP hash', $html);
+        $this->assertStringContainsString('keyed hash', $html, 'the privacy page explains the IP is stored as a keyed hash');
     }
 
     public function test_the_privacy_page_routes_a_request_to_a_person_however_it_is_configured(): void
