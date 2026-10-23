@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Rules\NotDisposableEmail;
 use App\Services\Security\Turnstile;
+use App\Support\Privacy;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -82,7 +83,7 @@ class RegisteredUserController extends Controller
             'phone_no' => $validate['phone_no'] ?? null,
             'organization_name' => $request->organization_name,
             'organization_email' => $request->organization_email,
-            'ip_address' => $request->ip(),
+            'ip_hash' => $request->ip() ? Privacy::ipHash((string) $request->ip()) : null,
             'user_agent' => $request->header('User-Agent'),
             'last_activity' => now()->timestamp,
             'terms_condition' => true,
