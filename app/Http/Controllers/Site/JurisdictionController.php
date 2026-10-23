@@ -20,18 +20,24 @@ use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class JurisdictionController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $jurisdictions = Jurisdiction::published()
+        $typeFilter = in_array($request->query('type'), ['country', 'state', 'territory', 'supranational', 'region'], true) ? $request->query('type') : null;
+        $query = Jurisdiction::published()
             ->withCount(['policyInstruments as policies_count' => fn ($q) => $q->published()])
             ->withCount(['policyInstruments as binding_in_force_count' => fn ($q) => $q->published()->where('is_binding', true)->whereIn('status', ['in_force', 'partially_applicable'])])
             ->withCount(['policyInstruments as strategy_count' => fn ($q) => $q->published()->where('instrument_type', 'strategy')])
             ->with('parent')
-            ->orderBy('region')->orderBy('name')->get();
+            ->orderBy('region')->orderBy('name');
+        if ($typeFilter) {
+            $query->where('jurisdiction_type', $typeFilter);
+        }
+        $jurisdictions = $query->get();
         $byRegion = $jurisdictions->groupBy('region');
 
         $seo = Seo::make(
@@ -57,7 +63,9 @@ class JurisdictionController extends Controller
         ]];
         $seo->withFaq(array_merge($computed, Faq::for('jurisdictions.index')));
 
-        return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions'));
+        $typeCounts = Jurisdiction::published()->selectRaw('jurisdiction_type, COUNT(*) as n')->groupBy('jurisdiction_type')->pluck('n', 'jurisdiction_type');
+
+        return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions', 'typeFilter', 'typeCounts'));
     }
 
     public function json(Jurisdiction $jurisdiction, PolicySerializer $serializer): JsonResponse

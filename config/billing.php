@@ -49,7 +49,6 @@ return [
         // account that already had them: free accounts keep three watches and the
         // daily inbox alert. Pro sells volume, channels and change-impact profiles.
         'entitlements' => [
-            'alerts.weekly' => true,
             'alerts.daily' => true,
             'saved.server' => true,
             'watches.max' => 3,
@@ -72,7 +71,6 @@ return [
             'product_id' => env('DODO_PRODUCT_PRO_MONTHLY'),
             'trial_days' => 0,
             'entitlements' => [
-                'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
                 'watches.max' => 500,
@@ -90,7 +88,6 @@ return [
             'product_id' => env('DODO_PRODUCT_PRO_YEARLY'),
             'trial_days' => 0,
             'entitlements' => [
-                'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
                 'watches.max' => 500,

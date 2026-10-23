@@ -97,8 +97,7 @@ class BillingTest extends TestCase
             }
         }
         $code .= file_get_contents(base_path('routes/public.php'));
-        // alerts.weekly describes the digest, which is open to everyone and gated by nothing.
-        $code .= "'alerts.weekly'";
+        // alerts.daily is the only alert entitlement: the digest is open to everyone.
         foreach (array_merge([config('billing.free')], array_values(config('billing.plans'))) as $plan) {
             foreach (array_keys($plan['entitlements']) as $key) {
                 $this->assertTrue(str_contains($code, "'{$key}'") || str_contains($code, ':'.$key."'"), "Entitlement {$key} is granted but nothing consumes it");
@@ -148,7 +147,6 @@ class BillingTest extends TestCase
         $user = $this->user();
         BillingCheckout::create(['user_id' => $user->id, 'plan_key' => 'pro_monthly', 'product_id' => 'pdt_month', 'status' => 'returned']);
         $this->assertFalse($user->entitled('alerts.channels'));
-        $this->assertTrue($user->entitled('alerts.weekly'));
 
         $this->webhook($this->subscriptionEvent('subscription.active', $user), 'msg_a')->assertOk()->assertJson(['outcome' => 'applied']);
         $sub = Subscription::where('provider_subscription_id', 'sub_1')->firstOrFail();

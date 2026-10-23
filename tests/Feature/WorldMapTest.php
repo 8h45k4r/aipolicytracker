@@ -29,6 +29,22 @@ class WorldMapTest extends TestCase
         $this->assertFalse($countries->has('EU'), 'the Union itself is not a country on the map');
     }
 
+    public function test_the_jurisdictions_page_filters_by_type_and_shows_region_jump_links(): void
+    {
+        $response = $this->get('/jurisdictions');
+        $response->assertOk();
+        $html = $response->getContent();
+        $this->assertStringContainsString('Jump to:', $html);
+        $this->assertStringContainsString('Countries', $html);
+
+        $filtered = $this->get('/jurisdictions?type=country');
+        $filtered->assertOk();
+        $filteredHtml = $filtered->getContent();
+        $this->assertStringContainsString('bg-brand-navy text-white', $filteredHtml);
+
+        $this->get('/jurisdictions?type=invalid')->assertOk();
+    }
+
     public function test_the_map_is_on_the_jurisdictions_page_and_the_report_with_a_text_legend(): void
     {
         foreach (['/jurisdictions', '/state-of-ai-regulation'] as $path) {
