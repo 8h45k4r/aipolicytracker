@@ -96,6 +96,12 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Account screens (login, register, verify email, forgot/reset password, profile)
+  redesigned with the platform design system: brand colours, consistent card layout,
+  proper form spacing, and accessible labels. Removed legacy CSS (hardcoded hex
+  colours, MUI overrides, commented-out code, JS-based responsive hiding) from
+  app.css in favour of design-token-based utility classes.
+- Authenticated layout uses brand design tokens instead of generic Tailwind greys.
 - Sign-up IP address is now stored as a keyed HMAC-SHA256 hash
   (`ip_hash`) instead of the plain address, matching the hashing used for
   download and audit log records. Existing rows migrated in place.
