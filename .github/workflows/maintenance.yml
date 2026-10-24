@@ -1,0 +1,114 @@
+name: Maintenance
+
+# Manual-only workflow for server maintenance operations that do not need a
+# full deploy: clearing application caches, pruning Docker, restarting the
+# container, or checking server status.
+#
+# Requires the same DEPLOY_HOST, DEPLOY_USER, DEPLOY_SSH_KEY and
+# DEPLOY_KNOWN_HOSTS secrets as deploy.yml, plus a MAINTENANCE_SSH_KEY
+# whose forced command on the server is deploy/remote-maintenance.sh.
+#
+# One-time server setup (after the first push that carries this file):
+#
+#   1. Generate a key pair:  ssh-keygen -t ed25519 -f aip_maintenance -C aip-maintenance
+#   2. Install the script:   install -m 0755 /opt/aip/repo/deploy/remote-maintenance.sh /usr/local/sbin/aip-maintenance
+#   3. Add to /root/.ssh/authorized_keys:
+#      command="/usr/local/sbin/aip-maintenance",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ssh-ed25519 AAAA... aip-maintenance
+#   4. Store the private key as the MAINTENANCE_SSH_KEY repository secret.
+#
+# Until step 4, this workflow falls back to the deploy key and runs only
+# clear-cache and restart (the deploy key's forced command rejects anything
+# that is not a commit sha, so docker-prune and status need the maintenance key).
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Operation to run"
+        required: true
+        type: choice
+        options:
+          - clear-cache
+          - restart
+          - docker-prune
+          - full-cleanup
+          - status
+
+permissions:
+  contents: read
+
+concurrency:
+  group: server-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintenance:
+    name: "Run: ${{ inputs.operation }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: production
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check the secrets are configured
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          MAINT_KEY: ${{ secrets.MAINTENANCE_SSH_KEY }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          [ -n "$HOST" ]  || { echo "::error::DEPLOY_HOST not set"; exit 1; }
+          [ -n "$USER" ]  || { echo "::error::DEPLOY_USER not set"; exit 1; }
+          [ -n "$KNOWN" ] || { echo "::error::DEPLOY_KNOWN_HOSTS not set"; exit 1; }
+          if [ -n "$MAINT_KEY" ]; then
+            echo "key=maintenance" >> "$GITHUB_OUTPUT"
+          elif [ -n "$DEPLOY_KEY" ]; then
+            echo "::warning::MAINTENANCE_SSH_KEY not set; falling back to deploy key (only restart works via redeploy)"
+            echo "key=deploy" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::Neither MAINTENANCE_SSH_KEY nor DEPLOY_SSH_KEY is set"; exit 1
+          fi
+        id: keys
+
+      - name: Run maintenance operation
+        if: steps.keys.outputs.key == 'maintenance'
+        env:
+          OP: ${{ inputs.operation }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.MAINTENANCE_SSH_KEY }}
+          KNOWN: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/maint_key
+          printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 \
+              -i ~/.ssh/maint_key "$USER@$HOST" "$OP"
+
+      - name: Fallback — redeploy to clear caches
+        if: steps.keys.outputs.key == 'deploy' && (inputs.operation == 'clear-cache' || inputs.operation == 'restart')
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
+          sha="$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq .commit.sha)"
+          echo "Redeploying $sha (redeploy clears and rebuilds all caches)"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 \
+              -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
+              -i ~/.ssh/deploy_key "$USER@$HOST" "$sha"
+
+      - name: Fallback notice
+        if: steps.keys.outputs.key == 'deploy' && inputs.operation != 'clear-cache' && inputs.operation != 'restart'
+        run: |
+          echo "::error::Operation '${{ inputs.operation }}' requires MAINTENANCE_SSH_KEY (see deploy/remote-maintenance.sh)"
+          exit 1

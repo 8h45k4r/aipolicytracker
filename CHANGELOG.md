@@ -145,6 +145,10 @@ All notable changes to this project are documented here. The format follows [Kee
   and the licence, rebuilt when a template changes. Single templates stay free. Not offered until selling is on.
 - "Subscribe in your calendar" (`webcal://`) on the deadline calendar, jurisdiction pages and the "which date
   applies" result, so a subscribed calendar refreshes when a date moves. The one-off `.ics` download stays.
+- `php artisan aip:cache-clear` command: clears all application caches (config, route,
+  view, event, OPcache) in one step. Pass `--rebuild` to rebuild production caches after.
+- Server maintenance workflow: manual GitHub Actions trigger for cache-clear, restart,
+  docker-prune, full-cleanup and status operations without a full redeploy.
 
 ## [2.0.0] - 2026-10-20
 
