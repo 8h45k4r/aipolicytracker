@@ -35,6 +35,7 @@
             {{-- Underlined and named by format: grey plain text did not read as a link, and "Context file" named nothing a reader knows. --}}
             <span class="text-brand-muted">Download: <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Markdown</a></span>
             <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button>
         </div>
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" :source-url="$policy->official_source_url" class="mt-4" />

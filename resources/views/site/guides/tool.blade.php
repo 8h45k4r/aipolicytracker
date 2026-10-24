@@ -62,7 +62,7 @@
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Licence</dt><dd>CC BY 4.0</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Topics</dt><dd class="text-right">{{ implode(', ', array_map(fn ($t) => config('resources.topics')[$t] ?? $t, ($tool->topics ?? []))) }}</dd></div>
                     </dl></div>
-                <div class="flex flex-col gap-2 text-sm"><x-site.save-button type="tool" :slug="$tool->slug" :title="$tool->title" :url="$tool->url()" meta="Free tool" /><button type="button" class="btn-secondary" data-copy-link>Copy link</button></div>
+                <div class="flex flex-col gap-2 text-sm"><x-site.save-button type="tool" :slug="$tool->slug" :title="$tool->title" :url="$tool->url()" meta="Free tool" /><button type="button" class="btn-secondary" data-copy-link>Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button></div>
                 @if($next)<div class="text-sm"><p class="font-semibold text-brand-navy">Next step</p><p class="mt-1"><a href="{{ $next->url() }}" class="text-brand-navy">Download the {{ $next->title }} →</a></p></div>@endif
             </div>
         </aside>

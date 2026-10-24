@@ -2,8 +2,8 @@
 @section('content')
 <x-backend.page-header title="Change desk" description="The weekly routine that keeps the record current: open each source that is due, record what you found, and log any change in data/changes.">
     <x-slot:actions>
-        <a href="{{ route('freshness') }}" class="btn-secondary btn-sm" target="_blank" rel="noopener">Public freshness page<span class="sr-only"> (opens in new tab)</span></a>
-        <a href="{{ route('backend.review.index', ['type' => 'change']) }}" class="btn-secondary btn-sm">Changes in the review queue</a>
+        <a href="{{ route('freshness') }}" class="btn-secondary btn-sm" target="_blank" rel="noopener" data-command="Public freshness page">Public freshness page<span class="sr-only"> (opens in new tab)</span></a>
+        <a href="{{ route('backend.review.index', ['type' => 'change']) }}" class="btn-secondary btn-sm" data-command="Changes in the review queue">Changes in the review queue</a>
     </x-slot:actions>
 </x-backend.page-header>
 

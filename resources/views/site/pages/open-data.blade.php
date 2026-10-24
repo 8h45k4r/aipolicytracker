@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Open AI policy dataset, schema and API</h1>
     <p class="mt-3 prose-policy">AIPolicyTracker publishes its policy records as open data under {{ config('aipolicytracker.data_license') }}. The dataset currently holds {{ $stats['jurisdictions'] }} jurisdictions, {{ $stats['policies'] }} policy instruments, {{ $stats['obligations'] }} obligations and {{ $stats['changes'] }} change events @if($lastUpdated), last updated {{ $lastUpdated->format('j F Y') }}@endif. Every record carries an official source URL, review status, confidence level and verification dates so you can judge it before you use it.</p>

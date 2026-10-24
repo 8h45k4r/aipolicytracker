@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI regulation API and dataset for developers</h1>
     <p class="mt-3 prose-policy">A read-only JSON API and bulk exports covering {{ number_format($stats['jurisdictions']) }} jurisdictions, {{ number_format($stats['policies']) }} policy instruments and {{ number_format($stats['obligations']) }} obligations, each linked to its official source and carrying its review status. Free, no key, under {{ config('aipolicytracker.data_license') }}, which allows commercial use with attribution.</p>

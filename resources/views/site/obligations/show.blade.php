@@ -24,7 +24,7 @@
         </div>
         <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $obligation->title }}</h1>
         <p class="mt-1 text-sm text-brand-muted"><span class="float-right">Download: <a href="{{ route('obligations.json', $obligation->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('obligations.context', $obligation->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This duty as one Markdown file, with its provenance">Markdown</a></span>Under <a href="{{ $policy->url() }}" class="font-medium text-brand-body">{{ $policy->short_title ?: $policy->title }}</a>@if($obligation->source_reference), {{ $obligation->source_reference }}@endif</p>
-        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" legend /><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button></div>
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$obligation" class="!text-sm" legend /><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button></div>
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="obligation" :subject-slug="$obligation->slug" :save-title="$obligation->title" :save-url="$obligation->url()" :save-meta="($policy->short_title ?: $policy->title)" :source-url="$obligation->official_source_url ?: $policy->official_source_url" class="mt-4" />
     </header>

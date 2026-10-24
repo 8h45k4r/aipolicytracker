@@ -4,7 +4,7 @@
     <x-slot:actions>
         <form method="post" action="{{ route('backend.admin.social.queue') }}" class="inline">@csrf<button class="btn-primary btn-sm" data-command="Check for new changes to post">Check for new changes</button></form>
         @if(($counts['draft'] ?? 0) > 0)
-        <form method="post" action="{{ route('backend.admin.social.approve.all') }}" class="inline" data-confirm="Queue all {{ $counts['draft'] }} drafts? Each goes out on X within the monthly cap." data-confirm-label="Queue {{ $counts['draft'] }} drafts">@csrf<button class="btn-secondary btn-sm">Approve all drafts ({{ $counts['draft'] }})</button></form>
+        <form method="post" action="{{ route('backend.admin.social.approve.all') }}" class="inline" data-confirm="Queue all {{ $counts['draft'] }} drafts? Each goes out on X within the monthly cap." data-confirm-label="Queue {{ $counts['draft'] }} drafts">@csrf<button class="btn-secondary btn-sm" data-command="Approve all social drafts">Approve all drafts ({{ $counts['draft'] }})</button></form>
         @endif
         @can('settings.manage')<a href="{{ route('backend.admin.settings') }}#group-social" class="btn-secondary btn-sm">Keys and rules</a>@endcan
     </x-slot:actions>

@@ -64,9 +64,9 @@
         @endforeach
     </dl>
     <div class="mt-4 flex flex-wrap gap-2">
-        <form method="post" action="{{ route('backend.admin.billing.provision') }}">@csrf<button type="submit" class="btn-primary" @disabled(!$setup['api_key']) @unless($setup['api_key']) aria-describedby="provision-blocked" @endunless>Provision webhook and products</button></form>
-        <form method="post" action="{{ route('backend.admin.billing.check') }}">@csrf<button type="submit" class="btn-secondary">Check products against the provider</button></form>
-        <form method="post" action="{{ route('backend.admin.billing.probe') }}">@csrf<button type="submit" class="btn-secondary" @disabled($blockers !== []) @if($blockers !== []) aria-describedby="probe-blocked" @endif>Can we sell right now?</button></form>
+        <form method="post" action="{{ route('backend.admin.billing.provision') }}">@csrf<button type="submit" class="btn-primary" @disabled(!$setup['api_key']) @unless($setup['api_key']) aria-describedby="provision-blocked" @endunless data-command="Provision webhook and products">Provision webhook and products</button></form>
+        <form method="post" action="{{ route('backend.admin.billing.check') }}">@csrf<button type="submit" class="btn-secondary" data-command="Check products against the provider">Check products against the provider</button></form>
+        <form method="post" action="{{ route('backend.admin.billing.probe') }}">@csrf<button type="submit" class="btn-secondary" @disabled($blockers !== []) @if($blockers !== []) aria-describedby="probe-blocked" @endif data-command="Can we sell right now?">Can we sell right now?</button></form>
     </div>
     @unless($setup['api_key'])<p id="provision-blocked" class="meta mt-2">Provisioning needs the Dodo API key. <a href="{{ route('backend.admin.settings') }}#f-dodo_api_key">Add the API key in Settings</a>.</p>@endunless
     @if($blockers !== [])

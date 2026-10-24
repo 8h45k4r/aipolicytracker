@@ -4,6 +4,10 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-2">Regional hub</p>
     <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI regulation in {{ $regionName }}</h1>
+    <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
+        <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+        <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
+    </div>
 
     {{-- The answer box: computed from the records on the page, never written by hand. --}}
     <section class="mt-5 card-flat p-5" aria-labelledby="summary-heading">

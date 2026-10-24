@@ -86,6 +86,12 @@ All notable changes to this project are documented here. The format follows [Kee
 - Share button (native Web Share API) on control, change, risk entry,
   incident and year archive pages.
 - Copy-link button on year archive and risk/incident header bars.
+- Share button (native Web Share API) on framework, guide, comparison,
+  template, policy, obligation, jurisdiction, tool, risk browse, incident
+  browse and applicability pages, completing Web Share coverage across all
+  public detail and listing views.
+- Copy-link and share buttons on implementation tracker, transition,
+  audience, regional hub and newsletter issue pages.
 - `<x-null-dash>` Blade component for rendering null-safe values with an
   em-dash fallback and optional date formatting (debt #7).
 - `aip:env-check` artisan command: fails loudly when required environment
@@ -96,6 +102,12 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Account screens (login, register, verify email, forgot/reset password, profile)
+  redesigned with the platform design system: brand colours, consistent card layout,
+  proper form spacing, and accessible labels. Removed legacy CSS (hardcoded hex
+  colours, MUI overrides, commented-out code, JS-based responsive hiding) from
+  app.css in favour of design-token-based utility classes.
+- Authenticated layout uses brand design tokens instead of generic Tailwind greys.
 - Sign-up IP address is now stored as a keyed HMAC-SHA256 hash
   (`ip_hash`) instead of the plain address, matching the hashing used for
   download and audit log records. Existing rows migrated in place.
@@ -109,6 +121,13 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Fixed
 - Year archive container class aligned with the design-system
   `container-site` token (was a manual `mx-auto` override).
+- Container class: eleven pages (open-data, methodology, contribute,
+  privacy, developers, glossary, glossary-term, MCP, terms, newsletter
+  index and newsletter issue) now use the `container-site` design token
+  instead of manual `mx-auto max-w-4xl` overrides, for consistent
+  responsive behaviour across the site.
+- Account following page: error state uses design token `bg-state-badbg`
+  instead of hardcoded `bg-red-50`.
 - Duplicate copy-link buttons on control and change detail pages
   removed (two buttons rendered; now one).
 - Table accessibility: added `<caption>` and `scope="col"` to tables

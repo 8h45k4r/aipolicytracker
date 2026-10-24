@@ -160,7 +160,7 @@ class AdminSettingsGroupsTest extends TestCase
         $html = $this->actingAs($owner)->get(route('backend.admin.billing.index'))->assertOk()->getContent();
 
         $this->assertStringContainsString('<h1 class="text-2xl font-semibold tracking-tight text-brand-navy">Billing</h1>', $html);
-        $this->assertMatchesRegularExpression('/<button type="submit" class="btn-secondary"\s+disabled\s+aria-describedby="probe-blocked"\s*>Can we sell right now\?/', $html);
+        $this->assertMatchesRegularExpression('/<button type="submit" class="btn-secondary"\s+disabled\s+aria-describedby="probe-blocked"[^>]*>Can we sell right now\?/', $html);
         $this->assertStringContainsString('No Dodo API key is stored or set in the environment.', $html);
         $this->assertStringContainsString('href="'.route('backend.admin.settings').'#f-dodo_api_key"', $html);
         $this->assertStringContainsString('The products are not provisioned', $html);
@@ -175,7 +175,7 @@ class AdminSettingsGroupsTest extends TestCase
         AppSetting::put('dodo_product_pro_monthly', 'pdt_month');
         $html = $this->actingAs($owner)->get(route('backend.admin.billing.index'))->getContent();
         $this->assertStringNotContainsString('data-probe-blocked', $html);
-        $this->assertMatchesRegularExpression('/<button type="submit" class="btn-secondary"\s*>Can we sell right now\?/', $html);
+        $this->assertMatchesRegularExpression('/<button type="submit" class="btn-secondary"[^>]*>Can we sell right now\?/', $html);
     }
 
     public function test_funders_are_added_and_edited_in_side_panels_with_a_page_fallback(): void

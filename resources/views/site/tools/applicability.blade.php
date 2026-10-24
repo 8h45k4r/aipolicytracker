@@ -94,7 +94,7 @@
                 @endif
                 <section aria-labelledby="r-questions" class="mt-8"><h2 id="r-questions" class="section-title">Questions to investigate</h2><ol class="mt-2 list-decimal pl-5 space-y-1.5 text-sm text-brand-body">@foreach($result['questions'] as $q)<li>{{ $q }}</li>@endforeach</ol></section>
                 <section aria-labelledby="r-checklist" class="mt-8"><h2 id="r-checklist" class="section-title">Starter action checklist</h2><ul class="mt-2 space-y-1.5 text-sm text-brand-body">@foreach($result['checklist'] as $c)<li class="flex gap-2"><span aria-hidden="true" class="mt-1 inline-block h-4 w-4 rounded border border-brand-line"></span>{{ $c }}</li>@endforeach</ul>
-                    <div class="mt-4 flex flex-wrap gap-2"><button type="button" class="btn-secondary" data-copy-link>Copy link to these results</button><a href="{{ route('compare.index', ['j' => implode(',', $answers['jurisdictions'])]) }}" class="btn-secondary" rel="nofollow">Compare selected jurisdictions</a></div>
+                    <div class="mt-4 flex flex-wrap gap-2"><button type="button" class="btn-secondary" data-copy-link>Copy link to these results</button><button type="button" data-share class="btn-secondary hidden">Share</button><a href="{{ route('compare.index', ['j' => implode(',', $answers['jurisdictions'])]) }}" class="btn-secondary" rel="nofollow">Compare selected jurisdictions</a></div>
                 </section>
             @endif
         </div>

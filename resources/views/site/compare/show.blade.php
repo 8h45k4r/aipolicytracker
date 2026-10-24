@@ -6,6 +6,7 @@
     <p class="mt-3 max-w-3xl prose-policy">{{ $config['intro'] }}</p>
     <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
         <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+        <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
     </div>
     @include('site.compare._table')
 

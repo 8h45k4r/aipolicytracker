@@ -1,9 +1,7 @@
 @extends('backend.layouts.app', ['title' => ($user->name ?: $user->email).' · Users'])
 @section('content')
-<p class="text-sm"><a href="{{ route('backend.admin.users.index') }}">← Users and roles</a></p>
-
-<div class="mt-2">
-    <x-backend.page-header :title="$user->name ?: $user->email" :description="$user->email.($user->organization_name ? ' · '.$user->organization_name : '')">
+<div>
+    <x-backend.page-header :title="$user->name ?: $user->email" :description="$user->email.($user->organization_name ? ' · '.$user->organization_name : '')" :crumbs="[['Users and roles', route('backend.admin.users.index')], [$user->name ?: $user->email]]">
         <x-slot:actions>
             @if($user->isOwner())<span class="badge bg-brand-navy text-white ring-brand-navy">Owner</span>@else<span class="badge bg-brand-paper text-brand-body ring-brand-line">{{ $user->adminRole() ? $user->adminRoleLabel() : 'No admin access' }}</span>@endif
             @if($user->isSuspended())<x-backend.badge status="suspended" />@elseif($user->invitationPending())<x-backend.badge status="unconfirmed">invitation pending</x-backend.badge>@elseif(! $user->email_verified_at)<x-backend.badge status="unconfirmed">email unverified</x-backend.badge>@else<x-backend.badge status="active" />@endif
