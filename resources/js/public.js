@@ -187,6 +187,19 @@
         });
     });
 
+    // Password show/hide toggle on auth forms.
+    document.querySelectorAll('[data-password-toggle]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var id = btn.getAttribute('aria-controls');
+            var input = id ? document.getElementById(id) : btn.closest('.relative').querySelector('input[type="password"], input[type="text"]');
+            if (!input) return;
+            var show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            btn.textContent = show ? 'Hide' : 'Show';
+            btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+        });
+    });
+
     // Correction form: show the current value of the field being disputed and suggest a summary.
     var fieldSelect = document.querySelector('[data-field-select]');
     if (fieldSelect) {

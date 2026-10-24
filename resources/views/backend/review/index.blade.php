@@ -3,7 +3,7 @@
 <x-backend.page-header title="Review queue" description="Imported records are confirmed against their official source and switched on or off for the public site, API and sitemaps. Tick rows, then act on the selection: one attestation covers the whole selection and every record still gets its own dated, named verification. Submissions are decided on the Submissions page.">
     <x-slot:actions>
         <a href="{{ route('backend.admin.submissions', ['status' => 'pending_review']) }}" class="btn-secondary btn-sm" data-command="Decide waiting submissions">Submissions</a>
-        @can('records.verify')<a href="{{ route('backend.checks.index') }}" class="btn-secondary btn-sm">Independent checks</a>@endcan
+        @can('records.verify')<a href="{{ route('backend.checks.index') }}" class="btn-secondary btn-sm" data-command="Independent checks">Independent checks</a>@endcan
     </x-slot:actions>
 </x-backend.page-header>
 

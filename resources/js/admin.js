@@ -143,6 +143,42 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
         if (here && here.offsetTop + here.offsetHeight > navScroll.clientHeight) { navScroll.scrollTop = here.offsetTop - navScroll.clientHeight / 2; }
         edges();
     }
+
+    // ---------------------------------------------------------------------------------
+    // Sidebar nav filter: [data-admin-nav-filter] hides links that do not match the
+    // typed text, and whole groups whose every link is hidden. Escape clears. The `/`
+    // key focuses it from anywhere (unless a field already has focus).
+    // ---------------------------------------------------------------------------------
+    var navFilter = doc.querySelector('[data-admin-nav-filter]');
+    if (navFilter) {
+        var navLinks = all('[data-admin-nav-link]');
+        var navGroups = all('[data-admin-nav-group]');
+        var filterNav = function () {
+            var q = navFilter.value.trim().toLowerCase();
+            navLinks.forEach(function (a) {
+                a.style.display = q === '' || a.textContent.trim().toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+            });
+            navGroups.forEach(function (g) {
+                var visible = all('[data-admin-nav-link]', g).some(function (a) { return a.style.display !== 'none'; });
+                g.style.display = visible ? '' : 'none';
+            });
+            if (navScroll) { edges(); }
+        };
+        navFilter.addEventListener('input', filterNav);
+        navFilter.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') { e.preventDefault(); navFilter.value = ''; filterNav(); navFilter.blur(); }
+        });
+        doc.addEventListener('keydown', function (e) {
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                var tag = (doc.activeElement || {}).tagName;
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (doc.activeElement && doc.activeElement.isContentEditable)) { return; }
+                if (anotherModalOpen()) { return; }
+                e.preventDefault();
+                navFilter.focus();
+            }
+        });
+    }
+
     var account = doc.querySelector('[data-admin-account]');
     if (account) {
         doc.addEventListener('click', function (e) { if (account.open && !account.contains(e.target)) { account.open = false; } });

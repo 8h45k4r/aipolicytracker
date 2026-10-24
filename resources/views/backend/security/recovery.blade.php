@@ -1,6 +1,6 @@
 @extends('backend.layouts.app', ['title' => 'Authenticator and recovery codes'])
 @section('content')
-<h1 class="font-display text-2xl font-semibold text-brand-navy">Authenticator and recovery codes</h1>
+<x-backend.page-header title="Authenticator and recovery codes" />
 @if(! empty($codes))
 <section class="mt-6 card-flat p-5 border-state-warn/40">
     <h2 class="section-title !text-lg">Save these recovery codes now</h2>

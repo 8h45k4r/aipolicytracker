@@ -1,8 +1,6 @@
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -11,50 +9,55 @@ export default function ForgotPassword({ status }) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route("password.email"));
     };
 
     return (
         <GuestLayout>
-            <Head title="Forgot Password" />
-            <div className="blur-ai  p-8 rounded-md py-10 w-1/3">
-                <div className="form-container">
-                    <div className="mb-4 text-sm text-white">
-                        Forgot your password? No problem. Just let us know your
-                        email address and we will email you a password reset
-                        link that will allow you to choose a new one.
+            <Head title="Forgot password" />
+
+            <div className="auth-card">
+                <h1 className="text-xl font-bold text-brand-navy">
+                    Reset your password
+                </h1>
+                <p className="mt-2 text-sm text-brand-body">
+                    Enter your email address and we will send you a link to
+                    choose a new password.
+                </p>
+
+                {status && (
+                    <div className="mt-4 rounded-md bg-state-goodbg px-3 py-2 text-sm font-medium text-state-good">
+                        {status}
                     </div>
+                )}
 
-                    {status && (
-                        <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-                            {status}
-                        </div>
-                    )}
-
-                    <form onSubmit={submit}>
-                        <TextInput
+                <form onSubmit={submit} className="mt-6 space-y-4">
+                    <div>
+                        <label htmlFor="email" className="auth-label">
+                            Email address
+                        </label>
+                        <input
                             id="email"
                             type="email"
                             name="email"
                             value={data.email}
-                            className="mt-1 block w-full bg-transparent  text-white"
-                            isFocused={true}
+                            className="auth-input mt-1"
+                            autoFocus
                             onChange={(e) => setData("email", e.target.value)}
                         />
+                        <InputError message={errors.email} className="mt-1" />
+                    </div>
 
-                        <InputError message={errors.email} className="mt-2" />
+                    <button type="submit" disabled={processing} className="auth-btn">
+                        {processing ? "Sending…" : "Send reset link"}
+                    </button>
+                </form>
 
-                        <div className="flex items-center justify-end mt-4">
-                            <PrimaryButton
-                                className="ms-4"
-                                disabled={processing}
-                            >
-                                Email Password Reset Link
-                            </PrimaryButton>
-                        </div>
-                    </form>
-                </div>
+                <p className="mt-6 text-center text-sm text-brand-muted">
+                    <Link href={route("login")} className="auth-link">
+                        Back to sign in
+                    </Link>
+                </p>
             </div>
         </GuestLayout>
     );
