@@ -109,6 +109,8 @@ jobs:
 
       - name: Fallback notice
         if: steps.keys.outputs.key == 'deploy' && inputs.operation != 'clear-cache' && inputs.operation != 'restart'
+        env:
+          OP: ${{ inputs.operation }}
         run: |
-          echo "::error::Operation '${{ inputs.operation }}' requires MAINTENANCE_SSH_KEY (see deploy/remote-maintenance.sh)"
+          echo "::error::Operation '$OP' requires MAINTENANCE_SSH_KEY (see deploy/remote-maintenance.sh)"
           exit 1
