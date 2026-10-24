@@ -35,7 +35,7 @@
                 <tr><td>Marketing consent time</td><td>Separate from terms acceptance and never pre-ticked. Empty means you did not opt in.</td></tr>
                 <tr><td>Two-factor secret and recovery codes</td><td>For administrator accounts only. Encrypted at rest and never included when the account is serialised.</td></tr>
                 <tr><td>Phone number, organisation email</td><td>Only if you chose to give them. Both are optional.</td></tr>
-                <tr><td>Sign-up IP address and browser user agent</td><td>Recorded once at sign-up to make abuse of the free-account gate traceable. This one field is kept in full rather than hashed, which is an inconsistency with the rest of the system and is recorded as known technical debt in the repository.</td></tr>
+                <tr><td>Sign-up IP hash and browser user agent</td><td>Recorded once at sign-up to make abuse of the free-account gate traceable. The IP address is stored as a keyed hash, the same as every other address in the system: it links rows from one address without keeping the address itself.</td></tr>
             </tbody>
         </table></div>
     </section>

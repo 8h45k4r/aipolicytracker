@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Services\Completeness\CompletenessReport;
 use App\Services\Verification\VerificationPolicy;
 use Closure;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 /**
@@ -48,10 +49,42 @@ class ConfigIsCacheableTest extends TestCase
         );
     }
 
+    public function test_no_configuration_value_changes_after_caching(): void
+    {
+        $before = Arr::dot(config()->all());
+
+        $this->artisan('config:cache')->assertSuccessful();
+
+        $cached = require $this->app->getCachedConfigPath();
+
+        $this->artisan('config:clear');
+
+        $after = Arr::dot($cached);
+
+        $changed = [];
+        foreach ($before as $key => $live) {
+            if ($live instanceof Closure || is_object($live) || is_null($live)) {
+                continue;
+            }
+
+            $fromCache = $after[$key] ?? null;
+            if ($live !== $fromCache) {
+                $changed[] = "{$key}: ".var_export($live, true).' -> '.var_export($fromCache, true);
+            }
+        }
+
+        $this->assertSame(
+            [],
+            $changed,
+            'config:cache changed these values. A config file is probably calling config() '
+            .'to read another file — that resolves to null once the tree is serialised. '
+            ."Use a token substituted at render time instead.\n"
+            .implode("\n", $changed)
+        );
+    }
+
     public function test_the_policies_that_moved_out_of_config_still_drive_the_reports(): void
     {
-        // Guards the move itself: the rules and checks must still reach the services,
-        // not silently become empty arrays that make every gate trivially pass.
         $this->assertNotEmpty(
             app(VerificationPolicy::class)->rules(),
             'the verification rules did not survive the move out of config/'
@@ -61,7 +94,6 @@ class ConfigIsCacheableTest extends TestCase
             'the completeness checks did not survive the move out of config/'
         );
 
-        // The serializable knobs stay in config/ and are still read from there.
         $this->assertIsInt(config('verification.critical_budget'));
         $this->assertIsInt(config('completeness.required_budget'));
         $this->assertNotEmpty(config('verification.tracks'));

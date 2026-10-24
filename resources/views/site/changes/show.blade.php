@@ -1,5 +1,12 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'what-heading' => 'What changed?',
+    'impact-heading' => $change->practical_impact ? 'Practical impact' : null,
+    'sources-heading' => $change->official_source_url ? 'Official source' : null,
+    'cite-heading' => 'Cite this record',
+    'related-heading' => $related->isNotEmpty() ? 'Related changes' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -17,8 +24,10 @@
             @if($change->official_source_url)<a href="{{ $change->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
             <span class="text-brand-muted">Download: <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Markdown</a></span>
             <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button>
         </div>
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
@@ -42,6 +51,7 @@
         </div>
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">At a glance</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">

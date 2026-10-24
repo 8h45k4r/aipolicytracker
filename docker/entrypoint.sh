@@ -10,6 +10,10 @@ touch /tmp/aip-booted 2>/dev/null || true
 # so until the listener is up every request is a 502. The rule here is that only
 # work the application cannot serve without belongs above the exec line.
 #
+# Fail loudly when required environment variables are missing, before anything
+# else runs against a database that may not even be reachable.
+php artisan aip:env-check
+
 # Migrations qualify: the schema has to match the code before a request is
 # answered, and they take seconds.
 php artisan migrate --force
