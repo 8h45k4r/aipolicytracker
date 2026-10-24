@@ -10,7 +10,7 @@ export default function PrimaryButton({
             <button
                 {...props}
                 className={
-                    `ms-4 px-5 py-1 rounded-md text-white font-bold bg-blue-600 hover:bg-blue-500 ` +
+                    `ms-4 px-5 py-1 rounded-md text-white font-bold bg-brand-navy hover:bg-brand-ink focus:ring-2 focus:ring-brand-cyan ` +
                     className
                 }
             >

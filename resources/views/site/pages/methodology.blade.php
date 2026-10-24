@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Methodology</h1>
     <p class="mt-3 prose-policy">{{ config('aipolicytracker.trust_statement') }} This page explains how records are sourced, structured, reviewed and kept current, and what the site does not do.</p>

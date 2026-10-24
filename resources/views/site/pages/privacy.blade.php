@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Privacy policy</h1>
     <p class="mt-3 prose-policy">This page describes what {{ config('aipolicytracker.site_name') }} stores about you, why, how long it is kept and how to get it back or removed. It describes the system as it is actually built: the tables named here exist in the published source, and the <a href="{{ config('aipolicytracker.github_url') }}" rel="noopener">repository</a> can be read to check any claim on this page.</p>

@@ -11,6 +11,7 @@
         <p class="mt-2 max-w-3xl text-brand-body">{{ $meta['summary'] }}</p>
         <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
             <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
         </div>
     </header>
 

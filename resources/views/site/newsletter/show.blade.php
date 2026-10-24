@@ -1,10 +1,14 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="mt-2 eyebrow">Weekly digest · <time datetime="{{ $issue->sent_on->toDateString() }}">{{ $issue->sent_on->format('j F Y') }}</time></p>
     <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $changes->count() }} {{ \Illuminate\Support\Str::plural('change', $changes->count()) }} in AI policy, week to {{ $issue->period_end->format('j F Y') }}</h1>
     <p class="mt-2 text-sm text-brand-muted">Covers {{ $issue->period_start->format('j M') }} – {{ $issue->period_end->format('j M Y') }}. Sent to {{ number_format($issue->recipients) }} {{ \Illuminate\Support\Str::plural('subscriber', $issue->recipients) }}. <a href="{{ route('subscribe.show') }}" class="text-brand-blue hover:underline">Subscribe</a></p>
+    <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
+        <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+        <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
+    </div>
 
     <section aria-labelledby="changes-heading" class="mt-6">
         <h2 id="changes-heading" class="section-title">What changed</h2>

@@ -4,7 +4,7 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $page['h1'] }}</h1>
     <p class="mt-3 max-w-3xl prose-policy text-base">{{ $page['summary'] }}</p>
-    <div class="mt-3 flex flex-wrap items-center gap-3 text-sm"><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button></div>
+    <div class="mt-3 flex flex-wrap items-center gap-3 text-sm"><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button></div>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             <ol class="space-y-6">@foreach($page['steps'] as $s)<li class="relative pl-10"><span class="absolute left-0 top-0 inline-flex h-7 w-7 items-center justify-center rounded-sm bg-brand-navy text-xs font-semibold text-white" aria-hidden="true">{{ $loop->iteration }}</span><h2 class="section-title">{{ $s['title'] }}</h2><p class="prose-policy mt-1">{{ $s['body'] }}</p></li>@endforeach</ol>

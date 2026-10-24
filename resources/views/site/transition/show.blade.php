@@ -6,6 +6,10 @@
         <div class="flex flex-wrap gap-1.5"><span class="badge bg-brand-navy text-white ring-brand-navy">{{ $measure->typeLabel() }}</span><span class="badge-neutral">{{ $measure->statusLabel() }}</span>@if($measure->isDraft())<span class="badge bg-state-warnbg text-brand-body ring-state-warn/40">Draft: not verified</span>@else<span class="badge bg-state-goodbg text-state-good ring-state-good/30">Verified</span>@endif</div>
         <h1 class="mt-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $measure->title }}</h1>
         <p class="mt-2 meta">{{ $measure->jurisdiction->name }} · Last updated <time datetime="{{ $measure->updated_at->toAtomString() }}">{{ $measure->updated_at->format('j M Y') }}</time>@if($measure->last_verified_at) · verified {{ $measure->last_verified_at->format('j M Y') }}@endif</p>
+        <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
+            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
+        </div>
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">

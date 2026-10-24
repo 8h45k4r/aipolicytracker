@@ -1,1 +1,0 @@
-import"./rolldown-runtime-B0Z9INg1.js";import{s as e,t}from"./app-bgbHQuqC.js";e();var n=t();function r({message:e=null,...t}){return(0,n.jsx)(`div`,{children:(0,n.jsx)(`div`,{className:` text-red-600`,children:e})})}export{r as t};

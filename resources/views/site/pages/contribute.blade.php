@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $subject ? 'Report a correction' : 'Contribute' }}</h1>
     <p class="mt-3 prose-policy">Corrections, official sources and new records are welcome. Everything submitted here is stored as <span class="font-medium">pending review</span> and is never published until a reviewer has checked it against the official source and applied it through the repository.</p>

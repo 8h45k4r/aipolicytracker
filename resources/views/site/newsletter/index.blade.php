@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI policy digest archive</h1>
     <p class="mt-2 text-brand-body">Every issue of the weekly digest, as sent: the dated, source-backed changes to AI law and guidance that week, and the application dates coming up. <a href="{{ route('subscribe.show') }}" class="text-brand-blue hover:underline">Subscribe</a> to receive it, or follow the <a href="{{ route('updates.index') }}" class="text-brand-blue hover:underline">updates hub</a> between issues.</p>

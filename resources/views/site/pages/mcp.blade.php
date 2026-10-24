@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI regulation MCP server for assistants</h1>
     <p class="mt-3 prose-policy">An open-source <a href="https://modelcontextprotocol.io/" rel="noopener">Model Context Protocol</a> server that lets an AI assistant look up AI laws, obligations, deadlines and enforcement actions here, instead of scraping pages. Read-only, no key, and every result carries the record's official source and review status.</p>

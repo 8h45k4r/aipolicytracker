@@ -51,7 +51,7 @@
         <h2 id="chan-h" class="section-title">Where alerts go</h2>
         @if(session('status') === 'channel-added')<p class="mt-3 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Channel added.@if(session('channel_secret')) Signing secret (shown once; verify <code>X-AIP-Signature: sha256=HMAC-SHA256(body)</code> with it): <code class="break-all">{{ session('channel_secret') }}</code>@endif</p>@endif
         @if(session('status') === 'channel-test-ok')<p class="mt-3 rounded-md border border-state-good/30 bg-state-goodbg px-3 py-2 text-sm text-state-good" role="status">Test delivered.</p>@endif
-        @if(session('status') === 'channel-test-failed')<p class="mt-3 rounded-md border border-state-bad/30 bg-red-50 px-3 py-2 text-sm text-state-bad" role="alert">Test failed: {{ session('channel_error') ?: 'no response' }}. It will be retried up to five times with backoff.</p>@endif
+        @if(session('status') === 'channel-test-failed')<p class="mt-3 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">Test failed: {{ session('channel_error') ?: 'no response' }}. It will be retried up to five times with backoff.</p>@endif
         <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm" aria-label="Alert channels">
             <li class="flex flex-wrap items-center justify-between gap-3 py-3"><div><span class="font-medium text-brand-navy">Email</span> <span class="meta">{{ $user->email }} · {{ $emailOn ? 'on' : 'off' }}</span></div>
                 @php($emailChannel = $channels->firstWhere('kind', 'email'))
