@@ -20,7 +20,8 @@
         <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Urgent / high</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $urgentCount }}</dd></div>
         <div class="card-flat py-3"><dt class="text-xs text-brand-muted">Instruments affected</dt><dd class="text-2xl font-semibold text-brand-navy">{{ $changes->pluck('policyInstrument.slug')->filter()->unique()->count() }}</dd></div>
     </dl>
-    <div class="mt-6 divide-y divide-brand-line border-y border-brand-line">@foreach($changes as $c)<x-site.change-item :change="$c" />@endforeach</div>
+    <h2 class="mt-6 section-title">Every recorded change in {{ $year }}</h2>
+    <div class="mt-3 divide-y divide-brand-line border-y border-brand-line">@foreach($changes as $c)<x-site.change-item :change="$c" />@endforeach</div>
     <x-site.disclaimer class="mt-8" />
 </div>
 @endsection

@@ -119,6 +119,9 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- SEO audit against the claude-seo checklist (`docs/reference/seo-aeo-audit-2026-11-03.md`): AI-risk entries
+  extracted from one passage no longer share a meta description; the change-by-year pages no longer skip a
+  heading level; the status badge image gives its width as well as its height.
 - Year archive container class aligned with the design-system
   `container-site` token (was a manual `mx-auto` override).
 - Container class: eleven pages (open-data, methodology, contribute,
