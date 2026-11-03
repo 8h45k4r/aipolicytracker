@@ -111,6 +111,8 @@ class UpdatesController extends Controller
             'heading' => 'AI policy updates, '.$start->format('F Y'),
             'context' => 'month',
             'feedUrl' => route('changes.feed'),
+            // The days of this month that have a page of their own in the sitemap.
+            'days' => $changes->groupBy(fn ($c) => $c->occurred_on->toDateString())->filter(fn ($g) => $g->count() >= self::MIN_INDEXABLE_DAY)->map->count()->sortKeys()->all(),
             'prev' => $i !== false && isset($keys[$i + 1]) ? ['label' => Carbon::parse($keys[$i + 1].'-01')->format('F Y'), 'url' => route('updates.month', $keys[$i + 1])] : null,
             'next' => $i !== false && $i > 0 ? ['label' => Carbon::parse($keys[$i - 1].'-01')->format('F Y'), 'url' => route('updates.month', $keys[$i - 1])] : null,
         ]);

@@ -171,8 +171,13 @@ class JurisdictionController extends Controller
                 'isPartOf' => Seo::recordIsPartOf(),
             ]);
         $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
+        // The editorial overviews that cover this country (config content.landings). Without this
+        // link they were reachable only from the noindexed /explore pages.
+        $overviews = collect(config('content.landings'))
+            ->filter(fn ($l) => in_array($jurisdiction->slug, $l['jurisdictions'] ?? [], true))
+            ->map(fn ($l, $slug) => ['label' => $l['h1'], 'url' => route('landing', $slug)])->values();
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'subnational', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'subnational', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl', 'overviews'));
     }
 
     private function firstSentence(?string $text): string

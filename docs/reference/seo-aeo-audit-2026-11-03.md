@@ -32,6 +32,7 @@ The live site was not reachable from where the audit ran, so these are not cover
 | JSON-LD `@context`, invalid JSON, relative URLs, placeholders | none |
 | Deprecated schema types (SD-DEPRECATED, HowTo and others) | none |
 | Broken internal links | none |
+| Pages with no link from another sitemap page (ORPHAN) | **4 hub pages and 17 update archives** (fixed); 1,302 incident and risk entries, reached through the crawlable pagination of their browse pages, which is by design |
 | Internal links through a redirect | 120 `/id/<permanent id>` citation links, by design; 1 account link to `/profile` for signed-out readers |
 | HTML over 2 MB (HTML-SIZE) | none; `/jurisdictions` is the largest at 775 KB uncompressed (map data and 249 rows) |
 | `robots.txt` (ROBOTS-GROUP-SELECTION, AI-CRAWLER-SPLIT) | AI crawlers named in their own group, with every rule repeated |
@@ -44,6 +45,12 @@ The live site was not reachable from where the audit ran, so these are not cover
 - **Risk entries that shared a description.** Entries the MIT AI Risk Repository extracted from one passage of a paper carry the same description, so their search snippets were identical. The description now starts with the entry's own name ("Scams: …", "Disinformation: …").
 - **Skipped heading level on `/changes/<year>`.** The list of changes now has its own H2 ("Every recorded change in 2025"), so the H3 of each change sits under it.
 - **Badge image size.** The status badge on policy pages, its copyable snippet and the `/embed` example now give `width` as well as `height`, so the page does not move when the image loads.
+
+- **Hub pages reachable only from `/explore`.** The quarterly report (`/state-of-ai-regulation`), `/ai-policy-examples`, `/ai-regulation-south-asia` and `/ai-governance-uae` were linked only from the `/explore/*` section pages, which are `noindex,follow`. Search engines come to treat links on pages that stay noindexed as weak. Now:
+  - the home page links the quarterly report and the policy examples;
+  - each country an editorial overview covers links to it (India and Nepal to South Asia, the UAE to its page);
+  - the region in a country's header links to its regional hub.
+- **Update archives without a link.** The updates page listed only the last 18 months, and no page linked a single day. It now also lists every older month the sitemap publishes, and each month page lists its days that have a page of their own.
 
 ## Left as they are, and why
 
@@ -58,4 +65,6 @@ The live site was not reachable from where the audit ran, so these are not cover
 `tests/Feature/ClaudeSeoAuditTest.php`:
 - two risk entries with one description get different meta descriptions;
 - the change-by-year page skips no heading level;
-- the badge image and its snippet carry its width and height.
+- the badge image and its snippet carry its width and height;
+- the home page and the covered countries link the hub pages;
+- every month and day archive in the updates sitemap is linked from the updates pages.

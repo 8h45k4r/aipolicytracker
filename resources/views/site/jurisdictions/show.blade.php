@@ -17,8 +17,9 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
-        <p class="eyebrow">{{ ucfirst($jurisdiction->jurisdiction_type) }}@if($jurisdiction->parent) · <a href="{{ $jurisdiction->parent->url() }}">{{ $jurisdiction->parent->name }}</a>@endif · {{ $jurisdiction->region }}</p>
+        <p class="eyebrow">{{ ucfirst($jurisdiction->jurisdiction_type) }}@if($jurisdiction->parent) · <a href="{{ $jurisdiction->parent->url() }}">{{ $jurisdiction->parent->name }}</a>@endif · @if($region)<a href="{{ \App\Services\Hubs\HubCatalog::regionUrl($region) }}">{{ $jurisdiction->region }}</a>@else{{ $jurisdiction->region }}@endif</p>
         <h1 class="mt-1 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">AI regulation in {{ $jurisdiction->nameWithArticle() }}</h1>
+        @if($overviews->isNotEmpty())<p class="mt-2 text-sm text-brand-body" data-overviews>Overview: @foreach($overviews as $o)<a href="{{ $o['url'] }}">{{ $o['label'] }}</a>@if(! $loop->last) · @endif @endforeach</p>@endif
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$jurisdiction" class="!text-sm" legend /><span class="text-brand-muted">Download: <a href="{{ route('jurisdictions.json', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Markdown</a></span><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
     </header>
 

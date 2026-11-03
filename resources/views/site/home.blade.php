@@ -26,9 +26,9 @@
                 <ul class="mt-2 grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-2 text-sm">
                     @foreach([
                         ['Compliance & legal', [['Obligations', route('obligations.index')], ['Applicability check', route('tools.applicability')]]],
-                        ['Policy & government', [['Compare', route('compare.index')], ['Jurisdictions', route('jurisdictions.index')]]],
+                        ['Policy & government', [['Compare', route('compare.index')], ['Jurisdictions', route('jurisdictions.index')], ['Policy examples', route('ai-policy-examples')]]],
                         ['Research', [['Open data', route('open-data')], ['AI risk', route('risk.index')]]],
-                        ['Journalists', [['Updates', route('updates.index')], ['Change log', route('changes.index')]]],
+                        ['Journalists', [['Updates', route('updates.index')], ['Change log', route('changes.index')], ['Quarterly report', route('state-of.show')]]],
                     ] as [$who, $links])
                     <li class="border-l-2 border-brand-line pl-3"><span class="block font-semibold text-brand-navy">{{ $who }}</span>@foreach($links as [$label, $href])<a href="{{ $href }}" data-track="home_persona" data-track-label="{{ $who }}: {{ $label }}">{{ $label }}</a>@if(! $loop->last) <span class="text-brand-muted" aria-hidden="true">·</span> @endif @endforeach</li>
                     @endforeach

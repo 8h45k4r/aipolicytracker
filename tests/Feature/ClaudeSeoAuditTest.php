@@ -63,4 +63,36 @@ class ClaudeSeoAuditTest extends TestCase
         $this->assertStringContainsString('width="'.$width.'" height="20" loading="lazy"', $html);
         $this->assertStringContainsString('width=&quot;'.$width.'&quot; height=&quot;20&quot;', $html, 'the copied snippet carries the size too');
     }
+
+    public function test_hub_pages_are_linked_from_indexed_pages_not_only_from_explore(): void
+    {
+        $home = $this->get(route('home'))->assertOk()->getContent();
+        $this->assertStringContainsString('href="'.route('state-of.show').'"', $home);
+        $this->assertStringContainsString('href="'.route('ai-policy-examples').'"', $home);
+
+        foreach (config('content.landings') as $slug => $landing) {
+            foreach ($landing['jurisdictions'] ?? [] as $j) {
+                $html = $this->followingRedirects()->get(route('jurisdictions.show', $j))->assertOk()->getContent();
+                $this->assertStringContainsString('href="'.route('landing', $slug).'"', $html, "{$j} links its overview {$slug}");
+            }
+        }
+        $india = $this->get(route('jurisdictions.show', 'india'))->assertOk()->getContent();
+        $this->assertStringContainsString('href="'.route('hubs.show', 'ai-regulation-asia').'">Asia</a>', $india);
+    }
+
+    public function test_every_update_archive_in_the_sitemap_is_linked_from_the_updates_pages(): void
+    {
+        $sitemap = $this->get(route('sitemap.section', 'updates'))->assertOk()->getContent();
+        preg_match_all('#<loc>([^<]+/updates/(\d{4}-\d{2})(-\d{2})?)</loc>#', $sitemap, $m, PREG_SET_ORDER | PREG_UNMATCHED_AS_NULL);
+        $this->assertNotEmpty($m);
+        $index = $this->get(route('updates.index'))->assertOk()->getContent();
+        foreach ($m as [$all, $url, $month, $day]) {
+            if ($day === null) {
+                $this->assertStringContainsString('href="'.$url.'"', $index, "{$month} is linked from the updates page");
+            } else {
+                $page = $this->get(route('updates.month', $month))->assertOk()->getContent();
+                $this->assertStringContainsString('href="'.$url.'"', $page, "{$month}{$day} is linked from its month");
+            }
+        }
+    }
 }

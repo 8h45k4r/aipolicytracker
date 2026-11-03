@@ -121,7 +121,10 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Fixed
 - SEO audit against the claude-seo checklist (`docs/reference/seo-aeo-audit-2026-11-03.md`): AI-risk entries
   extracted from one passage no longer share a meta description; the change-by-year pages no longer skip a
-  heading level; the status badge image gives its width as well as its height.
+  heading level; the status badge image gives its width as well as its height. Hub pages that were linked only
+  from the noindexed explore pages (the quarterly report, AI policy examples, the South Asia and UAE overviews)
+  are now linked from the home page and the countries they cover, a country's region links to its hub, and
+  every month and day archive in the updates sitemap is linked from the updates pages.
 - Year archive container class aligned with the design-system
   `container-site` token (was a manual `mx-auto` override).
 - Container class: eleven pages (open-data, methodology, contribute,
