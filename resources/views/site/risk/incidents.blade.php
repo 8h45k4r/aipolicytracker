@@ -108,7 +108,7 @@
         <ol class="mt-3 divide-y divide-brand-line border-y border-brand-line">
             @foreach($latest as $i)
             <li class="py-4 grid gap-2 lg:grid-cols-12 lg:gap-6 text-sm min-w-0">
-                <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta">#{{ $i->incident_id }} · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
+                <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta"><span data-nosnippet>#{{ $i->incident_id }}</span> · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
                 <div class="lg:col-span-7 min-w-0"><a href="{{ $i->url() }}" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->title }}</a> <a href="{{ $i->citeUrl() }}" rel="noopener" class="meta no-underline hover:underline" data-track="source_click">AIID ↗</a>
                     <p class="mt-1 text-brand-body leading-6">{{ \Illuminate\Support\Str::limit($i->description, 260) ?: '—' }}</p>
                     <p class="mt-1 meta">@if($i->deployers)Deployer: {{ implode(', ', array_slice($i->deployers, 0, 3)) }}@endif @if($i->harmed)· Harmed: {{ implode(', ', array_slice($i->harmed, 0, 3)) }}@endif</p>
