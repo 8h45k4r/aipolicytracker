@@ -7,7 +7,7 @@
 # are the 21 October 2026 security releases.
 
 # ---- Stage 1: build front-end assets ----
-FROM node:26.12.1-alpine AS assets
+FROM node:26.13.0-alpine AS assets
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
