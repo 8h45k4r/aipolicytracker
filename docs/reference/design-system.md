@@ -71,7 +71,28 @@ hover.
 - **Text**: headings balance their lines, paragraphs avoid a lone last word, and table
   figures use tabular numbers.
 
+## Type
+
+Changed in November 2026 after readers said the text was hard to read and tiring.
+
+- **Face:** the reader's system font (`system-ui`: San Francisco, Segoe UI, Roboto, Noto), for body and headings alike. It is designed for reading on that screen, covers Devanagari and the other scripts records quote, and downloads nothing.
+  - The public site loads no web font.
+  - Monospace is kept for identifiers and codes only, not for figures or dates. Figures use tabular numbers instead.
+- **Sizes:**
+  - running text in `.prose-policy` is 17px with a 1.7 line height;
+  - body text is 16px;
+  - the smallest text (`text-xs`) is 13px, and no shared component sets 10 or 11px.
+- **Colour:**
+  - body text is `--c-body` (23 32 46);
+  - secondary text is `--c-muted` (71 85 105), about 7:1 on white, so notes, dates and sources are readable and not only legible;
+  - dark mode raises both.
+- **Quieter labels:**
+  - badges are sentence case, not capitals;
+  - eyebrows and figure labels keep capitals with less letter spacing;
+  - figures in the stats strip are not underlined.
+- **One of each action:** a record page offers "Copy link" and "Share" once, in the actions under its buttons (`tests/Feature/ReadabilityTest.php`).
+
 ## Third parties
 
 No page loads a font, script or stylesheet from a CDN (`tests/Unit/NoThirdPartyFontsTest.php`).
-Fonts are in `resources/fonts`. Icons are inline SVG or text.
+The public site uses system fonts; the admin's Poppins files are in `resources/fonts`. Icons are inline SVG or text.

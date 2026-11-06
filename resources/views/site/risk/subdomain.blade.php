@@ -6,10 +6,10 @@
     <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $sub }} {{ $meta['name'] }}</h1>
     @if(!empty($meta['description']))<p class="mt-3 max-w-[70ch] text-brand-body leading-7">{{ $meta['description'] }}</p>@endif
     <dl class="mt-6 grid gap-4 sm:grid-cols-4 text-sm max-w-3xl">
-        <div class="card-flat p-3"><dt class="meta">Risk entries</dt><dd class="mt-1 font-mono text-2xl text-brand-navy">{{ $riskCount ? number_format($riskCount) : '—' }}</dd></div>
-        <div class="card-flat p-3"><dt class="meta">Frameworks citing it</dt><dd class="mt-1 font-mono text-2xl text-brand-navy">{{ $papers->count() ?: '—' }}</dd></div>
-        <div class="card-flat p-3"><dt class="meta">Recorded incidents</dt><dd class="mt-1 font-mono text-2xl text-brand-navy">{{ $incidentCount ? number_format($incidentCount) : '—' }}</dd></div>
-        <div class="card-flat p-3"><dt class="meta">Incidents since 2020</dt><dd class="mt-1 font-mono text-2xl text-brand-navy">{{ ($n = $incidentYears->filter(fn ($v, $y) => $y >= 2020)->sum()) ? number_format($n) : '—' }}</dd></div>
+        <div class="card-flat p-3"><dt class="meta">Risk entries</dt><dd class="mt-1 text-2xl text-brand-navy tabular-nums">{{ $riskCount ? number_format($riskCount) : '—' }}</dd></div>
+        <div class="card-flat p-3"><dt class="meta">Frameworks citing it</dt><dd class="mt-1 text-2xl text-brand-navy tabular-nums">{{ $papers->count() ?: '—' }}</dd></div>
+        <div class="card-flat p-3"><dt class="meta">Recorded incidents</dt><dd class="mt-1 text-2xl text-brand-navy tabular-nums">{{ $incidentCount ? number_format($incidentCount) : '—' }}</dd></div>
+        <div class="card-flat p-3"><dt class="meta">Incidents since 2020</dt><dd class="mt-1 text-2xl text-brand-navy tabular-nums">{{ ($n = $incidentYears->filter(fn ($v, $y) => $y >= 2020)->sum()) ? number_format($n) : '—' }}</dd></div>
     </dl>
     <div class="mt-10 grid gap-6 lg:grid-cols-3">
         @foreach(['entity' => 'Causal entity', 'intent' => 'Intent', 'timing' => 'Timing'] as $k => $label)

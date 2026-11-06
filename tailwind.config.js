@@ -21,10 +21,18 @@ export default {
 
     theme: {
         extend: {
+            // The reader's own system font: designed for reading on that screen, already
+            // installed (nothing to download), and it covers Devanagari and every other
+            // script a record may quote. Headings use the same face, heavier.
             fontFamily: {
-                sans: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
-                display: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
-                mono: ['"Space Mono"', ...defaultTheme.fontFamily.mono],
+                sans: ["system-ui", "-apple-system", '"Segoe UI"', "Roboto", '"Helvetica Neue"', "Arial", '"Noto Sans"', '"Noto Sans Devanagari"', "sans-serif", ...defaultTheme.fontFamily.sans.slice(-4)],
+                display: ["system-ui", "-apple-system", '"Segoe UI"', "Roboto", '"Helvetica Neue"', "Arial", '"Noto Sans"', '"Noto Sans Devanagari"', "sans-serif"],
+                mono: defaultTheme.fontFamily.mono,
+            },
+            // 12px text was the smallest size on most pages (dates, notes, sources) and the
+            // hardest to read; 13px is the floor.
+            fontSize: {
+                xs: ["0.8125rem", { lineHeight: "1.25rem" }],
             },
             colors: {
                 // Brand tokens (from the logo). Use these semantic names in templates,
@@ -43,8 +51,8 @@ export default {
                     sky: tone("c-sky", "0 153 220"),
                     paper: tone("c-paper", "245 247 250"), // tinted surfaces
                     line: tone("c-line", "216 222 232"), // hairlines
-                    muted: tone("c-muted", "93 107 126"), // secondary text
-                    body: tone("c-body", "30 42 59"), // body text
+                    muted: tone("c-muted", "71 85 105"), // secondary text (7:1 on white)
+                    body: tone("c-body", "23 32 46"), // body text
                     footer: tone("c-footer", "0 20 43"), // the footer band, dark in both schemes
                 },
                 // Semantic state colours for status, impact and verification badges.

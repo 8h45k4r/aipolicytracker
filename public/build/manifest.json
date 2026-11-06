@@ -1,20 +1,20 @@
 {
-  "_Checkbox-19iqt6kh.js": {
-    "file": "assets/Checkbox-19iqt6kh.js",
+  "_Checkbox-B8hebnNn.js": {
+    "file": "assets/Checkbox-B8hebnNn.js",
     "name": "Checkbox",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_GuestLayout-BPYJ4jal.js": {
-    "file": "assets/GuestLayout-BPYJ4jal.js",
+  "_GuestLayout-DEnZREX5.js": {
+    "file": "assets/GuestLayout-DEnZREX5.js",
     "name": "GuestLayout",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_InputError-CL0hSxLK.js": {
-    "file": "assets/InputError-CL0hSxLK.js",
+  "_InputError-CA_6DMn6.js": {
+    "file": "assets/InputError-CA_6DMn6.js",
     "name": "InputError",
     "imports": [
       "_rolldown-runtime-B0Z9INg1.js",
@@ -29,8 +29,8 @@
     "file": "assets/rolldown-runtime-B0Z9INg1.js",
     "name": "rolldown-runtime"
   },
-  "_transition-CfnPbOVX.js": {
-    "file": "assets/transition-CfnPbOVX.js",
+  "_transition-D1bS7-DT.js": {
+    "file": "assets/transition-D1bS7-DT.js",
     "name": "transition",
     "imports": [
       "_rolldown-runtime-B0Z9INg1.js",
@@ -57,24 +57,13 @@
     ]
   },
   "resources/css/public.css": {
-    "file": "assets/public-yC7TPjFg.css",
+    "file": "assets/public-DL0ImwyN.css",
     "name": "public",
     "names": [
       "public.css"
     ],
     "src": "resources/css/public.css",
-    "isEntry": true,
-    "assets": [
-      "assets/space-grotesk-vietnamese-wght-normal-D0rl6rjA.woff2",
-      "assets/space-grotesk-latin-ext-wght-normal-D9tNdqV9.woff2",
-      "assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
-      "assets/space-mono-vietnamese-400-normal-BNOj0Qhp.woff2",
-      "assets/space-mono-latin-ext-400-normal-DTLbW2xa.woff2",
-      "assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
-      "assets/space-mono-vietnamese-700-normal-DWQgDHuA.woff2",
-      "assets/space-mono-latin-ext-700-normal-B2s3bDs2.woff2",
-      "assets/space-mono-latin-700-normal-mWgeinG7.woff2"
-    ]
+    "isEntry": true
   },
   "resources/fonts/poppins-latin-400-normal.woff2": {
     "file": "assets/poppins-latin-400-normal-cpxAROuN.woff2",
@@ -108,156 +97,120 @@
     "file": "assets/poppins-latin-ext-700-normal-cby-RkWa.woff2",
     "src": "resources/fonts/poppins-latin-ext-700-normal.woff2"
   },
-  "resources/fonts/space-grotesk-latin-ext-wght-normal.woff2": {
-    "file": "assets/space-grotesk-latin-ext-wght-normal-D9tNdqV9.woff2",
-    "src": "resources/fonts/space-grotesk-latin-ext-wght-normal.woff2"
-  },
-  "resources/fonts/space-grotesk-latin-wght-normal.woff2": {
-    "file": "assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
-    "src": "resources/fonts/space-grotesk-latin-wght-normal.woff2"
-  },
-  "resources/fonts/space-grotesk-vietnamese-wght-normal.woff2": {
-    "file": "assets/space-grotesk-vietnamese-wght-normal-D0rl6rjA.woff2",
-    "src": "resources/fonts/space-grotesk-vietnamese-wght-normal.woff2"
-  },
-  "resources/fonts/space-mono-latin-400-normal.woff2": {
-    "file": "assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
-    "src": "resources/fonts/space-mono-latin-400-normal.woff2"
-  },
-  "resources/fonts/space-mono-latin-700-normal.woff2": {
-    "file": "assets/space-mono-latin-700-normal-mWgeinG7.woff2",
-    "src": "resources/fonts/space-mono-latin-700-normal.woff2"
-  },
-  "resources/fonts/space-mono-latin-ext-400-normal.woff2": {
-    "file": "assets/space-mono-latin-ext-400-normal-DTLbW2xa.woff2",
-    "src": "resources/fonts/space-mono-latin-ext-400-normal.woff2"
-  },
-  "resources/fonts/space-mono-latin-ext-700-normal.woff2": {
-    "file": "assets/space-mono-latin-ext-700-normal-B2s3bDs2.woff2",
-    "src": "resources/fonts/space-mono-latin-ext-700-normal.woff2"
-  },
-  "resources/fonts/space-mono-vietnamese-400-normal.woff2": {
-    "file": "assets/space-mono-vietnamese-400-normal-BNOj0Qhp.woff2",
-    "src": "resources/fonts/space-mono-vietnamese-400-normal.woff2"
-  },
-  "resources/fonts/space-mono-vietnamese-700-normal.woff2": {
-    "file": "assets/space-mono-vietnamese-700-normal-DWQgDHuA.woff2",
-    "src": "resources/fonts/space-mono-vietnamese-700-normal.woff2"
-  },
   "resources/js/Pages/Auth/ConfirmPassword.jsx": {
-    "file": "assets/ConfirmPassword-Bffm2J3z.js",
+    "file": "assets/ConfirmPassword-B0FCD9-o.js",
     "name": "ConfirmPassword",
     "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-BPYJ4jal.js",
-      "_InputError-CL0hSxLK.js"
+      "_GuestLayout-DEnZREX5.js",
+      "_InputError-CA_6DMn6.js"
     ]
   },
   "resources/js/Pages/Auth/ForgotPassword.jsx": {
-    "file": "assets/ForgotPassword-BHo3qDP0.js",
+    "file": "assets/ForgotPassword-BHGRPdqt.js",
     "name": "ForgotPassword",
     "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-BPYJ4jal.js",
-      "_InputError-CL0hSxLK.js"
+      "_GuestLayout-DEnZREX5.js",
+      "_InputError-CA_6DMn6.js"
     ]
   },
   "resources/js/Pages/Auth/Login.jsx": {
-    "file": "assets/Login-B544iq0B.js",
+    "file": "assets/Login-tKUTuZ1a.js",
     "name": "Login",
     "src": "resources/js/Pages/Auth/Login.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-BPYJ4jal.js",
-      "_InputError-CL0hSxLK.js",
-      "_Checkbox-19iqt6kh.js"
+      "_GuestLayout-DEnZREX5.js",
+      "_InputError-CA_6DMn6.js",
+      "_Checkbox-B8hebnNn.js"
     ]
   },
   "resources/js/Pages/Auth/Register.jsx": {
-    "file": "assets/Register-DR349ao9.js",
+    "file": "assets/Register-1bbpjg4X.js",
     "name": "Register",
     "src": "resources/js/Pages/Auth/Register.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-BPYJ4jal.js",
-      "_InputError-CL0hSxLK.js",
-      "_Checkbox-19iqt6kh.js"
+      "_GuestLayout-DEnZREX5.js",
+      "_InputError-CA_6DMn6.js",
+      "_Checkbox-B8hebnNn.js"
     ]
   },
   "resources/js/Pages/Auth/ResetPassword.jsx": {
-    "file": "assets/ResetPassword-FD3etT5I.js",
+    "file": "assets/ResetPassword-CeiYpxzl.js",
     "name": "ResetPassword",
     "src": "resources/js/Pages/Auth/ResetPassword.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-BPYJ4jal.js",
-      "_InputError-CL0hSxLK.js"
+      "_GuestLayout-DEnZREX5.js",
+      "_InputError-CA_6DMn6.js"
     ]
   },
   "resources/js/Pages/Auth/VerifyEmail.jsx": {
-    "file": "assets/VerifyEmail-_B1xgEcX.js",
+    "file": "assets/VerifyEmail-DhGsFkbI.js",
     "name": "VerifyEmail",
     "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-BPYJ4jal.js"
+      "_GuestLayout-DEnZREX5.js"
     ]
   },
   "resources/js/Pages/Profile/Edit.jsx": {
-    "file": "assets/Edit-BE3Ei8mr.js",
+    "file": "assets/Edit-WC71nM-5.js",
     "name": "Edit",
     "src": "resources/js/Pages/Profile/Edit.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-B0Z9INg1.js",
       "resources/js/app.jsx",
-      "_transition-CfnPbOVX.js",
+      "_transition-D1bS7-DT.js",
       "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
       "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
       "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx"
     ]
   },
   "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": {
-    "file": "assets/DeleteUserForm-D5QXpDKI.js",
+    "file": "assets/DeleteUserForm-gJJu6ZIv.js",
     "name": "DeleteUserForm",
     "src": "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-B0Z9INg1.js",
       "resources/js/app.jsx",
-      "_InputError-CL0hSxLK.js",
-      "_transition-CfnPbOVX.js"
+      "_InputError-CA_6DMn6.js",
+      "_transition-D1bS7-DT.js"
     ]
   },
   "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx": {
-    "file": "assets/UpdatePasswordForm-0d3E4r2D.js",
+    "file": "assets/UpdatePasswordForm-BAvALpaP.js",
     "name": "UpdatePasswordForm",
     "src": "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_rolldown-runtime-B0Z9INg1.js",
       "resources/js/app.jsx",
-      "_InputError-CL0hSxLK.js",
-      "_transition-CfnPbOVX.js"
+      "_InputError-CA_6DMn6.js",
+      "_transition-D1bS7-DT.js"
     ]
   },
   "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": {
-    "file": "assets/UpdateProfileInformationForm-D9_Drm1J.js",
+    "file": "assets/UpdateProfileInformationForm-DX2ye4H4.js",
     "name": "UpdateProfileInformationForm",
     "src": "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-CL0hSxLK.js",
-      "_transition-CfnPbOVX.js"
+      "_InputError-CA_6DMn6.js",
+      "_transition-D1bS7-DT.js"
     ]
   },
   "resources/js/admin.js": {
@@ -267,7 +220,7 @@
     "isEntry": true
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-CowtEXKH.js",
+    "file": "assets/app-DDC9NLa2.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -288,18 +241,9 @@
       "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx"
     ],
     "css": [
-      "assets/app-D6yMK2Hu.css"
+      "assets/app-DsxKep86.css"
     ],
     "assets": [
-      "assets/space-grotesk-vietnamese-wght-normal-D0rl6rjA.woff2",
-      "assets/space-grotesk-latin-ext-wght-normal-D9tNdqV9.woff2",
-      "assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
-      "assets/space-mono-vietnamese-400-normal-BNOj0Qhp.woff2",
-      "assets/space-mono-latin-ext-400-normal-DTLbW2xa.woff2",
-      "assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
-      "assets/space-mono-vietnamese-700-normal-DWQgDHuA.woff2",
-      "assets/space-mono-latin-ext-700-normal-B2s3bDs2.woff2",
-      "assets/space-mono-latin-700-normal-mWgeinG7.woff2",
       "assets/poppins-latin-ext-400-normal-by3JarPu.woff2",
       "assets/poppins-latin-400-normal-cpxAROuN.woff2",
       "assets/poppins-latin-ext-500-normal-CK-6C4Hw.woff2",

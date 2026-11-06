@@ -102,6 +102,18 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Readability, after reader feedback that text was hard to read and tiring. Changes, measured in
+  `docs/reference/design-system.md` (Type):
+  - the public site uses the reader's system font instead of Space Grotesk, for body text and headings;
+  - running text is larger (17px);
+  - the smallest text is 13px;
+  - secondary text is darker;
+  - badges are sentence case;
+  - figures and dates are no longer monospace;
+  - "Copy link" and "Share" appear once per record page;
+  - header buttons no longer wrap.
+
+  The public pages no longer download a web font.
 - Account screens (login, register, verify email, forgot/reset password, profile)
   redesigned with the platform design system: brand colours, consistent card layout,
   proper form spacing, and accessible labels. Removed legacy CSS (hardcoded hex

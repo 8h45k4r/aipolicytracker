@@ -7,8 +7,6 @@
         <h1 class="mt-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $measure->title }}</h1>
         <p class="mt-2 meta">{{ $measure->jurisdiction->name }} · Last updated <time datetime="{{ $measure->updated_at->toAtomString() }}">{{ $measure->updated_at->format('j M Y') }}</time>@if($measure->last_verified_at) · verified {{ $measure->last_verified_at->format('j M Y') }}@endif</p>
         <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
-            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
-            <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
         </div>
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
