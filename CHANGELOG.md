@@ -123,6 +123,21 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Quality and accessibility:
+  - The Content Security Policy adds `'strict-dynamic'`.
+  - Jurisdiction pages make a dozen fewer database queries.
+  - Every foreign key has an index.
+  - `/api/v1/enforcement` and `/api/v1/implementation-measures` accept `page` and `per_page` (default and
+    maximum 500, so existing clients see the same response).
+  - Alert-delivery logs no longer include webhook addresses.
+  - The world map no longer hides its zoom buttons inside an image.
+  - Focus outlines are at least 3:1 on every surface.
+  - Inactive sort arrows are readable.
+  - Breadcrumbs, disclosure toggles and "Open the obligation page" links are at least 24px tall.
+  - Copy buttons say when copying fails.
+  - The map retries if its code fails to load.
+  - The edge Worker answers 502 when the origin is down.
+  - Unused packages (typescript, laravel/breeze, laravel/sail) are removed.
 - Billing and data rights:
   - The billing webhook setup now subscribes to refunds and disputes, so a refund or lost chargeback revokes
     access; re-running it updates an existing endpoint.

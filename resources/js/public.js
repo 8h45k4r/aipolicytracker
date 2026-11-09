@@ -191,10 +191,13 @@
         btn.addEventListener('click', function () {
             var url = btn.getAttribute('data-copy-link') || location.href;
             if (navigator.clipboard) {
+                var orig = btn.textContent;
                 navigator.clipboard.writeText(url).then(function () {
-                    var orig = btn.textContent;
                     btn.textContent = 'Link copied';
                     setTimeout(function () { btn.textContent = orig; }, 1500);
+                }, function () {
+                    btn.textContent = 'Copy failed';
+                    setTimeout(function () { btn.textContent = orig; }, 2500);
                 });
             }
         });
@@ -307,14 +310,14 @@
         var copyBtn = document.querySelector('[data-saved-copy]');
         if (copyBtn) copyBtn.addEventListener('click', function () {
             var text = readSaved().map(function (i) { return '- [' + i.title + '](' + location.origin + savedHref(i) + ')'; }).join('\n');
-            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = 'Copied as Markdown'; setTimeout(function () { copyBtn.textContent = 'Copy list as Markdown'; }, 1500); });
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = 'Copied as Markdown'; setTimeout(function () { copyBtn.textContent = 'Copy list as Markdown'; }, 1500); }, function () { copyBtn.textContent = 'Copy failed: select and copy by hand'; });
         });
         var clearBtn = document.querySelector('[data-saved-clear]');
         if (clearBtn) clearBtn.addEventListener('click', function () { if (window.confirm('Remove all saved records from this browser?')) { writeSaved([]); renderSaved(); } });
         var jsonBtn = document.querySelector('[data-saved-json]');
         if (jsonBtn) jsonBtn.addEventListener('click', function () {
             var text = JSON.stringify(readSaved().map(function (i) { return { id: i.id, type: i.type, title: i.title, url: location.origin + savedHref(i), saved_at: i.saved_at }; }), null, 2);
-            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { jsonBtn.textContent = 'Copied as JSON'; setTimeout(function () { jsonBtn.textContent = 'Copy list as JSON'; }, 1500); });
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { jsonBtn.textContent = 'Copied as JSON'; setTimeout(function () { jsonBtn.textContent = 'Copy list as JSON'; }, 1500); }, function () { jsonBtn.textContent = 'Copy failed: select and copy by hand'; });
         });
     }
     updateSavedCount();
@@ -660,7 +663,11 @@
     var load = function (el) {
         if (mounted.indexOf(el) !== -1) { return; }
         mounted.push(el);
-        import('./world-map.js').then(function (m) { m.mount(el); });
+        // A failed load (a chunk gone after a deploy, a dropped connection) is forgotten, so
+        // the next scroll or pointer on the map tries again; the tables carry the facts meanwhile.
+        import('./world-map.js').then(function (m) { m.mount(el); }, function () {
+            mounted.splice(mounted.indexOf(el), 1);
+        });
     };
     var start = function () {
         maps.forEach(function (el) {

@@ -638,10 +638,13 @@ class PublicApiController extends Controller
             'policy' => preg_match('/^[a-z0-9-]{1,120}$/', (string) $request->query('policy')) ? $request->query('policy') : null,
         ];
 
-        return $this->cached('api.enforcement.v1.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
-            $rows = Trackers::enforcementQuery($filters)->get();
+        [$page, $perPage] = self::pageParams($request);
 
-            return ['data' => $rows->map(fn ($e) => Trackers::enforcementRow($e))->values()->all(), 'meta' => ['total' => $rows->count(), 'filters' => $filters, 'kinds' => EnforcementEvent::KINDS, 'appeal_statuses' => EnforcementEvent::APPEAL_STATUSES, 'page_url' => route('enforcement.index'), 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'An action is recorded only from the regulator\'s or court\'s own publication. A null amount means none was published, not zero.']];
+        return $this->cached('api.enforcement.v1.'.hash('xxh128', json_encode($filters))."p{$page}x{$perPage}", function () use ($filters, $page, $perPage) {
+            $all = Trackers::enforcementQuery($filters)->get();
+            $rows = $all->forPage($page, $perPage);
+
+            return ['data' => $rows->map(fn ($e) => Trackers::enforcementRow($e))->values()->all(), 'links' => self::pageLinks('api.v1.enforcement', $filters, $page, $perPage, $all->count()), 'meta' => self::pageMeta($page, $perPage, $all->count()) + ['total' => $all->count(), 'filters' => $filters, 'kinds' => EnforcementEvent::KINDS, 'appeal_statuses' => EnforcementEvent::APPEAL_STATUSES, 'page_url' => route('enforcement.index'), 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'An action is recorded only from the regulator\'s or court\'s own publication. A null amount means none was published, not zero.']];
         });
     }
 
@@ -657,11 +660,40 @@ class PublicApiController extends Controller
         ];
 
         // The derived status depends on today, so the cache key does too.
-        return $this->cached('api.implementation.v1.'.now()->toDateString().'.'.hash('xxh128', json_encode($filters)), function () use ($filters) {
-            $rows = Trackers::measures($filters);
+        [$page, $perPage] = self::pageParams($request);
 
-            return ['data' => $rows->map(fn ($m) => Trackers::measureRow($m))->values()->all(), 'meta' => ['total' => $rows->count(), 'recorded' => $rows->reject->isDraft()->count(), 'filters' => $filters, 'kinds' => ImplementationMeasure::KINDS, 'statuses' => ImplementationStatus::LABELS, 'bodies' => ImplementationMeasure::BODIES, 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'A draft has been listed for research and not yet read from an official source; its facts are null. Standards are metadata only.']];
+        return $this->cached('api.implementation.v1.'.now()->toDateString().'.'.hash('xxh128', json_encode($filters))."p{$page}x{$perPage}", function () use ($filters, $page, $perPage) {
+            $all = Trackers::measures($filters);
+            $rows = $all->forPage($page, $perPage);
+
+            return ['data' => $rows->map(fn ($m) => Trackers::measureRow($m))->values()->all(), 'links' => self::pageLinks('api.v1.implementation', $filters, $page, $perPage, $all->count()), 'meta' => self::pageMeta($page, $perPage, $all->count()) + ['total' => $all->count(), 'recorded' => $all->reject->isDraft()->count(), 'filters' => $filters, 'kinds' => ImplementationMeasure::KINDS, 'statuses' => ImplementationStatus::LABELS, 'bodies' => ImplementationMeasure::BODIES, 'license' => config('aipolicytracker.data_license'), 'license_url' => config('aipolicytracker.data_license_url'), 'note' => 'A draft has been listed for research and not yet read from an official source; its facts are null. Standards are metadata only.']];
         });
+    }
+
+    /**
+     * Pages for the lists that grow with every record (enforcement, implementation measures).
+     * The default page holds every row these lists have today, so a client that never sends
+     * page or per_page sees the response it always did; the bound keeps one response finite.
+     */
+    public const LIST_PER_PAGE = 500;
+
+    /** @return array{0: int, 1: int} */
+    private static function pageParams(Request $request): array
+    {
+        return [max(1, (int) $request->query('page', 1)), min(self::LIST_PER_PAGE, max(1, (int) $request->query('per_page', self::LIST_PER_PAGE)))];
+    }
+
+    private static function pageMeta(int $page, int $perPage, int $total): array
+    {
+        return ['page' => $page, 'per_page' => $perPage, 'last_page' => max(1, (int) ceil($total / $perPage))];
+    }
+
+    private static function pageLinks(string $route, array $filters, int $page, int $perPage, int $total): array
+    {
+        $last = max(1, (int) ceil($total / $perPage));
+        $url = fn (int $p) => route($route, self::linkParams($filters + ['page' => $p, 'per_page' => $perPage === self::LIST_PER_PAGE ? null : $perPage]));
+
+        return ['next' => $page < $last ? $url($page + 1) : null, 'prev' => $page > 1 ? $url($page - 1) : null];
     }
 
     private function transitionRow(TransitionMeasure $m): array

@@ -104,6 +104,9 @@ class JurisdictionController extends Controller
         }
         $jurisdiction->load(['parent', 'children' => fn ($q) => $q->published()]);
         $policies = $jurisdiction->policyInstruments()->published()->with(['terms', 'deadlines'])->orderByDesc('featured')->orderByDesc('is_binding')->orderBy('title')->get();
+        // Every row on this page names its jurisdiction, which is this one: set it rather than
+        // let each row query for it (twelve identical queries on the US page).
+        $policies->each->setRelation('jurisdiction', $jurisdiction);
         $timeline = HubCatalog::timeline($policies);
         // Laws of its states, provinces and cities, in the page body: listed only by name in
         // the sidebar, a country's state-level laws (California SB 53, the New York RAISE Act)
@@ -113,6 +116,7 @@ class JurisdictionController extends Controller
             ->orderByDesc('is_binding')->orderByRaw('CASE WHEN adopted_on IS NULL THEN 1 ELSE 0 END')->orderByDesc('adopted_on')->orderBy('title')->get();
         $region = HubCatalog::regionSlugFor($jurisdiction->region);
         $changes = ChangeEvent::published()->where('jurisdiction_id', $jurisdiction->id)->with('policyInstrument')->orderByDesc('occurred_on')->limit(8)->get();
+        $changes->each->setRelation('jurisdiction', $jurisdiction);
         $deadlines = $catalog->upcomingDeadlines(8, $jurisdiction->id);
         $obligationCategories = Obligation::published()->whereIn('policy_instrument_id', $policies->pluck('id'))->selectRaw('category, COUNT(*) as n')->groupBy('category')->orderByDesc('n')->get();
         // Shown by the taxonomy's display name, not the raw key ("accuracy_robustness_security").

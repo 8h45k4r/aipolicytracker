@@ -122,10 +122,15 @@ body:has(#home-q) header form[role="search"] { display: none; }
     /* One focus indicator everywhere: a 2px outline 2px off the edge. An outline follows
        the element's own corners, so a focused button keeps its shape, and unlike a
        box-shadow ring it survives Windows high-contrast mode (WCAG 2.4.7, 2.4.13). */
-    :focus-visible { outline: 2px solid rgb(var(--c-cyan)); outline-offset: 2px; }
+    /* Blue on the light surfaces (5.7:1 on white, 5.3:1 on paper; the cyan it replaces was
+       2.9:1 on paper, under the 3:1 a focus indicator needs), cyan on the dark footer and
+       navy bands (6.0:1 and 5.2:1). In dark mode --c-blue is a light blue. */
+    :focus-visible { outline: 2px solid rgb(var(--c-blue)); outline-offset: 2px; }
+    :is(footer, .bg-brand-navy, .bg-brand-footer, .bg-brand-ink) :focus-visible { outline-color: rgb(var(--c-cyan)); }
     /* A bare link in running text gets a small radius so its outline is not a hard box. */
     a:not([class]):focus-visible { border-radius: var(--radius-xs); }
-    summary { cursor: pointer; }
+    /* A 24px minimum for the small disclosure toggles (WCAG 2.5.8). */
+    summary { cursor: pointer; min-height: 1.5rem; }
     summary::-webkit-details-marker { display: none; }
     ::selection { background: rgb(var(--c-cyan, 0 156 224) / 0.22); }
 }
