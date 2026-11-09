@@ -57,6 +57,30 @@ Tests:
 - `tests/Feature/AdminNavigationTest.php` (config, counts, role filtering, top bar);
 - updated sidebar assertions in `AdminDashboardTest`, `AdminShellTest` and `AdminListsTest`.
 
+## Second pass: nested submenus and a narrow sidebar
+
+At the owner's request, the sidebar now follows a three-level pattern taken from a reference GRC admin:
+- **Section** (capitals, folding).
+- **Entry** with an outline icon (`x-backend.nav-icon`).
+- **Submenu**, indented on a guide line. Each submenu entry is the same page with a filter it already accepts, so no data or route is added. Examples:
+  - Review queue → Policy instruments, Jurisdictions, Controls, Change log entries, Transition measures, Implementation measures;
+  - Submissions → Pending review, Needs information, Approved, Rejected;
+  - Subscribers → Active, Unconfirmed, Unsubscribed, Everyone;
+  - Alerts → All deliveries, Pending, Failed;
+  - Guides and downloads → Overview, Requests, Downloads, People;
+  - Posts to X → Awaiting approval, Queued, Posted;
+  - Users → All accounts, Invite a user, Role permissions;
+  - Billing → Subscriptions, Payments, Webhooks, Free tier;
+  - Change desk → Due now, All current instruments;
+  - Tool library → All tools, Add a tool.
+
+How it behaves:
+- `App\Services\Admin\Navigation` decides which entry and view are current. With no filter in the address, the page's default view is marked.
+- The top bar shows the full trail ("Records / Review queue / Jurisdictions").
+- **Collapse** in the sidebar footer narrows it to icons, with labels in tooltips. The choice is remembered in this browser and applied before the first paint by a small script carrying the CSP nonce.
+- In the narrow sidebar, an entry with a submenu opens its first view.
+- The current submenu entry is marked by a light tint only, without a side strip.
+
 ## Not changed in this round
 
 - **The page bodies.** Dashboard cards, filters and tables keep their structure; they inherit the new type, labels and table style.

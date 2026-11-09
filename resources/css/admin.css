@@ -13,20 +13,54 @@ html[data-admin] h1, html[data-admin] h2, html[data-admin] h3 { letter-spacing: 
 .adm-nav-filter { width: 100%; border-radius: var(--radius-md); border: 1px solid rgb(var(--c-line)); background: rgb(var(--c-paper)); padding: 0.375rem 0.75rem; font-size: 13px; color: rgb(var(--c-body)); }
 .adm-nav-filter::placeholder { color: rgb(var(--c-muted)); }
 .adm-nav-filter:focus { outline: none; border-color: rgb(var(--c-navy)); box-shadow: 0 0 0 2px rgb(var(--c-cyan) / 0.35); background: rgb(var(--c-white)); }
-.adm-nav-group + .adm-nav-group { margin-top: 0.375rem; }
-.adm-nav-heading { display: flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-md); list-style: none; cursor: pointer; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgb(var(--c-muted)); user-select: none; }
-.adm-nav-heading::-webkit-details-marker { display: none; }
-.adm-nav-heading:hover { color: rgb(var(--c-navy)); background: rgb(var(--c-paper)); }
+@media (min-width: 1024px) { .adm-shell { grid-template-columns: 264px minmax(0, 1fr); } }
+.adm-brand-mark { display: none; }
+.adm-nav-group + .adm-nav-group { margin-top: 0.5rem; }
+/* Section: capitals, muted, a chevron that points right when folded and down when open. */
+.adm-nav-heading { display: flex; align-items: center; gap: 0.375rem; padding: 0.5rem 0.75rem 0.375rem; border-radius: var(--radius-md); list-style: none; cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(var(--c-muted)); user-select: none; }
+.adm-nav-heading::-webkit-details-marker, .adm-nav-parent > summary::-webkit-details-marker { display: none; }
+.adm-nav-heading:hover { color: rgb(var(--c-navy)); }
 .adm-nav-heading > [data-admin-nav-heading] { flex: 1; }
-.adm-nav-chevron { width: 12px; height: 12px; transition: transform var(--duration-fast, 120ms); }
-.adm-nav-group:not([open]) .adm-nav-chevron { transform: rotate(-90deg); }
-/* A closed group that holds waiting work keeps a dot, so nothing is hidden by folding. */
+.adm-nav-chevron, .adm-nav-caret { width: 12px; height: 12px; flex-shrink: 0; transition: transform var(--duration-fast, 120ms); }
+.adm-nav-group[open] > summary .adm-nav-chevron, .adm-nav-parent[open] > summary .adm-nav-caret { transform: rotate(90deg); }
+/* A folded section that holds waiting work keeps a dot, so nothing is hidden by folding. */
 .adm-nav-dot { width: 6px; height: 6px; border-radius: 9999px; background: rgb(var(--c-warn)); }
 .adm-nav-group[open] .adm-nav-dot { display: none; }
-.adm-nav-items { padding-bottom: 0.25rem; }
-.adm-nav-link { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 1px; padding: 0.3125rem 0.75rem; border-radius: var(--radius-md); font-size: 14px; color: rgb(var(--c-body)); text-decoration: none; box-shadow: inset 2px 0 0 transparent; }
+.adm-nav-items { padding-bottom: 0.125rem; }
+/* Entry: icon, label, count, and a caret when it has a submenu. */
+.adm-nav-link { display: flex; align-items: center; gap: 0.625rem; margin-top: 1px; padding: 0.4375rem 0.75rem; border-radius: var(--radius-md); font-size: 14px; color: rgb(var(--c-body)); text-decoration: none; list-style: none; cursor: pointer; }
+.adm-nav-icon { width: 20px; height: 20px; flex-shrink: 0; color: rgb(var(--c-muted)); }
+.adm-nav-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .adm-nav-link:hover { background: rgb(var(--c-paper)); color: rgb(var(--c-navy)); }
-.adm-nav-link[aria-current="page"] { background: rgb(var(--c-infobg)); color: rgb(var(--c-navy)); font-weight: 600; box-shadow: inset 2px 0 0 rgb(var(--c-blue)); }
+.adm-nav-link:hover .adm-nav-icon { color: rgb(var(--c-navy)); }
+.adm-nav-link[aria-current="page"], .adm-nav-link.is-active { color: rgb(var(--c-navy)); font-weight: 600; }
+.adm-nav-link[aria-current="page"] { background: rgb(var(--c-infobg)); }
+.adm-nav-link[aria-current="page"] .adm-nav-icon, .adm-nav-link.is-active .adm-nav-icon { color: rgb(var(--c-blue)); }
+/* Submenu: indented under the entry's label, on a guide line. */
+.adm-nav-sub { margin: 0.125rem 0 0.375rem 1.5rem; padding-left: 0.75rem; border-left: 1px solid rgb(var(--c-line)); }
+.adm-nav-sublink { display: block; margin-top: 1px; padding: 0.375rem 0.75rem; border-radius: var(--radius-md); font-size: 14px; color: rgb(var(--c-body)); text-decoration: none; }
+.adm-nav-sublink:hover { background: rgb(var(--c-paper)); color: rgb(var(--c-navy)); }
+.adm-nav-sublink[aria-current="page"] { background: rgb(var(--c-infobg)); color: rgb(var(--c-navy)); font-weight: 600; }
+/* Footer: account and the switch that narrows the sidebar to icons. */
+.adm-collapse { align-items: center; gap: 0.625rem; width: 100%; text-align: left; padding: 0.625rem 1rem; border: 0; border-top: 1px solid rgb(var(--c-line)); background: transparent; font-size: 14px; color: rgb(var(--c-body)); cursor: pointer; }
+.adm-collapse[hidden] { display: none; }
+.adm-collapse:hover { background: rgb(var(--c-paper)); color: rgb(var(--c-navy)); }
+/* Narrowed: icons only, labels in tooltips, submenus and section names put away. */
+@media (min-width: 1024px) {
+    html[data-nav-rail] .adm-shell { grid-template-columns: 68px minmax(0, 1fr); }
+    html[data-nav-rail] .adm-brand { justify-content: center; padding-left: 0; padding-right: 0; }
+    html[data-nav-rail] .adm-brand-logo, html[data-nav-rail] .adm-brand-tag, html[data-nav-rail] .adm-nav-filter-wrap,
+    html[data-nav-rail] .adm-nav-text, html[data-nav-rail] .adm-nav-hide, html[data-nav-rail] .adm-nav-caret, html[data-nav-rail] .adm-nav-count,
+    html[data-nav-rail] .adm-nav-sub, html[data-nav-rail] .adm-nav-heading > span, html[data-nav-rail] .adm-nav-chevron { display: none; }
+    html[data-nav-rail] .adm-brand-mark { display: block; }
+    html[data-nav-rail] .adm-nav { padding-left: 0.5rem; padding-right: 0.5rem; }
+    html[data-nav-rail] .adm-nav-heading { height: 1px; padding: 0; margin: 0.5rem 0.5rem; background: rgb(var(--c-line)); pointer-events: none; }
+    html[data-nav-rail] .adm-nav-group > .adm-nav-items { display: block; }
+    html[data-nav-rail] .adm-nav-link { justify-content: center; padding: 0.5rem; }
+    html[data-nav-rail] .adm-account > summary { justify-content: center; padding-left: 0; padding-right: 0; }
+    html[data-nav-rail] .adm-collapse { justify-content: center; padding-left: 0; padding-right: 0; }
+    html[data-nav-rail] .adm-collapse .adm-nav-icon { transform: scaleX(-1); }
+}
 .adm-nav-count { flex-shrink: 0; min-width: 1.5rem; padding: 0 0.375rem; border-radius: 9999px; font-size: 12px; font-weight: 600; line-height: 1.25rem; text-align: center; font-variant-numeric: tabular-nums; }
 .adm-nav-count-warn { background: rgb(var(--c-warnbg)); color: rgb(var(--c-warn)); }
 .adm-nav-count-bad { background: rgb(var(--c-badbg)); color: rgb(var(--c-bad)); }
