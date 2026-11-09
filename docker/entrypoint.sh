@@ -125,12 +125,29 @@ fpm=$!
 nginx -e /dev/stderr -c /tmp/nginx.conf -g 'daemon off;' &
 web=$!
 
+alive() {
+  for pid in $web $fpm $queue $scheduler $imports; do kill -0 "$pid" 2>/dev/null && return 0; done
+  return 1
+}
+
+# Graceful first (nginx and php-fpm finish in-flight requests on SIGQUIT; the worker and
+# scheduler stop on SIGTERM), for up to STOP_WAIT seconds, then anything still running is
+# terminated, so the container always exits within its grace period. The shell cannot rely
+# on SIGQUIT alone: a non-interactive shell starts background jobs with SIGQUIT ignored,
+# and busybox offers no job control without a terminal to change that.
 stop() {
   touch /tmp/aip-stopping
   for pid in $queue $scheduler $imports; do kill -TERM "$pid" 2>/dev/null || true; done
   kill -QUIT "$web" 2>/dev/null || true
   kill -QUIT "$fpm" 2>/dev/null || true
-  for pid in $web $fpm $queue $scheduler $imports; do wait "$pid" 2>/dev/null || true; done
+  waited=0
+  while alive && [ "$waited" -lt "${STOP_WAIT:-10}" ]; do sleep 1; waited=$((waited + 1)); done
+  if alive; then
+    echo "NOTE: still running after ${waited}s; terminating"
+    for pid in $web $fpm $queue $scheduler $imports; do kill -TERM "$pid" 2>/dev/null || true; done
+    sleep 1
+    for pid in $web $fpm $queue $scheduler $imports; do kill -KILL "$pid" 2>/dev/null || true; done
+  fi
   exit "${1:-0}"
 }
 trap 'stop 0' TERM INT

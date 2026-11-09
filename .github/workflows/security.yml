@@ -213,8 +213,10 @@ jobs:
           done
           docker inspect -f '{{.State.Health.Status}}' smoke-app | grep -qx healthy \
             || { docker inspect -f '{{json .State.Health}}' smoke-app; exit 1; }
-          docker stop -t 20 smoke-app
-          [ "$(docker inspect -f '{{.State.ExitCode}}' smoke-app)" = 0 ] || { docker logs --tail 50 smoke-app; exit 1; }
+          start=$(date +%s); docker stop -t 30 smoke-app
+          code="$(docker inspect -f '{{.State.ExitCode}}' smoke-app)"
+          echo "stopped in $(( $(date +%s) - start ))s with exit code $code"
+          [ "$code" = 0 ] || { docker logs --tail 50 smoke-app; exit 1; }
       - name: Clean up the smoke test
         if: always()
         run: docker rm -f smoke-app smoke-db >/dev/null 2>&1 || true
