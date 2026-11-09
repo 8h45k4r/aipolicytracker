@@ -100,6 +100,13 @@ class AppServiceProvider extends ServiceProvider
             ? Limit::perMinute(self::ADMIN_REQUESTS_PER_MINUTE)->by('user:'.$request->user()->getAuthIdentifier())
             : Limit::perMinute(120)->by('ip:'.$request->ip()));
 
+        // Endpoints that check a password or a reset token. Named, so each has its own bucket
+        // (plain throttle:N,1 limits share one counter per account or address). The two that
+        // take the current password share one: both are guesses at the same secret.
+        RateLimiter::for('password-reset', fn (Request $request) => Limit::perMinute(5)->by('reset:'.$request->ip()));
+        RateLimiter::for('current-password', fn (Request $request) => Limit::perMinute(5)->by('current-password:'.($request->user()?->getAuthIdentifier() ?? $request->ip())));
+        RateLimiter::for('profile-update', fn (Request $request) => Limit::perMinute(10)->by('profile:'.($request->user()?->getAuthIdentifier() ?? $request->ip())));
+
         // The read-only API. Without a token the public rate applies per address, as it always
         // has. With an account token the count is per account, at the plan's rate once selling
         // is on. While selling is off the token gets the public rate: granting the paid rate to

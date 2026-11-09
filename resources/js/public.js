@@ -600,6 +600,16 @@
         paint(id);
     });
 
+    // A select whose options are addresses (the jurisdiction sort) goes to the one chosen.
+    // It was an inline onchange, which the CSP blocks, so choosing a sort did nothing.
+    document.addEventListener('change', function (event) {
+        var el = event.target;
+        if (el && el.matches && el.matches('select[data-navigate]') && el.value) {
+            var url = new URL(el.value, window.location.href);
+            if (url.origin === window.location.origin) { window.location.href = url.href; }
+        }
+    });
+
     // Confirmations. The CSP allows no inline handlers, so onsubmit="return confirm()"
     // never ran and a delete went through on the first click. A form or the button
     // that submits it carries data-confirm instead; {n} is the number of ticked rows.

@@ -5,6 +5,12 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Sign-in: one address trying a password against many accounts is stopped after 20 failures in 10 minutes
+  (the existing per-email limit stays). Password reset, password change and account deletion are throttled.
+- The password-reset form gives the same answer whether or not an account uses the address.
+- Changing an account's email address needs the current password, and the old address is told.
+- Account deletion now asks for confirmation and says when the password was wrong; the jurisdiction sort
+  works. Both relied on inline handlers that the Content Security Policy blocks.
 - The production image no longer contains the host's environment file. `.dockerignore` excluded `.env` only at
   the build-context root, while production keeps its secrets in `deploy/.env` inside the checkout, so every
   image built on the host carried them. Patterns now match at any depth and `deploy/` is excluded; the Security

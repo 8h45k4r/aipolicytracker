@@ -34,6 +34,15 @@ class ProfileUpdateRequest extends FormRequest
                 strtolower((string) $this->input('email')) === strtolower((string) $this->user()->email) ? null : new NotDisposableEmail,
             ]),
             'organization_name' => ['nullable', 'string', 'max:255'],
+            // A new address receives password resets, so changing it is as sensitive as
+            // changing the password: a session alone (an unlocked laptop, a stolen cookie)
+            // must not be enough to take the account.
+            'current_password' => $this->changesEmail() ? ['required', 'current_password'] : ['nullable'],
         ];
+    }
+
+    public function changesEmail(): bool
+    {
+        return strtolower(trim((string) $this->input('email'))) !== strtolower((string) $this->user()->email);
     }
 }

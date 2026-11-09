@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Route;
 // address for re-registration and so bypass the second factor.
 Route::middleware(['auth', 'admin.2fa'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile', [ProfileController::class, 'update'])->middleware('throttle:profile-update')->name('profile.update');
+    // Both take the current password; a signed-in session does not get unlimited guesses at it.
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->middleware('throttle:current-password')->name('profile.destroy');
 });
 
 Route::redirect('/map', '/', 301);

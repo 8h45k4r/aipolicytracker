@@ -12,6 +12,11 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
+    /** Failed sign-ins one address may make, across all emails, per window. */
+    public const ADDRESS_ATTEMPTS = 20;
+
+    public const ADDRESS_DECAY_SECONDS = 600;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -44,6 +49,7 @@ class LoginRequest extends FormRequest
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
+            RateLimiter::hit($this->addressKey(), self::ADDRESS_DECAY_SECONDS);
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
@@ -57,6 +63,7 @@ class LoginRequest extends FormRequest
         if (Auth::user()?->isSuspended()) {
             Auth::logout();
             RateLimiter::hit($this->throttleKey());
+            RateLimiter::hit($this->addressKey(), self::ADDRESS_DECAY_SECONDS);
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
@@ -73,13 +80,19 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        // Two counters. Per address and email: five wrong passwords lock that pair. Per
+        // address alone: one caller trying a common password against many accounts
+        // (spraying) never repeats an email, so only this one stops it. A successful
+        // sign-in does not reset it, so an attacker's own account cannot clear it.
+        $key = RateLimiter::tooManyAttempts($this->throttleKey(), 5) ? $this->throttleKey()
+            : (RateLimiter::tooManyAttempts($this->addressKey(), self::ADDRESS_ATTEMPTS) ? $this->addressKey() : null);
+        if ($key === null) {
             return;
         }
 
         event(new Lockout($this));
 
-        $seconds = RateLimiter::availableIn($this->throttleKey());
+        $seconds = RateLimiter::availableIn($key);
 
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [
@@ -95,5 +108,11 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+    }
+
+    /** Failed sign-ins from one address, whatever email they tried. */
+    public function addressKey(): string
+    {
+        return 'login-address|'.$this->ip();
     }
 }

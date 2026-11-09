@@ -37,7 +37,10 @@ Route::middleware('guest')->group(function () {
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
         ->name('password.reset');
 
+    // A reset token is long and short-lived, but each try also checks a password rule and
+    // hashes; one caller does not get unlimited tries.
     Route::post('reset-password', [NewPasswordController::class, 'store'])
+        ->middleware('throttle:password-reset')
         ->name('password.store');
 
     // Invitations sent from Backend → Users: a week-long link to choose a password.
@@ -71,7 +74,7 @@ Route::middleware('auth')->group(function () {
     // Behind admin.2fa for the same reason as the profile routes: a password-only admin
     // session must not be able to take the account over.
     Route::put('password', [PasswordController::class, 'update'])
-        ->middleware('admin.2fa')
+        ->middleware(['admin.2fa', 'throttle:current-password'])
         ->name('password.update');
 
     // POST only: a sign-out reachable by GET can be triggered by any page that
