@@ -7,10 +7,12 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "typecheck": "echo \"No TypeScript sources; static checks run via 'npm run lint' and 'composer lint'.\"",
-        "test": "node --test agent/*.test.mjs tests/js/*.test.mjs"
+        "test": "node --test agent/*.test.mjs tests/js/*.test.mjs",
+        "test:e2e": "playwright test"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
+        "@playwright/test": "1.56.1",
         "@tailwindcss/forms": "^0.5.11",
         "autoprefixer": "^10.6.1",
         "eslint": "^10.12.0",

@@ -24,6 +24,8 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Browser smoke tests (Playwright, `npm run test:e2e`, CI job "Browser smoke tests") for the scripts under the
+  Content Security Policy, keyboard and dialog behaviour, and the analytics consent flow.
 - Maintenance workflow (manual): status, cache clear and rebuild, app restart with a health wait, and a prune
   limited to this project's stopped containers and dangling images. It uses its own forced-command key, shares
   the deploy lock and never deploys. Reworked from PR #156: no fallback that redeployed main without CI, no

@@ -13,9 +13,14 @@ export default [
     },
     {
         // The agent server and the Node tests run under Node, not in a browser.
-        files: ["agent/**/*.mjs", "tests/js/**/*.mjs", "scripts/**/*.mjs"],
+        files: ["agent/**/*.mjs", "tests/js/**/*.mjs", "scripts/**/*.mjs", "playwright.config.mjs"],
         languageOptions: { ecmaVersion: 2022, sourceType: "module", globals: { ...globals.node } },
         rules: { "no-console": ["error", { allow: ["warn", "error"] }] },
+    },
+    {
+        // Browser smoke tests: Node, plus the code they pass to page.evaluate() runs in the page.
+        files: ["tests/e2e/**/*.mjs"],
+        languageOptions: { ecmaVersion: 2022, sourceType: "module", globals: { ...globals.node, ...globals.browser } },
     },
     {
         files: ["resources/js/**/*.js", "*.config.js", "eslint.config.js"],

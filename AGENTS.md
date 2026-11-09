@@ -73,6 +73,7 @@ composer lint                   # Pint (composer lint:fix to apply)
 composer test                   # PHP suite, 20 to 30 minutes
 npm run lint                    # ESLint
 npm test                        # agent/ and tests/js/
+npm run test:e2e                # browser smoke tests (needs a running site; see the developer guide)
 npm run build                   # only when the front end changed
 ```
 
