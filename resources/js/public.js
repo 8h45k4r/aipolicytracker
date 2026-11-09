@@ -34,6 +34,22 @@
         }
         flushAiReferral();
     }
+    // Withdrawal: stop Google Analytics for the rest of this page (its documented opt-out
+    // flag) and remove its cookies. A page loaded afterwards does not load it at all.
+    function withdraw() {
+        var c = window.APT_ANALYTICS || {};
+        if (c.gaId) { window['ga-disable-' + c.gaId] = true; }
+        var parts = location.hostname.split('.');
+        var domains = ['', location.hostname, '.' + parts.slice(-2).join('.')];
+        document.cookie.split(';').forEach(function (pair) {
+            var name = pair.split('=')[0].trim();
+            if (name === '_ga' || name.indexOf('_ga_') === 0 || name === '_gid') {
+                domains.forEach(function (d) {
+                    document.cookie = name + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+                });
+            }
+        });
+    }
     function track(name, params) {
         if (window.gtag) { window.gtag('event', name, params || {}); }
     }
@@ -83,7 +99,13 @@
         var accept = e.target.closest('[data-consent="yes"]');
         var decline = e.target.closest('[data-consent="no"]');
         if (accept) { setConsent('yes'); loadAnalytics(); if (banner) banner.hidden = true; }
-        if (decline) { setConsent('no'); if (banner) banner.hidden = true; }
+        if (decline) { setConsent('no'); withdraw(); if (banner) banner.hidden = true; }
+        // "Analytics choices" in the footer: forget the answer and ask again, so consent
+        // can be withdrawn as easily as it was given.
+        if (e.target.closest('[data-consent-reset]')) {
+            try { localStorage.removeItem(consentKey); } catch (err) { /* ignore */ }
+            if (banner) { banner.hidden = false; var first = banner.querySelector('button'); if (first) { first.focus(); } }
+        }
         var tracked = e.target.closest('[data-track]');
         if (tracked) {
             track(tracked.getAttribute('data-track'), { label: tracked.getAttribute('data-track-label') || tracked.textContent.trim().slice(0, 80) });

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Mail\EmailChangedMail;
 use App\Models\ResourceDownload;
+use App\Models\Subscriber;
+use App\Models\TemplateDownloadRequest;
+use App\Models\TemplateUpdateNotice;
 use App\Services\Billing\BillingConfig;
 use App\Services\Subscribers\AccountDigest;
 use App\Support\Seo;
@@ -12,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -77,9 +81,29 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        // A paid subscription is billed by the payment provider, not by this site: deleting
+        // the account would leave it charging with nobody able to manage it here. The reader
+        // cancels it first (Manage billing), then deletes.
+        if (app(BillingConfig::class)->enabled() && $user->activeSubscription()) {
+            return Redirect::route('profile.edit')->withErrors(['password' => 'Cancel your subscription under Manage billing first. Your account can be deleted once it has ended.'], 'userDeletion');
+        }
+
         Auth::logout();
 
-        $user->delete();
+        DB::transaction(function () use ($user) {
+            // What is kept by email address rather than by account goes too: the digest
+            // subscription, template requests and the update emails queued for them. The
+            // unsubscribe from template updates is kept so the address stays unsubscribed.
+            // Contributions and licence enquiries stay (see the privacy notice), as do
+            // billing records the law requires a merchant to keep.
+            $email = strtolower($user->email);
+            Subscriber::whereRaw('LOWER(email) = ?', [$email])->delete();
+            TemplateDownloadRequest::whereRaw('LOWER(email) = ?', [$email])->delete();
+            TemplateUpdateNotice::where('email', $email)->delete();
+            // Personal access tokens are polymorphic, with no foreign key to cascade.
+            $user->tokens()->delete();
+            $user->delete();
+        });
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

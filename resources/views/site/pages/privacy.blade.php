@@ -56,7 +56,7 @@
     </section>
 
     <section class="mt-8" aria-labelledby="payment-heading"><h2 id="payment-heading" class="section-title">Payments</h2>
-        <p class="prose-policy mt-2">No card or bank details are stored here or pass through this application. Where a paid plan exists, checkout and the billing portal are hosted by the payment provider, who is the merchant of record. This site keeps only the provider's identifiers, the plan, the status and the dates.</p>
+        <p class="prose-policy mt-2">No card or bank details are stored here or pass through this application. Where a paid plan exists, checkout and the billing portal are hosted by the payment provider, who is the merchant of record. This site keeps the provider's identifiers, the plan, the status and dates, the amounts of payments and refunds, and the provider's notifications about them as received, which include the customer's name and email address and can include the billing address given at checkout. They are kept as billing records.</p>
     </section>
 
     <section class="mt-8" aria-labelledby="retention-heading"><h2 id="retention-heading" class="section-title">How long things are kept</h2>
@@ -87,7 +87,13 @@
     </section>
 
     <section class="mt-8" aria-labelledby="processors-heading"><h2 id="processors-heading" class="section-title">Who else touches it</h2>
-        <p class="prose-policy mt-2">The site runs on third-party hosting and uses third-party services to deliver email, serve traffic and, where configured, process payments and measure usage. These providers process data on our instructions to run the service. They are not permitted to use it for their own purposes, and none of them is given data for advertising.</p>
+        <p class="prose-policy mt-2">The site runs on third-party hosting and uses these services. They process data on our instructions to run the service, are not permitted to use it for their own purposes, and none of them is given data for advertising.</p>
+        <ul class="mt-2 list-disc pl-5 space-y-1.5 text-sm text-brand-body">
+            <li><span class="font-medium text-brand-navy">Cloudflare</span> serves and protects all traffic, runs the automated check on forms (Turnstile) and, where configured and only after you allow analytics, counts visits (Web Analytics).</li>
+            <li><span class="font-medium text-brand-navy">Resend</span> delivers the site's email (confirmations, downloads, alerts, digests).</li>
+            <li><span class="font-medium text-brand-navy">Google Analytics</span>, where configured, measures usage only after you allow analytics. "Analytics choices" in the footer changes your answer at any time.</li>
+            <li><span class="font-medium text-brand-navy">Dodo Payments</span>, the merchant of record, takes payment for paid plans where they are offered.</li>
+        </ul>
     </section>
 
     <section class="mt-8" aria-labelledby="changes-heading"><h2 id="changes-heading" class="section-title">Changes to this policy</h2>

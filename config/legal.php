@@ -41,7 +41,7 @@ return [
     // How long each kind of record is kept. Rendered as the retention table, so
     // the published promise and the operational rule are the same string.
     'retention' => [
-        ['what' => 'Account record (name, address, organisation)', 'how_long' => 'Until you delete the account. Deletion removes it immediately.'],
+        ['what' => 'Account record (name, address, organisation)', 'how_long' => 'Until you delete the account. Deletion removes it immediately, with your download history, watches, alert channels, API tokens, and the digest subscription and template requests under the same address. A paid plan has to be cancelled first.'],
         ['what' => 'Download history', 'how_long' => 'Until you delete the account.'],
         ['what' => 'Newsletter subscription', 'how_long' => 'Until you unsubscribe, which removes the address from the sending list.'],
         ['what' => 'Template requests (name, work address, organisation, which template)', 'how_long' => 'Not deleted automatically at present. Deleted on request (see "Who is responsible" above for where to ask).'],

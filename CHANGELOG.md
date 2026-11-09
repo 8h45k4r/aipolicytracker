@@ -123,6 +123,21 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Billing and data rights:
+  - The billing webhook setup now subscribes to refunds and disputes, so a refund or lost chargeback revokes
+    access; re-running it updates an existing endpoint.
+  - A webhook abandoned mid-way is applied by the next retry.
+  - The payment-failed email waits for its transaction.
+  - A second checkout click reopens the same session.
+  - Test pings to alert channels need the plan.
+  - "Download my data" adds billing, API tokens and what is kept under the account's verified address
+    (newsletter, template requests and update emails, licence enquiries, contributions).
+  - Deleting an account removes the digest subscription, template requests and API tokens under it, and is
+    refused while a paid plan is active.
+  - Pages whose address acts for the reader never load analytics.
+  - Analytics consent can be withdrawn from the footer ("Analytics choices").
+  - The privacy notice names the processors and states what payment records hold.
+  - The checkout button links the terms.
 - Reliability:
   - Email sends give up after 10 seconds (`MAIL_TIMEOUT`) instead of waiting forever on a stalled provider.
   - Unhandled production errors email `ADMIN_EMAILS` (one per error an hour, 20 a day; `ERROR_ALERTS`).

@@ -11,7 +11,9 @@ namespace App\Support;
 final class Analytics
 {
     /** Routes whose URL carries a token. */
-    public const TOKEN_ROUTES = ['password.reset', 'invitation.show', 'verification.verify', 'subscribe.confirm', 'subscribe.unsubscribe'];
+    // Pages whose address carries a secret (a token or a URL signature that acts on the
+    // reader's behalf): analytics would send that address to a third party.
+    public const TOKEN_ROUTES = ['password.reset', 'invitation.show', 'verification.verify', 'subscribe.confirm', 'subscribe.unsubscribe', 'alerts.unsubscribe', 'templates.updates.unsubscribe', 'templates.download', 'tools.ready', 'tools.file'];
 
     public static function configured(): bool
     {
