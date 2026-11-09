@@ -5,6 +5,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- The production image no longer contains the host's environment file. `.dockerignore` excluded `.env` only at
+  the build-context root, while production keeps its secrets in `deploy/.env` inside the checkout, so every
+  image built on the host carried them. Patterns now match at any depth and `deploy/` is excluded; the Security
+  workflow plants env files and fails if any reaches the image. Operators: rebuild, prune old images and build
+  cache, and rotate the keys if an image or cache ever left the host (deploy/README-docker.md).
 - Checkout refuses a plan whose price at the payment provider differs from the price on the pricing page, or
   that cannot be checked, so a customer is never charged a price they were not shown. Billing stays off.
 - Runtime security releases of 21 October 2026: the production image now runs PHP 8.3.36 (CVE-2026-109618 and

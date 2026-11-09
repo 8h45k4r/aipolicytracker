@@ -222,6 +222,18 @@ workflow cannot update the copy the key is bound to, by design. To stop
 automatic deploys, remove the key's line from `authorized_keys`; the workflow
 then fails at the SSH step and nothing else changes.
 
+## Secrets and the image
+
+Production's secrets live in `deploy/.env`, inside the build context. Until 9 November 2026 `.dockerignore` excluded `.env` only at the context root, so images built on the host contained `deploy/.env`. After pulling the fix:
+
+1. Rebuild through a normal deploy, then remove old images and the build cache:
+   `docker image prune -a --filter "label=com.docker.compose.project=aip"` and `docker builder prune -f`.
+2. Check the running image: `docker run --rm --entrypoint sh aip-app:latest -c 'ls deploy/.env'` must fail.
+3. If any image, layer or build cache ever left the host (a registry push, `docker save`, a backup of
+   `/var/lib/docker`), rotate the keys it held: the database password, the mail and billing API keys, the
+   webhook and cron secrets, and `APP_KEY`. Rotating `APP_KEY` signs everyone out and invalidates emailed
+   signed links; put the old key in `APP_PREVIOUS_KEYS` so encrypted settings can still be read.
+
 ## Maintenance
 
 `.github/workflows/maintenance.yml` (Actions → Maintenance → Run workflow) runs one of four operations on the host without deploying anything:

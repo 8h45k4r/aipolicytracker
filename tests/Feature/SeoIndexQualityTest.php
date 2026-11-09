@@ -205,10 +205,9 @@ class SeoIndexQualityTest extends TestCase
         $this->get(route('subscribe.unsubscribe', $subscriber->token))->assertOk()->assertDontSee('APT_ANALYTICS', false)->assertDontSee('G-TEST123', false);
         $this->get(route('subscribe.confirm', $subscriber->token))->assertOk()->assertDontSee('G-TEST123', false);
 
-        // The account pages carry no analytics, and the old account shell, should a page use
-        // it again, loads it only where consent is not required and never on a token route.
+        // The account pages carry no analytics. (The old Inertia account shell that also
+        // loaded it was removed with the React screens; every account page is the site layout.)
         $this->get(route('password.reset', str_repeat('t', 64)))->assertOk()->assertDontSee('G-TEST123', false);
-        $this->assertStringContainsString("! config('aipolicytracker.analytics_require_consent') && \\App\\Support\\Analytics::allowedHere()", file_get_contents(resource_path('views/app.blade.php')));
     }
 
     public function test_ai_referral_waits_for_consent_and_records_no_query_string(): void
