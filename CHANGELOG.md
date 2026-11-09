@@ -102,6 +102,10 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Templates: a reader who has opened an emailed link downloads the next template in one step (terms ticked again,
+  updates optional) instead of filling the form again; "Not you, or change details" brings the form back, prefilled.
+  Signed-in accounts get the form prefilled. Subscribe forms require the terms and offer new templates and guides
+  as an optional extra; ticking only that extra no longer narrows the digest to templates.
 - Admin: nested sidebar (section, entry with icon, submenu of the page's own views), collapse to icons, and the
   full trail in the top bar. Dashboard: the last 30 days against the 30 before (subscribers, accounts, template
   requests, submissions, changes) and weekly growth charts of active subscribers and accounts, each with a table

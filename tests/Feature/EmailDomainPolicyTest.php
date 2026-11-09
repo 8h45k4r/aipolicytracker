@@ -234,10 +234,10 @@ class EmailDomainPolicyTest extends TestCase
 
     public function test_the_newsletter_refuses_a_throwaway_address_and_stores_no_subscriber(): void
     {
-        $this->post(route('subscribe.store'), ['email' => 'burner@guerrillamail.com'])->assertSessionHasErrors('email');
+        $this->post(route('subscribe.store'), ['terms' => 1, 'email' => 'burner@guerrillamail.com'])->assertSessionHasErrors('email');
         $this->assertSame(0, Subscriber::count());
 
-        $this->post(route('subscribe.store'), ['email' => 'j.doe@aip-fixture-trust.nhs.uk'])->assertSessionHasNoErrors();
+        $this->post(route('subscribe.store'), ['terms' => 1, 'email' => 'j.doe@aip-fixture-trust.nhs.uk'])->assertSessionHasNoErrors();
         $this->assertSame(1, Subscriber::count());
     }
 

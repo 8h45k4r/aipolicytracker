@@ -98,9 +98,9 @@ class TurnstileFormsTest extends TestCase
         $this->post(route('contribute.store'), $contribution + ['cf-turnstile-response' => 'good'])->assertSessionHasNoErrors();
         $this->assertSame(1, ContributorSubmission::count());
 
-        $this->post(route('subscribe.store'), ['email' => 'reader@aipolicytracker.org', 'cf-turnstile-response' => 'bad'])->assertSessionHasErrors('email');
+        $this->post(route('subscribe.store'), ['terms' => 1, 'email' => 'reader@aipolicytracker.org', 'cf-turnstile-response' => 'bad'])->assertSessionHasErrors('email');
         $this->assertSame(0, Subscriber::count());
-        $this->post(route('subscribe.store'), ['email' => 'reader@aipolicytracker.org', 'cf-turnstile-response' => 'good'])->assertSessionHasNoErrors();
+        $this->post(route('subscribe.store'), ['terms' => 1, 'email' => 'reader@aipolicytracker.org', 'cf-turnstile-response' => 'good'])->assertSessionHasNoErrors();
         $this->assertSame(1, Subscriber::count());
 
         $account = ['name' => 'New Reader', 'email' => 'new.reader@aipolicytracker.org', 'password' => 'A-long-Passw0rd!', 'password_confirmation' => 'A-long-Passw0rd!', 'terms_condition' => '1'];

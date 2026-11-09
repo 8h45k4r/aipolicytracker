@@ -140,7 +140,7 @@ class SecurityHardeningTest extends TestCase
 
         foreach (range(1, 5) as $i) {
             $this->withServerVariables(['REMOTE_ADDR' => "10.0.0.{$i}"])
-                ->post('/subscribe', ['email' => 'victim@example.com'])
+                ->post('/subscribe', ['terms' => 1, 'email' => 'victim@example.com'])
                 ->assertSessionHas('success');
         }
 
