@@ -61,6 +61,22 @@ class BillingController extends Controller
             return redirect()->route('profile.edit')->with('status', 'already-subscribed');
         }
         $definition = $this->catalog->plan($plan);
+        // Never charge a price other than the one on the pricing page. The provider's product
+        // is looked up on every checkout; a different price or currency, or a failed lookup,
+        // stops the sale and tells the operator why (Admin → Billing → Check products).
+        try {
+            $remote = $gateway->retrieveProduct($definition['product_id']);
+            $mismatch = PlanCatalog::priceMatches($definition, $remote) ? null
+                : 'The payment provider charges '.PlanCatalog::formatPrice((int) ($remote['price'] ?? 0), (string) ($remote['currency'] ?? 'USD')).' for this plan; the pricing page shows '.PlanCatalog::formatPrice((int) $definition['price'], $definition['currency']).'.';
+        } catch (\Throwable $e) {
+            $mismatch = 'The plan could not be checked with the payment provider: '.mb_substr($e->getMessage(), 0, 300);
+        }
+        if ($mismatch !== null) {
+            Log::error('billing.checkout.price_check_failed', ['plan' => $plan, 'detail' => $mismatch]);
+            $redirect = redirect()->route('pricing')->with('error', 'This plan cannot be bought right now. Nothing was charged. Please try again later.');
+
+            return $user->isAdmin() ? $redirect->with('error_detail', $mismatch) : $redirect;
+        }
         $checkout = BillingCheckout::create(['user_id' => $user->id, 'plan_key' => $plan, 'product_id' => $definition['product_id'], 'status' => 'created']);
         try {
             $session = $gateway->createCheckout($user, $definition['product_id'], [

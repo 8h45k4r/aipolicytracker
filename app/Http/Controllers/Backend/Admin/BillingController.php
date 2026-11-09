@@ -369,7 +369,7 @@ class BillingController extends Controller
             }
             try {
                 $remote = $gateway->retrieveProduct($plan['product_id']);
-                $match = (int) $remote['price'] === (int) $plan['price'] && strtoupper((string) $remote['currency']) === strtoupper($plan['currency']);
+                $match = PlanCatalog::priceMatches($plan, $remote);
                 $rows[$key] = ['ok' => $match, 'remote' => $remote, 'note' => $match ? 'Price matches' : 'Price differs from config/billing.php'];
             } catch (\Throwable $e) {
                 $rows[$key] = ['ok' => false, 'note' => 'Lookup failed: '.mb_substr($e->getMessage(), 0, 200)];

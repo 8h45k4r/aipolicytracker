@@ -456,6 +456,28 @@ class BillingTest extends TestCase
         $this->get('/')->assertOk()->assertSee('/pricing"', false);
     }
 
+    public function test_checkout_refuses_a_plan_the_provider_prices_differently_from_the_page(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        // The provider product charges $29 while the page shows the configured price.
+        $this->gateway->products['pdt_month'] = ['product_id' => 'pdt_month', 'name' => 'Pro', 'price' => 2900, 'currency' => 'USD', 'interval' => 'Month'];
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect(route('pricing'))->assertSessionHas('error')->assertSessionMissing('error_detail');
+        $this->assertSame(0, BillingCheckout::count());
+        $this->assertNull($this->gateway->lastCheckout);
+
+        // A failed lookup also stops the sale; the operator is told why.
+        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
+        $admin = $this->user(['email' => 'admin@example.org']);
+        $this->actingAs($admin)->post('/billing/checkout/pro_yearly')->assertRedirect(route('pricing'))->assertSessionHas('error_detail', fn ($d) => str_contains($d, 'could not be checked'));
+        $this->assertSame(0, BillingCheckout::count());
+
+        // A matching product sells.
+        $this->gateway->products['pdt_month']['price'] = config('billing.plans.pro_monthly.price');
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk();
+        $this->assertSame(1, BillingCheckout::count());
+    }
+
     public function test_checkout_requires_verified_account_records_attempt_and_hands_off_to_provider(): void
     {
         $this->enable();
@@ -465,6 +487,7 @@ class BillingTest extends TestCase
         $this->actingAs($this->user())->post('/billing/checkout/no_such_plan')->assertNotFound();
 
         $user = $this->user();
+        $this->gateway->products['pdt_month'] = ['product_id' => 'pdt_month', 'name' => 'Pro', 'price' => config('billing.plans.pro_monthly.price'), 'currency' => 'USD', 'interval' => 'Month'];
         $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk()->assertSee('https://checkout.example.test/cs_1');
         $checkout = BillingCheckout::where('user_id', $user->id)->firstOrFail();
         $this->assertSame('pdt_month', $checkout->product_id);
@@ -487,6 +510,8 @@ class BillingTest extends TestCase
     {
         $this->enable();
         $this->gateway->fail = true;
+        // The price check passes; the provider then refuses to open the session.
+        $this->gateway->products['pdt_month'] = ['product_id' => 'pdt_month', 'name' => 'Pro', 'price' => config('billing.plans.pro_monthly.price'), 'currency' => 'USD', 'interval' => 'Month'];
         $user = $this->user();
         $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error');
         $this->assertNull(session('error_detail'), 'a customer never sees provider internals');
