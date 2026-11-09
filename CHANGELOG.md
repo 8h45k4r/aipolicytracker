@@ -11,6 +11,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Template update emails now work. Readers who tick "email me when this template gets a new version" get one
+  email per new version, with the changelog, a link and related templates, and a one-click unsubscribe. The
+  first build and unchanged rebuilds notify nobody; failures are retried up to three times; nobody is added to
+  the digest. The checkbox no longer promises emails about guides, which were never sent.
 - Pricing page: live data counts (jurisdictions, instruments, obligations, controls, changes,
   verified records) replace static claims. A feature comparison table maps each capability to its
   live page. Trust and methodology cards link to independence, freshness, coverage, corrections

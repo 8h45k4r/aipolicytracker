@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\JobRun;
+use App\Models\TemplateUpdateNotice;
 use App\Services\Seo\IndexNow;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,8 @@ $timetable = [
     'digest' => fn ($e) => $e->weeklyOn(1, '07:00'),
     'external_import' => fn ($e) => $e->weeklyOn(0, '04:00'),
     'templates_build' => fn ($e) => $e->dailyAt('05:30'),
+    // Only when a notice is waiting, so a quiet day records no runs.
+    'template_notices' => fn ($e) => $e->everyFifteenMinutes()->when(fn () => TemplateUpdateNotice::due()->exists()),
     'report_freeze' => fn ($e) => $e->quarterlyOn(1, '01:00'),
     // Only while posting is switched on, so a host without keys records no failed runs.
     'social_post' => fn ($e) => $e->everyThirtyMinutes()->when(fn () => (bool) config('social.x.enabled')),

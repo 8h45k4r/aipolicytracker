@@ -29,7 +29,7 @@
         <p class="text-sm text-brand-body">As <span class="font-semibold text-brand-navy">{{ $known->name }}</span> · {{ $known->email }}@if($known->company) · {{ $known->company }}@endif. <a href="{{ route('templates.show', ['slug' => $slug, 'details' => 1]) }}#download" class="whitespace-nowrap">Not you, or change details</a></p>
         <div class="hidden" aria-hidden="true"><label for="tr-website">Website</label><input id="tr-website" name="website" tabindex="-1" autocomplete="off"></div>
         <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="terms" value="1" required @checked(old('terms')) class="mt-0.5"> <span>I accept the {!! $terms !!}.</span></label>
-        <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="updates" value="1" @checked(old('updates', $known->marketing_consent_at !== null)) class="mt-0.5"> <span>Email me when this template gets a new version, and about related templates and guides (optional; unsubscribe in one click).</span></label>
+        <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="updates" value="1" @checked(old('updates', $known->marketing_consent_at !== null)) class="mt-0.5"> <span>Email me when this template gets a new version, with links to related templates (optional; one-click unsubscribe; does not subscribe you to the digest).</span></label>
         <button type="submit" class="btn-primary w-full" data-track="template_request_known" data-track-label="{{ $slug }}">Download now</button>
         <p class="meta">No form to fill again: you confirmed this address when you opened an earlier link.</p>
     </form>
@@ -48,7 +48,7 @@
         {{-- Honeypot: invisible to people, filled in by form-filling bots. --}}
         <div class="hidden" aria-hidden="true"><label for="tr-website">Website</label><input id="tr-website" name="website" tabindex="-1" autocomplete="off"></div>
         <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="terms" value="1" required @checked(old('terms')) class="mt-0.5"> <span>I accept the {!! $terms !!}.</span></label>
-        <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="updates" value="1" @checked(old('updates')) class="mt-0.5"> <span>Email me when this template gets a new version, and about related templates and guides (optional; unsubscribe in one click).</span></label>
+        <label class="flex items-start gap-2 text-xs text-brand-body"><input type="checkbox" name="updates" value="1" @checked(old('updates')) class="mt-0.5"> <span>Email me when this template gets a new version, with links to related templates (optional; one-click unsubscribe; does not subscribe you to the digest).</span></label>
         <x-site.turnstile />
         <button type="submit" class="btn-primary w-full" data-track="template_request" data-track-label="{{ $slug }}">Email me the download links</button>
         <p class="meta">{{ \App\Models\TemplateDownloadRequest::accessLabel() }}. Your address is used to send the files and, if you ask, version updates; never sold or shared. After your first download, the next template takes one click.</p>
