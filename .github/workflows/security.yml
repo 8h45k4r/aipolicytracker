@@ -182,7 +182,8 @@ jobs:
         # php-fpm on 8080. This starts it against PostgreSQL, as deploy/compose.yml
         # does, and checks what the deploy probes check, plus the server itself:
         # parallel requests, static files from nginx, no other PHP file executes,
-        # dot files hidden, the health check passes and a stop is graceful.
+        # dot files hidden, the health check passes and a stop is graceful. APP_URL is an
+        # https address because the start-up check refuses anything else in production.
         run: |
           set -euo pipefail
           docker network create smoke
@@ -190,7 +191,7 @@ jobs:
             -e POSTGRES_PASSWORD=smoke postgres:16-alpine
           for _ in $(seq 1 30); do docker exec smoke-db pg_isready -U aip -d aip && break; sleep 2; done
           docker run -d --name smoke-app --network smoke -p 127.0.0.1:8080:8080 \
-            -e APP_KEY="base64:$(head -c 32 /dev/urandom | base64)" -e APP_URL=http://127.0.0.1:8080 \
+            -e APP_KEY="base64:$(head -c 32 /dev/urandom | base64)" -e APP_URL=https://smoke.aipolicytracker.test \
             -e DB_CONNECTION=pgsql -e DB_HOST=smoke-db -e DB_PORT=5432 -e DB_DATABASE=aip \
             -e DB_USERNAME=aip -e DB_PASSWORD=smoke -e SESSION_DRIVER=database \
             -e CACHE_STORE=database -e QUEUE_CONNECTION=database aipolicytracker:scan
