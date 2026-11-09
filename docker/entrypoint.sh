@@ -4,7 +4,7 @@ cd /var/www/html
 
 # Until the servers start, a stop request ends the boot at once (PID 1 ignores SIGTERM
 # without a handler, and docker would wait out the grace period before killing it).
-trap 'exit 143' TERM INT
+trap 'exit 143' TERM INT QUIT
 
 # Start time, for `php artisan aip:health`: the scheduler has not reported yet in
 # the first minutes, so the health check skips that part until this is 5 minutes old.
@@ -150,7 +150,9 @@ stop() {
   fi
   exit "${1:-0}"
 }
-trap 'stop 0' TERM INT
+# QUIT too: the php-fpm base image declares STOPSIGNAL SIGQUIT (the Dockerfile resets it
+# to SIGTERM, but a stop request must work whichever one arrives).
+trap 'stop 0' TERM INT QUIT
 
 while kill -0 "$fpm" 2>/dev/null && kill -0 "$web" 2>/dev/null; do
   sleep 2

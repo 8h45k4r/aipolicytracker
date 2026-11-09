@@ -67,5 +67,8 @@ USER www-data
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD php -r 'exit(@file_get_contents("http://127.0.0.1:" . (getenv("PORT") ?: "8080") . "/up") === false ? 1 : 0);' \
         && php artisan aip:health > /dev/null
-# The entrypoint stops nginx and php-fpm gracefully on SIGTERM.
+# The php-fpm base image sets STOPSIGNAL SIGQUIT, which suits php-fpm as PID 1. Here PID 1
+# is the entrypoint shell, which stops nginx, php-fpm and the background processes on
+# SIGTERM (it handles SIGQUIT as well). Docker sends this on stop.
+STOPSIGNAL SIGTERM
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
