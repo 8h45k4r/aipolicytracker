@@ -8,7 +8,7 @@ they say more, they win.
 
 AIPolicyTracker ([aipolicytracker.org](https://aipolicytracker.org)) is an open tracker of AI laws,
 policies and the duties they create. It is a Laravel 12 application on PHP 8.3. The public site is
-server-rendered Blade; only the account screens are React with Inertia. Production runs PostgreSQL in
+server-rendered Blade, account screens and admin included. Production runs PostgreSQL in
 Docker; local development and the gating CI job use SQLite. Code is Apache-2.0, data is CC BY 4.0.
 
 ## Golden rules

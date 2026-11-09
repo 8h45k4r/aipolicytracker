@@ -1,6 +1,4 @@
 import js from "@eslint/js";
-import eslintReact from "@eslint-react/eslint-plugin";
-import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 
 export default [
@@ -20,31 +18,16 @@ export default [
         rules: { "no-console": ["error", { allow: ["warn", "error"] }] },
     },
     {
-        files: ["resources/js/**/*.{js,jsx}", "*.config.js", "eslint.config.js"],
+        files: ["resources/js/**/*.js", "*.config.js", "eslint.config.js"],
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: "module",
-            parserOptions: { ecmaFeatures: { jsx: true } },
-            globals: { ...globals.browser, ...globals.node, route: "readonly", Ziggy: "readonly" },
+            globals: { ...globals.browser, ...globals.node },
         },
         rules: {
             "no-unused-vars": "off",
             "no-empty": ["error", { allowEmptyCatch: true }],
             "no-console": ["error", { allow: ["warn", "error"] }],
-        },
-    },
-    {
-        // React rules for the account pages. eslint-plugin-react has no ESLint 10
-        // release, so the React rules come from @eslint-react, which does.
-        files: ["resources/js/**/*.jsx"],
-        ...eslintReact.configs.recommended,
-        plugins: { ...eslintReact.configs.recommended.plugins, "react-hooks": reactHooks },
-        rules: {
-            ...eslintReact.configs.recommended.rules,
-            ...reactHooks.configs["recommended-latest"].rules,
-            // @eslint-react runs the same two checks; one report per problem is enough.
-            "react-hooks/exhaustive-deps": "off",
-            "react-hooks/set-state-in-effect": "off",
         },
     },
 ];

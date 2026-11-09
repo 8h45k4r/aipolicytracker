@@ -110,6 +110,9 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Removed the unused React and Inertia account screens (every account page was already Blade), with their
+  packages and build chunks. Responses no longer carry `Vary: X-Inertia`, which had been overwriting the
+  site's own `Vary` header on record id lookups.
 - Incident and risk pages keep the AI Incident Database's incident number and the MIT entry id out of search
   snippets (`data-nosnippet`); readers still see them. This site's own permanent ids stay citable.
 - Templates: a reader who has opened an emailed link downloads the next template in one step (terms ticked again,

@@ -198,7 +198,7 @@ jobs:
             || { echo "public/build/manifest.json is not committed"; exit 1; }
           node -e '
             const m = require("./public/build/manifest.json");
-            const want = ["resources/js/app.jsx", "resources/css/public.css", "resources/js/public.js"];
+            const want = ["resources/css/public.css", "resources/js/public.js", "resources/css/admin.css", "resources/js/admin.js"];
             const missing = want.filter(k => !m[k]);
             if (missing.length) {
               console.error("committed manifest is missing entries: " + missing.join(", "));

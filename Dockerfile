@@ -1,4 +1,4 @@
-# Production image for AI Policy Tracker (Laravel 12 + Inertia/React).
+# Production image for AI Policy Tracker (Laravel 12, server-rendered Blade).
 # Works on any container host (Fly.io, Render, Railway, a VPS with Docker).
 
 # Base images are pinned to a patch release, so a deploy can never reuse a cached,

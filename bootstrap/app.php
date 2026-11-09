@@ -5,7 +5,6 @@ use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CountFunnelViews;
 use App\Http\Middleware\EnsureAdminSecondFactor;
 use App\Http\Middleware\EnsureSubscribed;
-use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\RecordAdminAction;
 use App\Http\Middleware\RecordAlertClick;
 use App\Http\Middleware\SecurityHeaders;
@@ -41,7 +40,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->prepend(AssignRequestId::class);
 
         $middleware->web(append: [
-            HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
             CountFunnelViews::class,
             RecordAlertClick::class,

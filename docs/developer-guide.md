@@ -53,8 +53,8 @@ upsert, so run it again after every data edit.
 
 ## Front end
 
-The public site is server-rendered Blade with Tailwind. Only the account screens are React with
-Inertia. Sources are in `resources/js` and `resources/css`; Vite builds them (`vite.config.js`).
+The whole site, account screens and admin included, is server-rendered Blade with Tailwind and a
+little plain JavaScript. Sources are in `resources/js` and `resources/css`; Vite builds them (`vite.config.js`).
 
 ```bash
 npm ci           # once
