@@ -222,6 +222,29 @@ workflow cannot update the copy the key is bound to, by design. To stop
 automatic deploys, remove the key's line from `authorized_keys`; the workflow
 then fails at the SSH step and nothing else changes.
 
+## Maintenance
+
+`.github/workflows/maintenance.yml` (Actions → Maintenance → Run workflow) runs one of four operations on the host without deploying anything:
+
+| Operation | What it does | Downtime |
+|---|---|---|
+| `status` | Memory, disk, this project's containers, `aip:health` | None |
+| `clear-cache` | `php artisan aip:cache-clear --rebuild`: clears and rebuilds config, routes, views and events, and moves cached page content to a new generation. It does not empty the cache store, which holds the scheduler tick, the incident sync cursor, locks and rate limits | None |
+| `restart` | `docker compose restart app`, then waits for `/up` (up to 180 s) | Short: the entrypoint migrates and caches |
+| `prune` | Removes this compose project's stopped containers and dangling images. Never volumes, never another project's resources, never the build cache | None |
+
+Each operation takes the deploy lock (`/run/lock/aip-deploy.lock`), so it waits for nothing and refuses while a deploy runs. The workflow never deploys: without the maintenance key it fails and says so.
+
+One-time setup, as root on the host:
+
+1. `ssh-keygen -t ed25519 -f aip_maintenance -C aip-maintenance -N ''` (on your machine).
+2. `install -m 0755 /opt/aip/repo/deploy/remote-maintenance.sh /usr/local/sbin/aip-maintenance`. Re-run whenever the script changes.
+3. Add the public key to `/root/.ssh/authorized_keys` with its forced command:
+   `command="/usr/local/sbin/aip-maintenance",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ssh-ed25519 AAAA... aip-maintenance`
+4. Store the private key as the `MAINTENANCE_SSH_KEY` secret of the `production` environment, then delete the local copy.
+
+Check it: run `status`. Anything other than the four names prints the usage and exits 2. The log is `/var/log/aip-maintenance.log`.
+
 ## Rolling back
 
 ```bash

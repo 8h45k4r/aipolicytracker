@@ -11,6 +11,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Maintenance workflow (manual): status, cache clear and rebuild, app restart with a health wait, and a prune
+  limited to this project's stopped containers and dangling images. It uses its own forced-command key, shares
+  the deploy lock and never deploys. Reworked from PR #156: no fallback that redeployed main without CI, no
+  host-wide prune of volumes, and the cache clear no longer empties the scheduler tick or the incident sync cursor.
 - Template update emails now work. Readers who tick "email me when this template gets a new version" get one
   email per new version, with the changelog, a link and related templates, and a one-click unsubscribe. The
   first build and unchanged rebuilds notify nobody; failures are retried up to three times; nobody is added to
