@@ -75,12 +75,9 @@ services:
       SESSION_DRIVER: database
       CACHE_STORE: database
       QUEUE_CONNECTION: database
+      # nginx in the container listens here; php-fpm runs up to 6 workers
+      # (docker/php-fpm-pool.conf).
       PORT: "8080"
-      # The image serves with `artisan serve`, i.e. PHP's built-in server,
-      # which handles one request at a time unless told to fork. Without this
-      # a single slow request blocks every other visitor. Four workers is
-      # ample for this site and costs nothing while idle.
-      PHP_CLI_SERVER_WORKERS: "4"
     volumes:
       - aip-storage:/var/www/html/storage/app
     # Host port is configurable because this host is busy; 8080 is the default.

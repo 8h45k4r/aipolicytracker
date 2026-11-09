@@ -84,7 +84,29 @@ else
   echo "NOTE: SCHEDULER=${SCHEDULER}; this container is not scheduling jobs"
 fi
 
-# Serve the app. --no-reload is what makes PHP_CLI_SERVER_WORKERS count:
-# without it artisan watches .env and starts a single worker, so production
-# answered one request at a time. Replace with php-fpm + nginx for more.
-exec php artisan serve --host=0.0.0.0 --port="${PORT:-8080}" --no-reload
+# Serve the app: php-fpm for PHP, nginx for everything else, on $PORT.
+#
+# Both run in the background and this shell waits on them. If either stops, the
+# other is stopped too and the container exits, so the restart policy brings up a
+# fresh one (with artisan serve as PID 1, a crash did the same). On SIGTERM
+# (docker stop, a deploy) both are asked to finish in-flight requests first.
+sed "s/__PORT__/${PORT:-8080}/" /etc/aip/nginx.conf > /tmp/nginx.conf
+php-fpm --nodaemonize --force-stderr &
+fpm=$!
+nginx -e /dev/stderr -c /tmp/nginx.conf -g 'daemon off;' &
+web=$!
+
+stop() {
+  kill -QUIT "$web" 2>/dev/null || true
+  kill -QUIT "$fpm" 2>/dev/null || true
+  wait "$web" 2>/dev/null || true
+  wait "$fpm" 2>/dev/null || true
+  exit "${1:-0}"
+}
+trap 'stop 0' TERM INT
+
+while kill -0 "$fpm" 2>/dev/null && kill -0 "$web" 2>/dev/null; do
+  sleep 2
+done
+echo "ERROR: $(kill -0 "$fpm" 2>/dev/null && echo nginx || echo php-fpm) stopped; stopping the container"
+stop 1

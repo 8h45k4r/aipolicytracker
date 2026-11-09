@@ -15,7 +15,10 @@ COPY . .
 RUN npm run build
 
 # ---- Stage 2: PHP runtime ----
-FROM php:8.3.36-cli-alpine
+# php-fpm behind nginx in the same container (debt #32): nginx serves public/ and
+# listens on $PORT, so the host nginx, the compose port and the health check are
+# unchanged. The CLI (artisan, queue, scheduler) is the same PHP build.
+FROM php:8.3.36-fpm-alpine
 # gd: phpoffice/phpspreadsheet and phpword require it, and the social-card
 # renderer draws with it (FreeType for the TrueType text, JPEG for photos).
 # font-dejavu: the face the renderer draws with. Without a TrueType font on
@@ -24,11 +27,14 @@ FROM php:8.3.36-cli-alpine
 # social:doctor inside the built image so that cannot happen quietly again.
 RUN apk upgrade --no-cache \
     && apk add --no-cache postgresql-dev icu-dev libzip-dev oniguruma-dev \
-        libpng-dev libjpeg-turbo-dev freetype-dev font-dejavu \
+        libpng-dev libjpeg-turbo-dev freetype-dev font-dejavu nginx \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_pgsql pdo_mysql intl bcmath mbstring zip pcntl opcache gd \
-    && rm -rf /var/cache/apk/* \
-    && printf 'expose_php=Off\n' > /usr/local/etc/php/conf.d/zz-hardening.ini
+    && rm -rf /var/cache/apk/*
+COPY docker/php-production.ini /usr/local/etc/php/conf.d/zz-hardening.ini
+# zzz-: loads after the image's zz-docker.conf, whose "listen = 9000" would otherwise win.
+COPY docker/php-fpm-pool.conf /usr/local/etc/php-fpm.d/zzz-aip.conf
+COPY docker/nginx.conf /etc/aip/nginx.conf
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
@@ -49,8 +55,9 @@ EXPOSE 8080
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 # Everything the entrypoint writes (caches, the storage link, uploads, the
-# import lock in /tmp) is owned by www-data, and the listener binds 8080, so
-# nothing here needs root. A process that serves the internet does not get it.
+# import lock, nginx's pid and temp files in /tmp) is owned by www-data, and
+# nginx binds 8080, so nothing here needs root. A process that serves the
+# internet does not get it.
 USER www-data
 # Two checks, both must pass. /up is Laravel's health route: it proves the web
 # server answers and the framework boots, without touching a page. `aip:health`
@@ -60,4 +67,5 @@ USER www-data
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD php -r 'exit(@file_get_contents("http://127.0.0.1:" . (getenv("PORT") ?: "8080") . "/up") === false ? 1 : 0);' \
         && php artisan aip:health > /dev/null
+# The entrypoint stops nginx and php-fpm gracefully on SIGTERM.
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

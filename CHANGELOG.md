@@ -112,6 +112,9 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Production server: the container serves with nginx and php-fpm instead of PHP's built-in development server
+  (`php artisan serve`), with opcache, per-request limits and a graceful stop. Nothing outside the container
+  changes. The Security workflow now boots the image and checks it serves before any deploy.
 - Privacy notice: the retention table now lists template requests, template update emails and licence enquiries,
   and says plainly that none is deleted automatically yet and each is deleted on request. Admins can delete a
   licence enquiry for an erasure request; the action is audited.

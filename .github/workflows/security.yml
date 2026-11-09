@@ -165,6 +165,46 @@ jobs:
             -e DB_CONNECTION=sqlite -e DB_DATABASE=:memory: \
             -e CACHE_STORE=array -e SESSION_DRIVER=array -e QUEUE_CONNECTION=sync \
             aipolicytracker:scan artisan social:doctor
+      - name: The image boots and serves through nginx and php-fpm
+        # The entrypoint is what production runs: migrations, caches, then nginx and
+        # php-fpm on 8080. This starts it against PostgreSQL, as deploy/compose.yml
+        # does, and checks what the deploy probes check, plus the server itself:
+        # parallel requests, static files from nginx, no other PHP file executes,
+        # dot files hidden, the health check passes and a stop is graceful.
+        run: |
+          set -euo pipefail
+          docker network create smoke
+          docker run -d --name smoke-db --network smoke -e POSTGRES_DB=aip -e POSTGRES_USER=aip \
+            -e POSTGRES_PASSWORD=smoke postgres:16-alpine
+          for _ in $(seq 1 30); do docker exec smoke-db pg_isready -U aip -d aip && break; sleep 2; done
+          docker run -d --name smoke-app --network smoke -p 127.0.0.1:8080:8080 \
+            -e APP_KEY="base64:$(head -c 32 /dev/urandom | base64)" -e APP_URL=http://127.0.0.1:8080 \
+            -e DB_CONNECTION=pgsql -e DB_HOST=smoke-db -e DB_PORT=5432 -e DB_DATABASE=aip \
+            -e DB_USERNAME=aip -e DB_PASSWORD=smoke -e SESSION_DRIVER=database \
+            -e CACHE_STORE=database -e QUEUE_CONNECTION=database aipolicytracker:scan
+          up=""
+          for _ in $(seq 1 60); do curl -fsS -o /dev/null http://127.0.0.1:8080/up && up=1 && break; sleep 2; done
+          [ -n "$up" ] || { docker logs smoke-app; exit 1; }
+          for p in / /policies /obligations /api/v1/ /llms.txt /robots.txt; do
+            code="$(curl -sS -o /dev/null -w '%{http_code}' "http://127.0.0.1:8080$p")"
+            echo "$code $p"; [ "$code" = 200 ] || { docker logs --tail 50 smoke-app; exit 1; }
+          done
+          # Eight requests at once all answer (artisan serve answered one at a time without workers).
+          seq 1 8 | xargs -P 8 -I{} curl -fsS -o /dev/null http://127.0.0.1:8080/policies
+          asset="$(docker exec smoke-app sh -c 'ls public/build/assets/*.css | head -1')"
+          curl -fsSI "http://127.0.0.1:8080/${asset#public/}" | grep -qi '^cache-control: public, max-age=31536000, immutable'
+          [ "$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/.htaccess)" = 404 ]
+          [ "$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/build/x.php)" = 404 ]
+          for _ in $(seq 1 30); do
+            [ "$(docker inspect -f '{{.State.Health.Status}}' smoke-app)" = healthy ] && break; sleep 5
+          done
+          docker inspect -f '{{.State.Health.Status}}' smoke-app | grep -qx healthy \
+            || { docker inspect -f '{{json .State.Health}}' smoke-app; exit 1; }
+          docker stop -t 20 smoke-app
+          [ "$(docker inspect -f '{{.State.ExitCode}}' smoke-app)" = 0 ] || { docker logs --tail 50 smoke-app; exit 1; }
+      - name: Clean up the smoke test
+        if: always()
+        run: docker rm -f smoke-app smoke-db >/dev/null 2>&1 || true
       - name: Trivy image scan (OS packages and PHP dependencies)
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
