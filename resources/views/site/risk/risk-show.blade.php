@@ -10,7 +10,7 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
-        <p class="eyebrow">MIT AI Risk Repository · {{ $r->level }} · <span class="font-mono">{{ $r->ev_id }}</span></p>
+        <p class="eyebrow">MIT AI Risk Repository · {{ $r->level }} · <span class="font-mono" data-nosnippet>{{ $r->ev_id }}</span></p>
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $r->risk_subcategory ?: $r->risk_category ?: 'Risk entry' }}</h1>
         @if($r->risk_subcategory && $r->risk_category)<p class="mt-1 text-sm text-brand-muted">Category: {{ $r->risk_category }}</p>@endif
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
@@ -67,7 +67,7 @@
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Record</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">
-                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Entry ID</dt><dd class="font-mono">{{ $r->ev_id }}</dd></div>
+                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Entry ID</dt><dd class="font-mono" data-nosnippet>{{ $r->ev_id }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Level</dt><dd>{{ $r->level }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Paper</dt><dd class="text-right">{{ $r->quick_ref }}</dd></div>
                         @if($paper)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Entries in paper</dt><dd>{{ $paper['risks'] ?? '—' }}</dd></div>@endif

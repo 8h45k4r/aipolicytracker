@@ -106,6 +106,8 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Incident and risk pages keep the AI Incident Database's incident number and the MIT entry id out of search
+  snippets (`data-nosnippet`); readers still see them. This site's own permanent ids stay citable.
 - Templates: a reader who has opened an emailed link downloads the next template in one step (terms ticked again,
   updates optional) instead of filling the form again; "Not you, or change details" brings the form back, prefilled.
   Signed-in accounts get the form prefilled. Subscribe forms require the terms and offer new templates and guides
