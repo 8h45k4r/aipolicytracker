@@ -66,7 +66,10 @@ class ReviewController extends Controller
         $type = ReviewableTypes::has($request->query('type')) ? $request->query('type') : 'policy';
         $filters = $this->filters($request);
         $records = $this->filtered($type, $filters)->paginate(self::PER_PAGE)->withQueryString();
-        $rows = $records->getCollection()->map(fn (Model $m) => $this->row($type, $m));
+        // The last decision stored for each record on this page, so a reviewer sees what was
+        // decided before, by whom, with which notes, and whether it is still to be exported.
+        $decisions = RecordVerification::where('record_type', $type)->whereIn('record_slug', $records->getCollection()->pluck('slug'))->get()->keyBy('record_slug');
+        $rows = $records->getCollection()->map(fn (Model $m) => $this->row($type, $m) + ['check' => $this->checklist($m), 'decision' => $decisions[$m->slug] ?? null]);
 
         $model = ReviewableTypes::model($type);
         $byReview = $model::selectRaw('review_status, COUNT(*) as n')->groupBy('review_status')->pluck('n', 'review_status');
@@ -404,6 +407,42 @@ class ReviewController extends Controller
             'stale' => $m->review_status === 'verified' && $m->last_verified_at && $m->last_verified_at->lt(now()->subDays($staleAfter)),
             'published' => $m->published_at !== null,
         ];
+    }
+
+    /**
+     * What the record claims, for the reviewer to compare with the official source: the
+     * source it names, its status and its dates. Only fields the record actually has and
+     * fills are listed; an empty date is said to be missing, never guessed.
+     *
+     * @return list<array{label: string, value: string, missing?: bool}>
+     */
+    private function checklist(Model $m): array
+    {
+        $attributes = $m->getAttributes();
+        $date = fn ($v) => $v instanceof \DateTimeInterface ? $v->format('j M Y') : (string) $v;
+        $fields = [
+            'source_title' => 'Source title', 'source_publisher' => 'Publisher', 'source_document_date' => 'Source document date',
+            'status' => 'Status', 'status_note' => 'Status note',
+            'adopted_on' => 'Adopted', 'published_on' => 'Published', 'in_force_on' => 'In force', 'applies_from' => 'Applies from',
+            'date_notes' => 'Date notes', 'regulatory_status_summary' => 'Regulatory status',
+        ];
+        $out = [];
+        foreach ($fields as $column => $label) {
+            if (! array_key_exists($column, $attributes)) {
+                continue;
+            }
+            $value = $m->{$column};
+            if ($value === null || $value === '') {
+                if (in_array($column, ['source_title', 'source_publisher'], true)) {
+                    $out[] = ['label' => $label, 'value' => 'missing', 'missing' => true];
+                }
+
+                continue;
+            }
+            $out[] = ['label' => $label, 'value' => Str::limit($date($value), 400)];
+        }
+
+        return $out;
     }
 
     // ---- writes ----------------------------------------------------------------
