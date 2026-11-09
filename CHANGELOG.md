@@ -112,6 +112,9 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Privacy notice: the retention table now lists template requests, template update emails and licence enquiries,
+  and says plainly that none is deleted automatically yet and each is deleted on request. Admins can delete a
+  licence enquiry for an erasure request; the action is audited.
 - `/ai-governance-uae` now answers 301 to `/jurisdictions/uae`, the verified record that already says everything
   the landing said, so search engines see one page for the UAE instead of two. The menu links the record.
 - Removed the unused React and Inertia account screens (every account page was already Blade), with their

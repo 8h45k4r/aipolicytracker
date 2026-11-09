@@ -21,6 +21,7 @@
         <x-backend.sort-th key="email" label="From" :filters="$filters" />
         <th scope="col">What for</th>
         <th scope="col">Mailed</th>
+        @can('subscribers.manage')<th scope="col"><span class="sr-only">Actions</span></th>@endcan
     </tr></thead>
     <tbody>
     @forelse($enquiries as $e)
@@ -34,9 +35,10 @@
             @if($e->coverage_request)<p class="mt-1 meta"><span class="font-medium">Coverage:</span> {{ $e->coverage_request }}</p>@endif
         </td>
         <td class="whitespace-nowrap">@if($e->notified_at)<time datetime="{{ $e->notified_at->toIso8601String() }}">{{ $e->notified_at->format('j M H:i') }}</time>@else<span class="text-brand-muted">—</span>@endif</td>
+        @can('subscribers.manage')<td><form method="post" action="{{ route('backend.admin.enquiries.destroy', $e) }}" data-confirm="Delete the enquiry from {{ $e->email }} permanently? Use this for an erasure request." data-confirm-label="Delete" data-confirm-danger>@csrf @method('DELETE')<button class="btn-secondary btn-sm text-xs text-state-bad">Delete</button></form></td>@endcan
     </tr>
     @empty
-    <tr><td colspan="6"><x-site.empty title="{{ $filters->active() || request()->hasAny(['tier', 'coverage']) ? 'No enquiries match these filters' : 'No enquiries yet' }}">{{ $filters->active() ? 'Widen the dates or clear a filter.' : 'Enquiries sent from the form on /pricing and /open-data appear here.' }}</x-site.empty></td></tr>
+    <tr><td colspan="7"><x-site.empty title="{{ $filters->active() || request()->hasAny(['tier', 'coverage']) ? 'No enquiries match these filters' : 'No enquiries yet' }}">{{ $filters->active() ? 'Widen the dates or clear a filter.' : 'Enquiries sent from the form on /pricing and /open-data appear here.' }}</x-site.empty></td></tr>
     @endforelse
     </tbody></table></div>
 <nav class="mt-4" aria-label="Pagination">{{ $enquiries->links() }}</nav>
