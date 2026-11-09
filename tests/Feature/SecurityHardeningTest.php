@@ -48,7 +48,7 @@ class SecurityHardeningTest extends TestCase
         $user = User::factory()->create();
         Auth::login($user);
 
-        $this->patch('/profile', ['name' => $user->name, 'email' => 'owner@example.com'])->assertSessionHasNoErrors();
+        $this->patch('/profile', ['name' => $user->name, 'email' => 'owner@example.com', 'current_password' => 'password'])->assertSessionHasNoErrors();
 
         $this->assertNull($user->fresh()->email_verified_at);
         $this->assertFalse($user->fresh()->isAdmin());

@@ -258,7 +258,8 @@ class EmailDomainPolicyTest extends TestCase
         $user = User::factory()->create(['email' => 'old@mailinator.com']);
 
         // Moving to another throwaway address is refused.
-        $this->actingAs($user)->patch('/profile', ['name' => 'Ada', 'email' => 'new@yopmail.com'])->assertSessionHasErrors('email');
+        // (A change of address also takes the current password; the factory's is "password".)
+        $this->actingAs($user)->patch('/profile', ['name' => 'Ada', 'email' => 'new@yopmail.com', 'current_password' => 'password'])->assertSessionHasErrors('email');
         $this->assertSame('old@mailinator.com', $user->fresh()->email);
 
         // Saving the form without touching the address still works, so a rule
@@ -267,7 +268,7 @@ class EmailDomainPolicyTest extends TestCase
         $this->assertSame('Ada Example', $user->fresh()->name);
 
         // And they can move to a real address.
-        $this->actingAs($user)->patch('/profile', ['name' => 'Ada Example', 'email' => 'ada@aip-fixture-trust.nhs.uk'])->assertSessionHasNoErrors();
+        $this->actingAs($user)->patch('/profile', ['name' => 'Ada Example', 'email' => 'ada@aip-fixture-trust.nhs.uk', 'current_password' => 'password'])->assertSessionHasNoErrors();
         $this->assertSame('ada@aip-fixture-trust.nhs.uk', $user->fresh()->email);
     }
 
