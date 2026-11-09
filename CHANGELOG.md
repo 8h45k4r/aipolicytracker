@@ -102,6 +102,10 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Admin: nested sidebar (section, entry with icon, submenu of the page's own views), collapse to icons, and the
+  full trail in the top bar. Dashboard: the last 30 days against the 30 before (subscribers, accounts, template
+  requests, submissions, changes) and weekly growth charts of active subscribers and accounts, each with a table
+  view. Change desk: search, jurisdiction and legal-force filters, and a CSV export of what is shown.
 - Admin redesign (`docs/reference/admin-redesign-2026-11-09.md`):
   - a light sidebar grouped by the work (Records, Content, Audience, Operations, Administration) in folding groups,
     with counts of waiting work beside entries;

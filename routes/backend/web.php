@@ -157,6 +157,7 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
     // The change desk: official sources due a look, logged checks and the freshness target.
     Route::middleware('can:records.verify')->prefix('backend/admin/change-desk')->as('backend.admin.changedesk.')->controller(ChangeDeskController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/export', 'export')->name('export');
         Route::post('/checks', 'store')->name('store');
         Route::post('/checks/bulk', 'bulkCheck')->name('bulk');
     });

@@ -234,3 +234,17 @@ html[data-admin] .table-wrap td a:not([class*="btn"]):not(.chip):hover { text-de
 /* With nothing ticked, the actions that need a selection are hidden (public.js marks them
    data-bulk-idle) instead of shown as a row of disabled buttons. Without JavaScript they show. */
 html[data-admin] [data-bulk-needs][data-bulk-idle] { display: none; }
+
+/* Dashboard charts: one series in the link blue, recessive grid and labels, a dot on hover. */
+.adm-chart-grid { stroke: rgb(var(--c-line)); stroke-width: 1; }
+.adm-chart-label { font-size: 11px; fill: rgb(var(--c-muted)); font-variant-numeric: tabular-nums; }
+.adm-chart-area { fill: rgb(var(--c-blue) / 0.10); }
+.adm-chart-line { fill: none; stroke: rgb(var(--c-blue)); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.adm-chart-end { fill: rgb(var(--c-blue)); stroke: rgb(var(--c-white)); stroke-width: 2; }
+.adm-chart-dot { fill: rgb(var(--c-blue)); stroke: rgb(var(--c-white)); stroke-width: 2; opacity: 0; }
+.adm-chart-hit:hover .adm-chart-dot { opacity: 1; }
+/* A headline figure with its change against the 30 days before: arrow and words, not colour alone. */
+.adm-delta { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 13px; font-weight: 500; }
+.adm-delta-up { color: rgb(var(--c-good)); }
+.adm-delta-down { color: rgb(var(--c-bad)); }
+.adm-delta-flat { color: rgb(var(--c-muted)); }
