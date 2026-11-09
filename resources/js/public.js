@@ -563,10 +563,13 @@
             master.indeterminate = n > 0 && n < all.length;
         });
         document.querySelectorAll('[data-bulk-count="' + id + '"]').forEach(function (el) {
-            el.textContent = whole ? el.getAttribute('data-bulk-count-all') : (n + ' selected');
+            el.textContent = whole ? el.getAttribute('data-bulk-count-all') : (n > 0 ? n + ' selected' : 'None selected');
         });
+        // With nothing ticked the actions are hidden (admin.css) rather than shown greyed
+        // out, so an idle list is not a row of buttons that do nothing.
         document.querySelectorAll('[data-bulk-needs="' + id + '"]').forEach(function (btn) {
             btn.disabled = !(whole || n > 0);
+            btn.toggleAttribute('data-bulk-idle', !(whole || n > 0));
         });
     }
 

@@ -134,6 +134,26 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
     // entry is scrolled into view on a short window. The account menu closes on Escape
     // and on a click anywhere else.
     // ---------------------------------------------------------------------------------
+    // The label of a sidebar entry, without the count badge beside it.
+    var navLabel = function (a) { var l = a.querySelector('[data-nav-label]'); return (l || a).textContent.trim(); };
+
+    // Folded sidebar groups are remembered in this browser. The group holding the current
+    // page always opens, so the page you are on is never folded out of sight.
+    var NAV_KEY = 'adm-nav-closed';
+    var navClosed = function () {
+        try { return new Set(JSON.parse(window.localStorage.getItem(NAV_KEY) || '[]')); } catch (e) { return new Set(); }
+    };
+    all('[data-admin-nav-group]').forEach(function (g) {
+        var key = g.getAttribute('data-group');
+        if (navClosed().has(key) && !g.hasAttribute('data-current')) { g.open = false; }
+        g.addEventListener('toggle', function () {
+            if (navFilter && navFilter.value.trim() !== '') { return; }
+            var closed = navClosed();
+            if (g.open) { closed.delete(key); } else { closed.add(key); }
+            try { window.localStorage.setItem(NAV_KEY, JSON.stringify(Array.from(closed))); } catch (e) { /* storage blocked: folding still works for this page */ }
+        });
+    });
+
     var navScroll = doc.querySelector('[data-admin-nav-scroll]');
     if (navScroll) {
         var edges = function () { navScroll.setAttribute('data-overflow', overflowEdges(navScroll.scrollTop, navScroll.scrollHeight, navScroll.clientHeight)); };
@@ -156,11 +176,14 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
         var filterNav = function () {
             var q = navFilter.value.trim().toLowerCase();
             navLinks.forEach(function (a) {
-                a.style.display = q === '' || a.textContent.trim().toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+                a.style.display = q === '' || navLabel(a).toLowerCase().indexOf(q) !== -1 ? '' : 'none';
             });
             navGroups.forEach(function (g) {
                 var visible = all('[data-admin-nav-link]', g).some(function (a) { return a.style.display !== 'none'; });
                 g.style.display = visible ? '' : 'none';
+                // While filtering every group is open, so a match is never hidden in a fold;
+                // clearing the filter puts back what the person had folded.
+                if (q !== '') { g.open = true; } else { g.open = !navClosed().has(g.getAttribute('data-group')) || g.hasAttribute('data-current'); }
             });
             if (navScroll) { edges(); }
         };
@@ -199,7 +222,8 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
         var searchUrl = palette.getAttribute('data-search-url');
         var items = all('[data-admin-nav-link]').map(function (a) {
             var group = a.closest('[data-admin-nav-group]');
-            return { label: a.textContent.trim(), hint: group ? group.querySelector('p').textContent.trim() : '', href: a.getAttribute('href') };
+            var heading = group ? group.querySelector('[data-admin-nav-heading]') : null;
+            return { label: navLabel(a), hint: heading ? heading.textContent.trim() : '', href: a.getAttribute('href') };
         }).concat(all('[data-command]').map(function (el) {
             return { label: el.getAttribute('data-command'), hint: 'Action', href: el.getAttribute('href') || el.getAttribute('data-command-href') };
         }));

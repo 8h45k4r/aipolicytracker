@@ -102,6 +102,14 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Admin redesign (`docs/reference/admin-redesign-2026-11-09.md`):
+  - a light sidebar grouped by the work (Records, Content, Audience, Operations, Administration) in folding groups,
+    with counts of waiting work beside entries;
+  - one search in a new top bar;
+  - the system font in place of Poppins;
+  - sentence-case labels;
+  - quieter table links;
+  - bulk actions shown only once rows are ticked.
 - Readability, after reader feedback that text was hard to read and tiring. Changes, measured in
   `docs/reference/design-system.md` (Type):
   - the public site uses the reader's system font instead of Space Grotesk, for body text and headings;

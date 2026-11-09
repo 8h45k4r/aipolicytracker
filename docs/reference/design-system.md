@@ -95,4 +95,8 @@ Changed in November 2026 after readers said the text was hard to read and tiring
 ## Third parties
 
 No page loads a font, script or stylesheet from a CDN (`tests/Unit/NoThirdPartyFontsTest.php`).
-The public site uses system fonts; the admin's Poppins files are in `resources/fonts`. Icons are inline SVG or text.
+The public site and the admin both use the system font; no font file is shipped. Icons are inline SVG or text.
+
+## Admin navigation
+
+The admin sidebar is `config/admin-navigation.php`: groups by the work, each entry gated by a capability, every group folding, with counts of waiting work from `App\Services\Admin\NavCounts`. The reasons and sources are in `admin-redesign-2026-11-09.md`.

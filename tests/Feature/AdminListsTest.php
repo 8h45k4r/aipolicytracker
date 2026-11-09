@@ -36,14 +36,14 @@ class AdminListsTest extends TestCase
         return array_map('str_getcsv', array_values(array_filter(explode("\n", trim(substr($body, 3))))));
     }
 
-    public function test_the_admin_reads_in_poppins(): void
+    public function test_the_admin_reads_in_the_system_font(): void
     {
         $html = $this->actingAs($this->owner())->get(route('backend.admin.dashboard'))->assertOk()->getContent();
-        $this->assertStringNotContainsString('fonts.bunny.net', $html, 'Poppins is self-hosted');
-        $this->assertStringContainsString("@font-face { font-family: 'Poppins'", file_get_contents(resource_path('css/admin.css')));
-        $this->assertFileExists(resource_path('fonts/poppins-latin-400-normal.woff2'));
+        $this->assertStringNotContainsString('fonts.bunny.net', $html, 'no third-party font host');
+        $css = file_get_contents(resource_path('css/admin.css'));
+        $this->assertStringNotContainsString('@font-face', $css, 'nothing to download: the system font, as on the public site');
+        $this->assertStringNotContainsString('font-family', $css);
         $this->assertStringContainsString('<html lang="en" data-scheme="light" data-admin>', $html, 'admin.css scopes its rules to this attribute');
-        $this->assertStringContainsString('font-family: "Poppins"', file_get_contents(resource_path('css/admin.css')));
     }
 
     public function test_an_export_keeps_every_row_in_the_lists_own_order(): void
