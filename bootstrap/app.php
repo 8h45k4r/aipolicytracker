@@ -9,6 +9,7 @@ use App\Http\Middleware\RecordAdminAction;
 use App\Http\Middleware\RecordAlertClick;
 use App\Http\Middleware\SecurityHeaders;
 use App\Support\Admin\AdminErrorPage;
+use App\Support\ErrorAlert;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -56,6 +57,12 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        // An unhandled error in production emails the administrators (throttled), since
+        // there is no error-tracking service. Logging still happens as before.
+        $exceptions->report(function (Throwable $e) {
+            ErrorAlert::report($e);
+        });
+
         // Inside /backend, a signed-in administrator's 403, 404, 419, 429 and 500 render in
         // the admin layout with the reason and a way back; everything else, and anything
         // that fails while drawing that page, falls through to the public error pages.

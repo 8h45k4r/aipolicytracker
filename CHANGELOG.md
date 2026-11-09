@@ -123,6 +123,15 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Reliability:
+  - Email sends give up after 10 seconds (`MAIL_TIMEOUT`) instead of waiting forever on a stalled provider.
+  - Unhandled production errors email `ADMIN_EMAILS` (one per error an hour, 20 a day; `ERROR_ALERTS`).
+  - The container restarts a queue worker or scheduler that exits, and stops them cleanly on a deploy.
+  - A job killed mid-run no longer blocks itself for a day.
+  - Container logs are capped.
+  - A failed deploy rolls back to the previous image instead of rebuilding it.
+  - In production, the start-up check refuses a local or plain-http `APP_URL` and `APP_DEBUG=true`, and warns
+    when mail goes to the log.
 - Production server: the container serves with nginx and php-fpm instead of PHP's built-in development server
   (`php artisan serve`), with opcache, per-request limits and a graceful stop. Nothing outside the container
   changes. The Security workflow now boots the image and checks it serves before any deploy.

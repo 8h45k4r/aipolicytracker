@@ -2,6 +2,10 @@
 set -e
 cd /var/www/html
 
+# Until the servers start, a stop request ends the boot at once (PID 1 ignores SIGTERM
+# without a handler, and docker would wait out the grace period before killing it).
+trap 'exit 143' TERM INT
+
 # Start time, for `php artisan aip:health`: the scheduler has not reported yet in
 # the first minutes, so the health check skips that part until this is 5 minutes old.
 touch /tmp/aip-booted 2>/dev/null || true
@@ -60,13 +64,35 @@ php artisan view:cache
   php artisan policy:import   || echo "WARNING: policy:import failed; serving previous records"
   php artisan external:import || echo "WARNING: external:import failed; serving previous records"
 ) 9>/tmp/aip-import.lock &
+imports=$!
 
-# Queue worker, in the background. Nothing is queued today: mail is sent during
-# the request so a form can tell the visitor when delivery failed, and no class
-# implements ShouldQueue. The worker idles on an empty queue and is kept so a job
-# added later is picked up without a change here. If it dies, nothing is lost
-# today; `docker compose restart app` brings it back.
-php artisan queue:work --tries=3 --sleep=3 &
+# Background processes are supervised: if one exits it is started again after a pause,
+# and on shutdown each is sent SIGTERM and waited for, so a job in progress finishes or
+# stops cleanly instead of being killed with its scheduler lock still held.
+# Usage: supervise <name> <command...>   (runs in the background; its pid is in $!)
+supervise() {
+  name="$1"; shift
+  (
+    child=""
+    trap 'touch /tmp/aip-stopping; [ -n "$child" ] && kill -TERM "$child" 2>/dev/null; [ -n "$child" ] && wait "$child" 2>/dev/null; exit 0' TERM INT
+    while [ ! -f /tmp/aip-stopping ]; do
+      "$@" &
+      child=$!
+      code=0
+      wait "$child" || code=$?
+      [ -f /tmp/aip-stopping ] && break
+      echo "WARNING: $name exited with status $code; starting it again in 5s"
+      sleep 5
+    done
+  ) &
+}
+rm -f /tmp/aip-stopping
+
+# Queue worker. Nothing is queued today: mail is sent during the request so a form
+# can tell the visitor when delivery failed. The worker is kept so a job added later
+# is picked up without a change here. queue:work finishes the job in hand on SIGTERM.
+supervise queue php artisan queue:work --tries=3 --sleep=3 --max-time=3600
+queue=$!
 
 # The scheduler: digests, alerts, syncs and imports on their own timetable
 # (routes/console.php), so the container needs no external cron.
@@ -76,10 +102,12 @@ php artisan queue:work --tries=3 --sleep=3 &
 # SCHEDULER=off, or every job runs twice and every subscriber is mailed twice.
 #
 # The HEALTHCHECK (Dockerfile) runs `php artisan aip:health`, which fails when this
-# scheduler stops writing its once-a-minute tick, so a dead scheduler marks the
-# container unhealthy instead of going unnoticed.
+# scheduler stops writing its once-a-minute tick. Supervision restarts it; the health
+# check still reports a scheduler that keeps failing.
+scheduler=""
 if [ "${SCHEDULER:-work}" = "work" ]; then
-  php artisan schedule:work > /dev/null 2>&1 &
+  supervise scheduler sh -c 'exec php artisan schedule:work > /dev/null 2>&1'
+  scheduler=$!
 else
   echo "NOTE: SCHEDULER=${SCHEDULER}; this container is not scheduling jobs"
 fi
@@ -87,9 +115,10 @@ fi
 # Serve the app: php-fpm for PHP, nginx for everything else, on $PORT.
 #
 # Both run in the background and this shell waits on them. If either stops, the
-# other is stopped too and the container exits, so the restart policy brings up a
-# fresh one (with artisan serve as PID 1, a crash did the same). On SIGTERM
-# (docker stop, a deploy) both are asked to finish in-flight requests first.
+# whole container stops, so the restart policy brings up a fresh one (with artisan
+# serve as PID 1, a crash did the same). On SIGTERM (docker stop, a deploy) nginx and
+# php-fpm finish in-flight requests, and the background processes are asked to stop
+# and waited for. compose gives the container stop_grace_period to do it.
 sed "s/__PORT__/${PORT:-8080}/" /etc/aip/nginx.conf > /tmp/nginx.conf
 php-fpm --nodaemonize --force-stderr &
 fpm=$!
@@ -97,10 +126,11 @@ nginx -e /dev/stderr -c /tmp/nginx.conf -g 'daemon off;' &
 web=$!
 
 stop() {
+  touch /tmp/aip-stopping
+  for pid in $queue $scheduler $imports; do kill -TERM "$pid" 2>/dev/null || true; done
   kill -QUIT "$web" 2>/dev/null || true
   kill -QUIT "$fpm" 2>/dev/null || true
-  wait "$web" 2>/dev/null || true
-  wait "$fpm" 2>/dev/null || true
+  for pid in $web $fpm $queue $scheduler $imports; do wait "$pid" 2>/dev/null || true; done
   exit "${1:-0}"
 }
 trap 'stop 0' TERM INT

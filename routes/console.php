@@ -46,6 +46,10 @@ Schedule::call(fn () => Cache::put('scheduler.last_tick', now()->toIso8601String
 Schedule::call(fn () => DB::table(config('cache.stores.database.table', 'cache'))->where('expiration', '<', now()->timestamp)->delete())
     ->hourly()->name('cache:prune-expired')->when(fn () => config('cache.default') === 'database');
 
+// A job killed mid-run (a deploy or restart) leaves its overlap lock behind. The default
+// lock lasts a day, which froze that job until tomorrow; an hour is longer than any job runs.
+$lockMinutes = 60;
+
 foreach ($timetable as $job => $when) {
-    $when(Schedule::call(fn () => JobRun::run($job, 'schedule'))->name('job:'.$job)->withoutOverlapping()->description(JobRun::JOBS[$job]['label']));
+    $when(Schedule::call(fn () => JobRun::run($job, 'schedule'))->name('job:'.$job)->withoutOverlapping($lockMinutes)->description(JobRun::JOBS[$job]['label']));
 }

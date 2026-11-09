@@ -222,6 +222,12 @@ workflow cannot update the copy the key is bound to, by design. To stop
 automatic deploys, remove the key's line from `authorized_keys`; the workflow
 then fails at the SSH step and nothing else changes.
 
+## Processes in the container
+
+The entrypoint runs nginx and php-fpm, and supervises the queue worker and the scheduler: one that exits is started again after five seconds. If nginx or php-fpm stops, the container stops and `restart: unless-stopped` starts a fresh one. On `docker stop` (and so on every deploy) every process is asked to stop and given `stop_grace_period` (30 s) to finish.
+
+`deploy/remote-deploy.sh` keeps the serving image as `aip-app:rollback` before building, and a failed deploy goes back to it without a rebuild. Reinstall it after pulling this change: `install -m 0755 /opt/aip/repo/deploy/remote-deploy.sh /usr/local/sbin/aip-deploy`.
+
 ## Secrets and the image
 
 Production's secrets live in `deploy/.env`, inside the build context. Until 9 November 2026 `.dockerignore` excluded `.env` only at the context root, so images built on the host contained `deploy/.env`. After pulling the fix:

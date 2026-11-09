@@ -19,6 +19,12 @@ services:
     image: postgres:16-alpine
     container_name: aip-db
     restart: unless-stopped
+    # Bounded logs: the json-file driver otherwise grows without limit.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
     environment:
       POSTGRES_DB: ${DB_DATABASE:?set DB_DATABASE in .env}
       POSTGRES_USER: ${DB_USERNAME:?set DB_USERNAME in .env}
@@ -59,6 +65,15 @@ services:
     image: aip-app:latest
     container_name: aip-app
     restart: unless-stopped
+    # Time for nginx and php-fpm to finish requests and for the queue worker and scheduler
+    # to stop cleanly on a deploy (docker/entrypoint.sh), before docker kills what is left.
+    stop_grace_period: 30s
+    # Bounded logs: the json-file driver otherwise grows without limit.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
     depends_on:
       db:
         condition: service_healthy

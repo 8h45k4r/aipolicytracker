@@ -45,7 +45,9 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            // Mail is sent during the request; a provider that stops answering must not
+            // hold a PHP worker for the whole request timeout.
+            'timeout' => (int) env('MAIL_TIMEOUT', 10),
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
@@ -63,6 +65,10 @@ return [
 
         'resend' => [
             'transport' => 'resend',
+            // Seconds. The Resend SDK's own client waits forever (Guzzle's default);
+            // AppServiceProvider builds the transport with these limits instead.
+            'timeout' => (int) env('MAIL_TIMEOUT', 10),
+            'connect_timeout' => 5,
         ],
 
         'sendmail' => [
