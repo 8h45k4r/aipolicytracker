@@ -39,7 +39,9 @@
     <meta name="twitter:image" content="{{ $seo->socialImage() }}">
     <meta name="twitter:image:alt" content="{{ $seo->title }} — {{ config('aipolicytracker.site_name') }}">
     @if($seo->modified)<meta property="article:modified_time" content="{{ $seo->modified->format(DATE_ATOM) }}">@endif
-    @if($seo->feedUrl)<link rel="alternate" type="application/rss+xml" title="AI policy changes" href="{{ $seo->feedUrl }}">@endif
+    {{-- Every page names a feed, so a reader or crawler landing anywhere can subscribe:
+         the page's own where it has one, the change log otherwise. --}}
+    <link rel="alternate" type="application/rss+xml" title="AI policy changes" href="{{ $seo->feedUrl ?? route('changes.feed') }}">
     @if(config('aipolicytracker.google_site_verification'))<meta name="google-site-verification" content="{{ config('aipolicytracker.google_site_verification') }}">@endif
     @if(config('aipolicytracker.bing_site_verification'))<meta name="msvalidate.01" content="{{ config('aipolicytracker.bing_site_verification') }}">@endif
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
@@ -148,7 +150,7 @@
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('about') }}">About</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('funding') }}">Funding</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('independence') }}">Independence</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('contribute') }}">Contribute</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('corrections') }}">Corrections log</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ config('aipolicytracker.github_url') }}" rel="noopener" data-track="github_click">GitHub repository</a></li>
-                @if(config('aipolicytracker.contact_email'))<li><a class="text-snow/85 hover:text-snow no-underline" href="mailto:{{ config('aipolicytracker.contact_email') }}" data-track="contact_click">{{ config('aipolicytracker.contact_email') }}</a></li>@endif
+                @if(config('aipolicytracker.contact_email'))<li><x-site.email :address="config('aipolicytracker.contact_email')" class="text-snow/85 hover:text-snow no-underline" data-track="contact_click" /></li>@endif
             </ul>
         </div>
         <div class="md:col-span-4">

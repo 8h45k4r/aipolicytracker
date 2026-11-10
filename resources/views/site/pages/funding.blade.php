@@ -47,7 +47,7 @@
         <ul class="mt-3 space-y-2 text-sm text-brand-body leading-7 list-disc pl-5">
             <li><a href="{{ route('contribute', ['type' => 'correction']) }}">Report an error</a> or work the <a href="{{ route('gaps') }}">open queue</a>. Corrections help more than money.</li>
             @if($sponsorUrl)<li><a href="{{ $sponsorUrl }}" rel="noopener" data-track="sponsor_click">Sponsor the project</a>. Sponsorship buys no say over the records.</li>@endif
-            <li>Foundations and public funders: write to <a href="mailto:bhaskar@aipolicytracker.org">bhaskar@aipolicytracker.org</a>. Unrestricted funding is preferred, and no funder reviews output before publication.</li>
+            <li>Foundations and public funders: write to <x-site.email address="bhaskar@aipolicytracker.org" />. Unrestricted funding is preferred, and no funder reviews output before publication.</li>
         </ul>
     </section>
     <x-site.disclaimer class="mt-10" />
