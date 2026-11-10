@@ -40,7 +40,9 @@ response headers and the loading speed can be seen.
   file in a `Link` header with `rel="alternate"`.
 - **One URL per page.** `/policies/` and `/index.php/policies` returned the page with a canonical link. A
   canonical link is a hint; a permanent redirect is not. Both forms now answer 301 to the clean URL, keeping
-  the query string. Only `GET` and `HEAD` are redirected.
+  the query string. Only an HTML page is redirected. The API root is published and probed as `/api/v1/`
+  (the deploy script rolls a release back unless it answers 200), and a client of a feed or a file may not
+  follow a redirect, so every other response is served as before.
 - **The footer address.** The edge's email obfuscation replaces every address in the HTML with a placeholder
   that a script decodes. The content security policy allows scripts by nonce only, so the script was refused:
   readers saw "[email protected]" in the footer of every page and the browser logged an error. The footer and
@@ -76,5 +78,5 @@ response headers and the loading speed can be seen.
 - a browser, a wildcard and a client that prefers HTML still get the page;
 - a path that only looks like a record (`/changes/feed`) is answered by its own route;
 - the trailing-slash and `/index.php` forms redirect once to the clean URL, with the script name set as a web server sets it;
-- the redirect target is always a path on this host;
+- `/api/v1/`, a feed and a file with a trailing slash are served, not redirected, and a request line naming another host is not turned into a redirect;
 - the footer address is marked, and every page names a feed.

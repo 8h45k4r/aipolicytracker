@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
  * same page as `/policies`; the canonical link named the right one, but a
  * permanent redirect is the stronger signal and keeps links to the variants
  * from being counted apart.
+ *
+ * Only an HTML page is redirected. The API root is published and probed as
+ * `/api/v1/` (deploy/remote-deploy.sh rolls a release back when it is not 200),
+ * and a client of a feed, a file or an endpoint may not follow a redirect.
  */
 class RedirectToCanonicalPath
 {
@@ -30,8 +34,9 @@ class RedirectToCanonicalPath
         // host and never a protocol-relative address.
         $clean = '/'.trim($clean, '/');
 
-        if ($clean === $path) {
-            return $next($request);
+        $response = $next($request);
+        if ($clean === $path || $response->getStatusCode() !== 200 || ! str_starts_with((string) $response->headers->get('Content-Type'), 'text/html')) {
+            return $response;
         }
 
         // Built from the host alone: the URL generator would put `/index.php` back in front.

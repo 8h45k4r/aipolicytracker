@@ -116,19 +116,32 @@ class AgentReadabilityTest extends TestCase
         }
     }
 
-    public function test_the_redirect_never_leaves_the_site_and_leaves_other_requests_alone(): void
+    public function test_only_a_page_is_redirected(): void
+    {
+        $server = ['SCRIPT_NAME' => '/index.php', 'SCRIPT_FILENAME' => public_path('index.php')];
+
+        // The API root is published with its slash, and the deploy script rolls a release back
+        // unless this exact URL answers 200.
+        foreach (['/api/v1/', '/llms.txt', '/changes/feed/', '/up'] as $path) {
+            $response = $this->app->handle(Request::create($path, 'GET', [], [], [], $server));
+            $this->assertSame(200, $response->getStatusCode(), $path);
+            $this->assertNull($response->headers->get('Location'), $path);
+        }
+
+        $this->assertSame(200, $this->app->handle(Request::create('/', 'GET', [], [], [], $server))->getStatusCode());
+        $this->assertSame(200, $this->app->handle(Request::create('/policies', 'GET', [], [], [], $server))->getStatusCode());
+        // A form post is never redirected: the body would be lost.
+        $this->assertNotSame(301, $this->app->handle(Request::create('/subscribe/', 'POST', [], [], [], $server))->getStatusCode());
+    }
+
+    public function test_the_redirect_never_leaves_the_site(): void
     {
         // What the web server passes on for a request line of `GET //example.com/`.
         $request = Request::create('/');
         $request->server->set('REQUEST_URI', '//example.com/');
         $response = $this->app->handle($request);
-        $this->assertSame(301, $response->getStatusCode());
-        $this->assertSame('http://localhost/example.com', $response->headers->get('Location'));
 
-        $this->assertSame(200, $this->app->handle(Request::create('/'))->getStatusCode());
-        $this->assertSame(200, $this->app->handle(Request::create('/policies'))->getStatusCode());
-        // A form post is never redirected: the body would be lost.
-        $this->assertNotSame(301, $this->app->handle(Request::create('/subscribe/', 'POST'))->getStatusCode());
+        $this->assertStringNotContainsString('example.com', (string) $response->headers->get('Location'));
     }
 
     public function test_the_footer_address_is_marked_so_the_edge_leaves_it_readable(): void
