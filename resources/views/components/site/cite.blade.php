@@ -18,7 +18,7 @@
 @php($stamp = \App\Support\RecordCitation::stamp($record, $reviewer, $verifiedAt))
 <section aria-labelledby="cite-heading" {{ $attributes }}>
     <h2 id="cite-heading" class="section-title">Cite this record</h2>
-    <p class="mt-2 text-sm text-brand-body break-words" data-cite data-nosnippet>{{ config('aipolicytracker.site_name') }} ({{ now()->year }}). &ldquo;{{ $title }}&rdquo;@if($record) [{{ implode(', ', $stamp) }}]@endif. <a href="{{ $permalink }}">{{ $permalink }}</a> (accessed {{ now()->format('j F Y') }}). Data licensed {{ config('aipolicytracker.data_license') }}.@if($doiUrl) Part of the {{ config('aipolicytracker.site_name') }} dataset, <a href="{{ $doiUrl }}" rel="noopener" data-cite-doi>{{ $doiUrl }}</a>.@endif</p>
+    <p class="mt-2 text-sm text-brand-body break-words" data-cite>{{ config('aipolicytracker.site_name') }} ({{ now()->year }}). &ldquo;{{ $title }}&rdquo;@if($record) [{{ implode(', ', $stamp) }}]@endif. <a href="{{ $permalink }}">{{ $permalink }}</a> (accessed {{ now()->format('j F Y') }}). Data licensed {{ config('aipolicytracker.data_license') }}.@if($doiUrl) Part of the {{ config('aipolicytracker.site_name') }} dataset, <a href="{{ $doiUrl }}" rel="noopener" data-cite-doi>{{ $doiUrl }}</a>.@endif</p>
     @if($aiptId)
     <p class="mt-1 text-xs text-brand-muted" data-nosnippet>Permanent id <span class="datestamp" data-aipt-id>{{ $aiptId }}</span>: it never changes or gets reused, and its address keeps working if this page moves.</p>
     @endif
