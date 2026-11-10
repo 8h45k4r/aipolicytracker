@@ -10,7 +10,7 @@ How editorial pages are created, refreshed and retired. Editorial text lives in 
 | Policy page `/policies/{slug}` | `data/policies/**/*.yaml` | summary, scope, official source, published |
 | Obligation page `/obligations/{slug}` | obligations inside a policy file | summary present and parent policy indexable |
 | Change log `/changes`, `/changes/{year}` | `data/changes/*.yaml` | always (year pages need ≥ 1 change) |
-| Landing page `/ai-governance-uae`, `/ai-regulation-south-asia` | `config/content.php` → `landings` + live records | ≥ 1 published instrument for the jurisdiction(s) |
+| Landing page `/ai-regulation-south-asia` (`/ai-governance-uae` retired to `/jurisdictions/uae`, 301) | `config/content.php` → `landings` + live records | ≥ 1 published instrument for the jurisdiction(s) |
 | Guide `/guides/{slug}` | `config/content.php` → `guides` + live records | always (guides must reference real records) |
 | Curated comparison `/compare/{slug}` | `config/content.php` → `comparisons` + `ComparisonBuilder` | both jurisdictions published |
 | Ad-hoc comparison, applicability results, search | generated | never (noindex,follow) |

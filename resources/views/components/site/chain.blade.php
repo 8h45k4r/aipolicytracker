@@ -14,7 +14,7 @@
         ['Evidence types', $stats['evidence_types'] ?? 0, route('controls.index').'#evidence', 'Prove it'],
     ] as [$label, $n, $href, $note])
     <li class="chain-step">
-        <a href="{{ $href }}" class="chain-link">
+        <a href="{{ $href }}" class="chain-link no-underline">
             <span class="stat-label">{{ $label }}</span>
             <span class="stat-value">{{ $n ?: '—' }}</span>
             <span class="stat-note">{{ $note }}</span>

@@ -61,7 +61,12 @@ class DodoGateway implements BillingGateway
                 break;
             }
         }
-        $webhook = $existing ?? $client->webhooks->create(url: $url, description: config('aipolicytracker.site_name').' billing', filterTypes: $events);
+        // An endpoint found by URL keeps whatever events it was created with unless told
+        // otherwise, so an endpoint made before refunds and disputes were handled would
+        // never receive them. Its filters are set to the current list either way.
+        $webhook = $existing
+            ? $client->webhooks->update($existing->id, filterTypes: $events)
+            : $client->webhooks->create(url: $url, description: config('aipolicytracker.site_name').' billing', filterTypes: $events);
 
         return ['id' => $webhook->id, 'secret' => $client->webhooks->retrieveSecret($webhook->id)->secret, 'created' => $existing === null];
     }

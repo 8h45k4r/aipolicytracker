@@ -5,12 +5,38 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Sign-in: when one address passes 20 failed sign-ins in 10 minutes and the automated check (Turnstile) is
+  configured, the form asks for the check instead of refusing everyone on that address, so a wrongly
+  reported client address cannot lock all readers out. Without the check configured it stays a hard stop.
+- Sign-in: one address trying a password against many accounts is stopped after 20 failures in 10 minutes
+  (the existing per-email limit stays). Password reset, password change and account deletion are throttled.
+- The password-reset form gives the same answer whether or not an account uses the address.
+- Changing an account's email address needs the current password, and the old address is told.
+- Account deletion now asks for confirmation and says when the password was wrong; the jurisdiction sort
+  works. Both relied on inline handlers that the Content Security Policy blocks.
+- The production image no longer contains the host's environment file. `.dockerignore` excluded `.env` only at
+  the build-context root, while production keeps its secrets in `deploy/.env` inside the checkout, so every
+  image built on the host carried them. Patterns now match at any depth and `deploy/` is excluded; the Security
+  workflow plants env files and fails if any reaches the image. Operators: rebuild, prune old images and build
+  cache, and rotate the keys if an image or cache ever left the host (deploy/README-docker.md).
+- Checkout refuses a plan whose price at the payment provider differs from the price on the pricing page, or
+  that cannot be checked, so a customer is never charged a price they were not shown. Billing stays off.
 - Runtime security releases of 21 October 2026: the production image now runs PHP 8.3.36 (CVE-2026-109618 and
   CVE-2026-109619, remote code execution) and builds its assets on Node.js 26.12.1. Base images are pinned to a
   patch release, the deploy pulls fresh base images, and the Security workflow fails an image whose PHP release
   differs from the pin.
 
 ### Added
+- Browser smoke tests (Playwright, `npm run test:e2e`, CI job "Browser smoke tests") for the scripts under the
+  Content Security Policy, keyboard and dialog behaviour, and the analytics consent flow.
+- Maintenance workflow (manual): status, cache clear and rebuild, app restart with a health wait, and a prune
+  limited to this project's stopped containers and dangling images. It uses its own forced-command key, shares
+  the deploy lock and never deploys. Reworked from PR #156: no fallback that redeployed main without CI, no
+  host-wide prune of volumes, and the cache clear no longer empties the scheduler tick or the incident sync cursor.
+- Template update emails now work. Readers who tick "email me when this template gets a new version" get one
+  email per new version, with the changelog, a link and related templates, and a one-click unsubscribe. The
+  first build and unchanged rebuilds notify nobody; failures are retried up to three times; nobody is added to
+  the digest. The checkbox no longer promises emails about guides, which were never sent.
 - Pricing page: live data counts (jurisdictions, instruments, obligations, controls, changes,
   verified records) replace static claims. A feature comparison table maps each capability to its
   live page. Trust and methodology cards link to independence, freshness, coverage, corrections
@@ -102,6 +128,86 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Quality and accessibility:
+  - The Content Security Policy adds `'strict-dynamic'`.
+  - Jurisdiction pages make a dozen fewer database queries.
+  - Every foreign key has an index.
+  - `/api/v1/enforcement` and `/api/v1/implementation-measures` accept `page` and `per_page` (default and
+    maximum 500, so existing clients see the same response).
+  - Alert-delivery logs no longer include webhook addresses.
+  - The world map no longer hides its zoom buttons inside an image.
+  - Focus outlines are at least 3:1 on every surface.
+  - Inactive sort arrows are readable.
+  - Breadcrumbs, disclosure toggles and "Open the obligation page" links are at least 24px tall.
+  - Copy buttons say when copying fails.
+  - The map retries if its code fails to load.
+  - The edge Worker answers 502 when the origin is down.
+  - Unused packages (typescript, laravel/breeze, laravel/sail) are removed.
+- Billing and data rights:
+  - The billing webhook setup now subscribes to refunds and disputes, so a refund or lost chargeback revokes
+    access; re-running it updates an existing endpoint.
+  - A webhook abandoned mid-way is applied by the next retry.
+  - The payment-failed email waits for its transaction.
+  - A second checkout click reopens the same session.
+  - Test pings to alert channels need the plan.
+  - "Download my data" adds billing, API tokens and what is kept under the account's verified address
+    (newsletter, template requests and update emails, licence enquiries, contributions).
+  - Deleting an account removes the digest subscription, template requests and API tokens under it, and is
+    refused while a paid plan is active.
+  - Pages whose address acts for the reader never load analytics.
+  - Analytics consent can be withdrawn from the footer ("Analytics choices").
+  - The privacy notice names the processors and states what payment records hold.
+  - The checkout button links the terms.
+- Reliability:
+  - Email sends give up after 10 seconds (`MAIL_TIMEOUT`) instead of waiting forever on a stalled provider.
+  - Unhandled production errors email `ADMIN_EMAILS` (one per error an hour, 20 a day; `ERROR_ALERTS`).
+  - The container restarts a queue worker or scheduler that exits, and stops them cleanly on a deploy.
+  - A job killed mid-run no longer blocks itself for a day.
+  - Container logs are capped.
+  - A failed deploy rolls back to the previous image instead of rebuilding it.
+  - In production, the start-up check refuses a local or plain-http `APP_URL` and `APP_DEBUG=true`, and warns
+    when mail goes to the log.
+- Production server: the container serves with nginx and php-fpm instead of PHP's built-in development server
+  (`php artisan serve`), with opcache, per-request limits and a graceful stop. Nothing outside the container
+  changes. The Security workflow now boots the image and checks it serves before any deploy.
+- Privacy notice: the retention table now lists template requests, template update emails and licence enquiries,
+  and says plainly that none is deleted automatically yet and each is deleted on request. Admins can delete a
+  licence enquiry for an erasure request; the action is audited.
+- `/ai-governance-uae` now answers 301 to `/jurisdictions/uae`, the verified record that already says everything
+  the landing said, so search engines see one page for the UAE instead of two. The menu links the record.
+- Removed the unused React and Inertia account screens (every account page was already Blade), with their
+  packages and build chunks. Responses no longer carry `Vary: X-Inertia`, which had been overwriting the
+  site's own `Vary` header on record id lookups.
+- Incident and risk pages keep the AI Incident Database's incident number and the MIT entry id out of search
+  snippets (`data-nosnippet`); readers still see them. This site's own permanent ids stay citable.
+- Templates: a reader who has opened an emailed link downloads the next template in one step (terms ticked again,
+  updates optional) instead of filling the form again; "Not you, or change details" brings the form back, prefilled.
+  Signed-in accounts get the form prefilled. Subscribe forms require the terms and offer new templates and guides
+  as an optional extra; ticking only that extra no longer narrows the digest to templates.
+- Admin: nested sidebar (section, entry with icon, submenu of the page's own views), collapse to icons, and the
+  full trail in the top bar. Dashboard: the last 30 days against the 30 before (subscribers, accounts, template
+  requests, submissions, changes) and weekly growth charts of active subscribers and accounts, each with a table
+  view. Change desk: search, jurisdiction and legal-force filters, and a CSV export of what is shown.
+- Admin redesign (`docs/reference/admin-redesign-2026-11-09.md`):
+  - a light sidebar grouped by the work (Records, Content, Audience, Operations, Administration) in folding groups,
+    with counts of waiting work beside entries;
+  - one search in a new top bar;
+  - the system font in place of Poppins;
+  - sentence-case labels;
+  - quieter table links;
+  - bulk actions shown only once rows are ticked.
+- Readability, after reader feedback that text was hard to read and tiring. Changes, measured in
+  `docs/reference/design-system.md` (Type):
+  - the public site uses the reader's system font instead of Space Grotesk, for body text and headings;
+  - running text is larger (17px);
+  - the smallest text is 13px;
+  - secondary text is darker;
+  - badges are sentence case;
+  - figures and dates are no longer monospace;
+  - "Copy link" and "Share" appear once per record page;
+  - header buttons no longer wrap.
+
+  The public pages no longer download a web font.
 - Account screens (login, register, verify email, forgot/reset password, profile)
   redesigned with the platform design system: brand colours, consistent card layout,
   proper form spacing, and accessible labels. Removed legacy CSS (hardcoded hex
@@ -119,6 +225,12 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- SEO audit against the claude-seo checklist (`docs/reference/seo-aeo-audit-2026-11-03.md`): AI-risk entries
+  extracted from one passage no longer share a meta description; the change-by-year pages no longer skip a
+  heading level; the status badge image gives its width as well as its height. Hub pages that were linked only
+  from the noindexed explore pages (the quarterly report, AI policy examples, the South Asia and UAE overviews)
+  are now linked from the home page and the countries they cover, a country's region links to its hub, and
+  every month and day archive in the updates sitemap is linked from the updates pages.
 - Year archive container class aligned with the design-system
   `container-site` token (was a manual `mx-auto` override).
 - Container class: eleven pages (open-data, methodology, contribute,

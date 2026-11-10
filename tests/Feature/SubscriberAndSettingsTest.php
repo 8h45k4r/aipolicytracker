@@ -30,7 +30,7 @@ class SubscriberAndSettingsTest extends TestCase
     public function test_subscription_is_double_opt_in_with_unsubscribe(): void
     {
         Mail::fake();
-        $this->post('/subscribe', ['email' => 'Reader@Example.org', 'topics' => ['nepal'], 'source' => 'changes'])->assertRedirect();
+        $this->post('/subscribe', ['terms' => 1, 'email' => 'Reader@Example.org', 'topics' => ['nepal'], 'source' => 'changes'])->assertRedirect();
         $sub = Subscriber::where('email', 'reader@example.org')->firstOrFail();
         $this->assertNull($sub->confirmed_at);
         $this->assertSame(['nepal'], $sub->topics);
@@ -53,8 +53,8 @@ class SubscriberAndSettingsTest extends TestCase
     public function test_honeypot_and_invalid_email_do_not_create_subscribers(): void
     {
         Mail::fake();
-        $this->post('/subscribe', ['email' => 'bot@example.org', 'website' => 'http://spam'])->assertRedirect();
-        $this->post('/subscribe', ['email' => 'not-an-email'])->assertSessionHasErrors('email');
+        $this->post('/subscribe', ['terms' => 1, 'email' => 'bot@example.org', 'website' => 'http://spam'])->assertRedirect();
+        $this->post('/subscribe', ['terms' => 1, 'email' => 'not-an-email'])->assertSessionHasErrors('email');
         $this->assertSame(0, Subscriber::count());
         Mail::assertNothingSent();
     }
@@ -142,14 +142,14 @@ class SubscriberAndSettingsTest extends TestCase
 
         // A second form post for an active address changes nothing and sends nothing:
         // anyone who knows the address could otherwise rewrite its topics.
-        $this->post('/subscribe', ['email' => 'reader@example.org', 'topics' => ['india']])->assertRedirect()->assertSessionHas('success', 'Check your inbox to confirm your subscription.');
+        $this->post('/subscribe', ['terms' => 1, 'email' => 'reader@example.org', 'topics' => ['india']])->assertRedirect()->assertSessionHas('success', 'Check your inbox to confirm your subscription.');
         $this->assertSame(['nepal'], $active->fresh()->topics);
         $this->assertSame($active->token, $active->fresh()->token);
         Mail::assertNothingSent();
 
         // An address that opted out is only re-enrolled by the owner clicking a fresh link.
         $active->update(['unsubscribed_at' => now()]);
-        $this->post('/subscribe', ['email' => 'reader@example.org', 'topics' => ['india']])->assertRedirect();
+        $this->post('/subscribe', ['terms' => 1, 'email' => 'reader@example.org', 'topics' => ['india']])->assertRedirect();
         $revived = $active->fresh();
         $this->assertNull($revived->confirmed_at, 'a re-subscription is not active until confirmed again');
         $this->assertNull($revived->unsubscribed_at);

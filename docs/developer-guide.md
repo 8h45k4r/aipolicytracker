@@ -53,8 +53,8 @@ upsert, so run it again after every data edit.
 
 ## Front end
 
-The public site is server-rendered Blade with Tailwind. Only the account screens are React with
-Inertia. Sources are in `resources/js` and `resources/css`; Vite builds them (`vite.config.js`).
+The whole site, account screens and admin included, is server-rendered Blade with Tailwind and a
+little plain JavaScript. Sources are in `resources/js` and `resources/css`; Vite builds them (`vite.config.js`).
 
 ```bash
 npm ci           # once
@@ -76,7 +76,19 @@ composer test                                          # the whole PHP suite (ph
 php artisan test tests/Feature/ConfigIsCacheableTest.php   # one file
 php artisan test --filter=test_no_configuration_value_is_a_closure   # one test
 npm test                                               # JavaScript tests (agent/ and tests/js/)
+npm run test:e2e                                       # browser smoke tests (tests/e2e) against a running site, see below
 ```
+
+Browser smoke tests (`tests/e2e`, Playwright) check what the PHP suite cannot: the scripts running under the site's Content Security Policy, keyboard and dialog behaviour, and the analytics consent flow. They need a running site with analytics configured and send no request off the machine:
+
+```bash
+GOOGLE_ANALYTICS_ID=G-E2ETEST php artisan serve --port=8124 &
+npx playwright install chromium   # once
+npm run test:e2e
+```
+
+CI runs them in the "Browser smoke tests" job.
+
 
 The PHP suite lives in `tests/Feature` and `tests/Unit`. `phpunit.xml` runs it on SQLite. The full
 suite takes 20 to 30 minutes, so while you work, run only the files you touched. Add or update a

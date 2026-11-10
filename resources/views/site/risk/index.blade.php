@@ -8,7 +8,7 @@
 
     <dl class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 text-sm">
         @foreach([['Recorded incidents', number_format($aiid['totals']['incidents'] ?? 0), route('risk.incidents.browse'), 'since 2012, AI Incident Database'], ['Last 12 months', number_format($narrative['last12']), route('risk.incidents.browse', ['year' => now()->year]), $narrative['growth'] === null ? 'vs previous 12 months: —' : ($narrative['growth'] >= 0 ? '+' : '').$narrative['growth'].'% vs previous 12 months'], ['Classified to a risk domain', number_format($narrative['classified']), route('risk.incidents'), 'MIT taxonomy applied by AIID'], ['Risk entries', number_format($incidentTotals['risks']), route('risk.risks'), 'from 74 frameworks, MIT AI Risk Repository'], ['Instruments tracked', number_format(\App\Models\PolicyInstrument::published()->count()), route('policies.index'), 'across '.\App\Models\Jurisdiction::published()->count().' jurisdictions']] as [$label, $value, $href, $sub])
-        <div class="card-flat p-4"><dt class="meta">{{ $label }}</dt><dd class="mt-1 font-mono tabular-nums text-2xl text-brand-navy">{{ $value }}</dd><dd><a href="{{ $href }}" class="text-xs text-brand-muted hover:text-brand-navy">{{ $sub }}</a></dd></div>
+        <div class="card-flat p-4"><dt class="meta">{{ $label }}</dt><dd class="mt-1 tabular-nums text-2xl text-brand-navy">{{ $value }}</dd><dd><a href="{{ $href }}" class="text-xs text-brand-muted hover:text-brand-navy">{{ $sub }}</a></dd></div>
         @endforeach
     </dl>
 

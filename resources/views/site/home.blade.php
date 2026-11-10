@@ -26,9 +26,9 @@
                 <ul class="mt-2 grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-2 text-sm">
                     @foreach([
                         ['Compliance & legal', [['Obligations', route('obligations.index')], ['Applicability check', route('tools.applicability')]]],
-                        ['Policy & government', [['Compare', route('compare.index')], ['Jurisdictions', route('jurisdictions.index')]]],
+                        ['Policy & government', [['Compare', route('compare.index')], ['Jurisdictions', route('jurisdictions.index')], ['Policy examples', route('ai-policy-examples')]]],
                         ['Research', [['Open data', route('open-data')], ['AI risk', route('risk.index')]]],
-                        ['Journalists', [['Updates', route('updates.index')], ['Change log', route('changes.index')]]],
+                        ['Journalists', [['Updates', route('updates.index')], ['Change log', route('changes.index')], ['Quarterly report', route('state-of.show')]]],
                     ] as [$who, $links])
                     <li class="border-l-2 border-brand-line pl-3"><span class="block font-semibold text-brand-navy">{{ $who }}</span>@foreach($links as [$label, $href])<a href="{{ $href }}" data-track="home_persona" data-track-label="{{ $who }}: {{ $label }}">{{ $label }}</a>@if(! $loop->last) <span class="text-brand-muted" aria-hidden="true">·</span> @endif @endforeach</li>
                     @endforeach
@@ -46,9 +46,9 @@
             <p class="eyebrow">How it fits together</p>
             <p class="mt-3 text-sm leading-6 text-brand-body">A law creates a <a href="{{ route('obligations.index') }}">duty</a>. A duty is met by a <a href="{{ route('controls.index') }}">control</a>. A control produces <a href="{{ route('controls.index') }}#evidence">evidence</a>. Every record links its official source and states when a person last checked it.</p>
             <dl class="mt-4 divide-y divide-brand-line text-sm">
-                <div class="flex items-baseline justify-between gap-4 py-2"><dt class="text-brand-muted">Instruments linked to an official source</dt><dd class="font-mono tabular-nums text-brand-navy">{{ (int) ($stats['sourced'] ?? 0) }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
-                <div class="flex items-baseline justify-between gap-4 py-2"><dt class="text-brand-muted"><a href="{{ route('verification') }}" class="no-underline hover:underline">Confirmed by a named reviewer</a></dt><dd class="font-mono tabular-nums text-brand-navy">{{ (int) $stats['verified'] }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
-                <div class="flex items-baseline justify-between gap-4 py-2"><dt class="text-brand-muted">Corpus last updated</dt><dd class="font-mono tabular-nums text-brand-navy">{{ $stats['last_updated'] ? \Illuminate\Support\Carbon::parse($stats['last_updated'])->format('j M Y') : '—' }}</dd></div>
+                <div class="flex items-baseline justify-between gap-4 py-2"><dt class="text-brand-muted">Instruments linked to an official source</dt><dd class="tabular-nums text-brand-navy">{{ (int) ($stats['sourced'] ?? 0) }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
+                <div class="flex items-baseline justify-between gap-4 py-2"><dt class="text-brand-muted"><a href="{{ route('verification') }}" class="no-underline hover:underline">Confirmed by a named reviewer</a></dt><dd class="tabular-nums text-brand-navy">{{ (int) $stats['verified'] }}<span class="text-brand-muted"> / {{ $stats['policies'] ?: '—' }}</span></dd></div>
+                <div class="flex items-baseline justify-between gap-4 py-2"><dt class="text-brand-muted">Corpus last updated</dt><dd class="tabular-nums text-brand-navy">{{ $stats['last_updated'] ? \Illuminate\Support\Carbon::parse($stats['last_updated'])->format('j M Y') : '—' }}</dd></div>
             </dl>
             <p class="mt-3 meta"><a href="{{ route('methodology') }}">How records are verified</a> · <a href="{{ route('coverage') }}">What is still missing</a></p>
         </aside>
@@ -92,7 +92,7 @@
         <p class="mt-2 text-brand-body">Every recorded duty that names your situation, with the controls that meet it.</p>
         <ul class="mt-2 divide-y divide-brand-line">
             @foreach(collect($audiences)->sortByDesc('duties')->take(6) as $a)
-            <li class="flex items-baseline justify-between gap-3 py-2"><a href="{{ route('audiences.show', $a['slug']) }}" class="text-brand-navy no-underline hover:underline">{{ $a['h1'] }}</a><span class="shrink-0 font-mono text-xs tabular-nums text-brand-muted">{{ $a['duties'] }} {{ \Illuminate\Support\Str::plural('duty', $a['duties']) }}</span></li>
+            <li class="flex items-baseline justify-between gap-3 py-2"><a href="{{ route('audiences.show', $a['slug']) }}" class="text-brand-navy no-underline hover:underline">{{ $a['h1'] }}</a><span class="shrink-0 text-xs tabular-nums text-brand-muted">{{ $a['duties'] }} {{ \Illuminate\Support\Str::plural('duty', $a['duties']) }}</span></li>
             @endforeach
         </ul>
     </div>
@@ -101,7 +101,7 @@
         <p class="mt-2 text-brand-body">The jurisdictions the editors feature, with the number of instruments on record.</p>
         <ul class="mt-2 divide-y divide-brand-line">
             @foreach($jurisdictions->take(6) as $j)
-            <li class="flex items-baseline justify-between gap-3 py-2"><a href="{{ $j->url() }}" class="text-brand-navy no-underline hover:underline">{{ $j->name }}</a><span class="shrink-0 font-mono text-xs tabular-nums text-brand-muted">{{ $j->policy_instruments_count ?: '—' }} {{ \Illuminate\Support\Str::plural('instrument', $j->policy_instruments_count) }}</span></li>
+            <li class="flex items-baseline justify-between gap-3 py-2"><a href="{{ $j->url() }}" class="text-brand-navy no-underline hover:underline">{{ $j->name }}</a><span class="shrink-0 text-xs tabular-nums text-brand-muted">{{ $j->policy_instruments_count ?: '—' }} {{ \Illuminate\Support\Str::plural('instrument', $j->policy_instruments_count) }}</span></li>
             @endforeach
         </ul>
     </div>

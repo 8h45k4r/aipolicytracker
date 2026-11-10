@@ -34,6 +34,20 @@ class WebhookProcessor
 
     public const OUTCOME_ERROR = 'error';
 
+    /**
+     * An event recorded this long ago with no outcome was being applied when its process
+     * died (a timeout, a restart, out of memory). It is applied again, like an error,
+     * instead of being acknowledged as a duplicate and lost.
+     */
+    public const STALE_PENDING_MINUTES = 10;
+
+    /** Whether a stored event may be applied again: it failed, or it was abandoned mid-way. */
+    public static function retryable(BillingEvent $event): bool
+    {
+        return $event->outcome === self::OUTCOME_ERROR
+            || ($event->outcome === null && $event->received_at !== null && $event->received_at->lt(now()->subMinutes(self::STALE_PENDING_MINUTES)));
+    }
+
     /** Events that mean the customer has paid again, which lifts a refund or chargeback revocation. */
     private const RESTORING_EVENTS = ['subscription.active', 'subscription.renewed'];
 
@@ -82,7 +96,7 @@ class WebhookProcessor
             // A retry of an event that failed while being applied is applied again.
             // Acknowledging it as a duplicate would lose it for good: a cancellation
             // that hit a deadlock would leave Pro access in place indefinitely.
-            if ($event->outcome !== self::OUTCOME_ERROR) {
+            if (! self::retryable($event)) {
                 return self::OUTCOME_DUPLICATE;
             }
             $event->forceFill(['error' => null])->save();
@@ -322,11 +336,15 @@ class WebhookProcessor
 
     private function notifyPaymentFailed(User $user, Subscription $sub): void
     {
-        try {
-            Mail::to($user->email)->send(new SubscriptionPaymentFailedMail($user, $sub));
-        } catch (\Throwable $e) {
-            Log::warning('billing.mail.failed', ['user_id' => $user->id, 'error' => $e->getMessage()]);
-        }
+        // After the transaction commits: not while holding the subscription's row lock, and
+        // not at all if the change is rolled back.
+        DB::afterCommit(function () use ($user, $sub) {
+            try {
+                Mail::to($user->email)->send(new SubscriptionPaymentFailedMail($user, $sub));
+            } catch (\Throwable $e) {
+                Log::warning('billing.mail.failed', ['user_id' => $user->id, 'error' => $e->getMessage()]);
+            }
+        });
     }
 
     private function parseDate(mixed $value): ?Carbon

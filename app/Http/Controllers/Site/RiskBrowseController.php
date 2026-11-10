@@ -165,7 +165,9 @@ class RiskBrowseController extends Controller
         $name = $r->risk_subcategory ?: $r->risk_category ?: 'Risk entry';
         $seo = Seo::make(
             PageTitle::risk($r),
-            ($r->description ?: 'Risk entry from '.$r->paper_title).' Coded as '.implode(', ', array_filter([$r->entity, $r->intent, $r->timing])).' in the MIT AI Risk Repository.',
+            // Led by the entry's own name: entries extracted from one passage of a paper share
+            // their description, and without the name their snippets were identical.
+            $name.': '.($r->description ?: 'Risk entry from '.$r->paper_title).' Coded as '.implode(', ', array_filter([$r->entity, $r->intent, $r->timing])).' in the MIT AI Risk Repository.',
             $r->url(),
             $r->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['AI risk', route('risk.index')], ['Risk entries', route('risk.risks')], [PageTitle::shorten($name, 48), $r->url()]])

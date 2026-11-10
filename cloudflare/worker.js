@@ -11,7 +11,17 @@ export default {
     const headers = new Headers(request.headers);
     headers.set("X-Forwarded-Host", new URL(request.url).hostname);
     headers.set("X-Forwarded-Proto", "https");
-    const upstream = await fetch(new Request(url.toString(), { method: request.method, headers, body: request.body, redirect: "manual" }));
+    let upstream;
+    try {
+      upstream = await fetch(new Request(url.toString(), { method: request.method, headers, body: request.body, redirect: "manual" }));
+    } catch {
+      // The origin is down or unreachable: a plain 502 the edge can show its error page for,
+      // instead of an uncaught Worker exception.
+      return new Response("The site is temporarily unavailable. Please try again in a minute.", {
+        status: 502,
+        headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", "Retry-After": "60" },
+      });
+    }
     const out = new Headers(upstream.headers);
     const location = out.get("location");
     if (location && location.includes(origin)) {

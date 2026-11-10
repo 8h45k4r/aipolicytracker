@@ -26,8 +26,7 @@ class RecordBadge
     public function svg(PolicyInstrument $policy): string
     {
         $value = $this->value($policy);
-        $lw = $this->width(self::LABEL) + 10;
-        $vw = $this->width($value) + 10;
+        [$lw, $vw] = $this->parts($value);
         $w = $lw + $vw;
         $title = $this->escape(self::LABEL.': '.$policy->title.', '.$value);
         $label = $this->escape(self::LABEL);
@@ -41,6 +40,18 @@ class RecordBadge
         return <<<SVG
 <svg xmlns="http://www.w3.org/2000/svg" width="{$w}" height="20" role="img" aria-label="{$title}"><title>{$title}</title><linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r"><rect width="{$w}" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#r)"><rect width="{$lw}" height="20" fill="#14213d"/><rect x="{$lw}" width="{$vw}" height="20" fill="{$colour}"/><rect width="{$w}" height="20" fill="url(#s)"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11"><text x="{$lx}" y="15" fill="#010101" fill-opacity=".3" textLength="{$ltl}">{$label}</text><text x="{$lx}" y="14" textLength="{$ltl}">{$label}</text><text x="{$vx}" y="15" fill="#010101" fill-opacity=".3" textLength="{$vtl}">{$text}</text><text x="{$vx}" y="14" textLength="{$vtl}">{$text}</text></g></svg>
 SVG;
+    }
+
+    /** The badge's width in pixels (its height is always 20), for the img tag that shows it. */
+    public function width(PolicyInstrument $policy): int
+    {
+        return array_sum($this->parts($this->value($policy)));
+    }
+
+    /** @return array{int, int} the label box and value box widths */
+    private function parts(string $value): array
+    {
+        return [$this->textWidth(self::LABEL) + 10, $this->textWidth($value) + 10];
     }
 
     /** "In force · verified 12 Oct 2026", or the review state when nobody has verified it. */
@@ -70,7 +81,7 @@ SVG;
         };
     }
 
-    private function width(string $text): int
+    private function textWidth(string $text): int
     {
         $w = 0.0;
         foreach (mb_str_split($text) as $ch) {

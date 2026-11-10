@@ -241,13 +241,13 @@ class BillingController extends Controller
     /**
      * Applies a webhook whose processing failed, from the payload stored when it arrived and
      * under the same event id, exactly as a provider retry would: WebhookProcessor applies an
-     * errored event again and acknowledges anything else as a duplicate. Only an event with
-     * outcome `error` is accepted here, so this cannot replay one that was already applied.
+     * errored or abandoned event again and acknowledges anything else as a duplicate. Only
+     * such an event is accepted here, so this cannot replay one that was already applied.
      */
     public function reapply(BillingEvent $event, WebhookProcessor $processor): RedirectResponse
     {
-        if ($event->outcome !== WebhookProcessor::OUTCOME_ERROR) {
-            return back()->with('error', 'Only an event whose processing failed can be re-applied. This one is '.($event->outcome ?? 'pending').'.');
+        if (! WebhookProcessor::retryable($event)) {
+            return back()->with('error', 'Only an event whose processing failed, or that was left unfinished for '.WebhookProcessor::STALE_PENDING_MINUTES.' minutes, can be re-applied. This one is '.($event->outcome ?? 'pending').'.');
         }
         try {
             $outcome = $processor->handle((array) $event->payload, $event->event_id);
@@ -369,7 +369,7 @@ class BillingController extends Controller
             }
             try {
                 $remote = $gateway->retrieveProduct($plan['product_id']);
-                $match = (int) $remote['price'] === (int) $plan['price'] && strtoupper((string) $remote['currency']) === strtoupper($plan['currency']);
+                $match = PlanCatalog::priceMatches($plan, $remote);
                 $rows[$key] = ['ok' => $match, 'remote' => $remote, 'note' => $match ? 'Price matches' : 'Price differs from config/billing.php'];
             } catch (\Throwable $e) {
                 $rows[$key] = ['ok' => false, 'note' => 'Lookup failed: '.mb_substr($e->getMessage(), 0, 200)];

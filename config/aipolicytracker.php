@@ -166,4 +166,7 @@ return [
         'grace_minutes' => 5,
         'tick_max_age_minutes' => 5,
     ],
+    // Email ADMIN_EMAILS when production hits an unhandled error (App\Support\ErrorAlert;
+    // one email per distinct error an hour, 20 a day at most). Off with ERROR_ALERTS=false.
+    'error_alerts' => (bool) env('ERROR_ALERTS', true),
 ];

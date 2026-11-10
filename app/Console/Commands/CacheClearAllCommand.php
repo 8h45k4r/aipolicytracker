@@ -2,55 +2,61 @@
 
 namespace App\Console\Commands;
 
+use App\Support\ContentCache;
 use Illuminate\Console\Command;
 
+/**
+ * Clears what a deploy rebuilds (config, routes, views, events) and the cached public page
+ * content, then optionally rebuilds the production caches. Used by the maintenance workflow
+ * (deploy/remote-maintenance.sh).
+ *
+ * It deliberately does not run cache:clear. The cache store is the database, and it holds
+ * state that is not a cache: the scheduler's last tick (aip:health fails without it), the
+ * AI Incident Database sync cursor, job locks and rate-limit counters. Stale page content is
+ * dropped by moving ContentCache to its next generation instead.
+ *
+ * Every step's exit code is checked; the command fails if any step does.
+ */
 class CacheClearAllCommand extends Command
 {
-    protected $signature = 'aip:cache-clear {--rebuild : Rebuild production caches after clearing}';
+    protected $signature = 'aip:cache-clear {--rebuild : Rebuild the config, route and view caches afterwards}';
 
-    protected $description = 'Forcefully clear all application caches and optionally rebuild them';
+    protected $description = 'Clear compiled caches and cached page content (not the cache store), optionally rebuilding';
 
     public function handle(): int
     {
-        $this->components->info('Clearing all caches…');
-
-        $this->callSilently('cache:clear');
-        $this->components->twoColumnDetail('Application cache', '<fg=green>cleared</>');
-
-        $this->callSilently('config:clear');
-        $this->components->twoColumnDetail('Config cache', '<fg=green>cleared</>');
-
-        $this->callSilently('route:clear');
-        $this->components->twoColumnDetail('Route cache', '<fg=green>cleared</>');
-
-        $this->callSilently('view:clear');
-        $this->components->twoColumnDetail('View cache', '<fg=green>cleared</>');
-
-        $this->callSilently('event:clear');
-        $this->components->twoColumnDetail('Event cache', '<fg=green>cleared</>');
-
-        if (function_exists('opcache_reset')) {
-            opcache_reset();
-            $this->components->twoColumnDetail('OPcache', '<fg=green>reset</>');
+        $failed = [];
+        $steps = ['config:clear' => 'Config cache', 'route:clear' => 'Route cache', 'view:clear' => 'Compiled views', 'event:clear' => 'Event cache'];
+        foreach ($steps as $command => $label) {
+            $this->step($command, $label, 'cleared', $failed);
         }
+
+        ContentCache::flush();
+        $this->components->twoColumnDetail('Cached page content', '<fg=green>new generation</>');
 
         if ($this->option('rebuild')) {
-            $this->newLine();
-            $this->components->info('Rebuilding production caches…');
-
-            $this->callSilently('config:cache');
-            $this->components->twoColumnDetail('Config cache', '<fg=green>rebuilt</>');
-
-            $this->callSilently('route:cache');
-            $this->components->twoColumnDetail('Route cache', '<fg=green>rebuilt</>');
-
-            $this->callSilently('view:cache');
-            $this->components->twoColumnDetail('View cache', '<fg=green>rebuilt</>');
+            foreach (['config:cache' => 'Config cache', 'route:cache' => 'Route cache', 'view:cache' => 'Compiled views'] as $command => $label) {
+                $this->step($command, $label, 'rebuilt', $failed);
+            }
         }
 
-        $this->newLine();
-        $this->components->info('Done.');
+        if ($failed !== []) {
+            $this->components->error('Failed: '.implode(', ', $failed));
+
+            return self::FAILURE;
+        }
+        $this->components->info('Done. Running PHP workers keep their opcode cache until the container restarts.');
 
         return self::SUCCESS;
+    }
+
+    /** @param list<string> $failed */
+    private function step(string $command, string $label, string $done, array &$failed): void
+    {
+        $code = $this->callSilently($command);
+        $this->components->twoColumnDetail($label, $code === 0 ? "<fg=green>{$done}</>" : '<fg=red>failed</>');
+        if ($code !== 0) {
+            $failed[] = $command;
+        }
     }
 }

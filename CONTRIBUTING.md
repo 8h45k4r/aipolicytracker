@@ -49,7 +49,7 @@ Read [`docs/reference/engineering-standard.md`](docs/reference/engineering-stand
 things work before changing them, fix the cause rather than the symptom, keep changes small, and show the command
 output that proves a change works.
 
-- Follow the existing conventions. The public site is server-rendered Blade with Tailwind; the account screens are React with Inertia.
+- Follow the existing conventions. The site, account screens and admin are server-rendered Blade with Tailwind and a little plain JavaScript.
 - Validate input on the server. Never send exception messages to the browser.
 - Add or update tests in `tests/Feature` for any behaviour change.
 - Code, data, API and docs move together: a change that updates one and leaves the others behind isn't finished.

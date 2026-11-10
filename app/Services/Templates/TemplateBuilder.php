@@ -82,6 +82,8 @@ final class TemplateBuilder
         // one is a change to the records that reached a file people downloaded.
         if ($latest && $latest->content_hash !== $hash) {
             $this->recordChange($meta, $version);
+            // And the readers who asked to hear about it (templates:notify sends them).
+            app(TemplateUpdateNotices::class)->queue($version);
         }
 
         return ['slug' => $slug, 'version' => $version, 'changed' => true];

@@ -34,6 +34,22 @@
         }
         flushAiReferral();
     }
+    // Withdrawal: stop Google Analytics for the rest of this page (its documented opt-out
+    // flag) and remove its cookies. A page loaded afterwards does not load it at all.
+    function withdraw() {
+        var c = window.APT_ANALYTICS || {};
+        if (c.gaId) { window['ga-disable-' + c.gaId] = true; }
+        var parts = location.hostname.split('.');
+        var domains = ['', location.hostname, '.' + parts.slice(-2).join('.')];
+        document.cookie.split(';').forEach(function (pair) {
+            var name = pair.split('=')[0].trim();
+            if (name === '_ga' || name.indexOf('_ga_') === 0 || name === '_gid') {
+                domains.forEach(function (d) {
+                    document.cookie = name + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+                });
+            }
+        });
+    }
     function track(name, params) {
         if (window.gtag) { window.gtag('event', name, params || {}); }
     }
@@ -83,7 +99,13 @@
         var accept = e.target.closest('[data-consent="yes"]');
         var decline = e.target.closest('[data-consent="no"]');
         if (accept) { setConsent('yes'); loadAnalytics(); if (banner) banner.hidden = true; }
-        if (decline) { setConsent('no'); if (banner) banner.hidden = true; }
+        if (decline) { setConsent('no'); withdraw(); if (banner) banner.hidden = true; }
+        // "Analytics choices" in the footer: forget the answer and ask again, so consent
+        // can be withdrawn as easily as it was given.
+        if (e.target.closest('[data-consent-reset]')) {
+            try { localStorage.removeItem(consentKey); } catch (err) { /* ignore */ }
+            if (banner) { banner.hidden = false; var first = banner.querySelector('button'); if (first) { first.focus(); } }
+        }
         var tracked = e.target.closest('[data-track]');
         if (tracked) {
             track(tracked.getAttribute('data-track'), { label: tracked.getAttribute('data-track-label') || tracked.textContent.trim().slice(0, 80) });
@@ -169,10 +191,13 @@
         btn.addEventListener('click', function () {
             var url = btn.getAttribute('data-copy-link') || location.href;
             if (navigator.clipboard) {
+                var orig = btn.textContent;
                 navigator.clipboard.writeText(url).then(function () {
-                    var orig = btn.textContent;
                     btn.textContent = 'Link copied';
                     setTimeout(function () { btn.textContent = orig; }, 1500);
+                }, function () {
+                    btn.textContent = 'Copy failed';
+                    setTimeout(function () { btn.textContent = orig; }, 2500);
                 });
             }
         });
@@ -285,14 +310,14 @@
         var copyBtn = document.querySelector('[data-saved-copy]');
         if (copyBtn) copyBtn.addEventListener('click', function () {
             var text = readSaved().map(function (i) { return '- [' + i.title + '](' + location.origin + savedHref(i) + ')'; }).join('\n');
-            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = 'Copied as Markdown'; setTimeout(function () { copyBtn.textContent = 'Copy list as Markdown'; }, 1500); });
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = 'Copied as Markdown'; setTimeout(function () { copyBtn.textContent = 'Copy list as Markdown'; }, 1500); }, function () { copyBtn.textContent = 'Copy failed: select and copy by hand'; });
         });
         var clearBtn = document.querySelector('[data-saved-clear]');
         if (clearBtn) clearBtn.addEventListener('click', function () { if (window.confirm('Remove all saved records from this browser?')) { writeSaved([]); renderSaved(); } });
         var jsonBtn = document.querySelector('[data-saved-json]');
         if (jsonBtn) jsonBtn.addEventListener('click', function () {
             var text = JSON.stringify(readSaved().map(function (i) { return { id: i.id, type: i.type, title: i.title, url: location.origin + savedHref(i), saved_at: i.saved_at }; }), null, 2);
-            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { jsonBtn.textContent = 'Copied as JSON'; setTimeout(function () { jsonBtn.textContent = 'Copy list as JSON'; }, 1500); });
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { jsonBtn.textContent = 'Copied as JSON'; setTimeout(function () { jsonBtn.textContent = 'Copy list as JSON'; }, 1500); }, function () { jsonBtn.textContent = 'Copy failed: select and copy by hand'; });
         });
     }
     updateSavedCount();
@@ -563,10 +588,13 @@
             master.indeterminate = n > 0 && n < all.length;
         });
         document.querySelectorAll('[data-bulk-count="' + id + '"]').forEach(function (el) {
-            el.textContent = whole ? el.getAttribute('data-bulk-count-all') : (n + ' selected');
+            el.textContent = whole ? el.getAttribute('data-bulk-count-all') : (n > 0 ? n + ' selected' : 'None selected');
         });
+        // With nothing ticked the actions are hidden (admin.css) rather than shown greyed
+        // out, so an idle list is not a row of buttons that do nothing.
         document.querySelectorAll('[data-bulk-needs="' + id + '"]').forEach(function (btn) {
             btn.disabled = !(whole || n > 0);
+            btn.toggleAttribute('data-bulk-idle', !(whole || n > 0));
         });
     }
 
@@ -597,6 +625,16 @@
         paint(id);
     });
 
+    // A select whose options are addresses (the jurisdiction sort) goes to the one chosen.
+    // It was an inline onchange, which the CSP blocks, so choosing a sort did nothing.
+    document.addEventListener('change', function (event) {
+        var el = event.target;
+        if (el && el.matches && el.matches('select[data-navigate]') && el.value) {
+            var url = new URL(el.value, window.location.href);
+            if (url.origin === window.location.origin) { window.location.href = url.href; }
+        }
+    });
+
     // Confirmations. The CSP allows no inline handlers, so onsubmit="return confirm()"
     // never ran and a delete went through on the first click. A form or the button
     // that submits it carries data-confirm instead; {n} is the number of ticked rows.
@@ -625,7 +663,11 @@
     var load = function (el) {
         if (mounted.indexOf(el) !== -1) { return; }
         mounted.push(el);
-        import('./world-map.js').then(function (m) { m.mount(el); });
+        // A failed load (a chunk gone after a deploy, a dropped connection) is forgotten, so
+        // the next scroll or pointer on the map tries again; the tables carry the facts meanwhile.
+        import('./world-map.js').then(function (m) { m.mount(el); }, function () {
+            mounted.splice(mounted.indexOf(el), 1);
+        });
     };
     var start = function () {
         maps.forEach(function (el) {

@@ -30,7 +30,7 @@
     <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
         <div class="flex items-center gap-2 text-sm">
             <label for="j-sort" class="text-brand-muted">Sort:</label>
-            <select id="j-sort" onchange="location.href=this.value" class="input !py-1 !text-sm !min-h-0">
+            <select id="j-sort" data-navigate class="input !py-1 !text-sm !min-h-0">
                 @foreach(\App\Http\Controllers\Site\JurisdictionController::SORTS as $key => $label)
                 <option value="{{ route('jurisdictions.index', array_filter(['type' => $typeFilter, 'region' => $regionFilter, 'sort' => $key === 'name' ? null : $key])) }}" @selected($sort === $key)>{{ $label }}</option>
                 @endforeach

@@ -72,3 +72,7 @@ Homestead.yaml
 # project; listed here so a clone does not depend on .git/info/exclude.
 /reports/
 /research_notes/
+
+# Playwright output
+/test-results/
+/playwright-report/

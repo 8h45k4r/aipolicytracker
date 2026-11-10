@@ -34,8 +34,6 @@
             <x-site.verified :record="$policy" class="!text-sm" legend />
             {{-- Underlined and named by format: grey plain text did not read as a link, and "Context file" named nothing a reader knows. --}}
             <span class="text-brand-muted">Download: <a href="{{ route('policies.json', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('policies.context', $policy->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole record as one Markdown file, with its provenance">Markdown</a></span>
-            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
-            <button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button>
         </div>
         <x-site.standing :standing="$standing" class="mt-3" />
         <x-site.correction-cta subject-type="policy" :subject-slug="$policy->slug" :save-title="$name" :save-url="$policy->url()" :save-meta="$policy->jurisdiction->name" :source-url="$policy->official_source_url" class="mt-4" />
@@ -113,7 +111,7 @@
                             @if($o->practical_action)<p><span class="font-medium text-brand-navy">Practical action:</span> {{ $o->practical_action }}</p>@endif
                             @if($o->evidenceArtifacts->isNotEmpty())<p><span class="font-medium text-brand-navy">Evidence examples:</span> {{ $o->evidenceArtifacts->pluck('title')->implode('; ') }}</p>@endif
                             @if($o->frameworkMappings->isNotEmpty())<p><span class="font-medium text-brand-navy">Framework mapping (original, editorial):</span> @foreach($o->frameworkMappings as $m)@if(!$loop->first); @endif<a href="{{ route('frameworks.show', config('frameworks.'.$m->framework.'.slug', $m->framework)) }}" class="text-brand-navy hover:underline">{{ $m->frameworkName() }}</a> {{ $m->reference }}@endforeach</p>@endif
-                            <p class="flex flex-wrap items-center gap-3 text-xs"><a href="{{ $o->url() }}" class="font-medium text-brand-blue hover:underline">Open the obligation page &rarr;</a>@if($o->source_reference)<span class="text-brand-muted">{{ $o->source_reference }}</span>@endif<x-site.verified :record="$o" compact /></p>
+                            <p class="flex flex-wrap items-center gap-3 text-xs"><a href="{{ $o->url() }}" class="inline-flex min-h-6 items-center font-medium text-brand-blue hover:underline">Open the obligation page &rarr;</a>@if($o->source_reference)<span class="text-brand-muted">{{ $o->source_reference }}</span>@endif<x-site.verified :record="$o" compact /></p>
                         </div>
                     </details>
                     @endforeach
@@ -178,7 +176,7 @@
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Controls that meet its duties</p>
                     <p class="mt-1 text-xs text-brand-muted">Duties satisfied / duties served, out of this instrument's recorded duties.</p>
-                    <ul class="mt-2 space-y-1.5">@foreach($controls->take(7) as $r)<li class="flex items-baseline justify-between gap-2"><a href="{{ $r['control']->url() }}" class="text-brand-navy hover:underline">{{ $r['control']->title }}</a><span class="font-mono text-xs tabular-nums text-brand-muted whitespace-nowrap">{{ $r['satisfies'] }} / {{ $r['duties'] }}</span></li>@endforeach</ul>
+                    <ul class="mt-2 space-y-1.5">@foreach($controls->take(7) as $r)<li class="flex items-baseline justify-between gap-2"><a href="{{ $r['control']->url() }}" class="text-brand-navy hover:underline">{{ $r['control']->title }}</a><span class="text-xs tabular-nums text-brand-muted whitespace-nowrap">{{ $r['satisfies'] }} / {{ $r['duties'] }}</span></li>@endforeach</ul>
                     @if($controls->count() > 7)<p class="mt-2 text-xs"><a href="{{ route('controls.index') }}">All {{ $controls->count() }} controls &rarr;</a></p>@endif
                 </div>
                 @endif

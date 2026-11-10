@@ -41,9 +41,12 @@ return [
     // How long each kind of record is kept. Rendered as the retention table, so
     // the published promise and the operational rule are the same string.
     'retention' => [
-        ['what' => 'Account record (name, address, organisation)', 'how_long' => 'Until you delete the account. Deletion removes it immediately.'],
+        ['what' => 'Account record (name, address, organisation)', 'how_long' => 'Until you delete the account. Deletion removes it immediately, with your download history, watches, alert channels, API tokens, and the digest subscription and template requests under the same address. A paid plan has to be cancelled first.'],
         ['what' => 'Download history', 'how_long' => 'Until you delete the account.'],
         ['what' => 'Newsletter subscription', 'how_long' => 'Until you unsubscribe, which removes the address from the sending list.'],
+        ['what' => 'Template requests (name, work address, organisation, which template)', 'how_long' => 'Not deleted automatically at present. Deleted on request (see "Who is responsible" above for where to ask).'],
+        ['what' => 'Template update emails sent to you, and your unsubscribe', 'how_long' => 'Not deleted automatically at present. The unsubscribe entry is kept so that you stay unsubscribed; the rest is deleted on request.'],
+        ['what' => 'Licence and coverage enquiries', 'how_long' => 'Not deleted automatically at present. Deleted on request (see "Who is responsible" above for where to ask).'],
         ['what' => 'Contribution you submitted', 'how_long' => 'Kept indefinitely as part of the public correction record. Your name and address are never published with it.'],
         ['what' => 'Aggregate page counts', 'how_long' => 'Kept indefinitely. They contain no identifier, so there is nothing in them to attribute to you.'],
         ['what' => 'Administrator action log', 'how_long' => 'Kept indefinitely. It records staff actions, not reader activity, and exists so an editorial decision can be traced to a person.'],

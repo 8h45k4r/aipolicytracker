@@ -27,6 +27,7 @@ use App\Models\TemplateDownloadRequest;
 use App\Models\Tool;
 use App\Models\User;
 use App\Services\Admin\Attention;
+use App\Services\Admin\DashboardGrowth;
 use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Entitlements;
 use App\Services\ExternalData\ExternalDataset;
@@ -98,7 +99,10 @@ class AdminController extends Controller
         // The latest state-changing requests, for the accounts that may read the audit log.
         $activity = $user->can('audit.view') ? AdminAuditLog::with('user')->latest('id')->limit(6)->get() : collect();
 
-        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs', 'attention', 'turnstile', 'trends', 'activity'));
+        // Direction: each headline against the 30 days before, and the audience week by week.
+        $growth = $user->can('audience.view') ? ['deltas' => app(DashboardGrowth::class)->deltas(), 'weekly' => app(DashboardGrowth::class)->weekly()] : null;
+
+        return view('backend.admin.dashboard', compact('stats', 'stale', 'recentSubmissions', 'mail', 'aiid', 'jobs', 'attention', 'turnstile', 'trends', 'activity', 'growth'));
     }
 
     /** The four views of the downloads page; each has its own filters, sort and export. */

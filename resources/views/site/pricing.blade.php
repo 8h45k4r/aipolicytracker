@@ -49,15 +49,16 @@
                     <p class="text-sm text-brand-body">@if($plan['interval'] === 'year')<span class="font-semibold text-brand-navy">{{ \App\Services\Billing\PlanCatalog::formatPrice($plan['price'], $plan['currency']) }}</span> per year, two months free @else Pay monthly @endif</p>
                     <div class="mt-1">
                         @if($current && $current->plan_key === $key)<span class="meta">Your current plan</span>
-                        @elseif(!$enabled || empty($plan['product_id']))<span class="btn-secondary opacity-60 cursor-not-allowed" aria-disabled="true">Not yet available</span>
+                        @elseif(!$enabled || empty($plan['product_id']))<span class="btn-secondary cursor-not-allowed text-brand-muted" aria-disabled="true">Not yet available</span>
                         @elseif($current)<span class="meta">Change plans from <a href="{{ route('profile.edit') }}">your account</a></span>
                         @elseif($user)<form method="post" action="{{ route('billing.checkout', $key) }}">@csrf<button type="submit" class="btn-primary" data-track="checkout_start" data-plan="{{ $key }}">Subscribe to {{ $plan['name'] }}</button></form>
+                        <p class="mt-1 meta max-w-xs">Under the <a href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">terms of use</a>. Paid through Dodo Payments, the merchant of record; cancel from your account at any time.</p>
                         @else<a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="btn-primary">Sign in to subscribe</a>
                         @endif
                     </div>
                 </div>
                 @empty
-                <span class="btn-secondary opacity-60 cursor-not-allowed" aria-disabled="true">Not yet available</span>
+                <span class="btn-secondary cursor-not-allowed text-brand-muted" aria-disabled="true">Not yet available</span>
                 @endforelse
             </div>
         </section>

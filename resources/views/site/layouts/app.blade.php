@@ -161,6 +161,7 @@
             <p>© {{ date('Y') }} AIPolicyTracker · Code Apache-2.0 · Data {{ config('aipolicytracker.data_license') }}
                 · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
                 · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
+                @if(config('aipolicytracker.analytics_require_consent') && (config('aipolicytracker.google_analytics_id') || config('aipolicytracker.cloudflare_analytics_token')))· <button type="button" data-consent-reset class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2">Analytics choices</button>@endif
             </p>
             <p>@foreach(config('aipolicytracker.maintainers', []) as $m)Maintained by <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
         </div>

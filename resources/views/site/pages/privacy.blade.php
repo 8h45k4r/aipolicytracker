@@ -42,8 +42,10 @@
 
     <section class="mt-8" aria-labelledby="downloads-heading"><h2 id="downloads-heading" class="section-title">Downloads, alerts and saved work</h2>
         <ul class="mt-2 list-disc pl-5 space-y-1.5 text-sm text-brand-body">
-            <li><span class="font-medium text-brand-navy">Template downloads.</span> Each download records which template, which version and file, when, the referring page, and a hash of your IP address rather than the address itself.</li>
-            <li><span class="font-medium text-brand-navy">Newsletter.</span> The digest stores your address, the jurisdictions you chose and a confirmation token. Subscription is double opt-in: nothing is sent until you confirm from the address itself, and every email carries a one-click unsubscribe.</li>
+            <li><span class="font-medium text-brand-navy">Template downloads.</span> Each download records which template, which version and file, when, the referring page, and a hash of your IP address rather than the address itself. You accept the terms each time.</li>
+            <li><span class="font-medium text-brand-navy">New-version emails.</span> Only if you tick the box on a template's form: when that template gets a new version, we email you once about it, with its changelog and links to related templates. We keep a record of each such email (the version, your address, when it was sent and whether delivery failed) so nobody is emailed twice. Every email has a one-click unsubscribe; we then keep your address on a do-not-email list so it stays stopped. This does not subscribe you to the digest.</li>
+            <li><span class="font-medium text-brand-navy">Remembering you for the next template.</span> When you open an emailed download link, your browser keeps an encrypted cookie (<code>aip_template_reader</code>, {{ \App\Models\TemplateDownloadRequest::KNOWN_DAYS }} days) holding only the number of that request, so the next template takes one click instead of the form again. It is strictly necessary for that, holds no name or address, and clearing your cookies removes it; "Not you, or change details" on any template brings the form back.</li>
+            <li><span class="font-medium text-brand-navy">Newsletter.</span> The digest stores your address, the jurisdictions you chose (and whether you also want new templates and guides) and a confirmation token. You accept the terms when you subscribe. Subscription is double opt-in: nothing is sent until you confirm from the address itself, and every email carries a one-click unsubscribe.</li>
             <li><span class="font-medium text-brand-navy">Followed records and alerts.</span> Records you follow are stored against your account and are visible only to you.</li>
             <li><span class="font-medium text-brand-navy">Saved screening profiles.</span> The applicability screener can save your answers to its questionnaire. That profile belongs to one account, is never published, and holds questionnaire answers only. It is not a place to describe your systems, your evidence or your conclusions, and nothing you save there is read by anyone else.</li>
         </ul>
@@ -54,7 +56,7 @@
     </section>
 
     <section class="mt-8" aria-labelledby="payment-heading"><h2 id="payment-heading" class="section-title">Payments</h2>
-        <p class="prose-policy mt-2">No card or bank details are stored here or pass through this application. Where a paid plan exists, checkout and the billing portal are hosted by the payment provider, who is the merchant of record. This site keeps only the provider's identifiers, the plan, the status and the dates.</p>
+        <p class="prose-policy mt-2">No card or bank details are stored here or pass through this application. Where a paid plan exists, checkout and the billing portal are hosted by the payment provider, who is the merchant of record. This site keeps the provider's identifiers, the plan, the status and dates, the amounts of payments and refunds, and the provider's notifications about them as received, which include the customer's name and email address and can include the billing address given at checkout. They are kept as billing records.</p>
     </section>
 
     <section class="mt-8" aria-labelledby="retention-heading"><h2 id="retention-heading" class="section-title">How long things are kept</h2>
@@ -85,7 +87,13 @@
     </section>
 
     <section class="mt-8" aria-labelledby="processors-heading"><h2 id="processors-heading" class="section-title">Who else touches it</h2>
-        <p class="prose-policy mt-2">The site runs on third-party hosting and uses third-party services to deliver email, serve traffic and, where configured, process payments and measure usage. These providers process data on our instructions to run the service. They are not permitted to use it for their own purposes, and none of them is given data for advertising.</p>
+        <p class="prose-policy mt-2">The site runs on third-party hosting and uses these services. They process data on our instructions to run the service, are not permitted to use it for their own purposes, and none of them is given data for advertising.</p>
+        <ul class="mt-2 list-disc pl-5 space-y-1.5 text-sm text-brand-body">
+            <li><span class="font-medium text-brand-navy">Cloudflare</span> serves and protects all traffic, runs the automated check on forms (Turnstile) and, where configured and only after you allow analytics, counts visits (Web Analytics).</li>
+            <li><span class="font-medium text-brand-navy">Resend</span> delivers the site's email (confirmations, downloads, alerts, digests).</li>
+            <li><span class="font-medium text-brand-navy">Google Analytics</span>, where configured, measures usage only after you allow analytics. "Analytics choices" in the footer changes your answer at any time.</li>
+            <li><span class="font-medium text-brand-navy">Dodo Payments</span>, the merchant of record, takes payment for paid plans where they are offered.</li>
+        </ul>
     </section>
 
     <section class="mt-8" aria-labelledby="changes-heading"><h2 id="changes-heading" class="section-title">Changes to this policy</h2>

@@ -8,7 +8,7 @@ they say more, they win.
 
 AIPolicyTracker ([aipolicytracker.org](https://aipolicytracker.org)) is an open tracker of AI laws,
 policies and the duties they create. It is a Laravel 12 application on PHP 8.3. The public site is
-server-rendered Blade; only the account screens are React with Inertia. Production runs PostgreSQL in
+server-rendered Blade, account screens and admin included. Production runs PostgreSQL in
 Docker; local development and the gating CI job use SQLite. Code is Apache-2.0, data is CC BY 4.0.
 
 ## Golden rules
@@ -45,7 +45,7 @@ Docker; local development and the gating CI job use SQLite. Code is Apache-2.0, 
 | `app/` | Laravel code. `Console/Commands` (artisan commands), `Http/Controllers/{Site,Backend,Api,Auth}`, `Http/Middleware` (`SecurityHeaders`, `CheckAdmin`, …), `Models`, `Services/*` (one folder per area), `Support`. |
 | `routes/` | `public.php` (public site), `api.php` (API v1), `auth.php`, `backend/web.php` (admin), `console.php` (schedule). |
 | `resources/views/` | Blade: `site/` (public), `backend/` (admin), `components/`, `emails/`. |
-| `resources/js`, `resources/css` | Front-end sources; account screens in `resources/js/Pages`. Built into `public/build`. |
+| `resources/js`, `resources/css` | Front-end sources (small plain-JS modules; no client framework). Built into `public/build`. |
 | `config/` | Configuration. Must stay cacheable: no closures, no `config()` calls. |
 | `database/` | Migrations and seeders. |
 | `tests/` | PHPUnit `Feature` and `Unit` tests; `tests/js` for node tests. |
@@ -73,6 +73,7 @@ composer lint                   # Pint (composer lint:fix to apply)
 composer test                   # PHP suite, 20 to 30 minutes
 npm run lint                    # ESLint
 npm test                        # agent/ and tests/js/
+npm run test:e2e                # browser smoke tests (needs a running site; see the developer guide)
 npm run build                   # only when the front end changed
 ```
 

@@ -4,7 +4,15 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\AlertChannel;
+use App\Models\BillingCheckout;
+use App\Models\BillingPayment;
 use App\Models\ConsentEvent;
+use App\Models\ContributorSubmission;
+use App\Models\LicenceEnquiry;
+use App\Models\Subscriber;
+use App\Models\TemplateDownloadRequest;
+use App\Models\TemplateUpdateNotice;
+use App\Models\TemplateUpdateOptout;
 use App\Models\User;
 use App\Services\Alerts\AlertBuilder;
 use App\Services\Alerts\WebhookDispatcher;
@@ -71,6 +79,11 @@ class AlertChannelController extends Controller
     public function test(Request $request, AlertChannel $channel, WebhookDispatcher $dispatcher): RedirectResponse
     {
         abort_unless($channel->user_id === $request->user()->id && in_array($channel->kind, ['slack', 'webhook'], true), 404);
+        // Channels are a paid capability: an account that lost it keeps its channels listed
+        // but cannot send to them, test pings included.
+        if (! $request->user()->entitled('alerts.channels')) {
+            return redirect()->route('pricing')->with('error', 'Alerts to Slack, a webhook or an RSS feed are part of Pro.');
+        }
         $payload = ['event' => 'alert.test', 'title' => 'Test alert from AIPolicyTracker', 'sent_at' => now()->toAtomString(), 'changes' => [], 'deadlines' => [], 'note' => 'If you can read this, the channel works. Real alerts carry the same shape with changes and deadlines filled in.', 'manage_url' => route('following.index')];
         $delivery = $dispatcher->queue($channel, $payload);
         $ok = $dispatcher->attempt($delivery);
@@ -118,7 +131,27 @@ class AlertChannelController extends Controller
             'alert_deliveries' => $user->alertDeliveries()->get()->map(fn ($d) => ['sent_on' => $d->sent_on?->toDateString(), 'changes' => $d->changes_count, 'deadlines' => $d->deadlines_count])->all(),
             'consent_events' => ConsentEvent::where('user_id', $user->id)->orderBy('id')->get()->map(fn ($e) => ['kind' => $e->kind, 'granted' => $e->granted, 'source' => $e->source, 'detail' => $e->detail, 'at' => $e->created_at?->toAtomString()])->all(),
             'downloads' => $user->resourceDownloads()->get()->map(fn ($d) => ['tool' => $d->resource_slug, 'version' => $d->version, 'at' => $d->created_at?->toAtomString()])->all(),
+            'api_tokens' => $user->tokens()->get()->map(fn ($t) => ['name' => $t->name, 'created_at' => $t->created_at?->toAtomString(), 'last_used_at' => $t->last_used_at?->toAtomString(), 'expires_at' => $t->expires_at?->toAtomString()])->all(),
+            'billing' => [
+                'customer' => ($c = $user->billingCustomer) ? ['provider' => $c->provider, 'customer_id' => $c->provider_customer_id, 'email' => $c->email] : null,
+                'subscriptions' => $user->subscriptions()->get()->map(fn ($s) => ['plan' => $s->plan_key, 'status' => $s->status, 'current_period_end' => $s->current_period_end?->toAtomString(), 'cancelled_at' => $s->cancelled_at?->toAtomString(), 'created_at' => $s->created_at?->toAtomString()])->all(),
+                'payments' => BillingPayment::whereIn('provider_subscription_id', $user->subscriptions()->pluck('provider_subscription_id'))->get()->map(fn ($p) => ['amount' => $p->total_amount, 'currency' => $p->currency, 'status' => $p->status, 'refunded' => $p->refunded_amount, 'paid_at' => $p->paid_at?->toAtomString()])->all(),
+                'checkouts' => BillingCheckout::where('user_id', $user->id)->get()->map(fn ($c) => ['plan' => $c->plan_key, 'status' => $c->status, 'at' => $c->created_at?->toAtomString()])->all(),
+            ],
         ];
+        // Records kept by email address rather than by account: included only once the
+        // account has proven it owns the address, so an unverified sign-up with someone
+        // else's address cannot read what that person sent.
+        if ($user->hasVerifiedEmail()) {
+            $email = strtolower($user->email);
+            $byEmail = fn (string $class, string $column = 'email') => $class::query()->whereRaw('LOWER('.$column.') = ?', [$email]);
+            $data['newsletter'] = $byEmail(Subscriber::class)->get()->map(fn ($s) => ['topics' => $s->topics, 'confirmed_at' => $s->confirmed_at?->toAtomString(), 'unsubscribed_at' => $s->unsubscribed_at?->toAtomString(), 'created_at' => $s->created_at?->toAtomString()])->all();
+            $data['template_requests'] = $byEmail(TemplateDownloadRequest::class)->get()->map(fn ($r) => ['template' => $r->template_slug, 'name' => $r->name, 'company' => $r->company, 'job_title' => $r->job_title, 'country' => $r->country, 'update_emails' => $r->marketing_consent_at !== null, 'requested_at' => $r->created_at?->toAtomString(), 'downloads' => $r->downloads])->all();
+            $data['template_update_emails'] = $byEmail(TemplateUpdateNotice::class)->get()->map(fn ($n) => ['template' => $n->template_slug, 'status' => $n->status, 'sent_at' => $n->sent_at?->toAtomString()])->all();
+            $data['template_update_unsubscribed_at'] = TemplateUpdateOptout::where('email', $email)->value('unsubscribed_at');
+            $data['licence_enquiries'] = $byEmail(LicenceEnquiry::class)->get()->map(fn ($e) => ['tier' => $e->tier, 'organisation' => $e->organization, 'use_case' => $e->use_case, 'at' => $e->created_at?->toAtomString()])->all();
+            $data['contributions'] = $byEmail(ContributorSubmission::class, 'submitter_email')->get()->map(fn ($c) => ['type' => $c->type, 'subject' => $c->subject_slug, 'status' => $c->status, 'at' => $c->created_at?->toAtomString()])->all();
+        }
 
         return response(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 200, ['Content-Type' => 'application/json', 'Content-Disposition' => 'attachment; filename="aipolicytracker-account.json"', 'Cache-Control' => 'private, no-store']);
     }

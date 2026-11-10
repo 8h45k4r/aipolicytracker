@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\AdminRole;
 use App\Mail\LicenceEnquiryMail;
+use App\Models\AdminAuditLog;
 use App\Models\LicenceEnquiry;
 use App\Models\Tool;
 use App\Models\User;
@@ -197,5 +198,19 @@ class PricingAndLicenceEnquiryTest extends TestCase
         $tool->slug = 'commercial-line-test-tool';
         $tool->save();
         $this->get('/guides/tools/commercial-line-test-tool')->assertOk()->assertSee($line)->assertSee(config('aipolicytracker.data_license'));
+    }
+
+    public function test_an_enquiry_can_be_deleted_for_an_erasure_request_by_an_audience_manager_and_is_audited(): void
+    {
+        $enquiry = LicenceEnquiry::create(['tier' => array_key_first(LicenceEnquiry::TIERS), 'name' => 'Ana Example', 'email' => 'ana@example-corp.com', 'organization' => 'Example Corp', 'use_case' => 'Internal research.']);
+        config(['aipolicytracker.admin_emails' => ['owner@example.test']]);
+        $owner = User::factory()->create(['email' => 'owner@example.test', 'email_verified_at' => now()]);
+
+        $this->actingAs($owner)->get(route('backend.admin.enquiries.index'))->assertOk()->assertSee(route('backend.admin.enquiries.destroy', $enquiry), false);
+        $this->actingAs($owner)->delete(route('backend.admin.enquiries.destroy', $enquiry))->assertRedirect();
+
+        $this->assertNull(LicenceEnquiry::find($enquiry->id));
+        $this->assertTrue(AdminAuditLog::where('route_name', 'backend.admin.enquiries.destroy')->exists());
+        $this->get(route('privacy'))->assertOk()->assertSee('Licence and coverage enquiries');
     }
 }

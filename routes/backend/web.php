@@ -142,6 +142,8 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
     Route::middleware('can:audience.view')->prefix('backend/admin/enquiries')->as('backend.admin.enquiries.')->controller(LicenceEnquiryController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/export', 'export')->name('export');
+        // Erasure on request: deleting contact details is an audience write.
+        Route::delete('/{enquiry}', 'destroy')->whereNumber('enquiry')->middleware('can:subscribers.manage')->name('destroy');
     });
 
     // Funders disclosed on /funding. Owner only, like settings: what the site says about its
@@ -157,6 +159,7 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
     // The change desk: official sources due a look, logged checks and the freshness target.
     Route::middleware('can:records.verify')->prefix('backend/admin/change-desk')->as('backend.admin.changedesk.')->controller(ChangeDeskController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/export', 'export')->name('export');
         Route::post('/checks', 'store')->name('store');
         Route::post('/checks/bulk', 'bulkCheck')->name('bulk');
     });

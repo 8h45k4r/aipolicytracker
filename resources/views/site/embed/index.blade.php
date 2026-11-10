@@ -18,7 +18,7 @@
     </section>
     <section class="mt-6" aria-labelledby="badge-heading"><h2 id="badge-heading" class="section-title">Status badges</h2>
         <p class="mt-2 text-sm text-brand-body">Every policy record has a badge at <code>{{ url('/badges') }}/&lt;record&gt;.svg</code> showing its legal status and review state, for a README, a compliance page or a paper's website. Open any policy record and use "Add a status badge" to copy the snippet; it links to the record's permanent address.</p>
-        @if($example)<p class="mt-3"><a href="{{ route('policies.show', $example->slug) }}"><img src="{{ route('badges.policy', $example->slug) }}" alt="{{ config('aipolicytracker.site_name') }}: {{ $example->title }}, {{ app(\App\Services\PolicyData\RecordBadge::class)->value($example) }}" height="20" loading="lazy"></a></p>@endif
+        @if($example)<p class="mt-3"><a href="{{ route('policies.show', $example->slug) }}"><img src="{{ route('badges.policy', $example->slug) }}" alt="{{ config('aipolicytracker.site_name') }}: {{ $example->title }}, {{ app(\App\Services\PolicyData\RecordBadge::class)->value($example) }}" width="{{ app(\App\Services\PolicyData\RecordBadge::class)->width($example) }}" height="20" loading="lazy"></a></p>@endif
     </section>
     <section class="mt-6 text-sm text-brand-body" aria-labelledby="terms-heading"><h2 id="terms-heading" class="section-title">Terms</h2><p class="mt-2">Widgets are free under CC BY 4.0 for the data they show; keep the attribution link. They refresh with the records, carry no cookies or analytics, and show nothing that is not on the public site. Informational only; not legal advice.</p></section>
 </div>
