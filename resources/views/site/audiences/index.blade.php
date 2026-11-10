@@ -17,7 +17,7 @@
             <li class="card-flat p-5 flex flex-col hover:border-brand-navy transition-colors">
                 <h3 class="font-display text-lg font-semibold text-brand-navy leading-snug"><a href="{{ $p['url'] }}" class="no-underline hover:underline">{{ $p['h1'] }}</a></h3>
                 <p class="mt-1.5 text-sm text-brand-body flex-1 line-clamp-3">{{ $p['description'] }}</p>
-                <p class="mt-3 font-mono text-xs tabular-nums text-brand-muted">{{ $p['duties'] }} recorded {{ \Illuminate\Support\Str::plural('duty', $p['duties']) }}</p>
+                <p class="mt-3 text-xs tabular-nums text-brand-muted">{{ $p['duties'] }} recorded {{ \Illuminate\Support\Str::plural('duty', $p['duties']) }}</p>
             </li>
             @endforeach
         </ul>

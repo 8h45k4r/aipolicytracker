@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Terms of use</h1>
     <p class="mt-3 prose-policy">These terms govern your use of {{ config('aipolicytracker.site_name') }}, operated by <a href="{{ config('legal.controller.url') }}" rel="noopener">{{ config('legal.controller.name') }}</a>. Using the site means accepting them. They are written to be read, not to be survived.</p>

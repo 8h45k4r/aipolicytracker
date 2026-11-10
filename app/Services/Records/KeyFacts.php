@@ -2,6 +2,7 @@
 
 namespace App\Services\Records;
 
+use App\Models\ChangeEvent;
 use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
@@ -91,7 +92,11 @@ final class KeyFacts
             ['Obligations recorded', $obligations > 0 ? (string) $obligations : null],
             ['Regulators', $regulators->isNotEmpty() ? $regulators->implode(', ') : null],
             ['Next dated milestone', $next?->due_on ? self::clean($next->title).', '.$next->due_on->format('j F Y') : null, $next?->policyInstrument?->url()],
-            ['Updates and RSS', 'AI policy updates for '.($j->short_name ?: $j->name), route('updates.jurisdiction', $j->slug)],
+            // The updates page exists only once a change is recorded; until then the feed is
+            // the way to hear about the first one.
+            ChangeEvent::published()->where('jurisdiction_id', $j->id)->exists()
+                ? ['Updates and RSS', 'AI policy updates for '.($j->short_name ?: $j->name), route('updates.jurisdiction', $j->slug)]
+                : ['Updates and RSS', 'RSS feed for new changes', route('updates.jurisdiction.feed', $j->slug)],
             ['Verification', $j->verificationLabel()],
         ]);
     }

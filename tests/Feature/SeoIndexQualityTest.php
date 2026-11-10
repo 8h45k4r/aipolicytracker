@@ -7,9 +7,12 @@ use App\Models\ExternalIncident;
 use App\Models\JobRun;
 use App\Models\Jurisdiction;
 use App\Models\Subscriber;
+use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Report\StateOfAiRegulation;
 use App\Services\Seo\IndexNow;
+use App\Support\DatasetCitation;
 use App\Support\RiskTaxonomy;
+use App\Support\Seo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -69,11 +72,47 @@ class SeoIndexQualityTest extends TestCase
         foreach (['/policies?jurisdiction=zz', '/policies?status=zz', '/obligations?category=zz'] as $url) {
             $html = $this->get($url)->assertOk()->getContent();
             $this->assertStringStartsWith('noindex', $this->robots($html), $url);
-            $this->assertSame(url(strtok($url, '?')), $this->canonical($html), $url);
+            // Not indexed and not "a copy of" the unfiltered listing either: a noindex page
+            // that canonicalises elsewhere sends two signals that contradict each other.
+            $this->assertSame('', $this->canonical($html), $url);
         }
         $html = $this->get('/obligations?category=transparency')->assertOk()->getContent();
         $this->assertStringStartsWith('index', $this->robots($html));
         $this->assertSame(url('/obligations?category=transparency'), $this->canonical($html));
+    }
+
+    public function test_a_noindex_page_keeps_a_canonical_only_when_it_names_itself(): void
+    {
+        $listing = Seo::make('AI policies in India', 'Filtered listing.', url('/policies'), false);
+        $this->assertNull($listing->canonicalLink(url('/policies?jurisdiction=india')), 'noindex and "a copy of /policies" contradict each other');
+        $record = Seo::make('A thin record', 'Not indexed yet.', url('/policies/a-record'), false);
+        $this->assertSame(url('/policies/a-record'), $record->canonicalLink(url('/policies/a-record')), 'a self-canonical says nothing contradictory');
+        $indexed = Seo::make('AI policy explorer', 'The listing.', url('/policies'));
+        $this->assertSame(url('/policies'), $indexed->canonicalLink(url('/policies?utm_source=newsletter')), 'an indexable page still folds tracking parameters into its canonical');
+
+        $html = $this->get('/policies?jurisdiction=india&status=in_force')->assertOk()->getContent();
+        $this->assertStringStartsWith('noindex', $this->robots($html));
+        $this->assertSame('', $this->canonical($html));
+    }
+
+    public function test_the_home_heading_reads_as_two_phrases(): void
+    {
+        preg_match('#<h1\b[^>]*>(.*?)</h1>#s', $this->get('/')->assertOk()->getContent(), $m);
+        $this->assertStringContainsString('legislation tracker: From regulation to evidence.', preg_replace('/\s+/', ' ', strip_tags($m[1])));
+    }
+
+    public function test_a_jurisdiction_without_upcoming_dates_has_no_empty_deadlines_section(): void
+    {
+        $catalog = app(PolicyCatalog::class);
+        $without = Jurisdiction::published()->withPublishedInstrument()->orderBy('slug')->get()
+            ->first(fn ($j) => $catalog->upcomingDeadlines(1, $j->id)->isEmpty());
+        $with = Jurisdiction::published()->withPublishedInstrument()->orderBy('slug')->get()
+            ->first(fn ($j) => $catalog->upcomingDeadlines(1, $j->id)->isNotEmpty());
+        $this->assertNotNull($without, 'a jurisdiction with no future date is needed for this to mean anything');
+        $this->assertNotNull($with);
+
+        $this->assertStringNotContainsString('id="deadlines-heading"', $this->followingRedirects()->get($without->url())->assertOk()->getContent());
+        $this->assertStringContainsString('id="deadlines-heading"', $this->followingRedirects()->get($with->url())->assertOk()->getContent());
     }
 
     public function test_a_page_past_the_last_is_a_404(): void
@@ -88,6 +127,7 @@ class SeoIndexQualityTest extends TestCase
     {
         $html = $this->get('/policies?jurisdiction=japan')->assertOk()->getContent();
         $this->assertStringStartsWith('noindex,follow', $this->robots($html));
+        $this->assertStringNotContainsString('rel="canonical"', $html, 'a noindex listing does not canonicalise to /policies');
         $this->assertStringNotContainsString('policies?jurisdiction=', $this->get(route('sitemap.section', 'static'))->getContent());
 
         // The country page lists every instrument the listing would.
@@ -133,8 +173,12 @@ class SeoIndexQualityTest extends TestCase
         $this->assertNull($obligation->firstWhere('@type', 'Dataset'));
         $this->assertNull(collect($this->nodes($this->followingRedirects()->get('/jurisdictions/japan')->getContent()))->firstWhere('@type', 'Dataset'));
 
-        // Collections keep theirs.
-        $this->assertNotNull(collect($this->nodes($this->get('/')->getContent()))->firstWhere('@type', 'Dataset'));
+        // The corpus is one Dataset, described on /open-data; the home page points at it
+        // by @id instead of describing it again under a second name.
+        $this->assertNotNull(collect($this->nodes($this->get(route('open-data'))->getContent()))->firstWhere('@id', DatasetCitation::corpusId()));
+        $home = collect($this->nodes($this->get('/')->getContent()));
+        $this->assertNull($home->firstWhere('@type', 'Dataset'));
+        $this->assertSame(DatasetCitation::corpusId(), $home->firstWhere('@type', 'CollectionPage')['about']['@id']);
     }
 
     public function test_an_incident_page_is_indexed_only_with_something_of_its_own(): void
@@ -161,10 +205,9 @@ class SeoIndexQualityTest extends TestCase
         $this->get(route('subscribe.unsubscribe', $subscriber->token))->assertOk()->assertDontSee('APT_ANALYTICS', false)->assertDontSee('G-TEST123', false);
         $this->get(route('subscribe.confirm', $subscriber->token))->assertOk()->assertDontSee('G-TEST123', false);
 
-        // The account pages carry no analytics, and the old account shell, should a page use
-        // it again, loads it only where consent is not required and never on a token route.
+        // The account pages carry no analytics. (The old Inertia account shell that also
+        // loaded it was removed with the React screens; every account page is the site layout.)
         $this->get(route('password.reset', str_repeat('t', 64)))->assertOk()->assertDontSee('G-TEST123', false);
-        $this->assertStringContainsString("! config('aipolicytracker.analytics_require_consent') && \\App\\Support\\Analytics::allowedHere()", file_get_contents(resource_path('views/app.blade.php')));
     }
 
     public function test_ai_referral_waits_for_consent_and_records_no_query_string(): void

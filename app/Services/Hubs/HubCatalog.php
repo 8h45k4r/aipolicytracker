@@ -101,12 +101,27 @@ final class HubCatalog
         $events = [];
         foreach ($policies as $p) {
             $name = $p->short_title ?: $p->title;
+            // One event per day per instrument: a law adopted and in force on the same day is
+            // one milestone, not two lines.
+            $milestones = [];
             foreach (['published_on' => 'published', 'adopted_on' => 'adopted', 'in_force_on' => 'entered into force', 'applies_from' => 'applies from this date'] as $field => $label) {
                 if ($p->{$field}) {
+                    $day = $p->{$field}->toDateString();
+                    if (isset($milestones[$day])) {
+                        $events[$milestones[$day]]['label'] .= ' and '.$label;
+
+                        continue;
+                    }
                     $events[] = ['date' => $p->{$field}, 'label' => $name.' '.$label, 'policy' => $p, 'kind' => $field, 'future' => $p->{$field}->isFuture()];
+                    $milestones[$day] = array_key_last($events);
                 }
             }
             foreach ($p->deadlines as $d) {
+                // A passed deadline on a milestone's day ("approved by the Council of
+                // Ministers" on the adoption date) is the same event told twice.
+                if ($d->due_on && $d->deadline_status === 'passed' && isset($milestones[$d->due_on->toDateString()])) {
+                    continue;
+                }
                 if ($d->due_on && in_array($d->deadline_status, ['scheduled', 'passed'], true)) {
                     $events[] = ['date' => $d->due_on, 'label' => $d->title.' ('.$name.')', 'policy' => $p, 'kind' => 'deadline', 'future' => $d->due_on->isFuture()];
                 }

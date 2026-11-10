@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
 use App\Services\Hubs\HubCatalog;
+use App\Services\PolicyData\PolicyCatalog;
 use App\Support\PageTitle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -39,7 +40,10 @@ class CountryHubsTest extends TestCase
         $this->assertStringContainsString('data-answer-box', $html, 'the answer box leads');
         $this->assertStringContainsString('Instruments at a glance', $html);
         $this->assertStringContainsString('id="timeline-heading"', $html);
-        $this->assertStringContainsString('Upcoming deadlines', $html);
+        // The dates, or when none lies ahead, the feed that new ones will reach; never a
+        // deadlines heading over an empty section.
+        $this->assertStringContainsString(route('calendar.feed.jurisdiction', 'japan'), $html);
+        $this->assertSame(app(PolicyCatalog::class)->upcomingDeadlines(1, $japan->id)->isNotEmpty(), str_contains($html, 'id="deadlines-heading"'));
         $this->assertStringContainsString(route('updates.jurisdiction.feed', 'japan'), $html, 'the updates feed is linked');
         $this->assertStringContainsString('"@type":"FAQPage"', $html);
         $this->assertStringContainsString('"@type":"BreadcrumbList"', $html);
@@ -74,6 +78,7 @@ class CountryHubsTest extends TestCase
             '/ai-regulation-australia' => Jurisdiction::where('slug', 'australia')->firstOrFail()->url(),
             '/ai-governance-singapore' => Jurisdiction::where('slug', 'singapore')->firstOrFail()->url(),
             '/ai-policy-nepal' => Jurisdiction::where('slug', 'nepal')->firstOrFail()->url(),
+            '/ai-governance-uae' => Jurisdiction::where('slug', 'uae')->firstOrFail()->url(),
         ];
         $this->assertSame(array_keys($expected), array_map(fn ($s) => '/'.$s, array_keys(config('content.retired_landings'))));
         $this->assertSame(url('/policies/eu-ai-act'), $expected['/eu-ai-act']);
@@ -92,8 +97,7 @@ class CountryHubsTest extends TestCase
             $this->assertStringNotContainsString('<loc>'.url($old).'</loc>', $sitemap, "the sitemap lists {$old}");
             $this->assertStringNotContainsString('('.url($old).')', $llms, "llms.txt lists {$old}");
         }
-        // The landings with no record page of the same subject stay.
-        $this->get('/ai-governance-uae')->assertOk();
+        // The landing with no record page of the same subject stays.
         $this->get('/ai-regulation-south-asia')->assertOk();
         $this->assertStringContainsString('<loc>'.url('/ai-regulation-south-asia').'</loc>', $sitemap);
     }

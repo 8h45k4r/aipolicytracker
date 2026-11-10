@@ -15,7 +15,7 @@ class UserInfo extends Model
         'phone_no', // required
         'organization_name',
         'organization_email',
-        'ip_address', // required
+        'ip_hash',
         'user_agent', // required
         'last_activity', // required
         'terms_condition', // required
@@ -23,7 +23,7 @@ class UserInfo extends Model
     ];
 
     /**
-     * Never serialize these to the frontend (Inertia props / JSON).
+     * Never serialize these to the frontend (JSON).
      */
     protected $hidden = [
         'password',

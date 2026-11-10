@@ -24,6 +24,13 @@
             <x-site.stat label="Controls" :value="number_format($counts['controls'])" :href="route('controls.index')" />
             <x-site.stat label="Instruments" :value="number_format($counts['instruments'])" :href="route('policies.index')" />
         </dl>
+        @if($bundleOffered)
+        <p class="mt-3 text-sm text-brand-body" data-template-bundle>
+            @if(auth()->user()?->entitled('templates.bundle'))<a href="{{ route('templates.bundle') }}" class="btn-secondary" data-track="template_bundle">Download every template (ZIP)</a>
+            @else Every template in one ZIP, in every format, is part of <a href="{{ route('pricing') }}" data-track="template_bundle_upsell">Builder</a>. Each template below stays free.
+            @endif
+        </p>
+        @endif
         @if($lastBuilt)<p class="mt-3 text-xs text-brand-muted">Last built <time datetime="{{ $lastBuilt->toAtomString() }}">{{ $lastBuilt->format('j M Y, H:i') }} UTC</time> · {{ config('templates.licence') }}</p>@endif
     </section>
 

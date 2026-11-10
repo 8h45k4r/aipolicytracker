@@ -36,11 +36,12 @@ class EmbedController extends Controller
             'jurisdiction' => 320, 'deadlines' => 360, 'map' => 520
         };
         $snippet = '<iframe src="'.$src.'" title="'.e(self::KINDS[$kind]).' from AIPolicyTracker" width="100%" height="'.$height.'" loading="lazy" style="border:1px solid #e5e7eb;border-radius:4px;max-width:720px"></iframe>';
-        $seo = Seo::make('Embed AI regulation widgets: jurisdiction card, deadlines, map', 'Put a live AI regulation card, the upcoming deadlines or the where-AI-is-regulated map on your own site. Server-rendered, under 30 KB, with attribution, no tracking.', route('embed.index'))
+        $example = PolicyInstrument::published()->where('slug', 'eu-ai-act')->first();
+        $seo = Seo::make('Embed AI regulation widgets and status badges', 'Put a live AI regulation card, upcoming deadlines, the where-AI-is-regulated map or a policy status badge on your site, with attribution and no tracking.', route('embed.index'))
             ->withBreadcrumbs([['Home', route('home')], ['Open data', route('open-data')], ['Embed', route('embed.index')]])
             ->withPageType('WebPage');
 
-        return view('site.embed.index', compact('seo', 'kind', 'jurisdiction', 'jurisdictions', 'src', 'snippet', 'height'));
+        return view('site.embed.index', compact('seo', 'kind', 'jurisdiction', 'jurisdictions', 'src', 'snippet', 'height', 'example'));
     }
 
     public function jurisdiction(string $slug): Response

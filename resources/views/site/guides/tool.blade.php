@@ -10,6 +10,7 @@
         <div class="mt-4 flex flex-wrap gap-2"><a href="#preview" class="btn-secondary">Preview {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }}</a>
             @auth<a href="#download" class="btn-primary">Download free {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }}</a>@else<a href="{{ route('tools.gate', $tool->slug) }}" class="btn-primary" data-track="download_click" data-track-label="{{ $tool->slug }}">Download free {{ strtolower((\App\Models\Tool::TYPES[$tool->type] ?? ucfirst($tool->type))) }}</a>@endauth</div>
         <p class="mt-2 meta">Formats: {{ $formats }} · Version {{ $tool->version }} · Last updated {{ ($tool->updated_on?->format('j M Y') ?? '—') }}</p>
+        <x-site.commercial-use class="mt-2" />
     </header>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
@@ -61,7 +62,7 @@
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Licence</dt><dd>CC BY 4.0</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Topics</dt><dd class="text-right">{{ implode(', ', array_map(fn ($t) => config('resources.topics')[$t] ?? $t, ($tool->topics ?? []))) }}</dd></div>
                     </dl></div>
-                <div class="flex flex-col gap-2 text-sm"><x-site.save-button type="tool" :slug="$tool->slug" :title="$tool->title" :url="$tool->url()" meta="Free tool" /><button type="button" class="btn-secondary" data-copy-link>Copy link</button></div>
+                <div class="flex flex-col gap-2 text-sm"><x-site.save-button type="tool" :slug="$tool->slug" :title="$tool->title" :url="$tool->url()" meta="Free tool" /><button type="button" class="btn-secondary" data-copy-link>Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button></div>
                 @if($next)<div class="text-sm"><p class="font-semibold text-brand-navy">Next step</p><p class="mt-1"><a href="{{ $next->url() }}" class="text-brand-navy">Download the {{ $next->title }} →</a></p></div>@endif
             </div>
         </aside>

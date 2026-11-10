@@ -2,6 +2,10 @@
 set -e
 cd /var/www/html
 
+# Until the servers start, a stop request ends the boot at once (PID 1 ignores SIGTERM
+# without a handler, and docker would wait out the grace period before killing it).
+trap 'exit 143' TERM INT QUIT
+
 # Start time, for `php artisan aip:health`: the scheduler has not reported yet in
 # the first minutes, so the health check skips that part until this is 5 minutes old.
 touch /tmp/aip-booted 2>/dev/null || true
@@ -10,6 +14,10 @@ touch /tmp/aip-booted 2>/dev/null || true
 # so until the listener is up every request is a 502. The rule here is that only
 # work the application cannot serve without belongs above the exec line.
 #
+# Fail loudly when required environment variables are missing, before anything
+# else runs against a database that may not even be reachable.
+php artisan aip:env-check
+
 # Migrations qualify: the schema has to match the code before a request is
 # answered, and they take seconds.
 php artisan migrate --force
@@ -56,13 +64,36 @@ php artisan view:cache
   php artisan policy:import   || echo "WARNING: policy:import failed; serving previous records"
   php artisan external:import || echo "WARNING: external:import failed; serving previous records"
 ) 9>/tmp/aip-import.lock &
+imports=$!
 
-# Queue worker, in the background. Nothing is queued today: mail is sent during
-# the request so a form can tell the visitor when delivery failed, and no class
-# implements ShouldQueue. The worker idles on an empty queue and is kept so a job
-# added later is picked up without a change here. If it dies, nothing is lost
-# today; `docker compose restart app` brings it back.
-php artisan queue:work --tries=3 --sleep=3 &
+# Background processes are supervised: if one exits it is started again after a pause,
+# and on shutdown each is sent SIGTERM and waited for, so a job in progress finishes or
+# stops cleanly instead of being killed with its scheduler lock still held.
+# Usage: supervise <name> <command...>   (runs in the background; its pid is in $!)
+supervise() {
+  name="$1"; shift
+  (
+    child=""
+    trap 'touch /tmp/aip-stopping; [ -n "$child" ] && kill -TERM "$child" 2>/dev/null; [ -n "$child" ] && wait "$child" 2>/dev/null; exit 0' TERM INT
+    while [ ! -f /tmp/aip-stopping ]; do
+      "$@" &
+      child=$!
+      code=0
+      wait "$child" || code=$?
+      [ -f /tmp/aip-stopping ] && break
+      # The queue worker ends itself every hour (--max-time) with status 0; that is routine.
+      if [ "$code" -eq 0 ]; then echo "NOTE: $name finished; starting it again in 5s"; else echo "WARNING: $name exited with status $code; starting it again in 5s"; fi
+      sleep 5
+    done
+  ) &
+}
+rm -f /tmp/aip-stopping
+
+# Queue worker. Nothing is queued today: mail is sent during the request so a form
+# can tell the visitor when delivery failed. The worker is kept so a job added later
+# is picked up without a change here. queue:work finishes the job in hand on SIGTERM.
+supervise queue php artisan queue:work --tries=3 --sleep=3 --max-time=3600
+queue=$!
 
 # The scheduler: digests, alerts, syncs and imports on their own timetable
 # (routes/console.php), so the container needs no external cron.
@@ -72,15 +103,60 @@ php artisan queue:work --tries=3 --sleep=3 &
 # SCHEDULER=off, or every job runs twice and every subscriber is mailed twice.
 #
 # The HEALTHCHECK (Dockerfile) runs `php artisan aip:health`, which fails when this
-# scheduler stops writing its once-a-minute tick, so a dead scheduler marks the
-# container unhealthy instead of going unnoticed.
+# scheduler stops writing its once-a-minute tick. Supervision restarts it; the health
+# check still reports a scheduler that keeps failing.
+scheduler=""
 if [ "${SCHEDULER:-work}" = "work" ]; then
-  php artisan schedule:work > /dev/null 2>&1 &
+  supervise scheduler sh -c 'exec php artisan schedule:work > /dev/null 2>&1'
+  scheduler=$!
 else
   echo "NOTE: SCHEDULER=${SCHEDULER}; this container is not scheduling jobs"
 fi
 
-# Serve the app. --no-reload is what makes PHP_CLI_SERVER_WORKERS count:
-# without it artisan watches .env and starts a single worker, so production
-# answered one request at a time. Replace with php-fpm + nginx for more.
-exec php artisan serve --host=0.0.0.0 --port="${PORT:-8080}" --no-reload
+# Serve the app: php-fpm for PHP, nginx for everything else, on $PORT.
+#
+# Both run in the background and this shell waits on them. If either stops, the
+# whole container stops, so the restart policy brings up a fresh one (with artisan
+# serve as PID 1, a crash did the same). On SIGTERM (docker stop, a deploy) nginx and
+# php-fpm finish in-flight requests, and the background processes are asked to stop
+# and waited for. compose gives the container stop_grace_period to do it.
+sed "s/__PORT__/${PORT:-8080}/" /etc/aip/nginx.conf > /tmp/nginx.conf
+php-fpm --nodaemonize --force-stderr &
+fpm=$!
+nginx -e /dev/stderr -c /tmp/nginx.conf -g 'daemon off;' &
+web=$!
+
+alive() {
+  for pid in $web $fpm $queue $scheduler $imports; do kill -0 "$pid" 2>/dev/null && return 0; done
+  return 1
+}
+
+# Graceful first (nginx and php-fpm finish in-flight requests on SIGQUIT; the worker and
+# scheduler stop on SIGTERM), for up to STOP_WAIT seconds, then anything still running is
+# terminated, so the container always exits within its grace period. The shell cannot rely
+# on SIGQUIT alone: a non-interactive shell starts background jobs with SIGQUIT ignored,
+# and busybox offers no job control without a terminal to change that.
+stop() {
+  touch /tmp/aip-stopping
+  for pid in $queue $scheduler $imports; do kill -TERM "$pid" 2>/dev/null || true; done
+  kill -QUIT "$web" 2>/dev/null || true
+  kill -QUIT "$fpm" 2>/dev/null || true
+  waited=0
+  while alive && [ "$waited" -lt "${STOP_WAIT:-10}" ]; do sleep 1; waited=$((waited + 1)); done
+  if alive; then
+    echo "NOTE: still running after ${waited}s; terminating"
+    for pid in $web $fpm $queue $scheduler $imports; do kill -TERM "$pid" 2>/dev/null || true; done
+    sleep 1
+    for pid in $web $fpm $queue $scheduler $imports; do kill -KILL "$pid" 2>/dev/null || true; done
+  fi
+  exit "${1:-0}"
+}
+# QUIT too: the php-fpm base image declares STOPSIGNAL SIGQUIT (the Dockerfile resets it
+# to SIGTERM, but a stop request must work whichever one arrives).
+trap 'stop 0' TERM INT QUIT
+
+while kill -0 "$fpm" 2>/dev/null && kill -0 "$web" 2>/dev/null; do
+  sleep 2
+done
+echo "ERROR: $(kill -0 "$fpm" 2>/dev/null && echo nginx || echo php-fpm) stopped; stopping the container"
+stop 1

@@ -233,9 +233,10 @@ class AdminShellTest extends TestCase
     {
         $html = $this->actingAs($this->owner())->get(route('backend.admin.dashboard'))->assertOk()->getContent();
 
-        // White at 45% on the ink background measured 4.47:1; 65% is 8:1.
-        $this->assertStringNotContainsString('text-white/45', $html);
-        $this->assertMatchesRegularExpression('/<p class="[^"]*text-white\/65[^"]*">Overview<\/p>/', $html);
+        // The sidebar is light: group headings and entries use the body and muted tokens
+        // (7:1 and above on white), not translucent white on ink.
+        $this->assertStringNotContainsString('text-white/', $html);
+        $this->assertMatchesRegularExpression('/<summary class="adm-nav-heading"><span data-admin-nav-heading>Overview<\/span>/', $html);
         $this->assertStringContainsString('min-h-0 flex-1 overflow-y-auto', $html, 'the menu scrolls inside the sidebar, the footer stays');
         $this->assertStringContainsString('data-admin-account', $html);
         $this->assertMatchesRegularExpression('/aria-hidden="true"[^>]*>OO<\/span>/', $html, 'initials avatar');

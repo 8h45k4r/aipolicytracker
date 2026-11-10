@@ -6,6 +6,7 @@ use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\AssessmentController;
 use App\Http\Controllers\Site\AudienceController;
+use App\Http\Controllers\Site\BadgeController;
 use App\Http\Controllers\Site\BillingController;
 use App\Http\Controllers\Site\BillingWebhookController;
 use App\Http\Controllers\Site\CalendarController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Site\CorrectionsController;
 use App\Http\Controllers\Site\CoverageController;
 use App\Http\Controllers\Site\CronController;
 use App\Http\Controllers\Site\DeadlineEngineController;
+use App\Http\Controllers\Site\DevelopersController;
 use App\Http\Controllers\Site\EmbedController;
 use App\Http\Controllers\Site\EnforcementController;
 use App\Http\Controllers\Site\ExploreController;
@@ -30,6 +32,7 @@ use App\Http\Controllers\Site\ImplementationController;
 use App\Http\Controllers\Site\JurisdictionController;
 use App\Http\Controllers\Site\LandingController;
 use App\Http\Controllers\Site\LegalController;
+use App\Http\Controllers\Site\LicenceEnquiryController;
 use App\Http\Controllers\Site\MachineReadableController;
 use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\ObligationController;
@@ -47,6 +50,7 @@ use App\Http\Controllers\Site\SocialCardController;
 use App\Http\Controllers\Site\StateOfController;
 use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\TemplateController;
+use App\Http\Controllers\Site\TemplateUpdatesController;
 use App\Http\Controllers\Site\TransitionController;
 use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
@@ -79,12 +83,14 @@ Route::get('/enforcement', [EnforcementController::class, 'index'])->name('enfor
 Route::get('/ai-standards', [ImplementationController::class, 'standards'])->name('standards.index');
 
 Route::get('/jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
+Route::get('/jurisdictions/{jurisdiction}.json', [JurisdictionController::class, 'json'])->withoutMiddleware($stateless)->name('jurisdictions.json');
 Route::get('/jurisdictions/{jurisdiction}.md', [AgentSurfaceController::class, 'jurisdiction'])->where('jurisdiction', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('jurisdictions.context');
 Route::get('/jurisdictions/{jurisdiction}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 Route::get('/obligations', [ObligationController::class, 'index'])->name('obligations.index');
 // Before the single-duty route, so the download is not read as a duty named "export.csv".
 Route::get('/obligations/export.csv', [ObligationController::class, 'export'])->middleware('throttle:30,1')->name('obligations.export');
+Route::get('/obligations/{obligation}.json', [ObligationController::class, 'json'])->withoutMiddleware($stateless)->name('obligations.json');
 Route::get('/obligations/{obligation}.md', [AgentSurfaceController::class, 'obligation'])->where('obligation', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('obligations.context');
 Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->name('obligations.show');
 
@@ -92,6 +98,7 @@ Route::get('/obligations/{obligation}', [ObligationController::class, 'show'])->
 // serves many duties in many jurisdictions, which is the reuse a compliance lead
 // is looking for.
 Route::get('/controls', [ControlController::class, 'index'])->name('controls.index');
+Route::get('/controls/{control}.json', [ControlController::class, 'json'])->where('control', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('controls.json');
 Route::get('/controls/{control}.md', [AgentSurfaceController::class, 'control'])->where('control', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('controls.context');
 Route::get('/controls/{control}', [ControlController::class, 'show'])->where('control', '[a-z0-9-]+')->name('controls.show');
 
@@ -127,7 +134,7 @@ Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->w
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
 // The deadline engine: five plain-form steps, a personal timeline from recorded dates, .ics and PDF of the same rows.
 Route::get('/deadlines/which-date-applies', [DeadlineEngineController::class, 'show'])->name('deadlines.engine');
-Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->name('deadlines.engine.ics');
+Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->withoutMiddleware($stateless)->name('deadlines.engine.ics');
 Route::get('/deadlines/which-date-applies.pdf', [DeadlineEngineController::class, 'pdf'])->middleware('throttle:30,1')->name('deadlines.engine.pdf');
 Route::get('/calendar/ai-policy-deadlines.ics', [CalendarController::class, 'feed'])->withoutMiddleware($stateless)->name('calendar.feed');
 Route::get('/calendar/{jurisdiction}.ics', [CalendarController::class, 'feed'])->where('jurisdiction', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('calendar.feed.jurisdiction');
@@ -152,6 +159,8 @@ Route::get('/ai-risk/{domain}/{sub}', [RiskController::class, 'subdomain'])->whe
 Route::get('/tools/applicability-check', [ApplicabilityController::class, 'show'])->name('tools.applicability');
 
 Route::get('/open-data', [PageController::class, 'openData'])->name('open-data');
+Route::get('/developers', [DevelopersController::class, 'developers'])->name('developers');
+Route::get('/mcp', [DevelopersController::class, 'mcp'])->name('mcp');
 Route::get('/open-data/aipolicytracker-latest.json', [PageController::class, 'openDataDownload'])->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('open-data.download');
 Route::get('/open-data/health.json', [AgentSurfaceController::class, 'health'])->withoutMiddleware($stateless)->name('open-data.health');
 Route::get('/open-data/{dataset}.csv', [AgentSurfaceController::class, 'exportCsv'])->where('dataset', '[a-z]+')->middleware('throttle:30,1')->withoutMiddleware($stateless)->name('open-data.csv');
@@ -194,9 +203,11 @@ Route::post('/subscribe/unsubscribe/{token}', [SubscribeController::class, 'unsu
 Route::post('/cron/digest', [CronController::class, 'digest'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.digest');
 Route::post('/cron/external-sync', [CronController::class, 'externalSync'])->middleware('throttle:5,1')->withoutMiddleware([ValidateCsrfToken::class])->name('cron.external-sync');
 
-// Billing: pricing is public (noindex while checkout is off); checkout and portal need a verified account
-// and return 404 while it is off; the webhook is signature-authenticated.
+// Billing: pricing is public and indexable whether or not checkout is on; checkout and portal need a
+// verified account and return 404 while it is off; the webhook is signature-authenticated.
 Route::get('/pricing', [BillingController::class, 'pricing'])->name('pricing');
+// Licence, team and custom-coverage enquiries, from /pricing and /open-data: stored, then mailed.
+Route::post('/pricing/enquiry', [LicenceEnquiryController::class, 'store'])->middleware('throttle:10,1')->name('licence-enquiry.store');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/billing/checkout/{plan}', [BillingController::class, 'checkout'])->where('plan', '[a-z0-9_]+')->middleware('throttle:10,1')->name('billing.checkout');
     Route::get('/billing/return/{checkout}', [BillingController::class, 'returned'])->where('checkout', '[0-9]+')->name('billing.return');
@@ -229,6 +240,7 @@ Route::post('/webhooks/dodo', BillingWebhookController::class)->middleware('thro
 Route::get('/self-assessments', [AssessmentController::class, 'index'])->name('assessments.index');
 Route::get('/ai-policy-examples', [PolicyExamplesController::class, 'index'])->name('ai-policy-examples');
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+Route::get('/templates/all.zip', [TemplateController::class, 'bundle'])->middleware('throttle:10,1')->name('templates.bundle');
 Route::get('/templates/feed', [TemplateController::class, 'feed'])->withoutMiddleware($stateless)->name('templates.feed');
 // One landing page per framework or type ("EU AI Act templates"); only those with enough
 // templates exist (TemplateCatalog::facets), the rest 404.
@@ -236,6 +248,10 @@ Route::get('/templates/{facet}/{key}', [TemplateController::class, 'facet'])->wh
 Route::get('/templates/{slug}', [TemplateController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('templates.show');
 Route::post('/templates/{slug}/request', [TemplateController::class, 'requestDownload'])->where('slug', '[a-z0-9-]+')->middleware('throttle:10,1')->name('templates.request');
 Route::get('/templates/{slug}/download', [TemplateController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1')->name('templates.download');
+// Unsubscribe from template update emails: signed, by notice id. GET shows a button; the button and
+// RFC 8058 one-click (List-Unsubscribe-Post) POST to the same URL.
+Route::get('/templates/updates/unsubscribe/{notice}', [TemplateUpdatesController::class, 'unsubscribe'])->whereNumber('notice')->middleware('signed')->name('templates.updates.unsubscribe');
+Route::post('/templates/updates/unsubscribe/{notice}', [TemplateUpdatesController::class, 'unsubscribePost'])->whereNumber('notice')->middleware(['signed', 'throttle:20,1'])->withoutMiddleware([ValidateCsrfToken::class])->name('templates.updates.unsubscribe.post');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');
@@ -264,6 +280,7 @@ Route::get('/state-of-ai-regulation', [StateOfController::class, 'show'])->name(
 Route::get('/state-of-ai-regulation/{quarter}.csv', [StateOfController::class, 'csv'])->where('quarter', '20[0-9]{2}-Q[1-4]')->withoutMiddleware($stateless)->name('state-of.csv');
 Route::get('/state-of-ai-regulation/{quarter}', [StateOfController::class, 'show'])->where('quarter', '[A-Za-z0-9-]+')->name('state-of.quarter');
 Route::get('/embed', [EmbedController::class, 'index'])->name('embed.index');
+Route::get('/badges/{policy}.svg', [BadgeController::class, 'policy'])->where('policy', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('badges.policy');
 Route::get('/embed/jurisdiction/{slug}', [EmbedController::class, 'jurisdiction'])->where('slug', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('embed.jurisdiction');
 Route::get('/embed/deadlines', [EmbedController::class, 'deadlines'])->withoutMiddleware($stateless)->name('embed.deadlines');
 Route::get('/embed/map', [EmbedController::class, 'map'])->withoutMiddleware($stateless)->name('embed.map');

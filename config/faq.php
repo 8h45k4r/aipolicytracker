@@ -97,9 +97,19 @@ return [
 
     'guides.index' => [
         ['question' => 'What is the difference between a guide and a policy record?', 'answer' => 'A record states what an instrument says, field by field, with its official source. A guide is written explanation on top of those records: what the rules mean together, in what order to deal with them, and what evidence to keep. Every guide links the records it draws on so you can check it.'],
-        ['question' => 'Are the templates really free?', 'answer' => 'Yes. Every template downloads without payment; you give an email address so the file can be sent and so you can be told when it is revised. There is no paid tier on this platform.'],
+        ['question' => 'Are the templates really free?', 'answer' => 'Yes. Every template downloads without payment; you give an email address so the file can be sent and so you can be told when it is revised. Templates are free on every plan; paid plans pay for alerts and licensing, never for templates.'],
         ['question' => 'Can I use these templates inside my company?', 'answer' => 'Yes, that is what they are for. They are provided under an open licence for internal use. They are informational resources, not legal advice, and completing one does not make an organisation compliant with any law or standard.'],
         ['question' => 'Which frameworks do the guides cover?', 'answer' => 'Mostly the EU AI Act, ISO/IEC 42001 and the NIST AI Risk Management Framework, because those are what most organisations are asked about. The crosswalk pages carry the clause-level mappings; the guides explain how to use them together.'],
+    ],
+
+    // Pricing. Answers state what the code delivers today; anything not built is called
+    // "not built yet" here as it is on the plan cards.
+    'pricing' => [
+        ['question' => 'Can I use the data commercially?', 'answer' => 'Yes, on every plan, including Open. The records are published under :license: you may copy, adapt and build them into a product or service, paid or not, as long as you credit AIPolicyTracker and link the record. Mirrored third-party datasets (the AI Incident Database and the MIT AI Risk Repository) keep their own licences, which every export and API response states.'],
+        ['question' => 'What stays free?', 'answer' => 'Every record and its sources, the weekly digest, every template, the applicability check, comparisons, the bulk exports, the read-only API with no key, the embeddable widgets, and up to three watches with a daily email. Money pays for the service around the data, never for the data. If a Builder plan ends, your watches and settings are kept; alerts continue for the first three.'],
+        ['question' => 'What do the paid plans add?', 'answer' => 'Builder adds volume and delivery: up to 500 watches, alerts to Slack, a signed webhook or a private RSS feed, and saved applicability profiles. Team and Commercial are arranged by written agreement: invoice billing, a named contact, a freshness commitment in writing and, for Commercial, a licence that waives attribution for white-label use. Team accounts, a hosted MCP endpoint, a feed of every change, a verified-only feed and a white-label widget are not built yet and are marked as coming.'],
+        ['question' => 'How do I get a commercial licence or an SLA?', 'answer' => 'Send the enquiry form on the pricing page: say what you will use the data for and which tier you are interested in. It is stored and sent to the maintainer, who replies by email, and nothing is charged until a written agreement is signed. You do not need a licence to use the data commercially under :license; you need one only to drop attribution or to have freshness commitments in writing.'],
+        ['question' => 'Who takes the payment?', 'answer' => 'For Builder, Dodo Payments, acting as merchant of record: it handles cards, local payment methods, tax and invoices, and this site never stores card data. Team and Commercial are invoiced under the written agreement.'],
     ],
 
     'open-data' => [

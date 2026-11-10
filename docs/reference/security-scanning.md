@@ -10,6 +10,7 @@ runs when, what makes it fail, and where accepted findings are recorded.
 | Every PR and push to `main` | SCA | `composer audit`, `npm audit --audit-level=high --omit=dev`, Trivy fs | Any advisory against `composer.lock`; a high or critical npm advisory in a package that ships (build tools such as Tailwind 3's glob chain are dev dependencies and audited by hand, see below); a fixable HIGH/CRITICAL CVE. |
 | Every PR and push to `main` | IaC | Trivy config, Checkov | A HIGH/CRITICAL misconfiguration in the Dockerfile or workflows. |
 | Every PR and push to `main` | Container | Trivy on the built image | A fixable HIGH/CRITICAL CVE in the image's OS packages or PHP dependencies. |
+| Every PR and push to `main` | Runtime | The built image's `PHP_VERSION` against the `FROM php:` pin | The image does not run the PHP release the Dockerfile pins. Base images are pinned to a patch release (`php:8.3.36-cli-alpine`, `node:26.12.1-alpine`) so a runtime security release reaches production by a reviewed change; Dependabot proposes the next one, and the deploy builds with `--pull`. |
 | Weekly (Monday 03:17 UTC) and on demand | DAST | ZAP baseline against the app started in production mode | A rule marked FAIL in `.zap/rules.tsv`. |
 | Weekly and on demand | API | ZAP active scan driven by `/openapi.json` | Same rules: injection, XSS, traversal, error disclosure. |
 

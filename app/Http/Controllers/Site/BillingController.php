@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\BillingCheckout;
+use App\Models\User;
 use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\Entitlements;
 use App\Services\Billing\PlanCatalog;
+use App\Services\PolicyData\PolicyCatalog;
+use App\Support\Faq;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -23,17 +27,19 @@ class BillingController extends Controller
 {
     public function __construct(private BillingConfig $config, private PlanCatalog $catalog, private Entitlements $entitlements) {}
 
-    public function pricing(Request $request): View
+    public function pricing(Request $request, PolicyCatalog $policyCatalog): View
     {
         $enabled = $this->config->enabled();
-        $seo = Seo::make('Pricing: Free and Pro plans', 'Every policy record stays free and open. Pro adds a daily alert for the policies, jurisdictions and obligations you follow, and reminders before application dates fall due.', route('pricing'), $enabled)
-            ->withBreadcrumbs([['Home', route('home')], ['Pricing', route('pricing')]]);
-        if (! $enabled) {
-            $seo->noindex();
-        }
+        $seo = Seo::make(
+            'Pricing and commercial data licences',
+            'The data stays free under '.config('aipolicytracker.data_license').', commercial use included. Builder adds alerts at volume; Team and Commercial add white-label licences and SLAs.',
+            route('pricing')
+        )->withBreadcrumbs([['Home', route('home')], ['Pricing', route('pricing')]])
+            ->withFaq(Faq::for('pricing'));
         $plans = array_filter($this->catalog->plans(), fn ($p) => ! empty($p['product_id']) || ! $enabled);
         $user = $request->user();
         $current = $user ? $this->entitlements->activeSubscription($user) : null;
+        $stats = $policyCatalog->stats();
 
         return view('site.pricing', [
             'seo' => $seo,
@@ -41,8 +47,10 @@ class BillingController extends Controller
             'free' => $this->catalog->free(),
             'plans' => $plans,
             'features' => (array) config('billing.features'),
+            'contactPlans' => (array) config('billing.contact_plans'),
             'current' => $current,
             'user' => $user,
+            'stats' => $stats,
         ]);
     }
 
@@ -55,6 +63,46 @@ class BillingController extends Controller
             return redirect()->route('profile.edit')->with('status', 'already-subscribed');
         }
         $definition = $this->catalog->plan($plan);
+        // One checkout per account at a time. A second click in this window (another tab, a
+        // double submit) reopens the session already created instead of opening a second
+        // one that could also be paid; the provider's API takes no idempotency key.
+        $recent = BillingCheckout::where('user_id', $user->id)->where('plan_key', $plan)->where('status', 'created')
+            ->whereNotNull('checkout_url')->where('created_at', '>=', now()->subMinutes(self::REUSE_MINUTES))->latest('id')->first();
+        if ($recent) {
+            return view('site.billing.redirect', ['url' => $recent->checkout_url, 'plan' => $definition, 'seo' => Seo::make('Redirecting to secure checkout', 'Redirecting to the payment provider.', route('pricing'), false)]);
+        }
+        $lock = Cache::lock('billing-checkout:'.$user->id, 20);
+        if (! $lock->get()) {
+            return redirect()->route('pricing')->with('error', 'A checkout is already opening for your account. Please wait a moment.');
+        }
+        try {
+            return $this->openCheckout($user, $plan, $definition, $gateway);
+        } finally {
+            $lock->release();
+        }
+    }
+
+    /** Minutes during which a repeat click reopens the checkout session already created. */
+    public const REUSE_MINUTES = 30;
+
+    private function openCheckout(User $user, string $plan, array $definition, BillingGateway $gateway): View|RedirectResponse
+    {
+        // Never charge a price other than the one on the pricing page. The provider's product
+        // is looked up on every checkout; a different price or currency, or a failed lookup,
+        // stops the sale and tells the operator why (Admin → Billing → Check products).
+        try {
+            $remote = $gateway->retrieveProduct($definition['product_id']);
+            $mismatch = PlanCatalog::priceMatches($definition, $remote) ? null
+                : 'The payment provider charges '.PlanCatalog::formatPrice((int) ($remote['price'] ?? 0), (string) ($remote['currency'] ?? 'USD')).' for this plan; the pricing page shows '.PlanCatalog::formatPrice((int) $definition['price'], $definition['currency']).'.';
+        } catch (\Throwable $e) {
+            $mismatch = 'The plan could not be checked with the payment provider: '.mb_substr($e->getMessage(), 0, 300);
+        }
+        if ($mismatch !== null) {
+            Log::error('billing.checkout.price_check_failed', ['plan' => $plan, 'detail' => $mismatch]);
+            $redirect = redirect()->route('pricing')->with('error', 'This plan cannot be bought right now. Nothing was charged. Please try again later.');
+
+            return $user->isAdmin() ? $redirect->with('error_detail', $mismatch) : $redirect;
+        }
         $checkout = BillingCheckout::create(['user_id' => $user->id, 'plan_key' => $plan, 'product_id' => $definition['product_id'], 'status' => 'created']);
         try {
             $session = $gateway->createCheckout($user, $definition['product_id'], [
@@ -72,7 +120,7 @@ class BillingController extends Controller
             // without server access. Customers keep the neutral message above.
             return $user->isAdmin() ? $redirect->with('error_detail', mb_substr($e->getMessage(), 0, 2000)) : $redirect;
         }
-        $checkout->update(['provider_session_id' => $session['session_id']]);
+        $checkout->update(['provider_session_id' => $session['session_id'], 'checkout_url' => $session['url']]);
 
         return view('site.billing.redirect', ['url' => $session['url'], 'plan' => $definition, 'seo' => Seo::make('Redirecting to secure checkout', 'Redirecting to the payment provider.', route('pricing'), false)]);
     }

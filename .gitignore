@@ -57,10 +57,11 @@ Thumbs.db
 Homestead.json
 Homestead.yaml
 
-# Local notes for editor and assistant tooling; not part of the project.
-CLAUDE.md
-AGENTS.md
-.claude/
+# Local settings for assistant tooling. AGENTS.md and CLAUDE.md at the root are
+# project files and are tracked. Skills are tracked so they survive across
+# sessions; the rest of .claude/ stays local.
+.claude/*
+!.claude/skills/
 
 # Scratch copies of the tree taken while reworking a module. They are whole
 # duplicates of the project, so a stray `git add .` would commit a second copy
@@ -71,3 +72,7 @@ AGENTS.md
 # project; listed here so a clone does not depend on .git/info/exclude.
 /reports/
 /research_notes/
+
+# Playwright output
+/test-results/
+/playwright-report/

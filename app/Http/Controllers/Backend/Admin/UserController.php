@@ -4,26 +4,24 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use App\Enums\AdminCapability;
 use App\Enums\AdminRole;
-use App\Http\Controllers\Auth\InvitationController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\InviteUserRequest;
 use App\Mail\AdminInvitationMail;
 use App\Models\AdminAuditLog;
 use App\Models\ResourceDownload;
 use App\Models\User;
+use App\Services\Admin\AdminInvitations;
 use App\Services\Admin\RolePermissions;
 use App\Support\Csv;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 /**
  * Accounts and the roles granted to them.
@@ -37,9 +35,6 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 class UserController extends Controller
 {
     public const SORTS = ['joined' => 'Newest first', 'last_login' => 'Last signed in', 'name' => 'Name', 'email' => 'Email'];
-
-    /** Mailers that accept a message and deliver nothing to the recipient. */
-    private const NON_DELIVERING_MAILERS = ['log', 'array'];
 
     public function index(Request $request, RolePermissions $permissions): View
     {
@@ -151,7 +146,7 @@ class UserController extends Controller
             'admin_role_granted_at' => $role ? now() : null,
         ])->save();
 
-        $sent = $this->sendInvitation($user, $request->user(), $role, $data['note'] ?? null);
+        $sent = AdminInvitations::send($user, $request->user(), $role, $data['note'] ?? null);
         $redirect = redirect()->route('backend.admin.users.show', $user);
 
         return $sent['delivered']
@@ -165,7 +160,7 @@ class UserController extends Controller
         $this->guardFor($user, 'invite');
         abort_unless($user->invitationPending(), 422, 'This account has already accepted its invitation.');
 
-        $sent = $this->sendInvitation($user, $request->user(), $user->adminRole(), null);
+        $sent = AdminInvitations::send($user, $request->user(), $user->adminRole(), null);
         $user->forceFill(['invited_at' => now()])->save();
 
         return $sent['delivered']
@@ -415,36 +410,6 @@ class UserController extends Controller
         ])->save();
 
         return true;
-    }
-
-    /**
-     * Make a fresh invitation link (which retires the previous one) and email it.
-     *
-     * "Delivered" means handed to a mailer that sends real email. The log and array mailers
-     * accept the message and deliver nothing, so they count as not delivered, as does a
-     * transport failure; the reason is worded for the toast.
-     *
-     * @return array{delivered: bool, url: string, reason: ?string}
-     */
-    private function sendInvitation(User $user, User $inviter, ?AdminRole $role, ?string $note): array
-    {
-        $token = Password::broker(InvitationController::BROKER)->createToken($user);
-        $url = route('invitation.show', ['token' => $token, 'email' => $user->email]);
-        $mailer = (string) config('mail.default');
-
-        try {
-            Mail::to($user->email)->send(new AdminInvitationMail($user, $inviter, $url, $role, $note));
-        } catch (TransportExceptionInterface $e) {
-            report($e);
-
-            return ['delivered' => false, 'url' => $url, 'reason' => 'the mail server refused it or could not be reached.'];
-        }
-
-        if (in_array($mailer, self::NON_DELIVERING_MAILERS, true)) {
-            return ['delivered' => false, 'url' => $url, 'reason' => "this server's mailer is \"{$mailer}\", which keeps a copy and sends nothing."];
-        }
-
-        return ['delivered' => true, 'url' => $url, 'reason' => null];
     }
 
     /**

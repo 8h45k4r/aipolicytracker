@@ -5,15 +5,16 @@ namespace Tests\Feature;
 use App\Services\Completeness\CompletenessReport;
 use App\Services\Verification\VerificationPolicy;
 use Closure;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 /**
- * `php artisan config:cache` is not optional on this project: azure/startup.sh
- * runs it, and it ran under `set -e`, so a config file that cannot be cached
- * aborted the container's startup before `policy:import`, `external:import` and
- * the seeders. The site went down and the deploy workflow still reported green,
- * because the workflow only ships the zip; the startup script runs in the
- * container.
+ * `php artisan config:cache` is not optional on this project: docker/entrypoint.sh
+ * runs it on every container start, under `set -e`, so a config file that cannot
+ * be cached stops the container before the server starts listening. (The old
+ * App Service startup script had the same failure: it aborted before
+ * `policy:import`, `external:import` and the seeders while the deploy still
+ * reported green.)
  *
  * Nothing in config/ may therefore hold a closure. Behaviour that needs one
  * belongs in app/ — see VerificationRuleset and CompletenessChecks, which were
@@ -42,16 +43,48 @@ class ConfigIsCacheableTest extends TestCase
         $this->assertSame(
             [],
             $offenders,
-            'config:cache cannot serialize a closure, and azure/startup.sh runs it on every deploy. '
+            'config:cache cannot serialize a closure, and docker/entrypoint.sh runs it on every container start. '
             .'Move the behaviour into app/ and leave only serializable values in config/. Offending keys: '
             .implode(', ', $offenders)
         );
     }
 
+    public function test_no_configuration_value_changes_after_caching(): void
+    {
+        $before = Arr::dot(config()->all());
+
+        $this->artisan('config:cache')->assertSuccessful();
+
+        $cached = require $this->app->getCachedConfigPath();
+
+        $this->artisan('config:clear');
+
+        $after = Arr::dot($cached);
+
+        $changed = [];
+        foreach ($before as $key => $live) {
+            if ($live instanceof Closure || is_object($live) || is_null($live)) {
+                continue;
+            }
+
+            $fromCache = $after[$key] ?? null;
+            if ($live !== $fromCache) {
+                $changed[] = "{$key}: ".var_export($live, true).' -> '.var_export($fromCache, true);
+            }
+        }
+
+        $this->assertSame(
+            [],
+            $changed,
+            'config:cache changed these values. A config file is probably calling config() '
+            .'to read another file — that resolves to null once the tree is serialised. '
+            ."Use a token substituted at render time instead.\n"
+            .implode("\n", $changed)
+        );
+    }
+
     public function test_the_policies_that_moved_out_of_config_still_drive_the_reports(): void
     {
-        // Guards the move itself: the rules and checks must still reach the services,
-        // not silently become empty arrays that make every gate trivially pass.
         $this->assertNotEmpty(
             app(VerificationPolicy::class)->rules(),
             'the verification rules did not survive the move out of config/'
@@ -61,7 +94,6 @@ class ConfigIsCacheableTest extends TestCase
             'the completeness checks did not survive the move out of config/'
         );
 
-        // The serializable knobs stay in config/ and are still read from there.
         $this->assertIsInt(config('verification.critical_budget'));
         $this->assertIsInt(config('completeness.required_budget'));
         $this->assertNotEmpty(config('verification.tracks'));

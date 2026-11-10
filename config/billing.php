@@ -49,12 +49,16 @@ return [
         // account that already had them: free accounts keep three watches and the
         // daily inbox alert. Pro sells volume, channels and change-impact profiles.
         'entitlements' => [
-            'alerts.weekly' => true,
             'alerts.daily' => true,
             'saved.server' => true,
             'watches.max' => 3,
             'alerts.channels' => false,
             'profiles.saved' => false,
+            // Requests a minute to the read-only API with the account's token. Without a
+            // token the public rate applies per address, which is the same number.
+            'api.rate_per_minute' => 120,
+            // Every template in one ZIP. Single templates stay free with a work email.
+            'templates.bundle' => false,
         ],
     ],
 
@@ -62,33 +66,35 @@ return [
         'pro_monthly' => [
             'name' => 'Pro',
             'interval' => 'month',
-            'price' => 2900,          // smallest currency unit; must equal the Dodo product price
+            'price' => 4900,          // smallest currency unit; must equal the Dodo product price
             'currency' => 'USD',
             'product_id' => env('DODO_PRODUCT_PRO_MONTHLY'),
             'trial_days' => 0,
             'entitlements' => [
-                'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
                 'watches.max' => 500,
                 'alerts.channels' => true,
                 'profiles.saved' => true,
+                'api.rate_per_minute' => 600,
+                'templates.bundle' => true,
             ],
         ],
         'pro_yearly' => [
             'name' => 'Pro (annual)',
             'interval' => 'year',
-            'price' => 29000,
+            'price' => 49000,
             'currency' => 'USD',
             'product_id' => env('DODO_PRODUCT_PRO_YEARLY'),
             'trial_days' => 0,
             'entitlements' => [
-                'alerts.weekly' => true,
                 'alerts.daily' => true,
                 'saved.server' => true,
                 'watches.max' => 500,
                 'alerts.channels' => true,
                 'profiles.saved' => true,
+                'api.rate_per_minute' => 600,
+                'templates.bundle' => true,
             ],
         ],
     ],
@@ -96,16 +102,60 @@ return [
     // Human-readable lines shown on the pricing page. Only list what exists.
     'features' => [
         'free' => [
-            'Every policy, jurisdiction, obligation and change record, with sources',
+            'Every policy, jurisdiction, obligation, control and change record, with sources',
             'Weekly digest by jurisdiction',
-            'Applicability screening, comparisons and open-data downloads',
-            'Read-only API at the public rate limit',
+            'Applicability screening, comparisons and the templates library',
+            'Bulk CSV, NDJSON and JSON exports, and the read-only API with no key, at the public rate limit',
+            'Embeddable widgets, with attribution, and the MCP server for assistants, run on your own machine',
             'Watch up to 3 records or topics: a daily email the day one changes, and reminders 30, 7 and 1 days before their application dates',
         ],
         'pro' => [
             'Watch up to 500 policies, jurisdictions, obligations, sectors, frameworks or saved searches',
             'Alerts to Slack, a signed webhook or a private RSS feed, as well as email',
             'Saved applicability profiles: a daily alert naming the system a change may affect',
+            'The read-only API at 600 requests a minute with your account token, five times the public rate',
+            'Every template in one ZIP, in every format, rebuilt when a template changes',
+        ],
+    ],
+
+    // Tiers sold by written agreement rather than checkout ("Talk to us" on the pricing
+    // page, through the licence enquiry form). Three lists, so the page never blurs them:
+    // `included` exists today, `agreed` is a term a signed contract sets, and `coming` is
+    // not built yet and is shown as such. A line moves to `included` only when code
+    // delivers it. Prices are display text: nothing here is charged online.
+    'contact_plans' => [
+        'team' => [
+            'name' => 'Team',
+            'price' => '$199',
+            'per' => 'per month',
+            'summary' => 'For a compliance or product team that wants the alerts together.',
+            'included' => [],
+            'agreed' => [
+                'One invoice and a named contact',
+                'Onboarding: help setting up watches and alerts across the team',
+            ],
+            'coming' => [
+                'Team accounts: Builder watches, profiles and alert channels shared across members',
+                'A hosted MCP endpoint with higher rate limits',
+            ],
+        ],
+        'commercial' => [
+            'name' => 'Commercial',
+            'price' => 'From $5,000',
+            'per' => 'per year',
+            'summary' => 'For a product or service that builds on the records.',
+            'included' => [],
+            'agreed' => [
+                'A licence that waives attribution, for white-label use of the records',
+                'A freshness commitment in writing (SLA) for the jurisdictions you rely on, measured as on the freshness page',
+                'Invoice billing, a named contact and a licence agreement your legal team can file',
+            ],
+            'coming' => [
+                'A signed webhook and bulk delta feed of every recorded change',
+                'A verified-only feed: records a named reviewer has confirmed against the official source',
+                'A white-label embeddable widget',
+                'A hosted MCP endpoint with higher rate limits',
+            ],
         ],
     ],
 ];

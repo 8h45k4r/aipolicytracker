@@ -9,7 +9,7 @@
     <div class="mt-6 card-flat p-5">
         <p class="label">Subscription address</p>
         <p class="mt-1 font-mono text-sm break-all text-brand-navy">{{ route('calendar.feed') }}</p>
-        <p class="mt-3 flex flex-wrap gap-2"><a href="{{ route('calendar.feed') }}" class="btn-primary" data-track="calendar_subscribe">Download or subscribe</a><a href="{{ route('deadlines.engine') }}" class="btn-secondary" data-track="deadline_engine_click">Which date applies to you?</a><a href="{{ route('changes.index') }}" class="btn-secondary">See the change log</a></p>
+        <p class="mt-3 flex flex-wrap gap-2"><a href="{{ \App\Services\PolicyData\DeadlineCalendar::subscribeUrl(route('calendar.feed')) }}" class="btn-primary" data-track="calendar_subscribe">Subscribe in your calendar</a><a href="{{ route('calendar.feed') }}" class="btn-secondary" data-track="calendar_download">Download .ics</a><a href="{{ route('deadlines.engine') }}" class="btn-secondary" data-track="deadline_engine_click">Which date applies to you?</a><a href="{{ route('changes.index') }}" class="btn-secondary">See the change log</a></p>
         <p class="mt-3 meta">In Google Calendar choose "Other calendars", then "From URL". In Outlook choose "Add calendar", then "Subscribe from web". In Apple Calendar choose "File", then "New Calendar Subscription".</p>
     </div>
 
@@ -18,7 +18,7 @@
         <h2 id="by-place" class="section-title">Narrow it to one jurisdiction</h2>
         <ul class="mt-3 grid gap-2 sm:grid-cols-2 text-sm">
             @foreach($jurisdictions as $j)
-            <li class="flex justify-between gap-3 border-b border-brand-line py-1.5"><span class="text-brand-body">{{ $j->name }}</span><a href="{{ route('calendar.feed.jurisdiction', $j->slug) }}" class="text-brand-blue hover:underline">subscribe</a></li>
+            <li class="flex justify-between gap-3 border-b border-brand-line py-1.5"><span class="text-brand-body">{{ $j->name }}</span><a href="{{ \App\Services\PolicyData\DeadlineCalendar::subscribeUrl(route('calendar.feed.jurisdiction', $j->slug)) }}" class="text-brand-blue hover:underline" aria-label="Subscribe to {{ $j->name }} dates">subscribe</a></li>
             @endforeach
         </ul>
     </section>

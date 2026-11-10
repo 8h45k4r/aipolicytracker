@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">AI governance glossary</h1>
     <p class="mt-3 prose-policy">{{ $count }} terms used across the records, in plain language. Each names the instrument it comes from: these are explanations for orientation, not the legal text, so follow the source for the binding wording, and the links for the duties that apply.</p>

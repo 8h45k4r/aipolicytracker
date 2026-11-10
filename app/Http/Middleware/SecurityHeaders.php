@@ -57,7 +57,11 @@ class SecurityHeaders
 
         return implode('; ', [
             "default-src 'self'",
-            "script-src 'self' 'nonce-{$nonce}' https://www.googletagmanager.com https://static.cloudflareinsights.com https://challenges.cloudflare.com".$dev,
+            // 'strict-dynamic': a browser that supports it (CSP3) trusts only nonced scripts
+            // and what they load (analytics, Turnstile, the map chunk), and ignores the host
+            // list, so an injected tag pointing at an allowed host (an attacker's GTM
+            // container) cannot run. The host list stays for older browsers.
+            "script-src 'self' 'nonce-{$nonce}' 'strict-dynamic' https://www.googletagmanager.com https://static.cloudflareinsights.com https://challenges.cloudflare.com".$dev,
             "style-src 'self' 'unsafe-inline'".$dev,
             "font-src 'self' data:",
             "img-src 'self' data: https:",

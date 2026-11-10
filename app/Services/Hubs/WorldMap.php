@@ -64,9 +64,10 @@ final class WorldMap
     private static function levels(): array
     {
         $out = [];
-        $policies = PolicyInstrument::published()->whereNotIn('status', ApplicabilityScreener::NOT_IN_FORCE)->get(['jurisdiction_id', 'is_binding', 'status']);
+        $policies = PolicyInstrument::published()->whereNotIn('status', ApplicabilityScreener::NOT_IN_FORCE)->get(['jurisdiction_id', 'is_binding', 'ai_specific', 'status']);
         foreach ($policies->groupBy('jurisdiction_id') as $id => $group) {
-            $binding = $group->where('is_binding', true);
+            // The legend says "binding AI law": a privacy law that also applies to AI is not one.
+            $binding = $group->where('is_binding', true)->where('ai_specific', true);
             $level = $binding->whereIn('status', ['in_force', 'partially_applicable'])->isNotEmpty() ? 'in_force' : ($binding->isNotEmpty() ? 'binding' : 'guidance');
             $out[$id] = ['level' => $level, 'instruments' => $group->count()];
         }

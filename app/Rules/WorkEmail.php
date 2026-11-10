@@ -13,6 +13,9 @@ use Illuminate\Contracts\Validation\ValidationRule;
  */
 class WorkEmail implements ValidationRule
 {
+    /** @param  string  $purpose  what the address is for, as the refusal names it */
+    public function __construct(private string $purpose = 'template downloads') {}
+
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (! is_string($value) || ! config('templates.gate.require_work_email', true)) {
@@ -21,7 +24,7 @@ class WorkEmail implements ValidationRule
         $policy = app(EmailDomainPolicy::class);
         $domain = $policy->domainOf($value);
         if ($domain !== null && $policy->trustedEntryFor($domain) !== null) {
-            $fail('Use your work email address. Personal mailboxes such as '.$domain.' are not accepted for template downloads.');
+            $fail('Use your work email address. Personal mailboxes such as '.$domain.' are not accepted for '.$this->purpose.'.');
         }
     }
 }

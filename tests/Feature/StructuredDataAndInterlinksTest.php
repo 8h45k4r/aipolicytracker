@@ -96,18 +96,18 @@ class StructuredDataAndInterlinksTest extends TestCase
         $this->assertNotNull($this->ofType($schemas, 'ItemPage'), 'it is still described as a page: a record about the instrument, not the instrument as law');
     }
 
-    public function test_a_guide_with_ordered_steps_is_described_as_a_how_to(): void
+    public function test_a_guide_with_ordered_steps_shows_them_without_how_to_markup(): void
     {
         $slug = collect(config('content.guides'))->keys()->first(fn ($k) => ! empty(config("content.guides.{$k}.steps")));
         $this->assertNotNull($slug, 'a guide with steps is needed for this to mean anything');
 
-        $howTo = $this->ofType($this->schemas(route('guides.show', $slug)), 'HowTo');
-        $this->assertNotNull($howTo);
-        $this->assertSame(config("content.guides.{$slug}.h1"), $howTo['name']);
-        $this->assertCount(count(config("content.guides.{$slug}.steps")), $howTo['step']);
-        $this->assertSame(1, $howTo['step'][0]['position']);
-        $this->assertSame(config("content.guides.{$slug}.steps.0.title"), $howTo['step'][0]['name']);
-        $this->assertNotEmpty($howTo['step'][0]['text']);
+        // HowTo results are no longer shown by search engines, so the markup is not
+        // emitted; the steps themselves stay on the page, in order.
+        $this->assertNull($this->ofType($this->schemas(route('guides.show', $slug)), 'HowTo'));
+        $html = $this->get(route('guides.show', $slug))->assertOk()->getContent();
+        foreach (config("content.guides.{$slug}.steps") as $step) {
+            $this->assertStringContainsString(e($step['title']), $html);
+        }
     }
 
     public function test_every_json_ld_block_on_a_record_page_is_valid_and_typed(): void

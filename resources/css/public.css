@@ -3,22 +3,9 @@
 @tailwind utilities;
 
 /*
- Fonts are served from this origin, not a third-party CSS host, so the first paint
- waits on no extra DNS, TLS or stylesheet round trip. Files come from Fontsource
- 5.3.0 (SIL Open Font License 1.1, licences beside them in resources/fonts). Space
- Grotesk is the variable cut, one file per script covering every weight in use;
- Space Mono has the two weights the site sets. unicode-range means a browser fetches
- only the scripts a page contains, and swap shows text in the fallback face at once.
+ No web font: text uses the reader's system font (tailwind.config.js), which is
+ already on the device, so nothing is downloaded and nothing reflows when it loads.
 */
-@font-face { font-family: 'Space Grotesk'; font-style: normal; font-display: swap; font-weight: 300 700; src: url('../fonts/space-grotesk-vietnamese-wght-normal.woff2') format('woff2'); unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
-@font-face { font-family: 'Space Grotesk'; font-style: normal; font-display: swap; font-weight: 300 700; src: url('../fonts/space-grotesk-latin-ext-wght-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
-@font-face { font-family: 'Space Grotesk'; font-style: normal; font-display: swap; font-weight: 300 700; src: url('../fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
-@font-face { font-family: 'Space Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url('../fonts/space-mono-vietnamese-400-normal.woff2') format('woff2'); unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
-@font-face { font-family: 'Space Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url('../fonts/space-mono-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
-@font-face { font-family: 'Space Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url('../fonts/space-mono-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
-@font-face { font-family: 'Space Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url('../fonts/space-mono-vietnamese-700-normal.woff2') format('woff2'); unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
-@font-face { font-family: 'Space Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url('../fonts/space-mono-latin-ext-700-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
-@font-face { font-family: 'Space Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url('../fonts/space-mono-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
 
 /* The homepage's own search sits in the hero, so the header's copy is hidden there:
    one search box above the fold, one search landmark for assistive technology. */
@@ -42,7 +29,7 @@ body:has(#home-q) header form[role="search"] { display: none; }
 :root {
     color-scheme: light;
     --c-white: 255 255 255; --c-navy: 0 33 71; --c-ink: 0 20 43; --c-blue: 0 106 172; --c-cyan: 0 156 224; --c-sky: 0 153 220;
-    --c-paper: 245 247 250; --c-line: 216 222 232; --c-muted: 93 107 126; --c-body: 30 42 59; --c-footer: 0 20 43;
+    --c-paper: 245 247 250; --c-line: 216 222 232; --c-muted: 71 85 105; --c-body: 23 32 46; --c-footer: 0 20 43;
     --c-good: 11 107 79; --c-goodbg: 231 244 239; --c-info: 0 106 172; --c-infobg: 230 242 250; --c-warn: 122 75 0; --c-warnbg: 255 243 220;
     --c-bad: 155 28 46; --c-badbg: 252 233 236; --c-neutral: 93 107 126; --c-neutralbg: 245 247 250;
     --c-heat: 0 33 71;
@@ -81,8 +68,8 @@ body:has(#home-q) header form[role="search"] { display: none; }
         --c-sky: 72 190 240;
         --c-paper: 21 30 45;
         --c-line: 47 60 80;
-        --c-muted: 152 166 186;
-        --c-body: 208 217 229;
+        --c-muted: 170 183 201;
+        --c-body: 222 229 238;
         --c-footer: 6 11 19;
         --c-good: 94 214 162;
         --c-goodbg: 13 46 36;
@@ -111,7 +98,7 @@ body:has(#home-q) header form[role="search"] { display: none; }
         *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
     html { overflow-x: clip; scrollbar-gutter: stable; }
-    body { @apply bg-white text-brand-body antialiased font-sans; overflow-x: clip; font-feature-settings: "kern", "liga", "calt"; }
+    body { @apply bg-white text-brand-body font-sans text-base leading-relaxed; overflow-x: clip; font-feature-settings: "kern", "liga", "calt"; }
     h1, h2, h3 { @apply font-display font-semibold tracking-tight text-brand-navy; }
     h1, h2, h3 { text-wrap: balance; }
     /* No single word stranded on the last line of a paragraph. */
@@ -135,20 +122,25 @@ body:has(#home-q) header form[role="search"] { display: none; }
     /* One focus indicator everywhere: a 2px outline 2px off the edge. An outline follows
        the element's own corners, so a focused button keeps its shape, and unlike a
        box-shadow ring it survives Windows high-contrast mode (WCAG 2.4.7, 2.4.13). */
-    :focus-visible { outline: 2px solid rgb(var(--c-cyan)); outline-offset: 2px; }
+    /* Blue on the light surfaces (5.7:1 on white, 5.3:1 on paper; the cyan it replaces was
+       2.9:1 on paper, under the 3:1 a focus indicator needs), cyan on the dark footer and
+       navy bands (6.0:1 and 5.2:1). In dark mode --c-blue is a light blue. */
+    :focus-visible { outline: 2px solid rgb(var(--c-blue)); outline-offset: 2px; }
+    :is(footer, .bg-brand-navy, .bg-brand-footer, .bg-brand-ink) :focus-visible { outline-color: rgb(var(--c-cyan)); }
     /* A bare link in running text gets a small radius so its outline is not a hard box. */
     a:not([class]):focus-visible { border-radius: var(--radius-xs); }
-    summary { cursor: pointer; }
+    /* A 24px minimum for the small disclosure toggles (WCAG 2.5.8). */
+    summary { cursor: pointer; min-height: 1.5rem; }
     summary::-webkit-details-marker { display: none; }
     ::selection { background: rgb(var(--c-cyan, 0 156 224) / 0.22); }
 }
 
 @layer components {
     .container-site { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
-    .prose-policy { @apply text-[15.5px] leading-7 text-brand-body max-w-[68ch]; }
+    .prose-policy { @apply text-[17px] leading-[1.7] text-brand-body max-w-[68ch]; }
     .prose-policy p + p { @apply mt-3; }
 
-    .btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium min-h-[44px] no-underline select-none transition-[background-color,border-color,color,box-shadow,transform]; transition-duration: var(--duration-fast); transition-timing-function: var(--ease-standard); }
+    .btn { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2.5 text-sm font-medium min-h-[44px] no-underline select-none transition-[background-color,border-color,color,box-shadow,transform]; transition-duration: var(--duration-fast); transition-timing-function: var(--ease-standard); }
     /* Unavailable is visible, not just inert: faded, no lift, and the cursor says why. */
     .btn:disabled, .btn[aria-disabled="true"] { @apply cursor-not-allowed opacity-50 shadow-none; transform: none; }
     /* Sent and waiting: not greyed out like an unavailable button, just paused. */
@@ -163,7 +155,7 @@ body:has(#home-q) header form[role="search"] { display: none; }
 
     .chip { @apply inline-flex items-center gap-1 rounded-full border border-brand-line bg-white px-3 py-1 text-xs font-medium text-brand-body no-underline hover:border-brand-navy hover:text-brand-navy min-h-[34px] transition-colors; }
     .chip-active { @apply border-brand-navy bg-brand-navy text-white hover:text-white; }
-    .badge { @apply inline-flex items-center rounded-sm px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide ring-1 ring-inset; }
+    .badge { @apply inline-flex items-center rounded-sm px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset; }
     .badge-binding { @apply badge bg-brand-navy text-white ring-brand-navy; }
     .badge-neutral { @apply badge bg-brand-paper text-brand-muted ring-brand-line; }
 
@@ -186,8 +178,8 @@ body:has(#home-q) header form[role="search"] { display: none; }
        as quiet as the rest of the page while giving a linked figure something to do. */
     .stat::before { content: ""; @apply absolute inset-x-0 top-0 h-0.5 bg-brand-cyan opacity-0 transition-opacity duration-150; }
     .stat:hover::before, .stat:focus-within::before { @apply opacity-100; }
-    .stat-label { @apply block text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-muted; }
-    .stat-value { @apply mt-1 block font-mono text-3xl leading-none tabular-nums text-brand-navy; }
+    .stat-label { @apply block text-xs font-semibold uppercase tracking-[0.06em] text-brand-muted; }
+    .stat-value { @apply mt-1 block text-3xl font-semibold leading-none tabular-nums text-brand-navy; }
     .stat-note { @apply mt-1.5 block text-xs text-brand-muted; }
 
     /* The law → duty → control → evidence strip. Steps join with a rule on wide
@@ -210,7 +202,7 @@ body:has(#home-q) header form[role="search"] { display: none; }
     .chain-step + .chain-step .chain-link::before { content: "→"; @apply absolute -left-2.5 top-10 hidden sm:block text-brand-muted text-sm bg-white px-0.5 rounded-sm; }
     .chain-link::after {
         content: counter(chain-step);
-        @apply absolute left-4 top-1/2 -translate-y-1/2 sm:translate-y-0 sm:top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-paper font-mono text-[11px] font-semibold tabular-nums text-brand-muted ring-1 ring-brand-line transition-colors;
+        @apply absolute left-4 top-1/2 -translate-y-1/2 sm:translate-y-0 sm:top-3.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-paper text-xs font-semibold tabular-nums text-brand-muted ring-1 ring-brand-line transition-colors;
     }
     .chain-link:hover::after { @apply bg-brand-navy text-white ring-brand-navy; }
 
@@ -247,9 +239,9 @@ body:has(#home-q) header form[role="search"] { display: none; }
 
     .skip-link { @apply sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg; }
     .section-title { @apply font-display text-xl sm:text-2xl font-semibold text-brand-navy tracking-tight; }
-    .eyebrow { @apply font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-blue; }
+    .eyebrow { @apply font-sans text-xs font-semibold uppercase tracking-[0.06em] text-brand-blue; }
     .meta { @apply text-xs text-brand-muted; }
-    .datestamp { @apply font-mono text-xs text-brand-navy tabular-nums; }
+    .datestamp { @apply text-xs text-brand-navy tabular-nums; }
     .skeleton { @apply animate-pulse rounded-md bg-brand-paper; }
 
     .nav-link { @apply inline-flex items-center whitespace-nowrap border-b-2 border-transparent px-1.5 xl:px-2.5 py-5 text-sm font-medium text-brand-body no-underline hover:text-brand-navy hover:border-brand-line; }
@@ -299,4 +291,36 @@ body:has(#home-q) header form[role="search"] { display: none; }
     :focus-visible { outline-color: Highlight; }
     .card-link:hover { outline: 1px solid Highlight; }
     .input:focus-visible { outline: 2px solid Highlight; }
+}
+
+/* Back-to-top button: appears after scrolling past the first screen. */
+.back-to-top {
+    @apply fixed bottom-6 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-brand-line bg-white text-brand-navy opacity-0 shadow-sm transition-opacity;
+    pointer-events: none;
+}
+.back-to-top[data-visible] { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { @apply bg-brand-paper shadow-md; }
+
+.kbd { @apply inline-block min-w-[1.5em] rounded border border-brand-line bg-brand-paper px-1.5 py-0.5 text-center font-mono text-xs text-brand-navy; }
+
+/* Print: a clean single-column layout with URLs shown and chrome removed. */
+@media print {
+    body { font-size: 11pt; color: #000; background: #fff; }
+    header, footer, nav, .skip-link, .back-to-top, #consent-banner,
+    [data-record-actions], [data-mobile-menu], form[role="search"],
+    .btn-primary, .btn-secondary, .btn-accent,
+    x-site\.subscribe-form, [data-turnstile-slot],
+    details[data-mobile-menu] { display: none !important; }
+    main { padding: 0; }
+    .container-site { max-width: 100%; padding: 0; }
+    .lg\:grid-cols-3 { display: block; }
+    aside { page-break-before: always; }
+    a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; word-break: break-all; }
+    a[href^="#"]::after, a[href^="javascript"]::after, nav a::after { content: none; }
+    .table-wrap { overflow: visible; border-radius: 0; }
+    .card-flat, .panel-tinted { border: 1px solid #ccc; break-inside: avoid; }
+    details { break-inside: avoid; }
+    details[open] > summary { font-weight: bold; }
+    h1, h2, h3 { break-after: avoid; color: #000; }
+    .badge { border: 1px solid #999; }
 }

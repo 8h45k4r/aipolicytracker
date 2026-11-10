@@ -30,6 +30,8 @@ class ProfileTest extends TestCase
             ->patch('/profile', [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
+                // Changing the address takes the current password (factory password).
+                'current_password' => 'password',
             ]);
 
         $response
@@ -90,8 +92,9 @@ class ProfileTest extends TestCase
                 'password' => 'wrong-password',
             ]);
 
+        // In the bag the form reads, so the reader is told why nothing happened.
         $response
-            ->assertSessionHasErrors('password')
+            ->assertSessionHasErrorsIn('userDeletion', 'password')
             ->assertRedirect('/profile');
 
         $this->assertNotNull($user->fresh());

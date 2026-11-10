@@ -14,6 +14,9 @@ use App\Services\Verification\SecondReview;
  */
 class PolicyDataValidator
 {
+    /** Words that mark an instrument's name as being about AI, in the languages on record. */
+    private const NAMES_AI = '/(\\bA\\.?I\\b|artificial intelligence|intelligence artificielle|inteligencia artificial|intelig[eê]ncia artificial|k[uü]nstliche intelligenz|intelligenza artificiale|kunstmatige intelligentie|sztuczn|人工智能|인공지능|\\balgorithm|automated (individual |employment )?decision|frontier|deepfake|deep synthesis|chatbot|machine learning|generative|synthetic content|\\bTRAIGA\\b|\\bRAISE\\b|\\bELVIS\\b|digital work systems|right to compute|datengetrieben)/iu';
+
     /** Names of published reviewers, collected before the records are walked. @var list<string> */
     private array $reviewerNames = [];
 
@@ -128,6 +131,12 @@ class PolicyDataValidator
             }
             if (isset($record['jurisdiction']) && ! isset($jurisdictionSlugs[$record['jurisdiction']])) {
                 $errors[$file][] = "unknown jurisdiction \"{$record['jurisdiction']}\"";
+            }
+            // A binding law whose name does not mention AI may be a privacy or cyber law that
+            // only applies to AI; it would then be counted as "binding AI law" by default.
+            if (($record['is_binding'] ?? false) && ! array_key_exists('ai_specific', $record)
+                && ! preg_match(self::NAMES_AI, implode(' | ', array_filter([$record['title'] ?? null, $record['short_title'] ?? null, $record['title_native'] ?? null])))) {
+                $errors[$file][] = '$.ai_specific: a binding instrument whose name does not mention AI must say whether it is about AI itself (true) or a general law that also applies to AI (false)';
             }
             foreach (['actors' => 'actor', 'ai_system_types' => 'ai_system_type', 'sectors' => 'sector', 'risk_categories' => 'risk_category', 'use_cases' => 'use_case'] as $field => $taxonomy) {
                 foreach ($record[$field] ?? [] as $value) {

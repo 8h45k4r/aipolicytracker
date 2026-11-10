@@ -85,10 +85,24 @@
             </section>
             @endif
 
+            @if(! empty($days))
+            <section aria-labelledby="days-heading" class="mt-8">
+                <h2 id="days-heading" class="section-title">By day</h2>
+                <ul class="mt-2 flex flex-wrap gap-2 text-sm">
+                    @foreach($days as $day => $count)
+                    <li><a class="chip" href="{{ route('updates.day', $day) }}">{{ \Carbon\Carbon::parse($day)->format('j M') }} <span class="text-brand-muted">{{ $count }}</span></a></li>
+                    @endforeach
+                </ul>
+            </section>
+            @endif
+
             <section aria-labelledby="months-heading" class="mt-8">
                 <h2 id="months-heading" class="section-title">By month</h2>
                 <ul class="mt-2 flex flex-wrap gap-2 text-sm">
-                    @foreach($months->take(18) as $key => $m)
+                    {{-- The last 18 months, then every older month the sitemap lists, so no archive page it
+                         publishes is left without a link. --}}
+                    @foreach($months as $key => $m)
+                    @continue($loop->index >= 18 && $m['count'] < \App\Http\Controllers\Site\UpdatesController::MIN_INDEXABLE)
                     <li><a class="chip {{ ($context === 'month' && str_contains(url()->current(), $key)) ? 'chip-active' : '' }}" href="{{ route('updates.month', $key) }}">{{ \Carbon\Carbon::parse($key.'-01')->format('M Y') }} <span class="text-brand-muted">{{ $m['count'] }}</span></a></li>
                     @endforeach
                 </ul>

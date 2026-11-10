@@ -80,7 +80,7 @@ jobs:
       - name: Upload to code scanning
         # A fork's pull request gets a read-only token, so the upload would fail the job.
         if: always() && hashFiles('semgrep.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:
           sarif_file: semgrep.sarif
           category: semgrep
@@ -91,15 +91,17 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
         with:
           php-version: "8.3"
           coverage: none
       - name: composer audit
         run: composer audit --locked --no-interaction
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
+          # The newest 26.x, not whichever 26.x the runner image cached (security releases).
+          check-latest: true
       - name: npm audit
         # Every dependency, build tools included: the browser bundle is built with them.
         # The script fails on any high or critical advisory except the ones it lists
@@ -144,7 +146,27 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Build the production image
-        run: docker build -t aipolicytracker:scan .
+        # A planted env file in the place production keeps its own (deploy/.env) must not
+        # reach the image: .dockerignore once matched .env at the context root only, and the
+        # host's secrets were copied in.
+        run: |
+          printf 'PLANTED=1\n' > deploy/.env
+          printf 'PLANTED=1\n' > .env.production
+          docker build --pull -t aipolicytracker:scan .
+          rm -f deploy/.env .env.production
+      - name: No environment file is inside the image
+        run: |
+          found="$(docker run --rm --entrypoint sh aipolicytracker:scan -c 'find / -xdev \( -name .env -o -name ".env.*" \) ! -name .env.example 2>/dev/null' || true)"
+          if [ -n "$found" ]; then echo "::error::environment files in the image: $found"; exit 1; fi
+          echo "no .env files in the image"
+      - name: The image runs the PHP release the Dockerfile pins
+        # A pinned base is the point: the runtime gets security releases by a
+        # reviewed change, and this proves the built image carries that release.
+        run: |
+          pinned="$(sed -n 's/^FROM php:\([0-9.]*\)-.*/\1/p' Dockerfile)"
+          actual="$(docker run --rm --entrypoint php aipolicytracker:scan -r 'echo PHP_VERSION;')"
+          echo "pinned $pinned, image $actual"
+          [ -n "$pinned" ] && [ "$pinned" = "$actual" ]
       - name: Share cards can be drawn in this image (social:doctor)
         # The image went to production once without a font: every card silently
         # fell back to the static picture, and nothing was red. The doctor exits
@@ -155,6 +177,64 @@ jobs:
             -e DB_CONNECTION=sqlite -e DB_DATABASE=:memory: \
             -e CACHE_STORE=array -e SESSION_DRIVER=array -e QUEUE_CONNECTION=sync \
             aipolicytracker:scan artisan social:doctor
+      - name: The image boots and serves through nginx and php-fpm
+        # The entrypoint is what production runs: migrations, caches, then nginx and
+        # php-fpm on 8080. This starts it against PostgreSQL, as deploy/compose.yml
+        # does, and checks what the deploy probes check, plus the server itself:
+        # parallel requests, static files from nginx, no other PHP file executes,
+        # dot files hidden, the health check passes and a stop is graceful. APP_URL is an
+        # https address because the start-up check refuses anything else in production.
+        run: |
+          set -euo pipefail
+          docker network create smoke
+          docker run -d --name smoke-db --network smoke -e POSTGRES_DB=aip -e POSTGRES_USER=aip \
+            -e POSTGRES_PASSWORD=smoke postgres:16-alpine
+          for _ in $(seq 1 30); do docker exec smoke-db pg_isready -U aip -d aip && break; sleep 2; done
+          docker run -d --name smoke-app --network smoke -p 127.0.0.1:8080:8080 \
+            -e APP_KEY="base64:$(head -c 32 /dev/urandom | base64)" -e APP_URL=https://smoke.aipolicytracker.test \
+            -e DB_CONNECTION=pgsql -e DB_HOST=smoke-db -e DB_PORT=5432 -e DB_DATABASE=aip \
+            -e DB_USERNAME=aip -e DB_PASSWORD=smoke -e SESSION_DRIVER=database \
+            -e CACHE_STORE=database -e QUEUE_CONNECTION=database aipolicytracker:scan
+          up=""
+          for _ in $(seq 1 60); do curl -fsS -o /dev/null http://127.0.0.1:8080/up && up=1 && break; sleep 2; done
+          [ -n "$up" ] || { docker logs smoke-app; exit 1; }
+          for p in / /policies /obligations /api/v1/ /llms.txt /robots.txt; do
+            code="$(curl -sS -o /dev/null -w '%{http_code}' "http://127.0.0.1:8080$p")"
+            echo "$code $p"; [ "$code" = 200 ] || { docker logs --tail 50 smoke-app; exit 1; }
+          done
+          # Eight requests at once all answer (artisan serve answered one at a time without workers).
+          seq 1 8 | xargs -P 8 -I{} curl -fsS -o /dev/null http://127.0.0.1:8080/policies
+          asset="$(docker exec smoke-app sh -c 'ls public/build/assets/*.css | head -1')"
+          curl -fsSI "http://127.0.0.1:8080/${asset#public/}" | grep -qi '^cache-control: public, max-age=31536000, immutable'
+          [ "$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/.htaccess)" = 404 ]
+          [ "$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/build/x.php)" = 404 ]
+          for _ in $(seq 1 30); do
+            [ "$(docker inspect -f '{{.State.Health.Status}}' smoke-app)" = healthy ] && break; sleep 5
+          done
+          docker inspect -f '{{.State.Health.Status}}' smoke-app | grep -qx healthy \
+            || { docker inspect -f '{{json .State.Health}}' smoke-app; exit 1; }
+          # A background process that dies is started again by the entrypoint's supervisor.
+          docker exec smoke-app pkill -KILL -f 'artisan queue:work'
+          restarted=""
+          for _ in $(seq 1 15); do docker exec smoke-app pgrep -f 'artisan queue:work' >/dev/null && restarted=1 && break; sleep 1; done
+          [ -n "$restarted" ] || { echo "::error::the queue worker was not restarted"; docker logs --tail 30 smoke-app; exit 1; }
+          docker logs smoke-app 2>&1 | grep -q 'queue exited with status' || { echo "::error::no restart notice in the log"; exit 1; }
+          start=$(date +%s); docker stop -t 30 smoke-app
+          code="$(docker inspect -f '{{.State.ExitCode}}' smoke-app)"
+          echo "stopped in $(( $(date +%s) - start ))s with exit code $code"
+          [ "$code" = 0 ] || { docker logs --tail 50 smoke-app; exit 1; }
+          # The php-fpm base image's own stop signal is SIGQUIT; the entrypoint must exit
+          # cleanly on it too (a stop sent by an orchestrator that uses the base default).
+          docker start smoke-app >/dev/null
+          for _ in $(seq 1 60); do curl -fsS -o /dev/null http://127.0.0.1:8080/up 2>/dev/null && break; sleep 2; done
+          start=$(date +%s); docker kill --signal QUIT smoke-app >/dev/null
+          for _ in $(seq 1 30); do [ "$(docker inspect -f '{{.State.Running}}' smoke-app)" = false ] && break; sleep 1; done
+          code="$(docker inspect -f '{{.State.ExitCode}}' smoke-app)"
+          echo "SIGQUIT: stopped in $(( $(date +%s) - start ))s with exit code $code"
+          [ "$(docker inspect -f '{{.State.Running}}' smoke-app)" = false ] && [ "$code" = 0 ] || { docker logs --tail 30 smoke-app; exit 1; }
+      - name: Clean up the smoke test
+        if: always()
+        run: docker rm -f smoke-app smoke-db >/dev/null 2>&1 || true
       - name: Trivy image scan (OS packages and PHP dependencies)
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
@@ -171,7 +251,7 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
         with:
           php-version: "8.3"
           extensions: mbstring, intl, pdo_sqlite, gd

@@ -24,6 +24,8 @@ and a model.
 | `/open-data/{dataset}.ndjson` | Newline-delimited JSON | A pipeline. One self-contained record per line, streamed in chunks so the corpus is never held in memory whole. |
 | `/schema/{name}.schema.json` | JSON Schema | Validators, at the URL each schema's own `$id` declares. |
 | `agent/server.mjs` | MCP over stdio | An assistant querying the surfaces directly. See `agent/README.md`. |
+| `/badges/{policy}.svg` | SVG | A status badge for another site or a README: the legal status and the review state as recorded ("In force · verified 12 Oct 2026", "Proposed · pending review"). The snippet on each policy page links it to the record's permanent address, which is the CC BY attribution. Cached for an hour, no cookie, `noindex`. |
+| `/calendar/ai-policy-deadlines.ics`, `/calendar/{jurisdiction}.ics`, `/deadlines/which-date-applies.ics?…` | iCalendar | Calendar apps. The pages link each one twice: a `webcal://` "Subscribe" link, which a calendar app keeps refreshing so a moved date moves, and a one-off `.ics` download. All three are stateless (no session cookie) and cacheable for an hour, because a subscribed calendar polls them. |
 
 Datasets: `jurisdictions`, `policies`, `obligations`, `controls`, `changes`, `deadlines`. Every Markdown, JSON, CSV and NDJSON form carries `X-Robots-Tag: noindex`; the per-record forms add a `Link: rel="canonical"` header back to the HTML page, which in turn names them as `rel="alternate"`.
 
@@ -141,7 +143,10 @@ forces a re-scrape.
 
 Eight sections under `/sitemap.xml`: `static`, `jurisdictions`, `policies`, `obligations`,
 `changes`, `resources`, `incidents`, `risks`. Every entry carries a `lastmod` taken from a real
-record timestamp.
+record date. For the policy records that is the content date (`App\Support\ContentDates`: last
+verification, last recorded revision, first publication), not `updated_at`, which an import moves
+whenever it rewrites a row; `SeoFreshnessTest` asserts that a rewrite leaves `lastmod` alone and a
+revision moves it.
 
 The last two were added on 2026-09-18 and are most of the file by volume. Roughly 1,700 incident
 pages and 2,500 risk entries were reachable, indexable and listed in no sitemap at all, which is
@@ -166,7 +171,7 @@ actually served.
 | Routing, streaming, schemas, health | `app/Http/Controllers/Site/AgentSurfaceController.php` |
 | Agent server and its test | `agent/server.mjs`, `agent/server.test.mjs`, `agent/README.md` |
 | Social preview cards | `app/Services/Social/SocialCard.php`, `app/Http/Controllers/Site/SocialCardController.php`, `config/social.php`, `php artisan social:doctor` |
-| Page structured data | `app/Support/Seo.php` (`jsonLdBlocks`, `graph`, `dataset`, `itemList`, `legislation`, `howTo`) |
+| Page structured data | `app/Support/Seo.php` (`jsonLdBlocks`, `graph`, `corpusDataset`, `dataset`, `itemList`, `legislation`) |
 | Tests | `tests/Feature/MachineReadableSurfacesTest.php`, `tests/Feature/StructuredDataGraphTest.php`, `tests/Feature/StructuredDataAndInterlinksTest.php`, `npm test` |
 
 ## Adding a dataset

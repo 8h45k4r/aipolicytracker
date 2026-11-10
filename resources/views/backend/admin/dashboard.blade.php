@@ -46,6 +46,36 @@
     @endif
 </section>
 
+{{-- Direction, for the roles that see the audience: each headline against the 30 days
+     before (arrow and words, never colour alone), and the audience week by week. --}}
+@if($growth)
+@php($tiles = [
+    'subscribers' => ['New confirmed subscribers', route('backend.admin.subscribers', ['state' => 'active'])],
+    'accounts' => ['New accounts', route('backend.admin.downloads', ['view' => 'users'])],
+    'requests' => ['Template requests', route('backend.admin.downloads', ['view' => 'requests'])],
+    'submissions' => ['Reader submissions', route('backend.admin.submissions')],
+    'changes' => ['Changes recorded', route('updates.index')],
+])
+<section class="mt-6" aria-labelledby="growth-h" data-growth>
+    <h2 id="growth-h" class="text-sm font-semibold uppercase tracking-wide text-brand-muted">Last 30 days</h2>
+    <div class="mt-2 grid gap-3 sm:grid-cols-3 xl:grid-cols-5">
+        @foreach($tiles as $key => [$label, $href])
+        @php($d = $growth['deltas'][$key])
+        @php($dir = $d['now'] > $d['before'] ? 'up' : ($d['now'] < $d['before'] ? 'down' : 'flat'))
+        <a href="{{ $href }}" class="card-link block p-4 no-underline" data-delta="{{ $key }}">
+            <span class="block text-sm text-brand-muted">{{ $label }}</span>
+            <span class="mt-1 block text-3xl font-semibold tabular-nums text-brand-navy">{{ number_format($d['now']) }}</span>
+            <span class="adm-delta adm-delta-{{ $dir }} mt-1"><span aria-hidden="true">{{ ['up' => '▲', 'down' => '▼', 'flat' => '■'][$dir] }}</span>{{ $d['change'] !== null ? ($d['change'] > 0 ? '+' : '').$d['change'].'%' : ($dir === 'flat' ? 'no change' : ($d['now'] - $d['before'] > 0 ? '+' : '').($d['now'] - $d['before'])) }} <span class="font-normal text-brand-muted">vs {{ number_format($d['before']) }} before</span></span>
+        </a>
+        @endforeach
+    </div>
+    <div class="mt-3 grid gap-3 lg:grid-cols-2">
+        <x-backend.growth-chart id="chart-subscribers" title="Active subscribers" :series="$growth['weekly']['subscribers']" :href="route('backend.admin.subscribers', ['state' => 'active'])" note="Confirmed and not unsubscribed, at the end of each week." />
+        <x-backend.growth-chart id="chart-accounts" title="Registered accounts" :series="$growth['weekly']['accounts']" :href="route('backend.admin.downloads', ['view' => 'users'])" note="Every account at the end of each week." />
+    </div>
+</section>
+@endif
+
 {{-- Every figure opens the rows behind it, for the roles that may see them. --}}
 <section class="mt-6" aria-labelledby="overview-h">
     <h2 id="overview-h" class="text-sm font-semibold uppercase tracking-wide text-brand-muted">Records</h2>

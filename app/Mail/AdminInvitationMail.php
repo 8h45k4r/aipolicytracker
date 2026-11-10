@@ -35,7 +35,8 @@ class AdminInvitationMail extends Mailable
             'url' => $this->url,
             'days' => self::DAYS,
             'site' => config('aipolicytracker.site_name', 'AIPolicyTracker'),
-            'unsubscribeUrl' => url('/'),
+            // An invitation is not a subscription: no "you subscribed / unsubscribe" line.
+            'unsubscribeUrl' => null,
         ]);
     }
 }

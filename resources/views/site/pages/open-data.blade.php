@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Open AI policy dataset, schema and API</h1>
     <p class="mt-3 prose-policy">AIPolicyTracker publishes its policy records as open data under {{ config('aipolicytracker.data_license') }}. The dataset currently holds {{ $stats['jurisdictions'] }} jurisdictions, {{ $stats['policies'] }} policy instruments, {{ $stats['obligations'] }} obligations and {{ $stats['changes'] }} change events @if($lastUpdated), last updated {{ $lastUpdated->format('j F Y') }}@endif. Every record carries an official source URL, review status, confidence level and verification dates so you can judge it before you use it.</p>
@@ -27,6 +27,7 @@
     </section>
 
     <section class="mt-8" aria-labelledby="license-heading"><h2 id="license-heading" class="section-title">Data licence</h2><p class="prose-policy mt-2">Data: <a href="{{ config('aipolicytracker.data_license_url') }}" rel="license noopener">{{ config('aipolicytracker.data_license') }}</a>. Code: Apache-2.0. Official documents linked from records remain under their publishers' terms.</p></section>
+    <x-site.licence-enquiry source="open-data" title="Commercial licences, SLAs and custom coverage" class="mt-8" />
 
     <section class="mt-8" aria-labelledby="api-heading"><h2 id="api-heading" class="section-title">API documentation</h2>
         <p class="prose-policy mt-2">Read-only, no authentication, rate limited (120 requests per minute per IP), cached for 10 minutes, CORS enabled. Base URL <code class="rounded bg-brand-paper px-1">{{ url('/api/v1') }}</code>.</p>
@@ -37,7 +38,7 @@
         <ul class="mt-2 text-sm space-y-1">
             <li>AI Incident Database, metadata for every incident (CC BY-SA 4.0): <a href="{{ route('risk.incidents.export', 'csv') }}">CSV</a> · <a href="{{ route('risk.incidents.export', 'json') }}">JSON</a> · <a href="{{ route('risk.incidents.browse') }}">browse</a></li>
             <li>MIT AI Risk Repository, risk database (CC BY 4.0): <a href="{{ route('risk.risks.export', 'csv') }}">CSV</a> · <a href="{{ route('risk.risks.export', 'json') }}">JSON</a> · <a href="{{ route('risk.risks') }}">browse</a></li>
-            <li>MIT domain taxonomy with our use-case mapping: <a href="{{ url('/data/external/mit_ai_risk_domains.json') }}" onclick="return false" class="text-brand-muted">data/external/mit_ai_risk_domains.json in the repository</a></li>
+            <li>MIT domain taxonomy with our use-case mapping: <a href="{{ config('aipolicytracker.github_url') }}/blob/main/data/external/mit_ai_risk_domains.json" rel="noopener">data/external/mit_ai_risk_domains.json in the repository</a></li>
         </ul>
         <p class="mt-2 text-sm text-brand-muted">Each policy page also exposes its record at <code class="rounded bg-brand-paper px-1">/policies/{slug}.json</code>, and the change log at <a href="{{ route('changes.feed') }}">RSS</a>.</p></section>
 

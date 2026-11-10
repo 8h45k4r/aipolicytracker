@@ -18,6 +18,7 @@
 
     <form method="get" action="{{ route('controls.index') }}" role="search" class="mt-8 flex flex-col sm:flex-row gap-2 sm:items-end">
         <div class="flex-1"><label for="c-q" class="label">Search controls</label><input id="c-q" name="q" type="search" value="{{ $q }}" class="input" placeholder="risk assessment, logging, vendor…"></div>
+        <div class="sm:w-48"><label for="c-j" class="label">Jurisdiction</label><select id="c-j" name="jurisdiction" class="input"><option value="">All jurisdictions</option>@foreach($jurisdictions as $slug => $name)<option value="{{ $slug }}" @selected($jurisdictionSlug === $slug)>{{ $name }}</option>@endforeach</select></div>
         <button type="submit" class="btn-primary">Search</button>
     </form>
     <div class="mt-3 flex flex-wrap gap-2" aria-label="Filter by kind">
@@ -39,9 +40,9 @@
             <h2 class="mt-2 font-display text-lg font-semibold text-brand-navy leading-snug"><a href="{{ $c->url() }}" class="no-underline hover:underline">{{ $c->title }}</a></h2>
             <p class="mt-1.5 text-sm text-brand-body flex-1">{{ $c->purpose }}</p>
             <dl class="mt-4 grid grid-cols-3 gap-2 text-center text-sm">
-                <div class="rounded-md bg-brand-paper py-2"><dt class="text-[11px] uppercase tracking-wide text-brand-muted">Duties</dt><dd class="font-mono text-lg tabular-nums text-brand-navy">{{ $c->obligations->count() }}</dd></div>
-                <div class="rounded-md bg-brand-paper py-2"><dt class="text-[11px] uppercase tracking-wide text-brand-muted">Binding</dt><dd class="font-mono text-lg tabular-nums text-brand-navy">{{ $binding }}</dd></div>
-                <div class="rounded-md bg-brand-paper py-2"><dt class="text-[11px] uppercase tracking-wide text-brand-muted">Jurisdictions</dt><dd class="font-mono text-lg tabular-nums text-brand-navy">{{ $jurisdictions->count() }}</dd></div>
+                <div class="rounded-md bg-brand-paper py-2"><dt class="text-[11px] uppercase tracking-wide text-brand-muted">Duties</dt><dd class="text-lg tabular-nums text-brand-navy">{{ $c->obligations->count() }}</dd></div>
+                <div class="rounded-md bg-brand-paper py-2"><dt class="text-[11px] uppercase tracking-wide text-brand-muted">Binding</dt><dd class="text-lg tabular-nums text-brand-navy">{{ $binding }}</dd></div>
+                <div class="rounded-md bg-brand-paper py-2"><dt class="text-[11px] uppercase tracking-wide text-brand-muted">Jurisdictions</dt><dd class="text-lg tabular-nums text-brand-navy">{{ $jurisdictions->count() }}</dd></div>
             </dl>
             <p class="mt-3 text-xs text-brand-muted line-clamp-1">{{ $jurisdictions->take(6)->join(', ') }}{{ $jurisdictions->count() > 6 ? ' and '.($jurisdictions->count() - 6).' more' : '' }}</p>
             <p class="mt-2 text-xs text-brand-muted">Evidence: {{ $c->evidence->pluck('title')->take(3)->join(', ') }}{{ $c->evidence->count() > 3 ? '…' : '' }}</p>

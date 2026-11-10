@@ -6,6 +6,10 @@
         <p class="eyebrow">{{ ['actor' => 'By role', 'sector' => 'By sector', 'use_case' => 'By use case'][$page['taxonomy']] ?? 'Audience' }}@if($term) · {{ $term->name }}@endif</p>
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $page['h1'] }}</h1>
         <p class="mt-3 max-w-[68ch] prose-policy text-base">{{ $page['answer'] }}</p>
+        <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
+            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+            <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
+        </div>
     </header>
 
     <dl class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">

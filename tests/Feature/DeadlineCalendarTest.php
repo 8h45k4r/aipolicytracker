@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
+use App\Services\PolicyData\DeadlineCalendar;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -138,7 +139,7 @@ class DeadlineCalendarTest extends TestCase
 
         $html = $this->get('/calendar')->assertOk()->getContent();
         foreach ($offered as $slug) {
-            $this->assertStringContainsString(route('calendar.feed.jurisdiction', $slug), $html);
+            $this->assertStringContainsString(DeadlineCalendar::subscribeUrl(route('calendar.feed.jurisdiction', $slug)), $html);
         }
     }
 }

@@ -4,8 +4,8 @@ use App\Http\Controllers\Api\V1\PublicApiController;
 use App\Http\Controllers\Api\V1\WatchApiController;
 use Illuminate\Support\Facades\Route;
 
-// Read-only public API. No authentication; rate limited; cached.
-Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(function () {
+// Read-only public API. No authentication; rate limited (an account token raises the limit on a paid plan); cached.
+Route::prefix('v1')->middleware('throttle:public-api')->name('api.v1.')->group(function () {
     Route::get('/', [PublicApiController::class, 'root'])->name('root');
     Route::get('/jurisdictions', [PublicApiController::class, 'jurisdictions'])->name('jurisdictions');
     Route::get('/jurisdictions/{slug}', [PublicApiController::class, 'jurisdiction'])->name('jurisdiction');
@@ -45,6 +45,6 @@ Route::prefix('v1')->middleware('throttle:120,1')->name('api.v1.')->group(functi
 // The account's watches, over a personal access token (created on the account page).
 Route::prefix('v1')->middleware(['auth:sanctum', 'throttle:120,1'])->name('api.v1.')->group(function () {
     Route::get('/watches', [WatchApiController::class, 'index'])->name('watches.index');
-    Route::post('/watches', [WatchApiController::class, 'store'])->name('watches.store');
+    Route::post('/watches', [WatchApiController::class, 'store'])->middleware('subscribed:saved.server')->name('watches.store');
     Route::delete('/watches/{id}', [WatchApiController::class, 'destroy'])->whereNumber('id')->name('watches.destroy');
 });

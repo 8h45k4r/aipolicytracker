@@ -8,7 +8,7 @@ The dataset's value is that every claim traces to an official source **and** car
 
 Defined in `App\Services\Verification\VerificationRuleset`. A record is governed by the **first** rule whose `applies` closure matches it, so the order in that file is the policy.
 
-The rules live in `app/` rather than `config/` because they carry closures and `php artisan config:cache` cannot serialize a closure. `azure/startup.sh` runs that command on every deploy, so a closure in `config/` aborts the container's startup before the data import. Anything in `config/` must stay serializable; a test enforces it.
+The rules live in `app/` rather than `config/` because they carry closures and `php artisan config:cache` cannot serialize a closure. `docker/entrypoint.sh` runs that command on every container start under `set -e`, so a closure in `config/` stops the container before the server starts. Anything in `config/` must stay serializable; a test enforces it.
 
 | Rule | Track | Maximum age | Critical |
 |------|-------|-------------|----------|

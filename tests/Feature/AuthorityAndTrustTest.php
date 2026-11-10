@@ -97,7 +97,9 @@ class AuthorityAndTrustTest extends TestCase
         $this->assertStringContainsString('<link rel="alternate" hreflang="en" href="'.url('/ai-regulation-japan').'"', $es);
         $this->assertStringContainsString('<link rel="alternate" hreflang="x-default" href="'.url('/ai-regulation-japan').'"', $es);
         $this->assertStringContainsString('name="robots" content="noindex', $es, 'unreviewed translations are not indexed');
-        $this->assertStringContainsString('<link rel="canonical" href="'.url('/ai-regulation-japan').'"', $es, 'the English page stays canonical until the translation is reviewed');
+        // The English page is the one indexed until the translation is reviewed; the noindex
+        // translation names no canonical of its own rather than a different URL.
+        $this->assertStringNotContainsString('rel="canonical"', $es, 'a noindex translation does not canonicalise to another URL');
         $this->assertStringContainsString('EU AI Act', $this->get('/es/ai-regulation-japan')->getContent() === '' ? '' : 'EU AI Act', 'sanity');
 
         $en = $this->get('/ai-regulation-japan')->assertOk()->getContent();

@@ -29,6 +29,34 @@ class WorldMapTest extends TestCase
         $this->assertFalse($countries->has('EU'), 'the Union itself is not a country on the map');
     }
 
+    public function test_the_jurisdictions_page_filters_by_type_and_shows_region_jump_links(): void
+    {
+        $response = $this->get('/jurisdictions');
+        $response->assertOk();
+        $html = $response->getContent();
+        $this->assertStringContainsString('Jump to:', $html);
+        $this->assertStringContainsString('Countries', $html);
+
+        $filtered = $this->get('/jurisdictions?type=country');
+        $filtered->assertOk();
+        $filteredHtml = $filtered->getContent();
+        $this->assertStringContainsString('bg-brand-navy text-white', $filteredHtml);
+
+        $this->get('/jurisdictions?type=invalid')->assertOk();
+
+        $sorted = $this->get('/jurisdictions?sort=instruments');
+        $sorted->assertOk();
+        $this->assertStringContainsString('Most instruments', $sorted->getContent());
+
+        $this->get('/jurisdictions?sort=bogus')->assertOk();
+
+        $byRegion = $this->get('/jurisdictions?region=Europe');
+        $byRegion->assertOk();
+        $this->assertStringContainsString('in Europe', $byRegion->getContent());
+
+        $this->get('/jurisdictions?region=Narnia')->assertOk();
+    }
+
     public function test_the_map_is_on_the_jurisdictions_page_and_the_report_with_a_text_legend(): void
     {
         foreach (['/jurisdictions', '/state-of-ai-regulation'] as $path) {
@@ -36,7 +64,8 @@ class WorldMapTest extends TestCase
             $this->assertStringContainsString('data-world-map="world-map-data"', $html, $path);
             $this->assertStringContainsString('<script type="application/json" id="world-map-data">', $html, $path);
             $this->assertStringContainsString('Binding AI law in force', $html, $path);
-            $this->assertMatchesRegularExpression('/role="img" aria-label="World map of AI regulation: \d+ countries/', $html, $path);
+            // A labelled group, not an image: amCharts puts focusable zoom buttons inside it.
+            $this->assertMatchesRegularExpression('/role="group" aria-label="World map of AI regulation: \d+ countries/', $html, $path);
             // The legend reads before the map, so its counts are on screen while the map script waits.
             $this->assertLessThan(strpos($html, 'data-world-map="world-map-data"'), strpos($html, 'Binding AI law in force'), $path);
         }

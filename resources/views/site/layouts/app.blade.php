@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $seo->fullTitle() }}</title>
     <meta name="description" content="{{ $seo->description }}">
-    <link rel="canonical" href="{{ $seo->canonical }}">
+    @if($canonicalHref = $seo->canonicalLink(url()->full()))<link rel="canonical" href="{{ $canonicalHref }}">@endif
     @foreach($seo->hreflang as $code => $href)<link rel="alternate" hreflang="{{ $code }}" href="{{ $href }}">
     @endforeach
     @foreach($seo->alternates as $alt)<link rel="alternate" type="{{ $alt['type'] }}" href="{{ $alt['url'] }}">
@@ -74,7 +74,7 @@
             </a>
             <x-site.nav />
             <div class="flex items-center gap-2 lg:gap-1.5 xl:gap-2">
-                <form action="{{ route('search') }}" method="get" role="search" class="hidden 2xl:block" data-track="header_search_submit">
+                <form action="{{ route('search') }}" method="get" role="search" class="hidden xl:block" data-track="header_search_submit">
                     <label for="header-q" class="sr-only">Search the site</label>
                     <div class="relative">
                         <svg class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-muted" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -83,7 +83,7 @@
                 </form>
                 {{-- Icon-only on phones so logo, Search and Menu fit a 320px screen; the sr-only word keeps its name. --}}
                 <a href="{{ route('search') }}" class="sm:hidden btn-primary !min-h-[38px] !py-1.5" data-track="header_search_click"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="sr-only">Search</span></a>
-                <a href="{{ route('search') }}" class="hidden sm:inline-flex 2xl:hidden btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click" aria-label="Search"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+                <a href="{{ route('search') }}" class="hidden sm:inline-flex xl:hidden btn-secondary !min-h-[38px] !py-1.5" data-track="header_search_click" aria-label="Search"><svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
                 <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
                 @auth<a href="{{ route('profile.edit') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_account_click">Account</a>@else<a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_signin_click">Sign in</a>@endauth
                 <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
@@ -128,19 +128,21 @@
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('jurisdictions.index') }}">Jurisdictions</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('obligations.index') }}">Obligations</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('controls.index') }}">Controls</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('audiences.index') }}">By role and sector</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('templates.index') }}">Templates</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('compare.index') }}">Compare</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('frameworks.index') }}">Frameworks</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('changes.index') }}">Change log</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('changes.feed') }}">RSS</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('calendar') }}">Calendar</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('risk.index') }}">AI risk</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('risk.incidents') }}">Incidents</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('guides.index') }}">Guides</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('subscribe.show') }}">Weekly digest</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('saved') }}">Saved</a></li>
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('search') }}">Search</a></li>
             </ul>
         </div>
         <div class="md:col-span-2">
             <p class="eyebrow !text-brand-cyan">Project</p>
             <ul class="mt-3 space-y-2">
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('open-data') }}">Open data and API</a></li>
-                @if(\App\Services\Billing\BillingConfig::sellingForLayout())<li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('pricing') }}">Pricing</a></li>@endif
+                <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('pricing') }}">Pricing and data licences</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('methodology') }}">Methodology</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('verification') }}">Verification</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('freshness') }}">Freshness</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('glossary') }}">Glossary</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('coverage') }}">Coverage</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('gaps') }}">Open queue</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('reviewers') }}">Reviewers</a></li>
                 <li><a class="text-snow/85 hover:text-snow no-underline" href="{{ route('about') }}">About</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('funding') }}">Funding</a> <span class="text-snow/60" aria-hidden="true">·</span> <a class="text-snow/85 hover:text-snow no-underline" href="{{ route('independence') }}">Independence</a></li>
@@ -159,11 +161,16 @@
             <p>© {{ date('Y') }} AIPolicyTracker · Code Apache-2.0 · Data {{ config('aipolicytracker.data_license') }}
                 · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">Privacy</a>
                 · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">Terms</a>
+                @if(config('aipolicytracker.analytics_require_consent') && (config('aipolicytracker.google_analytics_id') || config('aipolicytracker.cloudflare_analytics_token')))· <button type="button" data-consent-reset class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2">Analytics choices</button>@endif
             </p>
             <p>@foreach(config('aipolicytracker.maintainers', []) as $m)Maintained by <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ $m['url'] }}" rel="me noopener">{{ $m['name'] }}</a>, {{ strtolower($m['role']) }}@foreach($m['same_as'] ?? [] as $link) · <a class="text-snow/85 hover:text-snow underline decoration-snow/40 underline-offset-2" href="{{ $link }}" rel="me noopener">{{ str_contains($link, 'linkedin') ? 'LinkedIn' : (str_contains($link, 'x.com') ? 'X' : 'GitHub') }}</a>@endforeach @endforeach</p>
         </div>
     </div>
 </footer>
+
+<button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 17a.75.75 0 0 1-.75-.75V5.56l-4.72 4.72a.75.75 0 1 1-1.06-1.06l6-6a.75.75 0 0 1 1.06 0l6 6a.75.75 0 1 1-1.06 1.06l-4.72-4.72v10.69A.75.75 0 0 1 10 17Z" clip-rule="evenodd"/></svg>
+</button>
 
 @if(\App\Support\Analytics::allowedHere())
 <div id="consent-banner" hidden class="fixed inset-x-0 bottom-0 z-50 border-t border-brand-line bg-white p-4 shadow-lg" role="dialog" aria-label="Analytics consent">

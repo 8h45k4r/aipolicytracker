@@ -91,7 +91,7 @@ class AdminBillingPageTest extends TestCase
 
         $this->assertSame(3, $summary['monthly'], 'active, cancelling at period end and on hold within grace');
         $this->assertSame(1, $summary['annual']);
-        $this->assertSame(['USD' => 3 * 2900 + (int) round(29000 / 12)], $summary['mrr']);
+        $this->assertSame(['USD' => 3 * 4900 + (int) round(49000 / 12)], $summary['mrr']);
         $this->assertSame(2, $summary['payments_count']);
         $this->assertSame(['USD' => 31900], $summary['payments_total']);
         $this->assertSame(1, $summary['refunds']);
@@ -99,7 +99,7 @@ class AdminBillingPageTest extends TestCase
         $this->assertSame(1, $summary['revoked']);
         $this->assertSame(1, $summary['grace']);
         $this->assertSame(1, $summary['errors']);
-        $response->assertSee('$111.17 USD')->assertSee('Monthly recurring revenue');
+        $response->assertSee('$187.83 USD')->assertSee('Monthly recurring revenue');
     }
 
     public function test_subscriptions_filter_by_revoked_and_the_export_carries_the_revocation(): void

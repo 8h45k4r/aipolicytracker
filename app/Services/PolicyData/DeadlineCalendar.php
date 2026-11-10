@@ -29,6 +29,15 @@ class DeadlineCalendar
     /** Days before the date to raise an alarm in the subscriber's own client. */
     public const REMINDER_DAYS = [30, 7];
 
+    /**
+     * The feed address with the webcal scheme, which calendar apps open as a
+     * subscription that refreshes itself, where an https link only imports once.
+     */
+    public static function subscribeUrl(string $url): string
+    {
+        return (string) preg_replace('#^https?://#', 'webcal://', $url);
+    }
+
     /** @return Collection<int, Deadline> */
     public function events(?string $jurisdictionSlug = null): Collection
     {

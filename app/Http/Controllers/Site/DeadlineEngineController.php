@@ -39,7 +39,7 @@ class DeadlineEngineController extends Controller
             ['question' => 'How is my timeline computed?', 'answer' => 'Only from the deadlines on record. Each is kept if the instrument, or the duty it belongs to, names your role, kind of system, risk tier, sector and use case, or names no narrower scope. The reason each date is shown is printed beside it.'],
             ['question' => 'What does "originally X, now Y" mean?', 'answer' => 'A re-import found the recorded date changed since it was first stored, for example after an amendment. The original date is kept so the move is visible; the source link goes to the current official text.'],
             ['question' => 'Is this a legal determination?', 'answer' => 'No. It is a filter over recorded dates by the scope recorded for each, not a judgement that a law applies to you. Confirm each date against the official source before planning around it.'],
-            ['question' => 'Can I subscribe to these dates?', 'answer' => 'Yes. The .ics export of a result is a calendar file with reminders; the calendar page offers a subscription feed for every jurisdiction.'],
+            ['question' => 'Can I subscribe to these dates?', 'answer' => 'Yes. "Subscribe" on a result adds it to your calendar app as a feed that refreshes itself, so a date that moves is updated without a new download; ".ics" downloads a one-off copy with reminders. The calendar page offers a feed for every jurisdiction.'],
         ];
         $seo = Seo::make(PageTitle::deadlineEngine(), 'Answer five questions (markets, role, system, sector, use case) and get a personal timeline of recorded AI regulation dates, with the reason each applies, the original date where it moved, .ics and PDF.', route('deadlines.engine'), $request->query() === [])
             ->withBreadcrumbs([['Home', route('home')], ['Deadline calendar', route('calendar')], ['Which date applies?', route('deadlines.engine')]])
@@ -61,7 +61,8 @@ class DeadlineEngineController extends Controller
             ->filter(fn ($d) => $d->due_on && $d->date_precision === DeadlineCalendar::PUBLISHABLE_PRECISION && in_array($d->deadline_status, DeadlineCalendar::PUBLISHABLE_STATUS, true))->values();
         $body = $calendar->render($events, 'AI regulation dates that apply to you', 'Recorded application dates and deadlines filtered by your answers on aipolicytracker.org. Informational only; not legal advice.');
 
-        return response($body, 200, ['Content-Type' => 'text/calendar; charset=UTF-8', 'Content-Disposition' => 'attachment; filename="ai-regulation-dates.ics"', 'X-Robots-Tag' => 'noindex', 'Cache-Control' => 'private, no-store']);
+        // The address holds only the answers, nothing about the person, so a subscribed calendar may poll it through a cache.
+        return response($body, 200, ['Content-Type' => 'text/calendar; charset=UTF-8', 'Content-Disposition' => 'inline; filename="ai-regulation-dates.ics"', 'X-Robots-Tag' => 'noindex', 'Cache-Control' => 'public, max-age=3600']);
     }
 
     public function pdf(Request $request, DeadlineEngine $engine, DeadlinePdf $pdf): Response

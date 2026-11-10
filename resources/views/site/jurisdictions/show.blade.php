@@ -1,13 +1,29 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'overview-heading' => 'Overview',
+    'status-heading' => 'Regulatory status',
+    'binding-heading' => $jurisdiction->binding_vs_guidance ? 'Binding vs guidance' : null,
+    'policies-heading' => 'Key instruments',
+    'subnational-heading' => $subnational->isNotEmpty() ? 'Sub-national' : null,
+    'instruments-heading' => $policies->isNotEmpty() ? 'Instruments at a glance' : null,
+    'timeline-heading' => !empty($timeline) ? 'Timeline' : null,
+    'deadlines-heading' => $deadlines->isNotEmpty() ? 'Upcoming deadlines' : null,
+    'priorities-heading' => $jurisdiction->current_priorities ? 'Current priorities' : null,
+    'changes-heading' => 'Latest changes',
+    'applies-heading' => ($useCases->isNotEmpty() || $sectors->isNotEmpty() || $obligationCategories->isNotEmpty()) ? 'Sectors & use cases' : null,
+    'howto-heading' => !empty($jurisdiction->how_to_use) ? 'How to use' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
-        <p class="eyebrow">{{ ucfirst($jurisdiction->jurisdiction_type) }}@if($jurisdiction->parent) · <a href="{{ $jurisdiction->parent->url() }}">{{ $jurisdiction->parent->name }}</a>@endif · {{ $jurisdiction->region }}</p>
+        <p class="eyebrow">{{ ucfirst($jurisdiction->jurisdiction_type) }}@if($jurisdiction->parent) · <a href="{{ $jurisdiction->parent->url() }}">{{ $jurisdiction->parent->name }}</a>@endif · @if($region)<a href="{{ \App\Services\Hubs\HubCatalog::regionUrl($region) }}">{{ $jurisdiction->region }}</a>@else{{ $jurisdiction->region }}@endif</p>
         <h1 class="mt-1 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">AI regulation in {{ $jurisdiction->nameWithArticle() }}</h1>
-        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$jurisdiction" class="!text-sm" legend /><span class="text-brand-muted">Download: <a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Markdown</a></span><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
+        @if($overviews->isNotEmpty())<p class="mt-2 text-sm text-brand-body" data-overviews>Overview: @foreach($overviews as $o)<a href="{{ $o['url'] }}">{{ $o['label'] }}</a>@if(! $loop->last) · @endif @endforeach</p>@endif
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"><x-site.verified :record="$jurisdiction" class="!text-sm" legend /><span class="text-brand-muted">Download: <a href="{{ route('jurisdictions.json', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('jurisdictions.context', $jurisdiction->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="The whole profile as one Markdown file, with its provenance">Markdown</a></span><span class="text-brand-muted">{{ $policies->count() }} {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }} · {{ $policies->where('is_binding', true)->count() }} binding</span></div>
     </header>
 
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             @if(!empty($translation))
@@ -71,21 +87,26 @@
             </section>
             @endif
 
+            {{-- The heading only when there is a date to list: a heading over nothing is an
+                 empty section to a reader and a promise the page does not keep to a crawler.
+                 Without one, a line still says so and offers the feed new dates will reach. --}}
+            @if($deadlines->isEmpty())
+            <p class="mt-8 text-sm text-brand-muted">No future deadlines are recorded for {{ $jurisdiction->short_name ?: $jurisdiction->name }}; past milestones are listed on each policy page. New dates reach the calendar feed: <a href="{{ route('calendar.feed.jurisdiction', $jurisdiction->slug) }}">{{ $jurisdiction->short_name ?: $jurisdiction->name }} feed</a> · <a href="{{ route('calendar') }}">how it works</a></p>
+            @else
             <section aria-labelledby="deadlines-heading" class="mt-8">
                 <h2 id="deadlines-heading" class="section-title">Upcoming deadlines</h2>
-                <p class="mt-1 text-sm text-brand-muted">Subscribe to these dates in your calendar: <a href="{{ route('calendar.feed.jurisdiction', $jurisdiction->slug) }}">{{ $jurisdiction->short_name ?: $jurisdiction->name }} feed</a> · <a href="{{ route('calendar') }}">how it works</a></p>
-                @if($deadlines->isNotEmpty())
+                <p class="mt-1 text-sm text-brand-muted">Subscribe to these dates in your calendar: <a href="{{ \App\Services\PolicyData\DeadlineCalendar::subscribeUrl(route('calendar.feed.jurisdiction', $jurisdiction->slug)) }}">{{ $jurisdiction->short_name ?: $jurisdiction->name }} feed</a> · <a href="{{ route('calendar') }}">how it works</a></p>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Upcoming deadlines in {{ $jurisdiction->name }}</caption><thead><tr><th scope="col">Date</th><th scope="col">Milestone</th><th scope="col">Instrument</th></tr></thead><tbody>
                 @foreach($deadlines as $d)<tr><td class="whitespace-nowrap font-mono"><time datetime="{{ $d->due_on->toDateString() }}">{{ $d->displayDate() }}</time></td><td>{{ $d->title }}@if($d->confidence_level !== 'high')<div class="text-xs text-state-warn">confidence: {{ $d->confidence_level }}</div>@endif</td><td><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</a></td></tr>@endforeach
                 </tbody></table></div>
-                @else<p class="mt-2 text-sm text-brand-muted">No scheduled future dates recorded. Past milestones are listed on each policy page.</p>@endif
             </section>
+            @endif
 
             @if($jurisdiction->current_priorities)<section aria-labelledby="priorities-heading" class="mt-8"><h2 id="priorities-heading" class="section-title">Current priorities</h2><p class="prose-policy mt-2">{{ $jurisdiction->current_priorities }}</p></section>@endif
 
             <section aria-labelledby="changes-heading" class="mt-8">
                 <h2 id="changes-heading" class="section-title">Latest changes</h2>
-                <p class="mt-1 text-xs"><a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">RSS</a></p>
+                <p class="mt-1 text-xs">@if($changes->isNotEmpty())<a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · @endif<a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="text-brand-blue hover:underline">RSS</a></p>
                 <div class="mt-1 divide-y divide-brand-line border-y border-brand-line">@forelse($changes as $c)<x-site.change-item :change="$c" compact />@empty<p class="py-4 text-sm text-brand-muted">No change events recorded yet.</p>@endforelse</div>
                 @if($changes->isNotEmpty())<p class="mt-3 text-xs text-brand-muted"><a href="{{ route('updates.jurisdiction', $jurisdiction->slug) }}" class="hover:text-brand-navy">All updates for {{ $jurisdiction->short_name ?: $jurisdiction->name }}</a> · <a href="{{ route('updates.jurisdiction.feed', $jurisdiction->slug) }}" class="hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="hover:text-brand-navy">Updates hub</a></p>@endif
             </section>
@@ -117,12 +138,13 @@
 
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" class="lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto bg-white py-1" />
                 @if(!empty($jurisdiction->regulators))
                 @if($controls->isNotEmpty())
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Controls that meet {{ $jurisdiction->short_name ?: $jurisdiction->name }} duties</p>
                     <p class="mt-1 text-xs text-brand-muted">Satisfied / served, across the {{ $policies->count() }} recorded {{ \Illuminate\Support\Str::plural('instrument', $policies->count()) }}.</p>
-                    <ul class="mt-2 space-y-1.5">@foreach($controls->take(7) as $r)<li class="flex items-baseline justify-between gap-2"><a href="{{ $r['control']->url() }}" class="text-brand-navy hover:underline">{{ $r['control']->title }}</a><span class="font-mono text-xs tabular-nums text-brand-muted whitespace-nowrap">{{ $r['satisfies'] }} / {{ $r['duties'] }}</span></li>@endforeach</ul>
+                    <ul class="mt-2 space-y-1.5">@foreach($controls->take(7) as $r)<li class="flex items-baseline justify-between gap-2"><a href="{{ $r['control']->url() }}" class="text-brand-navy hover:underline">{{ $r['control']->title }}</a><span class="text-xs tabular-nums text-brand-muted whitespace-nowrap">{{ $r['satisfies'] }} / {{ $r['duties'] }}</span></li>@endforeach</ul>
                     @if($controls->count() > 7)<p class="mt-2 text-xs"><a href="{{ route('controls.index') }}">All {{ $controls->count() }} controls &rarr;</a></p>@endif
                 </div>
                 @endif

@@ -5,9 +5,13 @@ storage/logs/*
 storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
-.env
-.env.*
+# Environment files anywhere in the context, not only at its root: production keeps its
+# secrets in deploy/.env inside this checkout, and a root-only pattern copied it into the image.
+**/.env
+**/.env.*
 !.env.example
+# Host-side deployment material (compose file, env, runbooks) is not part of the app.
+deploy/
 .git
 .github
 database/*.sqlite*

@@ -75,10 +75,16 @@ probe() {
 build_and_swap() {
     git reset -q --hard "$1"
     cd "$REPO/deploy"
-    docker compose build app 2>&1 | tail -3
+    # --pull: fetch the base images even when a tag is cached, so a re-published
+    # tag (an Alpine or runtime security fix) reaches production on the next deploy.
+    docker compose build --pull app 2>&1 | tail -3
     docker compose up -d
     wait_healthy && probe
 }
+
+# Keep the image that is serving now, so a failed deploy goes back to it in seconds
+# instead of rebuilding the previous commit (which put the build time into the outage).
+docker image inspect aip-app:latest >/dev/null 2>&1 && docker tag aip-app:latest aip-app:rollback
 
 if build_and_swap "$SHA"; then
     docker image prune -f >/dev/null 2>&1 || true
@@ -87,6 +93,16 @@ if build_and_swap "$SHA"; then
 fi
 
 echo "=== deploy of $SHA failed; restoring $PREV"
+if docker image inspect aip-app:rollback >/dev/null 2>&1; then
+    git reset -q --hard "$PREV"
+    docker tag aip-app:rollback aip-app:latest
+    (cd "$REPO/deploy" && docker compose up -d) && cd "$REPO" && wait_healthy && probe && {
+        echo "=== restored $PREV from the kept image; the failed deploy is above. A migration that ran is still applied."
+        exit 1
+    }
+    echo "=== the kept image did not come back; rebuilding $PREV"
+    cd "$REPO"
+fi
 if build_and_swap "$PREV"; then
     echo "=== restored $PREV; the failed deploy is above. A migration that ran is still applied."
 else

@@ -215,6 +215,7 @@ class PolicyImporter
                 'status' => $record['status'],
                 'status_note' => $record['status_note'] ?? null,
                 'is_binding' => (bool) $record['is_binding'],
+                'ai_specific' => (bool) ($record['ai_specific'] ?? true),
                 'issuing_body' => $record['issuing_body'],
                 'summary_plain' => $record['summary_plain'],
                 'scope_summary' => $record['scope_summary'],

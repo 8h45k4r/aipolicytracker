@@ -2,12 +2,17 @@
 
 namespace App\Support;
 
+use App\Models\ChangeEvent;
+use App\Models\Control;
 use App\Models\Jurisdiction;
+use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Services\Glossary\GlossaryTerms;
+use App\Services\MachineReadable\BulkExport;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Social\SocialCard;
+use Illuminate\Support\Carbon;
 
 /**
  * Per-page metadata passed from controllers to the public layout.
@@ -87,6 +92,29 @@ class Seo
         $this->robots = 'noindex,follow';
 
         return $this;
+    }
+
+    public function isIndexable(): bool
+    {
+        return str_starts_with($this->robots, 'index');
+    }
+
+    /**
+     * The <link rel="canonical"> to emit, or null for none.
+     *
+     * A noindex page that names a different URL as its canonical sends two
+     * signals that contradict each other: "do not index this" and "this is a
+     * copy of that". /policies?jurisdiction=india said both, pointing at
+     * /policies. A search engine resolves the conflict as it chooses, so a
+     * noindex page keeps a canonical only when it names the page itself.
+     */
+    public function canonicalLink(string $requested): ?string
+    {
+        if ($this->isIndexable()) {
+            return $this->canonical;
+        }
+
+        return rtrim($this->canonical, '/') === rtrim($requested, '/') ? $this->canonical : null;
     }
 
     public function withBreadcrumbs(array $crumbs): self
@@ -561,41 +589,110 @@ class Seo
     }
 
     /**
-     * A record as an openly licensed Dataset, with the files that actually serve it.
+     * The corpus: the one Dataset node for everything the site publishes, emitted on
+     * /open-data and referenced from every other page by its `@id`.
      *
-     * This is the strongest thing the site can say to an answer engine: the page
-     * is not prose about a law, it is a structured record with a machine-readable
-     * form at a stable URL under a licence that permits reuse with attribution.
+     * It used to be two nodes with two names, one on the home page ("AI policy and
+     * regulatory corpus") and one on /open-data, which told a dataset search engine
+     * there were two datasets. Every property here is read from the data or the
+     * configuration: the dates from the records, the files from the routes that
+     * serve them, the DOI only once one has been minted (DatasetCitation).
+     *
+     * @return array<string, mixed>
+     */
+    public static function corpusDataset(): array
+    {
+        $facts = self::corpusFacts();
+        $downloads = [['Whole corpus, one JSON document', 'application/json', route('open-data.download')]];
+        foreach (BulkExport::DATASETS as $key => $meta) {
+            $downloads[] = [$meta['label'].', CSV', 'text/csv', route('open-data.csv', $key)];
+            $downloads[] = [$meta['label'].', newline-delimited JSON', 'application/x-ndjson', route('open-data.ndjson', $key)];
+        }
+        $downloads[] = ['Dated deadlines, iCalendar', 'text/calendar', route('calendar.feed')];
+
+        return array_filter([
+            '@type' => 'Dataset',
+            '@id' => DatasetCitation::corpusId(),
+            'name' => DatasetCitation::corpusName(),
+            'description' => DatasetCitation::corpusDescription(),
+            'url' => route('open-data'),
+            ...DatasetCitation::jsonLdIdentifier(),
+            'license' => config('aipolicytracker.data_license_url'),
+            'isAccessibleForFree' => true,
+            'creator' => ['@id' => url('/').'#organization'],
+            'publisher' => ['@id' => url('/').'#organization'],
+            'isPartOf' => ['@id' => url('/').'#website'],
+            'datePublished' => config('aipolicytracker.data_first_released'),
+            'dateModified' => $facts['modified'],
+            // From the earliest to the latest date the records carry: adoptions and
+            // dated changes. The corpus covers what has been recorded, not "all time".
+            'temporalCoverage' => $facts['from'] && $facts['to'] ? $facts['from'].'/'.$facts['to'] : null,
+            'spatialCoverage' => array_map(fn ($r) => ['@type' => 'Place', 'name' => $r], self::coverage()['regions']) ?: null,
+            'schemaVersion' => config('aipolicytracker.data_schema_version'),
+            'keywords' => ['AI regulation', 'AI policy', 'EU AI Act', 'AI governance', 'compliance'],
+            'distribution' => array_map(fn ($d) => ['@type' => 'DataDownload', 'name' => $d[0], 'encodingFormat' => $d[1], 'contentUrl' => $d[2]], $downloads),
+        ], fn ($v) => $v !== null && $v !== '' && $v !== []);
+    }
+
+    /**
+     * The corpus's dates, read from the records: when its content last changed
+     * (ContentDates, not the import time) and the span of dates it covers.
+     *
+     * @return array{modified: ?string, from: ?string, to: ?string}
+     */
+    private static function corpusFacts(): array
+    {
+        try {
+            return ContentCache::remember('seo.corpus-facts', 3600, function () {
+                $modified = collect([
+                    ContentDates::latest(Jurisdiction::class),
+                    ContentDates::latest(PolicyInstrument::class, 'policy'),
+                    ContentDates::latest(Obligation::class, 'obligation'),
+                    ContentDates::latest(Control::class, 'control'),
+                    ContentDates::latest(ChangeEvent::class, 'change'),
+                ])->filter()->max();
+                $dates = collect([
+                    PolicyInstrument::query()->published()->min('adopted_on'),
+                    PolicyInstrument::query()->published()->max('adopted_on'),
+                    ChangeEvent::query()->published()->min('occurred_on'),
+                    ChangeEvent::query()->published()->max('occurred_on'),
+                ])->filter()->map(fn ($d) => Carbon::parse($d)->toDateString());
+
+                return ['modified' => $modified?->format(DATE_ATOM), 'from' => $dates->min(), 'to' => $dates->max()];
+            });
+        } catch (\Throwable) {
+            return ['modified' => null, 'from' => null, 'to' => null];
+        }
+    }
+
+    /**
+     * A collection narrower than the corpus (the change log, the enforcement tracker)
+     * as an openly licensed Dataset, with the files that actually serve it, declared
+     * part of the corpus by reference rather than by describing the corpus again.
      *
      * @param  array<string,string>  $distributions  media type => URL
      */
     public static function dataset(string $name, string $description, string $url, array $distributions, ?\DateTimeInterface $modified = null, ?string $identifier = null, array $extra = []): array
     {
-        // The corpus DOI, when one has been minted. The corpus itself (the home page's
-        // Dataset) carries it as its identifier; every narrower Dataset is declared part
-        // of the DOI'd corpus instead, because the DOI does not identify a record.
-        $isCorpus = rtrim($url, '/') === rtrim(url('/'), '/');
-        $doi = $isCorpus ? DatasetCitation::jsonLdIdentifier() : [];
-        $corpus = $isCorpus ? null : DatasetCitation::corpusNode();
-        $website = ['@id' => url('/').'#website'];
-
         return array_filter([
             '@type' => 'Dataset',
             'name' => $name,
             'description' => $description,
             'url' => $url,
-            'identifier' => $doi['identifier'] ?? $identifier,
+            'identifier' => $identifier,
             // What the record was built from and where it applies. `isBasedOn` is
             // the official text; `spatialCoverage` is the jurisdiction. Both are
             // the questions an answer engine asks before it cites a record.
             'isBasedOn' => $extra['isBasedOn'] ?? null,
             'spatialCoverage' => isset($extra['spatialCoverage']) ? ['@type' => 'Place', 'name' => $extra['spatialCoverage']] : null,
-            'sameAs' => $doi['sameAs'] ?? $extra['sameAs'] ?? null,
+            'sameAs' => $extra['sameAs'] ?? null,
             'license' => config('aipolicytracker.data_license_url'),
             'isAccessibleForFree' => true,
             'creator' => ['@id' => url('/').'#organization'],
             'publisher' => ['@id' => url('/').'#organization'],
-            'isPartOf' => $corpus ? [$website, $corpus] : $website,
+            // The DOI identifies the corpus, never a part of it, so a narrower Dataset
+            // carries it only through this reference.
+            'isPartOf' => [['@id' => url('/').'#website'], DatasetCitation::corpusReference()],
             'dateModified' => $modified?->format(DATE_ATOM),
             'distribution' => array_values(array_map(
                 fn ($type, $href) => ['@type' => 'DataDownload', 'encodingFormat' => $type, 'contentUrl' => $href],
@@ -647,23 +744,6 @@ class Seo
             'publisher' => ['@id' => url('/').'#organization'],
             'isPartOf' => ['@id' => url('/').'#website'],
         ], fn ($v) => $v !== null && $v !== '');
-    }
-
-    /** schema.org HowTo for a guide that lays out ordered, named steps. */
-    public static function howTo(string $name, string $description, string $url, array $steps): array
-    {
-        return [
-            '@type' => 'HowTo',
-            'name' => $name,
-            'description' => $description,
-            'url' => $url,
-            'step' => collect($steps)->values()->map(fn ($step, $i) => array_filter([
-                '@type' => 'HowToStep',
-                'position' => $i + 1,
-                'name' => is_array($step) ? ($step['title'] ?? null) : null,
-                'text' => is_array($step) ? ($step['body'] ?? $step['text'] ?? null) : (string) $step,
-            ], fn ($v) => $v !== null && $v !== ''))->all(),
-        ];
     }
 
     public static function website(): array

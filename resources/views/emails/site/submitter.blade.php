@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => $heading, 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => $heading, 'unsubscribeUrl' => $unsubscribeUrl])
 <h1 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 12px;">{{ $heading }}</h1>
 <p style="margin:0 0 8px;"><strong>{{ $summary }}</strong></p>
 @if($received)

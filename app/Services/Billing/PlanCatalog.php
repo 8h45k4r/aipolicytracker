@@ -53,7 +53,18 @@ class PlanCatalog
         return (array) config('billing.free', []);
     }
 
-    /** Price formatted for display, e.g. "$29" or "$290". */
+    /**
+     * Whether the provider's product charges what this site displays for the plan.
+     *
+     * @param  array{price: ?int, currency: ?string}  $remote
+     */
+    public static function priceMatches(array $plan, array $remote): bool
+    {
+        return (int) ($remote['price'] ?? -1) === (int) $plan['price']
+            && strtoupper((string) ($remote['currency'] ?? '')) === strtoupper((string) $plan['currency']);
+    }
+
+    /** Price formatted for display, e.g. "$49" or "$490". */
     public static function formatPrice(int $minor, string $currency): string
     {
         $symbol = match (strtoupper($currency)) {

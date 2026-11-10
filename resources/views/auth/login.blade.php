@@ -49,6 +49,7 @@
                     <label class="flex items-center gap-2 text-brand-body"><input type="checkbox" name="remember" class="rounded-sm border-brand-line text-brand-navy focus:ring-brand-navy">Remember me</label>
                     @if(Route::has('password.request'))<a href="{{ route('password.request') }}" class="text-brand-muted hover:text-brand-navy">Forgot password?</a>@endif
                 </div>
+                @if(\App\Http\Requests\Auth\LoginRequest::challengeRequired(request()) || $errors->has('turnstile'))<x-site.turnstile />@endif
                 <button type="submit" class="btn-primary w-full">Sign in</button>
             </form>
             @if(Route::has('register'))<p class="mt-6 text-sm text-brand-body">New here? <a href="{{ route('register') }}" class="font-medium">Create a free account</a></p>@endif

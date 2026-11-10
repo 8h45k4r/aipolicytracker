@@ -113,11 +113,59 @@ phone number, and the NOT NULL column made every form sign-up fail after the use
 ## Interlinks
 
 - **Outbound:** `resource_downloads.user_id` → [accounts](accounts.md); `resource_slug` → `config/resources.php`; tools link to `policy_instruments` (`related_policies`) and guides (`related_guides`).
+- **Outbound (billing):** tool pages (`site/guides/tool`) and template pages carry `x-site.commercial-use`, linking to the licence enquiry form on `/pricing#licence` ([billing.md](billing.md)).
 - **Inbound:** `/guides` cards, guide pages ("related tools" via `related_guides`), admin Guides and downloads page and dashboard tiles.
 
 ## Routes
 
 Public: `guides.index` (filters `q`, `type`, `framework`, `topic`, `access`; filtered pages are `noindex,follow`), `tools.show`, `tools.gate` (stores `url.intended`). Auth: `tools.download` (POST, throttled, requires `terms`, `name` and `organization_name`; the last two are written back to the account), `tools.ready`, `tools.file` (`signed` middleware, 30-minute links, owner only). Admin: `backend.admin.downloads`, `backend.admin.downloads.export` (per user; with `?rows=downloads`, one row per download: date, tool, version, file, name, email, organisation, sign-up source, consent, referrer), `backend.admin.tools.*` (index, create, store, edit, update, destroy = archive, files.store, files.toggle, files.destroy, files.download).
+
+## The whole library as one ZIP
+
+`/templates/all.zip` (`templates.bundle`) serves every template in `/templates`, in every format, under `<slug>/<file>`, with a `README.txt` listing each template's version and date, the licence and the not-legal-advice line. `TemplateBundle` names the archive after the set of versions it holds, so it is built once and reused until a template gets a new version; the superseded archive is deleted. Archives live on the template disk under `templates/bundles/`.
+
+It needs the `templates.bundle` entitlement (Builder) and exists only while selling is on (404 otherwise); guests go to sign-in, accounts without it go to `/pricing`. The templates page links it for an entitled account and names Builder for others. Single templates keep the work-email request. Tests: `TemplateBundleTest`.
+
+## Returning readers
+
+A reader downloading several templates fills the form once:
+- **Proving the address.** Opening an emailed link sets the encrypted cookie `aip_template_reader` (`TemplateDownloadRequest::KNOWN_COOKIE`, 180 days). It holds only that request's id.
+- **The next template.** It shows "Download now as Name · email · company". The reader ticks the terms again and, optionally, emails about new versions of that template (see New-version emails).
+  - The files are offered on the page at once (`template_ready`) instead of mailed.
+  - The new request copies the known details.
+- **What counts as known.** Only a request whose link was opened (`first_downloaded_at`) counts. Any other id gets the full form.
+- **The usual limits still apply:** the per-address daily limit and the honeypot.
+- **"Not you, or change details"** (`?details=1`) shows the full form, filled with the known details. A signed-in account gets the form filled from its profile.
+- **Subscribe forms** require the terms. The compact form adds the optional "new templates and guides" topic.
+  - Ticking only that extra keeps the full digest (`all`).
+
+Tests: `TemplateReturningReaderTest`.
+
+## New-version emails
+
+The box on every template request form, "Email me when this template gets a new version", is stored as `marketing_consent_at` on that request (`template_download_requests`). It is per template. It does not subscribe anyone to the digest.
+
+How a version reaches the people who asked:
+1. **Queue.** `TemplateBuilder::build` writes a new version when the content hash changes. In the same branch that records the change event, it calls `TemplateUpdateNotices::queue($version)`, which inserts one `template_update_notices` row per eligible address.
+   - The first build of a template is publication, not a change, so it notifies nobody. A rebuild with unchanged content (or `--force` on unchanged content) notifies nobody either.
+   - Eligible means: at least one request for that template with the box ticked, and no unsubscribe since the latest such request. Addresses are compared in lower case.
+   - The unique index `(template_version_id, email)` makes a repeated or concurrent build a no-op (`insertOrIgnore`).
+   - Versions are published as they are built; there is no draft state to leak.
+2. **Send.** `templates:notify` (job `template_notices`, every 15 minutes, only when something is due) runs `TemplateUpdateNotices::send()`:
+   - claims each due notice with a conditional update `pending → sending`, so two runs cannot both mail it; a notice left in `sending` for 30 minutes (a run that died) is taken up again;
+   - re-checks the opt-out and marks the notice `suppressed` if the address unsubscribed after queueing;
+   - marks an address that is not a valid email `failed` at once, never retried;
+   - sends `TemplateUpdateMail` (template name, version, build date, changelog, link to the page, up to four related templates, unsubscribe link) and marks it `sent`;
+   - on an exception, retries after 30 and then 180 minutes; the third failure is `failed`. `last_error` holds the exception class and message, never the address.
+3. **Unsubscribe.** Every email carries `List-Unsubscribe` and `List-Unsubscribe-Post: List-Unsubscribe=One-Click` (RFC 8058) pointing at `templates.updates.unsubscribe`, a signed URL keyed by the notice id, so the address is not in the link.
+   - GET shows a button and changes nothing, because mail scanners follow links.
+   - POST (the button, or the mail client's one-click request; no CSRF token, signature required) writes `template_update_optouts` (`source = email`) and suppresses that address's waiting notices. It covers every template.
+   - Ticking the box again on a later request opts that address back in for that template.
+   - Stored download requests are not rewritten, and digest subscribers are untouched.
+
+Tables: `template_update_notices` (version, slug, email, status `pending|sending|sent|failed|suppressed`, attempts, next_attempt_at, last_error, sent_at) and `template_update_optouts` (email, unsubscribed_at, source).
+
+Tests: `TemplateUpdateNotificationsTest`.
 
 ## Access rules
 

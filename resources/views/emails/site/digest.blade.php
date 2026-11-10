@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => 'AI policy digest', 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => 'AI policy digest', 'unsubscribeUrl' => $unsubscribeUrl])
 <p style="margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#006AAC;font-weight:600;">Weekly digest · {{ $periodLabel }}</p>
 <h1 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 16px;">{{ $changes->count() }} {{ \Illuminate\Support\Str::plural('change', $changes->count()) }} in AI policy this week</h1>
 @forelse($changes as $c)

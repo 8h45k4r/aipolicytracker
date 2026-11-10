@@ -74,8 +74,12 @@ final class QuestionBank
     {
         $name = $j->nameWithArticle();
         $Name = ucfirst($name);
-        $binding = $policies->where('is_binding', true);
+        // "AI law" means AI-specific: a privacy or cyber law that also governs AI is named
+        // separately, so the answer cannot contradict the page's own status summary.
+        $binding = $policies->where('is_binding', true)->where('ai_specific', true);
+        $general = $policies->where('is_binding', true)->where('ai_specific', false);
         $inForce = $binding->filter(fn ($p) => in_array($p->status, ['in_force', 'partially_applicable'], true));
+        $alsoGoverns = $general->isNotEmpty() ? ' Binding laws that are not AI-specific but also apply to AI: '.$general->map(fn ($p) => $p->short_title ?: $p->title)->take(3)->implode('; ').'.' : '';
         $strategies = $policies->filter(fn ($p) => in_array($p->instrument_type, ['strategy', 'national_strategy', 'plan', 'action_plan'], true));
         $regulators = collect($j->regulators ?? [])->filter(fn ($r) => ! empty($r['name']));
 
@@ -84,13 +88,13 @@ final class QuestionBank
                 ? "Yes. {$inForce->count()} binding ".($inForce->count() === 1 ? 'instrument is' : 'instruments are').' in force: '.$inForce->map(fn ($p) => $p->short_title ?: $p->title)->take(4)->implode('; ').'.'
                 : ($binding->isNotEmpty()
                     ? 'Binding instruments are recorded but not yet in force: '.$binding->map(fn ($p) => $p->short_title ?: $p->title)->take(4)->implode('; ').'.'
-                    : "No binding AI law is recorded for {$name}. The instruments recorded are non-binding: strategies, guidance or standards."))],
+                    : "No binding AI-specific law is recorded for {$name}.".($alsoGoverns ?: ' The instruments recorded are non-binding: strategies, guidance or standards.')))],
             ["Who regulates AI in {$name}?", $regulators->isNotEmpty() ? $regulators->map(fn ($r) => $r['name'].(! empty($r['role']) ? " ({$r['role']})" : ''))->implode('; ').'.' : null],
             ["What is the status of AI regulation in {$name}?", self::text($j->regulatory_status_summary)],
             ["Is there a national AI strategy in {$name}?", $strategies->isNotEmpty() ? 'Yes: '.$strategies->map(fn ($p) => ($p->short_title ?: $p->title).($p->adopted_on ? ' ('.$p->adopted_on->format('Y').')' : ''))->take(3)->implode('; ').'.' : null],
             ["What AI compliance deadlines are coming up in {$name}?", $deadlines->isNotEmpty() ? $deadlines->take(4)->map(fn ($d) => $d->due_on->format('j F Y').': '.trim($d->title))->implode('; ').'.' : null],
             ["What is binding and what is only guidance in {$name}?", self::text($j->binding_vs_guidance)],
-            ["Is there a federal AI law in {$name}?", self::federalLaw($j, $binding)],
+            ["Is there a federal AI law in {$name}?", ($federal = self::federalLaw($j, $binding)) !== null && ! str_starts_with($federal, 'Yes.') ? $federal.$alsoGoverns : $federal],
             ['Which '.self::unitPlural($j)." in {$name} have AI laws?", self::subNationalLaws($j)],
         ]);
     }
@@ -136,7 +140,7 @@ final class QuestionBank
     /** The states or provinces with a binding AI instrument on record, adopted or in force. */
     private static function subNationalLaws(Jurisdiction $j): ?string
     {
-        $children = $j->children()->published()->with(['policyInstruments' => fn ($q) => $q->published()->where('is_binding', true)->whereIn('status', ['in_force', 'partially_applicable', 'adopted'])])->orderBy('name')->get();
+        $children = $j->children()->published()->with(['policyInstruments' => fn ($q) => $q->published()->bindingAiLaw()->whereIn('status', ['in_force', 'partially_applicable', 'adopted'])])->orderBy('name')->get();
         if ($children->isEmpty()) {
             return null;
         }

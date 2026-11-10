@@ -4,7 +4,304 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Security
+- Sign-in: when one address passes 20 failed sign-ins in 10 minutes and the automated check (Turnstile) is
+  configured, the form asks for the check instead of refusing everyone on that address, so a wrongly
+  reported client address cannot lock all readers out. Without the check configured it stays a hard stop.
+- Sign-in: one address trying a password against many accounts is stopped after 20 failures in 10 minutes
+  (the existing per-email limit stays). Password reset, password change and account deletion are throttled.
+- The password-reset form gives the same answer whether or not an account uses the address.
+- Changing an account's email address needs the current password, and the old address is told.
+- Account deletion now asks for confirmation and says when the password was wrong; the jurisdiction sort
+  works. Both relied on inline handlers that the Content Security Policy blocks.
+- The production image no longer contains the host's environment file. `.dockerignore` excluded `.env` only at
+  the build-context root, while production keeps its secrets in `deploy/.env` inside the checkout, so every
+  image built on the host carried them. Patterns now match at any depth and `deploy/` is excluded; the Security
+  workflow plants env files and fails if any reaches the image. Operators: rebuild, prune old images and build
+  cache, and rotate the keys if an image or cache ever left the host (deploy/README-docker.md).
+- Checkout refuses a plan whose price at the payment provider differs from the price on the pricing page, or
+  that cannot be checked, so a customer is never charged a price they were not shown. Billing stays off.
+- Runtime security releases of 21 October 2026: the production image now runs PHP 8.3.36 (CVE-2026-109618 and
+  CVE-2026-109619, remote code execution) and builds its assets on Node.js 26.12.1. Base images are pinned to a
+  patch release, the deploy pulls fresh base images, and the Security workflow fails an image whose PHP release
+  differs from the pin.
+
 ### Added
+- Browser smoke tests (Playwright, `npm run test:e2e`, CI job "Browser smoke tests") for the scripts under the
+  Content Security Policy, keyboard and dialog behaviour, and the analytics consent flow.
+- Maintenance workflow (manual): status, cache clear and rebuild, app restart with a health wait, and a prune
+  limited to this project's stopped containers and dangling images. It uses its own forced-command key, shares
+  the deploy lock and never deploys. Reworked from PR #156: no fallback that redeployed main without CI, no
+  host-wide prune of volumes, and the cache clear no longer empties the scheduler tick or the incident sync cursor.
+- Template update emails now work. Readers who tick "email me when this template gets a new version" get one
+  email per new version, with the changelog, a link and related templates, and a one-click unsubscribe. The
+  first build and unchanged rebuilds notify nobody; failures are retried up to three times; nobody is added to
+  the digest. The checkbox no longer promises emails about guides, which were never sent.
+- Pricing page: live data counts (jurisdictions, instruments, obligations, controls, changes,
+  verified records) replace static claims. A feature comparison table maps each capability to its
+  live page. Trust and methodology cards link to independence, freshness, coverage, corrections
+  and funding documentation.
+- Header search field visible from the xl breakpoint (1280 px) instead of 2xl (1536 px), so
+  most desktop visitors see the inline search box rather than only an icon.
+- Change desk: bulk-check action lets reviewers select multiple instruments and record an
+  outcome for all of them at once, with shift-click range selection.
+- Contribute page: data partnership and research collaboration card with a link to the
+  licence enquiry form on the pricing page.
+- Governance documentation: GOVERNANCE.md rewritten with roles, decision-making, bus factor and
+  succession. New CONFLICT_OF_INTEREST.md, FUNDING.md and MANUAL_SETUP_CHECKLIST.md. CODEOWNERS
+  updated to request the independent data reviewer on data changes. PR template adds a
+  conflict-of-interest declaration. Independence page updated for the new reviewer appointment.
+- Status badges: `/badges/{policy}.svg` shows a record's legal status and review state ("pending review" until a
+  named reviewer verifies it). Each policy page offers the badge as Markdown and HTML, linked to the record's
+  permanent address; `/embed` lists it beside the widgets.
+- JSON download for obligation and jurisdiction detail pages (matching the existing
+  policy JSON download). `<link rel="alternate" type="application/json">` added for
+  SEO and agent discovery.
+- Print-friendly styles: detail pages print as a clean single-column layout with URLs
+  shown and navigation chrome removed.
+- Back-to-top button: appears after scrolling past the first viewport on long pages.
+- Admin command palette: search button now visible on mobile and tablet screens,
+  so the Ctrl/Cmd+K palette is reachable without a keyboard.
+- Audit log: long route parameters are expandable instead of silently truncated
+  at 140 characters.
+- Jurisdictions page: filter pills to narrow by type (country, state,
+  supranational, territory, region) and region jump links for quick navigation.
+  A summary line shows the count of jurisdictions and instruments.
+- Jurisdictions page: region filter pills to narrow the listing by geographic
+  region (Africa, Americas, Asia, Europe, International, Oceania). Sort
+  dropdown preserves both type and region filters.
+- Controls page: jurisdiction dropdown to filter the control catalogue by
+  which jurisdiction's duties a control serves.
+- Obligation detail: sidebar lists other duties under the same policy
+  instrument for easier navigation between related requirements.
+- Keyboard shortcut: press `/` anywhere on the public site to jump to the
+  header search field (same pattern as the admin nav shortcut).
+- State-of-AI report: region headings link to the jurisdictions page filtered
+  by that region.
+- Jurisdictions page: sort by instrument count alongside the existing
+  alphabetical order; the dropdown preserves type and region filters.
+- Policy detail: sidebar "Compare" section links to the comparison tool
+  for related jurisdictions, mirroring the cross-link already on
+  jurisdiction pages.
+- Controls: JSON download (`/controls/{slug}.json`) matching the existing
+  policy/obligation/jurisdiction JSON endpoints. Download and copy-link
+  buttons on each control detail page.
+- Change year pages: summary stat cards (changes, jurisdictions,
+  urgent/high-impact, instruments affected), CSV export link with year
+  filtering, and RSS feed link.
+- "On this page" table of contents on obligation and jurisdiction detail
+  pages (mobile disclosure + sidebar sticky nav), matching the TOC already
+  present on policy detail pages.
+- Copy-link button on comparison, change detail and framework detail
+  pages for easy sharing.
+- Copy-link button on policy, obligation, jurisdiction, guide, risk
+  browse and incident browse pages for consistent sharing across all
+  detail and listing views.
+- Footer: Templates and Search links added to the Explore column so
+  every section of the site is reachable from the global footer.
+- Obligation detail: sidebar shows recent changes for the same policy
+  instrument, linking to the change log filtered by jurisdiction.
+- Change detail: sidebar lists the binding and voluntary obligations
+  under the affected instrument so users can see the scope of a change.
+- Keyboard shortcut hint: press `?` on any public page to see a dialog
+  listing available shortcuts (`/` for search).
+- Template detail: copy-link share button added for consistent sharing.
+- "On this page" table of contents on control, change, risk entry and
+  incident detail pages (mobile disclosure + sidebar sticky nav),
+  matching the TOC pattern on policy and obligation detail pages.
+- Share button (native Web Share API) on control, change, risk entry,
+  incident and year archive pages.
+- Copy-link button on year archive and risk/incident header bars.
+- Share button (native Web Share API) on framework, guide, comparison,
+  template, policy, obligation, jurisdiction, tool, risk browse, incident
+  browse and applicability pages, completing Web Share coverage across all
+  public detail and listing views.
+- Copy-link and share buttons on implementation tracker, transition,
+  audience, regional hub and newsletter issue pages.
+- `<x-null-dash>` Blade component for rendering null-safe values with an
+  em-dash fallback and optional date formatting (debt #7).
+- `aip:env-check` artisan command: fails loudly when required environment
+  variables are missing at container startup, before migrations run
+  (debt #37).
+- `ConfigIsCacheableTest` now compares every config value before and after
+  `config:cache`, catching any config file that calls `config()` internally
+  (debt #44).
+
+### Changed
+- Quality and accessibility:
+  - The Content Security Policy adds `'strict-dynamic'`.
+  - Jurisdiction pages make a dozen fewer database queries.
+  - Every foreign key has an index.
+  - `/api/v1/enforcement` and `/api/v1/implementation-measures` accept `page` and `per_page` (default and
+    maximum 500, so existing clients see the same response).
+  - Alert-delivery logs no longer include webhook addresses.
+  - The world map no longer hides its zoom buttons inside an image.
+  - Focus outlines are at least 3:1 on every surface.
+  - Inactive sort arrows are readable.
+  - Breadcrumbs, disclosure toggles and "Open the obligation page" links are at least 24px tall.
+  - Copy buttons say when copying fails.
+  - The map retries if its code fails to load.
+  - The edge Worker answers 502 when the origin is down.
+  - Unused packages (typescript, laravel/breeze, laravel/sail) are removed.
+- Billing and data rights:
+  - The billing webhook setup now subscribes to refunds and disputes, so a refund or lost chargeback revokes
+    access; re-running it updates an existing endpoint.
+  - A webhook abandoned mid-way is applied by the next retry.
+  - The payment-failed email waits for its transaction.
+  - A second checkout click reopens the same session.
+  - Test pings to alert channels need the plan.
+  - "Download my data" adds billing, API tokens and what is kept under the account's verified address
+    (newsletter, template requests and update emails, licence enquiries, contributions).
+  - Deleting an account removes the digest subscription, template requests and API tokens under it, and is
+    refused while a paid plan is active.
+  - Pages whose address acts for the reader never load analytics.
+  - Analytics consent can be withdrawn from the footer ("Analytics choices").
+  - The privacy notice names the processors and states what payment records hold.
+  - The checkout button links the terms.
+- Reliability:
+  - Email sends give up after 10 seconds (`MAIL_TIMEOUT`) instead of waiting forever on a stalled provider.
+  - Unhandled production errors email `ADMIN_EMAILS` (one per error an hour, 20 a day; `ERROR_ALERTS`).
+  - The container restarts a queue worker or scheduler that exits, and stops them cleanly on a deploy.
+  - A job killed mid-run no longer blocks itself for a day.
+  - Container logs are capped.
+  - A failed deploy rolls back to the previous image instead of rebuilding it.
+  - In production, the start-up check refuses a local or plain-http `APP_URL` and `APP_DEBUG=true`, and warns
+    when mail goes to the log.
+- Production server: the container serves with nginx and php-fpm instead of PHP's built-in development server
+  (`php artisan serve`), with opcache, per-request limits and a graceful stop. Nothing outside the container
+  changes. The Security workflow now boots the image and checks it serves before any deploy.
+- Privacy notice: the retention table now lists template requests, template update emails and licence enquiries,
+  and says plainly that none is deleted automatically yet and each is deleted on request. Admins can delete a
+  licence enquiry for an erasure request; the action is audited.
+- `/ai-governance-uae` now answers 301 to `/jurisdictions/uae`, the verified record that already says everything
+  the landing said, so search engines see one page for the UAE instead of two. The menu links the record.
+- Removed the unused React and Inertia account screens (every account page was already Blade), with their
+  packages and build chunks. Responses no longer carry `Vary: X-Inertia`, which had been overwriting the
+  site's own `Vary` header on record id lookups.
+- Incident and risk pages keep the AI Incident Database's incident number and the MIT entry id out of search
+  snippets (`data-nosnippet`); readers still see them. This site's own permanent ids stay citable.
+- Templates: a reader who has opened an emailed link downloads the next template in one step (terms ticked again,
+  updates optional) instead of filling the form again; "Not you, or change details" brings the form back, prefilled.
+  Signed-in accounts get the form prefilled. Subscribe forms require the terms and offer new templates and guides
+  as an optional extra; ticking only that extra no longer narrows the digest to templates.
+- Admin: nested sidebar (section, entry with icon, submenu of the page's own views), collapse to icons, and the
+  full trail in the top bar. Dashboard: the last 30 days against the 30 before (subscribers, accounts, template
+  requests, submissions, changes) and weekly growth charts of active subscribers and accounts, each with a table
+  view. Change desk: search, jurisdiction and legal-force filters, and a CSV export of what is shown.
+- Admin redesign (`docs/reference/admin-redesign-2026-11-09.md`):
+  - a light sidebar grouped by the work (Records, Content, Audience, Operations, Administration) in folding groups,
+    with counts of waiting work beside entries;
+  - one search in a new top bar;
+  - the system font in place of Poppins;
+  - sentence-case labels;
+  - quieter table links;
+  - bulk actions shown only once rows are ticked.
+- Readability, after reader feedback that text was hard to read and tiring. Changes, measured in
+  `docs/reference/design-system.md` (Type):
+  - the public site uses the reader's system font instead of Space Grotesk, for body text and headings;
+  - running text is larger (17px);
+  - the smallest text is 13px;
+  - secondary text is darker;
+  - badges are sentence case;
+  - figures and dates are no longer monospace;
+  - "Copy link" and "Share" appear once per record page;
+  - header buttons no longer wrap.
+
+  The public pages no longer download a web font.
+- Account screens (login, register, verify email, forgot/reset password, profile)
+  redesigned with the platform design system: brand colours, consistent card layout,
+  proper form spacing, and accessible labels. Removed legacy CSS (hardcoded hex
+  colours, MUI overrides, commented-out code, JS-based responsive hiding) from
+  app.css in favour of design-token-based utility classes.
+- Authenticated layout uses brand design tokens instead of generic Tailwind greys.
+- Sign-up IP address is now stored as a keyed HMAC-SHA256 hash
+  (`ip_hash`) instead of the plain address, matching the hashing used for
+  download and audit log records. Existing rows migrated in place.
+  Privacy policy updated accordingly (debt #28).
+- The "which date applies" calendar file no longer starts a session and may be cached for an hour, so a calendar
+  app can poll it.
+- Prices: Pro (Builder) $49 a month or $490 a year, Team $199 a month, Commercial from $5,000 a year. Checkout
+  stays off until it is turned on in Settings; the Dodo products must be set to the new prices first (Admin →
+  Billing → "Check products against the provider" must read "Price matches").
+
+### Fixed
+- Emails: the logo and the social icons are sent inside the message, so they show in mail clients that block
+  or proxy remote images. The footer names only the site, and an invitation no longer says the reader
+  subscribed or offers an unsubscribe link.
+- SEO audit against the claude-seo checklist (`docs/reference/seo-aeo-audit-2026-11-03.md`): AI-risk entries
+  extracted from one passage no longer share a meta description; the change-by-year pages no longer skip a
+  heading level; the status badge image gives its width as well as its height. Hub pages that were linked only
+  from the noindexed explore pages (the quarterly report, AI policy examples, the South Asia and UAE overviews)
+  are now linked from the home page and the countries they cover, a country's region links to its hub, and
+  every month and day archive in the updates sitemap is linked from the updates pages.
+- Year archive container class aligned with the design-system
+  `container-site` token (was a manual `mx-auto` override).
+- Container class: eleven pages (open-data, methodology, contribute,
+  privacy, developers, glossary, glossary-term, MCP, terms, newsletter
+  index and newsletter issue) now use the `container-site` design token
+  instead of manual `mx-auto max-w-4xl` overrides, for consistent
+  responsive behaviour across the site.
+- Account following page: error state uses design token `bg-state-badbg`
+  instead of hardcoded `bg-red-50`.
+- Duplicate copy-link buttons on control and change detail pages
+  removed (two buttons rendered; now one).
+- Table accessibility: added `<caption>` and `scope="col"` to tables
+  on the verification, coverage and deadline-PDF pages so screen
+  readers announce the table purpose and column headers.
+- Removed phantom `alerts.weekly` entitlement from billing config: it was
+  defined in every tier but never checked by any code path.
+- Watch API: `POST /api/v1/watches` now uses the `subscribed` middleware
+  instead of an inline `abort_if`, giving API callers the same structured
+  402 response as the web route.
+- A higher API limit on the Builder plan: an account token sent as `Authorization: Bearer` is counted per account
+  at 600 requests a minute. Without a token the API stays free at 120 a minute per address, unchanged. The paid
+  rate applies, and is mentioned on the developer page, only once selling is on.
+- Every template in one ZIP (`/templates/all.zip`) on the Builder plan, in every format with a README of versions
+  and the licence, rebuilt when a template changes. Single templates stay free. Not offered until selling is on.
+- "Subscribe in your calendar" (`webcal://`) on the deadline calendar, jurisdiction pages and the "which date
+  applies" result, so a subscribed calendar refreshes when a date moves. The one-off `.ics` download stays.
+- `php artisan aip:cache-clear` command: clears all application caches (config, route,
+  view, event, OPcache) in one step. Pass `--rebuild` to rebuild production caches after.
+- Server maintenance workflow: manual GitHub Actions trigger for cache-clear, restart,
+  docker-prune, full-cleanup and status operations without a full redeploy.
+
+## [2.0.0] - 2026-10-20
+
+Dataset snapshot: the records in `data/` on 20 October 2026, after the 2026-Q3 quarter (249 jurisdictions,
+244 instruments of which 184 are verified, 117 obligations, 154 dated changes, 26 controls). Every policy,
+obligation, change and control now carries a permanent id (`AIPT-…`).
+
+### Upgrade notes
+This is a major version because two changes break existing installations:
+- **PHP 8.3 is the minimum** (it was 8.2). The production image already ran 8.3.
+- **API tokens expire after a year** unless `SANCTUM_EXPIRATION_MINUTES` says otherwise (`0` or empty: until
+  revoked). Tokens older than a year stop working on upgrade.
+
+When upgrading a running copy:
+1. Run `php artisan migrate`. 17 migrations are new since 1.0.0, among them permanent ids, record revisions,
+   source checks, foreign-key indexes, digest deadlines by value, and a separate `invitation_tokens` table.
+2. Re-send any invitation sent before the upgrade: invitations now have their own token table.
+3. Compare your `.env` with `.env.example`. New keys include `CHANGEDESK_*`, `SCHEDULER`, `SOCIAL_CARD_DISK`,
+   `X_ENDPOINT` and `VERIFICATION_CRITICAL_BUDGET` (now 98, with the reason in `config/verification.php`).
+4. The Docker image's health check now also runs `php artisan aip:health` (database and scheduler).
+5. The operations runbooks moved to `docs/operations/`, and the unused `azure/` deployment files were removed.
+
+### Dependencies
+- Composer: laravel/framework 12.70.0, inertiajs/inertia-laravel 3.5.1, dodopayments/client 6.29.2, tightenco/ziggy 2.6.5, laravel/pint 1.32.1, laravel/sail 1.69.0, with their Symfony, Carbon and Monolog patch releases.
+- npm: @amcharts/amcharts5 5.21.0, @inertiajs/react 3.9.1, vite 8.3.4, @vitejs/plugin-react 6.1.2, eslint 10.12.0, @eslint-react/eslint-plugin 5.26.1, postcss 8.5.29.
+- GitHub Actions: shivammathur/setup-php 2.40.0, actions/setup-node 7.1.0, actions/upload-artifact 7.0.2 (pinned by commit).
+
+### Added
+- `ai_specific` in the API, the CSV and NDJSON exports and the OpenAPI schema.
+- People who send a correction or suggestion with an email address get a receipt, and later the decision (accepted, not accepted, needs more information) with the reviewer's public note; internal notes are never sent.
+- Site search also finds risks, frameworks and published transition measures, with full counts and links to the filtered listing.
+- Obligations and changes can be sorted and downloaded as CSV; the download uses the same query as the listing on screen.
+- Admin dashboard: recent admin activity (for accounts that can view the audit log), status badges on the latest submissions, and set-up links for email and bot protection.
+- `/developers` (the read-only API, its endpoints, bulk data and the licence) and `/mcp` (the open-source MCP server, how to install it and its 16 tools), indexed with FAQ markup, in the sitemap and in `llms.txt`. The MCP page says there is no hosted endpoint yet.
+- `php artisan admin:invite <email> "<name>" --role=reviewer` creates an account with an admin role and sends the same invitation as Admin → Users; an existing account is left unchanged.
+- Reviewer roster: Joyce Loksee Ho and Kailash Bohara, unpublished until their declarations of interest are received; the editorial desk lists info@aipolicytracker.org.
+- `ai_specific` on policy records: pages that say whether a jurisdiction has binding AI law (country FAQs, regional hubs, the world map, comparisons, the quarterly report) count only instruments about AI itself, and name privacy or cyber laws that also apply to AI separately. The validator requires it on a binding record whose name does not mention AI.
+- `/pricing` is indexed and linked from the footer whether or not checkout is on, and shows four tiers: Open (free), Builder ($29 a month or $290 a year, the existing Pro checkout), Team ($149 a month) and Commercial (from $6,000 a year) by written agreement, each listing only what exists today, with unbuilt items marked "Coming, not built yet". It carries five pricing questions as FAQPage markup. A licence and custom-coverage enquiry form on `/pricing` and `/open-data` stores each enquiry (`licence_enquiries`) before mailing the contact address, and is throttled, honeypotted and Turnstile-checked; Admin → Audience → Licence enquiries lists them with CSV export. Every policy, template and tool page says commercial use is allowed under CC BY 4.0 and links to the form.
 - `php artisan aip:health` fails when the database does not answer or, where the container schedules, when the scheduler has not ticked for 5 minutes (5 minutes' grace after start). The Docker health check runs it beside `/up`.
 - `deploy/cron-install.sh` also installs the nightly `deploy/backup.sh` entry, only when `BACKUP_RCLONE_REMOTE` is set and `/etc/cron.d/aip-backup` does not exist.
 - Permanent record ids (AIPT-POL-0073, AIPT-OBL-0004, AIPT-CHG-0121, AIPT-CTL-0001) on every policy, duty, change and control: never changed or reused, resolved at `/id/{id}` wherever the record lives, and carried by the API, alert webhooks, context files and the MCP server (`resolve_record_id`). Citations name the id, the record version, the reviewer and the date.
@@ -51,6 +348,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - The People page has its own share card, so a link to it previews as "People behind AIPolicyTracker" with who is listed, instead of the site card's headline. The card's URL moves when the list changes, which is what makes a platform fetch the new one.
 
 ### Changed
+- Documentation layout: a documentation index (`docs/README.md`), a developer guide and an architecture page in `docs/`; `AGENTS.md` and `CLAUDE.md` at the root for AI coding agents; the operations notes moved from the root to `docs/operations/` (`content.md`, `data-updates.md`, `seo.md`); the strategy note, roadmap, launch check and early reports moved to `docs/archive/`. `SECURITY.md` gains supported versions, disclosure, safe harbour and scope; the pull request template gains type of change, issues and evidence; a *Question* issue form is added.
 - The admin seeder reads `config('aipolicytracker.seed_admin')` and refuses the `.env.example` placeholder password outside local and testing. The settings provider and the admin Settings page read the environment through config, not `env()`.
 - `deploy/deploy.sh` runs `php artisan queue:restart` after the release swap.
 - PHP 8.3 is the minimum, matching the production image; CI tests on 8.3.
@@ -106,6 +404,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - npm 11 blocks package install scripts by default; `@parcel/watcher`'s build-from-source fallback is denied in `allowScripts` because its prebuilt binary is used.
 
 ### Removed
+- `azure/` (the App Service startup script and nginx config). Production runs on the Docker host; `docker/entrypoint.sh` is the startup path.
 - The "Turn obligations into … with Certifyi" banner on eleven page types and the promotional footer sentence. The related product is now named only where the free self-assessments run on it, and in the disclosures on About, Funding and the reviewer roster.
 - The GitHub Sponsor button no longer points at certifyi.ai; it points at `/funding`.
 - A page per glossary term (`/glossary/{term}`, 22 terms): the definition first, its source, the laws and duties on record that use it and related terms, with `DefinedTerm` and FAQ markup. Policy pages link the terms they use. Review: `docs/reference/seo-aeo-review-2026-10-05.md`.
@@ -123,6 +422,16 @@ All notable changes to this project are documented here. The format follows [Kee
 - Five templates (South Korea AI Basic Act checklist, Texas TRAIGA checklist, US state AI law matrix, public-sector AI use-case inventory, synthetic content labelling plan; 41 in all), landing pages per framework and per document type, and eight guides grounded in the records.
 
 ### Fixed
+- SEO and answer-engine crawl of every sitemap URL (`docs/reference/seo-aeo-audit-2026-10-19.md`): 107 broken internal links fixed (country and state pages linked an updates page that exists only once a change is recorded; controls and the framework comparison linked four framework pages that do not exist yet; `/open-data` linked a repository file the site does not serve); `/ai-risk` shows its FAQ answers, now computed from the incident snapshot instead of hard-coded; `llms.txt` lists one item per line and says commercial use is allowed.
+- India's "Is there a federal AI law?" answered yes from its data protection act while the page said it had no AI law; the Asia hub counted privacy laws and bills as binding AI law. Both now count adopted, AI-specific instruments.
+- The open-data release history states the live counts (the first release keeps its historical figures, labelled as such), and the web app manifest no longer names a jurisdiction count.
+- Nepal's 2024 concept paper was shown as both adopted and under consultation: it now carries its publication date and the superseded status its own note gave it. Timelines show one line per instrument per day.
+- Sitemap `lastmod` is the date a record's content last changed (a revision, a verification or first publication), not the deploy time.
+- Country and region titles no longer carry the year; listing, status, audience, landing and comparison titles are written to fit instead of being cut with "…".
+- A noindex page no longer declares a canonical pointing at another URL.
+- HowTo markup is no longer emitted (the steps stay on the page); one Dataset node, on `/open-data`, carries the coverage dates, every export and the DOI once minted, and other pages refer to it.
+- The home page heading reads as two phrases, and a country page shows "Upcoming deadlines" only when there are some.
+- Deploys purge the Cloudflare cache when `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` are set, so robots.txt, sitemaps and llms.txt are not served stale.
 - `/freshness` and the change desk measure only changes dated since measurement began; changes recorded today from earlier research had shown a median lag of hundreds of days.
 - Queued X posts whose change has been unpublished are skipped, and a post is claimed before it is sent, so the scheduled run and "Send now" cannot both post it.
 - Paginated listings and API pages end every sort on the record id, so rows that tie (most share the import's timestamp) no longer move between pages on PostgreSQL; undated records sort last on both engines.
@@ -469,5 +778,6 @@ First public open-source release.
 - Hard-coded personal e-mail addresses, contributor lists, and external document links.
 - Duplicate/dead files (copied templates, unused Vue components, duplicate profile pages, unused images) and unused npm packages.
 
-[Unreleased]: https://github.com/8h45k4r/aipolicytracker/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/8h45k4r/aipolicytracker/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/8h45k4r/aipolicytracker/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/8h45k4r/aipolicytracker/releases/tag/v1.0.0

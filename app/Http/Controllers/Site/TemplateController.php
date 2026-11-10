@@ -10,11 +10,13 @@ use App\Models\TemplateDownloadRequest;
 use App\Models\TemplateVersion;
 use App\Rules\NotDisposableEmail;
 use App\Rules\WorkEmail;
+use App\Services\Billing\BillingConfig;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Security\Turnstile;
 use App\Services\Templates\Records;
 use App\Services\Templates\TemplateBuilder;
+use App\Services\Templates\TemplateBundle;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\ContentCache;
 use App\Support\PageTitle;
@@ -23,6 +25,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
@@ -85,7 +88,7 @@ class TemplateController extends Controller
             $seo->noindex();
         }
 
-        return view('site.templates.index', compact('seo', 'items', 'filters', 'filtered', 'summary', 'counts', 'lastBuilt', 'faq', 'facets'));
+        return view('site.templates.index', compact('seo', 'items', 'filters', 'filtered', 'summary', 'counts', 'lastBuilt', 'faq', 'facets') + ['bundleOffered' => app(BillingConfig::class)->enabled()]);
     }
 
     /**
@@ -195,15 +198,23 @@ class TemplateController extends Controller
             ->withAlternate('application/json', route('api.v1.template', $slug))
             // The page is about one document: an item page whose main entity is the file.
             ->withPageType('ItemPage', ['name' => $meta['title'], 'mainEntity' => $document])
-            ->withJsonLd(Seo::howTo('How to use the '.$meta['title'], PageTitle::description($answer), $url, $steps))
             ->withFaq(array_map(fn ($q) => ['question' => $q[0], 'answer' => $q[1]], $faq));
 
-        return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq', 'answer', 'facts', 'steps', 'audience'));
+        // A reader who has already proved their address gets the files in one step; anyone
+        // else gets the form, filled from what we already know (their account, or the last
+        // request this browser made), so nobody types the same details twice.
+        $known = TemplateDownloadRequest::knownFrom(request());
+        $prefill = $known
+            ? ['name' => $known->name, 'email' => $known->email, 'company' => $known->company, 'job_title' => $known->job_title, 'country' => $known->country]
+            : (auth()->user() ? ['name' => auth()->user()->name, 'email' => auth()->user()->email, 'company' => auth()->user()->organization_name] : []);
+
+        return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq', 'answer', 'facts', 'steps', 'audience', 'known', 'prefill'));
     }
 
     /**
-     * How to use it, as steps a reader can follow: the same steps are shown on the page
-     * and emitted as HowTo, never one without the other. Built from what the file holds.
+     * How to use it, as steps a reader can follow, shown on the page. Built from what the
+     * file holds. They are not marked up as HowTo: search engines no longer show HowTo
+     * results, so the markup bought nothing the visible list does not.
      *
      * @return list<array{title:string, body:string}>
      */
@@ -296,6 +307,13 @@ class TemplateController extends Controller
             return redirect()->to(route('templates.show', $slug).'#download')->with('template_requested', true);
         }
 
+        // A reader this browser has proved (they opened an emailed link) asks again in one
+        // step: the details come from that request, the terms are accepted again, the update
+        // choice is theirs again, and the files are offered at once rather than mailed.
+        if ($request->boolean('known') && ($known = TemplateDownloadRequest::knownFrom($request))) {
+            return $this->knownDownload($request, $slug, $known);
+        }
+
         $data = $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:120'],
             'email' => ['required', 'string', 'email:rfc', 'max:190', new NotDisposableEmail, new WorkEmail],
@@ -338,6 +356,33 @@ class TemplateController extends Controller
         return redirect()->to(route('templates.show', $slug).'#download')->with('template_requested', $email);
     }
 
+    private function knownDownload(Request $request, string $slug, TemplateDownloadRequest $known): RedirectResponse
+    {
+        $request->validate(['terms' => ['accepted'], 'updates' => ['nullable', 'boolean']], ['terms.accepted' => 'Please accept the terms of use to download the template.']);
+        $key = 'template-request:'.sha1($known->email);
+        if (RateLimiter::tooManyAttempts($key, (int) config('templates.gate.per_email_per_day', 10))) {
+            return back()->withErrors(['email' => 'Too many requests for this address today. Please try again tomorrow.'])->withFragment('download');
+        }
+        RateLimiter::hit($key, 86400);
+
+        $version = TemplateVersion::latestFor($slug) ?? app(TemplateBuilder::class)->build($slug)['version'];
+        $downloadRequest = TemplateDownloadRequest::create([
+            'template_slug' => $slug,
+            'name' => $known->name,
+            'email' => $known->email,
+            'company' => $known->company,
+            'job_title' => $known->job_title,
+            'country' => $known->country,
+            'terms_accepted_at' => now(),
+            'marketing_consent_at' => $request->boolean('updates') ? now() : null,
+            'ip_hash' => hash('sha256', (string) $request->ip().config('app.key')),
+            'referrer' => mb_substr((string) $request->headers->get('referer'), 0, 512) ?: null,
+        ]);
+        $links = collect($version->formats())->mapWithKeys(fn ($f) => [$f => $downloadRequest->downloadUrl($f)])->all();
+
+        return redirect()->to(route('templates.show', $slug).'#download')->with('template_ready', ['email' => $known->email, 'links' => $links]);
+    }
+
     /**
      * Serves a file from a signed, expiring link sent by email. A link without a valid
      * signature goes back to the template page, where the form is.
@@ -363,11 +408,37 @@ class TemplateController extends Controller
             $file = $version->file($format);
             abort_unless($file && $disk->exists($file['path']), 404);
         }
+        // Opening the link proves the address: remember this reader so the next template is one step.
+        Cookie::queue(Cookie::make(TemplateDownloadRequest::KNOWN_COOKIE, (string) $downloadRequest->id, 60 * 24 * TemplateDownloadRequest::KNOWN_DAYS, null, null, null, true, false, 'Lax'));
         TemplateVersion::whereKey($version->id)->increment('downloads');
         $downloadRequest->forceFill(['downloads' => $downloadRequest->downloads + 1, 'first_downloaded_at' => $downloadRequest->first_downloaded_at ?? now()])->save();
 
         return response()->download($disk->path($file['path']), $file['filename'], [
             'Content-Type' => $this->mime($format),
+            'X-Robots-Tag' => 'noindex',
+            'Cache-Control' => 'private, no-store',
+        ]);
+    }
+
+    /**
+     * Every template in one ZIP, for a plan that includes it. It exists only while
+     * selling is on: with selling off every account would hold the capability, and
+     * the bundle would sidestep the work-email request that single files go through.
+     */
+    public function bundle(Request $request, BillingConfig $billing, TemplateBundle $bundle): BinaryFileResponse|RedirectResponse
+    {
+        abort_unless($billing->enabled(), 404);
+        $user = $request->user();
+        if (! $user) {
+            return redirect()->guest(route('login'));
+        }
+        if (! $user->entitled('templates.bundle')) {
+            return redirect()->route('pricing')->with('error', 'Every template in one ZIP is part of Builder. Single templates stay free.');
+        }
+        $zip = $bundle->build();
+
+        return response()->download(Storage::disk(TemplateBuilder::DISK)->path($zip['path']), $zip['filename'], [
+            'Content-Type' => 'application/zip',
             'X-Robots-Tag' => 'noindex',
             'Cache-Control' => 'private, no-store',
         ]);

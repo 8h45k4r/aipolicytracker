@@ -2,6 +2,17 @@
 
 Thanks for helping. Corrections to the data are the most useful thing you can send, and they don't need any code.
 
+## Contribution flow
+
+1. For anything non-trivial, open an issue first and wait for agreement that the work should go ahead.
+   Use the matching template: *Policy data correction*, *New jurisdiction or source*, *Bug report*,
+   *Feature request* or *Question*. A typo or a broken link can go straight to a pull request.
+2. Fork the repository and create a branch from `main` named for the change (see
+   [Branches, commits and pull requests](#branches-commits-and-pull-requests)).
+3. Make the change, with tests or sources as described below.
+4. Open a pull request from your fork using the [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
+   The more evidence it carries (command output, sources, screenshots), the faster the review.
+
 ## Ground rules
 
 - Every data change needs an official or openly licensed source. [`SOURCE_ATTRIBUTION.md`](SOURCE_ATTRIBUTION.md) says what counts.
@@ -13,6 +24,14 @@ Thanks for helping. Corrections to the data are the most useful thing you can se
 ## Setting up
 
 Fork the repository, clone your fork, then follow "Running it locally" in the [README](README.md).
+The [developer guide](docs/developer-guide.md) covers the rest: front-end builds, running single
+tests, the data checks, Docker, the artisan commands and what each CI workflow does.
+
+### AI-assisted contributions
+
+You may use AI tools, but you are the author and you answer for every line. Point the tool at
+[`AGENTS.md`](AGENTS.md), which sets out the rules it must follow here: no invented facts, an
+official source for every record, no verification it did not do, and no tool trailers in commits.
 
 ## Changing data
 
@@ -30,7 +49,7 @@ Read [`docs/reference/engineering-standard.md`](docs/reference/engineering-stand
 things work before changing them, fix the cause rather than the symptom, keep changes small, and show the command
 output that proves a change works.
 
-- Follow the existing conventions. The public site is server-rendered Blade with Tailwind; the account screens are React with Inertia.
+- Follow the existing conventions. The site, account screens and admin are server-rendered Blade with Tailwind and a little plain JavaScript.
 - Validate input on the server. Never send exception messages to the browser.
 - Add or update tests in `tests/Feature` for any behaviour change.
 - Code, data, API and docs move together: a change that updates one and leaves the others behind isn't finished.
@@ -73,9 +92,9 @@ message.
 
 ## Releases
 
-1. In `CHANGELOG.md`, rename *Unreleased* to `[X.Y.Z] - YYYY-MM-DD` and start a new *Unreleased* above it.
-2. Check the notes with `scripts/release/notes.sh X.Y.Z`, push to `main`, then push the tag `vX.Y.Z` (or run **Release** from the Actions tab).
-3. After the deploy, run **Deployment check** from the Actions tab.
+Versions follow Semantic Versioning, and every release is cut from `CHANGELOG.md` by the **Release** workflow,
+which checks that CI is green first. The rules (what counts as major, minor or patch, when to release) and the
+step-by-step checklist are in [`docs/reference/releases.md`](docs/reference/releases.md).
 
 ## Licence
 
@@ -83,3 +102,5 @@ Code you contribute is Apache 2.0 ([`LICENSE`](LICENSE)); data you contribute to
 ([`data/LICENSE`](data/LICENSE)).
 
 Security problems go to [`SECURITY.md`](SECURITY.md), not a public issue.
+
+Thank you for your time and care. Every correction makes the records more useful to the people who rely on them.

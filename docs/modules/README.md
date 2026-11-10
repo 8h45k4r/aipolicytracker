@@ -9,7 +9,7 @@ One document per module. Each doc has: purpose, schema field table (must match t
 | External data (AI risk, incidents) | [external-data.md](external-data.md) | none (JSON under `data/external/`) |
 | Policy intelligence | [policy-intelligence.md](policy-intelligence.md) | `jurisdictions`, `policy_instruments`, `policy_versions`, `policy_sections`, `obligations`, `applicability_rules`, `taxonomy_terms`, `taxonomy_assignments`, `deadlines`, `enforcement_events`, `procurement_rules`, `framework_mappings`, `evidence_artifacts`, `change_events`, `source_documents`, `contributor_submissions`, `reviewer_decisions` |
 | Guides and downloads | [guides-and-downloads.md](guides-and-downloads.md) | `resource_downloads`, `users` additions |
-| Billing | [billing.md](billing.md) | `billing_customers`, `subscriptions`, `billing_events`, `billing_checkouts` |
+| Billing | [billing.md](billing.md) | `billing_customers`, `subscriptions`, `billing_events`, `billing_checkouts`, `billing_payments`, `licence_enquiries` |
 | Controls | [controls.md](controls.md) | `controls`, `control_evidence`, `control_framework_references`, `control_obligation` |
 | Jobs and schedule | [jobs.md](jobs.md) | `job_runs` |
 | Alerts | [alerts.md](alerts.md) | `follows`, `alert_deliveries`, `applicability_profiles` |

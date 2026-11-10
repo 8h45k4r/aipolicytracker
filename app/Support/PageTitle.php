@@ -220,20 +220,26 @@ final class PageTitle
         return $place ? self::shortenWords($name, self::MAX - mb_strlen(" ({$place})"))." ({$place})" : self::shorten($name);
     }
 
-    /** "<Country> AI Regulation <Year>: Laws, Strategy & Deadlines" */
-    public static function jurisdiction(Jurisdiction $jurisdiction, ?int $year = null): string
+    /**
+     * "<Country> AI Policy & Regulation: Laws & Deadlines".
+     *
+     * No year. A year in the title rewrote every country title each 1 January
+     * whether or not anything on the page had changed, and a title that moves
+     * on a date rather than with the record is churn a search engine has to
+     * re-evaluate for nothing. The page's dates say how current it is.
+     */
+    public static function jurisdiction(Jurisdiction $jurisdiction): string
     {
-        $year ??= (int) now()->format('Y');
         $name = self::clean($jurisdiction->short_name ?: $jurisdiction->name);
 
         // "AI policy <country>" and "AI regulation <country>" are both searched; the title
         // carries both while it fits, and falls back to the regulation form when it does not.
-        $policy = self::fit($name.' AI Policy & Regulation '.$year, [': Laws & Deadlines', ''], self::MAX);
+        $policy = self::fit($name.' AI Policy & Regulation', [': Laws & Deadlines', ''], self::MAX);
         if (mb_strlen($policy) <= self::MAX && ! str_ends_with($policy, '…')) {
             return $policy;
         }
 
-        return self::fit($name.' AI Regulation '.$year, [': Laws, Strategy & Deadlines', ': Laws & Deadlines']);
+        return self::fit($name.' AI Regulation', [': Laws, Strategy & Deadlines', ': Laws & Deadlines']);
     }
 
     /**
@@ -318,6 +324,26 @@ final class PageTitle
         }
 
         return self::shortenWords($title, self::MAX);
+    }
+
+    /**
+     * A listing page: the first form that fits with its page number. The page
+     * number is part of the budget, not something appended afterwards: a title
+     * that fitted on page one used to be pushed over by " (page 2)" and cut
+     * with an ellipsis. Only when no form fits is the last one cut.
+     *
+     * @param  list<string>  $forms  tried in order, longest first
+     */
+    public static function listing(array $forms, int $page = 1): string
+    {
+        $suffix = $page > 1 ? " (page {$page})" : '';
+        foreach ($forms as $form) {
+            if (mb_strlen(self::clean($form).$suffix) <= self::MAX) {
+                return self::clean($form).$suffix;
+            }
+        }
+
+        return self::shortenWords((string) end($forms), self::MAX - mb_strlen($suffix)).$suffix;
     }
 
     /** "AI Policy Updates Today: <Month Year> Global Tracker" */
@@ -540,11 +566,10 @@ final class PageTitle
     }
 
     /** "AI Regulation in Africa 2026: Country-by-Country Tracker" */
-    public static function regionHub(string $region, ?int $year = null): string
+    public static function regionHub(string $region): string
     {
-        $year ??= (int) now()->format('Y');
-
-        return self::fit('AI Regulation in '.$region.' '.$year, [': Country-by-Country Tracker', ': Country by Country', ': Tracker']);
+        // No year: a title that changes every 1 January throws away its search history.
+        return self::fit('AI Regulation in '.$region, [': Country-by-Country Tracker', ': Country by Country', ': Tracker']);
     }
 
     /** "<A> vs <B> AI Regulation: Side-by-Side Comparison" */

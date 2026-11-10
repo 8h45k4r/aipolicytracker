@@ -134,6 +134,62 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
     // entry is scrolled into view on a short window. The account menu closes on Escape
     // and on a click anywhere else.
     // ---------------------------------------------------------------------------------
+    // The label of a sidebar entry, without the count badge beside it; a submenu entry is
+    // named with its parent ("Review queue › Jurisdictions") so it reads alone in search.
+    var navLabel = function (a) {
+        var l = a.querySelector('[data-nav-label]');
+        var text = (l || a).textContent.trim();
+        var parent = a.getAttribute('data-nav-parent');
+        return parent ? parent + ' › ' + text : text;
+    };
+
+    // Narrowing the sidebar to icons (the Collapse switch in its footer), remembered in this
+    // browser. The layout applies a saved choice before the first paint.
+    var root = doc.documentElement;
+    var collapse = doc.querySelector('[data-admin-collapse]');
+    var setRail = function (on) {
+        if (on) { root.setAttribute('data-nav-rail', ''); } else { root.removeAttribute('data-nav-rail'); }
+        if (collapse) {
+            collapse.setAttribute('aria-pressed', on ? 'true' : 'false');
+            var label = collapse.querySelector('[data-collapse-label]');
+            if (label) { label.textContent = on ? 'Expand' : 'Collapse'; }
+            collapse.setAttribute('title', on ? 'Expand the menu' : 'Collapse the menu to icons');
+        }
+        // Icons only: every section shows its entries, since the section names are put away.
+        if (on) { all('[data-admin-nav-group]').forEach(function (g) { g.open = true; }); }
+        try { window.localStorage.setItem('adm-nav-rail', on ? '1' : '0'); } catch (e) { /* storage blocked */ }
+    };
+    if (collapse) {
+        collapse.hidden = false;
+        setRail(root.hasAttribute('data-nav-rail'));
+        collapse.addEventListener('click', function () { setRail(!root.hasAttribute('data-nav-rail')); });
+    }
+    // In the narrowed sidebar an entry with a submenu goes straight to its first view.
+    all('[data-admin-nav-parent] > summary').forEach(function (summary) {
+        summary.addEventListener('click', function (e) {
+            if (!root.hasAttribute('data-nav-rail')) { return; }
+            var first = summary.parentNode.querySelector('[data-admin-nav-link]');
+            if (first) { e.preventDefault(); window.location.href = first.getAttribute('href'); }
+        });
+    });
+
+    // Folded sidebar groups are remembered in this browser. The group holding the current
+    // page always opens, so the page you are on is never folded out of sight.
+    var NAV_KEY = 'adm-nav-closed';
+    var navClosed = function () {
+        try { return new Set(JSON.parse(window.localStorage.getItem(NAV_KEY) || '[]')); } catch (e) { return new Set(); }
+    };
+    all('[data-admin-nav-group]').forEach(function (g) {
+        var key = g.getAttribute('data-group');
+        if (navClosed().has(key) && !g.hasAttribute('data-current') && !root.hasAttribute('data-nav-rail')) { g.open = false; }
+        g.addEventListener('toggle', function () {
+            if ((navFilter && navFilter.value.trim() !== '') || root.hasAttribute('data-nav-rail')) { return; }
+            var closed = navClosed();
+            if (g.open) { closed.delete(key); } else { closed.add(key); }
+            try { window.localStorage.setItem(NAV_KEY, JSON.stringify(Array.from(closed))); } catch (e) { /* storage blocked: folding still works for this page */ }
+        });
+    });
+
     var navScroll = doc.querySelector('[data-admin-nav-scroll]');
     if (navScroll) {
         var edges = function () { navScroll.setAttribute('data-overflow', overflowEdges(navScroll.scrollTop, navScroll.scrollHeight, navScroll.clientHeight)); };
@@ -143,6 +199,51 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
         if (here && here.offsetTop + here.offsetHeight > navScroll.clientHeight) { navScroll.scrollTop = here.offsetTop - navScroll.clientHeight / 2; }
         edges();
     }
+
+    // ---------------------------------------------------------------------------------
+    // Sidebar nav filter: [data-admin-nav-filter] hides links that do not match the
+    // typed text, and whole groups whose every link is hidden. Escape clears. The `/`
+    // key focuses it from anywhere (unless a field already has focus).
+    // ---------------------------------------------------------------------------------
+    var navFilter = doc.querySelector('[data-admin-nav-filter]');
+    if (navFilter) {
+        var navLinks = all('[data-admin-nav-link]');
+        var navGroups = all('[data-admin-nav-group]');
+        var filterNav = function () {
+            var q = navFilter.value.trim().toLowerCase();
+            navLinks.forEach(function (a) {
+                a.style.display = q === '' || navLabel(a).toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+            });
+            // An entry with a submenu shows while any of its views matches, and opens to show it.
+            all('[data-admin-nav-parent]').forEach(function (p) {
+                var any = all('[data-admin-nav-link]', p).some(function (a) { return a.style.display !== 'none'; });
+                p.style.display = any ? '' : 'none';
+                if (q !== '') { p.open = any; } else { p.open = p.querySelector('[aria-current="page"]') !== null; }
+            });
+            navGroups.forEach(function (g) {
+                var visible = all('[data-admin-nav-link]', g).some(function (a) { return a.style.display !== 'none'; });
+                g.style.display = visible ? '' : 'none';
+                // While filtering every group is open, so a match is never hidden in a fold;
+                // clearing the filter puts back what the person had folded.
+                if (q !== '') { g.open = true; } else { g.open = !navClosed().has(g.getAttribute('data-group')) || g.hasAttribute('data-current'); }
+            });
+            if (navScroll) { edges(); }
+        };
+        navFilter.addEventListener('input', filterNav);
+        navFilter.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') { e.preventDefault(); navFilter.value = ''; filterNav(); navFilter.blur(); }
+        });
+        doc.addEventListener('keydown', function (e) {
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                var tag = (doc.activeElement || {}).tagName;
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (doc.activeElement && doc.activeElement.isContentEditable)) { return; }
+                if (anotherModalOpen()) { return; }
+                e.preventDefault();
+                navFilter.focus();
+            }
+        });
+    }
+
     var account = doc.querySelector('[data-admin-account]');
     if (account) {
         doc.addEventListener('click', function (e) { if (account.open && !account.contains(e.target)) { account.open = false; } });
@@ -163,7 +264,8 @@ import { confirmPresentation, confirmSource, filterItems, mergeResults, nextInde
         var searchUrl = palette.getAttribute('data-search-url');
         var items = all('[data-admin-nav-link]').map(function (a) {
             var group = a.closest('[data-admin-nav-group]');
-            return { label: a.textContent.trim(), hint: group ? group.querySelector('p').textContent.trim() : '', href: a.getAttribute('href') };
+            var heading = group ? group.querySelector('[data-admin-nav-heading]') : null;
+            return { label: navLabel(a), hint: heading ? heading.textContent.trim() : '', href: a.getAttribute('href') };
         }).concat(all('[data-command]').map(function (el) {
             return { label: el.getAttribute('data-command'), hint: 'Action', href: el.getAttribute('href') || el.getAttribute('data-command-href') };
         }));

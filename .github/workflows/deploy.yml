@@ -9,7 +9,9 @@ name: Deploy
 # The host side is deploy/remote-deploy.sh, installed on the server as the
 # forced command of a dedicated SSH key, so the key can deploy and do nothing
 # else. The four secrets and the one-time server setup are in
-# deploy/README-docker.md under "Automatic deploys".
+# deploy/README-docker.md under "Automatic deploys". Two optional secrets,
+# CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_TOKEN, turn on the edge cache purge
+# after a successful deploy (cloudflare/README.md).
 #
 # Anyone who can push to main can therefore change what production runs.
 # That was already true of the application code; branch protection on main
@@ -48,6 +50,9 @@ jobs:
       url: https://aipolicytracker.org
     env:
       GH_TOKEN: ${{ github.token }}
+      # Whether the Cloudflare purge below can run. This is only ever "true" or
+      # "false"; the secret values themselves never leave the purge step.
+      CLOUDFLARE_PURGE: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ZONE_ID != '' }}
     steps:
       - name: Resolve the commit and its CI run
         id: target
@@ -139,6 +144,30 @@ jobs:
           # connection was cut ("Broken pipe") mid-deploy.
           ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
               -i ~/.ssh/deploy_key "$USER@$HOST" "$SHA"
+
+      # HTML is served no-store, but robots.txt, the sitemaps, llms.txt, the feeds
+      # and the open-data files are cached at the edge, and kept serving the
+      # previous release until they expired. Purging the zone after a deploy that
+      # succeeded is what makes the release visible to crawlers at once. Runs only
+      # when both secrets are set (cloudflare/README.md); a failed purge fails the
+      # job, so a stale edge is never mistaken for a finished deploy.
+      - name: Purge the Cloudflare cache
+        if: env.CLOUDFLARE_PURGE == 'true'
+        env:
+          ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          body="$(mktemp)"
+          code="$(curl -sS -o "$body" -w '%{http_code}' --max-time 60 -X POST \
+            "https://api.cloudflare.com/client/v4/zones/$ZONE/purge_cache" \
+            -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')" || { echo "::error::Cloudflare cache purge request failed"; exit 1; }
+          if [ "$code" != "200" ] || [ "$(jq -r '.success' "$body" 2>/dev/null)" != "true" ]; then
+            echo "::error::Cloudflare cache purge failed (HTTP $code): $(jq -c '.errors' "$body" 2>/dev/null || head -c 500 "$body")"
+            exit 1
+          fi
+          echo "Cloudflare cache purged"
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

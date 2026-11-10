@@ -74,7 +74,7 @@ return [
                         ['route' => 'jurisdictions.show', 'params' => ['india'], 'label' => 'India'],
                         ['route' => 'jurisdictions.show', 'params' => ['singapore'], 'label' => 'Singapore'],
                         ['route' => 'jurisdictions.show', 'params' => ['australia'], 'label' => 'Australia'],
-                        ['route' => 'landing', 'params' => ['ai-governance-uae'], 'label' => 'United Arab Emirates'],
+                        ['route' => 'jurisdictions.show', 'params' => ['uae'], 'label' => 'United Arab Emirates'],
                         ['route' => 'hubs.show', 'params' => ['ai-regulation-nepal'], 'label' => 'Nepal'],
                     ],
                 ],

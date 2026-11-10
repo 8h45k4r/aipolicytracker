@@ -92,7 +92,7 @@ class PublicSiteTest extends TestCase
             '/changes', '/changes/2025', '/tools/applicability-check',
             '/tools/applicability-check?jurisdictions[]=eu&role=provider&use_case=hiring_and_hr&personal_data=yes&genai=yes',
             '/open-data', '/methodology', '/about', '/team', '/contribute', '/guides', '/guides/iso-42001-vs-eu-ai-act',
-            '/ai-governance-uae', '/ai-regulation-south-asia',
+            '/ai-regulation-south-asia',
         ] as $path) {
             $this->get($path)->assertOk();
         }
@@ -124,7 +124,7 @@ class PublicSiteTest extends TestCase
     public function test_titles_are_unique_across_key_pages(): void
     {
         $titles = [];
-        foreach (['/', '/policies', '/jurisdictions', '/jurisdictions/eu', '/policies/eu-ai-act', '/obligations', '/changes', '/open-data', '/methodology', '/about', '/contribute', '/ai-governance-uae'] as $path) {
+        foreach (['/', '/policies', '/jurisdictions', '/jurisdictions/eu', '/policies/eu-ai-act', '/obligations', '/changes', '/open-data', '/methodology', '/about', '/contribute', '/ai-regulation-south-asia'] as $path) {
             preg_match('/<title>(.*?)<\/title>/s', $this->get($path)->getContent(), $m);
             $titles[$path] = $m[1] ?? '';
         }

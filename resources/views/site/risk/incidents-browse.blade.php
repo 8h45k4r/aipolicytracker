@@ -4,7 +4,7 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <div class="mt-2 flex flex-wrap items-end justify-between gap-3">
         <div><p class="eyebrow">AI Incident Database</p><h1 class="mt-1 font-display text-3xl font-semibold text-brand-navy">Browse AI incidents</h1><p class="mt-2 max-w-[64ch] text-brand-body">Every incident record (metadata only) from the weekly snapshot of {{ $aiid['snapshot_date'] ?? '—' }}. Filter, then export the selection with its licence attached; each row links to the full record and its reports.</p></div>
-        <div class="flex gap-2"><a href="{{ route('risk.incidents.export', array_merge(['format' => 'csv'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export CSV</a><a href="{{ route('risk.incidents.export', array_merge(['format' => 'json'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export JSON</a><a href="{{ route('risk.incidents') }}" class="btn-primary">Charts and summary</a></div>
+        <div class="flex flex-wrap gap-2"><a href="{{ route('risk.incidents.export', array_merge(['format' => 'csv'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export CSV</a><a href="{{ route('risk.incidents.export', array_merge(['format' => 'json'], array_filter($filters))) }}" class="btn-secondary" data-track="export_click">Export JSON</a><button type="button" class="btn-secondary" data-copy-link>Copy link</button><button type="button" data-share class="btn-secondary hidden">Share</button><a href="{{ route('risk.incidents') }}" class="btn-primary">Charts and summary</a></div>
     </div>
     {{-- Collapsed on phones so the results come first; public.js opens it on wide screens, and it starts
          open whenever a filter is set, so the form works and shows its state without JavaScript. --}}
@@ -27,7 +27,7 @@
     <ol class="mt-2 divide-y divide-brand-line border-y border-brand-line">
         @foreach($incidents as $i)
         <li class="py-4 grid gap-2 lg:grid-cols-12 lg:gap-6 text-sm">
-            <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta">#{{ $i->incident_id }} · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
+            <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta"><span data-nosnippet>#{{ $i->incident_id }}</span> · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
             <div class="lg:col-span-7"><a href="{{ $i->url() }}" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->displayTitle() }}</a> <a href="{{ $i->citeUrl() }}" rel="noopener" class="meta inline-block py-1 no-underline hover:underline">AIID ↗</a>{{-- Clamped so a long report does not make every row a screenful; the full text is on the incident page. --}}
                 <p class="mt-1 text-brand-body leading-6 line-clamp-3">{{ $i->displayDescription() ?: '—' }}</p>
                 <p class="mt-1 meta line-clamp-1">@if($i->deployers)Deployer: {{ implode(', ', $i->deployers) }}@endif @if($i->developers)· Developer: {{ implode(', ', $i->developers) }}@endif @if($i->harmed)· Harmed: {{ implode(', ', $i->harmed) }}@endif</p></div>

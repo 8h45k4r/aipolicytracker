@@ -20,12 +20,12 @@
         </section>
         <aside class="lg:col-span-5">
             <div class="rule-strong pt-3"><h2 class="section-title">Recorded incidents</h2></div>
-            <p class="mt-2 text-sm text-brand-body"><span class="font-mono tabular-nums text-2xl text-brand-navy">{{ $incidents !== null ? number_format($incidents) : '—' }}</span> <span class="meta">incidents classified under "{{ $domain['aiid_domain_label'] ?: $domain['name'] }}" in the AI Incident Database (snapshot {{ $aiid['snapshot_date'] ?? '—' }})</span></p>
+            <p class="mt-2 text-sm text-brand-body"><span class="tabular-nums text-2xl text-brand-navy">{{ $incidents !== null ? number_format($incidents) : '—' }}</span> <span class="meta">incidents classified under "{{ $domain['aiid_domain_label'] ?: $domain['name'] }}" in the AI Incident Database (snapshot {{ $aiid['snapshot_date'] ?? '—' }})</span></p>
             @if($trend->sum() > 0)<x-site.bar-chart :series="$trend" title="Incidents in this domain per year" class="mt-3" />@endif
             <p class="mt-3 text-sm"><a href="{{ route('risk.incidents.browse', ['domain' => $domain['aiid_domain_label']]) }}">Browse and export these incidents</a></p>
             <div class="rule-strong pt-3 mt-8"><h2 class="section-title">Risk entries</h2></div>
-            <p class="mt-2 text-sm text-brand-body"><span class="font-mono tabular-nums text-2xl text-brand-navy">{{ $riskCount ? number_format($riskCount) : '—' }}</span> <span class="meta">entries coded to this domain in the MIT database</span></p>
-            @if($topPapers->isNotEmpty())<p class="mt-2 meta">Most-cited frameworks here:</p><ul class="mt-1 text-sm divide-y divide-brand-line">@foreach($topPapers as $p)<li class="py-1.5 flex justify-between gap-3"><a href="{{ route('risk.risks', ['paper' => $p->quick_ref, 'domain' => $domain['id']]) }}">{{ \Illuminate\Support\Str::limit($p->title, 60) }}</a><span class="font-mono tabular-nums text-brand-navy">{{ $p->n }}</span></li>@endforeach</ul>@endif
+            <p class="mt-2 text-sm text-brand-body"><span class="tabular-nums text-2xl text-brand-navy">{{ $riskCount ? number_format($riskCount) : '—' }}</span> <span class="meta">entries coded to this domain in the MIT database</span></p>
+            @if($topPapers->isNotEmpty())<p class="mt-2 meta">Most-cited frameworks here:</p><ul class="mt-1 text-sm divide-y divide-brand-line">@foreach($topPapers as $p)<li class="py-1.5 flex justify-between gap-3"><a href="{{ route('risk.risks', ['paper' => $p->quick_ref, 'domain' => $domain['id']]) }}">{{ \Illuminate\Support\Str::limit($p->title, 60) }}</a><span class="tabular-nums text-brand-navy">{{ $p->n }}</span></li>@endforeach</ul>@endif
             <p class="mt-3 text-sm"><a href="{{ route('risk.risks', ['domain' => $domain['id']]) }}">Browse and export these risk entries</a></p>
         </aside>
     </div>

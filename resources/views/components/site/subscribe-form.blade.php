@@ -17,6 +17,11 @@
         <input id="sub-email-{{ $source }}" type="email" name="email" required class="input flex-1" placeholder="you@example.org" autocomplete="email">
         <button type="submit" class="btn-primary">{{ $topic ? 'Get the digest' : 'Subscribe' }}</button>
     </div>
+    @error('terms')<p class="mt-2 text-sm text-state-bad" role="alert">{{ $message }}</p>@enderror
+    <div class="mt-3 space-y-1.5 text-xs text-brand-body">
+        <label class="flex items-start gap-2"><input type="checkbox" name="terms" value="1" required class="mt-0.5 rounded-sm border-brand-line text-brand-navy"> <span>I accept the <a href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">terms of use</a> and the <a href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">privacy notice</a>.</span></label>
+        <label class="flex items-start gap-2"><input type="checkbox" name="topics[]" value="templates" class="mt-0.5 rounded-sm border-brand-line text-brand-navy"> <span>Also email me when new templates and guides are published (optional).</span></label>
+    </div>
     <x-site.turnstile class="mt-3" />
     <p class="mt-2 meta">Double opt-in; one-click unsubscribe in every email. <a href="{{ route('subscribe.show') }}">Choose jurisdictions</a></p>
 </form>

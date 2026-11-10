@@ -48,7 +48,7 @@ class SecurityHardeningTest extends TestCase
         $user = User::factory()->create();
         Auth::login($user);
 
-        $this->patch('/profile', ['name' => $user->name, 'email' => 'owner@example.com'])->assertSessionHasNoErrors();
+        $this->patch('/profile', ['name' => $user->name, 'email' => 'owner@example.com', 'current_password' => 'password'])->assertSessionHasNoErrors();
 
         $this->assertNull($user->fresh()->email_verified_at);
         $this->assertFalse($user->fresh()->isAdmin());
@@ -140,7 +140,7 @@ class SecurityHardeningTest extends TestCase
 
         foreach (range(1, 5) as $i) {
             $this->withServerVariables(['REMOTE_ADDR' => "10.0.0.{$i}"])
-                ->post('/subscribe', ['email' => 'victim@example.com'])
+                ->post('/subscribe', ['terms' => 1, 'email' => 'victim@example.com'])
                 ->assertSessionHas('success');
         }
 

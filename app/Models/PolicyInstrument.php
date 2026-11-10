@@ -22,6 +22,7 @@ class PolicyInstrument extends Model
     {
         return [
             'is_binding' => 'boolean',
+            'ai_specific' => 'boolean',
             'featured' => 'boolean',
             'faq' => 'array',
             'related_policies' => 'array',
@@ -177,6 +178,16 @@ class PolicyInstrument extends Model
     public function url(): string
     {
         return route('policies.show', $this->slug);
+    }
+
+    /**
+     * Binding instruments about AI itself. A privacy or cyber law that also applies to AI is
+     * binding but not "AI law", so pages that say whether a jurisdiction has binding AI law
+     * count these and name the others separately.
+     */
+    public function scopeBindingAiLaw($query)
+    {
+        return $query->where('is_binding', true)->where('ai_specific', true);
     }
 
     public function scopeSearch($query, ?string $term)

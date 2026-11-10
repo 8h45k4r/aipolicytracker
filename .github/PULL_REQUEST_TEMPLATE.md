@@ -1,8 +1,25 @@
 ## Summary
 
-<!-- What does this change and why? Link the issue. -->
+<!-- What does this change and why? -->
+
+## Type of change
+
+- [ ] Bug fix (non-breaking change that fixes a problem).
+- [ ] Feature (non-breaking change that adds something).
+- [ ] Data correction or addition (files under `data/`).
+- [ ] Breaking change (changes the API, an export format, a URL or a permanent id). **Explain below.**
+- [ ] Documentation or other. **Explain below.**
+
+## Issues
+
+<!-- Link the issue this resolves. Non-trivial changes start with an issue (CONTRIBUTING.md). -->
 
 Closes #
+
+## Evidence
+
+<!-- Show that the change works: test output, command output, screenshots or a short recording.
+     Commands and tests are in docs/developer-guide.md. -->
 
 <!--
 Data-only change (only files under data/)? Keep the Sources table, paste the
@@ -19,6 +36,7 @@ to be present.
 
 - [ ] Every data change links to an official or openly licensed source (`SOURCE_ATTRIBUTION.md`).
 - [ ] No copyrighted legal commentary, paid database content or standards text reproduced.
+- [ ] I have no conflict of interest with this change, **or** I have declared it above and will not approve it alone (`CONFLICT_OF_INTEREST.md`).
 
 ## Role gates (see `docs/reference/change-gates.md`)
 

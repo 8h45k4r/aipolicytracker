@@ -1,5 +1,13 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'how-heading' => $control->description ? 'How is it implemented?' : null,
+    'duties-heading' => 'Legal duties served',
+    'evidence-heading' => 'Evidence',
+    'risks-heading' => $risks->isNotEmpty() ? 'Risks addressed' : null,
+    'frameworks-heading' => $control->frameworkReferences->isNotEmpty() ? 'Standards clauses' : null,
+    'cite-heading' => 'Cite this record',
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -13,9 +21,10 @@
         <p class="mt-3 max-w-[64ch] text-lg leading-8 text-brand-body">{{ $control->purpose }}</p>
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <x-site.verified :record="$control" class="!text-sm" legend />
-            <span class="text-brand-muted">Download: <a href="{{ route('controls.context', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This control as one Markdown file, with its provenance">Markdown</a></span>
+            <span class="text-brand-muted">Download: <a href="{{ route('controls.json', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('controls.context', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This control as one Markdown file, with its provenance">Markdown</a></span>
         </div>
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
 
     <dl class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <x-site.stat label="Duties satisfied" :value="$duties->where('pivot.relationship', 'satisfies')->count()" note="done properly, does the work" />
@@ -70,7 +79,7 @@
                 <p class="mt-1 text-xs text-brand-muted">Subdomains of the MIT AI Risk Repository, with the incidents the AI Incident Database has recorded under each. Counts are live; they say how often a risk has materialised, not how well this control prevents it.</p>
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
                     @foreach($risks as $r)
-                    <li class="py-2.5 flex flex-wrap items-baseline justify-between gap-2"><span><span class="font-mono text-xs text-brand-muted">{{ $r['id'] }}</span> <a href="{{ $r['url'] }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $r['name'] }}</a> <span class="text-xs text-brand-muted">{{ $r['domain'] }}</span></span><span class="font-mono text-xs tabular-nums text-brand-body">{{ number_format($r['incidents']) }} incidents · {{ number_format($r['risks']) }} risk entries</span></li>
+                    <li class="py-2.5 flex flex-wrap items-baseline justify-between gap-2"><span><span class="font-mono text-xs text-brand-muted">{{ $r['id'] }}</span> <a href="{{ $r['url'] }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $r['name'] }}</a> <span class="text-xs text-brand-muted">{{ $r['domain'] }}</span></span><span class="text-xs tabular-nums text-brand-body">{{ number_format($r['incidents']) }} incidents · {{ number_format($r['risks']) }} risk entries</span></li>
                     @endforeach
                 </ul>
             </section>
@@ -82,7 +91,7 @@
                 <p class="mt-1 text-xs text-brand-muted">Clause numbers only. A reference means the standard asks for overlapping work, so evidence may be reusable; it never means the standard discharges a legal duty.</p>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Framework references</caption>
                     <thead><tr><th scope="col">Framework</th><th scope="col">Reference</th><th scope="col">Note</th><th scope="col">Confidence</th></tr></thead>
-                    <tbody>@foreach($control->frameworkReferences as $r)<tr><td class="whitespace-nowrap font-medium">@if(config('frameworks.'.$r->framework))<a href="{{ route('frameworks.show', config('frameworks.'.$r->framework.'.slug')) }}" class="text-brand-navy hover:underline">{{ $r->frameworkShort() }}</a>@else{{ $r->frameworkName() }}@endif</td><td>{{ $r->reference }}</td><td>{{ $r->note }}</td><td>{{ $r->confidence_level }}</td></tr>@endforeach</tbody>
+                    <tbody>@foreach($control->frameworkReferences as $r)<tr><td class="whitespace-nowrap font-medium">@if(config('frameworks.'.$r->framework) && app(\App\Services\PolicyData\FrameworkCrosswalk::class)->hasPage($r->framework))<a href="{{ route('frameworks.show', config('frameworks.'.$r->framework.'.slug')) }}" class="text-brand-navy hover:underline">{{ $r->frameworkShort() }}</a>@else{{ $r->frameworkName() }}@endif</td><td>{{ $r->reference }}</td><td>{{ $r->note }}</td><td>{{ $r->confidence_level }}</td></tr>@endforeach</tbody>
                 </table></div>
             </section>
             @endif
@@ -93,6 +102,7 @@
 
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Governance card</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">

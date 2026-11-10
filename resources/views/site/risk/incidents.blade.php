@@ -9,9 +9,9 @@
     <x-site.empty title="Incident summary not available yet" class="mt-8">The weekly refresh has not produced a summary yet.</x-site.empty>
     @else
     <dl class="mt-8 grid gap-4 sm:grid-cols-3 text-sm max-w-2xl">
-        <div class="rule pt-2"><dt class="meta">Incidents recorded</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['incidents']) }}</dd></div>
-        <div class="rule pt-2"><dt class="meta">Classified by MIT risk domain</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['classified_mit']) }}</dd></div>
-        <div class="rule pt-2"><dt class="meta">Last synced</dt><dd class="font-mono tabular-nums text-2xl text-brand-navy">{{ $live['synced_at'] ? \Illuminate\Support\Carbon::parse($live['synced_at'])->format('j M Y') : $aiid['snapshot_date'] }}</dd></div>
+        <div class="rule pt-2"><dt class="meta">Incidents recorded</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['incidents']) }}</dd></div>
+        <div class="rule pt-2"><dt class="meta">Classified by MIT risk domain</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['classified_mit']) }}</dd></div>
+        <div class="rule pt-2"><dt class="meta">Last synced</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ $live['synced_at'] ? \Illuminate\Support\Carbon::parse($live['synced_at'])->format('j M Y') : $aiid['snapshot_date'] }}</dd></div>
     </dl>
 
     <p class="mt-4 text-sm flex flex-wrap gap-2"><a href="#latest" class="btn-primary">Latest recorded incidents</a><a href="{{ route('risk.incidents.browse') }}" class="btn-secondary">Browse and export all incidents</a></p>
@@ -35,17 +35,17 @@
 
         <div class="mt-5 grid gap-4 sm:grid-cols-3">
             <div class="card-flat p-4">
-                <p class="font-mono tabular-nums text-3xl text-brand-navy">{{ $pct($post) }}%</p>
+                <p class="tabular-nums text-3xl text-brand-navy">{{ $pct($post) }}%</p>
                 <p class="mt-1 text-sm font-medium text-brand-navy">happened after deployment</p>
                 <p class="mt-1 meta">{{ number_format($post) }} of {{ number_format($causal['classified']) }} classified records. Pre-release testing is not where these were caught.</p>
             </div>
             <div class="card-flat p-4">
-                <p class="font-mono tabular-nums text-3xl text-brand-navy">{{ $pct($aiUnintended) }}%</p>
+                <p class="tabular-nums text-3xl text-brand-navy">{{ $pct($aiUnintended) }}%</p>
                 <p class="mt-1 text-sm font-medium text-brand-navy">the system itself, unintended</p>
                 <p class="mt-1 meta">{{ number_format($aiUnintended) }} records where the AI was the cause and the harm was not intended by anyone.</p>
             </div>
             <div class="card-flat p-4">
-                <p class="font-mono tabular-nums text-3xl text-brand-navy">{{ $pct($causal['matrix']['Human']['Intentional'] ?? 0) }}%</p>
+                <p class="tabular-nums text-3xl text-brand-navy">{{ $pct($causal['matrix']['Human']['Intentional'] ?? 0) }}%</p>
                 <p class="mt-1 text-sm font-medium text-brand-navy">deliberate human misuse</p>
                 <p class="mt-1 meta">{{ number_format($causal['matrix']['Human']['Intentional'] ?? 0) }} records where a person used the system to cause the harm on purpose.</p>
             </div>
@@ -73,19 +73,19 @@
         <section class="lg:col-span-5 min-w-0" aria-labelledby="sector-heading">
             <div class="rule-strong pt-3"><h2 id="sector-heading" class="section-title">Sector of deployment</h2></div>
             <table class="mt-2 w-full text-sm"><caption class="sr-only">Incidents by sector of deployment (CSET taxonomy)</caption>
-                <tbody class="divide-y divide-brand-line">@foreach($aiid['by_sector'] as $sector => $n)<tr><td class="py-2 pr-3 text-brand-body">{{ ucfirst($sector) }}</td><td class="py-2 font-mono tabular-nums text-right text-brand-navy">{{ $n }}</td></tr>@endforeach</tbody></table>
+                <tbody class="divide-y divide-brand-line">@foreach($aiid['by_sector'] as $sector => $n)<tr><td class="py-2 pr-3 text-brand-body">{{ ucfirst($sector) }}</td><td class="py-2 tabular-nums text-right text-brand-navy">{{ $n }}</td></tr>@endforeach</tbody></table>
             <p class="meta mt-2">Sector coverage comes from the CSET classification and is partial.</p>
         </section>
         <section class="lg:col-span-3 min-w-0" aria-labelledby="country-heading">
             <div class="rule-strong pt-3"><h2 id="country-heading" class="section-title">Country</h2></div>
             <table class="mt-2 w-full text-sm"><caption class="sr-only">Incidents by country code</caption>
-                <tbody class="divide-y divide-brand-line">@foreach(array_slice($aiid['by_country'], 0, 12, true) as $cc => $n)<tr><td class="py-2 pr-3 font-mono text-brand-body">{{ $cc }}</td><td class="py-2 font-mono tabular-nums text-right text-brand-navy">{{ $n }}</td></tr>@endforeach</tbody></table>
+                <tbody class="divide-y divide-brand-line">@foreach(array_slice($aiid['by_country'], 0, 12, true) as $cc => $n)<tr><td class="py-2 pr-3 font-mono text-brand-body">{{ $cc }}</td><td class="py-2 tabular-nums text-right text-brand-navy">{{ $n }}</td></tr>@endforeach</tbody></table>
             <p class="meta mt-2">{{ number_format($aiid['totals']['with_country']) }} incidents carry a country code.</p>
         </section>
         <section class="lg:col-span-4 min-w-0" aria-labelledby="harm-heading">
             <div class="rule-strong pt-3"><h2 id="harm-heading" class="section-title">Harm level</h2></div>
             <table class="mt-2 w-full text-sm"><caption class="sr-only">Incidents by assessed AI harm level</caption>
-                <tbody class="divide-y divide-brand-line">@foreach($aiid['by_harm_level'] as $level => $n)<tr><td class="py-2 pr-3 text-brand-body">{{ ucfirst($level) }}</td><td class="py-2 font-mono tabular-nums text-right text-brand-navy">{{ $n }}</td></tr>@endforeach</tbody></table>
+                <tbody class="divide-y divide-brand-line">@foreach($aiid['by_harm_level'] as $level => $n)<tr><td class="py-2 pr-3 text-brand-body">{{ ucfirst($level) }}</td><td class="py-2 tabular-nums text-right text-brand-navy">{{ $n }}</td></tr>@endforeach</tbody></table>
         </section>
     </div>
 
@@ -108,7 +108,7 @@
         <ol class="mt-3 divide-y divide-brand-line border-y border-brand-line">
             @foreach($latest as $i)
             <li class="py-4 grid gap-2 lg:grid-cols-12 lg:gap-6 text-sm min-w-0">
-                <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta">#{{ $i->incident_id }} · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
+                <div class="lg:col-span-2"><time class="datestamp" datetime="{{ $i->occurred_on->toDateString() }}">{{ $i->occurred_on->format('j M Y') }}</time><p class="meta"><span data-nosnippet>#{{ $i->incident_id }}</span> · {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</p></div>
                 <div class="lg:col-span-7 min-w-0"><a href="{{ $i->url() }}" class="font-display text-base text-brand-navy no-underline hover:underline">{{ $i->title }}</a> <a href="{{ $i->citeUrl() }}" rel="noopener" class="meta no-underline hover:underline" data-track="source_click">AIID ↗</a>
                     <p class="mt-1 text-brand-body leading-6">{{ \Illuminate\Support\Str::limit($i->description, 260) ?: '—' }}</p>
                     <p class="mt-1 meta">@if($i->deployers)Deployer: {{ implode(', ', array_slice($i->deployers, 0, 3)) }}@endif @if($i->harmed)· Harmed: {{ implode(', ', array_slice($i->harmed, 0, 3)) }}@endif</p>

@@ -29,6 +29,8 @@ contact:
     email: bhaskar@aipolicytracker.org
 license: CC-BY-4.0
 license-url: "https://creativecommons.org/licenses/by/4.0/"
+version: "2.0.0"
+date-released: "2026-10-20"
 repository-code: "https://github.com/8h45k4r/aipolicytracker"
 url: "https://aipolicytracker.org"
 keywords:

@@ -1,0 +1,57 @@
+name: Maintenance
+
+# Manual-only server maintenance that does not need a deploy: clear caches, restart the
+# app container, prune this project's stopped containers and dangling images, or show
+# status. It never deploys code: shipping a commit is deploy.yml's job, behind CI and
+# Security.
+#
+# Needs DEPLOY_HOST, DEPLOY_USER and DEPLOY_KNOWN_HOSTS (shared with deploy.yml) and
+# MAINTENANCE_SSH_KEY, a separate key whose forced command on the host is
+# deploy/remote-maintenance.sh. Setup: deploy/README-docker.md, "Maintenance".
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Operation to run"
+        required: true
+        type: choice
+        options:
+          - status
+          - clear-cache
+          - restart
+          - prune
+
+permissions:
+  contents: read
+
+concurrency:
+  group: server-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintenance:
+    name: "Run: ${{ inputs.operation }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: production
+    steps:
+      - name: Run the operation on the host
+        env:
+          OP: ${{ inputs.operation }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.MAINTENANCE_SSH_KEY }}
+          KNOWN: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          for v in HOST USER KEY KNOWN; do
+            [ -n "${!v}" ] || { echo "::error::$v is not set (see deploy/README-docker.md, Maintenance)"; exit 1; }
+          done
+          umask 077
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/maint_key
+          printf '%s\n' "$KNOWN" > ~/.ssh/known_hosts
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 \
+              -o ServerAliveInterval=30 -o ServerAliveCountMax=10 \
+              -i ~/.ssh/maint_key "$USER@$HOST" "$OP"

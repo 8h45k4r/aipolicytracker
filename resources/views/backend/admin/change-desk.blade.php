@@ -2,8 +2,8 @@
 @section('content')
 <x-backend.page-header title="Change desk" description="The weekly routine that keeps the record current: open each source that is due, record what you found, and log any change in data/changes.">
     <x-slot:actions>
-        <a href="{{ route('freshness') }}" class="btn-secondary btn-sm" target="_blank" rel="noopener">Public freshness page<span class="sr-only"> (opens in new tab)</span></a>
-        <a href="{{ route('backend.review.index', ['type' => 'change']) }}" class="btn-secondary btn-sm">Changes in the review queue</a>
+        <a href="{{ route('freshness') }}" class="btn-secondary btn-sm" target="_blank" rel="noopener" data-command="Public freshness page">Public freshness page<span class="sr-only"> (opens in new tab)</span></a>
+        <a href="{{ route('backend.review.index', ['type' => 'change']) }}" class="btn-secondary btn-sm" data-command="Changes in the review queue">Changes in the review queue</a>
     </x-slot:actions>
 </x-backend.page-header>
 
@@ -19,15 +19,38 @@
     <a href="{{ route('backend.admin.changedesk.index', ['show' => 'all']) }}" class="btn-sm {{ $filter === 'all' ? 'btn-primary' : 'btn-secondary' }}" @if($filter === 'all') aria-current="page" @endif>All current instruments ({{ $total }})</a>
 </nav>
 
+{{-- Narrow the list, and export exactly what is shown (every page). --}}
+<x-backend.filters :action="route('backend.admin.changedesk.index')" :filters="$filters" :export="route('backend.admin.changedesk.export')" placeholder="Instrument, AIPT id or jurisdiction" :dates="false" :total="$shownCount" noun="instrument">
+    @if($filter === 'all')<input type="hidden" name="show" value="all">@endif
+    <div><label for="f-jurisdiction" class="adm-label">Jurisdiction</label>
+        <select id="f-jurisdiction" name="jurisdiction" class="input !min-h-[38px] !py-1.5 !w-auto"><option value="">Any</option>@foreach($jurisdictions as $j)<option value="{{ $j->slug }}" @selected(request('jurisdiction') === $j->slug)>{{ $j->name }}</option>@endforeach</select></div>
+    <div><label for="f-binding" class="adm-label">Legal force</label>
+        <select id="f-binding" name="binding" class="input !min-h-[38px] !py-1.5 !w-auto"><option value="">Any</option><option value="yes" @selected(request('binding') === 'yes')>Binding</option><option value="no" @selected(request('binding') === 'no')>Not binding</option></select></div>
+</x-backend.filters>
+
 @if($rows->isEmpty())
 <div class="mt-4"><x-site.empty title="Nothing is due">Every current instrument's official source has been checked within its cadence.</x-site.empty></div>
 @else
-<div class="table-wrap mt-4"><table><caption class="sr-only">Official sources, most urgent first</caption><thead><tr>
+<form method="post" action="{{ route('backend.admin.changedesk.bulk') }}" id="bulk-check" class="adm-bulkbar sticky top-0 z-10 mt-4 rounded-md border border-brand-line bg-white p-3 text-sm shadow-sm">@csrf
+    <div class="flex flex-wrap items-center gap-2">
+        <span data-bulk-count="bulk-check" class="font-medium text-brand-navy">0 selected</span>
+        <label for="bulk-outcome" class="sr-only">Outcome for selected</label>
+        <select id="bulk-outcome" name="outcome" class="input !min-h-[30px] !w-auto !py-1 text-xs">
+            @foreach(\App\Models\SourceCheck::OUTCOMES as $value => $label)<option value="{{ $value }}">{{ $label }}</option>@endforeach
+        </select>
+        <label for="bulk-note" class="sr-only">Note for selected</label>
+        <input id="bulk-note" name="note" maxlength="500" class="input !min-h-[30px] !w-40 !py-1 text-xs" placeholder="Note (optional)">
+        <button type="submit" class="btn-primary btn-sm" data-bulk-needs="bulk-check">Record for all selected</button>
+    </div>
+</form>
+<div class="table-wrap mt-4" id="desk-table"><table><caption class="sr-only">Official sources, most urgent first</caption><thead><tr>
+    <th scope="col" class="w-8"><label class="sr-only" for="desk-bulk-all">Select all on this page</label><input type="checkbox" id="desk-bulk-all" class="rounded border-brand-line" data-bulk-all="bulk-check"></th>
     <th scope="col">Instrument</th><th scope="col" class="hidden sm:table-cell">Watchers</th><th scope="col">Last checked</th><th scope="col">Record what you found</th>
 </tr></thead><tbody>
 @foreach($rows as $r)
 @php($p = $r['policy'])
 <tr data-desk-row="{{ $p->slug }}">
+    <td class="w-8"><input type="checkbox" class="rounded border-brand-line" value="{{ $p->slug }}" data-bulk-item form="bulk-check" name="slugs[]"></td>
     <td class="min-w-[16rem] max-w-[26rem]">
         <a href="{{ $p->url() }}" class="font-medium text-brand-navy" target="_blank" rel="noopener">{{ $p->short_title ?: $p->title }}<span class="sr-only"> (opens in new tab)</span></a>
         <div class="meta">{{ $p->jurisdiction?->short_name ?: $p->jurisdiction?->name }} · {{ $p->is_binding ? 'binding' : 'non-binding' }} · {{ $p->obligations_count }} {{ \Illuminate\Support\Str::plural('duty', $p->obligations_count) }}@if($p->aipt_id) · <span class="font-mono">{{ $p->aipt_id }}</span>@endif</div>

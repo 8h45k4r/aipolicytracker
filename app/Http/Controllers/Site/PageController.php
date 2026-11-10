@@ -15,7 +15,6 @@ use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Verification\IndependentChecks;
 use App\Support\ContentCache;
-use App\Support\DatasetCitation;
 use App\Support\FundingDisclosure;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
@@ -33,27 +32,10 @@ class PageController extends Controller
             'Download the AIPolicyTracker dataset (CC BY 4.0): jurisdictions, policy instruments, obligations, controls, deadlines and change events with official sources. JSON Schema, read-only API and citation guidance.',
             route('open-data')
         )->withBreadcrumbs([['Home', route('home')], ['Open data', route('open-data')]])
-            ->withJsonLd([
-                '@type' => 'Dataset',
-                '@id' => route('open-data').'#dataset',
-                'name' => 'AIPolicyTracker open AI policy dataset',
-                'description' => 'Structured, source-backed records of AI laws, regulations, standards, guidance, obligations, the controls that meet them, deadlines and change events across jurisdictions.',
-                'url' => route('open-data'),
-                'license' => config('aipolicytracker.data_license_url'),
-                'isAccessibleForFree' => true,
-                'creator' => ['@id' => url('/').'#organization'],
-                'dateModified' => $lastUpdated?->toIso8601String(),
-                'version' => config('aipolicytracker.data_schema_version'),
-                'keywords' => ['AI regulation', 'AI policy', 'EU AI Act', 'AI governance', 'compliance'],
-                'distribution' => [
-                    ['@type' => 'DataDownload', 'encodingFormat' => 'application/json', 'contentUrl' => route('open-data.download')],
-                    ['@type' => 'DataDownload', 'encodingFormat' => 'application/json', 'contentUrl' => url('/api/v1/policies')],
-                ],
-                // The Zenodo concept DOI, only once one has been minted (DATASET_DOI).
-                ...DatasetCitation::jsonLdIdentifier(),
-            ]);
+            // The one Dataset node for the whole corpus; other pages refer to it by @id.
+            ->withJsonLd(Seo::corpusDataset());
 
-        return view('site.pages.open-data', ['seo' => $seo, 'stats' => $stats, 'lastUpdated' => $lastUpdated, 'taxonomies' => TaxonomyTerm::TAXONOMIES, 'schemaFiles' => array_map('basename', glob(base_path('data/schema/*.json')) ?: []), 'releases' => $this->releases()]);
+        return view('site.pages.open-data', ['seo' => $seo, 'stats' => $stats, 'lastUpdated' => $lastUpdated, 'taxonomies' => TaxonomyTerm::TAXONOMIES, 'schemaFiles' => array_map('basename', glob(base_path('data/schema/*.json')) ?: []), 'releases' => $this->releases($stats)]);
     }
 
     public function openDataDownload(OpenDataExporter $exporter): JsonResponse
@@ -184,7 +166,7 @@ class PageController extends Controller
         $team = config('team');
         $organization = config('aipolicytracker.organization');
         $seo = Seo::make(
-            'People behind AIPolicyTracker: maintainer, research contributors and advisors',
+            'People behind AIPolicyTracker: maintainer and contributors',
             'Who maintains AIPolicyTracker, the independent researchers who contribute to it, and how affiliations are listed: for identification, never as endorsement.',
             route('team')
         )->withBreadcrumbs([['Home', route('home')], ['About', route('about')], ['People', route('team')]])
@@ -212,10 +194,17 @@ class PageController extends Controller
         return view('site.pages.team', compact('seo', 'team', 'organization'));
     }
 
-    private function releases(): array
+    /**
+     * The current release is described from the live counts, the same ones every other page
+     * shows; only the first release keeps its historical figures, labelled as such.
+     */
+    private function releases(array $stats): array
     {
+        $date = $stats['last_updated'] ? Carbon::parse($stats['last_updated'])->toDateString() : now()->toDateString();
+
         return [
-            ['version' => config('aipolicytracker.data_schema_version'), 'date' => '2026-09-10', 'notes' => 'Initial structured dataset: 10 jurisdictions, 18 policy instruments, 57 obligations, dated change log. All records pending human verification.'],
+            ['version' => 'Schema '.config('aipolicytracker.data_schema_version').', live', 'date' => $date, 'notes' => sprintf('Current dataset: %s jurisdictions, %s policy instruments, %s obligations, %s dated changes; %s instruments verified against their official source.', number_format($stats['jurisdictions']), number_format($stats['policies']), number_format($stats['obligations']), number_format($stats['changes']), number_format($stats['verified']))],
+            ['version' => 'First release', 'date' => '2026-09-10', 'notes' => 'Historical figures: 10 jurisdictions, 18 policy instruments, 57 obligations and a dated change log, all pending human verification at the time.'],
         ];
     }
 }

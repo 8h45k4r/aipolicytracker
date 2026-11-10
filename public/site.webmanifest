@@ -1,7 +1,7 @@
 {
   "name": "AIPolicyTracker",
   "short_name": "AIPolicyTracker",
-  "description": "Source-backed AI laws, regulations, strategies and guidance across 212 jurisdictions, with the obligations and deadlines they create.",
+  "description": "Source-backed AI laws, regulations, strategies and guidance worldwide, with the obligations and deadlines they create, each linked to its official source.",
   "start_url": "/",
   "scope": "/",
   "display": "browser",

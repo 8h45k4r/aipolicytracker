@@ -18,7 +18,8 @@
         <h2 id="kinds-h" class="section-title">By record type</h2>
         <p class="mt-1 text-sm text-brand-body">A record counts as complete only when it has no gap at all, required or expected, so this is the strict reading.</p>
         <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
-            <thead><tr class="text-left text-brand-muted border-b border-brand-line"><th class="py-2 pr-3">Record type</th><th class="py-2 pr-3 text-right">Published</th><th class="py-2 pr-3 text-right">Complete</th><th class="py-2 pr-3 text-right">Required missing</th><th class="py-2 text-right">Expected missing</th></tr></thead>
+            <caption class="sr-only">Coverage completeness by record type</caption>
+            <thead><tr class="text-left text-brand-muted border-b border-brand-line"><th scope="col" class="py-2 pr-3">Record type</th><th scope="col" class="py-2 pr-3 text-right">Published</th><th scope="col" class="py-2 pr-3 text-right">Complete</th><th scope="col" class="py-2 pr-3 text-right">Required missing</th><th scope="col" class="py-2 text-right">Expected missing</th></tr></thead>
             <tbody class="divide-y divide-brand-line">
             @foreach($report['kinds'] as $kind)
                 <tr>
@@ -37,7 +38,8 @@
         <h2 id="checks-h" class="section-title">Every check, and how the corpus stands against it</h2>
         <p class="mt-1 text-sm text-brand-body"><strong class="text-brand-navy">Required</strong> means a record should not be published without it, and the data check fails when required gaps exceed the budget. <strong class="text-brand-navy">Expected</strong> means the record works without it but is less useful; those are counted and published, never gated, because gating them would reward filling boxes over checking facts. "Applies to" excludes records the check was never meant for.</p>
         <div class="mt-3 overflow-x-auto"><table class="w-full text-sm">
-            <thead><tr class="text-left text-brand-muted border-b border-brand-line"><th class="py-2 pr-3">What the record should carry</th><th class="py-2 pr-3">Record type</th><th class="py-2 pr-3">Severity</th><th class="py-2 pr-3 text-right">Missing</th><th class="py-2 text-right">Applies to</th></tr></thead>
+            <caption class="sr-only">Coverage checks and their current status</caption>
+            <thead><tr class="text-left text-brand-muted border-b border-brand-line"><th scope="col" class="py-2 pr-3">What the record should carry</th><th scope="col" class="py-2 pr-3">Record type</th><th scope="col" class="py-2 pr-3">Severity</th><th scope="col" class="py-2 pr-3 text-right">Missing</th><th scope="col" class="py-2 text-right">Applies to</th></tr></thead>
             <tbody class="divide-y divide-brand-line">
             @foreach($report['checks'] as $check)
                 <tr>

@@ -11,25 +11,47 @@ use App\Models\TaxonomyTerm;
 use App\Services\Hubs\HubCatalog;
 use App\Services\Localization\Translations;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\PolicyData\PolicySerializer;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Support\Faq;
 use App\Support\PageTitle;
 use App\Support\Seo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class JurisdictionController extends Controller
 {
-    public function index(): View
+    public const SORTS = ['name' => 'Name', 'instruments' => 'Most instruments'];
+
+    public const REGIONS = ['Africa', 'Americas', 'Asia', 'Europe', 'International', 'Oceania'];
+
+    public function index(Request $request): View
     {
-        $jurisdictions = Jurisdiction::published()
+        $typeFilter = in_array($request->query('type'), ['country', 'state', 'territory', 'supranational', 'region'], true) ? $request->query('type') : null;
+        $regionFilter = in_array($request->query('region'), self::REGIONS, true) ? $request->query('region') : null;
+        $sort = in_array($request->query('sort'), array_keys(self::SORTS), true) ? $request->query('sort') : 'name';
+        $query = Jurisdiction::published()
             ->withCount(['policyInstruments as policies_count' => fn ($q) => $q->published()])
             ->withCount(['policyInstruments as binding_in_force_count' => fn ($q) => $q->published()->where('is_binding', true)->whereIn('status', ['in_force', 'partially_applicable'])])
             ->withCount(['policyInstruments as strategy_count' => fn ($q) => $q->published()->where('instrument_type', 'strategy')])
             ->with('parent')
-            ->orderBy('region')->orderBy('name')->get();
+            ->orderBy('region');
+        if ($sort === 'instruments') {
+            $query->orderByDesc('policies_count')->orderBy('name');
+        } else {
+            $query->orderBy('name');
+        }
+        if ($typeFilter) {
+            $query->where('jurisdiction_type', $typeFilter);
+        }
+        if ($regionFilter) {
+            $query->where('region', $regionFilter);
+        }
+        $jurisdictions = $query->get();
         $byRegion = $jurisdictions->groupBy('region');
 
         $seo = Seo::make(
@@ -55,7 +77,22 @@ class JurisdictionController extends Controller
         ]];
         $seo->withFaq(array_merge($computed, Faq::for('jurisdictions.index')));
 
-        return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions'));
+        $typeCounts = Jurisdiction::published()->selectRaw('jurisdiction_type, COUNT(*) as n')->groupBy('jurisdiction_type')->pluck('n', 'jurisdiction_type');
+        $regionCounts = Jurisdiction::published()->selectRaw('region, COUNT(*) as n')->groupBy('region')->pluck('n', 'region');
+
+        return view('site.jurisdictions.index', compact('seo', 'byRegion', 'jurisdictions', 'typeFilter', 'typeCounts', 'regionFilter', 'regionCounts', 'sort'));
+    }
+
+    public function json(Jurisdiction $jurisdiction, PolicySerializer $serializer): JsonResponse
+    {
+        abort_unless($jurisdiction->published_at, 404);
+        $jurisdiction->load(['policyInstruments' => fn ($q) => $q->published()]);
+
+        return response()->json($serializer->jurisdiction($jurisdiction, true), 200, [
+            'Cache-Control' => 'public, max-age=600',
+            'X-Robots-Tag' => 'noindex',
+            'Link' => '<'.$jurisdiction->url().'>; rel="canonical"',
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     public function show(Jurisdiction $jurisdiction, PolicyCatalog $catalog): View|RedirectResponse
@@ -67,6 +104,9 @@ class JurisdictionController extends Controller
         }
         $jurisdiction->load(['parent', 'children' => fn ($q) => $q->published()]);
         $policies = $jurisdiction->policyInstruments()->published()->with(['terms', 'deadlines'])->orderByDesc('featured')->orderByDesc('is_binding')->orderBy('title')->get();
+        // Every row on this page names its jurisdiction, which is this one: set it rather than
+        // let each row query for it (twelve identical queries on the US page).
+        $policies->each->setRelation('jurisdiction', $jurisdiction);
         $timeline = HubCatalog::timeline($policies);
         // Laws of its states, provinces and cities, in the page body: listed only by name in
         // the sidebar, a country's state-level laws (California SB 53, the New York RAISE Act)
@@ -76,6 +116,7 @@ class JurisdictionController extends Controller
             ->orderByDesc('is_binding')->orderByRaw('CASE WHEN adopted_on IS NULL THEN 1 ELSE 0 END')->orderByDesc('adopted_on')->orderBy('title')->get();
         $region = HubCatalog::regionSlugFor($jurisdiction->region);
         $changes = ChangeEvent::published()->where('jurisdiction_id', $jurisdiction->id)->with('policyInstrument')->orderByDesc('occurred_on')->limit(8)->get();
+        $changes->each->setRelation('jurisdiction', $jurisdiction);
         $deadlines = $catalog->upcomingDeadlines(8, $jurisdiction->id);
         $obligationCategories = Obligation::published()->whereIn('policy_instrument_id', $policies->pluck('id'))->selectRaw('category, COUNT(*) as n')->groupBy('category')->orderByDesc('n')->get();
         // Shown by the taxonomy's display name, not the raw key ("accuracy_robustness_security").
@@ -123,6 +164,7 @@ class JurisdictionController extends Controller
             ->withModified($lastModified)
             ->withPublished($jurisdiction->created_at)
             ->withCard('jurisdiction', $jurisdiction->slug, $lastModified)
+            ->withAlternate('application/json', route('jurisdictions.json', $jurisdiction->slug))
             ->withAlternate('text/markdown', route('jurisdictions.context', $jurisdiction->slug))
             ->withPageProperties(Seo::provenance($jurisdiction))
             ->withPageType('CollectionPage', [
@@ -133,8 +175,13 @@ class JurisdictionController extends Controller
                 'isPartOf' => Seo::recordIsPartOf(),
             ]);
         $seo->withFaq(QuestionBank::jurisdiction($jurisdiction, $policies, $deadlines));
+        // The editorial overviews that cover this country (config content.landings). Without this
+        // link they were reachable only from the noindexed /explore pages.
+        $overviews = collect(config('content.landings'))
+            ->filter(fn ($l) => in_array($jurisdiction->slug, $l['jurisdictions'] ?? [], true))
+            ->map(fn ($l, $slug) => ['label' => $l['h1'], 'url' => route('landing', $slug)])->values();
 
-        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'subnational', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl'));
+        return view('site.jurisdictions.show', compact('seo', 'jurisdiction', 'policies', 'subnational', 'changes', 'deadlines', 'obligationCategories', 'useCases', 'sectors', 'related', 'controls', 'answer', 'facts', 'timeline', 'region', 'translation', 'locale', 'reviewedTranslation', 'englishUrl', 'overviews'));
     }
 
     private function firstSentence(?string $text): string

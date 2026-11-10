@@ -1,9 +1,6 @@
 @extends('backend.layouts.app', ['title' => 'Role permissions'])
 @section('content')
-<p class="text-sm"><a href="{{ route('backend.admin.users.index') }}">← Users and roles</a></p>
-<div class="mt-2">
-    <x-backend.page-header title="Role permissions" description="What each role may do. A change applies to everyone holding the role from their next page load, and is recorded in the audit log. This page asks for your password before it opens." />
-</div>
+<x-backend.page-header title="Role permissions" description="What each role may do. A change applies to everyone holding the role from their next page load, and is recorded in the audit log. This page asks for your password before it opens." :crumbs="[['Users and roles', route('backend.admin.users.index')], ['Role permissions']]" />
 
 <div class="mt-4 rounded-lg border border-brand-line bg-white p-4 text-sm">
     <p class="font-semibold text-brand-navy">Owner-only permissions cannot be given to a role</p>

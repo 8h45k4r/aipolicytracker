@@ -111,7 +111,7 @@
                             @if($o->practical_action)<p><span class="font-medium text-brand-navy">Practical action:</span> {{ $o->practical_action }}</p>@endif
                             @if($o->evidenceArtifacts->isNotEmpty())<p><span class="font-medium text-brand-navy">Evidence examples:</span> {{ $o->evidenceArtifacts->pluck('title')->implode('; ') }}</p>@endif
                             @if($o->frameworkMappings->isNotEmpty())<p><span class="font-medium text-brand-navy">Framework mapping (original, editorial):</span> @foreach($o->frameworkMappings as $m)@if(!$loop->first); @endif<a href="{{ route('frameworks.show', config('frameworks.'.$m->framework.'.slug', $m->framework)) }}" class="text-brand-navy hover:underline">{{ $m->frameworkName() }}</a> {{ $m->reference }}@endforeach</p>@endif
-                            <p class="flex flex-wrap items-center gap-3 text-xs"><a href="{{ $o->url() }}" class="font-medium text-brand-blue hover:underline">Open the obligation page &rarr;</a>@if($o->source_reference)<span class="text-brand-muted">{{ $o->source_reference }}</span>@endif<x-site.verified :record="$o" compact /></p>
+                            <p class="flex flex-wrap items-center gap-3 text-xs"><a href="{{ $o->url() }}" class="inline-flex min-h-6 items-center font-medium text-brand-blue hover:underline">Open the obligation page &rarr;</a>@if($o->source_reference)<span class="text-brand-muted">{{ $o->source_reference }}</span>@endif<x-site.verified :record="$o" compact /></p>
                         </div>
                     </details>
                     @endforeach
@@ -145,6 +145,8 @@
 
             <x-site.source-list :sources="$policy->sourceDocuments" class="mt-8" />
             <x-site.cite :record="$policy" :title="$name" :url="$policy->url()" :source-url="$policy->official_source_url" :source-title="$policy->source_title" :publisher="$policy->source_publisher" class="mt-8" />
+            <x-site.commercial-use class="mt-3" />
+            <x-site.record-badge :policy="$policy" class="mt-3" />
 
             <section aria-labelledby="history-heading" class="mt-8">
                 <h2 id="history-heading" class="section-title">Change history</h2>
@@ -174,7 +176,7 @@
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Controls that meet its duties</p>
                     <p class="mt-1 text-xs text-brand-muted">Duties satisfied / duties served, out of this instrument's recorded duties.</p>
-                    <ul class="mt-2 space-y-1.5">@foreach($controls->take(7) as $r)<li class="flex items-baseline justify-between gap-2"><a href="{{ $r['control']->url() }}" class="text-brand-navy hover:underline">{{ $r['control']->title }}</a><span class="font-mono text-xs tabular-nums text-brand-muted whitespace-nowrap">{{ $r['satisfies'] }} / {{ $r['duties'] }}</span></li>@endforeach</ul>
+                    <ul class="mt-2 space-y-1.5">@foreach($controls->take(7) as $r)<li class="flex items-baseline justify-between gap-2"><a href="{{ $r['control']->url() }}" class="text-brand-navy hover:underline">{{ $r['control']->title }}</a><span class="text-xs tabular-nums text-brand-muted whitespace-nowrap">{{ $r['satisfies'] }} / {{ $r['duties'] }}</span></li>@endforeach</ul>
                     @if($controls->count() > 7)<p class="mt-2 text-xs"><a href="{{ route('controls.index') }}">All {{ $controls->count() }} controls &rarr;</a></p>@endif
                 </div>
                 @endif
@@ -190,6 +192,9 @@
                 @endif
                 @if($sameJurisdiction->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">More from {{ $policy->jurisdiction->name }}</p><ul class="mt-2 space-y-1.5">@foreach($sameJurisdiction as $r)<li><a href="{{ $r->url() }}" class="text-brand-body hover:underline">{{ $r->short_title ?: $r->title }}</a></li>@endforeach</ul></div>
+                @endif
+                @if($compareJurisdictions->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Compare {{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }}</p><ul class="mt-2 space-y-1.5">@foreach($compareJurisdictions as $r)<li><a href="{{ route('compare.index', ['j' => $policy->jurisdiction->slug.','.$r->slug]) }}" class="text-brand-body hover:underline" rel="nofollow">{{ $policy->jurisdiction->short_name ?: $policy->jurisdiction->name }} vs {{ $r->short_name ?: $r->name }}</a></li>@endforeach</ul></div>
                 @endif
                 @if(!empty($policy->related_frameworks))
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Framework crosswalks</p><ul class="mt-2 space-y-1.5">@if(in_array('iso_42001', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'iso-42001-vs-eu-ai-act') }}" class="text-brand-body hover:underline">ISO/IEC 42001 vs EU AI Act</a></li>@endif @if(in_array('nist_ai_rmf', $policy->related_frameworks))<li><a href="{{ route('guides.show', 'nist-ai-rmf-vs-eu-ai-act') }}" class="text-brand-body hover:underline">NIST AI RMF vs EU AI Act</a></li>@endif</ul></div>

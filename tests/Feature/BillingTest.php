@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\Site\BillingController;
 use App\Mail\SubscriptionPaymentFailedMail;
+use App\Models\AlertChannel;
 use App\Models\AppSetting;
 use App\Models\BillingCheckout;
 use App\Models\BillingEvent;
@@ -14,9 +16,11 @@ use App\Services\Alerts\AlertBuilder;
 use App\Services\Billing\BillingConfig;
 use App\Services\Billing\Contracts\BillingGateway;
 use App\Services\Billing\PlanCatalog;
+use App\Services\Billing\Provisioner;
 use App\Services\Billing\WebhookProcessor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use StandardWebhooks\Webhook;
@@ -97,8 +101,7 @@ class BillingTest extends TestCase
             }
         }
         $code .= file_get_contents(base_path('routes/public.php'));
-        // alerts.weekly describes the digest, which is open to everyone and gated by nothing.
-        $code .= "'alerts.weekly'";
+        // alerts.daily is the only alert entitlement: the digest is open to everyone.
         foreach (array_merge([config('billing.free')], array_values(config('billing.plans'))) as $plan) {
             foreach (array_keys($plan['entitlements']) as $key) {
                 $this->assertTrue(str_contains($code, "'{$key}'") || str_contains($code, ':'.$key."'"), "Entitlement {$key} is granted but nothing consumes it");
@@ -148,7 +151,6 @@ class BillingTest extends TestCase
         $user = $this->user();
         BillingCheckout::create(['user_id' => $user->id, 'plan_key' => 'pro_monthly', 'product_id' => 'pdt_month', 'status' => 'returned']);
         $this->assertFalse($user->entitled('alerts.channels'));
-        $this->assertTrue($user->entitled('alerts.weekly'));
 
         $this->webhook($this->subscriptionEvent('subscription.active', $user), 'msg_a')->assertOk()->assertJson(['outcome' => 'applied']);
         $sub = Subscription::where('provider_subscription_id', 'sub_1')->firstOrFail();
@@ -293,12 +295,16 @@ class BillingTest extends TestCase
         $this->assertNotNull($webhook, 'endpoint registered for this site');
         $this->assertContains('subscription.active', $webhook['events']);
         $this->assertContains('payment.failed', $webhook['events']);
+        // Refunds and lost chargebacks revoke access, so the endpoint must receive them.
+        foreach (['refund.succeeded', 'dispute.lost', 'dispute.accepted'] as $event) {
+            $this->assertContains($event, $webhook['events']);
+        }
         $this->assertSame($webhook['secret'], AppSetting::get('dodo_webhook_secret'));
         $this->assertSame(1, (int) AppSetting::find('dodo_webhook_secret')->secret, 'stored as a secret');
         $monthly = $this->gateway->createdProducts['AIPolicyTracker Pro'];
         $yearly = $this->gateway->createdProducts['AIPolicyTracker Pro (annual)'];
-        $this->assertSame([2900, 'USD', 'Month'], [$monthly['price'], $monthly['currency'], $monthly['interval']]);
-        $this->assertSame([29000, 'USD', 'Year'], [$yearly['price'], $yearly['currency'], $yearly['interval']]);
+        $this->assertSame([4900, 'USD', 'Month'], [$monthly['price'], $monthly['currency'], $monthly['interval']]);
+        $this->assertSame([49000, 'USD', 'Year'], [$yearly['price'], $yearly['currency'], $yearly['interval']]);
         $this->assertSame($monthly['product_id'], AppSetting::get('dodo_product_pro_monthly'));
         $this->assertSame($yearly['product_id'], app(PlanCatalog::class)->plan('pro_yearly')['product_id']);
 
@@ -338,7 +344,7 @@ class BillingTest extends TestCase
 
         // Product check compares the provider price with config and flags a mismatch.
         $this->gateway->products['pdt_live_month'] = ['product_id' => 'pdt_live_month', 'name' => 'Pro', 'price' => 1900, 'currency' => 'USD', 'interval' => 'Month'];
-        $this->gateway->products['pdt_year'] = ['product_id' => 'pdt_year', 'name' => 'Pro annual', 'price' => 29000, 'currency' => 'USD', 'interval' => 'Year'];
+        $this->gateway->products['pdt_year'] = ['product_id' => 'pdt_year', 'name' => 'Pro annual', 'price' => 49000, 'currency' => 'USD', 'interval' => 'Year'];
         $this->actingAs($admin)->post('/backend/admin/billing/check')->assertRedirect();
         $this->actingAs($admin)->get('/backend/admin/billing')->assertOk()->assertSee('Price differs')->assertSee('Price matches');
     }
@@ -436,24 +442,108 @@ class BillingTest extends TestCase
         $this->assertTrue($user->fresh()->entitled('alerts.channels'));
     }
 
-    public function test_pricing_page_is_noindex_and_sells_nothing_while_billing_is_disabled(): void
+    public function test_pricing_page_is_indexable_but_sells_nothing_while_billing_is_disabled(): void
     {
+        // The page also carries the licence terms and the enquiry form, which do not depend on
+        // selling, so it is indexed and linked from the footer either way; only checkout is off.
         $res = $this->get('/pricing')->assertOk()->assertSee('Not yet available')->assertDontSee('Subscribe to Pro');
-        $this->assertStringContainsString('noindex', $res->getContent());
+        $this->assertStringNotContainsString('noindex', $res->getContent());
         $this->actingAs($this->user())->post('/billing/checkout/pro_monthly')->assertNotFound();
         $this->actingAs($this->user())->post('/billing/portal')->assertNotFound();
-        $this->get('/sitemap-static.xml')->assertOk()->assertDontSee('/pricing');
-        $this->get('/')->assertOk()->assertDontSee('/pricing"', false);
+        $this->get('/sitemap-static.xml')->assertOk()->assertSee('/pricing');
+        $this->get('/')->assertOk()->assertSee('/pricing"', false);
     }
 
     public function test_pricing_page_is_indexable_and_offers_checkout_when_enabled(): void
     {
         $this->enable();
-        $res = $this->get('/pricing')->assertOk()->assertSee('$29')->assertSee('$290')->assertSee('Sign in to subscribe');
+        $res = $this->get('/pricing')->assertOk()->assertSee('$49')->assertSee('$490')->assertSee('Sign in to subscribe');
         $this->assertStringNotContainsString('noindex', $res->getContent());
         $this->actingAs($this->user())->get('/pricing')->assertOk()->assertSee('Subscribe to Pro')->assertSee('What stays free?');
         $this->get('/sitemap-static.xml')->assertOk()->assertSee('/pricing');
         $this->get('/')->assertOk()->assertSee('/pricing"', false);
+    }
+
+    public function test_a_second_click_reopens_the_same_checkout_session(): void
+    {
+        $this->enable();
+        $this->gateway->products['pdt_month'] = ['product_id' => 'pdt_month', 'name' => 'Pro', 'price' => config('billing.plans.pro_monthly.price'), 'currency' => 'USD', 'interval' => 'Month'];
+        $user = $this->user();
+
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk()->assertSee('https://checkout.example.test/cs_1');
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk()->assertSee('https://checkout.example.test/cs_1');
+        $this->assertSame(1, $this->gateway->sessionsCreated, 'one session, so it cannot be paid twice');
+        $this->assertSame(1, BillingCheckout::count());
+
+        // After the window a new session is opened.
+        $this->travel(BillingController::REUSE_MINUTES + 1)->minutes();
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk()->assertSee('https://checkout.example.test/cs_2');
+    }
+
+    public function test_a_downgraded_account_cannot_send_test_pings_to_its_channels(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        $channel = AlertChannel::create(['user_id' => $user->id, 'kind' => 'webhook', 'endpoint' => 'https://hooks.example.org/x', 'secret' => 'sec', 'enabled' => true]);
+        Http::fake();
+
+        $this->actingAs($user)->post(route('alerts.channels.test', $channel))->assertRedirect(route('pricing'));
+        Http::assertNothingSent();
+    }
+
+    public function test_an_event_abandoned_mid_way_is_applied_by_the_next_retry(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        $payload = $this->subscriptionEvent('subscription.active', $user);
+        // The process died after recording the event and before applying it.
+        BillingEvent::create(['provider' => 'dodo', 'event_id' => 'msg_abandoned', 'event_type' => 'subscription.active', 'provider_subscription_id' => 'sub_1', 'event_at' => now(), 'payload' => $payload, 'received_at' => now()->subMinutes(2)]);
+
+        // A quick retry is still a duplicate: the first attempt may yet finish.
+        $this->webhook($payload, 'msg_abandoned')->assertOk()->assertJson(['outcome' => 'duplicate']);
+        $this->assertNull($user->fresh()->activeSubscription());
+
+        $this->travel(WebhookProcessor::STALE_PENDING_MINUTES)->minutes();
+        $this->webhook($payload, 'msg_abandoned')->assertOk()->assertJson(['outcome' => 'applied']);
+        $this->assertNotNull($user->fresh()->activeSubscription());
+        // Once applied, further retries are duplicates.
+        $this->webhook($payload, 'msg_abandoned')->assertOk()->assertJson(['outcome' => 'duplicate']);
+    }
+
+    public function test_reprovisioning_updates_an_existing_endpoint_to_the_current_events(): void
+    {
+        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
+        $admin = $this->user(['email' => 'admin@example.org']);
+        AppSetting::put('dodo_api_key', 'dodo_test_abcdefghijklmnop');
+        // An endpoint made earlier with the old list (no refunds or disputes).
+        $this->gateway->webhooks[route('billing.webhook')] = ['id' => 'wh_old', 'secret' => 'whsec_cHJvdmlzaW9uZWRzZWNyZXRwcm92aXNpb25lZA==', 'events' => ['subscription.active']];
+
+        $this->actingAs($admin)->post('/backend/admin/billing/provision')->assertRedirect()->assertSessionHas('success');
+        $webhook = $this->gateway->webhooks[route('billing.webhook')];
+        $this->assertSame('wh_old', $webhook['id']);
+        $this->assertSame(Provisioner::EVENTS, $webhook['events']);
+    }
+
+    public function test_checkout_refuses_a_plan_the_provider_prices_differently_from_the_page(): void
+    {
+        $this->enable();
+        $user = $this->user();
+        // The provider product charges $29 while the page shows the configured price.
+        $this->gateway->products['pdt_month'] = ['product_id' => 'pdt_month', 'name' => 'Pro', 'price' => 2900, 'currency' => 'USD', 'interval' => 'Month'];
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect(route('pricing'))->assertSessionHas('error')->assertSessionMissing('error_detail');
+        $this->assertSame(0, BillingCheckout::count());
+        $this->assertNull($this->gateway->lastCheckout);
+
+        // A failed lookup also stops the sale; the operator is told why.
+        config(['aipolicytracker.admin_emails' => ['admin@example.org']]);
+        $admin = $this->user(['email' => 'admin@example.org']);
+        $this->actingAs($admin)->post('/billing/checkout/pro_yearly')->assertRedirect(route('pricing'))->assertSessionHas('error_detail', fn ($d) => str_contains($d, 'could not be checked'));
+        $this->assertSame(0, BillingCheckout::count());
+
+        // A matching product sells.
+        $this->gateway->products['pdt_month']['price'] = config('billing.plans.pro_monthly.price');
+        $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk();
+        $this->assertSame(1, BillingCheckout::count());
     }
 
     public function test_checkout_requires_verified_account_records_attempt_and_hands_off_to_provider(): void
@@ -465,6 +555,7 @@ class BillingTest extends TestCase
         $this->actingAs($this->user())->post('/billing/checkout/no_such_plan')->assertNotFound();
 
         $user = $this->user();
+        $this->gateway->products['pdt_month'] = ['product_id' => 'pdt_month', 'name' => 'Pro', 'price' => config('billing.plans.pro_monthly.price'), 'currency' => 'USD', 'interval' => 'Month'];
         $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertOk()->assertSee('https://checkout.example.test/cs_1');
         $checkout = BillingCheckout::where('user_id', $user->id)->firstOrFail();
         $this->assertSame('pdt_month', $checkout->product_id);
@@ -487,6 +578,8 @@ class BillingTest extends TestCase
     {
         $this->enable();
         $this->gateway->fail = true;
+        // The price check passes; the provider then refuses to open the session.
+        $this->gateway->products['pdt_month'] = ['product_id' => 'pdt_month', 'name' => 'Pro', 'price' => config('billing.plans.pro_monthly.price'), 'currency' => 'USD', 'interval' => 'Month'];
         $user = $this->user();
         $this->actingAs($user)->post('/billing/checkout/pro_monthly')->assertRedirect('/pricing')->assertSessionHas('error');
         $this->assertNull(session('error_detail'), 'a customer never sees provider internals');
@@ -572,6 +665,8 @@ class FakeGateway implements BillingGateway
 
     public ?array $lastCheckout = null;
 
+    public int $sessionsCreated = 0;
+
     public ?string $lastPortalCustomer = null;
 
     public array $products = [];
@@ -583,7 +678,9 @@ class FakeGateway implements BillingGateway
     public function provisionWebhook(string $url, array $events): array
     {
         $created = ! isset($this->webhooks[$url]);
-        $this->webhooks[$url] ??= ['id' => 'wh_'.count($this->webhooks), 'secret' => 'whsec_cHJvdmlzaW9uZWRzZWNyZXRwcm92aXNpb25lZA==', 'events' => $events];
+        $this->webhooks[$url] ??= ['id' => 'wh_'.count($this->webhooks), 'secret' => 'whsec_cHJvdmlzaW9uZWRzZWNyZXRwcm92aXNpb25lZA=='];
+        // Like DodoGateway: an existing endpoint's filters are replaced with the current list.
+        $this->webhooks[$url]['events'] = $events;
 
         return ['id' => $this->webhooks[$url]['id'], 'secret' => $this->webhooks[$url]['secret'], 'created' => $created];
     }
@@ -602,8 +699,10 @@ class FakeGateway implements BillingGateway
             throw new \RuntimeException('provider down');
         }
         $this->lastCheckout = ['user_id' => $user->id, 'product_id' => $productId, 'metadata' => $metadata, 'return_url' => $returnUrl];
+        $this->sessionsCreated++;
+        $id = $this->sessionsCreated === 1 ? 'cs_1' : 'cs_'.$this->sessionsCreated;
 
-        return ['session_id' => 'cs_1', 'url' => 'https://checkout.example.test/cs_1'];
+        return ['session_id' => $id, 'url' => 'https://checkout.example.test/'.$id];
     }
 
     public function createPortalLink(string $providerCustomerId, string $returnUrl): string

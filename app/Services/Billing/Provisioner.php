@@ -14,9 +14,15 @@ use App\Services\Billing\Contracts\BillingGateway;
  */
 class Provisioner
 {
-    /** Events the endpoint subscribes to; WebhookProcessor applies subscription.* and records the rest. */
+    /**
+     * Events the endpoint subscribes to. WebhookProcessor applies subscription.*, payments,
+     * refunds and disputes (a refund or a lost chargeback revokes access) and records the rest.
+     * Names as in the Dodo SDK's webhook event classes.
+     */
     public const EVENTS = [
         'payment.succeeded', 'payment.failed', 'payment.processing', 'payment.cancelled',
+        'refund.succeeded', 'refund.failed',
+        'dispute.opened', 'dispute.challenged', 'dispute.accepted', 'dispute.lost', 'dispute.won', 'dispute.cancelled', 'dispute.expired',
         'subscription.active', 'subscription.renewed', 'subscription.on_hold', 'subscription.past_due', 'subscription.paused', 'subscription.unpaused',
         'subscription.cancelled', 'subscription.failed', 'subscription.expired', 'subscription.plan_changed', 'subscription.updated', 'subscription.update_payment_method',
     ];

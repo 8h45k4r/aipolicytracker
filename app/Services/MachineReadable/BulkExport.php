@@ -120,6 +120,7 @@ class BulkExport
                 'instrument_type' => $r->instrument_type,
                 'status' => $r->status,
                 'is_binding' => (bool) $r->is_binding,
+                'ai_specific' => (bool) $r->ai_specific,
                 'issuing_body' => $r->issuing_body,
                 'adopted_on' => $this->date($r->adopted_on),
                 'published_on' => $this->date($r->published_on),

@@ -15,7 +15,6 @@ use App\Models\TaxonomyTerm;
 use App\Models\TemplateVersion;
 use App\Models\Tool;
 use App\Models\TransitionMeasure;
-use App\Services\Billing\BillingConfig;
 use App\Services\ExternalData\ExternalDataset;
 use App\Services\Glossary\GlossaryTerms;
 use App\Services\Hubs\HubCatalog;
@@ -24,29 +23,35 @@ use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\Report\StateOfAiRegulation;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Templates\TemplateCatalog;
+use App\Support\ContentDates;
 use App\Support\RiskTaxonomy;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 /**
  * Sitemap index plus one sitemap per content type. Only indexable pages are
- * listed; lastmod comes from real record update timestamps.
+ * listed. A record's lastmod is the date its content last changed (ContentDates):
+ * its last verification, its last recorded revision, or its first publication,
+ * never updated_at, which moves whenever an import rewrites the row.
  */
 class SitemapController extends Controller
 {
     public function index(): Response
     {
+        $policies = $this->corpusModified();
+        $changes = ContentDates::latest(ChangeEvent::class, 'change');
         $sections = [
-            'static' => PolicyInstrument::published()->max('updated_at'),
-            'jurisdictions' => Jurisdiction::published()->max('updated_at'),
-            'policies' => PolicyInstrument::published()->max('updated_at'),
-            'obligations' => Obligation::published()->max('updated_at'),
-            'controls' => Control::published()->max('updated_at'),
-            'changes' => ChangeEvent::published()->max('updated_at'),
-            'updates' => ChangeEvent::published()->max('updated_at'),
+            'static' => $policies,
+            'jurisdictions' => collect([ContentDates::latest(Jurisdiction::class), $policies])->filter()->max(),
+            'policies' => $policies,
+            'obligations' => ContentDates::latest(Obligation::class, 'obligation'),
+            'controls' => ContentDates::latest(Control::class, 'control'),
+            'changes' => $changes,
+            'updates' => $changes,
             'templates' => TemplateVersion::max('generated_at'),
-            'resources' => PolicyInstrument::published()->max('updated_at'),
+            'resources' => $policies,
             // The research corpus: roughly 1,700 incident pages and 2,500 risk
             // entries that were reachable, indexable and in no sitemap at all,
             // which is most of what Search Console reports as discovered and not
@@ -104,43 +109,95 @@ class SitemapController extends Controller
      */
     private function jurisdictionUrls()
     {
+        // A country page lists its instruments, so it changes when one of them does.
+        $policies = $this->policyDates();
+        $byJurisdiction = PolicyInstrument::published()->pluck('jurisdiction_id', 'id')
+            ->map(fn ($j, $id) => ['j' => $j, 'date' => $policies[$id] ?? null])
+            ->groupBy('j')->map(fn ($rows) => $rows->pluck('date')->filter()->max());
+
         return Jurisdiction::published()
             ->withPublishedInstrument()
             ->orderBy('slug')
             ->lazy(500)
             ->filter->isPageIndexable()
-            ->map(fn ($j) => ['loc' => $j->url(), 'lastmod' => $j->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])
+            ->map(fn ($j) => ['loc' => $j->url(), 'lastmod' => $this->atom(collect([ContentDates::of($j), $byJurisdiction[$j->id] ?? null])->filter()->max()), 'changefreq' => 'weekly', 'priority' => '0.9'])
             ->values();
     }
 
     private function policyUrls()
     {
+        $dates = $this->policyDates();
+
         return PolicyInstrument::published()
             ->orderBy('slug')
             ->lazy(500)
             ->filter->isIndexable()
-            ->map(fn ($p) => ['loc' => $p->url(), 'lastmod' => $p->updated_at?->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.9'])
+            ->map(fn ($p) => ['loc' => $p->url(), 'lastmod' => $this->atom($dates[$p->id] ?? null), 'changefreq' => 'weekly', 'priority' => '0.9'])
             ->values();
     }
 
     private function controlUrls()
     {
-        $urls = collect([['loc' => route('controls.index'), 'lastmod' => optional(Control::published()->max('updated_at'), fn ($m) => Carbon::parse($m)->toAtomString()), 'changefreq' => 'weekly', 'priority' => '0.8']]);
+        $revised = ContentDates::revisions('control');
+        $urls = collect([['loc' => route('controls.index'), 'lastmod' => $this->atom(ContentDates::latest(Control::class, 'control')), 'changefreq' => 'weekly', 'priority' => '0.8']]);
 
         return $urls->concat(Control::published()->with(['evidence', 'obligations'])->orderBy('slug')->get()
             ->filter->isIndexable()
-            ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $c->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.7']))->values();
+            ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $this->atom(ContentDates::of($c, $revised[$c->slug] ?? null)), 'changefreq' => 'monthly', 'priority' => '0.7']))->values();
     }
 
     private function obligationUrls()
     {
+        $revised = ContentDates::revisions('obligation');
+
         return Obligation::published()
             ->with('policyInstrument')
             ->orderBy('slug')
             ->lazy(500)
             ->filter(fn ($o) => filled($o->summary) && $o->policyInstrument?->isIndexable())
-            ->map(fn ($o) => ['loc' => $o->url(), 'lastmod' => $o->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.7'])
+            ->map(fn ($o) => ['loc' => $o->url(), 'lastmod' => $this->atom(ContentDates::of($o, $revised[$o->slug] ?? null)), 'changefreq' => 'monthly', 'priority' => '0.7'])
             ->values();
+    }
+
+    /**
+     * Each published instrument's content date, id => date. A policy page shows its
+     * duties and its dated changes, so a revision to one of those moves the page too.
+     *
+     * @return array<int, Carbon|null>
+     */
+    private function policyDates(): array
+    {
+        $dates = [];
+        $revised = ContentDates::revisions('policy');
+        foreach (PolicyInstrument::published()->get(['id', 'slug', 'last_verified_at', 'published_at']) as $p) {
+            $dates[$p->id] = ContentDates::of($p, $revised[$p->slug] ?? null);
+        }
+        $children = [
+            'obligation' => Obligation::published()->get(['slug', 'policy_instrument_id', 'last_verified_at', 'published_at']),
+            'change' => ChangeEvent::published()->whereNotNull('policy_instrument_id')->get(['slug', 'policy_instrument_id', 'last_verified_at', 'published_at']),
+        ];
+        foreach ($children as $type => $records) {
+            $revised = ContentDates::revisions($type);
+            foreach ($records as $child) {
+                $id = $child->policy_instrument_id;
+                if (array_key_exists($id, $dates) && ($date = ContentDates::of($child, $revised[$child->slug] ?? null))) {
+                    $dates[$id] = $dates[$id] ? max($dates[$id], $date) : $date;
+                }
+            }
+        }
+
+        return $dates;
+    }
+
+    /** The newest content date across the published instruments, for pages built from them all. */
+    private function corpusModified(): ?Carbon
+    {
+        return collect($this->policyDates())->filter()->max();
+    }
+
+    private function atom(?\DateTimeInterface $date): ?string
+    {
+        return $date ? Carbon::instance($date)->toAtomString() : null;
     }
 
     /**
@@ -184,17 +241,15 @@ class SitemapController extends Controller
 
     private function staticUrls()
     {
-        $mod = PolicyInstrument::published()->max('updated_at');
-        $lastmod = $mod ? Carbon::parse($mod)->toAtomString() : null;
+        $lastmod = $this->atom($this->corpusModified());
         $pages = [
             [route('home'), 'daily', '1.0'], [route('policies.index'), 'daily', '0.9'], [route('jurisdictions.index'), 'weekly', '0.9'],
             [route('obligations.index'), 'weekly', '0.8'], [route('compare.index'), 'monthly', '0.7'], [route('changes.index'), 'daily', '0.9'],
-            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(1), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(2), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(3), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(4), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(5), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(6), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('methodology'), 'monthly', '0.6'], [route('glossary'), 'monthly', '0.7'], [route('ai-policy-examples'), 'weekly', '0.7'], [route('assessments.index'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('freshness'), 'weekly', '0.5'], [route('independence'), 'monthly', '0.5'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
+            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(1), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(2), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(3), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(4), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(5), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(6), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('developers'), 'monthly', '0.7'], [route('mcp'), 'monthly', '0.6'], [route('methodology'), 'monthly', '0.6'], [route('glossary'), 'monthly', '0.7'], [route('ai-policy-examples'), 'weekly', '0.7'], [route('assessments.index'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('freshness'), 'weekly', '0.5'], [route('independence'), 'monthly', '0.5'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
             [route('about'), 'monthly', '0.5'], [route('team'), 'monthly', '0.5'], [route('funding'), 'monthly', '0.5'], [route('privacy'), 'yearly', '0.3'], [route('terms'), 'yearly', '0.3'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
-        if (app(BillingConfig::class)->enabled()) {
-            $pages[] = [route('pricing'), 'monthly', '0.6']; // noindex while checkout is off, so listed only when it is on
-        }
+        // Indexed whether or not checkout is on: it carries the licence terms and the enquiry form.
+        $pages[] = [route('pricing'), 'monthly', '0.6'];
         foreach (app(ExternalDataset::class)->mitRisk()['domains'] ?? [] as $d) {
             foreach ($d['subdomains'] ?? [] as $sd) {
                 $pages[] = [RiskTaxonomy::subdomainUrl($d['id'], $sd['id']), 'monthly', '0.6'];
@@ -271,10 +326,12 @@ class SitemapController extends Controller
         // Indexable single-filter listings: one per obligation category, dated by
         // its own records. A listing for one jurisdiction is not listed: the
         // country page answers that question and lists every instrument it would.
+        $revised = ContentDates::revisions('obligation');
+        $byCategory = Obligation::published()->get(['slug', 'category', 'last_verified_at', 'published_at'])
+            ->groupBy('category')->map(fn ($group) => $group->map(fn ($o) => ContentDates::of($o, $revised[$o->slug] ?? null))->filter()->max());
         foreach (TaxonomyTerm::taxonomy('obligation_category')->get() as $c) {
-            $mod = Obligation::published()->where('category', $c->slug)->max('updated_at');
-            if ($mod) {
-                $urls->push(['loc' => route('obligations.index', ['category' => $c->slug]), 'lastmod' => Carbon::parse($mod)->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.6']);
+            if ($mod = $byCategory[$c->slug] ?? null) {
+                $urls->push(['loc' => route('obligations.index', ['category' => $c->slug]), 'lastmod' => $this->atom($mod), 'changefreq' => 'weekly', 'priority' => '0.6']);
             }
         }
 
@@ -283,16 +340,37 @@ class SitemapController extends Controller
 
     private function changeUrls()
     {
-        $years = ChangeEvent::publishedYearsLastModified();
-        $urls = $years->map(fn ($m, $y) => ['loc' => route('changes.year', $y), 'lastmod' => $m ? Carbon::parse($m)->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6'])->values();
+        $changes = $this->changeDates();
+        $urls = $changes->filter(fn ($c) => $c['year'] !== '')->groupBy('year')->sortKeysDesc()->map(fn ($group, $y) => ['loc' => route('changes.year', $y), 'lastmod' => $this->atom($group->max('date')), 'changefreq' => 'weekly', 'priority' => '0.6'])->values();
+        $revised = ContentDates::revisions('change');
 
         // Each change is a page now, dated by itself. Only one that can be
         // indexed is listed: the page applies the same test, and a site update
         // (a new version of a template here) is not a change in the law.
         return $urls->concat(
             ChangeEvent::published()->regulatory()->whereNotNull('official_source_url')->whereNotNull('what_changed')->orderByDesc('occurred_on')->lazy(500)
-                ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $c->updated_at?->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5'])
+                ->map(fn ($c) => ['loc' => $c->url(), 'lastmod' => $this->atom(ContentDates::of($c, $revised[$c->slug] ?? null)), 'changefreq' => 'monthly', 'priority' => '0.5'])
         )->values();
+    }
+
+    /**
+     * Every published change with its content date and where it falls, for the
+     * archive pages built from them.
+     *
+     * @return Collection<int, array{year: string, month: string, day: string, jurisdiction: int, date: Carbon|null}>
+     */
+    private function changeDates()
+    {
+        $revised = ContentDates::revisions('change');
+
+        return ChangeEvent::published()->get(['slug', 'occurred_on', 'jurisdiction_id', 'last_verified_at', 'published_at'])
+            ->map(fn ($c) => [
+                'year' => substr((string) $c->occurred_on, 0, 4),
+                'month' => substr((string) $c->occurred_on, 0, 7),
+                'day' => substr((string) $c->occurred_on, 0, 10),
+                'jurisdiction' => (int) $c->jurisdiction_id,
+                'date' => ContentDates::of($c, $revised[$c->slug] ?? null),
+            ]);
     }
 
     /**
@@ -338,25 +416,24 @@ class SitemapController extends Controller
 
     private function updatesUrls()
     {
-        $latest = ChangeEvent::published()->max('updated_at');
-        $urls = collect([['loc' => route('updates.index'), 'lastmod' => $latest ? Carbon::parse($latest)->toAtomString() : null, 'changefreq' => 'daily', 'priority' => '0.9']]);
+        $changes = $this->changeDates();
+        $urls = collect([['loc' => route('updates.index'), 'lastmod' => $this->atom($changes->max('date')), 'changefreq' => 'daily', 'priority' => '0.9']]);
 
-        foreach (ChangeEvent::publishedMonths() as $month => $m) {
-            if ($m['count'] >= UpdatesController::MIN_INDEXABLE) {
-                $urls->push(['loc' => route('updates.month', $month), 'lastmod' => $m['modified'] ? Carbon::parse($m['modified'])->toAtomString() : null, 'changefreq' => 'weekly', 'priority' => '0.6']);
+        foreach ($changes->groupBy('month')->sortKeysDesc() as $month => $group) {
+            if ($group->count() >= UpdatesController::MIN_INDEXABLE) {
+                $urls->push(['loc' => route('updates.month', $month), 'lastmod' => $this->atom($group->max('date')), 'changefreq' => 'weekly', 'priority' => '0.6']);
             }
         }
-        $days = ChangeEvent::published()->get(['occurred_on', 'updated_at'])->groupBy(fn ($e) => substr((string) $e->occurred_on, 0, 10));
-        foreach ($days as $day => $group) {
+        foreach ($changes->groupBy('day') as $day => $group) {
             if ($group->count() >= UpdatesController::MIN_INDEXABLE_DAY) {
-                $urls->push(['loc' => route('updates.day', $day), 'lastmod' => Carbon::parse($group->max('updated_at'))->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5']);
+                $urls->push(['loc' => route('updates.day', $day), 'lastmod' => $this->atom($group->max('date')), 'changefreq' => 'monthly', 'priority' => '0.5']);
             }
         }
-        $counts = ChangeEvent::published()->selectRaw('jurisdiction_id, count(*) as n, max(updated_at) as m')->groupBy('jurisdiction_id')->get()->keyBy('jurisdiction_id');
-        foreach (Jurisdiction::published()->withPublishedInstrument()->whereIn('id', $counts->keys())->orderBy('slug')->get() as $j) {
-            $row = $counts[$j->id];
-            if ($j->isIndexable() && $row->n >= UpdatesController::MIN_INDEXABLE) {
-                $urls->push(['loc' => route('updates.jurisdiction', $j->slug), 'lastmod' => Carbon::parse($row->m)->toAtomString(), 'changefreq' => 'weekly', 'priority' => '0.6']);
+        $byJurisdiction = $changes->groupBy('jurisdiction');
+        foreach (Jurisdiction::published()->withPublishedInstrument()->whereIn('id', $byJurisdiction->keys())->orderBy('slug')->get() as $j) {
+            $group = $byJurisdiction[$j->id];
+            if ($j->isIndexable() && $group->count() >= UpdatesController::MIN_INDEXABLE) {
+                $urls->push(['loc' => route('updates.jurisdiction', $j->slug), 'lastmod' => $this->atom($group->max('date')), 'changefreq' => 'weekly', 'priority' => '0.6']);
             }
         }
         foreach (DigestIssue::orderByDesc('sent_on')->get() as $issue) {
@@ -373,8 +450,7 @@ class SitemapController extends Controller
 
     private function resourceUrls()
     {
-        $mod = PolicyInstrument::published()->max('updated_at');
-        $lastmod = $mod ? Carbon::parse($mod)->toAtomString() : null;
+        $lastmod = $this->atom($this->corpusModified());
         $urls = collect();
         foreach (array_keys(config('content.landings')) as $slug) {
             $urls->push(['loc' => route('landing', $slug), 'lastmod' => $lastmod, 'changefreq' => 'weekly', 'priority' => '0.8']);

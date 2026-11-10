@@ -53,6 +53,9 @@ return [
     'data_license' => 'CC BY 4.0',
     'data_license_url' => 'https://creativecommons.org/licenses/by/4.0/',
     'data_schema_version' => '1.0.0',
+    // The day the structured dataset was first released (the first entry in the
+    // release history on /open-data), for the corpus Dataset's datePublished.
+    'data_first_released' => '2026-09-10',
     'citation' => 'AIPolicyTracker (year). "Record title". https://aipolicytracker.org/... (accessed date). Data licensed CC BY 4.0.',
     // The dataset's Zenodo concept DOI (resolves to the newest archived release), for
     // example 10.5281/zenodo.1234567. Left unset, nothing DOI-related is rendered
@@ -163,4 +166,7 @@ return [
         'grace_minutes' => 5,
         'tick_max_age_minutes' => 5,
     ],
+    // Email ADMIN_EMAILS when production hits an unhandled error (App\Support\ErrorAlert;
+    // one email per distinct error an hour, 20 a day at most). Off with ERROR_ALERTS=false.
+    'error_alerts' => (bool) env('ERROR_ALERTS', true),
 ];

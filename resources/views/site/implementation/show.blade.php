@@ -4,6 +4,10 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-2">Implementation tracker</p>
     <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $name }} implementation: guidelines, codes of practice, acts and templates</h1>
+    <div class="mt-3 flex flex-wrap items-center gap-3 text-sm">
+        <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button>
+        <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
+    </div>
 
     <section class="mt-5 card-flat p-5" aria-labelledby="summary-heading">
         <h2 id="summary-heading" class="sr-only">Summary</h2>

@@ -1,5 +1,12 @@
 @extends('site.layouts.app')
 @section('content')
+@php($toc = array_filter([
+    'what-heading' => 'What changed?',
+    'impact-heading' => $change->practical_impact ? 'Practical impact' : null,
+    'sources-heading' => $change->official_source_url ? 'Official source' : null,
+    'cite-heading' => 'Cite this record',
+    'related-heading' => $related->isNotEmpty() ? 'Related changes' : null,
+]))
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <header class="mt-3">
@@ -18,6 +25,7 @@
             <span class="text-brand-muted">Download: <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Markdown</a></span>
         </div>
     </header>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
@@ -41,6 +49,7 @@
         </div>
         <aside class="space-y-6">
             <div class="lg:sticky lg:top-4 space-y-6">
+                <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">At a glance</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">
@@ -52,6 +61,9 @@
                     </dl>
                     <p class="mt-3 text-xs"><a href="{{ route('changes.year', $change->occurred_on->year) }}">All changes in {{ $change->occurred_on->year }}</a> · <a href="{{ route('changes.feed') }}">RSS</a></p>
                 </div>
+                @if($affectedObligations->isNotEmpty())
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Obligations under this instrument</p><ul class="mt-2 space-y-1.5">@foreach($affectedObligations as $o)<li><span class="badge {{ $o->is_binding ? 'bg-brand-navy text-white ring-brand-navy' : 'bg-brand-paper text-brand-body ring-brand-line' }} !text-[10px] !py-0">{{ $o->is_binding ? 'Legal' : 'Vol.' }}</span> <a href="{{ $o->url() }}" class="text-brand-body hover:underline">{{ $o->title }}</a></li>@endforeach</ul>@if($instrument)<p class="mt-1 text-xs"><a href="{{ route('obligations.index', ['policy' => $instrument->slug]) }}" class="text-brand-blue hover:underline">All obligations →</a></p>@endif</div>
+                @endif
                 <x-site.correction-cta subject-type="change" :subject-slug="$change->slug" :save-title="$change->title" :save-url="$change->url()" :save-meta="$change->jurisdiction?->name" />
             </div>
         </aside>
