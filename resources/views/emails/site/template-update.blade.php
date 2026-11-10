@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => 'New template version', 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => 'New template version', 'unsubscribeUrl' => $unsubscribeUrl])
 <p style="margin:0 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#006AAC;font-weight:600;">Template update</p>
 <h1 style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 12px;">{{ $title }}: {{ $label }}</h1>
 <p style="margin:0 0 16px;">A new version of this template was built{{ $date ? ' on '.$date : '' }}, because the records it is made from changed. You asked to be told when that happens.</p>

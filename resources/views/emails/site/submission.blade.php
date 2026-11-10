@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => 'New submission', 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => 'New submission', 'unsubscribeUrl' => $unsubscribeUrl])
 <p style="margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#006AAC;font-weight:600;">Admin notification</p>
 <h1 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 12px;">New {{ strtolower(\App\Models\ContributorSubmission::TYPES[$submission->type] ?? $submission->type) }}</h1>
 <p style="margin:0 0 8px;"><strong>{{ $submission->summary }}</strong></p>

@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => 'Confirm your subscription', 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => 'Confirm your subscription', 'unsubscribeUrl' => $unsubscribeUrl])
 <h1 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 12px;">Confirm your AI policy digest</h1>
 <p style="margin:0 0 16px;">One click and you will receive a weekly, source-linked summary of AI policy changes and upcoming application dates{{ ($subscriber->topics && !in_array('all', $subscriber->topics, true)) ? ' for '.implode(', ', $subscriber->topics) : '' }}.</p>
 <p style="margin:0 0 20px;"><a href="{{ $confirmUrl }}" style="display:inline-block;background:#002147;color:#ffffff;text-decoration:none;padding:12px 20px;font-weight:600;">Confirm subscription</a></p>

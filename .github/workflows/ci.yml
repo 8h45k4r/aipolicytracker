@@ -215,10 +215,7 @@ jobs:
     # confirm dialog and a sort control without a single test failing), keyboard and
     # dialog behaviour, and the analytics consent flow. No request leaves the runner:
     # the tests answer every third-party host themselves.
-    #
-    # Pinned to 24.04: Playwright 1.56 does not ship a chromium build for 26.04,
-    # which ubuntu-latest now resolves to. Unpin once Playwright is upgraded.
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
