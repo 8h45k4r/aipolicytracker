@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => 'Your template download', 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => 'Your template download', 'unsubscribeUrl' => $unsubscribeUrl])
 <p style="margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#006AAC;font-weight:600;">AI governance template</p>
 <h1 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 12px;">{{ $title }} ({{ $label }})</h1>
 <p style="margin:0 0 16px;">Hello {{ $name }}, thank you for your request. Your files are ready. The links below are personal to this request and work for {{ $days }} days; after that, request the template again from <a href="{{ $pageUrl }}" style="color:#006AAC;">its page</a>.</p>
