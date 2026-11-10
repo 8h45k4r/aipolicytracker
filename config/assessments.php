@@ -177,5 +177,13 @@ return [
             'summary' => 'Whether published AI principles change how systems are approved, tested and run: accountability, fairness, transparency, privacy, safety and human oversight.',
             'frameworks' => ['oecd_ai_principles'], 'templates' => ['ai-governance-policy-raci'],
         ],
+        // Not about AI: a central-bank risk guideline, listed because Certifyi offers it free
+        // alongside the rest. Attached to no page here, since the guideline is not a record on
+        // this site. `path` is the address Certifyi serves it at, where that is not the key.
+        'nrb-risk-management-guidelines-2026' => [
+            'title' => 'NRB Risk Management Guidelines 2026', 'type' => 'regulation', 'region' => 'Nepal', 'questions' => 119, 'minutes' => 30, 'domains' => 8,
+            'summary' => 'How an institution\'s risk management measures up to the Nepal Rastra Bank Risk Management Guidelines 2026, practice by practice: governance and framework, credit, liquidity and funding, operational, market, interest rate, technology and climate risk.',
+            'path' => '6c8f2d1e-4b7a-4e0f-9a3d-2b1c0e5f7a91',
+        ],
     ],
 ];

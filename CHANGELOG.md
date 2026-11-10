@@ -27,6 +27,13 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Templates: the hub has a jump link to each group of templates, its filter opens on demand so the first
+  template is a screen higher on a phone, and each group links its own page. A template page has a jump
+  link to each of its sections.
+- Free self-assessments beside the templates: the hub pairs each assessment with the template it goes
+  with, framework and type pages list the ones that fit, and a template page answers which assessment
+  goes with it. The list now has 31, adding the NRB Risk Management Guidelines 2026 assessment. They run
+  on Certifyi, a related product, and every placement says so.
 - A record page returns its Markdown file when the request says `Accept: text/markdown`, for policies,
   jurisdictions, obligations, controls and changes, and names the file in a `Link` header. Browsers are
   unaffected. Every page now names the change log feed for feed readers.

@@ -26,7 +26,7 @@ class AssessmentController extends Controller
             ['question' => 'How long does an AI self-assessment take?', 'answer' => 'Most take five to seven minutes: about 20 to 28 questions across five to seven domains. The list shows the question count and the expected time for each.'],
             ['question' => 'Which assessment should I start with?', 'answer' => 'If the EU AI Act may apply to you, the EU AI Act Readiness and AI System Risk Classification assessments. For a framework-neutral view, the AI Governance Maturity assessment. For a certification goal, ISO/IEC 42001 Readiness. For US state laws, the US State AI Law Exposure assessment.'],
             ['question' => 'Does a good score mean we are compliant?', 'answer' => 'No. A self-assessment shows where you stand against the questions it asks; it is not an audit, a certification or legal advice. Use the score to decide what to evidence next, and the templates and obligations on this site to do it.'],
-            ['question' => 'Where do the self-assessments run?', 'answer' => 'On Certifyi, a related product. They are listed here because they cover the same laws and frameworks as the records; nothing on this site requires an account there.'],
+            ['question' => 'Where do the self-assessments run?', 'answer' => 'On Certifyi, a related product. Most are listed here because they cover the same laws and frameworks as the records; nothing on this site requires an account there.'],
         ];
 
         $seo = Seo::make(

@@ -115,6 +115,13 @@ phone number, and the NOT NULL column made every form sign-up fail after the use
 - **Outbound:** `resource_downloads.user_id` → [accounts](accounts.md); `resource_slug` → `config/resources.php`; tools link to `policy_instruments` (`related_policies`) and guides (`related_guides`).
 - **Outbound (billing):** tool pages (`site/guides/tool`) and template pages carry `x-site.commercial-use`, linking to the licence enquiry form on `/pricing#licence` ([billing.md](billing.md)).
 - **Inbound:** `/guides` cards, guide pages ("related tools" via `related_guides`), admin Guides and downloads page and dashboard tiles.
+- **Outbound (self-assessments):** `config/assessments.php` lists the free self-assessments that run on Certifyi, a related product, and the pages each belongs on. `AssessmentCatalog` serves them:
+  - `/self-assessments` lists all of them;
+  - a template page shows up to two that name it, and answers "Is there a self-assessment that goes with it?" from the same list;
+  - the templates hub shows up to six that name a template, one of each type first, each beside that template (`pairedWithTemplates`);
+  - a framework or type landing page shows up to three that name its templates (`forTemplates`).
+  Every placement carries the line that says where they run and that a score is not an audit. An entry whose address at Certifyi is not its key sets `path`. An entry about something that is not a record on this site is attached to no page.
+- **Getting around `/templates`:** the hub has a jump link to each group of templates, the filter form is closed until it is used, and each group's heading links its landing page. A template page has a jump link to each section it renders. Both use the row of links on a wide screen and `x-site.toc` (mobile variant) below it.
 
 ## Routes
 

@@ -10,6 +10,7 @@ use App\Models\TemplateDownloadRequest;
 use App\Models\TemplateVersion;
 use App\Rules\NotDisposableEmail;
 use App\Rules\WorkEmail;
+use App\Services\Assessments\AssessmentCatalog;
 use App\Services\Billing\BillingConfig;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
@@ -77,6 +78,16 @@ class TemplateController extends Controller
             ['What happens when a law changes?', 'The library is rebuilt daily. A template whose content changed gets the next version number, a changelog on its page, an entry in the updates hub and in the templates feed, and a line in the weekly digest for subscribers who chose the templates topic.'],
             ['Does completing a template make us compliant?', 'No. A template is an informational resource, not legal advice. It helps produce the evidence a regulator, customer or auditor asks for; whether a duty applies, and whether it is met, is a judgement the template cannot make.'],
         ];
+        // The assessments that name a template, so a reader who does not know where to start
+        // can score themselves and land on the template that closes the gap.
+        $paired = AssessmentCatalog::pairedWithTemplates(fn (string $slug) => TemplateCatalog::find($slug));
+        if ($example = $paired->first()) {
+            $faq[] = ['Is there a self-assessment to go with the templates?', sprintf('Yes. %d free self-assessments are listed on this site, and each of those shown beside the templates names the template it goes with: for example the %s (%d questions, about %d minutes) with the %s. %s A score is a self-check, not an audit.', AssessmentCatalog::all()->count(), $example['title'], $example['questions'], $example['minutes'], $example['template']['title'], config('assessments.provider.disclosure'))];
+        }
+        $jump = $items->groupBy('type')->mapWithKeys(fn ($group, $type) => ['type-'.$type => Str::plural((string) (config('templates.types.'.$type) ?? ucfirst((string) $type))).' ('.$group->count().')'])->all();
+        if ($paired->isNotEmpty() && ! $filtered) {
+            $jump['self-assessments'] = 'Self-assessments';
+        }
 
         $seo = Seo::make(PageTitle::templatesHub(), sprintf('%d free AI governance templates (XLSX, DOCX) built from %s recorded duties: AI inventory, risk register, FRIA, EU AI Act and ISO 42001 kits.', $all->count(), number_format($counts['duties'])), route('templates.index'), ! $filtered)
             ->withBreadcrumbs([['Home', route('home')], ['Templates', route('templates.index')]])
@@ -88,7 +99,7 @@ class TemplateController extends Controller
             $seo->noindex();
         }
 
-        return view('site.templates.index', compact('seo', 'items', 'filters', 'filtered', 'summary', 'counts', 'lastBuilt', 'faq', 'facets') + ['bundleOffered' => app(BillingConfig::class)->enabled()]);
+        return view('site.templates.index', compact('seo', 'items', 'filters', 'filtered', 'summary', 'counts', 'lastBuilt', 'faq', 'facets', 'paired', 'jump') + ['bundleOffered' => app(BillingConfig::class)->enabled(), 'assessmentCount' => AssessmentCatalog::all()->count()]);
     }
 
     /**
@@ -122,7 +133,9 @@ class TemplateController extends Controller
             ->withFaq(array_map(fn ($q) => ['question' => $q[0], 'answer' => $q[1]], $faq));
         $others = collect(TemplateCatalog::facets())->reject(fn ($f) => $f['facet'] === $facet && $f['key'] === $key)->values();
 
-        return view('site.templates.facet', compact('seo', 'items', 'landing', 'intro', 'others', 'title'));
+        $assessments = AssessmentCatalog::forTemplates($items->pluck('slug')->all());
+
+        return view('site.templates.facet', compact('seo', 'items', 'landing', 'intro', 'others', 'title', 'assessments'));
     }
 
     public function show(string $slug): View
@@ -142,6 +155,17 @@ class TemplateController extends Controller
         $steps = $this->howToSteps($meta, $version);
         $landing = collect($meta['frameworks'] ?? [])->map(fn ($f) => TemplateCatalog::facet('framework', $f))->filter()->first();
         $refs = $covered->pluck('source_reference')->filter()->unique()->take(6)->values();
+        $assessments = AssessmentCatalog::for('template', $slug, 2);
+        // Only the sections this template's page renders, in page order.
+        $toc = array_filter([
+            'inside' => "What's inside",
+            'preview' => 'Preview',
+            'how-to-use' => 'How to use it',
+            'duties' => $covered->isNotEmpty() ? 'Duties it covers' : null,
+            'legal-basis' => $basis->isNotEmpty() ? 'Legal basis' : null,
+            'versions' => 'Version history',
+            'faq-heading' => 'Questions',
+        ]);
 
         // Questions answered from this template's own data first; the general ones
         // (price, updates, compliance) once each, so no two pages share most of their FAQ.
@@ -152,6 +176,7 @@ class TemplateController extends Controller
             ['Is it free?', 'Yes. Request the '.$formats.' with your work email on this page; the download links arrive by email, valid for '.TemplateDownloadRequest::LINK_DAYS.' days. No account and no charge. Licensed '.config('templates.licence')],
             ['How will I know when it changes?', sprintf('Version %s was built on %s. The library is rebuilt daily; when a change to the records reaches this template it gets the next version, a changelog below and an entry in the templates feed.', $version->label(), $version->generated_at->format('j F Y'))],
             $caveat ? ['Are the dates in it current?', $caveat] : null,
+            $assessments->isNotEmpty() ? ['Is there a self-assessment that goes with it?', sprintf('Yes: the %s. %s free and %s on Certifyi, a related product. A score is a self-check, not an audit; this template is where the work it points to gets written down.', $assessments->map(fn ($a) => sprintf('%s (%d questions, about %d minutes)', $a['title'], $a['questions'], $a['minutes']))->join(', ', ' and the '), $assessments->count() > 1 ? 'They are' : 'It is', $assessments->count() > 1 ? 'run' : 'runs')] : null,
             ['Does completing it make us compliant?', 'No. It is an informational resource, not legal advice; it helps produce the evidence a regulator, customer or auditor asks for. Whether a duty applies to you is a judgement the template cannot make.'],
         ]));
 
@@ -208,7 +233,7 @@ class TemplateController extends Controller
             ? ['name' => $known->name, 'email' => $known->email, 'company' => $known->company, 'job_title' => $known->job_title, 'country' => $known->country]
             : (auth()->user() ? ['name' => auth()->user()->name, 'email' => auth()->user()->email, 'company' => auth()->user()->organization_name] : []);
 
-        return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq', 'answer', 'facts', 'steps', 'audience', 'known', 'prefill'));
+        return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq', 'answer', 'facts', 'steps', 'audience', 'known', 'prefill', 'toc'));
     }
 
     /**
