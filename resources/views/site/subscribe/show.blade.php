@@ -26,6 +26,7 @@
                 {{-- The same grouped, searchable picker as the deadline engine; leaving it empty means everything. --}}
                 <x-site.jurisdiction-picker name="topics" :jurisdictions="$jurisdictions" :selected="old('topics', $selected)" legend="Jurisdictions to follow" hint="Leave everything unticked to receive all jurisdictions. Up to 19." />
                 <p class="text-xs text-brand-muted">We store your address, chosen topics and timestamps, nothing else. Confirmation and unsubscribe links are unique to you.</p>
+                <label class="flex items-start gap-2 text-sm text-brand-body"><input type="checkbox" name="terms" value="1" required @checked(old('terms')) class="mt-1 rounded-sm border-brand-line text-brand-navy"> <span>I accept the <a href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">terms of use</a> and the <a href="{{ config('aipolicytracker.links.privacy_policy') ?: route('privacy') }}">privacy notice</a>. <span class="text-state-bad" aria-hidden="true">*</span></span></label>
                 <x-site.turnstile />
                 <button type="submit" class="btn-primary">Subscribe</button>
             </form>

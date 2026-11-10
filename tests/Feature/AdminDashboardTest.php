@@ -83,9 +83,11 @@ class AdminDashboardTest extends TestCase
 
         $this->assertStringContainsString('<html lang="en" data-scheme="light" data-admin>', $html, 'the admin stays light when the system is dark');
         $this->assertStringContainsString('lg:sticky lg:top-0 lg:h-screen', $html);
-        foreach (['Overview', 'Content', 'Audience', 'Operations', 'Administration'] as $group) {
-            $this->assertStringContainsString('>'.$group.'</p>', $html);
+        // Grouped by the work; every group folds, and the one holding this page is open.
+        foreach (['Overview', 'Records', 'Content', 'Audience', 'Operations', 'Administration'] as $group) {
+            $this->assertStringContainsString('<span data-admin-nav-heading>'.$group.'</span>', $html);
         }
+        $this->assertMatchesRegularExpression('#<details class="adm-nav-group" data-admin-nav-group data-group="administration" open data-current>#', $html);
         $this->assertMatchesRegularExpression('#href="'.preg_quote(route('backend.admin.users.index'), '#').'"[^>]*aria-current="page"#', $html, 'a section page marks its entry');
         $this->assertStringContainsString('data-admin-nav-filter', $html);
     }

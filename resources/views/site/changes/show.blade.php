@@ -23,8 +23,6 @@
             <x-site.verified :record="$change" class="!text-sm" legend />
             @if($change->official_source_url)<a href="{{ $change->official_source_url }}" rel="noopener" class="text-brand-blue font-medium hover:underline" data-track="source_click">Open official source</a>@endif
             <span class="text-brand-muted">Download: <a href="{{ route('changes.context', $change->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This change as one Markdown file, with its provenance">Markdown</a></span>
-            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
-            <button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button>
         </div>
     </header>
     <x-site.toc :items="$toc" variant="mobile" class="mt-6" />

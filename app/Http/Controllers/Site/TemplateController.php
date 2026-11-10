@@ -25,6 +25,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
@@ -199,7 +200,15 @@ class TemplateController extends Controller
             ->withPageType('ItemPage', ['name' => $meta['title'], 'mainEntity' => $document])
             ->withFaq(array_map(fn ($q) => ['question' => $q[0], 'answer' => $q[1]], $faq));
 
-        return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq', 'answer', 'facts', 'steps', 'audience'));
+        // A reader who has already proved their address gets the files in one step; anyone
+        // else gets the form, filled from what we already know (their account, or the last
+        // request this browser made), so nobody types the same details twice.
+        $known = TemplateDownloadRequest::knownFrom(request());
+        $prefill = $known
+            ? ['name' => $known->name, 'email' => $known->email, 'company' => $known->company, 'job_title' => $known->job_title, 'country' => $known->country]
+            : (auth()->user() ? ['name' => auth()->user()->name, 'email' => auth()->user()->email, 'company' => auth()->user()->organization_name] : []);
+
+        return view('site.templates.show', compact('seo', 'meta', 'version', 'versions', 'covered', 'basis', 'caveat', 'formats', 'related', 'faq', 'answer', 'facts', 'steps', 'audience', 'known', 'prefill'));
     }
 
     /**
@@ -298,6 +307,13 @@ class TemplateController extends Controller
             return redirect()->to(route('templates.show', $slug).'#download')->with('template_requested', true);
         }
 
+        // A reader this browser has proved (they opened an emailed link) asks again in one
+        // step: the details come from that request, the terms are accepted again, the update
+        // choice is theirs again, and the files are offered at once rather than mailed.
+        if ($request->boolean('known') && ($known = TemplateDownloadRequest::knownFrom($request))) {
+            return $this->knownDownload($request, $slug, $known);
+        }
+
         $data = $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:120'],
             'email' => ['required', 'string', 'email:rfc', 'max:190', new NotDisposableEmail, new WorkEmail],
@@ -340,6 +356,33 @@ class TemplateController extends Controller
         return redirect()->to(route('templates.show', $slug).'#download')->with('template_requested', $email);
     }
 
+    private function knownDownload(Request $request, string $slug, TemplateDownloadRequest $known): RedirectResponse
+    {
+        $request->validate(['terms' => ['accepted'], 'updates' => ['nullable', 'boolean']], ['terms.accepted' => 'Please accept the terms of use to download the template.']);
+        $key = 'template-request:'.sha1($known->email);
+        if (RateLimiter::tooManyAttempts($key, (int) config('templates.gate.per_email_per_day', 10))) {
+            return back()->withErrors(['email' => 'Too many requests for this address today. Please try again tomorrow.'])->withFragment('download');
+        }
+        RateLimiter::hit($key, 86400);
+
+        $version = TemplateVersion::latestFor($slug) ?? app(TemplateBuilder::class)->build($slug)['version'];
+        $downloadRequest = TemplateDownloadRequest::create([
+            'template_slug' => $slug,
+            'name' => $known->name,
+            'email' => $known->email,
+            'company' => $known->company,
+            'job_title' => $known->job_title,
+            'country' => $known->country,
+            'terms_accepted_at' => now(),
+            'marketing_consent_at' => $request->boolean('updates') ? now() : null,
+            'ip_hash' => hash('sha256', (string) $request->ip().config('app.key')),
+            'referrer' => mb_substr((string) $request->headers->get('referer'), 0, 512) ?: null,
+        ]);
+        $links = collect($version->formats())->mapWithKeys(fn ($f) => [$f => $downloadRequest->downloadUrl($f)])->all();
+
+        return redirect()->to(route('templates.show', $slug).'#download')->with('template_ready', ['email' => $known->email, 'links' => $links]);
+    }
+
     /**
      * Serves a file from a signed, expiring link sent by email. A link without a valid
      * signature goes back to the template page, where the form is.
@@ -365,6 +408,8 @@ class TemplateController extends Controller
             $file = $version->file($format);
             abort_unless($file && $disk->exists($file['path']), 404);
         }
+        // Opening the link proves the address: remember this reader so the next template is one step.
+        Cookie::queue(Cookie::make(TemplateDownloadRequest::KNOWN_COOKIE, (string) $downloadRequest->id, 60 * 24 * TemplateDownloadRequest::KNOWN_DAYS, null, null, null, true, false, 'Lax'));
         TemplateVersion::whereKey($version->id)->increment('downloads');
         $downloadRequest->forceFill(['downloads' => $downloadRequest->downloads + 1, 'first_downloaded_at' => $downloadRequest->first_downloaded_at ?? now()])->save();
 

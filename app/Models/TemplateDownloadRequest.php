@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Services\Templates\TemplateCatalog;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
 /** A request for a template's files, made through the form on its page. */
@@ -11,6 +12,15 @@ class TemplateDownloadRequest extends Model
 {
     /** How long the emailed links work. */
     public const LINK_DAYS = 7;
+
+    /**
+     * Set when someone opens an emailed link, which proves the address is theirs. It holds
+     * the id of that request only (Laravel encrypts it, so it cannot be forged or read),
+     * and lets the next template download in one step instead of a second form.
+     */
+    public const KNOWN_COOKIE = 'aip_template_reader';
+
+    public const KNOWN_DAYS = 180;
 
     /**
      * Below this a download count says more about the page being new than about
@@ -34,6 +44,14 @@ class TemplateDownloadRequest extends Model
     protected function casts(): array
     {
         return ['terms_accepted_at' => 'datetime', 'marketing_consent_at' => 'datetime', 'emailed_at' => 'datetime', 'first_downloaded_at' => 'datetime'];
+    }
+
+    /** The reader this browser has proved to be, from the cookie set by an opened link. */
+    public static function knownFrom(Request $request): ?self
+    {
+        $id = (int) $request->cookie(self::KNOWN_COOKIE);
+
+        return $id > 0 ? self::whereKey($id)->whereNotNull('first_downloaded_at')->first() : null;
     }
 
     /** @return array{title: string, slug: string}|null */

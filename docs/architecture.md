@@ -16,7 +16,7 @@ flowchart LR
         site["Public site<br/>Blade pages, feeds, .md / .json files"]
         api["API v1<br/>/api/v1/*, /openapi.json"]
         admin["Admin<br/>/backend (Blade)"]
-        account["Account screens<br/>Inertia + React"]
+        account["Account screens<br/>Blade"]
         sched["Scheduler and jobs<br/>routes/console.php"]
     end
 
@@ -86,7 +86,7 @@ flowchart LR
 |-----------|-----------|----------------|------------|
 | Public site | Server-rendered Blade pages with Tailwind, feeds, sitemaps, Markdown and JSON record files | `resources/views/site/`, `routes/public.php`, `app/Http/Controllers/Site/` | [policy-intelligence](modules/policy-intelligence.md) |
 | Admin | Blade back office: review queue, change desk, users, settings, jobs | `resources/views/backend/`, `routes/backend/web.php`, `app/Http/Controllers/Backend/` | [accounts](modules/accounts.md) |
-| Account screens | Sign-in and profile, React with Inertia | `resources/js/Pages/`, `routes/auth.php` | [accounts](modules/accounts.md) |
+| Account screens | Sign-in and profile, server-rendered Blade | `resources/views/auth/`, `resources/views/site/account/`, `routes/auth.php` | [accounts](modules/accounts.md) |
 | API v1 | Read-only JSON API, throttled at 120 requests a minute, described by `/openapi.json` | `routes/api.php`, `app/Http/Controllers/Api/V1/` | [machine-readable surfaces](reference/machine-readable-surfaces.md) |
 | MCP server | Dependency-free JSON-RPC server over stdio that calls the public site | `agent/` | [`agent/README.md`](../agent/README.md) |
 | Data import | Validator, importer and repository for `data/` | `app/Services/PolicyData/`, `app/Console/Commands/` | [policy-intelligence](modules/policy-intelligence.md) |

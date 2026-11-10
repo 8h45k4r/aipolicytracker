@@ -38,4 +38,62 @@ class EnvCheckCommandTest extends TestCase
             }
         }
     }
+
+    /** Runs $check with the given environment variables set (null unsets), then restores them. */
+    private function withEnv(array $vars, callable $check): void
+    {
+        $saved = [];
+        foreach ($vars as $key => $value) {
+            $saved[$key] = [$_ENV[$key] ?? null, $_SERVER[$key] ?? null, getenv($key)];
+            if ($value === null) {
+                unset($_ENV[$key], $_SERVER[$key]);
+                putenv($key);
+            } else {
+                $_ENV[$key] = $_SERVER[$key] = $value;
+                putenv("{$key}={$value}");
+            }
+        }
+        try {
+            $check();
+        } finally {
+            foreach ($saved as $key => [$env, $server, $get]) {
+                unset($_ENV[$key], $_SERVER[$key]);
+                putenv($key);
+                if ($env !== null) {
+                    $_ENV[$key] = $env;
+                }
+                if ($server !== null) {
+                    $_SERVER[$key] = $server;
+                }
+                if ($get !== false) {
+                    putenv("{$key}={$get}");
+                }
+            }
+        }
+    }
+
+    public function test_production_refuses_a_local_app_url_and_debug_mode(): void
+    {
+        $this->app['env'] = 'production';
+        $good = ['APP_URL' => 'https://aipolicytracker.org', 'APP_DEBUG' => 'false'];
+
+        $this->withEnv($good, fn () => $this->artisan('aip:env-check')->assertSuccessful());
+        $this->withEnv(['APP_URL' => 'http://localhost'] + $good, fn () => $this->artisan('aip:env-check')->expectsOutputToContain('APP_URL')->assertFailed());
+        $this->withEnv(['APP_URL' => null] + $good, fn () => $this->artisan('aip:env-check')->assertFailed());
+        $this->withEnv(['APP_URL' => 'http://aipolicytracker.org'] + $good, fn () => $this->artisan('aip:env-check')->assertFailed());
+        $this->withEnv(['APP_DEBUG' => 'true'] + $good, fn () => $this->artisan('aip:env-check')->expectsOutputToContain('APP_DEBUG')->assertFailed());
+    }
+
+    public function test_production_warns_but_still_boots_when_mail_goes_to_the_log(): void
+    {
+        $this->app['env'] = 'production';
+        config(['mail.default' => 'log']);
+        $this->withEnv(['APP_URL' => 'https://aipolicytracker.org', 'APP_DEBUG' => 'false'], fn () => $this->artisan('aip:env-check')
+            ->expectsOutputToContain('MAIL_MAILER is "log"')->assertSuccessful());
+    }
+
+    public function test_outside_production_the_local_defaults_are_fine(): void
+    {
+        $this->withEnv(['APP_URL' => 'http://localhost', 'APP_DEBUG' => 'true'], fn () => $this->artisan('aip:env-check')->assertSuccessful());
+    }
 }

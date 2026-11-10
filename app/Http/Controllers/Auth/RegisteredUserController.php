@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        // Server-rendered in the site theme; the legacy Inertia page required phone numbers.
+        // Server-rendered in the site theme (an earlier page required phone numbers).
         return view('auth.register');
     }
 

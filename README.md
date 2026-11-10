@@ -294,7 +294,7 @@ The [developer guide][devguide] covers everything else: the test suites, artisan
 ```text
 data/            the records (YAML) and their JSON Schemas: the source of truth
 app/             Laravel application: importers, services, controllers, console commands
-resources/       Blade views, CSS and the React account screens
+resources/       Blade views, CSS and the small browser scripts
 routes/          public site, API, admin and console routes (the scheduler is in routes/console.php)
 database/        migrations and seeders
 agent/           the MCP server
@@ -415,7 +415,7 @@ The tracker stands on public work by others:
 - The official sources of every government, regulator and legislature it records
 - The [AI Incident Database](https://incidentdatabase.ai/) (Responsible AI Collaborative)
 - The [MIT AI Risk Repository](https://airisk.mit.edu/)
-- [Laravel](https://laravel.com/), [Inertia](https://inertiajs.com/), [React](https://react.dev/),
+- [Laravel](https://laravel.com/),
   [Tailwind CSS](https://tailwindcss.com/) and [Vite](https://vite.dev/)
 - [amCharts](https://www.amcharts.com/) for the world map
 

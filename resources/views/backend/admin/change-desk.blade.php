@@ -19,6 +19,15 @@
     <a href="{{ route('backend.admin.changedesk.index', ['show' => 'all']) }}" class="btn-sm {{ $filter === 'all' ? 'btn-primary' : 'btn-secondary' }}" @if($filter === 'all') aria-current="page" @endif>All current instruments ({{ $total }})</a>
 </nav>
 
+{{-- Narrow the list, and export exactly what is shown (every page). --}}
+<x-backend.filters :action="route('backend.admin.changedesk.index')" :filters="$filters" :export="route('backend.admin.changedesk.export')" placeholder="Instrument, AIPT id or jurisdiction" :dates="false" :total="$shownCount" noun="instrument">
+    @if($filter === 'all')<input type="hidden" name="show" value="all">@endif
+    <div><label for="f-jurisdiction" class="adm-label">Jurisdiction</label>
+        <select id="f-jurisdiction" name="jurisdiction" class="input !min-h-[38px] !py-1.5 !w-auto"><option value="">Any</option>@foreach($jurisdictions as $j)<option value="{{ $j->slug }}" @selected(request('jurisdiction') === $j->slug)>{{ $j->name }}</option>@endforeach</select></div>
+    <div><label for="f-binding" class="adm-label">Legal force</label>
+        <select id="f-binding" name="binding" class="input !min-h-[38px] !py-1.5 !w-auto"><option value="">Any</option><option value="yes" @selected(request('binding') === 'yes')>Binding</option><option value="no" @selected(request('binding') === 'no')>Not binding</option></select></div>
+</x-backend.filters>
+
 @if($rows->isEmpty())
 <div class="mt-4"><x-site.empty title="Nothing is due">Every current instrument's official source has been checked within its cadence.</x-site.empty></div>
 @else

@@ -150,7 +150,7 @@
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">@foreach($sameDeployer as $s)<li class="py-3 flex flex-wrap gap-x-4"><time class="datestamp shrink-0" datetime="{{ $s->occurred_on->toDateString() }}">{{ $s->occurred_on->format('j M Y') }}</time><a href="{{ $s->url() }}" class="text-brand-navy">{{ $s->title }}</a></li>@endforeach</ul>
             </section>
             @endif
-            <p class="mt-10 text-sm text-brand-muted">Source record: <a href="{{ $i->citeUrl() }}" rel="noopener" class="hover:underline" data-track="source_click">incident #{{ $i->incident_id }} on the AI Incident Database</a>@if($i->report_count) · <a href="{{ $i->reportsUrl() }}" rel="noopener" class="hover:underline" data-track="source_click">all {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</a>@endif</p>
+            <p class="mt-10 text-sm text-brand-muted" data-nosnippet>Source record: <a href="{{ $i->citeUrl() }}" rel="noopener" class="hover:underline" data-track="source_click">incident #{{ $i->incident_id }} on the AI Incident Database</a>@if($i->report_count) · <a href="{{ $i->reportsUrl() }}" rel="noopener" class="hover:underline" data-track="source_click">all {{ $i->report_count }} {{ \Illuminate\Support\Str::plural('report', $i->report_count) }}</a>@endif</p>
             <x-site.attribution class="mt-3" :name="$summary['source'] ?? 'AI Incident Database'" :url="$summary['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$summary['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$summary['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$summary['citation'] ?? null" :date="$summary['snapshot_date'] ?? null" note="Title, description and classification are reproduced under CC BY-SA 4.0; report texts are not. Read the reports on the AI Incident Database." />
         </div>
         <aside class="space-y-6">
@@ -159,7 +159,7 @@
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Record</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">
-                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Incident ID</dt><dd class="font-mono">{{ $i->incident_id }}</dd></div>
+                        <div class="flex justify-between gap-2"><dt class="text-brand-muted">Incident ID</dt><dd class="font-mono" data-nosnippet>{{ $i->incident_id }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Date</dt><dd>{{ $i->occurred_on->format('j M Y') }}</dd></div>
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Reports</dt><dd>{{ $i->report_count }}</dd></div>
                         @if($i->modified_at)<div class="flex justify-between gap-2"><dt class="text-brand-muted">Last edited at source</dt><dd>{{ $i->modified_at->format('j M Y') }}</dd></div>@endif

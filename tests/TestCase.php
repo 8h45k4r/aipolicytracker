@@ -14,8 +14,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        // Feature tests render Inertia views; skip the Vite manifest lookup so
-        // they run without a front-end build.
+        // Blade views call @vite; skip the manifest lookup so feature tests
+        // run without a front-end build.
         $this->withoutVite();
 
         // Webhook tests must not depend on the machine running the suite reaching DNS:

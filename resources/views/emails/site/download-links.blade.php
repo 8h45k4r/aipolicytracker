@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => 'Your download links', 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => 'Your download links', 'unsubscribeUrl' => $unsubscribeUrl])
 <p style="margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#006AAC;font-weight:600;">Free tool</p>
 <h1 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 12px;">{{ $tool->title }} (version {{ $tool->version }})</h1>
 <p style="margin:0 0 16px;">Thanks for downloading. The links below are personal to your account and work for 24 hours; after that, open the tool page while signed in to get fresh ones.</p>

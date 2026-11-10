@@ -222,6 +222,47 @@ workflow cannot update the copy the key is bound to, by design. To stop
 automatic deploys, remove the key's line from `authorized_keys`; the workflow
 then fails at the SSH step and nothing else changes.
 
+## Processes in the container
+
+The entrypoint runs nginx and php-fpm, and supervises the queue worker and the scheduler: one that exits is started again after five seconds. If nginx or php-fpm stops, the container stops and `restart: unless-stopped` starts a fresh one. On `docker stop` (and so on every deploy) every process is asked to stop and given `stop_grace_period` (30 s) to finish.
+
+`deploy/remote-deploy.sh` keeps the serving image as `aip-app:rollback` before building, and a failed deploy goes back to it without a rebuild. Reinstall it after pulling this change: `install -m 0755 /opt/aip/repo/deploy/remote-deploy.sh /usr/local/sbin/aip-deploy`.
+
+## Secrets and the image
+
+Production's secrets live in `deploy/.env`, inside the build context. Until 9 November 2026 `.dockerignore` excluded `.env` only at the context root, so images built on the host contained `deploy/.env`. After pulling the fix:
+
+1. Rebuild through a normal deploy, then remove old images and the build cache:
+   `docker image prune -a --filter "label=com.docker.compose.project=aip"` and `docker builder prune -f`.
+2. Check the running image: `docker run --rm --entrypoint sh aip-app:latest -c 'ls deploy/.env'` must fail.
+3. If any image, layer or build cache ever left the host (a registry push, `docker save`, a backup of
+   `/var/lib/docker`), rotate the keys it held: the database password, the mail and billing API keys, the
+   webhook and cron secrets, and `APP_KEY`. Rotating `APP_KEY` signs everyone out and invalidates emailed
+   signed links; put the old key in `APP_PREVIOUS_KEYS` so encrypted settings can still be read.
+
+## Maintenance
+
+`.github/workflows/maintenance.yml` (Actions → Maintenance → Run workflow) runs one of four operations on the host without deploying anything:
+
+| Operation | What it does | Downtime |
+|---|---|---|
+| `status` | Memory, disk, this project's containers, `aip:health` | None |
+| `clear-cache` | `php artisan aip:cache-clear --rebuild`: clears and rebuilds config, routes, views and events, and moves cached page content to a new generation. It does not empty the cache store, which holds the scheduler tick, the incident sync cursor, locks and rate limits | None |
+| `restart` | `docker compose restart app`, then waits for `/up` (up to 180 s) | Short: the entrypoint migrates and caches |
+| `prune` | Removes this compose project's stopped containers and dangling images. Never volumes, never another project's resources, never the build cache | None |
+
+Each operation takes the deploy lock (`/run/lock/aip-deploy.lock`), so it waits for nothing and refuses while a deploy runs. The workflow never deploys: without the maintenance key it fails and says so.
+
+One-time setup, as root on the host:
+
+1. `ssh-keygen -t ed25519 -f aip_maintenance -C aip-maintenance -N ''` (on your machine).
+2. `install -m 0755 /opt/aip/repo/deploy/remote-maintenance.sh /usr/local/sbin/aip-maintenance`. Re-run whenever the script changes.
+3. Add the public key to `/root/.ssh/authorized_keys` with its forced command:
+   `command="/usr/local/sbin/aip-maintenance",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ssh-ed25519 AAAA... aip-maintenance`
+4. Store the private key as the `MAINTENANCE_SSH_KEY` secret of the `production` environment, then delete the local copy.
+
+Check it: run `status`. Anything other than the four names prints the usage and exits 2. The log is `/var/log/aip-maintenance.log`.
+
 ## Rolling back
 
 ```bash

@@ -22,8 +22,6 @@
         <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <x-site.verified :record="$control" class="!text-sm" legend />
             <span class="text-brand-muted">Download: <a href="{{ route('controls.json', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy">JSON</a> · <a href="{{ route('controls.context', $control->slug) }}" class="text-brand-blue underline hover:text-brand-navy" title="This control as one Markdown file, with its provenance">Markdown</a></span>
-            <button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy text-sm">Copy link</button>
-            <button type="button" data-share class="text-brand-blue hover:text-brand-navy text-sm hidden">Share</button>
         </div>
     </header>
     <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
@@ -81,7 +79,7 @@
                 <p class="mt-1 text-xs text-brand-muted">Subdomains of the MIT AI Risk Repository, with the incidents the AI Incident Database has recorded under each. Counts are live; they say how often a risk has materialised, not how well this control prevents it.</p>
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
                     @foreach($risks as $r)
-                    <li class="py-2.5 flex flex-wrap items-baseline justify-between gap-2"><span><span class="font-mono text-xs text-brand-muted">{{ $r['id'] }}</span> <a href="{{ $r['url'] }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $r['name'] }}</a> <span class="text-xs text-brand-muted">{{ $r['domain'] }}</span></span><span class="font-mono text-xs tabular-nums text-brand-body">{{ number_format($r['incidents']) }} incidents · {{ number_format($r['risks']) }} risk entries</span></li>
+                    <li class="py-2.5 flex flex-wrap items-baseline justify-between gap-2"><span><span class="font-mono text-xs text-brand-muted">{{ $r['id'] }}</span> <a href="{{ $r['url'] }}" class="font-medium text-brand-navy no-underline hover:underline">{{ $r['name'] }}</a> <span class="text-xs text-brand-muted">{{ $r['domain'] }}</span></span><span class="text-xs tabular-nums text-brand-body">{{ number_format($r['incidents']) }} incidents · {{ number_format($r['risks']) }} risk entries</span></li>
                     @endforeach
                 </ul>
             </section>

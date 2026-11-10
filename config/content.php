@@ -199,24 +199,11 @@ return [
         'ai-regulation-australia' => ['jurisdiction' => 'australia'],
         'ai-governance-singapore' => ['jurisdiction' => 'singapore'],
         'ai-policy-nepal' => ['jurisdiction' => 'nepal'],
+        // Duplicated the verified UAE jurisdiction record, which says all it said and more (debt #51).
+        'ai-governance-uae' => ['jurisdiction' => 'uae'],
     ],
 
     'landings' => [
-        'ai-governance-uae' => [
-            'h1' => 'AI governance in the UAE',
-            'title' => 'AI governance in the UAE: strategy, ethics and data law',
-            'description' => 'The United Arab Emirates\' approach to AI: the National AI Strategy 2031, AI ethics principles and charter, the federal Personal Data Protection Law and free-zone regimes, with official sources.',
-            'jurisdictions' => ['uae'],
-            'policy' => 'uae-national-ai-strategy-2031',
-            'answer' => 'The UAE governs AI through national strategy and principles rather than a dedicated AI statute. The National Strategy for AI 2031, the AI Ethics Principles and Guidelines and the 2024 UAE AI Charter set expectations, while the Federal Decree-Law No. 45 of 2021 on Personal Data Protection and the DIFC and ADGM data-protection regimes provide binding rules for personal data, including rights around automated decisions.',
-            'sections' => [
-                ['heading' => 'What is binding', 'body' => 'The federal PDPL applies outside the financial free zones and includes a right to object to solely automated decisions and a duty to assess the impact of high-risk processing using new technologies. The DIFC\'s Regulation 10 adds specific duties for autonomous and semi-autonomous systems in the DIFC.'],
-                ['heading' => 'Working with UAE government', 'body' => 'Government entities are the primary audience of the strategy and charter. Vendors should reference the AI Ethics Principles and the AI Charter in proposals and expect procurement to reflect them.'],
-            ],
-            'faq' => [
-                ['question' => 'Does the UAE have an AI law?', 'answer' => 'Not a dedicated federal AI statute as of the last check. AI is governed by strategy and principles, with binding personal-data rules at federal and free-zone level.'],
-            ],
-        ],
         'ai-regulation-south-asia' => [
             'h1' => 'AI regulation in South Asia',
             'title' => 'AI regulation in South Asia: India, Nepal and the region',

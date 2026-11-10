@@ -78,6 +78,7 @@ class CountryHubsTest extends TestCase
             '/ai-regulation-australia' => Jurisdiction::where('slug', 'australia')->firstOrFail()->url(),
             '/ai-governance-singapore' => Jurisdiction::where('slug', 'singapore')->firstOrFail()->url(),
             '/ai-policy-nepal' => Jurisdiction::where('slug', 'nepal')->firstOrFail()->url(),
+            '/ai-governance-uae' => Jurisdiction::where('slug', 'uae')->firstOrFail()->url(),
         ];
         $this->assertSame(array_keys($expected), array_map(fn ($s) => '/'.$s, array_keys(config('content.retired_landings'))));
         $this->assertSame(url('/policies/eu-ai-act'), $expected['/eu-ai-act']);
@@ -96,8 +97,7 @@ class CountryHubsTest extends TestCase
             $this->assertStringNotContainsString('<loc>'.url($old).'</loc>', $sitemap, "the sitemap lists {$old}");
             $this->assertStringNotContainsString('('.url($old).')', $llms, "llms.txt lists {$old}");
         }
-        // The landings with no record page of the same subject stay.
-        $this->get('/ai-governance-uae')->assertOk();
+        // The landing with no record page of the same subject stays.
         $this->get('/ai-regulation-south-asia')->assertOk();
         $this->assertStringContainsString('<loc>'.url('/ai-regulation-south-asia').'</loc>', $sitemap);
     }

@@ -75,7 +75,9 @@ final class WebhookDispatcher
         } catch (\Throwable $e) {
             // The connection error is logged for the operator; the account holder is told only
             // that it failed, so the message cannot be used to map hosts and ports from here.
-            Log::notice('alert.webhook.failed', ['delivery' => $delivery->id, 'error' => mb_substr($e->getMessage(), 0, 480)]);
+            // The message can quote the URL, and a Slack incoming-webhook URL is itself a
+            // credential, so the log names the error type and the host, never the address.
+            Log::notice('alert.webhook.failed', ['delivery' => $delivery->id, 'kind' => $channel->kind, 'host' => parse_url((string) $channel->endpoint, PHP_URL_HOST), 'error' => class_basename($e)]);
             $this->fail($delivery, null, 'Could not connect to the endpoint.');
         }
 

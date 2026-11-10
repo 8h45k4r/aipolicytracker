@@ -53,8 +53,14 @@ class SubscribeController extends Controller
             'topics' => ['nullable', 'array', 'max:20'],
             'topics.*' => ['string', 'max:64', 'regex:/^[a-z0-9-]+$/'],
             'source' => ['nullable', 'string', 'max:64'],
-        ]);
-        $topics = array_values(array_unique($data['topics'] ?? [])) ?: ['all'];
+            'terms' => ['accepted'],
+        ], ['terms.accepted' => 'Please accept the terms of use and the privacy notice to subscribe.']);
+        $topics = array_values(array_unique($data['topics'] ?? []));
+        // "Templates" is an extra, not a narrowing: with no jurisdiction or record chosen the
+        // digest still covers everything, so ticking only the extra keeps "all" as well.
+        if (array_diff($topics, ['templates']) === []) {
+            array_unshift($topics, 'all');
+        }
 
         $subscriber = Subscriber::firstOrNew(['email' => strtolower($data['email'])]);
 

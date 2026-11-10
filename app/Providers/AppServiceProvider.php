@@ -14,18 +14,26 @@ use App\Services\Security\EmailDomainPolicy;
 use App\Services\Security\MailDomainResolver;
 use App\Services\Security\SystemMailDomainResolver;
 use App\Services\Subscribers\AccountDigest;
+use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Transport\ResendTransport;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Sanctum\Sanctum;
+use Resend\Client as ResendClient;
+use Resend\Transporters\HttpTransporter;
+use Resend\ValueObjects\ApiKey;
+use Resend\ValueObjects\Transporter\BaseUri;
+use Resend\ValueObjects\Transporter\Headers;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -99,6 +107,30 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('admin', fn (Request $request) => $request->user()
             ? Limit::perMinute(self::ADMIN_REQUESTS_PER_MINUTE)->by('user:'.$request->user()->getAuthIdentifier())
             : Limit::perMinute(120)->by('ip:'.$request->ip()));
+
+        // The Resend transport with time limits. Laravel builds it through Resend::client(),
+        // whose Guzzle client has no timeout, so a provider stall held a PHP worker for as long
+        // as the request was allowed to run. Same client, same base URL and headers, bounded.
+        Mail::extend('resend', function (array $config) {
+            $client = new GuzzleClient([
+                'timeout' => (float) ($config['timeout'] ?? 10),
+                'connect_timeout' => (float) ($config['connect_timeout'] ?? 5),
+            ]);
+            $transporter = new HttpTransporter(
+                $client,
+                BaseUri::from(getenv('RESEND_BASE_URL') ?: 'api.resend.com'),
+                Headers::withAuthorization(ApiKey::from((string) ($config['key'] ?? config('services.resend.key')))),
+            );
+
+            return new ResendTransport(new ResendClient($transporter));
+        });
+
+        // Endpoints that check a password or a reset token. Named, so each has its own bucket
+        // (plain throttle:N,1 limits share one counter per account or address). The two that
+        // take the current password share one: both are guesses at the same secret.
+        RateLimiter::for('password-reset', fn (Request $request) => Limit::perMinute(5)->by('reset:'.$request->ip()));
+        RateLimiter::for('current-password', fn (Request $request) => Limit::perMinute(5)->by('current-password:'.($request->user()?->getAuthIdentifier() ?? $request->ip())));
+        RateLimiter::for('profile-update', fn (Request $request) => Limit::perMinute(10)->by('profile:'.($request->user()?->getAuthIdentifier() ?? $request->ip())));
 
         // The read-only API. Without a token the public rate applies per address, as it always
         // has. With an account token the count is per account, at the plan's rate once selling

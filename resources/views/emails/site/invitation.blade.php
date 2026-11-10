@@ -1,4 +1,4 @@
-@component('emails.site.layout', ['title' => 'Your invitation', 'unsubscribeUrl' => $unsubscribeUrl])
+@component('emails.site.layout', ['message' => $message ?? null, 'title' => 'Your invitation', 'unsubscribeUrl' => $unsubscribeUrl])
 <p style="margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#006AAC;font-weight:600;">Invitation</p>
 <h1 style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:22px;color:#002147;margin:0 0 12px;">Join {{ $site }}</h1>
 <p style="margin:0 0 12px;">Hello {{ $name }}, {{ $inviter }} has created an account for you on {{ $site }}@if($role) with the <strong>{{ $role->label() }}</strong> role: {{ lcfirst($role->description()) }}@else.@endif</p>

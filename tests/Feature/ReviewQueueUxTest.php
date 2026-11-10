@@ -255,4 +255,23 @@ class ReviewQueueUxTest extends TestCase
         $this->assertSame(2, ChannelDelivery::where('status', 'failed')->count());
         $this->assertSame(1, $sent->fresh()->attempts, 'a sent delivery is never part of the selection');
     }
+
+    public function test_each_record_lists_what_to_check_against_its_source_and_the_last_decision(): void
+    {
+        $this->importData();
+        $reviewer = $this->reviewer();
+        $policy = PolicyInstrument::whereNotNull('source_title')->whereNotNull('adopted_on')->orderBy('slug')->firstOrFail();
+        RecordVerification::create(['record_type' => 'policy', 'record_slug' => $policy->slug, 'review_status' => 'needs_review', 'confidence_level' => 'medium', 'reviewed_by' => 'Bhaskar Bhatt', 'notes' => 'Article numbers differ from the gazette.', 'user_id' => $reviewer->id, 'exported' => false]);
+
+        $html = $this->actingAs($reviewer)->get(route('backend.review.index', ['type' => 'policy', 'q' => $policy->title]))->assertOk()->getContent();
+
+        $this->assertStringContainsString('What to check against the source', $html);
+        $this->assertStringContainsString(e($policy->source_title), $html);
+        $this->assertStringContainsString($policy->adopted_on->format('j M Y'), $html);
+        $this->assertStringContainsString('Article numbers differ from the gazette.', $html);
+        $this->assertStringContainsString('not yet exported to data/', $html);
+        $this->assertStringContainsString('A search result or summary is not the source.', $html);
+        // Showing the checklist changes nothing.
+        $this->assertSame($policy->review_status, $policy->fresh()->review_status);
+    }
 }

@@ -50,6 +50,7 @@ use App\Http\Controllers\Site\SocialCardController;
 use App\Http\Controllers\Site\StateOfController;
 use App\Http\Controllers\Site\SubscribeController;
 use App\Http\Controllers\Site\TemplateController;
+use App\Http\Controllers\Site\TemplateUpdatesController;
 use App\Http\Controllers\Site\TransitionController;
 use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
@@ -247,6 +248,10 @@ Route::get('/templates/{facet}/{key}', [TemplateController::class, 'facet'])->wh
 Route::get('/templates/{slug}', [TemplateController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('templates.show');
 Route::post('/templates/{slug}/request', [TemplateController::class, 'requestDownload'])->where('slug', '[a-z0-9-]+')->middleware('throttle:10,1')->name('templates.request');
 Route::get('/templates/{slug}/download', [TemplateController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1')->name('templates.download');
+// Unsubscribe from template update emails: signed, by notice id. GET shows a button; the button and
+// RFC 8058 one-click (List-Unsubscribe-Post) POST to the same URL.
+Route::get('/templates/updates/unsubscribe/{notice}', [TemplateUpdatesController::class, 'unsubscribe'])->whereNumber('notice')->middleware('signed')->name('templates.updates.unsubscribe');
+Route::post('/templates/updates/unsubscribe/{notice}', [TemplateUpdatesController::class, 'unsubscribePost'])->whereNumber('notice')->middleware(['signed', 'throttle:20,1'])->withoutMiddleware([ValidateCsrfToken::class])->name('templates.updates.unsubscribe.post');
 
 // Editorial landing pages and guides generated from verified data plus editorial content.
 Route::get('/guides', [LandingController::class, 'guides'])->name('guides.index');

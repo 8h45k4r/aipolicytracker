@@ -1,7 +1,7 @@
 <?php
 
 /*
-| Cross-Origin Resource Sharing. This application serves an Inertia (same-origin)
+| Cross-Origin Resource Sharing. This application serves a server-rendered (same-origin)
 | front end and exposes no public JSON API, so no origins are allowed by default.
 | Set CORS_ALLOWED_ORIGINS (comma-separated) only if you deliberately expose
 | endpoints to another origin.

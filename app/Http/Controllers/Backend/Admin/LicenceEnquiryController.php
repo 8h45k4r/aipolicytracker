@@ -7,13 +7,15 @@ use App\Models\LicenceEnquiry;
 use App\Support\Admin\CsvStream;
 use App\Support\Admin\ListFilters;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Licence, team and coverage enquiries from the public form, newest first, filterable by
- * tier and exportable. Read-only: the conversation itself happens by email.
+ * tier and exportable. The conversation itself happens by email; an enquiry can be deleted
+ * here when its sender asks for erasure (the admin audit log records who did it).
  */
 class LicenceEnquiryController extends Controller
 {
@@ -38,6 +40,13 @@ class LicenceEnquiryController extends Controller
         return CsvStream::from($this->query($request, ListFilters::from($request, self::SORTS)), 'licence-enquiries',
             ['received_at', 'tier', 'name', 'email', 'organisation', 'use_case', 'coverage_request', 'source', 'notified_at'],
             fn (LicenceEnquiry $e) => [$e->created_at, $e->tierLabel(), $e->name, $e->email, $e->organization, $e->use_case, $e->coverage_request, $e->source, $e->notified_at]);
+    }
+
+    public function destroy(LicenceEnquiry $enquiry): RedirectResponse
+    {
+        $enquiry->delete();
+
+        return back()->with('success', 'Enquiry deleted.');
     }
 
     private function query(Request $request, ListFilters $filters): Builder

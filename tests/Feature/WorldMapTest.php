@@ -64,7 +64,8 @@ class WorldMapTest extends TestCase
             $this->assertStringContainsString('data-world-map="world-map-data"', $html, $path);
             $this->assertStringContainsString('<script type="application/json" id="world-map-data">', $html, $path);
             $this->assertStringContainsString('Binding AI law in force', $html, $path);
-            $this->assertMatchesRegularExpression('/role="img" aria-label="World map of AI regulation: \d+ countries/', $html, $path);
+            // A labelled group, not an image: amCharts puts focusable zoom buttons inside it.
+            $this->assertMatchesRegularExpression('/role="group" aria-label="World map of AI regulation: \d+ countries/', $html, $path);
             // The legend reads before the map, so its counts are on screen while the map script waits.
             $this->assertLessThan(strpos($html, 'data-world-map="world-map-data"'), strpos($html, 'Binding AI law in force'), $path);
         }

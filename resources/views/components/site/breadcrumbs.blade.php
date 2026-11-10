@@ -3,7 +3,7 @@
     <ol class="flex flex-wrap items-center gap-1">
         @foreach($items as $i => [$name, $url])
             <li class="flex items-center gap-1">
-                @if($loop->last)<span aria-current="page" class="text-brand-body">{{ $name }}</span>@else<a href="{{ $url }}" class="hover:text-brand-body">{{ $name }}</a><span aria-hidden="true">/</span>@endif
+                @if($loop->last)<span aria-current="page" class="text-brand-body">{{ $name }}</span>@else<a href="{{ $url }}" class="inline-flex min-h-6 items-center hover:text-brand-body">{{ $name }}</a><span aria-hidden="true">/</span>@endif
             </li>
         @endforeach
     </ol>

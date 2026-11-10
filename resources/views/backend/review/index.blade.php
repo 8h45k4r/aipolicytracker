@@ -98,7 +98,15 @@
         @foreach($rows as $r)
         <tr id="rec-{{ $r['slug'] }}">
             <td><input type="checkbox" name="slugs[]" value="{{ $r['slug'] }}" form="{{ $bulk }}" data-bulk-item aria-label="Select {{ $r['title'] }}" @checked($picked->contains($r['slug']))></td>
-            <td><a href="{{ $r['url'] }}" target="_blank" rel="noopener">{{ $r['title'] }}</a><div class="meta">@if($r['source'])<a href="{{ $r['source'] }}" target="_blank" rel="noopener">Open official source ↗</a>@else <span class="text-state-warn">no source URL</span> @endif · confidence {{ $r['confidence'] }}@if($r['note']) · <span class="text-state-warn">{{ $r['note'] }}</span>@endif</div></td>
+            <td><a href="{{ $r['url'] }}" target="_blank" rel="noopener">{{ $r['title'] }}</a><div class="meta">@if($r['source'])<a href="{{ $r['source'] }}" target="_blank" rel="noopener">Open official source ↗</a>@else <span class="text-state-warn">no source URL</span> @endif · confidence {{ $r['confidence'] }}@if($r['note']) · <span class="text-state-warn">{{ $r['note'] }}</span>@endif</div>
+                @if($r['check'] !== [] || $r['decision'])
+                <details class="mt-1 text-xs" data-review-check><summary class="cursor-pointer text-brand-blue">What to check against the source</summary>
+                    @if($r['check'] !== [])<dl class="mt-1 grid gap-x-3 gap-y-0.5" style="grid-template-columns:max-content 1fr">@foreach($r['check'] as $c)<dt class="text-brand-muted">{{ $c['label'] }}</dt><dd @class(['text-state-warn' => $c['missing'] ?? false])>{{ $c['value'] }}</dd>@endforeach</dl>@endif
+                    @if($r['decision'])<p class="mt-1 meta">Last decision: {{ str_replace('_', ' ', $r['decision']->review_status) }}, confidence {{ $r['decision']->confidence_level }}, by {{ $r['decision']->reviewed_by ?? '—' }} on {{ $r['decision']->updated_at?->format('j M Y') }}@if(! $r['decision']->exported) · <span class="text-state-warn">not yet exported to data/</span>@endif @if($r['decision']->notes)<br>Notes: {{ $r['decision']->notes }}@endif</p>@endif
+                    <p class="mt-1 meta">Open the official source and compare each line. A search result or summary is not the source.</p>
+                </details>
+                @endif
+            </td>
             <td class="text-xs">{{ $r['context'] }}</td>
             <td><x-backend.badge :status="$r['review_status']" /></td>
             <td class="text-xs whitespace-nowrap">{{ $r['last_verified_at']?->format('j M Y') ?? '—' }}@if($r['stale']) <span class="text-state-warn" title="older than the re-check age">stale</span>@endif @if($r['reviewed_by'])<div class="meta">{{ $r['reviewed_by'] }}</div>@endif</td>
