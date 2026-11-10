@@ -30,16 +30,21 @@ class ReviewerRoster
 {
     /**
      * Record kinds that carry `reviewed_by`, so a verification can be attributed to a person.
+     *
+     * Obligations are deliberately absent. They carry `review_status`,
+     * `confidence_level` and `last_verified_at` but no reviewer name: the data
+     * schema does not define one, the table has no column and the importer maps
+     * none, because an obligation's verification belongs to the instrument it was
+     * read out of. Querying them for `reviewed_by` is what took /reviewers down.
      */
     private const ATTRIBUTABLE = [
         'policy' => PolicyInstrument::class,
         'change' => ChangeEvent::class,
         'jurisdiction' => Jurisdiction::class,
-        'obligation' => Obligation::class,
     ];
 
     /** Every published kind, for the corpus total. Matches what /coverage counts. */
-    private const ALL_KINDS = self::ATTRIBUTABLE;
+    private const ALL_KINDS = self::ATTRIBUTABLE + ['obligation' => Obligation::class];
 
     /** @var Collection<int, array>|null */
     private ?Collection $published = null;

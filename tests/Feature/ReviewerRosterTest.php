@@ -91,20 +91,23 @@ class ReviewerRosterTest extends TestCase
             );
         }
 
-        $this->assertArrayHasKey('obligation', $attributable);
+        // And the kind that does not carry one must not be attributed.
+        $this->assertFalse(Schema::hasColumn('obligations', 'reviewed_by'));
+        $this->assertArrayNotHasKey('obligation', $attributable);
     }
 
-    public function test_the_corpus_total_counts_every_published_kind(): void
+    public function test_the_corpus_total_counts_every_published_kind_not_only_the_attributable_ones(): void
     {
         $standing = app(ReviewerRoster::class)->standing();
         $obligations = Obligation::published()->count();
 
         $this->assertGreaterThan(0, $obligations, 'fixture must publish obligations for this to mean anything');
         $this->assertSame(
-            $standing['attributable'],
+            $standing['attributable'] + $obligations,
             $standing['published'],
-            'every published kind is attributable'
+            'obligations belong in the corpus total even though no reviewer can be named on them'
         );
+        $this->assertLessThan($standing['published'], $standing['attributable']);
     }
 
     public function test_the_shipped_data_directory_validates_including_the_roster(): void
@@ -208,7 +211,8 @@ class ReviewerRosterTest extends TestCase
         $empty = sys_get_temp_dir().'/roster-'.uniqid();
         mkdir($empty.'/reviewers', 0777, true);
         $this->app->bind(ReviewerRoster::class, fn () => new ReviewerRoster(new PolicyDataRepository($empty)));
-        foreach ([PolicyInstrument::class, Jurisdiction::class, ChangeEvent::class, Obligation::class] as $model) {
+        // The attributable kinds only: an obligation's verification belongs to its instrument, and the table has no reviewed_by column.
+        foreach ([PolicyInstrument::class, Jurisdiction::class, ChangeEvent::class] as $model) {
             $model::query()->update(['review_status' => 'pending_review', 'reviewed_by' => null, 'last_verified_at' => null]);
         }
 
@@ -223,7 +227,12 @@ class ReviewerRosterTest extends TestCase
         $this->get('/sitemap-static.xml')->assertOk()->assertSee(url('/reviewers'), false);
     }
 
-    public function test_a_reviewer_page_queries_every_attributable_kind(): void
+    /**
+     * SQLite treats an unknown double-quoted identifier as a string, so a query for a
+     * column that does not exist passes every SQLite test and fails on PostgreSQL. The
+     * reviewer page asked obligations for their reviewer; obligations have none.
+     */
+    public function test_a_reviewer_page_never_asks_a_kind_without_a_reviewer_column(): void
     {
         $tables = [];
         DB::listen(function ($query) use (&$tables) {
@@ -234,7 +243,7 @@ class ReviewerRosterTest extends TestCase
 
         app(ReviewerRoster::class)->verifiedRecords('Bhaskar Bhatt');
 
-        $this->assertContains('obligations', $tables);
+        $this->assertNotContains('obligations', $tables);
         $this->assertContains('policy_instruments', $tables);
     }
 }
