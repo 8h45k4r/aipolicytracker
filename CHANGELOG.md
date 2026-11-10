@@ -27,6 +27,9 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- A record page returns its Markdown file when the request says `Accept: text/markdown`, for policies,
+  jurisdictions, obligations, controls and changes, and names the file in a `Link` header. Browsers are
+  unaffected. Every page now names the change log feed for feed readers.
 - Browser smoke tests (Playwright, `npm run test:e2e`, CI job "Browser smoke tests") for the scripts under the
   Content Security Policy, keyboard and dialog behaviour, and the analytics consent flow.
 - Maintenance workflow (manual): status, cache clear and rebuild, app restart with a health wait, and a prune
@@ -225,6 +228,11 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- SEO and answer-engine check of the live site (`docs/reference/seo-aeo-audit-2026-11-10.md`): `/policies/` and
+  `/index.php/policies` now redirect permanently to the clean URL instead of serving a second copy of the page.
+- The contact address in the footer of every page read "[email protected]": the edge rewrote it for a script
+  the Content Security Policy refuses. The footer and the funding page now mark the address so it is served as
+  written. The about, privacy and terms pages are unchanged; see the audit for the edge setting to turn off.
 - Emails: the logo and the social icons are sent inside the message, so they show in mail clients that block
   or proxy remote images. The footer names only the site, and an invitation no longer says the reader
   subscribed or offers an unsubscribe link.
@@ -264,6 +272,12 @@ All notable changes to this project are documented here. The format follows [Kee
   view, event, OPcache) in one step. Pass `--rebuild` to rebuild production caches after.
 - Server maintenance workflow: manual GitHub Actions trigger for cache-clear, restart,
   docker-prune, full-cleanup and status operations without a full redeploy.
+- Deploy trigger: CI now dispatches the deploy workflow as soon as the SQLite test and
+  JS build pass, without waiting for the PostgreSQL job that routinely times out
+  (issue #141, debt #49).
+- Obligations no longer inherit `verified` review status from their parent policy
+  instrument when they have no `last_verified_at` of their own; they fall back to
+  `pending_review` instead (issue #140, debt #11).
 
 ## [2.0.0] - 2026-10-20
 

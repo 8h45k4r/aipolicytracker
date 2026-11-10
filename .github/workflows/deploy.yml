@@ -2,9 +2,12 @@ name: Deploy
 
 # Deploys a commit of main to the production host once the checks that can
 # finish have passed: the SQLite test job and the JS build from CI, and the
-# whole Security workflow for the same commit, which is the run that builds
-# the production image. The PostgreSQL test job is not waited for while it
-# cannot complete (debt #49); when it can, add it to REQUIRED_CI_JOBS.
+# Security workflow for the same commit, which is the run that builds the
+# production image.
+#
+# Triggered by the trigger-deploy job in ci.yml as soon as the two required
+# CI jobs pass — no longer waiting for the PostgreSQL job that times out
+# (debt #49, issue #141). Manual dispatch is still available.
 #
 # The host side is deploy/remote-deploy.sh, installed on the server as the
 # forced command of a dedicated SSH key, so the key can deploy and do nothing
@@ -17,10 +20,6 @@ name: Deploy
 # That was already true of the application code; branch protection on main
 # is what keeps it to reviewed, green commits.
 on:
-  workflow_run:
-    workflows: [CI]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
     inputs:
       sha:
@@ -42,7 +41,7 @@ env:
 jobs:
   deploy:
     name: Deploy to production
-    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main')
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment:
@@ -57,21 +56,14 @@ jobs:
       - name: Resolve the commit and its CI run
         id: target
         env:
-          EVENT: ${{ github.event_name }}
-          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
-          RUN_ID: ${{ github.event.workflow_run.id }}
           INPUT_SHA: ${{ inputs.sha }}
         run: |
           set -euo pipefail
-          if [ "$EVENT" = "workflow_run" ]; then
-            sha="$RUN_SHA"; run="$RUN_ID"
-          else
-            sha="${INPUT_SHA:-$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq .commit.sha)}"
-            gh api "repos/$GITHUB_REPOSITORY/compare/main...$sha" --jq .status | grep -qE '^(identical|behind)$' \
-              || { echo "::error::$sha is not on main"; exit 1; }
-            run="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$sha&per_page=1" --jq '.workflow_runs[0].id // empty')"
-            [ -n "$run" ] || { echo "::error::no CI run found for $sha"; exit 1; }
-          fi
+          sha="${INPUT_SHA:-$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq .commit.sha)}"
+          gh api "repos/$GITHUB_REPOSITORY/compare/main...$sha" --jq .status | grep -qE '^(identical|behind)$' \
+            || { echo "::error::$sha is not on main"; exit 1; }
+          run="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$sha&per_page=1" --jq '.workflow_runs[0].id // empty')"
+          [ -n "$run" ] || { echo "::error::no CI run found for $sha"; exit 1; }
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
           echo "run=$run" >> "$GITHUB_OUTPUT"
           echo "Deploying $sha (CI run $run)"

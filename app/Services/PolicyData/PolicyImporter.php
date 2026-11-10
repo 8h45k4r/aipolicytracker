@@ -280,7 +280,8 @@ class PolicyImporter
                     'source_reference' => $item['source_reference'] ?? null,
                     'official_source_url' => $item['official_source_url'] ?? $record['official_source_url'],
                     'last_verified_at' => $item['last_verified_at'] ?? null,
-                    'review_status' => $item['review_status'] ?? $record['review_status'],
+                    'review_status' => $item['review_status']
+                        ?? (($record['review_status'] === 'verified' && empty($item['last_verified_at'])) ? 'pending_review' : $record['review_status']),
                     'confidence_level' => $item['confidence_level'] ?? $record['confidence_level'],
                     'sort_order' => $i,
                     'published_at' => $policy->published_at,

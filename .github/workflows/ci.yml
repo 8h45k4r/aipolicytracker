@@ -255,3 +255,24 @@ jobs:
       - name: Server log on failure
         if: failure()
         run: tail -100 serve.log storage/logs/*.log 2>/dev/null || true
+
+  # The deploy workflow used to trigger on workflow_run:completed for CI, but
+  # the PostgreSQL job never finishes (debt #49), so CI never "completed" and
+  # every deploy had to be dispatched by hand. This job triggers the deploy as
+  # soon as the two required jobs pass, without waiting for PostgreSQL.
+  trigger-deploy:
+    name: Trigger deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      - name: Dispatch deploy workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run deploy.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --field sha="${GITHUB_SHA}"

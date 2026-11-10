@@ -87,6 +87,8 @@ Every published record is also served as one Markdown context file with a proven
 - `/policies/{slug}.md` — e.g. {{ route('policies.context', 'eu-ai-act') }}
 - `/jurisdictions/{slug}.md`, `/obligations/{slug}.md`, `/controls/{slug}.md`, `/changes/{slug}.md` (each change also has a page at `/changes/{slug}`)
 
+The same file is returned from the record's own URL when the request says `Accept: text/markdown`, so an agent holding a page link does not need to rewrite it. Each record page also names the file in a `Link` header (`rel="alternate"; type="text/markdown"`).
+
 Whole-corpus exports, one self-contained row at a time: `/open-data/{dataset}.csv` and `/open-data/{dataset}.ndjson` for jurisdictions, policies, obligations, controls, changes and deadlines. JSON Schemas resolve at `/schema/{name}.schema.json`. An assistant can call these through the Model Context Protocol server in the repository's `agent/` directory.
 
 ## Jurisdictions
