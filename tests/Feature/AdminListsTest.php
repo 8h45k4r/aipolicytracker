@@ -172,13 +172,16 @@ class AdminListsTest extends TestCase
     {
         $this->artisan('policy:import');
         config(['aipolicytracker.stale_after_days' => 30]);
-        $policy = PolicyInstrument::firstOrFail();
+        // Ordered: without it PostgreSQL returns whichever row its heap yields first.
+        $policy = PolicyInstrument::orderBy('id')->firstOrFail();
         $policy->forceFill(['last_verified_at' => now()->subDays(45), 'review_status' => 'verified'])->saveQuietly();
 
         $owner = $this->owner();
         // Never-verified records are stale too and sort first, so find this one by its slug.
+        // The queue names a policy by its short title when it has one.
         $html = $this->actingAs($owner)->get(route('backend.review.index', ['type' => 'policy', 'review' => 'stale', 'q' => $policy->slug]))->assertOk()->getContent();
-        $this->assertStringContainsString(e($policy->title), $html);
+        $this->assertStringContainsString(e($policy->short_title ?: $policy->title), $html);
+        $this->assertStringContainsString('value="'.$policy->slug.'"', $html, 'the row for this record, selectable by its slug');
         $html = $this->actingAs($owner)->get(route('backend.review.index', ['type' => 'policy', 'review' => 'stale']))->assertOk()->getContent();
         $this->assertStringContainsString(e(route('backend.review.export', ['type' => 'policy', 'review' => 'stale'])), $html);
 
