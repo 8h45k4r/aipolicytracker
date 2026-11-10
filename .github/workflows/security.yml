@@ -213,10 +213,25 @@ jobs:
           done
           docker inspect -f '{{.State.Health.Status}}' smoke-app | grep -qx healthy \
             || { docker inspect -f '{{json .State.Health}}' smoke-app; exit 1; }
+          # A background process that dies is started again by the entrypoint's supervisor.
+          docker exec smoke-app pkill -KILL -f 'artisan queue:work'
+          restarted=""
+          for _ in $(seq 1 15); do docker exec smoke-app pgrep -f 'artisan queue:work' >/dev/null && restarted=1 && break; sleep 1; done
+          [ -n "$restarted" ] || { echo "::error::the queue worker was not restarted"; docker logs --tail 30 smoke-app; exit 1; }
+          docker logs smoke-app 2>&1 | grep -q 'queue exited with status' || { echo "::error::no restart notice in the log"; exit 1; }
           start=$(date +%s); docker stop -t 30 smoke-app
           code="$(docker inspect -f '{{.State.ExitCode}}' smoke-app)"
           echo "stopped in $(( $(date +%s) - start ))s with exit code $code"
           [ "$code" = 0 ] || { docker logs --tail 50 smoke-app; exit 1; }
+          # The php-fpm base image's own stop signal is SIGQUIT; the entrypoint must exit
+          # cleanly on it too (a stop sent by an orchestrator that uses the base default).
+          docker start smoke-app >/dev/null
+          for _ in $(seq 1 60); do curl -fsS -o /dev/null http://127.0.0.1:8080/up 2>/dev/null && break; sleep 2; done
+          start=$(date +%s); docker kill --signal QUIT smoke-app >/dev/null
+          for _ in $(seq 1 30); do [ "$(docker inspect -f '{{.State.Running}}' smoke-app)" = false ] && break; sleep 1; done
+          code="$(docker inspect -f '{{.State.ExitCode}}' smoke-app)"
+          echo "SIGQUIT: stopped in $(( $(date +%s) - start ))s with exit code $code"
+          [ "$(docker inspect -f '{{.State.Running}}' smoke-app)" = false ] && [ "$code" = 0 ] || { docker logs --tail 30 smoke-app; exit 1; }
       - name: Clean up the smoke test
         if: always()
         run: docker rm -f smoke-app smoke-db >/dev/null 2>&1 || true

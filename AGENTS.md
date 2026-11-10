@@ -45,7 +45,7 @@ Docker; local development and the gating CI job use SQLite. Code is Apache-2.0, 
 | `app/` | Laravel code. `Console/Commands` (artisan commands), `Http/Controllers/{Site,Backend,Api,Auth}`, `Http/Middleware` (`SecurityHeaders`, `CheckAdmin`, …), `Models`, `Services/*` (one folder per area), `Support`. |
 | `routes/` | `public.php` (public site), `api.php` (API v1), `auth.php`, `backend/web.php` (admin), `console.php` (schedule). |
 | `resources/views/` | Blade: `site/` (public), `backend/` (admin), `components/`, `emails/`. |
-| `resources/js`, `resources/css` | Front-end sources; account screens in `resources/js/Pages`. Built into `public/build`. |
+| `resources/js`, `resources/css` | Front-end sources (small plain-JS modules; no client framework). Built into `public/build`. |
 | `config/` | Configuration. Must stay cacheable: no closures, no `config()` calls. |
 | `database/` | Migrations and seeders. |
 | `tests/` | PHPUnit `Feature` and `Unit` tests; `tests/js` for node tests. |

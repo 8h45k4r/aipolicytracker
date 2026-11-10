@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Sign-in: when one address passes 20 failed sign-ins in 10 minutes and the automated check (Turnstile) is
+  configured, the form asks for the check instead of refusing everyone on that address, so a wrongly
+  reported client address cannot lock all readers out. Without the check configured it stays a hard stop.
 - Sign-in: one address trying a password against many accounts is stopped after 20 failures in 10 minutes
   (the existing per-email limit stays). Password reset, password change and account deletion are throttled.
 - The password-reset form gives the same answer whether or not an account uses the address.

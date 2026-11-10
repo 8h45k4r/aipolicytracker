@@ -7,6 +7,7 @@ use App\Mail\EmailChangedMail;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
@@ -22,6 +23,8 @@ class AuthHardeningTest extends TestCase
 
     public function test_one_address_trying_many_emails_is_stopped(): void
     {
+        // Without the automated check configured, the address limit is a hard stop.
+        config(['services.turnstile.site_key' => null, 'services.turnstile.secret_key' => null]);
         // Spraying: a different email each time, so the per-email counter never fills.
         for ($i = 0; $i < 20; $i++) {
             $this->post('/login', ['email' => "person{$i}@example.org", 'password' => 'Winter2026!'])
@@ -39,6 +42,39 @@ class AuthHardeningTest extends TestCase
         $this->travel(11)->minutes();
         $this->post('/login', ['email' => 'real@example.org', 'password' => 'password'])->assertRedirect();
         $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_with_the_automated_check_configured_the_address_limit_asks_for_it_instead_of_locking_everyone_out(): void
+    {
+        config(['services.turnstile.site_key' => '1x00000000000000000000AA', 'services.turnstile.secret_key' => 'test-secret']);
+        Http::fake(['challenges.cloudflare.com/*' => fn ($request) => Http::response(['success' => $request['response'] === 'good-token'])]);
+        for ($i = 0; $i < 20; $i++) {
+            $this->post('/login', ['email' => "person{$i}@example.org", 'password' => 'Winter2026!']);
+        }
+        $user = User::factory()->create(['email' => 'real@example.org']);
+
+        // The form now shows the check, and a sign-in without it is refused with a reason.
+        $this->get('/login')->assertOk()->assertSee('data-turnstile-slot', false);
+        $this->post('/login', ['email' => 'real@example.org', 'password' => 'password'])->assertSessionHasErrors('turnstile');
+        $this->post('/login', ['email' => 'real@example.org', 'password' => 'password', 'cf-turnstile-response' => 'bad-token'])->assertSessionHasErrors('turnstile');
+        $this->assertGuest();
+
+        // A person who passes the check signs in, even though the address is over the limit.
+        $this->post('/login', ['email' => 'real@example.org', 'password' => 'password', 'cf-turnstile-response' => 'good-token'])->assertRedirect();
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_the_check_does_not_bypass_the_per_account_lock(): void
+    {
+        config(['services.turnstile.site_key' => '1x00000000000000000000AA', 'services.turnstile.secret_key' => 'test-secret']);
+        Http::fake(['challenges.cloudflare.com/*' => Http::response(['success' => true])]);
+        $user = User::factory()->create(['email' => 'real@example.org']);
+        for ($i = 0; $i < 25; $i++) {
+            $this->post('/login', ['email' => 'real@example.org', 'password' => 'wrong', 'cf-turnstile-response' => 'good-token']);
+        }
+        $this->post('/login', ['email' => 'real@example.org', 'password' => 'password', 'cf-turnstile-response' => 'good-token'])->assertSessionHasErrors('email');
+        $this->assertStringContainsString('Too many login attempts', session('errors')->first('email'));
+        $this->assertGuest();
     }
 
     public function test_a_different_address_is_not_affected(): void

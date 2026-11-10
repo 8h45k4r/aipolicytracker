@@ -81,7 +81,8 @@ supervise() {
       code=0
       wait "$child" || code=$?
       [ -f /tmp/aip-stopping ] && break
-      echo "WARNING: $name exited with status $code; starting it again in 5s"
+      # The queue worker ends itself every hour (--max-time) with status 0; that is routine.
+      if [ "$code" -eq 0 ]; then echo "NOTE: $name finished; starting it again in 5s"; else echo "WARNING: $name exited with status $code; starting it again in 5s"; fi
       sleep 5
     done
   ) &
