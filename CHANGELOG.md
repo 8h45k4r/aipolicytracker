@@ -264,6 +264,12 @@ All notable changes to this project are documented here. The format follows [Kee
   view, event, OPcache) in one step. Pass `--rebuild` to rebuild production caches after.
 - Server maintenance workflow: manual GitHub Actions trigger for cache-clear, restart,
   docker-prune, full-cleanup and status operations without a full redeploy.
+- Deploy trigger: CI now dispatches the deploy workflow as soon as the SQLite test and
+  JS build pass, without waiting for the PostgreSQL job that routinely times out
+  (issue #141, debt #49).
+- Obligations no longer inherit `verified` review status from their parent policy
+  instrument when they have no `last_verified_at` of their own; they fall back to
+  `pending_review` instead (issue #140, debt #11).
 
 ## [2.0.0] - 2026-10-20
 
