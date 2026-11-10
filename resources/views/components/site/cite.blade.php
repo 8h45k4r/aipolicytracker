@@ -20,12 +20,12 @@
     <h2 id="cite-heading" class="section-title">Cite this record</h2>
     <p class="mt-2 text-sm text-brand-body break-words" data-cite>{{ config('aipolicytracker.site_name') }} ({{ now()->year }}). &ldquo;{{ $title }}&rdquo;@if($record) [{{ implode(', ', $stamp) }}]@endif. <a href="{{ $permalink }}">{{ $permalink }}</a> (accessed {{ now()->format('j F Y') }}). Data licensed {{ config('aipolicytracker.data_license') }}.@if($doiUrl) Part of the {{ config('aipolicytracker.site_name') }} dataset, <a href="{{ $doiUrl }}" rel="noopener" data-cite-doi>{{ $doiUrl }}</a>.@endif</p>
     @if($aiptId)
-    <p class="mt-1 text-xs text-brand-muted">Permanent id <span class="datestamp" data-aipt-id>{{ $aiptId }}</span>: it never changes or gets reused, and its address keeps working if this page moves.</p>
+    <p class="mt-1 text-xs text-brand-muted" data-nosnippet>Permanent id <span class="datestamp" data-aipt-id>{{ $aiptId }}</span>: it never changes or gets reused, and its address keeps working if this page moves.</p>
     @endif
     @if($sourceUrl)
     <p class="mt-1 text-xs text-brand-muted">Cite the official text alongside it: {{ $sourceTitle ? $sourceTitle.', ' : '' }}{{ $publisher ? $publisher.', ' : '' }}<a href="{{ $sourceUrl }}" rel="noopener" class="break-all">{{ $sourceUrl }}</a>.</p>
     @endif
-    <details class="mt-2 text-xs">
+    <details class="mt-2 text-xs" data-nosnippet>
         <summary class="cursor-pointer text-brand-blue">BibTeX</summary>
         {{-- Focusable and named: a long BibTeX line scrolls sideways, which a keyboard user can only do from focus (WCAG 2.1.1). --}}
         <pre class="mt-2 overflow-x-auto rounded-md bg-brand-paper p-3 text-brand-body" tabindex="0" role="region" aria-label="BibTeX citation" data-cite-bibtex>{{ \App\Support\DatasetCitation::bibtex($title, $url) }}</pre>

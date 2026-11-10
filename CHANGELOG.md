@@ -225,6 +225,9 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- Emails: the logo and the social icons are sent inside the message, so they show in mail clients that block
+  or proxy remote images. The footer names only the site, and an invitation no longer says the reader
+  subscribed or offers an unsubscribe link.
 - SEO audit against the claude-seo checklist (`docs/reference/seo-aeo-audit-2026-11-03.md`): AI-risk entries
   extracted from one passage no longer share a meta description; the change-by-year pages no longer skip a
   heading level; the status badge image gives its width as well as its height. Hub pages that were linked only
@@ -257,6 +260,10 @@ All notable changes to this project are documented here. The format follows [Kee
   and the licence, rebuilt when a template changes. Single templates stay free. Not offered until selling is on.
 - "Subscribe in your calendar" (`webcal://`) on the deadline calendar, jurisdiction pages and the "which date
   applies" result, so a subscribed calendar refreshes when a date moves. The one-off `.ics` download stays.
+- `php artisan aip:cache-clear` command: clears all application caches (config, route,
+  view, event, OPcache) in one step. Pass `--rebuild` to rebuild production caches after.
+- Server maintenance workflow: manual GitHub Actions trigger for cache-clear, restart,
+  docker-prune, full-cleanup and status operations without a full redeploy.
 
 ## [2.0.0] - 2026-10-20
 

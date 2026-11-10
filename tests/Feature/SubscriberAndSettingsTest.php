@@ -116,7 +116,7 @@ class SubscriberAndSettingsTest extends TestCase
         Mail::assertSent(TestMail::class, function ($m) {
             $html = $m->render();
 
-            return $m->hasTo('ops@example.org') && str_contains($html, 'Follow us on social') && str_contains($html, 'linkedin.com/company/aipolicytracker') && str_contains($html, 'brand/social/instagram.png');
+            return $m->hasTo('ops@example.org') && str_contains($html, 'Follow us on social') && str_contains($html, 'linkedin.com/company/aipolicytracker') && preg_match('/<img src="(cid:|data:image\/png;base64,)[^"]+" alt="Instagram"/', $html) === 1; // icons travel in the message, not as links
         });
         $this->get('/')->assertOk()->assertSee('https://www.linkedin.com/company/aipolicytracker/')->assertSee('https://www.instagram.com/aipolicytracker/')->assertSee('https://x.com/aipolicytracker')->assertSee('https://www.facebook.com/aipolicytracker');
     }
