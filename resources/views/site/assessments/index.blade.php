@@ -3,7 +3,7 @@
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Free AI self-assessments</h1>
-    <p class="mt-2 max-w-3xl text-brand-body">Know where you stand before an auditor, a customer or a regulator asks. {{ $all->count() }} short questionnaires covering the EU AI Act, ISO/IEC 42001, the NIST AI RMF, US state AI laws, AI security and AI governance. Answer one in about six minutes to see a score for each domain; ask for the PDF report by email. No account needed.</p>
+    <p class="mt-2 max-w-3xl text-brand-body">Know where you stand before an auditor, a customer or a regulator asks. {{ $all->count() }} questionnaires covering the EU AI Act, ISO/IEC 42001, the NIST AI RMF, US state AI laws, AI security and AI governance. Most take about six minutes and show a score for each domain; ask for the PDF report by email. No account needed.</p>
     <p class="mt-2 text-xs text-brand-muted">{{ config('assessments.provider.disclosure') }} A score is a self-check, not an audit, a certification or legal advice.</p>
 
     <form method="get" action="{{ route('assessments.index') }}" role="search" class="mt-6 flex flex-wrap items-end gap-3 rounded-md border border-brand-line bg-brand-paper p-3 text-sm">

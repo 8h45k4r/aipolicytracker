@@ -22,7 +22,7 @@ final class AssessmentCatalog
 
     public static function url(string $slug): string
     {
-        return config('assessments.provider.assessment_url').$slug.'?'.config('assessments.provider.utm');
+        return config('assessments.provider.assessment_url').config("assessments.items.{$slug}.path", $slug).'?'.config('assessments.provider.utm');
     }
 
     public static function listUrl(): string
@@ -41,6 +41,40 @@ final class AssessmentCatalog
         $field = self::KINDS[$kind] ?? null;
 
         return $field === null ? collect() : self::all()->filter(fn (array $a) => in_array($key, $a[$field] ?? [], true))->take($limit);
+    }
+
+    /**
+     * Assessments that name at least one template, each with the first of those templates
+     * that exists, in the order the config lists them: what the templates hub shows as
+     * "score yourself, then pick up the template".
+     *
+     * @param  callable(string):(?array<string,mixed>)  $findTemplate
+     * @return Collection<string, array<string,mixed>>
+     */
+    public static function pairedWithTemplates(callable $findTemplate, int $limit = 6): Collection
+    {
+        $paired = self::all()
+            ->map(fn (array $a) => $a + ['template' => collect($a['templates'] ?? [])->map($findTemplate)->filter()->first()])
+            ->filter(fn (array $a) => $a['template'] !== null);
+
+        // One of each type first, so the six shown are not all about one law.
+        return $paired->unique('type')->union($paired)->take($limit);
+    }
+
+    /**
+     * Assessments that name any of the given templates, those naming the most first:
+     * what a page listing several templates (a framework or a type) offers beside them.
+     *
+     * @param  list<string>  $templates
+     * @return Collection<string, array<string,mixed>>
+     */
+    public static function forTemplates(array $templates, int $limit = 3): Collection
+    {
+        return self::all()
+            ->map(fn (array $a) => $a + ['matches' => count(array_intersect($a['templates'] ?? [], $templates))])
+            ->filter(fn (array $a) => $a['matches'] > 0)
+            ->sortByDesc('matches')
+            ->take($limit);
     }
 
     /**

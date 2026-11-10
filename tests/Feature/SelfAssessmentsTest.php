@@ -42,7 +42,7 @@ class SelfAssessmentsTest extends TestCase
                 config("frameworks.{$f}") || $missing[] = "{$slug}: framework {$f}";
             }
             array_key_exists($a['type'], config('assessments.types')) || $missing[] = "{$slug}: type {$a['type']}";
-            $this->assertStringStartsWith('https://self.getcertifyi.com/assessments/'.$slug.'?utm_source=aipolicytracker', $a['url']);
+            $this->assertStringStartsWith('https://self.getcertifyi.com/assessments/'.($a['path'] ?? $slug).'?utm_source=aipolicytracker', $a['url']);
         }
         $this->assertSame([], $missing);
     }

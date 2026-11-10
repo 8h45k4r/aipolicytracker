@@ -12,6 +12,10 @@
 
     <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">@foreach($items as $item)<x-site.template-card :item="$item" />@endforeach</ul>
 
+    @if($assessments->isNotEmpty())
+    <x-site.assessments :list="$assessments" title="Score yourself before you fill one in" class="mt-8 max-w-xl" />
+    @endif
+
     <nav class="mt-10" aria-labelledby="more-heading">
         <h2 id="more-heading" class="section-title">More templates</h2>
         <div class="mt-3 flex flex-wrap gap-2 text-sm">

@@ -1,7 +1,7 @@
-@props(['kind', 'key', 'limit' => 2, 'title' => 'Check where you stand'])
+@props(['kind' => null, 'key' => null, 'limit' => 2, 'title' => 'Check where you stand', 'list' => null])
 {{-- The free self-assessments that fit this page, if any. Kept to two. They run on
      Certifyi, a related product, and say so: the only place a record page names it. --}}
-@php($items = \App\Services\Assessments\AssessmentCatalog::for($kind, $key, $limit))
+@php($items = $list ?? \App\Services\Assessments\AssessmentCatalog::for((string) $kind, (string) $key, $limit))
 @if($items->isNotEmpty())
 <section {{ $attributes->merge(['class' => 'rounded-sm border border-brand-line bg-brand-paper p-4 text-sm']) }} aria-label="Free self-assessments">
     <p class="font-semibold text-brand-navy">{{ $title }}</p>

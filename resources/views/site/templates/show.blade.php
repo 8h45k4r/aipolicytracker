@@ -7,26 +7,33 @@
     <header class="mt-3">
         <div class="flex flex-wrap gap-1.5"><span class="badge bg-brand-navy text-white ring-brand-navy">{{ $catalog::typeLabel($meta['type']) }}</span><span class="badge bg-state-goodbg text-state-good ring-state-good/30">{{ \App\Models\TemplateDownloadRequest::accessLabel() }}</span>@foreach(($meta['frameworks'] ?? []) as $f)<span class="badge-neutral">{{ $catalog::frameworkLabel($f) }}</span>@endforeach</div>
         <h1 class="mt-3 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $meta['title'] }}</h1>
-        <div class="mt-4 flex flex-wrap gap-2">
+        <div class="mt-4 flex flex-wrap items-center gap-2">
             <a href="#download" class="btn-primary" data-track="template_request_open" data-track-label="{{ $meta['slug'] }}">Get the {{ $formats }} files</a>
             <a href="#preview" class="btn-secondary">Preview</a>
+            <button type="button" class="btn-secondary" data-copy-link>Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy text-xs hidden">Share</button>
         </div>
-        <div class="mt-2 flex flex-wrap items-center gap-3"><button type="button" class="btn-secondary !py-1 !px-2 !text-xs" data-copy-link>Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy text-xs hidden">Share</button></div>
         <p class="mt-2 meta">Formats: {{ $formats }} · Version {{ $version->label() }} · Built <time datetime="{{ $version->generated_at->toAtomString() }}">{{ $version->generated_at->format('j M Y') }}</time> from dataset <code>{{ $version->dataset_version }}</code> · {{ config('templates.licence') }}</p>
         <x-site.commercial-use class="mt-2" />
     </header>
+
+    {{-- The page runs to seven sections: a row of jump links on a wide screen, a menu on a phone. --}}
+    <nav class="mt-5 hidden lg:flex flex-wrap items-center gap-2 text-sm" aria-label="On this page" data-template-jump>
+        <span class="meta mr-1">On this page:</span>
+        @foreach($toc as $id => $label)<a href="#{{ $id }}" class="chip">{{ $label }}</a>@endforeach
+    </nav>
+    <x-site.toc :items="$toc" variant="mobile" class="mt-5" />
 
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
             {{-- Answer first: composed from the catalogue entry, the version and the duties it cites. --}}
             <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
-            <section aria-labelledby="inside-heading">
+            <section id="inside" class="scroll-mt-6" aria-labelledby="inside-heading">
                 <h2 id="inside-heading" class="section-title">What's inside</h2>
                 <ul class="mt-2 list-disc space-y-1.5 pl-5 text-sm text-brand-body">@foreach($meta['inside'] as $line)<li>{{ $line }}</li>@endforeach</ul>
                 @if($caveat)<p class="mt-3 rounded-md border border-state-warn/40 bg-state-warnbg p-3 text-sm text-brand-body"><span class="font-medium text-brand-navy">Dates:</span> {{ $caveat }}</p>@endif
             </section>
 
-            <section id="preview" class="mt-8" aria-labelledby="preview-heading">
+            <section id="preview" class="mt-8 scroll-mt-6" aria-labelledby="preview-heading">
                 <h2 id="preview-heading" class="section-title">Preview</h2>
                 <p class="mt-1 text-xs text-brand-muted">The sheets and sections of version {{ $version->label() }}, as built. Columns marked ▾ have a dropdown; ƒ is a formula.</p>
                 @foreach($preview['sheets'] as $sheet)
@@ -47,7 +54,7 @@
             </section>
 
             {{-- The steps are shown here, not as HowTo markup, which search engines no longer use. --}}
-            <section class="mt-8" aria-labelledby="howto-heading">
+            <section id="how-to-use" class="mt-8 scroll-mt-6" aria-labelledby="howto-heading">
                 <h2 id="howto-heading" class="section-title">How to use it</h2>
                 <ol class="mt-3 space-y-3">
                     @foreach($steps as $i => $step)
@@ -57,7 +64,7 @@
             </section>
 
             @if($covered->isNotEmpty())
-            <section class="mt-8" aria-labelledby="covers-heading">
+            <section id="duties" class="mt-8 scroll-mt-6" aria-labelledby="covers-heading">
                 <h2 id="covers-heading" class="section-title">Duties this template covers <span class="text-sm font-normal text-brand-muted">({{ $covered->count() }})</span></h2>
                 <p class="mt-1 text-xs text-brand-muted">Each is cited in the file with its source reference and a link back to the record.</p>
                 <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
@@ -70,13 +77,13 @@
             @endif
 
             @if($basis->isNotEmpty())
-            <section class="mt-8" aria-labelledby="basis-heading">
+            <section id="legal-basis" class="mt-8 scroll-mt-6" aria-labelledby="basis-heading">
                 <h2 id="basis-heading" class="section-title">Legal basis</h2>
                 <ul class="mt-2 space-y-1.5 text-sm">@foreach($basis as $b)<li><a href="{{ $b['url'] }}" class="text-brand-navy">{{ $b['title'] }}</a> <span class="meta">{{ $b['meta'] }}</span></li>@endforeach</ul>
             </section>
             @endif
 
-            <section class="mt-8" aria-labelledby="versions-heading">
+            <section id="versions" class="mt-8 scroll-mt-6" aria-labelledby="versions-heading">
                 <h2 id="versions-heading" class="section-title">Version history</h2>
                 <div class="table-wrap mt-3"><table><caption class="sr-only">Versions of {{ $meta['title'] }}</caption><thead><tr><th scope="col">Version</th><th scope="col">Built</th><th scope="col">Dataset</th><th scope="col">What changed</th></tr></thead><tbody>
                     @foreach($versions as $v)<tr><td class="whitespace-nowrap font-medium text-brand-navy">{{ $v->label() }}</td><td class="whitespace-nowrap"><time datetime="{{ $v->generated_at->toDateString() }}">{{ $v->generated_at->format('j M Y') }}</time></td><td><code class="text-xs">{{ $v->dataset_version }}</code></td><td>{{ $v->changelog }}</td></tr>@endforeach
