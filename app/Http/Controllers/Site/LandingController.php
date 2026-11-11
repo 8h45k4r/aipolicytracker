@@ -10,6 +10,7 @@ use App\Models\PolicyInstrument;
 use App\Models\Tool;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Templates\TemplateCatalog;
+use App\Support\ContentDates;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class LandingController extends Controller
         $deadlines = $jurisdictions->count() === 1 ? $catalog->upcomingDeadlines(6, $jurisdictions->first()->id) : $catalog->upcomingDeadlines(6);
         $obligations = Obligation::published()->with('policyInstrument')->whereIn('policy_instrument_id', $policies->pluck('id'))->orderByDesc('is_binding')->limit(10)->get();
         $indexable = $policies->isNotEmpty() && $jurisdictions->isNotEmpty();
-        $lastModified = collect([$jurisdictions->max('updated_at'), $policies->max('updated_at')])->filter()->max();
+        $lastModified = $policies->map(fn ($p) => ContentDates::forPolicy($p))->filter()->max();
 
         $seo = Seo::make($page['title'], $page['description'], route('landing', $landing), $indexable)
             ->withBreadcrumbs([['Home', route('home')], [$page['h1'], route('landing', $landing)]])
@@ -154,7 +155,8 @@ class LandingController extends Controller
                 ->when(! empty($page['framework_jurisdiction']), fn ($q) => $q->whereHas('policyInstrument.jurisdiction', fn ($j) => $j->where('slug', $page['framework_jurisdiction'])))
                 ->orderBy('sort_order')->get()
             : collect();
-        $lastModified = $policies->max('updated_at');
+        // The guide's facts come from these records, so it is as new as the newest of them.
+        $lastModified = $policies->map(fn ($p) => ContentDates::forPolicy($p))->concat($obligations->map(fn ($o) => ContentDates::forRecord($o, 'obligation')))->filter()->max();
 
         $seo = Seo::make($page['title'], $page['description'], route('guides.show', $slug))
             ->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')], [$page['h1'], route('guides.show', $slug)]])

@@ -15,6 +15,7 @@ use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Services\Templates\TemplateCatalog;
+use App\Support\ContentDates;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
@@ -117,16 +118,18 @@ class PolicyController extends Controller
         $answer = AnswerBox::policy($policy);
         $facts = KeyFacts::policy($policy);
 
+        // When the content last changed, not when an import last wrote the row (see ContentDates).
+        $modified = ContentDates::forPolicy($policy);
         $seo = Seo::make(
             $title,
             $answer,
             $policy->url(),
             $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')], [$name, $policy->url()]])
-            ->withModified($policy->updated_at)
-            ->withPublished($policy->created_at)
+            ->withModified($modified)
+            ->withPublished($policy->published_at ?? $policy->created_at)
             ->withOgType('article')
-            ->withCard('policy', $policy->slug, $policy->updated_at)
+            ->withCard('policy', $policy->slug, $modified)
             ->withAlternate('application/json', route('policies.json', $policy->slug))
             ->withAlternate('text/markdown', route('policies.context', $policy->slug))
             // Merged into the page's own node rather than written as a second one, so

@@ -16,6 +16,7 @@ use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\Admin\CsvStream;
+use App\Support\ContentDates;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
@@ -108,9 +109,9 @@ class ObligationController extends Controller
             $obligation->url(),
             filled($obligation->summary) && $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')], [$obligation->title, $obligation->url()]])
-            ->withModified($obligation->updated_at)
-            ->withPublished($obligation->created_at)
-            ->withCard('obligation', $obligation->slug, $obligation->updated_at)
+            ->withModified($modified = ContentDates::forRecord($obligation, 'obligation'))
+            ->withPublished($obligation->published_at ?? $obligation->created_at)
+            ->withCard('obligation', $obligation->slug, $modified)
             ->withAlternate('application/json', route('obligations.json', $obligation->slug))
             ->withAlternate('text/markdown', route('obligations.context', $obligation->slug))
             ->withPageProperties(Seo::provenance($obligation))

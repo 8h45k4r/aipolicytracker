@@ -175,6 +175,57 @@ final class HubCatalog
         return in_array($pairSlug, self::indexablePairs(), true);
     }
 
+    /**
+     * The indexed page comparing two jurisdictions, or null when there is none and only
+     * the on-demand (noindex) comparison exists. A curated comparison wins over the pair page.
+     */
+    public static function comparisonUrl(string $a, string $b): ?string
+    {
+        if ($curated = self::curatedFor($a, $b) ?? self::curatedFor($b, $a)) {
+            return route('compare.show', $curated);
+        }
+        $pair = self::pairSlug($a, $b);
+        if (! self::isPairIndexable($pair)) {
+            return null;
+        }
+        // The pair page is indexed only when both countries' pages are (CompareController).
+        $both = Jurisdiction::published()->withPublishedInstrument()->whereIn('slug', [$a, $b])->get();
+
+        return $both->count() === 2 && $both->every->isPageIndexable() ? route('compare.show', $pair) : null;
+    }
+
+    /**
+     * Every jurisdiction that has an indexed comparison page with this one: the other
+     * slug => that page's URL. Lets a country page link the comparisons it is part of,
+     * which otherwise only the comparison index linked.
+     *
+     * @return array<string, string>
+     */
+    public static function comparisonsFor(string $slug): array
+    {
+        $others = [];
+        foreach (config('content.comparisons', []) as $c) {
+            $js = $c['jurisdictions'] ?? [];
+            if (count($js) === 2 && in_array($slug, $js, true)) {
+                $others[] = $js[0] === $slug ? $js[1] : $js[0];
+            }
+        }
+        foreach (self::indexablePairs() as $pair) {
+            [$a, $b] = self::parsePair($pair) ?? [null, null];
+            if ($a === $slug || $b === $slug) {
+                $others[] = $a === $slug ? $b : $a;
+            }
+        }
+        $out = [];
+        foreach (array_unique($others) as $other) {
+            if ($url = self::comparisonUrl($slug, $other)) {
+                $out[$other] = $url;
+            }
+        }
+
+        return $out;
+    }
+
     /** The curated comparison that covers a pair, if one exists (its address stays canonical). */
     public static function curatedFor(string $a, string $b): ?string
     {

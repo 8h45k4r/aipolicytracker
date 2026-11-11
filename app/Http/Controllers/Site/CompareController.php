@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Jurisdiction;
 use App\Services\Hubs\HubCatalog;
 use App\Services\PolicyData\ComparisonBuilder;
+use App\Support\ContentDates;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -56,7 +57,7 @@ class CompareController extends Controller
         $jurisdictions = Jurisdiction::published()->whereIn('slug', $config['jurisdictions'])->get()->sortBy(fn ($j) => array_search($j->slug, $config['jurisdictions'], true))->values();
         abort_if($jurisdictions->count() < 2, 404);
         $rows = $builder->build($jurisdictions);
-        $lastModified = $jurisdictions->max('updated_at');
+        $lastModified = $jurisdictions->map(fn ($j) => ContentDates::of($j))->filter()->max();
         [$a, $b] = [$jurisdictions[0], $jurisdictions[1]];
         $overlap = $builder->overlap($a, $b);
         $left = $builder->whatsLeft($a, $b);
@@ -106,7 +107,7 @@ class CompareController extends Controller
         $cb = $counts($b);
         $shared = count(array_filter($overlap, fn ($r) => $r['both']));
         $indexable = HubCatalog::isPairIndexable($canonical) && $a->isPageIndexable() && $b->isPageIndexable();
-        $lastModified = $jurisdictions->max('updated_at');
+        $lastModified = $jurisdictions->map(fn ($j) => ContentDates::of($j))->filter()->max();
 
         $intro = sprintf(
             '%s records %d AI policy %s (%d binding); %s records %d (%d binding). They share %d obligation %s, and %d of %s\'s binding duties fall in categories where %s has none. Every cell below is computed from published records linked to their official sources.',

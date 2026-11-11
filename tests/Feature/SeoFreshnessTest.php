@@ -98,4 +98,47 @@ class SeoFreshnessTest extends TestCase
         $this->assertSame($now, $this->lastmod('policies', $policy->url()));
         $this->assertSame($now, $this->lastmod('jurisdictions', $policy->jurisdiction->url()));
     }
+
+    private function pageDates(string $url): array
+    {
+        $html = $this->get($url)->assertOk()->getContent();
+        preg_match('#"dateModified":"([^"]+)"#', $html, $json);
+        preg_match('#<meta property="article:modified_time" content="([^"]+)"#', $html, $meta);
+
+        return ['json' => $json[1] ?? null, 'meta' => $meta[1] ?? null];
+    }
+
+    /**
+     * The page says the same as its sitemap entry. Record pages used to state the time the
+     * row was last written, so a link check or an admin decision re-applied over the file
+     * told every answer engine the page had changed when nothing a reader sees had.
+     */
+    public function test_a_record_page_states_its_content_date_like_its_sitemap_entry(): void
+    {
+        $this->artisan('policy:import')->assertSuccessful();
+        $policy = PolicyInstrument::where('slug', 'eu-ai-act')->firstOrFail();
+        $obligation = Obligation::published()->where('policy_instrument_id', $policy->id)->whereNotNull('summary')->firstOrFail();
+        $pages = ['policies' => $policy->url(), 'obligations' => $obligation->url()];
+        $before = [];
+        foreach ($pages as $section => $url) {
+            $dates = $this->pageDates($url);
+            $this->assertNotNull($dates['json'], $url.' states dateModified');
+            $this->assertSame(substr($this->lastmod($section, $url), 0, 19), substr($dates['json'], 0, 19), $url.' agrees with its sitemap entry');
+            $before[$url] = $dates;
+        }
+
+        $this->travel(3)->days();
+        PolicyInstrument::query()->toBase()->update(['updated_at' => now()]);
+        Obligation::query()->toBase()->update(['updated_at' => now()]);
+        foreach ($pages as $url) {
+            $this->assertSame($before[$url], $this->pageDates($url), $url.' does not move when only the row was rewritten');
+        }
+
+        // A revision to a duty moves the duty page and the policy page that shows it.
+        $this->travel(1)->days();
+        RecordRevision::create(['record_type' => 'obligation', 'record_slug' => $obligation->slug, 'fields' => [['field' => 'summary', 'label' => 'Summary', 'from' => null, 'to' => 'revised']], 'changed_at' => now()]);
+        foreach ($pages as $url) {
+            $this->assertStringStartsWith(now()->format('Y-m-d'), (string) $this->pageDates($url)['json'], $url.' moves with a revision');
+        }
+    }
 }

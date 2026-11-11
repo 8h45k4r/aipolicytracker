@@ -142,4 +142,30 @@ class DeadlineCalendarTest extends TestCase
             $this->assertStringContainsString(DeadlineCalendar::subscribeUrl(route('calendar.feed.jurisdiction', $slug)), $html);
         }
     }
+
+    /**
+     * The page answers "what is the next AI compliance deadline?" from the records before
+     * anything else, lists what is ahead by year, keeps recently passed dates in view, and
+     * names them in its structured data.
+     */
+    public function test_the_page_answers_with_the_next_deadline_and_keeps_recent_ones(): void
+    {
+        Deadline::query()->update(['deadline_status' => 'passed']);
+        $soon = $this->deadline(['title' => 'Soonest test date', 'due_on' => now()->addDays(3)->toDateString()]);
+        $this->deadline(['title' => 'Later test date', 'due_on' => now()->addYears(2)->toDateString()]);
+        $this->deadline(['title' => 'Month-only test date', 'due_on' => now()->addDays(2)->toDateString(), 'date_precision' => 'month']);
+        $this->deadline(['title' => 'Passed test date', 'due_on' => now()->subDays(10)->toDateString(), 'deadline_status' => 'passed']);
+        $this->deadline(['title' => 'Old passed test date', 'due_on' => now()->subDays(400)->toDateString(), 'deadline_status' => 'passed']);
+
+        $html = $this->get('/calendar')->assertOk()->getContent();
+        $this->assertStringContainsString('<title>Upcoming AI compliance deadlines', $html);
+        $this->assertMatchesRegularExpression('#data-answer>The next recorded deadline is <strong>Soonest test date</strong>.*'.preg_quote($soon->due_on->format('j F Y'), '#').'#', $html);
+        $this->assertStringContainsString('Later test date', $html);
+        $this->assertStringNotContainsString('Month-only test date', $html, 'a date not recorded to the day is not listed');
+        $this->assertStringContainsString('Recently passed', $html);
+        $this->assertStringContainsString('Passed test date', $html);
+        $this->assertStringNotContainsString('Old passed test date', $html);
+        $this->assertStringContainsString('"name":"'.$soon->due_on->toDateString().': Soonest test date"', $html, 'listed in the page ItemList');
+        $this->assertLessThan(strpos($html, 'Later test date'), strpos($html, 'Soonest test date'), 'in date order');
+    }
 }

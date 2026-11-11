@@ -2,6 +2,9 @@
 
 namespace App\Support;
 
+use App\Models\ChangeEvent;
+use App\Models\Obligation;
+use App\Models\PolicyInstrument;
 use App\Models\RecordRevision;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -48,6 +51,40 @@ final class ContentDates
         $dates = array_filter([$record->getAttribute('last_verified_at'), $revised, $record->getAttribute('published_at')]);
 
         return $dates === [] ? null : Carbon::instance(max($dates));
+    }
+
+    /**
+     * One record's content date, looking up its own newest revision. For a page that
+     * shows a single record; a listing should use revisions() once instead.
+     *
+     * @param  string  $type  the record's RecordRevision record_type
+     */
+    public static function forRecord(Model $record, string $type): ?Carbon
+    {
+        $revised = RecordRevision::query()->where('record_type', $type)->where('record_slug', $record->getAttribute('slug'))->max('changed_at');
+
+        return self::of($record, $revised ? Carbon::parse($revised) : null);
+    }
+
+    /**
+     * A policy page's content date: its own, or a revision to one of the duties or dated
+     * changes it shows, whichever is newest. The same rule as the policies sitemap, so the
+     * page and its lastmod agree.
+     */
+    public static function forPolicy(PolicyInstrument $policy): ?Carbon
+    {
+        $dates = [self::forRecord($policy, 'policy')];
+        foreach (['obligation' => Obligation::class, 'change' => ChangeEvent::class] as $type => $model) {
+            $children = $model::query()->published()->where('policy_instrument_id', $policy->id)->get(['slug', 'last_verified_at', 'published_at']);
+            $revised = RecordRevision::query()->where('record_type', $type)->whereIn('record_slug', $children->pluck('slug'))
+                ->selectRaw('record_slug, max(changed_at) as revised_at')->groupBy('record_slug')->pluck('revised_at', 'record_slug');
+            foreach ($children as $child) {
+                $dates[] = self::of($child, isset($revised[$child->slug]) ? Carbon::parse($revised[$child->slug]) : null);
+            }
+        }
+        $dates = array_filter($dates);
+
+        return $dates === [] ? null : max($dates);
     }
 
     /**

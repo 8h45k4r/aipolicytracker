@@ -15,6 +15,7 @@ use App\Services\PolicyData\PolicySerializer;
 use App\Services\Records\AnswerBox;
 use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
+use App\Support\ContentDates;
 use App\Support\Faq;
 use App\Support\PageTitle;
 use App\Support\Seo;
@@ -124,8 +125,14 @@ class JurisdictionController extends Controller
         $obligationCategories->each(fn ($c) => $c->setAttribute('label', $categoryNames[$c->category] ?? str_replace('_', ' ', $c->category)));
         $useCases = $policies->flatMap(fn ($p) => $p->terms->where('taxonomy', 'use_case'))->unique('slug')->sortBy('name')->values();
         $sectors = $policies->flatMap(fn ($p) => $p->terms->where('taxonomy', 'sector'))->unique('slug')->sortBy('name')->values();
-        $related = Jurisdiction::published()->whereIn('slug', $jurisdiction->related_jurisdictions ?? [])->orderBy('name')->get();
-        $lastModified = collect([$jurisdiction->updated_at, $policies->max('updated_at'), $changes->max('updated_at')])->filter()->max();
+        // Comparison pages this country is part of, plus the related jurisdictions the record
+        // names. An indexed comparison page is linked where one exists; otherwise the
+        // on-demand comparison, which is not indexed and is linked nofollow.
+        $indexedComparisons = HubCatalog::comparisonsFor($jurisdiction->slug);
+        $related = Jurisdiction::published()->whereIn('slug', array_unique(array_merge($jurisdiction->related_jurisdictions ?? [], array_keys($indexedComparisons))))->orderBy('name')->get()
+            ->each(fn ($r) => $r->setAttribute('comparison_url', $indexedComparisons[$r->slug] ?? HubCatalog::comparisonUrl($jurisdiction->slug, $r->slug)));
+        // When the content last changed (ContentDates), not when an import last wrote a row.
+        $lastModified = collect([ContentDates::of($jurisdiction)])->concat($policies->map(fn ($p) => ContentDates::forPolicy($p)))->filter()->max();
         // What an organisation operates to meet this jurisdiction's duties, counted by
         // how many of them each control satisfies.
         $controls = Obligation::published()->whereIn('policy_instrument_id', $policies->pluck('id'))->with('controls')->get()

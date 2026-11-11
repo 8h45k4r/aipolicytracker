@@ -3,8 +3,50 @@
 <div class="container-site py-8 max-w-3xl">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-3">Deadline calendar</p>
-    <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">Application dates in your own calendar</h1>
-    <p class="mt-3 max-w-[68ch] text-brand-body leading-7">Subscribe once and dated deadlines from the instruments we track appear in your diary, with reminders 30 and 7 days ahead. The feed updates as records change, so a moved date moves in your calendar rather than in a spreadsheet you forgot to check.</p>
+    <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">Upcoming AI compliance deadlines</h1>
+    {{-- The answer first, computed from the records: what a reader (or an answer engine) asks this page. --}}
+    @if($next)
+    <p class="mt-3 max-w-[68ch] text-brand-body leading-7" data-answer>The next recorded deadline is <strong>{{ $next->title }}</strong> ({{ $next->policyInstrument->jurisdiction->name }}, {{ $next->policyInstrument->short_title ?: $next->policyInstrument->title }}) on <strong><time datetime="{{ $next->due_on->toDateString() }}">{{ $next->due_on->format('j F Y') }}</time></strong>. {{ $yearAhead }} {{ \Illuminate\Support\Str::plural('date', $yearAhead) }} recorded to an exact day {{ $yearAhead === 1 ? 'falls' : 'fall' }} in the next twelve months.</p>
+    @else
+    <p class="mt-3 max-w-[68ch] text-brand-body leading-7" data-answer>No tracked instrument has an upcoming deadline recorded to an exact day right now.</p>
+    @endif
+    <p class="mt-3 max-w-[68ch] text-sm text-brand-body leading-6">Every date comes from a tracked AI law or policy and links to its record and official source. A date is listed only once it is recorded to an exact day; one known only as a month or year stays on its record instead. Check the official source before relying on a date: a record marked pending review has not yet been confirmed by a reviewer.</p>
+
+    @if($upcoming->isNotEmpty())
+    <section class="mt-8" aria-labelledby="upcoming-h">
+        <h2 id="upcoming-h" class="section-title">Upcoming deadlines</h2>
+        @foreach($upcoming->groupBy(fn ($d) => $d->due_on->year) as $year => $rows)
+        <h3 class="mt-5 font-semibold text-brand-navy">{{ $year }}</h3>
+        <ul class="mt-2 divide-y divide-brand-line border-y border-brand-line text-sm">
+            @foreach($rows as $d)
+            <li class="grid gap-1 py-2 sm:grid-cols-[7.5rem_1fr]">
+                <time datetime="{{ $d->due_on->toDateString() }}" class="font-mono text-xs text-brand-navy whitespace-nowrap pt-0.5">{{ $d->due_on->format('j M Y') }}</time>
+                <span><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->title }}</a>
+                    <span class="meta">· {{ $d->policyInstrument->jurisdiction->name }} · {{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}@if($d->source_reference) · {{ $d->source_reference }}@endif @if($d->official_source_url ?: $d->policyInstrument->official_source_url)· <a href="{{ $d->official_source_url ?: $d->policyInstrument->official_source_url }}" rel="nofollow noopener" class="hover:underline" data-track="source_click">official source</a>@endif · {{ $d->policyInstrument->verificationLabel() }}</span></span>
+            </li>
+            @endforeach
+        </ul>
+        @endforeach
+    </section>
+    @endif
+
+    @if($recent->isNotEmpty())
+    <section class="mt-8" aria-labelledby="recent-h">
+        <h2 id="recent-h" class="section-title">Recently passed</h2>
+        <p class="mt-1 text-sm text-brand-body">Dates in the last {{ \App\Http\Controllers\Site\CalendarController::RECENT_DAYS }} days. They have applied and are no longer in the feed.</p>
+        <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
+            @foreach($recent as $d)
+            <li class="grid gap-1 py-2 sm:grid-cols-[7.5rem_1fr]">
+                <time datetime="{{ $d->due_on->toDateString() }}" class="font-mono text-xs text-brand-muted whitespace-nowrap pt-0.5">{{ $d->due_on->format('j M Y') }}</time>
+                <span><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->title }}</a> <span class="meta">· {{ $d->policyInstrument->jurisdiction->name }} · {{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</span></span>
+            </li>
+            @endforeach
+        </ul>
+    </section>
+    @endif
+
+    <h2 class="section-title mt-10">Application dates in your own calendar</h2>
+    <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Subscribe once and dated deadlines from the instruments we track appear in your diary, with reminders 30 and 7 days ahead. The feed updates as records change, so a moved date moves in your calendar rather than in a spreadsheet you forgot to check.</p>
 
     <div class="mt-6 card-flat p-5">
         <p class="label">Subscription address</p>
@@ -30,15 +72,6 @@
         @if($events->isEmpty())
         <div class="mt-4"><x-site.empty title="No dated deadlines are scheduled right now">As soon as a tracked instrument records an exact application date, it appears here and in the feed.</x-site.empty></div>
         @else
-        <ul class="mt-3 divide-y divide-brand-line border-y border-brand-line text-sm">
-            @foreach($events as $d)
-            <li class="flex flex-wrap items-start justify-between gap-3 py-2">
-                <span><a href="{{ $d->policyInstrument->url() }}" class="text-brand-navy hover:underline">{{ $d->title }}</a>
-                    <span class="meta">· {{ $d->policyInstrument->jurisdiction->name }} · {{ $d->policyInstrument->short_title ?: $d->policyInstrument->title }}</span></span>
-                <span class="font-mono text-xs text-brand-navy whitespace-nowrap">{{ $d->due_on->format('j M Y') }}</span>
-            </li>
-            @endforeach
-        </ul>
         <p class="mt-3 meta">{{ $events->count() }} {{ \Illuminate\Support\Str::plural('date', $events->count()) }} in the feed.</p>
         @endif
     </section>

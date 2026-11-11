@@ -9,6 +9,7 @@ use App\Models\Obligation;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Records\AnswerBox;
 use App\Support\Admin\CsvStream;
+use App\Support\ContentDates;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Database\Eloquent\Builder;
@@ -130,13 +131,13 @@ class ChangeController extends Controller
             // but is not offered to search engines as a change in the law.
             filled($change->what_changed) && filled($change->official_source_url) && ! $change->isSiteUpdate()
         )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], [(string) $change->occurred_on->year, route('changes.year', $change->occurred_on->year)], [$change->title, $change->url()]])
-            ->withModified($change->updated_at)
+            ->withModified($modified = ContentDates::forRecord($change, 'change'))
             // Published when the entry first appeared here, not when the event
             // happened: a news reader asks the first question. The event date is
             // stated in the body and in the dateline below.
             ->withPublished($change->first_published_at ?? $change->occurred_on)
             ->withOgType($change->isSiteUpdate() ? 'website' : 'article')
-            ->withCard('change', $change->slug, $change->updated_at)
+            ->withCard('change', $change->slug, $modified)
             ->withFeed(route('changes.feed'))
             ->withAlternate('text/markdown', route('changes.context', $change->slug))
             // A change in the law is news; a new version of one of this site's own

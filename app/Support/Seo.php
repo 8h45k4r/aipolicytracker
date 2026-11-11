@@ -622,6 +622,9 @@ class Seo
             'creator' => ['@id' => url('/').'#organization'],
             'publisher' => ['@id' => url('/').'#organization'],
             'isPartOf' => ['@id' => url('/').'#website'],
+            // The catalogue every dataset on the site belongs to, so a dataset index can
+            // group the corpus with the narrower datasets other pages publish.
+            'includedInDataCatalog' => self::dataCatalog(),
             'datePublished' => config('aipolicytracker.data_first_released'),
             'dateModified' => $facts['modified'],
             // From the earliest to the latest date the records carry: adoptions and
@@ -672,6 +675,19 @@ class Seo
      *
      * @param  array<string,string>  $distributions  media type => URL
      */
+    /** The site's data catalogue node: one per site, named once and referenced by @id elsewhere. */
+    public static function dataCatalog(): array
+    {
+        return [
+            '@type' => 'DataCatalog',
+            '@id' => url('/').'#datacatalog',
+            'name' => config('aipolicytracker.site_name').' open data',
+            'url' => route('open-data'),
+            'license' => config('aipolicytracker.data_license_url'),
+            'publisher' => ['@id' => url('/').'#organization'],
+        ];
+    }
+
     public static function dataset(string $name, string $description, string $url, array $distributions, ?\DateTimeInterface $modified = null, ?string $identifier = null, array $extra = []): array
     {
         return array_filter([
@@ -693,6 +709,7 @@ class Seo
             // The DOI identifies the corpus, never a part of it, so a narrower Dataset
             // carries it only through this reference.
             'isPartOf' => [['@id' => url('/').'#website'], DatasetCitation::corpusReference()],
+            'includedInDataCatalog' => self::dataCatalog(),
             'dateModified' => $modified?->format(DATE_ATOM),
             'distribution' => array_values(array_map(
                 fn ($type, $href) => ['@type' => 'DataDownload', 'encodingFormat' => $type, 'contentUrl' => $href],

@@ -138,6 +138,12 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- The deadline calendar (`/calendar`) now opens with the answer: the next recorded AI compliance
+  deadline and how many fall in the next twelve months. Upcoming dates are listed by year, each with its
+  official source and review status, and dates from the last 180 days stay listed as recently passed. The
+  subscription feed is unchanged.
+- A country page links the indexed comparison pages it is part of, for example the EU page links
+  `/compare/eu-vs-us-ai-regulation`. Before, those pages were linked only from the comparison index.
 - Quality and accessibility:
   - The Content Security Policy adds `'strict-dynamic'`.
   - Jurisdiction pages make a dozen fewer database queries.
@@ -235,6 +241,12 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- Policy, obligation, change, jurisdiction, guide, comparison and audience pages stated the time their
+  database row was last written as `dateModified` and `article:modified_time`. A link check or an admin
+  decision re-applied over the data moved it with nothing changed for a reader, and it disagreed with
+  the sitemap. They now state when the content last changed: a review, a recorded revision, or first
+  publication. This is the same date as the sitemap's `lastmod`.
+- Datasets in the structured data name the site's data catalogue (`DataCatalog`).
 - SEO and answer-engine check of the live site (`docs/reference/seo-aeo-audit-2026-11-10.md`): `/policies/` and
   `/index.php/policies` now redirect permanently to the clean URL instead of serving a second copy of the page.
 - The contact address in the footer of every page read "[email protected]": the edge rewrote it for a script

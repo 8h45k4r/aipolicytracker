@@ -7,6 +7,7 @@ use App\Models\ChangeEvent;
 use App\Models\Deadline;
 use App\Models\Obligation;
 use App\Models\TaxonomyTerm;
+use App\Support\ContentDates;
 use App\Support\Seo;
 use Illuminate\View\View;
 
@@ -63,7 +64,7 @@ class AudienceController extends Controller
         $deadlines = Deadline::with('policyInstrument.jurisdiction')->whereIn('policy_instrument_id', $instruments->pluck('id'))->whereNotNull('due_on')->where('due_on', '>=', now()->toDateString())->orderBy('due_on')->limit(6)->get();
         $changes = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereIn('policy_instrument_id', $instruments->pluck('id'))->orderByDesc('occurred_on')->limit(5)->get();
         $indexable = $duties->count() >= self::MIN_INDEXABLE_DUTIES;
-        $modified = collect([$duties->max('updated_at'), $controls->max(fn ($r) => $r['control']->updated_at)])->filter()->max();
+        $modified = $duties->map(fn ($o) => ContentDates::of($o))->concat($controls->map(fn ($r) => ContentDates::of($r['control'])))->filter()->max();
 
         $seo = Seo::make($page['title'], $page['description'], route('audiences.show', $audience), $indexable)
             ->withBreadcrumbs([['Home', route('home')], ['By role and sector', route('audiences.index')], [$page['h1'], route('audiences.show', $audience)]])

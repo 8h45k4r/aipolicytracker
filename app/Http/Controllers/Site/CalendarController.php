@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Services\PolicyData\DeadlineCalendar;
 use App\Support\Seo;
@@ -16,16 +17,31 @@ use Illuminate\View\View;
  */
 class CalendarController extends Controller
 {
+    /** How long a passed date stays listed on the page. */
+    public const RECENT_DAYS = 180;
+
     public function show(DeadlineCalendar $calendar): View
     {
         $events = $calendar->events();
+        $today = now()->startOfDay();
+        $upcoming = $events->filter(fn ($d) => $d->due_on->gte($today))->values();
+        // Dates that have just passed stay on the page for a while: "did that deadline
+        // apply yet?" is asked as often as "what is next?". The feed keeps only what is ahead.
+        $recent = Deadline::query()->with(['policyInstrument.jurisdiction'])
+            ->whereNotNull('due_on')->where('date_precision', DeadlineCalendar::PUBLISHABLE_PRECISION)
+            ->whereBetween('due_on', [$today->copy()->subDays(self::RECENT_DAYS)->toDateString(), $today->copy()->subDay()->toDateString()])
+            ->whereIn('deadline_status', ['scheduled', 'passed'])
+            ->whereHas('policyInstrument', fn ($q) => $q->published())
+            ->orderByDesc('due_on')->get();
+        $next = $upcoming->first();
+        $yearAhead = $upcoming->filter(fn ($d) => $d->due_on->lte($today->copy()->addYear()))->count();
         $jurisdictions = Jurisdiction::published()->whereHas('policyInstruments.deadlines')->orderBy('name')->get(['slug', 'name']);
-        $seo = Seo::make(
-            'AI policy deadline calendar (subscribe)',
-            'Subscribe to dated application deadlines from tracked AI policy instruments in your own calendar, with reminders 30 and 7 days ahead. Only dates recorded to an exact day are published.',
-            route('calendar')
-        )->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], ['Deadline calendar', route('calendar')]])
-            ->withPageType('CollectionPage')
+        $description = $next
+            ? 'Upcoming AI compliance deadlines from tracked laws, next: '.$next->due_on->format('j M Y').'. Each date links to its official source. Subscribe in your calendar.'
+            : 'Upcoming AI compliance deadlines from tracked laws, each linked to its official source. Subscribe in your own calendar, with reminders.';
+        $seo = Seo::make('Upcoming AI compliance deadlines and dates', $description, route('calendar'))
+            ->withBreadcrumbs([['Home', route('home')], ['Changes', route('changes.index')], ['Upcoming deadlines', route('calendar')]])
+            ->withPageType('CollectionPage', ['mainEntity' => Seo::itemList($upcoming->take(50), fn ($d) => $d->due_on->toDateString().': '.$d->title, fn ($d) => $d->policyInstrument->url(), 'Upcoming AI compliance deadlines')])
             // The page is a view of a feed that exists. Naming the .ics distribution
             // tells a machine it can subscribe rather than scrape.
             ->withJsonLd(Seo::dataset(
@@ -35,7 +51,7 @@ class CalendarController extends Controller
                 ['text/calendar' => route('calendar.feed')],
             ));
 
-        return view('site.pages.calendar', compact('seo', 'events', 'jurisdictions'));
+        return view('site.pages.calendar', compact('seo', 'events', 'upcoming', 'recent', 'next', 'yearAhead', 'jurisdictions'));
     }
 
     /** The feed itself. A jurisdiction slug narrows it. */

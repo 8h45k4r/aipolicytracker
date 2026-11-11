@@ -398,4 +398,13 @@ class StructuredDataGraphTest extends TestCase
         $this->assertNotNull($crumbs);
         $this->assertSame($crumbs['@id'], $page['breadcrumb']['@id'] ?? null, 'the page should point at its own trail');
     }
+
+    /** Every Dataset on the site names the one catalogue it belongs to, defined where it is used. */
+    public function test_datasets_belong_to_the_site_data_catalog(): void
+    {
+        foreach ([route('open-data'), route('calendar')] as $url) {
+            $html = $this->get($url)->assertOk()->getContent();
+            $this->assertMatchesRegularExpression('#"includedInDataCatalog":\{"@type":"DataCatalog","@id":"[^"]+\#datacatalog","name":"[^"]+open data","url":"'.preg_quote(route('open-data'), '#').'"#', $html, $url);
+        }
+    }
 }

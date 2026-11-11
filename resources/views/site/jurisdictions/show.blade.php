@@ -151,7 +151,7 @@
                 <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">Regulators</p><ul class="mt-2 space-y-2">@foreach($jurisdiction->regulators as $r)<li><a href="{{ $r['url'] }}" rel="noopener" class="text-brand-navy hover:underline" data-track="source_click">{{ $r['name'] }}</a>@if(!empty($r['role']))<div class="text-xs text-brand-muted">{{ $r['role'] }}</div>@endif</li>@endforeach</ul></div>
                 @endif
                 @if($related->isNotEmpty())
-                <div class="text-sm"><p class="font-semibold text-brand-navy">Compare with</p><ul class="mt-2 space-y-1.5">@foreach($related as $r)<li><a href="{{ route('compare.index', ['j' => $jurisdiction->slug.','.$r->slug]) }}" class="text-brand-body hover:underline" rel="nofollow">{{ $jurisdiction->short_name ?: $jurisdiction->name }} vs {{ $r->short_name ?: $r->name }}</a></li>@endforeach</ul></div>
+                <div class="text-sm"><p class="font-semibold text-brand-navy">Compare with</p><ul class="mt-2 space-y-1.5">@foreach($related as $r)<li><a href="{{ $r->comparison_url ?? route('compare.index', ['j' => $jurisdiction->slug.','.$r->slug]) }}" class="text-brand-body hover:underline"@unless($r->comparison_url) rel="nofollow"@endunless>{{ $jurisdiction->short_name ?: $jurisdiction->name }} vs {{ $r->short_name ?: $r->name }}</a></li>@endforeach</ul></div>
                 @endif
                 @if($jurisdiction->children->isNotEmpty())
                 <div class="text-sm"><p class="font-semibold text-brand-navy">Sub-national jurisdictions</p><ul class="mt-2 space-y-1.5">@foreach($jurisdiction->children as $c)<li><a href="{{ $c->url() }}" class="text-brand-body hover:underline">{{ $c->name }}</a></li>@endforeach</ul></div>
