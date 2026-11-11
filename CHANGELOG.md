@@ -31,6 +31,12 @@ All notable changes to this project are documented here. The format follows [Kee
   Federal Register's own API, listed by the date comments close. Entries a reviewer has confirmed against
   the official page are listed apart from those collected automatically, which are labelled as not yet
   reviewed. A confirmed entry whose date moves goes back to review. See `docs/modules/consultations.md`.
+- California ADMT and Risk Assessment Kit (`/templates/california-admt-compliance-kit`), for the CPPA rules
+  whose ADMT duties apply from 1 January 2027. It has Pre-use Notice, opt-out, access and risk-assessment
+  texts, a register of ADMT uses, an opt-out log that counts the 15 business days, and a risk-assessment
+  tracker with the review, update and submission dates. The California record now carries five duties and
+  four dated deadlines read from the approved regulation text, each citing its section. They are pending
+  review.
 - Compliance workbook for each saved system. A saved applicability profile can now hold what the
   system does, who owns it and its stage. Its workbook is one XLSX with a gap-analysis sheet (status, gap,
   owner and target date to fill in), deadlines, the controls that meet each duty, expected evidence,

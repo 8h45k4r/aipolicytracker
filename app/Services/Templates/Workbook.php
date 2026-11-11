@@ -105,7 +105,8 @@ final class Workbook
                     $v->setType(DataValidation::TYPE_LIST)->setErrorStyle(DataValidation::STYLE_STOP)->setAllowBlank(true)->setShowInputMessage(true)->setShowErrorMessage(true)->setShowDropDown(true)->setErrorTitle('Choose from the list')->setError('Pick one of the listed values.')->setFormula1($ref);
                     $ws->setDataValidation("{$letter}2:{$letter}".$last, $v);
                 }
-                if (($c['type'] ?? '') === 'date') {
+                // A formula column that yields a date (`date_format`) is shown as one, not as a serial number.
+                if (($c['type'] ?? '') === 'date' || ! empty($c['date_format'])) {
                     $ws->getStyle("{$letter}2:{$letter}".$last)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
                 }
                 if (($c['type'] ?? '') === 'formula' && ! empty($c['formula'])) {

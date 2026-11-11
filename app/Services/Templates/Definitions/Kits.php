@@ -164,6 +164,81 @@ final class Kits
                 }
             },
 
+            'california-admt-compliance-kit' => new class($slug, $meta) extends Definition
+            {
+                private const REGS = 'us-california-cppa-admt-regulations';
+
+                public function sheets(): array
+                {
+                    $duties = Records::obligations(['policies' => [self::REGS]]);
+                    $rows = $duties->map(fn ($o) => ['duty' => $o->title, 'reference' => $o->source_reference, 'applies_from' => $o->applies_from?->toDateString(), 'evidence_expected' => $o->evidenceArtifacts->pluck('title')->implode('; '), 'owner' => null, 'status' => null, 'evidence' => null, 'url' => $o->url()])->all();
+                    $decisions = ['Financial or lending services', 'Housing', 'Education enrollment or opportunities', 'Employment or contracting opportunities or compensation', 'Healthcare services'];
+
+                    return [
+                        ['name' => 'Checklist', 'columns' => [self::col('duty', 'Duty', 60), self::col('reference', 'Section', 24), self::col('applies_from', 'Applies from', 13, 'date'), self::col('evidence_expected', 'Evidence a reviewer expects', 44), self::col('owner', 'Owner', 18), self::select('status', 'Status', ['Not started', 'In progress', 'Done', 'Not applicable'], 14), self::col('evidence', 'Evidence', 40, 'url'), self::col('url', 'Record', 44, 'url')], 'rows' => $rows],
+                        ['name' => 'ADMT uses', 'columns' => [
+                            self::col('system', 'System or tool', 28), self::select('decision', 'Significant decision it makes', $decisions, 34),
+                            self::select('replaces', 'Replaces or substantially replaces human decision-making?', ['Yes', 'No', 'Unsure'], 18, 'Under § 7001(e), substantially replacing means using the output without the human involvement the definition describes.'),
+                            self::col('in_use_since', 'In use since', 13, 'date'), self::col('notice_where', 'Where the Pre-use Notice is shown', 30),
+                            self::select('optout_basis', 'Opt-out offered, or exception relied on', ['Opt-out offered', 'Human appeal exception', 'Admission, acceptance or hiring exception', 'Work allocation or compensation exception'], 30),
+                            self::col('optout_methods', 'Opt-out methods (at least two)', 30), self::col('reviewer', 'Human reviewer (if appeal exception)', 24), self::col('access_template', 'Access response template', 30, 'url'), self::col('owner', 'Owner', 18),
+                        ], 'rows' => [], 'editable_rows' => 100, 'note' => 'One row per use of ADMT for a significant decision. Your assessment; this kit does not decide whether a use is in scope.'],
+                        ['name' => 'Opt-out log', 'columns' => [
+                            self::col('received', 'Request received', 13, 'date'), self::col('system', 'System', 24),
+                            self::select('timing', 'Before or after processing began', ['Before (do not start)', 'After (stop processing)'], 22),
+                            self::col('stopped', 'Processing stopped on', 13, 'date'),
+                            self::formula('deadline', 'Stop by (15 business days)', '=IF(A{r}="","",WORKDAY(A{r},15))', 14, '§ 7221(n)(1): no later than 15 business days from receipt. Public holidays are not excluded; adjust if needed.') + ['date_format' => true],
+                            self::formula('late', 'Late?', '=IF(OR(D{r}="",E{r}=""),"",IF(D{r}>E{r},"Late","On time"))', 10),
+                            self::col('vendors_notified', 'Service providers notified on', 13, 'date'), self::formula('reask', 'Earliest date to ask consent again', '=IF(A{r}="","",EDATE(A{r},12))', 14, '§ 7221(k): wait at least 12 months.') + ['date_format' => true],
+                        ], 'rows' => [], 'editable_rows' => 200, 'note' => 'Do not record more personal information here than you need to track the request.'],
+                        ['name' => 'Risk assessments', 'columns' => [
+                            self::col('activity', 'Processing activity', 34),
+                            self::select('category', 'Why it needs an assessment (§ 7150(b))', ['Selling or sharing personal information', 'Processing sensitive personal information', 'ADMT for a significant decision', 'Automated inference of traits (§ 7150(b)(4))', 'Automated inference from presence in a sensitive location (§ 7150(b)(5))', 'Other listed activity'], 34),
+                            self::col('started', 'Processing started', 13, 'date'), self::col('assessed', 'Assessment completed', 13, 'date'),
+                            self::formula('due', 'Assessment due', '=IF(C{r}="","",IF(C{r}<DATE(2026,1,1),DATE(2027,12,31),C{r}))', 14, 'Before processing starts; by 31 December 2027 for processing begun before the regulations took effect (§ 7155(b)).') + ['date_format' => true],
+                            self::formula('review', 'Review by (3 years)', '=IF(D{r}="","",EDATE(D{r},36))', 14, '§ 7155(a)(2).') + ['date_format' => true],
+                            self::col('material_change', 'Material change on', 13, 'date'),
+                            self::formula('update', 'Update by (45 days)', '=IF(G{r}="","",G{r}+45)', 14, '§ 7155(a)(3).') + ['date_format' => true],
+                            self::formula('submit', 'Submit to the CPPA by', '=IF(D{r}="","",IF(YEAR(D{r})<=2027,DATE(2028,4,1),DATE(YEAR(D{r})+1,4,1)))', 14, '§ 7157(a).') + ['date_format' => true],
+                            self::col('owner', 'Owner', 18),
+                        ], 'rows' => [], 'editable_rows' => 200, 'note' => 'Keep every version for as long as the processing continues or five years after completion, whichever is later (§ 7155(c)).'],
+                        $this->deadlinesSheet([self::REGS], 'Dates'),
+                    ];
+                }
+
+                public function blocks(): array
+                {
+                    $regs = Records::policy(self::REGS);
+                    $duties = Records::obligations(['policies' => [self::REGS]]);
+                    $blocks = [
+                        $this->heading('California automated decision-making technology (ADMT) and risk assessment kit'),
+                        $this->p('The California Privacy Protection Agency\'s regulations under the CCPA set duties for businesses that use automated decision-making technology to make significant decisions about consumers, and for processing that needs a risk assessment. Each recorded duty is below with a text or procedure to adapt; the workbook tracks your uses, opt-out requests and risk assessments with the dates the regulations set.'),
+                        $regs ? $this->note('The record\'s status: '.$regs->statusEnum()->label().($regs->applies_from ? ', ADMT duties applying from '.$regs->applies_from->format('j F Y') : '').'. '.$regs->verificationLabel().'.') : $this->note('The California ADMT record is not published in this dataset.'),
+                        $this->note('A significant decision is one that results in the provision or denial of financial or lending services, housing, education enrollment or opportunities, employment or independent contracting opportunities or compensation, or healthcare services (§ 7001(ddd)). Whether a given use is in scope is your assessment; read the definitions in the official text.'),
+                    ];
+                    $texts = [
+                        'pre-use-notice' => ['Pre-use Notice to adapt', 'We use automated decision-making technology to [PLACEHOLDER: the specific decision, for example decide whether to offer you an interview for the role you applied for]. You can opt out of this use: [PLACEHOLDER: link titled "Opt-out of Automated Decisionmaking Technology" and a second method]. [PLACEHOLDER, only if an exception applies: instead of an opt-out, you can appeal the decision to a person who can overturn it: how and where.] You can ask us how the technology was used about you: [PLACEHOLDER: how]. We will not retaliate against you for exercising your rights. How it works: [PLACEHOLDER: the categories of personal information that affect the output; what the output is and how we use it; any person\'s role; how we decide if you opt out].'],
+                        'opt-out' => ['Opt-out handling procedure', 'Requests arrive through [PLACEHOLDER: the online form linked from the Pre-use Notice] and [PLACEHOLDER: a second method]. No verifiable request is required. A request received before processing starts means the technology is not used for that person. A request received after it starts is actioned within 15 business days: [PLACEHOLDER: team] stops the processing and tells [PLACEHOLDER: service providers and contractors]. The person can confirm their request was processed at [PLACEHOLDER]. We do not ask them to consent again for 12 months.'],
+                        'access' => ['Access response template', 'You asked how we used automated decision-making technology about you. Purpose: [PLACEHOLDER: the specific purpose]. How it works: [PLACEHOLDER: the logic, enough to understand how your information produced the output, which may include the parameters and your output]. Outcome: [PLACEHOLDER: the decision and how the output was used, including whether it was the only factor and any person\'s role]. We will not retaliate against you for exercising your rights. Your other rights and how to use them: [PLACEHOLDER].'],
+                        'risk-assessment' => ['Risk assessment procedure', 'Before starting any processing listed in § 7150(b), [PLACEHOLDER: owner] completes and documents a risk assessment covering what § 7152 requires. Processing that began before the regulations took effect is assessed by 31 December 2027. Each assessment is reviewed at least every three years and updated within 45 calendar days of a material change. Every version is kept for as long as the processing continues or five years after completion, whichever is later.'],
+                        'risk-assessment-submission' => ['Annual submission procedure', 'Each year [PLACEHOLDER: owner] compiles, from the risk assessment register, the information § 7157(b) lists and submits it to the Agency by 1 April (by 1 April 2028 for assessments conducted in 2026 and 2027). The point of contact is [PLACEHOLDER: name, phone, email].'],
+                    ];
+                    foreach ($duties as $o) {
+                        $blocks[] = $this->heading($o->title, 2);
+                        $blocks[] = $this->p(trim((string) $o->summary));
+                        foreach ($texts as $key => [$title, $text]) {
+                            if (str_ends_with($o->slug, $key)) {
+                                $blocks[] = $this->heading($title, 3);
+                                $blocks[] = $this->p($text);
+                            }
+                        }
+                        $blocks[] = ['type' => 'cite', 'text' => Records::dutyLine($o), 'url' => $o->url()];
+                    }
+
+                    return $blocks;
+                }
+            },
+
             'nist-eu-iso-crosswalk' => new class($slug, $meta) extends Definition
             {
                 public function sheets(): array

@@ -209,6 +209,17 @@ return [
             'caveat' => 'dates',
         ],
 
+        'california-admt-compliance-kit' => [
+            'title' => 'California ADMT and Risk Assessment Kit (CPPA)',
+            'type' => 'kit', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['transparency', 'evidence', 'governance'], 'frameworks' => [],
+            'short' => 'For businesses using automated decision-making technology for significant decisions in California, under the CPPA rules that apply from 1 January 2027: Pre-use Notice, opt-out, access response and risk assessment texts, with a register of ADMT uses, an opt-out log that counts the 15 business days, and a risk assessment tracker with the review, update and submission dates.',
+            'inside' => ['Document: a notice, template or procedure for each recorded duty, citing its section and record', 'ADMT uses sheet: system, significant decision, opt-out or exception, methods, reviewer, owner', 'Opt-out log: received, stop-by date (15 business days), late flag, vendors notified, re-ask date', 'Risk assessments sheet: § 7150 category, due date, three-year review, 45-day update, CPPA submission date', 'Checklist and dates sheets from the record, with its review status'],
+            'covers' => ['policies' => ['us-california-cppa-admt-regulations']],
+            'legal_basis' => ['us-california-cppa-admt-regulations'],
+            'caveat' => 'dates',
+        ],
+
         'ai-workforce-impact-assessment' => [
             'title' => 'AI Workforce Impact Assessment',
             'type' => 'assessment', 'formats' => ['docx', 'xlsx'],

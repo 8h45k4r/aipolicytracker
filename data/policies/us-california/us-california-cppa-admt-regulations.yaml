@@ -8,8 +8,9 @@ title_native: null
 instrument_type: regulation
 status: in_force
 status_note: >-
-  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
-  from the research environment, so every date and duty here is pending review against it.
+  Recorded on 15 October 2026 from search-engine extracts. On 11 November 2026 the duties, deadlines and dates below were read
+  from the approved regulation text on the CPPA site (sections cited on each). No reviewer has yet confirmed them, so the
+  record stays pending review.
 is_binding: true
 featured: false
 published: true
@@ -29,7 +30,10 @@ adopted_on: '2025-09-22'
 published_on: null
 in_force_on: '2026-01-01'
 applies_from: '2027-01-01'
-date_notes: Dates as stated in search extracts of the official source; confirm against it.
+date_notes: >-
+  The 1 January 2026 effective date is stated in the CPPA announcement; the approved text leaves it as a placeholder for the
+  Office of Administrative Law to fill in. The ADMT date (§ 7200(b)), the 31 December 2027 risk-assessment date for processing
+  already under way (§ 7155(b)) and the 1 April 2028 submission date (§ 7157(a)(1)) are stated in the approved text.
 actors:
 - deployer
 ai_system_types:
@@ -46,10 +50,181 @@ use_cases:
 related_policies: []
 related_frameworks: []
 versions: []
-sections: []
-obligations: []
+sections:
+  - { reference: "Article 11, § 7220", title: "Pre-use Notice", summary: "What a business must tell consumers before using ADMT for a significant decision, and when and how." }
+  - { reference: "Article 11, § 7221", title: "Requests to opt out of ADMT", summary: "The opt-out right, its methods and timing, and the exceptions, including a qualifying human appeal." }
+  - { reference: "Article 11, § 7222", title: "Requests to access ADMT", summary: "What a business must explain about the purpose, logic and outcome of ADMT used about a consumer." }
+  - { reference: "Article 10, §§ 7150, 7152, 7155", title: "Risk assessments", summary: "Which processing needs a risk assessment, what it contains, and when it is done, reviewed, updated and kept." }
+  - { reference: "Article 10, § 7157", title: "Submission of risk assessments", summary: "What is submitted to the Agency about risk assessments, and by when." }
+obligations:
+  - slug: us-california-ccpa-admt-pre-use-notice
+    aipt_id: AIPT-OBL-0118
+    short_title: "Pre-use Notice"
+    title: Give consumers a Pre-use Notice before using automated decision-making technology for a significant decision
+    category: transparency
+    section: "Article 11, § 7220"
+    source_reference: "Cal. Code Regs. tit. 11, § 7220"
+    official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education]
+    summary: >
+      A business that uses automated decision-making technology (ADMT) to make a significant decision about a consumer (one
+      that provides or denies financial or lending services, housing, education, employment or contracting opportunities or
+      pay, or healthcare) must give a Pre-use Notice. It is presented prominently, at or before the point the personal
+      information is collected (or before re-using information already held for this purpose), in the way the business mainly
+      interacts with the consumer. It states the specific purpose in plain language, not in generic terms; the right to opt
+      out and how (or, where an exception applies, the right to appeal or the exception relied on); the right to access
+      information about the ADMT; that retaliation is prohibited; and how the ADMT works, including the categories of personal
+      information that affect its output, any human's role, and the alternative process for people who opt out. It may sit in
+      the Notice at Collection, and one notice may cover several uses.
+    practical_action: >-
+      For each system that makes or replaces a human's significant decision, write a Pre-use Notice naming the specific
+      decision, the opt-out (or appeal) route, the access right, and how the system and its alternative process work; show it
+      before collection in the channel the consumer uses.
+    evidence_examples:
+      - { title: "The published Pre-use Notice for each use, with the date it went live and where it is shown" }
+      - { title: "A record of which significant decisions use ADMT and which notice covers each" }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Notice before use that an automated tool will make or substantially make the decision.", confidence_level: high }
+      - { control: ai-system-inventory, relationship: supports, note: "Knowing which systems make significant decisions is the starting point for the notice.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-california-ccpa-admt-opt-out
+    aipt_id: AIPT-OBL-0119
+    short_title: "Opt-out of ADMT"
+    title: Let consumers opt out of automated decision-making technology for significant decisions, or offer a qualifying human appeal
+    category: human_oversight
+    section: "Article 11, § 7221"
+    source_reference: "Cal. Code Regs. tit. 11, § 7221"
+    official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education]
+    summary: >
+      Consumers must be able to opt out of the use of ADMT for a significant decision, through at least two designated methods
+      that are easy to use and need minimal steps; a business that deals with consumers online must offer an interactive form
+      linked from the Pre-use Notice, and a cookie banner is not enough. A verifiable request may not be required. If the
+      consumer opts out before processing starts, the ADMT must not be used for them; if after, processing must stop within 15
+      business days and service providers and contractors must be told. The business must wait 12 months before asking the
+      consumer to consent again. Exceptions include offering an appeal to a human reviewer with authority to overturn the
+      decision, and certain admission, acceptance, hiring and work-allocation uses that meet the stated conditions.
+    practical_action: >-
+      Build the opt-out form and a second method, wire opt-outs to stop processing within 15 business days and to notify
+      vendors, or document the exception relied on and, for the human-appeal exception, designate and train reviewers who can
+      overturn the decision.
+    evidence_examples:
+      - { title: "The opt-out link, form and second method, and a log of requests with dates received and processing stopped" }
+      - { title: "Notices sent to service providers and contractors about each opt-out" }
+      - { title: "Where an exception is used, the documented exception and, for human appeal, the reviewer designation and appeal records" }
+    controls:
+      - { control: human-oversight-and-override, relationship: supports, note: "The human-appeal exception needs a reviewer with authority to overturn the decision.", confidence_level: high }
+      - { control: decision-explanation-and-appeal-route, relationship: supports, note: "The appeal route used under the human-appeal exception.", confidence_level: medium }
+      - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Handling consumer rights requests over personal information.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-california-ccpa-admt-access
+    aipt_id: AIPT-OBL-0120
+    short_title: "Access to ADMT information"
+    title: Answer consumers' requests to access information about how automated decision-making technology was used about them
+    category: transparency
+    section: "Article 11, § 7222"
+    source_reference: "Cal. Code Regs. tit. 11, § 7222"
+    official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer]
+    sectors: [employment, financial_services, healthcare, education]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education]
+    summary: >
+      On a verified request, the business must explain in plain language the specific purpose for which it used ADMT about the
+      consumer; the logic of the ADMT, enough for the consumer to understand how their information produced the output; the
+      outcome and how the output was used in the decision, including any human's role; and that retaliation is prohibited, with
+      how to exercise other CCPA rights. Trade secrets and certain security information may be withheld. Where ADMT was used
+      about the consumer more than four times in 12 months, an aggregate-level response is allowed. Service providers and
+      contractors must help.
+    practical_action: >-
+      Prepare a response template per system covering purpose, logic, outcome and human role, route access requests through the
+      existing request-to-know process, and require vendors by contract to supply what the response needs.
+    evidence_examples:
+      - { title: "An access-response template per system and a log of requests answered" }
+      - { title: "Contract terms requiring vendors to assist with access requests" }
+    controls:
+      - { control: decision-explanation-and-appeal-route, relationship: satisfies, note: "Explaining the purpose, logic and outcome of the decision to the person.", confidence_level: high }
+      - { control: contractual-allocation-of-ai-duties, relationship: supports, note: "Vendors must assist with access requests.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-california-ccpa-risk-assessment
+    aipt_id: AIPT-OBL-0121
+    short_title: "Risk assessment"
+    title: Conduct and document a risk assessment before processing that presents significant risk, including ADMT for significant decisions
+    category: impact_assessment
+    section: "Article 10, §§ 7150, 7152, 7155"
+    source_reference: "Cal. Code Regs. tit. 11, §§ 7150, 7155"
+    official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf"
+    is_binding: true
+    applies_from: 2026-01-01
+    actors: [deployer]
+    sectors: [cross_sector]
+    use_cases: [hiring_and_hr, finance_and_credit, health, education]
+    summary: >
+      A business must conduct and document a risk assessment before starting processing that presents significant risk to
+      consumers' privacy. The listed activities include selling or sharing personal information, processing sensitive personal
+      information, using ADMT for a significant decision, and certain automated processing that infers traits such as ability,
+      performance at work, economic situation or health. Each assessment is reviewed at least every three years, updated within
+      45 calendar days of a material change, and kept for as long as the processing continues or five years after completion,
+      whichever is later. Processing that began before the regulations took effect and continues must be assessed by
+      31 December 2027.
+    practical_action: >-
+      List processing activities in the § 7150 categories, assess each before it starts (and existing ones by 31 December
+      2027), schedule three-yearly reviews and a 45-day update on material change, and keep every version.
+    evidence_examples:
+      - { title: "The risk assessment for each in-scope activity, with dates, versions and the material changes that triggered updates" }
+      - { title: "The list of processing activities checked against § 7150" }
+    controls:
+      - { control: ai-impact-assessment, relationship: satisfies, note: "A documented assessment of the processing's risks before it starts.", confidence_level: high }
+      - { control: privacy-and-data-protection-for-ai, relationship: supports, note: "Privacy risk assessment of personal-information processing.", confidence_level: high }
+      - { control: ai-system-inventory, relationship: supports, note: "Finding which processing activities are in scope.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-california-ccpa-risk-assessment-submission
+    aipt_id: AIPT-OBL-0122
+    short_title: "Risk assessment submission"
+    title: Submit risk assessment information to the California Privacy Protection Agency each year
+    category: record_keeping
+    section: "Article 10, § 7157"
+    source_reference: "Cal. Code Regs. tit. 11, § 7157"
+    official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf"
+    is_binding: true
+    applies_from: 2028-04-01
+    actors: [deployer]
+    sectors: [cross_sector]
+    summary: >
+      For risk assessments conducted in 2026 and 2027, the business submits information to the Agency by 1 April 2028, and for
+      later years by 1 April of the following year. The submission includes the business's name and a point of contact, the
+      period covered, the number of assessments conducted or updated in total and per processing activity, and whether they
+      involved each listed category of personal and sensitive personal information, among other items listed in § 7157(b).
+    practical_action: >-
+      Keep a register of assessments by year and activity, with the personal-information categories each involved, so the
+      annual submission can be compiled; name the point of contact.
+    evidence_examples:
+      - { title: "The register of risk assessments by year and processing activity" }
+      - { title: "Each year's submission and its confirmation" }
+    controls:
+      - { control: record-keeping-and-logging, relationship: supports, note: "Counts and categories by year come from the assessment register.", confidence_level: medium }
+      - { control: ai-governance-policy-and-accountability, relationship: supports, note: "A named point of contact and an owner for the annual submission.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: high
 applicability_rules: []
-deadlines: []
+deadlines:
+  - { title: "Regulations take effect; risk assessments required before new in-scope processing", due_on: 2026-01-01, date_precision: exact, deadline_status: passed, confidence_level: medium, description: "Effective date as stated in the CPPA announcement of 23 September 2025; the approved text leaves it for the Office of Administrative Law to fill in.", source_reference: "CPPA announcement, 23 September 2025", official_source_url: "https://cppa.ca.gov/announcements/2025/20250923.html", obligation: us-california-ccpa-risk-assessment }
+  - { title: "ADMT duties apply to significant decisions (Pre-use Notice, opt-out, access)", due_on: 2027-01-01, date_precision: exact, deadline_status: scheduled, confidence_level: high, description: "A business already using ADMT for a significant decision must comply no later than this date; one that starts later must comply whenever it uses it.", source_reference: "Cal. Code Regs. tit. 11, § 7200(b)", official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", obligation: us-california-ccpa-admt-pre-use-notice }
+  - { title: "Risk assessments due for processing that began before the regulations took effect", due_on: 2027-12-31, date_precision: exact, deadline_status: scheduled, confidence_level: high, description: "Processing in a § 7150(b) category that began before the effective date and continues must have a documented risk assessment by this date.", source_reference: "Cal. Code Regs. tit. 11, § 7155(b)", official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", obligation: us-california-ccpa-risk-assessment }
+  - { title: "First submission of risk assessment information to the CPPA", due_on: 2028-04-01, date_precision: exact, deadline_status: scheduled, confidence_level: high, description: "Covers risk assessments conducted in 2026 and 2027; later years are due by 1 April of the following year.", source_reference: "Cal. Code Regs. tit. 11, § 7157(a)(1)", official_source_url: "https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf", obligation: us-california-ccpa-risk-assessment-submission }
 enforcement_events: []
 procurement_rules: []
 sources:
@@ -65,18 +240,26 @@ sources:
   document_date: null
   document_type: legislation
   tier: 1
+- title: Text of regulations (CCPA updates, cybersecurity audits, risk assessments, ADMT and insurance), as approved
+  publisher: California Privacy Protection Agency
+  url: https://cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
 faq: []
 official_source_url: https://cppa.ca.gov/announcements/2025/20250923.html
 source_title: 'CPPA announcement: regulations approved by the Office of Administrative Law'
 source_publisher: California Privacy Protection Agency
 source_document_date: '2025-09-23'
 source_tier: 1
-last_checked_at: '2026-10-15'
+last_checked_at: '2026-11-11'
 review_status: pending_review
 reviewed_by: null
 confidence_level: medium
-content_version: 1
+content_version: 2
 change_summary: >-
-  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  11 November 2026: five duties (Pre-use Notice, opt-out, access, risk assessment, annual submission) and four dated deadlines
+  added from the approved regulation text, each citing its section; still pending review. Added in the October 2026
+  sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
   pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
   review against it.
