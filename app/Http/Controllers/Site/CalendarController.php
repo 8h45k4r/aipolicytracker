@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Consultation;
 use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Services\PolicyData\DeadlineCalendar;
@@ -33,6 +34,9 @@ class CalendarController extends Controller
             ->whereIn('deadline_status', ['scheduled', 'passed'])
             ->whereHas('policyInstrument', fn ($q) => $q->published())
             ->orderByDesc('due_on')->get();
+        // Open comment periods: those a reviewer confirmed, and those collected from an official
+        // source and not yet reviewed, kept apart and labelled. Hidden entries never show.
+        $consultations = Consultation::open()->whereIn('status', ['confirmed', 'collected'])->orderBy('comments_close_on')->get()->groupBy('status');
         $next = $upcoming->first();
         $yearAhead = $upcoming->filter(fn ($d) => $d->due_on->lte($today->copy()->addYear()))->count();
         $jurisdictions = Jurisdiction::published()->whereHas('policyInstruments.deadlines')->orderBy('name')->get(['slug', 'name']);
@@ -51,7 +55,7 @@ class CalendarController extends Controller
                 ['text/calendar' => route('calendar.feed')],
             ));
 
-        return view('site.pages.calendar', compact('seo', 'events', 'upcoming', 'recent', 'next', 'yearAhead', 'jurisdictions'));
+        return view('site.pages.calendar', compact('seo', 'events', 'upcoming', 'recent', 'consultations', 'next', 'yearAhead', 'jurisdictions'));
     }
 
     /** The feed itself. A jurisdiction slug narrows it. */

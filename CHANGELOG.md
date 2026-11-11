@@ -27,6 +27,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Open consultations and comment deadlines on `/calendar`: AI comment periods collected each day from the US
+  Federal Register's own API, listed by the date comments close. Entries a reviewer has confirmed against
+  the official page are listed apart from those collected automatically, which are labelled as not yet
+  reviewed. A confirmed entry whose date moves goes back to review. See `docs/modules/consultations.md`.
 - Compliance workbook for each saved system. A saved applicability profile can now hold what the
   system does, who owns it and its stage. Its workbook is one XLSX with a gap-analysis sheet (status, gap,
   owner and target date to fill in), deadlines, the controls that meet each duty, expected evidence,

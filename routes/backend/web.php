@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\AlertsController;
 use App\Http\Controllers\Backend\Admin\BillingController;
 use App\Http\Controllers\Backend\Admin\ChangeDeskController;
+use App\Http\Controllers\Backend\Admin\ConsultationController;
 use App\Http\Controllers\Backend\Admin\FundingController;
 use App\Http\Controllers\Backend\Admin\LicenceEnquiryController;
 use App\Http\Controllers\Backend\Admin\ShellController;
@@ -135,6 +136,12 @@ Route::middleware(['auth', 'isAdmin', 'throttle:admin', 'admin.2fa', 'admin.audi
             Route::post('/deliveries/retry-many', 'retryMany')->name('deliveries.retry.many');
             Route::post('/deliveries/{delivery}/retry', 'retry')->whereNumber('delivery')->name('deliveries.retry');
         });
+    });
+
+    // Collected consultations: a reviewer confirms or hides each one (records.verify, like the change desk).
+    Route::middleware('can:records.verify')->prefix('backend/admin/consultations')->as('backend.admin.consultations.')->controller(ConsultationController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/{consultation}', 'review')->whereNumber('consultation')->middleware('throttle:60,1')->name('review');
     });
 
     // Licence and coverage enquiries from /pricing and /open-data. Contact details of

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Schedule;
 $timetable = [
     'policy_import' => fn ($e) => $e->dailyAt('02:30'),
     'aiid_sync' => fn ($e) => $e->dailyAt('03:15'),
+    'consultations_sync' => fn ($e) => $e->dailyAt('04:30')->when(fn () => (bool) config('consultations.enabled')),
     // After the import (02:30) and the template build (05:30), before the daily alert.
     'profile_workbooks' => fn ($e) => $e->dailyAt('06:00'),
     'alerts' => fn ($e) => $e->dailyAt('06:30'),

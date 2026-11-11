@@ -45,6 +45,35 @@
     </section>
     @endif
 
+    <section class="mt-8" aria-labelledby="consult-h" id="consultations">
+        <h2 id="consult-h" class="section-title">Open consultations and comment deadlines</h2>
+        <p class="mt-1 text-sm text-brand-body">Public consultations on AI from official sources, by the date comments close. Today this covers the US Federal Register; other sources are added only where the publisher offers its own feed.</p>
+        @php($confirmed = $consultations['confirmed'] ?? collect())
+        @php($collected = $consultations['collected'] ?? collect())
+        @if($confirmed->isEmpty() && $collected->isEmpty())
+        <p class="mt-3 text-sm text-brand-muted">No open consultations on AI are recorded right now.</p>
+        @endif
+        @if($confirmed->isNotEmpty())
+        <h3 class="mt-4 font-semibold text-brand-navy">Reviewed</h3>
+        <ul class="mt-2 divide-y divide-brand-line border-y border-brand-line text-sm">
+            @foreach($confirmed as $c)
+            <li class="grid gap-1 py-2 sm:grid-cols-[7.5rem_1fr]"><span class="font-mono text-xs text-brand-navy pt-0.5">closes <time datetime="{{ $c->comments_close_on->toDateString() }}">{{ $c->comments_close_on->format('j M Y') }}</time></span>
+                <span><a href="{{ $c->url }}" rel="nofollow noopener" class="text-brand-navy hover:underline" data-track="consultation_click">{{ $c->title }}</a> <span class="meta">· {{ $c->agency }} · {{ $c->document_type }} · {{ $c->sourceLabel() }}@if($c->comment_url) · <a href="{{ $c->comment_url }}" rel="nofollow noopener" class="hover:underline" data-track="consultation_comment">comment</a>@endif</span></span></li>
+            @endforeach
+        </ul>
+        @endif
+        @if($collected->isNotEmpty())
+        <h3 class="mt-4 font-semibold text-brand-navy">Collected automatically, not yet reviewed</h3>
+        <p class="mt-1 meta">Taken from the publisher's own feed because the title or summary mentions AI. No reviewer has yet confirmed that each is about AI governance or checked its date: open the official page before relying on it.</p>
+        <ul class="mt-2 divide-y divide-brand-line border-y border-brand-line text-sm" data-unreviewed>
+            @foreach($collected as $c)
+            <li class="grid gap-1 py-2 sm:grid-cols-[7.5rem_1fr]"><span class="font-mono text-xs text-brand-muted pt-0.5">closes <time datetime="{{ $c->comments_close_on->toDateString() }}">{{ $c->comments_close_on->format('j M Y') }}</time></span>
+                <span><a href="{{ $c->url }}" rel="nofollow noopener" class="text-brand-navy hover:underline" data-track="consultation_click">{{ $c->title }}</a> <span class="meta">· {{ $c->agency }} · {{ $c->document_type }} · {{ $c->sourceLabel() }}</span></span></li>
+            @endforeach
+        </ul>
+        @endif
+    </section>
+
     <h2 class="section-title mt-10">Application dates in your own calendar</h2>
     <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Subscribe once and dated deadlines from the instruments we track appear in your diary, with reminders 30 and 7 days ahead. The feed updates as records change, so a moved date moves in your calendar rather than in a spreadsheet you forgot to check.</p>
 

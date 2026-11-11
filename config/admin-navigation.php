@@ -22,6 +22,7 @@ return [
                 ['label' => 'Due now', 'params' => []],
                 ['label' => 'All current instruments', 'params' => ['show' => 'all']],
             ]],
+            ['route' => 'backend.admin.consultations.index', 'label' => 'Consultations', 'can' => 'records.verify', 'icon' => 'clock'],
             ['route' => 'backend.review.index', 'label' => 'Review queue', 'can' => 'submissions.decide', 'icon' => 'check', 'children' => [
                 ['label' => 'Policy instruments', 'params' => ['type' => 'policy']],
                 ['label' => 'Jurisdictions', 'params' => ['type' => 'jurisdiction']],
