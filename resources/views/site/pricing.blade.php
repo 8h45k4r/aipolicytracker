@@ -122,6 +122,12 @@
                         <td class="py-2 px-4 text-center">✓</td>
                     </tr>
                     <tr>
+                        <td class="py-2 pr-4">Compliance workbook for each saved system (versioned, emailed when its records change)</td>
+                        <td class="py-2 px-4 text-center">Register download</td>
+                        <td class="py-2 px-4 text-center">✓</td>
+                        <td class="py-2 px-4 text-center">✓</td>
+                    </tr>
+                    <tr>
                         <td class="py-2 pr-4">Templates bundle (all formats, one ZIP)</td>
                         <td class="py-2 px-4 text-center">—</td>
                         <td class="py-2 px-4 text-center">✓</td>

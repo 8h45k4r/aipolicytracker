@@ -47,6 +47,9 @@ Rules:
 | id | integer | no |  |  |
 | user_id | integer | no |  | FK → `users.id`, cascade on delete |
 | name | varchar | no |  | Operator's name for the system or programme |
+| system_description | varchar(1000) | yes |  | What the declared system does; shown in the workbook's System sheet ([compliance-workbooks.md](compliance-workbooks.md)) |
+| system_owner | varchar(120) | yes |  | A role or team the account names |
+| lifecycle | varchar(20) | yes |  | `planned`, `in_development`, `in_use` or `retired` (`ApplicabilityProfile::LIFECYCLE`) |
 | answers | text | no |  | JSON, normalised by `ApplicabilityScreener::normalise()` |
 | last_matched_at | datetime | yes |  | Set when a daily alert flagged a change for this account |
 | created_at | datetime | yes |  |  |

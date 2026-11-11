@@ -54,6 +54,8 @@ return [
             'watches.max' => 3,
             'alerts.channels' => false,
             'profiles.saved' => false,
+            // The compliance workbook kept for a saved profile: versions, history, update emails.
+            'profiles.workbook' => false,
             // Requests a minute to the read-only API with the account's token. Without a
             // token the public rate applies per address, which is the same number.
             'api.rate_per_minute' => 120,
@@ -76,6 +78,7 @@ return [
                 'watches.max' => 500,
                 'alerts.channels' => true,
                 'profiles.saved' => true,
+                'profiles.workbook' => true,
                 'api.rate_per_minute' => 600,
                 'templates.bundle' => true,
             ],
@@ -93,6 +96,7 @@ return [
                 'watches.max' => 500,
                 'alerts.channels' => true,
                 'profiles.saved' => true,
+                'profiles.workbook' => true,
                 'api.rate_per_minute' => 600,
                 'templates.bundle' => true,
             ],
@@ -113,6 +117,7 @@ return [
             'Watch up to 500 policies, jurisdictions, obligations, sectors, frameworks or saved searches',
             'Alerts to Slack, a signed webhook or a private RSS feed, as well as email',
             'Saved applicability profiles: a daily alert naming the system a change may affect',
+            'A compliance workbook for each saved system: duties, deadlines, controls, expected evidence and sources in one XLSX, versioned, with an email saying what changed when the records behind it change',
             'The read-only API at 600 requests a minute with your account token, five times the public rate',
             'Every template in one ZIP, in every format, rebuilt when a template changes',
         ],

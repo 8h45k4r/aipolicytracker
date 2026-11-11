@@ -27,6 +27,12 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Compliance workbook for each saved system. A saved applicability profile can now hold what the
+  system does, who owns it and its stage. Its workbook is one XLSX with a gap-analysis sheet (status, gap,
+  owner and target date to fill in), deadlines, the controls that meet each duty, expected evidence,
+  official sources and a version history. A new version is stored only when the records behind it change,
+  and the owner is emailed what changed. Part of Builder once selling is on; the free register download
+  is unchanged. See `docs/modules/compliance-workbooks.md`.
 - Templates: the hub has a jump link to each group of templates, its filter opens on demand so the first
   template is a screen higher on a phone, and each group links its own page. A template page has a jump
   link to each of its sections.

@@ -15,6 +15,7 @@ class EnsureSubscribed
 {
     private const MESSAGES = [
         'profiles.saved' => 'Saving an applicability profile for change-impact alerts is part of Pro.',
+        'profiles.workbook' => 'The compliance workbook for a saved system, kept up to date as the records change, is part of Pro.',
         'alerts.channels' => 'Alerts to Slack, a webhook or an RSS feed are part of Pro.',
     ];
 

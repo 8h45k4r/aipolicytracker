@@ -87,8 +87,8 @@
         <ul class="mt-4 divide-y divide-brand-line border-y border-brand-line" aria-label="Saved profiles">
             @foreach($profiles as $p)
             <li class="flex flex-wrap items-start justify-between gap-3 py-3">
-                <div><a href="{{ $p->url() }}" class="font-medium text-brand-navy hover:underline">{{ $p->name }}</a>
-                    <div class="text-xs text-brand-muted">{{ $p->summary() }} · saved {{ $p->created_at->format('j M Y') }}@if($p->last_matched_at) · last flagged {{ $p->last_matched_at->format('j M Y') }}@endif</div></div>
+                <div><a href="{{ route('profiles.show', $p) }}" class="font-medium text-brand-navy hover:underline">{{ $p->name }}</a>
+                    <div class="text-xs text-brand-muted">{{ $p->summary() }} · saved {{ $p->created_at->format('j M Y') }}@if($p->last_matched_at) · last flagged {{ $p->last_matched_at->format('j M Y') }}@endif · <a href="{{ $p->url() }}">screen</a> · <a href="{{ route('profiles.show', $p) }}" data-track="workbook_open">details and workbook</a></div></div>
                 <form method="post" action="{{ route('profiles.destroy', $p) }}">@csrf @method('DELETE')<button type="submit" class="btn-secondary !min-h-[36px] !py-1">Delete</button></form>
             </li>
             @endforeach

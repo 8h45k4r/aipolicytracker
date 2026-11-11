@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\Applicability\ApplicabilityScreener;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * A saved answer set from the applicability check. Daily alerts screen new
@@ -14,6 +15,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ApplicabilityProfile extends Model
 {
     public const MAX_PER_USER = 10;
+
+    /** Where the declared system is in its life. Customer-declared; nothing is discovered. */
+    public const LIFECYCLE = [
+        'planned' => 'Planned',
+        'in_development' => 'In development',
+        'in_use' => 'In use',
+        'retired' => 'Retired',
+    ];
 
     protected $guarded = [];
 
@@ -25,6 +34,16 @@ class ApplicabilityProfile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function workbookVersions(): HasMany
+    {
+        return $this->hasMany(ProfileWorkbookVersion::class)->orderByDesc('version');
+    }
+
+    public function latestWorkbook(): ?ProfileWorkbookVersion
+    {
+        return $this->workbookVersions()->first();
     }
 
     /** True when another answer set would produce the same screen. */

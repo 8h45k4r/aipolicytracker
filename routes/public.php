@@ -39,6 +39,7 @@ use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\PolicyController;
 use App\Http\Controllers\Site\PolicyExamplesController;
+use App\Http\Controllers\Site\ProfileWorkbookController;
 use App\Http\Controllers\Site\RecordIdController;
 use App\Http\Controllers\Site\RegisterExportController;
 use App\Http\Controllers\Site\ReviewersController;
@@ -218,6 +219,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/following', [FollowController::class, 'index'])->name('following.index');
     Route::post('/profiles', [ApplicabilityProfileController::class, 'store'])->middleware(['subscribed:profiles.saved', 'throttle:30,1'])->name('profiles.store');
     Route::delete('/profiles/{profile}', [ApplicabilityProfileController::class, 'destroy'])->whereNumber('profile')->name('profiles.destroy');
+    // A saved profile as a declared system: details, workbook and its version history. The page
+    // and the details are the profile's own; the workbook file is the paid part (profiles.workbook).
+    Route::get('/profiles/{profile}', [ProfileWorkbookController::class, 'show'])->whereNumber('profile')->name('profiles.show');
+    Route::patch('/profiles/{profile}', [ProfileWorkbookController::class, 'update'])->whereNumber('profile')->middleware('throttle:30,1')->name('profiles.update');
+    Route::get('/profiles/{profile}/workbook.xlsx', [ProfileWorkbookController::class, 'download'])->whereNumber('profile')->middleware(['subscribed:profiles.workbook', 'throttle:30,1'])->name('profiles.workbook');
+    Route::get('/profiles/{profile}/workbook-v{version}.xlsx', [ProfileWorkbookController::class, 'download'])->whereNumber(['profile', 'version'])->middleware(['subscribed:profiles.workbook', 'throttle:30,1'])->name('profiles.workbook.version');
     Route::post('/alerts/channels', [AlertChannelController::class, 'store'])->middleware('throttle:20,1')->name('alerts.channels.store');
     Route::post('/alerts/channels/email-off', [AlertChannelController::class, 'emailOff'])->name('alerts.channels.email-off');
     Route::post('/alerts/channels/{channel}/toggle', [AlertChannelController::class, 'toggle'])->whereNumber('channel')->name('alerts.channels.toggle');
