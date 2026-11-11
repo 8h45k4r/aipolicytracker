@@ -137,7 +137,7 @@ class ChangeController extends Controller
             // stated in the body and in the dateline below.
             ->withPublished($change->first_published_at ?? $change->occurred_on)
             ->withOgType($change->isSiteUpdate() ? 'website' : 'article')
-            ->withCard('change', $change->slug, $modified)
+            ->withCard('change', $change->slug, $change->updated_at) // the card is drawn from the row
             ->withFeed(route('changes.feed'))
             ->withAlternate('text/markdown', route('changes.context', $change->slug))
             // A change in the law is news; a new version of one of this site's own

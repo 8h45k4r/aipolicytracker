@@ -129,7 +129,7 @@ class PolicyController extends Controller
             ->withModified($modified)
             ->withPublished($policy->published_at ?? $policy->created_at)
             ->withOgType('article')
-            ->withCard('policy', $policy->slug, $modified)
+            ->withCard('policy', $policy->slug, $policy->updated_at) // the card is drawn from the row, so it moves with the row
             ->withAlternate('application/json', route('policies.json', $policy->slug))
             ->withAlternate('text/markdown', route('policies.context', $policy->slug))
             // Merged into the page's own node rather than written as a second one, so

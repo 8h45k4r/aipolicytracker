@@ -111,7 +111,7 @@ class ObligationController extends Controller
         )->withBreadcrumbs([['Home', route('home')], ['Obligations', route('obligations.index')], [$obligation->title, $obligation->url()]])
             ->withModified($modified = ContentDates::forRecord($obligation, 'obligation'))
             ->withPublished($obligation->published_at ?? $obligation->created_at)
-            ->withCard('obligation', $obligation->slug, $modified)
+            ->withCard('obligation', $obligation->slug, $obligation->updated_at) // the card is drawn from the row
             ->withAlternate('application/json', route('obligations.json', $obligation->slug))
             ->withAlternate('text/markdown', route('obligations.context', $obligation->slug))
             ->withPageProperties(Seo::provenance($obligation))
