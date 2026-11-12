@@ -5,6 +5,8 @@
 <form method="post" action="{{ route('subscribe.store') }}" {{ $attributes->merge(['class' => $compact ? 'rule-strong pt-3' : 'panel-tinted']) }} aria-label="Subscribe to the weekly AI policy digest">
     @csrf
     <input type="hidden" name="source" value="{{ $source }}">
+    {{-- When the form was served, encrypted: a reply faster than a person can type is a bot. --}}
+    <input type="hidden" name="t" value="{{ \App\Http\Controllers\Site\SubscribeController::formStamp() }}">
     @if($topic)<input type="hidden" name="topics[]" value="{{ $topic }}">@endif
     <div class="hidden" aria-hidden="true"><label for="sub-website-{{ $source }}">Website</label><input id="sub-website-{{ $source }}" type="text" name="website" value="" tabindex="-1" autocomplete="off"></div>
     {{-- With a topic this is still the weekly digest, filtered; "Follow" read like the account follow button. --}}

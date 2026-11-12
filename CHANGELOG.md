@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Digest sign-ups: bots that passed the bot check were signing up made-up addresses. The confirmation
+  emails to them used up the mail provider's daily quota, so template downloads people had requested
+  failed to send. The form now has three limits:
+  - it ignores a form sent back within 3 seconds of loading;
+  - it accepts at most 3 sign-ups a day from one client address;
+  - it sends at most 30 confirmation emails a day site-wide, then tells people sign-ups are paused
+    until tomorrow.
 - Build tooling: minimatch is pinned to 11.0.8 and glob to 14.0.5 (GHSA-g3hv-75wg-m249, GHSA-3g3m-2fjr-6pw4, both moderate). They are used only by the linter and the CSS build, not by the site; `npm audit` now reports nothing.
 - Sign-in: when one address passes 20 failed sign-ins in 10 minutes and the automated check (Turnstile) is
   configured, the form asks for the check instead of refusing everyone on that address, so a wrongly

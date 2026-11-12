@@ -13,6 +13,8 @@ use App\Services\Security\Turnstile;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\View\View;
@@ -39,9 +41,33 @@ class SubscribeController extends Controller
         return view('site.subscribe.show', ['seo' => $seo, 'jurisdictions' => $jurisdictions, 'selected' => $selected, 'recent' => $recent, 'subscriberCount' => Subscriber::active()->count()]);
     }
 
+    /** The time the form was served, encrypted, for the hidden `t` field on every subscribe form. */
+    public static function formStamp(): string
+    {
+        return Crypt::encryptString((string) now()->getTimestamp());
+    }
+
+    /** Whether the form came back too fast to have been filled in by a person, or without a valid stamp. */
+    private function tooFast(Request $request): bool
+    {
+        $min = (int) config('aipolicytracker.subscribe.min_fill_seconds', 0);
+        if ($min <= 0) {
+            return false;
+        }
+        try {
+            $served = (int) Crypt::decryptString((string) $request->input('t'));
+        } catch (\Throwable) {
+            return true;
+        }
+
+        return now()->getTimestamp() - $served < $min;
+    }
+
     public function store(Request $request, Turnstile $turnstile): RedirectResponse
     {
-        if ($request->filled('website')) { // honeypot
+        // A bot gets the same reply as a person, so it learns nothing: the honeypot, and a form
+        // returned faster than anyone types or without the stamp the page carries.
+        if ($request->filled('website') || $this->tooFast($request)) {
             return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
         // Reported under "email" because that is the error every subscribe form shows.
@@ -75,6 +101,28 @@ class SubscribeController extends Controller
             return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
 
+        // At most a few sign-ups from one client address a day. Bots that pass the bot check
+        // signed up hundreds of made-up addresses from few machines; the reply stays the same.
+        $perIp = (int) config('aipolicytracker.subscribe.per_ip_per_day', 0);
+        $ipKey = 'subscribe-ip:'.hash('sha256', (string) $request->ip().config('app.key'));
+        if ($perIp > 0 && RateLimiter::tooManyAttempts($ipKey, $perIp)) {
+            return back()->with('success', 'Check your inbox to confirm your subscription.');
+        }
+
+        // A site-wide budget of confirmation emails a day, so sign-ups can never use up the mail
+        // provider's quota that download, enquiry and account emails depend on. A person is told
+        // plainly; nothing is stored, so trying again tomorrow starts clean.
+        $budget = (int) config('aipolicytracker.subscribe.confirmations_per_day', 0);
+        $budgetKey = 'subscribe-confirmations:'.now()->toDateString();
+        if ($budget > 0 && RateLimiter::tooManyAttempts($budgetKey, $budget)) {
+            if (RateLimiter::attempts($budgetKey) === $budget) {
+                RateLimiter::hit($budgetKey, 86400); // log once a day, not once per refusal
+                Log::warning('subscribe.daily_budget_reached', ['budget' => $budget]);
+            }
+
+            return back()->withInput()->withErrors(['email' => 'New sign-ups are paused for today. Please try again tomorrow.']);
+        }
+
         // At most three confirmation emails per address per day, whoever asks. The
         // per-IP throttle alone let anyone mail an unconfirmed address thousands of
         // times a day and keep replacing its token so the owner could never confirm.
@@ -83,6 +131,12 @@ class SubscribeController extends Controller
             return back()->with('success', 'Check your inbox to confirm your subscription.');
         }
         RateLimiter::hit($key, 86400);
+        if ($perIp > 0) {
+            RateLimiter::hit($ipKey, 86400);
+        }
+        if ($budget > 0) {
+            RateLimiter::hit($budgetKey, 86400);
+        }
 
         // An address that opted out, or one that never confirmed, starts over:
         // new topics, a new token, and a fresh confirmation the owner has to click.

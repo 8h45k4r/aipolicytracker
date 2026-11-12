@@ -90,6 +90,20 @@ return [
     // reach the same person. Override per deployment with CONTACT_EMAIL.
     'contact_email' => env('CONTACT_EMAIL', 'bhaskar@aipolicytracker.org'),
 
+    // Limits on the public digest form (SubscribeController). Bots that solve the bot check
+    // were signing up made-up addresses, and the confirmation emails to them used up the mail
+    // provider's daily quota, so download and enquiry emails people asked for failed.
+    //  - confirmations_per_day: confirmation emails the form may send in a day, site-wide; the
+    //    rest of the quota is left for mail people request. 0 switches the cap off.
+    //  - per_ip_per_day: sign-ups accepted from one client address in a day.
+    //  - min_fill_seconds: a form sent back faster than this after the page was served is
+    //    treated as a bot and ignored (0 switches the check off).
+    'subscribe' => [
+        'confirmations_per_day' => (int) env('SUBSCRIBE_CONFIRMATIONS_PER_DAY', 30),
+        'per_ip_per_day' => (int) env('SUBSCRIBE_PER_IP_PER_DAY', 3),
+        'min_fill_seconds' => (int) env('SUBSCRIBE_MIN_FILL_SECONDS', 3),
+    ],
+
     // Every contact address listed on the About page. Defaults to the official
     // mailbox above; set CONTACT_EMAILS to list more than one.
     'contact_emails' => $csv(env('CONTACT_EMAILS')) ?: array_values(array_filter([env('CONTACT_EMAIL', 'bhaskar@aipolicytracker.org')])),

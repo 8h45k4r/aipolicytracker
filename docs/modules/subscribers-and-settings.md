@@ -95,6 +95,13 @@ These are read from `app_settings` when the page renders, not copied into config
 
 Public: `subscribe.show` (GET `/subscribe`, jurisdiction picker grouped by region), `subscribe.store` (POST, throttled, honeypot), `subscribe.confirm`, `subscribe.unsubscribe` (GET and RFC 8058 POST), `cron.digest` (POST, bearer token). Admin (`auth` + `isAdmin`): `backend.admin.dashboard|submissions|subscribers|subscribers.export|subscribers.resend|subscribers.delete|external|settings|settings.save|settings.test`.
 
+**Limits against bot sign-ups** (`config('aipolicytracker.subscribe')`). Bots that solved the bot check signed up made-up addresses, and the confirmation emails to them used up the mail provider's daily quota, so emails people had asked for, such as template downloads, failed. Before anything is stored or sent:
+- **Time trap** (`SUBSCRIBE_MIN_FILL_SECONDS`, default 3). Every subscribe form carries `t`, the time it was served, encrypted. A reply faster than that, or with no valid stamp, gets the normal "check your inbox" message and nothing is stored.
+- **Per client address** (`SUBSCRIBE_PER_IP_PER_DAY`, default 3) sign-ups a day; past that, the same silent reply.
+- **Daily budget** (`SUBSCRIBE_CONFIRMATIONS_PER_DAY`, default 30) of confirmation emails site-wide. Past it, the form says new sign-ups are paused until tomorrow, and `subscribe.daily_budget_reached` is logged once that day.
+
+All three are off in tests (`phpunit.xml`); `SubscribeLimitsTest` turns them on. Set any to 0 to switch it off.
+
 The public form takes any real mailbox, personal ones such as Gmail and Outlook included. `subscribe.store` applies `NotDisposableEmail`, which refuses throwaway and temporary domains and domains with no mail route. If the confirmation email cannot be sent, the request does not fail. The error is reported, the row stays unconfirmed and the form says to try again in a few minutes. An account's digest choice (`AccountDigest`) is not affected: it subscribes the account's own verified address.
 
 The subscribers list shows each address's `source`. This is the page the public form was sent from (for example `subscribe-page`), or `account` for an address subscribed from account settings. Filter it with `?source=`, or `?source=(none)` for rows with no source. An "account" badge marks an address that a verified account uses. It links to the user page for admins who hold `users.manage`. Filter with `?account=yes|no`. The CSV export has `source` and `has_account` columns.
