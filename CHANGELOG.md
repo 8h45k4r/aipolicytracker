@@ -28,8 +28,8 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
-- The weekly digest asks for a work email address; personal mailboxes such as Gmail and Outlook.com
-  are refused with a message saying so.
+- The weekly digest forms say that temporary or throwaway addresses are not accepted (they were
+  already refused); personal mailboxes such as Gmail and Outlook are welcome.
 - Eight more AI Voices photos (53 of 101), confirmed against each person's Wikidata entry.
 - More figures in place of text:
   - obligation pages: "From the law to the evidence", five linked steps with the record's own counts

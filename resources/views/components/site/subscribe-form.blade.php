@@ -13,8 +13,8 @@
     @if(session('success'))<p class="mt-2 text-sm text-state-good" role="status">{{ session('success') }}</p>@endif
     @error('email')<p class="mt-2 text-sm text-state-bad" role="alert">{{ $message }}</p>@enderror
     <div class="mt-3 flex gap-2 {{ $compact ? 'flex-col' : 'max-w-md' }}">
-        <label for="sub-email-{{ $source }}" class="sr-only">Work email address</label>
-        <input id="sub-email-{{ $source }}" type="email" name="email" required class="input flex-1" placeholder="you@yourorganisation.org" autocomplete="email" value="{{ old('email') }}">
+        <label for="sub-email-{{ $source }}" class="sr-only">Email address</label>
+        <input id="sub-email-{{ $source }}" type="email" name="email" required class="input flex-1" placeholder="you@example.org" autocomplete="email" value="{{ old('email') }}">
         <button type="submit" class="btn-primary">{{ $topic ? 'Get the digest' : 'Subscribe' }}</button>
     </div>
     @error('terms')<p class="mt-2 text-sm text-state-bad" role="alert">{{ $message }}</p>@enderror
@@ -23,5 +23,5 @@
         <label class="flex items-start gap-2"><input type="checkbox" name="topics[]" value="templates" class="mt-0.5 rounded-sm border-brand-line text-brand-navy"> <span>Also email me when new templates and guides are published (optional).</span></label>
     </div>
     <x-site.turnstile class="mt-3" />
-    <p class="mt-2 meta">Use your work email; personal mailboxes such as Gmail are not accepted. Double opt-in; one-click unsubscribe in every email. <a href="{{ route('subscribe.show') }}">Choose jurisdictions</a></p>
+    <p class="mt-2 meta">Temporary or throwaway addresses are not accepted. Double opt-in; one-click unsubscribe in every email. <a href="{{ route('subscribe.show') }}">Choose jurisdictions</a></p>
 </form>

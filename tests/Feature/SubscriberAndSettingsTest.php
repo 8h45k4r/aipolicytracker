@@ -50,14 +50,20 @@ class SubscriberAndSettingsTest extends TestCase
         $this->assertSame(0, Subscriber::active()->count());
     }
 
-    public function test_the_digest_asks_for_a_work_address(): void
+    public function test_the_digest_takes_personal_mailboxes_but_not_throwaway_ones(): void
     {
+        // The address rules are on in production and off by default in tests (phpunit.xml).
+        config(['email.enforce' => true, 'email.check_deliverability' => false]);
         Mail::fake();
         $this->from('/subscribe')->post(route('subscribe.store'), ['email' => 'someone@gmail.com', 'terms' => '1'])
+            ->assertRedirect('/subscribe')->assertSessionHasNoErrors();
+        $this->assertSame(1, Subscriber::where('email', 'someone@gmail.com')->count());
+        Mail::assertSent(SubscriptionConfirmMail::class, 1);
+
+        $this->from('/subscribe')->post(route('subscribe.store'), ['email' => 'burner@guerrillamail.com', 'terms' => '1'])
             ->assertRedirect('/subscribe')->assertSessionHasErrors('email');
-        $this->assertSame(0, Subscriber::count());
-        Mail::assertNothingSent();
-        $this->get('/subscribe')->assertOk()->assertSee('Personal mailboxes such as Gmail');
+        $this->assertSame(0, Subscriber::where('email', 'burner@guerrillamail.com')->count());
+        $this->get('/subscribe')->assertOk()->assertSee('Temporary or throwaway addresses are not accepted');
     }
 
     public function test_a_mail_service_failure_is_reported_to_the_reader_not_as_a_server_error(): void

@@ -9,7 +9,6 @@ use App\Models\Jurisdiction;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Rules\NotDisposableEmail;
-use App\Rules\WorkEmail;
 use App\Services\Security\Turnstile;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -50,9 +49,9 @@ class SubscribeController extends Controller
             return back()->withInput()->withErrors(['email' => 'The automated check did not complete. Please wait a moment and subscribe again.']);
         }
         $data = $request->validate([
-            // The digest is for people following AI policy at work: an organisation's address,
-            // not a personal mailbox (WorkEmail) and not a throwaway one (NotDisposableEmail).
-            'email' => ['required', 'email:rfc', 'max:190', new NotDisposableEmail, new WorkEmail('the weekly digest')],
+            // Any real mailbox, personal ones such as Gmail and Outlook included; throwaway and
+            // temporary addresses, and domains with no mail route, are refused (NotDisposableEmail).
+            'email' => ['required', 'email:rfc', 'max:190', new NotDisposableEmail],
             'topics' => ['nullable', 'array', 'max:20'],
             'topics.*' => ['string', 'max:64', 'regex:/^[a-z0-9-]+$/'],
             'source' => ['nullable', 'string', 'max:64'],
