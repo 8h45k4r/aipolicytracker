@@ -13,3 +13,11 @@ Cloudflare provides DNS, TLS and caching for the public domain and a small Worke
 
   The step runs only when both secrets are set; without them it is skipped and the deploy still succeeds. When it runs, an API error (bad token, wrong zone, a response without `"success": true`) fails the deploy job with the error Cloudflare returned, never the token. To purge by hand: `curl -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE/purge_cache" -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data '{"purge_everything":true}'`.
 - **Rate limiting:** add rules for sign-in, registration, contribution and API paths in the dashboard; login is also throttled in the application.
+
+## Email addresses on pages
+
+Cloudflare's "Email Address Obfuscation" (Scrape Shield) replaces each address in an HTML page with a placeholder, and a script of its own (`/cdn-cgi/.../email-decode.min.js`) turns it back. The site's content security policy allows only scripts carrying the page's nonce, so that script never runs and a reader sees "[email protected]".
+
+- The application handles this itself: the `KeepEmailAddressesReadable` middleware puts one `<!--email_off-->` … `<!--/email_off-->` region around the body of every HTML page, which the edge leaves as written. This covers the admin, where subscriber, account and enquiry addresses are listed.
+- Nothing needs to change at Cloudflare. Turning the feature off there (Scrape Shield → Email Address Obfuscation) would have the same effect and is harmless.
+- To check after a deploy: `curl -s https://aipolicytracker.org/pricing | grep -c data-cfemail` should print `0`.

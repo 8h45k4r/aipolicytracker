@@ -323,6 +323,9 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- Email addresses showed as "[email protected]" in the admin (subscribers, accounts, enquiries), on the
+  pricing form and on the about, privacy, terms and open-data pages. The edge hides addresses behind a
+  script that the site's security policy blocks. Every page now tells the edge to leave them as written.
 - Policy, obligation, change, jurisdiction, guide, comparison and audience pages stated the time their
   database row was last written as `dateModified` and `article:modified_time`. A link check or an admin
   decision re-applied over the data moved it with nothing changed for a reader, and it disagreed with

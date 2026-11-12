@@ -5,6 +5,7 @@ use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CountFunnelViews;
 use App\Http\Middleware\EnsureAdminSecondFactor;
 use App\Http\Middleware\EnsureSubscribed;
+use App\Http\Middleware\KeepEmailAddressesReadable;
 use App\Http\Middleware\NegotiateMarkdown;
 use App\Http\Middleware\RecordAdminAction;
 use App\Http\Middleware\RecordAlertClick;
@@ -51,6 +52,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // get the same headers. On the web group alone, JSON and error pages went out
         // with no CSP and no nosniff.
         $middleware->append(SecurityHeaders::class);
+        // One email_off region around every HTML body, so the edge never turns an address into
+        // "[email protected]" (the policy above refuses the script that would decode it).
+        $middleware->append(KeepEmailAddressesReadable::class);
         // Inside the security headers, so a redirect and a negotiated Markdown file carry them too.
         $middleware->append(RedirectToCanonicalPath::class);
         $middleware->append(NegotiateMarkdown::class);

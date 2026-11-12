@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Enums\AdminRole;
 use App\Models\ChangeEvent;
 use App\Models\Control;
 use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Models\Subscriber;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Tests\TestCase;
@@ -149,10 +152,42 @@ class AgentReadabilityTest extends TestCase
         $address = config('aipolicytracker.contact_email');
         $html = $this->get('/')->assertOk()->getContent();
 
-        $this->assertMatchesRegularExpression(
-            '#<!--email_off--><a href="mailto:'.preg_quote($address, '#').'"[^>]*>'.preg_quote($address, '#').'</a><!--/email_off-->#',
-            $html
-        );
+        // One region around the whole body: a nested closing marker would switch the edge's
+        // rewriting back on for everything after it.
+        $this->assertSame(1, substr_count($html, '<!--email_off-->'));
+        $this->assertSame(1, substr_count($html, '<!--/email_off-->'));
+        $this->assertMatchesRegularExpression('#<body[^>]*><!--email_off-->#', $html);
+        $this->assertStringContainsString('<!--/email_off--></body>', $html);
+        $region = substr($html, strpos($html, '<!--email_off-->'), strpos($html, '<!--/email_off-->') - strpos($html, '<!--email_off-->'));
+        $this->assertMatchesRegularExpression('#<a href="mailto:'.preg_quote($address, '#').'"[^>]*>'.preg_quote($address, '#').'</a>#', $region);
+    }
+
+    public function test_addresses_stay_readable_on_the_admin_the_pricing_form_and_error_pages(): void
+    {
+        $inRegion = function (string $html, string $needle): bool {
+            $from = strpos($html, '<!--email_off-->');
+            $to = strpos($html, '<!--/email_off-->');
+            $at = strpos($html, $needle);
+
+            return $from !== false && $to !== false && $at !== false && $from < $at && $at < $to;
+        };
+
+        // The admin lists accounts by address; that is where the placeholder did most harm.
+        $admin = User::factory()->create(['email' => 'owner@example.org']);
+        $admin->forceFill(['admin_role' => AdminRole::Editor])->save();
+        Subscriber::create(['email' => 'reader@example.org', 'token' => Subscriber::newToken(), 'confirmed_at' => now(), 'topics' => ['all']]);
+        $html = $this->actingAs($admin)->get(route('backend.admin.subscribers', ['state' => 'all']))->assertOk()->getContent();
+        $this->assertTrue($inRegion($html, 'reader@example.org'), 'a subscriber address in the admin is inside the region');
+        auth()->logout();
+
+        $pricing = $this->get(route('pricing'))->assertOk()->getContent();
+        $this->assertTrue($inRegion($pricing, 'mailto:'.implode(',', config('aipolicytracker.enquiry_emails'))));
+
+        $this->assertSame(1, substr_count($this->get('/this-page-does-not-exist')->assertNotFound()->getContent(), '<!--email_off-->'));
+
+        // Not HTML, not touched.
+        $this->assertStringNotContainsString('email_off', $this->get(route('changes.feed'))->getContent());
+        $this->assertStringNotContainsString('email_off', $this->getJson('/api/v1/policies')->getContent());
     }
 
     public function test_every_page_names_a_feed(): void
