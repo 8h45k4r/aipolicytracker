@@ -61,6 +61,35 @@ class PageFiguresTest extends TestCase
         $this->assertStringContainsString(route('updates.month', substr((string) $latest->occurred_on, 0, 7)), $chart);
     }
 
+    public function test_an_obligation_page_draws_the_chain_from_law_to_evidence_with_its_own_counts(): void
+    {
+        $o = Obligation::published()->has('evidenceArtifacts')->with(['policyInstrument', 'evidenceArtifacts', 'terms'])->firstOrFail();
+        $html = $this->get(route('obligations.show', $o->slug))->assertOk()->getContent();
+        $chain = substr($html, strpos($html, 'data-duty-chain'), 9000);
+        $chain = substr($chain, 0, strpos($chain, '</section>'));
+
+        $this->assertSame(5, substr_count($chain, '<li'), 'law, who, controls, evidence, templates');
+        $this->assertStringContainsString('href="'.$o->policyInstrument->url().'"', $chain);
+        $n = $o->evidenceArtifacts->count();
+        $this->assertStringContainsString($n.' '.($n === 1 ? 'example' : 'examples'), $chain);
+        $this->assertStringContainsString('href="#evidence-heading"', $chain);
+        $this->assertStringContainsString('id="evidence-heading"', $html, 'the link has a target');
+    }
+
+    public function test_the_methodology_page_shows_the_life_of_a_record_and_the_source_ladder(): void
+    {
+        $html = $this->get(route('methodology'))->assertOk()->getContent();
+        $flow = substr($html, strpos($html, 'data-record-lifecycle'), 9000);
+        $flow = substr($flow, 0, strpos($flow, '</section>'));
+        $this->assertSame(5, substr_count($flow, '<li'));
+        foreach (['Official source', 'Record written', 'Source-linked', 'Verified', 'Re-checked'] as $step) {
+            $this->assertStringContainsString($step, $flow);
+        }
+        $this->assertStringContainsString(route('verification'), $flow);
+        $ladder = substr($html, strpos($html, 'data-source-ladder'), 3000);
+        $this->assertSame(4, substr_count(substr($ladder, 0, strpos($ladder, '</ol>')), '<li'), 'four source tiers');
+    }
+
     public function test_the_header_stays_on_screen_and_offers_search_at_every_width(): void
     {
         $html = $this->get(route('policies.index'))->getContent();

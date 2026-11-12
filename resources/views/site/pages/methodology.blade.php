@@ -5,6 +5,7 @@
     <h1 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">Methodology</h1>
     <p class="mt-3 prose-policy">{{ config('aipolicytracker.trust_statement') }} This page explains how records are sourced, structured, reviewed and kept current, and what the site does not do.</p>
 
+    <x-site.record-lifecycle />
     <section class="mt-8" aria-labelledby="principles-heading"><h2 id="principles-heading" class="section-title">Editorial and source-verification principles</h2><ul class="mt-2 list-disc pl-5 space-y-1.5 text-sm text-brand-body">
         <li><span class="font-medium text-brand-navy">Primary sources first.</span> Every record links to an official document or page. Secondary sources are used only when clearly labelled and never as the sole basis for a legal claim.</li>
         <li><span class="font-medium text-brand-navy">No invention.</span> If a date, penalty, obligation or outcome cannot be established from the source, the field is left empty and the confidence level is set to "unavailable". We never fill gaps with assumptions.</li>
@@ -15,7 +16,15 @@
         <li><span class="font-medium text-brand-navy">Not legal advice.</span> Content is informational. It is not a substitute for advice from qualified counsel in the relevant jurisdiction.</li>
     </ul></section>
 
-    <section class="mt-8" aria-labelledby="hierarchy-heading"><h2 id="hierarchy-heading" class="section-title">Source-of-truth hierarchy</h2><ol class="mt-2 list-decimal pl-5 space-y-1 text-sm text-brand-body">@foreach($tiers as $n => $label)<li><span class="font-medium text-brand-navy">Tier {{ $n }}:</span> {{ $label }}</li>@endforeach</ol></section>
+    {{-- A ladder: the higher the tier, the wider and darker the bar, so the order of trust reads at a glance. --}}
+    <section class="mt-8" aria-labelledby="hierarchy-heading"><h2 id="hierarchy-heading" class="section-title">Source-of-truth hierarchy</h2>
+        <ol class="mt-3 max-w-3xl space-y-1.5 text-sm" data-source-ladder>
+            @foreach($tiers as $n => $label)
+            @php($bar = [1 => 'w-full bg-brand-navy text-white', 2 => 'sm:w-[88%] bg-[rgb(var(--c-blue))] text-white', 3 => 'sm:w-[76%] bg-state-infobg text-brand-navy', 4 => 'sm:w-[64%] bg-brand-paper text-brand-body border border-dashed border-brand-line'][$n] ?? 'bg-brand-paper text-brand-body')
+            <li class="rounded-lg px-3 py-2 {{ $bar }}"><span class="font-semibold">Tier {{ $n }}:</span> {{ $label }}</li>
+            @endforeach
+        </ol>
+    </section>
 
     <section class="mt-8" aria-labelledby="model-heading"><h2 id="model-heading" class="section-title">Data model and taxonomy</h2><p class="prose-policy mt-2">A jurisdiction holds policy instruments. An instrument has versions, sections, obligations, applicability rules, deadlines, enforcement events, procurement rules and source documents. Obligations carry evidence examples and original framework mappings. Change events record dated developments. Controlled vocabularies cover {{ implode(', ', array_map('strtolower', array_values($taxonomies))) }}. The full schema is documented on the <a href="{{ route('open-data') }}">open data</a> page and in the repository.</p></section>
 

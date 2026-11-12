@@ -28,6 +28,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- More figures in place of text:
+  - obligation pages: "From the law to the evidence", five linked steps with the record's own counts
+    (the law, who it binds, controls, evidence, templates);
+  - methodology: "The life of a record" in five steps, and the source tiers drawn as a ladder.
 - Pricing: while online checkout is closed, the Builder buttons ("Pay monthly" and "$490 per year")
   are "Request by email" and open the enquiry form with that plan chosen. Prices are unchanged.
 - Pricing and licence enquiries are mailed to both bhaskar@aipolicytracker.org and

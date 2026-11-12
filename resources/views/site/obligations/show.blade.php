@@ -31,7 +31,8 @@
     <x-site.toc :items="$toc" variant="mobile" class="mt-6" />
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
-            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
+            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-6" />
+            <x-site.duty-chain :obligation="$obligation" :controls="$controls" :templates="$templates ?? null" class="mb-8" />
             <section aria-labelledby="req-heading"><h2 id="req-heading" class="section-title">What does it require?</h2><p class="prose-policy mt-2">{{ $obligation->summary }}</p></section>
             @if($obligation->practical_action)<section aria-labelledby="action-heading" class="mt-8"><h2 id="action-heading" class="section-title">Practical action</h2><p class="prose-policy mt-2">{{ $obligation->practical_action }}</p></section>@endif
             <section aria-labelledby="who-heading" class="mt-8">
