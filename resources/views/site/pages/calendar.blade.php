@@ -12,6 +12,63 @@
     @endif
     <p class="mt-3 max-w-[68ch] text-sm text-brand-body leading-6">Every date comes from a tracked AI law or policy and links to its record and official source. A date is listed only once it is recorded to an exact day; one known only as a month or year stays on its record instead. Check the official source before relying on a date: a record marked pending review has not yet been confirmed by a reviewer.</p>
 
+
+    {{-- Two views of the same dates: the list (indexed) and a month grid. Plain links, so both work without script. --}}
+    <nav class="mt-6 flex flex-wrap items-center gap-2" aria-label="Calendar view">
+        <a href="{{ route('calendar') }}" class="{{ $view === 'list' ? 'btn-primary' : 'btn-secondary' }} !min-h-[36px] !py-1" @if($view === 'list') aria-current="page" @endif data-track="calendar_view_list">List</a>
+        <a href="{{ route('calendar', ['view' => 'calendar']) }}" class="{{ $view === 'calendar' ? 'btn-primary' : 'btn-secondary' }} !min-h-[36px] !py-1" @if($view === 'calendar') aria-current="page" @endif data-track="calendar_view_grid" rel="nofollow">Calendar</a>
+    </nav>
+
+    @if($view === 'calendar')
+    @php($m = $grid['month'])
+    <section class="mt-6" aria-labelledby="grid-h">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 id="grid-h" class="section-title">{{ $m->format('F Y') }}</h2>
+            <p class="flex gap-2 text-sm">
+                @if($grid['prev'])<a href="{{ route('calendar', ['view' => 'calendar', 'month' => $grid['prev']]) }}" rel="nofollow" class="btn-secondary !min-h-[36px] !py-1" aria-label="Previous month">&larr; {{ $m->copy()->subMonth()->format('M Y') }}</a>@endif
+                @if($m->format('Y-m') !== now()->format('Y-m'))<a href="{{ route('calendar', ['view' => 'calendar']) }}" rel="nofollow" class="btn-secondary !min-h-[36px] !py-1">This month</a>@endif
+                @if($grid['next'])<a href="{{ route('calendar', ['view' => 'calendar', 'month' => $grid['next']]) }}" rel="nofollow" class="btn-secondary !min-h-[36px] !py-1" aria-label="Next month">{{ $m->copy()->addMonth()->format('M Y') }} &rarr;</a>@endif
+            </p>
+        </div>
+        <p class="mt-1 meta"><span class="inline-block h-2 w-2 rounded-full bg-brand-navy align-middle" aria-hidden="true"></span> recorded deadline · <span class="inline-block h-2 w-2 rounded-full bg-brand-blue align-middle" aria-hidden="true"></span> comments close · <span class="inline-block h-2 w-2 rounded-full bg-state-warn align-middle" aria-hidden="true"></span> public meeting · "not reviewed" marks an entry collected automatically</p>
+        <div class="mt-3 overflow-x-auto">
+        <table class="w-full table-fixed border-collapse text-xs" data-month-grid>
+            <caption class="sr-only">AI policy dates in {{ $m->format('F Y') }}</caption>
+            <thead><tr>@foreach(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as $wd)<th scope="col" class="border border-brand-line bg-brand-paper py-1 font-semibold text-brand-navy">{{ $wd }}</th>@endforeach</tr></thead>
+            <tbody>
+            @foreach($grid['weeks'] as $week)
+            <tr>
+                @foreach($week as $d)
+                <td class="h-20 align-top border border-brand-line p-1 {{ $d['in_month'] ? '' : 'bg-brand-paper text-brand-muted' }} {{ $d['today'] ? 'ring-2 ring-inset ring-brand-blue' : '' }}">
+                    <div class="font-mono {{ $d['today'] ? 'font-semibold text-brand-blue' : '' }}"><time datetime="{{ $d['date']->toDateString() }}">{{ $d['date']->day }}</time>@if($d['today'])<span class="sr-only"> (today)</span>@endif</div>
+                    @foreach($d['items'] as $item)
+                    <a href="{{ $item['url'] }}" class="mt-0.5 block truncate rounded-sm px-1 hover:underline {{ $item['kind'] === 'deadline' ? 'bg-brand-navy text-white' : ($item['kind'] === 'meeting' ? 'bg-state-warnbg text-brand-navy' : 'bg-brand-blue/10 text-brand-navy') }}" title="{{ $item['title'] }}" @if($item['kind'] !== 'deadline') rel="nofollow noopener" @endif data-track="calendar_grid_item">{{ $item['title'] }}</a>
+                    @endforeach
+                </td>
+                @endforeach
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
+        </div>
+        {{-- The same month as a list: what a screen reader or a narrow screen reads. --}}
+        <h3 class="mt-6 font-semibold text-brand-navy">{{ $m->format('F Y') }} as a list</h3>
+        @php($days = collect($grid['weeks'])->flatten(1)->filter(fn ($d) => $d['in_month'] && $d['items'] !== []))
+        @if($days->isEmpty())
+        <p class="mt-2 text-sm text-brand-muted">Nothing recorded for {{ $m->format('F Y') }}.@if($next) The next recorded deadline is on {{ $next->due_on->format('j F Y') }}: <a href="{{ route('calendar', ['view' => 'calendar', 'month' => $next->due_on->format('Y-m')]) }}" rel="nofollow">go to {{ $next->due_on->format('F Y') }}</a>.@endif</p>
+        @else
+        <ul class="mt-2 divide-y divide-brand-line border-y border-brand-line text-sm" data-month-agenda>
+            @foreach($days as $d)
+            @foreach($d['items'] as $item)
+            <li class="grid gap-1 py-2 sm:grid-cols-[7.5rem_1fr]"><time datetime="{{ $d['date']->toDateString() }}" class="font-mono text-xs text-brand-navy pt-0.5">{{ $d['date']->format('j M Y') }}</time>
+                <span><a href="{{ $item['url'] }}" class="text-brand-navy hover:underline" @if($item['kind'] !== 'deadline') rel="nofollow noopener" @endif>{{ $item['title'] }}</a> <span class="meta">· {{ $item['detail'] }}{{ $item['reviewed'] ? '' : ' · not reviewed' }}</span></span></li>
+            @endforeach
+            @endforeach
+        </ul>
+        @endif
+    </section>
+    @else
+
     @if($upcoming->isNotEmpty())
     <section class="mt-8" aria-labelledby="upcoming-h">
         <h2 id="upcoming-h" class="section-title">Upcoming deadlines</h2>
@@ -95,6 +152,7 @@
         @endif
         @endforeach
     </section>
+    @endif
 
     <h2 class="section-title mt-10">Application dates in your own calendar</h2>
     <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Subscribe once and dated deadlines from the instruments we track appear in your diary, with reminders 30 and 7 days ahead. The feed updates as records change, so a moved date moves in your calendar rather than in a spreadsheet you forgot to check.</p>

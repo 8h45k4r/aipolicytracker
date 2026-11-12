@@ -168,6 +168,10 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- `/calendar` has a List / Calendar switch. The calendar view lays a month out as a grid: recorded
+  deadlines, comment periods closing and public meetings each sit on their day, with previous and next
+  months. The same month is listed below the grid for screen readers and small screens. The list stays the
+  indexed page.
 - A template added or changed in a release is published as soon as the release starts, instead of at the
   next nightly build.
 - The deadline calendar (`/calendar`) now opens with the answer: the next recorded AI compliance

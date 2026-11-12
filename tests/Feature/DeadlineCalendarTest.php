@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Consultation;
 use App\Models\Deadline;
 use App\Models\Jurisdiction;
 use App\Models\PolicyInstrument;
@@ -167,5 +168,46 @@ class DeadlineCalendarTest extends TestCase
         $this->assertStringNotContainsString('Old passed test date', $html);
         $this->assertStringContainsString('"name":"'.$soon->due_on->toDateString().': Soonest test date"', $html, 'listed in the page ItemList');
         $this->assertLessThan(strpos($html, 'Later test date'), strpos($html, 'Soonest test date'), 'in date order');
+    }
+
+    /**
+     * The same dates as a month grid: a deadline, a comment period closing and a meeting each
+     * sit on their day, an unreviewed entry is marked, months page within range, and the grid
+     * is not indexed in place of the list.
+     */
+    public function test_the_calendar_view_lays_the_month_out_as_a_grid_and_a_list(): void
+    {
+        $month = now()->addMonths(2)->startOfMonth();
+        $this->deadline(['title' => 'Grid test deadline', 'due_on' => $month->copy()->addDays(9)->toDateString()]);
+        $this->deadline(['title' => 'Month-only grid date', 'due_on' => $month->copy()->addDays(4)->toDateString(), 'date_precision' => 'month']);
+        Consultation::create(['source' => 'federal_register', 'external_id' => 'g1', 'kind' => 'comment_period', 'title' => 'Grid test consultation', 'url' => 'https://www.federalregister.gov/x', 'comments_close_on' => $month->copy()->addDays(14), 'status' => 'collected']);
+        Consultation::create(['source' => 'federal_register', 'external_id' => 'g2', 'kind' => 'meeting', 'title' => 'Grid test meeting', 'url' => 'https://www.federalregister.gov/y', 'event_on' => $month->copy()->addDays(20), 'status' => 'confirmed']);
+        Consultation::create(['source' => 'federal_register', 'external_id' => 'g3', 'kind' => 'meeting', 'title' => 'Hidden grid meeting', 'url' => 'https://www.federalregister.gov/z', 'event_on' => $month->copy()->addDays(21), 'status' => 'hidden']);
+
+        $html = $this->get(route('calendar', ['view' => 'calendar', 'month' => $month->format('Y-m')]))->assertOk()->getContent();
+        $this->assertStringContainsString('<meta name="robots" content="noindex,follow"', $html);
+        $this->assertStringContainsString('>'.$month->format('F Y').'</h2>', $html);
+        $this->assertMatchesRegularExpression('/aria-current="page"\s+data-track="calendar_view_grid"/', $html);
+        $grid = substr($html, strpos($html, 'data-month-grid'), strpos($html, 'data-month-agenda') - strpos($html, 'data-month-grid'));
+        foreach (['Grid test deadline', 'Grid test consultation', 'Grid test meeting'] as $title) {
+            $this->assertStringContainsString($title, $grid, $title.' is on the grid');
+        }
+        $this->assertStringNotContainsString('Month-only grid date', $html, 'the grid keeps the exact-day rule');
+        $this->assertStringNotContainsString('Hidden grid meeting', $html);
+        $agenda = substr($html, strpos($html, 'data-month-agenda'));
+        $this->assertMatchesRegularExpression('/Grid test consultation.*not reviewed/s', $agenda);
+        $this->assertLessThan(strpos($agenda, 'Grid test consultation'), strpos($agenda, 'Grid test deadline'), 'in date order');
+
+        // Paging is bounded; an out-of-range or malformed month shows this month.
+        $this->assertStringContainsString('month='.$month->copy()->addMonth()->format('Y-m'), $html);
+        foreach (['2099-01', 'garbage', '2026-13'] as $bad) {
+            $this->assertStringContainsString('>'.now()->format('F Y').'</h2>', $this->get(route('calendar', ['view' => 'calendar', 'month' => $bad]))->assertOk()->getContent());
+        }
+
+        // The list stays the indexed page, with the switch pointing at the grid.
+        $list = $this->get(route('calendar'))->assertOk()->getContent();
+        $this->assertStringContainsString('<meta name="robots" content="index', $list);
+        $this->assertMatchesRegularExpression('/aria-current="page"\s+data-track="calendar_view_list"/', $list);
+        $this->assertStringNotContainsString('data-month-grid', $list);
     }
 }
