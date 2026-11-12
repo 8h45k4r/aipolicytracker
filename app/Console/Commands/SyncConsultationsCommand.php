@@ -11,7 +11,7 @@ class SyncConsultationsCommand extends Command
 {
     protected $signature = 'consultations:sync';
 
-    protected $description = 'Collect open AI consultations and comment deadlines from official sources';
+    protected $description = 'Collect open AI comment periods and public meetings from official sources';
 
     public function handle(FederalRegisterConsultations $federalRegister): int
     {
@@ -27,7 +27,7 @@ class SyncConsultationsCommand extends Command
 
             return self::FAILURE;
         }
-        $this->info("Federal Register: {$c['seen']} documents with an open comment period, {$c['kept']} about AI; {$c['created']} new, {$c['updated']} updated, {$c['reopened']} confirmed entries back to review because their date moved.");
+        $this->info("Federal Register: {$c['seen']} documents with an open comment period, {$c['kept']} about AI; {$c['created']} new, {$c['updated']} updated, {$c['reopened']} confirmed entries back to review because their date moved; {$c['meetings']} upcoming AI meetings or hearings with a stated date, {$c['meetings_created']} new.");
 
         return self::SUCCESS;
     }

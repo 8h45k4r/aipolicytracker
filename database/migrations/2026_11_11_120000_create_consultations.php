@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Official consultations and comment deadlines on AI. Rows are collected from official
+ * Official consultations, comment deadlines and public meetings on AI. Rows are collected from official
  * sources (today the US Federal Register API) and stay `collected` until a reviewer opens
  * the official page and confirms them; the public calendar keeps the two apart.
  */
@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
             $table->string('source', 40);                 // federal_register
+            $table->string('kind', 20)->default('comment_period'); // comment_period, meeting
             $table->string('external_id', 120);           // the source's own id (FR document number)
             $table->string('jurisdiction_slug', 80)->nullable();
             $table->string('title', 500);
@@ -26,13 +27,16 @@ return new class extends Migration
             $table->string('comment_url', 500)->nullable();
             $table->date('published_on')->nullable();
             $table->date('comments_close_on')->nullable();
+            $table->date('event_on')->nullable();         // a meeting's first date, read from dates_text
+            $table->string('dates_text', 300)->nullable(); // the source's own words for when it happens
             $table->string('status', 20)->default('collected'); // collected, confirmed, hidden
             $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamp('reviewed_at')->nullable();
             $table->timestamp('fetched_at')->nullable();
             $table->timestamps();
-            $table->unique(['source', 'external_id']);
+            $table->unique(['source', 'external_id', 'kind']);
             $table->index(['status', 'comments_close_on']);
+            $table->index(['status', 'kind', 'event_on']);
         });
     }
 

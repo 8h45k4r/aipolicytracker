@@ -6,6 +6,7 @@ use App\Enums\AdminRole;
 use App\Models\Consultation;
 use App\Models\JobRun;
 use App\Models\User;
+use App\Services\Consultations\FederalRegisterConsultations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -131,5 +132,38 @@ class ConsultationsTest extends TestCase
     {
         $this->assertSame('consultations:sync', JobRun::JOBS['consultations_sync']['command']);
         $this->artisan('schedule:list')->expectsOutputToContain('Collect official consultations')->assertSuccessful();
+    }
+
+    /**
+     * A meeting is listed by the first full date in the notice's own words, which are shown
+     * beside it; a notice with no stated date, or about something other than AI, or already
+     * past, is not stored. Meetings are listed apart from comment periods.
+     */
+    public function test_public_meetings_on_ai_are_listed_by_their_stated_date(): void
+    {
+        $held = now()->addDays(12);
+        $meeting = fn (string $n, string $title, ?string $dates, ?string $abstract = null) => ['document_number' => $n, 'title' => $title, 'type' => 'Notice', 'abstract' => $abstract,
+            'agencies' => [['name' => 'Commerce Department']], 'html_url' => 'https://www.federalregister.gov/documents/m/'.$n,
+            'publication_date' => now()->subDays(3)->toDateString(), 'comments_close_on' => null, 'dates' => $dates];
+        $this->fakeApi([
+            $meeting('m1', 'Public Meeting on Artificial Intelligence Standards', $held->format('l, F j, Y').'; 1:00 p.m. ET.'),
+            $meeting('m2', 'Workshop on AI evaluation', 'The date will be announced later.'),
+            $meeting('m3', 'Public Meeting of the Fisheries Council', $held->format('F j, Y'), 'Quota allocations.'),
+            $meeting('m4', 'Public Meeting on Artificial Intelligence in Education', now()->subDays(2)->format('F j, Y')),
+        ]);
+
+        $this->artisan('consultations:sync')->expectsOutputToContain('1 upcoming AI meetings or hearings with a stated date, 1 new')->assertSuccessful();
+        $m = Consultation::where('kind', 'meeting')->sole();
+        $this->assertSame(['m1', $held->toDateString(), 'collected'], [$m->external_id, $m->event_on->toDateString(), $m->status]);
+        $this->assertSame(0, Consultation::where('kind', 'comment_period')->count(), 'a notice with no comment date is not a comment period');
+
+        $html = $this->get(route('calendar'))->assertOk()->getContent();
+        $this->assertStringContainsString('Upcoming public meetings and hearings', $html);
+        $section = substr($html, strpos($html, 'data-unreviewed-meetings'));
+        $this->assertStringContainsString('Public Meeting on Artificial Intelligence Standards', $section);
+        $this->assertStringContainsString('as published: '.$held->format('l, F j, Y').'; 1:00 p.m. ET.', $section);
+
+        $this->assertSame('2026-12-03', FederalRegisterConsultations::firstDate('Thursday, December 3, 2026; 10 a.m. to 4 p.m., and December 4, 2026'));
+        $this->assertNull(FederalRegisterConsultations::firstDate('Comments are due 30 days after publication.'));
     }
 }

@@ -20,9 +20,9 @@ class ConsultationController extends Controller
     {
         $status = in_array($request->query('status'), Consultation::STATUSES, true) ? $request->query('status') : 'collected';
         $consultations = Consultation::with('reviewer')->where('status', $status)
-            ->when($request->query('closed') !== '1', fn ($q) => $q->open())
-            ->orderBy('comments_close_on')->paginate(50)->withQueryString();
-        $counts = Consultation::open()->selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
+            ->when($request->query('closed') !== '1', fn ($q) => $q->where(fn ($w) => $w->current()))
+            ->orderByRaw('COALESCE(event_on, comments_close_on)')->paginate(50)->withQueryString();
+        $counts = Consultation::current()->selectRaw('status, COUNT(*) as n')->groupBy('status')->pluck('n', 'status');
 
         return view('backend.admin.consultations', compact('consultations', 'counts', 'status'));
     }

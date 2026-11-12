@@ -74,6 +74,28 @@
         @endif
     </section>
 
+    <section class="mt-8" aria-labelledby="meet-h" id="meetings">
+        <h2 id="meet-h" class="section-title">Upcoming public meetings and hearings</h2>
+        <p class="mt-1 text-sm text-brand-body">Public meetings, hearings and workshops on AI announced in official notices, by the date they are held. The date is read from the notice's own words, which are shown beside it. Today this covers the US Federal Register.</p>
+        @php($mConfirmed = $meetings['confirmed'] ?? collect())
+        @php($mCollected = $meetings['collected'] ?? collect())
+        @if($mConfirmed->isEmpty() && $mCollected->isEmpty())
+        <p class="mt-3 text-sm text-brand-muted">No upcoming public meetings on AI are recorded right now.</p>
+        @endif
+        @foreach(['Reviewed' => $mConfirmed, 'Collected automatically, not yet reviewed' => $mCollected] as $heading => $rows)
+        @if($rows->isNotEmpty())
+        <h3 class="mt-4 font-semibold text-brand-navy">{{ $heading }}</h3>
+        @if($heading !== 'Reviewed')<p class="mt-1 meta">Taken from the publisher's own feed because the notice names a meeting and mentions AI. No reviewer has yet confirmed it or its date: open the official notice before relying on it.</p>@endif
+        <ul class="mt-2 divide-y divide-brand-line border-y border-brand-line text-sm" @if($heading !== 'Reviewed') data-unreviewed-meetings @endif>
+            @foreach($rows as $c)
+            <li class="grid gap-1 py-2 sm:grid-cols-[7.5rem_1fr]"><span class="font-mono text-xs {{ $heading === 'Reviewed' ? 'text-brand-navy' : 'text-brand-muted' }} pt-0.5"><time datetime="{{ $c->event_on->toDateString() }}">{{ $c->event_on->format('j M Y') }}</time></span>
+                <span><a href="{{ $c->url }}" rel="nofollow noopener" class="text-brand-navy hover:underline" data-track="meeting_click">{{ $c->title }}</a> <span class="meta">· {{ $c->agency }} · {{ $c->sourceLabel() }}@if($c->dates_text) · as published: {{ $c->dates_text }}@endif</span></span></li>
+            @endforeach
+        </ul>
+        @endif
+        @endforeach
+    </section>
+
     <h2 class="section-title mt-10">Application dates in your own calendar</h2>
     <p class="mt-2 max-w-[68ch] text-brand-body leading-7">Subscribe once and dated deadlines from the instruments we track appear in your diary, with reminders 30 and 7 days ahead. The feed updates as records change, so a moved date moves in your calendar rather than in a spreadsheet you forgot to check.</p>
 
