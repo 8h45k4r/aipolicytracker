@@ -34,7 +34,7 @@
         "php": "^8.3",
         "dodopayments/client": "^6.25",
         "dompdf/dompdf": "^3.1",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^13.40",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
         "phpoffice/phpspreadsheet": "^5.9",
