@@ -89,7 +89,7 @@
                 <a href="{{ route('saved') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5 gap-1" data-track="header_saved_click" aria-label="Saved records">Saved <span class="rounded-sm bg-brand-navy px-1.5 text-[11px] font-semibold leading-5 text-white" data-saved-count hidden></span></a>
                 @auth<a href="{{ route('profile.edit') }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_account_click">Account</a>@else<a href="{{ route('login', ['return' => request()->getRequestUri()]) }}" class="hidden sm:inline-flex btn-secondary !min-h-[38px] !py-1.5" data-track="header_signin_click">Sign in</a>@endauth
                 <a href="{{ route('subscribe.show') }}" class="hidden sm:inline-flex btn-primary !min-h-[38px] !py-1.5" data-track="header_subscribe_click">Subscribe</a>
-                <details class="relative lg:hidden" data-mobile-menu>
+                <details class="relative xl:hidden" data-mobile-menu>
                     <summary class="btn-secondary !min-h-[38px] !py-1.5 list-none">Menu</summary>
                     <x-site.nav-mobile />
                 </details>

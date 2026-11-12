@@ -67,6 +67,7 @@
 
             <section aria-labelledby="dates-heading" class="mt-8">
                 <h2 id="dates-heading" class="section-title">When do the requirements apply?</h2>
+                <x-site.policy-timeline :policy="$policy" />
                 @if($policy->key_dates_summary)<p class="prose-policy mt-2">{{ $policy->key_dates_summary }}</p>@endif
                 @if($policy->deadlines->isNotEmpty())
                 {{-- public.js makes this a focusable region, named by the caption, only while it overflows. --}}

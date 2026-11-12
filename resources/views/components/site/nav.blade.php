@@ -21,7 +21,7 @@ promises a menu with arrow-key navigation that these plain links do not provide.
     $currentGroup = \App\Support\Navigation::currentGroup(request()->path(), $here);
 @endphp
 
-<nav aria-label="Primary" class="hidden lg:flex items-center gap-1" data-nav>
+<nav aria-label="Primary" class="hidden xl:flex items-center gap-1" data-nav>
     @foreach($groups as $key => $group)
         @php($current = $key === $currentGroup)
         <details class="relative" data-nav-group>

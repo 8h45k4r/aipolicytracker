@@ -69,6 +69,7 @@
     </section>
     @else
 
+    <x-site.deadline-timeline :events="$upcoming" />
     @if($upcoming->isNotEmpty())
     <section class="mt-8" aria-labelledby="upcoming-h">
         <h2 id="upcoming-h" class="section-title">Upcoming deadlines</h2>

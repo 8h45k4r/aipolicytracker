@@ -94,6 +94,8 @@ return [
                         ['route' => 'guides.show', 'params' => ['ai-startup-eu-ai-act-readiness'], 'label' => 'EU AI Act readiness for startups'],
                         ['route' => 'guides.show', 'params' => ['ai-governance-for-startups'], 'label' => 'AI governance for startups'],
                         ['route' => 'tools.applicability', 'label' => 'Applicability check', 'note' => 'Which duties may reach you', 'menu' => true],
+                        ['route' => 'templates.show', 'params' => ['california-admt-compliance-kit'], 'label' => 'California ADMT kit', 'note' => 'Pre-use notice, opt-out, access and risk assessments'],
+                        ['route' => 'templates.show', 'params' => ['companion-chatbot-safety-kit'], 'label' => 'Companion chatbot safety kit', 'note' => 'Not-human notices, minors, crisis protocol'],
                         ['route' => 'assessments.index', 'label' => 'Self-assessments', 'note' => 'Score yourself against a law or framework', 'menu' => true],
                     ],
                 ],
@@ -136,6 +138,32 @@ return [
                         ['route' => 'risk.incidents.browse', 'label' => 'Browse incidents', 'note' => 'Filter and export', 'menu' => true],
                         ['route' => 'risk.risks', 'label' => 'Browse risk entries', 'note' => 'Filter and export', 'menu' => true],
                         ['route' => 'risk.frameworks', 'label' => 'Source frameworks', 'note' => 'The documents behind the taxonomy', 'menu' => true],
+                    ],
+                ],
+            ],
+        ],
+
+        'news' => [
+            'label' => 'News',
+            'summary' => 'What is new: official news, consultations, hearings and the people behind AI rules.',
+            'paths' => ['news', 'voices'],
+            'sections' => [
+                [
+                    'heading' => 'News and dates',
+                    'items' => [
+                        ['route' => 'news.index', 'label' => 'AI policy news', 'note' => 'From regulators and governments, newest first', 'menu' => true],
+                        ['route' => 'calendar', 'params' => ['view' => 'calendar'], 'label' => 'Consultations and hearings', 'note' => 'Comment deadlines, public meetings and deadlines by month', 'menu' => true],
+                        ['route' => 'newsletter.index', 'label' => 'Weekly digest archive', 'note' => 'Past issues of the email digest', 'menu' => true],
+                    ],
+                ],
+                [
+                    'heading' => 'People',
+                    'items' => [
+                        ['route' => 'voices.index', 'label' => 'AI Voices', 'note' => 'Office-holders who shape AI rules, with sources', 'menu' => true],
+                        ['route' => 'voices.index', 'params' => ['category' => 'regulator'], 'label' => 'Regulators', 'note' => 'Heads of AI and data authorities', 'menu' => true],
+                        ['route' => 'voices.index', 'params' => ['category' => 'legislator'], 'label' => 'Legislators', 'note' => 'Sponsors of AI laws on record'],
+                        ['route' => 'voices.index', 'params' => ['category' => 'safety_institute'], 'label' => 'AI safety institutes', 'note' => 'Who leads them'],
+                        ['route' => 'voices.index', 'params' => ['category' => 'international'], 'label' => 'International bodies', 'note' => 'UN, OECD, UNESCO, ITU and others'],
                     ],
                 ],
             ],

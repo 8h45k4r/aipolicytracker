@@ -27,6 +27,24 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- News (`/news`): one dated list of AI policy news, made of three streams:
+  - headlines from official feeds: NIST, the UK AI Security Institute, DSIT and GOV.UK, the European Commission's digital strategy site, and the Federal Register;
+  - this tracker's recorded changes;
+  - recorded AI incidents.
+
+  Readers can filter by topic and by stream. Each item shows only its headline, date and publisher and links to the source. Feeds are collected every two hours.
+- AI Voices (`/voices`): profiles of 101 people who hold offices shaping AI policy, safety and governance:
+  - who is included: regulators, ministers, legislators, safety institutes, international and standards bodies;
+  - chosen by role, not ranked, with no photographs and nothing private;
+  - each profile has its official profile, sources and related laws;
+  - all are pending review;
+  - corrections and removal requests go through the correction form.
+- Menus: a News menu (news, consultations and hearings, newsletter, AI Voices). The two new compliance kits are listed under Guides. The full desktop menu now shows from 1280 px wide; narrower screens use the menu button.
+- Figures in place of text:
+  - a "what you can do here" flow on the home page;
+  - a twelve-month deadline timeline on the calendar;
+  - a dated timeline of when each law's requirements apply on policy pages;
+  - a sources diagram on the news page.
 - AI Companion Chatbot Safety Kit (`/templates/companion-chatbot-safety-kit`) contains:
   - not-human notices, minor safeguards, a crisis protocol and a publication procedure to adapt;
   - a disclosure schedule and a crisis referral log;

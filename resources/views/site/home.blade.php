@@ -57,6 +57,7 @@
         <x-site.chain :stats="$stats" />
     </div>
 </section>
+<x-site.journey />
 
 <div class="container-site py-12 grid gap-12 lg:grid-cols-12">
     <x-site.latest-updates class="lg:col-span-8" :changes="$changes" title="Latest AI policy updates" :limit="6" intro="The six most recent dated changes to AI laws and guidance, each linked to the record it changed and to its official source." />
