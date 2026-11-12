@@ -21,6 +21,13 @@ sources:
   - { title: "Membros da Comissão Especial sobre Inteligência Artificial (PL 2338/23)", publisher: "Câmara dos Deputados", url: "https://www.camara.leg.br/comissoes/539776/membros", accessed: "2026-11-12" }
   - { title: "Ficha de tramitação do PL 2338/2023", publisher: "Câmara dos Deputados", url: "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao/?idProposicao=2487262", accessed: "2026-11-12" }
   - { title: "Comissão que vai analisar projeto sobre inteligência artificial será presidida por Luisa Canziani; Aguinaldo Ribeiro será relator", publisher: "Agência Câmara de Notícias", url: "https://www.camara.leg.br/noticias/1160383-comissao-que-vai-analisar-projeto-sobre-inteligencia-artificial-sera-presidida-por-luisa-canziani-aguinaldo-ribeiro-sera-relator/", accessed: "2026-11-12" }
+photo:
+  file: "aguinaldo-ribeiro.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Aguinaldo_Ribeiro_posse_ministerio.jpg"
+  license: "CC BY 3.0 br"
+  license_url: "https://creativecommons.org/licenses/by/3.0/br/deed.en"
+  author: "José Cruz"
+  wikidata: "Q16144445"
 published: true
 review_status: pending_review
 reviewed_by: null

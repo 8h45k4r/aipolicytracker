@@ -8,7 +8,7 @@
 - leaders of international and standards bodies.
 
 **How people are chosen.** By the office they hold, never by fame or influence, and the list is not ranked. This follows the owner's choice of "office-holders, sourced" on 12 November 2026. A person is listed for their public role only. The rules:
-- **Photos only with an open licence.** A photo is used when the person's Wikidata item links one on Wikimedia Commons under CC0, public domain, CC BY or CC BY-SA. The licence and author are stored in `photo` and credited on the profile, and Wikidata's recorded positions must match the role. Otherwise the profile shows initials. No other image source is used.
+- **Photos only with an open licence.** A photo is used when the person's Wikidata item links one on Wikimedia Commons under a licence that allows reuse with credit: CC0, public domain, CC BY, CC BY-SA, or an open government licence such as OGL, GODL-India or KOGL Type 1. Non-commercial and no-derivatives terms are excluded. The licence and author are stored in `photo` and credited on the profile, Wikidata must also confirm the person. For a regulator, institute, standards body or international body, a recorded position or description must match the role. For a minister or legislator, their citizenship must match the jurisdiction and their positions must fit. Otherwise the profile shows initials. No other image source is used.
 - **No private details.** No contact details beyond the official profile page, no family, no opinions attributed without a source.
 - **Corrections and removal:** every profile and the index link the correction form (`/contribute`). A request from the person concerned to correct or remove their profile is acted on.
 

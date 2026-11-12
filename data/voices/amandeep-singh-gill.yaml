@@ -22,6 +22,13 @@ sources:
   - { title: "Leadership", publisher: "United Nations Office for Digital and Emerging Technologies", url: "https://www.un.org/digital-emerging-technologies/leadership", accessed: "2026-11-12" }
   - { title: "About the Office for Digital and Emerging Technologies", publisher: "United Nations", url: "https://www.un.org/techenvoy/content/about", accessed: "2026-11-12" }
   - { title: "Digital Cooperation Day 2026 turns commitments into action", publisher: "United Nations", url: "https://www.un.org/en/delegate/digital-cooperation-day-2026-turns-commitments-action", accessed: "2026-11-12" }
+photo:
+  file: "amandeep-singh-gill.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:2023_-_Audi%C3%AAncia_com_Amandeep_Singh_Gill,_Embaixador_da_%C3%8Dndia.jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Ministério da Ciência, Tecnologia e Inovação"
+  wikidata: "Q115671639"
 published: true
 review_status: pending_review
 reviewed_by: null

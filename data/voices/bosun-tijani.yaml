@@ -23,6 +23,13 @@ sources:
   - { title: "Honourable Minister, Dr. 'Bosun Tijani Joins AI for Good Global Commission Co-Chaired by President Paul Kagame and Marc Benioff", publisher: "Federal Ministry of Communications, Innovation and Digital Economy", url: "https://fmcide.gov.ng/honourable-minister-dr-bosun-tijani-joins-ai-for-good-global-commission-co-chaired-by-president-paul-kagame-and-marc-benioff/", accessed: "2026-11-12" }
   - { title: "Federal Government Unveils National Digital Cloud Policy to Drive Investment, Digital Sovereignty and Government Transformation", publisher: "Federal Ministry of Communications, Innovation and Digital Economy", url: "https://fmcide.gov.ng/federal-government-unveils-national-digital-cloud-policy-to-drive-investment-digital-sovereignty-and-government-transformation/", accessed: "2026-11-12" }
   - { title: "Federal Ministry Directs Harmonised Approach to the Regulation of Internet Platforms and Online Intermediaries", publisher: "Federal Ministry of Communications, Innovation and Digital Economy", url: "https://fmcide.gov.ng/federal-ministry-directs-harmonised-approach-to-the-regulation-of-internet-platforms-and-online-intermediaries/", accessed: "2026-11-12" }
+photo:
+  file: "bosun-tijani.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Africa_Business_Forum_Tallinn,_Estonia_on_21_May_2024_(Estonian_Foreign_Ministry)_-_DSC_6966_(53741075388).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Estonian Foreign Ministry"
+  wikidata: "Q64006786"
 published: true
 review_status: pending_review
 reviewed_by: null

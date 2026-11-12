@@ -21,6 +21,13 @@ sources:
   - { title: "Alex Bores - Assembly District 73, Assembly Member Directory", publisher: "New York State Assembly", url: "https://nyassembly.gov/mem/Alex-Bores/", accessed: "2026-11-12" }
   - { title: "The RAISE Act (A06453)", publisher: "New York State Assembly", url: "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A06453&term=&Summary=Y&Actions=Y&Committee=&nbspVotes=Y&Floor=&nbspVotes=Y&Memo=Y&Text=Y", accessed: "2026-11-12" }
   - { title: "NY State Assembly Bill 2025-A6453", publisher: "New York State Senate", url: "https://www.nysenate.gov/legislation/bills/2025/A6453", accessed: "2026-11-12" }
+photo:
+  file: "alex-bores.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:AlexBoresAssemblyHeadshot.jpg"
+  license: "CC BY-SA 4.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/4.0"
+  author: "Alex Bores"
+  wikidata: "Q117328293"
 published: true
 review_status: pending_review
 reviewed_by: null

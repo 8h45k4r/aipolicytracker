@@ -22,6 +22,13 @@ sources:
   - { title: "NY State Senate Bill 2025-S6953B", publisher: "New York State Senate", url: "https://www.nysenate.gov/legislation/bills/2025/S6953/amendment/B", accessed: "2026-11-12" }
   - { title: "NY State Senate Bill 2025-S10731", publisher: "New York State Senate", url: "https://www.nysenate.gov/legislation/bills/2025/S10731", accessed: "2026-11-12" }
   - { title: "Sen. Gounardes Proposes Major New AI Safety and Transparency Regulations", publisher: "New York State Senate", url: "https://www.nysenate.gov/newsroom/press-releases/2026/andrew-gounardes/sen-gounardes-proposes-major-new-ai-safety-and", accessed: "2026-11-12" }
+photo:
+  file: "andrew-gounardes.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Andrew_Gounardes.jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "NY Senate"
+  wikidata: "Q60676416"
 published: true
 review_status: pending_review
 reviewed_by: null

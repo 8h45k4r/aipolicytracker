@@ -21,6 +21,13 @@ sources:
   - { title: "Digital Omnibus on AI - Legislative Train", publisher: "European Parliament", url: "https://www.europarl.europa.eu/legislative-train/package-digital-package/file-digital-omnibus-on-ai", accessed: "2026-11-12" }
   - { title: "Procedure File: 2025/0359(COD)", publisher: "European Parliament", url: "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025%2F0359%28COD%29", accessed: "2026-11-12" }
   - { title: "AI Act: deal on simplification measures, ban on \"nudifier\" apps", publisher: "European Parliament", url: "https://www.europarl.europa.eu/news/en/press-room/20260427IPR42011/ai-act-deal-on-simplification-measures-ban-on-nudifier-apps", accessed: "2026-11-12" }
+photo:
+  file: "arba-kokalari.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:1718798859152_20240618_KOKALARI_Arba_SE_004.jpg"
+  license: "European Parliament"
+  license_url: "https://www.europarl.europa.eu/legal-notice/"
+  author: "European Union 2024 - Source : EP"
+  wikidata: "Q16595498"
 published: true
 review_status: pending_review
 reviewed_by: null

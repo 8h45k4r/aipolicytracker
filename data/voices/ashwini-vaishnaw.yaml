@@ -23,6 +23,13 @@ official_profile_url: "https://indiaai.gov.in/people/ashwini-vaishnaw"
 sources:
   - { title: "Ashwini Vaishnaw", publisher: "IndiaAI, Ministry of Electronics and Information Technology", url: "https://indiaai.gov.in/people/ashwini-vaishnaw", accessed: "2026-11-12" }
   - { title: "Union Minister Shri Ashwini Vaishnaw Launches World Bank Group's 'World Development Report 2026: The Promise of Artificial Intelligence' in New Delhi", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2320883&reg=48&lang=1", accessed: "2026-11-12" }
+photo:
+  file: "ashwini-vaishnaw.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Ashwini_Vaishnaw_addressing_the_Media_after_assuming_charge_as_the_Minister_of_Railways_at_Rail_Bhavan.jpg"
+  license: "GODL-India"
+  license_url: "https://data.gov.in/sites/default/files/Gazette_Notification_OGDL.pdf"
+  author: "Ministry of Railways"
+  wikidata: "Q75184694"
 published: true
 review_status: pending_review
 reviewed_by: null

@@ -21,6 +21,13 @@ sources:
   - { title: "Working Group - The implementation and enforcement of the Artificial Intelligence Act", publisher: "European Parliament", url: "https://www.europarl.europa.eu/committees/en/working-group-the-implementation-and-enf/product-details/20241209CDT13901", accessed: "2026-11-12" }
   - { title: "IMCO draft agenda, 23-24 March 2026", publisher: "European Parliament", url: "https://www.europarl.europa.eu/doceo/document/IMCO-OJ-2026-03-23-1_EN.html", accessed: "2026-11-12" }
   - { title: "Artificial intelligence act - Legislative Train", publisher: "European Parliament", url: "https://www.europarl.europa.eu/legislative-train/spotlight-JD22/file-regulation-on-artificial-intelligence?sid=5201", accessed: "2026-11-12" }
+photo:
+  file: "brando-benifei.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Brando_Benifei,_2023.jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Ekō (formerly SumOfUs)"
+  wikidata: "Q17123340"
 published: true
 review_status: pending_review
 reviewed_by: null

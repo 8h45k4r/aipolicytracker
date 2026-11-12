@@ -188,7 +188,7 @@
       "$ref": "common.schema.json#/$defs/confidenceLevel"
     },
     "photo": {
-      "description": "An openly licensed photo (CC0, public domain, CC BY or CC BY-SA) from Wikimedia Commons, linked from the person's Wikidata item, with its author and licence. Stored under public/images/voices.",
+      "description": "A photo from Wikimedia Commons, linked from the person's Wikidata item, under a licence that allows reuse with attribution (no non-commercial or no-derivatives terms), with its author and licence. Stored under public/images/voices.",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -209,7 +209,8 @@
         },
         "license": {
           "type": "string",
-          "pattern": "^(CC0|Public domain|PD|CC BY)"
+          "minLength": 2,
+          "description": "The Commons licence name as the file page gives it (CC BY, CC BY-SA, CC0, public domain, or an open government licence such as OGL, GODL-India or KOGL Type 1)."
         },
         "license_url": {
           "$ref": "common.schema.json#/$defs/nullableString"

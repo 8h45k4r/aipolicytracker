@@ -21,6 +21,13 @@ sources:
   - { title: "SB 212, 69th Legislature 2025 (Chapter 150)", publisher: "Montana Legislature", url: "https://archive.legmt.gov/content/Sessions/69th/Contractor_index/CH0150.pdf", accessed: "2026-11-12" }
   - { title: "Energy and Technology Interim Committee 2025-2026 work plan (draft)", publisher: "Montana Legislature", url: "https://archive.legmt.gov/content/Committees/Interim/2025-2026/ETIC/Sept-2025/2.DRAFT_ETIC_25-26_Work_Plan_September_9_2025.pdf", accessed: "2026-11-12" }
   - { title: "Energy and Technology Interim Committee agenda, 15 January 2026", publisher: "Montana Legislature", url: "https://archive.legmt.gov/content/Committees/Interim/2025-2026/ETIC/January-2026/1.ETIC_1-15-26_Agenda.pdf", accessed: "2026-11-12" }
+photo:
+  file: "daniel-zolnikov.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Daniel_Zolnikov_by_Gage_Skidmore.jpg"
+  license: "CC BY-SA 3.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/3.0"
+  author: "Gage Skidmore"
+  wikidata: "Q16232056"
 published: true
 review_status: pending_review
 reviewed_by: null

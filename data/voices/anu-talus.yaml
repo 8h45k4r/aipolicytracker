@@ -21,6 +21,13 @@ sources:
   - { title: "Chair agenda", publisher: "European Data Protection Board", url: "https://www.edpb.europa.eu/about-edpb/chair-agenda_en", accessed: "2026-11-12" }
   - { title: "EDPB and EDPS support streamlining AI Act implementation but call for stronger safeguards to protect fundamental rights", publisher: "European Data Protection Board", url: "https://www.edpb.europa.eu/news/news/2026/edpb-and-edps-support-streamlining-ai-act-implementation-call-stronger-safeguards_en", accessed: "2026-11-12" }
   - { title: "EDPB sheds light on anonymisation and web scraping for generative AI", publisher: "European Data Protection Board", url: "https://www.edpb.europa.eu/news/edpb-sheds-light-on-anonymisation-and-web-scraping-for-generative-ai-and-adopts-final-version_en", accessed: "2026-11-12" }
+photo:
+  file: "anu-talus.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Anu_Talus_(P-066170-00-01)_(cropped).jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "Europäische Kommission - Audiovisueller Dienst, Lukasz Kobus, Yügen, CE - Service audiovisuel, EC - Audiovisual Service"
+  wikidata: "Q100774804"
 published: true
 review_status: pending_review
 reviewed_by: null

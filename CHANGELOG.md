@@ -37,7 +37,11 @@ All notable changes to this project are documented here. The format follows [Kee
 - A twelve-month chart at the top of the change log: every change, and the urgent or high-impact
   ones, by month, each month linking to its archive.
 - Share images for AI Voices profiles, with the AIPolicyTracker logo, the person's name and role,
-  and their initials.
+  and their photo or initials.
+- AI Voices photos where an openly licensed one exists. Each comes from Wikimedia Commons, linked
+  from the person's Wikidata item, with Wikidata's recorded positions or citizenship confirming
+  it is the same person. The author and licence are credited on the profile, and anything with
+  non-commercial or no-derivatives terms is left out. Other profiles keep their initials.
 - News (`/news`): one dated list of AI policy news, made of three streams:
   - headlines from official feeds: NIST, the UK AI Security Institute, DSIT and GOV.UK, the European Commission's digital strategy site, and the Federal Register;
   - this tracker's recorded changes;

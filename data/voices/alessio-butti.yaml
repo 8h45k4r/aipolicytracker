@@ -19,6 +19,13 @@ official_profile_url: "https://innovazione.gov.it/sottosegretario/"
 sources:
   - { title: "Sottosegretario", publisher: "Dipartimento per la trasformazione digitale", url: "https://innovazione.gov.it/sottosegretario/", accessed: "2026-11-12" }
   - { title: "Sottosegretario di Stato per l'innovazione tecnologica e la transizione digitale - decreto 29 gennaio 2026", publisher: "Presidenza del Consiglio dei ministri", url: "https://presidenza.governo.it/AmministrazioneTrasparente/DisposizioniGenerali/AttiGenerali/AttiAmministrativiGenerali/Decreto_20260129.pdf", accessed: "2026-11-12" }
+photo:
+  file: "alessio-butti.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Alessio_Butti_daticamera_2018.jpg"
+  license: "CC BY-SA 4.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/4.0"
+  author: "Camera dei Deputati"
+  wikidata: "Q3610479"
 published: true
 review_status: pending_review
 reviewed_by: null

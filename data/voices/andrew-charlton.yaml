@@ -24,6 +24,13 @@ sources:
   - { title: "AI Safety Forum", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/charlton/media/ai-safety-forum", accessed: "2026-11-12" }
   - { title: "Speech at the Sydney Trust and Safety Festival", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/charlton/media/speech-the-sydney-trust-and-safety-festival", accessed: "2026-11-12" }
   - { title: "Doorstop to announce the National Artificial Intelligence Plan, Sydney", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://minister.industry.gov.au/ministers/charlton/transcripts/doorstop-announce-national-artificial-intelligence-plan-sydney", accessed: "2026-11-12" }
+photo:
+  file: "andrew-charlton.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Andrew_Charlton_speaking_at_CeBIT_(cropped).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "CEBIT AUSTRALIA"
+  wikidata: "Q112567447"
 published: true
 review_status: pending_review
 reviewed_by: null
