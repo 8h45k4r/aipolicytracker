@@ -446,7 +446,8 @@ class BillingTest extends TestCase
     {
         // The page also carries the licence terms and the enquiry form, which do not depend on
         // selling, so it is indexed and linked from the footer either way; only checkout is off.
-        $res = $this->get('/pricing')->assertOk()->assertSee('Not yet available')->assertDontSee('Subscribe to Pro');
+        // Builder is requested by email while checkout is off; there is no checkout form to post.
+        $res = $this->get('/pricing')->assertOk()->assertSee('Request by email')->assertDontSee('Subscribe to Pro')->assertDontSee('/billing/checkout/', false);
         $this->assertStringNotContainsString('noindex', $res->getContent());
         $this->actingAs($this->user())->post('/billing/checkout/pro_monthly')->assertNotFound();
         $this->actingAs($this->user())->post('/billing/portal')->assertNotFound();

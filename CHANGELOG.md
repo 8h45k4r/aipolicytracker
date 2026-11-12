@@ -28,6 +28,13 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- Pricing: while online checkout is closed, the Builder buttons ("Pay monthly" and "$490 per year")
+  are "Request by email" and open the enquiry form with that plan chosen. Prices are unchanged.
+- Pricing and licence enquiries are mailed to both bhaskar@aipolicytracker.org and
+  info@aipolicytracker.org, and the form shows both as a direct email link.
+- "Support the project" on the pricing page: a way to contribute with no plan and no fixed amount,
+  arranged by email, with a figure of where support goes. A person can write from a personal address.
+- People: Yagya Raj Pandeya, Ph.D. (Kathmandu University) joins the research contributors.
 - The header stays on screen while scrolling. On pages other than the home page, the search box
   pushed Subscribe off the screen between 1280 and about 1440 px wide. Search is now an icon below
   1536 px, and side panels and jump links sit below the header.
@@ -38,7 +45,7 @@ All notable changes to this project are documented here. The format follows [Kee
   ones, by month, each month linking to its archive.
 - Share images for AI Voices profiles, with the AIPolicyTracker logo, the person's name and role,
   and their photo or initials.
-- AI Voices photos where an openly licensed one exists. Each comes from Wikimedia Commons, linked
+- AI Voices photos where an openly licensed one exists (45 of 101 profiles). Each comes from Wikimedia Commons, linked
   from the person's Wikidata item, with Wikidata's recorded positions or citizenship confirming
   it is the same person. The author and licence are credited on the profile, and anything with
   non-commercial or no-derivatives terms is left out. Other profiles keep their initials.

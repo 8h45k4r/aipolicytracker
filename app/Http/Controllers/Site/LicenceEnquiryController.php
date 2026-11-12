@@ -35,14 +35,16 @@ class LicenceEnquiryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:120'],
-            'email' => ['required', 'string', 'email:rfc', 'max:190', new NotDisposableEmail, new WorkEmail('licence enquiries')],
-            'organization' => ['required', 'string', 'min:2', 'max:160'],
+            // A supporter may be a person, so a personal mailbox is accepted for that tier only.
+            'email' => array_merge(['required', 'string', 'email:rfc', 'max:190', new NotDisposableEmail], $request->input('tier') === 'supporter' ? [] : [new WorkEmail('licence enquiries')]),
+            // A person supporting the project may have no organisation to name.
+            'organization' => [$request->input('tier') === 'supporter' ? 'nullable' : 'required', 'string', 'min:2', 'max:160'],
             'use_case' => ['required', 'string', 'min:20', 'max:3000'],
             'tier' => ['required', 'in:'.implode(',', array_keys(LicenceEnquiry::TIERS))],
             'coverage_request' => ['nullable', 'string', 'max:2000'],
         ], [
-            'use_case.required' => 'Tell us what you will use the data for.',
-            'use_case.min' => 'Say a little more about what you will use the data for (at least 20 characters).',
+            'use_case.required' => 'Tell us what you will use the data for, or how you would like to help.',
+            'use_case.min' => 'Say a little more (at least 20 characters).',
         ], [
             'organization' => 'organisation',
             'use_case' => 'use of the data',
@@ -60,7 +62,7 @@ class LicenceEnquiryController extends Controller
         $enquiry = LicenceEnquiry::create([
             'name' => trim($data['name']),
             'email' => strtolower(trim($data['email'])),
-            'organization' => trim($data['organization']),
+            'organization' => trim((string) ($data['organization'] ?? '')) ?: 'Individual',
             'tier' => $data['tier'],
             'use_case' => trim($data['use_case']),
             'coverage_request' => filled($data['coverage_request'] ?? null) ? trim($data['coverage_request']) : null,
@@ -70,7 +72,8 @@ class LicenceEnquiryController extends Controller
 
         $sent = false;
         $recent = LicenceEnquiry::where('created_at', '>=', now()->subHour())->count();
-        foreach ($recent <= self::MAILS_PER_HOUR ? (array) config('aipolicytracker.contact_emails', []) : [] as $address) {
+        // Each address gets its own message, so one failing mailbox does not stop the other.
+        foreach ($recent <= self::MAILS_PER_HOUR ? array_unique((array) config('aipolicytracker.enquiry_emails', [])) : [] as $address) {
             try {
                 Mail::to($address)->send(new LicenceEnquiryMail($enquiry));
                 $sent = true;

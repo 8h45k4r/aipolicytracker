@@ -28,7 +28,7 @@ class PricingAndLicenceEnquiryTest extends TestCase
     {
         parent::setUp();
         // The suite switches domain enforcement off globally; the work-email rule is part of this form.
-        config(['email.enforce' => true, 'email.check_deliverability' => false, 'aipolicytracker.contact_emails' => ['hello@aipolicytracker.test']]);
+        config(['email.enforce' => true, 'email.check_deliverability' => false, 'aipolicytracker.enquiry_emails' => ['hello@aipolicytracker.test', 'info@aipolicytracker.test']]);
         Mail::fake();
     }
 
@@ -59,8 +59,11 @@ class PricingAndLicenceEnquiryTest extends TestCase
         $this->assertStringContainsString('Coming, not built yet', $html, 'unbuilt items are labelled, never listed as included');
         $this->assertStringContainsString(route('pricing', ['tier' => 'team']).'#licence', $html);
         $this->assertStringContainsString('id="licence"', $html);
-        // Checkout is off by default: Builder takes no orders, the page still says so.
-        $this->assertStringContainsString('Not yet available', $html);
+        // Checkout is off by default: Builder takes no orders online, and is requested by email instead.
+        $this->assertStringContainsString(route('pricing', ['tier' => 'builder']).'#licence', $html);
+        $this->assertStringContainsString(route('pricing', ['tier' => 'builder_annual']).'#licence', $html);
+        $this->assertStringContainsString('Request by email', $html);
+        $this->assertStringNotContainsString('/billing/checkout/', $html, 'no checkout form while selling is off');
 
         preg_match_all('#<script type="application/ld\+json"[^>]*>(.*?)</script>#s', $html, $blocks);
         $faq = collect($blocks[1])->map(fn ($j) => json_decode($j, true))
@@ -96,11 +99,43 @@ class PricingAndLicenceEnquiryTest extends TestCase
         $this->assertSame('pricing', $enquiry->source);
         $this->assertNotNull($enquiry->notified_at);
         Mail::assertSent(LicenceEnquiryMail::class, fn (LicenceEnquiryMail $m) => $m->hasTo('hello@aipolicytracker.test') && $m->hasReplyTo('priya@acme-bank.com') && str_contains($m->render(), 'An internal compliance dashboard'));
+        // Both mailboxes are told, each with its own message.
+        Mail::assertSent(LicenceEnquiryMail::class, fn (LicenceEnquiryMail $m) => $m->hasTo('info@aipolicytracker.test'));
+        Mail::assertSent(LicenceEnquiryMail::class, 2);
 
         // The confirmation replaces the form on the page it came from.
         $this->followingRedirects()->post(route('licence-enquiry.store'), $this->form(['source' => 'open-data', 'email' => 'ops@acme-bank.com']))
             ->assertOk()->assertSee('data-licence-enquiry-sent', false);
         $this->assertSame('open-data', LicenceEnquiry::latest('id')->first()->source);
+    }
+
+    public function test_enquiries_go_to_the_maintainer_and_the_project_mailbox_by_default(): void
+    {
+        $this->assertSame(['bhaskar@aipolicytracker.org', 'info@aipolicytracker.org'], (require base_path('config/aipolicytracker.php'))['enquiry_emails']);
+
+        $html = $this->get('/pricing')->assertOk()->getContent();
+        $mailto = substr($html, strpos($html, 'data-enquiry-mailto'), 900);
+        $this->assertStringContainsString('mailto:hello@aipolicytracker.test,info@aipolicytracker.test', $mailto);
+    }
+
+    public function test_a_person_can_offer_support_without_a_work_address_or_an_organisation(): void
+    {
+        Mail::fake();
+        $html = $this->get('/pricing')->assertOk()->getContent();
+        $band = substr($html, strpos($html, 'data-support-band'), 6000);
+        $this->assertStringContainsString(route('pricing', ['tier' => 'supporter']).'#licence', $band);
+        $this->assertDoesNotMatchRegularExpression('/\$\d/', strip_tags($band), 'the support option names no price');
+
+        $this->post(route('licence-enquiry.store'), ['name' => 'Sam Reader', 'email' => 'sam.reader@gmail.com', 'tier' => 'supporter', 'use_case' => 'I use the tracker weekly and would like to contribute.', 'source' => 'pricing'])
+            ->assertRedirect(route('pricing').'#licence')->assertSessionHas('licence_enquiry');
+        $row = LicenceEnquiry::sole();
+        $this->assertSame(['supporter', 'Individual', 'Support the project'], [$row->tier, $row->organization, $row->tierLabel()]);
+        Mail::assertSent(LicenceEnquiryMail::class, 2);
+
+        // Every other tier still asks for a work address.
+        $this->post(route('licence-enquiry.store'), ['name' => 'Sam Reader', 'email' => 'sam.reader@gmail.com', 'organization' => 'Acme', 'tier' => 'team', 'use_case' => 'A team plan for our compliance group, please.', 'source' => 'pricing'])
+            ->assertSessionHasErrorsIn('licence', 'email');
+        $this->assertSame(1, LicenceEnquiry::count());
     }
 
     public function test_a_failed_mail_still_keeps_the_enquiry_and_does_not_claim_it_was_sent(): void

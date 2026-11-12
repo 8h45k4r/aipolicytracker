@@ -7,7 +7,7 @@
         <p class="eyebrow">Pricing</p>
         <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">The data stays free. Plans pay for the service around it.</h1>
         <p class="mt-3 text-brand-body leading-7">Every policy, jurisdiction, obligation and change record is open under <a href="{{ config('aipolicytracker.data_license_url') }}" rel="license noopener">{{ $licence }}</a> on every plan, commercial use included, and always will be. Builder pays for alerts at volume. Team and Commercial pay for what the open licence does not give: no attribution, freshness in writing, and an agreement a legal team can file.</p>
-        @if(!$enabled)<p class="mt-4 rounded-md border border-brand-line bg-brand-paper px-3 py-2 text-sm text-brand-body" role="status">Builder checkout is not open yet. Open is complete and available today, and Team and Commercial are arranged through the <a href="#licence">enquiry form</a>; <a href="{{ route('subscribe.show') }}">subscribe to the weekly digest</a> to hear when Builder opens.</p>@endif
+        @if(!$enabled)<p class="mt-4 rounded-md border border-brand-line bg-brand-paper px-3 py-2 text-sm text-brand-body" role="status">Online checkout for Builder is not open yet. Open is complete and available today. Builder, Team and Commercial are arranged by email through the <a href="#licence">enquiry form</a>, and nothing is charged until you have agreed to it in writing.</p>@endif
         @if(session('error'))<p class="mt-4 rounded-md border border-state-bad/30 bg-state-badbg px-3 py-2 text-sm text-state-bad" role="alert">{{ session('error') }}</p>@endif
         @if(session('error_detail'))<details class="mt-2 card-flat p-3 text-sm" open><summary class="cursor-pointer font-semibold text-brand-navy">Provider response (visible to admins only)</summary><pre class="mt-2 overflow-x-auto whitespace-pre-wrap break-all text-xs text-brand-body">{{ session('error_detail') }}</pre><p class="meta mt-2">Also recorded under <a href="{{ route('backend.admin.billing.index') }}">Admin → Billing</a>, with the checkout attempt.</p></details>@endif
     </div>
@@ -49,7 +49,7 @@
                     <p class="text-sm text-brand-body">@if($plan['interval'] === 'year')<span class="font-semibold text-brand-navy">{{ \App\Services\Billing\PlanCatalog::formatPrice($plan['price'], $plan['currency']) }}</span> per year, two months free @else Pay monthly @endif</p>
                     <div class="mt-1">
                         @if($current && $current->plan_key === $key)<span class="meta">Your current plan</span>
-                        @elseif(!$enabled || empty($plan['product_id']))<span class="btn-secondary cursor-not-allowed text-brand-muted" aria-disabled="true">Not yet available</span>
+                        @elseif(!$enabled || empty($plan['product_id']))<a href="{{ route('pricing', ['tier' => $plan['interval'] === 'year' ? 'builder_annual' : 'builder']) }}#licence" class="{{ $plan['interval'] === 'year' ? 'btn-secondary' : 'btn-primary' }}" data-track="builder_request" data-plan="{{ $key }}">Request by email</a>
                         @elseif($current)<span class="meta">Change plans from <a href="{{ route('profile.edit') }}">your account</a></span>
                         @elseif($user)<form method="post" action="{{ route('billing.checkout', $key) }}">@csrf<button type="submit" class="btn-primary" data-track="checkout_start" data-plan="{{ $key }}">Subscribe to {{ $plan['name'] }}</button></form>
                         <p class="mt-1 meta max-w-xs">Under the <a href="{{ config('aipolicytracker.links.terms_of_use') ?: route('terms') }}">terms of use</a>. Paid through Dodo Payments, the merchant of record; cancel from your account at any time.</p>
@@ -81,6 +81,40 @@
         </section>
         @endforeach
     </div>
+
+    {{-- The smallest way to help: no plan, no fixed amount, by email. The figure says where support
+         goes and what it never buys, in the words of the funding page. --}}
+    <section class="mt-6 grid items-center gap-6 rounded-xl border border-brand-line bg-brand-paper p-5 sm:p-6 lg:grid-cols-5" aria-labelledby="support-h" data-support-band>
+        <div class="lg:col-span-2">
+            <p class="eyebrow">Support the project</p>
+            <h2 id="support-h" class="mt-1 text-xl font-semibold tracking-tight text-brand-navy">Use it for free, and help keep it that way</h2>
+            <p class="mt-2 text-sm text-brand-body">No plan needed. If the records save your team time, a contribution of any size helps pay for hosting and for the time spent checking records against their sources, which the maintainer funds today. Tell us what you have in mind and we reply by email with how to contribute. Support buys no say over what is covered or how a record reads (<a href="{{ route('funding') }}">funding rules</a>).</p>
+            <p class="mt-4"><a href="{{ route('pricing', ['tier' => 'supporter']) }}#licence" class="btn-primary" data-track="support_click">Support by email</a></p>
+        </div>
+        <div class="lg:col-span-3">
+            <svg viewBox="0 0 560 190" class="h-auto w-full" role="img" aria-labelledby="support-fig-t support-fig-d">
+                <title id="support-fig-t">Where support goes</title>
+                <desc id="support-fig-d">Support from readers, Builder subscriptions and licences pays for hosting and for the time spent checking records. The records stay free under CC BY 4.0, and money never buys coverage or wording.</desc>
+                <g font-family="Inter, system-ui, sans-serif" font-size="13">
+                    @foreach([['Reader support', 22], ['Builder plan', 78], ['Team and licences', 134]] as [$label, $y])
+                    <rect x="0" y="{{ $y }}" width="150" height="40" rx="8" fill="rgb(var(--c-white))" stroke="rgb(var(--c-line))"/>
+                    <text x="75" y="{{ $y + 25 }}" text-anchor="middle" fill="rgb(var(--c-navy))" font-weight="600">{{ $label }}</text>
+                    <path d="M150 {{ $y + 20 }} C 185 {{ $y + 20 }}, 185 98, 214 98" fill="none" stroke="rgb(var(--c-cyan))" stroke-width="2" opacity=".7"/>
+                    @endforeach
+                    <circle cx="232" cy="98" r="18" fill="rgb(var(--c-navy))"/>
+                    <path d="M224 98h16M232 90v16" stroke="rgb(var(--c-white))" stroke-width="2.5" stroke-linecap="round"/>
+                    @foreach([['Hosting', 22], ['Checking records', 78], ['Records stay free', 134]] as [$label, $y])
+                    <path d="M250 98 C 285 98, 285 {{ $y + 20 }}, 318 {{ $y + 20 }}" fill="none" stroke="rgb(var(--c-navy))" stroke-width="2" opacity=".55"/>
+                    <rect x="318" y="{{ $y }}" width="160" height="40" rx="8" fill="rgb(var(--c-navy))"/>
+                    <text x="398" y="{{ $y + 25 }}" text-anchor="middle" fill="rgb(var(--c-white))" font-weight="600">{{ $label }}</text>
+                    @endforeach
+                    <text x="490" y="92" fill="rgb(var(--c-muted))" font-size="11">Never:</text>
+                    <text x="490" y="108" fill="rgb(var(--c-muted))" font-size="11">coverage</text>
+                    <text x="490" y="124" fill="rgb(var(--c-muted))" font-size="11">or wording</text>
+                </g>
+            </svg>
+        </div>
+    </section>
 
     {{-- Feature comparison — structured for researchers and procurement --}}
     <section class="mt-12" aria-labelledby="compare-h">

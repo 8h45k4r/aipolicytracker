@@ -93,6 +93,10 @@ return [
     // Every contact address listed on the About page. Defaults to the official
     // mailbox above; set CONTACT_EMAILS to list more than one.
     'contact_emails' => $csv(env('CONTACT_EMAILS')) ?: array_values(array_filter([env('CONTACT_EMAIL', 'bhaskar@aipolicytracker.org')])),
+    // Where a pricing, licence or support enquiry is mailed (LicenceEnquiryController). Both the
+    // maintainer and the project mailbox, so one being away does not leave an enquiry unread.
+    // Override with ENQUIRY_EMAILS (comma-separated).
+    'enquiry_emails' => $csv(env('ENQUIRY_EMAILS')) ?: ['bhaskar@aipolicytracker.org', 'info@aipolicytracker.org'],
     // Whether the environment listed the addresses itself. When it did not, an address
     // saved in the admin Settings page replaces the default list (AppSettingsServiceProvider).
     'contact_emails_from_env' => $csv(env('CONTACT_EMAILS')) !== [],

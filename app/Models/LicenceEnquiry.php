@@ -14,7 +14,9 @@ class LicenceEnquiry extends Model
     public const TIERS = [
         'commercial' => 'Commercial licence',
         'team' => 'Team',
-        'builder' => 'Builder',
+        'builder' => 'Builder, paid monthly',
+        'builder_annual' => 'Builder, paid yearly',
+        'supporter' => 'Support the project',
         'unsure' => 'Not sure yet',
     ];
 
