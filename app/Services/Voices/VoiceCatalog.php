@@ -49,4 +49,34 @@ final class VoiceCatalog
     {
         return self::all()->get($slug);
     }
+
+    /** First and last initials, as the cards and the share image show them without a photo. */
+    public static function initials(string $name): string
+    {
+        $parts = preg_split('/\s+/u', trim($name)) ?: [];
+
+        return mb_strtoupper(mb_substr($parts[0] ?? '', 0, 1).(count($parts) > 1 ? mb_substr((string) end($parts), 0, 1) : ''));
+    }
+
+    /**
+     * The profile's photo on disk, or null. A photo is kept only with an open licence and
+     * its author (`photo` in the record, docs/modules/voices.md); the file sits under
+     * public/images/voices so the page serves it as it is.
+     */
+    public static function photoPath(array $voice): ?string
+    {
+        $file = $voice['photo']['file'] ?? null;
+        if (! is_string($file) || ! preg_match('/^[a-z0-9-]+\.(jpg|png)$/', $file)) {
+            return null;
+        }
+        $path = public_path('images/voices/'.$file);
+
+        return is_file($path) ? $path : null;
+    }
+
+    /** The public URL of the profile's photo, or null. */
+    public static function photoUrl(array $voice): ?string
+    {
+        return self::photoPath($voice) ? asset('images/voices/'.$voice['photo']['file']) : null;
+    }
 }

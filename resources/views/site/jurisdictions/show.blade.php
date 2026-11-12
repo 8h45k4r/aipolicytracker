@@ -137,8 +137,8 @@
         </div>
 
         <aside class="space-y-6">
-            <div class="lg:sticky lg:top-4 space-y-6">
-                <x-site.toc :items="$toc" class="lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto bg-white py-1" />
+            <div class="lg:sticky lg:top-24 space-y-6">
+                <x-site.toc :items="$toc" class="lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto bg-white py-1" />
                 @if(!empty($jurisdiction->regulators))
                 @if($controls->isNotEmpty())
                 <div class="card-flat p-4 text-sm">

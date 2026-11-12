@@ -28,6 +28,16 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- The header stays on screen while scrolling. On pages other than the home page, the search box
+  pushed Subscribe off the screen between 1280 and about 1440 px wide. Search is now an icon below
+  1536 px, and side panels and jump links sit below the header.
+- "At a glance" figures on the policy and obligation listings:
+  - policies split by status, obligations by category, both by whether they bind;
+  - drawn from the records that match the filters, and every part links into the listing.
+- A twelve-month chart at the top of the change log: every change, and the urgent or high-impact
+  ones, by month, each month linking to its archive.
+- Share images for AI Voices profiles, with the AIPolicyTracker logo, the person's name and role,
+  and their initials.
 - News (`/news`): one dated list of AI policy news, made of three streams:
   - headlines from official feeds: NIST, the UK AI Security Institute, DSIT and GOV.UK, the European Commission's digital strategy site, and the Federal Register;
   - this tracker's recorded changes;

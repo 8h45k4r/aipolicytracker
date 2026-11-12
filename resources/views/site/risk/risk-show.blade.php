@@ -62,7 +62,7 @@
             <x-site.attribution class="mt-10" :name="$mit['source'] ?? 'MIT AI Risk Repository'" :url="$mit['source_url'] ?? 'https://airisk.mit.edu/'" :license="$mit['license'] ?? 'CC BY 4.0'" :licenseUrl="$mit['license_url'] ?? 'https://creativecommons.org/licenses/by/4.0/'" :citation="$mit['citation'] ?? null" note="The description is the repository's extracted evidence for this entry, reproduced under CC BY 4.0; the paper itself is not reproduced." />
         </div>
         <aside class="space-y-6">
-            <div class="lg:sticky lg:top-4 space-y-6">
+            <div class="lg:sticky lg:top-24 space-y-6">
                 <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Record</p>

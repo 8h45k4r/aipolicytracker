@@ -35,6 +35,17 @@ class ChangeController extends Controller
         abort_if($changes->currentPage() > max(1, $changes->lastPage()), 404);
         $urgent = ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->whereIn('impact_level', ['urgent', 'high'])->orderByDesc('occurred_on')->limit(5)->get();
         $years = ChangeEvent::publishedYears();
+        // The last twelve months of recorded changes, by month and by impact, for the figure above the log.
+        $start = now()->startOfMonth()->subMonths(11);
+        $recent = ChangeEvent::published()->whereDate('occurred_on', '>=', $start->toDateString())->whereDate('occurred_on', '<=', now()->toDateString())->get(['occurred_on', 'impact_level'])
+            ->groupBy(fn ($c) => substr((string) $c->occurred_on, 0, 7));
+        $activity = collect(range(0, 11))->map(function ($i) use ($start, $recent) {
+            $m = $start->copy()->addMonths($i);
+            $rows = $recent->get($m->format('Y-m'), collect());
+
+            return ['month' => $m->format('Y-m'), 'label' => $m->format('M'), 'year' => $m->format('Y'),
+                'high' => $rows->whereIn('impact_level', ['urgent', 'high'])->count(), 'total' => $rows->count()];
+        });
         $indexable = empty($filters['q']) && $impact === null && empty($filters['jurisdiction']);
 
         $seo = Seo::make(
@@ -58,7 +69,7 @@ class ChangeController extends Controller
             ));
 
         return view('site.changes.index', [
-            'seo' => $seo, 'changes' => $changes, 'urgent' => $urgent, 'years' => $years, 'filters' => $filters, 'impact' => $impact, 'sort' => $sort,
+            'seo' => $seo, 'changes' => $changes, 'urgent' => $urgent, 'years' => $years, 'filters' => $filters, 'impact' => $impact, 'sort' => $sort, 'activity' => $activity,
             'jurisdictions' => Jurisdiction::published()->orderBy('name')->get(['slug', 'name']),
         ]);
     }

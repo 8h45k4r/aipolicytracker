@@ -48,7 +48,7 @@
             <x-site.disclaimer class="mt-8" />
         </div>
         <aside class="space-y-6">
-            <div class="lg:sticky lg:top-4 space-y-6">
+            <div class="lg:sticky lg:top-24 space-y-6">
                 <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">At a glance</p>

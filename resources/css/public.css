@@ -104,7 +104,8 @@ body:has(#home-q) header form[role="search"] { display: none; }
     /* No single word stranded on the last line of a paragraph. */
     p, li, dd, figcaption, blockquote { text-wrap: pretty; }
     /* An anchor target lands with room above it rather than flush with the viewport edge. */
-    [id] { scroll-margin-top: 1.5rem; }
+    /* The header is sticky (about 4rem tall), so a target lands below it with room to spare. */
+    [id] { scroll-margin-top: 6rem; }
     /* Taps act at once (no double-tap zoom wait) and show the control's own pressed
        state rather than the browser's grey flash. */
     a, button, summary, label, [role="button"], input, select, textarea { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }

@@ -171,7 +171,7 @@
 
         <aside class="lg:col-span-1 space-y-6">
             {{-- Kept in view while the main column scrolls; the rest of the sidebar is taller than a screen, so it scrolls normally. --}}
-            <x-site.toc :items="$toc" class="lg:sticky lg:top-4 lg:z-10 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto bg-white py-1" />
+            <x-site.toc :items="$toc" class="lg:sticky lg:top-24 lg:z-10 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto bg-white py-1" />
             <div class="space-y-6">
                 @if($controls->isNotEmpty())
                 <div class="card-flat p-4 text-sm">

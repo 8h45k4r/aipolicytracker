@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 class SocialCard
 {
     /**
-     * @param  array{eyebrow?: ?string, title: string, meta?: ?string, footer?: ?string}  $content
+     * @param  array{eyebrow?: ?string, title: string, meta?: ?string, footer?: ?string, person?: array{photo?: ?string, initials?: ?string, photo_hash?: ?string}}  $content
      * @return string|null the path within the cache disk, or null when no font is available
      */
     public function render(string $key, array $content): ?string
@@ -83,7 +83,7 @@ class SocialCard
         return null;
     }
 
-    /** @param array{eyebrow?: ?string, title: string, meta?: ?string, footer?: ?string} $content */
+    /** @param array{eyebrow?: ?string, title: string, meta?: ?string, footer?: ?string, person?: array} $content */
     private function draw(array $content): ?string
     {
         $width = (int) config('social.width', 1200);
@@ -125,7 +125,13 @@ class SocialCard
                 imagecopyresampled($image, $wordmark, $left, 48, 0, 0, $w, $h, imagesx($wordmark), imagesy($wordmark));
                 imagedestroy($wordmark);
             }
-            $mark = $this->raster((string) config('social.mark'));
+            // A person's card (AI Voices) shows their openly licensed photo, or their
+            // initials when there is none, where other cards show the faint mark.
+            $mark = isset($content['person']) ? null : $this->raster((string) config('social.mark'));
+            if (isset($content['person'])) {
+                $this->drawPerson($image, $content['person'], $width - 340 - 72, 128, 340, $colour);
+                $right = $width - 340 - 72 - 56;
+            }
             if ($mark) {
                 // The mark, large and quiet on the right. Its own transparency has to be
                 // kept: the merge function that would fade a whole layer ignores the alpha
@@ -196,6 +202,51 @@ class SocialCard
         } finally {
             imagedestroy($image);
         }
+    }
+
+    /**
+     * A round portrait with an accent ring: the photo cropped to a square from its top
+     * centre (where a portrait's face is) or, without a photo, the initials on navy.
+     *
+     * @param  array{photo?: ?string, initials?: ?string}  $person
+     */
+    private function drawPerson(\GdImage $image, array $person, int $x, int $y, int $size, \Closure $colour): void
+    {
+        imagefilledellipse($image, $x + intdiv($size, 2), $y + intdiv($size, 2), $size + 16, $size + 16, $colour('accent'));
+        $photo = ! empty($person['photo']) && is_file($person['photo']) ? @imagecreatefromstring((string) file_get_contents($person['photo'])) : false;
+        if ($photo === false) {
+            imagefilledellipse($image, $x + intdiv($size, 2), $y + intdiv($size, 2), $size, $size, $colour('panel'));
+            $initials = mb_strtoupper(mb_substr($this->clean((string) ($person['initials'] ?? '')), 0, 3));
+            $font = $this->font('bold');
+            if ($initials !== '' && $font !== null) {
+                $box = imagettfbbox(96, 0, $font, $initials);
+                $tw = abs($box[2] - $box[0]);
+                $th = abs($box[7] - $box[1]);
+                imagettftext($image, 96, 0, $x + intdiv($size - $tw, 2), $y + intdiv($size + $th, 2), $colour('background'), $font, $initials);
+            }
+
+            return;
+        }
+        $sw = imagesx($photo);
+        $sh = imagesy($photo);
+        $side = min($sw, $sh);
+        $sx = intdiv($sw - $side, 2);
+        $sy = $sh > $sw ? (int) round(($sh - $side) * 0.15) : 0;
+        $square = imagecreatetruecolor($size, $size);
+        imagecopyresampled($square, $photo, 0, 0, $sx, $sy, $size, $size, $side, $side);
+        imagedestroy($photo);
+        // Copy only the pixels inside the circle, so the corners keep the card behind them.
+        $r = $size / 2;
+        for ($py = 0; $py < $size; $py++) {
+            $dy = $py + 0.5 - $r;
+            $half = sqrt(max(0, $r * $r - $dy * $dy));
+            $from = (int) ceil($r - $half);
+            $to = (int) floor($r + $half);
+            if ($to > $from) {
+                imagecopy($image, $square, $x + $from, $y + $py, $from, $py, $to - $from, 1);
+            }
+        }
+        imagedestroy($square);
     }
 
     /** A brand raster, or null when the file is missing so the card still draws. */

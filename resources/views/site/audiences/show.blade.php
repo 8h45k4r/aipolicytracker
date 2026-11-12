@@ -64,7 +64,7 @@
             @endif
             <x-site.disclaimer class="mt-8" />
         </div>
-        <aside class="space-y-6"><div class="lg:sticky lg:top-4 space-y-6">
+        <aside class="space-y-6"><div class="lg:sticky lg:top-24 space-y-6">
             <div class="card-flat p-4 text-sm">
                 <p class="font-semibold text-brand-navy">Governance card</p>
                 <dl class="mt-2 space-y-1.5 text-brand-body">

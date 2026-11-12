@@ -96,7 +96,7 @@
         </div>
         <aside class="space-y-6">
             <x-site.assessments kind="template" :key="$meta['slug']" title="Score yourself first" />
-            <div class="lg:sticky lg:top-4 space-y-6">
+            <div class="lg:sticky lg:top-24 space-y-6">
                 <div class="card-flat p-4 text-sm"><p class="font-semibold text-brand-navy">At a glance</p>
                     <dl class="mt-2 space-y-1.5 text-brand-body">
                         <div class="flex justify-between gap-2"><dt class="text-brand-muted">Type</dt><dd>{{ $catalog::typeLabel($meta['type']) }}</dd></div>

@@ -11,8 +11,10 @@ use App\Services\Glossary\GlossaryTerms;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Report\StateOfAiRegulation;
 use App\Services\Social\SocialCard;
+use App\Services\Voices\VoiceCatalog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -73,6 +75,7 @@ class SocialCardController extends Controller
             'site' => $slug === 'default' ? $this->site($catalog) : null,
             // Static pages that deserve their own card, named one by one for the same reason.
             'page' => $slug === 'team' ? $this->team() : null,
+            'voice' => $this->voice($slug),
             default => null,
         };
     }
@@ -216,6 +219,24 @@ class SocialCardController extends Controller
             'title' => 'From regulation to evidence.',
             'meta' => $parts === [] ? config('aipolicytracker.supporting') : implode(' · ', $parts),
             'footer' => 'Open data, CC BY 4.0 · verified at the source',
+        ];
+    }
+
+    /** An AI Voices profile: name, role and organisation, with the person's open-licence photo or initials. */
+    private function voice(string $slug): ?array
+    {
+        $v = VoiceCatalog::find($slug);
+        if ($v === null) {
+            return null;
+        }
+        $photo = VoiceCatalog::photoPath($v);
+
+        return [
+            'eyebrow' => (VoiceCatalog::CATEGORIES[$v['category']] ?? 'AI Voices').' · AI Voices',
+            'title' => $v['name'],
+            'meta' => $v['role'].' · '.$v['organisation'],
+            'footer' => $this->footerFor(($v['review_status'] ?? null) === 'verified' && ! empty($v['last_verified_at']) ? Carbon::parse($v['last_verified_at']) : null, $v['review_status'] ?? null),
+            'person' => ['photo' => $photo, 'photo_hash' => $photo ? hash_file('crc32b', $photo) : null, 'initials' => VoiceCatalog::initials($v['name'])],
         ];
     }
 

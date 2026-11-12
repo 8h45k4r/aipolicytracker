@@ -154,7 +154,7 @@
             <x-site.attribution class="mt-3" :name="$summary['source'] ?? 'AI Incident Database'" :url="$summary['source_url'] ?? 'https://incidentdatabase.ai/'" :license="$summary['license'] ?? 'CC BY-SA 4.0'" :licenseUrl="$summary['license_url'] ?? 'https://creativecommons.org/licenses/by-sa/4.0/'" :citation="$summary['citation'] ?? null" :date="$summary['snapshot_date'] ?? null" note="Title, description and classification are reproduced under CC BY-SA 4.0; report texts are not. Read the reports on the AI Incident Database." />
         </div>
         <aside class="space-y-6">
-            <div class="lg:sticky lg:top-4 space-y-6">
+            <div class="lg:sticky lg:top-24 space-y-6">
                 <x-site.toc :items="$toc" variant="sidebar" />
                 <div class="card-flat p-4 text-sm">
                     <p class="font-semibold text-brand-navy">Record</p>

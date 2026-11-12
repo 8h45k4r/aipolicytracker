@@ -12,6 +12,7 @@
          change is near the top; public.js opens the panel on wide screens, and it starts open
          whenever a filter is set, so the form shows its state without JavaScript. --}}
     @php($activeFilters = count(array_filter([$filters['q'] ?? null, $filters['jurisdiction'] ?? null, $impact])))
+    @if($changes->currentPage() === 1)<x-site.month-activity :activity="$activity" />@endif
     <div class="flex flex-col">
     <details class="mt-5 rounded-md border border-brand-line bg-white" data-open-on-desktop @if($activeFilters) open @endif>
     <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-brand-navy">Filter changes @if($activeFilters)<span class="text-brand-muted font-normal">({{ $activeFilters }} active)</span>@endif</summary>

@@ -6,7 +6,7 @@
 
     <div class="mt-6 grid gap-8 lg:grid-cols-4">
         <aside class="hidden lg:block" aria-label="Filter sidebar">
-            <div class="sticky top-4 card-flat p-4">@include('site.policies._filters')</div>
+            <div class="sticky top-24 card-flat p-4">@include('site.policies._filters')</div>
         </aside>
         <div class="lg:col-span-3">
             {{-- Each result card is an h3; this keeps the outline h1 → h2 → h3 (axe heading-order). --}}
@@ -19,6 +19,7 @@
                 @if($paginator->lastPage() > 1) · page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }} @endif
                 @if($mode === 'obligations') · <a href="{{ route('obligations.export', request()->query()) }}" class="text-brand-blue">Download these as CSV</a>@endif
             </p>
+            @if($paginator->currentPage() === 1)<x-site.facet-breakdown :mode="$mode" :facets="$facets" :options="$options" :filters="$filters" />@endif
             @if($chips !== [])
             <ul class="mt-2 flex flex-wrap items-center gap-2" aria-label="Active filters" data-active-filters>
                 @foreach($chips as $chip)

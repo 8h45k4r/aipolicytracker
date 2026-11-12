@@ -8,7 +8,7 @@
 - leaders of international and standards bodies.
 
 **How people are chosen.** By the office they hold, never by fame or influence, and the list is not ranked. This follows the owner's choice of "office-holders, sourced" on 12 November 2026. A person is listed for their public role only. The rules:
-- **No photographs.** Cards show initials.
+- **Photos only with an open licence.** A photo is used when the person's Wikidata item links one on Wikimedia Commons under CC0, public domain, CC BY or CC BY-SA. The licence and author are stored in `photo` and credited on the profile, and Wikidata's recorded positions must match the role. Otherwise the profile shows initials. No other image source is used.
 - **No private details.** No contact details beyond the official profile page, no family, no opinions attributed without a source.
 - **Corrections and removal:** every profile and the index link the correction form (`/contribute`). A request from the person concerned to correct or remove their profile is acted on.
 
@@ -40,6 +40,7 @@ One file per person, validated by `policy:validate` against `data/schema/voice.s
 | published | yes | Only `true` profiles are shown |
 | review_status, reviewed_by, last_verified_at | yes | As for policy records: only a person who opened the sources sets `verified`, with a reviewer published in `data/reviewers/` |
 | last_checked_at, confidence_level | yes | |
+| photo | no | `{file, source_url, license, license_url, author, wikidata}`: an openly licensed Commons photo, stored as `public/images/voices/<file>` |
 
 **The first set, 12 November 2026.** There are 101 profiles: Europe 28, Asia-Pacific 28, the Americas 23, and international bodies, Africa and the Middle East 22.
 - All are `pending_review` and `confidence_level: medium`.
@@ -59,7 +60,8 @@ One file per person, validated by `policy:validate` against `data/schema/voice.s
   - dated official statements, the review status and the sources;
   - related voices from the same jurisdiction or laws.
 
-  Its structured data is a `ProfilePage` whose `mainEntity` is a `Person`: name, job title, organisation, the official profile as `sameAs`, and no image.
+  Its structured data is a `ProfilePage` whose `mainEntity` is a `Person`: name, job title, organisation, and the official profile as `sameAs`. With a photo, it also has an `image` (`ImageObject` with `license`, `acquireLicensePage` and `creditText`).
+- Share image: `/og/voice/<slug>.png` (`SocialCardController`). It shows the site logo, the category, the name, the role and organisation, the review status, and the photo in a ring or, without one, the initials.
 - Both are in the sitemap (`resources` section) and `llms.txt`, and appear in the **News → People** menu.
 - Analytics events (consent permitting): `voice_card`, `voice_official_profile`.
 
@@ -73,5 +75,6 @@ One file per person, validated by `policy:validate` against `data/schema/voice.s
 `tests/Feature/VoicesTest.php` covers:
 - every profile validates, is sourced, has an https official profile and no photo, and is never verified without a reviewer;
 - the index lists profiles and filters by role, and filtered pages are noindex;
-- a profile shows its role, official profile, sources and review status, has Person structured data and no image, and an unknown slug is 404;
+- a profile shows its role, official profile, sources and review status, has Person structured data, credits any photo, and an unknown slug is 404;
+- `PageFiguresTest` covers the share card.
 - profiles are in the sitemap and `llms.txt`.

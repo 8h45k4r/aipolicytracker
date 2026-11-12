@@ -50,7 +50,7 @@
         @foreach($voices as $v)
         <li>
             <a href="{{ route('voices.show', $v['slug']) }}" class="group flex h-full gap-3 rounded-xl border border-brand-line bg-white p-4 no-underline hover:border-brand-navy" data-track="voice_card">
-                <x-site.initials :name="$v['name']" />
+                <x-site.initials :name="$v['name']" :voice="$v" size="h-14 w-14 text-base" />
                 <span class="min-w-0">
                     <span class="block font-semibold text-brand-navy group-hover:underline">{{ $v['name'] }}</span>
                     <span class="block text-sm text-brand-body">{{ $v['role'] }}</span>

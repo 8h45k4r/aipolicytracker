@@ -3,7 +3,7 @@
 <div class="container-site py-8 max-w-4xl">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <div class="mt-4 flex flex-wrap items-start gap-4">
-        <x-site.initials :name="$voice['name']" size="h-16 w-16 text-xl" />
+        <x-site.initials :name="$voice['name']" :voice="$voice" size="h-28 w-28 text-3xl" :eager="true" :alt="'Photo of '.$voice['name']" />
         <div class="min-w-0">
             <p class="eyebrow">{{ \App\Services\Voices\VoiceCatalog::CATEGORIES[$voice['category']] ?? $voice['category'] }}</p>
             <h1 class="mt-1 text-2xl sm:text-3xl font-semibold tracking-tight text-brand-navy">{{ $voice['name'] }}</h1>
@@ -53,6 +53,9 @@
                 <p class="mt-1">@if($voice['review_status'] === 'verified')Verified by {{ $voice['reviewed_by'] }} on {{ $voice['last_verified_at'] }}.@else<strong>Pending review.</strong> Written from the official sources below; not yet confirmed by a reviewer.@endif</p>
                 <p class="mt-1 meta">Sources last checked <time datetime="{{ $checked->toDateString() }}">{{ $checked->format('j F Y') }}</time>.</p>
             </div>
+            @if(\App\Services\Voices\VoiceCatalog::photoUrl($voice))
+            <p class="meta" data-photo-credit>Photo: {{ $voice['photo']['author'] ?: 'unknown author' }}, <a href="{{ $voice['photo']['license_url'] ?: $voice['photo']['source_url'] }}" rel="nofollow noopener license">{{ $voice['photo']['license'] }}</a>, via <a href="{{ $voice['photo']['source_url'] }}" rel="nofollow noopener">Wikimedia Commons</a>. Cropped.</p>
+            @endif
             <div>
                 <p class="label">Sources</p>
                 <ul class="mt-2 space-y-2">@foreach($voice['sources'] as $s)<li><a href="{{ $s['url'] }}" rel="nofollow noopener">{{ $s['title'] }}</a><span class="block text-xs text-brand-muted">{{ $s['publisher'] }} · accessed {{ $s['accessed'] }}</span></li>@endforeach</ul>
@@ -60,7 +63,7 @@
             @if($peers->isNotEmpty())
             <div>
                 <p class="label">Related voices</p>
-                <ul class="mt-2 space-y-2">@foreach($peers as $p)<li class="flex items-center gap-2"><x-site.initials :name="$p['name']" size="h-8 w-8 text-xs" /><a href="{{ route('voices.show', $p['slug']) }}">{{ $p['name'] }}</a></li>@endforeach</ul>
+                <ul class="mt-2 space-y-2">@foreach($peers as $p)<li class="flex items-center gap-2"><x-site.initials :name="$p['name']" :voice="$p" size="h-9 w-9 text-xs" /><a href="{{ route('voices.show', $p['slug']) }}">{{ $p['name'] }}</a></li>@endforeach</ul>
             </div>
             @endif
             <p class="meta">Something wrong or out of date, or want a profile removed? <a href="{{ route('contribute') }}">Tell us</a>.</p>

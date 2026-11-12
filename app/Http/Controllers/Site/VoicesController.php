@@ -53,10 +53,16 @@ class VoicesController extends Controller
             'worksFor' => ['@type' => 'Organization', 'name' => $voice['organisation']],
             'sameAs' => [$voice['official_profile_url']],
             'url' => route('voices.show', $slug),
+            // The photo with its licence and author, as image search asks for an openly licensed image.
+            'image' => ($photo = VoiceCatalog::photoUrl($voice)) ? array_filter([
+                '@type' => 'ImageObject', 'contentUrl' => $photo, 'license' => $voice['photo']['license_url'] ?: $voice['photo']['source_url'],
+                'acquireLicensePage' => $voice['photo']['source_url'], 'creditText' => $voice['photo']['author'] ?: null, 'creator' => $voice['photo']['author'] ? ['@type' => 'Person', 'name' => $voice['photo']['author']] : null,
+            ]) : null,
         ]);
         $seo = Seo::make($voice['name'].': '.$voice['role'], PageTitle::description($voice['summary']), route('voices.show', $slug))
             ->withBreadcrumbs([['Home', route('home')], ['AI Voices', route('voices.index')], [$voice['name'], route('voices.show', $slug)]])
             ->withModified($checked)
+            ->withCard('voice', $slug, hash('crc32b', json_encode($voice)))
             ->withPageType('ProfilePage', ['mainEntity' => $person]);
 
         return view('site.voices.show', compact('seo', 'voice', 'jurisdiction', 'policies', 'peers', 'checked'));
