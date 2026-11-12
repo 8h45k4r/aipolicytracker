@@ -95,4 +95,20 @@ class RuntimeReliabilityTest extends TestCase
         $this->assertStringContainsString('stop_grace_period: 30s', file_get_contents(base_path('deploy/compose.yml')));
         $this->assertStringContainsString('docker tag aip-app:rollback aip-app:latest', file_get_contents(base_path('deploy/remote-deploy.sh')));
     }
+
+    /**
+     * A release that adds or changes a template serves it once the container starts: the
+     * template build runs after the record import in the background start-up, not only in
+     * the nightly schedule (the old host deploy script did this; the container did not).
+     */
+    public function test_the_container_builds_templates_after_importing_the_records(): void
+    {
+        $entrypoint = file_get_contents(base_path('docker/entrypoint.sh'));
+        $import = strpos($entrypoint, '  php artisan policy:import ');
+        $build = strpos($entrypoint, '  php artisan templates:build ');
+        $lock = strpos($entrypoint, ') 9>/tmp/aip-import.lock &');
+        $this->assertNotFalse($build, 'the start-up builds templates');
+        $this->assertTrue($import < $build && $build < $lock, 'after the record import, inside the locked background block');
+        $this->assertStringContainsString('templates:build || echo "WARNING', $entrypoint, 'a failed build does not stop the container');
+    }
 }

@@ -36,7 +36,7 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# The record imports do not qualify. policy:import rebuilds ~200 records and
+# The record imports (and the template build that follows them) do not qualify. policy:import rebuilds ~200 records and
 # external:import rebuilds roughly 1,700 incidents, 6,400 reports and 2,500
 # risks, which together took over a minute on the current host. Running them
 # above the exec line put that minute in front of the listener on every restart,
@@ -62,6 +62,11 @@ php artisan view:cache
     echo "NOTE: flock unavailable in this image; importing without a lock"
   fi
   php artisan policy:import   || echo "WARNING: policy:import failed; serving previous records"
+  # Templates are generated from the records just imported. Without this a template added
+  # or changed by a release waited for the nightly build (up to a day after the deploy);
+  # the old host deploy script ran it on every deploy. Only templates whose content changed
+  # get a new version, so an unchanged release builds nothing.
+  php artisan templates:build || echo "WARNING: templates:build failed; serving previous template versions"
   php artisan external:import || echo "WARNING: external:import failed; serving previous records"
 ) 9>/tmp/aip-import.lock &
 imports=$!

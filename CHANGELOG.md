@@ -168,6 +168,8 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- A template added or changed in a release is published as soon as the release starts, instead of at the
+  next nightly build.
 - The deadline calendar (`/calendar`) now opens with the answer: the next recorded AI compliance
   deadline and how many fall in the next twelve months. Upcoming dates are listed by year, each with its
   official source and review status, and dates from the last 180 days stay listed as recently passed. The
