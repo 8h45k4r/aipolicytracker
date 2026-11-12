@@ -252,6 +252,7 @@ Route::get('/templates/feed', [TemplateController::class, 'feed'])->withoutMiddl
 // One landing page per framework or type ("EU AI Act templates"); only those with enough
 // templates exist (TemplateCatalog::facets), the rest 404.
 Route::get('/templates/{facet}/{key}', [TemplateController::class, 'facet'])->whereIn('facet', ['framework', 'type'])->where('key', '[a-z0-9-]+')->name('templates.facet');
+Route::get('/templates/{slug}.md', [AgentSurfaceController::class, 'template'])->where('slug', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('templates.context');
 Route::get('/templates/{slug}', [TemplateController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('templates.show');
 Route::post('/templates/{slug}/request', [TemplateController::class, 'requestDownload'])->where('slug', '[a-z0-9-]+')->middleware('throttle:10,1')->name('templates.request');
 Route::get('/templates/{slug}/download', [TemplateController::class, 'download'])->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1')->name('templates.download');
@@ -270,6 +271,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/guides/tools/{slug}/ready/{download}', [FreeToolController::class, 'ready'])->where('slug', '[a-z0-9-]+')->name('tools.ready');
     Route::get('/guides/tools/{slug}/file/{download}/{file}', [FreeToolController::class, 'file'])->where(['slug' => '[a-z0-9-]+', 'file' => '[a-z0-9.-]+'])->middleware('signed')->name('tools.file');
 });
+// Markdown copies for assistants and answer engines (noindex, canonical to the page), like the record .md files.
+Route::get('/guides/{slug}.md', [AgentSurfaceController::class, 'guide'])->where('slug', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('guides.context');
 Route::get('/guides/{slug}', [LandingController::class, 'guide'])->name('guides.show');
 // Country and regional hubs: /ai-regulation-<country> is the jurisdiction page at its
 // canonical address (the /jurisdictions/<slug> address redirects); /ai-regulation-<region>

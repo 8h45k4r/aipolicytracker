@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class NegotiateMarkdown
 {
-    private const RECORD_PATH = '#^/(policies|jurisdictions|obligations|controls|changes)/[a-z0-9][a-z0-9-]*$#';
+    private const RECORD_PATH = '#^/(policies|jurisdictions|obligations|controls|changes|guides|templates)/[a-z0-9][a-z0-9-]*$#';
 
     private const ALTERNATE_LINK = '#<link rel="alternate" type="text/markdown" href="([^"<>\s]+)">#';
 

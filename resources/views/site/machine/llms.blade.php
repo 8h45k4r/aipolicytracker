@@ -51,8 +51,9 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Free AI self-assessments ({{ \App\Services\Assessments\AssessmentCatalog::all()->count() }} questionnaires on Certifyi, a related product: EU AI Act readiness, risk classification, FRIA, ISO/IEC 42001, NIST AI RMF, US state AI laws, LLM security, AI governance; score by domain, no account): {{ route('assessments.index') }}
 - Guides: {{ route('guides.index') }}
 @foreach(config('content.guides') as $gslug => $g)
-  - [{{ $g['h1'] }}]({{ route('guides.show', $gslug) }})
+  - [{{ $g['h1'] }}]({{ route('guides.show', $gslug) }}) (Markdown: {{ route('guides.context', $gslug) }}{{ isset($g['updated']) ? '; text updated '.$g['updated'] : '' }})
 @endforeach
+- Every template page also has a Markdown copy at its URL plus `.md` (what the file holds, the laws and duties it is built from, its version), e.g. {{ route('templates.context', 'ai-risk-register') }}
 - Templates by framework and type: @foreach(\App\Services\Templates\TemplateCatalog::facets() as $f){{ $f['label'] }} {{ $f['url'] }}@if(!$loop->last), @endif @endforeach
 - About, maintainers and references: {{ route('about') }}
 - People: maintainer, research contributors and advisors, with the independence note: {{ route('team') }}

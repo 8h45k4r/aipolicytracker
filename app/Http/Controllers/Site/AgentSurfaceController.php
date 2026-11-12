@@ -10,6 +10,7 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\Completeness\CompletenessReport;
 use App\Services\MachineReadable\BulkExport;
+use App\Services\MachineReadable\EditorialContext;
 use App\Services\MachineReadable\RecordContext;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Verification\VerificationPolicy;
@@ -169,6 +170,24 @@ class AgentSurfaceController extends Controller
             'notice' => 'Records are structured summaries with links to official texts, not legal advice. A record whose review status is not "verified" has not been confirmed against its official source by a named reviewer.',
             'licence' => config('aipolicytracker.data_license_url'),
         ], 200, ['Cache-Control' => 'public, max-age=900', 'Access-Control-Allow-Origin' => '*'], JSON_UNESCAPED_SLASHES);
+    }
+
+    /** A guide as Markdown: its text, the records it rests on with their review state, its dates. */
+    public function guide(string $slug, EditorialContext $context): Response
+    {
+        $body = $context->guide($slug);
+        abort_if($body === null, 404);
+
+        return $this->markdown($body, $slug, route('guides.show', $slug));
+    }
+
+    /** A template page as Markdown: what the file holds, the laws and duties it is built from, its version. */
+    public function template(string $slug, EditorialContext $context): Response
+    {
+        $body = $context->template($slug);
+        abort_if($body === null, 404);
+
+        return $this->markdown($body, $slug, route('templates.show', $slug));
     }
 
     /**

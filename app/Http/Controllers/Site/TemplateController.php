@@ -221,6 +221,7 @@ class TemplateController extends Controller
             ->withPublished($first?->generated_at)
             ->withFeed(route('templates.feed'))
             ->withAlternate('application/json', route('api.v1.template', $slug))
+            ->withAlternate('text/markdown', route('templates.context', $slug))
             // The page is about one document: an item page whose main entity is the file.
             ->withPageType('ItemPage', ['name' => $meta['title'], 'mainEntity' => $document])
             ->withFaq(array_map(fn ($q) => ['question' => $q[0], 'answer' => $q[1]], $faq));

@@ -222,6 +222,8 @@ return [
     'guides' => [
         'ai-startup-eu-ai-act-readiness' => [
             'h1' => 'EU AI Act readiness for AI startups: the 90-day path from inventory to evidence',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-09-11', 'updated' => '2026-10-02',
             'title' => 'EU AI Act readiness for startups: a 90-day path',
             'description' => 'The EU AI Act already applies to prohibited practices, AI literacy, general-purpose models and, since 2 August 2026, Article 50 transparency; after the 2026 Digital Omnibus, the high-risk obligations apply from 2 December 2027 (Annex III) and 2 August 2028 (Annex I products). This guide turns those dates into a 90-day path: decide your role, screen banned uses, classify risk, plan the high-risk workstreams and build the evidence pack customers and regulators will ask for, with every step linked to the recorded obligation.',
             'summary' => 'Most startups are providers without knowing it. In 90 days: role, prohibited-use screen, risk classification, high-risk workstreams and an evidence pack, each step linked to the recorded obligation and its deadline.',
@@ -241,6 +243,8 @@ return [
         ],
         'ai-governance-for-startups' => [
             'h1' => 'AI governance for startups: the four artefacts every buyer and regulator asks for',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-09-11', 'updated' => '2026-10-02',
             'title' => 'AI governance for startups: the four artefacts',
             'description' => 'Enterprise buyers, insurers and regulators ask small AI teams for the same four things: an AI system inventory, a risk register, a written policy and an incident process. This guide shows how to produce them in weeks, not quarters, using obligations recorded across the EU, US, UK, Singapore and Australia and the free templates on this site.',
             'summary' => 'Skip the year-long programme. Build the four artefacts procurement, insurers and regulators actually request (inventory, risk register, policy, incident process) with free templates and recorded obligations.',
@@ -258,6 +262,8 @@ return [
         ],
         'iso-42001-vs-eu-ai-act' => [
             'h1' => 'ISO/IEC 42001 vs the EU AI Act: what certification proves and what it does not',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-09-11', 'updated' => '2026-09-22',
             'title' => 'ISO/IEC 42001 vs EU AI Act: clause-by-obligation crosswalk',
             'description' => 'Certification against ISO/IEC 42001 is not a presumption of conformity with the EU AI Act. This original crosswalk maps each recorded EU AI Act obligation to the management-system clauses that help meet it, marks the gaps the standard cannot close (conformity assessment, registration, transparency duties) and tells CISOs and compliance leads how to use the two together.',
             'summary' => 'Certification is not conformity. An obligation-by-clause crosswalk that shows where ISO/IEC 42001 helps with the EU AI Act, where it stops, and how CISOs should use both.',
@@ -276,6 +282,8 @@ return [
         ],
         'nist-ai-rmf-vs-eu-ai-act' => [
             'h1' => 'NIST AI RMF vs the EU AI Act: turning a voluntary framework into legal evidence',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-09-11', 'updated' => '2026-10-02',
             'title' => 'NIST AI RMF vs EU AI Act: functions mapped to duties',
             'description' => 'US teams built on the NIST AI Risk Management Framework face binding EU AI Act obligations the moment their systems reach EU users. This crosswalk maps Govern, Map, Measure and Manage to the recorded obligations, shows which framework outputs count as evidence and which legal duties the framework never mentions.',
             'summary' => 'Built on NIST AI RMF and selling into Europe? See which Govern, Map, Measure and Manage outputs count as EU AI Act evidence, and which binding duties the framework never covers.',
@@ -293,6 +301,8 @@ return [
         ],
         'eu-ai-act-digital-omnibus-new-deadlines' => [
             'h1' => 'EU AI Act after the Digital Omnibus: the new 2026 to 2028 deadlines',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'EU AI Act Digital Omnibus: new 2026-2028 deadlines',
             'description' => 'Regulation (EU) 2026/1744 moved the EU AI Act high-risk duties to 2 December 2027 (Annex III) and 2 August 2028 (Annex I products), added two prohibitions from 2 December 2026 and left Article 50 transparency at 2 August 2026. What applies now, what moved, and how to re-plan.',
             'summary' => 'What the Digital Omnibus changed: high-risk duties move to December 2027 and August 2028, two new bans from December 2026, and Article 50 transparency still applies from August 2026.',
@@ -316,6 +326,8 @@ return [
         ],
         'colorado-ai-act-repeal-sb-26-189' => [
             'h1' => 'Colorado AI Act repealed: what SB 26-189 requires from 2027',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'Colorado AI Act repealed: what SB 26-189 requires',
             'description' => 'Colorado repealed its AI Act (SB 24-205) on 14 May 2026, before it took effect, and replaced it with SB 26-189 on automated decision-making technology, applying from 1 January 2027: advance notice, adverse-decision disclosure, human review, three-year records and developer documentation.',
             'summary' => 'Colorado\'s 2024 AI Act never took effect. SB 26-189 replaces it from 1 January 2027 with narrower duties: notice, adverse-decision disclosure, human review, records and developer documentation.',
@@ -339,6 +351,8 @@ return [
         ],
         'us-state-ai-laws-2026' => [
             'h1' => 'US state AI laws in force in 2026, and what starts in 2027',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'US state AI laws in 2026 and 2027: what applies',
             'description' => 'There is no general federal AI statute. AI duties in the US come from state laws such as Texas TRAIGA, Illinois HB 3773 and Utah\'s AI Policy Act, California SB 53, NYC Local Law 144, and from 2027 Colorado SB 26-189 and New York\'s RAISE Act. Status, dates and duties, as recorded.',
             'summary' => 'No general federal AI law: the duties come from the states. Texas, Illinois, Utah, California and NYC rules already apply; Colorado and New York\'s RAISE Act follow in 2027.',
@@ -361,6 +375,8 @@ return [
         ],
         'ai-hiring-compliance-laws' => [
             'h1' => 'AI in hiring: NYC Local Law 144, Illinois, Colorado and the EU AI Act',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'AI in hiring laws: NYC LL144, Illinois, EU AI Act',
             'description' => 'Using AI to screen, rank or score candidates triggers bias audits and notices in New York City, anti-discrimination and notice duties in Illinois, job-posting disclosure in Ontario, Colorado\'s automated-decision duties from 2027, and high-risk duties under the EU AI Act. A practical checklist.',
             'summary' => 'AI hiring tools carry the most specific rules on record: NYC bias audits and notices, Illinois, Ontario job postings, Colorado from 2027 and the EU AI Act high-risk regime.',
@@ -384,6 +400,8 @@ return [
         ],
         'california-ai-laws-2026' => [
             'h1' => 'California AI laws in 2026: SB 53, companion chatbots, SB 1050 and AI audits',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'California AI laws 2026: SB 53, chatbots, SB 1050',
             'description' => 'California\'s AI rules as recorded: SB 53 frontier AI transparency in force since 1 January 2026, the September 2026 companion-chatbot child-safety package, SB 1050 synthetic-performer ad disclosure from 2027, the SB 813 and AB 1405 auditor framework, and the September executive order.',
             'summary' => 'SB 53 has applied since January 2026. September 2026 added companion-chatbot safeguards, ad disclosure for synthetic performers, an AI auditor registry and an executive order on frontier oversight.',
@@ -406,6 +424,8 @@ return [
         ],
         'ai-content-labelling-disclosure-laws' => [
             'h1' => 'AI disclosure and labelling laws: EU, China, South Korea and the US',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'AI labelling and disclosure laws: EU, China, Korea, US',
             'description' => 'When must you tell people they are dealing with AI, and how must AI-generated content be marked? The EU AI Act Article 50, China\'s labelling measures, South Korea\'s AI Basic Act, Utah and Texas disclosure rules and California SB 1050, compared, with one design that meets them.',
             'summary' => 'Chatbot disclosure, machine-readable marking and deepfake labels are now law in the EU, China and South Korea, with US state rules on top. What each asks, and one design that meets them all.',
@@ -427,6 +447,8 @@ return [
         ],
         'frontier-ai-laws-sb-53-raise-act' => [
             'h1' => 'Frontier AI laws: California SB 53, New York\'s RAISE Act and EU systemic-risk duties',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'Frontier AI laws: California SB 53 vs New York RAISE',
             'description' => 'Developers of the most capable AI models face published safety frameworks, transparency reports, incident reporting and whistleblower protection under California SB 53 (since January 2026), New York\'s RAISE Act (from January 2027) and the EU AI Act duties for systemic-risk models.',
             'summary' => 'SB 53, the RAISE Act and the EU systemic-risk duties ask frontier developers for the same core set: a published safety framework, incident reporting, transparency and protection for whistleblowers.',
@@ -449,6 +471,8 @@ return [
         ],
         'south-korea-ai-basic-act-compliance' => [
             'h1' => 'South Korea\'s AI Basic Act: what foreign companies must do',
+            // First published and last text edit, from the repository history. Change 'updated' when the text changes.
+            'published' => '2026-10-02', 'updated' => '2026-10-02',
             'title' => 'South Korea AI Basic Act: compliance for foreign firms',
             'description' => 'South Korea\'s Framework Act on AI has applied since 22 January 2026, including to foreign operators. Advance notice and labelling for generative and high-impact AI, safety measures above a compute threshold, high-impact duties, impact assessment and a domestic representative, duty by duty.',
             'summary' => 'In force since January 2026 and reaching foreign operators: notice and labelling, safety measures above a compute threshold, high-impact AI duties, impact assessment and a Korean representative.',

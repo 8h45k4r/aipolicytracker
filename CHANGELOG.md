@@ -27,6 +27,20 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- AI Companion Chatbot Safety Kit (`/templates/companion-chatbot-safety-kit`) contains:
+  - not-human notices, minor safeguards, a crisis protocol and a publication procedure to adapt;
+  - a disclosure schedule and a crisis referral log;
+  - every companion-chatbot law on record. Laws whose duties are not yet recorded (California SB 243 and
+    SB 1119, Connecticut SB 5) are listed rather than guessed.
+
+  Washington ESHB 2225 now carries five duties and New York General Business Law Article 47 two, read
+  from the official texts. They are pending review.
+- Guides and template pages have a Markdown copy at their URL plus `.md`, also served to a client that
+  asks for `text/markdown`. Each copy carries a canonical link to the page and is not indexed. Guides
+  state when they were published and last edited, and how many of the records they rest on are verified.
+- Upcoming public meetings and hearings on AI on `/calendar`, collected from official Federal Register
+  notices. Each is listed by the first full date in the notice's own words, which are shown beside it, and
+  is kept apart from reviewed entries until a reviewer confirms it.
 - Open consultations and comment deadlines on `/calendar`: AI comment periods collected each day from the US
   Federal Register's own API, listed by the date comments close. Entries a reviewer has confirmed against
   the official page are listed apart from those collected automatically, which are labelled as not yet

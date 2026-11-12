@@ -14,6 +14,7 @@ use App\Support\ContentDates;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
 /**
@@ -123,6 +124,8 @@ class LandingController extends Controller
             'Practical, source-backed guides plus free AI system inventory, risk register, EU AI Act readiness and incident response templates mapped to the EU AI Act, ISO/IEC 42001 and the NIST AI RMF.',
             route('guides.index')
         )->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')]])
+            // The newest text edit among the guides listed.
+            ->withModified(collect(config('content.guides'))->pluck('updated')->filter()->map(fn ($d) => Carbon::parse($d))->max())
             ->withPageType('CollectionPage', [
                 'name' => 'Guides and free tools',
                 'mainEntity' => Seo::itemList(
@@ -155,15 +158,26 @@ class LandingController extends Controller
                 ->when(! empty($page['framework_jurisdiction']), fn ($q) => $q->whereHas('policyInstrument.jurisdiction', fn ($j) => $j->where('slug', $page['framework_jurisdiction'])))
                 ->orderBy('sort_order')->get()
             : collect();
-        // The guide's facts come from these records, so it is as new as the newest of them.
-        $lastModified = $policies->map(fn ($p) => ContentDates::forPolicy($p))->concat($obligations->map(fn ($o) => ContentDates::forRecord($o, 'obligation')))->filter()->max();
+        // Two dates a reader can check: when the guide's own text was published and last edited
+        // (config, from the repository history), and when the records it is built from last
+        // changed. The page is as new as the newer of the two.
+        $recordsChanged = $policies->map(fn ($p) => ContentDates::forPolicy($p))->concat($obligations->map(fn ($o) => ContentDates::forRecord($o, 'obligation')))->filter()->max();
+        $published = isset($page['published']) ? Carbon::parse($page['published']) : null;
+        $textUpdated = isset($page['updated']) ? Carbon::parse($page['updated']) : null;
+        $lastModified = collect([$recordsChanged, $textUpdated])->filter()->max();
+        $records = $policies->concat($obligations);
+        $provenance = ['records' => $records->count(), 'verified' => $records->filter(fn ($r) => $r->isVerified())->count(), 'changed' => $recordsChanged, 'published' => $published, 'updated' => $textUpdated];
 
         $seo = Seo::make($page['title'], $page['description'], route('guides.show', $slug))
             ->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')], [$page['h1'], route('guides.show', $slug)]])
             ->withModified($lastModified)
+            ->withPublished($published)
             ->withOgType('article')
+            ->withAlternate('text/markdown', route('guides.context', $slug))
             ->withPageType('Article', array_filter([
                 'headline' => $page['h1'],
+                // The records the guide is built from, so an answer engine can follow its facts to their sources.
+                'isBasedOn' => $records->map(fn ($r) => $r->url())->values()->all() ?: null,
                 'author' => ['@id' => url('/').'#organization'],
                 // The laws the guide is about, as the records name them.
                 'about' => $policies->map(fn ($p) => ['@type' => $p->is_binding ? 'Legislation' : 'CreativeWork', 'name' => $p->short_title ?: $p->title, 'url' => $p->url()])->values()->all() ?: null,
@@ -174,6 +188,6 @@ class LandingController extends Controller
             $seo->withJsonLd(['@type' => 'FAQPage', 'mainEntity' => collect($page['faq'])->map(fn ($f) => ['@type' => 'Question', 'name' => $f['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['answer']]])->values()->all()]);
         }
 
-        return view('site.guides.show', compact('seo', 'page', 'slug', 'policies', 'obligations', 'frameworkObligations', 'templates'));
+        return view('site.guides.show', compact('seo', 'page', 'slug', 'policies', 'obligations', 'frameworkObligations', 'templates', 'provenance'));
     }
 }

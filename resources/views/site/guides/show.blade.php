@@ -4,6 +4,20 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-navy">{{ $page['h1'] }}</h1>
     <p class="mt-3 max-w-3xl prose-policy text-base">{{ $page['summary'] }}</p>
+    @php($pv = $provenance)
+    <p class="mt-2 meta" data-provenance>
+        @if($pv['published'])
+        Published <time datetime="{{ $pv['published']->toDateString() }}">{{ $pv['published']->format('j F Y') }}</time>
+        @endif
+        @if($pv['updated'] && (! $pv['published'] || $pv['updated']->gt($pv['published'])))
+        · text updated <time datetime="{{ $pv['updated']->toDateString() }}">{{ $pv['updated']->format('j F Y') }}</time>
+        @endif
+        @if($pv['records'] > 0)
+        · built from {{ $pv['records'] }} {{ \Illuminate\Support\Str::plural('record', $pv['records']) }}, {{ $pv['verified'] }} verified by a named reviewer{{ $pv['changed'] ? ', last changed' : '' }}
+        @if($pv['changed'])<time datetime="{{ $pv['changed']->toDateString() }}">{{ $pv['changed']->format('j F Y') }}</time>@endif
+        · <a href="{{ route('verification') }}">how records are verified</a>
+        @endif
+    </p>
     <div class="mt-3 flex flex-wrap items-center gap-3 text-sm"><button type="button" data-copy-link class="text-brand-blue hover:text-brand-navy">Copy link</button><button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button></div>
     <div class="mt-8 grid gap-10 lg:grid-cols-3">
         <div class="lg:col-span-2 min-w-0">
