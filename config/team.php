@@ -57,6 +57,20 @@ return [
                 ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/joyce-loksee-ho-23526099'],
             ],
         ],
+        [
+            // From his own profile page (yagyapandeya.github.io, read 12 November 2026), in the third person.
+            'slug' => 'yagya-raj-pandeya',
+            'name' => 'Yagya Raj Pandeya, Ph.D.',
+            'role' => 'AI Governance Research Contributor',
+            'bio' => 'Yagya Raj Pandeya is an Assistant Professor in the Department of Artificial Intelligence at Kathmandu University, where he leads the Artificial Intelligence and Smart Systems Research (AISSR) Laboratory, which works on applications of AI in agriculture, healthcare, disaster management and cultural preservation. He holds a Ph.D. in AI from Jeonbuk National University, South Korea, where he was also a postdoctoral researcher. Since July 2024 he has been a member of the National AI Policy development team at Nepal\'s Ministry of Communication and Information Technology, and he leads the team developing the National AI Strategy for the Government of Nepal.',
+            'photo' => 'yagya-raj-pandeya.jpg',
+            'links' => [
+                ['label' => 'Website', 'url' => 'https://yagyapandeya.github.io/'],
+                ['label' => 'Google Scholar', 'url' => 'https://scholar.google.com/citations?user=EYFaLysAAAAJ'],
+                ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/yagya-pandeya-b4947116b/'],
+                ['label' => 'ORCID', 'url' => 'https://orcid.org/0000-0002-9842-8704'],
+            ],
+        ],
     ],
 
     // Advisors act in an independent capacity. Each entry: slug, name,
