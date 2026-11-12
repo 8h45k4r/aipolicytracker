@@ -15,7 +15,6 @@ Route::middleware(['auth', 'admin.2fa'])->group(function () {
 });
 
 Route::redirect('/map', '/', 301);
-Route::redirect('/news', '/changes', 301);
 Route::redirect('/timeline', '/changes', 301);
 Route::redirect('/bookmarks', '/changes', 301);
 Route::redirect('/gov-ai-index/assesment', '/tools/applicability-check', 301);
