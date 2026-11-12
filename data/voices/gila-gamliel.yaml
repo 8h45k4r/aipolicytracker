@@ -22,6 +22,13 @@ sources:
   - { title: "Horizon Scanning Forum 2026", publisher: "Ministry of Innovation, Science and Technology, Israel", url: "https://www.gov.il/en/pages/horizon-scanning", accessed: "2026-11-12" }
   - { title: "National Priority Areas in Science and Technology: Artificial Intelligence", publisher: "Ministry of Innovation, Science and Technology, Israel", url: "https://www.gov.il/BlobFolder/news/most-news20250422/he/translated-ai-report%20-final.pdf", accessed: "2026-11-12" }
   - { title: "Israel Signs Groundbreaking Global AI Treaty", publisher: "Ministry of Innovation, Science and Technology, Israel", url: "https://www.gov.il/en/pages/ai2024", accessed: "2026-11-12" }
+photo:
+  file: "gila-gamliel.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Gila_Gamliel_1.jpg"
+  license: "CC BY-SA 3.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/3.0"
+  author: "Haim Zach"
+  wikidata: "Q445611"
 published: true
 review_status: pending_review
 reviewed_by: null

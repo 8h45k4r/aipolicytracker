@@ -21,6 +21,13 @@ sources:
   - { title: "Press release on the conclusion of the first AI sandbox (June 2026)", publisher: "Ministerio para la Transformación Digital y de la Función Pública", url: "https://digital.gob.es/en/comunicacion/notas-prensa/secretaria-digitalizacion-e-inteligencia-artificial/2026/06/el-gobierno-concluye-con-exito-el-primer-sandbox-de-inteligencia", accessed: "2026-11-12" }
   - { title: "Press release on EUR 40 million for AI models (September 2026)", publisher: "Ministerio para la Transformación Digital y de la Función Pública", url: "https://digital.gob.es/comunicacion/notas-prensa/secretaria-digitalizacion-e-inteligencia-artificial/2026/09/el-gobierno-movilizara-40-millones-de-euros-para-impulsar-el-des", accessed: "2026-11-12" }
   - { title: "La AESIA, con las empresas para convertir la IA en un motor de competitividad e innovación responsable", publisher: "AESIA", url: "https://aesia.digital.gob.es/es/actualidad/20261020-la-aesia-con-las-empresas-para-convertir-la-ia-en-un-motor-de-competitividad-e-innovacion-responsable", accessed: "2026-11-12" }
+photo:
+  file: "maria-gonzalez-veracruz.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Mar%C3%ADa_Gonz%C3%A1lez_Veracruz_(2012)_(cropped).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Alfredo Pérez Rubalcaba"
+  wikidata: "Q5997280"
 published: true
 review_status: pending_review
 reviewed_by: null

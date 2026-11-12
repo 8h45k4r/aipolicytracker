@@ -19,6 +19,13 @@ official_profile_url: "https://www.risa.gov.rw/news-detail/rwanda-takes-its-ai-a
 sources:
   - { title: "Rwanda takes its AI ambitions to Dreamforce 2026", publisher: "Rwanda Information Society Authority", url: "https://www.risa.gov.rw/news-detail/rwanda-takes-its-ai-ambitions-to-dreamforce-2026", accessed: "2026-11-12" }
   - { title: "The National AI Policy", publisher: "Ministry of ICT and Innovation, Rwanda", url: "https://www.minict.gov.rw/fileadmin/user_upload/minict_user_upload/Documents/Policies/Artificial_Intelligence_Policy.pdf", accessed: "2026-11-12" }
+photo:
+  file: "paula-ingabire.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Paula_Ingabire_(cropped).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "ITU Pictures from Geneva, Switzerland"
+  wikidata: "Q57531804"
 published: true
 review_status: pending_review
 reviewed_by: null

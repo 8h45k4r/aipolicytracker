@@ -23,6 +23,13 @@ sources:
   - { title: "Bill Status - SB-243 Companion chatbots", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB243", accessed: "2026-11-12" }
   - { title: "Bill Status - SB-1119 Companion chatbots: children's safety", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1119", accessed: "2026-11-12" }
   - { title: "Governor Newsom signs the strongest child safety chatbot and social media laws in the nation", publisher: "Office of the Governor of California", url: "https://www.gov.ca.gov/2026/09/10/governor-newsom-signs-the-strongest-child-safety-chatbot-and-social-media-laws-in-the-nation/", accessed: "2026-11-12" }
+photo:
+  file: "steve-padilla.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Steve_Padilla,_2023.jpg"
+  license: "Public domain"
+  license_url: null
+  author: "Lorie Leilani Shelley, California Senate Rules"
+  wikidata: "Q18275390"
 published: true
 review_status: pending_review
 reviewed_by: null

@@ -22,6 +22,13 @@ sources:
   - { title: "Ministry Leadership", publisher: "Ministry of Information, Communications and the Digital Economy, Kenya", url: "https://ict.go.ke/ministry-leadership", accessed: "2026-11-12" }
   - { title: "Official Launch of Three Digital Hubs in OlKalou Constituency", publisher: "Ministry of Information, Communications and the Digital Economy, Kenya", url: "https://www.ict.go.ke/official-launch-three-digital-hubs-olkalou-constituency", accessed: "2026-11-12" }
   - { title: "Kenya AI and other Emerging Technologies Policy, 2026 (draft)", publisher: "Ministry of Information, Communications and the Digital Economy, Kenya", url: "https://ict.go.ke/sites/default/files/AI%20Policy%20Doc/draft-kenya-ai-and-emerging-technologies-policy-2026.pdf", accessed: "2026-11-12" }
+photo:
+  file: "william-kabogo-gitau.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:William_Kabogo_Gitau.jpg"
+  license: "CC BY-SA 4.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/4.0"
+  author: "TWPHistorian"
+  wikidata: "Q8013849"
 published: true
 review_status: pending_review
 reviewed_by: null

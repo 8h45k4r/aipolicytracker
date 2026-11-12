@@ -17,6 +17,13 @@ statements: []
 official_profile_url: "https://www.gov.uk/government/news/ai-to-power-change-at-the-heart-of-government-as-lord-vallance-appointed-chair-of-new-pm-ai-taskforce"
 sources:
   - { title: "AI to power change at the heart of government as Lord Vallance appointed chair of new PM AI Taskforce", publisher: "UK Government", url: "https://www.gov.uk/government/news/ai-to-power-change-at-the-heart-of-government-as-lord-vallance-appointed-chair-of-new-pm-ai-taskforce", accessed: "2026-11-12" }
+photo:
+  file: "lord-vallance.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Portrait_of_Lord_Patrick_Vallance._(54841243168).jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "Department for Science, Innovation and Technology"
+  wikidata: "Q29643725"
 published: true
 review_status: pending_review
 reviewed_by: null

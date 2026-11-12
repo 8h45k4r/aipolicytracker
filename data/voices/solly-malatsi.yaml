@@ -25,6 +25,13 @@ sources:
   - { title: "Minister announces withdrawal of draft AI Policy", publisher: "SAnews (Government Communication and Information System)", url: "https://www.sanews.gov.za/south-africa/minister-announces-withdrawal-draft-ai-policy", accessed: "2026-11-12" }
   - { title: "Cabinet approves withdrawal of AI policy", publisher: "SAnews (Government Communication and Information System)", url: "https://www.sanews.gov.za/south-africa/cabinet-approves-withdrawal-ai-policy", accessed: "2026-11-12" }
   - { title: "Notice 3978 of 2026", publisher: "Government Gazette (DCDT)", url: "https://www.gov.za/sites/default/files/gcis_document/202606/54840gen3978.pdf", accessed: "2026-11-12" }
+photo:
+  file: "solly-malatsi.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Solly_Malatsi_2024.jpg"
+  license: "CC BY-SA 3.0 za"
+  license_url: "https://creativecommons.org/licenses/by-sa/3.0/za/deed.en"
+  author: "Staff photographer in the employ of the Democratic Alliance"
+  wikidata: "Q47529927"
 published: true
 review_status: pending_review
 reviewed_by: null

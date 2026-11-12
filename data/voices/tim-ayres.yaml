@@ -23,6 +23,13 @@ sources:
   - { title: "Establishment of Australian AI Safety Institute", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/ministers/timayres/media-releases/establishment-australian-ai-safety-institute", accessed: "2026-11-12" }
   - { title: "Keynote to the AFR AI Summit", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/ministers/timayres/speeches/keynote-afr-ai-summit", accessed: "2026-11-12" }
   - { title: "Australia's AI Safety Institute", publisher: "Department of Industry, Science and Resources", url: "https://www.industry.gov.au/science-technology-and-innovation/technology/artificial-intelligence/ai-safety-institute", accessed: "2026-11-12" }
+photo:
+  file: "tim-ayres.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Tim_Ayres_Official_Portrait_(cropped).jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "(AUSPIC/DFAT)"
+  wikidata: "Q64152293"
 published: true
 review_status: pending_review
 reviewed_by: null

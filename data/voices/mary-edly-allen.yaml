@@ -20,6 +20,13 @@ official_profile_url: "https://www.ilga.gov/House/Members/Details/3407"
 sources:
   - { title: "Mary Edly-Allen (D) - 104th General Assembly (2025-2026)", publisher: "Illinois General Assembly", url: "https://www.ilga.gov/House/Members/Details/3407", accessed: "2026-11-12" }
   - { title: "Bill Status of SB 315 (104th General Assembly)", publisher: "Illinois General Assembly", url: "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&DocTypeID=SB&GA=104&GAID=18&SessionID=114", accessed: "2026-11-12" }
+photo:
+  file: "mary-edly-allen.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:(4-27-25)_Mary_Edly-Allen.jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Paul Goyette"
+  wikidata: "Q59160132"
 published: true
 review_status: pending_review
 reviewed_by: null

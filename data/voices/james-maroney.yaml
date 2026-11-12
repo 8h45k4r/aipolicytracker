@@ -21,6 +21,13 @@ sources:
   - { title: "Governor Lamont Signs Legislation Establishing Youth Online Safety Protections, Regulations Over Artificial Intelligence, and Initiatives to Upskill Connecticut's Workforce", publisher: "Office of the Governor of Connecticut", url: "https://portal.ct.gov/governor/news/press-releases/2026/06-2026/governor-lamont-signs-legislation-establishing-youth-online-safety-protections", accessed: "2026-11-12" }
   - { title: "Bill status, Substitute for SB No. 5 (2026)", publisher: "Connecticut General Assembly", url: "https://www.cga.ct.gov/asp/CGABillStatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB5", accessed: "2026-11-12" }
   - { title: "Substitute Senate Bill No. 5 (Public Act No. 26-15)", publisher: "Connecticut General Assembly", url: "https://www.cga.ct.gov/2026/act/pa/pdf/2026PA-00015-R00SB-00005-PA.pdf", accessed: "2026-11-12" }
+photo:
+  file: "james-maroney.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:James_Maroney_(cropped).jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "Mikeycdiamond"
+  wikidata: "Q106705750"
 published: true
 review_status: pending_review
 reviewed_by: null

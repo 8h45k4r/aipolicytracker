@@ -23,6 +23,13 @@ sources:
   - { title: "The Honourable Evan Solomon", publisher: "Government of Canada", url: "https://www.canada.ca/en/government/ministers/evan-solomon.html", accessed: "2026-11-12" }
   - { title: "The Honourable Evan Solomon - Member of Parliament", publisher: "House of Commons of Canada", url: "https://www.ourcommons.ca/members/en/evan-solomon(123229)", accessed: "2026-11-12" }
   - { title: "AI leadership takes centre stage at ALL IN 2026", publisher: "Innovation, Science and Economic Development Canada", url: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/09/ai-leadership-takes-centre-stage-at-all-in-2026.html", accessed: "2026-11-12" }
+photo:
+  file: "evan-solomon.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Evan_Solomon_at_the_2023_US-Canada_Summit_(52806999641)_(cropped).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Eurasia Group"
+  wikidata: "Q5415550"
 published: true
 review_status: pending_review
 reviewed_by: null

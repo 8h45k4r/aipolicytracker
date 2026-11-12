@@ -24,6 +24,13 @@ sources:
   - { title: "Chief Artificial Intelligence Officer (CAIO)", publisher: "The Official Portal of the UAE Government (u.ae)", url: "https://u.ae/en/about-the-uae/digital-uae/whole-of-government-approach/Chief-Artificial-Intelligence-Officer-CAIO", accessed: "2026-11-12" }
   - { title: "Hamdan bin Mohammed approves new targets for Dubai AI Campus", publisher: "Dubai Media Office", url: "https://mediaoffice.ae/en/news/2026/october/26-10/hamdan-bin-mohammed-approves-new-targets-for-dubai-ai-campus", accessed: "2026-11-12" }
   - { title: "Al Gergawi: UAE leadership's vision positions country as world's leading government in Agentic AI deployment", publisher: "Emirates News Agency (WAM)", url: "https://www.wam.ae/en/article/c0b3dyi-gergawi-uae-leaderships-vision-positions-country", accessed: "2026-11-12" }
+photo:
+  file: "omar-sultan-al-olama.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Omar_Sultan_Al_Olama_at_the_2023_World_Economic_Forum_(cropped).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Foundations World Economic Forum"
+  wikidata: "Q55433162"
 published: true
 review_status: pending_review
 reviewed_by: null

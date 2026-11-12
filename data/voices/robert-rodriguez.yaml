@@ -19,6 +19,13 @@ sources:
   - { title: "Senator Robert Rodriguez", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/legislators/robert-rodriguez", accessed: "2026-11-12" }
   - { title: "SB26-189 Automated Decision-Making Technology", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb26-189", accessed: "2026-11-12" }
   - { title: "Senate Executive Leadership", publisher: "Colorado General Assembly", url: "https://content.leg.colorado.gov/agencies/senate/senate-executive-leadership", accessed: "2026-11-12" }
+photo:
+  file: "robert-rodriguez.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Colorado_State_Senator_Robert_Rodriguez_in_2023.jpg"
+  license: "Public domain"
+  license_url: null
+  author: "Colorado Senate GOP"
+  wikidata: "Q60752194"
 published: true
 review_status: pending_review
 reviewed_by: null

@@ -22,6 +22,13 @@ sources:
   - { title: "Bill Status - SB-53 Artificial intelligence models: large developers", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53", accessed: "2026-11-12" }
   - { title: "Governor Newsom signs SB 53, advancing California's world-leading artificial intelligence industry", publisher: "Office of the Governor of California", url: "https://www.gov.ca.gov/2025/09/29/governor-newsom-signs-sb-53-advancing-californias-world-leading-artificial-intelligence-industry/", accessed: "2026-11-12" }
   - { title: "Senator Wiener Responds To PG&E's Absurd Estimate For San Francisco Buyout", publisher: "Office of Senator Scott Wiener", url: "https://sd11.senate.ca.gov/news/senator-wiener-responds-pges-absurd-estimate-san-francisco-buyout", accessed: "2026-11-12" }
+photo:
+  file: "scott-wiener.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Scott_Wiener.jpg"
+  license: "CC BY-SA 3.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/3.0"
+  author: "Scott Wiener"
+  wikidata: "Q7437504"
 published: true
 review_status: pending_review
 reviewed_by: null

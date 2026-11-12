@@ -23,6 +23,13 @@ sources:
   - { title: "Lebenslauf von Dr. Karsten Wildberger", publisher: "BMDS", url: "https://bmds.bund.de/en/the-ministry/leadership/minister", accessed: "2026-11-12" }
   - { title: "Kabinett beschließt schlanke KI-Aufsicht in Deutschland", publisher: "BMDS", url: "https://bmds.bund.de/aktuelles/pressemitteilungen/detail/kabinett-beschliesst-schlanke-ki-aufsicht-in-deutschland", accessed: "2026-11-12" }
   - { title: "Cyfrowa suwerenność, AI i bezpieczeństwo. Polska na Digital Summit w Berlinie", publisher: "Ministerstwo Cyfryzacji (Poland)", url: "https://www.gov.pl/web/cyfryzacja/cyfrowa-suwerennosc-ai-i-bezpieczenstwo-polska-na-digital-summit-w-berlinie", accessed: "2026-11-12" }
+photo:
+  file: "karsten-wildberger.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Karsten_WILDBERGER_(Federal_Minister_for_Digital_and_State_Modernisation,_Germany).jpg"
+  license: "Attribution"
+  license_url: null
+  author: "© European Union, 1998 – 2025"
+  wikidata: "Q106901329"
 published: true
 review_status: pending_review
 reviewed_by: null

@@ -21,6 +21,13 @@ official_profile_url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2295500
 sources:
   - { title: "Government Strengthens Regulatory Framework to Address AI-Generated Deepfakes", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2295500&reg=48&lang=2", accessed: "2026-11-12" }
   - { title: "In less than 24 months, India AI Mission has Set up a Foundation for Development of AI Ecosystem in the Country", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2227612&reg=48&lang=2", accessed: "2026-11-12" }
+photo:
+  file: "jitin-prasada.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Jitin_Prasada_crop.jpg"
+  license: "GODL-India"
+  license_url: "https://data.gov.in/sites/default/files/Gazette_Notification_OGDL.pdf"
+  author: "Ministry of Textiles"
+  wikidata: "Q290717"
 published: true
 review_status: pending_review
 reviewed_by: null

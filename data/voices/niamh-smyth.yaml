@@ -22,6 +22,13 @@ sources:
   - { title: "Niamh Smyth - DETE", publisher: "Department of Enterprise, Tourism and Employment", url: "https://enterprise.gov.ie/en/who-we-are/ministers/niamh-smyth.html", accessed: "2026-11-12" }
   - { title: "Ministers Burke and Smyth announce landmark progress in AI Act implementation", publisher: "Government of Ireland", url: "https://www.gov.ie/en/department-of-enterprise-tourism-and-employment/press-releases/ireland-leads-the-way-in-eu-ai-regulation/", accessed: "2026-11-12" }
   - { title: "Minister Niamh Smyth calls on businesses to shape Ireland's future AI strategy", publisher: "Department of Enterprise, Tourism and Employment", url: "https://enterprise.gov.ie/en/news-and-events/department-news/2026/july/minister-niamh-smyth-calls-on-businesses-to-shape-ireland-s-future-ai-strategy.html", accessed: "2026-11-12" }
+photo:
+  file: "niamh-smyth.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Niamh_Smyth_(portrait).jpg"
+  license: "Attribution"
+  license_url: null
+  author: "Oireachtas"
+  wikidata: "Q23006341"
 published: true
 review_status: pending_review
 reviewed_by: null

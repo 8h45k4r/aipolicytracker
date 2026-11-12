@@ -23,6 +23,13 @@ sources:
   - { title: "FAQ: Independent International Scientific Panel on AI", publisher: "United Nations", url: "https://www.un.org/independent-international-scientific-panel-ai/en/faq", accessed: "2026-11-12" }
   - { title: "A/RES/79/325", publisher: "United Nations General Assembly", url: "https://www.un.org/pga/wp-content/uploads/sites/110/2025/12/A_RES_79_325-EN.pdf", accessed: "2026-11-12" }
   - { title: "Secretary-General Stresses Need to Keep Pace with AI, Close Technological Knowledge Gap, at Independent Scientific Panel on Artificial Intelligence Press Conference", publisher: "United Nations Meetings Coverage and Press Releases", url: "https://press.un.org/en/2026/sgsm23209.doc.htm", accessed: "2026-11-12" }
+photo:
+  file: "maria-ressa.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:2025-10-19_Buchmesse_Maria_Ressa_(4).jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "Jaramo81"
+  wikidata: "Q6761526"
 published: true
 review_status: pending_review
 reviewed_by: null

@@ -26,6 +26,13 @@ sources:
   - { title: "Mrs Josephine TEO", publisher: "Prime Minister's Office Singapore", url: "https://www.pmo.gov.sg/about-us/the-cabinet/mrs-josephine-teo/", accessed: "2026-11-12" }
   - { title: "MDDI political office holders", publisher: "Ministry of Digital Development and Information", url: "https://www.mddi.gov.sg/who-we-are/political-office-holders/", accessed: "2026-11-12" }
   - { title: "Opening Speech by Minister Josephine Teo at the International Scientific Exchange for AI Safety 2026 Main Conference", publisher: "Ministry of Digital Development and Information", url: "https://www.mddi.gov.sg/newsroom/opening-speech-by-minister-josephine-teo-at-the-international-scientific-exchange-for-ai-safety-2026-main-conference/", accessed: "2026-11-12" }
+photo:
+  file: "josephine-teo.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Josephine_Teo_September_2016_(29908295102).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Bundesministerium für Europa, Integration und Äußeres"
+  wikidata: "Q16204683"
 published: true
 review_status: pending_review
 reviewed_by: null

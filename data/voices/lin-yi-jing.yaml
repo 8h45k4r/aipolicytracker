@@ -24,6 +24,13 @@ sources:
   - { title: "Minister Yi-Jing Lin of The Ministry of Digital Affairs (MODA) Attends COMPUTEX 2026, Shaping an AI Ecosystem", publisher: "Ministry of Digital Affairs", url: "https://moda.gov.tw/en/ADI/news/latest-news/20126", accessed: "2026-11-12" }
   - { title: "moda x AI", publisher: "Ministry of Digital Affairs", url: "https://moda.gov.tw/en/major-policies/ai/1781", accessed: "2026-11-12" }
   - { title: "人工智慧基本法 (Artificial Intelligence Basic Act)", publisher: "National Science and Technology Council", url: "https://law.nstc.gov.tw/EngLawContent.aspx?id=10099&lan=E", accessed: "2026-11-12" }
+photo:
+  file: "lin-yi-jing.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:%E6%9E%97%E5%AE%9C%E6%95%AC%E9%83%A8%E9%95%B7_1.jpg"
+  license: "Attribution"
+  license_url: null
+  author: "總統府"
+  wikidata: "Q136522204"
 published: true
 review_status: pending_review
 reviewed_by: null

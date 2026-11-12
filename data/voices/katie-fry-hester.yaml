@@ -22,6 +22,13 @@ sources:
   - { title: "Members - Senator Katie Fry Hester", publisher: "Maryland General Assembly", url: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/hester01?ys=2026RS", accessed: "2026-11-12" }
   - { title: "Legislation - SB0818 (2024 Regular Session)", publisher: "Maryland General Assembly", url: "https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/SB0818?ys=2024rs", accessed: "2026-11-12" }
   - { title: "Fiscal and Policy Note, SB 597 (2026 Regular Session)", publisher: "Maryland General Assembly", url: "https://mgaleg.maryland.gov/2026RS/fnotes/bil_0007/sb0597.pdf", accessed: "2026-11-12" }
+photo:
+  file: "katie-fry-hester.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Katie_Fry_Hester.jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Maryland GovPics"
+  wikidata: "Q61940753"
 published: true
 review_status: pending_review
 reviewed_by: null

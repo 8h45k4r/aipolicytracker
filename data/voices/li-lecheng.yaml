@@ -21,6 +21,13 @@ sources:
   - { title: "工业和信息化部部长李乐成：将大力推动人工智能和制造业双向奔赴", publisher: "Ministry of Industry and Information Technology", url: "https://www.miit.gov.cn/xwfb/mtbd/wzbd/art/2026/art_09d28ac9931b4c26bd63a9d30a8f8a22.html", accessed: "2026-11-12" }
   - { title: "2026年亚太经合组织（APEC）数字和人工智能部长会议新闻发布会在成都召开", publisher: "Ministry of Industry and Information Technology", url: "https://www.miit.gov.cn/xwfb/bldhd/art/2026/art_d109e2b6dc4844cc902a1f6f49712f67.html", accessed: "2026-11-12" }
   - { title: "李乐成率团出席联合国人工智能治理全球对话首次会议等系列活动", publisher: "Hubei Provincial Department of Economy and Information Technology", url: "http://jxt.hubei.gov.cn/bmdt/rdjj/202607/t20260713_5975258.shtml", accessed: "2026-11-12" }
+photo:
+  file: "li-lecheng.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Koshachev_with_Li_Lecheng_(2024-06-04)_17.jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "Владислав Тарасов"
+  wikidata: "Q11095251"
 published: true
 review_status: pending_review
 reviewed_by: null

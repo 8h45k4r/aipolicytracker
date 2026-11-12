@@ -21,6 +21,13 @@ official_profile_url: "https://sd13.senate.ca.gov/legislation"
 sources:
   - { title: "Bill Status - SB-942 California AI Transparency Act", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240SB942", accessed: "2026-11-12" }
   - { title: "California's Landmark AI Transparency Law Took Effect August 1", publisher: "Office of Senator Josh Becker", url: "https://sd13.senate.ca.gov/news/press-release/august-3-2026/californias-landmark-ai-transparency-law-took-effect-august-1", accessed: "2026-11-12" }
+photo:
+  file: "josh-becker.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Josh_Becker.jpg"
+  license: "Public domain"
+  license_url: null
+  author: "California State Senate"
+  wikidata: "Q104380129"
 published: true
 review_status: pending_review
 reviewed_by: null

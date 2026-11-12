@@ -22,6 +22,13 @@ sources:
   - { title: "Henna Virkkunen - European Commission", publisher: "European Commission", url: "https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen_en", accessed: "2026-11-12" }
   - { title: "AI Act - Shaping Europe's digital future", publisher: "European Commission", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", accessed: "2026-11-12" }
   - { title: "AI Office to host 2 sessions at the India AI Impact Summit 2026", publisher: "European Commission", url: "https://digital-strategy.ec.europa.eu/en/news/ai-office-host-2-sessions-india-ai-impact-summit-2026", accessed: "2026-11-12" }
+photo:
+  file: "henna-virkkunen.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:1718869849735_20240619_VIRKKUNEN_Henna_FI_008.jpg"
+  license: "European Parliament"
+  license_url: "https://www.europarl.europa.eu/legal-notice/"
+  author: "European Union 2024 - Source : EP"
+  wikidata: "Q2983767"
 published: true
 review_status: pending_review
 reviewed_by: null
