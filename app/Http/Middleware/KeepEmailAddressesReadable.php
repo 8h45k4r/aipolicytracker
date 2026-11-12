@@ -44,7 +44,13 @@ class KeepEmailAddressesReadable
         }
 
         $inner = str_replace([self::OPEN, self::CLOSE], '', substr($html, $bodyStart + 1, $close - $bodyStart - 1));
+        // setContent() replaces the response's `original` (the rendered view) with the string;
+        // keep it, so code and tests that read the view's data still can.
+        $original = property_exists($response, 'original') ? $response->original : null;
         $response->setContent(substr($html, 0, $bodyStart + 1).self::OPEN.$inner.self::CLOSE.substr($html, $close));
+        if ($original !== null) {
+            $response->original = $original;
+        }
 
         return $response;
     }
