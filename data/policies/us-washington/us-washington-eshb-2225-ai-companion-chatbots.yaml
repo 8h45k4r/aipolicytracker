@@ -7,14 +7,16 @@ title_native: null
 instrument_type: act
 status: adopted
 status_note: >-
-  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
-  from the research environment, so every date and duty here is pending review against it.
+  On 12 November 2026 the session law text (ESHB 2225.SL, Chapter 168, Laws of 2026) was read from the Washington State
+  Legislature's file server; it records approval by the Governor on 24 March 2026 and an effective date of 1 January 2027.
+  The record was first made on 15 October 2026 from search-engine extracts. It is pending human review against the text.
 is_binding: true
 featured: false
 published: true
 issuing_body: Washington State Legislature
 summary_plain: >-
-  Operators must disclose that a companion chatbot is AI, repeat the notice hourly for known minors, limit sexual content
+  Operators must disclose that a companion chatbot is AI, repeat the notice hourly where the user is known to be a minor or
+  the chatbot is directed to minors, limit sexual content
   and manipulative engagement tactics for minors, and keep and publish a self-harm protocol with crisis referrals. A violation
   is a violation of the Consumer Protection Act.
 scope_summary: AI companion chatbots offered to users in Washington State.
@@ -24,7 +26,11 @@ adopted_on: '2026-03-24'
 published_on: null
 in_force_on: null
 applies_from: '2027-01-01'
-date_notes: Dates as stated in search extracts of the official source; confirm against it.
+date_notes: >-
+  Read on 12 November 2026 from the session law PDF (ESHB 2225.SL): passed by the Senate on 6 March 2026 and the House on
+  11 March 2026, approved by the Governor on 24 March 2026, filed with the Secretary of State on 25 March 2026; section 9
+  says the act takes effect on 1 January 2027. Sections 1 to 6 form a new chapter in Title 19 RCW; the session law does not
+  give the RCW chapter number, so duties are cited by session-law section.
 actors:
 - deployer
 - provider
@@ -40,10 +46,168 @@ related_policies:
 - us-california-sb-243-companion-chatbots
 related_frameworks: []
 versions: []
-sections: []
-obligations: []
+sections:
+  - { reference: "Sec. 3", title: "Disclosure that the chatbot is not human", summary: "A clear and conspicuous notice at the start of an interaction and at least every three hours, and measures against the chatbot claiming to be human.", official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf" }
+  - { reference: "Sec. 4", title: "Minors", summary: "Where the operator knows the user is a minor or the chatbot is directed to minors: hourly notices, no sexually explicit content or suggestive dialogue, and no manipulative engagement techniques.", official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf" }
+  - { reference: "Sec. 5(1)-(2)", title: "Suicidal ideation and self-harm protocol", summary: "A chatbot may be offered only if the operator keeps and runs a protocol to detect expressions of suicidal ideation or self-harm and refer users to crisis resources.", official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf" }
+  - { reference: "Sec. 5(3)", title: "Public disclosure of the protocol", summary: "Publication of the protocol's details and of the number of crisis referral notifications issued in the preceding calendar year.", official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf" }
+obligations:
+  - slug: us-washington-eshb-2225-ai-disclosure
+    aipt_id: AIPT-OBL-0123
+    short_title: "Disclosure that the chatbot is AI"
+    title: Tell users that an AI companion chatbot is artificially generated and not human, at the start and at least every three hours
+    category: transparency
+    section: "Sec. 3"
+    source_reference: "ESHB 2225 (Chapter 168, Laws of 2026), sec. 3"
+    official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer, provider]
+    sectors: [consumer_retail]
+    use_cases: [customer_service]
+    summary: >
+      An operator (anyone who makes an AI companion chatbot available to users in Washington, or controls access to it) must
+      give a clear and conspicuous disclosure that the chatbot is artificially generated and not human. The notice is given
+      at the beginning of the interaction and again at least every three hours while the interaction continues. The operator
+      must also take reasonable measures to stop the chatbot from claiming to be human, including when the user asks, and
+      from producing any other output that contradicts the disclosure.
+    practical_action: >-
+      Show a prominent "you are talking to an AI, not a person" notice when each interaction starts and on a timer of three
+      hours or less, and instruct and test the model so it never says or implies it is human, especially when asked directly.
+    evidence_examples:
+      - { title: "Screenshots or recordings of the opening notice and the repeated notice, with the timer setting" }
+      - { title: "Test results showing the chatbot does not claim to be human when asked" }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "The notice at the start and at least every three hours that the user is talking to an AI.", confidence_level: high }
+      - { control: genai-red-team-testing, relationship: supports, note: "Adversarial testing that the chatbot cannot be led to claim it is human or contradict the notice.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-washington-eshb-2225-minor-disclosure
+    aipt_id: AIPT-OBL-0124
+    short_title: "Hourly AI notice for minors"
+    title: Where the user is known to be a minor or the chatbot is directed to minors, repeat the not-human notice at least every hour
+    category: transparency
+    section: "Sec. 4"
+    source_reference: "ESHB 2225 (Chapter 168, Laws of 2026), sec. 4(1)(a), (2) and (3)"
+    official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer, provider]
+    sectors: [consumer_retail]
+    use_cases: [customer_service]
+    summary: >
+      If the operator knows the user is a minor (under 18), or the AI companion chatbot is directed to minors, the operator
+      must issue a clear and conspicuous notification that the chatbot is artificially generated and not human. It is given
+      at the beginning of the interaction and at least every hour during continuous interaction, rather than the three-hour
+      interval that applies to other users. The operator must take reasonable measures to stop the chatbot from claiming to
+      be human, including when asked, and from producing output that conflicts with the notification.
+    practical_action: >-
+      Where a user is known to be under 18, or the product is aimed at minors, switch the repeated AI notice to an interval of
+      one hour or less, and apply the same safeguards against the chatbot claiming to be human.
+    evidence_examples:
+      - { title: "The configuration that applies the hourly notice to known minors and minor-directed products" }
+      - { title: "Screenshots of the notice as shown to a minor's account at the start and after an hour" }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "The more frequent not-human notice for minors.", confidence_level: high }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-washington-eshb-2225-minor-content-and-engagement-safeguards
+    aipt_id: AIPT-OBL-0125
+    short_title: "Minors: sexual content and manipulation"
+    title: Prevent sexually explicit content and manipulative engagement techniques with minors
+    category: prohibited_practice
+    section: "Sec. 4"
+    source_reference: "ESHB 2225 (Chapter 168, Laws of 2026), sec. 4(1)(b) and (c)"
+    official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer, provider]
+    sectors: [consumer_retail]
+    use_cases: [customer_service]
+    summary: >
+      If the operator knows the user is a minor, or the chatbot is directed to minors, it must take reasonable measures to
+      stop the chatbot generating sexually explicit content or suggestive dialogue with minors. It must also take reasonable
+      measures to prohibit manipulative engagement techniques that lead the chatbot to start or prolong an emotional
+      relationship with the user. The act lists examples: prompting the user to come back for emotional support or
+      companionship; excessive praise meant to build attachment or extend use; mimicking a romantic partnership; simulating
+      distress, loneliness, guilt or abandonment when the user wants to end a conversation, use it less or delete the
+      account; promoting isolation from family or friends or exclusive emotional reliance on the chatbot; encouraging minors
+      to keep things from parents or other trusted adults; discouraging breaks or suggesting the minor must return often; and
+      soliciting gifts, in-app purchases or other spending presented as needed to keep the relationship going.
+    practical_action: >-
+      For known minors and minor-directed products, filter sexual and suggestive output, remove the listed engagement
+      tactics from prompts, retention features and monetisation flows, and test for them before each release.
+    evidence_examples:
+      - { title: "Content filters and system instructions applied to minors, with test results" }
+      - { title: "A review of engagement, notification and purchase features against the eight listed techniques" }
+    controls:
+      - { control: prohibited-use-screening-gate, relationship: supports, note: "Screening product features against the listed manipulative engagement techniques.", confidence_level: medium }
+      - { control: genai-red-team-testing, relationship: supports, note: "Testing that the chatbot does not produce sexual content or the listed manipulative outputs with minors.", confidence_level: medium }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-washington-eshb-2225-self-harm-protocol
+    aipt_id: AIPT-OBL-0126
+    short_title: "Self-harm and suicide protocol"
+    title: Keep and run a protocol to detect suicidal ideation and self-harm and refer users to crisis resources
+    category: risk_management
+    section: "Sec. 5(1)-(2)"
+    source_reference: "ESHB 2225 (Chapter 168, Laws of 2026), sec. 5(1) and (2)"
+    official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer, provider]
+    sectors: [consumer_retail]
+    use_cases: [customer_service, health]
+    summary: >
+      An operator may not make available or deploy an AI companion chatbot unless it maintains and implements a protocol for
+      detecting and addressing users' suicidal ideation or expressions of self-harm. The protocol must include reasonable
+      methods to identify expressions of suicidal ideation or self-harm, eating disorders included; give automated or
+      human-mediated responses that refer users to appropriate crisis resources such as a suicide hotline or crisis text
+      line; and include reasonable measures to prevent the chatbot generating content that encourages self-harm or describes
+      how to do it.
+    practical_action: >-
+      Write the protocol down before launch: detection methods that cover eating disorders, a referral response naming
+      crisis lines, and output safeguards against self-harm instructions or encouragement; test it and keep it in operation.
+    evidence_examples:
+      - { title: "The written protocol, with its detection methods and referral messages" }
+      - { title: "Test results for detection, referral and blocking of self-harm content" }
+    controls:
+      - { control: genai-red-team-testing, relationship: supports, note: "Testing detection of self-harm expressions and that the model will not encourage or describe self-harm.", confidence_level: medium }
+      - { control: ai-incident-management-and-reporting, relationship: supports, note: "An escalation path for crisis events, where the protocol uses human-mediated responses.", confidence_level: low }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-washington-eshb-2225-protocol-publication
+    aipt_id: AIPT-OBL-0127
+    short_title: "Publish the protocol and referral count"
+    title: Publish the self-harm protocol and the number of crisis referral notifications issued in the preceding calendar year
+    category: transparency
+    section: "Sec. 5(3)"
+    source_reference: "ESHB 2225 (Chapter 168, Laws of 2026), sec. 5(3)"
+    official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf"
+    is_binding: true
+    applies_from: 2027-01-01
+    actors: [deployer, provider]
+    sectors: [consumer_retail]
+    use_cases: [customer_service, health]
+    summary: >
+      The operator must publicly disclose the details of its section 5 protocols on its website or websites and within any
+      mobile or web application through which the AI companion is offered. The disclosure covers the safeguards used to
+      detect and respond to expressions of suicidal ideation or self-harm, and the number of crisis referral notifications
+      issued to users in the preceding calendar year. The act does not set a date by which the disclosure must be updated.
+    practical_action: >-
+      Publish a protocol page on the website and inside the app, count every crisis referral notification issued, and add
+      the previous calendar year's total to the page.
+    evidence_examples:
+      - { title: "The published protocol page on the website and in the app, with the date it went live" }
+      - { title: "The log or report from which the yearly count of crisis referral notifications is taken" }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: supports, note: "Public notice about how the chatbot handles self-harm and suicide.", confidence_level: medium }
+      - { control: record-keeping-and-logging, relationship: supports, note: "Logging each crisis referral notification so the yearly number can be published.", confidence_level: high }
+    review_status: pending_review
+    confidence_level: high
 applicability_rules: []
-deadlines: []
+deadlines:
+  - { title: "Act takes effect; companion chatbot duties apply", due_on: 2027-01-01, date_precision: exact, deadline_status: scheduled, confidence_level: high, description: "Section 9 of the act says it takes effect on 1 January 2027; the disclosure, minor-protection and self-harm protocol duties in sections 3 to 5 apply from then.", source_reference: "ESHB 2225 (Chapter 168, Laws of 2026), sec. 9", official_source_url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf", obligation: us-washington-eshb-2225-ai-disclosure }
 enforcement_events: []
 procurement_rules: []
 sources:
@@ -53,18 +217,25 @@ sources:
   document_date: '2026-03-24'
   document_type: legislation
   tier: 1
+- title: 'Engrossed Substitute House Bill 2225, Chapter 168, Laws of 2026 (session law)'
+  publisher: Washington State Legislature
+  url: https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/2225-S.SL.pdf
+  document_date: '2026-03-24'
+  document_type: legislation
+  tier: 1
 faq: []
 official_source_url: https://app.leg.wa.gov/billsummary?Year=2025&BillNumber=2225
 source_title: 'Washington State Legislature: HB 2225 (2025-26) bill summary'
 source_publisher: Washington State Legislature
 source_document_date: '2026-03-24'
 source_tier: 1
-last_checked_at: '2026-10-15'
+last_checked_at: '2026-11-12'
 review_status: pending_review
 reviewed_by: null
 confidence_level: medium
-content_version: 1
+content_version: 2
 change_summary: >-
-  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  On 12 November 2026 five obligations (sections 3 to 5), their sections and the 1 January 2027 effective date were added from
+  the session law text, which was read in full; pending human review. Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
   pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
   review against it.

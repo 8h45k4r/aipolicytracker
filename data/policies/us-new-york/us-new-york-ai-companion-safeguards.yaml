@@ -1,14 +1,15 @@
 slug: us-new-york-ai-companion-safeguards
 aipt_id: AIPT-POL-0223
 jurisdiction: us-new-york
-title: New York AI companion safeguards (General Business Law Article 47, sections 1700-1701)
+title: New York AI companion safeguards (General Business Law Article 47, sections 1700-1704)
 short_title: New York AI companion safeguards
 title_native: null
 instrument_type: act
 status: in_force
 status_note: >-
-  Recorded on 15 October 2026 from search-engine extracts of the official pages listed; the official text could not be opened
-  from the research environment, so every date and duty here is pending review against it.
+  On 12 November 2026 the consolidated text of General Business Law Article 47 (sections 1700 to 1704) was read on the New
+  York State Senate's laws pages, in the revision dated 7 November 2025 there. The record was first made on 15 October 2026
+  from search-engine extracts. It is pending human review against the text.
 is_binding: true
 featured: false
 published: true
@@ -23,7 +24,12 @@ adopted_on: null
 published_on: null
 in_force_on: '2025-11-05'
 applies_from: null
-date_notes: The budget bill number and the enforcement mechanism were not confirmed.
+date_notes: >-
+  The consolidated text read on 12 November 2026 states no effective date and no enacting chapter or budget bill number, so
+  the obligations carry no applies_from; the in-force date of 5 November 2025 still rests on the Governor's announcement and
+  is unchanged. The Senate site lists revisions of the article dated 16 May 2025 and 7 November 2025; these are database
+  revision dates, not effective dates. Enforcement is set out in section 1703: the Attorney General may sue for an
+  injunction and civil penalties of up to 15,000 dollars per day for a violation of section 1701 or 1702.
 actors:
 - deployer
 - provider
@@ -41,8 +47,68 @@ related_policies:
 - us-california-sb-243-companion-chatbots
 related_frameworks: []
 versions: []
-sections: []
-obligations: []
+sections:
+  - { reference: "§ 1701", title: "Prohibitions and requirements", summary: "An AI companion may be offered only if it contains a protocol to detect suicidal ideation or self-harm and refer the user to crisis services.", official_source_url: "https://www.nysenate.gov/legislation/laws/GBS/1701" }
+  - { reference: "§ 1702", title: "Notifications", summary: "A clear and conspicuous notice that the user is not communicating with a human, at the start of an interaction and at least every three hours.", official_source_url: "https://www.nysenate.gov/legislation/laws/GBS/1702" }
+obligations:
+  - slug: us-new-york-gbl-1701-self-harm-protocol
+    aipt_id: AIPT-OBL-0128
+    short_title: "Self-harm and suicide protocol"
+    title: Offer an AI companion only if it contains a protocol to detect suicidal ideation or self-harm and refer users to crisis services
+    category: risk_management
+    section: "§ 1701"
+    source_reference: "N.Y. Gen. Bus. Law § 1701"
+    official_source_url: "https://www.nysenate.gov/legislation/laws/GBS/1701"
+    is_binding: true
+    applies_from: null
+    actors: [deployer, provider]
+    sectors: [consumer_retail]
+    use_cases: [customer_service, health]
+    summary: >
+      It is unlawful for an operator to operate or provide an AI companion to a user unless the AI companion contains a
+      protocol for taking reasonable efforts to detect and address suicidal ideation or expressions of self-harm by the user.
+      The protocol must at least detect such expressions and, when it does, notify the user with a referral to crisis
+      service providers, such as the 9-8-8 suicide prevention and behavioral health crisis hotline, a crisis text line or
+      other appropriate crisis services. The Attorney General may seek an injunction and civil penalties of up to 15,000
+      dollars per day for a violation (section 1703).
+    practical_action: >-
+      Build detection of suicidal ideation and self-harm into the AI companion and, on detection, show the user a referral
+      naming 988 and a crisis text line; document the protocol and test that it fires.
+    evidence_examples:
+      - { title: "The written protocol, with its detection approach and the referral message shown to users" }
+      - { title: "Test results showing detection triggers the 988 and crisis-line referral" }
+    controls:
+      - { control: genai-red-team-testing, relationship: supports, note: "Testing that expressions of suicidal ideation or self-harm are detected and answered with a referral.", confidence_level: medium }
+      - { control: ai-incident-management-and-reporting, relationship: supports, note: "An escalation path for crisis events detected by the protocol.", confidence_level: low }
+    review_status: pending_review
+    confidence_level: high
+  - slug: us-new-york-gbl-1702-ai-notification
+    aipt_id: AIPT-OBL-0129
+    short_title: "Notice that the user is not talking to a human"
+    title: Tell users at the start of an AI companion interaction, and at least every three hours, that they are not communicating with a human
+    category: transparency
+    section: "§ 1702"
+    source_reference: "N.Y. Gen. Bus. Law § 1702"
+    official_source_url: "https://www.nysenate.gov/legislation/laws/GBS/1702"
+    is_binding: true
+    applies_from: null
+    actors: [deployer, provider]
+    sectors: [consumer_retail]
+    use_cases: [customer_service]
+    summary: >
+      An operator must give the user a clear and conspicuous notification, spoken or written, that the user is not
+      communicating with a human. It is given at the beginning of any AI companion interaction, which the text says need not
+      happen more than once a day, and at least every three hours during a continuing interaction. The Attorney General may
+      seek an injunction and civil penalties of up to 15,000 dollars per day for a violation (section 1703).
+    practical_action: >-
+      Show a prominent not-human notice when an interaction starts (at least once a day) and repeat it on a timer of three
+      hours or less while the conversation continues, in voice as well as text products.
+    evidence_examples:
+      - { title: "Screenshots or recordings of the opening notice and the repeated notice, with the timer setting" }
+    controls:
+      - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "The start-of-interaction and three-hourly notice that the user is not talking to a human.", confidence_level: high }
+    review_status: pending_review
+    confidence_level: high
 applicability_rules: []
 deadlines: []
 enforcement_events: []
@@ -60,18 +126,44 @@ sources:
   document_date: '2025-11-05'
   document_type: press_release
   tier: 1
+- title: New York General Business Law section 1700 (definitions)
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/laws/GBS/1700
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: New York General Business Law section 1702 (notifications)
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/laws/GBS/1702
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: New York General Business Law section 1703 (enforcement)
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/laws/GBS/1703
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: New York General Business Law Article 47, Artificial Intelligence Companion Models
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/laws/GBS/A47
+  document_date: null
+  document_type: legislation
+  tier: 1
 faq: []
 official_source_url: https://www.nysenate.gov/legislation/laws/GBS/1701
 source_title: New York General Business Law section 1701
 source_publisher: New York State Senate
 source_document_date: null
 source_tier: 1
-last_checked_at: '2026-10-15'
+last_checked_at: '2026-11-12'
 review_status: pending_review
 reviewed_by: null
 confidence_level: medium
-content_version: 1
+content_version: 2
 change_summary: >-
-  Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
+  On 12 November 2026 two obligations (sections 1701 and 1702) and the enforcement terms of section 1703 were added from the
+  consolidated text of Article 47, which was read in full; pending human review. Added in the October 2026 sub-national
+  research round. Recorded on 15 October 2026 from search-engine extracts of the official
   pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
   review against it.

@@ -220,6 +220,17 @@ return [
             'caveat' => 'dates',
         ],
 
+        'companion-chatbot-safety-kit' => [
+            'title' => 'AI Companion Chatbot Safety Kit',
+            'type' => 'kit', 'formats' => ['docx', 'xlsx'],
+            'topics' => ['transparency', 'governance'], 'frameworks' => [],
+            'short' => 'For AI companion chatbots under the US state laws on record: not-human notices, protections for minors, a crisis protocol for suicidal ideation and self-harm, and protocol publication, with a disclosure schedule, a crisis referral log and every recorded duty.',
+            'inside' => ['Document: a notice, procedure or protocol to adapt for each recorded duty, citing its record', 'Checklist sheet: every recorded duty with law, section, date, owner and status', 'Laws sheet: every companion-chatbot law on record, including those whose duties are not yet recorded', 'Disclosure schedule and crisis referral log', 'Dates sheet from the records'],
+            'covers' => ['policies' => ['us-washington-eshb-2225-ai-companion-chatbots', 'us-new-york-ai-companion-safeguards']],
+            'legal_basis' => ['us-washington-eshb-2225-ai-companion-chatbots', 'us-new-york-ai-companion-safeguards', 'us-california-sb-243-companion-chatbots', 'us-connecticut-sb-5-online-safety'],
+            'caveat' => 'dates',
+        ],
+
         'ai-workforce-impact-assessment' => [
             'title' => 'AI Workforce Impact Assessment',
             'type' => 'assessment', 'formats' => ['docx', 'xlsx'],

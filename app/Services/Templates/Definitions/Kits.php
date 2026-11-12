@@ -239,6 +239,76 @@ final class Kits
                 }
             },
 
+            'companion-chatbot-safety-kit' => new class($slug, $meta) extends Definition
+            {
+                /** Every companion-chatbot law on record; duties are drawn only from those that have them recorded. */
+                private const LAWS = ['us-washington-eshb-2225-ai-companion-chatbots', 'us-new-york-ai-companion-safeguards', 'us-california-sb-243-companion-chatbots', 'us-california-sb-1119-companion-chatbots-child-safety', 'us-connecticut-sb-5-online-safety'];
+
+                public function sheets(): array
+                {
+                    $duties = Records::obligations(['policies' => self::LAWS]);
+                    $rows = $duties->map(fn ($o) => ['duty' => $o->title, 'law' => $o->policyInstrument->short_title ?: $o->policyInstrument->title, 'jurisdiction' => $o->policyInstrument->jurisdiction->name, 'reference' => $o->source_reference, 'applies_from' => $o->applies_from?->toDateString(), 'owner' => null, 'status' => null, 'evidence' => null, 'url' => $o->url()])->all();
+                    $laws = collect(self::LAWS)->map(fn ($slug) => Records::policy($slug))->filter()->map(fn ($p) => [
+                        'law' => $p->short_title ?: $p->title, 'jurisdiction' => $p->jurisdiction->name, 'status' => $p->statusEnum()->label(),
+                        'applies_from' => $p->applies_from?->toDateString(), // As text: the writer leaves a numeric 0 blank, and a blank here would read as unknown.
+                        'duties' => (string) $duties->where('policy_instrument_id', $p->id)->count(),
+                        'review' => $p->verificationLabel(), 'url' => $p->url(), 'source' => $p->official_source_url,
+                    ])->values()->all();
+
+                    return [
+                        ['name' => 'Checklist', 'columns' => [self::col('duty', 'Duty', 56), self::col('law', 'Law', 30), self::col('jurisdiction', 'Jurisdiction', 14), self::col('reference', 'Section', 22), self::col('applies_from', 'Applies from', 13, 'date'), self::col('owner', 'Owner', 18), self::select('status', 'Status', ['Not started', 'In progress', 'Done', 'Not applicable'], 14), self::col('evidence', 'Evidence', 40, 'url'), self::col('url', 'Record', 44, 'url')], 'rows' => $rows],
+                        ['name' => 'Laws', 'columns' => [self::col('law', 'Law', 36), self::col('jurisdiction', 'Jurisdiction', 14), self::col('status', 'Status', 16), self::col('applies_from', 'Applies from', 13, 'date'), self::col('duties', 'Duties recorded', 10), self::col('review', 'Record review status', 34), self::col('url', 'Record', 44, 'url'), self::col('source', 'Official source', 44, 'url')], 'rows' => $laws, 'note' => 'A law with no duties recorded is listed so it is not forgotten: read its official text for what it requires.'],
+                        ['name' => 'Crisis referral log', 'columns' => [
+                            self::col('date', 'Date', 13, 'date'), self::col('product', 'Product or character', 24),
+                            self::select('signal', 'What was detected', ['Suicidal ideation', 'Self-harm', 'Eating disorder', 'Other risk to the user'], 22),
+                            self::select('referral', 'Referral made', ['988 Suicide and Crisis Lifeline', 'Crisis text line', 'Other crisis service', 'None (explain)'], 28),
+                            self::col('notes', 'Notes (no more personal data than needed)', 44),
+                        ], 'rows' => [], 'editable_rows' => 200, 'note' => 'Counts by year feed any publication duty recorded for the laws that apply to you. Keep only what you need.'],
+                        ['name' => 'Disclosure schedule', 'columns' => [
+                            self::col('product', 'Product or character', 26), self::select('audience', 'Users', ['Adults', 'Known minors', 'Directed to minors', 'Unknown'], 18),
+                            self::col('start', 'Notice at the start (text shown)', 40), self::col('interval', 'Repeat notice every (hours)', 14, 'number'),
+                            self::col('laws', 'Laws it must meet', 30), self::col('owner', 'Owner', 18),
+                        ], 'rows' => [], 'editable_rows' => 50, 'note' => 'Set the repeat interval to the shortest any applicable recorded duty requires; the Checklist sheet cites each one.'],
+                        $this->deadlinesSheet(self::LAWS, 'Dates'),
+                    ];
+                }
+
+                public function blocks(): array
+                {
+                    $duties = Records::obligations(['policies' => self::LAWS]);
+                    $missing = collect(self::LAWS)->map(fn ($slug) => Records::policy($slug))->filter()->filter(fn ($p) => $duties->where('policy_instrument_id', $p->id)->isEmpty());
+                    $blocks = [
+                        $this->heading('AI companion chatbot safety kit'),
+                        $this->p('Several US states now regulate AI companions: chatbots that sustain a relationship with the user. The duties recorded so far are below, each with a text or procedure to adapt and a link to its record; the workbook tracks them, your disclosure schedule and a crisis referral log.'),
+                        $this->note('Every duty here is pending review unless its record says otherwise: confirm it against the official text before relying on it.'),
+                    ];
+                    if ($missing->isNotEmpty()) {
+                        $blocks[] = $this->note('Also on record, with no duties recorded yet, so not covered below: '.$missing->map(fn ($p) => ($p->short_title ?: $p->title).' ('.$p->jurisdiction->name.')')->implode('; ').'. Read their official texts.');
+                    }
+                    $texts = [
+                        'ai-disclosure' => ['Not-human notice to adapt', 'You are chatting with [PLACEHOLDER: product], an AI. It is not a person. [PLACEHOLDER: shown at the start of each interaction and again at the interval your schedule sets.]'],
+                        'ai-notification' => ['Not-human notice to adapt', 'Reminder: you are talking with an AI, not a human. [PLACEHOLDER: shown, or spoken, at the start of an interaction and again at the interval your schedule sets.]'],
+                        'minor-disclosure' => ['Notice for minors', 'You are talking with an AI chatbot, not a person. [PLACEHOLDER: shown to users known to be minors, or on products directed to minors, at the start and at the interval the record states.]'],
+                        'minor-content-and-engagement-safeguards' => ['Minor safeguards procedure', 'For users known to be minors, or on products directed to minors, [PLACEHOLDER: team] keeps sexually explicit content and suggestive dialogue switched off and reviews engagement features against the techniques the law lists, recording each review in [PLACEHOLDER].'],
+                        'self-harm-protocol' => ['Crisis protocol to adapt', 'When a conversation shows signs of suicidal ideation or self-harm, [PLACEHOLDER: product] stops the current interaction pattern, gives the user [PLACEHOLDER: 988 Suicide and Crisis Lifeline, a crisis text line or another crisis service], and [PLACEHOLDER: escalation and review steps]. The protocol is reviewed by [PLACEHOLDER: role] every [PLACEHOLDER] months and each referral is logged in the Crisis referral log.'],
+                        'protocol-publication' => ['Publication procedure', 'Each year [PLACEHOLDER: owner] publishes the crisis protocol and the number of crisis referrals made in the previous calendar year, counted from the Crisis referral log, at [PLACEHOLDER: website page] and in the app at [PLACEHOLDER].'],
+                    ];
+                    foreach ($duties as $o) {
+                        $blocks[] = $this->heading($o->title, 2);
+                        $blocks[] = $this->p(trim((string) $o->summary));
+                        foreach ($texts as $key => [$title, $text]) {
+                            if (str_ends_with($o->slug, $key)) {
+                                $blocks[] = $this->heading($title, 3);
+                                $blocks[] = $this->p($text);
+                            }
+                        }
+                        $blocks[] = ['type' => 'cite', 'text' => Records::dutyLine($o), 'url' => $o->url()];
+                    }
+
+                    return $blocks;
+                }
+            },
+
             'nist-eu-iso-crosswalk' => new class($slug, $meta) extends Definition
             {
                 public function sheets(): array
