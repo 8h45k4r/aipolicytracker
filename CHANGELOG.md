@@ -32,6 +32,8 @@ All notable changes to this project are documented here. The format follows [Kee
   - obligation pages: "From the law to the evidence", five linked steps with the record's own counts
     (the law, who it binds, controls, evidence, templates);
   - methodology: "The life of a record" in five steps, and the source tiers drawn as a ladder.
+  - jurisdiction pages: a bar of binding law against guidance, and a count per status, each linking
+    to the filtered policy listing.
 - Pricing: while online checkout is closed, the Builder buttons ("Pay monthly" and "$490 per year")
   are "Request by email" and open the enquiry form with that plan chosen. Prices are unchanged.
 - Pricing and licence enquiries are mailed to both bhaskar@aipolicytracker.org and

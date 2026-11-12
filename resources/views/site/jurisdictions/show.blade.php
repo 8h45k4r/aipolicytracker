@@ -29,7 +29,8 @@
             @if(!empty($translation))
             <p class="mb-4 rounded-md border border-brand-line bg-brand-paper px-3 py-2 text-sm text-brand-body" lang="{{ $locale }}">{{ $translation['lead'] ?? '' }} <span class="meta">{{ $reviewedTranslation ? 'Revisado: '.$translation['reviewed_by'] : ($translation['translated_by'] ?? 'Draft').' · unreviewed translation' }} · <a href="{{ $englishUrl }}" hreflang="en">English</a></span></p>
             @endif
-            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-8" />
+            <x-site.answer-box :text="$answer" :facts="$facts" class="mb-6" />
+            <x-site.jurisdiction-mix :policies="$policies" :jurisdiction="$jurisdiction" class="mb-8" />
             <section aria-labelledby="overview-heading"><h2 id="overview-heading" class="section-title">Overview</h2><p class="prose-policy mt-2">{{ $jurisdiction->overview }}</p></section>
             <section aria-labelledby="status-heading" class="mt-8"><h2 id="status-heading" class="section-title">What is the current regulatory status?</h2><p class="prose-policy mt-2">{{ $jurisdiction->regulatory_status_summary }}</p></section>
             @if($jurisdiction->binding_vs_guidance)<section aria-labelledby="binding-heading" class="mt-8"><h2 id="binding-heading" class="section-title">Binding rules versus guidance</h2><p class="prose-policy mt-2">{{ $jurisdiction->binding_vs_guidance }}</p></section>@endif

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\ChangeEvent;
+use App\Models\Jurisdiction;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Services\Social\SocialCard;
@@ -88,6 +89,26 @@ class PageFiguresTest extends TestCase
         $this->assertStringContainsString(route('verification'), $flow);
         $ladder = substr($html, strpos($html, 'data-source-ladder'), 3000);
         $this->assertSame(4, substr_count(substr($ladder, 0, strpos($ladder, '</ol>')), '<li'), 'four source tiers');
+    }
+
+    public function test_a_jurisdiction_page_draws_its_binding_split_from_the_instruments_it_lists(): void
+    {
+        $j = Jurisdiction::published()->withCount(['policyInstruments as n' => fn ($q) => $q->published()])->orderByDesc('n')->firstOrFail();
+        $policies = $j->policyInstruments()->published()->get();
+        $binding = $policies->where('is_binding', true)->count();
+        $html = $this->get($j->url())->assertOk()->getContent();
+        $mix = substr($html, strpos($html, 'data-jurisdiction-mix'), 6000);
+        $mix = substr($mix, 0, strpos($mix, '</section>'));
+
+        $this->assertStringContainsString($policies->count().' instruments', $mix);
+        $this->assertStringContainsString($binding > 0 ? $binding.' legally binding' : 'No binding AI law on record', $mix);
+        $this->assertStringContainsString('jurisdiction='.$j->slug, $mix);
+
+        // One instrument has no split to draw.
+        $single = Jurisdiction::published()->whereHas('policyInstruments', fn ($q) => $q->published(), '=', 1)->first();
+        if ($single) {
+            $this->assertStringNotContainsString('data-jurisdiction-mix', $this->get($single->url())->getContent());
+        }
     }
 
     public function test_the_header_stays_on_screen_and_offers_search_at_every_width(): void
