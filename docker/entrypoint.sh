@@ -68,6 +68,10 @@ php artisan view:cache
   # get a new version, so an unchanged release builds nothing.
   php artisan templates:build || echo "WARNING: templates:build failed; serving previous template versions"
   php artisan external:import || echo "WARNING: external:import failed; serving previous records"
+  # News headlines are collected every two hours by the scheduler; collecting once on start
+  # means a new deploy (or a fresh database) shows headlines at once instead of up to two
+  # hours later. NEWS_SYNC=false switches both off. A feed that is down is skipped.
+  php artisan news:sync       || echo "WARNING: news:sync failed; serving previously collected headlines"
 ) 9>/tmp/aip-import.lock &
 imports=$!
 

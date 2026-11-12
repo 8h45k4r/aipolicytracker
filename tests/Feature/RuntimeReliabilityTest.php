@@ -111,4 +111,16 @@ class RuntimeReliabilityTest extends TestCase
         $this->assertTrue($import < $build && $build < $lock, 'after the record import, inside the locked background block');
         $this->assertStringContainsString('templates:build || echo "WARNING', $entrypoint, 'a failed build does not stop the container');
     }
+
+    public function test_the_container_collects_news_on_start_and_the_scheduler_keeps_it_current(): void
+    {
+        $entrypoint = file_get_contents(base_path('docker/entrypoint.sh'));
+        $import = strpos($entrypoint, '  php artisan policy:import ');
+        $news = strpos($entrypoint, '  php artisan news:sync ');
+        $lock = strpos($entrypoint, ') 9>/tmp/aip-import.lock &');
+        $this->assertNotFalse($news, 'the start-up collects news');
+        $this->assertTrue($import < $news && $news < $lock, 'in the background block, so the site answers while feeds load');
+        $this->assertStringContainsString('news:sync       || echo "WARNING', $entrypoint, 'a failed collection does not stop the container');
+        $this->artisan('schedule:list')->expectsOutputToContain('Collect official AI news')->assertSuccessful();
+    }
 }

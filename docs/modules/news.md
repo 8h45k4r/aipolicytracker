@@ -50,6 +50,7 @@ Unique (`source`, `external_id`); index on `published_at`. No summary or body co
 ## Jobs and configuration
 
 - `php artisan news:sync [--source=key]`: job `news_sync`, every two hours while `NEWS_SYNC` is not false.
+  - It also runs once when the container starts (`docker/entrypoint.sh`, in the background import block), so a deploy shows headlines at once.
   - A feed that fails is reported and skipped. The run fails only when every feed fails.
   - Items older than `keep_days` (365) are pruned.
 - XML is parsed with network access off (`LIBXML_NONET`).

@@ -32,7 +32,7 @@ All notable changes to this project are documented here. The format follows [Kee
   - this tracker's recorded changes;
   - recorded AI incidents.
 
-  Readers can filter by topic and by stream. Each item shows only its headline, date and publisher and links to the source. Feeds are collected every two hours.
+  Readers can filter by topic and by stream. Each item shows only its headline, date and publisher and links to the source. Feeds are collected every two hours and each time the site starts, so a deploy never leaves the page without headlines.
 - AI Voices (`/voices`): profiles of 101 people who hold offices shaping AI policy, safety and governance:
   - who is included: regulators, ministers, legislators, safety institutes, international and standards bodies;
   - chosen by role, not ranked, with no photographs and nothing private;
