@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Build tooling: minimatch is pinned to 11.0.8 and glob to 14.0.5 (GHSA-g3hv-75wg-m249, GHSA-3g3m-2fjr-6pw4, both moderate). They are used only by the linter and the CSS build, not by the site; `npm audit` now reports nothing.
 - Sign-in: when one address passes 20 failed sign-ins in 10 minutes and the automated check (Turnstile) is
   configured, the form asks for the check instead of refusing everyone on that address, so a wrongly
   reported client address cannot lock all readers out. Without the check configured it stays a hard stop.
