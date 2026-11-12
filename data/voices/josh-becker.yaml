@@ -1,0 +1,29 @@
+slug: josh-becker
+name: Josh Becker
+role: State Senator, California Senate District 13
+organisation: California State Senate
+jurisdiction: us-california
+category: legislator
+topics: [regulation, responsible_ai, policy]
+current: true
+since: null
+summary: >-
+  California state senator for the Menlo Park area. He authored SB 942, the California AI Transparency Act (Chapter
+  291, Statutes of 2024), which requires large generative AI providers to put visible and hidden disclosures in
+  AI-generated images, video and audio and to offer a free detection tool. His office reported in August 2026 that the
+  law's first phase took effect on 1 August 2026, and that he authored a follow-up bill, SB 1000, on implementation and
+  alignment with international standards.
+related_policies: [us-california-ai-transparency-act-sb-942]
+statements:
+  - { title: "California's Landmark AI Transparency Law Took Effect August 1", date: "2026-08-03", url: "https://sd13.senate.ca.gov/news/press-release/august-3-2026/californias-landmark-ai-transparency-law-took-effect-august-1", publisher: "Office of Senator Josh Becker" }
+  - { title: "Governor Signs Landmark AI Transparency Bill, Empowering Consumers to Identify AI-Generated Content", date: "2024-09-19", url: "https://sd13.senate.ca.gov/news/press-release/september-19-2024/governor-signs-landmark-ai-transparency-bill-empowering", publisher: "Office of Senator Josh Becker" }
+official_profile_url: "https://sd13.senate.ca.gov/legislation"
+sources:
+  - { title: "Bill Status - SB-942 California AI Transparency Act", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240SB942", accessed: "2026-11-12" }
+  - { title: "California's Landmark AI Transparency Law Took Effect August 1", publisher: "Office of Senator Josh Becker", url: "https://sd13.senate.ca.gov/news/press-release/august-3-2026/californias-landmark-ai-transparency-law-took-effect-august-1", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

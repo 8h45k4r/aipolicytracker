@@ -1,0 +1,27 @@
+slug: robert-rodriguez
+name: Robert Rodriguez
+role: State Senator, Senate District 32, and Senate Majority Leader
+organisation: Colorado General Assembly (Colorado Senate)
+jurisdiction: us-colorado
+category: legislator
+topics: [regulation, policy, responsible_ai]
+current: true
+since: null
+summary: >-
+  Colorado state senator and Senate Majority Leader. The General Assembly lists him as a prime sponsor of SB 26-189,
+  Automated Decision-Making Technology, which repeals and re-enacts the AI rules adopted in SB 24-205 and was signed by
+  the Governor on 14 May 2026. Its automated decision-making provisions apply from 1 January 2027, with rules due from
+  the Attorney General by that date.
+related_policies: [us-colorado-automated-decision-making-technology-act]
+statements: []
+official_profile_url: "https://leg.colorado.gov/legislators/robert-rodriguez"
+sources:
+  - { title: "Senator Robert Rodriguez", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/legislators/robert-rodriguez", accessed: "2026-11-12" }
+  - { title: "SB26-189 Automated Decision-Making Technology", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb26-189", accessed: "2026-11-12" }
+  - { title: "Senate Executive Leadership", publisher: "Colorado General Assembly", url: "https://content.leg.colorado.gov/agencies/senate/senate-executive-leadership", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

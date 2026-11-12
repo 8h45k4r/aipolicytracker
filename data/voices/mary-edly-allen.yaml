@@ -1,0 +1,28 @@
+slug: mary-edly-allen
+name: Mary Edly-Allen
+role: State Senator, Illinois Senate
+organisation: Illinois General Assembly (Illinois Senate)
+jurisdiction: us-illinois
+category: legislator
+topics: [safety, regulation, risk]
+current: true
+since: null
+summary: >-
+  Illinois state senator in the 104th General Assembly. The General Assembly lists her as chief Senate sponsor of SB
+  315, which creates the Artificial Intelligence Safety Measures Act (Public Act 104-0538), approved by the Governor
+  on 6 July 2026 and effective 1 January 2027. The Act requires large frontier developers to publish and update a
+  frontier AI framework, publish transparency reports, report safety incidents to state agencies within set deadlines
+  and, where it applies, undergo annual independent audits, with civil penalties enforced by the state.
+related_policies: [us-illinois-ai-safety-measures-act]
+statements:
+  - { title: "Edly-Allen's landmark AI safety law to address catastrophic risks, increasing transparency signed by governor", date: null, url: "https://www.illinoissenatedemocrats.com/caucus-news/84-senator-mary-edly-allen-news/7024-edly-allens-landmark-ai-safety-law-to-address-catastrophic-risks-increasing-transparency-signed-by-governor", publisher: "Illinois Senate Democratic Caucus" }
+official_profile_url: "https://www.ilga.gov/House/Members/Details/3407"
+sources:
+  - { title: "Mary Edly-Allen (D) - 104th General Assembly (2025-2026)", publisher: "Illinois General Assembly", url: "https://www.ilga.gov/House/Members/Details/3407", accessed: "2026-11-12" }
+  - { title: "Bill Status of SB 315 (104th General Assembly)", publisher: "Illinois General Assembly", url: "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&DocTypeID=SB&GA=104&GAID=18&SessionID=114", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

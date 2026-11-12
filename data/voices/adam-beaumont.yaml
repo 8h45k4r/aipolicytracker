@@ -1,0 +1,27 @@
+slug: adam-beaumont
+name: Adam Beaumont
+role: Interim Director, AI Security Institute
+organisation: AI Security Institute
+jurisdiction: uk
+category: safety_institute
+topics: [safety, risk]
+current: true
+since: null
+summary: >-
+  Leads the UK AI Security Institute, the government research organisation that evaluates advanced AI models and
+  studies the security risks they pose. GOV.UK lists him as Interim Director and says he was previously GCHQ's Chief
+  AI Officer. A December 2025 GOV.UK release names him as Interim Director in connection with the International
+  Network for Advanced AI Measurement, Evaluation and Science.
+related_policies: []
+statements:
+  - { title: "Our 2025 year in review", date: null, url: "https://www.aisi.gov.uk/blog/our-2025-year-in-review", publisher: "AI Security Institute" }
+official_profile_url: "https://www.gov.uk/government/people/adam-beaumont"
+sources:
+  - { title: "Adam Beaumont - GOV.UK", publisher: "UK Government", url: "https://www.gov.uk/government/people/adam-beaumont", accessed: "2026-11-12" }
+  - { title: "Efforts to share best practices on AI measurement and evaluations driven forward through the International Network for Advanced AI Measurement, Evaluation and Science", publisher: "UK Government", url: "https://www.gov.uk/government/news/efforts-to-share-best-practices-on-ai-measurement-and-evaluations-driven-forward-through-the-international-network-for-advanced-ai-measurement-evalua", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

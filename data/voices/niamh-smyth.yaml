@@ -1,0 +1,30 @@
+slug: niamh-smyth
+name: Niamh Smyth
+role: Minister of State for Trade Promotion, Artificial Intelligence and Digital Transformation
+organisation: Department of Enterprise, Tourism and Employment
+jurisdiction: ireland
+category: government
+topics: [policy, strategy]
+current: true
+since: null
+summary: >-
+  Ireland's Minister of State responsible for AI and digital transformation at the Department of Enterprise, Tourism
+  and Employment. Department releases show her announcing progress on AI Act implementation with Minister Peter
+  Burke, launching in July 2026 a consultation for a sectoral strategy on enterprise adoption of AI, naming
+  Ireland's first AI Sectoral Champions in October 2026, and publishing a study on AI adoption in manufacturing,
+  construction and tourism the same month.
+related_policies: [eu-ai-act]
+statements:
+  - { title: "Minister Smyth announces Ireland's first AI Sectoral Champions to drive enterprise adoption of artificial intelligence", date: null, url: "https://enterprise.gov.ie/en/news-and-events/department-news/2026/october/20261002.html", publisher: "Department of Enterprise, Tourism and Employment" }
+  - { title: "Minister Niamh Smyth publishes major report on AI adoption and enablement across Irish enterprise", date: null, url: "https://enterprise.gov.ie/en/news-and-events/department-news/2026/october/minister-niamh-smyth-publishes-major-report-on-ai-adoption-and-enablement-across-irish-enterprise.html", publisher: "Department of Enterprise, Tourism and Employment" }
+official_profile_url: "https://enterprise.gov.ie/en/who-we-are/ministers/niamh-smyth.html"
+sources:
+  - { title: "Niamh Smyth - DETE", publisher: "Department of Enterprise, Tourism and Employment", url: "https://enterprise.gov.ie/en/who-we-are/ministers/niamh-smyth.html", accessed: "2026-11-12" }
+  - { title: "Ministers Burke and Smyth announce landmark progress in AI Act implementation", publisher: "Government of Ireland", url: "https://www.gov.ie/en/department-of-enterprise-tourism-and-employment/press-releases/ireland-leads-the-way-in-eu-ai-regulation/", accessed: "2026-11-12" }
+  - { title: "Minister Niamh Smyth calls on businesses to shape Ireland's future AI strategy", publisher: "Department of Enterprise, Tourism and Employment", url: "https://enterprise.gov.ie/en/news-and-events/department-news/2026/july/minister-niamh-smyth-calls-on-businesses-to-shape-ireland-s-future-ai-strategy.html", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

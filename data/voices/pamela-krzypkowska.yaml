@@ -1,0 +1,28 @@
+slug: pamela-krzypkowska
+name: Pamela Krzypkowska
+role: Przewodnicząca Komisji Rozwoju i Bezpieczeństwa Sztucznej Inteligencji
+organisation: Komisja Rozwoju i Bezpieczeństwa Sztucznej Inteligencji (KRiBSI)
+jurisdiction: poland
+category: regulator
+topics: [regulation, safety, governance]
+current: true
+since: null
+summary: >-
+  Chair of Poland's Commission for the Development and Security of Artificial Intelligence, the independent body that
+  the Act of 3 July 2026 on AI systems makes the market surveillance authority for AI and that can order a system
+  withdrawn where it directly threatens life, health, safety or fundamental rights. The Sejm chose her on 18 September
+  2026 and the Senate consented on 24 September, for a five-year term. Official pages state she previously directed
+  the Research and Innovation Department of the Ministry of Digital Affairs.
+related_policies: [poland-draft-act-on-ai-systems-ai-act-implementation, eu-ai-act]
+statements: []
+official_profile_url: "https://www.gov.pl/web/kribsi/powolano-przewodniczaca-komisji-rozwoju-i-bezpieczenstwa-sztucznej-inteligencji"
+sources:
+  - { title: "Powołano Przewodniczącą Komisji Rozwoju i Bezpieczeństwa Sztucznej Inteligencji", publisher: "Komisja Rozwoju i Bezpieczeństwa Sztucznej Inteligencji", url: "https://www.gov.pl/web/kribsi/powolano-przewodniczaca-komisji-rozwoju-i-bezpieczenstwa-sztucznej-inteligencji", accessed: "2026-11-12" }
+  - { title: "Powołanie przewodniczącej Komisji Rozwoju i Bezpieczeństwa Sztucznej Inteligencji", publisher: "Sejm Rzeczypospolitej Polskiej", url: "https://sejm.gov.pl/sejm10.nsf/komunikat.xsp?documentId=FE7C9E505C3217A3C1258E840046C337", accessed: "2026-11-12" }
+  - { title: "Ustawa z dnia 3 lipca 2026 r. o systemach sztucznej inteligencji", publisher: "Dziennik Ustaw", url: "https://isap.sejm.gov.pl/isap.nsf/download.xsp/WDU20260001003/T/D20261003L.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

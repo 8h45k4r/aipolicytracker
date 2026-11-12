@@ -1,0 +1,29 @@
+slug: aguinaldo-ribeiro
+name: Aguinaldo Ribeiro
+role: Deputado Federal (PP-PB); Relator do PL 2338/2023 na Comissão Especial sobre Inteligência Artificial
+organisation: Câmara dos Deputados
+jurisdiction: brazil
+category: legislator
+topics: [regulation, policy, governance]
+current: true
+since: null
+summary: >-
+  Federal deputy for Paraíba. The Chamber of Deputies designated him on 20 May 2025 as rapporteur of PL 2338/2023, the
+  AI bill passed by the Senate in December 2024, in the special committee set up to report on it, which is chaired by
+  Deputy Luisa Canziani. The committee's membership page lists him as rapporteur, and he said the committee would
+  start from the Senate's text. The Chamber's record shows no report adopted yet; since March 2026 dozens of other AI
+  bills, including the Executive's bill on a national AI system, have been attached to PL 2338/2023.
+related_policies: [brazil-projeto-de-lei-no-2338-2023]
+statements: []
+official_profile_url: "https://www.camara.leg.br/deputados/160527"
+sources:
+  - { title: "Deputado Federal Aguinaldo Ribeiro", publisher: "Câmara dos Deputados", url: "https://www.camara.leg.br/deputados/160527", accessed: "2026-11-12" }
+  - { title: "Membros da Comissão Especial sobre Inteligência Artificial (PL 2338/23)", publisher: "Câmara dos Deputados", url: "https://www.camara.leg.br/comissoes/539776/membros", accessed: "2026-11-12" }
+  - { title: "Ficha de tramitação do PL 2338/2023", publisher: "Câmara dos Deputados", url: "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao/?idProposicao=2487262", accessed: "2026-11-12" }
+  - { title: "Comissão que vai analisar projeto sobre inteligência artificial será presidida por Luisa Canziani; Aguinaldo Ribeiro será relator", publisher: "Agência Câmara de Notícias", url: "https://www.camara.leg.br/noticias/1160383-comissao-que-vai-analisar-projeto-sobre-inteligencia-artificial-sera-presidida-por-luisa-canziani-aguinaldo-ribeiro-sera-relator/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

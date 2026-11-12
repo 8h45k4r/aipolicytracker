@@ -1,0 +1,30 @@
+slug: zhuang-rongwen
+name: Zhuang Rongwen
+role: Director, Office of the Central Cyberspace Affairs Commission; Director, Cyberspace Administration of China (中央网信办主任、国家互联网信息办公室主任)
+organisation: Cyberspace Administration of China (CAC)
+jurisdiction: china
+category: regulator
+topics: [regulation, governance]
+current: true
+since: null
+summary: >-
+  The CAC's leadership page lists him as a deputy head of the Central Propaganda Department, Director of the Office
+  of the Central Cyberspace Affairs Commission and Director of the Cyberspace Administration of China. The CAC is the
+  lead regulator for generative AI services and, with other ministries, for labelling AI-generated content. CAC
+  notices show him signing regulations as director in May 2026 and speaking, as chair of the World Internet
+  Conference, at its Wuzhen Summit in November 2026.
+related_policies:
+  - china-interim-measures-for-the-management-of-generative-artificial-intelligence-services
+  - china-measures-for-labeling-artificial-intelligence-generated-and-synthetic-content
+statements: []
+official_profile_url: "https://wap.cac.gov.cn/wxzw/bgs/bld/zrw/A0937010101phoneindex_1.htm"
+sources:
+  - { title: "中央网络安全和信息化委员会办公室 领导介绍 (CAC leadership: Zhuang Rongwen)", publisher: "Cyberspace Administration of China", url: "https://wap.cac.gov.cn/wxzw/bgs/bld/zrw/A0937010101phoneindex_1.htm", accessed: "2026-11-12" }
+  - { title: "2026年世界互联网大会乌镇峰会主论坛举行", publisher: "Cyberspace Administration of China", url: "https://www.cac.gov.cn/2026-11/03/c_1795462285582640.htm", accessed: "2026-11-12" }
+  - { title: "互联网信息内容多渠道分发服务管理规定", publisher: "Cyberspace Administration of China", url: "https://www.cac.gov.cn/2026-05/29/c_1781795864412597.htm", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

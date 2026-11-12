@@ -1,0 +1,29 @@
+slug: anu-talus
+name: Anu Talus
+role: Chair, European Data Protection Board
+organisation: European Data Protection Board
+jurisdiction: eu
+category: regulator
+topics: [regulation, responsible_ai, governance]
+current: true
+since: null
+summary: >-
+  Chairs the European Data Protection Board, which brings together the EU's national data protection authorities and
+  the EDPS and issues guidance on how data protection law applies to AI. EDPB pages show that in January 2026 the EDPB
+  and EDPS adopted a joint opinion on the Digital Omnibus on AI, raising concerns about postponing high-risk
+  obligations, and that in July 2026 the Board adopted guidelines on anonymisation and on web scraping for generative
+  AI. The EDPB chair agenda lists her at AI events in 2026.
+related_policies: [eu-ai-act]
+statements:
+  - { title: "EDPB and EDPS support streamlining AI Act implementation but call for stronger safeguards to protect fundamental rights", date: null, url: "https://www.edpb.europa.eu/news/news/2026/edpb-and-edps-support-streamlining-ai-act-implementation-call-stronger-safeguards_en", publisher: "European Data Protection Board" }
+official_profile_url: "https://www.edpb.europa.eu/about-edpb/chair-agenda_en"
+sources:
+  - { title: "Chair agenda", publisher: "European Data Protection Board", url: "https://www.edpb.europa.eu/about-edpb/chair-agenda_en", accessed: "2026-11-12" }
+  - { title: "EDPB and EDPS support streamlining AI Act implementation but call for stronger safeguards to protect fundamental rights", publisher: "European Data Protection Board", url: "https://www.edpb.europa.eu/news/news/2026/edpb-and-edps-support-streamlining-ai-act-implementation-call-stronger-safeguards_en", accessed: "2026-11-12" }
+  - { title: "EDPB sheds light on anonymisation and web scraping for generative AI", publisher: "European Data Protection Board", url: "https://www.edpb.europa.eu/news/edpb-sheds-light-on-anonymisation-and-web-scraping-for-generative-ai-and-adopts-final-version_en", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,29 @@
+slug: krzysztof-gawkowski
+name: Krzysztof Gawkowski
+role: Wicepremier, Minister Cyfryzacji
+organisation: Ministerstwo Cyfryzacji
+jurisdiction: poland
+category: government
+topics: [policy, regulation]
+current: true
+since: null
+summary: >-
+  Poland's Deputy Prime Minister and Minister of Digital Affairs. His ministry prepared the act on AI systems that
+  applies the EU AI Act in Polish law: the Council of Ministers adopted the draft on 31 March 2026, the act is dated
+  3 July 2026 and was published as Dz.U. 2026 poz. 1003. The act gives the digital affairs minister duties to issue
+  best-practice recommendations for AI systems and to report yearly on the computing and energy resources AI needs,
+  and sets the legal basis for AI regulatory sandboxes.
+related_policies: [poland-draft-act-on-ai-systems-ai-act-implementation, eu-ai-act]
+statements:
+  - { title: "Ustawa o systemach AI - bezpieczny rozwój sztucznej inteligencji w Polsce", date: null, url: "https://www.gov.pl/web/cyfryzacja/ustawa-o-systemach-ai--bezpieczny-rozwoj-sztucznej-inteligencji-w-polsce", publisher: "Ministerstwo Cyfryzacji" }
+official_profile_url: "https://www.gov.pl/web/cyfryzacja/krzysztofgawkowski"
+sources:
+  - { title: "wicepremier, minister cyfryzacji Krzysztof Gawkowski", publisher: "Ministerstwo Cyfryzacji", url: "https://www.gov.pl/web/cyfryzacja/krzysztofgawkowski", accessed: "2026-11-12" }
+  - { title: "Cyfrowa suwerenność, AI i bezpieczeństwo. Polska na Digital Summit w Berlinie", publisher: "Ministerstwo Cyfryzacji", url: "https://www.gov.pl/web/cyfryzacja/cyfrowa-suwerennosc-ai-i-bezpieczenstwo-polska-na-digital-summit-w-berlinie", accessed: "2026-11-12" }
+  - { title: "Piaskownice regulacyjne AI - wsparcie innowacji poprzez ich bezpieczne testowanie w praktyce", publisher: "Ministerstwo Cyfryzacji", url: "https://www.gov.pl/web/cyfryzacja/piaskownice-regulacyjne-ai--wsparcie-innowacji-poprzez-ich-bezpieczne-testowanie-w-praktyce", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

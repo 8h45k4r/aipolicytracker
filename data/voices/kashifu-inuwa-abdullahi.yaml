@@ -1,0 +1,32 @@
+slug: kashifu-inuwa-abdullahi
+name: Kashifu Inuwa Abdullahi
+role: Director-General, National Information Technology Development Agency (NITDA)
+organisation: National Information Technology Development Agency (NITDA), Nigeria
+jurisdiction: nigeria
+category: regulator
+topics: [strategy, policy, governance]
+current: true
+since: null
+summary: >-
+  Heads NITDA, Nigeria's federal IT development agency; its National Centre for Artificial
+  Intelligence and Robotics published the National Artificial Intelligence Strategy. NITDA releases
+  from 2026 report that he described the strategy as the framework for deploying AI in critical
+  sectors together with sector regulators such as the Central Bank of Nigeria (July), welcomed a
+  national diploma curriculum in AI from the National Board for Technical Education (August), and at
+  GITEX Nigeria in September discussed the Cloud First policy and keeping classes of sensitive data,
+  including citizens' personal data, within the country.
+related_policies: [nigeria-national-artificial-intelligence-strategy]
+statements:
+  - { title: "Beyond Capital: DG NITDA Says AI, RegTech Will Define Nigeria's Banking Future", date: null, url: "https://nitda.gov.ng/beyond-capital-dg-nitda-says-ai-regtech-will-define-nigerias-banking-future/9552/", publisher: "NITDA" }
+  - { title: "GITEX 2026: Nigeria's Digital Future Depends on Local Infrastructure, Skills, Innovation - NITDA DG", date: null, url: "https://nitda.gov.ng/gitex-2026-nigerias-digital-future-depends-on-local-infrastructure-skills-innovation-nitda-dg/9807/", publisher: "NITDA" }
+official_profile_url: "https://nitda.gov.ng/gitex-2026-nigerias-digital-future-depends-on-local-infrastructure-skills-innovation-nitda-dg/9807/"
+sources:
+  - { title: "GITEX 2026: Nigeria's Digital Future Depends on Local Infrastructure, Skills, Innovation - NITDA DG", publisher: "NITDA", url: "https://nitda.gov.ng/gitex-2026-nigerias-digital-future-depends-on-local-infrastructure-skills-innovation-nitda-dg/9807/", accessed: "2026-11-12" }
+  - { title: "NITDA Commends NBTE's AI Curriculum, Calls for Broader Integration of Emerging Technologies in Technical Education", publisher: "NITDA", url: "https://nitda.gov.ng/nitda-commends-nbtes-ai-curriculum-calls-for-broader-integration-of-emerging-technologies-in-technical-education/9679/", accessed: "2026-11-12" }
+  - { title: "Beyond Capital: DG NITDA Says AI, RegTech Will Define Nigeria's Banking Future", publisher: "NITDA", url: "https://nitda.gov.ng/beyond-capital-dg-nitda-says-ai-regtech-will-define-nigerias-banking-future/9552/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

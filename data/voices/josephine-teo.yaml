@@ -1,0 +1,34 @@
+slug: josephine-teo
+name: Josephine Teo
+role: Minister for Digital Development and Information
+organisation: Ministry of Digital Development and Information
+jurisdiction: singapore
+category: government
+topics: [policy, strategy, safety, governance]
+current: true
+since: null
+summary: >-
+  Her Prime Minister's Office profile lists her as Minister for Digital Development and Information and
+  Minister-in-charge of Cybersecurity and Smart Nation Group, leading government work on digital development, the
+  Smart Nation strategy and cybersecurity. In 2026 ministry speeches she described Singapore's Model AI Governance
+  Framework for Agentic AI, announced a programme to accredit third-party AI testers at the International
+  Scientific Exchange for AI Safety, and called for human oversight of high-impact AI actions.
+related_policies:
+  - singapore-national-artificial-intelligence-strategy-2-0
+  - singapore-model-ai-governance-framework-for-agentic-ai
+  - singapore-ai-tester-accreditation-programme
+statements:
+  - { title: "Opening Speech by Minister Josephine Teo at the International Scientific Exchange for AI Safety 2026 Main Conference", date: null, url: "https://www.mddi.gov.sg/newsroom/opening-speech-by-minister-josephine-teo-at-the-international-scientific-exchange-for-ai-safety-2026-main-conference/", publisher: "Ministry of Digital Development and Information" }
+  - { title: "Speech by Minister Josephine Teo at the Committee of Supply Debate 2026", date: null, url: "https://www.mddi.gov.sg/newsroom/speech-by-minister-josephine-teo-at-the-committee-of-supply-debate-2026/", publisher: "Ministry of Digital Development and Information" }
+  - { title: "Welcome Address by Minister Josephine Teo at the Singapore International Cyber Week 2026", date: null, url: "https://www.mddi.gov.sg/newsroom/welcome-address-by-minister-josephine-teo-at-the-singapore-international-cyber-week-2026/", publisher: "Ministry of Digital Development and Information" }
+official_profile_url: "https://www.pmo.gov.sg/about-us/the-cabinet/mrs-josephine-teo/"
+sources:
+  - { title: "Mrs Josephine TEO", publisher: "Prime Minister's Office Singapore", url: "https://www.pmo.gov.sg/about-us/the-cabinet/mrs-josephine-teo/", accessed: "2026-11-12" }
+  - { title: "MDDI political office holders", publisher: "Ministry of Digital Development and Information", url: "https://www.mddi.gov.sg/who-we-are/political-office-holders/", accessed: "2026-11-12" }
+  - { title: "Opening Speech by Minister Josephine Teo at the International Scientific Exchange for AI Safety 2026 Main Conference", publisher: "Ministry of Digital Development and Information", url: "https://www.mddi.gov.sg/newsroom/opening-speech-by-minister-josephine-teo-at-the-international-scientific-exchange-for-ai-safety-2026-main-conference/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

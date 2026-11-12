@@ -1,0 +1,29 @@
+slug: ng-cher-pong
+name: Ng Cher Pong
+role: Chief Executive Officer, Infocomm Media Development Authority
+organisation: Infocomm Media Development Authority (IMDA)
+jurisdiction: singapore
+category: regulator
+topics: [governance, regulation, responsible_ai]
+current: true
+since: "2025-11-01"
+summary: >-
+  The Ministry of Digital Development and Information announced that he would leave his post as chief executive of
+  the National Library Board and become chief executive of IMDA from 1 November 2025, succeeding Lew Chuen Hong. A
+  June 2026 ministry speech names him as IMDA's chief executive. IMDA is the authority that publishes Singapore's
+  Model AI Governance Framework, its framework for agentic AI and its starter kits for testing AI applications.
+related_policies:
+  - singapore-model-ai-governance-framework
+  - singapore-model-ai-governance-framework-for-agentic-ai
+  - singapore-starter-kit-testing-agentic-systems
+statements: []
+official_profile_url: "https://www.mddi.gov.sg/newsroom/new-chief-executive-appointments-in-the-infocomm-media-development--authority-and-the-national-library-and-archives-board/"
+sources:
+  - { title: "New Chief Executive Appointments in the Infocomm Media Development Authority and the National Library and Archives Board", publisher: "Ministry of Digital Development and Information", url: "https://www.mddi.gov.sg/newsroom/new-chief-executive-appointments-in-the-infocomm-media-development--authority-and-the-national-library-and-archives-board/", accessed: "2026-11-12" }
+  - { title: "Speech by SMS Tan Kiat How at Launch of Digital Content & Capability Development Programme", publisher: "Ministry of Digital Development and Information", url: "https://www.mddi.gov.sg/newsroom/speech-by-sms-tan-kiat-how-at-launch-of-digital-content---capability-development-programme-/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

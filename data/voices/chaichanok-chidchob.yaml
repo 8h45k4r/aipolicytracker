@@ -1,0 +1,30 @@
+slug: chaichanok-chidchob
+name: Chaichanok Chidchob
+role: Minister of Digital Economy and Society
+organisation: Ministry of Digital Economy and Society (MDES)
+jurisdiction: thailand
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: null
+summary: >-
+  A royal command published on 30 March 2026 names him Minister of Digital Economy and Society in the new cabinet;
+  he held the same post in the cabinet appointed in September 2025. MDES co-prepared Thailand's national AI strategy
+  and action plan. Government releases in 2026 report him defending the TH-AI Passport programme to give about five
+  million people access to AI tools, and a national digital economy committee meeting proposing a sandbox for
+  responsible AI use in government agencies, with MDES to lead the testing.
+related_policies:
+  - thailand-thailand-national-ai-strategy-and-action-plan
+statements:
+  - { title: "รมว.ดีอี แจง TH-AI Passport โปร่งใสทุกขั้นตอน", date: null, url: "https://www.prd.go.th/th/content/category/detail/id/39/iid/507369", publisher: "Government Public Relations Department, Thailand" }
+official_profile_url: "https://www.thaigov.go.th/en/news/162739"
+sources:
+  - { title: "Royal Thai Government (royal command on the appointment of ministers)", publisher: "Royal Thai Government", url: "https://www.thaigov.go.th/en/news/162739", accessed: "2026-11-12" }
+  - { title: "Members of the New Cabinet Have Been Appointed", publisher: "Government Public Relations Department, Thailand", url: "https://thailand.prd.go.th/en/content/category/detail/id/48/iid/490252", accessed: "2026-11-12" }
+  - { title: "รมว.ดีอี แจง TH-AI Passport โปร่งใสทุกขั้นตอน", publisher: "Government Public Relations Department, Thailand", url: "https://www.prd.go.th/th/content/category/detail/id/39/iid/507369", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

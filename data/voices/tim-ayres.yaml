@@ -1,0 +1,31 @@
+slug: tim-ayres
+name: Tim Ayres
+role: Minister for Industry and Innovation and Minister for Science
+organisation: Department of Industry, Science and Resources (portfolio)
+jurisdiction: australia
+category: government
+topics: [policy, strategy, safety]
+current: true
+since: "2025-05-13"
+summary: >-
+  Sworn in as Minister for Industry and Innovation and Minister for Science on 13 May 2025, he has said his role
+  includes coordinating AI policy across government, working with Assistant Minister Andrew Charlton. With him he
+  launched the National AI Plan and announced the Australian AI Safety Institute, set up within the department to
+  evaluate emerging AI capabilities and share information on risks. In a July 2026 interview he said the government
+  was not moving towards a text and data mining exemption in copyright law.
+related_policies:
+  - australia-national-ai-plan
+statements:
+  - { title: "Keynote to the AFR AI Summit", date: null, url: "https://www.minister.industry.gov.au/ministers/timayres/speeches/keynote-afr-ai-summit", publisher: "Department of Industry, Science and Resources (Ministers)" }
+  - { title: "Establishment of Australian AI Safety Institute", date: null, url: "https://www.minister.industry.gov.au/ministers/timayres/media-releases/establishment-australian-ai-safety-institute", publisher: "Department of Industry, Science and Resources (Ministers)" }
+official_profile_url: "https://www.minister.industry.gov.au/ministers/timayres/media-releases/establishment-australian-ai-safety-institute"
+sources:
+  - { title: "Establishment of Australian AI Safety Institute", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/ministers/timayres/media-releases/establishment-australian-ai-safety-institute", accessed: "2026-11-12" }
+  - { title: "Keynote to the AFR AI Summit", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/ministers/timayres/speeches/keynote-afr-ai-summit", accessed: "2026-11-12" }
+  - { title: "Australia's AI Safety Institute", publisher: "Department of Industry, Science and Resources", url: "https://www.industry.gov.au/science-technology-and-innovation/technology/artificial-intelligence/ai-safety-institute", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,29 @@
+slug: alex-bores
+name: Alex Bores
+role: Member of the New York State Assembly, Assembly District 73
+organisation: New York State Assembly
+jurisdiction: us-new-york
+category: legislator
+topics: [safety, regulation, policy]
+current: true
+since: null
+summary: >-
+  New York Assembly member for District 73 in Manhattan. The Legislature's records list him as sponsor of the
+  Assembly version of the RAISE Act (A6453), carried in the Senate by Andrew Gounardes, which requires the largest AI
+  developers to publish safety plans and report serious safety incidents. His Assembly pages from 2026 include a floor
+  explanation of his frontier AI framework bill in March 2026 and a joint statement with Senator Gounardes in
+  September 2026 on a proposed federal ban on state AI rules.
+related_policies: [us-new-york-raise-act]
+statements:
+  - { title: "Sen. Gounardes and Asm. Bores: Europe's New AI Rules Make Clear - the RAISE Act is Feasible and Necessary", date: null, url: "https://www.nysenate.gov/newsroom/press-releases/2025/andrew-gounardes/sen-gounardes-and-asm-bores-europes-new-ai-rules-make", publisher: "New York State Senate" }
+official_profile_url: "https://nyassembly.gov/mem/Alex-Bores/"
+sources:
+  - { title: "Alex Bores - Assembly District 73, Assembly Member Directory", publisher: "New York State Assembly", url: "https://nyassembly.gov/mem/Alex-Bores/", accessed: "2026-11-12" }
+  - { title: "The RAISE Act (A06453)", publisher: "New York State Assembly", url: "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A06453&term=&Summary=Y&Actions=Y&Committee=&nbspVotes=Y&Floor=&nbspVotes=Y&Memo=Y&Text=Y", accessed: "2026-11-12" }
+  - { title: "NY State Assembly Bill 2025-A6453", publisher: "New York State Senate", url: "https://www.nysenate.gov/legislation/bills/2025/A6453", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

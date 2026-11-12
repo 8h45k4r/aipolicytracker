@@ -1,0 +1,28 @@
+slug: kyung-hee-song
+name: Kyung Hee Song
+role: Chairperson, Personal Information Protection Commission
+organisation: Personal Information Protection Commission (PIPC)
+jurisdiction: south-korea
+category: regulator
+topics: [regulation, governance, risk]
+current: true
+since: "2025-10-07"
+summary: >-
+  The PIPC's English pages state that she has chaired the commission since 7 October 2025. The commission supervises
+  Korea's personal data law, including how personal data is used to build AI. A PIPC release of 20 August 2026
+  reports that the National Assembly passed an amendment creating a special exception for using personal data in AI
+  development, subject to public value, stronger safeguards and the commission's deliberation and approval; she is
+  quoted describing it as widening data use alongside a matching oversight system.
+related_policies: []
+statements:
+  - { title: "(보도자료) 안전한 인공지능 개발을 ... (PIPC press release on the AI development exception)", date: null, url: "https://pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS074&mCode=C020010000&nttId=12391", publisher: "Personal Information Protection Commission" }
+official_profile_url: "https://pipc.go.kr/eng/user/itc/rli/relatedInstitutions.do"
+sources:
+  - { title: "PIPC English site (Chairperson profile)", publisher: "Personal Information Protection Commission", url: "https://pipc.go.kr/eng/user/itc/rli/relatedInstitutions.do", accessed: "2026-11-12" }
+  - { title: "(보도자료) 안전한 인공지능 개발을 ...", publisher: "Personal Information Protection Commission", url: "https://pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS074&mCode=C020010000&nttId=12391", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

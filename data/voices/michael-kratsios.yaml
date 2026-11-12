@@ -1,0 +1,30 @@
+slug: michael-kratsios
+name: Michael Kratsios
+role: Director of the White House Office of Science and Technology Policy
+organisation: White House Office of Science and Technology Policy (OSTP)
+jurisdiction: us
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: null
+summary: >-
+  OSTP advises the President on science and technology and coordinates federal AI policy. A White House release of
+  March 2025 reports his Senate confirmation, by 74 votes to 25, as the 13th OSTP Director. His office ran the public
+  request for information that drew more than 10,000 comments for the AI Action Plan, and a White House release of
+  December 2025 records the third meeting of the White House AI Education Task Force. A letter from two senators of
+  13 October 2026 on AI and cybersecurity names OSTP among the offices placed to coordinate a federal response.
+related_policies: [us-winning-the-race-america-s-ai-action-plan]
+statements:
+  - { title: "Statement of Michael J.K. Kratsios (Senate Commerce Committee testimony)", date: null, url: "https://www.commerce.senate.gov/wp-content/uploads/meetings/8B4EA667-EA53-482A-B4F3-06FA3F5FCBDF/Testimony%20-%20Michael%20Kratsios.pdf", publisher: "U.S. Senate Committee on Commerce, Science, and Transportation" }
+official_profile_url: "https://www.whitehouse.gov/releases/2025/03/ostp-press-release/"
+sources:
+  - { title: "Michael Kratsios Overwhelmingly Confirmed as 13th OSTP Director", publisher: "The White House", url: "https://www.whitehouse.gov/releases/2025/03/ostp-press-release/", accessed: "2026-11-12" }
+  - { title: "American Public Submits Over 10,000 Comments on White House's AI Action Plan", publisher: "The White House", url: "https://www.whitehouse.gov/releases/2025/04/american-public-submits-over-10000-comments-on-white-houses-ai-action-plan/", accessed: "2026-11-12" }
+  - { title: "The White House Hosts Third AI Education Task Force Meeting with Educators and Parents", publisher: "The White House", url: "https://whitehouse.gov/releases/2025/12/31600/", accessed: "2026-11-12" }
+  - { title: "Letter on AI and cybersecurity, 13 October 2026 (Senators Cantwell and Rounds)", publisher: "U.S. Senate Committee on Commerce, Science, and Transportation", url: "https://www.commerce.senate.gov/wp-content/uploads/2026/10/AI-and-Cybersecurity_Cantwell-and-Rounds_10.13.26.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

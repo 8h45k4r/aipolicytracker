@@ -14,6 +14,7 @@ data/
   implementation/ one YAML file per implementation measure or standard (guidelines, codes of practice,
                   delegated and implementing acts, templates, harmonised and ISO/IEC standards)
   reviewers/      one YAML file per reviewer, with their declared interests
+  voices/         one YAML file per AI Voices profile: a person in a public AI role (docs/modules/voices.md)
   email/          address-quality lists (not policy records; see docs/modules/accounts.md)
 ```
 

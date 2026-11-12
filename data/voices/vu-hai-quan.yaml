@@ -1,0 +1,32 @@
+slug: vu-hai-quan
+name: Vũ Hải Quân
+role: Bộ trưởng Bộ Khoa học và Công nghệ (Minister of Science and Technology)
+organisation: Bộ Khoa học và Công nghệ (Ministry of Science and Technology)
+jurisdiction: vietnam
+category: government
+topics: [policy, regulation, strategy]
+current: true
+since: null
+summary: >-
+  The ministry's site records him as Minister of Science and Technology from April 2026; he was earlier its
+  standing deputy minister and once headed an AI laboratory at the VNU-HCM University of Science. The ministry
+  prepared Vietnam's Law on Artificial Intelligence, presented to the National Assembly by his predecessor and in
+  force since 1 March 2026. Ministry reports show him
+  saying at Vietnam International Digital Week in October 2026 that AI must be judged by better public services and
+  productivity, and answering National Assembly questions on AI management and standards on 12 November 2026.
+related_policies:
+  - vietnam-law-on-artificial-intelligence
+statements:
+  - { title: "Bộ trưởng Vũ Hải Quân: AI phải mang lại giá trị thực chất cho người dân và doanh nghiệp", date: null, url: "https://mst.gov.vn/bo-truong-vu-hai-quan-ai-phai-mang-lai-gia-tri-thuc-chat-cho-nguoi-dan-va-doanh-nghiep-197261029114044236.htm", publisher: "Bộ Khoa học và Công nghệ" }
+  - { title: "Bộ trưởng Vũ Hải Quân trả lời chất vấn về khoa học công nghệ, đổi mới sáng tạo, chuyển đổi số và AI", date: null, url: "https://mst.gov.vn/bo-truong-vu-hai-quan-tra-loi-chat-van-ve-khoa-hoc-cong-nghe-doi-moi-sang-tao-chuyen-doi-so-va-ai-197261112100452861.htm", publisher: "Bộ Khoa học và Công nghệ" }
+official_profile_url: "https://mst.gov.vn/thong-tin-chung/bo-truong-vu-hai-quan"
+sources:
+  - { title: "Bộ trưởng Vũ Hải Quân", publisher: "Bộ Khoa học và Công nghệ", url: "https://mst.gov.vn/thong-tin-chung/bo-truong-vu-hai-quan", accessed: "2026-11-12" }
+  - { title: "Luật Trí tuệ nhân tạo chính thức có hiệu lực từ 1/3", publisher: "Bộ Khoa học và Công nghệ", url: "https://mst.gov.vn/ai-la-cong-cu-ho-tro-quyet-dinh-cuoi-cung-van-la-con-nguoi-19726030111172663.htm", accessed: "2026-11-12" }
+  - { title: "Bộ KH&CN công bố Quyết định của Thủ tướng điều động, bổ nhiệm Thứ trưởng Thường trực", publisher: "Bộ Khoa học và Công nghệ", url: "https://mst.gov.vn/bo-khcn-cong-bo-quyet-dinh-cua-thu-tuong-dieu-dong-bo-nhiem-thu-truong-thuong-truc-197250905200406189.htm", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

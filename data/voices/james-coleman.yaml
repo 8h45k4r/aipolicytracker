@@ -1,0 +1,27 @@
+slug: james-coleman
+name: James Coleman
+role: State Senator and President of the Colorado Senate
+organisation: Colorado General Assembly (Colorado Senate)
+jurisdiction: us-colorado
+category: legislator
+topics: [regulation, policy]
+current: true
+since: null
+summary: >-
+  President of the Colorado Senate. The General Assembly lists him, with Majority Leader Robert Rodriguez, as a Senate
+  prime sponsor of SB 26-189, Automated Decision-Making Technology, which replaces the AI rules adopted in SB 24-205;
+  the Governor's office announced the signing, naming him as Senate President, and the bill record shows it signed on
+  14 May 2026.
+related_policies: [us-colorado-automated-decision-making-technology-act]
+statements: []
+official_profile_url: "https://leg.colorado.gov/legislators/james-coleman"
+sources:
+  - { title: "SB26-189 Automated Decision-Making Technology", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb26-189", accessed: "2026-11-12" }
+  - { title: "Senator James Coleman", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/legislators/james-coleman", accessed: "2026-11-12" }
+  - { title: "Governor Polis Signs Bills into Law Making Colorado An Even Better Place to Do Business, Breaking Down Barriers and Reducing Regulation", publisher: "Office of the Governor of Colorado", url: "https://governorsoffice.colorado.gov/governor/news/governor-polis-signs-bills-law-making-colorado-even-better-place-do-business-breaking-down", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

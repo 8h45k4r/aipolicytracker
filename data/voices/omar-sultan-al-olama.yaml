@@ -1,0 +1,32 @@
+slug: omar-sultan-al-olama
+name: Omar Sultan Al Olama
+role: Minister of State for Artificial Intelligence, Digital Economy and Remote Work Applications
+organisation: Government of the United Arab Emirates
+jurisdiction: uae
+category: government
+topics: [strategy, policy, governance]
+current: true
+since: null
+summary: >-
+  UAE Minister of State for AI, a post the UAE government says he took in 2017 as the first minister
+  for this field; the remit was widened in 2020 to the digital economy and remote work applications.
+  His office issued the UAE National Strategy for Artificial Intelligence 2031. The UAE Cabinet has
+  announced a new Artificial Intelligence and Data Authority, merging three existing bodies, with him
+  as chairman. Dubai Media Office reports from October 2026 show him at the Advanced Technology
+  Research Council and at the Dubai AI Campus, and he leads the AI technologies and data track of the
+  federal programme for agentic AI in government.
+related_policies: [uae-national-ai-strategy-2031, uae-uae-strategy-for-artificial-intelligence, uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence]
+statements: []
+official_profile_url: "https://uaecabinet.ae/en/cabinet-members?page=3"
+sources:
+  - { title: "The Cabinet Members", publisher: "UAE Cabinet", url: "https://uaecabinet.ae/en/cabinet-members?page=3", accessed: "2026-11-12" }
+  - { title: "UAE Artificial Intelligence and Data Authority Establishment", publisher: "UAE Cabinet", url: "https://uaecabinet.ae/en/news/mohammed-bin-rashid-approves-establishing-artificial-intelligence-and-data-authority", accessed: "2026-11-12" }
+  - { title: "Chief Artificial Intelligence Officer (CAIO)", publisher: "The Official Portal of the UAE Government (u.ae)", url: "https://u.ae/en/about-the-uae/digital-uae/whole-of-government-approach/Chief-Artificial-Intelligence-Officer-CAIO", accessed: "2026-11-12" }
+  - { title: "Hamdan bin Mohammed approves new targets for Dubai AI Campus", publisher: "Dubai Media Office", url: "https://mediaoffice.ae/en/news/2026/october/26-10/hamdan-bin-mohammed-approves-new-targets-for-dubai-ai-campus", accessed: "2026-11-12" }
+  - { title: "Al Gergawi: UAE leadership's vision positions country as world's leading government in Agentic AI deployment", publisher: "Emirates News Agency (WAM)", url: "https://www.wam.ae/en/article/c0b3dyi-gergawi-uae-leaderships-vision-positions-country", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -23,6 +23,7 @@ use App\Services\PolicyData\FrameworkCrosswalk;
 use App\Services\Report\StateOfAiRegulation;
 use App\Services\Reviewers\ReviewerRoster;
 use App\Services\Templates\TemplateCatalog;
+use App\Services\Voices\VoiceCatalog;
 use App\Support\ContentDates;
 use App\Support\RiskTaxonomy;
 use Illuminate\Http\Response;
@@ -245,7 +246,7 @@ class SitemapController extends Controller
         $pages = [
             [route('home'), 'daily', '1.0'], [route('policies.index'), 'daily', '0.9'], [route('jurisdictions.index'), 'weekly', '0.9'],
             [route('obligations.index'), 'weekly', '0.8'], [route('compare.index'), 'monthly', '0.7'], [route('changes.index'), 'daily', '0.9'],
-            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(1), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(2), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(3), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(4), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(5), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(6), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('developers'), 'monthly', '0.7'], [route('mcp'), 'monthly', '0.6'], [route('methodology'), 'monthly', '0.6'], [route('glossary'), 'monthly', '0.7'], [route('ai-policy-examples'), 'weekly', '0.7'], [route('assessments.index'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('freshness'), 'weekly', '0.5'], [route('independence'), 'monthly', '0.5'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'],
+            [route('tools.applicability'), 'monthly', '0.7'], [route('risk.index'), 'weekly', '0.8'], [route('risk.incidents'), 'weekly', '0.8'], [route('risk.incidents.browse'), 'weekly', '0.7'], [route('risk.risks'), 'monthly', '0.7'], [route('risk.frameworks'), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(1), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(2), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(3), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(4), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(5), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(6), 'monthly', '0.6'], [RiskTaxonomy::domainUrl(7), 'monthly', '0.6'], [route('open-data'), 'monthly', '0.7'], [route('developers'), 'monthly', '0.7'], [route('mcp'), 'monthly', '0.6'], [route('methodology'), 'monthly', '0.6'], [route('glossary'), 'monthly', '0.7'], [route('ai-policy-examples'), 'weekly', '0.7'], [route('assessments.index'), 'monthly', '0.6'], [route('verification'), 'weekly', '0.6'], [route('freshness'), 'weekly', '0.5'], [route('independence'), 'monthly', '0.5'], [route('coverage'), 'weekly', '0.6'], [route('gaps'), 'daily', '0.5'], [route('corrections'), 'weekly', '0.5'], [route('reviewers'), 'weekly', '0.6'], [route('calendar'), 'weekly', '0.7'], [route('news.index'), 'daily', '0.7'], [route('voices.index'), 'weekly', '0.7'],
             [route('about'), 'monthly', '0.5'], [route('team'), 'monthly', '0.5'], [route('funding'), 'monthly', '0.5'], [route('privacy'), 'yearly', '0.3'], [route('terms'), 'yearly', '0.3'], [route('contribute'), 'monthly', '0.5'], [route('subscribe.show'), 'monthly', '0.6'], [route('guides.index'), 'weekly', '0.7'],
         ];
         // Indexed whether or not checkout is on: it carries the licence terms and the enquiry form.
@@ -465,6 +466,10 @@ class SitemapController extends Controller
         // Editorial pages carry no lastmod: nothing here knows when their text changed.
         foreach (array_keys(config('content.guides')) as $slug) {
             $urls->push(['loc' => route('guides.show', $slug), 'lastmod' => null, 'changefreq' => 'monthly', 'priority' => '0.7']);
+        }
+        // AI Voices profiles: no lastmod, since nothing records when a profile's text changed.
+        foreach (VoiceCatalog::all() as $slug => $voice) {
+            $urls->push(['loc' => route('voices.show', $slug), 'lastmod' => null, 'changefreq' => 'monthly', 'priority' => '0.5']);
         }
         foreach (array_keys(config('content.comparisons')) as $slug) {
             $urls->push(['loc' => route('compare.show', $slug), 'lastmod' => $lastmod, 'changefreq' => 'monthly', 'priority' => '0.7']);

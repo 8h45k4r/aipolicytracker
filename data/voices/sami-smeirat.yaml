@@ -1,0 +1,30 @@
+slug: sami-smeirat
+name: Sami Smeirat
+role: Minister of Digital Economy and Entrepreneurship
+organisation: Ministry of Digital Economy and Entrepreneurship, Jordan
+jurisdiction: jordan
+category: government
+topics: [strategy, policy, responsible_ai]
+current: true
+since: null
+summary: >-
+  Jordan's minister of digital economy and entrepreneurship; the ministry issued the Jordanian AI
+  Strategy and Implementation Roadmap 2023-2027 and the Jordanian Charter of AI Ethics. Jordan News
+  Agency reports from 2026 say he attended the launch of an AI for Government Leaders programme to
+  train 15,000 civil servants by 2027 (June), reviewed an AI computing platform at the Aqaba Digital
+  Hub meant to let government bodies build AI solutions in a secure environment (September), and met
+  the UN ESCWA chief on AI cooperation (July). Spelled Smirat in some official reports.
+related_policies: [jordan-ai-strategy-and-roadmap-2023-2027, jordan-charter-of-ai-ethics-2022]
+statements: []
+official_profile_url: "https://petra.gov.jo/en/news/aqaba-digital-hub-hosts-ai-computing-platform-to-boost-local-capacity"
+sources:
+  - { title: "Aqaba Digital Hub Hosts AI Computing Platform to Boost Local Capacity", publisher: "Jordan News Agency (Petra)", url: "https://petra.gov.jo/en/news/aqaba-digital-hub-hosts-ai-computing-platform-to-boost-local-capacity", accessed: "2026-11-12" }
+  - { title: "Jordan launches \"AI for Government Leaders\" program to drive public sector modernization", publisher: "Jordan News Agency (Petra)", url: "https://petra.gov.jo/en/news/jordan-launches-ai-for-government-leaders-program-to-drive-public-sector-modernization", accessed: "2026-11-12" }
+  - { title: "Digital Economy Minister, ESCWA Chief Discuss AI, Tech Cooperation", publisher: "Jordan News Agency (Petra)", url: "https://petra.gov.jo/en/news/digital-economy-minister-escwa-chief-discuss-ai-tech-cooperation", accessed: "2026-11-12" }
+  - { title: "AI - Ministry of Digital Economy and Entrepreneurship", publisher: "Ministry of Digital Economy and Entrepreneurship, Jordan", url: "https://modee.gov.jo/en/pages/aicustompage", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

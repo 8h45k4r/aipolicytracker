@@ -1,0 +1,30 @@
+slug: mario-hernandez-ramos
+name: Mario Hernández Ramos
+role: Chair, Steering Committee for New and Emerging Digital Technologies (CDNET)
+organisation: Council of Europe
+jurisdiction: council-of-europe
+category: international
+topics: [governance, regulation, risk]
+current: true
+since: null
+summary: >-
+  Chairs CDNET, the Council of Europe intergovernmental committee that succeeded the Committee on Artificial
+  Intelligence (CAI) and acts as custodian of the Framework Convention on Artificial Intelligence and Human Rights,
+  Democracy and the Rule of Law. Council of Europe records state he was elected Chair of the CAI on 18 September 2024
+  and chosen as CDNET Chair at its first plenary in April 2026. CDNET's second plenary, in October 2026, adopted two
+  components of the HUDERIA risk and impact assessment methodology. He is a professor of constitutional law at the
+  Complutense University of Madrid.
+related_policies: [council-of-europe-framework-convention-on-ai, council-of-europe-huderia-methodology]
+statements:
+  - { title: "CDNET Chair participates in PACE Committee hearing on AI and human rights", date: null, url: "https://www.coe.int/en/web/artificial-intelligence/-/cdnet-chair-participates-in-pace-committee-hearing-on-ai-and-human-rights", publisher: "Council of Europe" }
+official_profile_url: "https://www.coe.int/en/web/artificial-intelligence/-/mr-mario-hernandez-ramos"
+sources:
+  - { title: "Mr Mario HERNANDEZ RAMOS - Artificial Intelligence", publisher: "Council of Europe", url: "https://www.coe.int/en/web/artificial-intelligence/-/mr-mario-hernandez-ramos", accessed: "2026-11-12" }
+  - { title: "CDNET(2026)R1 - Steering Committee for New and Emerging Digital Technologies, meeting report", publisher: "Council of Europe", url: "https://rm.coe.int/cdnet-2026-r1-en/48802c5989", accessed: "2026-11-12" }
+  - { title: "Council of Europe Contributes to the Privacy Symposium 2026", publisher: "Council of Europe", url: "https://www.coe.int/en/web/artificial-intelligence/-/council-of-europe-contributes-to-the-privacy-symposium-2026", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

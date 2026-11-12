@@ -1,0 +1,27 @@
+slug: alessio-butti
+name: Alessio Butti
+role: Sottosegretario di Stato alla Presidenza del Consiglio dei ministri con delega all'innovazione tecnologica e alla transizione digitale
+organisation: Presidenza del Consiglio dei ministri
+jurisdiction: italy
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: null
+summary: >-
+  Italy's Undersecretary to the Prime Minister's Office for technological innovation and digital transition, the
+  government member responsible for innovation policy including AI. A Presidency decree of 29 January 2026 setting out
+  his delegated functions refers to the EU AI Act and to Italy's national AI law, Law 132/2025. The Department for
+  Digital Transformation's site lists his interviews and speeches, including on AI infrastructure such as data centres
+  and computing capacity.
+related_policies: [italy-law-132-2025-ai]
+statements: []
+official_profile_url: "https://innovazione.gov.it/sottosegretario/"
+sources:
+  - { title: "Sottosegretario", publisher: "Dipartimento per la trasformazione digitale", url: "https://innovazione.gov.it/sottosegretario/", accessed: "2026-11-12" }
+  - { title: "Sottosegretario di Stato per l'innovazione tecnologica e la transizione digitale - decreto 29 gennaio 2026", publisher: "Presidenza del Consiglio dei ministri", url: "https://presidenza.governo.it/AmministrazioneTrasparente/DisposizioniGenerali/AttiGenerali/AttiAmministrativiGenerali/Decreto_20260129.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

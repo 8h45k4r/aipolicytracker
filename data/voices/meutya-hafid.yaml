@@ -1,0 +1,31 @@
+slug: meutya-hafid
+name: Meutya Hafid
+role: Menteri Komunikasi dan Digital (Minister of Communication and Digital Affairs)
+organisation: Kementerian Komunikasi dan Digital (Komdigi)
+jurisdiction: indonesia
+category: government
+topics: [policy, governance, responsible_ai, risk]
+current: true
+since: null
+summary: >-
+  Komdigi is the ministry preparing Indonesia's draft presidential regulation on a national AI roadmap. In 2026
+  ministry releases report her setting out a Meaningful AI framework that judges AI by its effects, saying the
+  government is drafting risk-based AI governance to be applied through sectoral rules, and naming data protection,
+  transparency, non-discrimination and human control among the principles of the policy being prepared. She also
+  called for AI and data-centre development to be coordinated with energy planning.
+related_policies:
+  - indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+statements:
+  - { title: "Meutya Hafid: Meaningful AI Harus Beri Manfaat Nyata bagi Masyarakat", date: null, url: "https://www.komdigi.go.id/berita/siaran-pers/detail/meutya-hafid-meaningful-ai-harus-beri-manfaat-nyata-bagi-masyarakat", publisher: "Kementerian Komunikasi dan Digital" }
+  - { title: "Meutya Hafid dan Josephine Teo Sepakat, Kepercayaan Digital Jadi Fondasi Inovasi dan Pertumbuhan Ekonomi", date: null, url: "https://djkpm.komdigi.go.id/berita/siaran-pers/250/meutya-hafid-dan-josephine-teo-sepakat-kepercayaan-digital-jadi-fondasi-inovasi-dan-pertumbuhan-ekonomi", publisher: "Kementerian Komunikasi dan Digital" }
+official_profile_url: "https://www.komdigi.go.id/berita/siaran-pers/detail/meutya-hafid-meaningful-ai-harus-beri-manfaat-nyata-bagi-masyarakat"
+sources:
+  - { title: "Meutya Hafid: Meaningful AI Harus Beri Manfaat Nyata bagi Masyarakat", publisher: "Kementerian Komunikasi dan Digital", url: "https://www.komdigi.go.id/berita/siaran-pers/detail/meutya-hafid-meaningful-ai-harus-beri-manfaat-nyata-bagi-masyarakat", accessed: "2026-11-12" }
+  - { title: "Indonesia-AS Perluas Kerja Sama Digital, Meutya Hafid: Kedaulatan dan Perlindungan Masyarakat Jadi Prioritas", publisher: "Kementerian Komunikasi dan Digital", url: "https://portal.komdigi.go.id/kanal-publik/berita-kini/10529", accessed: "2026-11-12" }
+  - { title: "Pemerintah Sinkronkan Infrastruktur AI dan Energi, Investasi Pusat Data Didorong Libatkan Pengusaha Lokal", publisher: "Kementerian Komunikasi dan Digital", url: "https://portal.komdigi.go.id/kanal-publik/berita-kini/10618", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

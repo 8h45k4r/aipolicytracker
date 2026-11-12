@@ -1,0 +1,29 @@
+slug: james-maroney
+name: James Maroney
+role: State Senator, 14th District, and Co-Chair of the General Law Committee
+organisation: Connecticut General Assembly (Connecticut State Senate)
+jurisdiction: us-connecticut
+category: legislator
+topics: [regulation, safety, responsible_ai]
+current: true
+since: null
+summary: >-
+  Connecticut state senator for the 14th District (Milford area) and co-chair of the legislature's General Law
+  Committee. The General Assembly's bill record lists him among the sponsors of SB 5, An Act Concerning Online Safety
+  (Public Act 26-15), signed in 2026. The Governor's office describes the Act as written jointly by the Governor, the
+  Attorney General and Senator Maroney; it includes duties for AI chatbot operators, such as detecting signs of
+  self-harm and responding with resources, provisions on AI in employment decisions, and workforce AI training.
+related_policies: [us-connecticut-sb-5-online-safety]
+statements:
+  - { title: "Senator Maroney Leads Passage of Bill to Protect Residents from AI Harms, Boost Workforce Readiness", date: null, url: "https://www.senatedems.ct.gov/senator-maroney-leads-passage-of-bill-to-protect-residents-from-ai-harms-boost-workforce-readiness", publisher: "Connecticut Senate Democrats" }
+official_profile_url: "https://portal.ct.gov/governor/news/press-releases/2026/06-2026/governor-lamont-signs-legislation-establishing-youth-online-safety-protections"
+sources:
+  - { title: "Governor Lamont Signs Legislation Establishing Youth Online Safety Protections, Regulations Over Artificial Intelligence, and Initiatives to Upskill Connecticut's Workforce", publisher: "Office of the Governor of Connecticut", url: "https://portal.ct.gov/governor/news/press-releases/2026/06-2026/governor-lamont-signs-legislation-establishing-youth-online-safety-protections", accessed: "2026-11-12" }
+  - { title: "Bill status, Substitute for SB No. 5 (2026)", publisher: "Connecticut General Assembly", url: "https://www.cga.ct.gov/asp/CGABillStatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB5", accessed: "2026-11-12" }
+  - { title: "Substitute Senate Bill No. 5 (Public Act No. 26-15)", publisher: "Connecticut General Assembly", url: "https://www.cga.ct.gov/2026/act/pa/pdf/2026PA-00015-R00SB-00005-PA.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

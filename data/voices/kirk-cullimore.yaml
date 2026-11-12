@@ -1,0 +1,28 @@
+slug: kirk-cullimore
+name: Kirk A. Cullimore
+role: State Senator, Utah State Senate
+organisation: Utah State Legislature (Utah State Senate)
+jurisdiction: us-utah
+category: legislator
+topics: [regulation, policy, governance]
+current: true
+since: null
+summary: >-
+  Utah state senator. The Legislature lists him as sponsor of S.B. 149 (2024), Artificial Intelligence Amendments,
+  signed on 13 March 2024, which created the Office of Artificial Intelligence Policy and its learning laboratory
+  programme and requires disclosure of AI use in regulated occupations. In the 2026 General Session he was Senate
+  sponsor of further AI bills, including H.B. 320 on the Office of Artificial Intelligence Policy and H.B. 276 on
+  AI-generated intimate images and content provenance, both recorded as signed by the Governor.
+related_policies: [us-utah-artificial-intelligence-policy-act]
+statements: []
+official_profile_url: "https://le.utah.gov/bills/billSearch.jsp?sess=2026GS&disp=all&sen=CULLIKA&rep=&sub=&comm="
+sources:
+  - { title: "S.B. 149 Artificial Intelligence Amendments (2024)", publisher: "Utah State Legislature", url: "https://le.utah.gov/~2024/bills/static/SB0149.html", accessed: "2026-11-12" }
+  - { title: "Browse Bills by Legislator (2026 General Session)", publisher: "Utah State Legislature", url: "https://le.utah.gov/bills/billSearch.jsp?sess=2026GS&disp=all&sen=CULLIKA&rep=&sub=&comm=", accessed: "2026-11-12" }
+  - { title: "Enrolled Copy H.B. 320 Office of Artificial Intelligence Policy Amendments", publisher: "Utah State Legislature", url: "https://le.utah.gov/Session/2026/bills/enrolled/HB0320.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,32 @@
+slug: andrew-charlton
+name: Andrew Charlton
+role: Assistant Minister for Science, Technology and the Digital Economy
+organisation: Department of Industry, Science and Resources (portfolio)
+jurisdiction: australia
+category: government
+topics: [safety, policy, standards, regulation]
+current: true
+since: null
+summary: >-
+  He works alongside Minister Tim Ayres in the industry and science portfolio and launched the National AI Plan with him. In his
+  speeches he has described the Australian AI Safety Institute as a national testing capability, said the government
+  will not create a central AI regulator and expects each regulator to treat AI as core business, and argued that
+  frontier AI needs regulation for the most significant harms. Ministerial releases report an AI safety and security
+  memorandum with the United Kingdom and plans to legislate Australian standards for AI.
+related_policies:
+  - australia-national-ai-plan
+statements:
+  - { title: "Speech at the Sydney Trust and Safety Festival", date: null, url: "https://www.minister.industry.gov.au/charlton/media/speech-the-sydney-trust-and-safety-festival", publisher: "Department of Industry, Science and Resources (Ministers)" }
+  - { title: "AI Safety Forum", date: null, url: "https://www.minister.industry.gov.au/charlton/media/ai-safety-forum", publisher: "Department of Industry, Science and Resources (Ministers)" }
+  - { title: "Australia and UK partner to strengthen AI safety and security", date: null, url: "https://www.minister.industry.gov.au/ministers/charlton/media-releases/australia-and-uk-partner-strengthen-ai-safety-and-security", publisher: "Department of Industry, Science and Resources (Ministers)" }
+official_profile_url: "https://www.minister.industry.gov.au/charlton/media/ai-safety-forum"
+sources:
+  - { title: "AI Safety Forum", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/charlton/media/ai-safety-forum", accessed: "2026-11-12" }
+  - { title: "Speech at the Sydney Trust and Safety Festival", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://www.minister.industry.gov.au/charlton/media/speech-the-sydney-trust-and-safety-festival", accessed: "2026-11-12" }
+  - { title: "Doorstop to announce the National Artificial Intelligence Plan, Sydney", publisher: "Department of Industry, Science and Resources (Ministers)", url: "https://minister.industry.gov.au/ministers/charlton/transcripts/doorstop-announce-national-artificial-intelligence-plan-sydney", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

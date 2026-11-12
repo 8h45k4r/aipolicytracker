@@ -1,0 +1,27 @@
+slug: paula-ingabire
+name: Paula Ingabire
+role: Minister of ICT and Innovation
+organisation: Ministry of ICT and Innovation (MINICT), Rwanda
+jurisdiction: rwanda
+category: government
+topics: [strategy, policy, responsible_ai]
+current: true
+since: null
+summary: >-
+  Rwanda's minister of ICT and innovation; the ministry issued the National AI Policy, which covers AI
+  literacy, infrastructure, data, public and private sector adoption and ethical use, and provides for
+  a Responsible AI Office in the ministry to coordinate its implementation plan. Rwanda Information
+  Society Authority reports that in September 2026 she led a Rwandan delegation to Dreamforce in San
+  Francisco, hosting a roundtable on AI in Rwanda that launched the Rwanda Digital AI Catalogue.
+related_policies: [rwanda-the-national-ai-policy]
+statements: []
+official_profile_url: "https://www.risa.gov.rw/news-detail/rwanda-takes-its-ai-ambitions-to-dreamforce-2026"
+sources:
+  - { title: "Rwanda takes its AI ambitions to Dreamforce 2026", publisher: "Rwanda Information Society Authority", url: "https://www.risa.gov.rw/news-detail/rwanda-takes-its-ai-ambitions-to-dreamforce-2026", accessed: "2026-11-12" }
+  - { title: "The National AI Policy", publisher: "Ministry of ICT and Innovation, Rwanda", url: "https://www.minict.gov.rw/fileadmin/user_upload/minict_user_upload/Documents/Policies/Artificial_Intelligence_Policy.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

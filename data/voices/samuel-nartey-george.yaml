@@ -1,0 +1,31 @@
+slug: samuel-nartey-george
+name: Samuel Nartey George
+role: Minister for Communication, Digital Technology and Innovations
+organisation: Ministry of Communication, Digital Technology and Innovations, Ghana
+jurisdiction: ghana
+category: government
+topics: [strategy, policy, governance]
+current: true
+since: null
+summary: >-
+  Ghana's minister for communication, digital technology and innovations. He launched the Ghana
+  National Artificial Intelligence Strategy on 24 April 2026, describing it as resting on eight
+  pillars, with delivery through the National Information Technology Agency, the Data Protection
+  Commission and the Cyber Security Authority. Ministry releases say that in June 2026 he reported
+  Cabinet approval of USD 250 million for national compute infrastructure and AI applications, and
+  that in October 2026 he said the strategy was being implemented in finance, health, agriculture,
+  education and transport, guided by privacy, transparency and accountability.
+related_policies: [ghana-ghana-national-artificial-intelligence-strategy]
+statements:
+  - { title: "Opening remarks by the Hon. Minister at the launch of the National AI Strategy", date: "2026-04-24", url: "https://moc.gov.gh/wp-content/uploads/2023/03/Opening-Remarks_Hon-Minister_Launch-of-National-AI-Strategy_Final.pdf", publisher: "Ministry of Communication, Digital Technology and Innovations, Ghana" }
+official_profile_url: "https://moc.gov.gh/2026/10/20/hon-george-africa-must-build-not-just-consume-digiral-technologies/"
+sources:
+  - { title: "Hon. George: Africa Must Build, Not Just Consume, Digiral Technologies", publisher: "Ministry of Communication, Digital Technology and Innovations, Ghana", url: "https://moc.gov.gh/2026/10/20/hon-george-africa-must-build-not-just-consume-digiral-technologies/", accessed: "2026-11-12" }
+  - { title: "Ghana Launches National AI Strategy to Drive Digital Transformation and Economic Growth", publisher: "Ministry of Communication, Digital Technology and Innovations, Ghana", url: "https://moc.gov.gh/2026/04/24/ghana-launches-national-ai-strategy-to-drive-digital-transformation-and-economic-growth/", accessed: "2026-11-12" }
+  - { title: "PwC Ghana Calls on Minister, Signals Interest in AI and Digital Innovation Partnership", publisher: "Ministry of Communication, Digital Technology and Innovations, Ghana", url: "https://moc.gov.gh/2026/06/15/pwc-ghana-calls-on-minister-signals-interest-in-ai-and-digital-innovation-partnership/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

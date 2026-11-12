@@ -1,0 +1,30 @@
+slug: gila-gamliel
+name: Gila Gamliel
+role: Minister of Innovation, Science and Technology
+organisation: Ministry of Innovation, Science and Technology, Israel
+jurisdiction: israel
+category: government
+topics: [policy, regulation, strategy]
+current: true
+since: null
+summary: >-
+  Israel's minister of innovation, science and technology; the ministry co-issued, with the Ministry
+  of Justice, Israel's policy on AI regulation and ethics. Ministry pages say that under her Israel
+  signed the Council of Europe framework convention on AI, and that an April 2025 ministry report on
+  AI as a national priority area was adopted as the basis of the ministry's AI work. A ministry notice
+  from 2026 names her as minister at its Horizon Scanning Forum, and the ministry took part in the
+  National AI Program launched in August 2026.
+related_policies: [israel-ai-regulation-and-ethics-policy-2023]
+statements:
+  - { title: "Israel Signs Groundbreaking Global AI Treaty", date: null, url: "https://www.gov.il/en/pages/ai2024", publisher: "Ministry of Innovation, Science and Technology, Israel" }
+official_profile_url: "https://www.gov.il/en/pages/horizon-scanning"
+sources:
+  - { title: "Horizon Scanning Forum 2026", publisher: "Ministry of Innovation, Science and Technology, Israel", url: "https://www.gov.il/en/pages/horizon-scanning", accessed: "2026-11-12" }
+  - { title: "National Priority Areas in Science and Technology: Artificial Intelligence", publisher: "Ministry of Innovation, Science and Technology, Israel", url: "https://www.gov.il/BlobFolder/news/most-news20250422/he/translated-ai-report%20-final.pdf", accessed: "2026-11-12" }
+  - { title: "Israel Signs Groundbreaking Global AI Treaty", publisher: "Ministry of Innovation, Science and Technology, Israel", url: "https://www.gov.il/en/pages/ai2024", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

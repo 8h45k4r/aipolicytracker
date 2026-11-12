@@ -1,0 +1,29 @@
+slug: arvind-raman
+name: Arvind Raman
+role: Under Secretary of Commerce for Standards and Technology and Director of the National Institute of Standards and Technology
+organisation: National Institute of Standards and Technology (NIST), U.S. Department of Commerce
+jurisdiction: us
+category: standards
+topics: [standards, safety, risk]
+current: true
+since: "2026-06-30"
+summary: >-
+  NIST develops measurement science and voluntary standards, including the AI Risk Management Framework, and houses
+  the Center for AI Standards and Innovation (CAISI), which works with industry on testing and evaluating AI models.
+  NIST reports that the Senate confirmed him on 18 May 2026 and that he was sworn in on 30 June 2026 as the 18th NIST
+  Director, coming from Purdue University, where he was dean of engineering. NIST AI publications issued since then,
+  including work done jointly with CAISI, name him as Director, and the agenda of NIST's advisory committee meeting of
+  27-28 October 2026 lists his update.
+related_policies: [us-nist-ai-rmf]
+statements: []
+official_profile_url: "https://www.commerce.gov/about/leadership/arvind-raman"
+sources:
+  - { title: "Arvind Raman", publisher: "U.S. Department of Commerce", url: "https://www.commerce.gov/about/leadership/arvind-raman", accessed: "2026-11-12" }
+  - { title: "Arvind Raman Confirmed as the 18th NIST Director", publisher: "National Institute of Standards and Technology", url: "https://www.nist.gov/news-events/news/2026/07/arvind-raman-confirmed-18th-nist-director", accessed: "2026-11-12" }
+  - { title: "October 27-28, 2026 VCAT Agenda", publisher: "National Institute of Standards and Technology", url: "https://www.nist.gov/director/vcat/october-27-28-2026-vcat-agenda", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

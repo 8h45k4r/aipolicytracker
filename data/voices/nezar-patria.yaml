@@ -1,0 +1,31 @@
+slug: nezar-patria
+name: Nezar Patria
+role: Wakil Menteri Komunikasi dan Digital (Vice Minister of Communication and Digital Affairs)
+organisation: Kementerian Komunikasi dan Digital (Komdigi)
+jurisdiction: indonesia
+category: government
+topics: [policy, risk, responsible_ai]
+current: true
+since: null
+summary: >-
+  As vice minister at Komdigi he speaks often for the ministry on AI. Ministry releases in 2026 report him saying AI
+  regulation cannot be drafted reactively, that Pancasila is the norm AI developers and companies must follow,
+  stressing data quality and the risk of data poisoning, setting out four steps to close the national AI capability
+  gap, and telling the film censorship board in October 2026 that final decisions still need human control.
+related_policies:
+  - indonesia-rancangan-peraturan-presiden-tentang-peta-jalan-kecerdasan-artifisial-nasional-2026-2029
+statements:
+  - { title: "Wamen Nezar Patria: Regulasi AI Tidak Bisa Dibuat Secara Reaksioner", date: null, url: "https://portal.komdigi.go.id/kanal-publik/berita-kini/10250", publisher: "Kementerian Komunikasi dan Digital" }
+  - { title: "Lindungi Publik dari Risiko AI, Nezar Patria Tekankan Standar Kualitas dan Keamanan Data Nasional", date: null, url: "https://www.komdigi.go.id/berita/siaran-pers/detail/lindungi-publik-dari-risiko-ai-nezar-patria-tekankan-standar-kualitas-dan-keamanan-data-nasional", publisher: "Kementerian Komunikasi dan Digital" }
+  - { title: "Tutup Kesenjangan Kapabilitas AI Nasional, Kemkomdigi Petakan Empat Langkah Strategis", date: null, url: "https://portal.komdigi.go.id/kanal-publik/berita-kini/10395", publisher: "Kementerian Komunikasi dan Digital" }
+official_profile_url: "https://www.komdigi.go.id/berita/siaran-pers/detail/wamen-nezar-patria-ai-tidak-boleh-tinggalkan-publik-dan-demokrasi"
+sources:
+  - { title: "Wamen Nezar Patria: AI Tidak Boleh Tinggalkan Publik dan Demokrasi", publisher: "Kementerian Komunikasi dan Digital", url: "https://www.komdigi.go.id/berita/siaran-pers/detail/wamen-nezar-patria-ai-tidak-boleh-tinggalkan-publik-dan-demokrasi", accessed: "2026-11-12" }
+  - { title: "Bukan Sekadar Teknologi Global, Wamen Nezar Patria: AI Indonesia Harus Ikuti Nilai Pancasila", publisher: "Kementerian Komunikasi dan Digital", url: "https://portal.komdigi.go.id/kanal-publik/berita-kini/10177", accessed: "2026-11-12" }
+  - { title: "AI Bisa Buat Film, Wamen Nezar Patria: Sensor Film Hadapi Tantangan Baru", publisher: "Kementerian Komunikasi dan Digital", url: "https://www.komdigi.go.id/berita/siaran-pers/detail/ai-bisa-buat-film-wamen-nezar-patria-sensor-film-hadapi-tantangan-baru", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

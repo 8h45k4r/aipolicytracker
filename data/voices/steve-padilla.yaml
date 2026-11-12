@@ -1,0 +1,31 @@
+slug: steve-padilla
+name: Steve Padilla
+role: State Senator, California Senate District 18
+organisation: California State Senate
+jurisdiction: us-california
+category: legislator
+topics: [safety, regulation, responsible_ai]
+current: true
+since: null
+summary: >-
+  California state senator for the San Diego area. He authored SB 243 on companion chatbots, chaptered on 13 October
+  2025 (Chapter 677, Statutes of 2025): operators must tell users they are talking to an AI, keep a protocol for
+  suicidal ideation and self-harm and report annually to the State, and injured people can sue. In 2026 his office
+  reported his follow-up bill on chatbots and children, SB 1119, moved together with a paired Assembly bill; the
+  Governor signed it on 10 September 2026. On 1 October 2026 his office issued a statement on the veto of a separate bill on AI
+  therapy chatbots.
+related_policies: [us-california-sb-243-companion-chatbots, us-california-sb-1119-companion-chatbots-child-safety]
+statements:
+  - { title: "First-in-the-Nation AI Chatbot Safeguards Signed into Law", date: null, url: "https://sd18.senate.ca.gov/news/first-nation-ai-chatbot-safeguards-signed-law", publisher: "Office of Senator Steve Padilla" }
+  - { title: "Governor Newsom Allows Dangerous Chatbots to Provide Therapy", date: null, url: "https://sd18.senate.ca.gov/news/governor-newsom-allows-dangerous-chatbots-provide-therapy", publisher: "Office of Senator Steve Padilla" }
+official_profile_url: "https://sd18.senate.ca.gov/press-releases"
+sources:
+  - { title: "Bill Status - SB-243 Companion chatbots", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB243", accessed: "2026-11-12" }
+  - { title: "Bill Status - SB-1119 Companion chatbots: children's safety", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1119", accessed: "2026-11-12" }
+  - { title: "Governor Newsom signs the strongest child safety chatbot and social media laws in the nation", publisher: "Office of the Governor of California", url: "https://www.gov.ca.gov/2026/09/10/governor-newsom-signs-the-strongest-child-safety-chatbot-and-social-media-laws-in-the-nation/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

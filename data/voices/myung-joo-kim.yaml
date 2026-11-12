@@ -1,0 +1,31 @@
+slug: myung-joo-kim
+name: Myung Joo Kim
+role: Director, AI Safety Institute
+organisation: AI Safety Institute (Korea AISI), Electronics and Telecommunications Research Institute
+jurisdiction: south-korea
+category: safety_institute
+topics: [safety, risk, governance]
+current: true
+since: null
+summary: >-
+  MSIT announced in November 2024 his appointment as the first director of the AI Safety Institute, launched after
+  the AI Seoul Summit; at the time he set out a vision centred on AI risk evaluation, prevention policy and
+  technology, and domestic and international cooperation. The institute's leadership page describes it as a
+  collaborative, non-regulatory body that helps Korean AI companies reduce risk. He attended the opening of the
+  government's AI Basic Act support desk, and the institute lists him opening its sixth AI safety policy research
+  seminar on 23 October 2026.
+related_policies:
+  - south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
+statements: []
+official_profile_url: "https://www.aisi.re.kr/eng/contents/23"
+sources:
+  - { title: "AISI Leadership", publisher: "AI Safety Institute (Korea)", url: "https://www.aisi.re.kr/eng/contents/23", accessed: "2026-11-12" }
+  - { title: "인공지능(AI) 안전연구소 초대소장 임명 (First director of the AI Safety Institute appointed)", publisher: "Ministry of Science and ICT", url: "https://www.msit.go.kr/bbs/view.do?sCode=user&mId=113&mPid=238&bbsSeqNo=94&nttSeqNo=3185102", accessed: "2026-11-12" }
+  - { title: "'인공지능기본법' 궁금증 해결…22일부터 '지원데스크' 운영", publisher: "Korea.kr (Government of the Republic of Korea)", url: "https://www.korea.kr/news/policyNewsView.do?newsId=148958442", accessed: "2026-11-12" }
+  - { title: "AISI 소식 (sixth AI safety policy research seminar)", publisher: "AI Safety Institute (Korea)", url: "https://www.aisi.re.kr/kor/article/ATCL75b4fb0a5/127", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

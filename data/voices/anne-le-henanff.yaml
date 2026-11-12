@@ -1,0 +1,29 @@
+slug: anne-le-henanff
+name: Anne Le Hénanff
+role: Ministre déléguée auprès du ministre de l'Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique, chargée de l'Intelligence artificielle et du Numérique
+organisation: Gouvernement de la République française
+jurisdiction: france
+category: government
+topics: [policy, strategy]
+current: true
+since: null
+summary: >-
+  French minister for artificial intelligence and digital affairs, attached to the Minister of the Economy. The
+  government's official composition page lists her in the post since October 2025 and in the government formed by
+  the decree of 26 February 2026. In September 2026 she co-signed a "Pacte Numérique et IA" with the digital sector,
+  a dialogue to be steered by the interministerial digital directorate (DINUM), which the release says is to become
+  the State's reference authority for AI and digital.
+related_policies: []
+statements:
+  - { title: "Pacte Numérique et IA : l'État s'engage aux côtés de la filière française pour un numérique souverain et résilient", date: "2026-09-10", url: "https://www.numerique.gouv.fr/sinformer/espace-presse/pacte-numerique-et-ia-letat-sengage-aux-cotes-de-la-filiere-francaise-pour-un-numerique-souverain-et-resilient/", publisher: "Direction interministérielle du numérique" }
+official_profile_url: "https://www.info.gouv.fr/personnalite/anne-le-henanff"
+sources:
+  - { title: "Anne Le Henanff - Composition officielle du Gouvernement", publisher: "Gouvernement français", url: "https://www.info.gouv.fr/personnalite/anne-le-henanff", accessed: "2026-11-12" }
+  - { title: "La nouvelle composition du Gouvernement de Sébastien Lecornu", publisher: "Gouvernement français", url: "https://www.info.gouv.fr/actualite/la-nouvelle-composition-du-gouvernement-de-sebastien-lecornu", accessed: "2026-11-12" }
+  - { title: "Cyfrowa suwerenność, AI i bezpieczeństwo. Polska na Digital Summit w Berlinie", publisher: "Ministerstwo Cyfryzacji (Poland)", url: "https://www.gov.pl/web/cyfryzacja/cyfrowa-suwerennosc-ai-i-bezpieczenstwo-polska-na-digital-summit-w-berlinie", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

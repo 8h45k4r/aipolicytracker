@@ -1,0 +1,29 @@
+slug: lam-kwok-yan
+name: Lam Kwok Yan
+role: Executive Director, Digital Trust Centre (designated Singapore AI Safety Institute)
+organisation: Digital Trust Centre, Nanyang Technological University
+jurisdiction: singapore
+category: safety_institute
+topics: [safety, risk, standards]
+current: true
+since: null
+summary: >-
+  IMDA appointed Nanyang Technological University to set up the Digital Trust Centre, led by him,
+  and on 22 May 2024 designated the centre as Singapore's AI Safety Institute, with work on testing and evaluation,
+  safe model design, content assurance, and governance and policy. His NTU profile lists him as the centre's
+  Executive Director. In a February 2026 IMDA article he argued that AI safety can no longer be defined in purely
+  technical terms and that different risk types need their own testing methods.
+related_policies: []
+statements:
+  - { title: "Redefining AI Safety for a Multimodal and Multicultural World", date: null, url: "https://www.imda.gov.sg/resources/blog/blog-articles/2026/02/redefining-ai-safety", publisher: "Infocomm Media Development Authority" }
+official_profile_url: "https://personal.ntu.edu.sg/kwokyan.lam/"
+sources:
+  - { title: "Prof. LAM Kwok Yan", publisher: "Nanyang Technological University", url: "https://personal.ntu.edu.sg/kwokyan.lam/", accessed: "2026-11-12" }
+  - { title: "Digital Trust Centre designated as Singapore's AISI", publisher: "Infocomm Media Development Authority", url: "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/digital-trust-centre", accessed: "2026-11-12" }
+  - { title: "Redefining AI Safety for a Multimodal and Multicultural World", publisher: "Infocomm Media Development Authority", url: "https://www.imda.gov.sg/resources/blog/blog-articles/2026/02/redefining-ai-safety", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

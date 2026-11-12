@@ -1,0 +1,31 @@
+slug: yoshua-bengio
+name: Yoshua Bengio
+role: Co-Chair, Independent International Scientific Panel on Artificial Intelligence
+organisation: United Nations Independent International Scientific Panel on Artificial Intelligence
+jurisdiction: international
+category: international
+topics: [safety, risk, governance]
+current: true
+since: "2026-03-03"
+summary: >-
+  Co-chairs the UN Independent International Scientific Panel on AI, set up under General Assembly
+  resolution 79/325, which asks the 40-member panel to elect two co-chairs, one from a developed and
+  one from a developing country. The General Assembly appointed the members in February 2026, and the
+  UN FAQ says the members elected him (Canada) and Maria Ressa (Philippines) as co-chairs at the
+  inaugural meeting on 3 March 2026. With his co-chair he presented the panel's preliminary report on
+  AI opportunities, risks and impacts at a UN press conference on 1 July 2026, ahead of the Global
+  Dialogue on AI Governance in Geneva.
+related_policies: []
+statements:
+  - { title: "Independent International Scientific Panel on AI Launches Preliminary Report on AI Opportunities, Risks and Impacts", date: null, url: "https://www.un.org/independent-international-scientific-panel-ai/sites/default/files/2026-07/Press%20Release%20-%20Independent%20International%20Scientific%20Panel%20on%20AI%20Launches%20Preliminary%20Report%20on%20AI%20Opportunities,%20Risks%20and%20Impacts.pdf", publisher: "United Nations" }
+official_profile_url: "https://www.un.org/independent-international-scientific-panel-ai/en/faq"
+sources:
+  - { title: "FAQ: Independent International Scientific Panel on AI", publisher: "United Nations", url: "https://www.un.org/independent-international-scientific-panel-ai/en/faq", accessed: "2026-11-12" }
+  - { title: "A/RES/79/325", publisher: "United Nations General Assembly", url: "https://www.un.org/pga/wp-content/uploads/sites/110/2025/12/A_RES_79_325-EN.pdf", accessed: "2026-11-12" }
+  - { title: "Secretary-General's remarks to the Press Conference with the Co-Chairs of the Independent International Scientific Panel on Artificial Intelligence", publisher: "United Nations Secretary-General", url: "https://www.un.org/sg/en/content/sg/press-events/2026-07-01/secretary-generals-remarks-the-press-conference-the-co-chairs-of-the-independent-international-scientific-panel-artificial-intelligence-delivered", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

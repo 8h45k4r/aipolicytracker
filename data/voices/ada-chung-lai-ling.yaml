@@ -1,0 +1,32 @@
+slug: ada-chung-lai-ling
+name: Ada Chung Lai-ling
+role: Privacy Commissioner for Personal Data
+organisation: Office of the Privacy Commissioner for Personal Data (PCPD)
+jurisdiction: hong-kong
+category: regulator
+topics: [regulation, governance, responsible_ai, risk]
+current: true
+since: null
+summary: >-
+  The PCPD regulates the handling of personal data under Hong Kong's Personal Data (Privacy) Ordinance and has issued
+  a Model Personal Data Protection Framework for AI. PCPD releases in 2026 report the office warning in March about
+  the privacy and security risks of OpenClaw and other agentic AI, joining 60 privacy authorities in a February joint
+  statement on AI-generated imagery, completing compliance checks on 60 organisations' use of AI, and in August
+  publishing guidance with nine recommendations on protecting personal data when using agentic AI.
+related_policies:
+  - hong-kong-pcpd-model-personal-data-protection-framework-for-ai
+statements:
+  - { title: "Privacy Commissioner's Office Publishes Guidance on Protecting Personal Data Privacy in the Use of Agentic AI", date: null, url: "https://www.pcpd.org.hk/english/news_events/media_statements/press_20260825.html", publisher: "Office of the Privacy Commissioner for Personal Data, Hong Kong" }
+  - { title: "The PCPD Issues Alert over the Privacy Risks of OpenClaw and Agentic AI", date: null, url: "https://www.pcpd.org.hk/english/news_events/media_statements/press_20260316.html", publisher: "Office of the Privacy Commissioner for Personal Data, Hong Kong" }
+  - { title: "Promoting Privacy Protection in AI: Privacy Commissioner Publishes an Article in Bauhinia Magazine", date: null, url: "https://www.pcpd.org.hk/english/whatsnew/20260731.html", publisher: "Office of the Privacy Commissioner for Personal Data, Hong Kong" }
+official_profile_url: "https://www.pcpd.org.hk/english/news_events/media_statements/press_20260825.html"
+sources:
+  - { title: "Privacy Commissioner's Office publishes guidance on Protecting Personal Data Privacy in the Use of Agentic AI", publisher: "Office of the Privacy Commissioner for Personal Data, Hong Kong", url: "https://www.pcpd.org.hk/english/news_events/media_statements/press_20260825.html", accessed: "2026-11-12" }
+  - { title: "AI-Generated Harmful Imagery Raises Concerns Worldwide: PCPD, together with 60 Privacy Protection Authorities, Issue a Global Joint Statement", publisher: "Office of the Privacy Commissioner for Personal Data, Hong Kong", url: "https://www.pcpd.org.hk/english/news_events/media_statements/press_20260223.html", accessed: "2026-11-12" }
+  - { title: "AI Privacy Protection", publisher: "Office of the Privacy Commissioner for Personal Data, Hong Kong", url: "https://www.pcpd.org.hk/english/artificial_intelligence/index.html", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

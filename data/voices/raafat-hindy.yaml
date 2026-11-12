@@ -1,0 +1,32 @@
+slug: raafat-hindy
+name: Raafat Hindy
+role: Minister of Communications and Information Technology
+organisation: Ministry of Communications and Information Technology, Egypt
+jurisdiction: egypt
+category: government
+topics: [strategy, governance, policy]
+current: true
+since: null
+summary: >-
+  Egypt's minister for communications and IT, whose ministry publishes the National AI Strategy
+  2025-2030. Egypt's March 2026 national AI governance framework names him as chairman of the National
+  Council for Artificial Intelligence, Quantum Computing and Emerging Technologies, which the
+  framework calls the supreme strategic body for AI governance in Egypt; the ministry says the council
+  took that name and wider mandate in January 2026. State Information Service reports say he attended
+  the India AI Impact Summit 2026, and that in July 2026 Egypt signed a letter of intent with UNDP on
+  responsible AI governance, including plans for an AI regulatory sandbox.
+related_policies: [egypt-national-ai-strategy]
+statements:
+  - { title: "Guide to Egypt's National AI Governance Framework (March 2026)", date: null, url: "https://ai.gov.eg/SynchedFiles/ar/Resources/Guide%20to%20Egypt%E2%80%99s%20National%20AI%20Governance%20Framework.pdf", publisher: "National Council for Artificial Intelligence, Quantum Computing and Emerging Technologies" }
+official_profile_url: "https://sis.gov.eg/en/media-center/news/minister-of-communications-and-information-technology-departs-for-india-to-attend-ai-impact-summit-2026/"
+sources:
+  - { title: "Minister of Communications and Information Technology departs for India to attend AI Impact Summit 2026", publisher: "State Information Service, Egypt", url: "https://sis.gov.eg/en/media-center/news/minister-of-communications-and-information-technology-departs-for-india-to-attend-ai-impact-summit-2026/", accessed: "2026-11-12" }
+  - { title: "Guide to Egypt's National AI Governance Framework", publisher: "National Council for Artificial Intelligence, Quantum Computing and Emerging Technologies", url: "https://ai.gov.eg/SynchedFiles/ar/Resources/Guide%20to%20Egypt%E2%80%99s%20National%20AI%20Governance%20Framework.pdf", accessed: "2026-11-12" }
+  - { title: "National Council for Artificial Intelligence", publisher: "Ministry of Communications and Information Technology, Egypt", url: "https://mcit.gov.eg/en/Artificial_Intelligence", accessed: "2026-11-12" }
+  - { title: "Egypt, Kenya forge stronger digital ties; Egypt signs AI governance pact with UNDP", publisher: "State Information Service, Egypt", url: "https://sis.gov.eg/en/media-center/news/egypt-kenya-forge-stronger-digital-ties-egypt-signs-ai-governance-pact-with-undp/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

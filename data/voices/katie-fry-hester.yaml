@@ -1,0 +1,30 @@
+slug: katie-fry-hester
+name: Katie Fry Hester
+role: State Senator, Legislative District 9
+organisation: Maryland General Assembly (Maryland Senate)
+jurisdiction: us-maryland
+category: legislator
+topics: [governance, responsible_ai, policy]
+current: true
+since: null
+summary: >-
+  Maryland state senator for District 9 (Howard and Montgomery counties). She was primary sponsor of SB 818, the
+  Artificial Intelligence Governance Act of 2024 (Chapter 496, effective 1 July 2024), which put the Governor's AI
+  Subcabinet into law and requires impact assessments of high-risk AI before state agencies buy or build it. In the
+  2026 session she sponsored further AI bills, including on AI deepfakes and identity fraud, a Maryland AI Partnership
+  in the University System and AI guidance for schools, which the General Assembly records as approved by the
+  Governor.
+related_policies: [us-maryland-ai-governance-act-2024]
+statements:
+  - { title: "Testimony in Support of SB818: AI Governance Act of 2024", date: "2024-03-28", url: "https://www.mgaleg.maryland.gov/cmte_testimony/2024/hgo/1HWWMyxYmPLE82JXv_JSuv3AdoIbQbP6v.pdf", publisher: "Maryland General Assembly" }
+official_profile_url: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/hester01?ys=2026RS"
+sources:
+  - { title: "Members - Senator Katie Fry Hester", publisher: "Maryland General Assembly", url: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/hester01?ys=2026RS", accessed: "2026-11-12" }
+  - { title: "Legislation - SB0818 (2024 Regular Session)", publisher: "Maryland General Assembly", url: "https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/SB0818?ys=2024rs", accessed: "2026-11-12" }
+  - { title: "Fiscal and Policy Note, SB 597 (2026 Regular Session)", publisher: "Maryland General Assembly", url: "https://mgaleg.maryland.gov/2026RS/fnotes/bil_0007/sb0597.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,32 @@
+slug: lin-yi-jing
+name: Lin Yi-jing
+role: Minister of Digital Affairs
+organisation: Ministry of Digital Affairs (moda)
+jurisdiction: taiwan
+category: government
+topics: [policy, governance, risk]
+current: true
+since: null
+summary: >-
+  The Ministry of Digital Affairs describes the AI Basic Act as in force and as the cornerstone of Taiwan's AI
+  innovation and security governance; under the Act the ministry promotes an AI risk classification and assessment
+  framework to help sector regulators set risk-based rules. Ministry releases in 2026 report her presenting
+  Taiwan's sovereign AI evaluation results, saying at COMPUTEX 2026 that the government is pursuing ten new AI
+  infrastructure initiatives, and leading a delegation to Washington, D.C. in September 2026 on AI and digital
+  resilience.
+related_policies:
+  - taiwan-artificial-intelligence-basic-act
+statements:
+  - { title: "Make Your AI Understand Taiwan! MODA Releases Taiwan's Sovereign AI Evaluation Results", date: null, url: "https://moda.gov.tw/en/ADI/news/latest-news/20538", publisher: "Ministry of Digital Affairs" }
+  - { title: "Minister Yi-Jing Lin of The Ministry of Digital Affairs (MODA) Attends COMPUTEX 2026, Shaping an AI Ecosystem", date: null, url: "https://moda.gov.tw/en/ADI/news/latest-news/20126", publisher: "Ministry of Digital Affairs" }
+official_profile_url: "https://moda.gov.tw/en/ADI/news/latest-news/20126"
+sources:
+  - { title: "Minister Yi-Jing Lin of The Ministry of Digital Affairs (MODA) Attends COMPUTEX 2026, Shaping an AI Ecosystem", publisher: "Ministry of Digital Affairs", url: "https://moda.gov.tw/en/ADI/news/latest-news/20126", accessed: "2026-11-12" }
+  - { title: "moda x AI", publisher: "Ministry of Digital Affairs", url: "https://moda.gov.tw/en/major-policies/ai/1781", accessed: "2026-11-12" }
+  - { title: "人工智慧基本法 (Artificial Intelligence Basic Act)", publisher: "National Science and Technology Council", url: "https://law.nstc.gov.tw/EngLawContent.aspx?id=10099&lan=E", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

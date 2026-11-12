@@ -1,0 +1,32 @@
+slug: abdullah-bin-sharaf-alghamdi
+name: Abdullah bin Sharaf Alghamdi
+role: President of the Saudi Data and Artificial Intelligence Authority (SDAIA)
+organisation: Saudi Data and Artificial Intelligence Authority (SDAIA)
+jurisdiction: saudi-arabia
+category: regulator
+topics: [governance, strategy, responsible_ai]
+current: true
+since: null
+summary: >-
+  Heads SDAIA, the Saudi authority for data and AI that issued the National Strategy for Data and AI
+  and the national AI Ethics Principles. Saudi Press Agency reports for 2026 say he led the Saudi
+  delegation to the India AI Impact Summit in February, where he set out human capacity, an
+  integrated national AI ecosystem and governance as the pillars of national AI work and announced
+  that Saudi Arabia had joined the Global Partnership on AI; and that in Geneva in July, during the
+  Global Dialogue on AI Governance, he met the UNESCO Director-General and promoted the Riyadh-based
+  International Center for AI Research and Ethics.
+related_policies: [saudi-arabia-national-strategy-for-data-ai, saudi-arabia-ai-ethics-principles]
+statements:
+  - { title: "SDAIA President: Saudi Arabia Becomes First Arab Member of Global AI Partnership", date: null, url: "https://spa.gov.sa/en/N2519443", publisher: "Saudi Press Agency" }
+  - { title: "SDAIA President Highlights Kingdom's Leadership in Responsible AI Governance During Geneva Meetings", date: null, url: "https://www.spa.gov.sa/en/N2629578", publisher: "Saudi Press Agency" }
+official_profile_url: "https://sdaia.gov.sa/en/Contact/Pages/ContactPresident.aspx"
+sources:
+  - { title: "Contact SDAIA President", publisher: "Saudi Data and Artificial Intelligence Authority", url: "https://sdaia.gov.sa/en/Contact/Pages/ContactPresident.aspx", accessed: "2026-11-12" }
+  - { title: "SDAIA President Leads Saudi Delegation to India AI Impact Summit 2026", publisher: "Saudi Press Agency", url: "https://spa.gov.sa/en/N2512226", accessed: "2026-11-12" }
+  - { title: "SDAIA President Highlights Kingdom's Leadership in Responsible AI Governance During Geneva Meetings", publisher: "Saudi Press Agency", url: "https://www.spa.gov.sa/en/N2629578", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

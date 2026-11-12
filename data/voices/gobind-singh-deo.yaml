@@ -1,0 +1,31 @@
+slug: gobind-singh-deo
+name: Gobind Singh Deo
+role: Minister of Digital
+organisation: Ministry of Digital (Kementerian Digital)
+jurisdiction: malaysia
+category: government
+topics: [policy, governance, regulation, strategy]
+current: true
+since: null
+summary: >-
+  The Ministry of Digital oversees Malaysia's National AI Office, now set up as AI Malaysia Berhad, which drives the
+  National AI Action Plan 2026-2030. Ministry releases in 2026 report him issuing the MY-AI Standards, starting public
+  engagement on a proposed AI Governance Bill (which he told Parliament would not directly regulate AI output),
+  announcing the inaugural board of AI Malaysia Berhad in September 2026, and announcing that the secretariat of the
+  ASEAN AI Safety Network will be based in Kuala Lumpur.
+related_policies:
+  - malaysia-artificial-intelligence
+statements:
+  - { title: "Kementerian Digital Mulakan Libat Urus Cadangan Rang Undang-Undang Tadbir Urus Kecerdasan Buatan (AI)", date: null, url: "https://www.digital.gov.my/en-GB/siaran/Kementerian-Digital-Mulakan-Libat-Urus-Cadangan-Rang-Undang-Undang-Tadbir-Urus-Kecerdasan-Buatan-(AI)", publisher: "Ministry of Digital Malaysia" }
+  - { title: "My-AI Standards To Anchor Trusted AI Development", date: null, url: "https://www.digital.gov.my/en-GB/siaran/Standard-My-AI-Menjadi-Teras-Pembangunan-AI-Yang-Dipercayai-Dan-Menangani-Risiko-'Deepfake'", publisher: "Ministry of Digital Malaysia" }
+official_profile_url: "https://www.digital.gov.my/en-GB/siaran/Pengumuman-Pelantikan-Lembaga-Pengarah-Pertama-AI-Malaysia-Berhad"
+sources:
+  - { title: "Announcement Of The Inaugural Board Of Directors Of AI Malaysia Berhad", publisher: "Ministry of Digital Malaysia", url: "https://www.digital.gov.my/en-GB/siaran/Pengumuman-Pelantikan-Lembaga-Pengarah-Pertama-AI-Malaysia-Berhad", accessed: "2026-11-12" }
+  - { title: "National AI Action Plan 2026-2030 (AI Nation 2030)", publisher: "National AI Office Malaysia", url: "https://ai.gov.my/aiactionplan2030/", accessed: "2026-11-12" }
+  - { title: "ADGMIN welcomes the adoption of Declaration on Establishment of ASEAN AI Safety Network", publisher: "Ministry of Digital Malaysia", url: "https://www.digital.gov.my/api/file/file/17012026_PRESS%20RELEASE_ADGMIN%20WELCOMES%20THE%20ADOPTION%20OF%20DECLARATION%20ON%20ESTABLISHMENT%20OF%20ASEAN%20AI%20SAFETY%20NETWORK.docx.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

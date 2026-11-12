@@ -1,0 +1,31 @@
+slug: klaus-mueller
+name: Klaus Müller
+role: Präsident der Bundesnetzagentur
+organisation: Bundesnetzagentur
+jurisdiction: germany
+category: regulator
+topics: [regulation, governance]
+current: true
+since: "2022-03-01"
+summary: >-
+  President of Germany's Federal Network Agency since 1 March 2022. Under Germany's AI Act implementation law
+  (KI-MIG), in force from 29 July 2026, the agency became the market surveillance authority, single point of contact
+  and complaints office for the AI Act, covering among other things AI in radio equipment and in sensitive areas such
+  as personnel management, critical infrastructure and education, and hosts a central coordination centre. The law
+  creates a three-member AI market surveillance chamber chaired by the agency's president. In July 2025 the agency
+  launched an AI Service Desk to help organisations comply.
+related_policies: [eu-ai-act, germany-ai-act-implementation-act-ki-mig-draft]
+statements:
+  - { title: "Bundesnetzagentur übernimmt zentrale Rolle bei der Umsetzung der KI-Verordnung", date: "2026-07-29", url: "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2026/20260729_KI_VO.html", publisher: "Bundesnetzagentur" }
+  - { title: "KI-Service Desk der Bundesnetzagentur gestartet", date: "2025-07-03", url: "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2025/20250703_KI_ServiceDesk.html", publisher: "Bundesnetzagentur" }
+official_profile_url: "https://www.bundesnetzagentur.de/DE/Allgemeines/DieBundesnetzagentur/Praesidium/start.html"
+sources:
+  - { title: "Bundesnetzagentur - Präsidium", publisher: "Bundesnetzagentur", url: "https://www.bundesnetzagentur.de/DE/Allgemeines/DieBundesnetzagentur/Praesidium/start.html", accessed: "2026-11-12" }
+  - { title: "Klaus Müller ist neuer Präsident der Bundesnetzagentur", publisher: "Bundesnetzagentur", url: "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2022/20220301_Mueller.html", accessed: "2026-11-12" }
+  - { title: "Bundesnetzagentur übernimmt zentrale Rolle bei der Umsetzung der KI-Verordnung", publisher: "Bundesnetzagentur", url: "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2026/20260729_KI_VO.html", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

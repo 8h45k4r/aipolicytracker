@@ -1,0 +1,30 @@
+slug: jaime-andrade
+name: Jaime M. Andrade, Jr.
+role: State Representative, Illinois House of Representatives (40th District)
+organisation: Illinois General Assembly (Illinois House of Representatives)
+jurisdiction: us-illinois
+category: legislator
+topics: [regulation, responsible_ai, policy]
+current: true
+since: null
+summary: >-
+  Illinois state representative in the 104th General Assembly, listed by the General Assembly as chair of the House
+  Artificial Intelligence Subcommittee. He was the chief House sponsor of HB 3773 (Public Act 103-0804, approved
+  9 August 2024 and effective 1 January 2026), which amends the Illinois Human Rights Act so that an employer's use of
+  AI that has a discriminatory effect, using zip codes as a proxy for protected classes, or failing to tell employees
+  that AI is used, is a civil rights violation. In 2026 his caucus office reported his bills on AI data centre
+  oversight and algorithmic pricing.
+related_policies: [us-illinois-hb-3773-ai-in-employment]
+statements:
+  - { title: "Andrade Measure Creates Greater Oversight of AI Data Center Construction and Operations", date: "2026-03-10", url: "https://ilhousedems.com/2026/03/10/andrade-measure-creates-greater-oversight-of-ai-data-center-construction-and-operations/", publisher: "Illinois House Democratic Caucus" }
+official_profile_url: "https://www.ilga.gov/house/members/details/3307"
+sources:
+  - { title: "Jaime M. Andrade, Jr. (D) - 104th General Assembly (2025-2026)", publisher: "Illinois General Assembly", url: "https://www.ilga.gov/house/members/details/3307", accessed: "2026-11-12" }
+  - { title: "Bill Status for HB 3773 (103rd General Assembly)", publisher: "Illinois General Assembly", url: "https://www.ilga.gov/ftp/legislation/103/BillStatus/HTML/10300HB3773.html", accessed: "2026-11-12" }
+  - { title: "Public Act 103-0804", publisher: "Illinois General Assembly", url: "https://ilga.gov/Legislation/publicacts/view/103-0804", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,30 @@
+slug: henry-aguda
+name: Henry R. Aguda
+role: Secretary, Department of Information and Communications Technology
+organisation: Department of Information and Communications Technology (DICT)
+jurisdiction: philippines
+category: government
+topics: [policy, governance, strategy]
+current: true
+since: null
+summary: >-
+  As DICT Secretary he leads the department's AI agenda. DICT releases in 2026 report him setting five priorities at
+  the State of the Nation in AI event (trust and governance, digital foundations, citizen-facing AI, local talent and
+  regional leadership), the department blocking and then, after corrective actions, restoring access to the Grok
+  chatbot in January 2026 over non-consensual deepfakes, endorsement of the Philippines AI+ Infrastructure
+  Masterplan, and the launch of the eGovAI assistant in the eGovPH app in September 2026.
+related_policies: []
+statements:
+  - { title: "AI for the People: DICT Pushes for People-Centric AI Solutions for the Filipino People During SONAI 2026", date: null, url: "https://dict.gov.ph/news-and-updates/25642", publisher: "Department of Information and Communications Technology" }
+official_profile_url: "https://dict.gov.ph/news-and-updates/25642"
+sources:
+  - { title: "AI for the People: DICT Pushes for People-Centric AI Solutions for the Filipino People During SONAI 2026", publisher: "Department of Information and Communications Technology", url: "https://dict.gov.ph/news-and-updates/25642", accessed: "2026-11-12" }
+  - { title: "DICT lifts ban on xAI's Grok Following Corrective Actions and Commitment on Ensuring User Protection and Legal Compliance", publisher: "Department of Information and Communications Technology", url: "https://dict.gov.ph/news-and-updates/25522", accessed: "2026-11-12" }
+  - { title: "DICT Launches eGovAI, Bringing AI-Powered Government Services to Filipinos", publisher: "Department of Information and Communications Technology", url: "https://dict.gov.ph/news-and-updates/27829", accessed: "2026-11-12" }
+  - { title: "DICT Endorses Philippines AI+ Infrastructure Masterplan for Economy and Development Council and Presidential Approval", publisher: "Department of Information and Communications Technology", url: "https://dict.gov.ph/news-and-updates/27111", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,27 @@
+slug: jade-leung
+name: Jade Leung
+role: Vice-Chair of the AI Security Institute and Security Advisor to the AI Taskforce
+organisation: AI Security Institute
+jurisdiction: uk
+category: safety_institute
+topics: [safety, governance, risk]
+current: true
+since: null
+summary: >-
+  GOV.UK announced on 23 September 2026 her appointment as Vice-Chair of the UK AI Security Institute and Security
+  Advisor to the Prime Minister's AI Taskforce, stepping back at the end of September from her full-time roles as the
+  Prime Minister's Adviser on AI and Chief Technology Officer of the Institute. Government progress reports record
+  that she joined the Frontier AI Taskforce, the Institute's predecessor, to work on AI governance and safety, and was
+  later named its Chief Technology Officer.
+related_policies: []
+statements: []
+official_profile_url: "https://www.gov.uk/government/news/dr-jade-leung-appointed-vice-chair-of-the-ai-security-institute-and-security-advisor-to-the-ai-taskforce"
+sources:
+  - { title: "Dr Jade Leung appointed Vice-Chair of the AI Security Institute and Security Advisor to the AI Taskforce", publisher: "UK Government", url: "https://www.gov.uk/government/news/dr-jade-leung-appointed-vice-chair-of-the-ai-security-institute-and-security-advisor-to-the-ai-taskforce", accessed: "2026-11-12" }
+  - { title: "Jade Leung", publisher: "AI Security Institute", url: "https://www.aisi.gov.uk/people/jade-leung", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

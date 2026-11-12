@@ -240,8 +240,41 @@ class PolicyDataValidator
                 }
             }
         }
+        $this->validateVoices(array_keys($policySlugs), array_keys($jurisdictionSlugs), $errors);
 
         return $errors;
+    }
+
+    /**
+     * AI Voices profiles: schema, slug equal to the file name, unique, a jurisdiction and
+     * policies that exist, and the verification rules every record follows (a profile is
+     * verified only by a published reviewer, with a date).
+     */
+    private function validateVoices(array $policySlugs, array $jurisdictionSlugs, array &$errors): void
+    {
+        $seen = [];
+        foreach ($this->repository->voices() as $file => $record) {
+            foreach ($this->schema->validate($record, 'voice.schema.json') as $e) {
+                $errors[$file][] = $e;
+            }
+            $slug = (string) ($record['slug'] ?? '');
+            if ($slug !== basename($file, '.yaml')) {
+                $errors[$file][] = '$.slug: must equal the file name';
+            }
+            if (isset($seen[$slug])) {
+                $errors[$file][] = "duplicate voice slug \"{$slug}\" (also in {$seen[$slug]})";
+            }
+            $seen[$slug] = $file;
+            if (! in_array($record['jurisdiction'] ?? '', $jurisdictionSlugs, true)) {
+                $errors[$file][] = '$.jurisdiction: unknown jurisdiction "'.($record['jurisdiction'] ?? '').'"';
+            }
+            foreach ($record['related_policies'] ?? [] as $i => $p) {
+                if (! in_array($p, $policySlugs, true)) {
+                    $errors[$file][] = "$.related_policies[{$i}]: unknown policy \"{$p}\"";
+                }
+            }
+            $this->checkVerification($record, $file, '$', $errors);
+        }
     }
 
     /**

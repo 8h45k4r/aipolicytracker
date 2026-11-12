@@ -1,0 +1,30 @@
+slug: bae-kyung-hoon
+name: Bae Kyung-hoon
+role: Deputy Prime Minister and Minister of Science and ICT
+organisation: Ministry of Science and ICT (MSIT)
+jurisdiction: south-korea
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: "2025-07-16"
+summary: >-
+  MSIT's list of ministers gives his term as Deputy Prime Minister and Minister of Science and ICT from 16 July 2025
+  to the present, and the ministry's site reports his attendance at the ITU Plenipotentiary Conference on 10 November
+  2026. MSIT is the competent ministry for Korea's AI Basic Act. Ministry releases say he led Korea's delegation to
+  the India AI Impact Summit in February 2026 and chairs the K-Moonshot Task Force for the national science
+  programme.
+related_policies:
+  - south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for
+statements: []
+official_profile_url: "https://english.msit.go.kr/eng/contents/cont.do?sCode=eng&mPid=19&mId=20"
+sources:
+  - { title: "Minister", publisher: "Ministry of Science and ICT", url: "https://english.msit.go.kr/eng/contents/cont.do?sCode=eng&mPid=19&mId=20", accessed: "2026-11-12" }
+  - { title: "역대장관 소개 (Former and current ministers)", publisher: "Ministry of Science and ICT", url: "https://www.msit.go.kr/contents/cont.do?sCode=user&mId=137&mPid=132", accessed: "2026-11-12" }
+  - { title: "과학기술정보통신부 (MSIT home page)", publisher: "Ministry of Science and ICT", url: "https://www.msit.go.kr/index.do", accessed: "2026-11-12" }
+  - { title: "MSIT Launches K-Moonshot Project to Shape Korea's ...", publisher: "Ministry of Science and ICT", url: "https://www.msit.go.kr/eng/bbs/view.do?sCode=eng&mId=4&bbsSeqNo=42&nttSeqNo=1265", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,31 @@
+slug: s-krishnan
+name: S Krishnan
+role: Secretary, Ministry of Electronics and Information Technology
+organisation: Ministry of Electronics and Information Technology (MeitY)
+jurisdiction: india
+category: government
+topics: [governance, policy, regulation]
+current: true
+since: null
+summary: >-
+  As MeitY Secretary he spoke at the launch of the India AI Governance Guidelines, which set out seven principles and
+  recommendations across six pillars and name MeitY as the nodal ministry; he said the approach relies on existing
+  legislation wherever possible. He wrote the foreword to MeitY's draft Data Empowerment and Protection Architecture
+  for AI training, which proposes a techno-legal approach, and at a June 2026 MeitY industry consultation urged
+  investment in reskilling as AI changes IT services.
+related_policies:
+  - india-ai-governance-guidelines
+  - india-indiaai-mission
+statements:
+  - { title: "AI Is a Horizontal, Cross-Cutting Technology That Can Transform Lives and Accelerate India's Progress towards Viksit Bharat 2047: Shri S Krishnan, Secretary, Meity", date: null, url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2186623", publisher: "Press Information Bureau, Government of India" }
+official_profile_url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2186623"
+sources:
+  - { title: "AI Is a Horizontal, Cross-Cutting Technology ...: Shri S Krishnan, Secretary, Meity", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2186623", accessed: "2026-11-12" }
+  - { title: "MeitY Unveils India AI Governance Guidelines under IndiaAI Mission", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2186639", accessed: "2026-11-12" }
+  - { title: "MeitY Convenes Industry Consultation on 'Supporting AI Transformation of IT Services Industry'", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2273180&reg=48&lang=1", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,30 @@
+slug: scott-wiener
+name: Scott Wiener
+role: State Senator, California Senate District 11
+organisation: California State Senate
+jurisdiction: us-california
+category: legislator
+topics: [safety, regulation, policy]
+current: true
+since: null
+summary: >-
+  California state senator for San Francisco. The Legislature's bill record lists him as lead author of SB 53, the
+  Transparency in Frontier Artificial Intelligence Act, which the Governor signed on 29 September 2025 (Chapter 138,
+  Statutes of 2025). The law requires large frontier developers to publish safety frameworks and report critical
+  safety incidents, protects whistleblowers and sets up the CalCompute public computing cluster. His office's releases
+  in 2026 continue to address AI, including a statement on the Governor's AI executive order of September 2026.
+related_policies: [us-california-sb-53]
+statements:
+  - { title: "Governor Newsom Signs Senator Wiener's Landmark AI Law To Set Commonsense Guardrails, Boost Innovation", date: null, url: "https://sd11.senate.ca.gov/news/governor-newsom-signs-senator-wieners-landmark-ai-law-set-commonsense-guardrails-boost", publisher: "Office of Senator Scott Wiener" }
+  - { title: "Senator Wiener's Statement Supporting Governor Newsom's AI Kill Switch Executive Order", date: null, url: "https://sd11.senate.ca.gov/news/senator-wieners-statement-supporting-governor-newsoms-ai-kill-switch-executive-order", publisher: "Office of Senator Scott Wiener" }
+official_profile_url: "https://sd11.senate.ca.gov/"
+sources:
+  - { title: "Bill Status - SB-53 Artificial intelligence models: large developers", publisher: "California Legislative Information", url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53", accessed: "2026-11-12" }
+  - { title: "Governor Newsom signs SB 53, advancing California's world-leading artificial intelligence industry", publisher: "Office of the Governor of California", url: "https://www.gov.ca.gov/2025/09/29/governor-newsom-signs-sb-53-advancing-californias-world-leading-artificial-intelligence-industry/", accessed: "2026-11-12" }
+  - { title: "Senator Wiener Responds To PG&E's Absurd Estimate For San Francisco Buyout", publisher: "Office of Senator Scott Wiener", url: "https://sd11.senate.ca.gov/news/senator-wiener-responds-pges-absurd-estimate-san-francisco-buyout", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

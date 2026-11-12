@@ -1,0 +1,29 @@
+slug: erez-eskel
+name: Erez Eskel
+role: Head of the National AI Directorate
+organisation: National AI Directorate, Prime Minister's Office, Israel
+jurisdiction: israel
+category: government
+topics: [strategy, policy]
+current: true
+since: null
+summary: >-
+  Heads Israel's National AI Directorate in the Prime Minister's Office (official pages also spell
+  the name Askal). Israeli government pages say he signed a joint statement on AI with the United
+  States in January 2026 and an AI memorandum with Azerbaijan in February 2026, and that in August
+  2026 he and the Prime Minister launched the National AI Program, which expands Government Decision
+  4255. The directorate has also run a public call to identify national challenges where AI could
+  help.
+related_policies: []
+statements: []
+official_profile_url: "https://embassies.gov.il/boston/en/news/israel-s-national-ai-program-launched-10-aug-2026"
+sources:
+  - { title: "Israel's National AI Program launched", publisher: "Israel Ministry of Foreign Affairs (Embassy of Israel)", url: "https://embassies.gov.il/boston/en/news/israel-s-national-ai-program-launched-10-aug-2026", accessed: "2026-11-12" }
+  - { title: "Israel and the United States Sign Joint Statement on Artificial Intelligence", publisher: "Prime Minister's Office, Israel", url: "https://www.gov.il/en/pages/spoke-ai160126", accessed: "2026-11-12" }
+  - { title: "In the presence of Prime Minister Netanyahu, Israel and Azerbaijan sign MOU on Artificial Intelligence", publisher: "Israel Ministry of Foreign Affairs (Embassy of Israel)", url: "https://embassies.gov.il/nepal/en/news/presence-prime-minister-netanyahu-israel-and-azerbaijan-sign-mou-artificial-intelligence", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,30 @@
+slug: furukawa-toshiharu
+name: Furukawa Toshiharu
+role: Minister of State for Artificial Intelligence Strategy
+organisation: Cabinet of Japan (Cabinet Office; Digital Agency)
+jurisdiction: japan
+category: government
+topics: [strategy, policy, governance]
+current: true
+since: null
+summary: >-
+  At a September 2026 press conference on the reshuffled second Takaichi Cabinet, the Prime Minister said he would
+  take the artificial intelligence strategy portfolio together with promoting AI and digital reform, because digital
+  reform in government cannot be separated from AI. The Prime Minister's Office list of ministers names him Minister
+  of State for Artificial Intelligence Strategy, alongside Minister for Digital Transformation and other posts. The
+  Cabinet Office administers Japan's AI Promotion Act and the Artificial Intelligence Basic Plan.
+related_policies:
+  - japan-act-on-promotion-of-research-and-development-and-utilization-of-artificial-intelligence-related-technolo
+  - japan-artificial-intelligence-basic-plan
+statements: []
+official_profile_url: "https://japan.kantei.go.jp/105/meibo/daijin/index.html"
+sources:
+  - { title: "List of Ministers", publisher: "Prime Minister's Office of Japan", url: "https://japan.kantei.go.jp/105/meibo/daijin/index.html", accessed: "2026-11-12" }
+  - { title: "Press Conference by Prime Minister TAKAICHI Sanae", publisher: "Prime Minister's Office of Japan", url: "https://japan.kantei.go.jp/105/speech/202609/0917kaiken.html", accessed: "2026-11-12" }
+  - { title: "FURUKAWA Toshiharu", publisher: "Digital Agency", url: "https://www.digital.go.jp/en/about/member/furukawatoshiharu", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

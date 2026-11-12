@@ -34,6 +34,7 @@ use App\Http\Controllers\Site\LandingController;
 use App\Http\Controllers\Site\LegalController;
 use App\Http\Controllers\Site\LicenceEnquiryController;
 use App\Http\Controllers\Site\MachineReadableController;
+use App\Http\Controllers\Site\NewsController;
 use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\ObligationController;
 use App\Http\Controllers\Site\PageController;
@@ -55,6 +56,7 @@ use App\Http\Controllers\Site\TemplateUpdatesController;
 use App\Http\Controllers\Site\TransitionController;
 use App\Http\Controllers\Site\UpdatesController;
 use App\Http\Controllers\Site\VerificationController;
+use App\Http\Controllers\Site\VoicesController;
 use App\Services\Hubs\HubCatalog;
 use App\Services\Localization\Translations;
 use App\Support\RiskTaxonomy;
@@ -133,6 +135,11 @@ Route::get('/changes/export.csv', [ChangeController::class, 'export'])->middlewa
 Route::get('/changes/feed', [ChangeController::class, 'feed'])->withoutMiddleware($stateless)->name('changes.feed');
 Route::get('/changes/{change}.md', [AgentSurfaceController::class, 'change'])->where('change', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('changes.context');
 Route::get('/calendar', [CalendarController::class, 'show'])->name('calendar');
+// AI policy news from official sources' own feeds, the change log and incident records (docs/modules/news.md).
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+// AI Voices: office-holders who shape AI policy, chosen by role, profiles from official sources (docs/modules/voices.md).
+Route::get('/voices', [VoicesController::class, 'index'])->name('voices.index');
+Route::get('/voices/{slug}', [VoicesController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('voices.show');
 // The deadline engine: five plain-form steps, a personal timeline from recorded dates, .ics and PDF of the same rows.
 Route::get('/deadlines/which-date-applies', [DeadlineEngineController::class, 'show'])->name('deadlines.engine');
 Route::get('/deadlines/which-date-applies.ics', [DeadlineEngineController::class, 'ics'])->withoutMiddleware($stateless)->name('deadlines.engine.ics');

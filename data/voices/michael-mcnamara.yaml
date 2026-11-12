@@ -1,0 +1,29 @@
+slug: michael-mcnamara
+name: Michael McNamara
+role: Rapporteur (LIBE), Digital Omnibus on AI; Co-Chair, IMCO-LIBE Working Group on the implementation and enforcement of the AI Act
+organisation: European Parliament
+jurisdiction: eu
+category: legislator
+topics: [regulation, policy, governance]
+current: true
+since: null
+summary: >-
+  Member of the European Parliament (Renew Europe, Ireland) sitting on the Civil Liberties committee. Parliament
+  records name him as co-rapporteur, with Arba Kokalari, on the Digital Omnibus on AI (2025/0359(COD)), the targeted
+  amendment of the AI Act; the joint IMCO-LIBE report was adopted in committee on 18 March 2026, and in April 2026
+  Parliament announced a provisional deal that postponed some high-risk obligations and banned AI "nudifier" systems.
+  He also co-chairs the Parliament's working group monitoring AI Act implementation and enforcement.
+related_policies: [eu-ai-act]
+statements:
+  - { title: "AI Act: deal on simplification measures, ban on \"nudifier\" apps", date: null, url: "https://www.europarl.europa.eu/news/en/press-room/20260427IPR42011/ai-act-deal-on-simplification-measures-ban-on-nudifier-apps", publisher: "European Parliament" }
+official_profile_url: "https://www.europarl.europa.eu/legislative-train/package-digital-package/file-digital-omnibus-on-ai"
+sources:
+  - { title: "Digital Omnibus on AI - Legislative Train", publisher: "European Parliament", url: "https://www.europarl.europa.eu/legislative-train/package-digital-package/file-digital-omnibus-on-ai", accessed: "2026-11-12" }
+  - { title: "Procedure File: 2025/0359(COD)", publisher: "European Parliament", url: "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025%2F0359%28COD%29", accessed: "2026-11-12" }
+  - { title: "Working Group - The implementation and enforcement of the Artificial Intelligence Act", publisher: "European Parliament", url: "https://www.europarl.europa.eu/committees/en/working-group-the-implementation-and-enf/product-details/20241209CDT13901", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,26 @@
+slug: andrea-quacivi
+name: Andrea Quacivi
+role: Direttore Generale, Agenzia per la Cybersicurezza Nazionale (ACN)
+organisation: Agenzia per la Cybersicurezza Nazionale (ACN)
+jurisdiction: italy
+category: regulator
+topics: [regulation, safety]
+current: true
+since: "2026-06-08"
+summary: >-
+  Heads ACN, Italy's national cybersecurity agency, which under Law 132/2025 is one of the two national AI
+  authorities and acts as market surveillance authority and point of contact for AI. ACN announced that he took up the
+  post on 8 June 2026, following his appointment by the Council of Ministers on 22 May 2026, succeeding Bruno
+  Frattasi, who resigned on 21 May 2026.
+related_policies: [italy-law-132-2025-ai, eu-ai-act]
+statements: []
+official_profile_url: "https://www.acn.gov.it/portale/en/w/andrea-quacivi-si-insedia-come-nuovo-direttore-generale-di-acn"
+sources:
+  - { title: "Andrea Quacivi is the new Director General of the Italian National Cybersecurity Agency", publisher: "Agenzia per la Cybersicurezza Nazionale", url: "https://www.acn.gov.it/portale/en/w/andrea-quacivi-si-insedia-come-nuovo-direttore-generale-di-acn", accessed: "2026-11-12" }
+  - { title: "Relazione annuale al Parlamento 2025", publisher: "Agenzia per la Cybersicurezza Nazionale", url: "https://www.acn.gov.it/portale/documents/20119/1226193/ACN_Relazione_2025.pdf/c76b4ae0-0758-ff14-05fa-b01b30bb8985?t=1779466538874", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

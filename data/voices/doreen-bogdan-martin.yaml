@@ -1,0 +1,31 @@
+slug: doreen-bogdan-martin
+name: Doreen Bogdan-Martin
+role: Secretary-General
+organisation: International Telecommunication Union (ITU)
+jurisdiction: international
+category: international
+topics: [governance, policy, standards]
+current: true
+since: null
+summary: >-
+  Leads the ITU, the UN agency for digital technologies, which organises the AI for Good Global
+  Summit with more than 50 UN partners. ITU's media advisory names her as host of the 2026 summit in
+  Geneva (7 to 10 July), held alongside the first UN Global Dialogue on AI Governance; the programme
+  lists her closing keynote "AI for Good beyond 2026". ITU says she is Vice-Chair of the AI for Good
+  Global Commission launched in July 2026. She is listed as a candidate for Secretary-General at the
+  2026 Plenipotentiary Conference in Doha, where elections began on 12 November 2026.
+related_policies: []
+statements:
+  - { title: "AI for Good beyond 2026 (closing keynote, AI for Good Global Summit 2026 programme)", date: "2026-07-10", url: "https://aiforgood.itu.int/summit26/programme/", publisher: "ITU" }
+  - { title: "Global leaders launch AI for Good Global Commission", date: "2026-07-02", url: "https://www.itu.int/en/mediacentre/Pages/PR-2026-07-02-AI-for-Good-Global-Commission.aspx", publisher: "ITU" }
+official_profile_url: "https://www.itu.int/en/osg/pages/default.aspx"
+sources:
+  - { title: "Office of the Secretary-General", publisher: "ITU", url: "https://www.itu.int/en/osg/pages/default.aspx", accessed: "2026-11-12" }
+  - { title: "Media Advisory: AI for Good Global Summit 2026", publisher: "ITU", url: "https://www.itu.int/en/mediacentre/Pages/MA-2026-06-23-AI-for-Good-Global-Summit.aspx", accessed: "2026-11-12" }
+  - { title: "Candidates - PP-26", publisher: "ITU", url: "https://pp.itu.int/2026/en/elections/candidates/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

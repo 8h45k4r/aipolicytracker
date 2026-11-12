@@ -1,0 +1,26 @@
+slug: ximena-lincolao
+name: Ximena Lincolao
+role: Ministra de Ciencia, Tecnología, Conocimiento e Innovación
+organisation: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación, Gobierno de Chile
+jurisdiction: chile
+category: government
+topics: [policy, regulation, strategy]
+current: true
+since: null
+summary: >-
+  Chile's Minister of Science, Technology, Knowledge and Innovation, the ministry that leads national AI policy. Senate
+  records show she presented the Executive's proposal for a framework AI law, built on six pillars, to the Senate's
+  Committee on Future Challenges, Science, Technology and Innovation, which is studying the AI bill (Boletín
+  15869-19, merged with 16821-19) in its second constitutional stage. She told the committee the government wants a national AI action plan and that models from Japan,
+  Singapore and Korea should be considered alongside the European rules.
+related_policies: [chile-proyecto-de-ley-que-regula-los-sistemas-de-inteligencia-artificial-boletin-16821-19]
+statements: []
+official_profile_url: "https://www.senado.cl/comunicaciones/noticias/senadores-conocen-propuesta-del-ejecutivo-para-ley-marco-de-ia"
+sources:
+  - { title: "Senadores conocen propuesta del Ejecutivo para ley marco de IA", publisher: "Senado de Chile", url: "https://www.senado.cl/comunicaciones/noticias/senadores-conocen-propuesta-del-ejecutivo-para-ley-marco-de-ia", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

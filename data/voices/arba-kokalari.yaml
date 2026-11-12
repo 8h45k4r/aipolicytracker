@@ -1,0 +1,29 @@
+slug: arba-kokalari
+name: Arba Kokalari
+role: Rapporteur (IMCO), Digital Omnibus on AI
+organisation: European Parliament
+jurisdiction: eu
+category: legislator
+topics: [regulation, policy]
+current: true
+since: null
+summary: >-
+  Member of the European Parliament (EPP, Sweden) on the Internal Market and Consumer Protection committee. Parliament
+  records name her as co-rapporteur, with Michael McNamara, on the Digital Omnibus on AI (2025/0359(COD)), the
+  Commission proposal for targeted amendments to the AI Act. The joint IMCO-LIBE report was adopted in committee on
+  18 March 2026, and in April 2026 Parliament announced a provisional agreement with the Council setting fixed later
+  application dates for high-risk rules and adding a ban on AI "nudifier" systems.
+related_policies: [eu-ai-act]
+statements:
+  - { title: "AI Act: deal on simplification measures, ban on \"nudifier\" apps", date: null, url: "https://www.europarl.europa.eu/news/en/press-room/20260427IPR42011/ai-act-deal-on-simplification-measures-ban-on-nudifier-apps", publisher: "European Parliament" }
+official_profile_url: "https://www.europarl.europa.eu/legislative-train/package-digital-package/file-digital-omnibus-on-ai"
+sources:
+  - { title: "Digital Omnibus on AI - Legislative Train", publisher: "European Parliament", url: "https://www.europarl.europa.eu/legislative-train/package-digital-package/file-digital-omnibus-on-ai", accessed: "2026-11-12" }
+  - { title: "Procedure File: 2025/0359(COD)", publisher: "European Parliament", url: "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025%2F0359%28COD%29", accessed: "2026-11-12" }
+  - { title: "AI Act: deal on simplification measures, ban on \"nudifier\" apps", publisher: "European Parliament", url: "https://www.europarl.europa.eu/news/en/press-room/20260427IPR42011/ai-act-deal-on-simplification-measures-ban-on-nudifier-apps", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,29 @@
+slug: lisa-callan
+name: Lisa Callan
+role: State Representative, Washington House of Representatives
+organisation: Washington State Legislature (House of Representatives)
+jurisdiction: us-washington
+category: legislator
+topics: [safety, regulation, responsible_ai]
+current: true
+since: null
+summary: >-
+  Washington state representative from the Issaquah area. Legislative bill reports name her as prime sponsor of HB
+  2225, requested by the Governor and enacted as ESHB 2225 (Chapter 168, Laws of 2026), effective 1 January 2027. The
+  law requires AI companion chatbot operators to disclose that the chatbot is not human, adds protections for known
+  minors and requires protocols for detecting and responding to self-harm and suicidal ideation; violations are
+  treated under the Consumer Protection Act.
+related_policies: [us-washington-eshb-2225-ai-companion-chatbots]
+statements:
+  - { title: "Callan bill establishes protections and guidelines for AI chatbots", date: "2026-02-19", url: "https://housedemocrats.wa.gov/callan/2026/02/19/callan-bill-establishes-protections-and-guidelines-for-ai-chatbots/", publisher: "Washington House Democrats" }
+official_profile_url: "https://app.leg.wa.gov/billsummary?Year=2025&BillNumber=2225"
+sources:
+  - { title: "ESHB 2225 bill summary", publisher: "Washington State Legislature", url: "https://app.leg.wa.gov/billsummary?Year=2025&BillNumber=2225", accessed: "2026-11-12" }
+  - { title: "Final Bill Report ESHB 2225, C 168 L 26", publisher: "Washington State Legislature", url: "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bill%20Reports/House/2225-S.E%20HBR%20FBR%2026.pdf", accessed: "2026-11-12" }
+  - { title: "Callan bill establishes protections and guidelines for AI chatbots", publisher: "Washington House Democrats", url: "https://housedemocrats.wa.gov/callan/2026/02/19/callan-bill-establishes-protections-and-guidelines-for-ai-chatbots/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,30 @@
+slug: william-kabogo-gitau
+name: William Kabogo Gitau
+role: Cabinet Secretary, Ministry of Information, Communications and the Digital Economy
+organisation: Ministry of Information, Communications and the Digital Economy, Kenya
+jurisdiction: kenya
+category: government
+topics: [strategy, policy, governance]
+current: true
+since: null
+summary: >-
+  Kenya's Cabinet Secretary for information, communications and the digital economy; the ministry
+  issued the Kenya Artificial Intelligence Strategy 2025-2030, built on pillars for AI digital
+  infrastructure, data and AI governance, and AI research and innovation. At the Nairobi AI Forum 2026
+  he said AI and digital technologies are a government priority under that strategy. The ministry
+  site also hosts a July 2026 draft Kenya AI and other Emerging Technologies Policy. Ministry pages
+  record him launching digital hubs in Nyandarua County in June 2026.
+related_policies: [kenya-kenya-artificial-intelligence-strategy-2025-2030]
+statements:
+  - { title: "Kenya Highly Prioritises Leveraging AI and Digital Technologies as Key to Advancing Digital Transformation - CS Kabogo", date: null, url: "https://ict.go.ke/kenya-highly-prioritises-leveraging-ai-and-digital-technologies-key-advancing-digital", publisher: "Ministry of Information, Communications and the Digital Economy, Kenya" }
+official_profile_url: "https://ict.go.ke/ministry-leadership"
+sources:
+  - { title: "Ministry Leadership", publisher: "Ministry of Information, Communications and the Digital Economy, Kenya", url: "https://ict.go.ke/ministry-leadership", accessed: "2026-11-12" }
+  - { title: "Official Launch of Three Digital Hubs in OlKalou Constituency", publisher: "Ministry of Information, Communications and the Digital Economy, Kenya", url: "https://www.ict.go.ke/official-launch-three-digital-hubs-olkalou-constituency", accessed: "2026-11-12" }
+  - { title: "Kenya AI and other Emerging Technologies Policy, 2026 (draft)", publisher: "Ministry of Information, Communications and the Digital Economy, Kenya", url: "https://ict.go.ke/sites/default/files/AI%20Policy%20Doc/draft-kenya-ai-and-emerging-technologies-policy-2026.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -64,6 +64,12 @@ class PolicyDataRepository
         return $this->parseDirectory('reviewers');
     }
 
+    /** @return array<string, array> relative path => AI Voices profile (data/voices) */
+    public function voices(): array
+    {
+        return $this->parseDirectory('voices');
+    }
+
     /** @return array<string, array> relative path => transition measure record */
     public function transitionMeasures(): array
     {

@@ -1,0 +1,29 @@
+slug: mario-nobile
+name: Mario Nobile
+role: Direttore Generale, Agenzia per l'Italia Digitale (AgID)
+organisation: Agenzia per l'Italia Digitale (AgID)
+jurisdiction: italy
+category: regulator
+topics: [regulation, governance, policy]
+current: true
+since: "2023-03-23"
+summary: >-
+  Heads AgID, which Law 132/2025 designates, together with the national cybersecurity agency ACN, as Italy's national
+  AI authority; AgID's documents describe its tasks as promoting AI innovation and handling notification,
+  accreditation and monitoring of conformity-assessment bodies. AgID's transparency portal gives his term as 23 March
+  2023 to 23 March 2029, after a Presidency decree of 13 January 2026 renewed him. On 9 November 2026 he signed the
+  determination adopting AgID's guidelines on AI in public administration.
+related_policies: [italy-law-132-2025-ai, italy-italian-ai-strategy-2024-2026, eu-ai-act]
+statements:
+  - { title: "Determinazione del Direttore Generale n. 169 del 9 novembre 2026 - Adozione delle Linee guida per l'adozione di intelligenza artificiale nella pubblica amministrazione", date: "2026-11-09", url: "https://trasparenza.agid.gov.it/page/103/details/5660/determinazione-del-direttore-generale-n-169-del-9-novembre-2026-adozione-delle-linee-guida-per-ladozione-di-intelligenza-artificiale-nella-pubblica-amministrazione.html", publisher: "AgID" }
+official_profile_url: "https://trasparenza.agid.gov.it/page/58/details/218/nobile-mario.html"
+sources:
+  - { title: "Portale Trasparenza AgID - Nobile Mario", publisher: "AgID", url: "https://trasparenza.agid.gov.it/page/58/details/218/nobile-mario.html", accessed: "2026-11-12" }
+  - { title: "DPCM 13.01.2026", publisher: "Presidenza del Consiglio dei ministri", url: "https://trasparenza.agid.gov.it/media/agid/file_archive/NuovaCartella%202/DPCM%2013.01.2026.pdf", accessed: "2026-11-12" }
+  - { title: "Linee Guida per l'adozione di IA nella Pubblica Amministrazione", publisher: "AgID", url: "https://trasparenza.agid.gov.it/download/10402.html", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

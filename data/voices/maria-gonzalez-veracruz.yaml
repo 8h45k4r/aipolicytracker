@@ -1,0 +1,29 @@
+slug: maria-gonzalez-veracruz
+name: María González Veracruz
+role: Secretaria de Estado de Digitalización e Inteligencia Artificial; Presidenta de la AESIA
+organisation: Ministerio para la Transformación Digital y de la Función Pública
+jurisdiction: spain
+category: government
+topics: [policy, strategy, regulation]
+current: true
+since: null
+summary: >-
+  Spain's Secretary of State for Digitalisation and Artificial Intelligence, the body of the Ministry for Digital
+  Transformation that runs policy on the digital economy and AI, and president of the AI supervision agency AESIA.
+  Ministry releases show that in June 2026 she closed Spain's first AI regulatory sandbox, awarding diplomas to the
+  11 participating systems, and that in September 2026 she announced EUR 40 million through Red.es to support AI
+  models for startups and SMEs. AESIA's director general was appointed on her proposal in December 2025.
+related_policies: [spain-royal-decree-729-2023-aesia]
+statements: []
+official_profile_url: "https://digital.gob.es/en/ministerio/organigrama/sedia"
+sources:
+  - { title: "Secretaría de Estado de Digitalización e Inteligencia Artificial - Organigrama", publisher: "Ministerio para la Transformación Digital y de la Función Pública", url: "https://digital.gob.es/en/ministerio/organigrama/sedia", accessed: "2026-11-12" }
+  - { title: "Press release on the conclusion of the first AI sandbox (June 2026)", publisher: "Ministerio para la Transformación Digital y de la Función Pública", url: "https://digital.gob.es/en/comunicacion/notas-prensa/secretaria-digitalizacion-e-inteligencia-artificial/2026/06/el-gobierno-concluye-con-exito-el-primer-sandbox-de-inteligencia", accessed: "2026-11-12" }
+  - { title: "Press release on EUR 40 million for AI models (September 2026)", publisher: "Ministerio para la Transformación Digital y de la Función Pública", url: "https://digital.gob.es/comunicacion/notas-prensa/secretaria-digitalizacion-e-inteligencia-artificial/2026/09/el-gobierno-movilizara-40-millones-de-euros-para-impulsar-el-des", accessed: "2026-11-12" }
+  - { title: "La AESIA, con las empresas para convertir la IA en un motor de competitividad e innovación responsable", publisher: "AESIA", url: "https://aesia.digital.gob.es/es/actualidad/20261020-la-aesia-con-las-empresas-para-convertir-la-ia-en-un-motor-de-competitividad-e-innovacion-responsable", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

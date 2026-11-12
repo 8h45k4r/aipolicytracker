@@ -1,0 +1,29 @@
+slug: akiko-murakami
+name: Akiko Murakami
+role: Executive Director, Japan AI Safety Institute
+organisation: Japan AI Safety Institute (J-AISI), Information-technology Promotion Agency
+jurisdiction: japan
+category: safety_institute
+topics: [safety, standards, risk]
+current: true
+since: "2024-02-14"
+summary: >-
+  METI announced on 14 February 2024 the launch of the AI Safety Institute within the Information-technology
+  Promotion Agency, with her as director, to examine evaluation methods for AI safety. The institute's profile lists
+  her as its executive director, a part-time post, and its steering committee is chaired by the director. The
+  institute's 2025 national status report records a memorandum of cooperation with Anthropic signed on 29 October
+  2025, and an institute notice shows her opening its working-group report session for the first half of fiscal 2026.
+related_policies: []
+statements: []
+official_profile_url: "https://aisi.go.jp/about/"
+sources:
+  - { title: "AISIについて (About AISI)", publisher: "Japan AI Safety Institute", url: "https://aisi.go.jp/about/", accessed: "2026-11-12" }
+  - { title: "Launch of AI Safety Institute", publisher: "Ministry of Economy, Trade and Industry", url: "https://www.meti.go.jp/english/press/2024/0214_001.html", accessed: "2026-11-12" }
+  - { title: "National Status Report on AI Safety in Japan 2025", publisher: "Japan AI Safety Institute", url: "https://aisi.go.jp/assets/pdf/j-aisi_report_2025_en.pdf", accessed: "2026-11-12" }
+  - { title: "AISI事業実証WG 2026年度上期報告会を開催しました", publisher: "Japan AI Safety Institute", url: "https://aisi.go.jp/activity/activity_information/261008_2/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,28 @@
+slug: roberto-viola
+name: Roberto Viola
+role: Director-General, Directorate-General for Communications Networks, Content and Technology (DG CONNECT)
+organisation: European Commission
+jurisdiction: eu
+category: government
+topics: [policy, regulation, governance]
+current: true
+since: "2015-09-01"
+summary: >-
+  Leads DG CONNECT, the Commission department responsible for digital policy, within which the European AI Office
+  sits. The Commission's department page lists him as Director-General, and his Commission CV gives 1 September 2015
+  as his start in the post. In July 2026 he delivered the statement of the EU and its Member States at the UN Global
+  Dialogue on Artificial Intelligence Governance in Geneva.
+related_policies: [eu-ai-act]
+statements:
+  - { title: "Global Dialogue on Artificial Intelligence Governance - EU Statement", date: null, url: "https://www.eeas.europa.eu/delegations/un-geneva/global-dialogue-artificial-intelligence-governance-eu-statement_en", publisher: "European External Action Service" }
+official_profile_url: "https://commission.europa.eu/persons/roberto-viola_en"
+sources:
+  - { title: "Roberto Viola - European Commission", publisher: "European Commission", url: "https://commission.europa.eu/persons/roberto-viola_en", accessed: "2026-11-12" }
+  - { title: "Communications Networks, Content and Technology", publisher: "European Commission", url: "https://commission.europa.eu/about/departments-and-executive-agencies/communications-networks-content-and-technology_en", accessed: "2026-11-12" }
+  - { title: "CV Roberto Viola", publisher: "European Commission", url: "https://commission.europa.eu/document/download/f6022280-18f2-4ee6-b2c3-e3c9ac5cb890_en?filename=cv-roberto-viola_en", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

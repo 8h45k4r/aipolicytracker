@@ -1,0 +1,28 @@
+slug: alberto-gago
+name: Alberto Gago Fernández
+role: Director General, Agencia Española de Supervisión de la Inteligencia Artificial (AESIA)
+organisation: Agencia Española de Supervisión de la Inteligencia Artificial (AESIA)
+jurisdiction: spain
+category: regulator
+topics: [regulation, governance, responsible_ai]
+current: true
+since: null
+summary: >-
+  Heads AESIA, Spain's AI supervision agency attached to the Secretariat of State for Digitalisation and AI. AESIA
+  announced in December 2025 that its Governing Board had approved his appointment, on the proposal of the Secretary
+  of State, succeeding Ignasi Belda, the agency's first director. He previously led the Spain Digital 2030 and
+  Internationalisation Office and advised the Secretary of State, including on setting up the agency. A September
+  2026 AESIA release names him as director general at an event in London.
+related_policies: [spain-royal-decree-729-2023-aesia]
+statements:
+  - { title: "La AESIA reivindica en Londres una inteligencia artificial que mejore la calidad del trabajo y proteja los derechos de las personas", date: null, url: "https://aesia.digital.gob.es/es/actualidad/20260916-la-aesia-reivindica-en-londres-una-inteligencia-artificial-que-mejore-la-calidad-del-trabajo", publisher: "AESIA" }
+official_profile_url: "https://aesia.digital.gob.es/en/present/20251219-alberto-gago-new-director-of-the-spanish-agency-for-the-supervision-of-artificial-intelligence"
+sources:
+  - { title: "Alberto Gago, new director of the Spanish Agency for the Supervision of Artificial Intelligence", publisher: "AESIA", url: "https://aesia.digital.gob.es/en/present/20251219-alberto-gago-new-director-of-the-spanish-agency-for-the-supervision-of-artificial-intelligence", accessed: "2026-11-12" }
+  - { title: "Press release on the appointment of Alberto Gago as AESIA director (December 2025)", publisher: "Ministerio para la Transformación Digital y de la Función Pública", url: "https://digital.gob.es/en/comunicacion/notas-prensa/secretaria-digitalizacion-e-inteligencia-artificial/2025/12/alberto-gago--nuevo-director-de-la-agencia-espanola-de-supervisi", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

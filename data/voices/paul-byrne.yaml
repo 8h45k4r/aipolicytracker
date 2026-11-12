@@ -1,0 +1,28 @@
+slug: paul-byrne
+name: Paul Byrne
+role: Chief Executive Officer, AI Office of Ireland
+organisation: AI Office of Ireland (Oifig IS na hÉireann)
+jurisdiction: ireland
+category: regulator
+topics: [regulation, governance]
+current: true
+since: null
+summary: >-
+  First Chief Executive Officer of the AI Office of Ireland, the independent statutory body created by the Regulation
+  of Artificial Intelligence Act 2026, signed into law on 21 July 2026, to act as Ireland's central coordinating
+  authority for the EU AI Act. The government announced his appointment on 30 July 2026. He joined from the Medical
+  Council of Ireland, where he was Executive Director of Education, Innovation and Artificial Intelligence. The
+  Office's board held its first meeting on 8 September 2026.
+related_policies: [eu-ai-act]
+statements: []
+official_profile_url: "https://aioffice.gov.ie/about-us/our-ceo/"
+sources:
+  - { title: "Our CEO - AI Office of Ireland", publisher: "AI Office of Ireland", url: "https://aioffice.gov.ie/about-us/our-ceo/", accessed: "2026-11-12" }
+  - { title: "AI Office of Ireland established under the AI Regulation Bill 2026, Paul Byrne appointed as CEO", publisher: "Government of Ireland", url: "https://www.gov.ie/en/department-of-enterprise-tourism-and-employment/press-releases/ai-office-of-ireland-established-under-the-ai-regulation-bill-2026-paul-byrne-appointed-as-ceo/", accessed: "2026-11-12" }
+  - { title: "News and updates - AI Office of Ireland", publisher: "AI Office of Ireland", url: "https://aioffice.gov.ie/news-and-updates/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

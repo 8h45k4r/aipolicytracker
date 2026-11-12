@@ -1,0 +1,31 @@
+slug: karsten-wildberger
+name: Karsten Wildberger
+role: Bundesminister für Digitales und Staatsmodernisierung
+organisation: Bundesministerium für Digitales und Staatsmodernisierung (BMDS)
+jurisdiction: germany
+category: government
+topics: [policy, regulation]
+current: true
+since: "2025-05-06"
+summary: >-
+  Germany's Federal Minister for Digital Transformation and Government Modernisation since 6 May 2025, whose ministry
+  led the federal law implementing the EU AI Act (KI-Marktüberwachungs- und Innovationsförderungsgesetz). The
+  ministry describes the design as relying on existing authorities rather than a new one, pooling expertise at the
+  Federal Network Agency, with an AI service desk for SMEs and start-ups and a regulatory sandbox. In a Bundestag
+  speech on 20 March 2026 he argued for innovation-friendly regulation and for extending the EU deadlines for
+  high-risk AI.
+related_policies: [germany-ai-act-implementation-act-ki-mig-draft, eu-ai-act]
+statements:
+  - { title: "Bundesdigitalminister zur EU-KI-Verordnung", date: null, url: "https://www.bundesregierung.de/breg-de/service/newsletter-und-abos/bulletin/bmds-eu-ki-verordnung-2414856", publisher: "Presse- und Informationsamt der Bundesregierung" }
+  - { title: "Neues KI-Gesetz tritt in Kraft", date: null, url: "https://bmds.bund.de/aktuelles/pressemitteilungen/detail/neues-ki-gesetz-tritt-in-kraft", publisher: "BMDS" }
+official_profile_url: "https://bmds.bund.de/en/the-ministry/leadership/minister"
+sources:
+  - { title: "Lebenslauf von Dr. Karsten Wildberger", publisher: "BMDS", url: "https://bmds.bund.de/en/the-ministry/leadership/minister", accessed: "2026-11-12" }
+  - { title: "Kabinett beschließt schlanke KI-Aufsicht in Deutschland", publisher: "BMDS", url: "https://bmds.bund.de/aktuelles/pressemitteilungen/detail/kabinett-beschliesst-schlanke-ki-aufsicht-in-deutschland", accessed: "2026-11-12" }
+  - { title: "Cyfrowa suwerenność, AI i bezpieczeństwo. Polska na Digital Summit w Berlinie", publisher: "Ministerstwo Cyfryzacji (Poland)", url: "https://www.gov.pl/web/cyfryzacja/cyfrowa-suwerennosc-ai-i-bezpieczenstwo-polska-na-digital-summit-w-berlinie", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

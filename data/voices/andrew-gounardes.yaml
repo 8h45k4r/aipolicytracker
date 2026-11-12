@@ -1,0 +1,30 @@
+slug: andrew-gounardes
+name: Andrew Gounardes
+role: New York State Senator, 26th Senate District
+organisation: New York State Senate
+jurisdiction: us-new-york
+category: legislator
+topics: [safety, regulation, policy]
+current: true
+since: null
+summary: >-
+  New York state senator for part of Brooklyn. He is the Senate sponsor of the RAISE Act (S6953B), carried in the
+  Assembly by Alex Bores, which the Senate records as signed by the Governor; it requires the largest AI developers to
+  publish safety plans and report serious safety incidents. In October 2026 his office announced a further bill
+  (S10731) that would add independent state-licensed audits of large developers and binding minimum standards for
+  safety frameworks; the Senate records it as in committee.
+related_policies: [us-new-york-raise-act]
+statements:
+  - { title: "Landmark AI Safety Bill Signed Into Law", date: null, url: "https://www.nysenate.gov/newsroom/press-releases/2025/andrew-gounardes/landmark-ai-safety-bill-signed-law", publisher: "New York State Senate" }
+  - { title: "Sen. Gounardes Proposes Major New AI Safety and Transparency Regulations", date: null, url: "https://www.nysenate.gov/newsroom/press-releases/2026/andrew-gounardes/sen-gounardes-proposes-major-new-ai-safety-and", publisher: "New York State Senate" }
+official_profile_url: "https://www.nysenate.gov/senators/andrew-gounardes"
+sources:
+  - { title: "NY State Senate Bill 2025-S6953B", publisher: "New York State Senate", url: "https://www.nysenate.gov/legislation/bills/2025/S6953/amendment/B", accessed: "2026-11-12" }
+  - { title: "NY State Senate Bill 2025-S10731", publisher: "New York State Senate", url: "https://www.nysenate.gov/legislation/bills/2025/S10731", accessed: "2026-11-12" }
+  - { title: "Sen. Gounardes Proposes Major New AI Safety and Transparency Regulations", publisher: "New York State Senate", url: "https://www.nysenate.gov/newsroom/press-releases/2026/andrew-gounardes/sen-gounardes-proposes-major-new-ai-safety-and", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

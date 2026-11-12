@@ -1,0 +1,31 @@
+slug: lerato-mataboge
+name: Lerato D. Mataboge
+role: Commissioner for Infrastructure and Energy
+organisation: African Union Commission
+jurisdiction: african-union
+category: international
+topics: [strategy, policy, governance]
+current: true
+since: null
+summary: >-
+  Heads the African Union Commission department for infrastructure and energy, whose remit includes
+  digital and AI policy. In a 2025 statement at the Global AI Summit on Africa she named digital
+  infrastructure, the AI skills gap, a lack of quality datasets and funding as the main barriers to
+  AI adoption. AU releases in 2026 report a Commission partnership with Google guided by the
+  Continental AI Strategy, a September 2026 meeting of African ambassadors in Geneva convened by her
+  department to coordinate positions on digital and AI governance, and her seat on the AI for Good
+  Global Commission.
+related_policies: [african-union-continental-artificial-intelligence-strategy]
+statements:
+  - { title: "Statement by H.E Lerato D. Mataboge, AUC Commissioner for Infrastructure and Energy, at the Global AI Summit on Africa", date: "2025-04-03", url: "https://au.int/en/speeches/20250403/statement-he-lerato-d-mataboge-aucc-commissioner-infrastructure-and-energy-global", publisher: "African Union" }
+official_profile_url: "https://au.int/en/pressreleases/20260908/african-union-commissioner-infrastructure-and-energy-takes-seat-inaugural"
+sources:
+  - { title: "African Union Commissioner for Infrastructure and Energy Takes Seat at Inaugural Meeting of the AI for Good Global Commission", publisher: "African Union", url: "https://au.int/en/pressreleases/20260908/african-union-commissioner-infrastructure-and-energy-takes-seat-inaugural", accessed: "2026-11-12" }
+  - { title: "African Union Commission Convenes African Ambassadors in Geneva to Coordinate the Continent's Digital and AI Diplomacy", publisher: "African Union", url: "https://au.int/en/pressreleases/20260907/african-union-commission-convenes-african-ambassadors-geneva-coordinate", accessed: "2026-11-12" }
+  - { title: "African Union Commission and Google Sign Landmark Partnership to Advance Africa's Sovereign AI and Digital Capacity", publisher: "African Union", url: "https://au.int/en/pressreleases/20260217/auc-google-sign-partnership-advance-africas-sovereign-ai-digital-capacity", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

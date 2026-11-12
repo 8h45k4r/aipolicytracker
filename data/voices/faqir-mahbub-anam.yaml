@@ -1,0 +1,29 @@
+slug: faqir-mahbub-anam
+name: Faqir Mahbub Anam
+role: Minister for Post and Telecommunication, ICT Division and Ministry of Science and Technology
+organisation: Ministry of Posts, Telecommunications and Information Technology (ICT Division)
+jurisdiction: bangladesh
+category: government
+topics: [policy, strategy]
+current: true
+since: "2026-02-17"
+summary: >-
+  An ICT Division page states that he was appointed minister for post and telecommunication, the ICT Division and
+  the Ministry of Science and Technology on 17 February 2026. The ICT Division has published the draft National
+  Artificial Intelligence Policy 2026-2030 for public review. Government pages report him saying in May 2026 that
+  public-private partnerships would be used to expand 5G, AI, IoT and cloud services, and speaking at a
+  cybersecurity and data protection seminar on 10 November 2026.
+related_policies:
+  - bangladesh-national-artificial-intelligence-policy-2026-2030
+statements: []
+official_profile_url: "https://ictd.gov.bd/pages/biographies/69414b5d35ce18e1c059af32"
+sources:
+  - { title: "মাননীয় মন্ত্রী (Hon. Minister)", publisher: "ICT Division, Government of Bangladesh", url: "https://ictd.gov.bd/pages/biographies/69414b5d35ce18e1c059af32", accessed: "2026-11-12" }
+  - { title: "AI Policy for Bangladesh", publisher: "ICT Division, Government of Bangladesh", url: "https://aipolicy.gov.bd/", accessed: "2026-11-12" }
+  - { title: "Handout 16 May 2026", publisher: "Press Information Department, Bangladesh", url: "https://pressinform.gov.bd/pages/all-notes/handout-16-may-2026-5vpuyk-6a07e74caf5b16b9ec3ffdb7", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

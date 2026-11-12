@@ -1,0 +1,28 @@
+slug: denise-wong
+name: Denise Wong
+role: Commissioner, Personal Data Protection Commission
+organisation: Personal Data Protection Commission (PDPC); Infocomm Media Development Authority
+jurisdiction: singapore
+category: regulator
+topics: [regulation, governance, responsible_ai]
+current: true
+since: "2026-04-01"
+summary: >-
+  IMDA and the PDPC announced her appointment as Commissioner of the Personal Data Protection Commission with effect
+  from 1 April 2026. She continues concurrently as Assistant Chief Executive of IMDA's Data Innovation and
+  Protection Group. The PDPC enforces Singapore's personal data law and has issued advisory guidelines on the use of
+  personal data in AI recommendation and decision systems; it co-issued the Model AI Governance Framework with IMDA.
+related_policies:
+  - singapore-pdpc-ai-advisory-guidelines
+  - singapore-model-ai-governance-framework
+statements: []
+official_profile_url: "https://www.pdpc.gov.sg/media-events/ms-denise-wong-appointed-as-commissioner-of-singapores-personal-data-protection-commission-pdpc"
+sources:
+  - { title: "Ms Denise Wong appointed as Commissioner of Singapore's Personal Data Protection Commission (PDPC)", publisher: "Personal Data Protection Commission Singapore", url: "https://www.pdpc.gov.sg/media-events/ms-denise-wong-appointed-as-commissioner-of-singapores-personal-data-protection-commission-pdpc", accessed: "2026-11-12" }
+  - { title: "Ms Denise Wong appointed as commissioner of PDPC", publisher: "Infocomm Media Development Authority", url: "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2026/ms-denise-wong-appointed-as-commissioner-for-pdpc", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

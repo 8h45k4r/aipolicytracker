@@ -49,6 +49,8 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Templates library (XLSX and DOCX generated from the recorded duties, controls, deadlines and crosswalks; versioned; free, no account, download links emailed to a work address; CC BY 4.0): {{ route('templates.index') }} (RSS of versions: {{ route('templates.feed') }}; API: {{ route('api.v1.templates') }})
 - AI policy examples (national AI policies and strategies on record, by region, newest first): {{ route('ai-policy-examples') }}
 - Free AI self-assessments ({{ \App\Services\Assessments\AssessmentCatalog::all()->count() }} questionnaires on Certifyi, a related product: EU AI Act readiness, risk classification, FRIA, ISO/IEC 42001, NIST AI RMF, US state AI laws, LLM security, AI governance; score by domain, no account): {{ route('assessments.index') }}
+- AI policy news (headlines from regulators' and governments' own feeds, the change log and AI incident records, newest first; each links to its source; no article text): {{ route('news.index') }}
+- AI Voices (people who hold the offices that shape AI policy, safety and governance; chosen by role, not ranked; each profile cites official sources and is pending review until a reviewer confirms it): {{ route('voices.index') }}
 - Guides: {{ route('guides.index') }}
 @foreach(config('content.guides') as $gslug => $g)
   - [{{ $g['h1'] }}]({{ route('guides.show', $gslug) }}) (Markdown: {{ route('guides.context', $gslug) }}{{ isset($g['updated']) ? '; text updated '.$g['updated'] : '' }})

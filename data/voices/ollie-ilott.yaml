@@ -1,0 +1,26 @@
+slug: ollie-ilott
+name: Ollie Ilott
+role: Director General for Artificial Intelligence
+organisation: Cabinet Office
+jurisdiction: uk
+category: government
+topics: [policy, safety, strategy]
+current: true
+since: null
+summary: >-
+  Senior civil servant leading the UK government's AI work in the Cabinet Office, where GOV.UK lists him as Director
+  General for Artificial Intelligence and head of the Prime Minister's AI Taskforce, appointed in July 2026. He was
+  previously Director General for Emerging Technology and Artificial Intelligence at the Department for Science,
+  Innovation and Technology, and GOV.UK describes him as a founding Director of the AI Security Institute.
+related_policies: []
+statements: []
+official_profile_url: "https://www.gov.uk/government/people/ollie-ilott"
+sources:
+  - { title: "Ollie Ilott - GOV.UK", publisher: "UK Government", url: "https://www.gov.uk/government/people/ollie-ilott", accessed: "2026-11-12" }
+  - { title: "Cabinet Office - GOV.UK", publisher: "UK Government", url: "https://www.gov.uk/government/organisations/cabinet-office", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

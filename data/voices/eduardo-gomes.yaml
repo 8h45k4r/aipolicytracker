@@ -1,0 +1,30 @@
+slug: eduardo-gomes
+name: Eduardo Gomes
+role: Senador (PL-TO)
+organisation: Senado Federal
+jurisdiction: brazil
+category: legislator
+topics: [regulation, policy, governance]
+current: true
+since: null
+summary: >-
+  Senator for Tocantins, in office for the 2019-2027 term and re-elected in October 2026 for 2027-2035. He was the
+  rapporteur of PL 2338/2023, Brazil's AI bill, in the Senate's temporary AI committee (CTIA), whose report was
+  approved on 5 December 2024, and in plenary, which approved the bill as a substitute text on 10 December 2024 and
+  sent it to the Chamber of Deputies. His report proposed making the national data protection authority (ANPD) the
+  coordinator of the national AI regulation and governance system (SIA).
+related_policies: [brazil-projeto-de-lei-no-2338-2023]
+statements:
+  - { title: "Eduardo Gomes: projeto sobre IA exige análise aprofundada e debate democrático", date: "2024-06-20", url: "https://www12.senado.leg.br/noticias/materias/2024/06/20/eduardo-gomes-projeto-sobre-ia-exige-analise-aprofundada-e-debate-democratico", publisher: "Agência Senado" }
+official_profile_url: "https://www25.senado.leg.br/web/senadores/senador/-/perfil/3777"
+sources:
+  - { title: "Senador Eduardo Gomes", publisher: "Senado Federal", url: "https://www25.senado.leg.br/web/senadores/senador/-/perfil/3777", accessed: "2026-11-12" }
+  - { title: "PL 2338/2023", publisher: "Senado Federal", url: "https://www25.senado.leg.br/web/atividade/materias/-/materia/157233", accessed: "2026-11-12" }
+  - { title: "Tocantins reelege Eduardo Gomes e elege Alexandre Guimarães ao Senado", publisher: "Agência Senado", url: "https://www12.senado.leg.br/noticias/materias/2026/10/04/tocantins-reelege-eduardo-gomes-e-elege-alexandre-guimaraes-ao-senado", accessed: "2026-11-12" }
+  - { title: "ANPD é formalizada como coordenadora do Sistema Nacional de Inteligência Artificial", publisher: "Agência Nacional de Proteção de Dados", url: "https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-e-formalizada-como-coordenadora-do-sistema-nacional-de-inteligencia-artificial", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

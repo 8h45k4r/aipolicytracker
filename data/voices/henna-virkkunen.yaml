@@ -1,0 +1,30 @@
+slug: henna-virkkunen
+name: Henna Virkkunen
+role: Executive Vice-President for Tech Sovereignty, Security and Democracy
+organisation: European Commission
+jurisdiction: eu
+category: government
+topics: [policy, regulation, strategy]
+current: true
+since: null
+summary: >-
+  Member of the European Commission whose portfolio, as the Commission's profile describes it, includes digital and
+  frontier technologies, AI innovation and the Digital Decade targets, alongside security and democracy. Commission
+  pages show her representing the EU at the AI Impact Summit in New Delhi in February 2026, appearing at the AI
+  Office's sessions there, and presenting an Action Plan on Cybersecurity and AI in July 2026. The Commission's AI Act
+  page lists a November 2026 update from her to the Council and Parliament on implementing and enforcing the digital
+  rulebook.
+related_policies: [eu-ai-act, eu-apply-ai-strategy]
+statements:
+  - { title: "Executive Vice-President Virkkunen in India for summit on artificial intelligence", date: null, url: "https://digital-strategy.ec.europa.eu/en/news/executive-vice-president-virkkunen-india-summit-artificial-intelligence", publisher: "European Commission" }
+official_profile_url: "https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen_en"
+sources:
+  - { title: "Henna Virkkunen - European Commission", publisher: "European Commission", url: "https://commission.europa.eu/about/organisation/college-commissioners/henna-virkkunen_en", accessed: "2026-11-12" }
+  - { title: "AI Act - Shaping Europe's digital future", publisher: "European Commission", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", accessed: "2026-11-12" }
+  - { title: "AI Office to host 2 sessions at the India AI Impact Summit 2026", publisher: "European Commission", url: "https://digital-strategy.ec.europa.eu/en/news/ai-office-host-2-sessions-india-ai-impact-summit-2026", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

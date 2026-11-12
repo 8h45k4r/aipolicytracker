@@ -1,0 +1,26 @@
+slug: jennifer-bacon
+name: Jennifer Bacon
+role: State Representative and Assistant Majority Leader, Colorado House of Representatives
+organisation: Colorado General Assembly (Colorado House of Representatives)
+jurisdiction: us-colorado
+category: legislator
+topics: [regulation, policy]
+current: true
+since: null
+summary: >-
+  Colorado state representative and House Assistant Majority Leader. The General Assembly lists her, with Majority
+  Leader Monica Duran, as a House prime sponsor of SB 26-189, Automated Decision-Making Technology, which replaces the
+  AI rules adopted in SB 24-205 and was signed by the Governor on 14 May 2026.
+related_policies: [us-colorado-automated-decision-making-technology-act]
+statements: []
+official_profile_url: "https://leg.colorado.gov/legislators/jennifer-bacon"
+sources:
+  - { title: "Representative Jennifer Bacon", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/legislators/jennifer-bacon", accessed: "2026-11-12" }
+  - { title: "SB26-189 Automated Decision-Making Technology", publisher: "Colorado General Assembly", url: "https://leg.colorado.gov/bills/sb26-189", accessed: "2026-11-12" }
+  - { title: "Governor Polis Signs Bills into Law Making Colorado An Even Better Place to Do Business, Breaking Down Barriers and Reducing Regulation", publisher: "Office of the Governor of Colorado", url: "https://governorsoffice.colorado.gov/governor/news/governor-polis-signs-bills-law-making-colorado-even-better-place-do-business-breaking-down", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

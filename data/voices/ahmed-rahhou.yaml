@@ -1,0 +1,30 @@
+slug: ahmed-rahhou
+name: Ahmed Rahhou
+role: Minister of Artificial Intelligence, Digital Transformation and Administration Reform
+organisation: Government of Morocco
+jurisdiction: morocco
+category: government
+topics: [strategy, policy, governance]
+current: true
+since: "2026-10-16"
+summary: >-
+  Heads Morocco's ministry of artificial intelligence, digital transformation and administration
+  reform, created in the government appointed by King Mohammed VI on 16 October 2026; the portfolio
+  takes over from the ministry delegate for digital transition, which ran the Maroc Digital 2030 strategy and
+  its AI roadmap. He took over from Amal El Fallah Seghrouchni at a handover ceremony, with Aicha
+  Guellaa as minister delegate for administration reform. The ministry reports that on 3 November
+  2026 he met the head of the CGEM business federation on cooperation on AI and digital
+  transformation. He previously chaired Morocco's Competition Council.
+related_policies: [morocco-digital-morocco-2030-ai]
+statements: []
+official_profile_url: "https://maroc.ma/en/news/hm-king-chairs-new-government-appointment-ceremony"
+sources:
+  - { title: "HM the King Chairs New Government Appointment Ceremony", publisher: "Kingdom of Morocco (maroc.ma)", url: "https://maroc.ma/en/news/hm-king-chairs-new-government-appointment-ceremony", accessed: "2026-11-12" }
+  - { title: "Ministre - Ministre déléguée", publisher: "Ministère de l'Intelligence artificielle, de la Transformation numérique et de la Réforme de l'administration", url: "https://www.mmsp.gov.ma/fr/ministre-ministre-d%C3%A9l%C3%A9gu%C3%A9e", accessed: "2026-11-12" }
+  - { title: "Monsieur Ahmed Rahhou reçoit Monsieur Mehdi Tazi, président de la CGEM", publisher: "Ministère de l'Intelligence artificielle, de la Transformation numérique et de la Réforme de l'administration", url: "https://www.mmsp.gov.ma/fr/actualites/monsieur-ahmed-rahhou-re%C3%A7oit-monsieur-mehdi-tazi-pr%C3%A9sident-de-la-conf%C3%A9d%C3%A9ration-g%C3%A9n%C3%A9rale-des-entreprises-du-maroc-cgem-accompagn%C3%A9-d%E2%80%99une-d%C3%A9l%C3%A9gation-de-la-conf%C3%A9d%C3%A9ration", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

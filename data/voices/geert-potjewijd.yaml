@@ -1,0 +1,29 @@
+slug: geert-potjewijd
+name: Geert Potjewijd
+role: Chair, Autoriteit Persoonsgegevens
+organisation: Autoriteit Persoonsgegevens (AP)
+jurisdiction: netherlands
+category: regulator
+topics: [regulation, governance, responsible_ai]
+current: true
+since: "2026-08-01"
+summary: >-
+  Chair of the Dutch Data Protection Authority for a five-year term from 1 August 2026, succeeding Aleid Wolfsen, on
+  the government's appointment announced in May 2026. The AP has coordinated algorithm and AI oversight in the
+  Netherlands since 2023, names AI among its 2026-2028 priorities, publishes a yearly coordination work agenda on AI
+  and algorithms, and set up a directorate for AI and algorithm supervision and coordination in October 2026. Under
+  the Dutch plan for the AI Act it is to supervise prohibited practices and many high-risk applications.
+related_policies: []
+statements: []
+official_profile_url: "https://www.autoriteitpersoonsgegevens.nl/en/over-de-autoriteit-persoonsgegevens/organisatie-ap/het-bestuur-van-de-ap/geert-potjewijd-voorzitter"
+sources:
+  - { title: "Geert Potjewijd, Chair", publisher: "Autoriteit Persoonsgegevens", url: "https://www.autoriteitpersoonsgegevens.nl/en/over-de-autoriteit-persoonsgegevens/organisatie-ap/het-bestuur-van-de-ap/geert-potjewijd-voorzitter", accessed: "2026-11-12" }
+  - { title: "Benoeming voorzitter Autoriteit Persoonsgegevens", publisher: "Rijksoverheid", url: "https://www.rijksoverheid.nl/actueel/nieuws/2026/05/13/benoeming-voorzitter-autoriteit-persoonsgegevens", accessed: "2026-11-12" }
+  - { title: "Werkagenda coördinerend AI- en algoritmetoezicht 2026", publisher: "Autoriteit Persoonsgegevens", url: "https://www.autoriteitpersoonsgegevens.nl/documenten/werkagenda-coordinerend-ai-en-algoritmetoezicht-2026", accessed: "2026-11-12" }
+  - { title: "Toezicht op AI wordt concreet: sleutelrol voor de AP en de RDI", publisher: "Autoriteit Persoonsgegevens", url: "https://autoriteitpersoonsgegevens.nl/actueel/toezicht-op-ai-wordt-concreet-sleutelrol-voor-de-ap-en-de-rdi", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,29 @@
+slug: mohammed-bin-ali-al-mannai
+name: Mohammed bin Ali Al Mannai
+role: Minister of Communications and Information Technology
+organisation: Ministry of Communications and Information Technology, Qatar
+jurisdiction: qatar
+category: government
+topics: [strategy, governance, policy]
+current: true
+since: null
+summary: >-
+  Qatar's minister for communications and IT; the ministry published the National Artificial
+  Intelligence Strategy for Qatar. Qatar News Agency reports that in July 2026, at the UN Global
+  Dialogue on AI Governance in Geneva, he met heads of delegations and announced a Qatari initiative
+  on global AI governance run by Hamad Bin Khalifa University, and that in October 2026 he set out a
+  digital economy plan that includes AI infrastructure, a target of more than 50,000 digital and AI
+  training opportunities by 2030, and incentives for government AI use cases.
+related_policies: [qatar-national-artificial-intelligence-strategy-for-qatar-2019]
+statements:
+  - { title: "Minister of Communications Meets Heads of Delegations and International Organizations at Global Dialogue on AI Governance", date: "2026-07-08", url: "https://qna.org.qa/en/News-Area/News/2026-7/8/minister-of-communications-meets-heads-of-delegations-and-international-organizations-at-global-dialogue-on-ai-governance", publisher: "Qatar News Agency" }
+official_profile_url: "https://qna.org.qa/en/news/news-details?id=minister-of-communications-and-information-technology-qatar-moving-forward-with-building-digital-economy-based-on-knowledge-innovation&date=25%2F10%2F2026"
+sources:
+  - { title: "Minister of Communications and Information Technology: Qatar Moving Forward with Building Digital Economy Based on Knowledge, Innovation", publisher: "Qatar News Agency", url: "https://qna.org.qa/en/news/news-details?id=minister-of-communications-and-information-technology-qatar-moving-forward-with-building-digital-economy-based-on-knowledge-innovation&date=25%2F10%2F2026", accessed: "2026-11-12" }
+  - { title: "Minister of Communications Meets Heads of Delegations and International Organizations at Global Dialogue on AI Governance", publisher: "Qatar News Agency", url: "https://qna.org.qa/en/News-Area/News/2026-7/8/minister-of-communications-meets-heads-of-delegations-and-international-organizations-at-global-dialogue-on-ai-governance", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

@@ -1,0 +1,31 @@
+slug: bosun-tijani
+name: Bosun Tijani
+role: Minister of Communications, Innovation and Digital Economy
+organisation: Federal Ministry of Communications, Innovation and Digital Economy, Nigeria
+jurisdiction: nigeria
+category: government
+topics: [strategy, policy, governance]
+current: true
+since: null
+summary: >-
+  Nigeria's federal minister for communications, innovation and the digital economy; the ministry
+  oversees NITDA, whose AI centre published the National Artificial Intelligence Strategy. Ministry
+  releases from 2026 say he set out plans for a National AI Trust to guide the next phase of AI
+  adoption and oversight (June), joined the ITU-convened AI for Good Global Commission as a founding
+  member (July), and launched a National Digital Cloud Policy (August). In July 2026 the ministry
+  directed that the current approach to regulating internet platforms stay in place while a
+  harmonised framework is developed.
+related_policies: [nigeria-national-artificial-intelligence-strategy]
+statements:
+  - { title: "Dr. 'Bosun Tijani Unveils Nigeria's AI Trust Vision at Warwick Business School in London", date: null, url: "https://fmcide.gov.ng/dr-bosun-tijani-unveils-nigerias-ai-trust-vision-at-warwick-business-school-in-london/", publisher: "Federal Ministry of Communications, Innovation and Digital Economy" }
+official_profile_url: "https://fmcide.gov.ng/honourable-minister-dr-bosun-tijani-joins-ai-for-good-global-commission-co-chaired-by-president-paul-kagame-and-marc-benioff/"
+sources:
+  - { title: "Honourable Minister, Dr. 'Bosun Tijani Joins AI for Good Global Commission Co-Chaired by President Paul Kagame and Marc Benioff", publisher: "Federal Ministry of Communications, Innovation and Digital Economy", url: "https://fmcide.gov.ng/honourable-minister-dr-bosun-tijani-joins-ai-for-good-global-commission-co-chaired-by-president-paul-kagame-and-marc-benioff/", accessed: "2026-11-12" }
+  - { title: "Federal Government Unveils National Digital Cloud Policy to Drive Investment, Digital Sovereignty and Government Transformation", publisher: "Federal Ministry of Communications, Innovation and Digital Economy", url: "https://fmcide.gov.ng/federal-government-unveils-national-digital-cloud-policy-to-drive-investment-digital-sovereignty-and-government-transformation/", accessed: "2026-11-12" }
+  - { title: "Federal Ministry Directs Harmonised Approach to the Regulation of Internet Platforms and Online Intermediaries", publisher: "Federal Ministry of Communications, Innovation and Digital Economy", url: "https://fmcide.gov.ng/federal-ministry-directs-harmonised-approach-to-the-regulation-of-internet-platforms-and-online-intermediaries/", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

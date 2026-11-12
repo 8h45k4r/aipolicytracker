@@ -1,0 +1,28 @@
+slug: giovanni-capriglione
+name: Giovanni Capriglione
+role: State Representative, Texas House District 98
+organisation: Texas House of Representatives
+jurisdiction: us-texas
+category: legislator
+topics: [regulation, governance, policy]
+current: true
+since: null
+summary: >-
+  Texas state representative for District 98 (Southlake area) and, in the 89th Legislature, chair of the House
+  Committee on Delivery of Government Efficiency. Texas Legislature Online lists him as lead author of HB 149, the
+  Texas Responsible Artificial Intelligence Governance Act, effective 1 January 2026, which sets disclosure duties for
+  government agencies and health care providers, bans uses such as social scoring by government, creates a regulatory
+  sandbox and the Texas Artificial Intelligence Council, and gives enforcement to the Attorney General.
+related_policies: [us-texas-responsible-ai-governance-act-traiga]
+statements: []
+official_profile_url: "https://house.texas.gov/members/2345"
+sources:
+  - { title: "Rep. Capriglione, Giovanni", publisher: "Texas House of Representatives", url: "https://house.texas.gov/members/2345", accessed: "2026-11-12" }
+  - { title: "89(R) History for HB 149", publisher: "Texas Legislature Online", url: "https://capitol.texas.gov/BillLookup/History.aspx?Bill=HB149&LegSess=89R", accessed: "2026-11-12" }
+  - { title: "Enrolled Bill Summary, HB 149 (89R)", publisher: "Texas Legislature Online", url: "https://capitol.texas.gov/billlookup/BillSummary.aspx?Bill=HB149&LegSess=89R", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

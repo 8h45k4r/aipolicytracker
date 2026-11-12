@@ -1,0 +1,28 @@
+slug: marie-laure-denis
+name: Marie-Laure Denis
+role: Présidente de la CNIL
+organisation: Commission nationale de l'informatique et des libertés (CNIL)
+jurisdiction: france
+category: regulator
+topics: [regulation, responsible_ai, governance]
+current: true
+since: null
+summary: >-
+  Presides over the CNIL, France's data protection authority, which issues guidance on how data protection law
+  applies to AI systems. CNIL publications for 2026 state that she has been president since February 2019. Under her
+  presidency the CNIL published a 2025-2028 strategic plan naming artificial intelligence among its priorities, and
+  she opened the CNIL's Rencontres Informatique & Libertés on 29 September 2026.
+related_policies: [france-cnil-ai-how-to-sheets]
+statements:
+  - { title: "IA, mineurs, cybersécurité, quotidien numérique : la CNIL publie son plan stratégique 2025-2028", date: null, url: "https://cnil.fr/fr/ia-mineurs-cybersecurite-quotidien-numerique-la-cnil-publie-son-plan-strategique-2025-2028", publisher: "CNIL" }
+official_profile_url: "https://www.cnil.fr/sites/default/files/2026-05/cnil_en_bref_0.pdf"
+sources:
+  - { title: "La CNIL en bref, édition 2026", publisher: "CNIL", url: "https://www.cnil.fr/sites/default/files/2026-05/cnil_en_bref_0.pdf", accessed: "2026-11-12" }
+  - { title: "Rencontres Informatique & Libertés 2026", publisher: "CNIL", url: "https://www.cnil.fr/fr/ril-2026", accessed: "2026-11-12" }
+  - { title: "Rapport annuel 2025", publisher: "CNIL", url: "https://www.cnil.fr/sites/default/files/2026-05/rapport_annuel_2025.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

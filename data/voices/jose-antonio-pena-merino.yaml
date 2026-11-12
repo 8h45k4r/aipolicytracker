@@ -1,0 +1,29 @@
+slug: jose-antonio-pena-merino
+name: José Antonio Peña Merino
+role: Titular de la Agencia de Transformación Digital y Telecomunicaciones
+organisation: Agencia de Transformación Digital y Telecomunicaciones (ATDT), Gobierno de México
+jurisdiction: mexico
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: null
+summary: >-
+  Head of Mexico's federal Agency for Digital Transformation and Telecommunications, which is responsible for digital
+  government, information technology and telecommunications policy in the federal administration. The National AI
+  Plan (April 2026), published by the agency, gives it a central role in setting technical standards and guidelines
+  for AI and coordinating other authorities. Federal government releases record him presenting the public AI training
+  centre (Centro Público de Formación en Inteligencia Artificial) alongside the President.
+related_policies: [mexico-plan-nacional-de-inteligencia-artificial]
+statements:
+  - { title: "Versión estenográfica. Centro Público de Formación en Inteligencia Artificial", date: null, url: "https://www.gob.mx/presidencia/articulos/version-estenografica-centro-publico-de-formacion-en-inteligencia-artificial", publisher: "Presidencia de la República" }
+official_profile_url: "https://www.gob.mx/presidencia/prensa/presidenta-claudia-sheinbaum-encabeza-presentacion-del-nuevo-centro-publico-de-formacion-en-inteligencia-artificial"
+sources:
+  - { title: "Presidenta Claudia Sheinbaum encabeza presentación del nuevo Centro Público de Formación en Inteligencia Artificial", publisher: "Presidencia de la República", url: "https://www.gob.mx/presidencia/prensa/presidenta-claudia-sheinbaum-encabeza-presentacion-del-nuevo-centro-publico-de-formacion-en-inteligencia-artificial", accessed: "2026-11-12" }
+  - { title: "Plan Nacional de Inteligencia Artificial, abril 2026", publisher: "Agencia de Transformación Digital y Telecomunicaciones", url: "https://www.portal.atdt.gob.mx/wp-content/uploads/2026/06/Plan-Nacional-de-IA.pdf", accessed: "2026-11-12" }
+  - { title: "Decreto por el que se expide el Reglamento Interior de la Agencia de Transformación Digital y Telecomunicaciones", publisher: "Diario Oficial de la Federación", url: "https://sidof.segob.gob.mx/notas/docFuente/5747756", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

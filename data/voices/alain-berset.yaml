@@ -1,0 +1,30 @@
+slug: alain-berset
+name: Alain Berset
+role: Secretary General of the Council of Europe
+organisation: Council of Europe
+jurisdiction: council-of-europe
+category: international
+topics: [governance, policy]
+current: true
+since: "2024-09-18"
+summary: >-
+  Secretary General of the Council of Europe for a five-year term that began on 18 September 2024, elected by the
+  Parliamentary Assembly. The Council of Europe is the depositary organisation for the Framework Convention on
+  Artificial Intelligence, the first legally binding international treaty on AI. Council of Europe pages show him
+  promoting signature of the Convention, including North Macedonia's signature on 8 May 2026 during his visit to
+  Skopje, which brought the number of signatories to 20, and describing the treaty as binding but flexible and
+  covering the whole AI lifecycle.
+related_policies: [council-of-europe-framework-convention-on-ai]
+statements:
+  - { title: "North Macedonia Signs the Council of Europe's Framework Convention on Artificial Intelligence", date: "2026-05-08", url: "https://www.coe.int/en/web/artificial-intelligence/-/north-macedonia-signs-the-council-of-europe-s-framework-convention-on-artificial-intelligence", publisher: "Council of Europe" }
+official_profile_url: "https://www.coe.int/en/web/secretary-general/biography1"
+sources:
+  - { title: "Biography - Secretary General", publisher: "Council of Europe", url: "https://www.coe.int/en/web/secretary-general/biography1", accessed: "2026-11-12" }
+  - { title: "Alain Berset elected Secretary General of the Council of Europe", publisher: "Council of Europe", url: "https://www.coe.int/en/web/portal/-/alain-berset-elected-secretary-general-of-the-council-of-europe", accessed: "2026-11-12" }
+  - { title: "Official visit by Council of Europe Secretary General Alain Berset in Skopje", publisher: "Council of Europe", url: "https://www.coe.int/en/web/portal/-/north-macedonia-becomes-20th-signatory-to-council-of-europe-ai-convention", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

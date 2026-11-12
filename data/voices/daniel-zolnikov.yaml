@@ -1,0 +1,29 @@
+slug: daniel-zolnikov
+name: Daniel Zolnikov
+role: State Senator, Senate District 22, and Chair of the Energy and Technology Interim Committee
+organisation: Montana Legislature (Montana Senate)
+jurisdiction: us-montana
+category: legislator
+topics: [policy, regulation, safety]
+current: true
+since: null
+summary: >-
+  Montana state senator from Billings. He sponsored SB 212 (2025), the Right to Compute Act (Chapter 150, Laws of
+  2025), which recognises a right to own and use computational resources and limits government restrictions on
+  them, and requires critical infrastructure facilities controlled by an AI system to have a risk management
+  policy.
+  Legislative records for the 2025-2026 interim list him as chair of the Energy and Technology Interim Committee,
+  including on its January 2026 agenda.
+related_policies: [us-montana-right-to-compute-act]
+statements: []
+official_profile_url: "https://archive.legmt.gov/content/Committees/Interim/2025-2026/ETIC/Sept-2025/2.DRAFT_ETIC_25-26_Work_Plan_September_9_2025.pdf"
+sources:
+  - { title: "SB 212, 69th Legislature 2025 (Chapter 150)", publisher: "Montana Legislature", url: "https://archive.legmt.gov/content/Sessions/69th/Contractor_index/CH0150.pdf", accessed: "2026-11-12" }
+  - { title: "Energy and Technology Interim Committee 2025-2026 work plan (draft)", publisher: "Montana Legislature", url: "https://archive.legmt.gov/content/Committees/Interim/2025-2026/ETIC/Sept-2025/2.DRAFT_ETIC_25-26_Work_Plan_September_9_2025.pdf", accessed: "2026-11-12" }
+  - { title: "Energy and Technology Interim Committee agenda, 15 January 2026", publisher: "Montana Legislature", url: "https://archive.legmt.gov/content/Committees/Interim/2025-2026/ETIC/January-2026/1.ETIC_1-15-26_Agenda.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

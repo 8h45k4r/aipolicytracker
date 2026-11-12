@@ -1,0 +1,30 @@
+slug: saurabh-vijay
+name: Saurabh Vijay
+role: CEO, IndiaAI Mission
+organisation: IndiaAI Mission, Ministry of Electronics and Information Technology
+jurisdiction: india
+category: government
+topics: [strategy, policy]
+current: true
+since: null
+summary: >-
+  The IndiaAI Who's Who page lists him as CEO of the IndiaAI Mission and CEO of the Unique Identification Authority
+  of India; a May 2026 government release reports that he took charge at UIDAI. The IndiaAI Mission is MeitY's
+  national AI programme. Government releases record him opening
+  an IndiaAI workshop on the AIKosh data platform, where he described data as a sovereign AI asset, and opening an
+  India-Sweden session on AI cooperation.
+related_policies:
+  - india-indiaai-mission
+statements:
+  - { title: "IndiaAI Mission Organises Workshop on AIKosh to Strengthen India's AI-Ready Data Ecosystem", date: null, url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2301666&reg=48&lang=2", publisher: "Press Information Bureau, Government of India" }
+official_profile_url: "https://indiaai.gov.in/whos-who"
+sources:
+  - { title: "Who's Who", publisher: "IndiaAI, Ministry of Electronics and Information Technology", url: "https://indiaai.gov.in/whos-who", accessed: "2026-11-12" }
+  - { title: "Shri Saurabh Vijay assumes charge as Chief Executive Officer of Unique Identification Authority of India", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2262302&reg=48&lang=2", accessed: "2026-11-12" }
+  - { title: "IndiaAI Mission and Sweden Discuss Strategic Cooperation in Artificial Intelligence and Digitalisation under SITAC", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2307629&reg=48&lang=2", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

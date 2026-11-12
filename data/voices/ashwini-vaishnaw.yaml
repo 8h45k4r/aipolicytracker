@@ -1,0 +1,31 @@
+slug: ashwini-vaishnaw
+name: Ashwini Vaishnaw
+role: Union Minister of Electronics and Information Technology
+organisation: Ministry of Electronics and Information Technology (MeitY)
+jurisdiction: india
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: "2021-07-08"
+summary: >-
+  His IndiaAI profile states that he has held the Electronics and IT portfolio since 8 July 2021, together with other
+  portfolios. MeitY is the ministry behind the IndiaAI Mission and the India AI Governance Guidelines. Government
+  releases report him calling for consensus on social media accountability and AI governance, stressing a
+  techno-legal approach to AI regulation at Davos in January 2026, and launching the World Bank's World Development
+  Report 2026 on AI in New Delhi in October 2026.
+related_policies:
+  - india-indiaai-mission
+  - india-ai-governance-guidelines
+statements:
+  - { title: "Union Minister of Electronics and Information Technology Sh. Ashwini Vaishnaw emphasizes consensus on Social Media Accountability, & AI Governance; Open to new law", date: null, url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2083192", publisher: "Press Information Bureau, Government of India" }
+  - { title: "India in first bouquet of AI Nations, focused on diffusion and ROI: Minister Ashwini Vaishnaw at WEF", date: null, url: "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2216895&reg=3&lang=1", publisher: "Press Information Bureau, Government of India" }
+official_profile_url: "https://indiaai.gov.in/people/ashwini-vaishnaw"
+sources:
+  - { title: "Ashwini Vaishnaw", publisher: "IndiaAI, Ministry of Electronics and Information Technology", url: "https://indiaai.gov.in/people/ashwini-vaishnaw", accessed: "2026-11-12" }
+  - { title: "Union Minister Shri Ashwini Vaishnaw Launches World Bank Group's 'World Development Report 2026: The Promise of Artificial Intelligence' in New Delhi", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2320883&reg=48&lang=1", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

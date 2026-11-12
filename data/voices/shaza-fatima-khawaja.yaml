@@ -1,0 +1,30 @@
+slug: shaza-fatima-khawaja
+name: Shaza Fatima Khawaja
+role: Federal Minister for IT & Telecommunication
+organisation: Ministry of Information Technology & Telecommunication (MoITT)
+jurisdiction: pakistan
+category: government
+topics: [policy, strategy]
+current: true
+since: null
+summary: >-
+  The ministry's site lists her as Federal Minister for IT and Telecommunication; earlier ministry items called her
+  Minister of State. MoITT prepared the National AI Policy 2025, approved by the Federal Cabinet, which she called a
+  cornerstone of the Prime Minister's Digital Nation vision; its six pillars cover innovation, human capital, a
+  secure AI ecosystem, sector transformation, infrastructure and international partnerships. Government releases
+  in 2026 report her at the Indus AI Summit, saying the government was moving from AI policy to implementation.
+related_policies:
+  - pakistan-national-artificial-intelligence-policy-2025
+statements:
+  - { title: "PR No. 139 Pakistan unveils Indus AI Week 2026", date: null, url: "https://pid.gov.pk/site/press_detail/31630", publisher: "Press Information Department, Government of Pakistan" }
+official_profile_url: "https://moitt.gov.pk/"
+sources:
+  - { title: "Ministry of IT & Telecommunication (home page)", publisher: "Ministry of Information Technology & Telecommunication", url: "https://moitt.gov.pk/", accessed: "2026-11-12" }
+  - { title: "Ministry of IT & Telecommunication: Latest News", publisher: "Ministry of Information Technology & Telecommunication", url: "https://moitt.gov.pk/LatestNews", accessed: "2026-11-12" }
+  - { title: "PR No. 166 Under PM Shehbaz Sharif's Digital Nation ...", publisher: "Press Information Department, Government of Pakistan", url: "https://pid.gov.pk/site/press_detail/29075", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

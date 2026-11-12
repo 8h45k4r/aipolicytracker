@@ -1,0 +1,31 @@
+slug: evan-solomon
+name: Evan Solomon
+role: Minister of Artificial Intelligence and Digital Innovation and Minister responsible for the Federal Economic Development Agency for Southern Ontario
+organisation: Government of Canada
+jurisdiction: canada
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: null
+summary: >-
+  Canada's federal minister responsible for artificial intelligence and digital innovation, and Member of Parliament
+  for Toronto Centre. Government of Canada releases in 2026 record him promoting the national AI strategy announced
+  by the Prime Minister in June 2026, representing Canada on AI at the 2026 G7 Digital Ministers' Meeting,
+  announcing federal funding for AI projects in Atlantic Canada and Quebec, and taking part in ALL IN 2026 in
+  September 2026. Briefing material for his appearance before the Senate Committee of the Whole sets out his
+  portfolio's priorities.
+related_policies: []
+statements:
+  - { title: "Minister Solomon highlights Canada's National Artificial Intelligence Strategy", date: null, url: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-solomon-highlights-canadas-national-artificial-intelligence.html", publisher: "Innovation, Science and Economic Development Canada" }
+  - { title: "Canada advances priorities on artificial intelligence, quantum technologies and digital innovation at the 2026 G7 Digital Ministers' Meeting", date: null, url: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/05/canada-advances-priorities-on-artificial-intelligence-quantum-technologies-and-digital-innovation-at-the-2026-g7-digital-ministers-meeting.html", publisher: "Innovation, Science and Economic Development Canada" }
+official_profile_url: "https://www.canada.ca/en/government/ministers/evan-solomon.html"
+sources:
+  - { title: "The Honourable Evan Solomon", publisher: "Government of Canada", url: "https://www.canada.ca/en/government/ministers/evan-solomon.html", accessed: "2026-11-12" }
+  - { title: "The Honourable Evan Solomon - Member of Parliament", publisher: "House of Commons of Canada", url: "https://www.ourcommons.ca/members/en/evan-solomon(123229)", accessed: "2026-11-12" }
+  - { title: "AI leadership takes centre stage at ALL IN 2026", publisher: "Innovation, Science and Economic Development Canada", url: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/09/ai-leadership-takes-centre-stage-at-all-in-2026.html", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

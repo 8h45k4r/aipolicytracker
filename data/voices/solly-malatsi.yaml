@@ -1,0 +1,33 @@
+slug: solly-malatsi
+name: Solly Malatsi
+role: Minister of Communications and Digital Technologies
+organisation: Department of Communications and Digital Technologies, South Africa
+jurisdiction: south-africa
+category: government
+topics: [policy, strategy, governance]
+current: true
+since: null
+summary: >-
+  South Africa's minister of communications and digital technologies. In April 2026 he published the
+  draft National Artificial Intelligence Policy for public comment, then withdrew it after fictitious
+  sources were found in its reference list; a notice he signed on 4 June 2026 formally withdrew the
+  draft, and Cabinet approved the withdrawal. In his 2026/27 budget vote speech he announced an
+  independent expert review panel chaired by Professor Benjamin Rosman and said the department would
+  enforce an internal policy on responsible AI use and review how it drafts policy. Government
+  briefings say a revised policy is in preparation.
+related_policies: [south-africa-draft-south-africa-national-artificial-intelligence]
+statements:
+  - { title: "Minister Solly Malatsi: Communications and Digital Technologies Dept Budget Vote 2026/27", date: null, url: "https://www.gov.za/news/speeches/minister-solly-malatsi-communications-and-digital-technologies-dept-budget-vote-0", publisher: "South African Government" }
+  - { title: "Notice 3978 of 2026: withdrawal of the draft National Artificial Intelligence Policy", date: "2026-06-04", url: "https://www.gov.za/sites/default/files/gcis_document/202606/54840gen3978.pdf", publisher: "Government Gazette (DCDT)" }
+official_profile_url: "https://www.gov.za/news/speeches/minister-solly-malatsi-communications-and-digital-technologies-dept-budget-vote-0"
+sources:
+  - { title: "Minister Solly Malatsi: Communications and Digital Technologies Dept Budget Vote 2026/27", publisher: "South African Government", url: "https://www.gov.za/news/speeches/minister-solly-malatsi-communications-and-digital-technologies-dept-budget-vote-0", accessed: "2026-11-12" }
+  - { title: "Minister announces withdrawal of draft AI Policy", publisher: "SAnews (Government Communication and Information System)", url: "https://www.sanews.gov.za/south-africa/minister-announces-withdrawal-draft-ai-policy", accessed: "2026-11-12" }
+  - { title: "Cabinet approves withdrawal of AI policy", publisher: "SAnews (Government Communication and Information System)", url: "https://www.sanews.gov.za/south-africa/cabinet-approves-withdrawal-ai-policy", accessed: "2026-11-12" }
+  - { title: "Notice 3978 of 2026", publisher: "Government Gazette (DCDT)", url: "https://www.gov.za/sites/default/files/gcis_document/202606/54840gen3978.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

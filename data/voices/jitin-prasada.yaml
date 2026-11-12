@@ -1,0 +1,29 @@
+slug: jitin-prasada
+name: Jitin Prasada
+role: Union Minister of State for Electronics and Information Technology
+organisation: Ministry of Electronics and Information Technology (MeitY)
+jurisdiction: india
+category: government
+topics: [policy, governance, strategy]
+current: true
+since: null
+summary: >-
+  Government releases identify him as Minister of State for Electronics and IT, and for Commerce and Industry. He
+  presented the India AI Impact Summit 2026 at a curtain-raiser at the United Nations in New York, and in
+  parliamentary replies in 2026 reported on IndiaAI Mission progress, including teams shortlisted to build
+  indigenous foundation models, and on advisories issued to social media intermediaries on AI-generated deepfakes.
+related_policies:
+  - india-indiaai-mission
+statements:
+  - { title: "Shri Jitin Prasada, Union Minister of State addresses and event titled From Action to Impact - A Curtain Raiser to the AI Impact Summit", date: null, url: "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2205221&reg=3&lang=2", publisher: "Press Information Bureau, Government of India" }
+  - { title: "Government Strengthens Regulatory Framework to Address AI-Generated Deepfakes", date: null, url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2295500&reg=48&lang=2", publisher: "Press Information Bureau, Government of India" }
+official_profile_url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2295500&reg=48&lang=2"
+sources:
+  - { title: "Government Strengthens Regulatory Framework to Address AI-Generated Deepfakes", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2295500&reg=48&lang=2", accessed: "2026-11-12" }
+  - { title: "In less than 24 months, India AI Mission has Set up a Foundation for Development of AI Ecosystem in the Country", publisher: "Press Information Bureau, Government of India", url: "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2227612&reg=48&lang=2", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

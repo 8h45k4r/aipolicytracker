@@ -1,0 +1,29 @@
+slug: wael-william-diab
+name: Wael William Diab
+role: Chairperson, ISO/IEC JTC 1/SC 42 Artificial intelligence
+organisation: ISO/IEC JTC 1/SC 42
+jurisdiction: international
+category: standards
+topics: [standards, governance]
+current: true
+since: null
+summary: >-
+  Chairs ISO/IEC JTC 1/SC 42, the joint ISO and IEC subcommittee that develops international
+  standards on artificial intelligence, including the AI management system standard ISO/IEC 42001.
+  JTC 1 Resolution 12, adopted at its 32nd plenary in Vladivostok, set up SC 42 and named him (United
+  States, nominated through ANSI) as chair. The ISO committee page and the IEC dashboard list his
+  current term as running to the end of 2027, and the SC 42 Business Plan 2025 names him as chair.
+related_policies: [iso-iec-42001-2023-ai-management-system]
+statements: []
+official_profile_url: "https://committee.iso.org/committee/6794475.html"
+sources:
+  - { title: "ISO/IEC JTC 1/SC 42 - Artificial intelligence", publisher: "ISO", url: "https://committee.iso.org/committee/6794475.html", accessed: "2026-11-12" }
+  - { title: "ISO/IEC JTC 1/SC 42 Dashboard: Officers", publisher: "IEC", url: "https://www.iec.ch/dyn/www/f?p=103%3A29%3A%3A%3A%3A%3AFSP_ORG_ID%3A21538", accessed: "2026-11-12" }
+  - { title: "SC 42 - JTC 1", publisher: "ISO/IEC JTC 1", url: "https://jtc1info.org/sd-2-history/jtc1-subcommittees/sc-42/", accessed: "2026-11-12" }
+  - { title: "ISO/IEC JTC 1 N 17692: SC 42 Business Plan 2025", publisher: "ISO/IEC JTC 1", url: "https://jtc1info.org/wp-content/uploads/2026/03/SC-42-Business-Plan-2025.pdf", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium

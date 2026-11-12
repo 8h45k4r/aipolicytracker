@@ -17,6 +17,8 @@ One document per module. Each doc has: purpose, schema field table (must match t
 | Compliance workbooks | [compliance-workbooks.md](compliance-workbooks.md) | `profile_workbook_versions` (and three columns on `applicability_profiles`) |
 | Change desk and provenance | [change-desk-and-provenance.md](change-desk-and-provenance.md) | `record_revisions`, `source_checks`, `account_weeks` |
 | Posting to X | [social-posting.md](social-posting.md) | `social_posts` |
+| News | [news.md](news.md) | `news_items` |
+| AI Voices | [voices.md](voices.md) | none (YAML under `data/voices/`) |
 
 Framework tables (`cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, `migrations`) are Laravel-managed and not documented as modules.
 

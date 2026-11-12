@@ -1,0 +1,30 @@
+slug: kanishka-narayan
+name: Kanishka Narayan
+role: Minister of State (Minister for Artificial Intelligence)
+organisation: Cabinet Office and Department for Business, Innovation, Science and Trade
+jurisdiction: uk
+category: government
+topics: [policy, strategy, safety]
+current: true
+since: "2026-07-20"
+summary: >-
+  UK minister for AI, appointed on 20 July 2026 jointly in the Cabinet Office and the Department for Business,
+  Innovation, Science and Trade. GOV.UK lists his remit as including AI policy, AI Growth Zones, sovereign AI and
+  economy-wide adoption, and, in the Cabinet Office, the AI Strategy, the Prime Minister's AI Taskforce and the AI
+  Security Institute. He leads the AI Taskforce and attends Cabinet. From September 2025 to July 2026 he was
+  Parliamentary Under-Secretary of State for AI and Online Safety at the former Department for Science, Innovation and
+  Technology.
+related_policies: []
+statements: []
+official_profile_url: "https://www.gov.uk/government/ministers/minister-of-state-minister-for-artificial-intelligence"
+sources:
+  - { title: "Minister of State (Minister for Artificial Intelligence) - GOV.UK", publisher: "UK Government", url: "https://www.gov.uk/government/ministers/minister-of-state-minister-for-artificial-intelligence", accessed: "2026-11-12" }
+  - { title: "The Rt Hon Kanishka Narayan MP - GOV.UK", publisher: "UK Government", url: "https://www.gov.uk/government/people/kanishka-narayan", accessed: "2026-11-12" }
+  - { title: "Ministerial Appointments: July 2026", publisher: "UK Government", url: "https://www.gov.uk/government/news/ministerial-appointments-july-2026", accessed: "2026-11-12" }
+  - { title: "AI to power change at the heart of government as Lord Vallance appointed chair of new PM AI Taskforce", publisher: "UK Government", url: "https://www.gov.uk/government/news/ai-to-power-change-at-the-heart-of-government-as-lord-vallance-appointed-chair-of-new-pm-ai-taskforce", accessed: "2026-11-12" }
+published: true
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: "2026-11-12"
+confidence_level: medium
