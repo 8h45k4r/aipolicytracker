@@ -18,7 +18,7 @@ RUN npm run build
 # php-fpm behind nginx in the same container (debt #32): nginx serves public/ and
 # listens on $PORT, so the host nginx, the compose port and the health check are
 # unchanged. The CLI (artisan, queue, scheduler) is the same PHP build.
-FROM php:8.3.36-fpm-alpine
+FROM php:8.5.11-fpm-alpine
 # gd: phpoffice/phpspreadsheet and phpword require it, and the social-card
 # renderer draws with it (FreeType for the TrueType text, JPEG for photos).
 # font-dejavu: the face the renderer draws with. Without a TrueType font on
