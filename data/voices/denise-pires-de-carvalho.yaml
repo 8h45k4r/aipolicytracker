@@ -22,6 +22,13 @@ sources:
   - { title: "Denise Pires de Carvalho appointed as UNESCO Assistant Director-General for Sciences", publisher: "UNESCO", url: "https://www.unesco.org/en/articles/denise-pires-de-carvalho-appointed-unesco-assistant-director-general-sciences", accessed: "2026-11-12" }
   - { title: "The Sciences Sector at a glance", publisher: "UNESCO", url: "https://www.unesco.org/en/social-human-sciences/about", accessed: "2026-11-12" }
   - { title: "Sciences for the people and the planet", publisher: "UNESCO", url: "https://www.unesco.org/en/sciences", accessed: "2026-11-12" }
+photo:
+  file: "denise-pires-de-carvalho.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Denise_Pires_de_Carvalho.jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "Luis Fortes/MEC"
+  wikidata: "Q42722356"
 published: true
 review_status: pending_review
 reviewed_by: null

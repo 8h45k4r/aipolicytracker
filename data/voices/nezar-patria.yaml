@@ -23,6 +23,13 @@ sources:
   - { title: "Wamen Nezar Patria: AI Tidak Boleh Tinggalkan Publik dan Demokrasi", publisher: "Kementerian Komunikasi dan Digital", url: "https://www.komdigi.go.id/berita/siaran-pers/detail/wamen-nezar-patria-ai-tidak-boleh-tinggalkan-publik-dan-demokrasi", accessed: "2026-11-12" }
   - { title: "Bukan Sekadar Teknologi Global, Wamen Nezar Patria: AI Indonesia Harus Ikuti Nilai Pancasila", publisher: "Kementerian Komunikasi dan Digital", url: "https://portal.komdigi.go.id/kanal-publik/berita-kini/10177", accessed: "2026-11-12" }
   - { title: "AI Bisa Buat Film, Wamen Nezar Patria: Sensor Film Hadapi Tantangan Baru", publisher: "Kementerian Komunikasi dan Digital", url: "https://www.komdigi.go.id/berita/siaran-pers/detail/ai-bisa-buat-film-wamen-nezar-patria-sensor-film-hadapi-tantangan-baru", accessed: "2026-11-12" }
+photo:
+  file: "nezar-patria.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Nezar_Patria.jpg"
+  license: "CC BY-SA 4.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/4.0"
+  author: "Nurul Dani"
+  wikidata: "Q85993228"
 published: true
 review_status: pending_review
 reviewed_by: null

@@ -22,6 +22,13 @@ sources:
   - { title: "PL 2338/2023", publisher: "Senado Federal", url: "https://www25.senado.leg.br/web/atividade/materias/-/materia/157233", accessed: "2026-11-12" }
   - { title: "Tocantins reelege Eduardo Gomes e elege Alexandre Guimarães ao Senado", publisher: "Agência Senado", url: "https://www12.senado.leg.br/noticias/materias/2026/10/04/tocantins-reelege-eduardo-gomes-e-elege-alexandre-guimaraes-ao-senado", accessed: "2026-11-12" }
   - { title: "ANPD é formalizada como coordenadora do Sistema Nacional de Inteligência Artificial", publisher: "Agência Nacional de Proteção de Dados", url: "https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-e-formalizada-como-coordenadora-do-sistema-nacional-de-inteligencia-artificial", accessed: "2026-11-12" }
+photo:
+  file: "eduardo-gomes.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Senador_Eduardo_Gomes.jpg"
+  license: "Attribution"
+  license_url: null
+  author: "Agência Senado"
+  wikidata: "Q9697032"
 published: true
 review_status: pending_review
 reviewed_by: null

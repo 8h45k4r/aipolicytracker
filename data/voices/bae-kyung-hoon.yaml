@@ -22,6 +22,13 @@ sources:
   - { title: "역대장관 소개 (Former and current ministers)", publisher: "Ministry of Science and ICT", url: "https://www.msit.go.kr/contents/cont.do?sCode=user&mId=137&mPid=132", accessed: "2026-11-12" }
   - { title: "과학기술정보통신부 (MSIT home page)", publisher: "Ministry of Science and ICT", url: "https://www.msit.go.kr/index.do", accessed: "2026-11-12" }
   - { title: "MSIT Launches K-Moonshot Project to Shape Korea's ...", publisher: "Ministry of Science and ICT", url: "https://www.msit.go.kr/eng/bbs/view.do?sCode=eng&mId=4&bbsSeqNo=42&nttSeqNo=1265", accessed: "2026-11-12" }
+photo:
+  file: "bae-kyung-hoon.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Bae_Kyung-hoon_250910.jpg"
+  license: "KOGL Type 1"
+  license_url: "http://www.kogl.or.kr/info/licenseType1.do"
+  author: "대한민국 국회"
+  wikidata: "Q16082736"
 published: true
 review_status: pending_review
 reviewed_by: null

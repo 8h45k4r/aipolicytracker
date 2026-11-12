@@ -20,6 +20,13 @@ sources:
   - { title: "La CNIL en bref, édition 2026", publisher: "CNIL", url: "https://www.cnil.fr/sites/default/files/2026-05/cnil_en_bref_0.pdf", accessed: "2026-11-12" }
   - { title: "Rencontres Informatique & Libertés 2026", publisher: "CNIL", url: "https://www.cnil.fr/fr/ril-2026", accessed: "2026-11-12" }
   - { title: "Rapport annuel 2025", publisher: "CNIL", url: "https://www.cnil.fr/sites/default/files/2026-05/rapport_annuel_2025.pdf", accessed: "2026-11-12" }
+photo:
+  file: "marie-laure-denis.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Marie-Laure_Denis.jpg"
+  license: "CC BY-SA 4.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/4.0"
+  author: "Edolag35"
+  wikidata: "Q33292004"
 published: true
 review_status: pending_review
 reviewed_by: null

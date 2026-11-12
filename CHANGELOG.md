@@ -28,6 +28,9 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- The weekly digest asks for a work email address; personal mailboxes such as Gmail and Outlook.com
+  are refused with a message saying so.
+- Eight more AI Voices photos (53 of 101), confirmed against each person's Wikidata entry.
 - More figures in place of text:
   - obligation pages: "From the law to the evidence", five linked steps with the record's own counts
     (the law, who it binds, controls, evidence, templates);
@@ -51,7 +54,7 @@ All notable changes to this project are documented here. The format follows [Kee
   ones, by month, each month linking to its archive.
 - Share images for AI Voices profiles, with the AIPolicyTracker logo, the person's name and role,
   and their photo or initials.
-- AI Voices photos where an openly licensed one exists (45 of 101 profiles). Each comes from Wikimedia Commons, linked
+- AI Voices photos where an openly licensed one exists. Each comes from Wikimedia Commons, linked
   from the person's Wikidata item, with Wikidata's recorded positions or citizenship confirming
   it is the same person. The author and licence are credited on the profile, and anything with
   non-commercial or no-derivatives terms is left out. Other profiles keep their initials.
@@ -323,6 +326,8 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- Subscribing to the weekly digest returned a server error when the confirmation email could not be
+  sent. The form now says to try again in a few minutes, and the failure is logged.
 - Email addresses showed as "[email protected]" in the admin (subscribers, accounts, enquiries), on the
   pricing form and on the about, privacy, terms and open-data pages. The edge hides addresses behind a
   script that the site's security policy blocks. Every page now tells the edge to leave them as written.

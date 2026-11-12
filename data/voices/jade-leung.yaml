@@ -19,6 +19,13 @@ official_profile_url: "https://www.gov.uk/government/news/dr-jade-leung-appointe
 sources:
   - { title: "Dr Jade Leung appointed Vice-Chair of the AI Security Institute and Security Advisor to the AI Taskforce", publisher: "UK Government", url: "https://www.gov.uk/government/news/dr-jade-leung-appointed-vice-chair-of-the-ai-security-institute-and-security-advisor-to-the-ai-taskforce", accessed: "2026-11-12" }
   - { title: "Jade Leung", publisher: "AI Security Institute", url: "https://www.aisi.gov.uk/people/jade-leung", accessed: "2026-11-12" }
+photo:
+  file: "jade-leung.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Jade_Leung_2015_(cropped).jpg"
+  license: "CC BY 4.0"
+  license_url: "https://creativecommons.org/licenses/by/4.0"
+  author: "New Zealand Government, Office of the Governor-General"
+  wikidata: "Q114022639"
 published: true
 review_status: pending_review
 reviewed_by: null

@@ -23,6 +23,13 @@ sources:
   - { title: "Announcement Of The Inaugural Board Of Directors Of AI Malaysia Berhad", publisher: "Ministry of Digital Malaysia", url: "https://www.digital.gov.my/en-GB/siaran/Pengumuman-Pelantikan-Lembaga-Pengarah-Pertama-AI-Malaysia-Berhad", accessed: "2026-11-12" }
   - { title: "National AI Action Plan 2026-2030 (AI Nation 2030)", publisher: "National AI Office Malaysia", url: "https://ai.gov.my/aiactionplan2030/", accessed: "2026-11-12" }
   - { title: "ADGMIN welcomes the adoption of Declaration on Establishment of ASEAN AI Safety Network", publisher: "Ministry of Digital Malaysia", url: "https://www.digital.gov.my/api/file/file/17012026_PRESS%20RELEASE_ADGMIN%20WELCOMES%20THE%20ADOPTION%20OF%20DECLARATION%20ON%20ESTABLISHMENT%20OF%20ASEAN%20AI%20SAFETY%20NETWORK.docx.pdf", accessed: "2026-11-12" }
+photo:
+  file: "gobind-singh-deo.jpg"
+  source_url: "https://commons.wikimedia.org/wiki/File:Gobind_Singh_Deo_-_Global_Conference_for_Media_Freedom_(48256794802)_(cropped).jpg"
+  license: "CC BY 2.0"
+  license_url: "https://creativecommons.org/licenses/by/2.0"
+  author: "Foreign and Commonwealth Office"
+  wikidata: "Q5575520"
 published: true
 review_status: pending_review
 reviewed_by: null
