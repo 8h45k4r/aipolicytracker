@@ -9,6 +9,7 @@ use App\Models\Jurisdiction;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Rules\NotDisposableEmail;
+use App\Rules\WorkEmail;
 use App\Services\Security\Turnstile;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -49,7 +50,9 @@ class SubscribeController extends Controller
             return back()->withInput()->withErrors(['email' => 'The automated check did not complete. Please wait a moment and subscribe again.']);
         }
         $data = $request->validate([
-            'email' => ['required', 'email:rfc', 'max:190', new NotDisposableEmail],
+            // The digest is for people following AI policy at work: an organisation's address,
+            // not a personal mailbox (WorkEmail) and not a throwaway one (NotDisposableEmail).
+            'email' => ['required', 'email:rfc', 'max:190', new NotDisposableEmail, new WorkEmail('the weekly digest')],
             'topics' => ['nullable', 'array', 'max:20'],
             'topics.*' => ['string', 'max:64', 'regex:/^[a-z0-9-]+$/'],
             'source' => ['nullable', 'string', 'max:64'],
@@ -89,7 +92,15 @@ class SubscribeController extends Controller
         $subscriber->token = Subscriber::newToken();
         $subscriber->save();
 
-        Mail::to($subscriber->email)->send(new SubscriptionConfirmMail($subscriber));
+        // A mail service that refuses or times out must not turn the form into a server error.
+        // The row stays unconfirmed, the failure is logged, and the reader is told to try again.
+        try {
+            Mail::to($subscriber->email)->send(new SubscriptionConfirmMail($subscriber));
+        } catch (\Throwable $e) {
+            report($e);
+
+            return back()->withInput()->withErrors(['email' => 'We could not send the confirmation email just now. Please try again in a few minutes.']);
+        }
 
         return back()->with('success', 'Check your inbox to confirm your subscription.');
     }

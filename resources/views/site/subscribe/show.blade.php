@@ -15,8 +15,8 @@
                 @if(session('success'))<p class="rounded-md border border-state-good/30 bg-state-goodbg p-3 text-sm text-state-good" role="status">{{ session('success') }}</p>@endif
                 @if($errors->any())<div class="rounded-md border border-state-bad/30 bg-state-badbg p-3 text-sm text-state-bad" role="alert"><ul class="list-disc pl-5">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>@endif
                 <div>
-                    <label for="sub-email" class="label">Email address <span class="text-state-bad" aria-hidden="true">*</span></label>
-                    <input id="sub-email" type="email" name="email" required class="input max-w-md" placeholder="you@example.org" autocomplete="email" value="{{ old('email') }}">
+                    <label for="sub-email" class="label">Work email address <span class="text-state-bad" aria-hidden="true">*</span></label>
+                    <input id="sub-email" type="email" name="email" required class="input max-w-md" placeholder="you@yourorganisation.org" autocomplete="email" value="{{ old('email') }}" aria-describedby="sub-email-help"><p id="sub-email-help" class="mt-1 text-xs text-brand-muted">Your organisation's address. Personal mailboxes such as Gmail or Outlook.com are not accepted.</p>
                     <p class="mt-1 text-xs text-brand-muted">Work or personal, whichever you read. Temporary mailboxes are not accepted: an alert sent to one never reaches anybody.</p>
                 </div>
                 <fieldset>

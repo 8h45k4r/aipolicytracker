@@ -95,6 +95,8 @@ These are read from `app_settings` when the page renders, not copied into config
 
 Public: `subscribe.show` (GET `/subscribe`, jurisdiction picker grouped by region), `subscribe.store` (POST, throttled, honeypot), `subscribe.confirm`, `subscribe.unsubscribe` (GET and RFC 8058 POST), `cron.digest` (POST, bearer token). Admin (`auth` + `isAdmin`): `backend.admin.dashboard|submissions|subscribers|subscribers.export|subscribers.resend|subscribers.delete|external|settings|settings.save|settings.test`.
 
+The public form asks for a work address. `subscribe.store` applies `NotDisposableEmail` (throwaway domains, domains with no mail route) and `WorkEmail` (personal mailboxes on the trusted freemail list, such as gmail.com and outlook.com; switched off with `templates.gate.require_work_email`). If the confirmation email cannot be sent, the request does not fail. The error is reported, the row stays unconfirmed and the form says to try again in a few minutes. An account's digest choice (`AccountDigest`) is not affected: it subscribes the account's own verified address.
+
 The subscribers list shows each address's `source`. This is the page the public form was sent from (for example `subscribe-page`), or `account` for an address subscribed from account settings. Filter it with `?source=`, or `?source=(none)` for rows with no source. An "account" badge marks an address that a verified account uses. It links to the user page for admins who hold `users.manage`. Filter with `?account=yes|no`. The CSV export has `source` and `has_account` columns.
 
 ## Email templates

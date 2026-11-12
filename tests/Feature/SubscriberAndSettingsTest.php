@@ -50,6 +50,26 @@ class SubscriberAndSettingsTest extends TestCase
         $this->assertSame(0, Subscriber::active()->count());
     }
 
+    public function test_the_digest_asks_for_a_work_address(): void
+    {
+        Mail::fake();
+        $this->from('/subscribe')->post(route('subscribe.store'), ['email' => 'someone@gmail.com', 'terms' => '1'])
+            ->assertRedirect('/subscribe')->assertSessionHasErrors('email');
+        $this->assertSame(0, Subscriber::count());
+        Mail::assertNothingSent();
+        $this->get('/subscribe')->assertOk()->assertSee('Personal mailboxes such as Gmail');
+    }
+
+    public function test_a_mail_service_failure_is_reported_to_the_reader_not_as_a_server_error(): void
+    {
+        Mail::shouldReceive('to')->andThrow(new \RuntimeException('SMTP refused'));
+        $this->from('/subscribe')->post(route('subscribe.store'), ['email' => 'reader@acme-bank.com', 'terms' => '1'])
+            ->assertRedirect('/subscribe')
+            ->assertSessionHasErrors(['email' => 'We could not send the confirmation email just now. Please try again in a few minutes.']);
+        // Kept unconfirmed, so a later attempt starts over with a new token.
+        $this->assertNull(Subscriber::where('email', 'reader@acme-bank.com')->value('confirmed_at'));
+    }
+
     public function test_honeypot_and_invalid_email_do_not_create_subscribers(): void
     {
         Mail::fake();
