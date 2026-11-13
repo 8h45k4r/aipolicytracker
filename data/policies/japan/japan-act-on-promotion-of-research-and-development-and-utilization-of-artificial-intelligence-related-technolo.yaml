@@ -5,8 +5,7 @@ jurisdiction: japan
 title: >-
   Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology (Act
   No. 53 of 2025)
-short_title: >-
-  Act on Promotion of Research and Development, and Utilization of Artificial Intelligence-related Technology
+short_title: Act No. 53 of 2025 on AI-related Technology
 instrument_type: act
 status: in_force
 status_note: >-
@@ -80,7 +79,5 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
-change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+content_version: 2
+change_summary: Short title shortened to a readable form of the official title, for page titles and update headlines; no facts changed.

@@ -4,7 +4,7 @@ jurisdiction: international
 title: >-
   UN General Assembly resolution A/RES/78/265: Seizing the opportunities of safe, secure and trustworthy artificial intelligence
   systems for sustainable development (21 March 2024)
-short_title: UN General Assembly resolution 78/265 on safe, secure and trustworthy AI
+short_title: UN General Assembly resolution 78/265 on AI
 instrument_type: policy
 status: adopted
 is_binding: false
@@ -61,7 +61,5 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
-change_summary: >-
-  Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
-  and scope against the source text.
+content_version: 2
+change_summary: Short title shortened to a readable form of the official title, for page titles and update headlines; no facts changed.

@@ -4,8 +4,7 @@ aipt_id: AIPT-POL-0238
 jurisdiction: vietnam
 title: >-
   National Strategy on Research, Development and Application of Artificial Intelligence to 2030 (Decision No. 127/QD-TTg)
-short_title: >-
-  National Strategy on Research, Development and Application of Artificial Intelligence to 2030
+short_title: National Strategy on AI to 2030
 instrument_type: strategy
 status: adopted
 is_binding: false
@@ -75,7 +74,5 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
-change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+content_version: 2
+change_summary: Short title shortened to a readable form of the official title, for page titles and update headlines; no facts changed.

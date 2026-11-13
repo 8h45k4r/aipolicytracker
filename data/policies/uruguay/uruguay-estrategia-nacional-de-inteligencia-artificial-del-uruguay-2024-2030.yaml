@@ -4,7 +4,7 @@ jurisdiction: uruguay
 title: >-
   Estrategia Nacional de Inteligencia Artificial del Uruguay 2024-2030 (National Artificial Intelligence Strategy
   of Uruguay 2024-2030)
-short_title: Estrategia Nacional de Inteligencia Artificial del Uruguay 2024-2030
+short_title: National AI Strategy 2024-2030
 instrument_type: strategy
 status: adopted
 status_note: >-
@@ -78,7 +78,5 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
-change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+content_version: 2
+change_summary: Short title shortened to a readable form of the official title, for page titles and update headlines; no facts changed.

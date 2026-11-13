@@ -4,7 +4,7 @@ jurisdiction: argentina
 title: >-
   Disposición 2/2023 – Recomendaciones para una Inteligencia Artificial Fiable (Disposition 2/2023 – Recommendations
   for Trustworthy Artificial Intelligence)
-short_title: Disposición 2/2023
+short_title: Disposition 2/2023 on Trustworthy AI
 instrument_type: regulation
 status: in_force
 status_note: Signed 1 June 2023, published 2 June 2023. Both official pages fetched successfully.
@@ -69,7 +69,5 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
-change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+content_version: 2
+change_summary: Short title shortened to a readable form of the official title, for page titles and update headlines; no facts changed.

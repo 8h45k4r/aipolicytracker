@@ -2,7 +2,7 @@ slug: china-measures-for-labeling-artificial-intelligence-generated-and-syntheti
 aipt_id: AIPT-POL-0047
 jurisdiction: china
 title: Measures for Labeling Artificial Intelligence-Generated and Synthetic Content
-short_title: Measures for Labeling Artificial Intelligence-Generated and Synthetic Content
+short_title: Measures for Labeling AI-Generated Content
 instrument_type: regulation
 status: in_force
 is_binding: true
@@ -58,7 +58,5 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
-change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+content_version: 2
+change_summary: Short title shortened to a readable form of the official title, for page titles and update headlines; no facts changed.

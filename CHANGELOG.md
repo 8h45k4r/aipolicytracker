@@ -236,6 +236,9 @@ All notable changes to this project are documented here. The format follows [Kee
   from the record's facts and fit 155 characters. Any other long description is cut at its last full
   sentence instead of mid-sentence.
 - Regional hubs open with an "In brief" answer of 40 to 60 words, as record pages do.
+- Data: 20 instruments have a readable short title, used in page titles and update headlines, in
+  place of a cut-off, misleading or very long one (e.g. Malaysia's "Artificial Intelligence" is now
+  "AI Governance Bill"). Each is a shortened form of the instrument's official title.
 - `/calendar` has a List / Calendar switch. The calendar view lays a month out as a grid: recorded
   deadlines, comment periods closing and public meetings each sit on their day, with previous and next
   months. The same month is listed below the grid for screen readers and small screens. The list stays the

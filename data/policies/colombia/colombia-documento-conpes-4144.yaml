@@ -4,7 +4,7 @@ jurisdiction: colombia
 title: >-
   Documento CONPES 4144 – Política Nacional de Inteligencia Artificial (CONPES Document 4144 – National Artificial
   Intelligence Policy)
-short_title: Documento CONPES 4144
+short_title: CONPES 4144 National AI Policy
 instrument_type: strategy
 status: adopted
 status_note: >-
@@ -70,7 +70,5 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: medium
-content_version: 1
-change_summary: >-
-  Imported from the source-backed legacy dataset (database/data/ai_policies.json); fields limited to what the official
-  source page states. Reviewer to enrich scope, dates and obligations.
+content_version: 2
+change_summary: Short title shortened to a readable form of the official title, for page titles and update headlines; no facts changed.
