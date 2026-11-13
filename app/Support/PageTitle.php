@@ -36,6 +36,9 @@ final class PageTitle
 
     public const MAX_DESCRIPTION = 155;
 
+    /** A description shorter than this says too little; a longer cut is taken instead. */
+    public const MIN_DESCRIPTION = 70;
+
     /** A clause shorter than this is not worth keeping as a title on its own. */
     private const MIN_CLAUSE = 24;
 
@@ -100,14 +103,39 @@ final class PageTitle
         return str_ends_with($title, $brand) || mb_strlen($title.$brand) > self::MAX ? $title : $title.$brand;
     }
 
-    /** A meta description within budget, cut at a word boundary. */
+    /**
+     * A meta description within budget that ends on a complete sentence.
+     *
+     * A description cut at a word ("…the EU AI Act sets duties for providers of…")
+     * is what a search result shows, so it is cut where a sentence ends instead:
+     * at the last full sentence that fits, or failing that at the last clause,
+     * closed with a full stop. Only text with neither left inside the budget is
+     * cut at a word, with an ellipsis; never through the middle of one.
+     */
     public static function description(string $text): string
     {
         $text = self::clean($text);
         if (mb_strlen($text) <= self::MAX_DESCRIPTION) {
             return $text;
         }
+        $window = mb_substr($text, 0, self::MAX_DESCRIPTION + 1);
+        // A sentence ends at . ! or ? followed by a space and a capital letter, so
+        // "No. 35" and "e.g. a" are not taken for one.
+        if (preg_match_all('/[.!?](?=\s+[\p{Lu}"“(])/u', $window, $m, PREG_OFFSET_CAPTURE)) {
+            foreach (array_reverse($m[0]) as [, $offset]) {
+                $end = mb_strlen(substr($window, 0, $offset)) + 1;
+                if ($end <= self::MAX_DESCRIPTION && $end >= self::MIN_DESCRIPTION) {
+                    return mb_substr($text, 0, $end);
+                }
+            }
+        }
         $cut = mb_substr($text, 0, self::MAX_DESCRIPTION - 1);
+        foreach (['; ', ' – ', ' — '] as $sep) {
+            $at = mb_strrpos($cut, $sep);
+            if ($at !== false && $at >= self::MIN_DESCRIPTION) {
+                return rtrim(mb_substr($cut, 0, $at), ' ,;:.').'.';
+            }
+        }
         $space = mb_strrpos($cut, ' ');
 
         return rtrim(mb_substr($cut, 0, $space ?: mb_strlen($cut)), ' ,;:–—-').'…';
@@ -170,7 +198,7 @@ final class PageTitle
         return preg_replace('/\b(intelig[eê]ncia[\s-]+artificial|intelligence[\s-]+artificielle)\b/iu', 'IA', $text);
     }
 
-    private static function clean(string $text): string
+    public static function clean(string $text): string
     {
         return trim(preg_replace('/\s+/u', ' ', $text));
     }

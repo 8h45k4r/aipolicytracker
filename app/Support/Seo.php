@@ -638,6 +638,17 @@ class Seo
     }
 
     /**
+     * When the corpus's content last changed: the Dataset's dateModified, and the one
+     * "last updated" date the site shows anywhere.
+     */
+    public static function corpusModified(): ?Carbon
+    {
+        $modified = self::corpusFacts()['modified'];
+
+        return $modified ? Carbon::parse($modified) : null;
+    }
+
+    /**
      * The corpus's dates, read from the records: when its content last changed
      * (ContentDates, not the import time) and the span of dates it covers.
      *

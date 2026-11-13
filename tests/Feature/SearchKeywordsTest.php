@@ -67,8 +67,10 @@ class SearchKeywordsTest extends TestCase
     {
         $html = $this->get('/')->assertOk()->getContent();
 
+        // The heading says what the site does; the category label sits just above it.
         preg_match('#<h1[^>]*>(.*?)</h1>#s', $html, $h1);
-        $this->assertStringContainsString('AI regulation and legislation tracker', strip_tags($h1[1]));
+        $this->assertSame('Track every AI law worldwide, with duties, deadlines and official sources.', trim(strip_tags($h1[1])));
+        $this->assertStringContainsString('<p class="eyebrow">Free global AI regulation and legislation tracker</p>', $html);
         $this->assertMatchesRegularExpression('#<meta name="description" content="[^"]*AI regulation and legislation tracker#', $html);
         // One search box in the hero; the header's copy is hidden on this page only.
         $this->assertSame(1, substr_count($html, 'id="home-q"'));

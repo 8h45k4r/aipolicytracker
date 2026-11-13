@@ -5,11 +5,12 @@
 <section class="border-b border-brand-line bg-gradient-to-b from-brand-paper to-white">
     <div class="container-site py-8 sm:py-16 grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end">
         <div class="lg:col-span-8">
-            {{-- The kicker is part of the heading, so the phrase people search for (an AI
-                 regulation or legislation tracker) is what the page says it is. The hidden
-                 colon keeps the two phrases apart where the heading is read as one line (a
-                 screen reader's accessible name, a crawler's text); the blocks only look apart. --}}
-            <h1 class="font-display font-semibold text-brand-navy"><span class="eyebrow block">Free global AI regulation and legislation tracker<span class="sr-only">:</span></span> <span class="mt-3 block text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] max-w-[18ch]">From regulation to evidence.</span></h1>
+            {{-- The heading is the phrase people search for: what the site does, in their
+                 words. The category label sits above it and the slogan below it, neither of
+                 them a heading, so the H1 a crawler or a screen reader takes is one sentence. --}}
+            <p class="eyebrow">Free global AI regulation and legislation tracker</p>
+            <h1 class="mt-3 font-display font-semibold text-brand-navy text-3xl sm:text-4xl leading-[1.05] max-w-[24ch]">Track every AI law worldwide, with duties, deadlines and official sources.</h1>
+            <p class="mt-3 font-display text-xl text-brand-body">From regulation to evidence.</p>
             <p class="mt-5 max-w-[60ch] text-lg leading-8 text-brand-body">Track AI laws, regulations and the obligations they create in every jurisdiction on record. Connect them to governance controls, risks and evidence. Every claim links to its source.</p>
             <p class="mt-2 max-w-[60ch] text-sm text-brand-muted"><span class="font-medium text-brand-navy">AI policy, verified at the source.</span> Every record links its official text and states when a person last checked it.</p>
             <form action="{{ route('policies.index') }}" method="get" role="search" class="mt-8 max-w-2xl" data-track="home_search">
@@ -43,6 +44,8 @@
             </div>
         </div>
         <aside class="lg:col-span-4 lg:border-l lg:border-brand-line lg:pl-8" aria-label="How to read this site">
+            {{-- The map the description promises, compact: legend and map only. --}}
+            <x-site.world-map compact class="mb-6" title="Where AI is regulated" />
             <p class="eyebrow">How it fits together</p>
             <p class="mt-3 text-sm leading-6 text-brand-body">A law creates a <a href="{{ route('obligations.index') }}">duty</a>. A duty is met by a <a href="{{ route('controls.index') }}">control</a>. A control produces <a href="{{ route('controls.index') }}#evidence">evidence</a>. Every record links its official source and states when a person last checked it.</p>
             <dl class="mt-4 divide-y divide-brand-line text-sm">
@@ -60,7 +63,7 @@
 <x-site.journey />
 
 <div class="container-site py-12 grid gap-12 lg:grid-cols-12">
-    <x-site.latest-updates class="lg:col-span-8" :changes="$changes" title="Latest AI policy updates" :limit="6" intro="The six most recent dated changes to AI laws and guidance, each linked to the record it changed and to its official source." />
+    <x-site.latest-updates class="lg:col-span-8" :changes="$changes" title="Latest AI policy updates" :limit="6" headlines intro="The most recent dated changes to AI laws, obligations and deadlines, each linked to the record it changed and to its official source. Template releases are on the updates page." />
     <aside class="lg:col-span-4" aria-labelledby="deadlines-heading">
         <div class="rule-strong pt-3"><h2 id="deadlines-heading" class="section-title">Which dates are coming up?</h2></div>
         <p class="mt-2 text-sm text-brand-body">The next application and compliance dates on record, each with the instrument it belongs to.</p>

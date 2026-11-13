@@ -1,4 +1,4 @@
-@props(['changes', 'jurisdiction' => null, 'title' => 'Latest updates', 'limit' => 5, 'intro' => null])
+@props(['changes', 'jurisdiction' => null, 'title' => 'Latest updates', 'limit' => 5, 'intro' => null, 'headlines' => false])
 {{--
 The "latest updates" module: the same records the updates hub is built from,
 in compact form, with the way to the hub, the jurisdiction's own page and its
@@ -12,7 +12,7 @@ feed. One component, so home, policy and jurisdiction pages agree.
     </div>
     @if($intro)<p class="mt-2 max-w-[64ch] text-sm text-brand-body">{{ $intro }}</p>@endif
     @if($items->isNotEmpty())
-        @foreach($items as $change)<x-site.change-item :change="$change" compact />@endforeach
+        @foreach($items as $change)<x-site.change-item :change="$change" compact :headline="$headlines" />@endforeach
         <p class="mt-3 text-xs text-brand-muted leading-8"><a href="{{ $jurisdiction ? route('updates.jurisdiction.feed', $jurisdiction->slug) : route('changes.feed') }}" class="inline-block py-1 hover:text-brand-navy" data-track="rss_click">RSS</a> · <a href="{{ route('updates.index') }}" class="inline-block py-1 hover:text-brand-navy">Updates hub</a> · <a href="{{ route('subscribe.show') }}" class="inline-block py-1 hover:text-brand-navy">Weekly digest</a></p>
     @else
         <p class="py-4 text-sm text-brand-muted">No changes recorded yet. <a href="{{ route('updates.index') }}" class="text-brand-blue hover:underline">See all AI policy updates</a>.</p>

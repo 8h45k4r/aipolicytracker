@@ -17,6 +17,7 @@ use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Support\ContentDates;
 use App\Support\Faq;
+use App\Support\MetaDescription;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
@@ -163,7 +164,8 @@ class JurisdictionController extends Controller
 
         $seo = Seo::make(
             $translation['title'] ?? PageTitle::jurisdiction($jurisdiction),
-            $answer,
+            // A translated page keeps its own summary; the English one says the counts.
+            $translation ? $answer : MetaDescription::jurisdiction($jurisdiction, $policies),
             $reviewedTranslation ? $localUrl : $englishUrl,
             $jurisdiction->isPageIndexable() && ($translation === null || $reviewedTranslation)
         )->withLanguage($locale !== '' ? $locale : 'en')->withHreflang($hreflang)->withBreadcrumbs(array_values(array_filter([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], $region ? [$jurisdiction->region, HubCatalog::regionUrl($region)] : null, [$jurisdiction->name, $jurisdiction->url()]])))

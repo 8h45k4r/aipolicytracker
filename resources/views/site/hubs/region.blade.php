@@ -9,11 +9,10 @@
         <button type="button" data-share class="text-brand-blue hover:text-brand-navy hidden">Share</button>
     </div>
 
-    {{-- The answer box: computed from the records on the page, never written by hand. --}}
-    <section class="mt-5 card-flat p-5" aria-labelledby="summary-heading">
-        <h2 id="summary-heading" class="sr-only">Summary</h2>
-        <p class="text-brand-navy text-base sm:text-lg leading-relaxed">{{ $answer }}</p>
-        <dl class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+    {{-- The answer first, as on record pages: computed from the records on the page, never written by hand. --}}
+    <x-site.answer-box class="mt-5" :text="$answer" />
+    <section class="mt-4 card-flat p-5" aria-label="Figures for {{ $regionName }}">
+        <dl class="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <x-site.stat label="Jurisdictions with records" :value="number_format($withInstruments->count())" />
             <x-site.stat label="With binding AI law" :value="number_format($withBinding->count())" />
             <x-site.stat label="Instruments" :value="number_format($policyIds->count())" :href="route('policies.index')" />

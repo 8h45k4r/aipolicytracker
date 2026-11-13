@@ -191,7 +191,7 @@ class UpdatesController extends Controller
         return response($xml, 200, ['Content-Type' => 'application/rss+xml; charset=UTF-8', 'Cache-Control' => 'public, max-age=900']);
     }
 
-    /** @return array{jurisdiction?: string, impact?: string} */
+    /** @return array{jurisdiction?: string, impact?: string, kind?: string} */
     private function filters(Request $request): array
     {
         $out = [];
@@ -201,14 +201,25 @@ class UpdatesController extends Controller
         if (in_array($request->query('impact'), ['urgent', 'high', 'routine'], true)) {
             $out['impact'] = $request->query('impact');
         }
+        if ($request->query('kind') === 'templates') {
+            $out['kind'] = 'templates';
+        }
 
         return $out;
     }
 
-    /** @param array{jurisdiction?: string, impact?: string} $filters */
+    /**
+     * The changes a page lists. Releases of the site's own templates are not changes in
+     * the law; they are left out unless the reader picks the Templates filter.
+     *
+     * @param  array{jurisdiction?: string, impact?: string, kind?: string}  $filters
+     */
     private function query(array $filters): Builder
     {
         return ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])
+            ->when(($filters['kind'] ?? null) === 'templates',
+                fn ($q) => $q->where('slug', 'like', ChangeEvent::SITE_UPDATE_PREFIX.'%'),
+                fn ($q) => $q->regulatory())
             ->when($filters['jurisdiction'] ?? null, fn ($q, $slug) => $q->whereHas('jurisdiction', fn ($j) => $j->where('slug', $slug)))
             ->when($filters['impact'] ?? null, fn ($q, $impact) => $q->where('impact_level', $impact));
     }

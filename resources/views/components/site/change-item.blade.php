@@ -1,4 +1,6 @@
-@props(['change', 'compact' => false])
+@props(['change', 'compact' => false, 'headline' => false])
+{{-- headline: the title as a standalone sentence (ChangeEvent::headline()), for a list across
+     every jurisdiction; `revisions` is set when one item stands for several entries that week. --}}
 <article id="{{ $change->slug }}" class="py-4 border-b border-brand-line last:border-0 scroll-mt-24">
     <div class="flex flex-wrap items-center gap-2 text-xs">
         <time datetime="{{ $change->occurred_on->toDateString() }}" class="datestamp">{{ $change->occurred_on->format('j M Y') }}</time>
@@ -6,7 +8,7 @@
         <x-site.impact-badge :change="$change" />
         @if($change->statusAfterEnum())<x-site.status-badge :status="$change->statusAfterEnum()" />@endif
     </div>
-    <h3 class="mt-1.5 font-display text-lg font-semibold text-brand-navy leading-snug"><a href="{{ $change->url() }}" class="text-brand-navy no-underline hover:underline">{{ $change->title }}</a></h3>
+    <h3 class="mt-1.5 font-display text-lg font-semibold text-brand-navy leading-snug"><a href="{{ $change->url() }}" class="text-brand-navy no-underline hover:underline">{{ $headline ? $change->headline() : $change->title }}</a>@if(($change->revisions ?? 1) > 1) <span class="text-sm font-normal text-brand-muted">({{ $change->revisions }} updates this week)</span>@endif</h3>
     @unless($compact)
     <p class="mt-1.5 text-sm text-brand-body">{{ $change->what_changed }}</p>
     @if($change->practical_impact)<p class="mt-1.5 text-sm text-brand-body"><span class="font-medium text-brand-navy">Practical impact:</span> {{ $change->practical_impact }}</p>@endif

@@ -9,11 +9,11 @@ use App\Models\TaxonomyTerm;
 use App\Services\PolicyData\ControlIntelligence;
 use App\Services\PolicyData\PolicySerializer;
 use App\Services\Records\AnswerBox;
+use App\Support\MetaDescription;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -101,7 +101,7 @@ class ControlController extends Controller
 
         $seo = Seo::make(
             PageTitle::control($control),
-            Str::limit(trim(preg_replace('/\s+/', ' ', $control->purpose)).' Serves '.$duties->count().' recorded '.Str::plural('duty', $duties->count()).' across '.$byJurisdiction->count().' '.Str::plural('jurisdiction', $byJurisdiction->count()).'.', 158),
+            MetaDescription::control($control, $duties->count(), $byJurisdiction->count()),
             $control->url(),
             $control->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Controls', route('controls.index')], [$control->title, $control->url()]])

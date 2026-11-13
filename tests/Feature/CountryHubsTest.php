@@ -123,7 +123,8 @@ class CountryHubsTest extends TestCase
         $html = $this->get('/ai-regulation-asia')->assertOk()->getContent();
         $this->assertSame(1, preg_match_all('#<h1\b#', $html));
         $this->assertStringContainsString('<title>'.e(PageTitle::regionHub('Asia')), $html);
-        $this->assertMatchesRegularExpression('/Asia has \d+ recorded jurisdictions with AI policy on record/', $html);
+        $this->assertMatchesRegularExpression('/Asia has \d+ jurisdictions with AI policy on record/', $html);
+        $this->assertMatchesRegularExpression('#<meta name="description" content="Asia AI regulation: \d+ jurisdictions, #', $html);
         $this->assertStringContainsString('Country by country', $html);
         $this->assertStringContainsString(route('hubs.show', 'ai-regulation-japan'), $html);
         $this->assertStringContainsString('"@type":"CollectionPage"', $html);

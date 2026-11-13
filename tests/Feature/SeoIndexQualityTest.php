@@ -95,10 +95,14 @@ class SeoIndexQualityTest extends TestCase
         $this->assertSame('', $this->canonical($html));
     }
 
-    public function test_the_home_heading_reads_as_two_phrases(): void
+    public function test_the_home_heading_is_one_sentence_and_the_slogan_is_not_a_heading(): void
     {
-        preg_match('#<h1\b[^>]*>(.*?)</h1>#s', $this->get('/')->assertOk()->getContent(), $m);
-        $this->assertStringContainsString('legislation tracker: From regulation to evidence.', preg_replace('/\s+/', ' ', strip_tags($m[1])));
+        $html = $this->get('/')->assertOk()->getContent();
+        preg_match('#<h1\b[^>]*>(.*?)</h1>#s', $html, $m);
+        $this->assertSame('Track every AI law worldwide, with duties, deadlines and official sources.', preg_replace('/\s+/', ' ', trim(strip_tags($m[1]))));
+        $this->assertStringNotContainsString(':', strip_tags($m[1]), 'no separator inside the heading');
+        $this->assertDoesNotMatchRegularExpression('#<h[1-6][^>]*>[^<]*From regulation to evidence#', $html);
+        $this->assertStringContainsString('From regulation to evidence.', $html);
     }
 
     public function test_a_jurisdiction_without_upcoming_dates_has_no_empty_deadlines_section(): void

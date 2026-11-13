@@ -76,6 +76,32 @@ class ChangeEvent extends Model
         return Significance::forChange($this);
     }
 
+    /**
+     * The title as a headline that stands on its own: where, which instrument, what
+     * happened. Recorded titles are written to sit under the record ("Ver1.2
+     * published"); in a list of every jurisdiction that says nothing, so the place
+     * and the instrument are put in front when the title does not already name them.
+     */
+    public function headline(): string
+    {
+        $title = trim((string) $this->title);
+        $names = fn (?string $text, ?string $what) => $what !== null && $what !== '' && $text !== null && mb_stripos($text, $what) !== false;
+        $places = array_filter([$this->jurisdiction?->short_name, $this->jurisdiction?->name]);
+        $namesPlace = fn (?string $text) => collect($places)->contains(fn ($p) => $names($text, $p));
+        if ($places === [] || $namesPlace($title)) {
+            return $title;
+        }
+        $place = $this->jurisdiction->short_name ?: $this->jurisdiction->name;
+        $instrument = $this->policyInstrument ? ($this->policyInstrument->short_title ?: $this->policyInstrument->title) : null;
+        $subject = match (true) {
+            $instrument === null, $names($title, $instrument) => $place,
+            $namesPlace($instrument) => $instrument,
+            default => $place.' '.$instrument,
+        };
+
+        return $subject.': '.$title;
+    }
+
     /** The permanent address of this change: what a feed, a digest and a citation point at. */
     public function url(): string
     {

@@ -39,7 +39,8 @@
 
     @if($context === 'hub')
     <form method="get" action="{{ route('updates.index') }}" class="mt-5 grid gap-3 sm:grid-cols-4" data-autosubmit aria-label="Filter updates">
-        <div class="sm:col-span-2"><label for="u-j" class="label">Jurisdiction</label><select id="u-j" name="jurisdiction" class="input"><option value="">All jurisdictions</option>@foreach($jurisdictions as $j)<option value="{{ $j->slug }}" @selected(($filters['jurisdiction'] ?? '') === $j->slug)>{{ $j->name }}</option>@endforeach</select></div>
+        <div><label for="u-k" class="label">Show</label><select id="u-k" name="kind" class="input"><option value="">Policy changes</option><option value="templates" @selected(($filters['kind'] ?? '') === 'templates')>Templates</option></select></div>
+        <div><label for="u-j" class="label">Jurisdiction</label><select id="u-j" name="jurisdiction" class="input"><option value="">All jurisdictions</option>@foreach($jurisdictions as $j)<option value="{{ $j->slug }}" @selected(($filters['jurisdiction'] ?? '') === $j->slug)>{{ $j->name }}</option>@endforeach</select></div>
         <div><label for="u-i" class="label">Impact</label><select id="u-i" name="impact" class="input"><option value="">All</option>@foreach(['urgent','high','routine'] as $i)<option value="{{ $i }}" @selected(($filters['impact'] ?? '') === $i)>{{ ucfirst($i) }}</option>@endforeach</select></div>
         <div class="flex items-end gap-2"><button type="submit" class="btn-primary">Apply</button><a href="{{ route('updates.index') }}" class="btn-secondary">Reset</a></div>
     </form>

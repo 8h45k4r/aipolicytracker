@@ -10,10 +10,11 @@ use App\Models\PolicyInstrument;
 use App\Services\Hubs\HubCatalog;
 use App\Services\Localization\Translations;
 use App\Services\PolicyData\PolicyCatalog;
+use App\Services\Records\AnswerBox;
+use App\Support\MetaDescription;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -54,18 +55,15 @@ class HubController extends Controller
         $indexable = $indexableMembers->count() >= (int) config('hubs.min_region_countries', 3);
         $lastModified = collect([$members->max('updated_at'), $changes->max('updated_at')])->filter()->max();
 
-        $answer = sprintf(
-            '%s has %d recorded %s with AI policy on record, %d of them with at least one binding AI-specific instrument. Across the region this site records %d %s and %d %s, each linked to its official source. Most countries in the region regulate AI through strategies, guidance and existing law rather than a dedicated AI act; the table below shows which is which.',
-            $regionName, $withInstruments->count(), Str::plural('jurisdiction', $withInstruments->count()), $withBinding->count(),
-            $policyIds->count(), Str::plural('instrument', $policyIds->count()), $duties, Str::plural('recorded duty', $duties)
-        );
+        // 40 to 60 words, composed from the counts on the page (AnswerBox), as on record pages.
+        $answer = AnswerBox::region($regionName, $withInstruments, $withBinding, $policyIds->count(), $duties, $deadlines);
         $faq = [
             ['question' => 'Which countries in '.$regionName.' have binding AI law?', 'answer' => $withBinding->isEmpty() ? 'None of the recorded jurisdictions in '.$regionName.' has an AI-specific binding instrument on record; AI is governed through existing law, strategies and guidance.' : $withBinding->pluck('name')->join(', ', ' and ').' each have at least one binding AI-specific instrument on record. The others govern AI through strategies, guidance and existing law.'],
             ['question' => 'How many AI policy instruments are recorded for '.$regionName.'?', 'answer' => $policyIds->count().' published instruments across '.$withInstruments->count().' jurisdictions, with '.$duties.' duties broken out from them. Every record links to its official source and states its verification status.'],
             ['question' => 'How current is this page?', 'answer' => 'It is computed from the records at every request. The latest change recorded in the region is dated '.($changes->first()?->occurred_on?->format('j F Y') ?? 'not yet recorded').'; the change log and the weekly digest carry each new one.'],
         ];
 
-        $seo = Seo::make(PageTitle::regionHub($regionName), PageTitle::description($answer), route('hubs.show', $hub), $indexable)
+        $seo = Seo::make(PageTitle::regionHub($regionName), MetaDescription::region($regionName, $withInstruments->count(), $withBinding->count(), $policyIds->count()), route('hubs.show', $hub), $indexable)
             ->withBreadcrumbs([['Home', route('home')], ['Jurisdictions', route('jurisdictions.index')], [$regionName, route('hubs.show', $hub)]])
             ->withModified($lastModified)
             ->withPageType('CollectionPage', [

@@ -16,6 +16,7 @@ use App\Services\Records\KeyFacts;
 use App\Services\Records\QuestionBank;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\ContentDates;
+use App\Support\MetaDescription;
 use App\Support\PageTitle;
 use App\Support\Seo;
 use Illuminate\Http\JsonResponse;
@@ -122,7 +123,7 @@ class PolicyController extends Controller
         $modified = ContentDates::forPolicy($policy);
         $seo = Seo::make(
             $title,
-            $answer,
+            MetaDescription::policy($policy),
             $policy->url(),
             $policy->isIndexable()
         )->withBreadcrumbs([['Home', route('home')], ['Policies', route('policies.index')], [$name, $policy->url()]])

@@ -30,15 +30,17 @@ class HomeController extends Controller
         // /open-data; this page says it is about that Dataset by its @id rather than
         // describing it a second time under a second name.
         $seo->withPageType('CollectionPage', ['about' => DatasetCitation::corpusReference()]);
+        // The same date the trust panel shows and the corpus Dataset carries.
+        $seo->withModified(Seo::corpusModified());
 
         // The page is the same for every anonymous reader and its queries are the
         // slowest part of answering it. Five minutes, the same horizon as the
         // catalogue's own figures; every job run flushes the cache sooner.
-        $data = ContentCache::remember('home.data', 300, fn () => [
+        $data = ContentCache::remember('home.data.v2', 300, fn () => [
             'latestIncidents' => ExternalIncident::standard()->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(4)->get(),
             'incidentSnapshot' => ExternalIncident::max('synced_at') ?: ExternalIncident::max('snapshot_date'),
             'options' => $catalog->filterOptions(),
-            'changes' => $catalog->latestChanges(6),
+            'changes' => $catalog->homeUpdates(6),
             'deadlines' => $catalog->upcomingDeadlines(5),
             'jurisdictions' => $catalog->featuredJurisdictions(),
             'featuredPolicies' => PolicyInstrument::published()->with('jurisdiction')->where('featured', true)->orderByDesc('is_binding')->orderBy('title')->limit(6)->get(),

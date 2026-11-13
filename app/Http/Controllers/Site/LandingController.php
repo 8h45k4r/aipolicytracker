@@ -11,6 +11,7 @@ use App\Models\Tool;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Services\Templates\TemplateCatalog;
 use App\Support\ContentDates;
+use App\Support\MetaDescription;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -168,7 +169,7 @@ class LandingController extends Controller
         $records = $policies->concat($obligations);
         $provenance = ['records' => $records->count(), 'verified' => $records->filter(fn ($r) => $r->isVerified())->count(), 'changed' => $recordsChanged, 'published' => $published, 'updated' => $textUpdated];
 
-        $seo = Seo::make($page['title'], $page['description'], route('guides.show', $slug))
+        $seo = Seo::make($page['title'], MetaDescription::guide($page['h1'], $provenance), route('guides.show', $slug))
             ->withBreadcrumbs([['Home', route('home')], ['Guides', route('guides.index')], [$page['h1'], route('guides.show', $slug)]])
             ->withModified($lastModified)
             ->withPublished($published)

@@ -3,13 +3,13 @@
      The legend comes first, so its counts read before the map has loaded, and with
      the country list it carries the same information in text: the map is a view of
      the data, not the only way to it. --}}
-@props(['title' => 'Where AI is regulated'])
+@props(['title' => 'Where AI is regulated', 'compact' => false])
 @php($countries = \App\Services\Hubs\WorldMap::countries())
 @php($totals = \App\Services\Hubs\WorldMap::totals())
 <figure {{ $attributes->merge(['class' => 'card-flat p-3 sm:p-4']) }}>
     <figcaption class="flex flex-wrap items-baseline justify-between gap-2">
         <span class="font-semibold text-brand-navy">{{ $title }}</span>
-        <span class="meta">Select a country to open its page. EU member states include the EU AI Act.</span>
+        @if($compact)<a href="{{ route('jurisdictions.index') }}" class="meta">All jurisdictions</a>@else<span class="meta">Select a country to open its page. EU member states include the EU AI Act.</span>@endif
     </figcaption>
     <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-brand-body">
         @foreach(\App\Services\Hubs\WorldMap::LEVELS as $level => $label)

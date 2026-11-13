@@ -110,6 +110,35 @@ final class AnswerBox
     }
 
     /**
+     * A region: how many of its jurisdictions have AI policy on record, which have
+     * binding AI law, the totals, and the next dated milestone, in 40 to 60 words.
+     *
+     * @param  Collection<int,Jurisdiction>  $withInstruments  jurisdictions with at least one instrument
+     * @param  Collection<int,Jurisdiction>  $withBinding  those with a binding AI-specific instrument
+     * @param  Collection<int,Deadline>  $deadlines  upcoming, soonest first
+     */
+    public static function region(string $region, Collection $withInstruments, Collection $withBinding, int $instruments, int $duties, Collection $deadlines): string
+    {
+        $n = $withInstruments->count();
+        $b = $withBinding->count();
+        $next = $deadlines->first();
+        $named = $withBinding->take(4)->map(fn (Jurisdiction $j) => $j->nameWithArticle())->values()->all();
+        // "The Americas", not "Americas", at the start of a sentence.
+        $Region = $region === 'Americas' ? 'The Americas' : $region;
+
+        $sentences = [
+            "{$Region} has {$n} ".($n === 1 ? 'jurisdiction' : 'jurisdictions').' with AI policy on record, '.($b > 0 ? "{$b} of them with binding AI-specific law" : 'none of them with binding AI-specific law').'.',
+            $b > 0 && $b <= 4 ? 'Binding AI law is recorded for '.self::joinList($named).'.' : null,
+            "This site records {$instruments} ".($instruments === 1 ? 'instrument' : 'instruments').($duties > 0 ? " and {$duties} ".($duties === 1 ? 'duty' : 'duties') : '').' across the region, each linked to its official source.',
+            $next && $next->due_on ? 'Next dated milestone: '.self::clean($next->title).' ('.($next->policyInstrument?->jurisdiction?->name ?? $region).'), '.$next->due_on->format('j F Y').'.' : null,
+            $b === 0 ? 'They govern AI through strategies, guidance and existing law.' : ($b < $n ? 'The rest govern AI through strategies, guidance and existing law.' : null),
+            'Each country page lists its instruments, regulators and dated milestones.',
+        ];
+
+        return self::compose($sentences, null);
+    }
+
+    /**
      * A template: what it is, what it is built from, which version, and the terms.
      *
      * @param  Collection<int,Obligation>  $covered

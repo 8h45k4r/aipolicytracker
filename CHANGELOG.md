@@ -224,6 +224,18 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- Home page: the heading is now what the site does ("Track every AI law worldwide, with duties,
+  deadlines and official sources."); the slogan is a line under it, not part of the heading. The world
+  map sits beside the hero, as the page description says. The "Latest AI policy updates" list shows
+  changes to the law only, not template releases, folds several entries for one instrument in the same
+  week into one, and names the place and the instrument in each title. The trust panel's "Corpus last
+  updated", /open-data and the JSON-LD `dateModified` now give the same date. Each count in the stats
+  row shows how many records were added this month, and a sentence under it gives the totals.
+- Updates hub: template releases appear only under the new "Templates" filter.
+- Meta descriptions on policy, jurisdiction, obligation, control, guide and regional pages are built
+  from the record's facts and fit 155 characters. Any other long description is cut at its last full
+  sentence instead of mid-sentence.
+- Regional hubs open with an "In brief" answer of 40 to 60 words, as record pages do.
 - `/calendar` has a List / Calendar switch. The calendar view lays a month out as a grid: recorded
   deadlines, comment periods closing and public meetings each sit on their day, with previous and next
   months. The same month is listed below the grid for screen readers and small screens. The list stays the

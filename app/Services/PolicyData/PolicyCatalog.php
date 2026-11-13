@@ -13,6 +13,7 @@ use App\Models\Obligation;
 use App\Models\PolicyInstrument;
 use App\Models\TaxonomyTerm;
 use App\Support\ContentCache;
+use App\Support\Seo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -167,6 +168,20 @@ class PolicyCatalog
         return ChangeEvent::published()->with(['jurisdiction', 'policyInstrument'])->orderByDesc('occurred_on')->limit($limit)->get();
     }
 
+    /**
+     * The home page's updates: changes to the law only, never the site's own template
+     * releases, with repeat entries for one instrument in the same week folded into the
+     * newest of them. Each item carries `revisions`, the number of entries it stands for.
+     */
+    public function homeUpdates(int $limit = 6): Collection
+    {
+        return ChangeEvent::published()->regulatory()->with(['jurisdiction', 'policyInstrument'])
+            ->orderByDesc('occurred_on')->orderByDesc('id')->limit($limit * 5)->get()
+            ->groupBy(fn (ChangeEvent $c) => ($c->policy_instrument_id ? 'p'.$c->policy_instrument_id : 'c'.$c->id).'@'.$c->occurred_on->format('o-W'))
+            ->map(fn (Collection $group) => $group->first()->setAttribute('revisions', $group->count()))
+            ->values()->take($limit);
+    }
+
     public function upcomingDeadlines(int $limit = 6, ?int $jurisdictionId = null): Collection
     {
         $q = Deadline::query()->with('policyInstrument.jurisdiction')
@@ -186,7 +201,9 @@ class PolicyCatalog
 
     public function stats(): array
     {
-        return ContentCache::remember('catalog.stats', 600, fn () => [
+        $monthStart = now()->startOfMonth();
+
+        return ContentCache::remember('catalog.stats.v2', 600, fn () => [
             'jurisdictions' => Jurisdiction::published()->count(),
             'policies' => PolicyInstrument::published()->count(),
             'obligations' => Obligation::published()->count(),
@@ -195,7 +212,20 @@ class PolicyCatalog
             'changes' => ChangeEvent::published()->count(),
             'verified' => PolicyInstrument::published()->where('review_status', 'verified')->count(),
             'sourced' => PolicyInstrument::published()->whereNotNull('official_source_url')->where('official_source_url', '!=', '')->count(),
-            'last_updated' => PolicyInstrument::published()->max('updated_at'),
+            // One date for "last updated" everywhere: the corpus's content date, the same
+            // value as the Dataset's dateModified (Seo::corpusModified), so the home page,
+            // its feed, /open-data and the JSON-LD cannot disagree.
+            'last_updated' => Seo::corpusModified()?->toAtomString(),
+            // Records first published this calendar month, per tile of the stats row.
+            'new_this_month' => [
+                'jurisdictions' => Jurisdiction::published()->where('published_at', '>=', $monthStart)->count(),
+                'policies' => PolicyInstrument::published()->where('published_at', '>=', $monthStart)->count(),
+                'obligations' => Obligation::published()->where('published_at', '>=', $monthStart)->count(),
+                'controls' => Control::published()->where('published_at', '>=', $monthStart)->count(),
+                // An evidence type is new when no control published before this month used it.
+                'evidence_types' => ControlEvidence::whereHas('control', fn ($q) => $q->published())->distinct()->count('evidence_type')
+                    - ControlEvidence::whereHas('control', fn ($q) => $q->published()->where('published_at', '<', $monthStart))->distinct()->count('evidence_type'),
+            ],
         ]);
     }
 
