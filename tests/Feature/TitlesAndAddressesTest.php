@@ -211,6 +211,33 @@ class TitlesAndAddressesTest extends TestCase
         $this->assertSame(url('/policies/eu-ai-act'), $rows[1][0]);
     }
 
+    public function test_the_ctr_audit_sets_queries_a_program_wrote_apart_from_the_ones_people_typed(): void
+    {
+        // Half the impressions in the November 2026 export were assistants and rank checkers
+        // searching: long, dated or identifier queries that are shown the result and never click.
+        $csv = tempnam(sys_get_temp_dir(), 'gsc').'.csv';
+        file_put_contents($csv, "Top queries,Clicks,Impressions,CTR,Position\n"
+            ."hacker used a model to steal government data 2026 insurance journal feb 27,0,1800,0%,7.9\n"
+            ."2026-02-26 2026-02-27 omb ai guidance,0,1900,0%,9.5\n"
+            ."infocomm2023,0,300,0%,6.1\n"
+            ."national ai strategy,1,200,0.5%,8.0\n"
+            ."clicked enough,50,500,10%,2.0\n");
+        $out = tempnam(sys_get_temp_dir(), 'ctr').'.csv';
+
+        $this->artisan('seo:ctr-audit', ['csv' => [$csv], '--out' => $out])
+            ->expectsOutputToContain('4 of 5 rows')
+            ->expectsOutputToContain('3 of 5 queries look written by a program, not a person (an identifier, a date, or eight or more words): 85% of the impressions listed and 0% of the clicks')
+            ->assertExitCode(0);
+
+        $rows = array_map('str_getcsv', array_filter(explode("\n", file_get_contents($out))));
+        // The query a person typed leads, though it has the fewest impressions.
+        $this->assertSame('national ai strategy', $rows[1][1]);
+        $this->assertSame(['2026-02-26 2026-02-27 omb ai guidance', 'hacker used a model to steal government data 2026 insurance journal feb 27', 'infocomm2023'], array_column(array_slice($rows, 2), 1));
+        $this->assertStringContainsString('written by a program', $rows[2][8]);
+        $this->assertStringContainsString('written by a program', $rows[3][8]);
+        $this->assertStringContainsString('identifier query', $rows[4][8]);
+    }
+
     public function test_the_api_gives_each_record_its_address_and_matches_its_published_contract(): void
     {
         $incident = $this->incident(['title' => 'Chatbot Reportedly Gave Harmful Advice to Users']);

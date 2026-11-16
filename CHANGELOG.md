@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Framework security release: `laravel/framework` 12.72.0 (CVE-2026-128083, low severity, fixed in 12.71.0).
+  The advisory of 13 November failed the Security workflow on every commit, and a deploy needs that workflow
+  green, so nothing had reached production since.
 - Digest sign-ups: bots that passed the bot check were signing up made-up addresses. The confirmation
   emails to them used up the mail provider's daily quota, so template downloads people had requested
   failed to send. The form now has three limits:
@@ -224,6 +227,9 @@ All notable changes to this project are documented here. The format follows [Kee
   (debt #44).
 
 ### Changed
+- `seo:ctr-audit` counts the queries a program wrote, not a person (an identifier, a date, eight or more
+  words), reports their share and lists them last. In the export of 16 November they were half the listed
+  impressions and 3% of the clicks (`docs/reference/search-console-2026-11-16.md`).
 - Home page: the heading is now what the site does ("Track every AI law worldwide, with duties,
   deadlines and official sources."); the slogan is a line under it, not part of the heading. The world
   map sits beside the hero, as the page description says. The "Latest AI policy updates" list shows
@@ -348,6 +354,11 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- The weekly refresh of external datasets had failed on every scheduled run since 22 September, so incident
+  report lists stayed at the backup of 7 September. The AI Incident Database export is standard CSV, and a
+  name carrying quotes inside a JSON list (`jane-\"jd\"-doe`) put a backslash before a quote; PHP's
+  default reading took that as an escape and split the row. The files are now read without an escape
+  character, and a file that does not parse stops the command with the record number and writes nothing.
 - Subscribing to the weekly digest returned a server error when the confirmation email could not be
   sent. The form now says to try again in a few minutes, and the failure is logged.
 - Email addresses showed as "[email protected]" in the admin (subscribers, accounts, enquiries), on the

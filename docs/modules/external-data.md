@@ -87,7 +87,7 @@ Incidents are also **synced live** from the AI Incident Database GraphQL API by 
 | synced_at | datetime | yes | | Set by the live sync; such rows are never pruned by `external:import` |
 | created_at / updated_at | timestamp | yes | | |
 
-Source: `data/external/aiid_reports.json`, produced by `external:sync-aiid-reports` from the weekly AIID mongodump backup (`incidents.csv` gives the incident→report links, `reports.csv` the metadata). Article text and descriptions are never copied. Shown on incident profiles as "News reports".
+Source: `data/external/aiid_reports.json`, produced by `external:sync-aiid-reports` from the weekly AIID mongodump backup (`incidents.csv` gives the incident→report links, `reports.csv` the metadata). Article text and descriptions are never copied. Shown on incident profiles as "News reports". The two files are read as standard CSV with no escape character: the entity lists are JSON, so a name such as `jane-\"jd\"-doe` puts a backslash before a quote, which PHP's default reading takes as an escape and splits the row on. A row whose field count differs from the header stops the command with the file and record number, and nothing is written.
 
 ## `aiid_summary.json` fields
 

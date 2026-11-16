@@ -54,7 +54,9 @@ class SeoCtrAuditCommand extends Command
         $flagged = array_values(array_filter($rows, fn ($r) => $r['position'] <= (float) $this->option('max-position')
             && $r['impressions'] >= (int) $this->option('min-impressions')
             && $r['ctr'] < (float) $this->option('max-ctr')));
-        usort($flagged, fn ($a, $b) => $b['impressions'] <=> $a['impressions']);
+        // People first: a query a program wrote is not won by a better title, and the largest
+        // of them would otherwise fill the top of the list.
+        usort($flagged, fn ($a, $b) => [$this->notFromAPerson($a['query']), $b['impressions']] <=> [$this->notFromAPerson($b['query']), $a['impressions']]);
 
         $queriesByPage = [];
         foreach ($rows as $r) {
@@ -91,6 +93,15 @@ class SeoCtrAuditCommand extends Command
         }
 
         $this->line(sprintf('%d of %d rows rank at position ≤%s with ≥%s impressions and CTR <%s%%.', count($findings), count($rows), $this->option('max-position'), $this->option('min-impressions'), $this->option('max-ctr')));
+        $queries = array_filter($rows, fn ($r) => $r['query'] !== null);
+        $programs = array_filter($queries, fn ($r) => $this->notFromAPerson($r['query']));
+        if ($programs !== []) {
+            $share = fn (string $key) => ($total = array_sum(array_column($queries, $key))) > 0 ? round(array_sum(array_column($programs, $key)) / $total * 100) : 0;
+            $this->line(sprintf(
+                '%d of %d queries look written by a program, not a person (an identifier, a date, or eight or more words): %s%% of the impressions listed and %s%% of the clicks. They are listed last; judge click-through on the rest.',
+                count($programs), count($queries), $share('impressions'), $share('clicks')
+            ));
+        }
         $this->table(
             ['Page', 'Query', 'Pos', 'Impr.', 'CTR', 'Title now', 'In title?', 'Suggested'],
             array_map(fn ($f) => [
@@ -228,6 +239,9 @@ class SeoCtrAuditCommand extends Command
         if (PageTitle::leaksIdentifier($query)) {
             return 'identifier query: no title on this site carries it any more';
         }
+        if ($this->notFromAPerson($query)) {
+            return 'written by a program (long or dated query): a title will not win a click here';
+        }
         if ($current === null) {
             return 'no page targets this query';
         }
@@ -241,6 +255,18 @@ class SeoCtrAuditCommand extends Command
         $room = PageTitle::MAX - mb_strlen($lead) - 2;
 
         return $rest !== '' && $room >= 15 ? $lead.': '.PageTitle::shortenWords($rest, $room) : PageTitle::shorten($lead);
+    }
+
+    /**
+     * A query a person is unlikely to have typed: an identifier, an ISO date, a line break,
+     * or eight or more words. Assistants and rank checkers search this way; they see the
+     * result and do not click, so these rows say nothing about a title.
+     */
+    private function notFromAPerson(?string $query): bool
+    {
+        return $query !== null && (PageTitle::leaksIdentifier($query)
+            || preg_match('/\d{4}-\d{2}-\d{2}|[\r\n]/', $query) === 1
+            || count(preg_split('/\s+/', trim($query), -1, PREG_SPLIT_NO_EMPTY)) >= 8);
     }
 
     /** True when every meaningful word of the query appears in the title. */

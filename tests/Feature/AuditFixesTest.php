@@ -89,18 +89,21 @@ class AuditFixesTest extends TestCase
         Follow::create(['user_id' => $user->id, 'subject_type' => 'jurisdiction', 'subject_slug' => 'eu']);
         $builder = app(AlertBuilder::class);
 
-        // Dates after the import in setUp, which stamps records published as of today.
-        // The previous alert went out at 06:30 on 13 November; the change dated 13 November was
-        // imported at 02:30 on 14 November.
-        $this->travelTo(Carbon::parse('2026-11-14 02:30:00'));
-        $change = $this->change('dated-the-13th', '2026-11-13');
-        $this->travelTo(Carbon::parse('2026-11-14 06:30:00'));
-        $digest = $builder->build($user, Carbon::parse('2026-11-13 06:30:00'), now());
+        // Dates after the import in setUp, which stamps records published as of today. They are
+        // counted from today: fixed dates passed until the calendar reached them, then failed.
+        // The previous alert went out at 06:30 on the day; the change dated that day was
+        // imported at 02:30 the next morning.
+        $day = now()->addDays(2)->startOfDay();
+        $previousAlert = $day->copy()->setTime(6, 30);
+        $this->travelTo($day->copy()->addDay()->setTime(2, 30));
+        $change = $this->change('dated-the-day-before', $day->toDateString());
+        $this->travelTo($day->copy()->addDay()->setTime(6, 30));
+        $digest = $builder->build($user, $previousAlert, now());
         $this->assertTrue($digest['changes']->contains('id', $change->id));
 
         // And not again the day after.
-        $this->travelTo(Carbon::parse('2026-11-15 06:30:00'));
-        $this->assertFalse($builder->build($user, Carbon::parse('2026-11-14 06:30:00'), now())['changes']->contains('id', $change->id));
+        $this->travelTo($day->copy()->addDays(2)->setTime(6, 30));
+        $this->assertFalse($builder->build($user, $day->copy()->addDay()->setTime(6, 30), now())['changes']->contains('id', $change->id));
     }
 
     // 3. Exported verifications

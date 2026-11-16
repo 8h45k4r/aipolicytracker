@@ -15,7 +15,9 @@ use Symfony\Component\Process\Process;
  */
 class SyncAiidReportsCommand extends Command
 {
-    protected $signature = 'external:sync-aiid-reports {--dir= : Use an already extracted backup directory instead of downloading}';
+    protected $signature = 'external:sync-aiid-reports
+        {--dir= : Use an already extracted backup directory instead of downloading}
+        {--out= : Write here instead of data/external/aiid_reports.json}';
 
     protected $description = 'Refresh data/external/aiid_reports.json from the latest AIID backup';
 
@@ -63,23 +65,42 @@ class SyncAiidReportsCommand extends Command
             return self::FAILURE;
         }
 
-        $map = [];
-        $h = fopen($incidentsCsv, 'r');
-        $header = fgetcsv($h);
-        while (($row = fgetcsv($h)) !== false) {
-            $r = array_combine($header, array_pad($row, count($header), null));
-            $ids = json_decode((string) $r['reports'], true) ?: [];
-            foreach ($ids as $n) {
-                $map[(int) $n] = (int) $r['incident_id'];
+        try {
+            $map = [];
+            foreach ($this->rows($incidentsCsv) as $r) {
+                foreach (json_decode((string) $r['reports'], true) ?: [] as $n) {
+                    $map[(int) $n] = (int) $r['incident_id'];
+                }
             }
-        }
-        fclose($h);
+            $reports = $this->reports($reportsCsv, $map);
+        } catch (\UnexpectedValueException $e) {
+            // Nothing is written from a file that does not parse: a partial list would be
+            // published as if it were the whole backup.
+            $this->error($e->getMessage());
 
+            return self::FAILURE;
+        }
+        usort($reports, fn ($a, $b) => [$a['incident_id'], $a['report_number']] <=> [$b['incident_id'], $b['report_number']]);
+        preg_match('/(\d{4})(\d{2})(\d{2})/', (string) $backupName, $d);
+
+        File::put($this->option('out') ?: base_path('data/external/aiid_reports.json'), json_encode([
+            'source' => 'AI Incident Database (Responsible AI Collaborative)', 'source_url' => 'https://incidentdatabase.ai/', 'license' => 'CC BY-SA 4.0', 'license_url' => 'https://creativecommons.org/licenses/by-sa/4.0/',
+            'backup_file' => $backupName, 'snapshot_date' => $d ? "{$d[1]}-{$d[2]}-{$d[3]}" : now()->toDateString(), 'generated_at' => now()->toDateString(),
+            'note' => 'Report metadata only (title, URL, source, date, authors, language). Report texts are not reproduced.', 'count' => count($reports), 'reports' => $reports,
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n");
+        $this->info(count($reports).' reports written for '.count(array_unique(array_column($reports, 'incident_id'))).' incidents.');
+
+        return self::SUCCESS;
+    }
+
+    /**
+     * @param  array<int,int>  $map  report number => incident id
+     * @return list<array<string,mixed>>
+     */
+    private function reports(string $reportsCsv, array $map): array
+    {
         $reports = [];
-        $h = fopen($reportsCsv, 'r');
-        $header = fgetcsv($h);
-        while (($row = fgetcsv($h)) !== false) {
-            $r = array_combine($header, array_pad($row, count($header), null));
+        foreach ($this->rows($reportsCsv) as $r) {
             $n = (int) (float) ($r['report_number'] ?? 0);
             if (! $n || ! isset($map[$n])) {
                 continue;
@@ -91,17 +112,41 @@ class SyncAiidReportsCommand extends Command
                 'authors' => ExternalIncidentReport::cleanAuthors($authors), 'language' => mb_substr((string) $r['language'], 0, 8),
             ];
         }
+
+        return $reports;
+    }
+
+    /**
+     * The rows of one export file, keyed by its header.
+     *
+     * The export is standard CSV: a quote inside a field is doubled and nothing else is
+     * escaped. PHP's default also treats a backslash as an escape, and the entity lists are
+     * JSON, so a name such as `jane-\"jd\"-doe` put a backslash before a quote, the
+     * field ended early and the row came out longer than the header. That stopped every
+     * weekly refresh. The escape character is switched off here.
+     *
+     * @return \Generator<int, array<string, ?string>>
+     */
+    private function rows(string $file): \Generator
+    {
+        $h = fopen($file, 'r');
+        $header = fgetcsv($h, null, ',', '"', '');
+        if (! is_array($header) || $header === [null]) {
+            fclose($h);
+            throw new \UnexpectedValueException(basename($file).' has no header row.');
+        }
+        $line = 1;
+        while (($row = fgetcsv($h, null, ',', '"', '')) !== false) {
+            $line++;
+            if ($row === [null]) {
+                continue;
+            }
+            if (count($row) !== count($header)) {
+                fclose($h);
+                throw new \UnexpectedValueException(sprintf('%s: record %d has %d fields, the header has %d. Nothing was written.', basename($file), $line, count($row), count($header)));
+            }
+            yield array_combine($header, $row);
+        }
         fclose($h);
-        usort($reports, fn ($a, $b) => [$a['incident_id'], $a['report_number']] <=> [$b['incident_id'], $b['report_number']]);
-        preg_match('/(\d{4})(\d{2})(\d{2})/', (string) $backupName, $d);
-
-        File::put(base_path('data/external/aiid_reports.json'), json_encode([
-            'source' => 'AI Incident Database (Responsible AI Collaborative)', 'source_url' => 'https://incidentdatabase.ai/', 'license' => 'CC BY-SA 4.0', 'license_url' => 'https://creativecommons.org/licenses/by-sa/4.0/',
-            'backup_file' => $backupName, 'snapshot_date' => $d ? "{$d[1]}-{$d[2]}-{$d[3]}" : now()->toDateString(), 'generated_at' => now()->toDateString(),
-            'note' => 'Report metadata only (title, URL, source, date, authors, language). Report texts are not reproduced.', 'count' => count($reports), 'reports' => $reports,
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)."\n");
-        $this->info(count($reports).' reports written for '.count(array_unique(array_column($reports, 'incident_id'))).' incidents.');
-
-        return self::SUCCESS;
     }
 }
