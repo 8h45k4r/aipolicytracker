@@ -81,7 +81,7 @@ The live site also answers 404 for `/updates/2026-11`: no change in the law has 
 
 ## Not changed, and why
 
-- **Titles and descriptions.** Headings, descriptions and twenty short titles were rewritten on 13 November. This export ends on 14 November, so it cannot show their effect. Changing them again now would leave nothing to measure.
+- **Titles and descriptions.** Headings and descriptions were rewritten on 13 November, and twenty short titles the same day; the deploy carrying the short titles failed on 14 November (a framework security advisory turned the Security workflow red), so those reach the live site with the next deploy. This export ends on 14 November and cannot show the effect of either. Changing them again now would leave nothing to measure.
 - **Template releases under `/changes/`.** The twelve addresses held position 6 on average and drew one click. They are `noindex` by the decision of 14 October that a template release is not news. Redirecting each to its template page would pass that position to the page that converts; it would also end the release entry as a page. That is the owner's call, so it is recorded here and not made.
 - **Empty day archives.** `UpdatesHubTest` states that an archive exists only when it has entries. A 404 is the answer that rule gives.
 - **Filtered listings** such as `/policies?jurisdiction=bangladesh` (54 addresses, 3,542 impressions). They have been `noindex` since 14 October and are leaving the index.

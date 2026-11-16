@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Framework security release: `laravel/framework` 12.72.0 (CVE-2026-128083, low severity, fixed in 12.71.0).
+  The advisory of 13 November failed the Security workflow on every commit, and a deploy needs that workflow
+  green, so nothing had reached production since.
 - Digest sign-ups: bots that passed the bot check were signing up made-up addresses. The confirmation
   emails to them used up the mail provider's daily quota, so template downloads people had requested
   failed to send. The form now has three limits:
