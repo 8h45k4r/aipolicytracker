@@ -184,7 +184,7 @@ options.
 | `verification:sample {--percent=} {--seed=} {--quarter=} {--include-checked}` | Print a reproducible random sample of verified records for independent second checks |
 | `external:import` | Import the AI Incident Database and MIT AI Risk Repository rows from `data/external/` |
 | `external:sync-aiid {--file=}` | Rebuild the AI Incident Database summary from the latest weekly export |
-| `external:sync-aiid-reports {--dir=}` | Refresh `data/external/aiid_reports.json` from the latest AIID backup |
+| `external:sync-aiid-reports {--dir=} {--out=}` | Refresh `data/external/aiid_reports.json` from the latest AIID backup (`--dir` reads an extracted backup, `--out` writes elsewhere) |
 | `external:sync-aiid-api {--since=} {--full} {--max=600} {--write-json} {--no-db}` | Sync the latest AIID records from its API |
 | `external:sync-mit-risk {--file=}` | Rebuild the MIT AI Risk Repository domain taxonomy file |
 | `incidents:enrich {--refresh}` | Fill or refresh harm domain, related laws, policy angle and sensitivity on incidents |
@@ -197,7 +197,7 @@ options.
 | `social:doctor {--out=}` | Report whether social preview cards can be drawn on this host |
 | `social:clear` | Delete cached social preview cards |
 | `seo:audit {--section=*} {--limit=0} {--json=} {--fail-on-violation}` | Crawl the sitemap in process and report page-rule violations |
-| `seo:ctr-audit {csv*} …` | List pages that rank on page one but are not clicked (Search Console export) |
+| `seo:ctr-audit {csv*} …` | List pages that rank on page one but are not clicked (Search Console export). Queries a program wrote (an identifier, a date, eight or more words) are counted and listed last |
 | `seo:indexnow {--since=24 hours} {--url=*} {--dry-run}` | Tell IndexNow search engines which pages changed |
 | `seo:sensitive-indexed {csv?} {--out=}` | List sensitive incident pages a Search Console export shows as indexed |
 | `email:check {address*}` | Show what the address policy decides about an address |
