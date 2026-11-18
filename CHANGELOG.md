@@ -38,6 +38,14 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- AI attacks in charts (`/ai-attacks`): the incident record without a list of records. Seven sections: incidents per
+  month, who was responsible and whether it was meant (a flow chart from entity through intent to risk domain), where
+  incidents concentrate by year, what frameworks describe against what is recorded, who is affected, a board of the
+  busiest kinds of incident with a direction label on each, and the instruments on record for each risk domain.
+  Three views: all incidents, deliberate misuse, and security and malicious use.
+  - Year-on-year figures on this page end at the last month in which three-quarters of incidents are classified.
+    Classification trails the record by months, and a comparison run to today shows every kind of incident falling.
+  - The open page checks for new records every five minutes and redraws when the daily sync brings some.
 - The weekly digest forms say that temporary or throwaway addresses are not accepted (they were
   already refused); personal mailboxes such as Gmail and Outlook are welcome.
 - Eight more AI Voices photos (53 of 101), confirmed against each person's Wikidata entry.

@@ -5,6 +5,7 @@ use App\Http\Controllers\Site\AlertChannelController;
 use App\Http\Controllers\Site\ApplicabilityController;
 use App\Http\Controllers\Site\ApplicabilityProfileController;
 use App\Http\Controllers\Site\AssessmentController;
+use App\Http\Controllers\Site\AttackController;
 use App\Http\Controllers\Site\AudienceController;
 use App\Http\Controllers\Site\BadgeController;
 use App\Http\Controllers\Site\BillingController;
@@ -153,6 +154,9 @@ Route::get('/changes/{change}', [ChangeController::class, 'show'])->where('chang
 
 // Full-table exports and generated corpora are throttled: each request reads a whole table.
 Route::get('/ai-risk', [RiskController::class, 'index'])->name('risk.index');
+// Recorded incidents as charts, with no list of records (docs/modules/external-data.md).
+Route::get('/ai-attacks', [AttackController::class, 'index'])->name('attacks.index');
+Route::get('/ai-attacks/pulse.json', [AttackController::class, 'pulse'])->middleware('throttle:60,1')->name('attacks.pulse');
 Route::get('/ai-risk/incidents', [RiskController::class, 'incidents'])->name('risk.incidents');
 Route::get('/ai-risk/incidents/browse', [RiskBrowseController::class, 'incidentsBrowse'])->name('risk.incidents.browse');
 Route::get('/ai-risk/incidents/export.{format}', [RiskBrowseController::class, 'incidentsExport'])->where('format', 'csv|json')->middleware('throttle:30,1')->name('risk.incidents.export');

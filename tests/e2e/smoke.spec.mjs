@@ -70,6 +70,15 @@ test("the world map loads its code under the CSP", async ({ page }) => {
   await expect(map.locator("canvas, svg").first()).toBeAttached({ timeout: 15_000 });
 });
 
+test("the AI attacks page changes its lens without a page load", async ({ page }) => {
+  await page.goto("/ai-attacks");
+  await page.evaluate(() => { window.__sameDocument = true; });
+  await page.locator("a[data-attack-lens]", { hasText: "Deliberate misuse" }).click();
+  await expect(page).toHaveURL(/\/ai-attacks\?lens=deliberate$/);
+  await expect(page.locator("a[data-attack-lens][aria-current]")).toHaveText("Deliberate misuse");
+  expect(await page.evaluate(() => window.__sameDocument === true)).toBe(true);
+});
+
 test("the mobile filter sheet opens, traps focus and closes on Escape", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/policies");

@@ -14,7 +14,7 @@
         <div class="rule pt-2"><dt class="meta">Last synced</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ $live['synced_at'] ? \Illuminate\Support\Carbon::parse($live['synced_at'])->format('j M Y') : $aiid['snapshot_date'] }}</dd></div>
     </dl>
 
-    <p class="mt-4 text-sm flex flex-wrap gap-2"><a href="#latest" class="btn-primary">Latest recorded incidents</a><a href="{{ route('risk.incidents.browse') }}" class="btn-secondary">Browse and export all incidents</a></p>
+    <p class="mt-4 text-sm flex flex-wrap gap-2"><a href="#latest" class="btn-primary">Latest recorded incidents</a><a href="{{ route('risk.incidents.browse') }}" class="btn-secondary">Browse and export all incidents</a><a href="{{ route('attacks.index') }}" class="btn-secondary">See the record in charts</a></p>
     <div class="mt-10 grid gap-8 lg:grid-cols-2">
         <x-site.bar-chart :series="collect($aiid['incidents_per_year'])->filter(fn ($v, $y) => $y >= 2012)" title="Incidents per year (incident date)" note="Current year is partial" />
         <x-site.bar-chart :series="collect($aiid['by_mit_domain'])->mapWithKeys(fn ($v, $k) => [\Illuminate\Support\Str::limit(preg_replace('/^(AI system safety).*/', '$1…', $k), 26) => $v])" title="Incidents by MIT risk domain" />

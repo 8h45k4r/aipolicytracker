@@ -40,7 +40,7 @@ Please refer to [this web page](https://www.amcharts.com/online-store/) or [cont
 
 [Contact amCharts](mailto:contact@amcharts.com). We'll be happy to sort you out.
 
-## @amcharts/amcharts5 - 5.21.0 (SEE LICENSE IN LICENSE)
+## @amcharts/amcharts5 - 5.21.5 (SEE LICENSE IN LICENSE)
 
 ## Free amCharts license
 

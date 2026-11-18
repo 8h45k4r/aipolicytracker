@@ -128,13 +128,14 @@ return [
         'risk' => [
             'label' => 'AI risk',
             'summary' => 'Recorded harms and the taxonomies behind them.',
-            'paths' => ['ai-risk'],
+            'paths' => ['ai-risk', 'ai-attacks'],
             'sections' => [
                 [
                     'heading' => 'Explore',
                     'items' => [
                         ['route' => 'risk.index', 'label' => 'Risk domains', 'note' => 'Seven domains, 24 subdomains', 'menu' => true],
                         ['route' => 'risk.incidents', 'label' => 'Incidents overview', 'note' => 'How recorded harms arise', 'menu' => true],
+                        ['route' => 'attacks.index', 'label' => 'AI attacks in charts', 'note' => 'Intent, security and trends', 'menu' => true],
                         ['route' => 'risk.incidents.browse', 'label' => 'Browse incidents', 'note' => 'Filter and export', 'menu' => true],
                         ['route' => 'risk.risks', 'label' => 'Browse risk entries', 'note' => 'Filter and export', 'menu' => true],
                         ['route' => 'risk.frameworks', 'label' => 'Source frameworks', 'note' => 'The documents behind the taxonomy', 'menu' => true],
