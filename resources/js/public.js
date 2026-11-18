@@ -355,6 +355,45 @@
     document.addEventListener('mousemove', function (e) { if (!tip.classList.contains('hidden')) { moveTip(e); } });
     document.addEventListener('mouseout', function (e) { if (e.target.closest && e.target.closest('[data-tip]')) { tip.classList.add('hidden'); } });
 
+    // The AI attacks page: change the lens without leaving the page, and draw the charts
+    // again when the server holds newer records. Without this script each lens is a link
+    // to the same page with ?lens=, and a reload shows the newest data.
+    (function () {
+        var panel = document.querySelector('[data-attack-panel]');
+        if (!panel || !window.fetch || !window.DOMParser) { return; }
+        var pulse = panel.getAttribute('data-pulse');
+        function draw(url, keepAddress) {
+            panel.setAttribute('aria-busy', 'true');
+            return fetch(url, { credentials: 'same-origin', headers: { Accept: 'text/html' } })
+                .then(function (r) { if (!r.ok) { throw new Error(String(r.status)); } return r.text(); })
+                .then(function (html) {
+                    var next = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-attack-panel]');
+                    if (!next) { throw new Error('no panel'); }
+                    next = document.importNode(next, true);
+                    panel.replaceWith(next);
+                    panel = next;
+                    if (!keepAddress) { history.replaceState(null, '', url); }
+                })
+                .catch(function () { panel.removeAttribute('aria-busy'); if (!keepAddress) { window.location.href = url; } });
+        }
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest && e.target.closest('a[data-attack-lens]');
+            if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) { return; }
+            e.preventDefault();
+            draw(a.href, false);
+        });
+        if (!pulse) { return; }
+        setInterval(function () {
+            if (document.hidden) { return; }
+            fetch(pulse, { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
+                if (!p) { return; }
+                if (p.version !== panel.getAttribute('data-version')) { return draw(window.location.href, true); }
+                var at = panel.querySelector('[data-attack-checked]');
+                if (at) { at.textContent = ' (last checked ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ')'; }
+            }).catch(function () { /* the next check will try again */ });
+        }, 300000);
+    })();
+
     // Chart export: SVG as-is, PNG rendered through a canvas, CSV from the accessible data table.
     function saveBlob(blob, name) {
         var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();

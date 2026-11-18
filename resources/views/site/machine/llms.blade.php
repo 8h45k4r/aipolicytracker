@@ -25,6 +25,7 @@ Generated {{ now()->toDateString() }}. AIPolicyTracker is an open, source-backed
 - Weekly digest archive: {{ route('newsletter.index') }}
 - AI risk domains (MIT AI Risk Repository taxonomy with incident counts): {{ route('risk.index') }}
 - AI incidents summary (AI Incident Database, weekly): {{ route('risk.incidents') }}
+- AI attacks and incidents in charts (deliberate misuse, security, trend, and how the record compares with the MIT risk entries): {{ route('attacks.index') }}
 - Browse and export incidents: {{ route('risk.incidents.browse') }} (CSV: {{ route('risk.incidents.export', 'csv') }})
 - Browse and export MIT AI Risk Repository entries: {{ route('risk.risks') }} (CSV: {{ route('risk.risks.export', 'csv') }})
 - Frameworks behind the risk database: {{ route('risk.frameworks') }}

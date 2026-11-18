@@ -221,6 +221,15 @@ body:has(#home-q) header form[role="search"] { display: none; }
     .rule { @apply border-t border-brand-line; }
     .chart-bar, .chart-dot { transition: opacity .15s ease; cursor: pointer; }
     .chart-bar:hover, .chart-dot:hover { opacity: .75; }
+    /* The bands of a flow chart: pale until one is pointed at, when the rest step back. */
+    .flow-band { opacity: .4; transition: opacity .15s ease; }
+    .flow:hover .flow-band { opacity: .18; }
+    .flow .flow-band:hover { opacity: .85; }
+    /* The AI attacks page while a lens is being fetched, and its "synced" mark. */
+    [data-attack-panel][aria-busy="true"] { opacity: .55; transition: opacity .15s ease; }
+    .pulse-dot { animation: pulse-dot 2.4s ease-in-out infinite; }
+    @keyframes pulse-dot { 50% { opacity: .35; } }
+    @media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; } }
     .rule-strong { @apply border-t-2 border-brand-navy; }
 
     /* relative: visually hidden text in a wide table (sr-only headers, notes) is absolutely
@@ -264,6 +273,8 @@ body:has(#home-q) header form[role="search"] { display: none; }
     :root:not([data-scheme="light"]) svg [stroke="#002147" i] { stroke: rgb(var(--c-navy)); }
     :root:not([data-scheme="light"]) svg [fill="#5D6B7E" i] { fill: rgb(var(--c-muted)); }
     :root:not([data-scheme="light"]) svg [stroke="#D8DEE8" i] { stroke: rgb(var(--c-line)); }
+    :root:not([data-scheme="light"]) svg [stroke="#5D6B7E" i] { stroke: rgb(var(--c-muted)); }
+    :root:not([data-scheme="light"]) svg [stroke="#ffffff" i] { stroke: rgb(var(--c-white)); }
     :root:not([data-scheme="light"]) svg [fill="#D8DEE8" i] { fill: rgb(var(--c-line)); }
     :root:not([data-scheme="light"]) svg [fill="#006AAC" i] { fill: rgb(var(--c-blue)); }
     :root:not([data-scheme="light"]) svg [fill="#0B6B4F" i] { fill: rgb(var(--c-good)); }
