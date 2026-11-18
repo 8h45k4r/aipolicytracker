@@ -6,7 +6,12 @@ import { execFileSync } from 'node:child_process';
 // a stack-exhaustion advisory with no fixed version short of Tailwind 4. It runs only at
 // build time on our own globs; crafted patterns cannot reach it. Remove when Tailwind
 // moves to 4.
-const ALLOWED = new Set(['GHSA-vfj7-8cjw-p6xm']);
+//
+// picomatch (Vite, Tailwind, chokidar, fast-glob) carries a ReDoS advisory with no fixed
+// version: it covers every release up to 4.0.7, the newest. Like the one above it runs only
+// at build time on our own globs. Remove when a fixed picomatch is released
+// (docs/reference/technical-debt.md #60).
+const ALLOWED = new Set(['GHSA-vfj7-8cjw-p6xm', 'GHSA-fc5q-39xc-vjpf']);
 
 let out;
 try {

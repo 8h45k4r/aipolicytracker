@@ -5,6 +5,10 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Build tooling: a new advisory against `picomatch` (GHSA-fc5q-39xc-vjpf, high) has no fixed release. It is
+  used only by the CSS and script build, on this repository's own file patterns, and is not part of the site.
+  The dependency audit now allows it by id, recorded as debt #60, until a fixed version is published. Without
+  that the Security workflow fails on every commit and nothing can be deployed.
 - Framework security release: `laravel/framework` 12.72.0 (CVE-2026-128083, low severity, fixed in 12.71.0).
   The advisory of 13 November failed the Security workflow on every commit, and a deploy needs that workflow
   green, so nothing had reached production since.
