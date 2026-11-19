@@ -223,6 +223,8 @@ body:has(#home-q) header form[role="search"] { display: none; }
     .chart-bar:hover, .chart-dot:hover { opacity: .75; }
     /* The bands of a flow chart: pale until one is pointed at, when the rest step back. */
     .flow-band { opacity: .4; transition: opacity .15s ease; }
+    /* The who-by-what matrix: a dark cell takes light text. */
+    .harm-matrix td.harm-hi { color: #fff; font-weight: 600; }
     .flow:hover .flow-band { opacity: .18; }
     .flow .flow-band:hover { opacity: .85; }
     /* The AI attacks page while a lens is being fetched, and its "synced" mark. */
@@ -274,6 +276,14 @@ body:has(#home-q) header form[role="search"] { display: none; }
     :root:not([data-scheme="light"]) svg [fill="#5D6B7E" i] { fill: rgb(var(--c-muted)); }
     :root:not([data-scheme="light"]) svg [stroke="#D8DEE8" i] { stroke: rgb(var(--c-line)); }
     :root:not([data-scheme="light"]) svg [stroke="#5D6B7E" i] { stroke: rgb(var(--c-muted)); }
+    /* The seven MIT risk domain colours (AttackLandscape::DOMAIN_COLOURS), lightened for a dark page.
+       Domain 4 shares #9B1C2E with the "bad" tone above. */
+    :root:not([data-scheme="light"]) svg [fill="#A4366B" i] { fill: #E58AB8; }
+    :root:not([data-scheme="light"]) svg [fill="#00738A" i] { fill: #4FC3D9; }
+    :root:not([data-scheme="light"]) svg [fill="#B45309" i] { fill: #F5A25D; }
+    :root:not([data-scheme="light"]) svg [fill="#5145CD" i] { fill: #A49BFF; }
+    :root:not([data-scheme="light"]) svg [fill="#2F7D32" i] { fill: #7DD483; }
+    :root:not([data-scheme="light"]) svg [fill="#44546A" i] { fill: #A9B8CC; }
     :root:not([data-scheme="light"]) svg [stroke="#ffffff" i] { stroke: rgb(var(--c-white)); }
     :root:not([data-scheme="light"]) svg [fill="#D8DEE8" i] { fill: rgb(var(--c-line)); }
     :root:not([data-scheme="light"]) svg [fill="#006AAC" i] { fill: rgb(var(--c-blue)); }

@@ -42,6 +42,10 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- AI attacks in charts: a year-by-year chart of deliberate against accidental incidents (in the 7 September
+  snapshot the share coded deliberate is 30% in 2019 and 65% in 2025), a matrix of who is harmed by which kind of
+  risk, one colour per risk domain across every chart, jump links to the seven sections, and buttons that filter
+  the board's cards by label.
 - AI attacks in charts (`/ai-attacks`): the incident record without a list of records. Seven sections: incidents per
   month, who was responsible and whether it was meant (a flow chart from entity through intent to risk domain), where
   incidents concentrate by year, what frameworks describe against what is recorded, who is affected, a board of the
@@ -366,6 +370,9 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- AI attacks in charts: the first figure tile printed template source instead of the count, which also pushed the
+  other tiles into one narrow column. When the daily incident sync stops delivering, the page now says how many
+  days it has been, instead of "synced once a day".
 - The weekly refresh of external datasets had failed on every scheduled run since 22 September, so incident
   report lists stayed at the backup of 7 September. The AI Incident Database export is standard CSV, and a
   name carrying quotes inside a JSON list (`jane-\"jd\"-doe`) put a backslash before a quote; PHP's

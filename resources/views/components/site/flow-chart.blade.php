@@ -1,4 +1,4 @@
-@props(['left', 'right', 'domains', 'title', 'note' => null, 'height' => 370])
+@props(['left', 'right', 'domains', 'title', 'note' => null, 'height' => 370, 'colours' => []])
 {{--
 Three columns joined by bands whose thickness is a count: who was responsible, whether
 the outcome was intended, and the risk domain it was classified under.
@@ -87,7 +87,7 @@ from one side of the chart to the other.
         <text x="{{ $xs[1] + $nw / 2 }}" y="{{ round($pos[1][$i]['y'] - 5, 1) }}" font-size="12" text-anchor="middle" fill="#002147" font-weight="600" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">{{ $intentName[$i] }} <tspan fill="#5D6B7E" font-weight="400" font-family="ui-monospace, monospace" font-size="11">{{ number_format($v) }} · {{ round(100 * $v / $total) }}%</tspan></text>
         @endforeach
         @foreach($cols[2] as $id => $v)
-        <rect x="{{ $xs[2] }}" y="{{ round($pos[2][$id]['y'], 1) }}" width="{{ $nw }}" height="{{ round($pos[2][$id]['h'], 1) }}" fill="#002147" />
+        <rect x="{{ $xs[2] }}" y="{{ round($pos[2][$id]['y'], 1) }}" width="{{ $nw }}" height="{{ round($pos[2][$id]['h'], 1) }}" fill="{{ $colours[$id] ?? '#002147' }}" />
         <text x="{{ $xs[2] + $nw + 6 }}" y="{{ round($pos[2][$id]['y'] + min(12, $pos[2][$id]['h'] / 2 + 4), 1) }}" font-size="12" fill="#002147">{{ $id }} {{ \Illuminate\Support\Str::limit($domains[$id], 26) }} <tspan fill="#5D6B7E" font-family="ui-monospace, monospace" font-size="11">{{ number_format($v) }}</tspan></text>
         @endforeach
     </svg>

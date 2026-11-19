@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Services\ExternalData\AttackLandscape;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
@@ -183,6 +184,58 @@ class AttackLandscapeTest extends TestCase
         $this->get('/ai-attacks?lens=nonsense')->assertOk()
             ->assertSee('The AI Incident Database records 31 incidents')
             ->assertSee('<meta name="robots" content="noindex,follow">', false);
+    }
+
+    public function test_every_component_on_the_page_is_rendered(): void
+    {
+        $this->record();
+
+        // A malformed attribute leaves a component tag in the page as raw source; the
+        // first stat tile shipped that way and pulled the others into one column.
+        foreach (['', '?lens=deliberate', '?lens=security'] as $query) {
+            $html = $this->get('/ai-attacks'.$query)->assertOk()->getContent();
+            $this->assertStringNotContainsString('<x-site', $html, $query ?: 'all');
+            $this->assertStringNotContainsString('{{', $html, $query ?: 'all');
+        }
+        $this->get('/ai-attacks')->assertSee('<dt class="stat-label">Recorded incidents</dt>', false);
+    }
+
+    public function test_the_year_by_intent_chart_and_the_harm_matrix_count_the_same_incidents(): void
+    {
+        $this->record();
+
+        $d = app(AttackLandscape::class)->build('all');
+
+        $this->assertSame(['Intentional' => 6, 'Unintentional' => 3, 'Other' => 0], $d['intent_years'][2024]);
+        $this->assertSame(['Intentional' => 9, 'Unintentional' => 1, 'Other' => 0], $d['intent_years'][2025]);
+        // Every party named on an incident is counted under that incident's domain.
+        $this->assertSame(['total' => 26, 'cells' => ['4' => 18, '7' => 8]], $d['harm_matrix']['General public']);
+
+        $this->get('/ai-attacks')->assertOk()
+            ->assertSee('From accident to attack, year by year')
+            // No year here has the 20 classified incidents a stated share needs.
+            ->assertDontSee('of the classified incidents in view were coded deliberate')
+            ->assertSee('Who is harmed, by kind of risk')
+            ->assertSee('data-signal-filter="rising"', false);
+        // In the deliberate view every incident is deliberate, so the chart would say nothing.
+        $this->get('/ai-attacks?lens=deliberate')->assertOk()->assertDontSee('From accident to attack');
+    }
+
+    public function test_the_page_says_so_when_the_daily_sync_has_stopped_delivering(): void
+    {
+        $this->record();
+        ExternalIncident::query()->update(['synced_at' => now()->subDays(9)]);
+
+        $this->get('/ai-attacks')->assertOk()
+            ->assertSee('No new record has arrived from the daily sync for 9 days; the figures stop there')
+            ->assertDontSee('synced from the source once a day');
+
+        ExternalIncident::query()->update(['synced_at' => now()->subHours(5)]);
+        app(Repository::class)->flush();
+
+        $this->get('/ai-attacks')->assertOk()
+            ->assertSee('synced from the source once a day')
+            ->assertDontSee('No new record has arrived');
     }
 
     public function test_the_page_renders_before_any_data_is_imported(): void
