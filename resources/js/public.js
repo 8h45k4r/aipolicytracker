@@ -382,6 +382,22 @@
             e.preventDefault();
             draw(a.href, false);
         });
+        // The board's label filter: show only the cards with one label. Without this script
+        // the buttons do nothing and every card stays in view.
+        document.addEventListener('click', function (e) {
+            var btn = e.target.closest && e.target.closest('[data-signal-filter]');
+            if (!btn) { return; }
+            var want = btn.getAttribute('data-signal-filter');
+            var bar = btn.closest('[data-signal-filters]');
+            bar.querySelectorAll('[data-signal-filter]').forEach(function (b) {
+                var on = b === btn;
+                b.classList.toggle('chip-active', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+            document.querySelectorAll('[data-signal-board] [data-signal]').forEach(function (card) {
+                card.hidden = want !== '' && card.getAttribute('data-signal') !== want;
+            });
+        });
         if (!pulse) { return; }
         setInterval(function () {
             if (document.hidden) { return; }

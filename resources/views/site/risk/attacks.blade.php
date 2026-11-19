@@ -41,6 +41,17 @@
 
     $signalTone = ['rising' => '#9B1C2E', 'emerging' => '#7A4B00', 'steady' => '#002147', 'easing' => '#0B6B4F', 'sparse' => '#5D6B7E'];
     $asOf = $d['fresh']['as_of'] ? Carbon::parse($d['fresh']['as_of']) : null;
+    $colours = AttackLandscape::DOMAIN_COLOURS;
+    $stale = $d['fresh']['live'] && $d['fresh']['days'] !== null && $d['fresh']['days'] >= AttackLandscape::STALE_AFTER_DAYS;
+
+    // The shift between accident and attack: the first year with enough classified
+    // incidents to state a share, against the last complete year.
+    $partialYear = $d['fresh']['latest_incident'] ? (int) substr($d['fresh']['latest_incident'], 0, 4) : null;
+    $shareOf = fn (array $row) => ($row['Intentional'] + $row['Unintentional'] + $row['Other']) ? (int) round(100 * $row['Intentional'] / ($row['Intentional'] + $row['Unintentional'] + $row['Other'])) : null;
+    $full = collect($d['intent_years'])->filter(fn ($row, $y) => $y !== $partialYear && array_sum($row) >= 20);
+    $shift = $full->count() >= 2 ? ['from' => $full->keys()->first(), 'from_pct' => $shareOf($full->first()), 'to' => $full->keys()->last(), 'to_pct' => $shareOf($full->last())] : null;
+    $signalCounts = collect($d['vectors'])->countBy('signal');
+    $jump = [['pulse-heading', 'Trend'], ['flow-heading', 'Cause and intent'], ['heat-heading', 'Hotspots'], ['gap-heading', 'Frameworks against record'], ['who-heading', 'Who is harmed'], ['board-heading', 'Where to look first'], ['policy-heading', 'Rules on record']];
 @endphp
 <div class="container-site py-8">
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
@@ -57,17 +68,23 @@
         <p class="mt-2 max-w-[80ch] text-sm text-brand-body">{{ $meta['definition'] }}</p>
 
         <p class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 meta" data-attack-fresh>
-            <span class="inline-flex items-center gap-1.5 text-brand-navy"><svg width="8" height="8" aria-hidden="true" class="{{ $d['fresh']['live'] ? 'pulse-dot' : '' }}"><circle cx="4" cy="4" r="4" fill="#0B6B4F" /></svg>@if($asOf){{ $d['fresh']['live'] ? 'Synced' : 'Snapshot of' }} <time datetime="{{ $asOf->toIso8601String() }}">{{ $asOf->format($d['fresh']['live'] ? 'j M Y, H:i' : 'j M Y') }}{{ $d['fresh']['live'] ? ' UTC' : '' }}</time>@else Not imported yet @endif</span>
+            <span class="inline-flex items-center gap-1.5 text-brand-navy"><svg width="8" height="8" aria-hidden="true" class="{{ $d['fresh']['live'] && ! $stale ? 'pulse-dot' : '' }}"><circle cx="4" cy="4" r="4" fill="{{ $stale ? '#7A4B00' : '#0B6B4F' }}" /></svg>@if($asOf){{ $d['fresh']['live'] ? 'Synced' : 'Snapshot of' }} <time datetime="{{ $asOf->toIso8601String() }}">{{ $asOf->format($d['fresh']['live'] ? 'j M Y, H:i' : 'j M Y') }}{{ $d['fresh']['live'] ? ' UTC' : '' }}</time>@else Not imported yet @endif</span>
             <span>{{ number_format($t['corpus']) }} incidents on record</span>
             @if($d['fresh']['latest_incident'])<span>newest dated {{ Carbon::parse($d['fresh']['latest_incident'])->format('j M Y') }}</span>@endif
             @if($to)<span>classified to {{ $to }}</span>@endif
+            @if($stale)
+            <span class="font-medium text-brand-warn" data-attack-stale>No new record has arrived from the daily sync for {{ $d['fresh']['days'] }} days; the figures stop there</span>
+            @elseif($d['fresh']['live'])
             <span>synced from the source once a day; this page checks for new records every five minutes while it is open<span data-attack-checked></span></span>
+            @else
+            <span>from the published export; this page checks for new records every five minutes while it is open<span data-attack-checked></span></span>
+            @endif
         </p>
 
         <x-site.answer-box class="mt-6" :text="$answer" />
 
         <dl class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            <x-site.stat :label="$lens === 'all' ? 'Recorded incidents' : 'Incidents in view'" :value="number_format($t['lens'])" ":note="$t['share'] === null ? 'in the AI Incident Database' : $t['share'].'% of the '.number_format($t['classified_corpus']).' classified'" />
+            <x-site.stat :label="$lens === 'all' ? 'Recorded incidents' : 'Incidents in view'" :value="number_format($t['lens'])" :note="$t['share'] === null ? 'in the AI Incident Database' : $t['share'].'% of the '.number_format($t['classified_corpus']).' classified'" />
             <x-site.stat :label="ucfirst($period)" :value="number_format($t['last12'])" :note="$change" />
             @if($lens === 'deliberate')
             <x-site.stat label="Carried out by a person" :value="$pct($d['causal']['incidents']['entity'], 'Human').'%'" :note="$pct($d['causal']['incidents']['entity'], 'AI').'% attributed to an AI system'" />
@@ -78,7 +95,12 @@
             <x-site.stat label="Not yet classified" :value="number_format($d['window']['unclassified_since'])" :note="$to ? 'incidents dated after '.$to : 'newest incidents'" />
         </dl>
 
-        <section class="mt-12" aria-labelledby="pulse-heading">
+        <nav class="mt-6 flex flex-wrap items-center gap-2 text-sm" aria-label="On this page">
+            <span class="meta mr-1">On this page</span>
+            @foreach($jump as $i => [$id, $label])<a href="#{{ $id }}" class="chip !min-h-0 !py-1">{{ $i + 1 }}. {{ $label }}</a>@endforeach
+        </nav>
+
+        <section class="mt-10" aria-labelledby="pulse-heading">
             <div class="rule-strong pt-3"><h2 id="pulse-heading" class="section-title" data-trend="{{ $t['trend'] }}">1. {{ $trendHeading }}</h2></div>
             <p class="mt-2 max-w-[72ch] text-brand-body leading-7">{{ number_format($t['last12']) }} {{ $meta['noun'] }} are dated in the {{ $period }}, against {{ number_format($t['prev12']) }} in the 12 months before. @if($d['window']['unclassified_since'])The comparison stops at {{ $to }} on purpose: {{ number_format($d['window']['unclassified_since']) }} newer incidents are on record without a classification, and counting those months would show a fall that is only a backlog.@endif</p>
             <x-site.pulse-chart class="mt-4" :months="$d['months']" :title="'Incidents per month, '.count($d['months']).' months'" :lensLabel="$lens === 'all' ? 'Classified' : $meta['label']" note="By date of the incident. A month counts as classified once {{ AttackLandscape::CLASSIFIED_SHARE }}% of its incidents carry a code." />
@@ -88,7 +110,12 @@
             <div class="rule-strong pt-3"><h2 id="flow-heading" class="section-title">2. Who was responsible, was it meant, and what kind of harm</h2></div>
             @if($pairs)
             <p class="mt-2 max-w-[72ch] text-brand-body leading-7">The widest path is {{ $entityWord[$pairs[0][0]] ?? $pairs[0][0] }} acting with {{ $intentWord[$pairs[0][1]] ?? $pairs[0][1] }} effect: {{ number_format($pairs[0][2]) }} of the {{ number_format($t['classified']) }} classified incidents in view ({{ $t['classified'] ? round(100 * $pairs[0][2] / $t['classified']) : 0 }}%). Follow a colour from left to right to see where deliberate and accidental incidents end up.</p>
-            <x-site.flow-chart class="mt-4" :left="$d['flow']['entity_intent']" :right="$d['flow']['intent_domain']" :domains="$d['flow']['domains']" title="From cause to harm: responsible entity, intent and risk domain" note="MIT causal and domain taxonomies, as applied by the AI Incident Database" />
+            <x-site.flow-chart class="mt-4" :left="$d['flow']['entity_intent']" :right="$d['flow']['intent_domain']" :domains="$d['flow']['domains']" :colours="$colours" title="From cause to harm: responsible entity, intent and risk domain" note="MIT causal and domain taxonomies, as applied by the AI Incident Database" />
+            @if($lens !== 'deliberate' && collect($d['intent_years'])->sum(fn ($row) => array_sum($row)) > 0)
+            <h3 class="mt-8 font-semibold text-brand-navy">From accident to attack, year by year</h3>
+            <p class="mt-1 max-w-[72ch] text-sm leading-6 text-brand-body">@if($shift)In {{ $shift['from'] }}, {{ $shift['from_pct'] }}% of the classified incidents in view were coded deliberate; in {{ $shift['to'] }}, {{ $shift['to_pct'] }}%.@endif Deliberate incidents sit at the base of each column, so their growth reads against the whole.</p>
+            <x-site.intent-columns class="mt-3" :years="$d['intent_years']" :partial="$partialYear" title="Classified incidents per year, by intent" note="Year of the incident" />
+            @endif
             @else
             <x-site.empty class="mt-4" title="No classified incidents in view" />
             @endif
@@ -105,17 +132,19 @@
         <section class="mt-12" aria-labelledby="gap-heading">
             <div class="rule-strong pt-3"><h2 id="gap-heading" class="section-title">4. What is described against what is recorded</h2></div>
             <p class="mt-2 max-w-[72ch] text-brand-body leading-7">The MIT AI Risk Repository codes {{ number_format($t['risks']) }} risk entries from {{ $t['frameworks'] }} frameworks to the same subdomains as the incidents in view. Where the two shares differ, either the frameworks are ahead of the record or the record is ahead of the frameworks.@if($d['rho'] !== null) Across {{ count($d['points']) }} subdomains the two rankings agree {{ abs($d['rho']) >= 0.7 ? 'closely' : (abs($d['rho']) >= 0.4 ? 'moderately' : 'weakly') }} (Spearman's rank correlation {{ number_format($d['rho'], 2) }}).@endif</p>
-            <x-site.quadrant-chart class="mt-4" :points="$d['points']" title="Risk subdomains: share of risk entries against share of incidents" xLabel="Share of risk entries described by frameworks" yLabel="Share of incidents recorded" note="Select a bubble to open the subdomain" />
+            <x-site.quadrant-chart class="mt-4" :points="$d['points']" :colours="$colours" title="Risk subdomains: share of risk entries against share of incidents" xLabel="Share of risk entries described by frameworks" yLabel="Share of incidents recorded" note="Select a bubble to open the subdomain" />
             <x-site.paired-bars class="mt-6" :groups="$causal" title="How incidents arise, against how frameworks expect them to" aLabel="Incidents recorded" bLabel="Risk entries described" note="Percent of the records that carry the code" />
         </section>
 
         <section class="mt-12" aria-labelledby="who-heading">
-            <div class="rule-strong pt-3"><h2 id="who-heading" class="section-title">5. Who is affected</h2></div>
-            <p class="mt-2 max-w-[72ch] text-brand-body leading-7">The parties named most often as harmed, or nearly harmed, in the incidents in view. A name is an allegation in a report, not a finding.@if($d['sectors']['coded'] >= 30) Only {{ number_format($d['sectors']['coded']) }} of the {{ number_format($t['lens']) }} incidents carry a sector, so read that chart as a sample.@endif</p>
-            <div class="mt-4 grid gap-6 {{ $d['sectors']['coded'] >= 30 ? 'lg:grid-cols-2' : '' }}">
-                @if($d['harmed'])<x-site.rank-bars :series="$d['harmed']" title="Most often named as harmed" note="Alleged harmed parties, as recorded" unit="incidents" />@endif
-                @if($d['sectors']['coded'] >= 30)<x-site.rank-bars :series="collect($d['sectors']['top'])->mapWithKeys(fn ($v, $k) => [ucfirst($k) => $v])->all()" title="Sector of deployment, where coded" :note="number_format($d['sectors']['coded']).' incidents with a sector code'" unit="incidents" />@endif
-            </div>
+            <div class="rule-strong pt-3"><h2 id="who-heading" class="section-title">5. Who is harmed, and by what</h2></div>
+            <p class="mt-2 max-w-[72ch] text-brand-body leading-7">The parties named most often as harmed, or nearly harmed, in the classified incidents in view, and the kind of risk behind each. Read a row as that party's risk profile and a column as the parties one kind of risk reaches. The record names values (epistemic integrity, privacy) as well as people, and a name is an allegation in a report, not a finding.</p>
+            @if($d['harm_matrix'])
+            <x-site.harm-matrix class="mt-4" :rows="$d['harm_matrix']" :domains="$d['flow']['domains']" :colours="$colours" title="Who is harmed, by kind of risk" note="Cell: incidents. Shading: share of the row." />
+            @endif
+            @if($d['sectors']['coded'] >= 30)
+            <x-site.rank-bars class="mt-6 lg:max-w-[50%]" :series="collect($d['sectors']['top'])->mapWithKeys(fn ($v, $k) => [ucfirst($k) => $v])->all()" title="Sector of deployment, where coded" :note="'Only '.number_format($d['sectors']['coded']).' of '.number_format($t['lens']).' incidents carry a sector: a sample'" unit="incidents" />
+            @endif
         </section>
 
         <section class="mt-12" aria-labelledby="board-heading">
@@ -135,10 +164,18 @@
             <h3 class="mt-8 font-semibold text-brand-navy">The board: one card for each kind of incident</h3>
             <p class="mt-1 max-w-[72ch] text-sm leading-6 text-brand-body">Every kind with at least {{ AttackLandscape::VECTOR_MIN }} records in view, busiest first. The label on each card is worked out from two counts, by the rules under the cards.</p>
             @if($d['vectors'])
-            <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="mt-4 flex flex-wrap items-center gap-2 text-sm" data-signal-filters role="group" aria-label="Show cards by label">
+                <button type="button" class="chip chip-active !min-h-0 !py-1" data-signal-filter="" aria-pressed="true">All {{ count($d['vectors']) }}</button>
+                @foreach(AttackLandscape::SIGNALS as $key => $sig)
+                @if($signalCounts->get($key))
+                <button type="button" class="chip !min-h-0 !py-1" data-signal-filter="{{ $key }}" aria-pressed="false"><svg width="8" height="8" aria-hidden="true"><circle cx="4" cy="4" r="4" fill="{{ $signalTone[$key] }}" /></svg>{{ $sig['label'] }} {{ $signalCounts->get($key) }}</button>
+                @endif
+                @endforeach
+            </div>
+            <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-signal-board>
                 @foreach($d['vectors'] as $v)
                 @php($peak = max(1, max($v['years'])))
-                <a href="{{ $v['url'] }}" class="card-link block p-4 no-underline" data-signal="{{ $v['signal'] }}">
+                <a href="{{ $v['url'] }}" class="card-link block border-t-4 p-4 no-underline" style="border-top-color: {{ $colours[$v['domain']] ?? '#5D6B7E' }}" data-signal="{{ $v['signal'] }}">
                     <div class="flex items-start justify-between gap-3">
                         <p class="eyebrow">{{ $v['id'] }} · {{ $v['domain_name'] }}</p>
                         <span class="inline-flex shrink-0 items-center gap-1.5 text-xs font-semibold text-brand-navy"><svg width="8" height="8" aria-hidden="true"><circle cx="4" cy="4" r="4" fill="{{ $signalTone[$v['signal']] }}" /></svg>{{ AttackLandscape::SIGNALS[$v['signal']]['label'] }}</span>
@@ -146,7 +183,7 @@
                     <p class="mt-1 font-semibold leading-snug text-brand-navy">{{ $v['name'] }}</p>
                     <svg viewBox="0 0 336 46" role="img" aria-label="Incidents per year, {{ array_key_first($v['years']) }} to {{ array_key_last($v['years']) }}: {{ implode(', ', $v['years']) }}" class="mt-3 w-full h-auto">
                         @foreach($v['years'] as $year => $n)
-                        <rect x="{{ $loop->index * 42 }}" y="{{ 32 - max(1, round(30 * $n / $peak)) }}" width="38" height="{{ max(1, round(30 * $n / $peak)) }}" fill="{{ $loop->last ? '#5D6B7E' : '#002147' }}" class="chart-bar" data-tip="{{ $year }}{{ $loop->last ? ' (part year)' : '' }}: {{ $n }}" />
+                        <rect x="{{ $loop->index * 42 }}" y="{{ 32 - max(1, round(30 * $n / $peak)) }}" width="38" height="{{ max(1, round(30 * $n / $peak)) }}" fill="{{ $colours[$v['domain']] ?? '#002147' }}" @if($loop->last) opacity="0.45" @endif class="chart-bar" data-tip="{{ $year }}{{ $loop->last ? ' (part year)' : '' }}: {{ $n }}" />
                         @endforeach
                         <text x="0" y="44" font-size="10" fill="#5D6B7E" font-family="ui-monospace, monospace">{{ array_key_first($v['years']) }}</text>
                         <text x="332" y="44" font-size="10" text-anchor="end" fill="#5D6B7E" font-family="ui-monospace, monospace">{{ array_key_last($v['years']) }}, part year</text>

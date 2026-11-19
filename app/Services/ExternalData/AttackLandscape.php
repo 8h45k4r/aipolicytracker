@@ -51,6 +51,15 @@ class AttackLandscape
     /** Months shown in the monthly chart. */
     public const PULSE_MONTHS = 36;
 
+    /** Harmed groups shown in the matrix of who is harmed by which kind of risk. */
+    public const HARM_GROUPS = 8;
+
+    /** Days without a new record from the daily sync before the page says the sync has stalled. */
+    public const STALE_AFTER_DAYS = 3;
+
+    /** Colour of each MIT risk domain, used by every chart on the page that shows domains. */
+    public const DOMAIN_COLOURS = ['1' => '#A4366B', '2' => '#00738A', '3' => '#B45309', '4' => '#9B1C2E', '5' => '#5145CD', '6' => '#2F7D32', '7' => '#44546A'];
+
     /** Calendar years shown in the heat table and the small charts on each vector. */
     public const YEARS = 8;
 
@@ -92,7 +101,7 @@ class AttackLandscape
     {
         $lens = self::lens($lens);
 
-        return ContentCache::remember('attack-landscape-v1.'.$lens.'.'.$this->version().'.'.now()->format('Ymd'), 3600, fn () => $this->compute($lens));
+        return ContentCache::remember('attack-landscape-v2.'.$lens.'.'.$this->version().'.'.now()->format('Ymd'), 3600, fn () => $this->compute($lens));
     }
 
     /** @return array<string, mixed> */
@@ -197,6 +206,8 @@ class AttackLandscape
         $bySub = [];
         $byDomain = [];
         $harmed = [];
+        $harmDomain = [];
+        $intentByYear = [];
         $sectors = [];
         $sectorCoded = 0;
         $maxYear = (int) substr($latest ?? $today, 0, 4);
@@ -215,6 +226,9 @@ class AttackLandscape
                 }
                 if ($r['intent'] !== null) {
                     $flowA[$r['entity']][$r['intent']] = ($flowA[$r['entity']][$r['intent']] ?? 0) + 1;
+                    if ($r['year'] !== null && in_array($r['year'], $years, true)) {
+                        $intentByYear[$r['year']][$r['intent']] = ($intentByYear[$r['year']][$r['intent']] ?? 0) + 1;
+                    }
                     if ($w !== null) {
                         $recentIntent[$w][$r['intent']] = ($recentIntent[$w][$r['intent']] ?? 0) + 1;
                     }
@@ -241,6 +255,9 @@ class AttackLandscape
             }
             foreach (self::names($r['harmed']) as $name) {
                 $harmed[$name] = ($harmed[$name] ?? 0) + 1;
+                if ($r['domain'] !== null) {
+                    $harmDomain[$name][$r['domain']] = ($harmDomain[$name][$r['domain']] ?? 0) + 1;
+                }
             }
             $s = self::names($r['sectors']);
             $sectorCoded += $s ? 1 : 0;
@@ -312,8 +329,19 @@ class AttackLandscape
             $domains[$id] = ['id' => $id, 'name' => $d['name'], 'url' => RiskTaxonomy::domainUrl($d['id']), 'incidents' => $byDomain[$id]['total'] ?? 0, 'last12' => $byDomain[$id]['last12'] ?? 0, 'instruments' => $instruments[$id] ?? 0];
         }
 
+        // Who is harmed by which kind of risk: the groups named most often on classified
+        // incidents, each with its incidents spread over the seven domains.
+        $harmMatrix = collect($harmDomain)->map(fn ($row) => ['total' => array_sum($row), 'cells' => $row])
+            ->sortByDesc('total')->take(self::HARM_GROUPS)->all();
+
+        $intentYears = [];
+        foreach ($years as $y) {
+            $intentYears[$y] = ['Intentional' => $intentByYear[$y]['Intentional'] ?? 0, 'Unintentional' => $intentByYear[$y]['Unintentional'] ?? 0, 'Other' => $intentByYear[$y]['Other'] ?? 0];
+        }
+
         $growth = $prev12 ? (int) round(100 * ($last12 - $prev12) / $prev12) : null;
-        $asOf = ExternalIncident::max('synced_at') ?: ($aiid['snapshot_date'] ?? null);
+        $synced = ExternalIncident::max('synced_at');
+        $asOf = $synced ?: ($aiid['snapshot_date'] ?? null);
 
         return [
             'lens' => $lens,
@@ -331,6 +359,8 @@ class AttackLandscape
             'causal' => ['incidents' => $coded, 'risks' => $riskCoded],
             'recent_intent' => $recentIntent,
             'harmed' => array_slice($harmed, 0, 8, true),
+            'harm_matrix' => $harmMatrix,
+            'intent_years' => $intentYears,
             'sectors' => ['coded' => $sectorCoded, 'top' => array_slice($sectors, 0, 8, true)],
             'vectors' => $vectors,
             'domains' => $domains,
@@ -340,7 +370,9 @@ class AttackLandscape
             ],
             'fresh' => [
                 'as_of' => $asOf ? Carbon::parse($asOf)->toIso8601String() : null,
-                'live' => (bool) ExternalIncident::max('synced_at'),
+                'live' => (bool) $synced,
+                // Whole days since the newest record arrived from the live sync.
+                'days' => $synced ? (int) Carbon::parse($synced)->startOfDay()->diffInDays(now()->startOfDay()) : null,
                 'latest_incident' => $latest,
                 'snapshot' => $aiid['snapshot_date'] ?? null,
             ],
