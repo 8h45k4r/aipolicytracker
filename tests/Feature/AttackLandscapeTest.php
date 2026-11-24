@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\ExternalIncident;
 use App\Models\ExternalRisk;
 use App\Services\ExternalData\AttackLandscape;
+use App\Services\ExternalData\IncidentFreshness;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
@@ -222,21 +223,52 @@ class AttackLandscapeTest extends TestCase
         $this->get('/ai-attacks?lens=deliberate')->assertOk()->assertDontSee('From accident to attack');
     }
 
-    public function test_the_page_says_so_when_the_daily_sync_has_stopped_delivering(): void
+    public function test_the_pages_say_so_when_no_new_data_has_arrived(): void
     {
+        // The fixtures carry the 7 September export; the newest live-synced record is 12 days old.
         $this->record();
-        ExternalIncident::query()->update(['synced_at' => now()->subDays(9)]);
+        ExternalIncident::query()->update(['synced_at' => now()->subDays(12)]);
 
         $this->get('/ai-attacks')->assertOk()
-            ->assertSee('No new record has arrived from the daily sync for 9 days; the figures stop there')
-            ->assertDontSee('synced from the source once a day');
+            ->assertSee('Data to <time datetime="2026-11-06">6 Nov 2026</time>', false)
+            ->assertSee('No new data has arrived from the AI Incident Database for 12 days; the figures stop there')
+            ->assertDontSee('once a day');
+        $this->get('/ai-risk/incidents')->assertOk()
+            ->assertSee('Incident data runs to 6 November 2026. No new data has arrived from the AI Incident Database for 12 days, so newer incidents are not shown yet.')
+            ->assertSee('<dt class="meta">Data runs to</dt>', false)
+            ->assertDontSee('several times a day');
 
+        // A record that arrived five hours ago: current, and no warning.
         ExternalIncident::query()->update(['synced_at' => now()->subHours(5)]);
         app(Repository::class)->flush();
 
         $this->get('/ai-attacks')->assertOk()
-            ->assertSee('synced from the source once a day')
-            ->assertDontSee('No new record has arrived');
+            ->assertSee("updated from the source's weekly export", false)
+            ->assertDontSee('No new data has arrived');
+        $this->get('/ai-risk/incidents')->assertOk()->assertDontSee('data-incident-stale', false);
+    }
+
+    public function test_the_weekly_export_alone_keeps_the_data_current(): void
+    {
+        // No live sync at all: an export of four days ago is current; one of 72 days ago is not.
+        $this->record();
+        ExternalIncident::query()->update(['synced_at' => null, 'snapshot_date' => now()->subDays(4)->toDateString()]);
+        $this->assertFalse(IncidentFreshness::current()['stale']);
+
+        ExternalIncident::query()->update(['snapshot_date' => '2026-09-07']);
+        $f = IncidentFreshness::current();
+        $this->assertSame([72, true], [$f['days'], $f['stale']]);
+    }
+
+    public function test_no_page_promises_a_daily_or_hourly_incident_sync(): void
+    {
+        $this->record();
+        foreach (['/', '/ai-risk/incidents', '/ai-attacks', '/ai-risk'] as $url) {
+            $html = $this->get($url)->assertOk()->getContent();
+            foreach (['syncs every day', 'several times a day', 'within hours', 'once a day'] as $claim) {
+                $this->assertStringNotContainsString($claim, $html, "{$url} still says \"{$claim}\"");
+            }
+        }
     }
 
     public function test_chart_labels_keep_their_contrast(): void

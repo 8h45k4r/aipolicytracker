@@ -370,6 +370,14 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- Pages that described the incident data promised a daily or hourly sync from the AI Incident Database. Its API now
+  answers web browsers only, and nothing has arrived through it since 4 October. The home page, `/ai-risk/incidents`,
+  `/ai-attacks` and the incident FAQ now give the date the data runs to, describe the weekly export as the route it
+  arrives by, and say so when no new data has arrived for more than ten days.
+- Every address the site prints (footer, About, Privacy, Terms, `llms.txt`, `security.txt`, structured data) is now
+  kept to the project's own domain (`PUBLIC_EMAIL_DOMAIN`). An address elsewhere, set in the environment or in the
+  admin Settings page, is left off the pages, with the project mailbox in its place. The Settings form refuses
+  such an address and says why.
 - Accessibility on the AI risk pages: labels in the "who is harmed" grid and in the subdomain treemap on
   `/ai-risk` fell below 4.5:1 contrast (2.3:1 to 3.8:1); the bubble chart on `/ai-attacks` was marked as an image
   while holding links. Both pages now pass an automated WCAG 2 A/AA check.

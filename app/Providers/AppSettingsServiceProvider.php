@@ -22,6 +22,40 @@ class AppSettingsServiceProvider extends ServiceProvider
         if ($this->app->runningConsoleCommand('config:cache', 'optimize')) {
             return;
         }
+        $this->applyStoredSettings();
+        $this->keepPublicAddressesOnOwnDomain();
+    }
+
+    /**
+     * Every address the site prints (footer, About, Privacy, Terms, llms.txt, security.txt,
+     * structured data) is on the project's own domain. A personal mailbox set in the
+     * environment or in the admin Settings page is dropped from what is shown; mail the
+     * site sends is not affected. The list falls back to the project mailbox.
+     */
+    private function keepPublicAddressesOnOwnDomain(): void
+    {
+        $domain = mb_strtolower(trim((string) config('aipolicytracker.public_email_domain')));
+        if ($domain === '') {
+            return;
+        }
+        $own = fn ($address) => is_string($address) && str_ends_with(mb_strtolower(trim($address)), '@'.$domain);
+        $fallback = 'info@'.$domain;
+
+        $primary = config('aipolicytracker.contact_email');
+        $primary = $own($primary) ? trim($primary) : $fallback;
+        $list = array_values(array_filter((array) config('aipolicytracker.contact_emails', []), $own));
+        config([
+            'aipolicytracker.contact_email' => $primary,
+            'aipolicytracker.contact_emails' => $list ?: [$primary],
+        ]);
+        if (! $own(config('legal.privacy_contact'))) {
+            // The privacy pages then fall back to the first contact address above.
+            config(['legal.privacy_contact' => null]);
+        }
+    }
+
+    private function applyStoredSettings(): void
+    {
         // A web request trusts the migrated schema; AppSetting reads a missing table as empty.
         // The console checks first so migrate and key:generate never log a failed query.
         if ($this->app->runningInConsole()) {

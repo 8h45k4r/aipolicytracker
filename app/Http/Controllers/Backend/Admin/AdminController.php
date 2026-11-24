@@ -609,7 +609,13 @@ class AdminController extends Controller
             'dodo_webhook_secret' => ['nullable', 'string', 'max:200', 'regex:/^(whsec_)?[A-Za-z0-9+\/=_-]{16,}$/'],
             'dodo_product_pro_monthly' => ['nullable', 'string', 'max:64', 'regex:/^[A-Za-z0-9_-]+$/'],
             'dodo_product_pro_yearly' => ['nullable', 'string', 'max:64', 'regex:/^[A-Za-z0-9_-]+$/'],
-            'contact_email' => ['nullable', 'email', 'max:190'],
+            // Printed on every page, so it must be on the project's own domain (AppSettingsServiceProvider).
+            'contact_email' => ['nullable', 'email', 'max:190', function (string $attribute, mixed $value, \Closure $fail) {
+                $domain = mb_strtolower(trim((string) config('aipolicytracker.public_email_domain')));
+                if ($domain !== '' && ! str_ends_with(mb_strtolower(trim((string) $value)), '@'.$domain)) {
+                    $fail("The contact address is shown on every page, so it must be an address at {$domain}.");
+                }
+            }],
             'google_analytics_id' => ['nullable', 'string', 'max:32', 'regex:/^G-[A-Z0-9]+$/'],
             'cloudflare_analytics_token' => ['nullable', 'string', 'max:64', 'regex:/^[a-f0-9]{16,}$/'],
             'analytics_require_consent' => ['nullable', 'in:on,off'],

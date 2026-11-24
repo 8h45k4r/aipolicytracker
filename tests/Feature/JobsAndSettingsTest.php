@@ -141,18 +141,18 @@ class JobsAndSettingsTest extends TestCase
 
     public function test_stored_settings_override_the_environment_for_site_behaviour(): void
     {
-        AppSetting::put('contact_email', 'ops@example.org');
+        AppSetting::put('contact_email', 'ops@aipolicytracker.org');
         AppSetting::put('social_cards_enabled', 'off');
         AppSetting::put('stale_after_days', '90');
         AppSetting::put('x_handle', '@example');
         (new AppSettingsServiceProvider($this->app))->boot();
 
-        $this->assertSame('ops@example.org', config('aipolicytracker.contact_email'));
+        $this->assertSame('ops@aipolicytracker.org', config('aipolicytracker.contact_email'));
         $this->assertFalse(config('social.cards'));
         $this->assertSame(90, config('aipolicytracker.stale_after_days'));
         $this->assertSame('@example', config('aipolicytracker.x_handle'));
 
-        $this->get('/.well-known/security.txt')->assertOk()->assertSee('ops@example.org');
+        $this->get('/.well-known/security.txt')->assertOk()->assertSee('ops@aipolicytracker.org');
         $this->get('/')->assertOk()->assertSee('content="@example"', false);
     }
 
@@ -162,8 +162,11 @@ class JobsAndSettingsTest extends TestCase
         foreach (['contact_email', 'google_analytics_id', 'social_cards_enabled', 'email_domain_enforcement', 'stale_after_days'] as $key) {
             $page->assertSee('name="'.$key.'"', false);
         }
-        $this->asOwner()->post('/backend/admin/settings', ['contact_email' => 'hello@example.org', 'social_cards_enabled' => 'off'])->assertRedirect();
-        $this->assertSame('hello@example.org', AppSetting::get('contact_email'));
+        $this->asOwner()->post('/backend/admin/settings', ['contact_email' => 'hello@aipolicytracker.org', 'social_cards_enabled' => 'off'])->assertRedirect();
+        $this->assertSame('hello@aipolicytracker.org', AppSetting::get('contact_email'));
+        // The address is printed on every page, so one on another domain is refused.
+        $this->asOwner()->post('/backend/admin/settings', ['contact_email' => 'hello@example.org'])->assertSessionHasErrors('contact_email');
+        $this->assertSame('hello@aipolicytracker.org', AppSetting::get('contact_email'));
         $this->assertSame('off', AppSetting::get('social_cards_enabled'));
     }
 }

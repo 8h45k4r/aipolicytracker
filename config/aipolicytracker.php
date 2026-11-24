@@ -89,6 +89,10 @@ return [
     // in the API description, so a reader, a crawler and a security researcher all
     // reach the same person. Override per deployment with CONTACT_EMAIL.
     'contact_email' => env('CONTACT_EMAIL', 'bhaskar@aipolicytracker.org'),
+    // The domain every published address must be on. An address elsewhere (a personal
+    // mailbox) is left off every page; see AppSettingsServiceProvider. Empty switches the
+    // rule off.
+    'public_email_domain' => env('PUBLIC_EMAIL_DOMAIN', 'aipolicytracker.org'),
 
     // Limits on the public digest form (SubscribeController). Bots that solve the bot check
     // were signing up made-up addresses, and the confirmation emails to them used up the mail
