@@ -41,7 +41,7 @@ $points: [['id', 'name', 'url', 'risk_share', 'incident_share', 'incidents', 'ri
 <figure {{ $attributes->merge(['class' => 'card-flat p-4']) }} data-chart="{{ \Illuminate\Support\Str::slug($title) }}">
     <figcaption class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"><span class="text-sm font-medium text-brand-navy">{{ $title }}</span>@if($note)<span class="meta">{{ $note }}</span>@endif</figcaption>
     <div class="mt-2 overflow-x-auto">
-    <svg viewBox="0 0 {{ $w }} {{ $height }}" role="img" aria-label="{{ $title }}" class="w-full min-w-[36rem] h-auto">
+    <svg viewBox="0 0 {{ $w }} {{ $height }}" role="group" aria-label="{{ $title }}" class="w-full min-w-[36rem] h-auto">
         <title>{{ $title }}</title>
         <path d="M{{ $l }},{{ $t }} L{{ $l + $pw }},{{ $t }} L{{ $l }},{{ $t + $ph }} Z" fill="#9B1C2E" opacity="0.05" />
         <path d="M{{ $l + $pw }},{{ $t }} L{{ $l + $pw }},{{ $t + $ph }} L{{ $l }},{{ $t + $ph }} Z" fill="#006AAC" opacity="0.05" />

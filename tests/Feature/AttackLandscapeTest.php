@@ -8,6 +8,7 @@ use App\Services\ExternalData\AttackLandscape;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Blade;
 use Tests\TestCase;
 
 /** /ai-attacks: recorded incidents as charts, and the figures the charts are drawn from. */
@@ -236,6 +237,27 @@ class AttackLandscapeTest extends TestCase
         $this->get('/ai-attacks')->assertOk()
             ->assertSee('synced from the source once a day')
             ->assertDontSee('No new record has arrived');
+    }
+
+    public function test_chart_labels_keep_their_contrast(): void
+    {
+        // White text only where it reaches 4.5:1 on the shaded cell: a crimson cell at about
+        // 60% strength measured 2.9:1 with white text on the live page.
+        $html = Blade::render('<x-site.harm-matrix :rows="$rows" :domains="$domains" :colours="$colours" title="t" />', [
+            'rows' => ['Strong' => ['total' => 100, 'cells' => ['4' => 100]], 'Medium' => ['total' => 100, 'cells' => ['4' => 65]]],
+            'domains' => ['4' => 'Malicious actors'], 'colours' => AttackLandscape::DOMAIN_COLOURS,
+        ]);
+        $this->assertSame(1, substr_count($html, 'harm-hi'));
+        $this->assertMatchesRegularExpression('/class="[^"]*harm-hi[^"]*"[^>]*data-tip="Strong/', $html);
+
+        // The bubble chart holds links, so it is a group of them, not a single image.
+        $this->record();
+        $this->get('/ai-attacks')->assertOk()->assertSee('role="group" aria-label="Risk subdomains: share of risk entries against share of incidents"', false);
+
+        // Treemap cells alternate two solid shades; a faded cell faded its white label to 3.8:1.
+        $tree = Blade::render('<x-site.treemap :rows="$rows" title="t" />', ['rows' => [['label' => 'D', 'url' => '#', 'total' => 2, 'cells' => [['label' => 'a', 'url' => '#', 'value' => 1], ['label' => 'b', 'url' => '#', 'value' => 1]]]]]);
+        $this->assertStringNotContainsString('opacity:', $tree);
+        $this->assertStringContainsString('bg-brand-blue', $tree);
     }
 
     public function test_the_page_renders_before_any_data_is_imported(): void
