@@ -370,6 +370,9 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- Accessibility on the AI risk pages: labels in the "who is harmed" grid and in the subdomain treemap on
+  `/ai-risk` fell below 4.5:1 contrast (2.3:1 to 3.8:1); the bubble chart on `/ai-attacks` was marked as an image
+  while holding links. Both pages now pass an automated WCAG 2 A/AA check.
 - AI attacks in charts: the first figure tile printed template source instead of the count, which also pushed the
   other tiles into one narrow column. When the daily incident sync stops delivering, the page now says how many
   days it has been, instead of "synced once a day".
