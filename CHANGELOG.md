@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- A short "Suggest a policy" form at the foot of /policies: policy name, jurisdiction, official source and
+  an optional 280-character note. Suggestions go to the same review queue as /contribute and are never
+  published until a reviewer has checked the official source.
+
 ### Security
 - Build tooling: a new advisory against `picomatch` (GHSA-fc5q-39xc-vjpf, high) has no fixed release. It is
   used only by the CSS and script build, on this repository's own file patterns, and is not part of the site.

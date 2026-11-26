@@ -76,6 +76,7 @@ $stateless = [StartSession::class, ShareErrorsFromSession::class, ValidateCsrfTo
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/policies', [PolicyController::class, 'index'])->name('policies.index');
+Route::post('/policies/suggest', [ContributeController::class, 'suggest'])->middleware('throttle:10,1')->name('policies.suggest');
 Route::get('/policies/{policy}.json', [PolicyController::class, 'json'])->withoutMiddleware($stateless)->name('policies.json');
 Route::get('/policies/{policy}.md', [AgentSurfaceController::class, 'policy'])->where('policy', '[a-z0-9-]+')->withoutMiddleware($stateless)->name('policies.context');
 Route::get('/policies/{policy}', [PolicyController::class, 'show'])->name('policies.show');
