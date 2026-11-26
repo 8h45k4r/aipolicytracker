@@ -1,7 +1,7 @@
 slug: oecd-ai-policy-toolkit
 aipt_id: AIPT-POL-0340
 jurisdiction: international
-title: OECD AI Policy Toolkit (OECD and GPAI, first release 2026)
+title: OECD AI Policy Toolkit (first release, 2026)
 short_title: OECD AI Policy Toolkit
 title_native: null
 instrument_type: guidance
@@ -15,7 +15,7 @@ is_binding: false
 ai_specific: true
 featured: false
 published: true
-issuing_body: Organisation for Economic Co-operation and Development (OECD), with the Global Partnership on AI (GPAI)
+issuing_body: Organisation for Economic Co-operation and Development (OECD), with the Global Partnership on AI
 summary_plain: >-
   An interactive online tool on OECD.AI that helps governments put the OECD AI Principles into practice. Policymakers
   answer a questionnaire to map their national AI policy landscape, set priorities and find examples of policies from
