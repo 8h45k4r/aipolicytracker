@@ -186,6 +186,7 @@ The text is built from `config/legal.php` and from the application's real schema
 | Value | Setting | Effect while unset |
 |---|---|---|
 | Address for data requests | `LEGAL_PRIVACY_EMAIL`, falling back to `CONTACT_EMAILS` | The page routes requests to the contribution form instead of a mailbox. |
+| Domain every printed address is on | `PUBLIC_EMAIL_DOMAIN` (default `aipolicytracker.org`; empty switches the rule off) | An address on another domain, from the environment or the admin Settings page, is dropped from every page; the project mailbox `info@` on that domain takes its place (`AppSettingsServiceProvider`). |
 | Governing law and venue | `LEGAL_GOVERNING_LAW` | The governing-law clause is omitted from the terms entirely. |
 
 Both are recorded as debt #29. Debt #28 records the related honesty problem the privacy page surfaced: `user_infos.ip_address` keeps the sign-up address in full while `resource_downloads` and `admin_audit_logs` both hash theirs. The page says so in plain words rather than glossing it.

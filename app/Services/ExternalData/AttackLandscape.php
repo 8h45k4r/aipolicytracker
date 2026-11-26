@@ -54,9 +54,6 @@ class AttackLandscape
     /** Harmed groups shown in the matrix of who is harmed by which kind of risk. */
     public const HARM_GROUPS = 8;
 
-    /** Days without a new record from the daily sync before the page says the sync has stalled. */
-    public const STALE_AFTER_DAYS = 3;
-
     /** Colour of each MIT risk domain, used by every chart on the page that shows domains. */
     public const DOMAIN_COLOURS = ['1' => '#A4366B', '2' => '#00738A', '3' => '#B45309', '4' => '#9B1C2E', '5' => '#5145CD', '6' => '#2F7D32', '7' => '#44546A'];
 
@@ -101,7 +98,7 @@ class AttackLandscape
     {
         $lens = self::lens($lens);
 
-        return ContentCache::remember('attack-landscape-v2.'.$lens.'.'.$this->version().'.'.now()->format('Ymd'), 3600, fn () => $this->compute($lens));
+        return ContentCache::remember('attack-landscape-v3.'.$lens.'.'.$this->version().'.'.now()->format('Ymd'), 3600, fn () => $this->compute($lens));
     }
 
     /** @return array<string, mixed> */
@@ -341,6 +338,7 @@ class AttackLandscape
 
         $growth = $prev12 ? (int) round(100 * ($last12 - $prev12) / $prev12) : null;
         $synced = ExternalIncident::max('synced_at');
+        $freshness = IncidentFreshness::current();
         $asOf = $synced ?: ($aiid['snapshot_date'] ?? null);
 
         return [
@@ -371,8 +369,10 @@ class AttackLandscape
             'fresh' => [
                 'as_of' => $asOf ? Carbon::parse($asOf)->toIso8601String() : null,
                 'live' => (bool) $synced,
-                // Whole days since the newest record arrived from the live sync.
-                'days' => $synced ? (int) Carbon::parse($synced)->startOfDay()->diffInDays(now()->startOfDay()) : null,
+                // When the data runs to, from the live sync or the weekly export, whichever is newer.
+                'days' => $freshness['days'],
+                'stale' => $freshness['stale'],
+                'runs_to' => $freshness['as_of']?->toDateString(),
                 'latest_incident' => $latest,
                 'snapshot' => $aiid['snapshot_date'] ?? null,
             ],

@@ -80,9 +80,9 @@ class AdminSettingsGroupsTest extends TestCase
         $this->assertNull(AppSetting::get('billing_enabled'));
 
         // Another group's invalid value does not block or fail this group's save.
-        $this->actingAs($owner)->post(route('backend.admin.settings.save'), ['group' => 'site', 'contact_email' => 'hello@example.org', 'mail_from_address' => 'not an address'])
+        $this->actingAs($owner)->post(route('backend.admin.settings.save'), ['group' => 'site', 'contact_email' => 'hello@aipolicytracker.org', 'mail_from_address' => 'not an address'])
             ->assertSessionHasNoErrors();
-        $this->assertSame('hello@example.org', AppSetting::get('contact_email'));
+        $this->assertSame('hello@aipolicytracker.org', AppSetting::get('contact_email'));
 
         $this->actingAs($owner)->post(route('backend.admin.settings.save'), ['group' => 'nonsense', 'contact_email' => 'x@example.org'])->assertStatus(422);
     }

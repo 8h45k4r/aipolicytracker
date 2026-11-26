@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ExternalIncident;
 use App\Models\Obligation;
 use App\Models\PolicyInstrument;
+use App\Services\ExternalData\IncidentFreshness;
 use App\Services\PolicyData\PolicyCatalog;
 use App\Support\ContentCache;
 use App\Support\DatasetCitation;
@@ -38,7 +39,7 @@ class HomeController extends Controller
         // catalogue's own figures; every job run flushes the cache sooner.
         $data = ContentCache::remember('home.data.v2', 300, fn () => [
             'latestIncidents' => ExternalIncident::standard()->orderByDesc('occurred_on')->orderByDesc('incident_id')->limit(4)->get(),
-            'incidentSnapshot' => ExternalIncident::max('synced_at') ?: ExternalIncident::max('snapshot_date'),
+            'incidentSnapshot' => IncidentFreshness::current()['as_of'],
             'options' => $catalog->filterOptions(),
             'changes' => $catalog->homeUpdates(6),
             'deadlines' => $catalog->upcomingDeadlines(5),
