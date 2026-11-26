@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Security
+- Symfony security releases: `symfony/http-kernel`, `symfony/routing` and `symfony/mailer` 7.4.24 (CVE-2026-133743,
+  CVE-2026-133746 and two others, and CVE-2026-133751 and CVE-2026-133755, published 25 November), with their
+  dependencies. The advisories failed the Security workflow on main, which every deploy needs green.
 - Build tooling: a new advisory against `picomatch` (GHSA-fc5q-39xc-vjpf, high) has no fixed release. It is
   used only by the CSS and script build, on this repository's own file patterns, and is not part of the site.
   The dependency audit now allows it by id, recorded as debt #60, until a fixed version is published. Without
