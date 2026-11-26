@@ -78,6 +78,7 @@ obligations:
     - { framework: nist_ai_rmf, reference: "MEASURE 2.11, MEASURE 1.3", note: "Fairness evaluation by independent assessors.", confidence_level: high }
     - { framework: iso_42001, reference: "Annex A.6.2.4; Clause 9.2", note: "Verification and validation; independent audit.", confidence_level: medium }
   controls:
+    - { control: independent-bias-audit, relationship: satisfies, note: "The independent annual audit of selection rates and impact ratios by protected category.", confidence_level: high }
     - { control: accuracy-robustness-security-testing, relationship: satisfies, note: "Disparate-impact testing performed by an independent auditor on the statutory metrics.", confidence_level: high }
     - { control: third-party-ai-due-diligence, relationship: supports, note: "Vendor supplies data and audit access for the tool.", confidence_level: medium }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
@@ -117,6 +118,7 @@ obligations:
     - { framework: iso_42001, reference: "Annex A.8.3, A.8.5", note: "External reporting and information for interested parties.", confidence_level: medium }
   controls:
     - { control: ai-interaction-and-use-disclosure, relationship: satisfies, note: "Public posting of audit results is a disclosure to candidates.", confidence_level: medium }
+    - { control: independent-bias-audit, relationship: supports, note: "The control includes publishing the audit summary where the law requires it.", confidence_level: high }
     - { control: accuracy-robustness-security-testing, relationship: supports, note: "Produces the results being summarised.", confidence_level: high }
   official_source_url: https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page
   review_status: verified
@@ -259,7 +261,9 @@ review_status: verified
 reviewed_by: Bhaskar Bhatt
 last_verified_at: '2026-09-26'
 confidence_level: high
-content_version: 1
+content_version: 2
 change_summary: >-
+  On 26 November 2026 the independent bias audit control was linked to two obligations (an editorial mapping; no sourced
+  fact changed).
   Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
   and scope against the source text.
