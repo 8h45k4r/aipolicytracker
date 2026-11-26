@@ -1,0 +1,85 @@
+slug: us-california-ab-621-sexually-explicit-deepfakes
+aipt_id: AIPT-POL-0268
+jurisdiction: us-california
+title: 'California AB 621: Sexually explicit deepfakes (Chapter 673, Statutes of 2025)'
+short_title: California sexually explicit deepfakes (AB 621)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Amends Civil Code section 1708.86, the civil action for sexually explicit digitised depictions made or shared
+  without consent. The action now covers people who were minors when the material was made and anyone who
+  knowingly facilitates or recklessly aids the conduct. A provider of services that enable a deepfake
+  pornography service is presumed to be facilitating it if it does not stop those services within 30 days of
+  receiving evidence. Statutory damages rise and certain public attorneys may sue.
+scope_summary: >-
+  Creators and distributors of non-consensual sexually explicit deepfakes, and service providers that enable
+  deepfake pornography services, in California.
+who_it_applies_to: >-
+  Deepfake creators and distributors, and providers of services to deepfake pornography sites or apps.
+key_dates_summary: Approved and chaptered 13 October 2025; amended section effective 1 January 2026.
+penalties_summary: >-
+  Statutory damages raised to USD 50,000, or USD 250,000 where the violation was malicious, as described in the
+  extracts; confirm against the text.
+what_organizations_must_do: >-
+  Providers of services that enable a deepfake pornography service must stop providing them within 30 days of
+  receiving evidence of a violation, or be presumed to facilitate it.
+adopted_on: '2025-10-13'
+published_on: null
+in_force_on: '2026-01-01'
+applies_from: null
+date_notes: >-
+  Chapter number, approval and chaptering on 13 October 2025 and the 1 January 2026 effective date come from
+  extracts of the official bill pages; confirm against them.
+actors:
+- provider
+- deployer
+- distributor
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+- content_moderation
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 621 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB621
+  document_date: '2025-10-13'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB621
+source_title: 'California Legislative Information: AB 621 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2025-10-13'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

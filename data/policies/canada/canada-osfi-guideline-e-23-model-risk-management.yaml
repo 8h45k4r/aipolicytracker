@@ -1,0 +1,85 @@
+slug: canada-osfi-guideline-e-23-model-risk-management
+aipt_id: AIPT-POL-0328
+jurisdiction: canada
+title: 'OSFI Guideline E-23: Model Risk Management (2027)'
+short_title: OSFI Guideline E-23 (model risk)
+title_native: null
+instrument_type: guidance
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. Final guideline
+  issued in September 2025; it takes effect on 1 May 2027.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: Office of the Superintendent of Financial Institutions (OSFI)
+summary_plain: >-
+  A principles-based prudential guideline setting OSFI's expectations for how federally regulated financial
+  institutions identify, manage and oversee the risks of the models they use. Its definition of a model is deliberately
+  broad and covers AI and machine-learning methods as well as traditional statistical and actuarial models. It does not
+  ban particular modelling approaches, and it adds expectations on explainability and on self-learning models.
+scope_summary: >-
+  Federally regulated financial institutions in Canada and all models they use, whatever the technology, across the
+  model lifecycle.
+who_it_applies_to: Federally regulated financial institutions supervised by OSFI.
+key_dates_summary: Final guideline dated 11 September 2025; effective 1 May 2027.
+what_organizations_must_do: >-
+  Institutions in scope are expected to manage model risk across the whole model lifecycle, set internal criteria for
+  when a self-learning model has materially changed, and apply OSFI Guideline B-10 principles to third-party models.
+adopted_on: null
+published_on: '2025-09-11'
+in_force_on: null
+applies_from: '2027-05-01'
+date_notes: >-
+  OSFI's guideline page and backgrounder give the 11 September 2025 date of the final guideline and the 1 May 2027
+  effective date. The user's list date (final September 2025, effective 1 May 2027) agrees.
+actors: [deployer, provider]
+ai_system_types: [predictive_scoring, automated_decision_system]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Guideline E-23 - Model Risk Management (2027)
+  publisher: Office of the Superintendent of Financial Institutions
+  url: https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/guideline-e-23-model-risk-management-2027
+  document_date: '2025-09-11'
+  document_type: guidance
+  tier: 1
+- title: 'Backgrounder: Guideline E-23 - Model Risk Management'
+  publisher: Office of the Superintendent of Financial Institutions
+  url: https://www.osfi-bsif.gc.ca/en/news/backgrounder-guideline-e-23-model-risk-management
+  document_date: null
+  document_type: press_release
+  tier: 2
+- title: Guideline E-23 - Model Risk Management (2027) - Letter
+  publisher: Office of the Superintendent of Financial Institutions
+  url: https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/guideline-e-23-model-risk-management-2027-letter
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/guideline-e-23-model-risk-management-2027
+source_title: Guideline E-23 - Model Risk Management (2027)
+source_publisher: Office of the Superintendent of Financial Institutions
+source_document_date: '2025-09-11'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

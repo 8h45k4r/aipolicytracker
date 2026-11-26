@@ -1,0 +1,104 @@
+slug: us-cfpb-circulars-2022-03-2023-03-adverse-action-complex-algorithms
+aipt_id: AIPT-POL-0251
+jurisdiction: us
+title: >-
+  CFPB Circulars 2022-03 and 2023-03: Adverse action notices for credit decisions based on complex algorithms
+  (withdrawn)
+short_title: CFPB circulars on adverse action and complex algorithms
+title_native: null
+instrument_type: guidance
+status: archived
+status_note: >-
+  Both circulars were withdrawn by the Consumer Financial Protection Bureau on 12 May 2025, in a Federal Register
+  notice that withdrew a large set of guidance documents and said the withdrawal was subject to further review. The
+  ECOA and Regulation B duties the circulars interpreted remain in force. Recorded on 26 November 2026 from
+  search-engine extracts of the official pages listed; the official text could not be opened from the research
+  environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Consumer Financial Protection Bureau
+summary_plain: >-
+  Two interpretive circulars from the US consumer finance regulator on how lenders explain credit refusals when they
+  rely on algorithmic or machine-learning models. Circular 2022-03 said that the duty to give specific, accurate
+  reasons for an adverse credit decision applies whatever technology is used, so a creditor cannot use a model it
+  cannot explain. Circular 2023-03 added that ticking the closest reason on the sample forms in Regulation B is not
+  enough when that reason is not what actually drove the decision. Both were withdrawn in May 2025.
+scope_summary: >-
+  Creditors subject to the Equal Credit Opportunity Act and Regulation B that take adverse action on applications or
+  existing accounts using complex or opaque models; the circulars addressed ECOA and Regulation B only, not the Fair
+  Credit Reporting Act.
+who_it_applies_to: Creditors using algorithmic credit models (guidance now withdrawn).
+key_dates_summary: >-
+  Circular 2022-03 dated 26 May 2022 (Federal Register 14 June 2022); Circular 2023-03 issued 19 September 2023
+  (Federal Register 17 April 2024); both withdrawn 12 May 2025.
+adopted_on: '2022-05-26'
+published_on: '2022-06-14'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  26 May 2022 is the date on the Circular 2022-03 PDF and 14 June 2022 its Federal Register publication (87 FR 35864).
+  Circular 2023-03 was published on the CFPB site with a press release on 19 September 2023 and in the Federal
+  Register on 17 April 2024 (89 FR 27361). The withdrawal date of 12 May 2025 comes from the Federal Register
+  withdrawal notice and the CFPB withdrawn-guidance page. All dates are from search extracts and pending review.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-equal-credit-opportunity-act-regulation-b]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Consumer Financial Protection Circular 2022-03: Adverse action notification requirements in connection with credit decisions based on complex algorithms'
+  publisher: Consumer Financial Protection Bureau
+  url: https://www.consumerfinance.gov/compliance/circulars/circular-2022-03-adverse-action-notification-requirements-in-connection-with-credit-decisions-based-on-complex-algorithms/
+  document_date: '2022-05-26'
+  document_type: guidance
+  tier: 2
+- title: 'Federal Register: Consumer Financial Protection Circular 2022-03'
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2022/06/14/2022-12729/consumer-financial-protection-circular-2022-03-adverse-action-notification-requirements-in
+  document_date: '2022-06-14'
+  document_type: guidance
+  tier: 2
+- title: 'Consumer Financial Protection Circular 2023-03: Adverse action notification requirements and the proper use of the CFPB sample forms provided in Regulation B'
+  publisher: Consumer Financial Protection Bureau
+  url: https://www.consumerfinance.gov/compliance/circulars/circular-2023-03-adverse-action-notification-requirements-and-the-proper-use-of-the-cfpbs-sample-forms-provided-in-regulation-b/
+  document_date: '2023-09-19'
+  document_type: guidance
+  tier: 2
+- title: 'Federal Register: Interpretive Rules, Policy Statements, and Advisory Opinions; Withdrawal'
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2025/05/12/2025-08286/interpretive-rules-policy-statements-and-advisory-opinions-withdrawal
+  document_date: '2025-05-12'
+  document_type: official
+  tier: 1
+- title: 'CFPB: Withdrawn guidance'
+  publisher: Consumer Financial Protection Bureau
+  url: https://www.consumerfinance.gov/compliance/guidance/withdrawn-guidance/
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.consumerfinance.gov/compliance/circulars/circular-2022-03-adverse-action-notification-requirements-in-connection-with-credit-decisions-based-on-complex-algorithms/
+source_title: 'Consumer Financial Protection Circular 2022-03: Adverse action notification requirements in connection with credit decisions based on complex algorithms'
+source_publisher: Consumer Financial Protection Bureau
+source_document_date: '2022-05-26'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

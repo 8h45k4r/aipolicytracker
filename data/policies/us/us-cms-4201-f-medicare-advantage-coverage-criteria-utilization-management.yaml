@@ -1,0 +1,111 @@
+slug: us-cms-4201-f-medicare-advantage-coverage-criteria-utilization-management
+aipt_id: AIPT-POL-0246
+jurisdiction: us
+title: >-
+  CMS-4201-F: Contract Year 2024 Medicare Advantage final rule, coverage criteria and utilization management
+  (42 CFR 422.101(b)(6) and 422.137)
+short_title: Medicare Advantage coverage criteria and UM rule (CMS-4201-F)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The rule is general
+  Medicare Advantage regulation; its link to AI comes from the CMS FAQ memo of 6 February 2024, which explains how the
+  coverage rules apply when plans use algorithms or AI. A later rule (April 2024) added health equity requirements to
+  section 422.137 and a subsequent CMS rulemaking proposed removing them; the current text of 422.137 should be checked
+  on eCFR.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Centers for Medicare & Medicaid Services
+summary_plain: >-
+  This final rule tightens how Medicare Advantage plans decide whether care is medically necessary and how they run
+  prior authorisation and other utilisation management. Plans must base medical necessity decisions on the coverage
+  criteria in 42 CFR 422.101(b) and (c) and the Medicare reasonable-and-necessary standard, and must have a utilisation
+  management committee review their policies every year. CMS guidance of February 2024 says plans may use algorithms or
+  AI to help, but remain responsible for compliance, and may not rely on a tool that decides on wider data sets rather
+  than the individual patient's circumstances.
+scope_summary: >-
+  Medicare Advantage organisations making coverage and medical necessity determinations for basic and supplemental
+  benefits, including through prior authorisation and other utilisation management tools.
+who_it_applies_to: Medicare Advantage organisations and the plans they offer.
+key_dates_summary: >-
+  Published 12 April 2023; effective 5 June 2023; applicable to coverage beginning 1 January 2024. CMS FAQ memo on the
+  coverage and UM provisions issued 6 February 2024.
+penalties_summary: null
+what_organizations_must_do: >-
+  Organisations in scope must make medical necessity determinations on the permitted coverage criteria and the
+  individual enrollee's circumstances; publish any internal coverage criteria; set up a utilisation management
+  committee led by the plan's medical director that reviews and approves all UM policies at least once a year (no UM
+  policy may be used from 1 January 2024 without that approval); and, per the CMS FAQ, ensure that any algorithm or
+  AI tool follows these rules, is checked for bias before use, and is not the sole basis for ending post-acute care or
+  denying or downgrading an inpatient admission.
+adopted_on: null
+published_on: '2023-04-12'
+in_force_on: '2023-06-05'
+applies_from: '2024-01-01'
+date_notes: >-
+  Publication (12 April 2023, 88 FR 22120), effective date (5 June 2023) and applicability to coverage from 1 January 2024
+  are taken from extracts of the Federal Register document; some provisions (marketing and communications) applied from
+  30 September 2023. CMS announced the rule on 5 April 2023 according to a CMS memo extract; the signature date was not
+  established. The FAQ memo is dated 6 February 2024.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [healthcare]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Federal Register: Medicare Program; Contract Year 2024 Policy and Technical Changes to the Medicare Advantage Program
+    (2023-07115)
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2023/04/12/2023-07115/medicare-program-contract-year-2024-policy-and-technical-changes-to-the-medicare-advantage-program
+  document_date: '2023-04-12'
+  document_type: legislation
+  tier: 1
+- title: 'CMS HPMS memo: Frequently asked questions on coverage criteria and utilization management requirements (CMS-4201-F)'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://www.cms.gov/files/document/hpms-memo-faq-coverage-criteria-and-utilization-management-020604pdf.pdf
+  document_date: '2024-02-06'
+  document_type: guidance
+  tier: 2
+- title: 'eCFR: 42 CFR 422.101, Requirements relating to basic benefits'
+  publisher: Office of the Federal Register
+  url: https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-C/section-422.101
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'CMS fact sheet: 2024 Medicare Advantage and Part D Final Rule (CMS-4201-F)'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://www.cms.gov/newsroom/fact-sheets/2024-medicare-advantage-and-part-d-final-rule-cms-4201-f
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.federalregister.gov/documents/2023/04/12/2023-07115/medicare-program-contract-year-2024-policy-and-technical-changes-to-the-medicare-advantage-program
+source_title: >-
+  Federal Register: Medicare Program; Contract Year 2024 Policy and Technical Changes to the Medicare Advantage Program
+  (2023-07115)
+source_publisher: Office of the Federal Register
+source_document_date: '2023-04-12'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

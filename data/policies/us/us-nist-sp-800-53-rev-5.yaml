@@ -1,0 +1,86 @@
+slug: us-nist-sp-800-53-rev-5
+aipt_id: AIPT-POL-0261
+jurisdiction: us
+title: 'NIST SP 800-53 Rev. 5: Security and Privacy Controls for Information Systems and Organizations'
+short_title: NIST SP 800-53 Rev. 5
+title_native: null
+instrument_type: standard
+status: voluntary_standard
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. A general security
+  and privacy control catalogue, not AI-specific. Recorded as voluntary for private organisations; whether and how it
+  is made mandatory for federal information systems through other instruments was not established from the extracts
+  and is for review. NIST has issued later releases of the catalogue, most recently release 5.2.0 in August 2025.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: National Institute of Standards and Technology (NIST), U.S. Department of Commerce
+summary_plain: >-
+  SP 800-53 Revision 5 is NIST's catalogue of security and privacy controls for information systems and the
+  organisations that run them. Revision 5 merged security and privacy controls into one catalogue, added a supply chain
+  risk management control family and wrote controls as outcomes rather than tying them to a system or organisation.
+  The baselines for choosing controls moved to the companion publication SP 800-53B. It is general guidance that also
+  applies to systems that use AI.
+scope_summary: >-
+  Federal information systems and the organisations that operate them, and any other organisation that adopts the
+  catalogue to protect information systems, including those that develop or run AI.
+who_it_applies_to: Federal agencies and their contractors; other organisations voluntarily.
+key_dates_summary: Revision 5 published 23 September 2020; release 5.2.0 issued 27 August 2025.
+adopted_on: null
+published_on: '2020-09-23'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 23 September 2020 publication of Revision 5 comes from a NIST CSRC news extract; the publication history also
+  lists an update dated 10 December 2020. Release 5.2.0 on 27 August 2025, focused on software development, deployment,
+  updates and integrity, comes from a later NIST news extract. No in-force date applies to a NIST publication.
+actors: [public_authority, provider, deployer]
+ai_system_types: []
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: [us-nist-ai-rmf]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NIST CSRC: SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations'
+  publisher: National Institute of Standards and Technology
+  url: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+  document_date: '2020-09-23'
+  document_type: standard
+  tier: 1
+- title: 'NIST CSRC: SP 800-53 Revision 5 Published'
+  publisher: National Institute of Standards and Technology
+  url: https://csrc.nist.gov/news/2020/sp-800-53-revision-5-published
+  document_date: '2020-09-23'
+  document_type: official
+  tier: 1
+- title: 'NIST CSRC: NIST Releases Revision to SP 800-53 Controls'
+  publisher: National Institute of Standards and Technology
+  url: https://csrc.nist.gov/News/2025/nist-releases-revision-to-sp-800-53-controls
+  document_date: '2025-08-27'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+source_title: 'NIST CSRC: SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations'
+source_publisher: National Institute of Standards and Technology
+source_document_date: '2020-09-23'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

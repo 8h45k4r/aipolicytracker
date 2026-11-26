@@ -1,0 +1,90 @@
+slug: us-omb-m-26-04-unbiased-ai-principles
+aipt_id: AIPT-POL-0257
+jurisdiction: us
+title: 'OMB Memorandum M-26-04: Increasing Public Trust in Artificial Intelligence Through Unbiased AI Principles'
+short_title: OMB M-26-04 (Unbiased AI Principles)
+title_native: null
+instrument_type: procurement_rule
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The memo implements
+  Executive Order 14319 (Preventing Woke AI in the Federal Government, 23 July 2025) and, per the extracts, ceases to
+  have effect two years after issue unless the OMB Director provides otherwise.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Office of Management and Budget, Executive Office of the President
+summary_plain: >-
+  M-26-04 turns the two Unbiased AI Principles of Executive Order 14319, truth-seeking and ideological neutrality, into
+  procurement requirements for large language models bought by federal agencies. Agencies must put compliance terms in
+  their LLM contracts, collect enough information from vendors to judge whether a model meets the principles, and give
+  agency users a way to report outputs that appear to breach them. The memo treats these requirements as material to
+  contract eligibility and payment.
+scope_summary: >-
+  Federal agencies procuring large language models, whatever the later deployment or modification, and the vendors that
+  supply them. Agencies weigh listed factors before applying the principles to models built in-house or to AI that is
+  not an LLM.
+who_it_applies_to: Federal agencies buying large language models, and LLM vendors to the federal government.
+key_dates_summary: Issued 11 December 2025; agency procurement policies to be updated by 11 March 2026; lapses two years after issue.
+what_organizations_must_do: >-
+  Agencies must update procurement policies so that LLM contracts address compliance with the principles and include a
+  process for users to report non-compliant outputs. Vendors should be ready to supply the information agencies ask for
+  to assess compliance.
+adopted_on: '2025-12-11'
+published_on: '2025-12-11'
+in_force_on: '2025-12-11'
+applies_from: null
+date_notes: >-
+  Issue date of 11 December 2025 and the 11 March 2026 deadline for agencies to revise procurement policies appear in
+  extracts of the official PDF. The memo states it lapses two years after issue (11 December 2027 by calculation) unless
+  extended; that end date is derived, not quoted. in_force_on is taken as the issue date and is pending review.
+actors: [public_authority, provider]
+ai_system_types: [generative_ai]
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [government_procurement, generative_ai]
+related_policies: [us-omb-m-25-22-acquisition-of-ai, us-omb-m-25-21]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'OMB Memorandum M-26-04: Increasing Public Trust in Artificial Intelligence Through Unbiased AI Principles'
+  publisher: Office of Management and Budget
+  url: https://www.whitehouse.gov/wp-content/uploads/2025/12/M-26-04-Increasing-Public-Trust-in-Artificial-Intelligence-Through-Unbiased-AI-Principles-1.pdf
+  document_date: '2025-12-11'
+  document_type: guidance
+  tier: 1
+- title: 'Executive Order 14319: Preventing Woke AI in the Federal Government'
+  publisher: The White House
+  url: https://www.whitehouse.gov/presidential-actions/2025/07/preventing-woke-ai-in-the-federal-government/
+  document_date: '2025-07-23'
+  document_type: legislation
+  tier: 1
+- title: 'Department of Energy: PF 2026-45, Implementation of OMB Memo M-26-04'
+  publisher: U.S. Department of Energy
+  url: https://www.energy.gov/management/pf-2026-45-implementation-omb-memo-m-26-04-increasing-public-trust-artificial
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.whitehouse.gov/wp-content/uploads/2025/12/M-26-04-Increasing-Public-Trust-in-Artificial-Intelligence-Through-Unbiased-AI-Principles-1.pdf
+source_title: 'OMB Memorandum M-26-04: Increasing Public Trust in Artificial Intelligence Through Unbiased AI Principles'
+source_publisher: Office of Management and Budget
+source_document_date: '2025-12-11'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

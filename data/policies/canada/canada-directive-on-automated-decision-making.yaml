@@ -1,0 +1,91 @@
+slug: canada-directive-on-automated-decision-making
+aipt_id: AIPT-POL-0327
+jurisdiction: canada
+title: Treasury Board Directive on Automated Decision-Making
+short_title: Directive on Automated Decision-Making
+title_native: null
+instrument_type: directive
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The current version
+  carries a modification date of 24 June 2025 and replaces the 2021 and 2023 versions, which TBS keeps as archived pages.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Treasury Board of Canada Secretariat
+summary_plain: >-
+  A Government of Canada policy instrument that sets rules for federal institutions that use automated decision
+  systems to make, or help make, administrative decisions about clients. Institutions in scope must assess the impact of
+  each system and meet the safeguards that match its impact level before and while it is in production. Systems used
+  only for research or kept in test environments are excluded.
+scope_summary: >-
+  Federal institutions covered by Treasury Board policy that use automated decision systems in production to make or
+  support administrative decisions or related assessments about clients.
+who_it_applies_to: Federal government departments and other institutions subject to the directive, including agents of Parliament.
+key_dates_summary: >-
+  Took effect 1 April 2019 (compliance by 1 April 2020); amended version dated 24 June 2025; systems developed or
+  procured before 24 June 2025 have until 24 June 2026 to meet the new or updated requirements.
+what_organizations_must_do: >-
+  Institutions in scope must assess each automated decision system before production and apply the requirements that
+  match its impact level. A system already in place that is modified in a way that could affect the decision is treated
+  as a new system and must comply.
+adopted_on: null
+published_on: '2025-06-24'
+in_force_on: '2019-04-01'
+applies_from: '2020-04-01'
+date_notes: >-
+  The official directive text states it took effect on 1 April 2019, with compliance required by 1 April 2020, and that
+  systems developed or procured before 24 June 2025 have until 24 June 2026 to meet new or updated requirements. The
+  24 June 2025 date is the modification date of the current version. Official pages differ on whether the 2025 changes
+  followed the third or the fourth review of the directive, and the 2019 and 2020 dates appeared in extracts that may come
+  from an archived version; both points are pending review against the current text.
+actors: [public_authority, deployer]
+ai_system_types: [automated_decision_system]
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [public_services]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Directive on Automated Decision-Making
+  publisher: Treasury Board of Canada Secretariat
+  url: https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592
+  document_date: '2025-06-24'
+  document_type: legislation
+  tier: 1
+- title: Guide on the Scope of the Directive on Automated Decision-Making
+  publisher: Government of Canada
+  url: https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-scope-directive-automated-decision-making.html
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: Progress on AI in government
+  publisher: Government of Canada
+  url: https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/progress.html
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592
+source_title: Directive on Automated Decision-Making
+source_publisher: Treasury Board of Canada Secretariat
+source_document_date: '2025-06-24'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,80 @@
+slug: us-texas-sb-1188-electronic-health-records-ai-diagnosis
+aipt_id: AIPT-POL-0300
+jurisdiction: us-texas
+title: 'Texas SB 1188: Electronic health record requirements, including AI used for diagnosis (89th Legislature, 2025)'
+short_title: Texas electronic health records and AI diagnosis (SB 1188)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Texas Legislature
+summary_plain: >-
+  A general law on electronic health records that also deals with artificial intelligence. It requires records holding
+  patient information to be kept physically in the United States, limits what may be collected in them and adds a
+  biological sex field. Health care practitioners may use AI for diagnostic purposes, such as suggesting a diagnosis
+  or course of treatment from a patient's record, if they are licensed for that care and the use is otherwise lawful,
+  and they must tell their patients that they use it.
+scope_summary: >-
+  Health care practitioners and other covered entities in Texas that maintain electronic health records, including
+  practitioners who use AI for diagnosis.
+who_it_applies_to: Texas health care practitioners and covered entities holding electronic health records.
+key_dates_summary: Signed by the Governor on 20 June 2025; effective 1 September 2025.
+what_organizations_must_do: >-
+  Practitioners who use AI for diagnostic purposes must act within the scope of their licence and other law and must
+  disclose that use to their patients; whether AI-created records must also be reviewed is described differently in
+  the extracts and needs checking against the enrolled text.
+adopted_on: '2025-06-20'
+published_on: null
+in_force_on: '2025-09-01'
+applies_from: null
+date_notes: >-
+  Signing date and effective date are from the Texas Legislature Online bill history. Any later or phased dates for
+  individual sections were not checked. The bill also authorises a civil penalty.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [healthcare]
+risk_categories: [transparency_risk]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Texas Legislature Online: 89(R) history for SB 1188'
+  publisher: Texas Legislature
+  url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=SB1188
+  document_date: '2025-06-20'
+  document_type: legislation
+  tier: 1
+- title: 'Texas Legislature Online: 89(R) SB 1188 enrolled version'
+  publisher: Texas Legislature
+  url: https://capitol.texas.gov/tlodocs/89R/billtext/html/SB01188F.htm
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=SB1188
+source_title: 'Texas Legislature Online: 89(R) history for SB 1188'
+source_publisher: Texas Legislature
+source_document_date: '2025-06-20'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

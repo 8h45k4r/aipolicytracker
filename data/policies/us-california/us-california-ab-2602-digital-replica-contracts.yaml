@@ -1,0 +1,91 @@
+slug: us-california-ab-2602-digital-replica-contracts
+aipt_id: AIPT-POL-0263
+jurisdiction: us-california
+title: 'California AB 2602: Digital replica provisions in personal services contracts (Chapter 259, Statutes of 2024)'
+short_title: California digital replica contracts (AB 2602)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Adds Labor Code section 927. For new performances fixed on or after 1 January 2025, a contract term that lets
+  a digital replica of a person's voice or likeness be created or used in place of work the person would
+  otherwise perform is unenforceable where it lacks a reasonably specific description of the intended uses and
+  the person was not represented by legal counsel or a labour union in negotiating it. The rest of the contract
+  stays in effect.
+scope_summary: >-
+  Contracts for personal or professional services, including performer and voice contracts, that allow digital
+  replicas of the individual to be made or used.
+who_it_applies_to: >-
+  Studios, producers, employers and others contracting for personal or professional services involving digital
+  replicas.
+key_dates_summary: >-
+  Approved and chaptered 17 September 2024; effective 1 January 2025 for new performances fixed on or after that
+  date.
+what_organizations_must_do: >-
+  Organisations contracting for services must describe the intended uses of any digital replica with reasonable
+  specificity and ensure the individual is represented by counsel or a labour union, or the digital replica term
+  may be unenforceable.
+adopted_on: '2024-09-17'
+published_on: null
+in_force_on: '2025-01-01'
+applies_from: '2025-01-01'
+date_notes: >-
+  Chapter number, approval and chaptering on 17 September 2024 and the 1 January 2025 effective date come from
+  extracts of the official bill page and Labor Code section 927; confirm against them.
+actors:
+- deployer
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+- employment
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 2602 (2023-2024) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB2602
+  document_date: '2024-09-17'
+  document_type: legislation
+  tier: 1
+- title: 'Governor Newsom signs bills to protect digital likeness of performers'
+  publisher: Office of the Governor of California
+  url: https://www.gov.ca.gov/2024/09/17/governor-newsom-signs-bills-to-protect-digital-likeness-of-performers/
+  document_date: '2024-09-17'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB2602
+source_title: 'California Legislative Information: AB 2602 (2023-2024) status'
+source_publisher: California Legislative Information
+source_document_date: '2024-09-17'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

@@ -1,0 +1,74 @@
+slug: us-texas-tdi-bulletin-b-0003-26-use-of-ai
+aipt_id: AIPT-POL-0299
+jurisdiction: us-texas
+title: 'Texas Department of Insurance Commissioner''s Bulletin B-0003-26: Use of artificial intelligence'
+short_title: Texas insurance regulator AI bulletin (B-0003-26)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Texas Department of Insurance
+summary_plain: >-
+  Sets out what the Texas Department of Insurance expects of every entity it regulates that develops, buys or uses
+  artificial intelligence. Decisions supported by AI must meet the same legal standards as any other decision, so they
+  must not be inaccurate, arbitrary, capricious or unfairly discriminatory under unfair trade practice law. The
+  department expects a person to review and agree with consequential AI decisions before action is taken, encourages
+  testing for errors and bias, and points to the insurance commissioners' 2020 AI principles as a guide.
+scope_summary: >-
+  All entities regulated by the Texas Department of Insurance, and third parties working with them, that develop,
+  acquire or use AI.
+who_it_applies_to: Insurers and other TDI-regulated entities, and their third-party AI suppliers.
+key_dates_summary: Issued on 12 June 2026; the bulletin page shows a later update on 16 July 2026.
+what_organizations_must_do: >-
+  The department expects organisations in scope to govern their AI use so that decisions comply with existing
+  insurance law, to have a person review and agree with consequential AI decisions before acting on them, and to test
+  AI for errors and bias.
+adopted_on: null
+published_on: '2026-06-12'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Issue date 12 June 2026 is from the bulletin page and the 2026 bulletin index; the page also shows a last-updated
+  date of 16 July 2026, whose content change was not identified. The bulletin restates existing law; it is not a rule.
+actors: [deployer, provider]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Texas Department of Insurance: Commissioner''s Bulletin B-0003-26, Use of artificial intelligence'
+  publisher: Texas Department of Insurance
+  url: https://www.tdi.texas.gov/bulletins/2026/b-0003-26.html
+  document_date: '2026-06-12'
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.tdi.texas.gov/bulletins/2026/b-0003-26.html
+source_title: 'Texas Department of Insurance: Commissioner''s Bulletin B-0003-26, Use of artificial intelligence'
+source_publisher: Texas Department of Insurance
+source_document_date: '2026-06-12'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

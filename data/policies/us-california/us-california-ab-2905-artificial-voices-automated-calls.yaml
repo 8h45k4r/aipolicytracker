@@ -1,0 +1,80 @@
+slug: us-california-ab-2905-artificial-voices-automated-calls
+aipt_id: AIPT-POL-0265
+jurisdiction: us-california
+title: 'California AB 2905: Artificial voice disclosure in automatic dialing calls (Chapter 316, Statutes of 2024)'
+short_title: California artificial voices in robocalls (AB 2905)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Amends Public Utilities Code section 2874, which governs calls placed with automatic dialing-announcing
+  devices. The live, unrecorded announcement that must come before a prerecorded message must now also tell the
+  person called when the message uses an artificial voice, meaning a voice generated or significantly altered
+  using artificial intelligence.
+scope_summary: >-
+  Callers in California that use automatic dialing-announcing devices to deliver prerecorded messages made with
+  an artificial voice.
+who_it_applies_to: >-
+  Organisations placing automated prerecorded calls that use AI-generated or AI-altered voices.
+key_dates_summary: Approved 20 September 2024; effective 1 January 2025.
+what_organizations_must_do: >-
+  Callers using automatic dialing-announcing devices must say in the opening live announcement that the
+  prerecorded message uses an artificial voice where it does.
+adopted_on: '2024-09-20'
+published_on: null
+in_force_on: '2025-01-01'
+applies_from: null
+date_notes: >-
+  Chapter number, approval on 20 September 2024 and the 1 January 2025 effective date come from extracts of the
+  official bill pages; confirm against them.
+actors:
+- deployer
+ai_system_types:
+- generative_ai
+sectors:
+- telecommunications
+- consumer_retail
+risk_categories:
+- transparency_risk
+use_cases:
+- customer_service
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 2905 (2023-2024) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB2905
+  document_date: '2024-09-20'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB2905
+source_title: 'California Legislative Information: AB 2905 (2023-2024) status'
+source_publisher: California Legislative Information
+source_document_date: '2024-09-20'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

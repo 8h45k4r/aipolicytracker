@@ -1,0 +1,87 @@
+slug: singapore-ai-verify-testing-framework
+aipt_id: AIPT-POL-0339
+jurisdiction: singapore
+title: AI Verify Testing Framework and Toolkit (IMDA, PDPC and AI Verify Foundation)
+short_title: AI Verify testing framework
+title_native: null
+instrument_type: framework
+status: voluntary_standard
+status_note: >-
+  Launched in May 2022 as a minimum viable product for pilot use, open-sourced in June 2023, and updated on 29 May 2025 to
+  cover generative AI. Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official
+  text could not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Infocomm Media Development Authority and Personal Data Protection Commission; AI Verify Foundation
+summary_plain: >-
+  A voluntary framework and open-source toolkit that organisations can use to test their AI systems against 11 AI
+  governance principles, including transparency, explainability, robustness, safety, security and fairness, through
+  technical tests and process checks. It does not set ethical standards or certify that a system is free of risk; it helps
+  an organisation show, in a verifiable way, that its claims about its own system hold. The 2025 update extended it to
+  generative AI, with a published mapping to the US NIST Generative AI Profile.
+scope_summary: >-
+  Developers and owners of AI systems, in Singapore or elsewhere, that choose to self-assess traditional or generative AI
+  systems.
+who_it_applies_to: Organisations that develop or deploy AI systems and opt to test them; no legal obligation.
+key_dates_summary: Launched 25 May 2022; open-sourced June 2023; generative AI update released 29 May 2025.
+adopted_on: null
+published_on: '2022-05-25'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  25 May 2022 is the date of the IMDA launch release. The June 2023 open-sourcing is known to the month only. The
+  29 May 2025 update date comes from the AI Verify Foundation description of the framework; the date of its separate press
+  release was not confirmed. No version number for the current framework was established.
+actors: [provider, deployer]
+ai_system_types: [generative_ai, automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies:
+- singapore-model-ai-governance-framework
+- singapore-ai-tester-accreditation-programme
+- singapore-starter-kit-testing-llm-based-applications
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: What is AI Verify Testing Framework
+  publisher: AI Verify Foundation
+  url: https://aiverifyfoundation.sg/what-is-ai-verify/
+  document_date: null
+  document_type: official
+  tier: 1
+- title: Singapore launches world's first AI testing framework and toolkit to promote transparency
+  publisher: Infocomm Media Development Authority
+  url: https://www.imda.gov.sg/resources/press-releases-and-factsheets/press-releases/2022/singapore-launches-worlds-first-ai-testing-framework-and-toolkit-to-promote-transparency-invites-companies-to-pilot-and-contribute-to-international-standards-development
+  document_date: '2022-05-25'
+  document_type: press_release
+  tier: 1
+- title: 'Press release: Enhanced AI Verify Testing Framework and Crosswalk with US NIST'
+  publisher: AI Verify Foundation
+  url: https://aiverifyfoundation.sg/news/press-release-enhanced-ai-verify-testing-framework-and-crosswalk-with-us-nist/
+  document_date: null
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://aiverifyfoundation.sg/what-is-ai-verify/
+source_title: What is AI Verify Testing Framework
+source_publisher: AI Verify Foundation
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

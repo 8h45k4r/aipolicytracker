@@ -1,0 +1,87 @@
+slug: us-texas-sb-815-ai-utilization-review
+aipt_id: AIPT-POL-0301
+jurisdiction: us-texas
+title: 'Texas SB 815: Automated decision systems in utilization review (89th Legislature, 2025)'
+short_title: Texas AI in utilization review (SB 815)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Texas Legislature
+summary_plain: >-
+  Stops utilization review agents in Texas from using an automated decision system, including artificial
+  intelligence, to make an adverse determination about health care in whole or in part. The Insurance Commissioner may
+  audit and inspect how agents use these systems at any time. Algorithms and AI used for administrative support or for
+  fraud detection are outside the ban.
+scope_summary: >-
+  Utilization review agents reviewing care under health benefit plans delivered, issued or renewed in Texas on or
+  after 1 January 2026.
+who_it_applies_to: Utilization review agents and the health benefit plans that use them in Texas.
+key_dates_summary: >-
+  Signed on 20 June 2025; effective 1 September 2025; applies to plans delivered, issued or renewed on or after
+  1 January 2026.
+what_organizations_must_do: >-
+  Organisations in scope must not use an automated decision system to make, wholly or partly, an adverse
+  determination in utilization review, and must make their use of such systems available for audit and inspection by
+  the Insurance Commissioner.
+adopted_on: '2025-06-20'
+published_on: null
+in_force_on: '2025-09-01'
+applies_from: '2026-01-01'
+date_notes: >-
+  Signing and effective dates are from the Texas Legislature Online bill history; the 1 January 2026 applicability
+  date is from the enrolled text. The Department of Insurance's bulletin B-0012-25 says it will adopt rules.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [healthcare, financial_services]
+risk_categories: [prohibited]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Texas Legislature Online: 89(R) history for SB 815'
+  publisher: Texas Legislature
+  url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=SB815
+  document_date: '2025-06-20'
+  document_type: legislation
+  tier: 1
+- title: 'Texas Legislature Online: 89(R) SB 815 enrolled version'
+  publisher: Texas Legislature
+  url: https://capitol.texas.gov/tlodocs/89R/billtext/html/SB00815F.htm
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Texas Department of Insurance: Commissioner''s Bulletin B-0012-25'
+  publisher: Texas Department of Insurance
+  url: https://www.tdi.texas.gov/bulletins/2025/b-0012-25.html
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=SB815
+source_title: 'Texas Legislature Online: 89(R) history for SB 815'
+source_publisher: Texas Legislature
+source_document_date: '2025-06-20'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

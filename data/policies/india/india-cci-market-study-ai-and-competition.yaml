@@ -1,0 +1,76 @@
+slug: india-cci-market-study-ai-and-competition
+aipt_id: AIPT-POL-0329
+jurisdiction: india
+title: 'Competition Commission of India: Market Study on Artificial Intelligence and Competition (2025)'
+short_title: CCI market study on AI and competition
+title_native: null
+instrument_type: policy
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. This is a market study
+  report with recommendations; it does not itself create legal duties.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Competition Commission of India
+summary_plain: >-
+  A market study by India's competition regulator, carried out through the Management Development Institute Society,
+  that maps AI markets and their supply chain and identifies competition concerns. These include concentration in the AI
+  value chain, ecosystem lock-in, collusion risks from pricing algorithms, self-preferencing and AI-enabled price
+  discrimination. It recommends that businesses self-audit their AI systems for competition compliance.
+scope_summary: >-
+  AI markets and ecosystems in India, and businesses that develop or use AI systems, including pricing algorithms, in
+  ways that may affect competition.
+who_it_applies_to: Businesses developing or deploying AI in India, and the Competition Commission itself.
+key_dates_summary: Report released 6 October 2025; the study was launched with a request for proposals in April 2024.
+adopted_on: null
+published_on: '2025-10-06'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 6 October 2025 release date is the date of the official press release announcing the report. The April 2024 launch
+  is taken from the Commission's request for proposals and press release.
+actors: [provider, deployer]
+ai_system_types: [general_purpose_ai_model, recommender_system]
+sectors: [cross_sector, consumer_retail]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Competition Commission of India releases Market Study Report on Artificial Intelligence and Competition
+  publisher: Press Information Bureau, Government of India
+  url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2175607
+  document_date: '2025-10-06'
+  document_type: press_release
+  tier: 2
+- title: Request for Proposal to undertake a Market Study on Artificial Intelligence and Competition
+  publisher: Competition Commission of India
+  url: https://www.cci.gov.in/images/whatsnew/en/tendernotice-1-11713759672.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2175607
+source_title: Competition Commission of India releases Market Study Report on Artificial Intelligence and Competition
+source_publisher: Press Information Bureau, Government of India
+source_document_date: '2025-10-06'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

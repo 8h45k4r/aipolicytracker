@@ -1,0 +1,85 @@
+slug: us-colorado-sb-21-169-insurers-external-consumer-data
+aipt_id: AIPT-POL-0287
+jurisdiction: us-colorado
+title: "Colorado SB 21-169: Restrict insurers' use of external consumer data (Chapter 436, Session Laws of 2021)"
+short_title: Colorado insurers' external consumer data law (SB 21-169)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Colorado General Assembly
+summary_plain: >-
+  Insurers in Colorado may not unfairly discriminate on grounds such as race, colour, national or ethnic origin, religion,
+  sex, sexual orientation, disability, gender identity or gender expression in any insurance practice, including through
+  external consumer data and information sources, algorithms or predictive models. The Commissioner of Insurance writes
+  rules for each type of insurance after a stakeholder process, and those rules could not take effect before 1 January
+  2023. The Division of Insurance implements it through regulations such as Regulation 10-1-1.
+scope_summary: >-
+  Insurers doing business in Colorado and their use of external consumer data, algorithms and predictive models in any
+  insurance practice.
+who_it_applies_to: Insurers doing business in Colorado, by line of insurance as set out in the Commissioner's rules.
+key_dates_summary: Signed 6 July 2021; effective 7 September 2021; implementing rules no earlier than 1 January 2023.
+what_organizations_must_do: >-
+  Avoid unfair discrimination on protected grounds in insurance practices, including through data, algorithms and
+  models, and comply with the Commissioner's implementing rules for their line of business.
+adopted_on: '2021-07-06'
+published_on: null
+in_force_on: '2021-09-07'
+applies_from: null
+date_notes: >-
+  Signing date, effective date and chapter number from the General Assembly's bill page. The act adds section 10-3-1104.9
+  to the Colorado Revised Statutes; confirm current subsection numbering against the official statutes.
+actors: [deployer]
+ai_system_types: [predictive_scoring, automated_decision_system]
+sectors: [financial_services, healthcare]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-colorado-3-ccr-702-10-insurer-ecdis-governance]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: "Colorado General Assembly: SB21-169 Restrict Insurers' Use Of External Consumer Data"
+  publisher: Colorado General Assembly
+  url: https://leg.colorado.gov/bills/sb21-169
+  document_date: '2021-07-06'
+  document_type: legislation
+  tier: 1
+- title: 'Colorado General Assembly: Senate Bill 21-169, signed act'
+  publisher: Colorado General Assembly
+  url: https://leg.colorado.gov/bill_files/54604/download
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Colorado Division of Insurance: SB21-169, protecting consumers from unfair discrimination in insurance practices'
+  publisher: Colorado Division of Insurance
+  url: https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://leg.colorado.gov/bills/sb21-169
+source_title: "Colorado General Assembly: SB21-169 Restrict Insurers' Use Of External Consumer Data"
+source_publisher: Colorado General Assembly
+source_document_date: '2021-07-06'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

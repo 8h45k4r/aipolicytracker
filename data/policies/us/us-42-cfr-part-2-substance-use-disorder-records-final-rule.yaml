@@ -1,0 +1,98 @@
+slug: us-42-cfr-part-2-substance-use-disorder-records-final-rule
+aipt_id: AIPT-POL-0245
+jurisdiction: us
+title: 'Confidentiality of Substance Use Disorder (SUD) Patient Records: 42 CFR Part 2 final rule (2024)'
+short_title: 42 CFR Part 2 final rule (SUD records)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The rule took effect
+  in April 2024 and the general compliance date of 16 February 2026 has passed. HHS said the compliance date for the
+  accounting-of-disclosures right will be set when the matching HIPAA provision is revised. This is a general
+  confidentiality rule for health records; no provision specific to AI was found in the extracts reviewed, so no AI
+  duty is recorded here.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: U.S. Department of Health and Human Services
+summary_plain: >-
+  The 2024 final rule revises the federal confidentiality rules for records of substance use disorder treatment
+  (42 CFR Part 2) to bring them closer to HIPAA. Patients can give one consent covering
+  future uses and disclosures for treatment, payment and health care operations, and HIPAA covered entities and
+  business associates that receive records under that consent may redisclose them under HIPAA rules. Counselling
+  session notes need their own consent, records still cannot be used against the patient in proceedings without
+  consent or a court order, and HIPAA-style breach notification and enforcement now apply.
+scope_summary: >-
+  Federally assisted substance use disorder treatment programs, and the lawful holders and recipients of their patient
+  records, including HIPAA covered entities and business associates that receive Part 2 records.
+who_it_applies_to: Part 2 programs and other persons who hold or receive Part 2 substance use disorder treatment records.
+key_dates_summary: >-
+  Published 16 February 2024; effective 16 April 2024; compliance with the applicable requirements required by
+  16 February 2026.
+penalties_summary: >-
+  The rule replaces Part 2's former criminal-only penalties with the civil and criminal enforcement authorities that
+  apply to HIPAA violations (Social Security Act sections 1176 and 1177). HHS's Office for Civil Rights began taking
+  Part 2 complaints and breach notifications on 16 February 2026.
+what_organizations_must_do: >-
+  Organisations in scope must handle Part 2 records under the revised consent rules, obtain separate consent for SUD
+  counselling notes, notify breaches of Part 2 records as the HIPAA Breach Notification Rule requires, and update patient
+  notices (Part 2 programs) and notices of privacy practices (HIPAA covered entities) by 16 February 2026.
+adopted_on: null
+published_on: '2024-02-16'
+in_force_on: '2024-04-16'
+applies_from: '2026-02-16'
+date_notes: >-
+  Publication (16 February 2024), effective date (16 April 2024) and compliance date (16 February 2026) are taken from
+  extracts of the Federal Register document and the HHS fact sheet. The signature date was not established. The
+  compliance date for the accounting-of-disclosures right is not set.
+actors: [deployer]
+ai_system_types: []
+sectors: [healthcare]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Federal Register: Confidentiality of Substance Use Disorder (SUD) Patient Records (final rule, 2024-02544)'
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2024/02/16/2024-02544/confidentiality-of-substance-use-disorder-sud-patient-records
+  document_date: '2024-02-16'
+  document_type: legislation
+  tier: 1
+- title: 'HHS: Fact Sheet 42 CFR Part 2 Final Rule'
+  publisher: U.S. Department of Health and Human Services
+  url: https://www.hhs.gov/hipaa/for-professionals/regulatory-initiatives/fact-sheet-42-cfr-part-2-final-rule/index.html
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'HHS: Office for Civil Rights announces civil enforcement program for confidentiality of SUD patient records'
+  publisher: U.S. Department of Health and Human Services
+  url: https://www.hhs.gov/press-room/hhs-announce-civil-enforcement-program-sud-patient-records.html
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.federalregister.gov/documents/2024/02/16/2024-02544/confidentiality-of-substance-use-disorder-sud-patient-records
+source_title: 'Federal Register: Confidentiality of Substance Use Disorder (SUD) Patient Records (final rule, 2024-02544)'
+source_publisher: Office of the Federal Register
+source_document_date: '2024-02-16'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

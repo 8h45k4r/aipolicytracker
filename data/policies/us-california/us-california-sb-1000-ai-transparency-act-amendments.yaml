@@ -1,0 +1,81 @@
+slug: us-california-sb-1000-ai-transparency-act-amendments
+aipt_id: AIPT-POL-0273
+jurisdiction: us-california
+title: 'California SB 1000: Amendments to the California AI Transparency Act (Chapter 861, Statutes of 2026)'
+short_title: California AI Transparency Act amendments (SB 1000)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Revises the California AI Transparency Act (SB 942, as amended by AB 853). It removes the user-count threshold
+  from the definition of covered provider, renames the AI detection tool a disclosure verification tool, removes
+  the option of a manifest disclosure and requires latent disclosures to state whether the system created or
+  altered the content. It also delays the Act for AI systems that are assistive technology and bars providers
+  from falsely claiming that a system is one.
+scope_summary: >-
+  Providers of generative AI systems publicly accessible in California that are covered by the California AI
+  Transparency Act.
+who_it_applies_to: Generative AI providers covered by the California AI Transparency Act.
+key_dates_summary: Approved and chaptered 30 September 2026 as an urgency statute.
+what_organizations_must_do: >-
+  Covered providers must embed latent disclosures that state whether content was created or altered by the
+  system and offer a disclosure verification tool, as revised by this Act.
+adopted_on: '2026-09-30'
+published_on: null
+in_force_on: '2026-09-30'
+applies_from: null
+date_notes: >-
+  Chapter number and chaptering on 30 September 2026 come from extracts of the official bill pages, which also
+  describe it as an urgency measure; in_force_on assumes it took effect on enactment as an urgency statute. One
+  new section, 22757.4.1, remains in effect until 1 January 2029. The delayed date for assistive technology
+  systems was not established. Confirm against the text.
+actors:
+- provider
+ai_system_types:
+- generative_ai
+sectors:
+- cross_sector
+risk_categories:
+- transparency_risk
+use_cases:
+- generative_ai
+related_policies:
+- us-california-ai-transparency-act-sb-942
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 1000 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000
+source_title: 'California Legislative Information: SB 1000 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

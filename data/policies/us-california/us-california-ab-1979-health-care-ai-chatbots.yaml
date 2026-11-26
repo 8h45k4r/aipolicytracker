@@ -1,0 +1,84 @@
+slug: us-california-ab-1979-health-care-ai-chatbots
+aipt_id: AIPT-POL-0278
+jurisdiction: us-california
+title: 'California AB 1979: Health care services: artificial intelligence (Chapter 854, Statutes of 2026)'
+short_title: California health care AI and chatbots (AB 1979)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not
+  be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Adds a chapter to the Business and Professions Code on AI in health care and amends the Confidentiality of Medical
+  Information Act. Health facilities, clinics, physician offices and group practices must take reasonable steps so
+  that licensed providers keep their independent professional judgment when clinical decision support tools inform
+  care, and may not use AI tools to direct unlicensed staff in work that needs a licence. Businesses that offer
+  health care chatbots are treated as providers of health care under the medical privacy law.
+scope_summary: >-
+  Health facilities, clinics, physician offices and group practices using clinical decision support or other AI
+  tools, and businesses offering health care chatbots in California.
+who_it_applies_to: Health care providers and facilities, and businesses offering health care chatbots.
+key_dates_summary: Approved by the Governor and chaptered 30 September 2026.
+adopted_on: '2026-09-30'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Governor approval and chaptering on 30 September 2026 (Chapter 854) are as shown in search extracts of the bill
+  status and history pages. The effective date and enforcement provisions were not confirmed and are left empty.
+  Systems used only for documentation or non-clinical messages are reported as excluded.
+actors:
+- deployer
+- provider
+ai_system_types:
+- conversational_agent
+- automated_decision_system
+sectors:
+- healthcare
+risk_categories:
+- unclassified
+use_cases:
+- health
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 1979 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1979
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+- title: 'Governor of California: California''s nation-leading AI framework just got stronger, Governor Newsom signs more first-in-the-nation worker protections and more'
+  publisher: Office of the Governor of California
+  url: https://www.gov.ca.gov/2026/09/30/californias-nation-leading-ai-framework-just-got-stronger-governor-newsom-signs-more-first-in-the-nation-worker-protections-and-more/
+  document_date: '2026-09-30'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1979
+source_title: 'California Legislative Information: AB 1979 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and duty
+  here is pending review against it.

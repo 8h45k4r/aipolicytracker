@@ -1,0 +1,89 @@
+slug: us-arizona-bbhe-ai-notice-consent-rule
+aipt_id: AIPT-POL-0285
+jurisdiction: us-arizona
+title: 'Arizona Board of Behavioral Health Examiners rules: AI notice in consent for treatment (A.A.C. R4-6-1101)'
+short_title: Arizona behavioural health AI notice rule (R4-6-1101)
+title_native: null
+instrument_type: rules
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The amended rules took
+  effect on 2 November 2025; the AI notice in R4-6-1101 applies from 1 January 2027.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Arizona Board of Behavioral Health Examiners
+summary_plain: >-
+  Behavioural health professionals licensed by the Arizona Board of Behavioral Health Examiners must, from 1 January 2027,
+  tell clients in the written consent for treatment whether and how far artificial intelligence, machine learning or other
+  human-simulation tools are used to provide, record or document clinical services. The rule package also adds a
+  definition of artificial intelligence to the Board's rules. It is part of a wider update of the Board's rules, not an
+  AI-only instrument.
+scope_summary: >-
+  Professionals licensed by the Arizona Board of Behavioral Health Examiners (counsellors, social workers, marriage and
+  family therapists, addiction counsellors) and the consent documents they use with clients.
+who_it_applies_to: Behavioural health licensees regulated by the Arizona Board of Behavioral Health Examiners.
+key_dates_summary: >-
+  Final rulemaking published 26 September 2025 (31 A.A.R. 3032); amended rules effective 2 November 2025; AI notice in the
+  consent for treatment required from 1 January 2027.
+what_organizations_must_do: >-
+  From 1 January 2027, include in the written consent for treatment a notice of the extent, if any, to which AI or similar
+  tools are used to provide, record or document clinical services.
+adopted_on: null
+published_on: '2025-09-26'
+in_force_on: '2025-11-02'
+applies_from: '2027-01-01'
+date_notes: >-
+  The Secretary of State's code chapter (Supp. 25-3) cites final rulemaking at 31 A.A.R. 3032 (26 September 2025),
+  effective 2 November 2025; the Board's own rules document gives the same effective date and 1 January 2027 for the AI
+  notice. The date the Board adopted the rules was not established.
+actors: [deployer]
+ai_system_types: [generative_ai, conversational_agent]
+sectors: [healthcare]
+risk_categories: [transparency_risk]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Arizona Administrative Code, Title 4, Chapter 6: Board of Behavioral Health Examiners (Supp. 25-3)'
+  publisher: Arizona Secretary of State
+  url: https://apps.azsos.gov/public_services/Title_04/4-06.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Arizona Board of Behavioral Health Examiners: rules effective 2 November 2025'
+  publisher: Arizona Board of Behavioral Health Examiners
+  url: https://bbhe.az.gov/sites/default/files/2025-10/Rules%20-%20Effective%2011.02.2025.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+- title: 'Arizona Board of Behavioral Health Examiners: notice of final rulemaking, Title 4, Chapter 6'
+  publisher: Arizona Board of Behavioral Health Examiners
+  url: https://bbhe.az.gov/sites/default/files/2025-05/NFR%20wo%20215%20-%20Updated%20Rules%205.13.25.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://apps.azsos.gov/public_services/Title_04/4-06.pdf
+source_title: 'Arizona Administrative Code, Title 4, Chapter 6: Board of Behavioral Health Examiners (Supp. 25-3)'
+source_publisher: Arizona Secretary of State
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

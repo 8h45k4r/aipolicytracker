@@ -1,0 +1,95 @@
+slug: eu-eiopa-opinion-ai-governance-and-risk-management
+aipt_id: AIPT-POL-0316
+jurisdiction: eu
+title: EIOPA Opinion on artificial intelligence governance and risk management (EIOPA-BoS-25-007)
+short_title: EIOPA Opinion on AI governance and risk management
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. The
+  Opinion is addressed to national supervisors and, per EIOPA, sets no new requirements.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: European Insurance and Occupational Pensions Authority
+summary_plain: >-
+  EIOPA's Opinion tells national insurance supervisors how it expects insurers' use of AI to be governed under
+  existing sectoral law, using a risk-based and proportionate approach. It covers data governance,
+  record-keeping, fairness, cyber security, explainability and human oversight. It does not create new
+  requirements or change the scope of the AI Act, and it leaves out AI systems the AI Act classes as prohibited
+  or high-risk. It builds on earlier work, including the June 2021 report on AI governance principles by EIOPA's
+  Consultative Expert Group on Digital Ethics in insurance.
+scope_summary: >-
+  Insurance undertakings and intermediaries using AI systems not classed as prohibited or high-risk under the AI
+  Act, as supervised by national authorities.
+who_it_applies_to: >-
+  National insurance supervisors, and through them insurers and intermediaries using AI.
+key_dates_summary: >-
+  Draft consulted on from 12 February to 12 May 2025; Opinion published 6 August 2025. Earlier expert-group
+  report published 17 June 2021.
+adopted_on: null
+published_on: '2025-08-06'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Publication on 6 August 2025 and the consultation dates are from EIOPA press release extracts. The 2021 report
+  (Artificial Intelligence governance principles: towards ethical and trustworthy artificial intelligence in the
+  European insurance sector), which is non-binding and illustrative, was published on 17 June 2021 and is not
+  recorded separately.
+actors: [deployer, provider]
+ai_system_types: []
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: [eu-ai-act]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Opinion on Artificial Intelligence governance and risk management
+  publisher: European Insurance and Occupational Pensions Authority
+  url: https://www.eiopa.europa.eu/publications/opinion-artificial-intelligence-governance-and-risk-management_en
+  document_date: '2025-08-06'
+  document_type: guidance
+  tier: 2
+- title: EIOPA publishes Opinion on AI governance and risk management
+  publisher: European Insurance and Occupational Pensions Authority
+  url: https://www.eiopa.europa.eu/eiopa-publishes-opinion-ai-governance-and-risk-management-2025-08-06_en
+  document_date: '2025-08-06'
+  document_type: press_release
+  tier: 2
+- title: EIOPA is seeking feedback on its Opinion on Artificial Intelligence governance and risk management
+  publisher: European Insurance and Occupational Pensions Authority
+  url: https://www.eiopa.europa.eu/eiopa-seeking-feedback-its-opinion-artificial-intelligence-governance-and-risk-management-2025-02-12_en
+  document_date: '2025-02-12'
+  document_type: consultation
+  tier: 2
+- title: 'Artificial intelligence governance principles: towards ethical and trustworthy artificial intelligence in the European insurance sector'
+  publisher: European Insurance and Occupational Pensions Authority
+  url: https://www.eiopa.europa.eu/publications/artificial-intelligence-governance-principles-towards-ethical-and-trustworthy-artificial_en
+  document_date: '2021-06-17'
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.eiopa.europa.eu/publications/opinion-artificial-intelligence-governance-and-risk-management_en
+source_title: Opinion on Artificial Intelligence governance and risk management
+source_publisher: European Insurance and Occupational Pensions Authority
+source_document_date: '2025-08-06'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

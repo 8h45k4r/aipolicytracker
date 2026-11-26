@@ -1,0 +1,89 @@
+slug: uk-pra-ss1-23-model-risk-management-principles-for-banks
+aipt_id: AIPT-POL-0320
+jurisdiction: uk
+title: 'PRA Supervisory Statement SS1/23: Model risk management principles for banks'
+short_title: PRA SS1/23 model risk management principles
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. A
+  supervisory statement setting out PRA expectations rather than rules; amended by LIAF01/26 with effect from 23
+  April 2026.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: Prudential Regulation Authority (Bank of England)
+summary_plain: >-
+  SS1/23 sets out the PRA's expectations for how banks manage the risk that their models are wrong or misused.
+  It rests on five principles: model identification and risk classification, governance, development and
+  implementation, independent validation, and risk mitigants. It covers models built in-house or bought from
+  vendors, whatever the technology, so it reaches AI and machine-learning models, and it treats explainability
+  and interpretability as factors in judging a model's complexity.
+scope_summary: >-
+  Banks, building societies and PRA-designated investment firms with internal model approval for credit, market
+  or counterparty credit risk.
+who_it_applies_to: >-
+  UK banks, building societies and PRA-designated investment firms with internal model approval.
+key_dates_summary: >-
+  Published 17 May 2023; effective 17 May 2024; amended by LIAF01/26 effective 23 April 2026.
+adopted_on: null
+published_on: '2023-05-17'
+in_force_on: null
+applies_from: '2024-05-17'
+date_notes: >-
+  Publication and effective dates are from the Bank of England SS1/23 page (PS6/23 is the related policy
+  statement). The PRA's 2024/25 annual report says the statement became effective in May 2023, which conflicts
+  with the SS1/23 page and the 2025/26 annual report; the later date is used. LIAF01/26 (23 April 2026)
+  clarified that the expectations are not conditions for internal model approval and gave firms newly granted
+  such approval 12 months to comply.
+actors: [deployer]
+ai_system_types: [predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: SS1/23 Model risk management principles for banks
+  publisher: Bank of England (Prudential Regulation Authority)
+  url: https://www.bankofengland.co.uk/prudential-regulation/publication/2023/may/model-risk-management-principles-for-banks-ss
+  document_date: '2023-05-17'
+  document_type: guidance
+  tier: 2
+- title: PS6/23 Model risk management principles for banks
+  publisher: Bank of England (Prudential Regulation Authority)
+  url: https://www.bankofengland.co.uk/prudential-regulation/publication/2023/may/model-risk-management-principles-for-banks
+  document_date: '2023-05-17'
+  document_type: official
+  tier: 2
+- title: LIAF01/26 Low impact amendments finalisation, April 2026
+  publisher: Bank of England (Prudential Regulation Authority)
+  url: https://www.bankofengland.co.uk/prudential-regulation/publication/2026/april/low-impact-amendments-finalisation-april-2026
+  document_date: '2026-04-23'
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.bankofengland.co.uk/prudential-regulation/publication/2023/may/model-risk-management-principles-for-banks-ss
+source_title: SS1/23 Model risk management principles for banks
+source_publisher: Bank of England (Prudential Regulation Authority)
+source_document_date: '2023-05-17'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

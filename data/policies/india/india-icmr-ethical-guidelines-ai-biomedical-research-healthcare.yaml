@@ -1,0 +1,75 @@
+slug: india-icmr-ethical-guidelines-ai-biomedical-research-healthcare
+aipt_id: AIPT-POL-0331
+jurisdiction: india
+title: ICMR Ethical Guidelines for Application of Artificial Intelligence in Biomedical Research and Healthcare (2023)
+short_title: ICMR ethical guidelines for AI in health
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. ICMR describes the
+  guidelines as a living document to be updated over time.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Indian Council of Medical Research
+summary_plain: >-
+  National ethical guidance from the Indian Council of Medical Research on developing, deploying and adopting AI tools in
+  biomedical research and healthcare. It sets out ethical principles for AI in health, guiding principles for the people
+  and organisations involved, and expectations for ethics committee review, governance and informed consent.
+scope_summary: >-
+  AI-based tools used in biomedical and health research and applications that involve human participants or their
+  biological data.
+who_it_applies_to: Researchers, developers, clinicians, healthcare organisations and ethics committees working with AI in health.
+key_dates_summary: Published by ICMR in 2023.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The official PDF is labelled 2023. Trade press reported the release in March 2023, but no official extract gave the
+  day, so no date is recorded.
+actors: [provider, deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [healthcare]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Ethical Guidelines for Application of Artificial Intelligence in Biomedical Research and Healthcare
+  publisher: Indian Council of Medical Research
+  url: https://www.icmr.gov.in/ethical-guidelines-for-application-of-artificial-intelligence-in-biomedical-research-and-healthcare
+  document_date: null
+  document_type: guidance
+  tier: 1
+- title: Ethical Guidelines for Application of Artificial Intelligence in Biomedical Research and Healthcare, 2023 (PDF)
+  publisher: Indian Council of Medical Research
+  url: https://www.icmr.gov.in/icmrobject/custom_data/pdf/Ethical-guidelines/Ethical_Guidelines_AI_Healthcare_2023.pdf
+  document_date: null
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://www.icmr.gov.in/ethical-guidelines-for-application-of-artificial-intelligence-in-biomedical-research-and-healthcare
+source_title: Ethical Guidelines for Application of Artificial Intelligence in Biomedical Research and Healthcare
+source_publisher: Indian Council of Medical Research
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

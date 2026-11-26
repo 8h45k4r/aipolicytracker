@@ -1,0 +1,75 @@
+slug: australia-guidance-for-ai-adoption
+aipt_id: AIPT-POL-0323
+jurisdiction: australia
+title: Guidance for AI Adoption (National AI Centre)
+short_title: Australia Guidance for AI Adoption
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: National AI Centre, Department of Industry, Science and Resources
+summary_plain: >-
+  Voluntary guidance setting out six essential practices for safe and responsible AI use: decide who is
+  accountable, understand impacts and plan for them, measure and manage risks, share essential information, test
+  and monitor, and maintain human control. It comes in a foundations version for organisations starting out or
+  using AI in low-risk ways, and an implementation version for those building or customising AI systems or
+  handling higher-risk uses. It updates the 10 guardrails of the Voluntary AI Safety Standard and the eight AI
+  Ethics Principles.
+scope_summary: >-
+  Voluntary; aimed at Australian businesses and other organisations adopting, building or customising AI.
+who_it_applies_to: Organisations in Australia using or developing AI, on a voluntary basis.
+key_dates_summary: Released 21 October 2025.
+adopted_on: null
+published_on: '2025-10-21'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Release on 21 October 2025 is from the department's pages and the National AI Plan.
+actors: [provider, deployer]
+ai_system_types: []
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: [australia-voluntary-ai-safety-standard, australia-national-ai-plan]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Guidance for AI adoption: implementation guidance'
+  publisher: Department of Industry, Science and Resources
+  url: https://www.industry.gov.au/publications/guidance-for-ai-adoption
+  document_date: '2025-10-21'
+  document_type: guidance
+  tier: 2
+- title: 'Guidance for AI adoption: foundations'
+  publisher: Department of Industry, Science and Resources
+  url: https://www.industry.gov.au/publications/guidance-for-ai-adoption/guidance-ai-adoption-foundations
+  document_date: '2025-10-21'
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.industry.gov.au/publications/guidance-for-ai-adoption
+source_title: 'Guidance for AI adoption: implementation guidance'
+source_publisher: Department of Industry, Science and Resources
+source_document_date: '2025-10-21'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

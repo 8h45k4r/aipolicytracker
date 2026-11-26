@@ -1,0 +1,83 @@
+slug: us-omb-m-25-22-acquisition-of-ai
+aipt_id: AIPT-POL-0256
+jurisdiction: us
+title: 'OMB Memorandum M-25-22: Driving Efficient Acquisition of Artificial Intelligence in Government'
+short_title: OMB M-25-22 (AI acquisition)
+title_native: null
+instrument_type: procurement_rule
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The memo rescinds and
+  replaces OMB Memorandum M-24-18 (Advancing the Responsible Acquisition of Artificial Intelligence in Government).
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Office of Management and Budget, Executive Office of the President
+summary_plain: >-
+  M-25-22 is the Office of Management and Budget's direction to federal agencies on how to buy AI systems and services.
+  It asks agencies to keep AI purchasing competitive, avoid becoming locked in to a single vendor, settle data ownership
+  and intellectual property rights in their contracts, and track how acquired AI performs. Agencies are also told to
+  review their internal acquisition procedures. It was issued alongside M-25-21 on federal use of AI and carries out
+  Executive Order 14179.
+scope_summary: >-
+  Federal executive agencies acquiring AI systems or services, and through their contracts the vendors that sell AI to
+  them. AI bought as a component of a national security system and elements of the intelligence community are outside
+  its scope.
+who_it_applies_to: Federal executive agencies and, through contract terms, their AI vendors.
+key_dates_summary: Memorandum dated 3 April 2025; contract requirements apply to later solicitations (start date pending review).
+what_organizations_must_do: >-
+  Agencies must revisit their AI acquisition procedures, including how contracts treat data ownership and intellectual
+  property rights. Vendors should expect contract terms on use of government data, portability and performance tracking.
+adopted_on: '2025-04-03'
+published_on: '2025-04-03'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The memo date of 3 April 2025 appears in the extracts of the official PDF. One secondary source gives a release date
+  of 7 April 2025. When the contract-level requirements start is not settled: extracts variously describe solicitations
+  issued about 180 days after issue, or on or after 1 October 2025, so applies_from is left empty pending review. A
+  270-day period for agencies to revisit internal procedures was mentioned in one extract and needs confirming.
+actors: [public_authority, provider]
+ai_system_types: []
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [government_procurement]
+related_policies: [us-omb-m-25-21, us-executive-order-14179]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'OMB Memorandum M-25-22: Driving Efficient Acquisition of Artificial Intelligence in Government'
+  publisher: Office of Management and Budget
+  url: https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-22-Driving-Efficient-Acquisition-of-Artificial-Intelligence-in-Government.pdf
+  document_date: '2025-04-03'
+  document_type: guidance
+  tier: 1
+- title: 'White House: Fact Sheet, Eliminating Barriers for Federal Artificial Intelligence Use and Procurement'
+  publisher: The White House
+  url: https://www.whitehouse.gov/fact-sheets/2025/04/fact-sheet-eliminating-barriers-for-federal-artificial-intelligence-use-and-procurement/
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-22-Driving-Efficient-Acquisition-of-Artificial-Intelligence-in-Government.pdf
+source_title: 'OMB Memorandum M-25-22: Driving Efficient Acquisition of Artificial Intelligence in Government'
+source_publisher: Office of Management and Budget
+source_document_date: '2025-04-03'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

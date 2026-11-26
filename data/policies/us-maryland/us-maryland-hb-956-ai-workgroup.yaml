@@ -1,0 +1,77 @@
+slug: us-maryland-hb-956-ai-workgroup
+aipt_id: AIPT-POL-0294
+jurisdiction: us-maryland
+title: 'Maryland HB 956: Workgroup on artificial intelligence regulation (Chapter 105, Laws of 2025)'
+short_title: Maryland AI workgroup (HB 956)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Maryland General Assembly
+summary_plain: >-
+  Creates a workgroup of legislators and outside members to study artificial intelligence and recommend how Maryland
+  should regulate it. Its remit includes AI used in decisions with a significant effect on people's livelihoods, the
+  duties of developers and employers, consumer rights, current private-sector use and the effect of AI on decisions
+  about government benefits. It reports to General Assembly committees each year; it places no duties on businesses.
+scope_summary: >-
+  A legislative study body; members appointed by the Senate President and the House Speaker, with business, consumer
+  protection, data privacy and cybersecurity representatives.
+who_it_applies_to: The Maryland General Assembly and the workgroup it creates; no duties on private organisations.
+key_dates_summary: >-
+  Approved on 22 April 2025 as Chapter 105; effective 1 July 2025; first report due by 1 July 2026, then yearly.
+adopted_on: '2025-04-22'
+published_on: null
+in_force_on: '2025-07-01'
+applies_from: null
+date_notes: >-
+  Approval (22 April 2025) and effective date (1 July 2025) come from extracts of the bill page and the Governor's
+  signing list. The extracts also mention a possible appropriation from fiscal 2027 and a termination date in June
+  2029; neither was confirmed against the enrolled text.
+actors: [public_authority]
+ai_system_types: [automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [public_services]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Maryland General Assembly: HB 956 (2025 Regular Session)'
+  publisher: Maryland General Assembly
+  url: https://www.mgaleg.maryland.gov/mgawebsite/Legislation/Details/HB0956?ys=2025RS
+  document_date: '2025-04-22'
+  document_type: legislation
+  tier: 1
+- title: 'Maryland General Assembly: Chapter 105 of 2025 (HB 956 text)'
+  publisher: Maryland General Assembly
+  url: https://mgaleg.maryland.gov/2025RS/Chapters_noln/CH_105_hb0956e.pdf
+  document_date: '2025-04-22'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.mgaleg.maryland.gov/mgawebsite/Legislation/Details/HB0956?ys=2025RS
+source_title: 'Maryland General Assembly: HB 956 (2025 Regular Session)'
+source_publisher: Maryland General Assembly
+source_document_date: '2025-04-22'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

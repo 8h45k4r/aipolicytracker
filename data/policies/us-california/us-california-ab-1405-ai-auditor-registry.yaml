@@ -1,0 +1,81 @@
+slug: us-california-ab-1405-ai-auditor-registry
+aipt_id: AIPT-POL-0274
+jurisdiction: us-california
+title: 'California AB 1405: AI auditor registry (Chapter 178, Statutes of 2026)'
+short_title: California AI auditor registry (AB 1405)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  The Government Operations Agency must set up an AI Auditor Registry by 1 January 2029, and from that date
+  anyone who offers or conducts a covered AI audit must be registered. The law sets independence and integrity
+  standards for registered auditors, protects whistleblowers, and exempts certain licensed California certified
+  public accountants and accounting firms from some of its requirements.
+scope_summary: >-
+  Persons offering or conducting covered AI audits in California, and the Government Operations Agency.
+who_it_applies_to: AI auditors and assurance providers, and the Government Operations Agency.
+key_dates_summary: >-
+  Approved and chaptered 9 September 2026; registry and registration duty from 1 January 2029.
+what_organizations_must_do: >-
+  From 1 January 2029, organisations offering or conducting covered AI audits must register with the AI Auditor
+  Registry and meet its independence and integrity standards.
+adopted_on: '2026-09-09'
+published_on: null
+in_force_on: null
+applies_from: '2029-01-01'
+date_notes: >-
+  Chapter number, approval on 9 September 2026 and the 1 January 2029 registry date come from extracts of the
+  official bill pages. a non-urgency California statute normally takes effect on 1 January of the year after
+  enactment, but no extract stated the effective date, so in_force_on is left empty. The bill title appears as
+  both registration and enrollment on official pages.
+actors:
+- public_authority
+- provider
+ai_system_types:
+- automated_decision_system
+- general_purpose_ai_model
+sectors:
+- cross_sector
+risk_categories:
+- unclassified
+use_cases: []
+related_policies:
+- us-california-sb-813-independent-verification-organizations
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 1405 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405
+  document_date: '2026-09-09'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405
+source_title: 'California Legislative Information: AB 1405 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-09'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

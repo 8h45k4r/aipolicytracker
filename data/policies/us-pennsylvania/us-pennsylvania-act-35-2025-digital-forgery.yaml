@@ -1,0 +1,86 @@
+slug: us-pennsylvania-act-35-2025-digital-forgery
+aipt_id: AIPT-POL-0298
+jurisdiction: us-pennsylvania
+title: 'Pennsylvania Act 35 of 2025 (SB 649): Offence of digital forgery, 18 Pa.C.S. section 4101.1'
+short_title: Pennsylvania digital forgery offence (Act 35 of 2025)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Pennsylvania General Assembly
+summary_plain: >-
+  Adds a crime of digital forgery to Pennsylvania's Crimes Code. It covers creating or distributing a forged digital
+  likeness, meaning a computer-generated image, video or audio of a real, identifiable person that materially changes
+  how they look, speak or behave and is likely to deceive, made without their consent and passed off as genuine. Using
+  one in a scheme to defraud, coerce or steal money or property is a more serious offence. Satire, parody, commentary,
+  matters of public interest and law enforcement duties are excepted.
+scope_summary: >-
+  Any person who creates or distributes computer-generated likenesses of real people in Pennsylvania with intent to
+  defraud or injure.
+who_it_applies_to: Individuals and organisations that create or distribute synthetic likenesses of real people.
+key_dates_summary: Approved on 7 July 2025 as Act 35 (P.L. 120); effective 60 days after enactment.
+penalties_summary: >-
+  A misdemeanour of the first degree for the base offence; a felony of the third degree where the forgery is part of a
+  scheme to defraud, coerce or commit theft of money or property.
+adopted_on: '2025-07-07'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Approval on 7 July 2025 (Act 35, P.L. 120) is from the General Assembly's act and statute pages. The act takes
+  effect 60 days after enactment; the calendar date was not stated in the extracts and is left empty. An affirmative
+  defence applies where reasonable notice was given that the likeness was not genuine.
+actors: [user]
+ai_system_types: [generative_ai]
+sectors: [cross_sector, media_information]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Pennsylvania General Assembly: Senate Bill 649 (2025-2026 Regular Session)'
+  publisher: Pennsylvania General Assembly
+  url: https://www.palegis.us/legislation/bills/2025/sb649
+  document_date: '2025-07-07'
+  document_type: legislation
+  tier: 1
+- title: 'Pennsylvania General Assembly: Act No. 35 of 2025'
+  publisher: Pennsylvania General Assembly
+  url: https://www.palegis.us/statutes/unconsolidated/law-information?sessYr=2025&sessInd=0&actNum=0035.
+  document_date: '2025-07-07'
+  document_type: legislation
+  tier: 1
+- title: 'Office of the Governor of Pennsylvania: Governor signs new digital forgery law'
+  publisher: Office of the Governor of Pennsylvania
+  url: https://www.pa.gov/governor/newsroom/2025-press-releases/gov--shapiro-signs-new-digital-forgery-law
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.palegis.us/legislation/bills/2025/sb649
+source_title: 'Pennsylvania General Assembly: Senate Bill 649 (2025-2026 Regular Session)'
+source_publisher: Pennsylvania General Assembly
+source_document_date: '2025-07-07'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

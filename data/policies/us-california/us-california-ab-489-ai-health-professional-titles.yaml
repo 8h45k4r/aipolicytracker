@@ -1,0 +1,90 @@
+slug: us-california-ab-489-ai-health-professional-titles
+aipt_id: AIPT-POL-0267
+jurisdiction: us-california
+title: 'California AB 489: AI implying a licensed health care professional (Chapter 615, Statutes of 2025)'
+short_title: California AI and health professional titles (AB 489)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Extends California's protected health care titles to AI. A person or entity that develops or deploys an AI or
+  generative AI system may not use, in its advertising or functionality, terms, letters or phrases that indicate
+  or imply that the care or advice offered comes from a licensed or certified health care professional when it
+  does not. Each prohibited use is a separate violation, and the relevant licensing board or enforcement agency
+  may act, including by seeking an injunction.
+scope_summary: >-
+  Developers and deployers of AI and generative AI tools in California whose advertising or functionality uses
+  terms reserved for licensed health care professions under Division 2 of the Business and Professions Code.
+who_it_applies_to: Developers and deployers of AI health tools, chatbots and advice services.
+key_dates_summary: Approved and chaptered 11 October 2025; operative 1 January 2026.
+penalties_summary: >-
+  Each prohibited use is a separate violation, subject to the appropriate health care licensing board or
+  enforcement agency, which may seek an injunction or restraining order.
+what_organizations_must_do: >-
+  Do not present an AI system, in advertising or in the product itself, as a licensed or certified health care
+  professional, or imply that its advice comes from one.
+adopted_on: '2025-10-11'
+published_on: null
+in_force_on: '2026-01-01'
+applies_from: null
+date_notes: >-
+  Chapter number and approval on 11 October 2025 come from extracts of the official bill page; the 1 January
+  2026 operative date comes from the Board of Psychology advisory. Confirm against both.
+actors:
+- provider
+- deployer
+ai_system_types:
+- generative_ai
+- conversational_agent
+sectors:
+- healthcare
+risk_categories:
+- transparency_risk
+use_cases:
+- health
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 489 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB489
+  document_date: '2025-10-11'
+  document_type: legislation
+  tier: 1
+- title: 'Board of Psychology: AB 489 advisory'
+  publisher: California Board of Psychology
+  url: https://psychology.ca.gov/laws_regs/ab489_advisory.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB489
+source_title: 'California Legislative Information: AB 489 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2025-10-11'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

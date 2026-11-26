@@ -1,0 +1,78 @@
+slug: us-maryland-hb-1202-facial-recognition-job-interviews
+aipt_id: AIPT-POL-0293
+jurisdiction: us-maryland
+title: 'Maryland HB 1202: Use of facial recognition services in job interviews (Chapter 446, Laws of 2020)'
+short_title: Maryland facial recognition in job interviews (HB 1202)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Maryland General Assembly
+summary_plain: >-
+  Stops employers in Maryland from using a facial recognition service to build a facial template of a job applicant
+  during an interview unless the applicant has agreed in a signed waiver. The waiver has to name the applicant, give
+  the interview date, state plainly that the applicant consents to facial recognition during the interview and say
+  whether the applicant read it. The provision sits in the Labor and Employment Article (section 3-717).
+scope_summary: >-
+  Employers in Maryland that use facial recognition technology to create facial templates of applicants during job
+  interviews.
+who_it_applies_to: Employers interviewing job applicants in Maryland.
+key_dates_summary: Enacted on 8 May 2020 without the Governor's signature (Chapter 446); effective 1 October 2020.
+what_organizations_must_do: >-
+  Organisations in scope must not use a facial recognition service to create a facial template during an applicant's
+  interview unless the applicant first signs a consent waiver containing the details the law lists.
+adopted_on: '2020-05-08'
+published_on: null
+in_force_on: '2020-10-01'
+applies_from: null
+date_notes: >-
+  The extracts say the chapter was enacted under Article II, section 17(c) of the Maryland Constitution on 8 May 2020
+  and took effect on 1 October 2020 (bill page and chapter text). Later amendments were not checked.
+actors: [deployer]
+ai_system_types: [biometric_system]
+sectors: [employment]
+risk_categories: [unclassified]
+use_cases: [hiring_and_hr, biometrics]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Maryland General Assembly: HB 1202 (2020 Regular Session)'
+  publisher: Maryland General Assembly
+  url: https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/HB1202?ys=2020RS
+  document_date: '2020-05-08'
+  document_type: legislation
+  tier: 1
+- title: 'Maryland General Assembly: Chapter 446 of 2020 (HB 1202 text)'
+  publisher: Maryland General Assembly
+  url: https://www.mgaleg.maryland.gov/2020RS/chapters_noln/Ch_446_hb1202T.pdf
+  document_date: '2020-05-08'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/HB1202?ys=2020RS
+source_title: 'Maryland General Assembly: HB 1202 (2020 Regular Session)'
+source_publisher: Maryland General Assembly
+source_document_date: '2020-05-08'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

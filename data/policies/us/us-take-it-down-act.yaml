@@ -1,0 +1,100 @@
+slug: us-take-it-down-act
+aipt_id: AIPT-POL-0258
+jurisdiction: us
+title: 'TAKE IT DOWN Act (S.146, 119th Congress; Public Law 119-12)'
+short_title: TAKE IT DOWN Act
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The full name is the
+  Tools to Address Known Exploitation by Immobilizing Technological Deepfakes on Websites and Networks Act. The Federal
+  Trade Commission announced it began enforcing the platform removal duties in May 2026.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: United States Congress
+summary_plain: >-
+  The TAKE IT DOWN Act makes it a federal crime to knowingly publish intimate images of a person without consent,
+  including AI-generated "digital forgeries". It also requires covered online platforms to run a notice-and-removal
+  process: a plain-language explanation of how to ask for removal, removal of the depiction within 48 hours of a valid
+  request, and reasonable efforts to remove known identical copies. The Federal Trade Commission enforces the platform
+  duties as violations of a rule on unfair or deceptive practices.
+scope_summary: >-
+  Individuals who publish non-consensual intimate depictions, real or AI-generated, and covered platforms: public
+  websites, online services and apps that mainly host user-generated content or that regularly publish or host
+  non-consensual intimate depictions in the course of business.
+who_it_applies_to: Individuals who publish intimate depictions; websites and apps that host user-generated content.
+key_dates_summary: Signed into law 19 May 2025; platform notice-and-removal process required from 19 May 2026.
+penalties_summary: >-
+  Criminal penalties for knowing publication. Failure by a platform to reasonably comply with the removal duties is
+  enforced by the FTC; the FTC states civil penalties of up to $53,088 per violation may apply.
+what_organizations_must_do: >-
+  Covered platforms must publish a plain-language removal process that people without an account can also use, remove
+  a depiction no later than 48 hours after a valid request, and make reasonable efforts to remove known identical copies.
+  Good-faith removal of apparently unlawful material is shielded from liability.
+adopted_on: '2025-05-19'
+published_on: null
+in_force_on: '2025-05-19'
+applies_from: '2026-05-19'
+date_notes: >-
+  Congress.gov actions in the extracts show Senate passage by unanimous consent on 13 February 2025, House passage
+  409-2 on 28 April 2025, and signature on 19 May 2025 as Public Law 119-12. The Congressional Research Service extract
+  says the criminal prohibition took effect on enactment and platforms had one year (to 19 May 2026) to set up the
+  removal process; FTC pages say enforcement started then. All dates pending review against the enrolled text.
+actors: [deployer, user]
+ai_system_types: [generative_ai]
+sectors: [media_information]
+risk_categories: [unclassified]
+use_cases: [content_moderation, generative_ai]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Congress.gov: S.146, 119th Congress (2025-2026), TAKE IT DOWN Act'
+  publisher: Library of Congress
+  url: https://www.congress.gov/bill/119th-congress/senate-bill/146
+  document_date: '2025-05-19'
+  document_type: legislation
+  tier: 1
+- title: 'Congressional Research Service: The TAKE IT DOWN Act, A Federal Law Prohibiting the Nonconsensual Publication of Intimate Images (LSB11314)'
+  publisher: Congressional Research Service
+  url: https://www.congress.gov/crs-product/LSB11314
+  document_date: null
+  document_type: official
+  tier: 2
+- title: 'Federal Trade Commission: Complying With the Take It Down Act'
+  publisher: Federal Trade Commission
+  url: https://www.ftc.gov/business-guidance/resources/complying-take-it-down-act
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'Federal Trade Commission: FTC Chairman Ferguson Advises Companies to Comply with the Take It Down Act'
+  publisher: Federal Trade Commission
+  url: https://www.ftc.gov/news-events/news/press-releases/2026/05/ftc-chairman-ferguson-advises-companies-comply-take-it-down-act
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.congress.gov/bill/119th-congress/senate-bill/146
+source_title: 'Congress.gov: S.146, 119th Congress (2025-2026), TAKE IT DOWN Act'
+source_publisher: Library of Congress
+source_document_date: '2025-05-19'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,89 @@
+slug: us-cms-ai-playbook
+aipt_id: AIPT-POL-0247
+jurisdiction: us
+title: 'CMS Artificial Intelligence Playbook, Version 4 (Centers for Medicare & Medicaid Services, 2025)'
+short_title: CMS AI Playbook (Version 4)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. Version 4.0 is dated
+  12 September 2025 in the playbook's version history and is cited as current by CMS's responsible-use guidance. An
+  earlier Version 2.0 was published by CMS in 2022; the date of Version 3 was not established.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Centers for Medicare & Medicaid Services (Office of Information Technology, AI Explorers program)
+summary_plain: >-
+  The CMS AI Playbook is the agency's internal handbook for planning, governing and running AI projects. Version 4 moves
+  from general background on AI to guidance and tools specific to CMS for leadership, project teams and IT and security
+  staff. Its six chapters cover an introduction, an AI primer, AI use at CMS and the agency's maturity, governance, a
+  step-by-step guide to running an AI project, and emerging technologies, and it supplies templates used to document
+  risk mitigation and ongoing monitoring.
+scope_summary: >-
+  CMS staff and teams, including leadership, project teams and IT and security roles, who plan, build, buy or oversee
+  AI initiatives within the agency.
+who_it_applies_to: Centers for Medicare & Medicaid Services staff and AI project teams.
+key_dates_summary: Version 4.0 dated 12 September 2025.
+penalties_summary: null
+what_organizations_must_do: >-
+  Nothing binding. CMS teams are pointed to the playbook's templates when documenting mitigation plans for identified
+  AI risks and the procedures for ongoing monitoring and ethical review.
+adopted_on: null
+published_on: '2025-09-12'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 12 September 2025 date for Version 4.0 comes from extracts of the playbook's version history and of a CMS guidance
+  page that cites it. The playbook states that it aligns with OMB memoranda M-25-21 and M-25-22, the National AI
+  Initiative Act of 2020 and the AI Action Plan.
+actors: [public_authority, deployer]
+ai_system_types: []
+sectors: [public_services, healthcare]
+risk_categories: [unclassified]
+use_cases: [public_services]
+related_policies: [us-omb-m-25-21, us-winning-the-race-america-s-ai-action-plan]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'CMS Artificial Intelligence Playbook, Version 4 (prepared by the CMS AI Explorers)'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://ai.cms.gov/CMS-AI-Playbook.pdf
+  document_date: '2025-09-12'
+  document_type: guidance
+  tier: 2
+- title: 'CMS Information Security and Privacy: Guidance for responsible use of AI at CMS'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://security.cms.gov/policy-guidance/guidance-responsible-use-artificial-intelligence-ai-cms
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'CMS AI Playbook, Version 2.0 (2022)'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://planetoit.cms.gov/sites/default/files/2022-12/CMS_AI_Playbook_With_Appendix_A_2022(508)_0.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://ai.cms.gov/CMS-AI-Playbook.pdf
+source_title: 'CMS Artificial Intelligence Playbook, Version 4 (prepared by the CMS AI Explorers)'
+source_publisher: Centers for Medicare & Medicaid Services
+source_document_date: '2025-09-12'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

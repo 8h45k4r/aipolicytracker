@@ -1,0 +1,81 @@
+slug: hong-kong-hkma-art-framework-responsible-ai-adoption
+aipt_id: AIPT-POL-0337
+jurisdiction: hong-kong
+title: >-
+  HKMA "ART" (Accountability, Resilience and Trust) Framework and Supervisory Guidance for Responsible Adoption of
+  Artificial Intelligence (October 2026)
+short_title: HKMA ART Framework for responsible AI (2026)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Announced by the HKMA on 15 October 2026. The supervisory guidance states that it supersedes the HKMA circular
+  "High-level Principles on Artificial Intelligence" of 1 November 2019. A discussion paper on agentic AI governance was
+  announced as forthcoming. Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the
+  official text could not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Hong Kong Monetary Authority
+summary_plain: >-
+  A framework from the Hong Kong Monetary Authority, under its Fintech 2030 strategy, for responsible AI use in banking,
+  built on three pillars: accountability, resilience and trust. Its supervisory guidance sets nine principles across the
+  pillars, drawing on the second cohort of the HKMA generative AI sandbox, and expects banks to assess the materiality and
+  risk of each AI use case, with stricter controls such as senior management sign-off for higher-risk ones. The
+  announcement also covered an AI training data sharing platform and planned work on agentic AI.
+scope_summary: >-
+  Authorized institutions in Hong Kong that develop or use AI, including generative and agentic AI applications.
+who_it_applies_to: Authorized institutions supervised by the Hong Kong Monetary Authority.
+key_dates_summary: Announced 15 October 2026.
+adopted_on: null
+published_on: '2026-10-15'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  15 October 2026 is the date of the HKMA press release; the circular's own date is taken from its document reference
+  (20261015-2) and was not read from the text. No effective date or transition period was confirmed.
+actors: [deployer, provider]
+ai_system_types: [generative_ai, automated_decision_system, conversational_agent]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, generative_ai, customer_service]
+related_policies:
+- hong-kong-hkma-high-level-principles-on-ai
+- hong-kong-hkma-consumer-protection-generative-ai
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: HKMA announces "ART" Framework to promote responsible A.I. adoption
+  publisher: Hong Kong Monetary Authority
+  url: https://www.hkma.gov.hk/eng/news-and-media/press-releases/2026/10/20261015-3/
+  document_date: '2026-10-15'
+  document_type: press_release
+  tier: 1
+- title: 'Responsible Adoption of Artificial Intelligence, Annex A: Supervisory Guidance for Responsible Adoption of Artificial Intelligence'
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20261015-2-EN/20261015-2-EN.pdf
+  document_date: null
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20261015-2-EN/20261015-2-EN.pdf
+source_title: 'Responsible Adoption of Artificial Intelligence, Annex A: Supervisory Guidance for Responsible Adoption of Artificial Intelligence'
+source_publisher: Hong Kong Monetary Authority
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

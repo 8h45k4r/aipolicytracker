@@ -1,0 +1,112 @@
+slug: us-onc-hti-1-decision-support-interventions
+aipt_id: AIPT-POL-0249
+jurisdiction: us
+title: >-
+  HTI-1 final rule (Health Data, Technology, and Interoperability: Certification Program Updates, Algorithm
+  Transparency, and Information Sharing): decision support interventions, 45 CFR 170.315(b)(11)
+short_title: ONC HTI-1 decision support interventions
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. A later ONC final
+  rule (Federal Register, 28 October 2026, 2026-21943, "ONC Deregulatory Actions To Unleash Prosperity") removes the
+  source attribute, attribute access and modification, and predictive DSI risk management requirements of
+  170.315(b)(11). That rule is effective 28 December 2026, except certain amendatory instructions effective
+  1 January 2027; which date governs the DSI changes was not established. Until then the HTI-1 requirements recorded
+  here stand.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Office of the National Coordinator for Health Information Technology (ONC), U.S. Department of Health and Human Services
+summary_plain: >-
+  HTI-1 updates the ONC Health IT Certification Program and replaced the clinical decision support criterion with a new
+  decision support interventions (DSI) criterion at 170.315(b)(11). Health IT developers certifying to it must let users
+  review technical performance and quality information ("source attributes") about evidence-based and predictive
+  decision support, including AI models, used through their software, and must manage risks of predictive DSIs they
+  develop. From 2025 only the new criterion satisfies the Base EHR definition that certified products rely on.
+scope_summary: >-
+  Developers of health IT seeking or holding certification under the ONC Health IT Certification Program, in
+  particular Health IT Modules certified to the decision support interventions criterion, and indirectly the providers
+  who use certified health IT.
+who_it_applies_to: Certified health IT developers (Health IT Modules certified to 45 CFR 170.315(b)(11)).
+key_dates_summary: >-
+  Published 9 January 2024; effective 11 March 2024 (corrected from 8 February 2024); only the DSI criterion meets the
+  Base EHR definition from 1 January 2025.
+penalties_summary: null
+what_organizations_must_do: >-
+  Developers in scope must support source attribute fields (ONC guidance lists 13 for evidence-based and 31 for
+  predictive DSIs), let users access and modify them, show "Unknown" where information is not available, and apply
+  risk management practices to predictive DSIs they develop; developers relying on the Base EHR definition had to
+  update to 170.315(b)(11) by the end of 2024.
+adopted_on: null
+published_on: '2024-01-09'
+in_force_on: '2024-03-11'
+applies_from: '2025-01-01'
+date_notes: >-
+  Publication on 9 January 2024 is from the Federal Register extract. The rule originally stated an effective date of
+  8 February 2024; a correction published on 8 February 2024 moved it to 11 March 2024 (extract of the govinfo
+  correction). ONC fact sheets say either the old CDS criterion or the DSI criterion met the Base EHR definition up to
+  31 December 2024, and only the DSI criterion from 1 January 2025. The signature date was not established.
+actors: [provider, deployer]
+ai_system_types: [predictive_scoring, automated_decision_system]
+sectors: [healthcare]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Federal Register: Health Data, Technology, and Interoperability: Certification Program Updates, Algorithm
+    Transparency, and Information Sharing (2023-28857)
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2024/01/09/2023-28857/health-data-technology-and-interoperability-certification-program-updates-algorithm-transparency-and
+  document_date: '2024-01-09'
+  document_type: legislation
+  tier: 1
+- title: 'Federal Register correction to HTI-1 (2024-02519)'
+  publisher: U.S. Government Publishing Office
+  url: https://www.govinfo.gov/content/pkg/FR-2024-02-08/pdf/2024-02519.pdf
+  document_date: '2024-02-08'
+  document_type: legislation
+  tier: 1
+- title: 'ONC: 170.315(b)(11) Decision support interventions (certification companion and test method)'
+  publisher: Office of the National Coordinator for Health Information Technology
+  url: https://healthit.gov/test-method/decision-support-interventions/
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: >-
+    Federal Register: Health Data, Technology, and Interoperability: ONC Deregulatory Actions To Unleash Prosperity
+    (final rule, 2026-21943)
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2026/10/28/2026-21943/health-data-technology-and-interoperability-onc-deregulatory-actions-to-unleash-prosperity
+  document_date: '2026-10-28'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.federalregister.gov/documents/2024/01/09/2023-28857/health-data-technology-and-interoperability-certification-program-updates-algorithm-transparency-and
+source_title: >-
+  Federal Register: Health Data, Technology, and Interoperability: Certification Program Updates, Algorithm
+  Transparency, and Information Sharing (2023-28857)
+source_publisher: Office of the Federal Register
+source_document_date: '2024-01-09'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,114 @@
+slug: us-equal-credit-opportunity-act-regulation-b
+aipt_id: AIPT-POL-0252
+jurisdiction: us
+title: 'Equal Credit Opportunity Act (15 U.S.C. 1691 et seq.) and Regulation B (12 CFR Part 1002)'
+short_title: ECOA and Regulation B
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  General anti-discrimination credit law that also governs credit decisions made with algorithmic or AI models. A CFPB
+  final rule amending Regulation B, published in the Federal Register on 22 April 2026 and effective 21 July 2026,
+  removed the effects test from the regulation and its commentary, stated the Bureau's view that ECOA does not provide
+  for disparate-impact liability, narrowed the discouragement provision and limited the characteristics for-profit
+  special purpose credit programs may use; it applies prospectively. Recorded on 26 November 2026 from search-engine
+  extracts of the official pages listed; the official text could not be opened from the research environment, so
+  every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: United States Congress; Consumer Financial Protection Bureau (Regulation B)
+summary_plain: >-
+  The Equal Credit Opportunity Act forbids creditors from discriminating against applicants on protected grounds such
+  as race, colour, religion, national origin, sex, marital status, age and receipt of public assistance. Regulation B
+  implements it and requires creditors to notify applicants of adverse action and to give the specific principal
+  reasons, which applies equally when the decision comes from a scoring or machine-learning model. It is a general
+  law, not written for AI, but it is a main constraint on automated credit decisions in the United States.
+scope_summary: >-
+  Creditors in credit transactions, covering decisions on new applications and adverse action on existing accounts,
+  whatever the technology used to make the decision.
+who_it_applies_to: Creditors making credit decisions, including with scoring or AI models.
+key_dates_summary: >-
+  Enacted 28 October 1974 (Public Law 93-495, title V); Regulation B amendments published 22 April 2026, effective
+  21 July 2026.
+what_organizations_must_do: >-
+  Creditors must not discriminate on a prohibited basis and, when they take adverse action, must send a notice within
+  the regulation's time limits that states the principal reasons actually used (or tells the applicant how to request
+  them); reasons must relate to the factors the model actually scored.
+adopted_on: '1974-10-28'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Enactment on 28 October 1974 as title V of Public Law 93-495 (adding title VII to the Consumer Credit Protection Act)
+  is confirmed by the Statutes at Large and US Code notes. The original effective date was not established from the
+  extracts and is left empty. The 2026 Regulation B rule was published on 22 April 2026 with an effective date of
+  21 July 2026 (90 days after publication) per the Federal Register and the CFPB final-rule page. The separate
+  small business lending (section 1071) rule under Regulation B is not covered here.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-cfpb-circulars-2022-03-2023-03-adverse-action-complex-algorithms]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'eCFR: 12 CFR Part 1002, Equal Credit Opportunity Act (Regulation B)'
+  publisher: Office of the Federal Register (eCFR)
+  url: https://www.ecfr.gov/current/title-12/chapter-X/part-1002
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'eCFR: 12 CFR 1002.9, Notifications'
+  publisher: Office of the Federal Register (eCFR)
+  url: https://www.ecfr.gov/current/title-12/chapter-X/part-1002/subpart-A/section-1002.9
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: '15 U.S.C. Chapter 41, Subchapter IV: Equal Credit Opportunity'
+  publisher: Office of the Law Revision Counsel, US House of Representatives
+  url: https://uscode.house.gov/view.xhtml?req=granuleid%3AUSC-prelim-title15-chapter41-subchapter4&edition=prelim
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Public Law 93-495 (88 Stat. 1500), 28 October 1974'
+  publisher: US Government Publishing Office (govinfo)
+  url: https://www.govinfo.gov/content/pkg/STATUTE-88/pdf/STATUTE-88-Pg1500.pdf
+  document_date: '1974-10-28'
+  document_type: legislation
+  tier: 1
+- title: 'Federal Register: Equal Credit Opportunity Act (Regulation B), final rule'
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2026/04/22/2026-07804/equal-credit-opportunity-act-regulation-b
+  document_date: '2026-04-22'
+  document_type: legislation
+  tier: 1
+- title: 'CFPB final rule: Equal Credit Opportunity Act (Regulation B)'
+  publisher: Consumer Financial Protection Bureau
+  url: https://www.consumerfinance.gov/rules-policy/final-rules/equal-credit-opportunity-act-regulation-b/
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.ecfr.gov/current/title-12/chapter-X/part-1002
+source_title: 'eCFR: 12 CFR Part 1002, Equal Credit Opportunity Act (Regulation B)'
+source_publisher: Office of the Federal Register (eCFR)
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

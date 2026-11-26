@@ -1,0 +1,84 @@
+slug: singapore-mas-feat-principles
+aipt_id: AIPT-POL-0338
+jurisdiction: singapore
+title: >-
+  MAS Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence
+  and Data Analytics in Singapore's Financial Sector
+short_title: MAS FEAT Principles
+title_native: null
+instrument_type: framework
+status: guidance
+status_note: >-
+  Non-binding principles; MAS's 2025 consultation paper on guidelines for AI risk management says the FEAT Principles
+  continue to apply. Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official
+  text could not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Monetary Authority of Singapore
+summary_plain: >-
+  A set of principles from the Monetary Authority of Singapore for firms offering financial products and services that use
+  AI and data analytics in decisions. They are grouped under fairness, ethics, accountability and transparency, and include
+  regular review of data and models to limit unintended bias and avoiding decisions that systematically disadvantage
+  people without justification. They are not prescriptive and are meant to strengthen firms' own governance, not replace it.
+scope_summary: >-
+  Firms providing financial products and services in Singapore that use AI or data analytics to support or replace human
+  decisions.
+who_it_applies_to: Financial institutions and other firms offering financial products and services in Singapore.
+key_dates_summary: Announced by MAS on 12 November 2018; the published document was updated on 7 February 2019.
+adopted_on: null
+published_on: '2018-11-12'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  12 November 2018 is the date of the MAS media release. The 7 February 2019 update is taken from the file name of the
+  document on the MAS site and was not read from the document itself.
+actors: [deployer, provider]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: MAS introduces new FEAT Principles to promote responsible use of AI and data analytics
+  publisher: Monetary Authority of Singapore
+  url: https://www.mas.gov.sg/news/media-releases/2018/mas-introduces-new-feat-principles-to-promote-responsible-use-of-ai-and-data-analytics
+  document_date: '2018-11-12'
+  document_type: press_release
+  tier: 1
+- title: Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) (PDF, updated version)
+  publisher: Monetary Authority of Singapore
+  url: https://www.mas.gov.sg/-/media/mas/news-and-publications/monographs-and-information-papers/feat-principles-updated-7-feb-19.pdf
+  document_date: null
+  document_type: guidance
+  tier: 1
+- title: Consultation Paper on Guidelines on Artificial Intelligence Risk Management
+  publisher: Monetary Authority of Singapore
+  url: https://www.mas.gov.sg/-/media/mas-media-library/publications/consultations/bd/2025/final_consultation_paper_on_guidelines_on_ai_risk_management_forrelease.pdf
+  document_date: null
+  document_type: consultation
+  tier: 2
+faq: []
+official_source_url: https://www.mas.gov.sg/news/media-releases/2018/mas-introduces-new-feat-principles-to-promote-responsible-use-of-ai-and-data-analytics
+source_title: MAS introduces new FEAT Principles to promote responsible use of AI and data analytics
+source_publisher: Monetary Authority of Singapore
+source_document_date: '2018-11-12'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

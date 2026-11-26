@@ -1,0 +1,83 @@
+slug: eu-digital-services-act
+aipt_id: AIPT-POL-0312
+jurisdiction: eu
+title: 'Regulation (EU) 2022/2065: Digital Services Act'
+short_title: EU Digital Services Act (DSA)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: European Parliament and Council of the European Union
+summary_plain: >-
+  The Digital Services Act sets EU rules for providers of intermediary services, such as online platforms and
+  search engines, on how they deal with illegal content and the risks their services create. The heaviest duties
+  fall on very large online platforms and very large online search engines, which were subject to the rules
+  before the general application date. It is not an AI law, but it covers services whose content moderation and
+  ranking often rely on automated systems.
+scope_summary: >-
+  Providers of intermediary services offered to users in the EU, with additional duties for very large online
+  platforms and search engines.
+who_it_applies_to: >-
+  Intermediary service providers, online platforms, very large online platforms and search engines, and Member
+  State coordinators.
+key_dates_summary: >-
+  Signed 19 October 2022; published in OJ L 277 on 27 October 2022; some provisions from 16 November 2022;
+  generally applies from 17 February 2024.
+adopted_on: '2022-10-19'
+published_on: '2022-10-27'
+in_force_on: '2022-11-16'
+applies_from: '2024-02-17'
+date_notes: >-
+  Signature, publication and general application dates are in EUR-Lex extracts (Article 93). Entry into force is
+  the twentieth day after publication, which gives 16 November 2022, the date from which parts of Articles 24,
+  33, 37, 40 and 43 and Sections 4 to 6 of Chapter IV applied. Very large platforms and search engines
+  designated earlier were covered from four months after notification of their designation. Member States had to
+  designate Digital Services Coordinators by 17 February 2024.
+actors: [provider]
+ai_system_types: []
+sectors: [media_information]
+risk_categories: [unclassified]
+use_cases: [content_moderation]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Regulation (EU) 2022/2065 (Digital Services Act)
+  publisher: EUR-Lex (Publications Office of the European Union)
+  url: https://eur-lex.europa.eu/eli/reg/2022/2065
+  document_date: '2022-10-19'
+  document_type: legislation
+  tier: 1
+- title: Summary of Regulation (EU) 2022/2065
+  publisher: EUR-Lex (Publications Office of the European Union)
+  url: https://eur-lex.europa.eu/legal-content/EN/LSU/?uri=CELEX:32022R2065
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://eur-lex.europa.eu/eli/reg/2022/2065
+source_title: Regulation (EU) 2022/2065 (Digital Services Act)
+source_publisher: EUR-Lex (Publications Office of the European Union)
+source_document_date: '2022-10-19'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

@@ -1,0 +1,78 @@
+slug: australia-ai-ethics-principles
+aipt_id: AIPT-POL-0322
+jurisdiction: australia
+title: Australia's AI Ethics Principles
+short_title: Australia's AI Ethics Principles
+title_native: null
+instrument_type: framework
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. The
+  department says its Guidance for AI Adoption (October 2025) evolves these principles and the Voluntary AI
+  Safety Standard; the principles page remains published.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Department of Industry, Science and Resources
+summary_plain: >-
+  Eight voluntary principles for designing, developing and using AI in Australia, published as part of the
+  government's AI Ethics Framework after a public consultation on a discussion paper. They cover wellbeing of
+  people, society and the environment, human-centred values, fairness, privacy protection and security,
+  reliability and safety, transparency and explainability, contestability, and accountability. They are meant to
+  complement existing law, not replace it, and were trialled with several large businesses.
+scope_summary: >-
+  Voluntary; aimed at businesses and governments that design, develop or use AI in Australia.
+who_it_applies_to: Organisations developing or using AI in Australia, on a voluntary basis.
+key_dates_summary: Published 7 November 2019.
+adopted_on: null
+published_on: '2019-11-07'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  7 November 2019 is the date of the ministerial media release announcing the principles and the publication
+  date on the department's page, which has since been updated. The department was then called the Department of
+  Industry, Innovation and Science.
+actors: [provider, deployer, public_authority]
+ai_system_types: []
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: [australia-voluntary-ai-safety-standard]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Australia's AI Ethics Principles
+  publisher: Department of Industry, Science and Resources
+  url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+  document_date: '2019-11-07'
+  document_type: guidance
+  tier: 2
+- title: Businesses ready to test AI ethics principles
+  publisher: Minister for Industry, Science and Technology
+  url: https://www.minister.industry.gov.au/ministers/karenandrews/media-releases/businesses-ready-test-ai-ethics-principles
+  document_date: '2019-11-07'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+source_title: Australia's AI Ethics Principles
+source_publisher: Department of Industry, Science and Resources
+source_document_date: '2019-11-07'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

@@ -1,0 +1,102 @@
+slug: us-fair-credit-reporting-act
+aipt_id: AIPT-POL-0253
+jurisdiction: us
+title: 'Fair Credit Reporting Act (15 U.S.C. 1681 et seq.)'
+short_title: Fair Credit Reporting Act (FCRA)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  General consumer-reporting law that also applies where consumer reports or credit scores feed automated or AI-based
+  decisions; implemented for most persons by the CFPB's Regulation V (12 CFR Part 1022). Recorded on 26 November 2026
+  from search-engine extracts of the official pages listed; the official text could not be opened from the research
+  environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: United States Congress
+summary_plain: >-
+  The Fair Credit Reporting Act governs how consumer reporting agencies collect and share information about people
+  and how others use consumer reports. Organisations that take adverse action based wholly or partly on a consumer
+  report must tell the person, and where a credit score was used they must disclose the score and the key factors
+  that hurt it. It is a general law, not written for AI, but it reaches scoring and decision models that rely on
+  consumer report data.
+scope_summary: >-
+  Consumer reporting agencies and users of consumer reports, such as creditors, including when the reports or credit
+  scores derived from them are used in automated decisions.
+who_it_applies_to: Consumer reporting agencies and users of consumer reports.
+key_dates_summary: Enacted 26 October 1970 (Public Law 91-508, title VI); effective 25 April 1971.
+what_organizations_must_do: >-
+  Users that take adverse action based on a consumer report must send an adverse action notice; where a credit score
+  was used, the notice must give the score and generally up to four key factors that adversely affected it (five if
+  the number of inquiries is one of them). Risk-based pricing notices apply where credit is offered on materially less
+  favourable terms.
+adopted_on: '1970-10-26'
+published_on: null
+in_force_on: '1971-04-25'
+applies_from: null
+date_notes: >-
+  Enactment on 26 October 1970 as title VI of Public Law 91-508 is shown in the US Code notes and FTC compilation. The
+  statute provided that title VI takes effect 180 days after enactment; the CFPB examination procedures state the
+  effective date as 25 April 1971. Later amendments are not dated here.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-equal-credit-opportunity-act-regulation-b]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: '15 U.S.C. 1681: Congressional findings and statement of purpose'
+  publisher: Office of the Law Revision Counsel, US House of Representatives
+  url: https://uscode.house.gov/view.xhtml?req=(title:15+section:1681+edition:prelim)+OR+(granuleid:USC-prelim-title15-section1681)&f=treesort&edition=prelim&num=0&jumpTo=true
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: '15 U.S.C. 1681m: Requirements on users of consumer reports'
+  publisher: Office of the Law Revision Counsel, US House of Representatives
+  url: https://uscode.house.gov/view.xhtml?req=(title:15+section:1681m+edition:prelim)+OR+(granuleid:USC-prelim-title15-section1681m)&f=treesort&edition=prelim&num=0&jumpTo=true
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'eCFR: 12 CFR Part 1022, Fair Credit Reporting (Regulation V)'
+  publisher: Office of the Federal Register (eCFR)
+  url: https://www.ecfr.gov/current/title-12/chapter-X/part-1022
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Fair Credit Reporting Act (FCRA) examination procedures'
+  publisher: Consumer Financial Protection Bureau
+  url: https://www.consumerfinance.gov/compliance/supervision-examinations/fair-credit-reporting-act-fcra-examination-procedures/
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'Fair Credit Reporting Act (May 2023 compilation)'
+  publisher: Federal Trade Commission
+  url: https://www.ftc.gov/system/files/ftc_gov/pdf/fcra-may2023-508.pdf
+  document_date: null
+  document_type: legislation
+  tier: 2
+faq: []
+official_source_url: https://uscode.house.gov/view.xhtml?req=(title:15+section:1681+edition:prelim)+OR+(granuleid:USC-prelim-title15-section1681)&f=treesort&edition=prelim&num=0&jumpTo=true
+source_title: '15 U.S.C. 1681: Congressional findings and statement of purpose'
+source_publisher: Office of the Law Revision Counsel, US House of Representatives
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

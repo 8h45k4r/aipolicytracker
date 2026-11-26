@@ -1,0 +1,81 @@
+slug: us-california-ab-2713-ai-transparency-act-provenance-data
+aipt_id: AIPT-POL-0280
+jurisdiction: us-california
+title: 'California AB 2713: California AI Transparency Act: system provenance data (Chapter 856, Statutes of 2026)'
+short_title: California AI Transparency Act provenance amendments (AB 2713)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not
+  be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Amends the California AI Transparency Act duties of large online platforms. Platforms must detect provenance data
+  attached to content, show users whether it marks the content as AI-generated or substantially altered, and let
+  users inspect it by display, by a link or by download. Knowingly stripping system provenance data or digital
+  signatures remains prohibited where technically feasible, and data that does not follow widely adopted standards
+  need not be acted on.
+scope_summary: >-
+  Large online platforms that distribute content in California, under the California AI Transparency Act.
+who_it_applies_to: Large online platforms.
+key_dates_summary: Approved by the Governor and chaptered 30 September 2026; the platform section is operative from 1 January 2027.
+what_organizations_must_do: >-
+  Detect provenance data on content, disclose to users whether it indicates AI generation or substantial alteration,
+  give users a way to inspect it, and do not knowingly remove provenance data or digital signatures.
+adopted_on: '2026-09-30'
+published_on: null
+in_force_on: null
+applies_from: '2027-01-01'
+date_notes: >-
+  Governor approval and chaptering on 30 September 2026 (Chapter 856) and the 1 January 2027 operative date of the
+  platform section are as shown in search extracts of the bill status and text pages. How these changes sit
+  alongside the earlier AB 853 amendments has not been checked.
+actors:
+- deployer
+- distributor
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+risk_categories:
+- transparency_risk
+use_cases:
+- generative_ai
+- content_moderation
+related_policies:
+- us-california-ai-transparency-act-sb-942
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 2713 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2713
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2713
+source_title: 'California Legislative Information: AB 2713 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and duty
+  here is pending review against it.

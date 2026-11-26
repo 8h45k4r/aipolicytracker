@@ -1,0 +1,78 @@
+slug: us-illinois-hb-3178-digital-replica-contract-terms
+aipt_id: AIPT-POL-0289
+jurisdiction: us-illinois
+title: 'Illinois HB 3178: Digital Voice and Likeness Protection Act amendment on digital replica contract terms (Public Act 104-0282)'
+short_title: Illinois digital replica contract terms (HB 3178)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Illinois General Assembly
+summary_plain: >-
+  This act amends Section 10 of the Illinois Digital Voice and Likeness Protection Act (815 ILCS 550/10). For new
+  performances fixed on or after 1 January 2026, a contract term allowing a digital replica of a person's voice or
+  likeness to be made and used in place of work they would have done in person is unenforceable where it lacks a
+  reasonably specific description of the intended uses and the person had neither legal counsel nor union representation
+  covering digital replicas. A missing description does not void the term where the uses match the contract and the
+  fundamental character of the recording or performance.
+scope_summary: >-
+  Contracts in Illinois that permit the creation and use of digital replicas of an individual's voice or likeness for new
+  performances.
+who_it_applies_to: Organisations that contract with performers and other individuals for digital replicas of their voice or likeness.
+key_dates_summary: Approved by the Governor on 15 August 2025; effective 1 January 2026.
+what_organizations_must_do: >-
+  Describe the intended uses of a digital replica with reasonable specificity in contracts, unless the individual is
+  represented by counsel or by a union whose collective agreement covers digital replicas.
+adopted_on: '2025-08-15'
+published_on: null
+in_force_on: '2026-01-01'
+applies_from: null
+date_notes: Approval and effective dates from the General Assembly's Public Act page and bill status record.
+actors: [deployer]
+ai_system_types: [generative_ai]
+sectors: [media_information, employment]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Illinois General Assembly: Public Act 104-0282'
+  publisher: Illinois General Assembly
+  url: https://www.ilga.gov/legislation/PublicActs/View/104-0282
+  document_date: '2025-08-15'
+  document_type: legislation
+  tier: 1
+- title: 'Illinois General Assembly: bill status of HB 3178 (104th General Assembly)'
+  publisher: Illinois General Assembly
+  url: https://www.ilga.gov/Legislation/BillStatus?DocNum=3178&GAID=18&GA=104&DocTypeID=HB&LegID=161617&SessionID=114
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.ilga.gov/legislation/PublicActs/View/104-0282
+source_title: 'Illinois General Assembly: Public Act 104-0282'
+source_publisher: Illinois General Assembly
+source_document_date: '2025-08-15'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

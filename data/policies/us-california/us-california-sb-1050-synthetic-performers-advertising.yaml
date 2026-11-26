@@ -1,0 +1,74 @@
+slug: us-california-sb-1050-synthetic-performers-advertising
+aipt_id: AIPT-POL-0281
+jurisdiction: us-california
+title: 'California SB 1050: Synthetic performers in advertising (2026)'
+short_title: California synthetic performer ad disclosures (SB 1050)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the Governor's office announcement listed; the bill
+  page and chaptered text could not be opened from the research environment, so the chapter number, dates and duties
+  are pending review against them.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Requires a clear disclosure on video and audio advertisements that use AI-generated synthetic performers to sell a
+  product or service, and bars continued use of an advertisement found to break the rule. The Governor's office
+  presented it as protecting both consumers and performers.
+scope_summary: >-
+  Those who create or publish video or audio advertisements in California that feature synthetic performers.
+who_it_applies_to: Advertisers and others who create or publish advertisements using synthetic performers.
+key_dates_summary: Signed by the Governor 16 September 2026.
+adopted_on: '2026-09-16'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The signing date is from the Governor's announcement of 16 September 2026. The chapter number, effective date and
+  enforcement route were not confirmed from an official source and are left empty.
+actors:
+- deployer
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+- consumer_retail
+risk_categories:
+- transparency_risk
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Governor of California: Governor Newsom signs new law to protect workers, require disclosures on AI-generated advertising'
+  publisher: Office of the Governor of California
+  url: https://www.gov.ca.gov/2026/09/16/governor-newsom-signs-new-law-to-protect-workers-require-disclosures-on-ai-generated-advertising/
+  document_date: '2026-09-16'
+  document_type: press_release
+  tier: 1
+faq: []
+official_source_url: https://www.gov.ca.gov/2026/09/16/governor-newsom-signs-new-law-to-protect-workers-require-disclosures-on-ai-generated-advertising/
+source_title: 'Governor of California: Governor Newsom signs new law to protect workers, require disclosures on AI-generated advertising'
+source_publisher: Office of the Governor of California
+source_document_date: '2026-09-16'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  Governor's office announcement listed; the bill page and chaptered text could not be opened from the research
+  environment, so the chapter number, dates and duties are pending review against them.

@@ -1,0 +1,83 @@
+slug: us-maryland-hb-820-ai-utilization-review
+aipt_id: AIPT-POL-0292
+jurisdiction: us-maryland
+title: 'Maryland HB 820: AI and software tools in health insurance utilization review (Chapter 747, Laws of 2025)'
+short_title: Maryland AI in utilization review (HB 820)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Maryland General Assembly
+summary_plain: >-
+  Sets conditions for health insurers, pharmacy benefit managers and private review agents that use artificial
+  intelligence, algorithms or other software in utilization review, including tools run for them by a third party.
+  The tool has to rest on the individual patient's clinical history rather than only on group data, may not take the
+  place of a health care provider's judgement and may not itself deny, delay or modify care. Tools must be open to
+  audit by the Insurance Commissioner, and carriers must say in their quarterly adverse decision reports whether such
+  a tool was used.
+scope_summary: >-
+  Carriers, pharmacy benefit managers and private review agents in Maryland that use AI, algorithms or other software
+  tools for utilization review, directly or through a third party.
+who_it_applies_to: Maryland health insurance carriers, pharmacy benefit managers and private review agents.
+key_dates_summary: Approved by the Governor on 20 May 2025 as Chapter 747; effective 1 October 2025.
+what_organizations_must_do: >-
+  Organisations in scope must make sure any AI or software tool used in utilization review bases its determinations on
+  the enrollee's own medical or clinical history, does not replace the role of a health care provider and does not
+  deny, delay or modify services; keep the tool open to inspection by the Insurance Commissioner; review its
+  performance regularly (the extracts say at least quarterly); and report in the quarterly adverse decisions and
+  grievances report whether such a tool was used in an adverse decision.
+adopted_on: '2025-05-20'
+published_on: null
+in_force_on: '2025-10-01'
+applies_from: null
+date_notes: >-
+  Approval date (20 May 2025, Chapter 747) and effective date (1 October 2025) come from extracts of the General
+  Assembly bill page; the enrolled text was not opened.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [healthcare, financial_services]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Maryland General Assembly: HB 820 (2025 Regular Session)'
+  publisher: Maryland General Assembly
+  url: https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/HB0820?ys=2025RS
+  document_date: '2025-05-20'
+  document_type: legislation
+  tier: 1
+- title: 'Department of Legislative Services: HB 820 fiscal and policy note (2025)'
+  publisher: Maryland Department of Legislative Services
+  url: https://mgaleg.maryland.gov/2025RS/fnotes/bil_0000/hb0820.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/HB0820?ys=2025RS
+source_title: 'Maryland General Assembly: HB 820 (2025 Regular Session)'
+source_publisher: Maryland General Assembly
+source_document_date: '2025-05-20'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

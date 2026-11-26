@@ -42,6 +42,13 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- 96 more AI policy records, all pending review: US federal health, credit, model-risk and procurement rules
+  (42 CFR Part 2, CMS-4201-F, Section 1557, ONC HTI-1, ECOA, FCRA, SR 26-2, OMB M-25-22 and M-26-04, the
+  TAKE IT DOWN Act), 23 California laws and regulations, New York's financial regulator letters and digital
+  replica laws, other US states (Arizona, Colorado, Illinois, Indiana, Maryland, Montana, New Jersey, North
+  Dakota, Pennsylvania, Texas), the GDPR, DMA, DSA and DORA, UK data protection and online safety law, Hong Kong
+  and Singapore financial regulators, India, Canada, Japan and Australia. Five US states get their own pages.
+  Each record links its official source; dates not confirmed there are left empty.
 - A short "Suggest a policy" form at the foot of /policies: policy name, jurisdiction, official source and
   an optional 280-character note. Suggestions go to the same review queue as /contribute and are never
   published until a reviewer has checked the official source.
