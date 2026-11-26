@@ -1,0 +1,46 @@
+slug: us-minnesota
+name: Minnesota (United States)
+short_name: Minnesota
+iso_code: US-MN
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Minnesota is recorded here for its own AI instruments, which apply within its territory alongside US's national rules. On
+  record: Minnesota Consumer Data Privacy Act. This page was added in the November 2026 research round; see each instrument
+  for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Minnesota Consumer Data Privacy Act. Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside US's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: 'Minnesota Revisor of Statutes: Minnesota Statutes 2025, chapter 325M'
+  publisher: Minnesota Office of the Revisor of Statutes
+  url: https://www.revisor.mn.gov/statutes/2025/cite/325M/full
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+official_source_url: https://www.revisor.mn.gov/statutes/2025/cite/325M/full
+source_title: 'Minnesota Revisor of Statutes: Minnesota Statutes 2025, chapter 325M'
+source_publisher: Minnesota Office of the Revisor of Statutes
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

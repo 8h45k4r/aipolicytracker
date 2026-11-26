@@ -1,0 +1,87 @@
+slug: us-naic-model-bulletin-ai-systems-by-insurers
+aipt_id: AIPT-POL-0346
+jurisdiction: us
+title: 'NAIC Model Bulletin: Use of Artificial Intelligence Systems by Insurers'
+short_title: NAIC AI model bulletin for insurers
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  A model bulletin adopted by the National Association of Insurance Commissioners for individual state insurance
+  regulators to issue; it binds insurers only in a state that adopts it, and adoption is state by state. Recorded on
+  26 November 2026 from search-engine extracts of the official pages listed; the official text could not be opened
+  from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: National Association of Insurance Commissioners
+summary_plain: >-
+  A model bulletin that state insurance regulators can issue to set common expectations for insurers' use of AI. It
+  reminds insurers that decisions affecting consumers that are made or supported by AI systems must still comply with
+  existing insurance law, including the rules on unfair trade practices and unfair discrimination. Insurers are
+  expected to keep a written programme for the responsible use of AI systems in regulated insurance practices, drawing
+  on the NAIC's 2020 AI Principles and, where useful, the NIST AI Risk Management Framework.
+scope_summary: >-
+  Insurers authorised in a state that has issued the bulletin, for AI systems that make or support decisions in
+  regulated insurance practices, including systems obtained from third parties.
+who_it_applies_to: Insurers in states that adopt the bulletin.
+key_dates_summary: Approved by the NAIC (H) Committee 1 December 2023; adopted by the membership 4 December 2023.
+what_organizations_must_do: >-
+  In adopting states, insurers are expected to develop, implement and maintain a written AI systems programme (an
+  "AIS Program") for the responsible use of AI that makes or supports decisions in regulated insurance practices.
+adopted_on: '2023-12-04'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The adoption on 4 December 2023 and committee approval on 1 December 2023 come from the NAIC's own pages and the
+  adopted text's file name. Effective dates depend on each state's adoption and are not recorded here.
+actors: [deployer, provider]
+ai_system_types: [predictive_scoring, automated_decision_system]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-nist-ai-rmf]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NAIC Model Bulletin: Use of Artificial Intelligence Systems by Insurers (adopted text)'
+  publisher: National Association of Insurance Commissioners
+  url: https://content.naic.org/sites/default/files/cmte-h-big-data-artificial-intelligence-wg-ai-model-bulletin.pdf.pdf
+  document_date: '2023-12-04'
+  document_type: guidance
+  tier: 2
+- title: 'NAIC Members Approve Model Bulletin on Use of AI by Insurers'
+  publisher: National Association of Insurance Commissioners
+  url: https://content.naic.org/article/naic-members-approve-model-bulletin-use-ai-insurers
+  document_date: null
+  document_type: press_release
+  tier: 2
+- title: 'Implementation of NAIC Model Bulletin: Use of Artificial Intelligence Systems by Insurers'
+  publisher: National Association of Insurance Commissioners
+  url: https://content.naic.org/sites/default/files/legal-adoption-map-ai-model-bulletin.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://content.naic.org/sites/default/files/cmte-h-big-data-artificial-intelligence-wg-ai-model-bulletin.pdf.pdf
+source_title: 'NAIC Model Bulletin: Use of Artificial Intelligence Systems by Insurers (adopted text)'
+source_publisher: National Association of Insurance Commissioners
+source_document_date: '2023-12-04'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

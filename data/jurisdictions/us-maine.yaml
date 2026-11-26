@@ -1,0 +1,46 @@
+slug: us-maine
+name: Maine (United States)
+short_name: Maine
+iso_code: US-ME
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Maine is recorded here for its own AI instruments, which apply within its territory alongside US's national rules. On
+  record: Maine AI chatbot disclosure (LD 1727); Maine AI in therapy and mental health services (LD 2082). This page was added in the November 2026 research round; see each instrument
+  for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Maine AI chatbot disclosure (LD 1727); Maine AI in therapy and mental health services (LD 2082). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside US's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: 'Maine Legislature: LD 1727, HP 1154, text and status (132nd Legislature, First Special Session)'
+  publisher: Maine Legislature
+  url: https://legislature.maine.gov/legis/bills/display_ps.asp?LD=1727&snum=132
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+official_source_url: https://legislature.maine.gov/legis/bills/display_ps.asp?LD=1727&snum=132
+source_title: 'Maine Legislature: LD 1727, HP 1154, text and status (132nd Legislature, First Special Session)'
+source_publisher: Maine Legislature
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

@@ -1,0 +1,79 @@
+slug: us-investment-advisers-act-of-1940
+aipt_id: AIPT-POL-0344
+jurisdiction: us
+title: Investment Advisers Act of 1940 (15 U.S.C. 80b-1 et seq.)
+short_title: Investment Advisers Act of 1940
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  A general federal law, not specific to AI, that governs investment advisers however they use technology. The SEC's
+  2023 proposal on conflicts of interest from predictive data analytics under this Act (file S7-12-23) was withdrawn
+  on 12 June 2025 (notice published 17 June 2025, 90 FR 25531). Recorded on 26 November 2026 from search-engine
+  extracts of the official pages listed; the official text could not be opened from the research environment, so
+  every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: United States Congress (administered by the Securities and Exchange Commission)
+summary_plain: >-
+  The federal statute that regulates investment advisers, administered by the Securities and Exchange Commission. It
+  covers registration, advisory contracts, custody of client assets and anti-fraud rules, and the SEC enforces it.
+  Advisers that use AI or other analytics to give advice or deal with clients stay subject to the same anti-fraud
+  provisions and fiduciary obligations.
+scope_summary: >-
+  Investment advisers as defined in the Act, subject to its exclusions and registration exemptions, including advisers
+  that use AI or predictive analytics in advice or client interactions.
+who_it_applies_to: Investment advisers subject to the Act and SEC oversight.
+key_dates_summary: In force; SEC's 2023 predictive data analytics proposal under the Act withdrawn 12 June 2025.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The enactment date of the Act was not shown in the extracts and is left empty pending review. The withdrawal of the
+  predictive data analytics proposal (dated 12 June 2025, published in the Federal Register on 17 June 2025) is from
+  the SEC and Federal Register pages listed.
+actors: [provider, deployer]
+ai_system_types: [predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Investment Advisers Act of 1940 (as amended), statute compilation
+  publisher: U.S. Government Publishing Office (GovInfo)
+  url: https://www.govinfo.gov/content/pkg/COMPS-1878/pdf/COMPS-1878.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Withdrawal of Proposed Regulatory Actions (Federal Register document 2025-11110)'
+  publisher: Federal Register
+  url: https://www.federalregister.gov/documents/2025/06/17/2025-11110/withdrawal-of-proposed-regulatory-actions
+  document_date: '2025-06-17'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.govinfo.gov/content/pkg/COMPS-1878/pdf/COMPS-1878.pdf
+source_title: Investment Advisers Act of 1940 (as amended), statute compilation
+source_publisher: U.S. Government Publishing Office (GovInfo)
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

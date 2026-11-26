@@ -1,0 +1,87 @@
+slug: us-eeoc-title-vii-adverse-impact-ai-selection-technical-assistance
+aipt_id: AIPT-POL-0347
+jurisdiction: us
+title: >-
+  EEOC technical assistance: Select Issues: Assessing Adverse Impact in Software, Algorithms, and Artificial
+  Intelligence Used in Employment Selection Procedures Under Title VII of the Civil Rights Act of 1964 (withdrawn)
+short_title: EEOC AI adverse impact technical assistance (withdrawn)
+title_native: null
+instrument_type: guidance
+status: archived
+status_note: >-
+  Reported removed from the EEOC website in late January 2025, after the change of acting chair and Executive Order
+  14179, with an agency spokesperson quoted as saying AI-related documents were taken down for review. The removal is
+  documented only in secondary reporting; no official notice of withdrawal was found, so the status is pending review.
+  The underlying law (Title VII) is unchanged. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: U.S. Equal Employment Opportunity Commission
+summary_plain: >-
+  Non-binding technical assistance in which the EEOC explained how Title VII's disparate-impact rules apply when
+  employers use software, algorithms or AI to make or inform hiring, promotion and other selection decisions. It
+  pointed employers to the 1978 Uniform Guidelines on Employee Selection Procedures for assessing adverse impact and
+  noted that the four-fifths rule is only a rule of thumb. It was issued under the EEOC's AI and algorithmic fairness
+  initiative and was later taken off the agency's website.
+scope_summary: >-
+  Employers covered by Title VII that use automated or AI-based tools in employment selection, including tools
+  supplied by vendors.
+who_it_applies_to: Employers using algorithmic or AI selection tools (guidance no longer published).
+key_dates_summary: Issued 18 May 2023; reported removed from the EEOC website in January 2025 (date pending review).
+adopted_on: null
+published_on: '2023-05-18'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 18 May 2023 issue date is given in extracts of EEOC pages and in secondary reports. The removal in late January
+  2025 is from secondary reports only (the exact day, possibly 27 January 2025, is not established), so no removal
+  date is recorded.
+actors: [deployer, provider]
+ai_system_types: [automated_decision_system]
+sectors: [employment]
+risk_categories: [unclassified]
+use_cases: [hiring_and_hr]
+related_policies: [us-executive-order-14179]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: >-
+    Select Issues: Assessing Adverse Impact in Software, Algorithms, and Artificial Intelligence Used in Employment
+    Selection Procedures Under Title VII of the Civil Rights Act of 1964
+  publisher: U.S. Equal Employment Opportunity Commission
+  url: https://www.eeoc.gov/select-issues-assessing-adverse-impact-software-algorithms-and-artificial-intelligence-used
+  document_date: '2023-05-18'
+  document_type: guidance
+  tier: 2
+- title: 'EEOC 2023 Annual Performance Report'
+  publisher: U.S. Equal Employment Opportunity Commission
+  url: https://www.eeoc.gov/2023-annual-performance-report
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.eeoc.gov/select-issues-assessing-adverse-impact-software-algorithms-and-artificial-intelligence-used
+source_title: >-
+  Select Issues: Assessing Adverse Impact in Software, Algorithms, and Artificial Intelligence Used in Employment
+  Selection Procedures Under Title VII of the Civil Rights Act of 1964
+source_publisher: U.S. Equal Employment Opportunity Commission
+source_document_date: '2023-05-18'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

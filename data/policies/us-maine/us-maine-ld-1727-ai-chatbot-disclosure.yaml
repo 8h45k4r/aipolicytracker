@@ -1,0 +1,88 @@
+slug: us-maine-ld-1727-ai-chatbot-disclosure
+aipt_id: AIPT-POL-0358
+jurisdiction: us-maine
+title: 'Maine LD 1727 (Public Law 2025, chapter 294): Disclosure of artificial intelligence chatbots in trade and commerce'
+short_title: Maine AI chatbot disclosure (LD 1727)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Legislature's
+  bill page shows LD 1727 enacted and signed by the Governor on 12 June 2025 as chapter 294. The provision is in the
+  current Maine Revised Statutes as Title 10, section 1500-DD (reallocated from section 1500-Y), and the session's
+  general effective date for non-emergency laws (24 September 2025) has passed, so it is recorded as in force.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Maine Legislature
+summary_plain: >-
+  Businesses in Maine may not use an artificial intelligence chatbot to deal with consumers in trade or commerce in a
+  way that could mislead a reasonable consumer into believing they are dealing with a human being, unless the consumer
+  is told clearly and conspicuously that they are not. The law defines a chatbot as software that simulates
+  conversation by text or voice. A breach is treated as a breach of the Maine Unfair Trade Practices Act.
+scope_summary: >-
+  Anyone in Maine who uses an AI chatbot to engage in trade or commerce with consumers by text or voice.
+who_it_applies_to: Businesses and other persons using AI chatbots to deal with consumers in Maine.
+key_dates_summary: Signed by the Governor on 12 June 2025 (chapter 294); effective date of the chapter not confirmed.
+penalties_summary: A violation is a violation of the Maine Unfair Trade Practices Act.
+what_organizations_must_do: >-
+  Tell consumers clearly and conspicuously that they are not dealing with a human whenever an AI chatbot could
+  otherwise lead a reasonable consumer to think so.
+adopted_on: '2025-06-12'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  adopted_on is the Governor's signature date shown on the bill status page. The First Special Session adjourned on
+  25 June 2025 and its general effective date for non-emergency laws is 24 September 2025; whether chapter 294 was an
+  emergency measure was not shown, so in_force_on is left empty.
+actors: [deployer]
+ai_system_types: [conversational_agent]
+sectors: [consumer_retail]
+risk_categories: [transparency_risk]
+use_cases: [customer_service]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Maine Legislature: LD 1727, HP 1154, text and status (132nd Legislature, First Special Session)'
+  publisher: Maine Legislature
+  url: https://legislature.maine.gov/legis/bills/display_ps.asp?LD=1727&snum=132
+  document_date: '2025-06-12'
+  document_type: legislation
+  tier: 1
+- title: 'Maine Legislature: H.P. 1154 - L.D. 1727, chaptered law (chapter 294)'
+  publisher: Maine Legislature
+  url: https://legislature.maine.gov/legis/bills/getPDF.asp?paper=HP1154&item=3&snum=132
+  document_date: '2025-06-12'
+  document_type: legislation
+  tier: 1
+- title: 'Maine Revised Statutes: Title 10, section 1500-DD'
+  publisher: Maine Legislature, Office of the Revisor of Statutes
+  url: https://legislature.maine.gov/statutes/10/title10sec1500-DD.html
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://legislature.maine.gov/legis/bills/display_ps.asp?LD=1727&snum=132
+source_title: 'Maine Legislature: LD 1727, HP 1154, text and status (132nd Legislature, First Special Session)'
+source_publisher: Maine Legislature
+source_document_date: '2025-06-12'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

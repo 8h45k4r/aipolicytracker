@@ -1,0 +1,85 @@
+slug: us-dod-directive-3000-09-autonomy-in-weapon-systems
+aipt_id: AIPT-POL-0341
+jurisdiction: us
+title: 'DoD Directive 3000.09: Autonomy in Weapon Systems (25 January 2023)'
+short_title: DoD Directive 3000.09 (autonomy in weapons)
+title_native: null
+instrument_type: directive
+status: in_force
+status_note: >-
+  The 25 January 2023 issuance replaces the November 2012 version of the directive. Recorded on 26 November 2026 from
+  search-engine extracts of the official pages listed; the official text could not be opened from the research
+  environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: U.S. Department of Defense (Office of the Under Secretary of Defense for Policy)
+summary_plain: >-
+  An internal Department of Defense directive that sets policy and assigns responsibilities for developing and using
+  autonomous and semi-autonomous functions in weapon systems. Systems must be designed so that commanders and operators
+  can exercise appropriate levels of human judgement over the use of force, and must pass rigorous verification,
+  validation, test and evaluation. Most autonomous weapon systems need senior-level approval before formal development
+  and again before fielding, and AI capabilities in them are expected to follow the department's AI ethical principles.
+scope_summary: >-
+  DoD components that design, develop, acquire, test, field or use autonomous and semi-autonomous weapon systems,
+  including remotely operated and crewed armed platforms with such functions.
+who_it_applies_to: Department of Defense components responsible for weapon systems with autonomous functions.
+key_dates_summary: Issued 25 January 2023, replacing the 21 November 2012 version.
+what_organizations_must_do: >-
+  Components must design systems to allow appropriate human judgement over the use of force, test and re-test them
+  (including after changes to algorithms, missions or environments), and obtain approval from the Under Secretaries of
+  Defense for Policy and for Research and Engineering and the Vice Chairman of the Joint Chiefs of Staff before formal
+  development and before fielding, unless an exemption applies. The directive also sets up an Autonomous Weapon Systems
+  Working Group.
+adopted_on: '2023-01-25'
+published_on: '2023-01-25'
+in_force_on: '2023-01-25'
+applies_from: null
+date_notes: >-
+  The issuance date of 25 January 2023 appears in the titles of the official PDF on the Directives Division site and
+  on media.defense.gov, and in the department's release of the same day. The 21 November 2012 date of the earlier
+  version comes from the extracts and is pending review. The directive is treated as effective on issue; this is
+  pending review against its text.
+actors: [public_authority]
+ai_system_types: []
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [safety_critical]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'DoD Directive 3000.09, Autonomy in Weapon Systems, January 25, 2023'
+  publisher: Executive Services Directorate, Washington Headquarters Services
+  url: https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf
+  document_date: '2023-01-25'
+  document_type: official
+  tier: 1
+- title: 'DoD Announces Update to DoD Directive 3000.09, Autonomy in Weapon Systems'
+  publisher: U.S. Department of Defense
+  url: https://www.defense.gov/News/Releases/Release/Article/3278076/
+  document_date: '2023-01-25'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf
+source_title: 'DoD Directive 3000.09, Autonomy in Weapon Systems, January 25, 2023'
+source_publisher: Executive Services Directorate, Washington Headquarters Services
+source_document_date: '2023-01-25'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

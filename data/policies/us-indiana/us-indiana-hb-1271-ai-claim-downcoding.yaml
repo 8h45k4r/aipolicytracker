@@ -1,0 +1,89 @@
+slug: us-indiana-hb-1271-ai-claim-downcoding
+aipt_id: AIPT-POL-0363
+jurisdiction: us-indiana
+title: 'Indiana HB 1271 (Public Law 88, 2026): Payment of health claims, including limits on AI downcoding'
+short_title: Indiana AI claim downcoding limits (HB 1271)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The General
+  Assembly's bill page lists House Enrolled Act 1271 as Public Law 88, signed by the Governor on 4 March 2026. The
+  enrolled text and the fiscal note give an effective date of 1 July 2026, so the law is recorded as in force.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Indiana General Assembly
+summary_plain: >-
+  Insurers in Indiana may not use an automated process or tool, including artificial intelligence, as the only basis for
+  downcoding a claim on grounds of medical necessity unless an employee or contractor has reviewed the patient's medical
+  record. Insurers must disclose clearly when AI is used to make an adverse prior authorisation decision or to downcode a
+  claim. The enrolled text also bars downcoding based only on a diagnosis code, requires notice and reasons for
+  downcoding and an appeal window, and restricts providers from submitting claims through such tools without human
+  review. It does not apply to the Medicaid programme.
+scope_summary: >-
+  Insurers paying health claims in Indiana, and providers submitting them, outside the Medicaid programme.
+who_it_applies_to: Health insurers and health care providers in Indiana (Medicaid excluded).
+key_dates_summary: >-
+  Signed by the Governor on 4 March 2026 (Public Law 88); effective 1 July 2026 per the enrolled text and fiscal note.
+what_organizations_must_do: >-
+  Have a person review the medical record before any medical-necessity downcode made with an automated tool, and disclose
+  AI use in adverse prior authorisation decisions and downcoding.
+adopted_on: '2026-03-04'
+published_on: null
+in_force_on: '2026-07-01'
+applies_from: null
+date_notes: >-
+  adopted_on is the Governor's signature date (4 March 2026) shown on the General Assembly's bill page, which also gives
+  Public Law 88. in_force_on is the effective date of 1 July 2026 stated in the enrolled text and the Legislative Services
+  Agency fiscal note. Secondary reports suggest some provisions apply later; not confirmed from official pages.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [healthcare, financial_services]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Indiana General Assembly: HB 1271 (2026) bill status'
+  publisher: Indiana General Assembly
+  url: https://iga.in.gov/legislative/2026/bills/house/1271
+  document_date: '2026-03-04'
+  document_type: legislation
+  tier: 1
+- title: 'Indiana General Assembly: HB 1271 (2026), enrolled text'
+  publisher: Indiana General Assembly
+  url: https://iga.in.gov/pdf-documents/124/2026/house/bills/HB1271/HB1271.07.ENRS.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Indiana Legislative Services Agency: fiscal impact statement on enrolled HB 1271 (2026)'
+  publisher: Indiana Legislative Services Agency
+  url: https://iga.in.gov/pdf-documents/124/2026/house/bills/HB1271/fiscal-notes/HB1271.07.ENRS.FN001.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://iga.in.gov/pdf-documents/124/2026/house/bills/HB1271/HB1271.07.ENRS.pdf
+source_title: 'Indiana General Assembly: HB 1271 (2026), enrolled text'
+source_publisher: Indiana General Assembly
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

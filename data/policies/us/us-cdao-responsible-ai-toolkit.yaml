@@ -1,0 +1,80 @@
+slug: us-cdao-responsible-ai-toolkit
+aipt_id: AIPT-POL-0342
+jurisdiction: us
+title: 'Department of Defense Chief Digital and Artificial Intelligence Office: Responsible AI (RAI) Toolkit'
+short_title: DoD CDAO Responsible AI Toolkit
+title_native: null
+instrument_type: framework
+status: guidance
+status_note: >-
+  Released publicly in November 2023 as a minimum viable product that the office said it would keep updating; no
+  later re-release was found in the extracts. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Chief Digital and Artificial Intelligence Office, U.S. Department of Defense
+summary_plain: >-
+  A voluntary self-assessment resource from the Defense Department's Chief Digital and Artificial Intelligence Office
+  that helps teams check an AI project, at any stage of its life, against the department's AI ethical principles and
+  responsible AI practice. It is meant to be worked through jointly by programme managers, developers, acquisition and
+  legal staff and end users. It builds on the Defense Innovation Unit's Responsible AI Guidelines and worksheets and
+  on the NIST AI Risk Management Framework, and was delivered under the department's 2022 Responsible AI Strategy and
+  Implementation Pathway.
+scope_summary: >-
+  Defense Department teams and their industry partners developing, acquiring or deploying AI capabilities who want a
+  structured responsible-AI assessment; use is voluntary.
+who_it_applies_to: DoD AI project teams, programme managers, acquisition staff and their contractors (voluntary).
+key_dates_summary: Public release announced 14 November 2023.
+adopted_on: null
+published_on: '2023-11-14'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 14 November 2023 date is the date of the office's announcement on ai.mil as shown in the extracts; the date of
+  the matching defense.gov release was not shown and is pending review. The June 2022 signature of the Responsible AI
+  Strategy and Implementation Pathway is from the same extracts.
+actors: [public_authority, provider, deployer]
+ai_system_types: []
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [government_procurement]
+related_policies: [us-nist-ai-rmf, us-diu-responsible-ai-guidelines]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Chief Digital and Artificial Intelligence Office: Responsible AI Toolkit'
+  publisher: Chief Digital and Artificial Intelligence Office
+  url: https://www.ai.mil/Latest/Blog/Article-Display/Article/3940314/responsible-ai-toolkit/
+  document_date: '2023-11-14'
+  document_type: official
+  tier: 2
+- title: 'CDAO Releases Responsible AI (RAI) Toolkit for Ensuring Alignment With RAI Best Practices'
+  publisher: U.S. Department of Defense
+  url: https://www.defense.gov/News/Releases/Release/Article/3588743/
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.ai.mil/Latest/Blog/Article-Display/Article/3940314/responsible-ai-toolkit/
+source_title: 'Chief Digital and Artificial Intelligence Office: Responsible AI Toolkit'
+source_publisher: Chief Digital and Artificial Intelligence Office
+source_document_date: '2023-11-14'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

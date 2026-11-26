@@ -1,0 +1,72 @@
+slug: jordan-cbj-ai-framework-banking-sector
+aipt_id: AIPT-POL-0368
+jurisdiction: jordan
+title: 'Central Bank of Jordan: Artificial Intelligence Framework for the Banking Sector in Jordan (version 1.0)'
+short_title: Jordan central bank AI framework for banks
+title_native: 'الإطار التنظيمي لاستخدامات الذكاء الاصطناعي للقطاع المصرفي الأردني'
+instrument_type: framework
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The issue date, any
+  circular that put the framework into effect and whether it is mandatory were not established; is_binding is set to
+  false until a reviewer confirms its legal character.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Central Bank of Jordan
+summary_plain: >-
+  The Central Bank of Jordan's framework for how the banks it regulates use AI. It covers governance, ethics,
+  compliance, data management, security, incident response and third-party risk. Banks in scope are expected to set up
+  an AI oversight committee or clearly assign responsibility for AI, fold AI risk into their existing risk management
+  and keep human oversight and the ability to intervene for critical systems. Customers are to be told clearly when
+  they are dealing with an AI system and be able to opt out of AI-driven processes without losing access to essential
+  banking services.
+scope_summary: >-
+  Banking institutions regulated by the Central Bank of Jordan that develop, buy or use AI systems, including through
+  third-party providers.
+who_it_applies_to: Banks and other institutions regulated by the Central Bank of Jordan that use AI.
+key_dates_summary: Version 1.0 published by the Central Bank of Jordan; issue date not established.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  No date was found in the extracts for the framework; all date fields are left empty pending review of the document.
+actors: [deployer, provider]
+ai_system_types: [automated_decision_system, generative_ai, conversational_agent]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, customer_service]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Central Bank of Jordan: Artificial Intelligence Framework for Banking Sector in Jordan (English version)'
+  publisher: Central Bank of Jordan
+  url: https://www.cbj.gov.jo/EBV4.0/Root_Storage/AR/FinCert/Ai-Framework_English_Version.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.cbj.gov.jo/EBV4.0/Root_Storage/AR/FinCert/Ai-Framework_English_Version.pdf
+source_title: 'Central Bank of Jordan: Artificial Intelligence Framework for Banking Sector in Jordan (English version)'
+source_publisher: Central Bank of Jordan
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

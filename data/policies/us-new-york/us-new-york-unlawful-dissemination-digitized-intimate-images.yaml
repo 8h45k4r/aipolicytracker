@@ -1,0 +1,81 @@
+slug: us-new-york-unlawful-dissemination-digitized-intimate-images
+aipt_id: AIPT-POL-0354
+jurisdiction: us-new-york
+title: 'New York S 1042-A / A 3596-A: Unlawful dissemination of digitized intimate images (Chapter 513, Laws of 2023)'
+short_title: New York digitized intimate images offence
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Senate and
+  Assembly action logs show the bill delivered to the Governor on 19 September 2023 and signed as Chapter 513 on
+  29 September 2023, with effect on the 60th day after it became law, so it is in force. Civil Rights Law section 52-c
+  (private right of action over sexually explicit digitized depictions) was added earlier, by Chapter 304 of the Laws
+  of 2020, and is not part of this law as far as the extracts show.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: New York State Legislature
+summary_plain: >-
+  This law extends New York's offence of unlawful dissemination or publication of an intimate image (Penal Law section
+  245.15) to images created or altered by digitization. Digitization means realistically altering an image using images
+  of someone other than the person shown or computer-generated images, which brings sexually explicit deepfakes of an
+  identifiable person within the offence. The law also repealed former subdivision 2-a of the section.
+scope_summary: >-
+  Anyone in New York who shares or publishes, without consent, an intimate image of an identifiable person that was
+  created or altered through digitization, including computer-generated imagery.
+who_it_applies_to: Individuals who disseminate or publish digitized intimate images of others without consent.
+key_dates_summary: 'Signed 29 September 2023 (Chapter 513); takes effect on the 60th day after it became law.'
+adopted_on: '2023-09-29'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Delivery on 19 September 2023, signing on 29 September 2023 and the chapter number come from search extracts of the
+  Senate and Assembly action logs; later bills (for example S 205 of 2025) describe section 245.15 as amended by
+  Chapter 513 of 2023. The bill text takes effect on the 60th day after it became law; the exact effective date has
+  not been read in an official source, so in_force_on is left empty.
+actors: [user]
+ai_system_types: [generative_ai]
+sectors: [law_enforcement, media_information]
+risk_categories: [unclassified]
+use_cases: [generative_ai, law_enforcement]
+related_policies: [us-new-york-deceased-performer-publicity-rights]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'New York State Senate: bill S1042A (2023-2024)'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/bills/2023/S1042/amendment/A
+  document_date: '2023-09-29'
+  document_type: legislation
+  tier: 1
+- title: 'New York State Assembly: bill S01042 (2023) actions and memo'
+  publisher: New York State Assembly
+  url: https://nyassembly.gov/leg/?Actions=Y&Floor=&Memo=Y&Text=Y&bn=S01042&nbspVotes=Y&term=2023
+  document_date: '2023-09-29'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.nysenate.gov/legislation/bills/2023/S1042/amendment/A
+source_title: 'New York State Senate: bill S1042A (2023-2024)'
+source_publisher: New York State Senate
+source_document_date: '2023-09-29'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

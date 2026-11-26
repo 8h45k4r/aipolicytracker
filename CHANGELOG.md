@@ -42,6 +42,15 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- 33 more AI policy records, all pending review: US defence and federal AI guidance (DoD Directive 3000.09, the
+  CDAO and DIU responsible AI guides, the NAIC model bulletin, FCC 24-17, the Treasury financial services AI framework),
+  California SB 1111, SB 1159 and SB 574, New York digital replica and deepfake laws, Washington, Maine, Minnesota,
+  Nebraska, Nevada, Alabama and Indiana laws, and India, Jordan, UAE, Israel, South Korea and Vietnam instruments. Seven
+  ISO/IEC and IEEE AI standards are listed as metadata, and six new controls cover duties these laws create (crisis
+  referral for chatbots, protections for minors, independent bias audits, clinician review of AI coverage decisions,
+  digital replica consent, AI safety reporting). Five more US states get their own pages.
+- Taiwan's AI Basic Act is shown as in force since 14 January 2026; the EU code of practice on labelling AI-generated
+  content (10 June 2026) and the Article 50 guidelines (20 July 2026) are recorded.
 - 96 more AI policy records, all pending review: US federal health, credit, model-risk and procurement rules
   (42 CFR Part 2, CMS-4201-F, Section 1557, ONC HTI-1, ECOA, FCRA, SR 26-2, OMB M-25-22 and M-26-04, the
   TAKE IT DOWN Act), 23 California laws and regulations, New York's financial regulator letters and digital

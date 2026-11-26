@@ -1,0 +1,81 @@
+slug: us-washington-hb-1205-forged-digital-likeness
+aipt_id: AIPT-POL-0356
+jurisdiction: us-washington
+title: 'Washington SHB 1205: Knowing distribution of a forged digital likeness (Chapter 51, Laws of 2025)'
+short_title: Washington forged digital likeness offence (HB 1205)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The bill summary
+  page and the certification of enrollment record approval by the Governor on 16 April 2025 as Chapter 51, Laws of
+  2025, effective 27 July 2025.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Washington State Legislature
+summary_plain: >-
+  This law adds the knowing distribution of a forged digital likeness to the offence of criminal impersonation in the
+  second degree, a gross misdemeanour. A forged digital likeness is a realistic fake image, video or audio of an
+  identifiable real person that misrepresents their appearance, speech or conduct and is likely to deceive a reasonable
+  person; the offence requires sharing it as genuine, knowing or having reason to know it is not, with intent to
+  defraud, harass, threaten or intimidate or for another unlawful purpose. Lawful uses such as satire, parody, art and
+  news are excluded, and online, mobile and broadband services are not liable merely for content others post.
+scope_summary: >-
+  People in Washington who knowingly distribute realistic synthetic images, video or audio of an identifiable person,
+  presented as genuine, for fraudulent, harassing, threatening or other unlawful purposes.
+who_it_applies_to: Individuals who distribute forged digital likenesses; intermediaries are protected for third-party content.
+key_dates_summary: 'Approved 16 April 2025 (Chapter 51, Laws of 2025); effective 27 July 2025.'
+penalties_summary: Criminal impersonation in the second degree is a gross misdemeanour.
+adopted_on: '2025-04-16'
+published_on: null
+in_force_on: '2025-07-27'
+applies_from: null
+date_notes: >-
+  Approval on 16 April 2025, the chapter number and the effective date of 27 July 2025 come from search extracts of the
+  Legislature's bill summary page and the certification of enrollment. Passage dates (House 4 March 2025, Senate
+  4 April 2025) come from the same bill page.
+actors: [user]
+ai_system_types: [generative_ai]
+sectors: [law_enforcement, media_information]
+risk_categories: [unclassified]
+use_cases: [generative_ai, law_enforcement]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Washington State Legislature: HB 1205 (2025-26) bill summary'
+  publisher: Washington State Legislature
+  url: https://app.leg.wa.gov/billsummary/?BillNumber=1205&Year=2025&Initiative=false
+  document_date: '2025-04-16'
+  document_type: legislation
+  tier: 1
+- title: 'Washington State Legislature: Substitute House Bill 1205, Chapter 51, Laws of 2025 (session law)'
+  publisher: Washington State Legislature
+  url: https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/Session%20Laws/House/1205-S.sl.pdf
+  document_date: '2025-04-16'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://app.leg.wa.gov/billsummary/?BillNumber=1205&Year=2025&Initiative=false
+source_title: 'Washington State Legislature: HB 1205 (2025-26) bill summary'
+source_publisher: Washington State Legislature
+source_document_date: '2025-04-16'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

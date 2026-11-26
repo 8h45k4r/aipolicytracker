@@ -1,0 +1,78 @@
+slug: uae-cbuae-guidance-note-ai-consumer-protection
+aipt_id: AIPT-POL-0369
+jurisdiction: uae
+title: 'Central Bank of the UAE: Guidance Note on the Consumer Protection and Responsible Adoption and Use of Artificial Intelligence and Machine Learning by Licensed Financial Institutions'
+short_title: UAE central bank guidance note on AI and consumer protection
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The note is guidance
+  to be read with the Central Bank's binding standards, such as the Model Management Standards.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Central Bank of the UAE (CBUAE)
+summary_plain: >-
+  The UAE central bank's guidance to the financial institutions it licenses on adopting AI and machine learning
+  responsibly and protecting consumers. Boards and senior management are to be accountable for AI systems and their
+  outcomes, and institutions should test for bias at least once a year and whenever a model is changed or introduced.
+  Customers should be told when AI is used, especially for high-impact decisions, and be able to ask for a human review
+  or an explanation. Institutions should carry out due diligence on AI vendors, keep an inventory of their AI models and
+  always be able to stop using a model through human intervention.
+scope_summary: >-
+  All financial institutions licensed by the Central Bank of the UAE that develop, buy or use AI or machine learning,
+  particularly in dealings with consumers.
+who_it_applies_to: Licensed financial institutions supervised by the Central Bank of the UAE.
+key_dates_summary: Announced by press release dated 23 February 2026.
+adopted_on: null
+published_on: '2026-02-23'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  23 February 2026 is the date of the Central Bank's press release. The rulebook shows a version dated 11/2/2026, which
+  may be 11 February 2026; the issue date of the note itself is not confirmed and no effective date was found.
+actors: [deployer, provider]
+ai_system_types: [automated_decision_system, generative_ai]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, customer_service]
+related_policies: [uae-the-uae-charter-for-the-development-and-use-of-artificial-intelligence, uae-personal-data-protection-law]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'CBUAE Rulebook: Guidance Note on the Consumer Protection and Responsible Adoption and Use of AI and ML by LFIs'
+  publisher: Central Bank of the UAE
+  url: https://rulebook.centralbank.ae/en/rulebook/guidance-note-consumer-protection-and-responsible-adoption-and-use-artificial-intelligence
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'CBUAE press release: guidance note to protect consumers and ensure responsible use of AI in the financial sector'
+  publisher: Central Bank of the UAE
+  url: https://www.centralbank.ae/media/mykn5fue/cbuae-issues-guidance-note-to-protect-consumers-and-ensure-responsible-use-of-artificial-intelligence-in-the-financial-sector-en.pdf
+  document_date: '2026-02-23'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://rulebook.centralbank.ae/en/rulebook/guidance-note-consumer-protection-and-responsible-adoption-and-use-artificial-intelligence
+source_title: 'CBUAE Rulebook: Guidance Note on the Consumer Protection and Responsible Adoption and Use of AI and ML by LFIs'
+source_publisher: Central Bank of the UAE
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

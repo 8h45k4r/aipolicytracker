@@ -1,0 +1,92 @@
+slug: south-korea-pipa-amendment-automated-decisions
+aipt_id: AIPT-POL-0371
+jurisdiction: south-korea
+title: 'Personal Information Protection Act, 2023 amendment and Enforcement Decree: rights concerning automated decisions (Article 37-2)'
+short_title: South Korea privacy law rights on automated decisions
+title_native: '개인정보 보호법'
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Act and its
+  Enforcement Decree have been amended again since 2024 (the consolidated texts show a later Act No. 21445 and
+  Presidential Decree No. 36340 of 19 May 2026), so current wording must be checked against the consolidated text.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: National Assembly of the Republic of Korea; Personal Information Protection Commission (Enforcement Decree)
+summary_plain: >-
+  The 2023 amendment to Korea's general privacy law added Article 37-2, which gives people rights over decisions made
+  by fully automated systems, including AI, that significantly affect their rights or duties. A person may refuse such
+  a decision or ask for an explanation of it; the controller must then stop applying the decision unless there is a
+  compelling reason, or take other steps such as having a human re-examine it and explaining it. Controllers must also
+  make public the standards and procedures they use for automated decisions. The Enforcement Decree sets out the
+  procedure for refusals and explanation requests.
+scope_summary: >-
+  Personal information controllers, in the public and private sectors, that make final decisions affecting individuals
+  through fully automated processing of personal information; certain decisions based on legal grounds under Article
+  15(1) are excluded from the right to refuse.
+who_it_applies_to: Organisations and public bodies in Korea that make significant fully automated decisions about individuals.
+key_dates_summary: Amending Act promulgated 14 March 2023; Enforcement Decree amended 12 March 2024; automated-decision provisions in force 15 March 2024.
+what_organizations_must_do: >-
+  Identify decisions made without meaningful human involvement that affect people's rights or duties, publish the
+  standards and procedures used, and set up a process to handle refusals and explanation requests, including human
+  re-examination where needed.
+adopted_on: '2023-03-14'
+published_on: '2023-03-14'
+in_force_on: '2024-03-15'
+applies_from: '2024-03-15'
+date_notes: >-
+  The extracts state that the amending Act was promulgated on 14 March 2023 and that the automated-decision provisions
+  apply from 15 March 2024. The Enforcement Decree amendment (Presidential Decree No. 34309) was approved by the Cabinet
+  on 6 March 2024 and promulgated on 12 March 2024, with Articles 44-2 to 44-4 in force on 15 March 2024. Other parts of
+  the 2023 amendment had their own commencement dates, which were not established here.
+actors: [deployer, public_authority]
+ai_system_types: [automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [hiring_and_hr, finance_and_credit, public_services]
+related_policies: [south-korea-framework-act-on-the-development-of-artificial-intelligence-and-establishment-of-a-foundation-for]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'National Law Information Center (English): Personal Information Protection Act'
+  publisher: Ministry of Government Legislation (Korea Law Information Center)
+  url: https://www.law.go.kr/LSW/eng/engLsInfoR.do?lsiSeq=270351
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'National Law Information Center: Enforcement Decree of the Personal Information Protection Act, revision history'
+  publisher: Ministry of Government Legislation (Korea Law Information Center)
+  url: https://www.law.go.kr/lsRvsDocListP.do?lsId=011468
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Korea.kr: briefing on the main points of the amended Personal Information Protection Act'
+  publisher: Government of the Republic of Korea (korea.kr)
+  url: https://www.korea.kr/briefing/policyBriefingView.do?newsId=156556158
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.law.go.kr/LSW/eng/engLsInfoR.do?lsiSeq=270351
+source_title: 'National Law Information Center (English): Personal Information Protection Act'
+source_publisher: Ministry of Government Legislation (Korea Law Information Center)
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,91 @@
+slug: us-nebraska-lb-77-prior-authorization-transparency
+aipt_id: AIPT-POL-0360
+jurisdiction: us-nebraska
+title: 'Nebraska LB 77 (2025): Ensuring Transparency in Prior Authorization Act, including limits on AI in utilization review'
+short_title: Nebraska prior authorisation transparency (LB 77)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The slip law shows
+  LB 77 approved by the Governor on 4 June 2025; sections 1 to 5 and 7 to 13, including the artificial intelligence
+  provision, became operative on 1 January 2026. It is a general prior authorisation law with specific AI duties.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Nebraska Legislature
+summary_plain: >-
+  Nebraska's Ensuring Transparency in Prior Authorization Act sets rules for how health insurers and their utilization
+  review agents handle prior authorisation, including published requirements, a uniform request form and decision
+  timelines. An artificial intelligence-based algorithm may not be the only basis for a decision to deny, delay or
+  modify care on medical-necessity grounds. Agents that use or will use such algorithms in utilization review must
+  disclose it to the Department of Insurance, to network providers, to enrollees and on their public website.
+scope_summary: >-
+  Health insurers and utilization review agents making prior authorisation and medical-necessity decisions for
+  enrollees in Nebraska, and health care providers submitting prior authorisation requests.
+who_it_applies_to: Utilization review agents and health insurers operating in Nebraska, and providers using the uniform request form.
+key_dates_summary: >-
+  Passed on final reading 30 May 2025; approved by the Governor on 4 June 2025; sections 1 to 5 and 7 to 13 operative
+  1 January 2026.
+what_organizations_must_do: >-
+  Keep AI-based algorithms from being the sole basis for denying, delaying or modifying care on medical-necessity
+  grounds; disclose AI use in utilization review to the Department, network providers, enrollees and on the website.
+adopted_on: '2025-06-04'
+published_on: null
+in_force_on: '2026-01-01'
+applies_from: null
+date_notes: >-
+  adopted_on is the Governor's approval date on the slip law. in_force_on is the operative date the enacted text gives
+  for sections 1 to 5 and 7 to 13, which include the AI provision (section 12); the other sections are operative on
+  the Act's effective date, which was not confirmed. The extracts disagree on the urgent-request decision deadline, so
+  timelines are not recorded here.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [healthcare, financial_services]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Nebraska Legislature: Legislative Bill 77 (2025), slip law'
+  publisher: Nebraska Legislature
+  url: https://nebraskalegislature.gov/FloorDocs/109/PDF/Slip/LB77.pdf
+  document_date: '2025-06-04'
+  document_type: legislation
+  tier: 1
+- title: 'Nebraska Legislature: LB 77 (109th Legislature) bill page'
+  publisher: Nebraska Legislature
+  url: https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=58825
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Nebraska Legislature: Committee statement on LB 77 (2025)'
+  publisher: Nebraska Legislature
+  url: https://www.nebraskalegislature.gov/FloorDocs/109/PDF/CS/LB77.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://nebraskalegislature.gov/FloorDocs/109/PDF/Slip/LB77.pdf
+source_title: 'Nebraska Legislature: Legislative Bill 77 (2025), slip law'
+source_publisher: Nebraska Legislature
+source_document_date: '2025-06-04'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

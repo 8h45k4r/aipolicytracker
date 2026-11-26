@@ -1,0 +1,98 @@
+slug: us-minnesota-consumer-data-privacy-act
+aipt_id: AIPT-POL-0359
+jurisdiction: us-minnesota
+title: 'Minnesota Consumer Data Privacy Act (Minn. Stat. sections 325M.10 to 325M.21; Laws 2024, chapter 121, article 5)'
+short_title: Minnesota Consumer Data Privacy Act
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Act was passed as
+  article 5 of Laws 2024, chapter 121 (HF 4757). The bill text numbered it as chapter 325O, but the Revisor codified it
+  as sections 325M.10 to 325M.21, effective 31 July 2025. It is a general privacy law that also governs profiling and
+  automated decisions.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Minnesota Legislature
+summary_plain: >-
+  Minnesota's comprehensive consumer privacy law gives residents rights over their personal data and is enforced by
+  the Attorney General. For profiling that feeds decisions with legal or similarly significant effects, such as those
+  on housing, employment, education or health care, consumers can opt out, question the result, be told the reason
+  for it and, where feasible, what they could do to get a different outcome. They can also review the personal data
+  used and, if it was wrong, have it corrected and the decision reconsidered.
+scope_summary: >-
+  Controllers and processors handling personal data of Minnesota residents that fall within the Act's thresholds,
+  including when they profile consumers for decisions with legal or similarly significant effects.
+who_it_applies_to: Businesses (controllers and processors) processing personal data of Minnesota consumers within the Act's thresholds.
+key_dates_summary: >-
+  Approved by the Governor on 24 May 2024; effective 31 July 2025; postsecondary institutions regulated by the Office of
+  Higher Education need not comply until 31 July 2029.
+what_organizations_must_do: >-
+  Honour opt-outs from profiling used for significant decisions; on request, explain a profiling-based decision, the
+  reasons for it and, where feasible, how to obtain a different result; let consumers review and correct the data used
+  and reconsider the decision.
+adopted_on: '2024-05-24'
+published_on: null
+in_force_on: '2025-07-31'
+applies_from: null
+date_notes: >-
+  adopted_on is the Governor's approval of HF 4757 (Laws 2024, chapter 121) shown on the House status page. in_force_on
+  is the effective date in the Revisor's notes to sections 325M.10 to 325M.21. Postsecondary institutions regulated by
+  the Office of Higher Education have until 31 July 2029. The applicability thresholds were not checked.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Minnesota Revisor of Statutes: Minnesota Statutes 2025, chapter 325M'
+  publisher: Minnesota Office of the Revisor of Statutes
+  url: https://www.revisor.mn.gov/statutes/2025/cite/325M/full
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Minnesota Revisor of Statutes: Laws 2024, chapter 121 (HF 4757)'
+  publisher: Minnesota Office of the Revisor of Statutes
+  url: https://www.revisor.mn.gov/laws/2024/0/121/
+  document_date: '2024-05-24'
+  document_type: legislation
+  tier: 1
+- title: 'Minnesota Revisor of Statutes: HF 4757 status (93rd Legislature)'
+  publisher: Minnesota Office of the Revisor of Statutes
+  url: https://www.revisor.mn.gov/bills/93/2024/0/HF/4757/?body=house
+  document_date: '2024-05-24'
+  document_type: legislation
+  tier: 1
+- title: 'Minnesota Attorney General: Minnesota Consumer Data Privacy Act'
+  publisher: Office of the Minnesota Attorney General
+  url: https://www.ag.state.mn.us/Data-Privacy/Consumer/
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.revisor.mn.gov/statutes/2025/cite/325M/full
+source_title: 'Minnesota Revisor of Statutes: Minnesota Statutes 2025, chapter 325M'
+source_publisher: Minnesota Office of the Revisor of Statutes
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.
