@@ -1,0 +1,81 @@
+slug: us-new-york-dfs-industry-letter-cybersecurity-risks-ai
+aipt_id: AIPT-POL-0302
+jurisdiction: us-new-york
+title: 'NYDFS Industry Letter: Cybersecurity Risks Arising from Artificial Intelligence and Strategies to Combat Related Risks (16 October 2024)'
+short_title: NYDFS guidance on AI cybersecurity risks (2024)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Department states
+  that the letter creates no new requirements and explains how existing duties under 23 NYCRR Part 500 apply to AI risks.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: New York State Department of Financial Services
+summary_plain: >-
+  This industry letter explains how organisations regulated by the New York Department of Financial Services should use
+  the existing cybersecurity regulation (23 NYCRR Part 500) to deal with risks created by AI. It describes threats such
+  as AI-generated deepfakes used in phishing, voice and video calls to obtain credentials or payments, and the theft of
+  biometric data to get past multi-factor authentication. It also encourages firms to consider how AI can strengthen
+  their own cybersecurity tools.
+scope_summary: >-
+  Covered entities under the DFS cybersecurity regulation, including their own AI use, AI used by their third-party
+  service providers and vendors, and vulnerabilities in AI applications.
+who_it_applies_to: Banks, insurers and other financial services entities regulated by NYDFS under 23 NYCRR Part 500.
+key_dates_summary: 'Issued 16 October 2024.'
+what_organizations_must_do: >-
+  The letter recommends that risk assessments take account of deepfakes and other AI-enabled threats; that
+  authentication avoid SMS, voice or video factors that deepfakes can imitate in favour of factors such as digital
+  certificates and physical security keys; and that annual social-engineering training include deepfake scenarios.
+adopted_on: null
+published_on: '2024-10-16'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The issue date of 16 October 2024 is taken from the letter's official URL and the same-day DFS press release title in
+  search extracts; pending review against the letter itself.
+actors: [deployer, user]
+ai_system_types: [generative_ai]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, generative_ai]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NYDFS Industry Letter: Cybersecurity Risks Arising from AI and Strategies to Combat Related Risks'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/industry-guidance/industry-letters/il20241016-cyber-risks-ai-and-strategies-combat-related-risks
+  document_date: '2024-10-16'
+  document_type: guidance
+  tier: 2
+- title: 'NYDFS press release: Superintendent Issues New Guidance to Address Cybersecurity Risks Arising from AI'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/reports_and_publications/press_releases/pr20241016
+  document_date: '2024-10-16'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.dfs.ny.gov/industry-guidance/industry-letters/il20241016-cyber-risks-ai-and-strategies-combat-related-risks
+source_title: 'NYDFS Industry Letter: Cybersecurity Risks Arising from AI and Strategies to Combat Related Risks'
+source_publisher: New York State Department of Financial Services
+source_document_date: '2024-10-16'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

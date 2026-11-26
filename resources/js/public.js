@@ -1072,3 +1072,16 @@
         document.body.appendChild(hint);
     }
 })();
+
+// Character count for a limited text field: [data-char-limit] updates the
+// [data-char-count] in the same field wrapper as "n/max".
+(function () {
+    document.querySelectorAll('[data-char-limit]').forEach(function (field) {
+        var count = field.parentElement && field.parentElement.querySelector('[data-char-count]');
+        var max = field.getAttribute('maxlength');
+        if (!count || !max) { return; }
+        var update = function () { count.textContent = field.value.length + '/' + max; };
+        field.addEventListener('input', update);
+        update();
+    });
+})();

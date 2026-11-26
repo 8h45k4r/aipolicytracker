@@ -41,8 +41,9 @@
 
     $signalTone = ['rising' => '#9B1C2E', 'emerging' => '#7A4B00', 'steady' => '#002147', 'easing' => '#0B6B4F', 'sparse' => '#5D6B7E'];
     $asOf = $d['fresh']['as_of'] ? Carbon::parse($d['fresh']['as_of']) : null;
+    $runsTo = $d['fresh']['runs_to'] ? Carbon::parse($d['fresh']['runs_to']) : null;
     $colours = AttackLandscape::DOMAIN_COLOURS;
-    $stale = $d['fresh']['live'] && $d['fresh']['days'] !== null && $d['fresh']['days'] >= AttackLandscape::STALE_AFTER_DAYS;
+    $stale = $d['fresh']['stale'];
 
     // The shift between accident and attack: the first year with enough classified
     // incidents to state a share, against the last complete year.
@@ -68,16 +69,14 @@
         <p class="mt-2 max-w-[80ch] text-sm text-brand-body">{{ $meta['definition'] }}</p>
 
         <p class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 meta" data-attack-fresh>
-            <span class="inline-flex items-center gap-1.5 text-brand-navy"><svg width="8" height="8" aria-hidden="true" class="{{ $d['fresh']['live'] && ! $stale ? 'pulse-dot' : '' }}"><circle cx="4" cy="4" r="4" fill="{{ $stale ? '#7A4B00' : '#0B6B4F' }}" /></svg>@if($asOf){{ $d['fresh']['live'] ? 'Synced' : 'Snapshot of' }} <time datetime="{{ $asOf->toIso8601String() }}">{{ $asOf->format($d['fresh']['live'] ? 'j M Y, H:i' : 'j M Y') }}{{ $d['fresh']['live'] ? ' UTC' : '' }}</time>@else Not imported yet @endif</span>
+            <span class="inline-flex items-center gap-1.5 text-brand-navy"><svg width="8" height="8" aria-hidden="true" class="{{ ! $stale && $runsTo ? 'pulse-dot' : '' }}"><circle cx="4" cy="4" r="4" fill="{{ $stale ? '#7A4B00' : '#0B6B4F' }}" /></svg>@if($runsTo)Data to <time datetime="{{ $runsTo->toDateString() }}">{{ $runsTo->format('j M Y') }}</time>@else Not imported yet @endif</span>
             <span>{{ number_format($t['corpus']) }} incidents on record</span>
             @if($d['fresh']['latest_incident'])<span>newest dated {{ Carbon::parse($d['fresh']['latest_incident'])->format('j M Y') }}</span>@endif
             @if($to)<span>classified to {{ $to }}</span>@endif
             @if($stale)
-            <span class="font-medium text-brand-warn" data-attack-stale>No new record has arrived from the daily sync for {{ $d['fresh']['days'] }} days; the figures stop there</span>
-            @elseif($d['fresh']['live'])
-            <span>synced from the source once a day; this page checks for new records every five minutes while it is open<span data-attack-checked></span></span>
+            <span class="font-medium text-brand-warn" data-attack-stale>No new data has arrived from the AI Incident Database for {{ $d['fresh']['days'] }} days; the figures stop there</span>
             @else
-            <span>from the published export; this page checks for new records every five minutes while it is open<span data-attack-checked></span></span>
+            <span>updated from the source's weekly export; this page checks for new records every five minutes while it is open<span data-attack-checked></span></span>
             @endif
         </p>
 
@@ -232,7 +231,7 @@
             <li><strong>Classification trails the record.</strong> The codes for intent, entity and risk domain are added after an incident is recorded. A month is compared only when {{ AttackLandscape::CLASSIFIED_SHARE }}% of its incidents carry a code, which is why the year-on-year figures here end before the newest incident and differ from the calendar figure on <a href="{{ route('risk.index') }}">AI risk</a>.</li>
             <li><strong>"Deliberate" is a code, not a verdict.</strong> It is the MIT causal taxonomy's "Intentional": the outcome was the expected result of pursuing a goal. It covers fraud and impersonation as well as attacks on AI systems themselves.</li>
             <li><strong>Risk entries are counted the same way as the incidents in view.</strong> For "Deliberate misuse" only entries coded Intentional are counted; for "Security and malicious use" only entries in domains 2 and 4.</li>
-            <li><strong>Updates.</strong> Incidents are synced from the AI Incident Database once a day and from its weekly export. Nothing on this page is fetched from the source while you read it.</li>
+            <li><strong>Updates.</strong> Incidents arrive from the AI Incident Database's weekly export. Its API, which used to deliver new records daily, now answers web browsers only. Nothing on this page is fetched from the source while you read it.</li>
         </ul>
     </section>
 

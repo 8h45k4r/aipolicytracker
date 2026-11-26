@@ -1,0 +1,87 @@
+slug: us-new-york-post-mortem-digital-replica-consent
+aipt_id: AIPT-POL-0308
+jurisdiction: us-new-york
+title: 'New York S8391 / A8882: Consent for post-mortem use of name, image, likeness and digital replicas (Chapter 616, Laws of 2025)'
+short_title: New York consent for post-mortem digital replicas
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Senate and
+  Assembly bill pages record that the bill was signed as Chapter 616 on 11 December 2025. Its effective date was not
+  established, so it is recorded as adopted; the extracts came from introduced or amended bill text, not the chaptered
+  law.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: New York State Legislature
+summary_plain: >-
+  This law changes New York's post-mortem right of publicity so that anyone who wants to use a deceased person's name,
+  image, likeness or voice for commercial purposes, including a digital replica of a deceased performer in films, video
+  games, sound recordings or live musical performances, must first obtain consent from the heirs or executors. Under
+  the previous rule a disclaimer was enough for expressive works as long as the depiction was not likely to deceive the
+  public. Online service providers are given a limited shield unless they fail to act on a good-faith notice.
+scope_summary: >-
+  Commercial uses in New York of a deceased individual's name, image, likeness or voice, including digital replicas of
+  deceased performers in audiovisual works, sound recordings and live performances.
+who_it_applies_to: >-
+  Producers, distributors and others who use a deceased person's likeness or digital replica commercially; online
+  service providers on notice.
+key_dates_summary: 'Signed 11 December 2025 (Chapter 616 of 2025); effective date not established.'
+adopted_on: '2025-12-11'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Signing on 11 December 2025 and the chapter number come from search extracts of the Senate bill page and the
+  Governor's release of the same day. The effective date could not be established from the extracts.
+actors: [deployer, distributor]
+ai_system_types: [generative_ai]
+sectors: [media_information]
+risk_categories: [transparency_risk]
+use_cases: [generative_ai]
+related_policies: [us-new-york-synthetic-performer-advertising-disclosure]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'New York State Senate: bill S8391 (2025-2026)'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/bills/2025/S8391
+  document_date: '2025-12-11'
+  document_type: legislation
+  tier: 1
+- title: 'New York State Senate: Assembly bill A8882 (2025-2026)'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/bills/2025/A8882
+  document_date: '2025-12-11'
+  document_type: legislation
+  tier: 1
+- title: 'Governor Hochul Signs Legislation to Protect Consumers and Boost AI Transparency in the Film Industry'
+  publisher: Office of the Governor of New York
+  url: https://www.governor.ny.gov/news/governor-hochul-signs-legislation-protect-consumers-and-boost-ai-transparency-film-industry
+  document_date: '2025-12-11'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.nysenate.gov/legislation/bills/2025/S8391
+source_title: 'New York State Senate: bill S8391 (2025-2026)'
+source_publisher: New York State Senate
+source_document_date: '2025-12-11'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

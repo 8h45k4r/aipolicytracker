@@ -1,0 +1,78 @@
+slug: us-nist-ai-100-2-adversarial-machine-learning
+aipt_id: AIPT-POL-0260
+jurisdiction: us
+title: 'NIST AI 100-2 E2025: Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations'
+short_title: NIST adversarial machine learning taxonomy (AI 100-2)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. Voluntary NIST
+  report in the Trustworthy and Responsible AI series; NIST describes the taxonomy as updated periodically, and an
+  earlier edition (E2023) was published in January 2024.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: National Institute of Standards and Technology (NIST), U.S. Department of Commerce
+summary_plain: >-
+  This NIST report gives a shared vocabulary and classification for attacks on machine-learning systems and the
+  defences against them. It sorts attacks by the kind of system targeted, predictive or generative AI, and by the
+  attacker's goal, such as disrupting availability, undermining integrity, extracting private data or misusing the
+  system, and it includes a glossary. Organisations can use it to describe and plan for AI security threats in a
+  consistent way; it creates no legal duties.
+scope_summary: >-
+  Voluntary reference for organisations that build, deploy, test or secure predictive and generative AI systems, and
+  for researchers and standards developers working on AI security.
+who_it_applies_to: AI developers, deployers and security teams (voluntary).
+key_dates_summary: Final edition published 24 March 2025.
+adopted_on: null
+published_on: '2025-03-24'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The publication date of 24 March 2025 and the report number NIST AI 100-2e2025 (DOI 10.6028/NIST.AI.100-2e2025)
+  come from extracts of NIST pages. The January 2024 date of the earlier E2023 edition is from the same extracts.
+actors: [provider, deployer]
+ai_system_types: [generative_ai]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: [us-nist-ai-rmf]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NIST AI 100-2 E2025: Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations'
+  publisher: National Institute of Standards and Technology
+  url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-2e2025.pdf
+  document_date: '2025-03-24'
+  document_type: guidance
+  tier: 1
+- title: 'NIST publication record: Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations'
+  publisher: National Institute of Standards and Technology
+  url: https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations-0
+  document_date: '2025-03-24'
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-2e2025.pdf
+source_title: 'NIST AI 100-2 E2025: Adversarial Machine Learning, A Taxonomy and Terminology of Attacks and Mitigations'
+source_publisher: National Institute of Standards and Technology
+source_document_date: '2025-03-24'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

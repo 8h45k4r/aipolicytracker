@@ -1,0 +1,88 @@
+slug: us-california-crc-automated-decision-systems-employment-regulations
+aipt_id: AIPT-POL-0270
+jurisdiction: us-california
+title: 'California Civil Rights Council: Employment regulations on automated-decision systems under FEHA'
+short_title: California FEHA automated-decision systems regulations
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California Civil Rights Council
+summary_plain: >-
+  Amends the employment regulations under the Fair Employment and Housing Act to address automated-decision
+  systems. They make clear that using such a system can breach California anti-discrimination law where it harms
+  applicants or employees on the basis of a protected characteristic, require employers to keep automated-
+  decision data for four years, and treat assessments such as tests or games that may reveal a disability as a
+  possible unlawful medical inquiry.
+scope_summary: >-
+  Employers and other entities covered by the Fair Employment and Housing Act that use automated-decision
+  systems in hiring, promotion and other employment decisions.
+who_it_applies_to: Employers covered by FEHA using automated-decision systems.
+key_dates_summary: >-
+  Approved by the Office of Administrative Law and filed with the Secretary of State 27 June 2025; effective 1
+  October 2025.
+what_organizations_must_do: >-
+  Employers using automated-decision systems must make sure they do not discriminate on protected
+  characteristics and must keep automated-decision data for four years.
+adopted_on: '2025-06-27'
+published_on: null
+in_force_on: '2025-10-01'
+applies_from: null
+date_notes: >-
+  The Council rulemaking page extract states the regulations were approved by the Office of Administrative Law,
+  filed with the Secretary of State on 27 June 2025 (recorded here as adopted_on) and effective 1 October 2025;
+  the Council press release is dated 30 June 2025. The same page also lists a filing of 7 January 2026 effective
+  1 April 2026 under a contractor nondiscrimination heading, which appears to be a separate rulemaking; confirm.
+actors:
+- deployer
+ai_system_types:
+- automated_decision_system
+sectors:
+- employment
+risk_categories:
+- unclassified
+use_cases:
+- hiring_and_hr
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Civil Rights Council: Rulemaking actions'
+  publisher: California Civil Rights Department
+  url: https://calcivilrights.ca.gov/civilrightscouncil/rulemaking-actions/
+  document_date: null
+  document_type: official
+  tier: 1
+- title: 'Civil Rights Council secures approval for regulations to protect against employment discrimination related to artificial intelligence'
+  publisher: California Civil Rights Department
+  url: https://calcivilrights.ca.gov/2025/06/30/civil-rights-council-secures-approval-for-regulations-to-protect-against-employment-discrimination-related-to-artificial-intelligence/
+  document_date: '2025-06-30'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://calcivilrights.ca.gov/civilrightscouncil/rulemaking-actions/
+source_title: 'Civil Rights Council: Rulemaking actions'
+source_publisher: California Civil Rights Department
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

@@ -1,0 +1,91 @@
+slug: eu-eba-guidelines-loan-origination-and-monitoring
+aipt_id: AIPT-POL-0315
+jurisdiction: eu
+title: EBA Guidelines on loan origination and monitoring (EBA/GL/2020/06)
+short_title: EBA loan origination and monitoring guidelines
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. EBA
+  guidelines are applied through national competent authorities, which confirm whether they comply (an EBA
+  compliance table exists); they are recorded here as non-binding guidance.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: European Banking Authority
+summary_plain: >-
+  These guidelines set out how banks and other institutions should govern the granting and monitoring of credit
+  over the whole life of a loan, including how they assess a borrower's creditworthiness. They expressly allow
+  automated models in credit decisions and creditworthiness assessment, and set governance requirements for
+  those models, including monitoring and back-testing. They replaced the EBA's 2015 guidelines on
+  creditworthiness assessment (EBA/GL/2015/11).
+scope_summary: >-
+  Institutions granting credit facilities in the EU, including where they use automated models for credit
+  decisions and creditworthiness assessment.
+who_it_applies_to: >-
+  Credit institutions and other lenders supervised by EU national competent authorities.
+key_dates_summary: >-
+  Issued 29 May 2020; applies from 30 June 2021; existing loans needing renegotiation from 30 June 2022; data
+  gaps to be closed by 30 June 2024.
+what_organizations_must_do: >-
+  Institutions using automated models for credit decisions or creditworthiness assessment must apply the
+  guidelines' model governance requirements, including monitoring and back-testing of the models.
+adopted_on: null
+published_on: '2020-05-29'
+in_force_on: null
+applies_from: '2021-06-30'
+date_notes: >-
+  Issue date 29 May 2020 is from the EBA compliance table; the EBA press release is dated 28 May 2020.
+  Application from 30 June 2021 and the transitional dates of 30 June 2022 and 30 June 2024 are from extracts of
+  the EBA final report.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Guidelines on loan origination and monitoring
+  publisher: European Banking Authority
+  url: https://www.eba.europa.eu/activities/single-rulebook/regulatory-activities/credit-risk/guidelines-loan-origination-and-monitoring
+  document_date: '2020-05-29'
+  document_type: guidance
+  tier: 2
+- title: Final Report on Guidelines on loan origination and monitoring (EBA/GL/2020/06)
+  publisher: European Banking Authority
+  url: https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2020/Guidelines%20on%20loan%20origination%20and%20monitoring/884283/EBA%20GL%202020%2006%20Final%20Report%20on%20GL%20on%20loan%20origination%20and%20monitoring.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: EBA seeks to future proof loan origination standards
+  publisher: European Banking Authority
+  url: https://www.eba.europa.eu/publications-and-media/press-releases/eba-seeks-future-proof-loan-origination-standards-taking
+  document_date: '2020-05-28'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.eba.europa.eu/activities/single-rulebook/regulatory-activities/credit-risk/guidelines-loan-origination-and-monitoring
+source_title: Guidelines on loan origination and monitoring
+source_publisher: European Banking Authority
+source_document_date: '2020-05-29'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

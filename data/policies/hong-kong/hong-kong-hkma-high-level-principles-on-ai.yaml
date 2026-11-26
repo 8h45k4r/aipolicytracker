@@ -1,0 +1,86 @@
+slug: hong-kong-hkma-high-level-principles-on-ai
+aipt_id: AIPT-POL-0334
+jurisdiction: hong-kong
+title: 'HKMA circular: High-level Principles on Artificial Intelligence (1 November 2019)'
+short_title: HKMA high-level principles on AI (2019)
+title_native: null
+instrument_type: guidance
+status: superseded
+status_note: >-
+  Annex A to the HKMA circular "Responsible Adoption of Artificial Intelligence" (October 2026) states that it supersedes
+  this circular. Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text
+  could not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Hong Kong Monetary Authority
+summary_plain: >-
+  A supervisory circular from the Hong Kong Monetary Authority setting out high-level principles for banks that design
+  and adopt AI and big data analytics applications. The themes include explainability of AI outcomes, board and senior
+  management accountability, in-house expertise, auditability, data quality, management of third parties and data
+  protection. The HKMA kept the principles deliberately high level so as not to hold back innovation, and replaced them in
+  October 2026 with new supervisory guidance on responsible AI adoption.
+scope_summary: >-
+  Authorized institutions in Hong Kong (licensed banks, restricted licence banks and deposit-taking companies) using AI
+  applications.
+who_it_applies_to: Authorized institutions supervised by the Hong Kong Monetary Authority.
+key_dates_summary: Issued 1 November 2019; superseded by the HKMA supervisory guidance on responsible AI adoption (October 2026).
+adopted_on: null
+published_on: '2019-11-01'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 1 November 2019 issue date is shown in the HKMA Banking Regulatory Document Repository. The exact date of the
+  superseding circular is taken from its document reference (20261015) and the HKMA press release of 15 October 2026; it
+  is pending review against the circular itself.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies:
+- hong-kong-hkma-consumer-protection-big-data-analytics-and-ai
+- hong-kong-hkma-art-framework-responsible-ai-adoption
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'HKMA Banking Regulatory Document Repository: High-level Principles on Artificial Intelligence'
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20191101-1-EN
+  document_date: '2019-11-01'
+  document_type: guidance
+  tier: 1
+- title: High-level Principles on Artificial Intelligence (circular, PDF)
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20191101-1-EN/20191101-1-EN.pdf
+  document_date: '2019-11-01'
+  document_type: guidance
+  tier: 1
+- title: 'Responsible Adoption of Artificial Intelligence, Annex A: Supervisory Guidance for Responsible Adoption of Artificial Intelligence'
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20261015-2-EN/20261015-2-EN.pdf
+  document_date: null
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20191101-1-EN
+source_title: 'HKMA Banking Regulatory Document Repository: High-level Principles on Artificial Intelligence'
+source_publisher: Hong Kong Monetary Authority
+source_document_date: '2019-11-01'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

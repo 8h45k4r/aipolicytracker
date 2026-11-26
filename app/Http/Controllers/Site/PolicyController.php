@@ -70,7 +70,11 @@ class PolicyController extends Controller
         $chips = $catalog->activeFilters($filters, $options, $request);
         $total = $chips === [] ? $policies->total() : $catalog->policyQuery([])->count();
 
-        return view('site.policies.index', compact('seo', 'policies', 'filters', 'options', 'facets', 'chips', 'total'));
+        // The "Suggest a policy" form lists every published jurisdiction, not only those
+        // with a record yet: a suggestion is most useful where we have nothing.
+        $suggestJurisdictions = Jurisdiction::published()->orderBy('name')->pluck('name', 'slug');
+
+        return view('site.policies.index', compact('seo', 'policies', 'filters', 'options', 'facets', 'chips', 'total', 'suggestJurisdictions'));
     }
 
     public function show(PolicyInstrument $policy): View

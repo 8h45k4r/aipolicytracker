@@ -1,0 +1,78 @@
+slug: us-national-policy-framework-for-ai-legislative-recommendations
+aipt_id: AIPT-POL-0259
+jurisdiction: us
+title: 'The White House: National Policy Framework for Artificial Intelligence, Legislative Recommendations (March 2026)'
+short_title: US National AI Legislative Framework (2026)
+title_native: null
+instrument_type: framework
+status: proposed
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. These are the
+  administration's recommendations to Congress, not law; the extracts show no legislation enacted on them.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: The White House, Executive Office of the President
+summary_plain: >-
+  The White House set out what it wants Congress to put into a single national AI law. The recommendations cover six
+  areas: protecting children (including age-assurance duties for AI services minors are likely to use), shielding
+  households from data-centre electricity costs and easing permits for on-site power, intellectual property and
+  creators, free speech, innovation through regulatory sandboxes, and workforce training. They ask Congress to preempt
+  state AI laws that impose undue burdens, with carve-outs, and not to create a new federal AI regulator.
+scope_summary: >-
+  Addressed to Congress as proposals for federal legislation. If enacted, the proposals would affect AI developers and
+  deployers across sectors, and would limit state regulation of AI development while keeping state laws of general
+  application such as child protection, fraud and consumer protection.
+who_it_applies_to: Congress (as recommendations); prospectively AI developers, deployers and states.
+key_dates_summary: Released 20 March 2026.
+adopted_on: null
+published_on: '2026-03-20'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The release date of 20 March 2026 appears in the White House announcement and in the date prefix of the official PDF.
+  The recommendations were prepared under Executive Order 14365 of December 2025. No adoption or effective date applies.
+actors: [provider, deployer, public_authority]
+ai_system_types: [general_purpose_ai_model, generative_ai]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: [us-executive-order-14365-national-policy-framework-for-ai, us-winning-the-race-america-s-ai-action-plan]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'The White House: National Policy Framework for Artificial Intelligence, Legislative Recommendations'
+  publisher: The White House
+  url: https://www.whitehouse.gov/wp-content/uploads/2026/03/03.20.26-National-Policy-Framework-for-Artificial-Intelligence-Legislative-Recommendations.pdf
+  document_date: '2026-03-20'
+  document_type: strategy
+  tier: 1
+- title: 'The White House: President Donald J. Trump Unveils National AI Legislative Framework'
+  publisher: The White House
+  url: https://www.whitehouse.gov/releases/2026/03/president-donald-j-trump-unveils-national-ai-legislative-framework/
+  document_date: '2026-03-20'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.whitehouse.gov/wp-content/uploads/2026/03/03.20.26-National-Policy-Framework-for-Artificial-Intelligence-Legislative-Recommendations.pdf
+source_title: 'The White House: National Policy Framework for Artificial Intelligence, Legislative Recommendations'
+source_publisher: The White House
+source_document_date: '2026-03-20'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

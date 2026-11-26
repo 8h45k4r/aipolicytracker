@@ -1,0 +1,77 @@
+slug: australia-dta-agentic-ai-addendum
+aipt_id: AIPT-POL-0325
+jurisdiction: australia
+title: Agentic AI addendum to the AI technical standard for the Australian Government
+short_title: DTA agentic AI addendum
+title_native: null
+instrument_type: standard
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. Whether
+  applying the addendum is mandatory for agencies was not established; DTA says agencies exploring, developing
+  or using agentic AI are expected to apply it with the AI technical standard.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Digital Transformation Agency
+summary_plain: >-
+  An addendum to the Australian Government's AI technical standard that sets expectations for how agencies
+  manage and operate agentic AI systems, meaning systems that pursue goals autonomously with little human
+  supervision. It covers governance and system design, data and memory management, evaluation, human oversight
+  and monitoring, and the ability to intervene in or shut down a system. Everything in the AI technical standard
+  still applies, and agencies are expected to use the two together.
+scope_summary: >-
+  Australian Government agencies exploring, developing or using agentic AI systems.
+who_it_applies_to: Australian Government agencies.
+key_dates_summary: Published in 2026 (exact date not confirmed).
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Publication date not established: a DTA article on the addendum is dated 4 June 2026, a later DTA article says
+  it was released in May 2026, and the DTA corporate plan places it in 2025-26.
+actors: [public_authority]
+ai_system_types: []
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [public_services]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Agentic AI addendum
+  publisher: Digital Transformation Agency
+  url: https://www.digital.gov.au/policy/ai/agentic-ai-addendum
+  document_date: null
+  document_type: standard
+  tier: 2
+- title: 'Trustworthy AI agents: New technical guidance'
+  publisher: Digital Transformation Agency
+  url: https://www.dta.gov.au/articles/trustworthy-ai-agents-new-technical-guidance
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.digital.gov.au/policy/ai/agentic-ai-addendum
+source_title: Agentic AI addendum
+source_publisher: Digital Transformation Agency
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

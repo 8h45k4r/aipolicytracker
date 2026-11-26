@@ -1,0 +1,83 @@
+slug: us-new-york-dfs-insurance-circular-letter-1-2019-external-data-life-underwriting
+aipt_id: AIPT-POL-0306
+jurisdiction: us-new-york
+title: 'NYDFS Insurance Circular Letter No. 1 (2019): Use of External Consumer Data and Information Sources in Underwriting for Life Insurance'
+short_title: NYDFS Circular Letter No. 1 (2019) on external data in life underwriting
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The DFS index of
+  circular letters for 2001 to 2020 lists this letter without a withdrawal notice, and it does not appear among withdrawn
+  letters in the extracts. No official extract says that Circular Letter No. 7 (2024) supersedes it; the 2024 letter
+  builds on it and, in its proposed version, clarifies its consumer-disclosure section. It is therefore recorded as
+  current guidance, not as superseded; confirm against both letters.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: New York State Department of Financial Services
+summary_plain: >-
+  This circular letter sets out what New York law requires of life insurers that use external consumer data, meaning
+  information not directly tied to an applicant's medical condition, together with algorithms and predictive models in
+  underwriting. Insurers must be able to show that such data and models do not rely on protected characteristics, are
+  not unfairly discriminatory and rest on sound actuarial principles, and they cannot rely on a vendor's assurance or
+  the proprietary nature of a vendor's process.
+scope_summary: >-
+  Life underwriting by insurers authorised to write life insurance in New York that use external data sources,
+  algorithms or predictive models, including those supplied by vendors.
+who_it_applies_to: Insurers authorised to write life insurance in New York State.
+key_dates_summary: 'Issued 18 January 2019.'
+what_organizations_must_do: >-
+  Insurers should not use an external source to collect information they could not lawfully collect directly, must be
+  able to justify external data and models actuarially and show they are not unfairly discriminatory, and should tell an
+  applicant the reasons for an adverse underwriting decision, including the specific external source relied on.
+adopted_on: null
+published_on: '2019-01-18'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The date of 18 January 2019 is the letter date shown in search extracts of the DFS page and index; pending review.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-new-york-dfs-insurance-circular-letter-7-2024-ai-underwriting-pricing]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NYDFS Insurance Circular Letter No. 1 (2019): Use of External Consumer Data and Information Sources in Underwriting for Life Insurance'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2019_01
+  document_date: '2019-01-18'
+  document_type: guidance
+  tier: 2
+- title: 'NYDFS Insurance Circular Letters: Circular Letters Issued from 2001 through 2020'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/industry_guidance/circular_letters/2001_2020
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2019_01
+source_title: 'NYDFS Insurance Circular Letter No. 1 (2019): Use of External Consumer Data and Information Sources in Underwriting for Life Insurance'
+source_publisher: New York State Department of Financial Services
+source_document_date: '2019-01-18'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

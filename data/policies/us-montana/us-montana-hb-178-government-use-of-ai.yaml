@@ -1,0 +1,83 @@
+slug: us-montana-hb-178-government-use-of-ai
+aipt_id: AIPT-POL-0295
+jurisdiction: us-montana
+title: 'Montana HB 178: Limits on the use of AI systems by state and local government (Chapter 427, Laws of 2025)'
+short_title: Montana government use of AI (HB 178)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+  The law is enacted and codified in Title 2, chapter 21, part 1 MCA; its effective date was not established, so the
+  status is recorded as adopted until it is checked.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Montana Legislature
+summary_plain: >-
+  Restricts how Montana state and local government bodies and state officers may use artificial intelligence. They
+  may not use it for cognitive behavioural manipulation, for classifying people in ways that lead to unlawful
+  discrimination, for malicious purposes or, with narrow exceptions, for surveillance of public spaces. Published
+  material made by AI and not reviewed by a suitably trained person must say so, and so must public-facing interfaces
+  that use AI; certain AI recommendations must be reviewed by a responsible human.
+scope_summary: >-
+  State and local government entities and state officers in Montana that use AI systems, including for public-facing
+  services and published material.
+who_it_applies_to: Montana state agencies, local governments and state officers.
+key_dates_summary: Enacted in the 2025 session as Chapter 427; signing and effective dates not established.
+what_organizations_must_do: >-
+  Public bodies in scope must not use AI for the prohibited purposes in section 2-21-102 MCA, must disclose AI use in
+  public-facing interfaces and in published material not reviewed by a qualified person (section 2-21-103 MCA, with
+  an exemption for some criminal investigations), and must have certain AI outputs reviewed by a person in an
+  appropriate responsible position.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Chapter number 427 and the MCA codification are confirmed by the session law and the MCA source notes in the
+  extracts. The Governor's signing date and the effective date were not found and are left empty.
+actors: [public_authority]
+ai_system_types: [automated_decision_system, biometric_system, generative_ai]
+sectors: [public_services, law_enforcement]
+risk_categories: [prohibited, transparency_risk]
+use_cases: [public_services, biometrics]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Montana Legislature: HB 178 session law, Chapter 427 (69th Legislature, 2025)'
+  publisher: Montana Legislature
+  url: https://archive.legmt.gov/content/Sessions/69th/Contractor_index/CH0427.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Montana Code Annotated: 2-21-102, Prohibited use of artificial intelligence by government entity'
+  publisher: Montana Legislature
+  url: https://mca.legmt.gov/bills/mca/title_0020/chapter_0210/part_0010/section_0020/0020-0210-0010-0020.html
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://archive.legmt.gov/content/Sessions/69th/Contractor_index/CH0427.pdf
+source_title: 'Montana Legislature: HB 178 session law, Chapter 427 (69th Legislature, 2025)'
+source_publisher: Montana Legislature
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

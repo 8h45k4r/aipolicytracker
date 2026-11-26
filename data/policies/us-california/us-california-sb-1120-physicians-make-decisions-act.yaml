@@ -1,0 +1,93 @@
+slug: us-california-sb-1120-physicians-make-decisions-act
+aipt_id: AIPT-POL-0271
+jurisdiction: us-california
+title: 'California SB 1120: Physicians Make Decisions Act, AI in utilization review (Chapter 879, Statutes of 2024)'
+short_title: California AI in health plan utilization review (SB 1120)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Health care service plans and disability insurers that use AI, algorithms or other software tools in
+  utilization review or management must meet set conditions, including basing decisions on the individual's
+  clinical history and the requesting provider's circumstances rather than solely on a group dataset. Such a
+  tool may not deny, delay or modify medically necessary care: medical necessity decisions must be made by a
+  licensed physician or a licensed health care professional competent to evaluate the clinical issues.
+scope_summary: >-
+  Health care service plans regulated by the Department of Managed Health Care and disability insurers regulated
+  by the Department of Insurance that use AI or software tools in utilization review.
+who_it_applies_to: Health plans and health insurers, and their utilization review vendors.
+key_dates_summary: Approved and chaptered 28 September 2024; effective 1 January 2025.
+what_organizations_must_do: >-
+  Ensure any AI or software tool used in utilization review relies on individual clinical information, does not
+  itself deny, delay or modify care, and leaves medical necessity decisions to a licensed physician or qualified
+  licensed professional.
+adopted_on: '2024-09-28'
+published_on: null
+in_force_on: '2025-01-01'
+applies_from: null
+date_notes: >-
+  Chapter number and approval on 28 September 2024 come from extracts of the official bill page; the 1 January
+  2025 effective date from the Department of Managed Health Care. The Department of Insurance issued guidance
+  dated 5 May 2025. Confirm against them.
+actors:
+- deployer
+ai_system_types:
+- automated_decision_system
+sectors:
+- healthcare
+- financial_services
+risk_categories:
+- unclassified
+use_cases:
+- health
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 1120 (2023-2024) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240SB1120
+  document_date: '2024-09-28'
+  document_type: legislation
+  tier: 1
+- title: 'Department of Managed Health Care: Winter 2025 newsletter'
+  publisher: California Department of Managed Health Care
+  url: https://www.dmhc.ca.gov/Resources/Newsroom/Newsletters/Winter2025Newsletter.aspx
+  document_date: null
+  document_type: official
+  tier: 2
+- title: 'Department of Insurance guidance on SB 1120: use of AI, algorithms and other software tools in utilization management'
+  publisher: California Department of Insurance
+  url: https://www.insurance.ca.gov/0250-insurers/0500-legal-info/0200-regulations/HealthGuidance/upload/SB-1120-1-Guidance-Use-of-Artificial-Intelligence-Algorithms-and-Other-Software-Tools-in-Utilization-Management.pdf
+  document_date: '2025-05-05'
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240SB1120
+source_title: 'California Legislative Information: SB 1120 (2023-2024) status'
+source_publisher: California Legislative Information
+source_document_date: '2024-09-28'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

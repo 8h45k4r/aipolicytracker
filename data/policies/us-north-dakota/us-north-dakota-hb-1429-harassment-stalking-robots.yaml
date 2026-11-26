@@ -1,0 +1,86 @@
+slug: us-north-dakota-hb-1429-harassment-stalking-robots
+aipt_id: AIPT-POL-0296
+jurisdiction: us-north-dakota
+title: 'North Dakota HB 1429: Harassment and stalking with a robot (69th Legislative Assembly, 2025)'
+short_title: North Dakota harassment and stalking with robots (HB 1429)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: North Dakota Legislative Assembly
+summary_plain: >-
+  Amends North Dakota's harassment and stalking offences (sections 12.1-17-07 and 12.1-17-07.1 of the Century Code)
+  so that they cover conduct carried out with a robot. A robot is defined broadly as an artificial object or system
+  that senses, processes and acts using technology, expressly including artificial intelligence and remotely piloted
+  aircraft. Using a robot for offensive conduct with no legitimate purpose becomes harassment, and robot-based acts
+  and unauthorised tracking can form part of stalking.
+scope_summary: >-
+  Any person in North Dakota who uses a robot, drone or other AI-enabled system to harass, follow, track or stalk
+  another person.
+who_it_applies_to: Individuals and organisations whose use of robots or drones could amount to harassment or stalking.
+key_dates_summary: Signed by the Governor on 21 April 2025; effective 1 August 2025.
+penalties_summary: >-
+  Criminal penalties under the harassment and stalking sections; the extracts give a class A misdemeanour as the base
+  penalty for stalking.
+adopted_on: '2025-04-21'
+published_on: null
+in_force_on: '2025-08-01'
+applies_from: null
+date_notes: >-
+  Signing date 21 April 2025 and filing with the Secretary of State on 22 April 2025 are from the bill actions page and
+  the 2025 signed-bills list; one search summary gave 23 April, which the official lists do not support. Effective
+  date 1 August 2025 is from the Legislative Council's effective-dates table. Session law chapter number not found.
+actors: [user]
+ai_system_types: []
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'North Dakota Legislative Branch: HB 1429 (2025) bill actions'
+  publisher: North Dakota Legislative Branch
+  url: https://ndlegis.gov/assembly/69-2025/regular/bill-actions/ba1429.html
+  document_date: '2025-04-21'
+  document_type: legislation
+  tier: 1
+- title: 'North Dakota Legislative Branch: Enrolled House Bill No. 1429'
+  publisher: North Dakota Legislative Branch
+  url: https://ndlegis.gov/assembly/69-2025/regular/documents/25-0908-04000.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'North Dakota Legislative Council: Effective dates of 2025 legislation'
+  publisher: North Dakota Legislative Council
+  url: https://ndlegis.gov/sites/default/files/resource/69-2025/effective-dates-legislation/effective-dates-2025-legislation.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://ndlegis.gov/assembly/69-2025/regular/bill-actions/ba1429.html
+source_title: 'North Dakota Legislative Branch: HB 1429 (2025) bill actions'
+source_publisher: North Dakota Legislative Branch
+source_document_date: '2025-04-21'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

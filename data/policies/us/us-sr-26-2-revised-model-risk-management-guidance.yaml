@@ -1,0 +1,99 @@
+slug: us-sr-26-2-revised-model-risk-management-guidance
+aipt_id: AIPT-POL-0255
+jurisdiction: us
+title: 'Interagency Supervisory Guidance on Model Risk Management (Federal Reserve SR 26-2, OCC Bulletin 2026-13), 2026'
+short_title: SR 26-2 model risk management guidance
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Issued jointly by the Federal Reserve, the OCC and the FDIC on 17 April 2026. It replaces SR 11-7 and SR 21-8, OCC
+  Bulletins 2011-12 and 2021-19, and FDIC FIL-22-2017 and FIL-27-2021. The agencies state that it sets no enforceable
+  standards and that non-compliance will not itself lead to supervisory criticism. Generative and agentic AI models are
+  stated to be outside its scope. Recorded on 26 November 2026 from search-engine extracts of the official pages
+  listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: >-
+  Board of Governors of the Federal Reserve System; Office of the Comptroller of the Currency; Federal Deposit
+  Insurance Corporation
+summary_plain: >-
+  Revised guidance from the three US federal banking agencies on how banking organisations should manage the risk of
+  relying on quantitative models in decision-making. It takes a risk-based approach in
+  which the depth of oversight, validation and monitoring follows each model's materiality, judged by its purpose and
+  exposure. It excludes simple deterministic tools and, for now, generative and agentic AI models.
+scope_summary: >-
+  Banking organisations supervised by the three agencies, with the guidance expected to be most relevant to those with
+  more than 30 billion US dollars in total assets; it generally does not apply to smaller organisations unless they
+  have significant model risk exposure.
+who_it_applies_to: Supervised banking organisations, chiefly those with over USD 30 billion in assets.
+key_dates_summary: Issued 17 April 2026.
+what_organizations_must_do: >-
+  Organisations in scope are expected to scale model governance, validation (generally before first use) and ongoing
+  performance monitoring to each model's materiality, with clear policies and assigned responsibilities across the
+  model lifecycle.
+adopted_on: '2026-04-17'
+published_on: '2026-04-17'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 17 April 2026 issue date is confirmed by the Federal Reserve SR letter title and the OCC and FDIC issuances. No
+  separate effective date was found. A Federal Reserve manual extract gave a different asset threshold from the SR
+  letter; the 30 billion dollar figure here is the one in the agencies' letters and needs checking.
+actors: [deployer]
+ai_system_types: [predictive_scoring, automated_decision_system]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-sr-11-7-model-risk-management]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Federal Reserve SR 26-2: Revised Guidance on Model Risk Management'
+  publisher: Board of Governors of the Federal Reserve System
+  url: https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm
+  document_date: '2026-04-17'
+  document_type: guidance
+  tier: 2
+- title: 'SR 26-2 attachment: Supervisory Guidance on Model Risk Management'
+  publisher: Board of Governors of the Federal Reserve System
+  url: https://www.federalreserve.gov/supervisionreg/srletters/SR2602a1.pdf
+  document_date: '2026-04-17'
+  document_type: guidance
+  tier: 2
+- title: 'OCC Bulletin 2026-13: Model Risk Management, Revised Guidance'
+  publisher: Office of the Comptroller of the Currency
+  url: https://www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-13.html
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'FDIC: Agencies Revise the Interagency Model Risk Management Guidance'
+  publisher: Federal Deposit Insurance Corporation
+  url: https://www.fdic.gov/news/financial-institution-letters/2026/agencies-revise-interagency-model-risk-management-guidance
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm
+source_title: 'Federal Reserve SR 26-2: Revised Guidance on Model Risk Management'
+source_publisher: Board of Governors of the Federal Reserve System
+source_document_date: '2026-04-17'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

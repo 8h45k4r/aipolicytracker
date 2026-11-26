@@ -1,0 +1,86 @@
+slug: australia-apra-letter-to-industry-on-artificial-intelligence
+aipt_id: AIPT-POL-0324
+jurisdiction: australia
+title: APRA letter to industry on artificial intelligence (AI)
+short_title: APRA letter on AI governance
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. APRA
+  states it is not introducing additional requirements at this stage; existing prudential standards apply to AI
+  risk.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Australian Prudential Regulation Authority
+summary_plain: >-
+  APRA's letter to the entities it regulates sets out minimum expectations for managing AI risk, after finding
+  that many treat AI as ordinary technology and few have put governance into practice. Boards are expected to
+  understand AI well enough to challenge management and to oversee an AI strategy within their risk appetite.
+  Entities are expected to set consistent governance, including an AI policy, clear ownership across the AI
+  lifecycle, an inventory of AI tools and uses, human involvement in high-risk decisions and staff training, and
+  to plan for dependence on outside AI providers.
+scope_summary: >-
+  APRA-regulated entities, such as banks, insurers and superannuation trustees, that use AI.
+who_it_applies_to: Boards and management of APRA-regulated entities.
+key_dates_summary: Published 30 April 2026.
+penalties_summary: >-
+  APRA says it will take stronger supervisory action and, where appropriate, pursue enforcement against entities
+  that fail to manage AI risk in proportion to their size, scale and complexity.
+what_organizations_must_do: >-
+  Boards should build AI literacy and oversee AI strategy and monitoring, including third-party dependencies.
+  Entities should keep an AI policy and reporting lines, assign ownership across the AI lifecycle, maintain an
+  inventory of AI tools and use cases, keep humans involved in high-risk decisions, train staff, and test exit
+  and substitution plans for critical AI providers.
+adopted_on: null
+published_on: '2026-04-30'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Publication on 30 April 2026 is from APRA page extracts; APRA's May 2026 System Risk Outlook repeats the
+  message.
+actors: [deployer]
+ai_system_types: []
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: APRA Letter to Industry on Artificial Intelligence (AI)
+  publisher: Australian Prudential Regulation Authority
+  url: https://www.apra.gov.au/apra-letter-to-industry-on-artificial-intelligence-ai
+  document_date: '2026-04-30'
+  document_type: guidance
+  tier: 2
+- title: APRA calls for a step-change in AI-related risk management and governance
+  publisher: Australian Prudential Regulation Authority
+  url: https://www.apra.gov.au/news-and-publications/apra-calls-step-change-ai-related-risk-management-and-governance
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.apra.gov.au/apra-letter-to-industry-on-artificial-intelligence-ai
+source_title: APRA Letter to Industry on Artificial Intelligence (AI)
+source_publisher: Australian Prudential Regulation Authority
+source_document_date: '2026-04-30'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

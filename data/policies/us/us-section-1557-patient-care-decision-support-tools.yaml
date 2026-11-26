@@ -1,0 +1,114 @@
+slug: us-section-1557-patient-care-decision-support-tools
+aipt_id: AIPT-POL-0248
+jurisdiction: us
+title: >-
+  Nondiscrimination in Health Programs and Activities (Section 1557 final rule, 2024): patient care decision support
+  tools, 45 CFR 92.210
+short_title: Section 1557 rule, decision support tools (45 CFR 92.210)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. Courts stayed,
+  enjoined and, on 22 October 2025 (Tennessee v. Kennedy, S.D. Miss.), partly vacated the 2024 rule to the extent it
+  treats gender-identity discrimination as sex discrimination; HHS's notice of 2 June 2026 says the other provisions
+  remain in force. HHS's Section 1557 page lists ranges of sections, including ones covering 92.210, as stayed or
+  enjoined in that gender-identity respect only; a reviewer should confirm that 92.210 is otherwise unaffected.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: U.S. Department of Health and Human Services (Office for Civil Rights)
+summary_plain: >-
+  The 2024 Section 1557 rule implements the Affordable Care Act's ban on discrimination in federally funded health
+  programs. Section 92.210 applies that ban to patient care decision support tools, automated or not, including AI and
+  clinical algorithms used to support care decisions. Covered entities must not discriminate on the basis of race,
+  colour, national origin, sex, age or disability through these tools, must make reasonable efforts to identify tools
+  whose inputs measure those characteristics, and must make reasonable efforts to reduce the risk of discrimination
+  from each tool identified.
+scope_summary: >-
+  Covered entities under Section 1557, such as health care providers and health insurance issuers receiving federal
+  financial assistance, that use patient care decision support tools in their health programs or activities. Tools
+  used only for administrative or billing functions unrelated to clinical decisions are outside 92.210.
+who_it_applies_to: Section 1557 covered entities that use patient care decision support tools.
+key_dates_summary: >-
+  Published 6 May 2024; effective 5 July 2024; identification and mitigation duties in 92.210(b) and (c) apply from
+  1 May 2025.
+penalties_summary: null
+what_organizations_must_do: >-
+  Organisations in scope must not discriminate through decision support tools; must make ongoing reasonable efforts to
+  identify tools that use race, colour, national origin, sex, age or disability as input variables or factors; and must
+  make reasonable efforts to mitigate the risk of discrimination from each tool so identified. HHS expects due
+  diligence when tools are acquired and used, but does not require entities to obtain developers' training data or to
+  notify patients about the tools used.
+adopted_on: null
+published_on: '2024-05-06'
+in_force_on: '2024-07-05'
+applies_from: '2025-05-01'
+date_notes: >-
+  Publication (6 May 2024, 89 FR 37522) and effective date (5 July 2024) are taken from extracts of the Federal Register
+  document. The rule's compliance table sets 92.210(b) and (c) at 300 days after the effective date, and an HHS letter
+  gives that date as 1 May 2025. The signature date was not established.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [healthcare]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Federal Register: Nondiscrimination in Health Programs and Activities (final rule, 2024-08711)'
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2024/05/06/2024-08711/nondiscrimination-in-health-programs-and-activities
+  document_date: '2024-05-06'
+  document_type: legislation
+  tier: 1
+- title: 'eCFR: 45 CFR 92.210, Nondiscrimination in the use of patient care decision support tools'
+  publisher: Office of the Federal Register
+  url: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-A/part-92/subpart-C/section-92.210
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'HHS OCR letter: Nondiscrimination on the basis of disability, Section 504 and Section 1557'
+  publisher: U.S. Department of Health and Human Services
+  url: https://www.hhs.gov/sites/default/files/ocr-dcl-section-504-section-1557-disability.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: >-
+    Federal Register: Notice of Vacatur Regarding Certain Provisions of the 2024 Nondiscrimination in Health Programs and
+    Activities Final Rule (2026-11015)
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2026/06/02/2026-11015/notice-of-vacatur-regarding-certain-provisions-of-the-2024-nondiscrimination-in-health-programs-and
+  document_date: '2026-06-02'
+  document_type: official
+  tier: 1
+- title: 'HHS: Section 1557 of the Patient Protection and Affordable Care Act'
+  publisher: U.S. Department of Health and Human Services
+  url: https://www.hhs.gov/civil-rights/for-individuals/section-1557/index.html
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.federalregister.gov/documents/2024/05/06/2024-08711/nondiscrimination-in-health-programs-and-activities
+source_title: 'Federal Register: Nondiscrimination in Health Programs and Activities (final rule, 2024-08711)'
+source_publisher: Office of the Federal Register
+source_document_date: '2024-05-06'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

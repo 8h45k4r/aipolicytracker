@@ -1,0 +1,46 @@
+slug: us-pennsylvania
+name: Pennsylvania (United States)
+short_name: Pennsylvania
+iso_code: US-PA
+jurisdiction_type: state
+region: Americas
+subregion: Northern America
+parent: us
+featured: false
+published: true
+overview: >-
+  Pennsylvania is recorded here for its own AI instruments, which apply within its territory alongside US's national rules. On
+  record: Pennsylvania digital forgery offence (Act 35 of 2025). This page was added in the November 2026 research round; see each instrument
+  for what it requires.
+regulatory_status_summary: >-
+  Pending review: recorded from search extracts of the official sources listed on each instrument, which a reviewer has not
+  yet opened.
+binding_vs_guidance: 'Binding: Pennsylvania digital forgery offence (Act 35 of 2025). Strategy or guidance: none recorded.'
+how_to_use:
+- Open the official source on each instrument before relying on any date or obligation.
+- Read these alongside US's national rules, which apply as well.
+regulators: []
+official_sources:
+- title: 'Pennsylvania General Assembly: Senate Bill 649 (2025-2026 Regular Session)'
+  publisher: Pennsylvania General Assembly
+  url: https://www.palegis.us/legislation/bills/2025/sb649
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+related_jurisdictions:
+- us
+official_source_url: https://www.palegis.us/legislation/bills/2025/sb649
+source_title: 'Pennsylvania General Assembly: Senate Bill 649 (2025-2026 Regular Session)'
+source_publisher: Pennsylvania General Assembly
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.

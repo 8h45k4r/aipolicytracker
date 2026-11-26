@@ -1,0 +1,83 @@
+slug: us-california-cdi-bulletin-2022-5-algorithmic-bias-insurance
+aipt_id: AIPT-POL-0269
+jurisdiction: us-california
+title: 'California Department of Insurance Bulletin 2022-5: Racial bias and unfair discrimination in marketing, rating, underwriting and claims'
+short_title: California insurance bias and algorithms bulletin (2022-5)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. No
+  withdrawal of the bulletin was found in the extracts.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: California Department of Insurance
+summary_plain: >-
+  The Insurance Commissioner reminds insurers that California law prohibits unfair discrimination in marketing,
+  rating, underwriting and claims, including discrimination produced by algorithms, models and big data that use
+  apparently neutral characteristics as proxies for protected ones. Insurers must give specific reasons for
+  adverse decisions even when a complex algorithm is involved, and the Department says it may audit their
+  algorithms and models and take disciplinary action.
+scope_summary: >-
+  Insurers and licensees doing business in California that use algorithms, models or consumer data in marketing,
+  rating, underwriting or claims.
+who_it_applies_to: Insurers and other licensees of the California Department of Insurance.
+key_dates_summary: Issued 30 June 2022.
+adopted_on: null
+published_on: '2022-06-30'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 30 June 2022 issue date comes from extracts of the bulletin and the Department press release; confirm
+  against them.
+actors:
+- deployer
+ai_system_types:
+- automated_decision_system
+- predictive_scoring
+sectors:
+- financial_services
+risk_categories:
+- unclassified
+use_cases:
+- finance_and_credit
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Department of Insurance: Bulletin 2022-5'
+  publisher: California Department of Insurance
+  url: https://www.insurance.ca.gov/0250-insurers/0300-insurers/0200-bulletins/bulletin-notices-commiss-opinion/upload/BULLETIN-2022-5-Allegations-of-Racial-Bias-and-Unfair-Discrimination-in-Marketing-Rating-Underwriting-and-Claims-Practices-by-the-Insurance-Industry.pdf
+  document_date: '2022-06-30'
+  document_type: guidance
+  tier: 2
+- title: 'Insurance Commissioner takes action to stop bias and discriminatory use of consumer data by insurance companies'
+  publisher: California Department of Insurance
+  url: https://www.insurance.ca.gov/0400-news/0100-press-releases/2022/release048-2022.cfm
+  document_date: '2022-06-30'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.insurance.ca.gov/0250-insurers/0300-insurers/0200-bulletins/bulletin-notices-commiss-opinion/upload/BULLETIN-2022-5-Allegations-of-Racial-Bias-and-Unfair-Discrimination-in-Marketing-Rating-Underwriting-and-Claims-Practices-by-the-Insurance-Industry.pdf
+source_title: 'California Department of Insurance: Bulletin 2022-5'
+source_publisher: California Department of Insurance
+source_document_date: '2022-06-30'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

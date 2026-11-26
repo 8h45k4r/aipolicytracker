@@ -4,14 +4,16 @@
     <x-site.breadcrumbs :items="$seo->breadcrumbs" />
     <p class="eyebrow mt-3">AI incidents</p>
     <h1 class="mt-2 font-display text-3xl sm:text-4xl font-semibold text-brand-navy max-w-[24ch]">What has actually gone wrong with AI, in numbers</h1>
-    <p class="mt-4 max-w-[64ch] text-brand-body leading-7">The AI Incident Database is an open catalogue of harms and near-misses involving AI systems. New and updated records are synced from its API several times a day; the charts come from its weekly export. We keep incident metadata only, and every record links back to the original.</p>
+    <p class="mt-4 max-w-[64ch] text-brand-body leading-7">The AI Incident Database is an open catalogue of harms and near-misses involving AI systems. New and updated records arrive from its weekly export, which the charts below are built from too. We keep incident metadata only, and every record links back to the original.</p>
+    @php($fresh = \App\Services\ExternalData\IncidentFreshness::current())
+    @if($fresh['stale'])<p class="mt-3 max-w-[64ch] text-sm font-medium text-brand-warn" data-incident-stale>{{ \App\Services\ExternalData\IncidentFreshness::sentence($fresh) }}</p>@endif
     @if(empty($aiid['totals']))
     <x-site.empty title="Incident summary not available yet" class="mt-8">The weekly refresh has not produced a summary yet.</x-site.empty>
     @else
     <dl class="mt-8 grid gap-4 sm:grid-cols-3 text-sm max-w-2xl">
         <div class="rule pt-2"><dt class="meta">Incidents recorded</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['incidents']) }}</dd></div>
         <div class="rule pt-2"><dt class="meta">Classified by MIT risk domain</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ number_format($aiid['totals']['classified_mit']) }}</dd></div>
-        <div class="rule pt-2"><dt class="meta">Last synced</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ $live['synced_at'] ? \Illuminate\Support\Carbon::parse($live['synced_at'])->format('j M Y') : $aiid['snapshot_date'] }}</dd></div>
+        <div class="rule pt-2"><dt class="meta">Data runs to</dt><dd class="tabular-nums text-2xl text-brand-navy">{{ $fresh['as_of'] ? $fresh['as_of']->format('j M Y') : ($aiid['snapshot_date'] ?? '—') }}</dd></div>
     </dl>
 
     <p class="mt-4 text-sm flex flex-wrap gap-2"><a href="#latest" class="btn-primary">Latest recorded incidents</a><a href="{{ route('risk.incidents.browse') }}" class="btn-secondary">Browse and export all incidents</a><a href="{{ route('attacks.index') }}" class="btn-secondary">See the record in charts</a></p>
@@ -92,7 +94,7 @@
     @endif
 
     <section class="mt-12" aria-labelledby="latest-heading" id="latest">
-        <div class="rule-strong pt-3 flex flex-wrap items-baseline justify-between gap-2"><h2 id="latest-heading" class="section-title">Latest recorded incidents</h2><p class="meta">@if($live['synced_at'])Synced from the AI Incident Database API <time datetime="{{ \Illuminate\Support\Carbon::parse($live['synced_at'])->toIso8601String() }}">{{ \Illuminate\Support\Carbon::parse($live['synced_at'])->diffForHumans() }}</time> · latest id #{{ $live['latest_id'] }}@else Weekly snapshot {{ $aiid['snapshot_date'] ?? '—' }}@endif</p></div>
+        <div class="rule-strong pt-3 flex flex-wrap items-baseline justify-between gap-2"><h2 id="latest-heading" class="section-title">Latest recorded incidents</h2><p class="meta">@if($fresh['as_of'])Data to <time datetime="{{ $fresh['as_of']->toDateString() }}">{{ $fresh['as_of']->format('j M Y') }}</time> · latest id #{{ $live['latest_id'] }}@else Weekly snapshot {{ $aiid['snapshot_date'] ?? '—' }}@endif</p></div>
         <p class="mt-2 max-w-[64ch] text-sm text-brand-body">{{ number_format($live['recent']) }} {{ \Illuminate\Support\Str::plural('incident', $live['recent']) }} dated in the last 30 days out of {{ number_format($live['count']) }} on record. Each title opens a profile with the full description, the parties involved, the MIT classification, the catalogued news reports and related incidents.</p>
         @if($latest->isEmpty())
         <ol class="mt-2 divide-y divide-brand-line">

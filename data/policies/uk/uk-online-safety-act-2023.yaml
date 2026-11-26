@@ -1,0 +1,93 @@
+slug: uk-online-safety-act-2023
+aipt_id: AIPT-POL-0318
+jurisdiction: uk
+title: Online Safety Act 2023 (c. 50)
+short_title: UK Online Safety Act 2023
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. The Act
+  is being brought into force in phases by commencement regulations and Ofcom codes; not every duty was checked.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: UK Parliament
+summary_plain: >-
+  The Online Safety Act sets up a regulatory framework, enforced by Ofcom, to make internet services used in the
+  UK safer. Providers of user-to-user and search services in scope must assess the risk of illegal content, take
+  proportionate steps to stop users encountering it and remove it quickly once they know of it, with further
+  duties to protect children. It is not an AI law, but it applies to in-scope services however their content is
+  generated or moderated.
+scope_summary: >-
+  Providers of user-to-user services, search services and pornographic content services with links to the UK.
+who_it_applies_to: Online service providers in scope of the Act, and Ofcom as regulator.
+key_dates_summary: >-
+  Illegal content risk assessments due by 16 March 2025; illegal content codes of practice in force 17 March
+  2025; pornographic content duties (section 81) in force 17 January 2025.
+penalties_summary: >-
+  Ofcom can impose fines of up to 10% of qualifying worldwide revenue and, in the most serious cases, apply to
+  the courts to block a service.
+what_organizations_must_do: >-
+  Providers in scope must carry out a suitable and sufficient illegal content risk assessment, take
+  proportionate measures against illegal content, remove it swiftly once aware of it, and keep records.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: '2025-03-17'
+date_notes: >-
+  The Royal Assent date was not shown in the extracts and is left empty. legislation.gov.uk annotates section 10
+  (illegal content duties) as in force at 10 January 2024 by S.I. 2023/1420, and section 81 at 17 January 2025
+  by S.I. 2024/1333. Ofcom gives 16 March 2025 as the deadline for illegal content risk assessments and 17 March
+  2025 as the date its illegal content codes came into force, recorded here as applies_from. Later phases were
+  not checked.
+actors: [provider]
+ai_system_types: []
+sectors: [media_information]
+risk_categories: [unclassified]
+use_cases: [content_moderation]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Online Safety Act 2023 (c. 50)
+  publisher: legislation.gov.uk (The National Archives)
+  url: https://www.legislation.gov.uk/ukpga/2023/50
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: Important dates for Online Safety compliance
+  publisher: Ofcom
+  url: https://www.ofcom.org.uk/online-safety/illegal-and-harmful-content/important-dates-for-online-safety-compliance
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'Online Safety Act: explainer'
+  publisher: GOV.UK
+  url: https://www.gov.uk/government/publications/online-safety-act-explainer/online-safety-act-explainer
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.legislation.gov.uk/ukpga/2023/50
+source_title: Online Safety Act 2023 (c. 50)
+source_publisher: legislation.gov.uk (The National Archives)
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

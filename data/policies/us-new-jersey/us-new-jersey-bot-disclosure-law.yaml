@@ -1,0 +1,83 @@
+slug: us-new-jersey-bot-disclosure-law
+aipt_id: AIPT-POL-0297
+jurisdiction: us-new-jersey
+title: 'New Jersey bot disclosure law: P.L.2019, c.486 (Assembly Bill A4563, 2018-2019 session)'
+short_title: New Jersey bot disclosure law (P.L.2019, c.486)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: New Jersey Legislature
+summary_plain: >-
+  Requires anyone who uses an online bot to communicate with people in New Jersey, when selling or advertising goods
+  or real estate or when seeking support for a candidate, party or ballot question, to say clearly at the start that
+  the conversation is being carried on by or through a bot. A bot is an automated online account whose actions or
+  posts are wholly or almost wholly not generated directly by a person. The Attorney General can seek civil penalties
+  and injunctions; online platforms and internet service providers are not given duties.
+scope_summary: >-
+  Persons and organisations using automated online accounts to communicate with people in New Jersey for commercial
+  sales or advertising, or for election campaigning.
+who_it_applies_to: Businesses, campaigns and others using bots to interact with people in New Jersey.
+key_dates_summary: Approved on 21 January 2020; takes effect on the 180th day after enactment.
+penalties_summary: >-
+  Civil penalties of 2,500 dollars for a first offence, 5,000 dollars for a second and 10,000 dollars for each later
+  offence, plus injunctive relief sought by the Attorney General.
+what_organizations_must_do: >-
+  Organisations in scope must disclose at the outset of a bot-driven communication or interaction, clearly and
+  conspicuously, that it is being conducted by or through a bot (N.J.S.A. 56:18-1 et seq.).
+adopted_on: '2020-01-21'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Approval on 21 January 2020 is from the chapter text on the Legislature's site. The act takes effect on the 180th
+  day after enactment; the calendar date was not stated in the extracts and is left empty. The bill was A4563 of the
+  2018-2019 session; the enacted text drops the intent-to-mislead wording of the introduced bill.
+actors: [deployer]
+ai_system_types: [conversational_agent]
+sectors: [consumer_retail, media_information]
+risk_categories: [transparency_risk]
+use_cases: [customer_service]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'New Jersey Legislature: P.L.2019, c.486 (A4563 2R) chapter text'
+  publisher: New Jersey Legislature
+  url: https://pub.njleg.state.nj.us/Bills/2018/PL19/486_.HTM
+  document_date: '2020-01-21'
+  document_type: legislation
+  tier: 1
+- title: 'New Jersey Legislature: Assembly Bill A4563 as introduced (2018-2019 session)'
+  publisher: New Jersey Legislature
+  url: https://pub.njleg.gov/bills/2018/A5000/4563_I1.HTM
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://pub.njleg.state.nj.us/Bills/2018/PL19/486_.HTM
+source_title: 'New Jersey Legislature: P.L.2019, c.486 (A4563 2R) chapter text'
+source_publisher: New Jersey Legislature
+source_document_date: '2020-01-21'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

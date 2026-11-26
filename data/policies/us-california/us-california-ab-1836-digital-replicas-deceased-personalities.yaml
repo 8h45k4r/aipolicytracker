@@ -1,0 +1,92 @@
+slug: us-california-ab-1836-digital-replicas-deceased-personalities
+aipt_id: AIPT-POL-0262
+jurisdiction: us-california
+title: 'California AB 1836: Digital replicas of deceased personalities (Chapter 258, Statutes of 2024)'
+short_title: California digital replicas of deceased personalities (AB 1836)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Amends the post-mortem right of publicity in Civil Code section 3344.1 to deal with digital replicas. Anyone
+  who produces, distributes or makes available a digital replica of a deceased personality's voice or likeness
+  in an expressive audiovisual work or sound recording without prior consent is liable for the greater of USD
+  10,000 or the actual damages suffered. Uses in news, public affairs and sports broadcasts, comment, criticism,
+  scholarship, satire or parody, certain documentary or biographical works, and fleeting or incidental uses are
+  exempt.
+scope_summary: >-
+  Producers and distributors of audiovisual works and sound recordings, and anyone making them available, where
+  the work contains a computer-generated, highly realistic replica of a deceased person's voice or likeness.
+who_it_applies_to: >-
+  Media producers, distributors and others making available works that contain digital replicas of deceased
+  people.
+key_dates_summary: Approved and chaptered 17 September 2024; amended section effective 1 January 2025.
+penalties_summary: >-
+  Liability for the greater of USD 10,000 or the actual damages suffered by the injured party.
+what_organizations_must_do: >-
+  Obtain prior consent from the holder of a deceased personality's rights before producing, distributing or
+  making available a digital replica of that person's voice or likeness in an expressive audiovisual work or
+  sound recording, unless an exemption applies.
+adopted_on: '2024-09-17'
+published_on: null
+in_force_on: '2025-01-01'
+applies_from: null
+date_notes: >-
+  Chapter number, approval and chaptering on 17 September 2024 and the 1 January 2025 effective date come from
+  extracts of the official bill and code pages; confirm against them.
+actors:
+- provider
+- deployer
+- distributor
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+risk_categories:
+- unclassified
+use_cases:
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 1836 (2023-2024) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB1836
+  document_date: '2024-09-17'
+  document_type: legislation
+  tier: 1
+- title: 'Governor Newsom signs bills to protect digital likeness of performers'
+  publisher: Office of the Governor of California
+  url: https://www.gov.ca.gov/2024/09/17/governor-newsom-signs-bills-to-protect-digital-likeness-of-performers/
+  document_date: '2024-09-17'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB1836
+source_title: 'California Legislative Information: AB 1836 (2023-2024) status'
+source_publisher: California Legislative Information
+source_document_date: '2024-09-17'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

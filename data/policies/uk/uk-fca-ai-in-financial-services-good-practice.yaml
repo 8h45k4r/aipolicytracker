@@ -1,0 +1,76 @@
+slug: uk-fca-ai-in-financial-services-good-practice
+aipt_id: AIPT-POL-0319
+jurisdiction: uk
+title: 'FCA: AI in financial services, good practice and areas for improvement'
+short_title: FCA AI good practice and areas for improvement
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Financial Conduct Authority
+summary_plain: >-
+  The FCA shares examples of good practice and areas for improvement in how regulated firms adopt AI, drawn from
+  industry engagement, supervisory work and its AI Lab. The examples are grouped under consumer outcomes,
+  governance and accountability, and operational resilience, and include cases of firms deploying AI tools
+  before setting clear governance. The FCA says the examples are illustrative and will evolve, and that the
+  publication creates no new requirements and prescribes no single governance model.
+scope_summary: FCA-regulated firms that develop, buy or use AI in financial services in the UK.
+who_it_applies_to: FCA-regulated firms using AI.
+key_dates_summary: >-
+  Published 19 October 2026. Stakeholder examples were gathered through the FCA AI Input Zone from 14 May to 19
+  June 2026.
+adopted_on: null
+published_on: '2026-10-19'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The FCA page gives 19 October 2026 as both its publication and last-updated date. May 2026 is when the FCA
+  opened its AI Input Zone to collect examples (14 May to 19 June 2026), not when this publication appeared.
+actors: [deployer, provider]
+ai_system_types: []
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: [uk-ai-regulation-white-paper]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'AI in financial services: good practice and areas for improvement'
+  publisher: Financial Conduct Authority
+  url: https://www.fca.org.uk/publications/good-poor-practice/ai-financial-services
+  document_date: '2026-10-19'
+  document_type: guidance
+  tier: 2
+- title: AI Input Zone
+  publisher: Financial Conduct Authority
+  url: https://www.fca.org.uk/ai-input-zone
+  document_date: null
+  document_type: consultation
+  tier: 2
+faq: []
+official_source_url: https://www.fca.org.uk/publications/good-poor-practice/ai-financial-services
+source_title: 'AI in financial services: good practice and areas for improvement'
+source_publisher: Financial Conduct Authority
+source_document_date: '2026-10-19'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

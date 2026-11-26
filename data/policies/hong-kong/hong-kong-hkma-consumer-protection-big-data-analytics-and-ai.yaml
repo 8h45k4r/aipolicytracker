@@ -1,0 +1,80 @@
+slug: hong-kong-hkma-consumer-protection-big-data-analytics-and-ai
+aipt_id: AIPT-POL-0335
+jurisdiction: hong-kong
+title: >-
+  HKMA circular: Consumer Protection in respect of Use of Big Data Analytics and Artificial Intelligence by Authorized
+  Institutions (5 November 2019)
+short_title: HKMA consumer protection principles for big data and AI (2019)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Later HKMA circulars (August 2024 on generative AI; March 2026 on alternative data) still refer to it. Whether the
+  October 2026 supervisory guidance on responsible AI adoption changes its standing was not confirmed. Recorded on
+  26 November 2026 from search-engine extracts of the official pages listed; the official text could not be opened from
+  the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Hong Kong Monetary Authority
+summary_plain: >-
+  A circular from the Hong Kong Monetary Authority giving banks guiding principles for protecting consumers when they use
+  big data analytics and AI. The principles fall under four headings: governance and accountability, fairness,
+  transparency and disclosure, and data privacy and protection, including compliance with the Personal Data (Privacy)
+  Ordinance. Institutions are expected to apply them in proportion to the risks of each application.
+scope_summary: >-
+  Authorized institutions in Hong Kong that use big data analytics and AI in products and services offered to customers.
+who_it_applies_to: Authorized institutions supervised by the Hong Kong Monetary Authority.
+key_dates_summary: Issued 5 November 2019.
+adopted_on: null
+published_on: '2019-11-05'
+in_force_on: null
+applies_from: null
+date_notes: The 5 November 2019 date appears on the circular itself and in the HKMA repository; no other dates were established.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, customer_service]
+related_policies:
+- hong-kong-hkma-high-level-principles-on-ai
+- hong-kong-hkma-consumer-protection-generative-ai
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'HKMA Banking Regulatory Document Repository: Consumer Protection in respect of Use of Big Data Analytics and Artificial Intelligence by Authorized Institutions'
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20191105-1-EN
+  document_date: '2019-11-05'
+  document_type: guidance
+  tier: 1
+- title: Consumer Protection in respect of Use of Big Data Analytics and Artificial Intelligence by Authorized Institutions (circular, PDF)
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20191105-1-EN/20191105-1-EN.pdf
+  document_date: '2019-11-05'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20191105-1-EN
+source_title: >-
+  HKMA Banking Regulatory Document Repository: Consumer Protection in respect of Use of Big Data Analytics and Artificial
+  Intelligence by Authorized Institutions
+source_publisher: Hong Kong Monetary Authority
+source_document_date: '2019-11-05'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

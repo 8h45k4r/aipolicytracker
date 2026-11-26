@@ -1,0 +1,90 @@
+slug: us-new-york-dfs-insurance-circular-letter-7-2024-ai-underwriting-pricing
+aipt_id: AIPT-POL-0307
+jurisdiction: us-new-york
+title: 'NYDFS Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing'
+short_title: NYDFS Circular Letter No. 7 (2024) on AI in insurance underwriting
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The DFS index for
+  2021 onwards lists the letter without a withdrawal notice. A proposed version was published on 17 January 2024.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: New York State Department of Financial Services
+summary_plain: >-
+  This circular letter sets out the Department's expectations for insurers that use AI systems or external consumer data
+  in underwriting and pricing. Insurers should have governance and risk-management frameworks for these tools, test
+  them for unfair or unlawful discrimination, be able to show they are actuarially sound, remain responsible for tools
+  bought from vendors, and tell consumers when such data or systems are used.
+scope_summary: >-
+  Underwriting and pricing of insurance policies and annuity contracts in New York that use external consumer data,
+  AI systems or other predictive models, including vendor-supplied tools.
+who_it_applies_to: >-
+  Insurers authorised to write insurance in New York State, Article 43 corporations, health maintenance organisations,
+  licensed fraternal benefit societies and the New York State Insurance Fund.
+key_dates_summary: 'Proposed 17 January 2024; issued 11 July 2024.'
+what_organizations_must_do: >-
+  Insurers should assess whether these tools produce disproportionate adverse effects on similarly situated people or
+  protected classes, avoid using data or models based on classes protected under Insurance Law Article 26, document an
+  actuarial link to the risk priced, oversee vendors, and disclose to applicants the use of these tools and any threshold
+  criteria. The Department notes it can examine this use under Insurance Law sections 308 and 309, and that inadequate
+  disclosure may be an unfair trade practice under Article 24.
+adopted_on: null
+published_on: '2024-07-11'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The issue date of 11 July 2024 comes from search extracts of the DFS circular letter page and the adoption press
+  release; the 17 January 2024 proposal date comes from extracts of the proposed letter page. Pending review.
+actors: [deployer]
+ai_system_types: [automated_decision_system, predictive_scoring]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-new-york-dfs-insurance-circular-letter-1-2019-external-data-life-underwriting]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NYDFS Insurance Circular Letter No. 7 (2024): Use of AI Systems in Insurance Underwriting'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07
+  document_date: '2024-07-11'
+  document_type: guidance
+  tier: 2
+- title: 'NYDFS press release: Superintendent Adopts Insurance Guidance to Combat Discrimination in Artificial Intelligence'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/reports_and_publications/press_releases/pr20240711241
+  document_date: '2024-07-11'
+  document_type: press_release
+  tier: 2
+- title: 'NYDFS proposed Insurance Circular Letter: Use of AI Systems and External Consumer Data in Underwriting and Pricing'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed
+  document_date: '2024-01-17'
+  document_type: consultation
+  tier: 2
+faq: []
+official_source_url: https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07
+source_title: 'NYDFS Insurance Circular Letter No. 7 (2024): Use of AI Systems in Insurance Underwriting'
+source_publisher: New York State Department of Financial Services
+source_document_date: '2024-07-11'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

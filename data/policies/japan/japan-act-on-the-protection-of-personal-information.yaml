@@ -1,0 +1,88 @@
+slug: japan-act-on-the-protection-of-personal-information
+aipt_id: AIPT-POL-0321
+jurisdiction: japan
+title: Act on the Protection of Personal Information (APPI), as amended in 2020
+short_title: Japan Act on the Protection of Personal Information (APPI)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. The
+  Personal Information Protection Commission is carrying out its every-three-year review of the Act; proposals
+  from it are not recorded here.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: National Diet of Japan
+summary_plain: >-
+  The APPI is Japan's general law on personal information, administered by the Personal Information Protection
+  Commission. It sets rules for businesses that handle personal information, which apply when AI systems use
+  such data. The 2020 amendment widened the data individuals can ask a business to disclose or stop using, so
+  that it includes data kept for less than six months, and raised the maximum fine for false reports to 500,000
+  yen; a 2021 law then brought public-sector bodies under the same framework.
+scope_summary: >-
+  Business operators handling personal information in Japan and, since the 2021 amendments, public-sector
+  bodies.
+who_it_applies_to: Businesses and public bodies handling personal information in Japan.
+key_dates_summary: >-
+  2020 amendment approved by the Diet 5 June 2020 and promulgated 12 June 2020; amended Act fully in effect 1
+  April 2022.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: '2022-04-01'
+date_notes: >-
+  The 2020 amendment dates and full effect on 1 April 2022 are from Personal Information Protection Commission
+  pages; applies_from records the date the amended Act took full effect. The original enactment and commencement
+  dates of the Act were not shown in the extracts and are left empty. The 2021 amendment is Act No. 37 of 19 May
+  2021 (Act on the Arrangement of Related Laws for the Formation of a Digital Society).
+actors: [provider, deployer, public_authority]
+ai_system_types: []
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: [japan-ai-guidelines-for-business]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Amended Act on the Protection of Personal Information (June 2020) (Tentative Translation)
+  publisher: Personal Information Protection Commission, Japan
+  url: https://www.ppc.go.jp/files/pdf/APPI_english.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: Promulgation of the Amendment Act of the Act on the Protection of Personal Information, etc.
+  publisher: Personal Information Protection Commission, Japan
+  url: https://www.ppc.go.jp/en/news/archives/2020/20200618/
+  document_date: null
+  document_type: press_release
+  tier: 2
+- title: Overview of the Amended Act on the Protection of Personal Information
+  publisher: Personal Information Protection Commission, Japan
+  url: https://www.ppc.go.jp/files/pdf/overview_amended_act.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.ppc.go.jp/files/pdf/APPI_english.pdf
+source_title: Amended Act on the Protection of Personal Information (June 2020) (Tentative Translation)
+source_publisher: Personal Information Protection Commission, Japan
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

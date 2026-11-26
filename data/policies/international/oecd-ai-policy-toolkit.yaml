@@ -1,0 +1,89 @@
+slug: oecd-ai-policy-toolkit
+aipt_id: AIPT-POL-0340
+jurisdiction: international
+title: OECD AI Policy Toolkit (first release, 2026)
+short_title: OECD AI Policy Toolkit
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  The OECD describes the toolkit as a pilot and an evolving platform on OECD.AI; its first release was presented at the
+  OECD Ministerial Council Meeting in 2026. Recorded on 26 November 2026 from search-engine extracts of the official pages
+  listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Organisation for Economic Co-operation and Development (OECD), with the Global Partnership on AI
+summary_plain: >-
+  An interactive online tool on OECD.AI that helps governments put the OECD AI Principles into practice. Policymakers
+  answer a questionnaire to map their national AI policy landscape, set priorities and find examples of policies from
+  other countries, drawn from the OECD.AI policy database and organised around six pillars. It is non-prescriptive, does
+  not rank countries and was designed with governments in regional workshops.
+scope_summary: >-
+  National and regional governments and policymakers designing or reviewing AI policy; no obligations for organisations.
+who_it_applies_to: Governments and public authorities; voluntary.
+key_dates_summary: First release presented at the OECD Ministerial Council Meeting 2026 (exact date not confirmed).
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The release date was not confirmed from an official page. Extracts of the OECD.AI Ministerial Council Meeting page
+  point to a side event in early June 2026; a reviewer should confirm the exact launch date.
+actors: [public_authority]
+ai_system_types: []
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [public_services]
+related_policies:
+- oecd-recommendation-on-artificial-intelligence
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: AI Policy Toolkit
+  publisher: OECD.AI
+  url: https://oecd.ai/en/ai-toolkit/get-started
+  document_date: null
+  document_type: official
+  tier: 1
+- title: 'Advancing International Cooperation on Artificial Intelligence: The AI Policy Toolkit and the Hiroshima AI Process Reporting Framework'
+  publisher: OECD.AI
+  url: https://oecd.ai/en/mcm-2026
+  document_date: null
+  document_type: official
+  tier: 1
+- title: Pilot for the AI Policy Toolkit - Design and system documentation
+  publisher: OECD.AI
+  url: https://oecd.ai/en/ai-policy-toolkit-documentation
+  document_date: null
+  document_type: guidance
+  tier: 1
+- title: Scoping note for an AI policy toolkit to support economies in realising AI benefits (MCM 2025)
+  publisher: OECD
+  url: https://www.oecd.org/content/dam/oecd/en/events/2025/06/mcm/MCM-2025-Scoping-Note-for-an-AI-Policy-Toolkit-to-Support-Economies-in-Realising-AI-Benefits.pdf
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://oecd.ai/en/ai-toolkit/get-started
+source_title: AI Policy Toolkit
+source_publisher: OECD.AI
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

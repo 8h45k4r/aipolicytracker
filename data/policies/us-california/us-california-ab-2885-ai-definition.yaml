@@ -1,0 +1,79 @@
+slug: us-california-ab-2885-ai-definition
+aipt_id: AIPT-POL-0264
+jurisdiction: us-california
+title: 'California AB 2885: Uniform statutory definition of artificial intelligence (Chapter 843, Statutes of 2024)'
+short_title: California definition of AI (AB 2885)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Places one definition of artificial intelligence in Government Code section 11546.45.5: an engineered or
+  machine-based system that varies in its level of autonomy and can, for explicit or implicit objectives, infer
+  from its input how to generate outputs that can influence physical or virtual environments. Existing
+  provisions of the Business and Professions, Education and Government Codes, including the one on the state
+  inventory of high-risk automated decision systems, now use it. It does not create new duties for private
+  organisations.
+scope_summary: >-
+  California statutes that refer to artificial intelligence, and the state agencies that apply them.
+who_it_applies_to: >-
+  State agencies and anyone applying California statutes that use the term artificial intelligence.
+key_dates_summary: Approved and chaptered 28 September 2024.
+adopted_on: '2024-09-28'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Approval and chaptering on 28 September 2024 and the chapter number come from extracts of the official bill
+  page. Secondary sources give an effective date of 1 January 2025; a non-urgency California statute normally
+  takes effect on 1 January of the year after enactment, but no extract stated the effective date, so
+  in_force_on is left empty.
+actors:
+- public_authority
+ai_system_types:
+- automated_decision_system
+sectors:
+- cross_sector
+- public_services
+risk_categories:
+- unclassified
+use_cases:
+- public_services
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 2885 (2023-2024) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB2885
+  document_date: '2024-09-28'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240AB2885
+source_title: 'California Legislative Information: AB 2885 (2023-2024) status'
+source_publisher: California Legislative Information
+source_document_date: '2024-09-28'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

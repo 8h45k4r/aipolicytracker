@@ -1,0 +1,88 @@
+slug: us-indiana-hb-1133-fabricated-media-elections
+aipt_id: AIPT-POL-0291
+jurisdiction: us-indiana
+title: 'Indiana HB 1133 (2024): Digitally altered media in election campaign communications (Public Law 81-2024)'
+short_title: Indiana fabricated media in elections (HB 1133)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Indiana General Assembly
+summary_plain: >-
+  A campaign communication in Indiana that contains fabricated media depicting a candidate must carry a disclaimer saying
+  that elements of the media have been digitally altered or artificially generated, in addition to the usual paid-for
+  disclaimer. The act sets how the disclaimer appears in print, audio and video; in video it must stay on screen for the
+  whole communication. Fabricated media includes misleadingly altered recordings and AI-generated imitations of a person.
+  A candidate who is depicted can bring a civil action against those responsible.
+scope_summary: >-
+  Campaign communications in Indiana that include fabricated or digitally altered media depicting a candidate, including
+  holders of elected office.
+who_it_applies_to: People who pay for, sponsor or disseminate campaign communications in Indiana.
+key_dates_summary: Signed 12 March 2024; effective on passage.
+penalties_summary: >-
+  A depicted candidate may sue and, on clear and convincing evidence, recover actual damages, an injunction, court costs
+  and attorney's fees.
+what_organizations_must_do: >-
+  Add the prescribed disclaimer to campaign communications that contain fabricated media of a candidate, in the format
+  the act sets for each medium.
+adopted_on: '2024-03-12'
+published_on: null
+in_force_on: '2024-03-12'
+applies_from: null
+date_notes: >-
+  The General Assembly's bill page lists Public Law 81 and the Governor's signature on 12 March 2024; the act is effective
+  on passage, recorded here as the signing date. It adds a new chapter, IC 3-9-8, to the Indiana Code.
+actors: [deployer]
+ai_system_types: [generative_ai]
+sectors: [media_information]
+risk_categories: [transparency_risk]
+use_cases: [generative_ai]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Indiana General Assembly: HB 1133 (2024 session)'
+  publisher: Indiana General Assembly
+  url: https://iga.in.gov/legislative/2024/bills/house/1133
+  document_date: '2024-03-12'
+  document_type: legislation
+  tier: 1
+- title: 'Indiana General Assembly: House Enrolled Act 1133 (2024), enrolled text'
+  publisher: Indiana General Assembly
+  url: https://iga.in.gov/pdf-documents/123/2024/house/bills/HB1133/HB1133.06.ENRS.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Indiana Secretary of State: 2024 Indiana election legislation summary'
+  publisher: Indiana Secretary of State
+  url: https://www.in.gov/sos/elections/files/2024-Indiana-Election-Legislation-Summary.FINAL.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://iga.in.gov/legislative/2024/bills/house/1133
+source_title: 'Indiana General Assembly: HB 1133 (2024 session)'
+source_publisher: Indiana General Assembly
+source_document_date: '2024-03-12'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

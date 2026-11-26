@@ -66,7 +66,7 @@ class ExternalSyncTest extends TestCase
         $this->assertSame('Existing Incident Updated Title', $updated->title);
         $this->assertSame($existing->mit_domain, $updated->mit_domain, 'snapshot classification kept when the API has none');
 
-        $this->get('/ai-risk/incidents')->assertOk()->assertSee('Synced Warehouse Robot Incident')->assertSee('Synced from the AI Incident Database API')->assertSee(ExternalIncident::find($newId)->url())->assertSee('https://incidentdatabase.ai/cite/');
+        $this->get('/ai-risk/incidents')->assertOk()->assertSee('Synced Warehouse Robot Incident')->assertSee('Data to <time datetime="'.now()->toDateString().'">', false)->assertSee(ExternalIncident::find($newId)->url())->assertSee('https://incidentdatabase.ai/cite/');
         $this->get(ExternalIncident::find($newId)->url())->assertOk()->assertSee("Editor's notes", false)->assertSee('dates are approximate')->assertSee('AI systems implicated')->assertSee('Related incidents')->assertSee('Synced from source');
         // The source is credited once, at the foot of the page, instead of on every
         // entity and every catalogued report. These two assertions are the contract:

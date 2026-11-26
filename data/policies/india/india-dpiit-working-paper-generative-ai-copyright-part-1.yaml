@@ -1,0 +1,78 @@
+slug: india-dpiit-working-paper-generative-ai-copyright-part-1
+aipt_id: AIPT-POL-0330
+jurisdiction: india
+title: 'DPIIT Working Paper on Generative AI and Copyright, Part 1: One Nation One License One Payment'
+short_title: DPIIT working paper on generative AI and copyright (Part 1)
+title_native: null
+instrument_type: consultation
+status: proposed
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The paper was opened
+  for 30 days of public and stakeholder comment; no official extract showed a final decision, so it is recorded as a
+  proposal. Part 2, on the remaining issues, is not covered by this record.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Department for Promotion of Industry and Internal Trade, Ministry of Commerce and Industry
+summary_plain: >-
+  The first part of a working paper from a DPIIT committee on how copyright law should treat the use of protected works
+  to train generative AI. It proposes a hybrid model: a mandatory blanket licence letting AI developers train on all
+  lawfully accessed works, paired with a statutory right for rights holders to be paid. Royalties would fall due only
+  once an AI tool is commercialised, at rates set by a government-appointed committee and open to judicial review, and
+  would be collected and shared out through a central body.
+scope_summary: >-
+  Developers that train AI models on copyright-protected works in India, and copyright holders whose works are used.
+who_it_applies_to: AI developers and copyright holders, if the proposal is taken forward.
+key_dates_summary: Part 1 published by DPIIT in December 2025 for a 30-day consultation.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The official PDF is filed under December 2025 and the press release confirms publication of Part 1 with a 30-day
+  consultation. Secondary reports give 8 or 9 December 2025 as the release date; no official extract gave the day, so
+  no date is recorded.
+actors: [provider, gpai_provider]
+ai_system_types: [generative_ai, general_purpose_ai_model]
+sectors: [media_information]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: [india-ai-governance-guidelines]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Working Paper on Generative AI and Copyright, Part 1 - One Nation One License One Payment
+  publisher: Department for Promotion of Industry and Internal Trade
+  url: https://www.dpiit.gov.in/static/uploads/2025/12/ff266bbeed10c48e3479c941484f3525.pdf
+  document_date: null
+  document_type: consultation
+  tier: 1
+- title: DPIIT publishes first part of working paper on AI-copyright interface
+  publisher: Press Information Bureau, Government of India
+  url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2200741
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.dpiit.gov.in/static/uploads/2025/12/ff266bbeed10c48e3479c941484f3525.pdf
+source_title: Working Paper on Generative AI and Copyright, Part 1 - One Nation One License One Payment
+source_publisher: Department for Promotion of Industry and Internal Trade
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

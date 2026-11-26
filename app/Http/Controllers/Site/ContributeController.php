@@ -22,6 +22,8 @@ use App\Support\SubmissionFieldLabels;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ContributeController extends Controller
@@ -108,6 +110,68 @@ class ContributeController extends Controller
         unset($data['field'], $data['current_value'], $data['proposed_value']);
 
         $submission = ContributorSubmission::create($data + ['status' => 'pending_review', 'payload' => $payload ?: null]);
+        $this->notify($submission);
+
+        return redirect()->route('contribute')->with('success', 'Thank you. Your submission has been recorded with status "pending review". A reviewer will check it against official sources before anything is published.');
+    }
+
+    /**
+     * The short "Suggest a policy" form at the foot of /policies: a name, a jurisdiction,
+     * an official source and an optional note. It lands in the same review queue as a
+     * "Submit a new policy record" submission from /contribute.
+     */
+    public function suggest(Request $request, Turnstile $turnstile): RedirectResponse
+    {
+        // Back to the listing the reader was on (filters kept), at the form.
+        $previous = strtok(url()->previous(), '#');
+        $back = (str_starts_with($previous, route('policies.index')) ? $previous : route('policies.index')).'#suggest-policy';
+        if ($request->filled('website')) {
+            return redirect()->to($back)->with('success', self::SUGGEST_THANKS);
+        }
+        if ($turnstile->rejects($request)) {
+            return redirect()->to($back)->withInput()->withErrors(['turnstile' => 'The automated check did not complete. Please wait a moment and submit again.'], 'suggest');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'policy_name' => ['required', 'string', 'min:3', 'max:200'],
+            'jurisdiction' => ['required', 'string', 'max:120', function (string $attribute, mixed $value, \Closure $fail) {
+                if ($value !== 'other' && ! Jurisdiction::published()->where('slug', $value)->exists()) {
+                    $fail('Choose a jurisdiction from the list, or "Other / not listed".');
+                }
+            }],
+            'official_source_url' => ['required', 'url:http,https', 'max:2048'],
+            'notes' => ['nullable', 'string', 'max:280'],
+        ], [], [
+            'policy_name' => 'policy name',
+            'official_source_url' => 'official source URL',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->to($back)->withErrors($validator, 'suggest')->withInput();
+        }
+        $data = $validator->validated();
+
+        $known = $data['jurisdiction'] !== 'other';
+        $submission = ContributorSubmission::create([
+            'type' => 'new_policy',
+            'status' => 'pending_review',
+            'subject_type' => $known ? 'jurisdiction' : null,
+            'subject_slug' => $known ? $data['jurisdiction'] : null,
+            'summary' => Str::limit('Suggested policy: '.$data['policy_name'], 300, ''),
+            'details' => $data['notes'] ?? null,
+            'proposed_source_url' => $data['official_source_url'],
+            'source_page' => route('policies.index'),
+            'payload' => ['policy_name' => $data['policy_name'], 'jurisdiction' => $known ? $data['jurisdiction'] : 'other', 'form' => 'policies_suggest'],
+        ]);
+        $this->notify($submission);
+
+        return redirect()->to($back)->with('success', self::SUGGEST_THANKS);
+    }
+
+    private const SUGGEST_THANKS = 'Thank you. Your suggestion is in the review queue. A reviewer checks it against the official source before anything is added.';
+
+    /** Tell the admins (up to twenty an hour) and, when an address was given, the sender. */
+    private function notify(ContributorSubmission $submission): void
+    {
         // Every submission is kept, but a flood does not become a flood of mail: past
         // twenty an hour the review queue is the notification.
         $recent = ContributorSubmission::where('created_at', '>=', now()->subHour())->count();
@@ -126,8 +190,6 @@ class ContributeController extends Controller
                 report($e);
             }
         }
-
-        return redirect()->route('contribute')->with('success', 'Thank you. Your submission has been recorded with status "pending review". A reviewer will check it against official sources before anything is published.');
     }
 
     /**

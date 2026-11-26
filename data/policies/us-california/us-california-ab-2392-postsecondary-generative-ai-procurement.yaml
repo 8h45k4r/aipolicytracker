@@ -1,0 +1,83 @@
+slug: us-california-ab-2392-postsecondary-generative-ai-procurement
+aipt_id: AIPT-POL-0279
+jurisdiction: us-california
+title: 'California AB 2392: Public postsecondary education: generative artificial intelligence systems: procurement standards: training (Chapter 855, Statutes of 2026)'
+short_title: California college generative AI procurement and training (AB 2392)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not
+  be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Requires the California Community Colleges and California State University chancellors' offices to convene a
+  working group (the University of California is asked to join) to draft generative AI procurement standards and
+  responsible-use training, with recommendations due by 1 January 2028. Students, faculty and staff must receive the
+  training, and until standards are adopted the two systems must report to the Legislature after signing any
+  systemwide generative AI contract.
+scope_summary: >-
+  The California Community Colleges and California State University systems, and the University of California if it
+  takes part, when buying and using generative AI systems.
+who_it_applies_to: Public postsecondary systems in California and the vendors they buy generative AI from.
+key_dates_summary: Approved by the Governor and chaptered 30 September 2026; working group recommendations due by 1 January 2028.
+what_organizations_must_do: >-
+  Community colleges and CSU: convene the working group, provide and review the training at least once each academic
+  year, keep completion records for at least four years, and report to the Legislature within 60 days of a
+  systemwide generative AI contract until standards are adopted.
+adopted_on: '2026-09-30'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Governor approval and chaptering on 30 September 2026 (Chapter 855) and the 1 January 2028 recommendation deadline
+  are as shown in search extracts of the bill status and text pages. The effective date was not confirmed and is
+  left empty.
+actors:
+- public_authority
+- provider
+ai_system_types:
+- generative_ai
+sectors:
+- education
+risk_categories:
+- unclassified
+use_cases:
+- education
+- government_procurement
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: AB 2392 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2392
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2392
+source_title: 'California Legislative Information: AB 2392 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and duty
+  here is pending review against it.

@@ -80,7 +80,7 @@ return [
     'risk.incidents.browse' => [
         ['question' => 'What is recorded in each incident?', 'answer' => 'What happened, when, who was involved as developer or deployer, who was harmed, the sectors and countries affected, and the domain and subdomain the harm falls under. Incidents are mirrored from the AI Incident Database and each links back to its source record.'],
         ['question' => 'Does an incident mean wrongdoing was proven?', 'answer' => 'No. These are reported incidents, not findings of liability. Entities named in a report are named as reported, allegations are marked as alleged, and nothing here is a legal determination.'],
-        ['question' => 'How current is the incident data?', 'answer' => 'It syncs directly from the AI Incident Database several times a day, so a new incident usually appears within hours. Each record carries the date it was last synced, and the snapshot date is shown on the page.'],
+        ['question' => 'How current is the incident data?', 'answer' => 'New incidents arrive from the AI Incident Database\'s weekly export, so a new incident usually appears within one to two weeks of being added there. The page shows the date the data runs to, and says so when no new data has arrived for more than ten days.'],
         ['question' => 'Does this page include the full incident reports?', 'answer' => 'No. The report texts are outside the licence this data is shared under, so only the metadata and the classifications appear here. Every row links to the original incident record, which carries the reports themselves.'],
     ],
 

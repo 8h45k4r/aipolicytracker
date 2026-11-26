@@ -1,0 +1,80 @@
+slug: us-california-sb-981-sexually-explicit-digital-identity-theft
+aipt_id: AIPT-POL-0272
+jurisdiction: us-california
+title: 'California SB 981: Reporting sexually explicit digital identity theft on social media (Chapter 292, Statutes of 2024)'
+short_title: California deepfake reporting on social media (SB 981)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  Adds a chapter to the Business and Professions Code requiring social media platforms to give California
+  account holders a way to report sexually explicit digital identity theft, including AI-generated or altered
+  intimate images of an identifiable person shared without consent. The platform must confirm receipt within 48
+  hours, decide within 30 days whether the report is valid, and remove the material from public view where there
+  is a reasonable basis for the report.
+scope_summary: >-
+  Social media platforms with California account holders, for reported sexually explicit digital identity theft
+  content.
+who_it_applies_to: Social media platforms serving California users.
+key_dates_summary: Approved and chaptered 19 September 2024.
+what_organizations_must_do: >-
+  Provide a reporting mechanism for sexually explicit digital identity theft, acknowledge reports within 48
+  hours, determine them within 30 days and remove qualifying material from public view.
+adopted_on: '2024-09-19'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Chapter number and approval on 19 September 2024 come from extracts of the official bill page; a non-urgency
+  California statute normally takes effect on 1 January of the year after enactment, but no extract stated the
+  effective date, so in_force_on is left empty.
+actors:
+- deployer
+ai_system_types:
+- generative_ai
+sectors:
+- media_information
+risk_categories:
+- unclassified
+use_cases:
+- content_moderation
+- generative_ai
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 981 (2023-2024) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240SB981
+  document_date: '2024-09-19'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202320240SB981
+source_title: 'California Legislative Information: SB 981 (2023-2024) status'
+source_publisher: California Legislative Information
+source_document_date: '2024-09-19'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

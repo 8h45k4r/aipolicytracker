@@ -9,4 +9,5 @@
         <div class="py-6"><x-site.empty :reset="route('policies.index')" /></div>
     @endforelse
 </x-site.listing-shell>
+@include('site.policies._suggest')
 @endsection

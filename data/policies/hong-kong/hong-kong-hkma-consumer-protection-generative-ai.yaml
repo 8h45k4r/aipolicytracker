@@ -1,0 +1,80 @@
+slug: hong-kong-hkma-consumer-protection-generative-ai
+aipt_id: AIPT-POL-0336
+jurisdiction: hong-kong
+title: 'HKMA circular: Consumer Protection in respect of Use of Generative Artificial Intelligence (19 August 2024)'
+short_title: HKMA consumer protection and generative AI (2024)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Listed as current in the HKMA Banking Regulatory Document Repository. The October 2026 supervisory guidance on
+  responsible AI adoption indicates that its human-in-the-loop expectation may give way to other forms of human oversight
+  for some use cases, while its disclosure and opt-out expectations continue. Recorded on 26 November 2026 from
+  search-engine extracts of the official pages listed; the official text could not be opened from the research
+  environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Hong Kong Monetary Authority
+summary_plain: >-
+  A circular asking banks to extend the HKMA's 2019 consumer protection principles for big data analytics and AI to
+  generative AI used in customer-facing applications, with extra safeguards. Boards and senior management stay
+  accountable, a human should be involved in decisions in early deployments, customers should be told when generative AI
+  is used and be able to opt out or ask for human review, and customer data must be protected under the Personal Data
+  (Privacy) Ordinance.
+scope_summary: >-
+  Authorized institutions in Hong Kong that use generative AI in applications that serve customers.
+who_it_applies_to: Authorized institutions supervised by the Hong Kong Monetary Authority.
+key_dates_summary: Issued 19 August 2024.
+adopted_on: null
+published_on: '2024-08-19'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 19 August 2024 date is on the circular itself; the repository document reference (20241107-1) carries a later date
+  that was not explained in the extracts. No other dates were established.
+actors: [deployer]
+ai_system_types: [generative_ai, conversational_agent]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [generative_ai, customer_service, finance_and_credit]
+related_policies:
+- hong-kong-hkma-consumer-protection-big-data-analytics-and-ai
+- hong-kong-hkma-art-framework-responsible-ai-adoption
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'HKMA Banking Regulatory Document Repository: Consumer Protection in respect of Use of Generative Artificial Intelligence'
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20241107-1-EN
+  document_date: '2024-08-19'
+  document_type: guidance
+  tier: 1
+- title: Consumer Protection in respect of Use of Generative Artificial Intelligence (circular, PDF)
+  publisher: Hong Kong Monetary Authority
+  url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20241107-1-EN/20241107-1-EN.pdf
+  document_date: '2024-08-19'
+  document_type: guidance
+  tier: 1
+faq: []
+official_source_url: https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20241107-1-EN
+source_title: 'HKMA Banking Regulatory Document Repository: Consumer Protection in respect of Use of Generative Artificial Intelligence'
+source_publisher: Hong Kong Monetary Authority
+source_document_date: '2024-08-19'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

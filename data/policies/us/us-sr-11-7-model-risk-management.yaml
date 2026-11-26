@@ -1,0 +1,84 @@
+slug: us-sr-11-7-model-risk-management
+aipt_id: AIPT-POL-0254
+jurisdiction: us
+title: 'Federal Reserve SR 11-7 and OCC Bulletin 2011-12: Supervisory Guidance on Model Risk Management (superseded)'
+short_title: SR 11-7 model risk management (superseded)
+title_native: null
+instrument_type: guidance
+status: superseded
+status_note: >-
+  Superseded on 17 April 2026 by the revised interagency model risk management guidance (Federal Reserve SR 26-2, OCC
+  Bulletin 2026-13), which states that it replaces SR 11-7; the OCC copy of Bulletin 2011-12 is marked rescinded.
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not
+  be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: Board of Governors of the Federal Reserve System; Office of the Comptroller of the Currency
+summary_plain: >-
+  Supervisory guidance from 2011 that set US bank supervisors' expectations for managing the risk of relying on
+  quantitative models in decision-making. It covered sound model development and use,
+  independent validation, and governance and controls, and said model risk should be managed like other risks and
+  grows with complexity, uncertain inputs, breadth of use and potential impact. It was replaced in April 2026.
+scope_summary: >-
+  Banking organisations supervised by the Federal Reserve and the OCC (and later adopted by the FDIC) that use models
+  in decision-making, until replaced by the 2026 guidance.
+who_it_applies_to: Supervised banking organisations using models (guidance now superseded).
+key_dates_summary: Issued 4 April 2011; superseded 17 April 2026 by SR 26-2 / OCC Bulletin 2026-13.
+adopted_on: '2011-04-04'
+published_on: '2011-04-04'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The issue date of 4 April 2011 is stated in SR 26-2, which supersedes SR 11-7. The supersession date of 17 April
+  2026 is the date of SR 26-2. The FDIC adopted the guidance in 2017 (FIL-22-2017, rescinded in 2026); the exact FDIC
+  adoption date was not established.
+actors: [deployer]
+ai_system_types: [predictive_scoring, automated_decision_system]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-sr-26-2-revised-model-risk-management-guidance]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'OCC Bulletin 2011-12: Supervisory Guidance on Model Risk Management (rescinded, replaced by OCC 2026-13)'
+  publisher: Office of the Comptroller of the Currency
+  url: https://www.occ.gov/static/rescinded-bulletins/bulletin-2011-12.pdf
+  document_date: '2011-04-04'
+  document_type: guidance
+  tier: 2
+- title: 'Federal Reserve SR 26-2: Revised Guidance on Model Risk Management'
+  publisher: Board of Governors of the Federal Reserve System
+  url: https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm
+  document_date: '2026-04-17'
+  document_type: guidance
+  tier: 2
+- title: 'OCC Bulletin 2026-13: Model Risk Management, Revised Guidance'
+  publisher: Office of the Comptroller of the Currency
+  url: https://www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-13.html
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.occ.gov/static/rescinded-bulletins/bulletin-2011-12.pdf
+source_title: 'OCC Bulletin 2011-12: Supervisory Guidance on Model Risk Management (rescinded, replaced by OCC 2026-13)'
+source_publisher: Office of the Comptroller of the Currency
+source_document_date: '2011-04-04'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

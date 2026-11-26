@@ -1,0 +1,116 @@
+slug: us-cms-wiser-model-prior-authorization
+aipt_id: AIPT-POL-0250
+jurisdiction: us
+title: >-
+  CMS Innovation Center WISeR (Wasteful and Inappropriate Service Reduction) Model: technology-enabled prior
+  authorisation in Original Medicare
+short_title: CMS WISeR Model
+title_native: null
+instrument_type: policy
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The model began on
+  1 January 2026 and runs to 31 December 2031. A Federal Register notice of 6 April 2026 postponed prior authorisation
+  and pre-payment review for deep brain stimulation (NCD 160.24) and percutaneous image-guided lumbar decompression
+  (NCD 150.13) until a date to be announced in a later notice; a correction notice was published the same day.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Centers for Medicare & Medicaid Services (CMS Innovation Center)
+summary_plain: >-
+  WISeR is a six-year CMS Innovation Center model that tests prior authorisation for a list of selected items and
+  services in Original Medicare in six states. Technology companies with experience of technology-enhanced prior
+  authorisation for other payers, described by CMS as using tools such as AI, act as model participants; they must have
+  clinicians available for medical review. Providers may ask for prior authorisation or instead have their claims for
+  those services sent for pre-payment medical review. CMS says coverage and payment rules and appeal rights are
+  unchanged.
+scope_summary: >-
+  Model participants (technology companies selected by CMS), and providers and suppliers furnishing the selected items
+  and services to Original Medicare beneficiaries in Arizona, New Jersey, Ohio, Oklahoma, Texas and Washington.
+who_it_applies_to: WISeR participants and Medicare providers and suppliers in the six WISeR states.
+key_dates_summary: >-
+  Notice published 1 July 2025; model runs 1 January 2026 to 31 December 2031; prior authorisation requests accepted from
+  5 January 2026 for services from 15 January 2026; two services postponed on 6 April 2026.
+penalties_summary: null
+what_organizations_must_do: >-
+  Providers and suppliers in the WISeR states may submit prior authorisation requests for the listed services; claims
+  for services on or after 15 January 2026 without one are suspended and reviewed before payment by the WISeR
+  participant. Participants must make medical review by clinicians with relevant expertise available when they use
+  technology to support coverage determinations.
+adopted_on: null
+published_on: '2025-07-01'
+in_force_on: '2026-01-01'
+applies_from: '2026-01-15'
+date_notes: >-
+  Federal Register notice date (1 July 2025), model start (1 January 2026), end (31 December 2031), the 5 January 2026
+  start for requests and the 15 January 2026 start for services are taken from extracts of the notice and CMS's WISeR
+  FAQ and operational guide. The delay notice is dated 6 April 2026; no new date for the two postponed services was
+  found. Skin substitutes are included only in WISeR states with an active skin substitute LCD.
+actors: [provider, deployer]
+ai_system_types: [automated_decision_system]
+sectors: [healthcare, public_services]
+risk_categories: [unclassified]
+use_cases: [health, public_services]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'CMS: WISeR (Wasteful and Inappropriate Service Reduction) Model'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://www.cms.gov/priorities/innovation/innovation-models/wiser
+  document_date: null
+  document_type: official
+  tier: 2
+- title: >-
+    Federal Register: Medicare Program; Implementation of Prior Authorization for Select Services for the Wasteful and
+    Inappropriate Services Reduction (WISeR) Model (2025-12195)
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2025/07/01/2025-12195/medicare-program-implementation-of-prior-authorization-for-select-services-for-the-wasteful-and
+  document_date: '2025-07-01'
+  document_type: official
+  tier: 1
+- title: >-
+    Federal Register: Medicare Program; Delayed Implementation of Certain Prior Authorization for Select Services for
+    the WISeR Model (2026-06616)
+  publisher: Office of the Federal Register
+  url: https://www.federalregister.gov/documents/2026/04/06/2026-06616/medicare-program-delayed-implementation-of-certain-prior-authorization-for-select-services-for-the
+  document_date: '2026-04-06'
+  document_type: official
+  tier: 1
+- title: 'CMS: WISeR Model Frequently Asked Questions'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://www.cms.gov/priorities/innovation/files/document/wiser-model-frequently-asked-questions
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'CMS Manual System: WISeR Model change request (r13652demo)'
+  publisher: Centers for Medicare & Medicaid Services
+  url: https://www.cms.gov/files/document/r13652demo.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.federalregister.gov/documents/2025/07/01/2025-12195/medicare-program-implementation-of-prior-authorization-for-select-services-for-the-wasteful-and
+source_title: >-
+  Federal Register: Medicare Program; Implementation of Prior Authorization for Select Services for the Wasteful and
+  Inappropriate Services Reduction (WISeR) Model (2025-12195)
+source_publisher: Office of the Federal Register
+source_document_date: '2025-07-01'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,82 @@
+slug: us-new-york-dfs-cybersecurity-risk-assessment-guidance
+aipt_id: AIPT-POL-0305
+jurisdiction: us-new-york
+title: 'NYDFS Industry Letter: Guidance on How to Conduct and Use Risk Assessments Required by the DFS Cybersecurity Regulation (10 September 2026)'
+short_title: NYDFS cyber risk assessment guidance (2026)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Department says
+  the guidance imposes no new obligations and clarifies existing requirements under 23 NYCRR Part 500. It is a general
+  cybersecurity instrument, recorded because it names AI adoption and frontier AI models as matters risk assessments
+  should consider.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: New York State Department of Financial Services
+summary_plain: >-
+  This guidance explains how organisations covered by the New York cybersecurity regulation for financial services
+  should carry out and use the risk assessments that regulation requires. It says assessments should consider whether
+  emerging technologies or threats, such as the adoption of AI, quantum computing, software supply-chain attacks and new
+  ransomware techniques, materially change an entity's risk profile.
+scope_summary: >-
+  Covered entities under 23 NYCRR Part 500 and the risk assessments they must review and update at least annually and
+  after material changes.
+who_it_applies_to: Covered entities under the NYDFS cybersecurity regulation (23 NYCRR Part 500).
+key_dates_summary: 'Issued 10 September 2026.'
+what_organizations_must_do: >-
+  Covered entities are reminded that risk assessments must be reviewed and updated as reasonably necessary and at least
+  annually, and the guidance gives developments such as the release of frontier AI models as examples of changes that
+  can call for an update.
+adopted_on: null
+published_on: '2026-09-10'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The issue date of 10 September 2026 comes from the letter's official URL and the same-day DFS press release address in
+  search extracts; pending review against the letter itself.
+actors: [deployer, user]
+ai_system_types: []
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-new-york-dfs-industry-letter-cybersecurity-risks-ai, us-new-york-dfs-advisory-frontier-ai-cybersecurity-risks]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NYDFS Industry Letter: Guidance on How to Conduct and Use Risk Assessments Required by the DFS Cybersecurity Regulation'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/industry_guidance/industry_letters/il20260910-cyber-risk-assessment
+  document_date: '2026-09-10'
+  document_type: guidance
+  tier: 2
+- title: 'NYDFS press release: DFS Issues New Cybersecurity Guidance on Risk Assessments for Financial Services Entities'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/reports_and_publications/press_releases/pr20260910
+  document_date: '2026-09-10'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.dfs.ny.gov/industry_guidance/industry_letters/il20260910-cyber-risk-assessment
+source_title: 'NYDFS Industry Letter: Guidance on How to Conduct and Use Risk Assessments Required by the DFS Cybersecurity Regulation'
+source_publisher: New York State Department of Financial Services
+source_document_date: '2026-09-10'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

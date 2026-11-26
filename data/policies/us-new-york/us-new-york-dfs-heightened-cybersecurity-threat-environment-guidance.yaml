@@ -1,0 +1,82 @@
+slug: us-new-york-dfs-heightened-cybersecurity-threat-environment-guidance
+aipt_id: AIPT-POL-0303
+jurisdiction: us-new-york
+title: 'NYDFS Industry Letter: Measures Regulated Entities Should Consider in a Heightened Cybersecurity Threat Environment (21 May 2026)'
+short_title: NYDFS heightened cyber threat guidance (2026)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Department
+  describes the guidance as non-binding best practice that sets no new legal requirements and leaves 23 NYCRR Part 500
+  unchanged. It is a general cybersecurity instrument; it is recorded because it names the release of frontier AI
+  models as an example of a development that can create a heightened threat environment.
+is_binding: false
+ai_specific: false
+featured: false
+published: true
+issuing_body: New York State Department of Financial Services
+summary_plain: >-
+  This guidance sets out a non-exhaustive list of cybersecurity practices that organisations regulated by the New York
+  Department of Financial Services may adopt when the threat environment worsens, for example after geopolitical events
+  or technological changes such as the release of frontier AI models. The practices fall under three headings: reducing
+  the attack surface, improving detection and readiness, and strengthening resilience and response.
+scope_summary: >-
+  Individuals and entities regulated by NYDFS, choosing measures according to their own threats, information systems,
+  supply-chain dependencies and sector risks.
+who_it_applies_to: NYDFS-regulated individuals and entities (banking, insurance and financial services).
+key_dates_summary: 'Issued 21 May 2026, the same day as the companion advisory on frontier AI models.'
+what_organizations_must_do: >-
+  Examples in the guidance include promptly identifying and fixing known exploited vulnerabilities, especially in
+  internet-facing systems (using sources such as the CISA Known Exploited Vulnerabilities Catalog), and testing incident
+  response and business continuity plans so that critical functions and nonpublic information can be restored.
+adopted_on: null
+published_on: '2026-05-21'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The issue date of 21 May 2026 comes from the letter's official URL and search extracts of the DFS press release;
+  pending review against the letter itself.
+actors: [deployer, user]
+ai_system_types: [general_purpose_ai_model]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-new-york-dfs-advisory-frontier-ai-cybersecurity-risks]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NYDFS Industry Letter: Measures Regulated Entities Should Consider in a Heightened Cybersecurity Threat Environment'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/industry-guidance/industry-letters/20260521-guidance-on-measures-reg-entities-should-consider-in-a-hcte
+  document_date: '2026-05-21'
+  document_type: guidance
+  tier: 2
+- title: 'NYDFS press release: DFS Issues Guidance to Regulated Entities on Cybersecurity in a Heightened Threat Environment'
+  publisher: New York State Department of Financial Services
+  url: https://www.dfs.ny.gov/reports_and_publications/press_releases/pr202605121
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.dfs.ny.gov/industry-guidance/industry-letters/20260521-guidance-on-measures-reg-entities-should-consider-in-a-hcte
+source_title: 'NYDFS Industry Letter: Measures Regulated Entities Should Consider in a Heightened Cybersecurity Threat Environment'
+source_publisher: New York State Department of Financial Services
+source_document_date: '2026-05-21'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

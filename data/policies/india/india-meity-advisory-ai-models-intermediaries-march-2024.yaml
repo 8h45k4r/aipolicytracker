@@ -1,0 +1,89 @@
+slug: india-meity-advisory-ai-models-intermediaries-march-2024
+aipt_id: AIPT-POL-0332
+jurisdiction: india
+title: MeitY advisory of 15 March 2024 to intermediaries on AI models and due diligence
+short_title: MeitY AI advisory (15 March 2024)
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The advisory itself
+  was not found on an official host; this record rests on government statements that describe it. It reminds
+  intermediaries of duties under the IT Act and IT Rules; its own binding force is not established here. Whether it
+  remains current after the 2026 amendment rules on synthetically generated information is also not established.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Ministry of Electronics and Information Technology (MeitY)
+summary_plain: >-
+  An advisory from India's IT ministry telling online intermediaries and platforms how to meet their existing due
+  diligence duties when they offer AI models, software or algorithms. Under-tested or unreliable AI should be made
+  available to users in India only with a label explaining that its output may be fallible or unreliable, for example
+  through a consent pop-up. Platforms should also ensure their AI does not enable unlawful content, bias or
+  discrimination, or threats to the integrity of elections.
+scope_summary: >-
+  Intermediaries and platforms in India that use or offer AI models, large language models, generative AI, software or
+  algorithms to users.
+who_it_applies_to: Intermediaries and platforms offering or using AI tools for users in India.
+key_dates_summary: Advisory dated 15 March 2024; it revised an advisory of 1 March 2024 and followed one of 26 December 2023.
+what_organizations_must_do: >-
+  Intermediaries in scope are advised to label under-tested or unreliable AI output as possibly fallible, inform users of
+  this, and keep their AI from facilitating unlawful content, bias or threats to electoral integrity.
+adopted_on: null
+published_on: '2024-03-15'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 15 March 2024 date is given in official press releases. That it revised the 1 March 2024 advisory and removed its
+  requirement for prior government permission is reported by a government AI portal and by secondary sources, and is
+  pending review against the advisory text.
+actors: [deployer, provider]
+ai_system_types: [generative_ai, general_purpose_ai_model]
+sectors: [media_information, telecommunications]
+risk_categories: [transparency_risk]
+use_cases: [generative_ai, content_moderation]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: India well-equipped to tackle evolving online harms and cyber crimes; Government to Parliament
+  publisher: Press Information Bureau, Government of India
+  url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2154268
+  document_date: null
+  document_type: press_release
+  tier: 2
+- title: Government has issued multiple advisories emphasizing the observance of due diligence obligations under the IT Act and IT Rules
+  publisher: Press Information Bureau, Government of India
+  url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2245053
+  document_date: null
+  document_type: press_release
+  tier: 2
+- title: 'Revised AI Advisory: How AI Regulation Can Impact India'
+  publisher: IndiaAI, Ministry of Electronics and Information Technology
+  url: https://indiaai.gov.in/article/revised-ai-advisory-how-ai-regulation-can-impact-india
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2154268
+source_title: India well-equipped to tackle evolving online harms and cyber crimes; Government to Parliament
+source_publisher: Press Information Bureau, Government of India
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

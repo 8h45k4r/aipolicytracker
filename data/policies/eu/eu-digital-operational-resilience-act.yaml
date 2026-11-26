@@ -1,0 +1,85 @@
+slug: eu-digital-operational-resilience-act
+aipt_id: AIPT-POL-0313
+jurisdiction: eu
+title: 'Regulation (EU) 2022/2554: Digital Operational Resilience Act (DORA)'
+short_title: EU Digital Operational Resilience Act (DORA)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: European Parliament and Council of the European Union
+summary_plain: >-
+  DORA sets uniform rules on the security of network and information systems for financial entities in the EU,
+  such as banks, insurers and investment firms. It applies directly in every Member State without national
+  transposition. It is not an AI law, but because it covers information and communication technology risk
+  generally, it is relevant to financial entities that rely on AI systems or on outside providers of them.
+scope_summary: >-
+  Financial entities in the EU, including banks, insurers and investment firms, and their management of ICT
+  risk.
+who_it_applies_to: >-
+  EU financial entities and, for oversight purposes, ICT third-party service providers to them.
+key_dates_summary: >-
+  Published in OJ L 333 on 27 December 2022; in force 16 January 2023; applies from 17 January 2025.
+adopted_on: '2022-12-14'
+published_on: '2022-12-27'
+in_force_on: '2023-01-16'
+applies_from: '2025-01-17'
+date_notes: >-
+  Application date (17 January 2025) is in EUR-Lex extracts. Publication (OJ L 333, 27 December 2022) and entry
+  into force (16 January 2023) come from the European Parliament legislative observatory and ESMA extracts. The
+  adoption date of 14 December 2022 is the date in the Regulation's title, seen only in a search summary:
+  confirm it. Member States also had to notify their implementing laws by 17 January 2025.
+actors: [deployer, provider]
+ai_system_types: []
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Regulation (EU) 2022/2554 (Digital Operational Resilience Act)
+  publisher: EUR-Lex (Publications Office of the European Union)
+  url: https://eur-lex.europa.eu/eli/reg/2022/2554/oj/eng
+  document_date: '2022-12-14'
+  document_type: legislation
+  tier: 1
+- title: Digital Operational Resilience Act (DORA)
+  publisher: European Securities and Markets Authority
+  url: https://www.esma.europa.eu/digital-operational-resilience-act-dora
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'Digital finance: Digital Operational Resilience Act (DORA), procedure summary'
+  publisher: European Parliament Legislative Observatory
+  url: https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1728965
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://eur-lex.europa.eu/eli/reg/2022/2554/oj/eng
+source_title: Regulation (EU) 2022/2554 (Digital Operational Resilience Act)
+source_publisher: EUR-Lex (Publications Office of the European Union)
+source_document_date: '2022-12-14'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

@@ -1,0 +1,79 @@
+slug: eu-digital-markets-act
+aipt_id: AIPT-POL-0311
+jurisdiction: eu
+title: 'Regulation (EU) 2022/1925: Digital Markets Act'
+short_title: EU Digital Markets Act (DMA)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: European Parliament and Council of the European Union
+summary_plain: >-
+  The Digital Markets Act aims to keep digital markets in the EU contestable and fair. It applies to large
+  online platforms designated as gatekeepers for their core platform services, which must meet a set of
+  obligations and prohibitions in how they operate those services. It is not an AI law, but it governs services
+  that often rely on algorithmic systems.
+scope_summary: >-
+  Undertakings designated as gatekeepers that provide core platform services to business users or end users in
+  the EU.
+who_it_applies_to: Designated gatekeepers providing core platform services in the EU.
+key_dates_summary: >-
+  Adopted 14 September 2022; published in OJ L 265 on 12 October 2022; some provisions from 1 November 2022;
+  generally applies from 2 May 2023.
+adopted_on: '2022-09-14'
+published_on: '2022-10-12'
+in_force_on: '2022-11-01'
+applies_from: '2023-05-02'
+date_notes: >-
+  Adoption, publication and general application dates are in EUR-Lex extracts. Entry into force is the twentieth
+  day after publication, which gives 1 November 2022, consistent with EUR-Lex stating that Article 3(6) and (7)
+  and Articles 40 and 46 to 50 apply from that date. Articles 42 and 43 apply from 25 June 2023. A corrigendum
+  was published on 10 January 2025.
+actors: [provider]
+ai_system_types: []
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Regulation (EU) 2022/1925 (Digital Markets Act)
+  publisher: EUR-Lex (Publications Office of the European Union)
+  url: https://eur-lex.europa.eu/eli/reg/2022/1925/oj/eng
+  document_date: '2022-09-14'
+  document_type: legislation
+  tier: 1
+- title: Summary of Regulation (EU) 2022/1925
+  publisher: EUR-Lex (Publications Office of the European Union)
+  url: https://eur-lex.europa.eu/legal-content/EN/LSU/?uri=CELEX:32022R1925
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://eur-lex.europa.eu/eli/reg/2022/1925/oj/eng
+source_title: Regulation (EU) 2022/1925 (Digital Markets Act)
+source_publisher: EUR-Lex (Publications Office of the European Union)
+source_document_date: '2022-09-14'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.

@@ -1,0 +1,93 @@
+slug: us-colorado-hb26-1139-ai-utilization-review
+aipt_id: AIPT-POL-0288
+jurisdiction: us-colorado
+title: 'Colorado HB26-1139: Use of Artificial Intelligence in Health Care (Chapter 325, Session Laws of 2026)'
+short_title: Colorado AI in health care utilisation review (HB26-1139)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The act carries a
+  referendum petition clause; whether a petition was filed was not established, so the 1 January 2027 effective date
+  should be confirmed.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Colorado General Assembly
+summary_plain: >-
+  Carriers, pharmacy benefit managers, private utilisation review organisations, behavioural health administrative
+  services organisations and managed care entities in Colorado that use AI in utilisation review must base AI
+  determinations on the individual's own medical or clinical history and keep meaningful human oversight; AI alone may not
+  deny coverage on grounds of medical necessity. These entities must file written disclosures saying which review
+  functions AI performs, where in the process it is used and how humans oversee it. Carriers and public payers may not
+  pay for psychotherapy delivered by AI.
+scope_summary: >-
+  Entities that use artificial intelligence systems in health care utilisation review in Colorado, and payment for
+  psychotherapy services delivered by AI.
+who_it_applies_to: >-
+  Health insurance carriers, pharmacy benefit managers, private utilisation review organisations, behavioural health
+  administrative services organisations, managed care entities and public payers in Colorado.
+key_dates_summary: >-
+  Signed 2 June 2026; takes effect 1 January 2027 unless a referendum petition is filed against it.
+what_organizations_must_do: >-
+  Ground AI-assisted utilisation review in individual clinical information, keep a human responsible for adverse
+  medical-necessity decisions, file written disclosures of AI use with the relevant state agency, and stop paying for
+  AI-delivered psychotherapy.
+adopted_on: '2026-06-02'
+published_on: null
+in_force_on: '2027-01-01'
+applies_from: null
+date_notes: >-
+  The bill page gives Governor signature on 2 June 2026 and Chapter 325; the signed-act document on that page is dated
+  3 June 2026, a one-day difference not resolved. The bill states an effective date of 1 January 2027, subject to the
+  referendum petition clause. The new section is reported as 10-16-112.7, C.R.S.
+actors: [deployer, public_authority]
+ai_system_types: [automated_decision_system, conversational_agent]
+sectors: [healthcare, financial_services]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Colorado General Assembly: HB26-1139 Use of Artificial Intelligence in Health Care'
+  publisher: Colorado General Assembly
+  url: https://leg.colorado.gov/bills/HB26-1139
+  document_date: '2026-06-02'
+  document_type: legislation
+  tier: 1
+- title: 'Colorado General Assembly: HB26-1139 session law, Chapter 325'
+  publisher: Colorado General Assembly
+  url: https://leg.colorado.gov/laws/session-laws/HB26-1139/325/download
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Colorado Department of Labor and Employment: 2026 legislative update'
+  publisher: Colorado Department of Labor and Employment
+  url: https://cdle.colorado.gov/2026-legislative-update
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://leg.colorado.gov/bills/HB26-1139
+source_title: 'Colorado General Assembly: HB26-1139 Use of Artificial Intelligence in Health Care'
+source_publisher: Colorado General Assembly
+source_document_date: '2026-06-02'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -42,6 +42,16 @@ All notable changes to this project are documented here. The format follows [Kee
   differs from the pin.
 
 ### Added
+- 96 more AI policy records, all pending review: US federal health, credit, model-risk and procurement rules
+  (42 CFR Part 2, CMS-4201-F, Section 1557, ONC HTI-1, ECOA, FCRA, SR 26-2, OMB M-25-22 and M-26-04, the
+  TAKE IT DOWN Act), 23 California laws and regulations, New York's financial regulator letters and digital
+  replica laws, other US states (Arizona, Colorado, Illinois, Indiana, Maryland, Montana, New Jersey, North
+  Dakota, Pennsylvania, Texas), the GDPR, DMA, DSA and DORA, UK data protection and online safety law, Hong Kong
+  and Singapore financial regulators, India, Canada, Japan and Australia. Five US states get their own pages.
+  Each record links its official source; dates not confirmed there are left empty.
+- A short "Suggest a policy" form at the foot of /policies: policy name, jurisdiction, official source and
+  an optional 280-character note. Suggestions go to the same review queue as /contribute and are never
+  published until a reviewer has checked the official source.
 - AI attacks in charts: a year-by-year chart of deliberate against accidental incidents (in the 7 September
   snapshot the share coded deliberate is 30% in 2019 and 65% in 2025), a matrix of who is harmed by which kind of
   risk, one colour per risk domain across every chart, jump links to the seven sections, and buttons that filter
@@ -370,6 +380,14 @@ All notable changes to this project are documented here. The format follows [Kee
   Billing → "Check products against the provider" must read "Price matches").
 
 ### Fixed
+- Pages that described the incident data promised a daily or hourly sync from the AI Incident Database. Its API now
+  answers web browsers only, and nothing has arrived through it since 4 October. The home page, `/ai-risk/incidents`,
+  `/ai-attacks` and the incident FAQ now give the date the data runs to, describe the weekly export as the route it
+  arrives by, and say so when no new data has arrived for more than ten days.
+- Every address the site prints (footer, About, Privacy, Terms, `llms.txt`, `security.txt`, structured data) is now
+  kept to the project's own domain (`PUBLIC_EMAIL_DOMAIN`). An address elsewhere, set in the environment or in the
+  admin Settings page, is left off the pages, with the project mailbox in its place. The Settings form refuses
+  such an address and says why.
 - Accessibility on the AI risk pages: labels in the "who is harmed" grid and in the subdomain treemap on
   `/ai-risk` fell below 4.5:1 contrast (2.3:1 to 3.8:1); the bubble chart on `/ai-attacks` was marked as an image
   while holding links. Both pages now pass an automated WCAG 2 A/AA check.

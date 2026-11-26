@@ -1,0 +1,94 @@
+slug: us-colorado-3-ccr-702-10-insurer-ecdis-governance
+aipt_id: AIPT-POL-0286
+jurisdiction: us-colorado
+title: >-
+  Colorado Amended Regulation 10-1-1 (3 CCR 702-10): Governance and risk management for insurers' use of external consumer
+  data, algorithms and predictive models
+short_title: Colorado insurer algorithm governance rule (Reg. 10-1-1)
+title_native: null
+instrument_type: regulation
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. This record covers the
+  amended regulation effective 15 October 2025, which replaced the life-insurance-only version effective 14 November
+  2023. Other regulations filed under 3 CCR 702-10, such as quantitative testing rules, are not covered here.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Colorado Division of Insurance (Department of Regulatory Agencies)
+summary_plain: >-
+  Insurers in Colorado that use external consumer data and information sources, or algorithms and predictive models that
+  use such data, must run a documented governance and risk management framework to guard against unfair discrimination.
+  The board or a board committee oversees it; insurers keep a cross-functional governance group, a version-controlled
+  inventory, documented quantitative testing and ongoing monitoring that accounts for model drift, and they remain
+  responsible for third-party vendors. The framework is reviewed every year and insurers report to the Division.
+scope_summary: >-
+  Insurers authorised in Colorado offering individual life insurance, private passenger motor insurance or health benefit
+  plans that use external consumer data, algorithms or predictive models.
+who_it_applies_to: Life, private passenger motor and health benefit plan insurers authorised in Colorado.
+key_dates_summary: >-
+  Original regulation (life insurers) effective 14 November 2023; amended regulation adopted 19 August 2025, published in
+  the Colorado Register 25 September 2025, effective 15 October 2025; first report from motor and health insurers due
+  1 December 2025.
+what_organizations_must_do: >-
+  Set up and document the governance structure and risk management framework, test and monitor models, oversee vendors,
+  review the framework yearly, and file a compliance report each 1 December (or an officer-signed attestation where no
+  such data or models are used).
+adopted_on: '2025-08-19'
+published_on: '2025-09-25'
+in_force_on: '2025-10-15'
+applies_from: null
+date_notes: >-
+  Adoption, Register publication and effective dates from the Secretary of State's rule listing (tracking number
+  2025-00162); the Division's notice of adoption is dated 20 August 2025. The 1 December 2025 reporting deadline for motor
+  and health insurers is from the regulation text.
+actors: [deployer]
+ai_system_types: [predictive_scoring, automated_decision_system]
+sectors: [financial_services, healthcare]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, health]
+related_policies: [us-colorado-sb-21-169-insurers-external-consumer-data]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Colorado Division of Insurance: Amended Regulation 10-1-1, 3 CCR 702-10'
+  publisher: Colorado Division of Insurance
+  url: https://doi.colorado.gov/sites/doi/files/documents/Amended%20Regulation%2010-1-1.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Code of Colorado Regulations: rulemaking hearing details, tracking number 2025-00162'
+  publisher: Colorado Secretary of State
+  url: https://www.sos.state.co.us/CCR/DisplayHearingDetails.do?trackingNumber=2025-00162
+  document_date: null
+  document_type: official
+  tier: 1
+- title: 'Colorado Division of Insurance: notice of adoption of Amended Regulation 10-1-1'
+  publisher: Colorado Division of Insurance
+  url: https://doi.colorado.gov/announcements/notice-of-adoption-amended-regulation-10-1-1-governance-and-risk-management-framework
+  document_date: '2025-08-20'
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://doi.colorado.gov/sites/doi/files/documents/Amended%20Regulation%2010-1-1.pdf
+source_title: 'Colorado Division of Insurance: Amended Regulation 10-1-1, 3 CCR 702-10'
+source_publisher: Colorado Division of Insurance
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

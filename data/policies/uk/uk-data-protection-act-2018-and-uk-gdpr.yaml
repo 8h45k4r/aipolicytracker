@@ -1,0 +1,90 @@
+slug: uk-data-protection-act-2018-and-uk-gdpr
+aipt_id: AIPT-POL-0317
+jurisdiction: uk
+title: Data Protection Act 2018 (c. 12) and the UK GDPR
+short_title: UK Data Protection Act 2018 and UK GDPR
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could
+  not be opened from the research environment, so every date and duty here is pending review against it. Amended
+  by the Data (Use and Access) Act 2025, whose new automated decision-making rules (UK GDPR Articles 22A to 22D)
+  came into force on 5 February 2026.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: UK Parliament
+summary_plain: >-
+  The UK GDPR and the Data Protection Act 2018 together form the UK's general data protection law. Most
+  processing of personal data is subject to the UK GDPR, which Part 2 of the Act supplements; the Act also
+  covers law enforcement processing and processing outside the UK GDPR. They are not AI laws, but they apply
+  whenever AI systems use personal data. Since 5 February 2026, decisions based solely on automated processing
+  have been governed by new Articles 22A to 22D, inserted by the Data (Use and Access) Act 2025.
+scope_summary: >-
+  Controllers and processors handling personal data in the UK, including organisations that develop or use AI
+  systems with personal data.
+who_it_applies_to: Public and private controllers and processors of personal data in the UK.
+key_dates_summary: >-
+  Act dated 23 May 2018; main provisions in force 25 May 2018; new automated decision-making rules in force 5
+  February 2026.
+adopted_on: '2018-05-23'
+published_on: null
+in_force_on: '2018-05-25'
+applies_from: null
+date_notes: >-
+  23 May 2018 is the date at the head of the Act on legislation.gov.uk (taken as Royal Assent; confirm).
+  Commencement annotations show provisions brought into force on 25 May 2018 by S.I. 2018/625; not every section
+  was checked. Schedule 6 paragraph 5 of the Data (Use and Access) Act 2025, substituting UK GDPR Articles 22A
+  to 22D, and the omission of section 14 of the 2018 Act, came into force on 5 February 2026 by S.I. 2026/82.
+  Whether regulations under the new Article 22D on meaningful human involvement have been made was not
+  established.
+actors: [provider, deployer, public_authority]
+ai_system_types: [automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: []
+related_policies: [uk-ico-ai-data-protection-guidance]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: Data Protection Act 2018 (c. 12)
+  publisher: legislation.gov.uk (The National Archives)
+  url: https://www.legislation.gov.uk/ukpga/2018/12
+  document_date: '2018-05-23'
+  document_type: legislation
+  tier: 1
+- title: Data (Use and Access) Act 2025 (c. 18)
+  publisher: legislation.gov.uk (The National Archives)
+  url: https://www.legislation.gov.uk/ukpga/2025/18
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: Data (Use and Access) Act 2025, Schedule 6
+  publisher: legislation.gov.uk (The National Archives)
+  url: https://www.legislation.gov.uk/ukpga/2025/18/schedule/6
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.legislation.gov.uk/ukpga/2018/12
+source_title: Data Protection Act 2018 (c. 12)
+source_publisher: legislation.gov.uk (The National Archives)
+source_document_date: '2018-05-23'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and
+  duty here is pending review against it.
