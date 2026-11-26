@@ -48,6 +48,8 @@ All notable changes to this project are documented here. The format follows [Kee
   Nebraska, Nevada, Alabama and Indiana laws, and India, Jordan, UAE, Israel, South Korea and Vietnam instruments. Seven
   ISO/IEC and IEEE AI standards are listed as metadata, and four new controls cover duties these laws create:
   crisis referral and protections for minors in companion chatbots, independent bias audits, and AI safety reporting. Five more US states get their own pages.
+- The AI standards tracker (/ai-standards) now lists ten standards, enough to be indexed by search engines and listed
+  in the sitemap.
 - Taiwan's AI Basic Act is shown as in force since 14 January 2026; the EU code of practice on labelling AI-generated
   content (10 June 2026) and the Article 50 guidelines (20 July 2026) are recorded.
 - 96 more AI policy records, all pending review: US federal health, credit, model-risk and procurement rules
