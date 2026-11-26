@@ -827,3 +827,71 @@ changes:
     review_status: pending_review
     confidence_level: low
     content_version: 1
+  - slug: 2026-01-14-taiwan-ai-basic-act-promulgated
+    aipt_id: AIPT-CHG-0155
+    jurisdiction: taiwan
+    policy: taiwan-artificial-intelligence-basic-act
+    occurred_on: '2026-01-14'
+    title: Taiwan's Artificial Intelligence Basic Act is promulgated and takes effect
+    what_changed: >
+      The Legislative Yuan passed the Artificial Intelligence Basic Act on third reading on 23 December 2025 and the
+      President promulgated it on 14 January 2026; Article 20 brings it into force on promulgation. The National
+      Science and Technology Council is the competent authority at central level.
+    practical_impact: Sector regulators now have a statutory basis for AI rules; private duties follow in sector regulation.
+    impact_level: high
+    status_after: in_force
+    published: true
+    official_source_url: "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0160093"
+    source_title: "人工智慧基本法 (Artificial Intelligence Basic Act), Laws and Regulations Database"
+    source_publisher: "Ministry of Justice"
+    source_document_date: '2026-01-14'
+    source_tier: 1
+    review_status: pending_review
+    last_checked_at: '2026-11-26'
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-06-10-eu-code-of-practice-ai-generated-content
+    aipt_id: AIPT-CHG-0156
+    jurisdiction: eu
+    policy: eu-ai-act
+    occurred_on: '2026-06-10'
+    title: Commission publishes the code of practice on marking and labelling AI-generated content
+    what_changed: >
+      The Commission published the final code of practice for the AI Act's Article 50 transparency duties: one section
+      on providers marking and detecting AI-generated content (Article 50(2)), one on deployers labelling deepfakes and
+      AI-generated text (Article 50(4)). Signing is voluntary.
+    practical_impact: Providers and deployers can sign the code as a way to show how they meet Article 50, which applies from 2 August 2026.
+    impact_level: high
+    status_after: null
+    published: true
+    official_source_url: "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content"
+    source_title: "Commission publishes Code of Practice on marking and labelling AI-generated content"
+    source_publisher: "European Commission"
+    source_document_date: '2026-06-10'
+    source_tier: 1
+    review_status: pending_review
+    last_checked_at: '2026-11-26'
+    confidence_level: medium
+    content_version: 1
+  - slug: 2026-07-20-eu-guidelines-article-50-transparency
+    aipt_id: AIPT-CHG-0157
+    jurisdiction: eu
+    policy: eu-ai-act
+    occurred_on: '2026-07-20'
+    title: Commission publishes guidelines on the AI Act's transparency obligations
+    what_changed: >
+      The Commission published its guidelines on the transparency obligations for providers and deployers of certain
+      AI systems under Article 50, after a consultation on a draft from 8 May to 3 June 2026.
+    practical_impact: The guidelines explain how the Commission reads Article 50 ahead of its application on 2 August 2026.
+    impact_level: routine
+    status_after: null
+    published: true
+    official_source_url: "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems"
+    source_title: "Guidelines on transparency obligations for providers and deployers of AI systems"
+    source_publisher: "European Commission"
+    source_document_date: '2026-07-20'
+    source_tier: 1
+    review_status: pending_review
+    last_checked_at: '2026-11-26'
+    confidence_level: medium
+    content_version: 1

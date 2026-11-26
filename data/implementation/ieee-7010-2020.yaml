@@ -1,0 +1,34 @@
+slug: ieee-7010-2020
+title: "IEEE 7010-2020 — recommended practice for assessing the impact of autonomous and intelligent systems on human well-being"
+instrument: null
+related_policy: null
+kind: iso_work_item
+status: published
+legal_basis: null
+summary: >
+  A recommended practice for assessing how autonomous and intelligent systems affect human well-being, using
+  established well-being indicators. Metadata only: the text is sold by IEEE and is not reproduced here.
+due_on: null
+adopted_on: null
+published_on: 2020-05-01
+published_on_precision: month
+body: null
+reference: "IEEE 7010-2020"
+stage: null
+oj_citation_expected_on: null
+oj_citation_on: null
+official_source_url: "https://standards.ieee.org/ieee/7010/7718/"
+source_title: "IEEE 7010-2020 — IEEE Recommended Practice for Assessing the Impact of Autonomous and Intelligent Systems on Human Well-Being"
+source_publisher: "IEEE Standards Association"
+source_document_date: null
+source_reference: null
+source_tier: 1
+last_checked_at: 2026-11-26
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: "Added in the November 2026 research round from search-engine extracts of the official catalogue page listed; the page itself could not be opened from the research environment, so every field here is pending review against it."
+reviewed_by: null
+notes: "An IEEE standard, not an ISO work item: the schema has no IEEE kind or body, so it is recorded as iso_work_item with body empty. Extracts give May 2020 as the publication month, not the day. A reviewer should confirm the exact date from the IEEE page."
+published: true

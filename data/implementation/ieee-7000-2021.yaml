@@ -1,0 +1,34 @@
+slug: ieee-7000-2021
+title: "IEEE 7000-2021 — model process for addressing ethical concerns during system design"
+instrument: null
+related_policy: null
+kind: iso_work_item
+status: published
+legal_basis: null
+summary: >
+  A voluntary process standard for identifying stakeholder values and turning them into traceable system
+  requirements during design. Metadata only: the standard's text is sold by IEEE and is not reproduced here.
+due_on: null
+adopted_on: null
+published_on: 2021-09-01
+published_on_precision: month
+body: null
+reference: "IEEE 7000-2021"
+stage: null
+oj_citation_expected_on: null
+oj_citation_on: null
+official_source_url: "https://standards.ieee.org/news/ieee-7000/"
+source_title: "IEEE SA: IEEE Launches New Standard to Address Ethical Concerns During Systems Design"
+source_publisher: "IEEE Standards Association"
+source_document_date: null
+source_reference: null
+source_tier: 1
+last_checked_at: 2026-11-26
+last_verified_at: null
+review_status: pending_review
+confidence_level: low
+content_version: 1
+change_summary: "Added in the November 2026 research round from search-engine extracts of the official catalogue page listed; the page itself could not be opened from the research environment, so every field here is pending review against it."
+reviewed_by: null
+notes: "An IEEE standard, not an ISO work item: the schema has no IEEE kind or body, so it is recorded as iso_work_item with body empty. Extracts of IEEE SA pages give September 2021 as the publication month, not the day. The official URL is the IEEE SA launch announcement because the IEEE catalogue page did not appear in search results; a reviewer should replace it with the catalogue page and confirm the date."
+published: true
