@@ -1,0 +1,30 @@
+slug: crisis-detection-and-referral-protocol
+aipt_id: AIPT-CTL-0027
+title: Crisis detection and referral protocol for conversational AI
+kind: process
+purpose: >
+  Makes sure a chatbot or AI companion that talks with people recognises expressions of suicidal thoughts or
+  self-harm and answers them with a referral to real crisis services, every time.
+description: >
+  A written protocol names the signals the system watches for, the response it gives (a referral to a national
+  crisis line or text service in the user's country), and when a conversation is ended, slowed or handed to a
+  person. Detection is tested before release and after each model or prompt change with a maintained set of
+  test conversations, including indirect and multilingual phrasings, and the referral text and numbers are
+  checked against the crisis services' own published details. Triggered events are logged without storing more
+  of the conversation than the protocol needs, reviewed for misses and false alarms, and reported where a law
+  asks for it.
+owner_role: Trust and safety lead
+frequency: continuous
+risk_subdomains: ["5.1", "1.2"]
+evidence:
+  - { type: procedure, title: "Crisis detection and referral protocol", description: "Signals watched for, response given, hand-off and logging rules." }
+  - { type: evaluation_report, title: "Detection test results", description: "Test conversations run before release and after changes, with misses and fixes." }
+  - { type: monitoring_record, title: "Triggered-referral log and review", description: "Counts, misses and false alarms reviewed on a schedule." }
+framework_references: []
+related_controls: [genai-red-team-testing, ai-incident-management-and-reporting, ai-interaction-and-use-disclosure]
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: '2026-11-26'
+confidence_level: medium
+published: true

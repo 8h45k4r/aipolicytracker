@@ -1,0 +1,30 @@
+slug: qualified-human-review-of-coverage-and-clinical-decisions
+aipt_id: AIPT-CTL-0030
+title: Qualified human review of AI-assisted coverage and clinical decisions
+kind: process
+purpose: >
+  Makes sure an algorithm never alone denies, delays, cuts or changes care or coverage: a licensed
+  professional reviews the individual's own records and makes the decision.
+description: >
+  Every adverse or modified determination that an AI tool recommends, such as a prior-authorisation denial, a
+  downcoded claim or a medical-necessity decision, is routed to a clinician licensed in the relevant field,
+  who reviews the patient's own history and clinical circumstances rather than group data and records the
+  reasons in their own words. The tool's criteria are kept consistent with the published coverage criteria,
+  its use is disclosed where the law requires it, and the share of AI recommendations overturned by reviewers
+  is tracked. Where a law or regulator asks, the tool is made available for audit and its non-discriminatory
+  use is certified.
+owner_role: Medical director
+frequency: continuous
+risk_subdomains: ["5.2", "7.3", "1.1"]
+evidence:
+  - { type: procedure, title: "Clinical review procedure for AI-assisted determinations", description: "Who reviews, what records they must see, how reasons are recorded." }
+  - { type: monitoring_record, title: "Reviewer override and reversal log" }
+  - { type: regulatory_filing, title: "Disclosure or certification of AI use to the regulator" }
+framework_references: []
+related_controls: [human-oversight-and-override, decision-explanation-and-appeal-route, record-keeping-and-logging]
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: '2026-11-26'
+confidence_level: medium
+published: true

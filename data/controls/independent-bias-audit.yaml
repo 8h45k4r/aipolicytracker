@@ -1,0 +1,29 @@
+slug: independent-bias-audit
+aipt_id: AIPT-CTL-0029
+title: Independent bias audit of a decision tool
+kind: process
+purpose: >
+  Has someone independent of the developer and the user of an automated decision tool measure, on a schedule,
+  whether its outcomes differ by protected group, and publishes a summary where the law requires it.
+description: >
+  Before first use and at the interval the applicable law sets (often each year), an auditor with no financial
+  or management stake in the tool computes selection or scoring rates and impact ratios for each protected
+  category the law names, using the deployer's historical data or, where that is not enough, test data the
+  auditor documents. The audit report records the data used, its limits, the results and the date. A summary
+  with the date of the audit and the tool's distribution date is published where required, and results outside
+  tolerance go to the risk owner for a decision to change, restrict or withdraw the tool.
+owner_role: Compliance lead
+frequency: annual
+risk_subdomains: ["1.1", "1.3"]
+evidence:
+  - { type: audit_report, title: "Independent bias audit report", description: "Data used, categories, rates and impact ratios, limits, auditor independence statement." }
+  - { type: disclosure_notice, title: "Published audit summary" }
+  - { type: approval_record, title: "Risk owner's decision on audit findings" }
+framework_references: []
+related_controls: [accuracy-robustness-security-testing, third-party-ai-due-diligence, ai-impact-assessment]
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: '2026-11-26'
+confidence_level: medium
+published: true

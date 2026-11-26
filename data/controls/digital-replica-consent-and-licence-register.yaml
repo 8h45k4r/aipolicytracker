@@ -1,0 +1,29 @@
+slug: digital-replica-consent-and-licence-register
+aipt_id: AIPT-CTL-0031
+title: Consent and licence register for digital replicas of real people
+kind: contractual
+purpose: >
+  Keeps a record that every synthetic voice or likeness of a real person the organisation makes or uses rests
+  on specific, informed consent, from the person or, after death, from whoever holds the rights.
+description: >
+  Before a digital replica of a real person is created or used, the organisation obtains written consent that
+  describes the intended uses specifically, confirms the person had legal or union representation where the
+  law requires it, and, for a deceased person, comes from the estate or other rights holder. Each consent is
+  entered in a register with its scope, territory, term, payment and withdrawal terms, and generation tools
+  check the register before producing the person's voice or likeness. Advertising that features a synthetic
+  performer carries the disclosure the law requires, and takedown requests are handled within the stated time.
+owner_role: Legal counsel
+frequency: per_system
+risk_subdomains: ["4.3", "2.1", "6.3"]
+evidence:
+  - { type: contract_clause, title: "Digital replica consent and licence terms", description: "Specific uses, representation, term, payment, withdrawal." }
+  - { type: register_entry, title: "Digital replica consent register" }
+  - { type: disclosure_notice, title: "Synthetic performer disclosure used in advertising" }
+framework_references: []
+related_controls: [synthetic-content-labelling-and-provenance, contractual-allocation-of-ai-duties, training-data-provenance-and-copyright-register]
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: '2026-11-26'
+confidence_level: medium
+published: true

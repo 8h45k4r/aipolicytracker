@@ -78,6 +78,7 @@ obligations:
       - { title: "The written protocol, with its detection approach and the referral message shown to users" }
       - { title: "Test results showing detection triggers the 988 and crisis-line referral" }
     controls:
+      - { control: crisis-detection-and-referral-protocol, relationship: satisfies, note: "The written protocol that detects suicidal ideation or self-harm and refers the user to crisis services.", confidence_level: high }
       - { control: genai-red-team-testing, relationship: supports, note: "Testing that expressions of suicidal ideation or self-harm are detected and answered with a referral.", confidence_level: medium }
       - { control: ai-incident-management-and-reporting, relationship: supports, note: "An escalation path for crisis events detected by the protocol.", confidence_level: low }
     review_status: pending_review
@@ -160,8 +161,9 @@ last_checked_at: '2026-11-12'
 review_status: pending_review
 reviewed_by: null
 confidence_level: medium
-content_version: 2
+content_version: 3
 change_summary: >-
+  On 26 November 2026 a new control was linked to one obligation (an editorial mapping; no fact changed).
   On 12 November 2026 two obligations (sections 1701 and 1702) and the enforcement terms of section 1703 were added from the
   consolidated text of Article 47, which was read in full; pending human review. Added in the October 2026 sub-national
   research round. Recorded on 15 October 2026 from search-engine extracts of the official
