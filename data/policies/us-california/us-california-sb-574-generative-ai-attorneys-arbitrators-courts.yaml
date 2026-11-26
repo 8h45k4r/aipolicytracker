@@ -1,0 +1,82 @@
+slug: us-california-sb-574-generative-ai-attorneys-arbitrators-courts
+aipt_id: AIPT-POL-0351
+jurisdiction: us-california
+title: 'California SB 574: Generative AI use by attorneys, arbitrators, judicial officers and alternative resolution providers (Chapter 858, Statutes of 2026)'
+short_title: California generative AI in legal practice and arbitration (SB 574)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The bill history
+  records approval by the Governor on 30 September 2026 and chaptering as Chapter 858, Statutes of 2026. The extracts
+  drew on enrolled text and a version comparison whose wording differs in places, so the duties below should be checked
+  against the chaptered text. Its operative date was not shown, so it is recorded as adopted.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  This law sets rules for generative AI in legal work in California. Attorneys may not hand the practice of law over to
+  generative AI; those who use it must keep confidential information out of tools that do not restrict access, check
+  outputs for accuracy and correct errors, and court filings may not cite authorities the responsible attorney has not
+  personally checked. Arbitrators may not delegate any part of their decision-making to a generative AI tool, and the
+  Judicial Council must publicly revisit its standard on judicial use of generative AI.
+scope_summary: >-
+  Attorneys practising in California and their court filings, arbitrators, judicial officers, the Judicial Council,
+  and certified alternative dispute resolution providers overseen by the State Bar.
+who_it_applies_to: Attorneys, arbitrators, judicial officers, the Judicial Council and certified dispute resolution providers.
+key_dates_summary: 'Approved by the Governor 30 September 2026 (Chapter 858); operative date not established.'
+what_organizations_must_do: >-
+  Law practices must keep client confidential information out of open generative AI tools, verify AI output and every
+  citation before filing, and correct errors; arbitration providers must keep decision-making with the arbitrator.
+adopted_on: '2026-09-30'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Approval on 30 September 2026 and the chapter number come from search extracts of the bill status and history pages.
+  No operative or effective date appeared in the extracts, so in_force_on is left empty.
+actors: [user, public_authority]
+ai_system_types: [generative_ai]
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [generative_ai, public_services]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 574 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB574
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+- title: 'California Legislative Information: SB 574 (2025-2026) bill text'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB574
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB574
+source_title: 'California Legislative Information: SB 574 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

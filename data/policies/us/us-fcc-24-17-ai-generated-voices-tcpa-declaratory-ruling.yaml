@@ -1,0 +1,92 @@
+slug: us-fcc-24-17-ai-generated-voices-tcpa-declaratory-ruling
+aipt_id: AIPT-POL-0348
+jurisdiction: us
+title: 'FCC Declaratory Ruling FCC 24-17: AI-generated voices under the Telephone Consumer Protection Act (CG Docket 23-362)'
+short_title: FCC 24-17 AI voices in robocalls (TCPA)
+title_native: null
+instrument_type: rules
+status: in_force
+status_note: >-
+  A declaratory ruling of the Federal Communications Commission interpreting the Telephone Consumer Protection Act and
+  the Commission's rules; it took effect on release. Further AI proposals in the same docket (FCC 24-84, August 2024)
+  are separate and their outcome was not checked. Recorded on 26 November 2026 from search-engine extracts of the
+  official pages listed; the official text could not be opened from the research environment, so every date and duty
+  here is pending review against it.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Federal Communications Commission
+summary_plain: >-
+  The FCC confirmed that the Telephone Consumer Protection Act's limits on calls using an "artificial or prerecorded
+  voice" cover AI technologies that generate human voices, whether they simulate a voice entirely or clone a real
+  person's voice from a recording. Callers using such voices therefore need the called party's prior express consent
+  unless an exemption applies, and must follow the identification and opt-out rules for prerecorded calls. The ruling
+  also gives state attorneys general a firmer basis to act against voice-cloning robocall scams.
+scope_summary: >-
+  Anyone who makes or initiates outbound telephone calls to consumers using AI-generated or cloned voices, under the
+  TCPA and the FCC's implementing rules.
+who_it_applies_to: Callers and telemarketers using AI-generated voices in calls to consumers.
+key_dates_summary: Adopted 2 February 2024; released and effective 8 February 2024.
+what_organizations_must_do: >-
+  Organisations placing calls with AI-generated voices must have the called party's prior express consent (unless an
+  exemption applies) and must meet the identification and opt-out requirements for artificial or prerecorded calls.
+penalties_summary: >-
+  Violations fall under the TCPA's existing enforcement and remedies; the FCC later issued a USD 6 million forfeiture
+  order and reached a USD 1 million settlement over AI voice-cloned robocalls (pending review, not recorded as events).
+adopted_on: '2024-02-02'
+published_on: '2024-02-08'
+in_force_on: '2024-02-08'
+applies_from: null
+date_notes: >-
+  Adoption on 2 February 2024 and release on 8 February 2024 are from the FCC's document page and the ruling as shown
+  in the extracts, which state it was effective upon release. The citation 39 FCC Rcd 1783 is from the same extracts
+  and pending review.
+actors: [deployer, user]
+ai_system_types: [generative_ai, conversational_agent]
+sectors: [telecommunications, consumer_retail]
+risk_categories: [transparency_risk]
+use_cases: [generative_ai, customer_service]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'FCC 24-17: Declaratory Ruling, Implications of Artificial Intelligence Technologies on Protecting Consumers from Unwanted Robocalls and Robotexts'
+  publisher: Federal Communications Commission
+  url: https://docs.fcc.gov/public/attachments/FCC-24-17A1.pdf
+  document_date: '2024-02-08'
+  document_type: official
+  tier: 1
+- title: 'FCC Confirms that TCPA Applies to AI Technologies that Generate Human Voices'
+  publisher: Federal Communications Commission
+  url: https://www.fcc.gov/document/fcc-confirms-tcpa-applies-ai-technologies-generate-human-voices
+  document_date: '2024-02-08'
+  document_type: official
+  tier: 1
+- title: 'FCC Makes AI-Generated Voices in Robocalls Illegal'
+  publisher: Federal Communications Commission
+  url: https://docs.fcc.gov/public/attachments/DOC-400393A1.pdf
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://docs.fcc.gov/public/attachments/FCC-24-17A1.pdf
+source_title: 'FCC 24-17: Declaratory Ruling, Implications of Artificial Intelligence Technologies on Protecting Consumers from Unwanted Robocalls and Robotexts'
+source_publisher: Federal Communications Commission
+source_document_date: '2024-02-08'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

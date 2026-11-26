@@ -1,0 +1,79 @@
+slug: us-diu-responsible-ai-guidelines
+aipt_id: AIPT-POL-0343
+jurisdiction: us
+title: 'Defense Innovation Unit: Responsible AI Guidelines in Practice'
+short_title: DIU Responsible AI Guidelines
+title_native: null
+instrument_type: guidance
+status: guidance
+status_note: >-
+  Published by the Defense Innovation Unit in November 2021 for its own programmes and later folded into the Defense
+  Department's Responsible AI Toolkit. Recorded on 26 November 2026 from search-engine extracts of the official pages
+  listed; the official text could not be opened from the research environment, so every date and duty here is pending
+  review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Defense Innovation Unit, U.S. Department of Defense
+summary_plain: >-
+  Step-by-step guidelines and worksheets from the Defense Innovation Unit that turn the Defense Department's AI ethical
+  principles into practice for its commercial prototyping and acquisition programmes. They take a project from planning
+  through development to deployment, and were drafted with researchers at Carnegie Mellon University's Software
+  Engineering Institute after consultation with government, industry and academia. They later became one of the
+  foundations of the department's Responsible AI Toolkit.
+scope_summary: >-
+  Defense Innovation Unit programmes and the commercial companies that build AI prototypes for them; other teams may
+  use them voluntarily.
+who_it_applies_to: Defense Innovation Unit programme teams and the vendors on its AI prototype projects.
+key_dates_summary: Released 15 November 2021 (covered by DoD News on 18 November 2021); effort launched March 2020.
+adopted_on: null
+published_on: '2021-11-15'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The 15 November 2021 release date and the 18 November 2021 DoD News article come from search summaries of the
+  official DoD and DIU pages; a DIU staff profile gives only the month (November). The day is pending review against
+  the DIU page. The March 2020 start of the work is from the same extracts.
+actors: [public_authority, provider]
+ai_system_types: []
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [government_procurement]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Defense Innovation Unit: Responsible AI Guidelines'
+  publisher: Defense Innovation Unit
+  url: https://www.diu.mil/responsible-ai-guidelines
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'Defense Innovation Unit Publishes Responsible AI Guidelines'
+  publisher: U.S. Department of Defense
+  url: https://www.defense.gov/News/News-Stories/Article/Article/2847598/
+  document_date: '2021-11-18'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.diu.mil/responsible-ai-guidelines
+source_title: 'Defense Innovation Unit: Responsible AI Guidelines'
+source_publisher: Defense Innovation Unit
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,87 @@
+slug: us-new-york-algorithmic-pricing-disclosure
+aipt_id: AIPT-POL-0355
+jurisdiction: us-new-york
+title: 'New York Algorithmic Pricing Disclosure Act: General Business Law section 349-a (Part X, Chapter 58, Laws of 2025)'
+short_title: New York algorithmic pricing disclosure
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Attorney General
+  stated that the Act took effect on 10 November 2025 and has since written to at least one company about compliance.
+  Later bills would amend or replace section 349-a (for example A 9349 / S 8623, and the One Fair Price Act passed by
+  the Legislature in June 2026); none of them was confirmed as enacted, so this record describes the section as added
+  in 2025.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: New York State Legislature
+summary_plain: >-
+  This law requires businesses that set prices for New York consumers using personalised algorithmic pricing based on
+  those consumers' personal data to say so. Wherever such a price is advertised, displayed or offered, it must carry a
+  clear and conspicuous notice that the price was set by an algorithm using the consumer's personal data. The Attorney
+  General enforces it and can seek civil penalties.
+scope_summary: >-
+  Businesses offering goods or services to consumers in New York whose prices are set by algorithms drawing on the
+  individual consumer's personal data, online and in other advertising or price displays.
+who_it_applies_to: Retailers, platforms and other businesses that personalise prices for New York consumers by algorithm.
+key_dates_summary: 'In effect from 10 November 2025, per the Attorney General.'
+penalties_summary: >-
+  The Attorney General describes civil penalties of up to 1,000 US dollars per violation, with injunctive relief
+  available against businesses that continue after a cease-and-desist letter.
+what_organizations_must_do: >-
+  Organisations must place a clear and conspicuous disclosure, close to any algorithmically personalised price, that
+  the price was set by an algorithm using the consumer's personal data.
+adopted_on: null
+published_on: null
+in_force_on: '2025-11-10'
+applies_from: null
+date_notes: >-
+  The effective date of 10 November 2025 comes from search extracts of the Attorney General's release of 5 November
+  2025. The section was added by section 1 of Part X of Chapter 58 of the Laws of 2025 (the FY2026 budget), as cited in
+  later amending bills; one sponsor memo gives the year as 2023, which appears to be an error. The date the budget bill
+  was signed, and the effective-date clause of Part X itself, were not established, so adopted_on is left empty.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [consumer_retail]
+risk_categories: [transparency_risk]
+use_cases: []
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'New York State Senate: General Business Law section 349-A'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/laws/GBS/349-A
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'New York Attorney General: warning about algorithmic pricing as new law takes effect'
+  publisher: Office of the New York State Attorney General
+  url: https://ag.ny.gov/press-release/2025/attorney-general-james-warns-new-yorkers-about-algorithmic-pricing-new-law-takes
+  document_date: '2025-11-05'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.nysenate.gov/legislation/laws/GBS/349-A
+source_title: 'New York State Senate: General Business Law section 349-A'
+source_publisher: New York State Senate
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

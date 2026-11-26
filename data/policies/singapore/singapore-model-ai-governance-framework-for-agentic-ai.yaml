@@ -24,7 +24,9 @@ adopted_on: null
 published_on: '2026-01-22'
 in_force_on: null
 applies_from: null
-date_notes: The date of the later update with case studies was not confirmed.
+date_notes: >-
+  Launched 22 January 2026. IMDA's factsheet on the updated framework is dated 20 May 2026 (last updated 21 May 2026) and the
+  framework document is marked "Updated 5 June 2026"; IMDA's pages do not call it version 1.5.
 actors:
 - provider
 - deployer
@@ -43,7 +45,13 @@ related_policies:
 - singapore-starter-kit-testing-llm-based-applications
 - singapore-starter-kit-testing-agentic-systems
 related_frameworks: []
-versions: []
+versions:
+- version_label: First release
+  version_date: '2026-01-22'
+  summary: Framework launched by IMDA.
+- version_label: Updated framework
+  version_date: '2026-05-20'
+  summary: Adds newer protocols (notably for agentic commerce), a refined value chain and further case studies; the document is marked updated 5 June 2026.
 sections: []
 obligations: []
 applicability_rules: []
@@ -75,12 +83,13 @@ source_title: New Model AI Governance Framework for Agentic AI
 source_publisher: Infocomm Media Development Authority
 source_document_date: '2026-01-22'
 source_tier: 1
-last_checked_at: '2026-10-15'
+last_checked_at: '2026-11-26'
 review_status: pending_review
 reviewed_by: null
 confidence_level: medium
-content_version: 1
+content_version: 2
 change_summary: >-
+  On 26 November 2026 the May 2026 update was recorded from search extracts of IMDA's factsheet and the framework document.
   Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
   pages listed; the official text could not be opened from the research environment, so every date and duty here is pending
   review against it.

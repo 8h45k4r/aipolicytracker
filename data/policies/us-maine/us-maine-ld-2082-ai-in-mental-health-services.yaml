@@ -1,0 +1,103 @@
+slug: us-maine-ld-2082-ai-in-mental-health-services
+aipt_id: AIPT-POL-0357
+jurisdiction: us-maine
+title: 'Maine LD 2082 (Public Law 2025, chapter 687): Use of artificial intelligence in mental health services'
+short_title: Maine AI in therapy and mental health services (LD 2082)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Legislature's
+  bill page shows LD 2082 enacted and signed by the Governor on 13 April 2026 as chapter 687 (cited in Maine's
+  biennial numbering as Public Law 2025, chapter 687). The provisions appear in the current Maine Revised Statutes, and
+  the general effective date for non-emergency laws of the session (29 July 2026) has passed, so it is recorded as in
+  force; the chapter's own effective date was not shown in the extracts.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Maine Legislature
+summary_plain: >-
+  Maine bars anyone from offering therapy or psychotherapy services to the public, including through internet-based
+  artificial intelligence, unless the services are provided by a licensed professional; a breach is treated as a
+  breach of the Maine Unfair Trade Practices Act. Licensed mental health professionals may use AI only for
+  administrative support and, with the client's written notice and consent, for supplementary support such as record
+  keeping. AI may not make independent therapeutic decisions, communicate with clients therapeutically or produce
+  treatment plans without the licensee's review and approval.
+scope_summary: >-
+  Anyone offering therapy or psychotherapy services to the public in Maine, including through AI tools, and licensed
+  professionals who use AI in providing those services. AI used only in a research project approved by an
+  institutional review board is excluded.
+who_it_applies_to: Providers of therapy services to the public in Maine, AI service offerors and licensed mental health professionals.
+key_dates_summary: Signed by the Governor on 13 April 2026 (chapter 687); effective date of the chapter not confirmed.
+penalties_summary: >-
+  Offering therapy services through AI without a licensed professional is a violation of the Maine Unfair Trade
+  Practices Act; a licensee's breach of the AI-use rules is subject to disciplinary action by the licensing board.
+what_organizations_must_do: >-
+  Offer therapy only through licensed professionals; licensees using AI for supplementary support must give the client
+  written notice and get consent, keep a licensee responsible for therapeutic decisions and treatment plans, and not
+  refuse services because a client declines AI use.
+adopted_on: '2026-04-13'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  adopted_on is the Governor's signature date shown on the bill status page and the chaptered text. The session
+  adjourned on 29 April 2026 and its general effective date for non-emergency laws is 29 July 2026; whether chapter 687
+  was an emergency measure or set its own date was not shown, so in_force_on is left empty. One cross-reference in the
+  definition of licensed professional changes on 1 January 2027 under a Revisor's Report correction.
+actors: [provider, deployer]
+ai_system_types: [conversational_agent, generative_ai]
+sectors: [healthcare]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Maine Legislature: LD 2082, HP 1397, text and status (132nd Legislature, Second Regular Session)'
+  publisher: Maine Legislature
+  url: https://legislature.maine.gov/legis/bills/display_ps.asp?LD=2082&snum=132
+  document_date: '2026-04-13'
+  document_type: legislation
+  tier: 1
+- title: 'Maine Legislature: H.P. 1397 - L.D. 2082, chaptered law (chapter 687)'
+  publisher: Maine Legislature
+  url: https://legislature.maine.gov/legis/bills/getPDF.asp?item=3&paper=HP1397&snum=132
+  document_date: '2026-04-13'
+  document_type: legislation
+  tier: 1
+- title: 'Maine Revised Statutes: Title 10, section 1500-EE'
+  publisher: Maine Legislature, Office of the Revisor of Statutes
+  url: https://legislature.maine.gov/statutes/10/title10sec1500-EE-2.html
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Maine Revised Statutes: Title 32, section 13870'
+  publisher: Maine Legislature, Office of the Revisor of Statutes
+  url: https://www.legislature.maine.gov/statutes/32/title32sec13870.html
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://legislature.maine.gov/legis/bills/display_ps.asp?LD=2082&snum=132
+source_title: 'Maine Legislature: LD 2082, HP 1397, text and status (132nd Legislature, Second Regular Session)'
+source_publisher: Maine Legislature
+source_document_date: '2026-04-13'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

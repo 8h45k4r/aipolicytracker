@@ -1,0 +1,82 @@
+slug: us-new-york-deceased-performer-publicity-rights
+aipt_id: AIPT-POL-0352
+jurisdiction: us-new-york
+title: 'New York S 5959-D / A 5605-C: Post-mortem right of publicity and digital replicas of deceased performers (Chapter 304, Laws of 2020)'
+short_title: New York post-mortem right of publicity and digital replicas
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Senate bill page
+  records that S 5959-D was signed as Chapter 304 on 30 November 2020, and the Governor announced the signing. Section
+  50-f has since been amended by Chapter 616 of the Laws of 2025, which is recorded separately; this record describes
+  the 2020 law as enacted.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: New York State Legislature
+summary_plain: >-
+  This law created a right of publicity in New York that continues for 40 years after death, covering commercial use
+  of a deceased person's name, picture, voice or signature, with a public registry run by the Secretary of State where
+  successors can give notice of their rights. It also set rules for digital replicas of deceased performers, meaning
+  newly created computer-generated performances they never gave, with exceptions for uses such as news, commentary and
+  documentaries. A separate new section (Civil Rights Law section 52-c) gave people a right to sue over the
+  dissemination of sexually explicit depictions of them created through digitization.
+scope_summary: >-
+  Commercial uses in New York of the name, likeness or voice of deceased individuals, digital replicas of deceased
+  performers in new works, and sexually explicit digitized depictions of identifiable people.
+who_it_applies_to: Producers, advertisers and others using a deceased person's persona or a digital replica in New York.
+key_dates_summary: 'Signed 30 November 2020 (Chapter 304); in effect from 29 May 2021 (180 days after enactment).'
+adopted_on: '2020-11-30'
+published_on: null
+in_force_on: '2021-05-29'
+applies_from: null
+date_notes: >-
+  Signing on 30 November 2020 and the chapter number come from search extracts of the Senate bill page and the
+  Governor's release. The sponsor memo says the act takes effect on the 180th day after it became law, which falls on
+  29 May 2021; a 2025 Senate bill (S 10493) refers to deaths before 29 May 2021 in the same context, which is
+  consistent. The effective date has not been read in the chaptered text.
+actors: [deployer, distributor]
+ai_system_types: [generative_ai]
+sectors: [media_information]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: [us-new-york-post-mortem-digital-replica-consent]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'New York State Senate: bill S5959 (2019-2020)'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/bills/2019/S5959
+  document_date: '2020-11-30'
+  document_type: legislation
+  tier: 1
+- title: 'Governor of New York: signing of legislation establishing a right to publicity for deceased individuals'
+  publisher: Governor of New York
+  url: https://www.governor.ny.gov/news/governor-cuomo-signs-legislation-establishing-right-publicity-deceased-individuals-protect
+  document_date: null
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.nysenate.gov/legislation/bills/2019/S5959
+source_title: 'New York State Senate: bill S5959 (2019-2020)'
+source_publisher: New York State Senate
+source_document_date: '2020-11-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

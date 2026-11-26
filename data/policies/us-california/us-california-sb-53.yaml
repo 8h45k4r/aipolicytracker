@@ -200,6 +200,7 @@ obligations:
       - { framework: nist_ai_rmf, reference: "GOVERN 4.1, GOVERN 4.3", note: "Culture that surfaces risks and incident-sharing practices.", confidence_level: medium }
       - { framework: iso_42001, reference: "Clause 5.1, 7.4; Annex A.3.2", note: "Leadership, communication and roles.", confidence_level: low }
     controls:
+      - { control: ai-safety-whistleblower-channel, relationship: satisfies, note: "Internal anonymous reporting channel, notice of rights to staff and protection from retaliation.", confidence_level: high }
       - { control: ai-governance-policy-and-accountability, relationship: satisfies, note: "Whistleblower policy, anonymous channel and escalation to the board.", confidence_level: medium }
       - { control: ai-incident-management-and-reporting, relationship: supports, note: "Reports feed the incident process.", confidence_level: medium }
     official_source_url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB53"
@@ -222,6 +223,8 @@ last_checked_at: '2026-09-26'
 last_verified_at: '2026-09-26'
 review_status: verified
 confidence_level: medium
-content_version: 1
-change_summary: Initial structured record; penalty amounts and chapter number to be confirmed.
+content_version: 2
+change_summary: >-
+  On 26 November 2026 the AI safety reporting channel control was linked to the whistleblower obligation (an editorial
+  mapping; no sourced fact changed). Initial structured record; penalty amounts and chapter number to be confirmed.
 reviewed_by: Bhaskar Bhatt

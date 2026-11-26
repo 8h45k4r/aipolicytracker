@@ -1,0 +1,83 @@
+slug: us-new-york-digital-replica-contract-provisions
+aipt_id: AIPT-POL-0353
+jurisdiction: us-new-york
+title: 'New York S 7676-B / A 8138-B: Digital replica provisions in contracts for performance (Chapter 581, Laws of 2024)'
+short_title: New York digital replica contract provisions
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Senate and
+  Assembly records show the bill was delivered to the Governor on 2 December 2024 and signed as Chapter 581 on
+  13 December 2024. The bill text sets an effective date of 1 January 2025.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: New York State Legislature
+summary_plain: >-
+  This law adds section 5-302 to the General Obligations Law. A contract term that lets a digital replica of a person's
+  voice or likeness stand in for work they would otherwise do in person is void and unenforceable if it does not
+  describe the intended uses with reasonable specificity and the person was not represented, either by a lawyer who
+  negotiated the replica rights in a separate written agreement or by a union whose agreement covers those uses. It
+  applies to contracts made or changed from 1 January 2025.
+scope_summary: >-
+  Contracts entered into or modified on or after 1 January 2025 for personal or professional services that allow a
+  digital replica of an individual's voice or likeness to replace work the individual would otherwise perform.
+who_it_applies_to: Studios, producers and other organisations contracting for performers' or individuals' services.
+key_dates_summary: 'Signed 13 December 2024 (Chapter 581); effective 1 January 2025 for contracts made or modified from then.'
+what_organizations_must_do: >-
+  Organisations that want digital replica rights must describe the intended uses with reasonable specificity and make
+  sure the individual is represented by counsel or covered by a collective agreement, or the term will not bind.
+adopted_on: '2024-12-13'
+published_on: null
+in_force_on: '2025-01-01'
+applies_from: '2025-01-01'
+date_notes: >-
+  Delivery to the Governor on 2 December 2024, signing on 13 December 2024 and the chapter number come from search
+  extracts of the Senate and Assembly bill records. The effective date of 1 January 2025 and its application to
+  contracts entered into or modified on or after that date come from extracts of the bill text and sponsor memo; it has
+  not been read in the chaptered text.
+actors: [deployer]
+ai_system_types: [generative_ai]
+sectors: [media_information, employment]
+risk_categories: [unclassified]
+use_cases: [generative_ai, hiring_and_hr]
+related_policies: [us-california-ab-2602-digital-replica-contracts, us-new-york-synthetic-performer-advertising-disclosure]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'New York State Senate: bill S7676B (2023-2024)'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/bills/2023/S7676/amendment/B
+  document_date: '2024-12-13'
+  document_type: legislation
+  tier: 1
+- title: 'New York State Senate: General Obligations Law section 5-302'
+  publisher: New York State Senate
+  url: https://www.nysenate.gov/legislation/laws/GOB/5-302
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://www.nysenate.gov/legislation/bills/2023/S7676/amendment/B
+source_title: 'New York State Senate: bill S7676B (2023-2024)'
+source_publisher: New York State Senate
+source_document_date: '2024-12-13'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,79 @@
+slug: israel-government-decision-212-national-ai-programme
+aipt_id: AIPT-POL-0370
+jurisdiction: israel
+title: 'Israel Government Decision 212 of 1 August 2021: national AI programme within the plan for promoting innovation and technological and scientific leadership'
+short_title: Israel national AI programme (Government Decision 212, 2021)
+title_native: 'תכנית לקידום חדשנות, עידוד צמיחת ענף ההייטק וחיזוק המובילות הטכנולוגית והמדעית'
+instrument_type: strategy
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. A State Comptroller
+  report of November 2024 found that a comprehensive national AI programme had still not been approved, beyond two
+  phases of the TELEM plan. A later Government Decision 4255 (2026) set up a new National Programme to accelerate AI led
+  by the National AI Directorate; it is a separate instrument not covered by this record.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Government of Israel; Ministry of Innovation, Science and Technology
+summary_plain: >-
+  An Israeli government decision on innovation and high-tech growth that, among other things, tasked the Minister of
+  Innovation, Science and Technology with drafting a national AI programme, with reference to internationally accepted
+  legal and ethical principles such as the 2019 OECD AI principles. It approved the first phase of the TELEM framework
+  for AI and data science, with a budget of about NIS 550 million for 2021 to 2023. The work started under this decision
+  later fed into the 2023 AI regulation and ethics policy.
+scope_summary: >-
+  Government ministries and public bodies charged with planning and funding AI research, infrastructure and policy in
+  Israel; it creates no duties for private organisations.
+who_it_applies_to: Israeli government ministries and agencies (policy and funding).
+key_dates_summary: Government decision of 1 August 2021; first-phase budget covers 2021 to 2023.
+adopted_on: '2021-08-01'
+published_on: '2021-08-01'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The decision number and the date 1 August 2021 come from the gov.il decision page and the decision text. The end
+  date of the programme was not established; the budget figure covers 2021 to 2023 only.
+actors: [public_authority]
+ai_system_types: [general_purpose_ai_model]
+sectors: [cross_sector, public_services]
+risk_categories: [unclassified]
+use_cases: [public_services]
+related_policies: [israel-ai-regulation-and-ethics-policy-2023]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Government of Israel: Decision 212 (2021), plan for promoting innovation and technological and scientific leadership'
+  publisher: Government of Israel (gov.il)
+  url: https://www.gov.il/he/departments/policies/dec212_2021
+  document_date: '2021-08-01'
+  document_type: official
+  tier: 1
+- title: 'State Comptroller of Israel: Special Report, Artificial Intelligence (November 2024)'
+  publisher: State Comptroller and Ombudsman of Israel
+  url: https://library.mevaker.gov.il/sites/DigitalLibrary/Documents/2024/2024.11-Cyber/EN/Cyber-107-AI-Taktzir-EN.pdf
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://www.gov.il/he/departments/policies/dec212_2021
+source_title: 'Government of Israel: Decision 212 (2021), plan for promoting innovation and technological and scientific leadership'
+source_publisher: Government of Israel (gov.il)
+source_document_date: '2021-08-01'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

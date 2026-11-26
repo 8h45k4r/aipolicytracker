@@ -1,0 +1,79 @@
+slug: vietnam-mst-decision-2847-ai-public-service-platform-criteria
+aipt_id: AIPT-POL-0373
+jurisdiction: vietnam
+title: 'Ministry of Science and Technology Decision 2847/QD-BKHCN (2026): criteria for evaluating national AI platforms supporting public-service work'
+short_title: Vietnam criteria for AI platforms in public service (Decision 2847)
+title_native: 'Bộ tiêu chí đánh giá Nền tảng AI hỗ trợ công vụ ở phạm vi quốc gia'
+instrument_type: framework
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. Only the Ministry's
+  news reports were found, not the text of the Decision; its effective date and legal character were not confirmed.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Ministry of Science and Technology of Viet Nam
+summary_plain: >-
+  A ministerial decision that sets one common set of criteria for assessing AI platforms that support the work of civil
+  servants nationally, before they go to trial or official use. Platforms only advise, summarise and analyse; officials
+  stay responsible for decisions and outputs are reference material only. Platforms are scored out of 100 and need at
+  least 70 for conditional official deployment, while 50 to under 70 allows a trial with reassessment after two months.
+  A platform fails if it does not use a Vietnamese large language model controlled by a Vietnamese enterprise with
+  training, inference and service infrastructure in Viet Nam, and platforms must cite specific legal provisions and must
+  not invent legal citations or process restricted data.
+scope_summary: >-
+  AI platforms proposed for supporting public-service work, and the 14 ministries, 3 ministerial-level agencies and 34
+  localities that deploy them.
+who_it_applies_to: Vietnamese ministries, agencies and localities deploying AI platforms for public-service work, and the platforms' suppliers.
+key_dates_summary: Decision issued 19 June 2026; effective date not confirmed.
+adopted_on: '2026-06-19'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The issue date of 19 June 2026 comes from the Ministry's news reports. One Ministry page mentions 15 August 2026 as an
+  effective date near the item, but it could not be tied to this Decision, so in_force_on is left empty.
+actors: [provider, public_authority]
+ai_system_types: [generative_ai, conversational_agent]
+sectors: [public_services]
+risk_categories: [unclassified]
+use_cases: [public_services, generative_ai, government_procurement]
+related_policies: [vietnam-law-on-artificial-intelligence]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Ministry of Science and Technology: criteria for evaluating national AI platforms supporting public-service work issued'
+  publisher: Ministry of Science and Technology of Viet Nam
+  url: https://mst.gov.vn/chinh-thuc-co-bo-tieu-chi-danh-gia-nen-tang-ai-ho-tro-cong-vu-o-pham-vi-quoc-gia-197260623171427185.htm
+  document_date: null
+  document_type: press_release
+  tier: 2
+- title: 'Ministry of Science and Technology: notice on receiving registrations for evaluation of national AI platforms'
+  publisher: Ministry of Science and Technology of Viet Nam
+  url: https://mst.gov.vn/thong-bao-tiep-nhan-ho-so-dang-ky-danh-gia-nen-tang-tri-tue-nhan-tao-ho-tro-cong-vu-o-pham-vi-quoc-gia-197260619161107699.htm
+  document_date: null
+  document_type: official
+  tier: 2
+faq: []
+official_source_url: https://mst.gov.vn/chinh-thuc-co-bo-tieu-chi-danh-gia-nen-tang-ai-ho-tro-cong-vu-o-pham-vi-quoc-gia-197260623171427185.htm
+source_title: 'Ministry of Science and Technology: criteria for evaluating national AI platforms supporting public-service work issued'
+source_publisher: Ministry of Science and Technology of Viet Nam
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

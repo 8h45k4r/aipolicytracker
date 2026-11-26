@@ -1,0 +1,30 @@
+slug: minor-age-assurance-and-protective-defaults
+aipt_id: AIPT-CTL-0028
+title: Age assurance and protective defaults for minors
+kind: technical
+purpose: >
+  Keeps children and teenagers who use a chatbot or AI service on safer settings by finding out,
+  proportionately, who is a minor and applying protections to them by default.
+description: >
+  The service decides how it will tell whether a user is a minor, from self-declaration with checks up to a
+  recognised age-assurance method, in line with what the applicable law accepts, and documents why that method
+  is proportionate. Users identified as minors, or all users where the age is unknown, get protective
+  defaults: no sexual or romantic content, recurring reminders that they are talking to an AI, limits on
+  session length and late-night use, no engagement features that reward compulsive use, and no behavioural
+  advertising. Only a verified parent or guardian, where the law provides for it, can relax a default. The
+  settings are tested and re-checked when the product changes.
+owner_role: Product owner
+frequency: per_system
+risk_subdomains: ["1.2", "5.1", "2.1"]
+evidence:
+  - { type: policy_document, title: "Age assurance and minor protections policy", description: "Method chosen, why it is proportionate, defaults applied." }
+  - { type: evaluation_report, title: "Test of minor default settings" }
+  - { type: data_protection_assessment, title: "Assessment of the age-assurance method's data use" }
+framework_references: []
+related_controls: [crisis-detection-and-referral-protocol, prohibited-use-screening-gate, ai-interaction-and-use-disclosure]
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: '2026-11-26'
+confidence_level: medium
+published: true

@@ -1,32 +1,35 @@
 slug: eu-ai-act-ai-generated-content-marking-code
-title: "Code of practice on marking and labelling AI-generated content (Article 50), working title"
+title: "Code of Practice on Transparency of AI-generated Content (Article 50)"
 instrument: eu-ai-act
 related_policy: null
 kind: code_of_practice
-status: unverified
-legal_basis: null
-summary: null
+status: published
+legal_basis: "Regulation (EU) 2024/1689, Article 50"
+summary: >
+  Voluntary code for the AI Act's transparency duties: a section on providers marking and detecting AI-generated content
+  (Article 50(2)) and one on deployers labelling deepfakes and AI-generated text (Article 50(4)). Article 50 applies from
+  2 August 2026.
 due_on: null
 adopted_on: null
-published_on: null
+published_on: 2026-06-10
 published_on_precision: exact
 body: null
 reference: null
 stage: null
 oj_citation_expected_on: null
 oj_citation_on: null
-official_source_url: null
-source_title: null
-source_publisher: null
-source_document_date: null
+official_source_url: "https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content"
+source_title: "Code of Practice on Transparency of AI-generated Content"
+source_publisher: "European Commission"
+source_document_date: 2026-06-10
 source_reference: null
-source_tier: 4
-last_checked_at: null
+source_tier: 1
+last_checked_at: 2026-11-26
 last_verified_at: null
-review_status: draft
-confidence_level: unavailable
-content_version: 1
-change_summary: null
+review_status: pending_review
+confidence_level: medium
+content_version: 2
+change_summary: "On 26 November 2026 filled from search extracts of the Commission's policy page and its 10 June 2026 news item, which could not be opened; pending review."
 reviewed_by: null
-notes: "Listed so the gap is visible. Nothing about it has yet been read from an official source, so its legal basis, due date, dates and status are empty rather than guessed. Do not cite until a reviewer fills it from the Commission or EUR-Lex page."
+notes: "Published 10 June 2026 (news item: https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content). A signing date reported as 27 July 2026 was not confirmed. The Commission's Article 50 guidelines followed on 20 July 2026."
 published: true

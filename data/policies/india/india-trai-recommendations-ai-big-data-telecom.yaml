@@ -1,0 +1,76 @@
+slug: india-trai-recommendations-ai-big-data-telecom
+aipt_id: AIPT-POL-0367
+jurisdiction: india
+title: 'TRAI: Recommendations on Leveraging Artificial Intelligence and Big Data in Telecommunication Sector'
+short_title: India TRAI recommendations on AI and big data in telecom
+title_native: null
+instrument_type: policy
+status: proposed
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. TRAI's status page
+  lists the recommendations as under consideration of the Government.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Telecom Regulatory Authority of India (TRAI)
+summary_plain: >-
+  The telecom regulator's recommendations to the Government on using AI and big data in telecommunications, made at the
+  request of the Department of Telecommunications. TRAI urges the Government to adopt a regulatory framework for
+  responsible AI that applies across all sectors, with binding obligations for high-risk uses that directly affect
+  people. It also restates its 2018 recommendations on privacy, security and ownership of data in the telecom sector.
+scope_summary: >-
+  Addressed to the Government of India; the proposed framework would reach organisations in all sectors that develop or
+  use AI, with telecom service providers as the immediate context.
+who_it_applies_to: Government of India (recommendations); would affect AI developers and users across sectors if adopted.
+key_dates_summary: Consultation paper 5 August 2022; recommendations issued 20 July 2023; under consideration of Government.
+adopted_on: null
+published_on: '2023-07-20'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Issue date 20 July 2023 and consultation paper date 5 August 2022 are taken from TRAI's listings and press release
+  No. 62/2023. No government decision on the recommendations was found.
+actors: [provider, deployer, public_authority]
+ai_system_types: [automated_decision_system]
+sectors: [telecommunications, cross_sector]
+risk_categories: [high_risk]
+use_cases: [customer_service]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'TRAI: Recommendations on Leveraging Artificial Intelligence and Big Data in Telecommunication Sector'
+  publisher: Telecom Regulatory Authority of India
+  url: https://www.trai.gov.in/sites/default/files/2024-09/Recommendation_20072023.pdf
+  document_date: '2023-07-20'
+  document_type: official
+  tier: 2
+- title: 'TRAI: Information Note to the Press (Press Release No. 62/2023)'
+  publisher: Telecom Regulatory Authority of India
+  url: https://www.trai.gov.in/sites/default/files/2024-08/PR_No.62of2023.pdf
+  document_date: '2023-07-20'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://www.trai.gov.in/sites/default/files/2024-09/Recommendation_20072023.pdf
+source_title: 'TRAI: Recommendations on Leveraging Artificial Intelligence and Big Data in Telecommunication Sector'
+source_publisher: Telecom Regulatory Authority of India
+source_document_date: '2023-07-20'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

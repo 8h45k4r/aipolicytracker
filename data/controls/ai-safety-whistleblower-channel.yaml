@@ -1,0 +1,29 @@
+slug: ai-safety-whistleblower-channel
+aipt_id: AIPT-CTL-0032
+title: Internal reporting channel and protection for AI safety concerns
+kind: policy
+purpose: >
+  Gives staff and contractors a safe way to report a serious AI safety risk or a breach of AI law, inside the
+  organisation or to the authorities, without retaliation.
+description: >
+  A written policy tells employees and contractors who work on AI systems what they can report (for example a
+  risk of critical harm, a hidden incident or a false statement to a regulator), how to report it anonymously
+  inside the organisation, and that they may go to the relevant authority directly. Reports reach a person
+  outside the line of the team concerned, are acknowledged and tracked to an outcome, and the reporter is told
+  what was done. The policy is given to staff when they join and at least yearly, contracts do not gag
+  protected disclosures, and the board or a senior officer reviews the report log.
+owner_role: Chief compliance officer
+frequency: annual
+risk_subdomains: ["6.5", "7.2"]
+evidence:
+  - { type: policy_document, title: "AI safety reporting and anti-retaliation policy" }
+  - { type: training_record, title: "Annual notice of reporting rights to staff" }
+  - { type: monitoring_record, title: "Report log with outcomes, reviewed by the board" }
+framework_references: []
+related_controls: [ai-governance-policy-and-accountability, ai-incident-management-and-reporting, frontier-model-safety-framework]
+review_status: pending_review
+reviewed_by: null
+last_verified_at: null
+last_checked_at: '2026-11-26'
+confidence_level: medium
+published: true

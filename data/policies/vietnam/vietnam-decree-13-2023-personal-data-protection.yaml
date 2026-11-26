@@ -1,0 +1,85 @@
+slug: vietnam-decree-13-2023-personal-data-protection
+aipt_id: AIPT-POL-0372
+jurisdiction: vietnam
+title: 'Decree No. 13/2023/ND-CP of the Government on personal data protection'
+short_title: Vietnam personal data protection decree (Decree 13 of 2023)
+title_native: 'Nghị định số 13/2023/NĐ-CP của Chính phủ: Bảo vệ dữ liệu cá nhân'
+instrument_type: regulation
+status: superseded
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Law on Personal
+  Data Protection (No. 91/2025/QH15) took effect on 1 January 2026, together with its implementing Decree
+  356/2025/ND-CP, whose Article 42(2) refers to this Decree; the extracts did not show the exact repeal wording, so a
+  reviewer must confirm whether and from when this Decree ceased to have effect.
+is_binding: true
+ai_specific: false
+featured: false
+published: true
+issuing_body: Government of Viet Nam; Ministry of Public Security (lead agency)
+summary_plain: >-
+  Viet Nam's first comprehensive regulation on personal data, issued as a government decree. It sorts personal data into
+  basic and sensitive categories, bans unlawful processing, and sets duties for those who control and process data,
+  including meeting requests from data subjects within 72 hours unless another law provides otherwise. Micro, small and
+  medium-sized enterprises and start-ups could choose not to appoint a data protection person or unit for their first
+  two years. It is a general privacy rule that also governs personal data used by AI systems.
+scope_summary: >-
+  Agencies, organisations and individuals that process personal data in Viet Nam; the exact territorial reach set out
+  in the Decree's scope provisions is pending review.
+who_it_applies_to: Organisations and individuals that process personal data in or relating to Viet Nam.
+key_dates_summary: Issued 17 April 2023; in force 1 July 2023; Law on Personal Data Protection in force 1 January 2026.
+adopted_on: '2023-04-17'
+published_on: null
+in_force_on: '2023-07-01'
+applies_from: '2023-07-01'
+date_notes: >-
+  Issue date 17 April 2023 and effective date 1 July 2023 are taken from the government legal documents portal and
+  the Official Gazette listing. The date this Decree stopped applying was not confirmed.
+actors: [provider, deployer, public_authority]
+ai_system_types: [automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: [vietnam-law-on-artificial-intelligence]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Government of Viet Nam legal documents portal: Decree No. 13/2023/ND-CP on personal data protection'
+  publisher: Government of Viet Nam (vanban.chinhphu.vn)
+  url: https://vanban.chinhphu.vn/?pageid=27160&docid=207759
+  document_date: '2023-04-17'
+  document_type: legislation
+  tier: 1
+- title: 'Official Gazette (Cong bao): Decree No. 13/2023/ND-CP on personal data protection'
+  publisher: Government Office of Viet Nam (Official Gazette)
+  url: https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-13-2023-nd-cp-39228.htm
+  document_date: '2023-04-17'
+  document_type: legislation
+  tier: 1
+- title: 'Government of Viet Nam legal documents portal: Decree No. 356/2025/ND-CP implementing the Law on Personal Data Protection'
+  publisher: Government of Viet Nam (vanban.chinhphu.vn)
+  url: https://vanban.chinhphu.vn/?docid=216387&pageid=27160
+  document_date: '2025-12-31'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://vanban.chinhphu.vn/?pageid=27160&docid=207759
+source_title: 'Government of Viet Nam legal documents portal: Decree No. 13/2023/ND-CP on personal data protection'
+source_publisher: Government of Viet Nam (vanban.chinhphu.vn)
+source_document_date: '2023-04-17'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,96 @@
+slug: us-nevada-ab-406-ai-mental-behavioral-health
+aipt_id: AIPT-POL-0361
+jurisdiction: us-nevada
+title: 'Nevada AB 406 (Chapter 283, Statutes of Nevada 2025): Artificial intelligence in mental and behavioral health care'
+short_title: Nevada AI in mental and behavioural health care (AB 406)
+title_native: null
+instrument_type: act
+status: in_force
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Legislature's
+  list of bills signed by the Governor shows AB 406 as Chapter 283. Its official listings give conflicting effective
+  dates (1 July 2025 for most sections and 1 July 2026 for section 10 on one page; 1 October 2025 on another), all of
+  which have passed, so it is recorded as in force. The Governor's approval date was not found.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Nevada Legislature
+summary_plain: >-
+  Nevada limits the use of artificial intelligence in mental and behavioural health care. Public schools may not use
+  AI to carry out the mental health duties of school counsellors, psychologists or social workers, and the Department
+  of Education must set a policy on AI use by those staff. AI providers may not offer systems programmed to deliver
+  professional mental or behavioural health care or claim that a system can do so. Licensed providers may not use AI
+  to deliver that care directly to patients, but may use it for administrative tasks such as scheduling, billing and
+  records, checking its output themselves.
+scope_summary: >-
+  Public schools and charter schools in Nevada, developers and providers of AI systems offered in Nevada, unlicensed
+  persons, and licensed providers of mental and behavioural health care.
+who_it_applies_to: Nevada public schools, AI system providers, and licensed mental and behavioural health care providers.
+key_dates_summary: >-
+  Enacted in the 2025 session as Chapter 283; official listings disagree on effective dates (1 July 2025 and 1 July 2026
+  by section, or 1 October 2025).
+penalties_summary: >-
+  A breach of the provisions on AI systems and on holding out as qualified to provide care carries a civil penalty of
+  up to 15,000 US dollars per violation.
+what_organizations_must_do: >-
+  AI providers must not offer or market systems as able to provide professional mental or behavioural health care;
+  licensed providers must keep AI to administrative support and review AI-generated material themselves.
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Not confirmed: the Governor's approval date. The signed-bills list gives 1 July 2025 for sections 1 to 9 and 11 to 17
+  and 1 July 2026 for section 10; the Bills Passed listing gives 1 October 2025 and notes a correction to the enrolled
+  bill approved by the Legislative Commission on 19 August 2025. in_force_on is left empty until a reviewer resolves
+  this against the enrolled text.
+actors: [provider, deployer, public_authority]
+ai_system_types: [conversational_agent]
+sectors: [healthcare, education]
+risk_categories: [unclassified]
+use_cases: [health, education]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Nevada Legislature: AB 406 (83rd Session, 2025), enrolled text'
+  publisher: Nevada Legislature
+  url: https://www.leg.state.nv.us/Session/83rd2025/Bills/AB/AB406_EN.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Nevada Legislature: Statutes of Nevada 2025, pages 1839-1970'
+  publisher: Nevada Legislature
+  url: https://www.leg.state.nv.us/Statutes/83rd2025/Stats202515.html
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Nevada Legislature (NELIS): Bills signed by the Governor, 83rd Session'
+  publisher: Nevada Legislature
+  url: https://www.leg.state.nv.us/App/NELIS/REL/83rd2025/Bills/SignedByGovernor
+  document_date: null
+  document_type: official
+  tier: 1
+faq: []
+official_source_url: https://www.leg.state.nv.us/Session/83rd2025/Bills/AB/AB406_EN.pdf
+source_title: 'Nevada Legislature: AB 406 (83rd Session, 2025), enrolled text'
+source_publisher: Nevada Legislature
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

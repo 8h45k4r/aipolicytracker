@@ -117,7 +117,9 @@ class EnforcementAndImplementationTrackerTest extends TestCase
         $standards = $this->get('/ai-standards')->assertOk()->getContent();
         $this->assertStringContainsString('ISO/IEC 42001:2023', $standards);
         $this->assertStringContainsString('Metadata only', $standards);
-        $this->assertStringContainsString('name="robots" content="noindex', $standards);
+        // The standards tracker is indexed once it lists enough non-draft standards; which side of
+        // the line the real corpus sits on changes as standards are recorded, so follow the rule.
+        $this->assertStringContainsString(Trackers::standardsIndexable() ? 'name="robots" content="index' : 'name="robots" content="noindex', $standards);
 
         $enforcement = $this->get('/enforcement')->assertOk()->getContent();
         $this->assertStringContainsString('No enforcement action is recorded yet', $enforcement);
@@ -128,9 +130,10 @@ class EnforcementAndImplementationTrackerTest extends TestCase
         $this->get('/policies/no-such-policy/implementation')->assertNotFound();
 
         $sitemap = $this->get('/sitemap-static.xml')->assertOk()->getContent();
-        foreach ([route('enforcement.index'), route('standards.index'), route('policies.implementation', 'eu-ai-act')] as $url) {
+        foreach ([route('enforcement.index'), route('policies.implementation', 'eu-ai-act')] as $url) {
             $this->assertStringNotContainsString('<loc>'.$url.'</loc>', $sitemap, $url.' is noindex, so it is not in the sitemap');
         }
+        $this->assertSame(Trackers::standardsIndexable(), str_contains($sitemap, '<loc>'.route('standards.index').'</loc>'), 'the standards tracker is in the sitemap exactly when it is indexable');
 
         // The include point for the policy page: a pointer when measures exist, nothing otherwise.
         $eu = PolicyInstrument::where('slug', 'eu-ai-act')->firstOrFail();
@@ -188,7 +191,7 @@ class EnforcementAndImplementationTrackerTest extends TestCase
         $sitemap = $this->get('/sitemap-static.xml')->getContent();
         $this->assertStringContainsString('<loc>'.route('enforcement.index').'</loc>', $sitemap);
         $this->assertStringContainsString('<loc>'.route('policies.implementation', 'eu-ai-act').'</loc>', $sitemap);
-        $this->assertStringNotContainsString('<loc>'.route('standards.index').'</loc>', $sitemap);
+        $this->assertSame(Trackers::standardsIndexable(), str_contains($sitemap, '<loc>'.route('standards.index').'</loc>'), 'the standards tracker is in the sitemap exactly when it is indexable');
 
         $api = $this->getJson('/api/v1/enforcement')->assertOk()->json();
         $this->assertMatchesOpenApi('/enforcement', $api);

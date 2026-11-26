@@ -1,0 +1,72 @@
+slug: india-sebi-consultation-responsible-ai-ml-securities-markets
+aipt_id: AIPT-POL-0366
+jurisdiction: india
+title: 'SEBI consultation paper: Guidelines for responsible usage of AI/ML in Indian securities markets'
+short_title: India SEBI consultation on responsible AI and ML in securities markets
+title_native: null
+instrument_type: consultation
+status: under_consultation
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. No final circular
+  adopting these guidelines was found; the close of the comment period was not established.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Securities and Exchange Board of India (SEBI)
+summary_plain: >-
+  SEBI consulted on draft guidelines for how market participants use AI and machine learning, based on the work of a
+  SEBI working group. The draft rests on core principles such as safety and reliability, fairness and
+  non-discrimination, privacy and security and transparency, and proposes guardrails, continuous monitoring and human
+  oversight across the development and deployment of models. It covers model governance with a senior management owner,
+  disclosure to investors, testing, bias, data privacy and cyber security, and periodic sharing of model accuracy
+  results with SEBI.
+scope_summary: >-
+  SEBI-regulated market participants, including intermediaries and market infrastructure institutions, that use AI or
+  machine learning in securities-market business or investor-facing products.
+who_it_applies_to: SEBI-regulated entities using AI/ML in Indian securities markets (draft).
+key_dates_summary: Consultation paper published 20 June 2025.
+adopted_on: null
+published_on: '2025-06-20'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Publication on 20 June 2025 is confirmed by the SEBI listing. The comment deadline and any final adoption date were not
+  established.
+actors: [provider, deployer]
+ai_system_types: [automated_decision_system, generative_ai]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'SEBI: Consultation Paper on Guiding Principles for Responsible usage of AI/ML in securities markets'
+  publisher: Securities and Exchange Board of India
+  url: https://www.sebi.gov.in/sebi_data/attachdocs/jun-2025/1750415065695.pdf
+  document_date: '2025-06-20'
+  document_type: consultation
+  tier: 2
+faq: []
+official_source_url: https://www.sebi.gov.in/sebi_data/attachdocs/jun-2025/1750415065695.pdf
+source_title: 'SEBI: Consultation Paper on Guiding Principles for Responsible usage of AI/ML in securities markets'
+source_publisher: Securities and Exchange Board of India
+source_document_date: '2025-06-20'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,82 @@
+slug: us-treasury-financial-services-ai-risk-management-framework
+aipt_id: AIPT-POL-0345
+jurisdiction: us
+title: 'Financial Services AI Risk Management Framework (FS AI RMF), released by the U.S. Department of the Treasury'
+short_title: Financial Services AI RMF (Treasury)
+title_native: null
+instrument_type: framework
+status: voluntary_standard
+status_note: >-
+  Announced by the Treasury together with a shared AI Lexicon as the first of a series of deliverables from the AI
+  Executive Oversight Group, a public-private group of Treasury, the Financial and Banking Information Infrastructure
+  Committee and the Financial Services Sector Coordinating Council. The framework document itself appears to be
+  published by an industry body (the Cyber Risk Institute), not on a government host; that is pending review.
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not
+  be opened from the research environment, so every date and duty here is pending review against it.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: U.S. Department of the Treasury, with the AI Executive Oversight Group (FBIIC and FSSCC)
+summary_plain: >-
+  A voluntary framework that adapts the NIST AI Risk Management Framework to the operational, regulatory and
+  consumer-protection concerns of financial services. It gives financial institutions practical tools to assess AI use
+  cases, manage risk across the AI lifecycle and build accountability and transparency into deployment decisions, and
+  is meant to scale to institutions of different size and complexity. The Treasury released it in early 2026 alongside
+  a common AI lexicon.
+scope_summary: >-
+  Banks, insurers and other financial institutions of any size that develop, buy or use AI and choose to apply the
+  framework; it is not a rule and creates no legal duties.
+who_it_applies_to: Financial institutions using or developing AI (voluntary).
+key_dates_summary: Released in February 2026 (exact day pending review).
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The Treasury press release (sb0401) was found but its date was not shown in the extracts. A Treasury release dated
+  18 February 2026 (sb0395) announced that six such deliverables would be released over February 2026. Secondary
+  reports give 19 February 2026 for the release, and an industry launch notice is dated 12 February 2026; neither is
+  official, so published_on is left empty pending review.
+actors: [provider, deployer]
+ai_system_types: []
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit]
+related_policies: [us-nist-ai-rmf, us-sr-26-2-revised-model-risk-management-guidance]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Treasury Releases Two New Resources to Guide AI Use in the Financial Sector'
+  publisher: U.S. Department of the Treasury
+  url: https://home.treasury.gov/news/press-releases/sb0401
+  document_date: null
+  document_type: press_release
+  tier: 2
+- title: 'Treasury Announces Public-Private Initiative to Strengthen Cybersecurity and Risk Management for AI'
+  publisher: U.S. Department of the Treasury
+  url: https://home.treasury.gov/news/press-releases/sb0395
+  document_date: '2026-02-18'
+  document_type: press_release
+  tier: 2
+faq: []
+official_source_url: https://home.treasury.gov/news/press-releases/sb0401
+source_title: 'Treasury Releases Two New Resources to Guide AI Use in the Financial Sector'
+source_publisher: U.S. Department of the Treasury
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: low
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

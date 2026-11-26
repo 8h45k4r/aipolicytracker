@@ -1,17 +1,18 @@
 slug: taiwan-artificial-intelligence-basic-act
 aipt_id: AIPT-POL-0183
 jurisdiction: taiwan
-title: 人工智慧基本法 (Artificial Intelligence Basic Act) – draft approved by the Executive Yuan, July 2024
-short_title: Artificial Intelligence Basic Act (draft)
-instrument_type: bill
-status: proposed
+title: 人工智慧基本法 (Artificial Intelligence Basic Act), promulgated 14 January 2026
+short_title: Taiwan Artificial Intelligence Basic Act
+instrument_type: act
+status: in_force
 status_note: >-
-  Executive Yuan approved the draft on 15 July 2024 and sent it to the Legislative Yuan; passage and promulgation reported
-  in late 2025 must be confirmed from the Legislative Yuan gazette before this record is updated.
+  Passed on third reading by the Legislative Yuan on 23 December 2025 (20 articles) and promulgated by Presidential Order on
+  14 January 2026; Article 20 brings it into force on promulgation. Updated on 26 November 2026 from search extracts of the
+  Legislative Yuan, Presidential Office and Ministry of Justice pages listed, which could not be opened; pending review.
 is_binding: true
 featured: false
 published: true
-issuing_body: Executive Yuan of Taiwan (National Science and Technology Council)
+issuing_body: Legislative Yuan of Taiwan; promulgated by the President (competent authority at central level the National Science and Technology Council)
 summary_plain: >-
   A framework act setting seven principles for AI development and use, requiring the government to promote AI research,
   talent and infrastructure, to establish a risk-classification framework and safety standards, to protect personal data,
@@ -20,8 +21,13 @@ summary_plain: >-
 scope_summary: >-
   Framework obligations on government agencies; obligations for private actors arise through sector regulation adopted under
   the act.
-adopted_on: '2024-07-15'
-date_notes: Executive Yuan approval date; legislative status to be confirmed.
+adopted_on: '2025-12-23'
+in_force_on: '2026-01-14'
+date_notes: >-
+  Third reading 23 December 2025; promulgated 14 January 2026 (order 華總一義字第11500001671號, Presidential Office Gazette
+  7837), in force the same day under Article 20. The Executive Yuan approved the draft on 15 July 2024. A resolution passed
+  with the Act asks government bodies to assess existing AI uses within six months and set usage rules within a year; it is
+  a resolution, not part of the Act.
 actors:
 - public_authority
 - provider
@@ -36,7 +42,13 @@ use_cases:
 - public_services
 related_policies: []
 related_frameworks: []
-versions: []
+versions:
+- version_label: Executive Yuan draft
+  version_date: '2024-07-15'
+  summary: Draft approved by the Executive Yuan and sent to the Legislative Yuan.
+- version_label: Act as promulgated
+  version_date: '2026-01-14'
+  summary: Passed on 23 December 2025 and promulgated on 14 January 2026.
 sections: []
 obligations: []
 applicability_rules: []
@@ -44,6 +56,27 @@ deadlines: []
 enforcement_events: []
 procurement_rules: []
 sources:
+- title: 人工智慧基本法 (Artificial Intelligence Basic Act), Laws and Regulations Database
+  publisher: Ministry of Justice
+  url: https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0160093
+  document_date: '2026-01-14'
+  document_type: legislation
+  tier: 1
+  language: zh-Hant
+- title: Presidential Order promulgating the Artificial Intelligence Basic Act
+  publisher: Office of the President
+  url: https://www.president.gov.tw/Page/294/50131
+  document_date: '2026-01-14'
+  document_type: legislation
+  tier: 1
+  language: zh-Hant
+- title: Bill passed on third reading, Legislative Yuan
+  publisher: Legislative Yuan
+  url: https://ppg.ly.gov.tw/ppg/bills/latest-pass-third-readings/1140704339/process
+  document_date: '2025-12-23'
+  document_type: legislation
+  tier: 1
+  language: zh-Hant
 - title: National Science and Technology Council
   publisher: Executive Yuan
   url: https://www.nstc.gov.tw/
@@ -51,17 +84,18 @@ sources:
   document_type: official
   tier: 1
 faq: []
-official_source_url: https://www.nstc.gov.tw/
-source_title: National Science and Technology Council
-source_publisher: Executive Yuan
-source_document_date: '2024-07-15'
+official_source_url: https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0160093
+source_title: 人工智慧基本法 (Artificial Intelligence Basic Act), Laws and Regulations Database
+source_publisher: Ministry of Justice
+source_document_date: '2026-01-14'
 source_tier: 1
-last_checked_at: '2026-09-26'
-review_status: verified
-reviewed_by: Bhaskar Bhatt
-last_verified_at: '2026-09-26'
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
 confidence_level: medium
-content_version: 1
+content_version: 2
 change_summary: >-
+  On 26 November 2026 the record moved from the 2024 draft to the Act as promulgated (status, dates, official source); the
+  earlier verification (26 September 2026) covered the draft only, so the record is pending review again.
   Added in the September 2026 global coverage expansion from the official source listed; reviewer to confirm dates, status
   and scope against the source text.

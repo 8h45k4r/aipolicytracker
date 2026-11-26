@@ -1,0 +1,34 @@
+slug: iso-iec-23894-2023
+title: "ISO/IEC 23894:2023 — AI risk management (guidance)"
+instrument: null
+related_policy: null
+kind: iso_work_item
+status: published
+legal_basis: null
+summary: >
+  Guidance for organisations that develop, deploy or use AI on managing AI-specific risk and building it into
+  their wider risk management. Metadata only: the standard's text is sold by ISO and is not reproduced here.
+due_on: null
+adopted_on: null
+published_on: 2023-02-01
+published_on_precision: month
+body: null
+reference: "ISO/IEC 23894:2023"
+stage: null
+oj_citation_expected_on: null
+oj_citation_on: null
+official_source_url: "https://www.iso.org/standard/77304.html"
+source_title: "ISO/IEC 23894:2023 — Information technology — Artificial intelligence — Guidance on risk management"
+source_publisher: "International Organization for Standardization"
+source_document_date: null
+source_reference: null
+source_tier: 1
+last_checked_at: 2026-11-26
+last_verified_at: null
+review_status: pending_review
+confidence_level: medium
+content_version: 1
+change_summary: "Added in the November 2026 research round from search-engine extracts of the official catalogue page listed; the page itself could not be opened from the research environment, so every field here is pending review against it."
+reviewed_by: null
+notes: "Extracts give February 2023 (edition 1) as the publication month, not the day. The committee was not stated in the extracts, so body is left empty. A reviewer should confirm the exact date, the committee and the stage code from the ISO page."
+published: true

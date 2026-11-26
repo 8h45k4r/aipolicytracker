@@ -1,0 +1,79 @@
+slug: india-rbi-free-ai-committee-report
+aipt_id: AIPT-POL-0365
+jurisdiction: india
+title: 'Reserve Bank of India: Report of the Committee on the Framework for Responsible and Ethical Enablement of Artificial Intelligence (FREE-AI)'
+short_title: India RBI FREE-AI Committee report
+title_native: null
+instrument_type: framework
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The report is a
+  committee's recommendations to the Reserve Bank; whether and how the Bank has turned them into binding directions was
+  not established.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: Reserve Bank of India (Committee on the FREE-AI framework)
+summary_plain: >-
+  A committee set up by the Reserve Bank of India proposes a framework for the responsible and ethical use of AI in the
+  Indian financial sector. It sets out seven guiding principles ("sutras") and 26 recommendations grouped under six
+  pillars, treating innovation and risk control as goals that should work together. Among the recommendations,
+  regulated entities would adopt a board-approved AI policy, extend product approval and consumer protection processes
+  to AI, strengthen cyber security and incident reporting, govern AI across its lifecycle and tell customers when they
+  are dealing with AI.
+scope_summary: >-
+  Entities regulated by the Reserve Bank of India, such as banks and other financial institutions, that develop, buy
+  or use AI; the recommendations are addressed to the Reserve Bank and to those entities.
+who_it_applies_to: RBI-regulated entities using AI (recommendations, not yet binding as recorded here).
+key_dates_summary: Committee constituted 26 December 2024; report released 13 August 2025.
+adopted_on: null
+published_on: '2025-08-13'
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Release on 13 August 2025 is taken from the RBI press release and report listing. The extracts say the committee was
+  announced in the 6 December 2024 policy statement and constituted on 26 December 2024. No implementation date exists.
+actors: [provider, deployer]
+ai_system_types: [automated_decision_system, generative_ai]
+sectors: [financial_services]
+risk_categories: [unclassified]
+use_cases: [finance_and_credit, customer_service]
+related_policies: [india-ai-governance-guidelines]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Reserve Bank of India: Report of the Committee on the Framework for Responsible and Ethical Enablement of AI (FREE-AI)'
+  publisher: Reserve Bank of India
+  url: https://rbi.org.in/scripts/PublicationReportDetails.aspx?ID=1306
+  document_date: '2025-08-13'
+  document_type: guidance
+  tier: 2
+- title: 'Reserve Bank of India: FREE-AI Committee report (PDF)'
+  publisher: Reserve Bank of India
+  url: https://rbidocs.rbi.org.in/rdocs/PublicationReport/Pdfs/FREEAIR130820250A24FF2D4578453F824C72ED9F5D5851.PDF
+  document_date: '2025-08-13'
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://rbi.org.in/scripts/PublicationReportDetails.aspx?ID=1306
+source_title: 'Reserve Bank of India: Report of the Committee on the Framework for Responsible and Ethical Enablement of AI (FREE-AI)'
+source_publisher: Reserve Bank of India
+source_document_date: '2025-08-13'
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

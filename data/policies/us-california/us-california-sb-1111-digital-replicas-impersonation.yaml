@@ -1,0 +1,77 @@
+slug: us-california-sb-1111-digital-replicas-impersonation
+aipt_id: AIPT-POL-0349
+jurisdiction: us-california
+title: 'California SB 1111: Digital replicas in likeness and false impersonation law (Chapter 862, Statutes of 2026)'
+short_title: California digital replicas and impersonation (SB 1111)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The bill history
+  records approval by the Governor and chaptering by the Secretary of State on 30 September 2026 as Chapter 862,
+  Statutes of 2026. Its operative date was not shown in the extracts, so it is recorded as adopted.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  This law brings digital replicas into two existing California rules. In the civil statute on commercial use of a
+  person's name, voice or likeness (Civil Code section 3344), a voice or likeness is treated as including a
+  computer-generated, highly realistic digital replica of it. In the Penal Code, using a digital replica with intent to
+  impersonate someone counts as false impersonation wherever that is an element of an offence.
+scope_summary: >-
+  Commercial uses in California of a living person's voice or likeness through a digital replica, and criminal
+  offences in the Penal Code that turn on false impersonation, including impersonation carried out with a replica.
+who_it_applies_to: Anyone who uses a digital replica of a person's voice or likeness commercially or to impersonate them.
+key_dates_summary: 'Approved by the Governor and chaptered 30 September 2026 (Chapter 862); operative date not established.'
+adopted_on: '2026-09-30'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Approval and chaptering on 30 September 2026 and the chapter number come from search extracts of the bill history
+  page. No operative or effective date appeared in the extracts, so in_force_on is left empty.
+actors: [deployer, user]
+ai_system_types: [generative_ai]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [generative_ai]
+related_policies: [us-california-ab-1836-digital-replicas-deceased-personalities, us-california-ab-2602-digital-replica-contracts]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 1111 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1111
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+- title: 'California Legislative Information: SB 1111 (2025-2026) history'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billHistoryClient.xhtml?bill_id=202520260SB1111
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1111
+source_title: 'California Legislative Information: SB 1111 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

@@ -1,0 +1,77 @@
+slug: india-niti-aayog-responsible-ai-for-all
+aipt_id: AIPT-POL-0364
+jurisdiction: india
+title: 'NITI Aayog: Responsible AI for All, Part 1 (Principles for Responsible AI) and Part 2 (Operationalizing Principles for Responsible AI)'
+short_title: India NITI Aayog Responsible AI for All (Parts 1 and 2)
+title_native: null
+instrument_type: framework
+status: guidance
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The two papers are
+  approach documents from the government policy think tank and create no legal duties.
+is_binding: false
+ai_specific: true
+featured: false
+published: true
+issuing_body: NITI Aayog (Government of India)
+summary_plain: >-
+  A two-part approach paper on responsible AI in India. The first part sets out seven broad ethics principles for the
+  design, development and deployment of AI, grounded in the Constitution and Indian law, covering among other things
+  safety and reliability, inclusivity and non-discrimination, equality, privacy and security, transparency and
+  accountability. The second part looks at the institutional mechanisms needed to put those principles into practice
+  across government, the private sector and research bodies, with government expected to take the lead.
+scope_summary: >-
+  Government bodies, private-sector organisations and research institutions that design, develop or deploy AI in
+  India; the papers are advisory and address policy makers as well as industry.
+who_it_applies_to: Organisations and public bodies designing, developing or deploying AI in India (advisory only).
+key_dates_summary: Part 1 published February 2021; Part 2 published August 2021 (exact days not confirmed).
+adopted_on: null
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  The extracts place Part 1 in February 2021 and Part 2 in August 2021; the official file names suggest 22 February
+  2021 and 12 August 2021, but the exact days were not confirmed from the documents, so the date fields are left empty.
+actors: [provider, deployer, public_authority]
+ai_system_types: [automated_decision_system]
+sectors: [cross_sector]
+risk_categories: [unclassified]
+use_cases: [public_services]
+related_policies: [india-national-strategy-for-artificial-intelligence, india-ai-governance-guidelines]
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'NITI Aayog: Responsible AI, Approach Document for India, Part 1: Principles for Responsible AI'
+  publisher: NITI Aayog
+  url: https://www.niti.gov.in/sites/default/files/2021-02/Responsible-AI-22022021.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+- title: 'NITI Aayog: Part 2, Operationalizing Principles for Responsible AI'
+  publisher: NITI Aayog
+  url: https://www.niti.gov.in/sites/default/files/2021-08/Part2-Responsible-AI-12082021.pdf
+  document_date: null
+  document_type: guidance
+  tier: 2
+faq: []
+official_source_url: https://www.niti.gov.in/sites/default/files/2021-02/Responsible-AI-22022021.pdf
+source_title: 'NITI Aayog: Responsible AI, Approach Document for India, Part 1: Principles for Responsible AI'
+source_publisher: NITI Aayog
+source_document_date: null
+source_tier: 2
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

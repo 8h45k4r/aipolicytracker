@@ -141,6 +141,7 @@ obligations:
       - { title: "Content filters and system instructions applied to minors, with test results" }
       - { title: "A review of engagement, notification and purchase features against the eight listed techniques" }
     controls:
+      - { control: minor-age-assurance-and-protective-defaults, relationship: supports, note: "Protective defaults applied to users known to be minors: no sexual content and no manipulative engagement features.", confidence_level: medium }
       - { control: prohibited-use-screening-gate, relationship: supports, note: "Screening product features against the listed manipulative engagement techniques.", confidence_level: medium }
       - { control: genai-red-team-testing, relationship: supports, note: "Testing that the chatbot does not produce sexual content or the listed manipulative outputs with minors.", confidence_level: medium }
     review_status: pending_review
@@ -233,8 +234,9 @@ last_checked_at: '2026-11-12'
 review_status: pending_review
 reviewed_by: null
 confidence_level: medium
-content_version: 2
+content_version: 3
 change_summary: >-
+  On 26 November 2026 a new control was linked to one obligation (an editorial mapping; no fact changed).
   On 12 November 2026 five obligations (sections 3 to 5), their sections and the 1 January 2027 effective date were added from
   the session law text, which was read in full; pending human review. Added in the October 2026 sub-national research round. Recorded on 15 October 2026 from search-engine extracts of the official
   pages listed; the official text could not be opened from the research environment, so every date and duty here is pending

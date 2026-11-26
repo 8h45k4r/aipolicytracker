@@ -1,0 +1,82 @@
+slug: us-california-sb-1159-ai-not-a-person-public-participation
+aipt_id: AIPT-POL-0350
+jurisdiction: us-california
+title: 'California SB 1159: Artificial intelligence transparency and governance in public records and open meetings (Chapter 863, Statutes of 2026)'
+short_title: California AI excluded as a person in public participation laws (SB 1159)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The bill status page
+  records approval by the Governor on 30 September 2026 and chaptering as Chapter 863, Statutes of 2026. Its operative
+  date was not shown in the extracts, so it is recorded as adopted.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: California State Legislature
+summary_plain: >-
+  This law makes clear that AI systems, autonomous agents and robots are not a "person", "member of the public" or
+  similar participant under the California Public Records Act, the Brown Act, the Bagley-Keene Open Meeting Act and
+  several related statutes. Agencies may use a disclosure verification tool meeting the criteria in Business and
+  Professions Code section 22757.2 to check whether AI is behind a request or comment. Knowingly using AI to make it
+  look as though a real person engaged with a government agency is prohibited, while people may still use AI or
+  assistive technology for their own participation at an ordinary volume.
+scope_summary: >-
+  State and local agencies receiving public records requests, public comments and other participation, and anyone who
+  uses AI to submit or misrepresent engagement with a governmental agency in California.
+who_it_applies_to: State and local agencies, and people or organisations using AI to engage with them.
+key_dates_summary: 'Approved by the Governor 30 September 2026 (Chapter 863); operative date not established.'
+what_organizations_must_do: >-
+  Organisations must not knowingly use AI to represent falsely that a natural person appeared before, submitted
+  information to or otherwise engaged with a governmental agency.
+adopted_on: '2026-09-30'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  Approval on 30 September 2026 and the chapter number come from search extracts of the bill status page. No operative
+  or effective date appeared in the extracts, so in_force_on is left empty.
+actors: [public_authority, user]
+ai_system_types: [generative_ai, conversational_agent]
+sectors: [public_services]
+risk_categories: [transparency_risk]
+use_cases: [public_services, generative_ai]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'California Legislative Information: SB 1159 (2025-2026) status'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1159
+  document_date: '2026-09-30'
+  document_type: legislation
+  tier: 1
+- title: 'California Legislative Information: SB 1159 (2025-2026) bill text'
+  publisher: California Legislative Information
+  url: https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260SB1159
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1159
+source_title: 'California Legislative Information: SB 1159 (2025-2026) status'
+source_publisher: California Legislative Information
+source_document_date: '2026-09-30'
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.

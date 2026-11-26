@@ -1,0 +1,96 @@
+slug: us-alabama-sb-63-ai-coverage-determinations
+aipt_id: AIPT-POL-0362
+jurisdiction: us-alabama
+title: 'Alabama SB 63 (Act 2026-589): Limits on artificial intelligence in health coverage determinations'
+short_title: Alabama AI in health coverage decisions (SB 63)
+title_native: null
+instrument_type: act
+status: adopted
+status_note: >-
+  Recorded on 26 November 2026 from search-engine extracts of the official pages listed; the official text could not be
+  opened from the research environment, so every date and duty here is pending review against it. The Secretary of
+  State's legislative acts record lists SB 63 as Act 2026-589, approved by the Governor on 16 April 2026 (not 17 April,
+  as some secondary reports say). Every earlier version of the bill set an effective date of 1 October 2026, and the
+  extract of the enrolled text shows its effective-date line beginning with October but is cut off, so the status stays
+  adopted until a reviewer confirms the effective date in the enrolled text.
+is_binding: true
+ai_specific: true
+featured: false
+published: true
+issuing_body: Alabama Legislature
+summary_plain: >-
+  Health benefit plan providers in Alabama may not leave prior authorisation and coverage decisions to artificial
+  intelligence alone: a decision to deny, reduce or defer coverage has to be made by a licensed clinician. Under the
+  enrolled text, providers that use AI must describe that use in their written policies and procedures and certify each
+  year to the Department of Insurance that their tools do not rely on a group dataset, are applied fairly and do not
+  discriminate. The Department can investigate and require corrective action.
+scope_summary: >-
+  Health benefit plan providers (insurers) that use artificial intelligence when deciding prior authorisation and
+  coverage for people in Alabama.
+who_it_applies_to: Health benefit plan providers and insurers operating in Alabama that use AI in coverage determinations.
+key_dates_summary: >-
+  Introduced 13 January 2026; approved by the Governor on 16 April 2026 as Act 2026-589. Earlier versions set an
+  effective date of 1 October 2026; the enrolled text's effective date is not fully shown in the extracts.
+penalties_summary: >-
+  Where it has reasonable grounds to suspect a breach, the Department of Insurance can investigate and require a corrective
+  plan; repeat violations can lead to the disciplinary measures in Section 27-3A-6(d), Code of Alabama (per the engrossed
+  text).
+what_organizations_must_do: >-
+  Keep a licensed clinician responsible for any denial, reduction or deferral of coverage; disclose AI use in written
+  policies and procedures; certify the AI tools to the Department of Insurance each year.
+adopted_on: '2026-04-16'
+published_on: null
+in_force_on: null
+applies_from: null
+date_notes: >-
+  adopted_on is the Governor's approval date (16 April 2026) from the Secretary of State's record of Act 2026-589. The
+  introduced, substitute and engrossed texts say the act takes effect on 1 October 2026; the extract of the enrolled text
+  is cut off after "October", so in_force_on is left empty pending review.
+actors: [deployer]
+ai_system_types: [automated_decision_system]
+sectors: [healthcare, financial_services]
+risk_categories: [unclassified]
+use_cases: [health]
+related_policies: []
+related_frameworks: []
+versions: []
+sections: []
+obligations: []
+applicability_rules: []
+deadlines: []
+enforcement_events: []
+procurement_rules: []
+sources:
+- title: 'Alabama Secretary of State: Legislative Acts, Act 2026-589'
+  publisher: Alabama Secretary of State
+  url: https://arc-sos.state.al.us/cgi/actdetail.mbr/detail?page=act&year=2026&act=589
+  document_date: '2026-04-16'
+  document_type: legislation
+  tier: 1
+- title: 'Alabama Legislature: SB63 (2026 Regular Session), enrolled text'
+  publisher: Alabama Legislature
+  url: https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/SB63-enr.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+- title: 'Alabama Legislature: SB63 (2026 Regular Session), engrossed text'
+  publisher: Alabama Legislature
+  url: https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/SB63-eng.pdf
+  document_date: null
+  document_type: legislation
+  tier: 1
+faq: []
+official_source_url: https://alison.legislature.state.al.us/files/pdf/SearchableInstruments/2026RS/SB63-enr.pdf
+source_title: 'Alabama Legislature: SB63 (2026 Regular Session), enrolled text'
+source_publisher: Alabama Legislature
+source_document_date: null
+source_tier: 1
+last_checked_at: '2026-11-26'
+review_status: pending_review
+reviewed_by: null
+confidence_level: medium
+content_version: 1
+change_summary: >-
+  Added in the November 2026 research round. Recorded on 26 November 2026 from search-engine extracts of the official
+  pages listed; the official text could not be opened from the research environment, so every date and duty here is
+  pending review against it.
