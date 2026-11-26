@@ -1,4 +1,4 @@
-slug: us-new-york-s8391-post-mortem-digital-replica-consent
+slug: us-new-york-post-mortem-digital-replica-consent
 aipt_id: AIPT-POL-0308
 jurisdiction: us-new-york
 title: 'New York S8391 / A8882: Consent for post-mortem use of name, image, likeness and digital replicas (Chapter 616, Laws of 2025)'
@@ -42,7 +42,7 @@ ai_system_types: [generative_ai]
 sectors: [media_information]
 risk_categories: [transparency_risk]
 use_cases: [generative_ai]
-related_policies: [us-new-york-s8420-synthetic-performer-advertising-disclosure]
+related_policies: [us-new-york-synthetic-performer-advertising-disclosure]
 related_frameworks: []
 versions: []
 sections: []

@@ -1,4 +1,4 @@
-slug: us-new-york-s8420-synthetic-performer-advertising-disclosure
+slug: us-new-york-synthetic-performer-advertising-disclosure
 aipt_id: AIPT-POL-0309
 jurisdiction: us-new-york
 title: 'New York S8420-A / A8887-B: Disclosure of AI-generated synthetic performers in advertisements (signed December 2025)'
@@ -37,7 +37,7 @@ ai_system_types: [generative_ai]
 sectors: [media_information, consumer_retail]
 risk_categories: [transparency_risk]
 use_cases: [generative_ai]
-related_policies: [us-new-york-s8391-post-mortem-digital-replica-consent]
+related_policies: [us-new-york-post-mortem-digital-replica-consent]
 related_frameworks: []
 versions: []
 sections: []
